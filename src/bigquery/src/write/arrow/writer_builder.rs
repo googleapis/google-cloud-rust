@@ -14,7 +14,7 @@
 
 use super::super::generated::gapic_storage::client::BigQueryWrite;
 use super::super::transport::Transport;
-use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter, TryFromStream};
+use super::{AttachableWriter, BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter};
 use crate::model::write_stream::Type;
 use crate::model::{ArrowSchema, WriteStream};
 use crate::{Error, Result};
@@ -175,7 +175,7 @@ impl WriterBuilder {
     }
 
     /// Attaches to an existing stream.
-    pub async fn attach<U: TryFromStream>(self, write_stream: impl Into<String>) -> Result<U> {
+    pub async fn attach<U: AttachableWriter>(self, write_stream: impl Into<String>) -> Result<U> {
         let write_stream = write_stream.into();
         validate_stream(write_stream.as_str())?;
 

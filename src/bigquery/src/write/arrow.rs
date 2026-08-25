@@ -12,17 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+mod attachable;
 mod base;
 mod buffered;
 mod committed;
 mod default;
 mod pending;
-mod try_from_stream;
 mod writer_builder;
 
+pub use attachable::AttachableWriter;
 pub use buffered::BufferedWriter;
 pub use committed::CommittedWriter;
 pub use default::DefaultWriter;
 pub use pending::PendingWriter;
-pub use try_from_stream::TryFromStream;
 pub use writer_builder::WriterBuilder;

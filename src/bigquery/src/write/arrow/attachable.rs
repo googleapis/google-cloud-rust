@@ -18,7 +18,7 @@ use crate::model::write_stream::Type;
 use crate::write::transport::Transport;
 use std::sync::Arc;
 
-mod private {
+mod sealed {
     use super::*;
     pub trait Sealed {}
     impl Sealed for PendingWriter {}
@@ -27,7 +27,7 @@ mod private {
 }
 
 /// A trait for strongly-typed stream writers that can be attached to an existing stream.
-pub trait TryFromStream: private::Sealed + Sized {
+pub trait AttachableWriter: sealed::Sealed + Sized {
     #[doc(hidden)]
     const STREAM_TYPE: Type;
 
@@ -35,7 +35,7 @@ pub trait TryFromStream: private::Sealed + Sized {
     fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self;
 }
 
-impl TryFromStream for PendingWriter {
+impl AttachableWriter for PendingWriter {
     const STREAM_TYPE: Type = Type::Pending;
 
     fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
@@ -43,7 +43,7 @@ impl TryFromStream for PendingWriter {
     }
 }
 
-impl TryFromStream for CommittedWriter {
+impl AttachableWriter for CommittedWriter {
     const STREAM_TYPE: Type = Type::Committed;
 
     fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
@@ -51,7 +51,7 @@ impl TryFromStream for CommittedWriter {
     }
 }
 
-impl TryFromStream for BufferedWriter {
+impl AttachableWriter for BufferedWriter {
     const STREAM_TYPE: Type = Type::Buffered;
 
     fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
