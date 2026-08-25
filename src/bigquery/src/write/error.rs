@@ -44,6 +44,32 @@ pub enum AppendError {
 
 pub(crate) type AppendResult<T> = std::result::Result<T, AppendError>;
 
+/// Represents an error that can occur when attaching to an existing stream.
+#[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
+pub enum AttachError {
+    /// The stream type provided by the service did not match the expected type.
+    #[error("stream type mismatch: requested {expected:?}, but matched resource yields {actual:?}")]
+    TypeMismatch {
+        /// The expected stream type.
+        expected: crate::model::write_stream::Type,
+        /// The actual stream type returned by the service.
+        actual: crate::model::write_stream::Type,
+    },
+
+    /// The underlying RPC failed.
+    #[non_exhaustive]
+    #[error("the operation failed. RPC error: {source}")]
+    Rpc {
+        /// The error returned by the service for the request.
+        #[from]
+        #[source]
+        source: Error,
+    },
+}
+
+pub type AttachResult<T> = std::result::Result<T, AttachError>;
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -62,32 +88,4 @@ mod tests {
         assert!(fmt.contains("operation failed."), "{fmt}");
         assert!(fmt.contains("inner fail"), "{fmt}");
     }
-}
-
-/// Represents an error that can occur when attaching to an existing stream.
-#[derive(thiserror::Error, Debug)]
-#[non_exhaustive]
-pub enum AttachError {
-    /// The stream type provided by the service did not match the expected type.
-    #[error("stream type mismatch: requested {expected:?}, but matched resource yields {actual:?}")]
-    TypeMismatch {
-        /// The expected stream type.
-        expected: crate::write::generated::gapic_storage::model::write_stream::Type,
-        /// The actual stream type returned by the service.
-        actual: crate::write::generated::gapic_storage::model::write_stream::Type,
-    },
-
-    /// The underlying RPC failed.
-    #[non_exhaustive]
-    #[error("the operation failed. RPC error: {source}")]
-    Rpc {
-        /// The error returned by the service for the request.
-        #[from]
-        #[source]
-        source: Error,
-    },
-
-    /// The format of the stream name is invalid.
-    #[error("the provided write stream name is invalid (must be 'projects/...'): {0}")]
-    InvalidStreamName(String),
 }
