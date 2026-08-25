@@ -68,7 +68,7 @@ pub enum AttachError {
     },
 }
 
-pub type AttachResult<T> = std::result::Result<T, AttachError>;
+pub(crate) type AttachResult<T> = std::result::Result<T, AttachError>;
 
 #[cfg(test)]
 mod tests {
