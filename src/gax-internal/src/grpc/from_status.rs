@@ -80,6 +80,7 @@ impl std::fmt::Display for GrpcError {
 mod tests {
     use super::*;
     use google_cloud_gax::error::rpc::{Code, StatusDetails};
+    use pretty_assertions::assert_eq;
     use test_case::test_case;
 
     #[test_case(tonic::Code::Ok, Code::Ok)]
@@ -230,7 +231,22 @@ mod tests {
     #[test]
     fn gax_error_with_connect_error_maps_to_connect_error() {
         // Arrange
-        let inner_status = tonic::Status::unavailable("connection refused to 127.0.0.1:1");
+        const TEST_HEADER: &str = "x-test-header";
+        const TEST_VALUE: &str = "test-value";
+        const ERROR_MESSAGE_UNAVAILABLE: &str = "transport connect failed";
+
+        let details = b"status-details";
+        let mut metadata = tonic::metadata::MetadataMap::new();
+        metadata.insert(
+            TEST_HEADER,
+            tonic::metadata::AsciiMetadataValue::from_static(TEST_VALUE),
+        );
+        let inner_status = tonic::Status::with_details_and_metadata(
+            tonic::Code::Unavailable,
+            ERROR_MESSAGE_UNAVAILABLE,
+            bytes::Bytes::from_static(details),
+            metadata,
+        );
         let connect_err = ConnectError(inner_status);
         let status = tonic::Status::from_error(Box::new(connect_err));
 
@@ -239,20 +255,24 @@ mod tests {
 
         // Assert
         assert!(got.is_connect(), "{got:?}");
-        let source = got
+        let connect_error = got
             .source()
             .and_then(|e| e.source())
-            .and_then(|e| e.downcast_ref::<ConnectError>());
-        assert!(source.is_some(), "{got:?}");
-        let wrapped_status = source
-            .and_then(|e| e.source())
-            .and_then(|e| e.downcast_ref::<tonic::Status>());
-        assert!(wrapped_status.is_some(), "{got:?}");
+            .and_then(|e| e.downcast_ref::<ConnectError>())
+            .expect("error source chain should contain ConnectError");
+        let inner_status = connect_error
+            .source()
+            .and_then(|e| e.downcast_ref::<tonic::Status>())
+            .expect("ConnectError should wrap inner tonic::Status as source");
+        assert_eq!(inner_status.code(), tonic::Code::Unavailable);
+        assert_eq!(inner_status.message(), ERROR_MESSAGE_UNAVAILABLE);
+        assert_eq!(inner_status.details(), details);
         assert_eq!(
-            wrapped_status
-                .expect("inner status should be present")
-                .code(),
-            tonic::Code::Unavailable
+            inner_status
+                .metadata()
+                .get(TEST_HEADER)
+                .and_then(|value| value.to_str().ok()),
+            Some(TEST_VALUE)
         );
     }
 

@@ -315,14 +315,24 @@ mod tests {
     async fn test_unary_connect_failure() {
         // Arrange
         use std::error::Error;
-        const CONNECT_ERROR: &str = "Service was not ready: connection refused to 127.0.0.1:1";
+        const TEST_HEADER: &str = "x-test-header";
+        const TEST_VALUE: &str = "test-value";
+        const GRPC_STATUS_DETAILS_BIN: &str = "grpc-status-details-bin";
+        const ERROR_MESSAGE_UNAVAILABLE: &str = "Service was not ready: transport connect failed";
+
+        let details = b"status-details";
+        let mut metadata = grpc::metadata::MetadataMap::new();
+        metadata.insert_bin(GRPC_STATUS_DETAILS_BIN, MetadataValue::from_bytes(details));
+        metadata.insert(TEST_HEADER, MetadataValue::from_static(TEST_VALUE));
+        let trailers = Trailers::new(Err(StatusError::new(
+            StatusCodeError::Unavailable,
+            ERROR_MESSAGE_UNAVAILABLE,
+        )))
+        .with_metadata(metadata);
 
         let invoker = MockInvoker::new(
             MockSendStream::default(),
-            MockRecvStream::with_immediate_trailers(Trailers::new(Err(StatusError::new(
-                StatusCodeError::Unavailable,
-                CONNECT_ERROR,
-            )))),
+            MockRecvStream::with_immediate_trailers(trailers),
         );
 
         // Act
@@ -341,10 +351,25 @@ mod tests {
             gax_err.is_connect(),
             "connect failure should map to connect error: {gax_err:?}"
         );
-        let source = gax_err
+        let connect_error = gax_err
             .source()
             .and_then(|e| e.source())
-            .and_then(|e| e.downcast_ref::<crate::grpc::from_status::ConnectError>());
-        assert!(source.is_some(), "{gax_err:?}");
+            .and_then(|e| e.downcast_ref::<crate::grpc::from_status::ConnectError>())
+            .expect("error source chain should contain ConnectError");
+
+        let inner_status = connect_error
+            .source()
+            .and_then(|e| e.downcast_ref::<tonic::Status>())
+            .expect("ConnectError should wrap inner tonic::Status as source");
+        assert_eq!(inner_status.code(), tonic::Code::Unavailable);
+        assert_eq!(inner_status.message(), ERROR_MESSAGE_UNAVAILABLE);
+        assert_eq!(inner_status.details(), details);
+        assert_eq!(
+            inner_status
+                .metadata()
+                .get(TEST_HEADER)
+                .and_then(|value| value.to_str().ok()),
+            Some(TEST_VALUE)
+        );
     }
 }

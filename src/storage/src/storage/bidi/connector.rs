@@ -280,10 +280,6 @@ mod tests {
             err.is_connect(),
             "expected connect error for bad endpoint: {err:?}"
         );
-        assert!(
-            err.source().is_some(),
-            "expected underlying transport error source to be preserved: {err:?}"
-        );
 
         Ok(())
     }

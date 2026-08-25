@@ -314,8 +314,7 @@ mod tests {
         const TEST_HEADER: &str = "x-test-header";
         const TEST_VALUE: &str = "test-value";
         const GRPC_STATUS_DETAILS_BIN: &str = "grpc-status-details-bin";
-        const ERROR_MESSAGE_UNAVAILABLE: &str =
-            "Service was not ready: connection refused to 127.0.0.1:1";
+        const ERROR_MESSAGE_UNAVAILABLE: &str = "Service was not ready: transport connect failed";
 
         let details = b"status-details";
         let mut metadata = grpc::metadata::MetadataMap::new();
@@ -405,10 +404,7 @@ mod tests {
             "trailers with connection_info should not map to connect error: {gax_err:?}"
         );
         let status = gax_err.status().expect("status should be present");
-        assert_eq!(
-            status.code,
-            google_cloud_gax::error::rpc::Code::Unavailable
-        );
+        assert_eq!(status.code, google_cloud_gax::error::rpc::Code::Unavailable);
     }
 
     #[test]
@@ -431,10 +427,7 @@ mod tests {
             "post-headers error should not map to connect error: {gax_err:?}"
         );
         let status = gax_err.status().expect("status should be present");
-        assert_eq!(
-            status.code,
-            google_cloud_gax::error::rpc::Code::Unavailable
-        );
+        assert_eq!(status.code, google_cloud_gax::error::rpc::Code::Unavailable);
     }
 
     #[test_case(StatusCodeError::Cancelled, tonic::Code::Cancelled)]
