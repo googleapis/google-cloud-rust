@@ -527,16 +527,16 @@ test-case         = { default-features = false, version = "3.3" }
 tokio-stream      = { default-features = false, version = "0.1.16" }
 
 # Local packages used as dependencies.
-google-cloud-auth        = { default-features = false, version = "1.15.0", path = "src/auth" }
+google-cloud-auth        = { default-features = false, version = "1.16.0", path = "src/auth" }
 google-cloud-gax         = { default-features = false, version = "1.14.0", path = "src/gax" }
 gaxi                     = { default-features = false, version = "0.7.18", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 wkt                      = { default-features = false, version = "1.7.0", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-wkt         = { default-features = false, version = "1.7.0", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-api         = { default-features = false, version = "1.7.0", path = "src/generated/api/types" }
-google-cloud-iam-v1      = { default-features = false, version = "1.11.0", path = "src/generated/iam/v1" }
+google-cloud-iam-v1      = { default-features = false, version = "1.12.0", path = "src/generated/iam/v1" }
 google-cloud-location    = { default-features = false, version = "1.11.0", path = "src/generated/cloud/location" }
-google-cloud-longrunning = { default-features = false, version = "1.12.0", path = "src/generated/longrunning" }
-google-cloud-lro         = { default-features = false, version = "1.9.0", path = "src/lro" }
+google-cloud-longrunning = { default-features = false, version = "1.13.0", path = "src/generated/longrunning" }
+google-cloud-lro         = { default-features = false, version = "1.10.0", path = "src/lro" }
 google-cloud-rpc         = { default-features = false, version = "1.6.0", path = "src/generated/rpc/types", package = "google-cloud-rpc" }
 google-cloud-type        = { default-features = false, version = "1.6.0", path = "src/generated/type" }
 # These are used by specific generated libraries.
@@ -552,21 +552,21 @@ google-cloud-common                             = { default-features = false, ve
 google-cloud-gkehub-configmanagement-v1         = { default-features = false, version = "1.7.0", path = "src/generated/cloud/gkehub/configmanagement/v1" }
 google-cloud-gkehub-multiclusteringress-v1      = { default-features = false, version = "1.7.0", path = "src/generated/cloud/gkehub/multiclusteringress/v1" }
 google-cloud-gkehub-rbacrolebindingactuation-v1 = { default-features = false, version = "1.5.0", path = "src/generated/cloud/gkehub/rbacrolebindingactuation/v1" }
-google-cloud-grafeas-v1                         = { default-features = false, version = "1.12.0", path = "src/generated/grafeas/v1" }
+google-cloud-grafeas-v1                         = { default-features = false, version = "1.13.0", path = "src/generated/grafeas/v1" }
 google-cloud-iam-v2                             = { default-features = false, version = "1.12.0", path = "src/generated/iam/v2" }
 google-cloud-identity-accesscontextmanager-type = { default-features = false, version = "1.6.0", path = "src/generated/identity/accesscontextmanager/type" }
-google-cloud-identity-accesscontextmanager-v1   = { default-features = false, version = "1.12.0", path = "src/generated/identity/accesscontextmanager/v1" }
-google-cloud-kms-v1                             = { default-features = false, version = "1.13.0", path = "src/generated/cloud/kms/v1" }
+google-cloud-identity-accesscontextmanager-v1   = { default-features = false, version = "1.13.0", path = "src/generated/identity/accesscontextmanager/v1" }
+google-cloud-kms-v1                             = { default-features = false, version = "1.14.0", path = "src/generated/cloud/kms/v1" }
 google-cloud-logging-type                       = { default-features = false, version = "1.6.0", path = "src/generated/logging/type" }
-google-cloud-monitoring-v3                      = { default-features = false, version = "1.11.0", path = "src/generated/monitoring/v3" }
+google-cloud-monitoring-v3                      = { default-features = false, version = "1.12.0", path = "src/generated/monitoring/v3" }
 google-cloud-orgpolicy-v1                       = { default-features = false, version = "1.6.0", path = "src/generated/cloud/orgpolicy/v1" }
 google-cloud-orgpolicy-v2                       = { default-features = false, version = "1.11.0", path = "src/generated/cloud/orgpolicy/v2" }
-google-cloud-osconfig-v1                        = { default-features = false, version = "1.12.0", path = "src/generated/cloud/osconfig/v1" }
+google-cloud-osconfig-v1                        = { default-features = false, version = "1.13.0", path = "src/generated/cloud/osconfig/v1" }
 google-cloud-oslogin-common                     = { default-features = false, version = "1.7.0", path = "src/generated/oslogin/common" }
-google-cloud-recommender-v1                     = { default-features = false, version = "1.11.0", path = "src/generated/cloud/recommender/v1" }
+google-cloud-recommender-v1                     = { default-features = false, version = "1.12.0", path = "src/generated/cloud/recommender/v1" }
 google-cloud-rpc-context                        = { default-features = false, version = "1.6.0", path = "src/generated/rpc/context" }
-google-cloud-spanner-admin-database-v1          = { default-features = false, version = "1.13.0", path = "src/generated/spanner/admin/database/v1" }
-google-cloud-spanner-admin-instance-v1          = { default-features = false, version = "1.13.0", path = "src/generated/spanner/admin/instance/v1" }
+google-cloud-spanner-admin-database-v1          = { default-features = false, version = "1.14.0", path = "src/generated/spanner/admin/database/v1" }
+google-cloud-spanner-admin-instance-v1          = { default-features = false, version = "1.14.0", path = "src/generated/spanner/admin/instance/v1" }
 google-geo-type                                 = { default-features = false, version = "1.0.0", path = "src/generated/geo/gtype" }
 google-shopping-type                            = { default-features = false, version = "1.0.0", path = "src/generated/shopping/gtype" }
 # Used in integration tests, these are leaf nodes in the dependency graph. Should not get a `version`.
@@ -577,10 +577,10 @@ google-cloud-compute-v1              = { default-features = false, path = "src/g
 google-cloud-storage                 = { default-features = false, path = "src/storage" }
 google-cloud-pubsub                  = { default-features = false, path = "src/pubsub" }
 google-cloud-spanner                 = { default-features = false, path = "src/spanner" }
-google-cloud-bigquery                = { default-features = false, path = "src/bigquery", version = "0.16.0-preview" }
+google-cloud-bigquery                = { default-features = false, path = "src/bigquery", version = "0.16.1-preview" }
 google-cloud-bigquery-derive         = { default-features = false, path = "src/bigquery-derive", version = "0.1.0" }
 google-cloud-bigquery-read           = { default-features = false, path = "src/bigquery-read" }
-google-cloud-bigquery-v2             = { default-features = false, path = "src/generated/cloud/bigquery/v2", version = "0.1.0" }
+google-cloud-bigquery-v2             = { default-features = false, path = "src/generated/cloud/bigquery/v2", version = "0.1.1" }
 google-cloud-iam-credentials-v1      = { default-features = false, path = "src/generated/iam/credentials/v1" }
 google-cloud-language-v2             = { default-features = false, path = "src/generated/cloud/language/v2" }
 google-cloud-dns-v1                  = { default-features = false, path = "src/generated/cloud/dns/v1" }

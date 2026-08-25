@@ -26,8 +26,8 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-maps-weather-v1/1.0.0)
+- Read the [crate's documentation](https://docs.rs/google-maps-weather-v1/1.1.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[Weather]: https://docs.rs/google-maps-weather-v1/1.0.0/google_maps_weather_v1/client/struct.Weather.html
+[Weather]: https://docs.rs/google-maps-weather-v1/1.1.0/google_maps_weather_v1/client/struct.Weather.html
