@@ -208,8 +208,8 @@ where
 
         // Multipart part 2: Media payload stream
         let payload = self.payload_to_body().await?;
-        let mut form = multipart::Form::new().part("metadata", metadata);
-        form = if let Some(exact) = hint.exact() {
+        let form = multipart::Form::new().part("metadata", metadata);
+        let form = if let Some(exact) = hint.exact() {
             form.part("media", multipart::Part::stream_with_length(payload, exact))
         } else {
             form.part("media", multipart::Part::stream(payload))
