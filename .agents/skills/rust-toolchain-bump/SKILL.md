@@ -15,8 +15,9 @@ This skill automates checking for new stable minor compiler releases from the Ru
 ## Step 1: Run Toolchain Check Script
 
 Run the automated toolchain check script (requires network access / `BypassSandbox: true`):
+
 ```bash
-./scripts/check-rust-toolchain.sh
+.agents/skills/rust-toolchain-bump/scripts/check-rust-toolchain.sh
 ```
 
 The script will:
@@ -30,8 +31,8 @@ The script will:
 
 ## Step 2: Handle Diagnostics & Tooling Issues
 
-* **If `scripts/check-rust-toolchain.sh` exits successfully:** Proceed directly to Step 3.
-* **If clippy fails in handwritten crates (`src/auth`, `src/gax`, `src/storage`, etc.):** Fix code diagnostics directly in the working branch, then re-run `./scripts/check-rust-toolchain.sh` until clean.
+* **If `check-rust-toolchain.sh` exits successfully:** Proceed directly to Step 3.
+* **If clippy fails in handwritten crates (`src/auth`, `src/gax`, `src/storage`, etc.):** Fix code diagnostics directly in the working branch, then re-run `.agents/skills/rust-toolchain-bump/scripts/check-rust-toolchain.sh` until clean.
 * **If clippy fails in generated code (`src/generated/`):** Do NOT edit generated files manually. Stop and file an issue/PR to update generator templates in `librarian` first.
 * **If semver-checks fails with `unsupported rustdoc format vXX`:** Bump `cargo-semver-checks` to the latest version in both `.gcb/scripts/semver-checks.sh` and `librarian.yaml`, then re-run.
 
