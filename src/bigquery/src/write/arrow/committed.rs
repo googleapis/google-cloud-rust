@@ -40,6 +40,7 @@ impl CommittedWriter {
         &self.inner.write_stream
     }
 
+    /// Append rows to the stream.
     pub fn append(&self, rows: ArrowRecordBatch) -> AppendWithOffset {
         AppendWithOffset::new(
             self.inner.runner.req_tx.clone(),
