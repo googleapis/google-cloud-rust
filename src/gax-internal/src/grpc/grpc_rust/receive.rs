@@ -204,7 +204,8 @@ async fn receive_responses<Response, R>(
 /// Converts gRPC response [`Trailers`] into a [`tonic::Status`], preserving status code, message, metadata, and `grpc-status-details-bin`.
 ///
 /// When an RPC fails before a connection is established (e.g. TCP connect failure, DNS resolution failure,
-/// channel closed before ready), no headers were received (`!seen_headers`) and `trailers.connection_info()` is `None`.
+/// channel closed before ready), no headers were received (`!seen_headers`), `trailers.connection_info()` is `None`,
+/// and the `grpc-rust` status is [`StatusCodeError::Unavailable`].
 /// In that case, a [`ConnectError`] wrapping the fully constructed [`tonic::Status`] as its source is returned.
 /// This enables [`to_gax_error`](crate::grpc::from_status::to_gax_error) to accurately classify it as a connection failure (`err.is_connect() == true`).
 pub(super) fn trailers_to_tonic_status(
@@ -225,7 +226,10 @@ pub(super) fn trailers_to_tonic_status(
         metadata,
     );
 
-    if !seen_headers && trailers.connection_info().is_none() {
+    if !seen_headers
+        && trailers.connection_info().is_none()
+        && status.code() == StatusCodeError::Unavailable
+    {
         return Some(tonic::Status::from_error(Box::new(ConnectError(
             tonic_status,
         ))));
@@ -356,6 +360,30 @@ mod tests {
     }
 
     #[test]
+    fn trailers_to_tonic_status_pre_connect_internal_error_maps_to_rpc_error() {
+        // Arrange
+        const ERROR_MESSAGE_INTERNAL: &str = "internal error before connect";
+        let trailers = Trailers::new(Err(StatusError::new(
+            StatusCodeError::Internal,
+            ERROR_MESSAGE_INTERNAL,
+        )));
+
+        // Act
+        let got = trailers_to_tonic_status(trailers, /* seen_headers= */ false)
+            .expect("error trailers should map to status");
+
+        // Assert
+        let gax_err = crate::grpc::from_status::to_gax_error(got);
+        assert!(
+            !gax_err.is_connect(),
+            "pre-connection internal error should not map to connect error: {gax_err:?}"
+        );
+        let status = gax_err.status().expect("status should be present");
+        assert_eq!(status.code, google_cloud_gax::error::rpc::Code::Internal);
+        assert_eq!(status.message, ERROR_MESSAGE_INTERNAL);
+    }
+
+    #[test]
     fn trailers_to_tonic_status_trailers_only_with_connection_info_maps_to_rpc_error() {
         // Arrange
         const ERROR_MESSAGE_UNAVAILABLE: &str = "server overloaded";
@@ -376,9 +404,9 @@ mod tests {
             !gax_err.is_connect(),
             "trailers with connection_info should not map to connect error: {gax_err:?}"
         );
-        assert!(gax_err.status().is_some(), "{gax_err:?}");
+        let status = gax_err.status().expect("status should be present");
         assert_eq!(
-            gax_err.status().expect("status should be present").code,
+            status.code,
             google_cloud_gax::error::rpc::Code::Unavailable
         );
     }
@@ -402,9 +430,9 @@ mod tests {
             !gax_err.is_connect(),
             "post-headers error should not map to connect error: {gax_err:?}"
         );
-        assert!(gax_err.status().is_some(), "{gax_err:?}");
+        let status = gax_err.status().expect("status should be present");
         assert_eq!(
-            gax_err.status().expect("status should be present").code,
+            status.code,
             google_cloud_gax::error::rpc::Code::Unavailable
         );
     }
