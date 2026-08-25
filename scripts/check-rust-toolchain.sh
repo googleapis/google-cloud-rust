@@ -35,12 +35,27 @@ if [[ "${CURRENT_VERSION}" == "${LATEST_VERSION}" && "${1:-}" != "--force" ]]; t
 fi
 
 echo ""
-echo "==== 1. Updating Stable Rust Toolchain ===="
+echo "==== 1. Checking out Feature Branch ===="
+TARGET_BRANCH="chore-bump-rust-toolchain-${LATEST_VERSION}"
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+if [[ "${CURRENT_BRANCH}" != "${TARGET_BRANCH}" ]]; then
+  if git show-ref --verify --quiet "refs/heads/${TARGET_BRANCH}"; then
+    echo "Switching to existing branch: ${TARGET_BRANCH}"
+    git checkout "${TARGET_BRANCH}"
+  else
+    echo "Creating and checking out branch: ${TARGET_BRANCH} based on main"
+    git checkout -b "${TARGET_BRANCH}" main
+  fi
+fi
+
+echo ""
+echo "==== 2. Updating Stable Rust Toolchain ===="
 rustup update stable
 rustc --version
 
 echo ""
-echo "==== 2. Applying Automatic Clippy Fixes ===="
+echo "==== 3. Applying Automatic Clippy Fixes ===="
 cargo clippy --fix --allow-dirty --allow-staged --all-features --all-targets --profile=test --workspace || true
 
 # Check if automatic fixes modified generated code
@@ -59,11 +74,11 @@ if [[ -n "$(git status --porcelain -- '**/generated/**')" ]]; then
 fi
 
 echo ""
-echo "==== 3. Running Strict Workspace Clippy ===="
+echo "==== 4. Running Strict Workspace Clippy ===="
 cargo clippy --all-features --all-targets --profile=test --workspace -- --deny warnings
 
 echo ""
-echo "==== 4. Verifying Semver Checks Tooling ===="
+echo "==== 5. Verifying Semver Checks Tooling ===="
 cargo semver-checks --all-features -p google-cloud-wkt
 
 echo ""

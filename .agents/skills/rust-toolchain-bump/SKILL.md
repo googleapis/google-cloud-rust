@@ -29,6 +29,8 @@ The script will:
 1. Extract `CURRENT_RUST_VERSION` deterministically from
    `.github/workflows/rust-toolchain-check.yaml`.
 1. Compare against the latest stable release in `RELEASES.md`.
+1. Check out a feature branch (`chore-bump-rust-toolchain-1.XX`) based on
+   `main`.
 1. Update the local stable compiler (`rustup update stable`).
 1. Attempt to automatically apply machine-applicable clippy suggestions
    (`cargo clippy --fix ...`).
@@ -82,11 +84,24 @@ ______________________________________________________________________
 
 ## Step 3: Update CI Configuration Files
 
-Search for all occurrences of the old version `1.YY` across the repository to
-locate every CI configuration defining the compiler:
+> [!NOTE]
+> The list of CI configuration files below may change over time as new workflows
+> or build steps are added. Always search the repository for the old compiler
+> version number to ensure all references are found.
+
+Search for all occurrences of the old compiler version across the repository
+(escape the dot, e.g. `1\.97`):
 
 ```bash
-git grep "1\.YY"
+git grep -n "1\.YY"
+```
+
+You can also search for key configuration variables:
+
+```bash
+git grep -n "_RUST_VERSION"
+git grep -n "CURRENT_RUST_VERSION"
+git grep -n "GHA_RUST_VERSIONS"
 ```
 
 > [!WARNING]
@@ -94,16 +109,17 @@ git grep "1\.YY"
 > (`rust-version`). Those track the MSRV, which is managed independently under
 > the 1-year policy.
 
-1. **Update GitHub Actions Workflows**:
+Common files to update include:
+
+1. **GitHub Actions Workflows**:
 
    - `.github/workflows/sdk.yaml`
      (`GHA_RUST_VERSIONS: '{ "rust:current": "1.XX" }'`)
    - `.github/workflows/rust-toolchain-check.yaml`
      (`CURRENT_RUST_VERSION: '1.XX'`)
 
-1. **Update Google Cloud Build Configurations**: Update all
-   `_RUST_VERSION: '1.YY'` entries across `.gcb/` and `src/**/.gcb/` (excluding
-   `msrv.yaml`):
+1. **Google Cloud Build Configurations**: Update all `_RUST_VERSION: '1.YY'`
+   entries across `.gcb/` and `src/**/.gcb/` (excluding `msrv.yaml`):
 
    - `.gcb/format.yaml`
    - `.gcb/complex.yaml`
@@ -121,9 +137,7 @@ ______________________________________________________________________
    cargo fmt --check
    cargo check --workspace --all-targets
    ```
-1. Create a feature branch and commit following
-   `CONTRIBUTING.md#commit-messages`:
+1. Commit all changes following `CONTRIBUTING.md#commit-messages`:
    ```bash
-   git checkout -b chore-bump-rust-toolchain-1.XX
-   git commit -m "chore(ci): update Rust toolchain to 1.XX" -m "Update stable compiler version to 1.XX across GitHub Actions and Google Cloud Build configurations."
+   git commit -am "chore(ci): update Rust toolchain to 1.XX" -m "Update stable compiler version to 1.XX across GitHub Actions and Google Cloud Build configurations."
    ```
