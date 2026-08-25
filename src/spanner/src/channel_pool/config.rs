@@ -191,15 +191,16 @@ impl DynamicChannelPoolConfig {
                 "initial_channels must be between min_channels and max_channels",
             ));
         }
-        if self.min_rpc_per_channel.is_nan() || self.min_rpc_per_channel <= 0.0 {
+        if !self.min_rpc_per_channel.is_finite() || self.min_rpc_per_channel <= 0.0 {
             return Err(GaxError::binding(
-                "min_rpc_per_channel must be greater than 0.0",
+                "min_rpc_per_channel must be a finite value greater than 0.0",
             ));
         }
-        if self.max_rpc_per_channel.is_nan() || self.max_rpc_per_channel <= self.min_rpc_per_channel
+        if !self.max_rpc_per_channel.is_finite()
+            || self.max_rpc_per_channel <= self.min_rpc_per_channel
         {
             return Err(GaxError::binding(
-                "max_rpc_per_channel must be strictly greater than min_rpc_per_channel",
+                "max_rpc_per_channel must be a finite value strictly greater than min_rpc_per_channel",
             ));
         }
         if self.max_scale_up_percent == 0 || self.max_scale_up_percent > 100 {
@@ -451,6 +452,243 @@ mod tests {
         assert!(
             invalid_percent.validate().is_err(),
             "DynamicChannelPoolConfig with max_scale_up_percent > 100 must fail validation"
+        );
+
+        let zero_min_channels = DynamicChannelPoolConfig {
+            min_channels: 0,
+            ..Default::default()
+        };
+        assert!(
+            zero_min_channels.validate().is_err(),
+            "min_channels = 0 must fail validation"
+        );
+
+        let exceeds_max_channels = DynamicChannelPoolConfig {
+            min_channels: 1,
+            max_channels: MAX_SUPPORTED_CHANNELS + 1,
+            initial_channels: 1,
+            ..Default::default()
+        };
+        assert!(
+            exceeds_max_channels.validate().is_err(),
+            "max_channels > 256 must fail validation"
+        );
+
+        let initial_exceeds_max = DynamicChannelPoolConfig {
+            min_channels: 2,
+            initial_channels: 12,
+            max_channels: 10,
+            ..Default::default()
+        };
+        assert!(
+            initial_exceeds_max.validate().is_err(),
+            "initial_channels > max_channels must fail validation"
+        );
+
+        let zero_min_rpc = DynamicChannelPoolConfig {
+            min_rpc_per_channel: 0.0,
+            ..Default::default()
+        };
+        assert!(
+            zero_min_rpc.validate().is_err(),
+            "min_rpc_per_channel <= 0.0 must fail validation"
+        );
+
+        let negative_min_rpc = DynamicChannelPoolConfig {
+            min_rpc_per_channel: -5.0,
+            ..Default::default()
+        };
+        assert!(
+            negative_min_rpc.validate().is_err(),
+            "min_rpc_per_channel < 0.0 must fail validation"
+        );
+
+        let nan_min_rpc = DynamicChannelPoolConfig {
+            min_rpc_per_channel: f64::NAN,
+            ..Default::default()
+        };
+        assert!(
+            nan_min_rpc.validate().is_err(),
+            "min_rpc_per_channel = NaN must fail validation"
+        );
+
+        let inf_min_rpc = DynamicChannelPoolConfig {
+            min_rpc_per_channel: f64::INFINITY,
+            max_rpc_per_channel: f64::INFINITY,
+            ..Default::default()
+        };
+        assert!(
+            inf_min_rpc.validate().is_err(),
+            "min_rpc_per_channel = INFINITY must fail validation"
+        );
+
+        let nan_max_rpc = DynamicChannelPoolConfig {
+            max_rpc_per_channel: f64::NAN,
+            ..Default::default()
+        };
+        assert!(
+            nan_max_rpc.validate().is_err(),
+            "max_rpc_per_channel = NaN must fail validation"
+        );
+
+        let inf_max_rpc = DynamicChannelPoolConfig {
+            max_rpc_per_channel: f64::INFINITY,
+            ..Default::default()
+        };
+        assert!(
+            inf_max_rpc.validate().is_err(),
+            "max_rpc_per_channel = INFINITY must fail validation"
+        );
+
+        let zero_scale_up_percent = DynamicChannelPoolConfig {
+            max_scale_up_percent: 0,
+            ..Default::default()
+        };
+        assert!(
+            zero_scale_up_percent.validate().is_err(),
+            "max_scale_up_percent == 0 must fail validation"
+        );
+
+        let zero_consecutive_checks = DynamicChannelPoolConfig {
+            consecutive_low_load_checks: 0,
+            ..Default::default()
+        };
+        assert!(
+            zero_consecutive_checks.validate().is_err(),
+            "consecutive_low_load_checks == 0 must fail validation"
+        );
+
+        let zero_max_remove = DynamicChannelPoolConfig {
+            max_remove_channels: 0,
+            ..Default::default()
+        };
+        assert!(
+            zero_max_remove.validate().is_err(),
+            "max_remove_channels == 0 must fail validation"
+        );
+
+        let zero_prime_attempts = DynamicChannelPoolConfig {
+            prime_max_attempts: 0,
+            ..Default::default()
+        };
+        assert!(
+            zero_prime_attempts.validate().is_err(),
+            "prime_max_attempts == 0 must fail validation"
+        );
+
+        let static_exceeds_max = StaticChannelPoolConfig {
+            num_channels: MAX_SUPPORTED_CHANNELS + 1,
+        };
+        assert!(
+            static_exceeds_max.validate().is_err(),
+            "StaticChannelPoolConfig with num_channels > MAX_SUPPORTED_CHANNELS must fail validation"
+        );
+    }
+
+    #[test]
+    fn channel_pool_config_enum_methods() {
+        let static_config = StaticChannelPoolConfig { num_channels: 6 };
+        let pool_static = ChannelPoolConfig::Static(static_config.clone());
+        assert!(
+            pool_static.validate().is_ok(),
+            "Valid static pool config must pass validate()"
+        );
+        assert_eq!(
+            pool_static.static_config(),
+            Some(&static_config),
+            "static_config() must return Some for Static variant"
+        );
+        assert_eq!(
+            pool_static.dynamic_config(),
+            None,
+            "dynamic_config() must return None for Static variant"
+        );
+
+        let dynamic_config = DynamicChannelPoolConfig::default();
+        let pool_dynamic = ChannelPoolConfig::Dynamic(dynamic_config.clone());
+        assert!(
+            pool_dynamic.validate().is_ok(),
+            "Valid dynamic pool config must pass validate()"
+        );
+        assert_eq!(
+            pool_dynamic.dynamic_config(),
+            Some(&dynamic_config),
+            "dynamic_config() must return Some for Dynamic variant"
+        );
+        assert_eq!(
+            pool_dynamic.static_config(),
+            None,
+            "static_config() must return None for Dynamic variant"
+        );
+
+        let invalid_pool_static =
+            ChannelPoolConfig::Static(StaticChannelPoolConfig { num_channels: 0 });
+        assert!(
+            invalid_pool_static.validate().is_err(),
+            "Invalid static pool enum config must fail validate()"
+        );
+
+        let invalid_pool_dynamic = ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig {
+            min_channels: 0,
+            ..Default::default()
+        });
+        assert!(
+            invalid_pool_dynamic.validate().is_err(),
+            "Invalid dynamic pool enum config must fail validate()"
+        );
+    }
+
+    #[test]
+    fn calculations_target_rpc_and_desired_channel_count() {
+        let config = DynamicChannelPoolConfig {
+            min_rpc_per_channel: 15.0,
+            max_rpc_per_channel: 25.0,
+            ..Default::default()
+        };
+
+        // Midpoint of 15.0 and 25.0 is 20.0 -> 20
+        assert_eq!(
+            config.target_rpc_per_channel(),
+            20,
+            "Target RPC per channel must be midpoint 20"
+        );
+
+        assert_eq!(
+            config.desired_channel_count(0),
+            0,
+            "0 load requires 0 desired channels"
+        );
+        assert_eq!(
+            config.desired_channel_count(20),
+            1,
+            "20 load with target 20 requires 1 channel"
+        );
+        assert_eq!(
+            config.desired_channel_count(21),
+            2,
+            "21 load with target 20 ceil requires 2 channels"
+        );
+        assert_eq!(
+            config.desired_channel_count(40),
+            2,
+            "40 load with target 20 requires 2 channels"
+        );
+        assert_eq!(
+            config.desired_channel_count(41),
+            3,
+            "41 load with target 20 ceil requires 3 channels"
+        );
+
+        // Low bounds configuration where midpoint < 1.0 clamped to 1
+        let low_config = DynamicChannelPoolConfig {
+            min_rpc_per_channel: 0.1,
+            max_rpc_per_channel: 0.5,
+            ..Default::default()
+        };
+        assert_eq!(
+            low_config.target_rpc_per_channel(),
+            1,
+            "Target RPC per channel must clamp to minimum 1"
         );
     }
 }

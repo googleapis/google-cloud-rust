@@ -87,6 +87,16 @@ impl TransactionAffinity {
         self.entry_id.store(entry_id, Ordering::Relaxed);
     }
 
+    /// Atomically sets the pinned channel entry ID if matching `current`.
+    ///
+    /// Returns `Ok(())` if this caller won the pin, or `Err(winner_id)` containing
+    /// the winning pinned entry ID if another thread pinned concurrently.
+    pub(crate) fn compare_and_set_entry_id(&self, current: u64, new: u64) -> Result<(), u64> {
+        self.entry_id
+            .compare_exchange(current, new, Ordering::AcqRel, Ordering::Acquire)
+            .map(|_| ())
+    }
+
     /// Clears the pinned channel entry ID, making this handle unpinned.
     pub(crate) fn reset(&self) {
         self.entry_id.store(0, Ordering::Relaxed);
@@ -135,11 +145,26 @@ mod tests {
             "Pinned entry ID must be updated to 99"
         );
 
+        let cas_failure = affinity.compare_and_set_entry_id(0, 100);
+        assert_eq!(
+            cas_failure,
+            Err(99),
+            "CAS with non-matching current value must fail and return existing winner ID"
+        );
+
         affinity.reset();
         assert_eq!(
             affinity.pinned_entry_id(),
             None,
             "Pinned entry ID must be None after reset"
+        );
+
+        let cas_success = affinity.compare_and_set_entry_id(0, 100);
+        assert_eq!(cas_success, Ok(()), "CAS on unpinned affinity must succeed");
+        assert_eq!(
+            affinity.pinned_entry_id(),
+            Some(100),
+            "Pinned entry ID must be 100 after successful CAS"
         );
 
         let read_only_affinity = TransactionAffinity::new_read_only();
@@ -150,6 +175,29 @@ mod tests {
         assert!(
             !read_only_affinity.is_read_write(),
             "ReadOnly affinity is not ReadWrite"
+        );
+
+        let default_affinity = TransactionAffinity::default();
+        assert!(
+            default_affinity.is_read_write(),
+            "default() must create ReadWrite affinity"
+        );
+        assert_eq!(
+            default_affinity.pinned_entry_id(),
+            None,
+            "default() affinity must start unpinned"
+        );
+
+        let new_affinity = TransactionAffinity::new();
+        assert!(
+            new_affinity.is_read_write(),
+            "new() must create ReadWrite affinity"
+        );
+
+        assert_eq!(
+            AffinityKind::default(),
+            AffinityKind::ReadWrite,
+            "AffinityKind default must be ReadWrite"
         );
     }
 }

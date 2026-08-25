@@ -48,10 +48,10 @@ pub(crate) struct ChannelEntry {
     pub(crate) in_flight_rpcs: AtomicU32,
     /// Count of active Read/Write transactions pinned to this channel.
     pub(crate) active_rw_transactions: AtomicU32,
-    /// Accumulated synthetic error penalty load.
-    pub(crate) penalty_load: AtomicU32,
-    /// Expiry nanoseconds offset from `created_at` (0 if no active penalty).
-    pub(crate) penalty_expiry_nanos: AtomicU64,
+    /// Packed representation of synthetic error penalty load and expiry:
+    /// - Bits 48..63 (16 bits): penalty load
+    /// - Bits 0..47  (48 bits): expiry timestamp in milliseconds from `created_at`
+    pub(crate) penalty_state: AtomicU64,
     /// Lifecycle state of the channel.
     pub(crate) state: AtomicU8,
     /// Creation instant of the channel entry used as a monotonic reference baseline.
@@ -79,17 +79,28 @@ impl ChannelEntry {
             channel,
             in_flight_rpcs: AtomicU32::new(0),
             active_rw_transactions: AtomicU32::new(0),
-            penalty_load: AtomicU32::new(0),
-            penalty_expiry_nanos: AtomicU64::new(0),
+            penalty_state: AtomicU64::new(0),
             state: AtomicU8::new(ChannelState::Active as u8),
             created_at,
             last_activity_nanos: AtomicU64::new(0),
         }
     }
 
+    pub(crate) fn decode_penalty_state(packed: u64) -> (u32, u64) {
+        let penalty_load = (packed >> 48) as u32;
+        let expiry_millis = packed & 0x0000_FFFF_FFFF_FFFF;
+        (penalty_load, expiry_millis)
+    }
+
+    pub(crate) fn encode_penalty_state(penalty_load: u32, expiry_millis: u64) -> u64 {
+        let load_bits = u64::from(u16::try_from(penalty_load).unwrap_or(u16::MAX)) << 48;
+        let expiry_bits = expiry_millis.min(0x0000_FFFF_FFFF_FFFF);
+        load_bits | expiry_bits
+    }
+
     /// Updates the last activity timestamp to the current instant in a lock-free manner.
     pub(crate) fn touch_activity(&self) {
-        let elapsed = self.created_at.elapsed().as_nanos() as u64;
+        let elapsed = u64::try_from(self.created_at.elapsed().as_nanos()).unwrap_or(u64::MAX);
         self.last_activity_nanos
             .fetch_max(elapsed, Ordering::Relaxed);
     }
@@ -111,19 +122,24 @@ impl ChannelEntry {
 
     /// Returns the active synthetic error penalty load, or 0 if expired (lock-free).
     pub(crate) fn current_penalty(&self) -> u32 {
-        let expiry = self.penalty_expiry_nanos.load(Ordering::Acquire);
-        if expiry == 0 {
+        let packed = self.penalty_state.load(Ordering::Acquire);
+        if packed == 0 {
             return 0;
         }
-        if (self.created_at.elapsed().as_nanos() as u64) >= expiry {
+        let (penalty_load, expiry_millis) = Self::decode_penalty_state(packed);
+        if penalty_load == 0 || expiry_millis == 0 {
             return 0;
         }
-        self.penalty_load.load(Ordering::Relaxed)
+        let now_millis = u64::try_from(self.created_at.elapsed().as_millis()).unwrap_or(u64::MAX);
+        if now_millis >= expiry_millis {
+            return 0;
+        }
+        penalty_load
     }
 
     /// Returns the effective picker load evaluated by P2C (in-flight load + active error penalty).
     pub(crate) fn effective_pick_load(&self) -> u32 {
-        self.in_flight() + self.current_penalty()
+        self.in_flight().saturating_add(self.current_penalty())
     }
 
     /// Applies a sliding penalty when qualifying transport-level errors occur (lock-free).
@@ -137,20 +153,29 @@ impl ChannelEntry {
         if code != Code::Unavailable && code != Code::ResourceExhausted {
             return;
         }
-        let current_load = self.current_penalty();
-        let new_load = (current_load + step).min(max_penalty);
-        let now_nanos = self.created_at.elapsed().as_nanos() as u64;
-        self.penalty_load.store(new_load, Ordering::Relaxed);
-        self.penalty_expiry_nanos.store(
-            now_nanos.saturating_add(duration.as_nanos() as u64),
-            Ordering::Release,
-        );
+        let duration_millis = u64::try_from(duration.as_millis()).unwrap_or(u64::MAX);
+
+        let _ = self
+            .penalty_state
+            .fetch_update(Ordering::Release, Ordering::Acquire, |packed| {
+                let now_millis =
+                    u64::try_from(self.created_at.elapsed().as_millis()).unwrap_or(u64::MAX);
+                let (current_load, expiry_millis) = Self::decode_penalty_state(packed);
+                let active_load = if now_millis < expiry_millis {
+                    current_load
+                } else {
+                    0
+                };
+                let new_load = active_load.saturating_add(step).min(max_penalty);
+                let new_expiry_millis = now_millis.saturating_add(duration_millis);
+                Some(Self::encode_penalty_state(new_load, new_expiry_millis))
+            });
     }
 
     /// Returns the duration elapsed since the channel's last recorded activity.
     pub(crate) fn elapsed_since_activity(&self) -> Duration {
         let last = self.last_activity_nanos.load(Ordering::Relaxed);
-        let now = self.created_at.elapsed().as_nanos() as u64;
+        let now = u64::try_from(self.created_at.elapsed().as_nanos()).unwrap_or(u64::MAX);
         Duration::from_nanos(now.saturating_sub(last))
     }
 
@@ -187,6 +212,7 @@ impl ChannelEntry {
 /// RAII guard that tracks an active in-flight RPC on a channel entry.
 ///
 /// Decrements `in_flight_rpcs` and updates the channel's activity timestamp upon drop.
+#[derive(Debug)]
 #[must_use = "if unused the in-flight RPC count will decrement immediately"]
 pub(crate) struct ActiveRpcGuard {
     pub(crate) entry: Arc<ChannelEntry>,
@@ -250,6 +276,7 @@ impl Drop for ActiveRpcGuard {
 }
 
 /// RAII token held by an active Read/Write transaction to prevent premature channel closure during draining.
+#[derive(Debug)]
 pub(crate) struct RwTransactionAffinityGuard {
     entry: Arc<ChannelEntry>,
 }
@@ -279,6 +306,7 @@ impl Drop for RwTransactionAffinityGuard {
 /// 3. The monotonic `entry_id` used for transaction affinity pinning.
 /// 4. An embedded `ActiveRpcGuard` that automatically decrements in-flight accounting and
 ///    records transport error penalties on drop.
+#[derive(Debug)]
 #[must_use = "if unused the leased channel's in-flight RPC count will decrement immediately"]
 pub(crate) struct ChannelLease {
     pub(crate) guard: ActiveRpcGuard,
@@ -310,6 +338,7 @@ impl ChannelLease {
 mod tests {
     use super::*;
     use crate::Response;
+    use crate::Result as SpannerResult;
     use crate::generated::gapic_dataplane::stub::Spanner as SpannerStub;
     use crate::model::{CreateSessionRequest, Session};
     use google_cloud_gax::error::rpc::Status;
@@ -326,7 +355,7 @@ mod tests {
             &self,
             _req: CreateSessionRequest,
             _options: RequestOptions,
-        ) -> impl Future<Output = crate::Result<Response<Session>>> + Send {
+        ) -> impl Future<Output = SpannerResult<Response<Session>>> + Send {
             ready(Ok(Response::from(Session::default())))
         }
     }
@@ -338,9 +367,9 @@ mod tests {
     #[test]
     fn traits() {
         static_assertions::assert_impl_all!(ChannelEntry: Debug, Send, Sync);
-        static_assertions::assert_impl_all!(ActiveRpcGuard: Send, Sync);
-        static_assertions::assert_impl_all!(RwTransactionAffinityGuard: Send, Sync);
-        static_assertions::assert_impl_all!(ChannelLease: Send, Sync);
+        static_assertions::assert_impl_all!(ActiveRpcGuard: Debug, Send, Sync);
+        static_assertions::assert_impl_all!(RwTransactionAffinityGuard: Debug, Send, Sync);
+        static_assertions::assert_impl_all!(ChannelLease: Debug, Send, Sync);
         static_assertions::assert_impl_all!(
             ChannelState: Clone,
             Copy,
@@ -355,7 +384,12 @@ mod tests {
     #[test]
     fn error_penalty_allowlist_and_sliding_expiry() {
         let channel = create_mock_channel();
-        let entry = ChannelEntry::new(1, 1, channel);
+        let entry = ChannelEntry::new_with_created_at(
+            1,
+            1,
+            channel,
+            Instant::now() - Duration::from_secs(10),
+        );
 
         // Non-qualifying errors should not apply penalty
         entry.apply_error_penalty(Code::Aborted, 5, Duration::from_secs(5), 25);
@@ -397,9 +431,43 @@ mod tests {
         }
         assert_eq!(entry.current_penalty(), 25, "Penalty must cap at 25");
 
-        // Simulated expiry using atomic nanoseconds offset
-        entry.penalty_expiry_nanos.store(1, Ordering::Relaxed);
+        // Extremely large duration (e.g. Duration::MAX) does not truncate and stays active
+        entry.apply_error_penalty(Code::Unavailable, 5, Duration::MAX, 25);
+        assert_eq!(
+            entry.current_penalty(),
+            25,
+            "Duration::MAX must not cause truncation and must keep penalty active"
+        );
+
+        // Simulated expiry using encoded expired timestamp
+        entry
+            .penalty_state
+            .store(ChannelEntry::encode_penalty_state(10, 1), Ordering::Relaxed);
         assert_eq!(entry.current_penalty(), 0, "Expired penalty must return 0");
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 4)]
+    async fn concurrent_error_penalty_updates_do_not_lose_increments() {
+        let channel = create_mock_channel();
+        let entry = Arc::new(ChannelEntry::new(1, 1, channel));
+
+        let mut handles = Vec::new();
+        for _ in 0..10 {
+            let entry_clone = Arc::clone(&entry);
+            handles.push(tokio::spawn(async move {
+                entry_clone.apply_error_penalty(Code::Unavailable, 1, Duration::from_secs(60), 100);
+            }));
+        }
+
+        for handle in handles {
+            handle.await.expect("task completed successfully");
+        }
+
+        assert_eq!(
+            entry.current_penalty(),
+            10,
+            "All 10 concurrent penalty increments must be recorded atomically"
+        );
     }
 
     #[test]
@@ -464,5 +532,154 @@ mod tests {
             0,
             "Active R/W count must decrement on guard drop"
         );
+    }
+
+    #[test]
+    fn channel_entry_lifecycle_and_activity_tracking() {
+        let channel = create_mock_channel();
+        let entry = ChannelEntry::new(10, 2, channel);
+
+        assert_eq!(entry.id, 10, "id must match constructor arg");
+        assert_eq!(
+            entry.logical_channel_id, 2,
+            "logical_channel_id must match constructor arg"
+        );
+        assert!(entry.is_active(), "New channel entry must start Active");
+        assert!(
+            !entry.is_draining(),
+            "New channel entry must not be Draining"
+        );
+        assert!(!entry.is_closed(), "New channel entry must not be Closed");
+        assert_eq!(
+            entry.state(),
+            ChannelState::Active,
+            "entry must be in Active state"
+        );
+
+        entry.set_state(ChannelState::Draining);
+        assert!(
+            !entry.is_active(),
+            "Entry must not be Active after set_state(Draining)"
+        );
+        assert!(
+            entry.is_draining(),
+            "Entry must be Draining after set_state(Draining)"
+        );
+        assert!(
+            !entry.is_closed(),
+            "Entry must not be Closed after set_state(Draining)"
+        );
+        assert_eq!(
+            entry.state(),
+            ChannelState::Draining,
+            "entry must be in Draining state"
+        );
+
+        entry.set_state(ChannelState::Closed);
+        assert!(
+            !entry.is_active(),
+            "Entry must not be Active after set_state(Closed)"
+        );
+        assert!(
+            !entry.is_draining(),
+            "Entry must not be Draining after set_state(Closed)"
+        );
+        assert!(
+            entry.is_closed(),
+            "Entry must be Closed after set_state(Closed)"
+        );
+        assert_eq!(
+            entry.state(),
+            ChannelState::Closed,
+            "entry must be in Closed state"
+        );
+
+        // Activity timestamps
+        let initial_activity = entry.last_activity_nanos();
+        assert_eq!(initial_activity, 0, "Initial last_activity_nanos must be 0");
+
+        entry.touch_activity();
+        let updated_activity = entry.last_activity_nanos();
+        assert!(
+            updated_activity > 0,
+            "touch_activity() must set last_activity_nanos > 0"
+        );
+        let elapsed = entry.elapsed_since_activity();
+        assert!(
+            elapsed <= Duration::from_secs(1),
+            "Elapsed since recent activity must be very small"
+        );
+
+        // Effective pick load combines in_flight + penalty
+        assert_eq!(
+            entry.effective_pick_load(),
+            0,
+            "Effective load with 0 in-flight and 0 penalty must be 0"
+        );
+        entry.in_flight_rpcs.store(3, Ordering::Relaxed);
+        assert_eq!(
+            entry.effective_pick_load(),
+            3,
+            "Effective load with 3 in-flight and 0 penalty must be 3"
+        );
+        entry.apply_error_penalty(Code::Unavailable, 5, Duration::from_secs(5), 25);
+        assert_eq!(
+            entry.effective_pick_load(),
+            8,
+            "Effective load with 3 in-flight and 5 penalty must be 8"
+        );
+    }
+
+    #[test]
+    fn active_rpc_guard_record_variations() {
+        let channel = create_mock_channel();
+        let entry = Arc::new(ChannelEntry::new(1, 1, channel));
+        let guard = ActiveRpcGuard::new(Arc::clone(&entry), 5, Duration::from_secs(5), 25);
+
+        // Record Ok result -> no penalty
+        let ok_result: Result<&str, Status> = Ok("success");
+        guard.record_result(&ok_result, |status| Some(status.code));
+        assert_eq!(
+            entry.current_penalty(),
+            0,
+            "Ok result must not apply error penalty"
+        );
+
+        // Record Err where extractor returns None -> no penalty
+        let custom_err: Result<(), &str> = Err("custom error");
+        guard.record_result(&custom_err, |_| None);
+        assert_eq!(
+            entry.current_penalty(),
+            0,
+            "Error with None extracted Code must not apply error penalty"
+        );
+
+        // Record direct error code
+        guard.record_error_code(Code::ResourceExhausted);
+        assert_eq!(
+            entry.current_penalty(),
+            5,
+            "record_error_code(ResourceExhausted) must apply error penalty of 5"
+        );
+    }
+
+    #[test]
+    fn channel_lease_accessors() {
+        let channel = create_mock_channel();
+        let entry = Arc::new(ChannelEntry::new(42, 3, channel));
+        let guard = ActiveRpcGuard::new(entry, 0, Duration::ZERO, 0);
+        let lease = ChannelLease::new(guard);
+
+        assert_eq!(
+            lease.entry_id(),
+            42,
+            "entry_id() must return entry's internal id 42"
+        );
+        assert_eq!(
+            lease.logical_channel_id(),
+            3,
+            "logical_channel_id() must return entry's logical id 3"
+        );
+        let _channel = lease.channel();
     }
 }
