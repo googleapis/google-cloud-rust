@@ -13,7 +13,6 @@
 // limitations under the License.
 
 use crate::writes::{WriteUserRecord, read_writes_table};
-use google_cloud_bigquery::write::arrow::CommittedWriter;
 use ::arrow::array::{Int64Array, StringArray};
 use ::arrow::datatypes::{DataType, Field, Schema};
 use ::arrow::ipc::writer::StreamWriter;
@@ -21,6 +20,7 @@ use ::arrow::record_batch::RecordBatch;
 use anyhow::Result;
 use google_cloud_bigquery::client::Write;
 use google_cloud_bigquery::model::{ArrowRecordBatch, ArrowSchema};
+use google_cloud_bigquery::write::arrow::CommittedWriter;
 use std::sync::Arc;
 
 pub async fn basic(

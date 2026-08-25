@@ -257,12 +257,13 @@ fn validate_stream(stream: &str) -> Result<()> {
 mod tests {
     use super::super::super::transport::tests::test_transport;
     use super::*;
+    use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
+    use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use test_case::test_case;
+    use tokio::task::JoinHandle;
 
     #[tokio::test]
     async fn pending_success() -> anyhow::Result<()> {
-        use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
-        use bigquery_grpc_mock::{MockBigQueryWrite, start};
         let mut mock = MockBigQueryWrite::new();
         mock.expect_create_write_stream().return_once(|req| {
             let req = req.into_inner();
@@ -305,8 +306,6 @@ mod tests {
 
     #[tokio::test]
     async fn committed_success() -> anyhow::Result<()> {
-        use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
-        use bigquery_grpc_mock::{MockBigQueryWrite, start};
         let mut mock = MockBigQueryWrite::new();
         mock.expect_create_write_stream().return_once(|req| {
             let req = req.into_inner();
@@ -380,8 +379,6 @@ mod tests {
     }
     #[tokio::test]
     async fn buffered_success() -> anyhow::Result<()> {
-        use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
-        use bigquery_grpc_mock::{MockBigQueryWrite, start};
         let mut mock = MockBigQueryWrite::new();
         mock.expect_create_write_stream().return_once(|req| {
             let req = req.into_inner();
@@ -422,42 +419,69 @@ mod tests {
         Ok(())
     }
 
-    macro_rules! test_attach_success {
-        ($name:ident, $writer_type:ident, $stream_type:expr) => {
-            #[tokio::test]
-            async fn $name() -> anyhow::Result<()> {
-                use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
-                use bigquery_grpc_mock::{MockBigQueryWrite, start};
-                let mut mock = MockBigQueryWrite::new();
-                mock.expect_get_write_stream().return_once(|req| {
-                    let req = req.into_inner();
-                    assert_eq!(req.name, "projects/p/datasets/d/tables/t/streams/s");
-                    Ok(gaxi::grpc::tonic::Response::new(MockWriteStream {
-                        name: "projects/p/datasets/d/tables/t/streams/s".to_string(),
-                        r#type: $stream_type,
-                        ..Default::default()
-                    }))
-                });
-                let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-                let transport = Arc::new(test_transport(endpoint).await?);
-                let schema = ArrowSchema::new().set_serialized_schema("test");
-                let builder = WriterBuilder::new(transport, schema.clone());
-                let writer: $writer_type = builder
-                    .attach("projects/p/datasets/d/tables/t/streams/s")
-                    .await?;
-                assert_eq!(
-                    writer.inner.write_stream,
-                    "projects/p/datasets/d/tables/t/streams/s"
-                );
-                assert_eq!(writer.inner.schema, schema);
-                Ok(())
-            }
-        };
+    async fn attach_mock(stream_type: Type) -> anyhow::Result<(Arc<Transport>, JoinHandle<()>)> {
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_get_write_stream().return_once(move |req| {
+            let req = req.into_inner();
+            assert_eq!(req.name, "projects/p/datasets/d/tables/t/streams/s");
+            Ok(gaxi::grpc::tonic::Response::new(MockWriteStream {
+                name: "projects/p/datasets/d/tables/t/streams/s".to_string(),
+                r#type: stream_type.value().expect("known enum value"),
+                ..Default::default()
+            }))
+        });
+        let (endpoint, server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+        Ok((transport, server))
     }
 
-    test_attach_success!(attach_committed_success, CommittedWriter, 1);
-    test_attach_success!(attach_pending_success, PendingWriter, 2);
-    test_attach_success!(attach_buffered_success, BufferedWriter, 3);
+    #[tokio::test]
+    async fn attach_committed_success() -> anyhow::Result<()> {
+        let (transport, _server) = attach_mock(Type::Committed).await?;
+        let schema = ArrowSchema::new().set_serialized_schema("test");
+        let builder = WriterBuilder::new(transport, schema.clone());
+        let writer: CommittedWriter = builder
+            .attach("projects/p/datasets/d/tables/t/streams/s")
+            .await?;
+        assert_eq!(
+            writer.inner.write_stream,
+            "projects/p/datasets/d/tables/t/streams/s"
+        );
+        assert_eq!(writer.inner.schema, schema);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn attach_pending_success() -> anyhow::Result<()> {
+        let (transport, _server) = attach_mock(Type::Pending).await?;
+        let schema = ArrowSchema::new().set_serialized_schema("test");
+        let builder = WriterBuilder::new(transport, schema.clone());
+        let writer: PendingWriter = builder
+            .attach("projects/p/datasets/d/tables/t/streams/s")
+            .await?;
+        assert_eq!(
+            writer.inner.write_stream,
+            "projects/p/datasets/d/tables/t/streams/s"
+        );
+        assert_eq!(writer.inner.schema, schema);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn attach_buffered_success() -> anyhow::Result<()> {
+        let (transport, _server) = attach_mock(Type::Buffered).await?;
+        let schema = ArrowSchema::new().set_serialized_schema("test");
+        let builder = WriterBuilder::new(transport, schema.clone());
+        let writer: BufferedWriter = builder
+            .attach("projects/p/datasets/d/tables/t/streams/s")
+            .await?;
+        assert_eq!(
+            writer.inner.write_stream,
+            "projects/p/datasets/d/tables/t/streams/s"
+        );
+        assert_eq!(writer.inner.schema, schema);
+        Ok(())
+    }
 
     #[test_case("projects/p")]
     #[test_case("projects/p/tables/t")]
@@ -478,28 +502,14 @@ mod tests {
 
     #[tokio::test]
     async fn attach_stream_type_mismatch() -> anyhow::Result<()> {
-        use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
-        use bigquery_grpc_mock::{MockBigQueryWrite, start};
-        let mut mock = MockBigQueryWrite::new();
-        mock.expect_get_write_stream().return_once(|req| {
-            let req = req.into_inner();
-            assert_eq!(req.name, "projects/p/datasets/d/tables/t/streams/s");
-            // Return buffered type (3) when they requested a CommittedWriter (1)
-            Ok(gaxi::grpc::tonic::Response::new(MockWriteStream {
-                name: "projects/p/datasets/d/tables/t/streams/s".to_string(),
-                r#type: 3,
-                ..Default::default()
-            }))
-        });
-        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-        let transport = Arc::new(test_transport(endpoint).await?);
+        let (transport, _server) = attach_mock(Type::Buffered).await?;
         let schema = ArrowSchema::new().set_serialized_schema("test");
         let builder = WriterBuilder::new(transport, schema.clone());
         let err = builder
             .attach::<CommittedWriter>("projects/p/datasets/d/tables/t/streams/s")
             .await
             .expect_err("should return type mismatch error");
-        assert!(err.is_io(), "{err:?}");
+        assert!(err.status().is_some(), "{err:?}");
         assert!(err.to_string().contains("stream type mismatch"));
         Ok(())
     }
