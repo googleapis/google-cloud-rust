@@ -223,7 +223,7 @@ where
         // append the on-the-fly hash via Part 3 trailing metadata.
         let form =
             if self.options.checksum.crc32c.is_some() || self.options.checksum.md5_hash.is_some() {
-                let checksums = self.trailing_checksums_to_body().await?;
+                let checksums = self.trailing_checksums_to_body()?;
                 let part = multipart::Part::stream(checksums)
                     .mime_str("application/json; charset=UTF-8")
                     .map_err(Error::ser)?;
@@ -254,7 +254,7 @@ where
         Ok(Body::wrap_stream(stream))
     }
 
-    async fn trailing_checksums_to_body(&self) -> Result<Body> {
+    fn trailing_checksums_to_body(&self) -> Result<Body> {
         let payload = self.payload.clone();
         let stream = Box::pin(unfold(Some(payload), move |state| async move {
             if let Some(payload) = state {
