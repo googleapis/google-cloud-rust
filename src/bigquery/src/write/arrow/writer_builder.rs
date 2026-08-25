@@ -21,7 +21,6 @@ use crate::{Error, Result};
 use gaxi::path_parameter::{PathMismatchBuilder, try_match};
 use gaxi::routing_parameter::Segment;
 use google_cloud_gax::error::binding::BindingError;
-use google_cloud_gax::error::rpc::{Code, Status};
 use std::sync::Arc;
 
 /// A builder to create a stream writer
@@ -186,7 +185,10 @@ impl WriterBuilder {
     ///     .attach::<CommittedWriter>("projects/my-project/datasets/my_dataset/tables/my_table/streams/stream_id")
     ///     .await?;
     /// ```
-    pub async fn attach<U: AttachableWriter>(self, write_stream: impl Into<String>) -> Result<U> {
+    pub async fn attach<U: AttachableWriter>(
+        self,
+        write_stream: impl Into<String>,
+    ) -> std::result::Result<U, crate::write::error::AttachError> {
         let write_stream = write_stream.into();
         validate_stream(write_stream.as_str())?;
 
@@ -197,19 +199,13 @@ impl WriterBuilder {
             .send()
             .await?;
 
-        if stream.r#type != U::STREAM_TYPE {
-            let msg = format!(
-                "stream type mismatch. expected {:?}, got {:?}",
-                U::STREAM_TYPE,
-                stream.r#type
-            );
-            return Err(Error::service(
-                Status::default()
-                    .set_code(Code::InvalidArgument)
-                    .set_message(msg),
-            ));
+        let stream_type = stream.r#type.clone();
+        if stream_type != U::STREAM_TYPE {
+            return Err(crate::write::error::AttachError::TypeMismatch {
+                expected: U::STREAM_TYPE,
+                actual: stream_type,
+            });
         }
-
         Ok(U::build(self.inner, write_stream, self.schema))
     }
 }
@@ -238,7 +234,7 @@ fn validate_table(table: &str) -> Result<()> {
         .map(|_| ())
 }
 
-fn validate_stream(stream: &str) -> Result<()> {
+fn validate_stream(stream: &str) -> std::result::Result<(), crate::write::error::AttachError> {
     let segments = &[
         Segment::Literal("projects/"),
         Segment::SingleWildcard,
@@ -250,17 +246,7 @@ fn validate_stream(stream: &str) -> Result<()> {
         Segment::SingleWildcard,
     ];
     try_match(Some(stream), segments)
-        .ok_or_else(|| {
-            let builder = PathMismatchBuilder::default().maybe_add(
-                Some(stream),
-                segments,
-                "write_stream",
-                "projects/*/datasets/*/tables/*/streams/*",
-            );
-            Error::binding(BindingError {
-                paths: vec![builder.build()],
-            })
-        })
+        .ok_or_else(|| crate::write::error::AttachError::InvalidStreamName(stream.to_string()))
         .map(|_| ())
 }
 
@@ -507,7 +493,10 @@ mod tests {
             .attach::<CommittedWriter>(stream)
             .await
             .expect_err("should fail locally on bad format");
-        assert!(err.is_binding(), "{err:?}");
+        assert!(matches!(
+            err,
+            crate::write::error::AttachError::InvalidStreamName(_)
+        ));
         Ok(())
     }
 
@@ -520,8 +509,11 @@ mod tests {
             .attach::<CommittedWriter>("projects/p/datasets/d/tables/t/streams/s")
             .await
             .expect_err("should return type mismatch error");
-        assert!(err.status().is_some(), "{err:?}");
-        assert!(err.to_string().contains("stream type mismatch"));
+        assert!(matches!(
+            err,
+            crate::write::error::AttachError::TypeMismatch { .. }
+        ));
+        assert!(err.to_string().contains("stream type mismatch: requested"));
         Ok(())
     }
 }
