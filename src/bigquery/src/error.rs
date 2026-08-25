@@ -23,6 +23,10 @@ pub enum QueryError {
     #[error("only query jobs are supported")]
     UnsupportedJobType,
 
+    /// Dry run queries cannot be converted to a complete query.
+    #[error("cannot convert dry run query to complete query")]
+    DryRun,
+
     /// The query job failed on the BigQuery service side.
     /// Includes the list of error protocols returned by the service.
     #[error("query job failed: {errors:?}")]
@@ -121,6 +125,15 @@ pub use crate::write::error::AppendError;
 mod tests {
     use super::*;
     use google_cloud_gax::error::rpc::{Code, Status};
+
+    #[test]
+    fn test_dry_run_display() {
+        let err = QueryError::DryRun;
+        assert_eq!(
+            err.to_string(),
+            "cannot convert dry run query to complete query"
+        );
+    }
 
     #[test]
     fn test_job_failed_display() {

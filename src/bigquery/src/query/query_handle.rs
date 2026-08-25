@@ -156,6 +156,14 @@ impl Query {
         build_get_job(&self.job_service, self.metadata.job_reference.as_ref()?)
     }
 
+    pub(crate) fn is_dry_run(&self) -> bool {
+        self.metadata
+            .configuration
+            .as_ref()
+            .and_then(|c| c.dry_run)
+            .unwrap_or(false)
+    }
+
     /// Waits for query execution to complete.
     ///
     /// If the query completed immediately, this method returns a
@@ -163,6 +171,8 @@ impl Query {
     /// network calls. Otherwise, it polls the service until the query finishes.
     ///
     /// # Errors
+    ///
+    /// Returns [`QueryError::DryRun`] if the query was configured as a dry run.
     ///
     /// Returns an error if a remote service or network failure happens during
     /// polling, or if the BigQuery job fails due to runtime execution errors.
@@ -182,6 +192,10 @@ impl Query {
     /// # }
     /// ```
     pub async fn until_done(mut self) -> Result<CompleteQuery> {
+        if self.is_dry_run() {
+            return Err(QueryError::DryRun);
+        }
+
         loop {
             let Query {
                 job_service,
@@ -487,8 +501,8 @@ mod tests {
     use crate::query::retry_policy::RetryableJobErrors;
     use crate::query::tests::{MockJobService, create_job_service, create_test_backoff_policy};
     use google_cloud_bigquery_v2::model::{
-        ErrorProto, GetQueryResultsResponse, Job, JobReference, QueryResponse, TableFieldSchema,
-        TableSchema,
+        ErrorProto, GetQueryResultsResponse, Job, JobConfiguration, JobReference, QueryResponse,
+        TableFieldSchema, TableSchema,
     };
     use google_cloud_gax::error::Error as GaxError;
     use google_cloud_gax::error::rpc::{Code, Status};
@@ -966,6 +980,25 @@ mod tests {
         let req = complete_query.get_job().unwrap();
         let err = req.send().await.unwrap_err();
         assert_eq!(err.status().unwrap().code, Code::NotFound);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_query_until_done_dry_run_job_returns_error() -> TestResult {
+        let job_service = create_job_service(MockJobService::new());
+        let job_ref = JobReference::new()
+            .set_project_id("some_project")
+            .set_location("US");
+        let job = Job::new()
+            .set_job_reference(job_ref)
+            .set_configuration(JobConfiguration::new().set_dry_run(true));
+
+        let query = Query::from_job(job_service, job, None, None);
+        let err = query.until_done().await.unwrap_err();
+        assert!(
+            matches!(err, QueryError::DryRun),
+            "expected DryRun error, got {err:?}"
+        );
         Ok(())
     }
 }
