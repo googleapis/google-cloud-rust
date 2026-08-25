@@ -217,20 +217,34 @@ where
 
         // Multipart part 3: Trailing checksums metadata
         // `self.options.checksum` tracks checksum state for on-the-fly streaming calculation.
-        // When known hashes are provided or `precompute_checksums()` is called, `self.options.checksum`
-        // is deactivated while the checksum is stored separately in `self.resource().checksums`.
-        // Hence, an active `self.options.checksum` indicates no upfront checksum exists, so we
-        // append the on-the-fly hash via Part 3 trailing metadata.
-        let form =
-            if self.options.checksum.crc32c.is_some() || self.options.checksum.md5_hash.is_some() {
-                let checksums = self.trailing_checksums_to_body()?;
-                let part = multipart::Part::stream(checksums)
-                    .mime_str("application/json; charset=UTF-8")
-                    .map_err(Error::ser)?;
-                form.part("checksums", part)
-            } else {
-                form
-            };
+        // If a checksum was already provided upfront or precomputed into `self.resource().checksums`
+        // (including when delegated from buffered single-shot uploads), it is serialized in Part 1.
+        // We only append Part 3 trailing metadata for hashes that are computed on the fly.
+        let needs_trailing_crc32c = self.options.checksum.crc32c.is_some()
+            && self
+                .resource()
+                .checksums
+                .as_ref()
+                .and_then(|c| c.crc32c)
+                .is_none();
+
+        let needs_trailing_md5 = self.options.checksum.md5_hash.is_some()
+            && self
+                .resource()
+                .checksums
+                .as_ref()
+                .map(|c| c.md5_hash.is_empty())
+                .unwrap_or(true);
+
+        let form = if needs_trailing_crc32c || needs_trailing_md5 {
+            let checksums = self.trailing_checksums_to_body()?;
+            let part = multipart::Part::stream(checksums)
+                .mime_str("application/json; charset=UTF-8")
+                .map_err(Error::ser)?;
+            form.part("checksums", part)
+        } else {
+            form
+        };
 
         let builder = builder.header(
             "content-type",
