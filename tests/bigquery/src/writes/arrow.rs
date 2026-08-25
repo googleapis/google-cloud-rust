@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::writes::{WriteUserRecord, read_writes_table};
+use google_cloud_bigquery::write::arrow::CommittedWriter;
 use ::arrow::array::{Int64Array, StringArray};
 use ::arrow::datatypes::{DataType, Field, Schema};
 use ::arrow::ipc::writer::StreamWriter;
@@ -371,7 +372,6 @@ pub async fn attach(
     let _ = writer.append(batch1).send().await?;
 
     // Drop the first writer and launch a completely separate attached instance connecting back to the identical resource string via our new builder path
-    use google_cloud_bigquery::write::arrow::CommittedWriter;
     let attached_writer: CommittedWriter = client
         .arrow(ArrowSchema::new().set_serialized_schema(serialize_schema(&schema)?))
         .attach(&stream_name)
