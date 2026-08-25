@@ -141222,6 +141222,13 @@ pub mod tool {
         /// See <https://docs.parallel.ai/search/search-quickstart> for more details.
         pub api_key: std::string::String,
 
+        /// Optional. Instructs Vertex Grounding to use Parallel's Zero Data
+        /// Retention Marketplace product. If this value is "false" or omitted, the
+        /// Parallel Web Search for Grounding standard subscription will be used. If
+        /// this value is "true", the Parallel Web Search for Grounding - ZDR
+        /// subscription will be used.
+        pub enable_zero_data_retention: bool,
+
         /// Optional. Custom configs for ParallelAiSearch.
         /// This field can be used to pass any parameter from the Parallel.ai
         /// Search API.
@@ -141265,6 +141272,18 @@ pub mod tool {
         /// ```
         pub fn set_api_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.api_key = v.into();
+            self
+        }
+
+        /// Sets the value of [enable_zero_data_retention][crate::model::tool::ParallelAiSearch::enable_zero_data_retention].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1::model::tool::ParallelAiSearch;
+        /// let x = ParallelAiSearch::new().set_enable_zero_data_retention(true);
+        /// ```
+        pub fn set_enable_zero_data_retention<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.enable_zero_data_retention = v.into();
             self
         }
 

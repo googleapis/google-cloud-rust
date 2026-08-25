@@ -91,8 +91,8 @@ pub struct Deployment {
     /// Format: `gs://{bucket}/{object}`.
     pub error_logs: std::string::String,
 
-    /// Optional. User-defined location of Cloud Build logs and artifacts in Google
-    /// Cloud Storage. Format: `gs://{bucket}/{folder}`
+    /// User-defined location of Cloud Build logs and artifacts in Google Cloud
+    /// Storage. Format: `gs://{bucket}/{folder}`
     ///
     /// A default bucket will be bootstrapped if the field is not set or empty.
     /// Default bucket format: `gs://<project number>-<region>-blueprint-config`
@@ -117,8 +117,8 @@ pub struct Deployment {
     /// Not all resource types are supported, refer to documentation.
     pub import_existing_resources: std::option::Option<bool>,
 
-    /// Optional. The user-specified Cloud Build worker pool resource in which the
-    /// Cloud Build job will execute. Format:
+    /// The user-specified Cloud Build worker pool resource in which the Cloud
+    /// Build job will execute. Format:
     /// `projects/{project}/locations/{location}/workerPools/{workerPoolId}`.
     /// If this field is unspecified, the default Cloud Build worker pool will be
     /// used.
@@ -127,7 +127,7 @@ pub struct Deployment {
     /// Output only. Current lock state of the deployment.
     pub lock_state: crate::model::deployment::LockState,
 
-    /// Optional. The user-specified Terraform version constraint.
+    /// The user-specified Terraform version constraint.
     /// Example: "=1.3.10".
     pub tf_version_constraint: std::option::Option<std::string::String>,
 
@@ -4793,15 +4793,15 @@ impl wkt::message::Message for TerraformError {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GitSource {
-    /// Optional. Repository URL.
+    /// Repository URL.
     /// Example: '<https://github.com/kubernetes/examples.git>'
     pub repo: std::option::Option<std::string::String>,
 
-    /// Optional. Subdirectory inside the repository.
+    /// Subdirectory inside the repository.
     /// Example: 'staging/my-package'
     pub directory: std::option::Option<std::string::String>,
 
-    /// Optional. Git reference (e.g. branch or tag).
+    /// Git reference (e.g. branch or tag).
     pub r#ref: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4930,6 +4930,9 @@ pub struct DeploymentOperationMetadata {
     /// `gs://{bucket}/{object}` format.
     pub logs: std::string::String,
 
+    /// Output only. Indicating if early apply results are available.
+    pub apply_results_available: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5013,6 +5016,18 @@ impl DeploymentOperationMetadata {
     /// ```
     pub fn set_logs<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.logs = v.into();
+        self
+    }
+
+    /// Sets the value of [apply_results_available][crate::model::DeploymentOperationMetadata::apply_results_available].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentOperationMetadata;
+    /// let x = DeploymentOperationMetadata::new().set_apply_results_available(true);
+    /// ```
+    pub fn set_apply_results_available<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.apply_results_available = v.into();
         self
     }
 }
@@ -6593,10 +6608,10 @@ pub struct Preview {
     /// Output only. Current state of the preview.
     pub state: crate::model::preview::State,
 
-    /// Optional. Optional deployment reference. If specified, the preview will be
-    /// performed using the provided deployment's current state and use any
-    /// relevant fields from the deployment unless explicitly specified in the
-    /// preview create request.
+    /// Optional. Deployment reference. If specified, the preview will be performed
+    /// using the provided deployment's current state and use any relevant fields
+    /// from the deployment unless explicitly specified in the preview create
+    /// request.
     pub deployment: std::string::String,
 
     /// Optional. Current mode of preview.
@@ -6607,7 +6622,7 @@ pub struct Preview {
     /// Format: `projects/{projectID}/serviceAccounts/{serviceAccount}`
     pub service_account: std::string::String,
 
-    /// Optional. User-defined location of Cloud Build logs, artifacts, and
+    /// User-defined location of Cloud Build logs, artifacts, and
     /// in Google Cloud Storage.
     /// Format: `gs://{bucket}/{folder}`
     /// A default bucket will be bootstrapped if the field is not set or empty
@@ -6620,12 +6635,12 @@ pub struct Preview {
     ///   defined, that artifact bucket is used.
     pub artifacts_gcs_bucket: std::option::Option<std::string::String>,
 
-    /// Optional. The user-specified Worker Pool resource in which the Cloud Build
-    /// job will execute. Format
-    /// projects/{project}/locations/{location}/workerPools/{workerPoolId} If this
-    /// field is unspecified, the default Cloud Build worker pool will be used. If
-    /// omitted and deployment resource ref provided has worker_pool defined, that
-    /// worker pool is used.
+    /// The user-specified Worker Pool resource in which the Cloud Build job will
+    /// execute.
+    /// Format projects/{project}/locations/{location}/workerPools/{workerPoolId}
+    /// If this field is unspecified, the default Cloud Build worker pool will be
+    /// used. If omitted and deployment resource ref provided has worker_pool
+    /// defined, that worker pool is used.
     pub worker_pool: std::option::Option<std::string::String>,
 
     /// Output only. Code describing any errors that may have occurred.
@@ -6656,7 +6671,7 @@ pub struct Preview {
     /// It is in the format of "Major.Minor.Patch", for example, "1.3.10".
     pub tf_version: std::string::String,
 
-    /// Optional. The user-specified Terraform version constraint.
+    /// The user-specified Terraform version constraint.
     /// Example: "=1.3.10".
     pub tf_version_constraint: std::option::Option<std::string::String>,
 

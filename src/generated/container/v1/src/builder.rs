@@ -1021,6 +1021,24 @@ pub mod cluster_manager {
             self.0.request.taint_config = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [maintenance_policy][crate::model::UpdateNodePoolRequest::maintenance_policy].
+        pub fn set_maintenance_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::node_pool::NodePoolMaintenancePolicy>,
+        {
+            self.0.request.maintenance_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [maintenance_policy][crate::model::UpdateNodePoolRequest::maintenance_policy].
+        pub fn set_or_clear_maintenance_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::node_pool::NodePoolMaintenancePolicy>,
+        {
+            self.0.request.maintenance_policy = v.map(|x| x.into());
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -3808,6 +3826,79 @@ pub mod cluster_manager {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for FetchNodePoolUpgradeInfo {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [ClusterManager::complete_control_plane_upgrade][crate::client::ClusterManager::complete_control_plane_upgrade] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::CompleteControlPlaneUpgrade;
+    /// # async fn sample() -> google_cloud_container_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CompleteControlPlaneUpgrade {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CompleteControlPlaneUpgrade(
+        RequestBuilder<crate::model::CompleteControlPlaneUpgradeRequest>,
+    );
+
+    impl CompleteControlPlaneUpgrade {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CompleteControlPlaneUpgradeRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .complete_control_plane_upgrade(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::CompleteControlPlaneUpgradeRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [version][crate::model::CompleteControlPlaneUpgradeRequest::version].
+        pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.version = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CompleteControlPlaneUpgrade {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

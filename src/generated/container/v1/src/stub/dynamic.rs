@@ -232,6 +232,12 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         req: crate::model::FetchNodePoolUpgradeInfoRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::NodePoolUpgradeInfo>>;
+
+    async fn complete_control_plane_upgrade(
+        &self,
+        req: crate::model::CompleteControlPlaneUpgradeRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
 }
 
 /// All implementations of [super::ClusterManager] also implement [ClusterManager].
@@ -559,5 +565,14 @@ impl<T: super::ClusterManager> ClusterManager for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::NodePoolUpgradeInfo>> {
         T::fetch_node_pool_upgrade_info(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn complete_control_plane_upgrade(
+        &self,
+        req: crate::model::CompleteControlPlaneUpgradeRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::complete_control_plane_upgrade(self, req, options).await
     }
 }

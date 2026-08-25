@@ -3967,6 +3967,7 @@ impl<'de> serde::de::Deserialize<'de> for super::StreamAssistRequest {
             __query,
             __session,
             __user_metadata,
+            __agents_spec,
             __tools_spec,
             __generation_spec,
             Unknown(std::string::String),
@@ -3994,6 +3995,8 @@ impl<'de> serde::de::Deserialize<'de> for super::StreamAssistRequest {
                             "session" => Ok(__FieldTag::__session),
                             "userMetadata" => Ok(__FieldTag::__user_metadata),
                             "user_metadata" => Ok(__FieldTag::__user_metadata),
+                            "agentsSpec" => Ok(__FieldTag::__agents_spec),
+                            "agents_spec" => Ok(__FieldTag::__agents_spec),
                             "toolsSpec" => Ok(__FieldTag::__tools_spec),
                             "tools_spec" => Ok(__FieldTag::__tools_spec),
                             "generationSpec" => Ok(__FieldTag::__generation_spec),
@@ -4061,6 +4064,16 @@ impl<'de> serde::de::Deserialize<'de> for super::StreamAssistRequest {
                             result.user_metadata = map.next_value::<std::option::Option<crate::model::AssistUserMetadata>>()?
                                 ;
                         }
+                        __FieldTag::__agents_spec => {
+                            if !fields.insert(__FieldTag::__agents_spec) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for agents_spec",
+                                ));
+                            }
+                            result.agents_spec = map.next_value::<std::option::Option<
+                                crate::model::stream_assist_request::AgentsSpec,
+                            >>()?;
+                        }
                         __FieldTag::__tools_spec => {
                             if !fields.insert(__FieldTag::__tools_spec) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -4080,6 +4093,174 @@ impl<'de> serde::de::Deserialize<'de> for super::StreamAssistRequest {
                             result.generation_spec = map.next_value::<std::option::Option<
                                 crate::model::stream_assist_request::GenerationSpec,
                             >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(feature = "assistant-service")]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::stream_assist_request::AgentsSpec {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __agent_specs,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AgentsSpec")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "agentSpecs" => Ok(__FieldTag::__agent_specs),
+                            "agent_specs" => Ok(__FieldTag::__agent_specs),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::stream_assist_request::AgentsSpec;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AgentsSpec")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__agent_specs => {
+                            if !fields.insert(__FieldTag::__agent_specs) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for agent_specs",
+                                ));
+                            }
+                            result.agent_specs = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<
+                                        crate::model::stream_assist_request::agents_spec::AgentSpec,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(feature = "assistant-service")]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::stream_assist_request::agents_spec::AgentSpec {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __agent_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AgentSpec")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "agentId" => Ok(__FieldTag::__agent_id),
+                            "agent_id" => Ok(__FieldTag::__agent_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::stream_assist_request::agents_spec::AgentSpec;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AgentSpec")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__agent_id => {
+                            if !fields.insert(__FieldTag::__agent_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for agent_id",
+                                ));
+                            }
+                            result.agent_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
