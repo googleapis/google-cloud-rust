@@ -369,16 +369,17 @@ pub async fn attach(
         vec![80, 81],
         "attach",
     )?;
-    let _ = writer.append(batch1).send().await?;
+    let _ = writer.append(batch1).set_offset(0).send().await?;
 
-    // Drop the first writer and launch a completely separate attached instance connecting back to the identical resource string via our new builder path
+    // Drop the first writer and launch a completely separate attached instance
+    // connecting back to the identical resource string via our new builder path.
     let attached_writer: CommittedWriter = client
         .arrow(ArrowSchema::new().set_serialized_schema(serialize_schema(&schema)?))
         .attach(&stream_name)
         .await?;
 
     let batch2 = create_test_batch(schema.clone(), vec!["Attached3"], vec![82], "attach")?;
-    let _ = attached_writer.append(batch2).send().await?;
+    let _ = attached_writer.append(batch2).set_offset(2).send().await?;
 
     // Verify the writes are logically seamless across the boundary
     let users = read_writes_table(project_id, dataset_id, table_id, "attach").await?;
