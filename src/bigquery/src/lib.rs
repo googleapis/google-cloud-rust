@@ -90,7 +90,8 @@
 //! # Example: Writing to BigQuery
 //!
 //! ```
-//! # use google_cloud_bigquery::client::Write;
+//! use google_cloud_bigquery::client::Write;
+//! use google_cloud_bigquery::model::{ArrowSchema, ArrowRecordBatch};
 //! # async fn sample() -> anyhow::Result<()> {
 //! let client = Write::builder().build().await?;
 //! let writer = client
@@ -103,7 +104,7 @@
 //! let _ = f1.await?;
 //! let _ = f2.await?;
 //! # Ok(()) }
-//! use google_cloud_bigquery::model::{ArrowSchema, ArrowRecordBatch};
+//!
 //! fn schema() -> ArrowSchema {
 //!     todo!("Define your table's schema...")
 //! }
