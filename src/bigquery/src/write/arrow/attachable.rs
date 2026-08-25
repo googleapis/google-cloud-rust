@@ -28,10 +28,10 @@ mod sealed {
 
 /// A trait for strongly-typed stream writers that can be attached to an existing stream.
 pub trait AttachableWriter: sealed::Sealed + Sized {
-    #[doc(hidden)]
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     const STREAM_TYPE: Type;
 
-    #[doc(hidden)]
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self;
 }
 
