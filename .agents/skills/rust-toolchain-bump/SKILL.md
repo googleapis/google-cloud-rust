@@ -38,19 +38,39 @@ The script will:
 
 ______________________________________________________________________
 
-## Step 2: Handle Diagnostics & Tooling Issues
+## Step 2: Handle Diagnostics & Generated Code Changes
 
-- **If `check-rust-toolchain.sh` exits successfully:** Proceed directly to Step
-  3\.
-- **If clippy fails on remaining warnings in handwritten crates (`src/auth`,
-  `src/gax`, `src/storage`, etc.):** Fix code diagnostics directly in the
-  working branch, then re-run `./scripts/check-rust-toolchain.sh` until clean.
-- **If clippy fails in generated code (`src/generated/` or
-  `src/**/generated/`):** Do NOT edit generated files manually. Stop and file an
-  issue/PR to update generator templates in `librarian` first.
-- **If semver-checks fails with `unsupported rustdoc format vXX`:** Bump
-  `cargo-semver-checks` to the latest version in both
-  `.gcb/scripts/semver-checks.sh` and `librarian.yaml`, then re-run.
+Check `git status` to inspect any changes made by automatic clippy fixes:
+
+- **If `check-rust-toolchain.sh` exits successfully and ONLY handwritten crates
+  (`src/auth`, `src/gax`, `src/storage`, etc.) were modified:**
+
+  - Proceed directly to Step 3. These fixes will be included in the toolchain
+    upgrade PR.
+
+- **[CRITICAL] If `cargo clippy --fix` modified generated code (`src/generated/`
+  or `src/**/generated/`):**
+
+  - **Do NOT manually commit edits to generated files.**
+  - Discard edits in generated directories:
+    ```bash
+    git checkout -- src/generated/ 'src/**/generated/'
+    ```
+  - **A separate PR is required first:** File an issue / PR in
+    `googleapis/librarian` to update the generator templates.
+  - Once the generator is updated and librarian regenerates the code in
+    `google-cloud-rust`, resume the toolchain upgrade.
+
+- **If `check-rust-toolchain.sh` fails on remaining warnings:**
+
+  - In handwritten crates: Fix code diagnostics directly in the working branch,
+    then re-run `./scripts/check-rust-toolchain.sh` until clean.
+  - In generated code: Stop and report the issue on `librarian`.
+
+- **If semver-checks fails with `unsupported rustdoc format vXX`:**
+
+  - Bump `cargo-semver-checks` to the latest version in both
+    `.gcb/scripts/semver-checks.sh` and `librarian.yaml`, then re-run.
 
 ______________________________________________________________________
 

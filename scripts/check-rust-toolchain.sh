@@ -43,6 +43,13 @@ echo ""
 echo "==== 2. Applying Automatic Clippy Fixes ===="
 cargo clippy --fix --allow-dirty --allow-staged --all-features --all-targets --profile=test --workspace || true
 
+# Check if automatic fixes modified generated code
+if git status --porcelain | grep -E '(^|\s)src/([^/]+/)?generated/'; then
+  echo ""
+  echo "WARNING: Automatic clippy fixes modified generated code in src/**/generated/." >&2
+  echo "Generated code cannot be edited manually. A separate PR to googleapis/librarian is required first." >&2
+fi
+
 echo ""
 echo "==== 3. Running Strict Workspace Clippy ===="
 cargo clippy --all-features --all-targets --profile=test --workspace -- --deny warnings
