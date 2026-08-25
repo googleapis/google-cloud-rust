@@ -58,7 +58,7 @@ pub fn to_gax_error(status: tonic::Status) -> Error {
 /// An error representing a failure to establish a connection to the gRPC endpoint.
 #[derive(Debug, thiserror::Error)]
 #[error("grpc connection error: {0}")]
-pub(crate) struct ConnectError(pub(crate) String);
+pub(crate) struct ConnectError(#[source] pub(crate) tonic::Status);
 
 #[derive(Debug, thiserror::Error)]
 enum GrpcError {
@@ -230,7 +230,8 @@ mod tests {
     #[test]
     fn gax_error_with_connect_error_maps_to_connect_error() {
         // Arrange
-        let connect_err = ConnectError("connection refused to 127.0.0.1:1".to_string());
+        let inner_status = tonic::Status::unavailable("connection refused to 127.0.0.1:1");
+        let connect_err = ConnectError(inner_status);
         let status = tonic::Status::from_error(Box::new(connect_err));
 
         // Act
@@ -243,6 +244,16 @@ mod tests {
             .and_then(|e| e.source())
             .and_then(|e| e.downcast_ref::<ConnectError>());
         assert!(source.is_some(), "{got:?}");
+        let wrapped_status = source
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<tonic::Status>());
+        assert!(wrapped_status.is_some(), "{got:?}");
+        assert_eq!(
+            wrapped_status
+                .expect("inner status should be present")
+                .code(),
+            tonic::Code::Unavailable
+        );
     }
 
     #[test]

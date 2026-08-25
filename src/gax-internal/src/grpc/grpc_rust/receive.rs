@@ -205,8 +205,8 @@ async fn receive_responses<Response, R>(
 ///
 /// When an RPC fails before a connection is established (e.g. TCP connect failure, DNS resolution failure,
 /// channel closed before ready), no headers were received (`!seen_headers`) and `trailers.connection_info()` is `None`.
-/// In that case, a [`ConnectError`] is wrapped as the error source of [`tonic::Status`], enabling [`to_gax_error`](crate::grpc::from_status::to_gax_error)
-/// to accurately classify it as a connection failure (`err.is_connect() == true`).
+/// In that case, a [`ConnectError`] wrapping the fully constructed [`tonic::Status`] as its source is returned.
+/// This enables [`to_gax_error`](crate::grpc::from_status::to_gax_error) to accurately classify it as a connection failure (`err.is_connect() == true`).
 pub(super) fn trailers_to_tonic_status(
     trailers: Trailers,
     seen_headers: bool,
@@ -218,18 +218,20 @@ pub(super) fn trailers_to_tonic_status(
         .and_then(|value| value.to_bytes().ok())
         .unwrap_or_default();
 
-    if !seen_headers && trailers.connection_info().is_none() {
-        return Some(tonic::Status::from_error(Box::new(ConnectError(
-            status.message().to_string(),
-        ))));
-    }
-
-    Some(tonic::Status::with_details_and_metadata(
+    let tonic_status = tonic::Status::with_details_and_metadata(
         grpc_rust_error_to_tonic_code(status.code()),
         status.message().to_string(),
         details,
         metadata,
-    ))
+    );
+
+    if !seen_headers && trailers.connection_info().is_none() {
+        return Some(tonic::Status::from_error(Box::new(ConnectError(
+            tonic_status,
+        ))));
+    }
+
+    Some(tonic_status)
 }
 
 /// Maps a `grpc-rust` [`StatusCodeError`] to the corresponding [`tonic::Code`].
@@ -305,12 +307,21 @@ mod tests {
     fn trailers_to_tonic_status_pre_connect_failure_maps_to_connect_error() {
         // Arrange
         use std::error::Error;
+        const TEST_HEADER: &str = "x-test-header";
+        const TEST_VALUE: &str = "test-value";
+        const GRPC_STATUS_DETAILS_BIN: &str = "grpc-status-details-bin";
         const ERROR_MESSAGE_UNAVAILABLE: &str =
             "Service was not ready: connection refused to 127.0.0.1:1";
+
+        let details = b"status-details";
+        let mut metadata = grpc::metadata::MetadataMap::new();
+        metadata.insert_bin(GRPC_STATUS_DETAILS_BIN, MetadataValue::from_bytes(details));
+        metadata.insert(TEST_HEADER, MetadataValue::from_static(TEST_VALUE));
         let trailers = Trailers::new(Err(StatusError::new(
             StatusCodeError::Unavailable,
             ERROR_MESSAGE_UNAVAILABLE,
-        )));
+        )))
+        .with_metadata(metadata);
 
         // Act
         let got = trailers_to_tonic_status(trailers, /* seen_headers= */ false)
@@ -322,11 +333,26 @@ mod tests {
             gax_err.is_connect(),
             "pre-connect failure should map to connect error: {gax_err:?}"
         );
-        let source = gax_err
+        let connect_error = gax_err
             .source()
             .and_then(|e| e.source())
-            .and_then(|e| e.downcast_ref::<ConnectError>());
-        assert!(source.is_some(), "{gax_err:?}");
+            .and_then(|e| e.downcast_ref::<ConnectError>())
+            .expect("error source chain should contain ConnectError");
+
+        let inner_status = connect_error
+            .source()
+            .and_then(|e| e.downcast_ref::<tonic::Status>())
+            .expect("ConnectError should wrap inner tonic::Status as source");
+        assert_eq!(inner_status.code(), tonic::Code::Unavailable);
+        assert_eq!(inner_status.message(), ERROR_MESSAGE_UNAVAILABLE);
+        assert_eq!(inner_status.details(), details);
+        assert_eq!(
+            inner_status
+                .metadata()
+                .get(TEST_HEADER)
+                .and_then(|value| value.to_str().ok()),
+            Some(TEST_VALUE)
+        );
     }
 
     #[test]
