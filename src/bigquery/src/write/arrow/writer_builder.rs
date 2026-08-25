@@ -186,10 +186,10 @@ impl WriterBuilder {
             .send()
             .await?;
 
-        if stream.r#type != U::EXPECTED_TYPE {
+        if stream.r#type != U::STREAM_TYPE {
             let msg = format!(
                 "stream type mismatch. expected {:?}, got {:?}",
-                U::EXPECTED_TYPE,
+                U::STREAM_TYPE,
                 stream.r#type
             );
             return Err(Error::service(
