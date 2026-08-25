@@ -145,7 +145,6 @@ async fn chat_server_error(client: &Echo) -> Result<()> {
     assert!(matches!(
         err,
         google_cloud_gax::streaming::SendError::StreamClosed
-            | google_cloud_gax::streaming::SendError::Serialization(_)
     ));
 
     Ok(())
