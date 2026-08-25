@@ -30,6 +30,8 @@ The script will:
    `.github/workflows/rust-toolchain-check.yaml`.
 1. Compare against the latest stable release in `RELEASES.md`.
 1. Update the local stable compiler (`rustup update stable`).
+1. Attempt to automatically apply machine-applicable clippy suggestions
+   (`cargo clippy --fix ...`).
 1. Run strict workspace clippy verification
    (`cargo clippy --all-features --all-targets --profile=test --workspace -- --deny warnings`).
 1. Run `cargo semver-checks` on `google-cloud-wkt`.
@@ -40,15 +42,9 @@ ______________________________________________________________________
 
 - **If `check-rust-toolchain.sh` exits successfully:** Proceed directly to Step
   3\.
-- **If clippy fails in handwritten crates (`src/auth`, `src/gax`, `src/storage`,
-  etc.):**
-  - You can attempt to automatically apply machine-applicable clippy suggestions
-    using:
-    ```bash
-    cargo clippy --fix --allow-dirty --allow-staged --all-features --all-targets --profile=test --workspace
-    ```
-  - For any remaining diagnostics, fix the code directly in the working branch,
-    then re-run `./scripts/check-rust-toolchain.sh` until clean.
+- **If clippy fails on remaining warnings in handwritten crates (`src/auth`,
+  `src/gax`, `src/storage`, etc.):** Fix code diagnostics directly in the
+  working branch, then re-run `./scripts/check-rust-toolchain.sh` until clean.
 - **If clippy fails in generated code (`src/generated/` or
   `src/**/generated/`):** Do NOT edit generated files manually. Stop and file an
   issue/PR to update generator templates in `librarian` first.

@@ -40,11 +40,15 @@ rustup update stable
 rustc --version
 
 echo ""
-echo "==== 2. Running Strict Workspace Clippy ===="
+echo "==== 2. Applying Automatic Clippy Fixes ===="
+cargo clippy --fix --allow-dirty --allow-staged --all-features --all-targets --profile=test --workspace || true
+
+echo ""
+echo "==== 3. Running Strict Workspace Clippy ===="
 cargo clippy --all-features --all-targets --profile=test --workspace -- --deny warnings
 
 echo ""
-echo "==== 3. Verifying Semver Checks Tooling ===="
+echo "==== 4. Verifying Semver Checks Tooling ===="
 cargo semver-checks --all-features -p google-cloud-wkt
 
 echo ""
