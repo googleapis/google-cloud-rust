@@ -176,18 +176,25 @@ impl WriterBuilder {
     /// Attaches the builder to an existing stream.
     ///
     /// # Example
-    /// ```ignore
-    /// use google_cloud_bigquery::write::arrow::writer_builder::WriterBuilder;
-    /// use google_cloud_bigquery::write::arrow::committed::CommittedWriter;
-    ///
-    /// let builder = WriterBuilder::new(transport, schema);
-    /// let writer = builder
-    ///     .attach::<CommittedWriter>("projects/my-project/datasets/my_dataset/tables/my_table/streams/stream_id")
-    ///     .await?;
     /// ```
-    pub async fn attach<U: AttachableWriter>(
+    /// use google_cloud_bigquery::write::arrow::CommittedWriter;
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample(client: Write) -> anyhow::Result<()> {
+    /// let writer: CommittedWriter = client
+    ///     .arrow(schema())
+    ///     .attach("projects/my-project/datasets/my_dataset/tables/my_table/streams/my_stream")
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// #
+    /// # use google_cloud_bigquery::model::ArrowSchema;
+    /// # fn schema() -> ArrowSchema {
+    /// #   todo!("Define your table's schema...")
+    /// # }
+    /// ```
+    pub async fn attach<U: AttachableWriter, S: Into<String>>(
         self,
-        write_stream: impl Into<String>,
+        write_stream: S,
     ) -> std::result::Result<U, crate::write::error::AttachError> {
         let write_stream = write_stream.into();
         validate_stream(write_stream.as_str())?;
@@ -490,7 +497,7 @@ mod tests {
         let schema = ArrowSchema::new().set_serialized_schema("test");
         let builder = WriterBuilder::new(transport, schema.clone());
         let err = builder
-            .attach::<CommittedWriter>(stream)
+            .attach::<CommittedWriter, _>(stream)
             .await
             .expect_err("should fail locally on bad format");
         assert!(matches!(
@@ -506,7 +513,7 @@ mod tests {
         let schema = ArrowSchema::new().set_serialized_schema("test");
         let builder = WriterBuilder::new(transport, schema.clone());
         let err = builder
-            .attach::<CommittedWriter>("projects/p/datasets/d/tables/t/streams/s")
+            .attach::<CommittedWriter, _>("projects/p/datasets/d/tables/t/streams/s")
             .await
             .expect_err("should return type mismatch error");
         assert!(matches!(
