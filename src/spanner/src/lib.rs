@@ -79,6 +79,7 @@ pub mod stub {
 pub(crate) mod batch_dml;
 pub(crate) mod batch_read_only_transaction;
 pub(crate) mod batch_write_transaction;
+pub(crate) mod channel_pool;
 pub(crate) mod database_client;
 pub(crate) mod from_value;
 pub(crate) mod observability;
