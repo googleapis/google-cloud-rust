@@ -12,6 +12,8 @@ pub struct Schema {
     pub revision_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "6")]
     pub revision_create_time: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(oneof = "schema::Configuration", tags = "8")]
+    pub configuration: ::core::option::Option<schema::Configuration>,
 }
 /// Nested message and enum types in `Schema`.
 pub mod schema {
@@ -54,6 +56,12 @@ pub mod schema {
                 _ => None,
             }
         }
+    }
+    #[allow(clippy::large_enum_variant)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
+    pub enum Configuration {
+        #[prost(message, tag = "8")]
+        CompiledProtoSchema(super::CompiledProtoSchema),
     }
 }
 impl ::prost::Name for Schema {
@@ -330,6 +338,24 @@ impl ::prost::Name for ValidateMessageResponse {
     }
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.pubsub.v1.ValidateMessageResponse".into()
+    }
+}
+#[allow(clippy::large_enum_variant)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct CompiledProtoSchema {
+    #[prost(string, tag = "1")]
+    pub root_message: ::prost::alloc::string::String,
+    #[prost(bytes = "vec", tag = "2")]
+    pub compiled_bytes: ::prost::alloc::vec::Vec<u8>,
+}
+impl ::prost::Name for CompiledProtoSchema {
+    const NAME: &'static str = "CompiledProtoSchema";
+    const PACKAGE: &'static str = "google.pubsub.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.pubsub.v1.CompiledProtoSchema".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.pubsub.v1.CompiledProtoSchema".into()
     }
 }
 #[allow(clippy::large_enum_variant)]
@@ -1457,6 +1483,7 @@ pub mod ingestion_data_source_settings {
             PublishPermissionDenied = 3,
             StreamNotFound = 4,
             ConsumerNotFound = 5,
+            ConflictingRegionConstraints = 6,
         }
         impl State {
             /// String value of the enum field names used in the ProtoBuf definition.
@@ -1471,6 +1498,9 @@ pub mod ingestion_data_source_settings {
                     Self::PublishPermissionDenied => "PUBLISH_PERMISSION_DENIED",
                     Self::StreamNotFound => "STREAM_NOT_FOUND",
                     Self::ConsumerNotFound => "CONSUMER_NOT_FOUND",
+                    Self::ConflictingRegionConstraints => {
+                        "CONFLICTING_REGION_CONSTRAINTS"
+                    }
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1482,6 +1512,9 @@ pub mod ingestion_data_source_settings {
                     "PUBLISH_PERMISSION_DENIED" => Some(Self::PublishPermissionDenied),
                     "STREAM_NOT_FOUND" => Some(Self::StreamNotFound),
                     "CONSUMER_NOT_FOUND" => Some(Self::ConsumerNotFound),
+                    "CONFLICTING_REGION_CONSTRAINTS" => {
+                        Some(Self::ConflictingRegionConstraints)
+                    }
                     _ => None,
                 }
             }
@@ -1582,6 +1615,7 @@ pub mod ingestion_data_source_settings {
             PublishPermissionDenied = 3,
             BucketNotFound = 4,
             TooManyObjects = 5,
+            ConflictingRegionConstraints = 8,
         }
         impl State {
             /// String value of the enum field names used in the ProtoBuf definition.
@@ -1598,6 +1632,9 @@ pub mod ingestion_data_source_settings {
                     Self::PublishPermissionDenied => "PUBLISH_PERMISSION_DENIED",
                     Self::BucketNotFound => "BUCKET_NOT_FOUND",
                     Self::TooManyObjects => "TOO_MANY_OBJECTS",
+                    Self::ConflictingRegionConstraints => {
+                        "CONFLICTING_REGION_CONSTRAINTS"
+                    }
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1611,6 +1648,9 @@ pub mod ingestion_data_source_settings {
                     "PUBLISH_PERMISSION_DENIED" => Some(Self::PublishPermissionDenied),
                     "BUCKET_NOT_FOUND" => Some(Self::BucketNotFound),
                     "TOO_MANY_OBJECTS" => Some(Self::TooManyObjects),
+                    "CONFLICTING_REGION_CONSTRAINTS" => {
+                        Some(Self::ConflictingRegionConstraints)
+                    }
                     _ => None,
                 }
             }
@@ -1681,6 +1721,7 @@ pub mod ingestion_data_source_settings {
             EventHubNotFound = 5,
             SubscriptionNotFound = 6,
             ResourceGroupNotFound = 7,
+            ConflictingRegionConstraints = 8,
         }
         impl State {
             /// String value of the enum field names used in the ProtoBuf definition.
@@ -1697,6 +1738,9 @@ pub mod ingestion_data_source_settings {
                     Self::EventHubNotFound => "EVENT_HUB_NOT_FOUND",
                     Self::SubscriptionNotFound => "SUBSCRIPTION_NOT_FOUND",
                     Self::ResourceGroupNotFound => "RESOURCE_GROUP_NOT_FOUND",
+                    Self::ConflictingRegionConstraints => {
+                        "CONFLICTING_REGION_CONSTRAINTS"
+                    }
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1712,6 +1756,9 @@ pub mod ingestion_data_source_settings {
                     "EVENT_HUB_NOT_FOUND" => Some(Self::EventHubNotFound),
                     "SUBSCRIPTION_NOT_FOUND" => Some(Self::SubscriptionNotFound),
                     "RESOURCE_GROUP_NOT_FOUND" => Some(Self::ResourceGroupNotFound),
+                    "CONFLICTING_REGION_CONSTRAINTS" => {
+                        Some(Self::ConflictingRegionConstraints)
+                    }
                     _ => None,
                 }
             }
@@ -1764,6 +1811,7 @@ pub mod ingestion_data_source_settings {
             PublishPermissionDenied = 3,
             ClusterNotFound = 4,
             TopicNotFound = 5,
+            ConflictingRegionConstraints = 6,
         }
         impl State {
             /// String value of the enum field names used in the ProtoBuf definition.
@@ -1778,6 +1826,9 @@ pub mod ingestion_data_source_settings {
                     Self::PublishPermissionDenied => "PUBLISH_PERMISSION_DENIED",
                     Self::ClusterNotFound => "CLUSTER_NOT_FOUND",
                     Self::TopicNotFound => "TOPIC_NOT_FOUND",
+                    Self::ConflictingRegionConstraints => {
+                        "CONFLICTING_REGION_CONSTRAINTS"
+                    }
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1789,6 +1840,9 @@ pub mod ingestion_data_source_settings {
                     "PUBLISH_PERMISSION_DENIED" => Some(Self::PublishPermissionDenied),
                     "CLUSTER_NOT_FOUND" => Some(Self::ClusterNotFound),
                     "TOPIC_NOT_FOUND" => Some(Self::TopicNotFound),
+                    "CONFLICTING_REGION_CONSTRAINTS" => {
+                        Some(Self::ConflictingRegionConstraints)
+                    }
                     _ => None,
                 }
             }
@@ -1844,6 +1898,7 @@ pub mod ingestion_data_source_settings {
             UnreachableBootstrapServer = 4,
             ClusterNotFound = 5,
             TopicNotFound = 6,
+            ConflictingRegionConstraints = 7,
         }
         impl State {
             /// String value of the enum field names used in the ProtoBuf definition.
@@ -1861,6 +1916,9 @@ pub mod ingestion_data_source_settings {
                     Self::UnreachableBootstrapServer => "UNREACHABLE_BOOTSTRAP_SERVER",
                     Self::ClusterNotFound => "CLUSTER_NOT_FOUND",
                     Self::TopicNotFound => "TOPIC_NOT_FOUND",
+                    Self::ConflictingRegionConstraints => {
+                        "CONFLICTING_REGION_CONSTRAINTS"
+                    }
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1877,6 +1935,9 @@ pub mod ingestion_data_source_settings {
                     }
                     "CLUSTER_NOT_FOUND" => Some(Self::ClusterNotFound),
                     "TOPIC_NOT_FOUND" => Some(Self::TopicNotFound),
+                    "CONFLICTING_REGION_CONSTRAINTS" => {
+                        Some(Self::ConflictingRegionConstraints)
+                    }
                     _ => None,
                 }
             }
@@ -2297,6 +2358,104 @@ impl ::prost::Name for JavaScriptUdf {
     }
 }
 #[allow(clippy::large_enum_variant)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct Compression {
+    #[prost(enumeration = "compression::CompressionAlgorithm", tag = "1")]
+    pub compression_algorithm: i32,
+    #[prost(enumeration = "compression::CompressionMode", tag = "2")]
+    pub compression_mode: i32,
+}
+/// Nested message and enum types in `Compression`.
+pub mod compression {
+    #[allow(clippy::large_enum_variant)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum CompressionAlgorithm {
+        Unspecified = 0,
+        Zlib = 1,
+    }
+    impl CompressionAlgorithm {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "COMPRESSION_ALGORITHM_UNSPECIFIED",
+                Self::Zlib => "ZLIB",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "COMPRESSION_ALGORITHM_UNSPECIFIED" => Some(Self::Unspecified),
+                "ZLIB" => Some(Self::Zlib),
+                _ => None,
+            }
+        }
+    }
+    #[allow(clippy::large_enum_variant)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum CompressionMode {
+        Unspecified = 0,
+        Compress = 1,
+        Decompress = 2,
+    }
+    impl CompressionMode {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "COMPRESSION_MODE_UNSPECIFIED",
+                Self::Compress => "COMPRESS",
+                Self::Decompress => "DECOMPRESS",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "COMPRESSION_MODE_UNSPECIFIED" => Some(Self::Unspecified),
+                "COMPRESS" => Some(Self::Compress),
+                "DECOMPRESS" => Some(Self::Decompress),
+                _ => None,
+            }
+        }
+    }
+}
+impl ::prost::Name for Compression {
+    const NAME: &'static str = "Compression";
+    const PACKAGE: &'static str = "google.pubsub.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.pubsub.v1.Compression".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.pubsub.v1.Compression".into()
+    }
+}
+#[allow(clippy::large_enum_variant)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AiInference {
     #[prost(string, tag = "1")]
@@ -2350,7 +2509,7 @@ pub struct MessageTransform {
     pub enabled: bool,
     #[prost(bool, tag = "4")]
     pub disabled: bool,
-    #[prost(oneof = "message_transform::Transform", tags = "2, 6")]
+    #[prost(oneof = "message_transform::Transform", tags = "2, 7, 6")]
     pub transform: ::core::option::Option<message_transform::Transform>,
 }
 /// Nested message and enum types in `MessageTransform`.
@@ -2360,6 +2519,8 @@ pub mod message_transform {
     pub enum Transform {
         #[prost(message, tag = "2")]
         JavascriptUdf(super::JavaScriptUdf),
+        #[prost(message, tag = "7")]
+        Compression(super::Compression),
         #[prost(message, tag = "6")]
         AiInference(super::AiInference),
     }

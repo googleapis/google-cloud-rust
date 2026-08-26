@@ -12,58 +12,47 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::super::append_builder::AppendWithOffset;
-use super::super::generated::gapic_storage::client::BigQueryWrite;
-use super::super::runner::Runner;
-use super::super::transport::Transport;
+use super::base::BaseWriter;
 use crate::Result;
-use crate::model::append_rows_request::ArrowData;
-use crate::model::{
-    AppendRowsRequest, ArrowRecordBatch, ArrowSchema, FinalizeWriteStreamResponse,
-    FlushRowsResponse,
-};
+use crate::model::{ArrowRecordBatch, ArrowSchema, FinalizeWriteStreamResponse, FlushRowsResponse};
+use crate::write::append_builder::AppendWithOffset;
+use crate::write::transport::Transport;
 use std::sync::Arc;
 
-/// A writer for the [buffered stream].
+/// A writer for a [buffered stream].
 ///
 /// [buffered stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#buffered_type
 #[derive(Debug)]
 pub struct BufferedWriter {
-    runner: Runner,
-    pub(crate) write_stream: String,
-    pub(crate) schema: ArrowSchema,
-    client: BigQueryWrite,
+    pub(crate) inner: BaseWriter,
 }
 
 impl BufferedWriter {
     pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
-        let runner = Runner::new(inner.clone());
-        let client = BigQueryWrite::from_stub::<Transport>(inner);
         Self {
-            runner,
-            write_stream,
-            schema,
-            client,
+            inner: BaseWriter::new(inner, write_stream, schema),
         }
+    }
+
+    /// Return the full resource name of the underlying write stream.
+    pub fn write_stream(&self) -> &str {
+        &self.inner.write_stream
     }
 
     /// Append rows to the buffered stream.
     pub fn append(&self, rows: ArrowRecordBatch) -> AppendWithOffset {
-        let req = AppendRowsRequest::new()
-            .set_write_stream(&self.write_stream)
-            .set_arrow_rows(
-                ArrowData::new()
-                    .set_writer_schema(self.schema.clone())
-                    .set_rows(rows),
-            );
-        AppendWithOffset::new(self.runner.req_tx.clone(), req)
+        AppendWithOffset::new(
+            self.inner.runner.req_tx.clone(),
+            self.inner.append_request(rows),
+        )
     }
 
     /// Flush the buffered stream, making rows up to the specified offset available for reading.
     pub async fn flush(&self, offset: i64) -> Result<FlushRowsResponse> {
-        self.client
+        self.inner
+            .client
             .flush_rows()
-            .set_write_stream(&self.write_stream)
+            .set_write_stream(&self.inner.write_stream)
             .set_offset(offset)
             .send()
             .await
@@ -71,11 +60,7 @@ impl BufferedWriter {
 
     /// Finalize the buffered stream, preventing further writes.
     pub async fn finalize(&self) -> Result<FinalizeWriteStreamResponse> {
-        self.client
-            .finalize_write_stream()
-            .set_name(&self.write_stream)
-            .send()
-            .await
+        self.inner.finalize().await
     }
 }
 
@@ -93,6 +78,7 @@ mod tests {
     async fn request_fields() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
         let writer = BufferedWriter::new(transport, write_stream(), schema());
+        assert_eq!(writer.write_stream(), write_stream());
 
         let b = writer.append(rows(1));
         assert_eq!(b.req.write_stream, write_stream());
@@ -142,6 +128,7 @@ mod tests {
         let transport = Arc::new(test_transport(endpoint).await?);
 
         let writer = BufferedWriter::new(transport, write_stream(), schema());
+        assert_eq!(writer.write_stream(), write_stream());
 
         response_tx.send(Ok(convert(&test_response(1)))).await?;
         let resp = writer.append(rows(1)).send().await?;
@@ -183,6 +170,7 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let writer = BufferedWriter::new(transport, write_stream(), schema());
+        assert_eq!(writer.write_stream(), write_stream());
 
         response_tx.send(Ok(convert(&test_response(1)))).await?;
         let _ = writer.append(rows(1)).send().await?;

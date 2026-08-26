@@ -3070,7 +3070,11 @@ pub(crate) mod tests {
             .build()
             .await?;
 
-        let db_client = client.database_client("db").build().await?;
+        let db_client = client
+            .database_client("db")
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
         let transaction = db_client.single_use().build();
         let mut result_set = transaction.execute_query("SELECT 1").await?;
 

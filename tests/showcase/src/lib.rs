@@ -25,6 +25,7 @@ use tokio::process::Command;
 mod compliance;
 mod echo;
 mod identity;
+pub mod pqc;
 #[cfg(google_cloud_unstable_gapic_streaming)]
 mod streaming;
 
@@ -36,7 +37,7 @@ mod streaming;
 /// go list -m -f '{{.Version}}' github.com/googleapis/gapic-showcase@main
 /// ```
 const SHOWCASE_NAME: &str =
-    "github.com/googleapis/gapic-showcase/cmd/gapic-showcase@v0.37.1-0.20260210150911-3fd9cb2f682d";
+    "github.com/googleapis/gapic-showcase/cmd/gapic-showcase@v0.43.1-0.20260817230810-0c88ce83d259";
 
 pub async fn run() -> Result<()> {
     let _guard = google_cloud_test_utils::tracing::enable_tracing();
@@ -73,7 +74,7 @@ pub async fn run() -> Result<()> {
     Ok(())
 }
 
-async fn install() -> Result<String> {
+pub(crate) async fn install() -> Result<String> {
     for backoff in [Some(5), Some(10), Some(20), None] {
         let error = match install_attempt().await {
             Ok(path) => return Ok(path),

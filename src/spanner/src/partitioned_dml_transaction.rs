@@ -571,7 +571,11 @@ mod tests {
             .build()
             .await?;
 
-        let db_client = client.database_client("db").build().await?;
+        let db_client = client
+            .database_client("db")
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
         let transaction = db_client.partitioned_dml_transaction().build().await?;
         let statement = Statement::builder("UPDATE Users SET active = true").build();
         let rows = transaction.execute_update(statement).await?;

@@ -119,8 +119,8 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             .unwrap_or(4);
 
         let mut channels = Vec::with_capacity(num_channels);
-        for _ in 0..num_channels {
-            channels.push(Channel::create(&config).await?);
+        for index in 0..num_channels {
+            channels.push(Channel::create(&config, index + 1).await?);
         }
 
         Ok(Spanner {
@@ -198,15 +198,15 @@ macro_rules! define_idempotent_rpc {
             &self,
             request: $request_type,
             options: crate::RequestOptions,
-            channel_hint: usize,
+            channel: &Channel,
             o11y: &Arc<Observability>,
         ) -> crate::Result<$response_type> {
-            let options = self.attach_request_id(options, channel_hint);
+            let options = self.attach_request_id(options, channel);
             #[cfg(feature = "_experimental-builtin-metrics")]
             let options = options.insert_extension(Arc::clone(o11y));
             o11y.trace_operation(
                 $canonical_name,
-                self.get_channel(channel_hint)
+                channel
                     .inner
                     .$method()
                     .with_request(request)
@@ -365,8 +365,9 @@ impl Spanner {
             channels: vec![Channel {
                 inner: GapicSpanner::from_stub(stub),
                 grpc_client: None,
+                channel_id: 1,
             }],
-            counter: std::sync::Arc::new(AtomicUsize::new(0)),
+            counter: Arc::new(AtomicUsize::new(0)),
             config: ClientConfig::default(),
             is_emulator: false,
             instance_type: InstanceType::Cloud,
@@ -387,6 +388,11 @@ impl Spanner {
         &self.channels[idx]
     }
 
+    pub(crate) fn next_channel(&self) -> &Channel {
+        let hint = self.counter.fetch_add(1, Ordering::Relaxed);
+        self.get_channel(hint)
+    }
+
     pub(crate) fn next_channel_hint(&self) -> usize {
         self.counter.fetch_add(1, Ordering::Relaxed)
     }
@@ -394,7 +400,7 @@ impl Spanner {
     pub(crate) fn attach_request_id(
         &self,
         mut options: crate::RequestOptions,
-        channel_hint: usize,
+        channel: &Channel,
     ) -> crate::RequestOptions {
         if options
             .get_extension::<HeaderMap>()
@@ -403,13 +409,7 @@ impl Spanner {
             return options;
         }
 
-        // Spanner Request ID channel IDs are 1-based (1..=N), where 0 is reserved for unknown.
-        // We wrap `channel_hint` by the channel pool size so the advertised channel ID always
-        // matches the actual channel index used by `get_channel`.
-        let channel_id = channel_hint
-            .checked_rem(self.channels.len())
-            .map_or(0, |rem| rem + 1);
-        let header_val_str = self.request_id_creator.next_id_prefix(channel_id);
+        let header_val_str = self.request_id_creator.next_id_prefix(channel.channel_id);
         let Ok(val) = HeaderValue::from_str(&header_val_str) else {
             return options;
         };
@@ -477,16 +477,15 @@ impl Spanner {
         &self,
         request: crate::model::ExecuteSqlRequest,
         options: crate::RequestOptions,
-        channel_hint: usize,
+        channel: &Channel,
     ) -> builder::ExecuteStreamingSql {
-        let channel = self.get_channel(channel_hint);
         let grpc = channel
             .grpc_client
             .as_ref()
             .expect("Streaming RPCs are not supported when using a stub client");
         builder::ExecuteStreamingSql::new(grpc.clone())
             .with_request(request)
-            .with_options(self.attach_request_id(options, channel_hint))
+            .with_options(self.attach_request_id(options, channel))
     }
 
     /// Reads rows from the database, returning a stream of results.
@@ -497,48 +496,45 @@ impl Spanner {
         &self,
         request: crate::model::ReadRequest,
         options: crate::RequestOptions,
-        channel_hint: usize,
+        channel: &Channel,
     ) -> builder::StreamingRead {
-        let channel = self.get_channel(channel_hint);
         let grpc = channel
             .grpc_client
             .as_ref()
             .expect("Streaming RPCs are not supported when using a stub client");
         builder::StreamingRead::new(grpc.clone())
             .with_request(request)
-            .with_options(self.attach_request_id(options, channel_hint))
+            .with_options(self.attach_request_id(options, channel))
     }
 
     pub(crate) fn batch_write(
         &self,
         request: crate::model::BatchWriteRequest,
         options: crate::RequestOptions,
-        channel_hint: usize,
+        channel: &Channel,
     ) -> builder::BatchWrite {
-        let channel = self.get_channel(channel_hint);
         let grpc = channel
             .grpc_client
             .as_ref()
             .expect("Streaming RPCs are not supported when using a stub client");
         builder::BatchWrite::new(grpc.clone())
             .with_request(request)
-            .with_options(self.attach_request_id(options, channel_hint))
+            .with_options(self.attach_request_id(options, channel))
     }
 
     pub(crate) fn fetch_cache_update(
         &self,
         request: FetchCacheUpdateRequest,
         options: RequestOptions,
-        channel_hint: usize,
+        channel: &Channel,
     ) -> builder::FetchCacheUpdate {
-        let channel = self.get_channel(channel_hint);
         let grpc = channel
             .grpc_client
             .as_ref()
             .expect("Streaming RPCs are not supported when using a stub client");
         builder::FetchCacheUpdate::new(grpc.clone())
             .with_request(request)
-            .with_options(self.attach_request_id(options, channel_hint))
+            .with_options(self.attach_request_id(options, channel))
     }
 }
 
@@ -546,10 +542,14 @@ impl Spanner {
 pub(crate) struct Channel {
     pub(crate) inner: GapicSpanner,
     pub(crate) grpc_client: Option<gaxi::grpc::Client>,
+    pub(crate) channel_id: usize,
 }
 
 impl Channel {
-    pub(crate) async fn create(config: &ClientConfig) -> crate::ClientBuilderResult<Self> {
+    pub(crate) async fn create(
+        config: &ClientConfig,
+        channel_id: usize,
+    ) -> crate::ClientBuilderResult<Self> {
         let mut transport =
             crate::generated::gapic_dataplane::transport::Spanner::new(config.clone()).await?;
         let request_id_interceptor: Arc<dyn AttemptInterceptor> =
@@ -577,6 +577,7 @@ impl Channel {
         Ok(Self {
             inner,
             grpc_client: Some(grpc_client),
+            channel_id,
         })
     }
 }
@@ -590,6 +591,7 @@ impl Channel {
         Self {
             inner: GapicSpanner::from_stub(stub),
             grpc_client: None,
+            channel_id: 0,
         }
     }
 }
@@ -741,7 +743,7 @@ mod tests {
             .create_session(
                 req,
                 crate::RequestOptions::default(),
-                client.next_channel_hint(),
+                client.next_channel(),
                 &Observability::disabled_arc(),
             )
             .await
@@ -861,7 +863,7 @@ mod tests {
             .create_session(
                 req,
                 crate::RequestOptions::default(),
-                client.next_channel_hint(),
+                client.next_channel(),
                 &Observability::disabled_arc(),
             )
             .await
@@ -911,7 +913,7 @@ mod tests {
             .execute_sql(
                 req,
                 crate::RequestOptions::default(),
-                client.next_channel_hint(),
+                client.next_channel(),
                 &Observability::disabled_arc(),
             )
             .await
@@ -955,7 +957,7 @@ mod tests {
             .execute_batch_dml(
                 req,
                 crate::RequestOptions::default(),
-                client.next_channel_hint(),
+                client.next_channel(),
                 &Observability::disabled_arc(),
             )
             .await
@@ -994,7 +996,7 @@ mod tests {
             .begin_transaction(
                 req,
                 crate::RequestOptions::default(),
-                client.next_channel_hint(),
+                client.next_channel(),
                 &Observability::disabled_arc(),
             )
             .await
@@ -1037,7 +1039,7 @@ mod tests {
             .commit(
                 req,
                 crate::RequestOptions::default(),
-                client.next_channel_hint(),
+                client.next_channel(),
                 &Observability::disabled_arc(),
             )
             .await
@@ -1071,7 +1073,7 @@ mod tests {
             .rollback(
                 req,
                 crate::RequestOptions::default(),
-                client.next_channel_hint(),
+                client.next_channel(),
                 &Observability::disabled_arc(),
             )
             .await
@@ -1115,11 +1117,7 @@ mod tests {
         req.sql = "SELECT 1".to_string();
 
         let mut stream = client
-            .execute_streaming_sql(
-                req,
-                crate::RequestOptions::default(),
-                client.next_channel_hint(),
-            )
+            .execute_streaming_sql(req, crate::RequestOptions::default(), client.next_channel())
             .send()
             .await
             .expect("Failed to call execute_streaming_sql");
@@ -1167,11 +1165,7 @@ mod tests {
         req.columns = vec!["col1".to_string()];
 
         let mut stream = client
-            .streaming_read(
-                req,
-                crate::RequestOptions::default(),
-                client.next_channel_hint(),
-            )
+            .streaming_read(req, crate::RequestOptions::default(), client.next_channel())
             .send()
             .await
             .expect("Failed to call streaming_read");
@@ -1209,11 +1203,7 @@ mod tests {
         req.session = "test_session".to_string();
 
         let mut stream = client
-            .batch_write(
-                req,
-                crate::RequestOptions::default(),
-                client.next_channel_hint(),
-            )
+            .batch_write(req, crate::RequestOptions::default(), client.next_channel())
             .send()
             .await
             .expect("Failed to call batch_write");
@@ -1249,11 +1239,7 @@ mod tests {
         req.sql = "SELECT 1".to_string();
 
         let mut stream = client
-            .execute_streaming_sql(
-                req,
-                crate::RequestOptions::default(),
-                client.next_channel_hint(),
-            )
+            .execute_streaming_sql(req, crate::RequestOptions::default(), client.next_channel())
             .send()
             .await
             .expect("Failed to call execute_streaming_sql");
@@ -1304,7 +1290,7 @@ mod tests {
             .create_session(
                 req,
                 crate::RequestOptions::default(),
-                client.next_channel_hint(),
+                client.next_channel(),
                 &Observability::disabled_arc(),
             )
             .await
@@ -1351,7 +1337,7 @@ mod tests {
             .create_session(
                 req,
                 options,
-                client.next_channel_hint(),
+                client.next_channel(),
                 &Observability::disabled_arc(),
             )
             .await;
@@ -1508,7 +1494,6 @@ mod tests {
                 let stmt = Statement::builder("SELECT 1")
                     .with_attempt_timeout(Duration::from_secs(10))
                     .build();
-                // TODO(#5673): ensure that transaction ID is processed even if ResultSet is dropped
                 let _rs = tx.execute_query(stmt).await?;
 
                 // Read
@@ -1933,18 +1918,23 @@ mod tests {
         );
     }
 
-    #[test]
-    fn attach_request_id_adds_header() {
-        let spanner = Spanner {
-            channels: vec![],
-            counter: std::sync::Arc::new(std::sync::atomic::AtomicUsize::new(0)),
-            config: ClientConfig::default(),
-            is_emulator: false,
-            instance_type: InstanceType::Cloud,
-            request_id_creator: Arc::new(RequestIdCreator::new()),
-        };
+    #[tokio_test_no_panics]
+    async fn attach_request_id_adds_header() {
+        let mock = MockSpanner::new();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let channel = client.next_channel();
         let options = crate::RequestOptions::default();
-        let options = spanner.attach_request_id(options, 0);
+        let options = client.attach_request_id(options, channel);
         let headers = options
             .get_extension::<HeaderMap>()
             .expect("HeaderMap should be present");
@@ -1984,10 +1974,10 @@ mod tests {
         );
 
         // Test with a channel_hint that is larger than the pool size (e.g., hint = 7).
-        // Without our fix, this would have advertised channel ID 8 (7 + 1) instead of
-        // wrapping around to range 1..=4.
+        // get_channel(7) maps to channel at index (7 % 4 = 3), which has 1-based channel_id 4.
+        let channel = client.get_channel(7);
         let options = crate::RequestOptions::default();
-        let options = client.attach_request_id(options, 7);
+        let options = client.attach_request_id(options, channel);
         let headers = options
             .get_extension::<HeaderMap>()
             .expect("HeaderMap should be present");
@@ -2019,8 +2009,9 @@ mod tests {
             .await
             .expect("Failed to build client");
 
+        let channel = client.get_channel(0);
         let mut options = crate::RequestOptions::default();
-        options = client.attach_request_id(options, 0);
+        options = client.attach_request_id(options, channel);
         let first_headers = options
             .get_extension::<HeaderMap>()
             .expect("HeaderMap should be present")
@@ -2031,7 +2022,7 @@ mod tests {
             .clone();
 
         // Calling attach_request_id a second time must NOT change the value or add duplicate headers
-        options = client.attach_request_id(options, 0);
+        options = client.attach_request_id(options, channel);
         let second_headers = options
             .get_extension::<HeaderMap>()
             .expect("HeaderMap should be present");

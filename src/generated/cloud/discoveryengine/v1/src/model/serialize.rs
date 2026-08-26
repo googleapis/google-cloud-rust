@@ -1235,11 +1235,60 @@ impl serde::ser::Serialize for super::StreamAssistRequest {
         if self.user_metadata.is_some() {
             state.serialize_entry("userMetadata", &self.user_metadata)?;
         }
+        if self.agents_spec.is_some() {
+            state.serialize_entry("agentsSpec", &self.agents_spec)?;
+        }
         if self.tools_spec.is_some() {
             state.serialize_entry("toolsSpec", &self.tools_spec)?;
         }
         if self.generation_spec.is_some() {
             state.serialize_entry("generationSpec", &self.generation_spec)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "assistant-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::stream_assist_request::AgentsSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.agent_specs.is_empty() {
+            state.serialize_entry("agentSpecs", &self.agent_specs)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "assistant-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::stream_assist_request::agents_spec::AgentSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.agent_id.is_empty() {
+            state.serialize_entry("agentId", &self.agent_id)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

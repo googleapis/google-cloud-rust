@@ -12,9 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(#4969)
-#![allow(dead_code)]
-
 use crate::google::spanner::v1::BatchWriteResponse;
 use crate::google::spanner::v1::CacheUpdate as ProtoCacheUpdate;
 use crate::google::spanner::v1::PartialResultSet;
@@ -44,6 +41,7 @@ impl<T> SpannerServerStream<T> {
     }
 
     /// Attaches an opaque RAII lifetime guard that remains alive for the duration of the stream.
+    #[allow(dead_code)]
     pub(crate) fn with_lifetime_guard(mut self, guard: StreamLifetimeGuard) -> Self {
         self.lifetime_guard = Some(guard);
         self
@@ -73,7 +71,6 @@ impl<T> SpannerServerStream<T> {
 /// Representation for the `ExecuteStreamingSql` RPC stream.
 pub(crate) type PartialResultSetStream = SpannerServerStream<PartialResultSet>;
 
-/// Representation for the `BatchWrite` RPC stream.
 pub(crate) type BatchWriteStream = SpannerServerStream<BatchWriteResponse>;
 
 /// Representation for the `FetchCacheUpdate` RPC stream.

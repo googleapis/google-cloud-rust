@@ -124,6 +124,7 @@ impl super::stub::CloudShellService for CloudShellService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -138,6 +139,7 @@ impl super::stub::CloudShellService for CloudShellService {
                 let path = format!("/v1/{}:start", var_name,);
                 let path_template = "/v1/{name}:start";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -190,6 +192,7 @@ impl super::stub::CloudShellService for CloudShellService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -204,6 +207,7 @@ impl super::stub::CloudShellService for CloudShellService {
                 let path = format!("/v1/{}:authorize", var_name,);
                 let path_template = "/v1/{name}:authorize";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -256,6 +260,7 @@ impl super::stub::CloudShellService for CloudShellService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_environment = try_match(
@@ -270,6 +275,7 @@ impl super::stub::CloudShellService for CloudShellService {
                 let path = format!("/v1/{}:addPublicKey", var_environment,);
                 let path_template = "/v1/{environment}:addPublicKey";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.environment));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -322,6 +328,7 @@ impl super::stub::CloudShellService for CloudShellService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_environment = try_match(
@@ -336,6 +343,7 @@ impl super::stub::CloudShellService for CloudShellService {
                 let path = format!("/v1/{}:removePublicKey", var_environment,);
                 let path_template = "/v1/{environment}:removePublicKey";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.environment));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

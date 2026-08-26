@@ -4131,7 +4131,11 @@ mod tests {
             .build()
             .await?;
 
-        let db_client = client.database_client("db").build().await?;
+        let db_client = client
+            .database_client("db")
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
         let runner = db_client.read_write_transaction().build().await?;
         runner.run(|_transaction| async move { Ok(()) }).await?;
 
@@ -4225,7 +4229,11 @@ mod tests {
             .build()
             .await?;
 
-        let db_client = client.database_client("db").build().await?;
+        let db_client = client
+            .database_client("db")
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
         let runner = db_client.read_write_transaction().build().await?;
         runner
             .run(|transaction: ReadWriteTransaction| async move {
