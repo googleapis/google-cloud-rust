@@ -5283,6 +5283,7 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
+ "serial_test",
  "spanner-grpc-mock",
  "static_assertions",
  "thiserror",
