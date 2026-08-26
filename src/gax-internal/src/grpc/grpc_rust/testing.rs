@@ -19,10 +19,18 @@ use grpc::client::{
     CallOptions, Invoke, RecvStream, RequestHeaders, ResponseHeaders, ResponseStreamItem,
     SendOptions, SendStream, Trailers,
 };
-use grpc::core::{RecvMessage, SendMessage};
+use grpc::core::{Address, ConnectionInfo, RecvMessage, SendMessage};
 use prost::Message;
 use std::collections::VecDeque;
 use std::sync::{Arc, Mutex};
+
+pub fn test_connection_info() -> ConnectionInfo {
+    ConnectionInfo::new(
+        /* local_address= */ Address::default(),
+        /* remote_address= */ Address::default(),
+        /* security_info= */ grpc::credentials::SecurityInfo::new("local"),
+    )
+}
 
 #[derive(Clone, PartialEq, Message)]
 pub struct TestMessage {
