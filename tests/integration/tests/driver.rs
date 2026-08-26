@@ -48,13 +48,4 @@ mod driver {
             .await
             .inspect_err(anydump)
     }
-
-    #[cfg(google_cloud_unstable_gapic_streaming)]
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_speech_streaming_recognize() -> anyhow::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::speech::streaming_recognize()
-            .await
-            .inspect_err(anydump)
-    }
 }

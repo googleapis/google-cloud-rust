@@ -7399,6 +7399,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "integration-tests-streaming"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "google-cloud-auth",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-speech-v2",
+ "google-cloud-test-utils",
+ "httptest",
+ "reqwest 0.13.4",
+ "serde",
+ "serde_json",
+ "test-case",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
 name = "ipnet"
 version = "2.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"

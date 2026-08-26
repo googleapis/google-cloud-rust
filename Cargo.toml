@@ -61,6 +61,7 @@ default-members = [
   "tests/showcase",
   "tests/spanner",
   "tests/storage",
+  "tests/streaming",
 ]
 
 members = [
@@ -395,6 +396,7 @@ members = [
   "tests/showcase",
   "tests/spanner",
   "tests/storage",
+  "tests/streaming",
   "tools/check-copyright",
   "tools/check-versions",
   "tools/minimal-version-helper",

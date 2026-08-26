@@ -13,6 +13,4 @@
 // limitations under the License.
 
 pub mod error_details;
-#[cfg(google_cloud_unstable_gapic_streaming)]
-pub mod speech;
 mod traversal;
