@@ -12,9 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(#5991): Revisit connection error classification when grpc-rust
-// preserves pre-RPC failure errors instead of reporting them as a generic
-// "UNAVAILABLE".
 use super::from_status::to_gax_error;
 use super::grpc_helpers;
 use super::transport_policies::TransportPolicies;
