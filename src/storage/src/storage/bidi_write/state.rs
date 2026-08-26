@@ -24,8 +24,15 @@ use prost::Message;
 /// Represents the state of the initial request in the stream.
 #[derive(Clone, Debug)]
 pub enum AppendObjectSpecState {
-    Write(Box<WriteObjectSpec>, Option<String>),
-    Append(AppendObjectSpec),
+    Write {
+        spec: Box<WriteObjectSpec>,
+        routing_token: Option<String>,
+        initial_chunk: Option<bytes::Bytes>,
+    },
+    Append {
+        spec: AppendObjectSpec,
+        initial_chunk: Option<bytes::Bytes>,
+    },
 }
 
 impl AppendObjectSpecState {
@@ -36,29 +43,40 @@ impl AppendObjectSpecState {
         }
 
         match self {
-            AppendObjectSpecState::Write(spec, token) => {
+            AppendObjectSpecState::Write {
+                spec,
+                routing_token,
+                ..
+            } => {
                 let (bucket, object) = spec
                     .resource
                     .take()
                     .map(|r| (r.bucket, r.name))
                     .unwrap_or_default();
-                *self = AppendObjectSpecState::Append(AppendObjectSpec {
-                    bucket,
-                    object,
-                    generation: new_generation.unwrap_or(0),
-                    write_handle: m.write_handle.clone(),
-                    if_metageneration_match: spec.if_metageneration_match,
-                    if_metageneration_not_match: spec.if_metageneration_not_match,
-                    routing_token: token.take(),
-                });
+                *self = AppendObjectSpecState::Append {
+                    spec: AppendObjectSpec {
+                        bucket,
+                        object,
+                        generation: new_generation.unwrap_or(0),
+                        write_handle: m.write_handle.clone(),
+                        if_metageneration_match: spec.if_metageneration_match,
+                        if_metageneration_not_match: spec.if_metageneration_not_match,
+                        routing_token: routing_token.take(),
+                    },
+                    initial_chunk: None,
+                };
             }
-            AppendObjectSpecState::Append(spec) => {
+            AppendObjectSpecState::Append {
+                spec,
+                initial_chunk,
+            } => {
                 if let Some(g) = new_generation {
                     spec.generation = g;
                 }
                 if m.write_handle.is_some() {
                     spec.write_handle = m.write_handle.clone();
                 }
+                *initial_chunk = None;
             }
         }
     }
@@ -73,7 +91,11 @@ impl AppendObjectSpecState {
             .find_map(|d| d.to_msg::<BidiWriteObjectRedirectedError>().ok())
         {
             match self {
-                AppendObjectSpecState::Write(spec, token) => {
+                AppendObjectSpecState::Write {
+                    spec,
+                    routing_token,
+                    initial_chunk,
+                } => {
                     if let Some(generation) = redirect.generation {
                         let (bucket, object) = spec
                             .resource
@@ -89,12 +111,15 @@ impl AppendObjectSpecState {
                             routing_token: redirect.routing_token,
                             write_handle: redirect.write_handle,
                         };
-                        *self = AppendObjectSpecState::Append(new_spec);
+                        *self = AppendObjectSpecState::Append {
+                            spec: new_spec,
+                            initial_chunk: initial_chunk.take(),
+                        };
                     } else {
-                        *token = redirect.routing_token;
+                        *routing_token = redirect.routing_token;
                     }
                 }
-                AppendObjectSpecState::Append(spec) => {
+                AppendObjectSpecState::Append { spec, .. } => {
                     spec.routing_token = redirect.routing_token;
                     spec.write_handle = redirect.write_handle;
                     if let Some(g) = redirect.generation {
@@ -117,6 +142,7 @@ mod tests {
     #[test]
     fn handle_response_write_to_append() {
         use crate::google::storage::v2::{Object, WriteObjectSpec};
+        // Arrange: Initial state before any response is received.
         let write_spec = WriteObjectSpec {
             resource: Some(Object {
                 bucket: "test-bucket".into(),
@@ -127,7 +153,11 @@ mod tests {
             if_metageneration_not_match: Some(20),
             ..Default::default()
         };
-        let mut state = AppendObjectSpecState::Write(Box::new(write_spec), Some("token".into()));
+        let mut state = AppendObjectSpecState::Write {
+            spec: Box::new(write_spec),
+            routing_token: Some("token".into()),
+            initial_chunk: Some(bytes::Bytes::from_static(b"initial-payload")),
+        };
 
         let response = BidiWriteObjectResponse {
             write_status: Some(WriteStatus::Resource(Object {
@@ -140,9 +170,15 @@ mod tests {
             ..Default::default()
         };
 
+        // Act: Handle initial server response acknowledging the stream.
         state.handle_response(&response);
 
-        if let AppendObjectSpecState::Append(ref spec) = state {
+        // Assert: Transitions to Append state and releases initial_chunk memory buffer.
+        if let AppendObjectSpecState::Append {
+            ref spec,
+            ref initial_chunk,
+        } = state
+        {
             assert_eq!(spec.bucket, "test-bucket");
             assert_eq!(spec.object, "test-object");
             assert_eq!(spec.generation, 42);
@@ -155,6 +191,8 @@ mod tests {
                     handle: bytes::Bytes::from_static(b"new-handle"),
                 })
             );
+            // Verify buffer memory was released once server acknowledged the open request.
+            assert!(initial_chunk.is_none());
         } else {
             panic!("Expected AppendObjectSpecState::Append");
         }
@@ -163,16 +201,20 @@ mod tests {
     #[test]
     fn handle_response_append_updates() {
         use crate::google::storage::v2::Object;
-        let mut state = AppendObjectSpecState::Append(AppendObjectSpec {
-            bucket: "test-bucket".into(),
-            object: "test-object".into(),
-            generation: 1,
-            routing_token: Some("token".into()),
-            write_handle: Some(BidiWriteHandle {
-                handle: bytes::Bytes::from_static(b"initial-handle"),
-            }),
-            ..Default::default()
-        });
+        // Arrange: State already in Append mode with a pending initial chunk.
+        let mut state = AppendObjectSpecState::Append {
+            spec: AppendObjectSpec {
+                bucket: "test-bucket".into(),
+                object: "test-object".into(),
+                generation: 1,
+                routing_token: Some("token".into()),
+                write_handle: Some(BidiWriteHandle {
+                    handle: bytes::Bytes::from_static(b"initial-handle"),
+                }),
+                ..Default::default()
+            },
+            initial_chunk: Some(bytes::Bytes::from_static(b"initial-payload")),
+        };
 
         let response = BidiWriteObjectResponse {
             write_status: Some(WriteStatus::Resource(Object {
@@ -185,9 +227,15 @@ mod tests {
             ..Default::default()
         };
 
+        // Act: Process subsequent response.
         state.handle_response(&response);
 
-        if let AppendObjectSpecState::Append(ref spec) = state {
+        // Assert: Updates generation and write handle, and clears any remaining initial_chunk.
+        if let AppendObjectSpecState::Append {
+            ref spec,
+            ref initial_chunk,
+        } = state
+        {
             assert_eq!(spec.generation, 42);
             assert_eq!(
                 spec.write_handle,
@@ -196,6 +244,7 @@ mod tests {
                 })
             );
             assert_eq!(spec.routing_token.as_deref(), Some("token"));
+            assert!(initial_chunk.is_none());
         } else {
             panic!("Expected AppendObjectSpecState::Append");
         }
@@ -233,11 +282,14 @@ mod tests {
             if_metageneration_match: Some(10),
             if_metageneration_not_match: Some(20),
         };
-        let mut state = AppendObjectSpecState::Append(spec);
+        let mut state = AppendObjectSpecState::Append {
+            spec,
+            initial_chunk: None,
+        };
 
         let got = state.handle_redirect(status);
         assert!(got.status().is_some(), "{got:?}");
-        if let AppendObjectSpecState::Append(ref spec) = state {
+        if let AppendObjectSpecState::Append { ref spec, .. } = state {
             assert_eq!(spec.routing_token.as_deref(), routing);
             assert_eq!(spec.write_handle, write_handle);
             assert_eq!(spec.generation, 42);
@@ -272,15 +324,64 @@ mod tests {
             if_metageneration_not_match: Some(22),
             ..Default::default()
         };
-        let mut state = AppendObjectSpecState::Write(Box::new(write_spec), None);
+        let mut state = AppendObjectSpecState::Write {
+            spec: Box::new(write_spec),
+            routing_token: None,
+            initial_chunk: None,
+        };
 
         let got = state.handle_redirect(status);
         assert!(got.status().is_some(), "{got:?}");
-        if let AppendObjectSpecState::Append(ref spec) = state {
+        if let AppendObjectSpecState::Append { ref spec, .. } = state {
             assert_eq!(spec.routing_token.as_deref(), Some("new-routing"));
             assert_eq!(spec.generation, 42);
             assert_eq!(spec.if_metageneration_match, Some(11));
             assert_eq!(spec.if_metageneration_not_match, Some(22));
+        } else {
+            panic!("Expected AppendObjectSpecState::Append");
+        }
+    }
+
+    #[test]
+    fn handle_redirect_preserves_initial_data_on_write() {
+        use crate::google::storage::v2::WriteObjectSpec;
+        let redirect = BidiWriteObjectRedirectedError {
+            routing_token: Some("new-routing".to_string()),
+            write_handle: Some(BidiWriteHandle {
+                handle: bytes::Bytes::from_static(b"new-handle"),
+            }),
+            generation: Some(42),
+        };
+        let redirect = prost_types::Any::from_msg(&redirect).unwrap();
+        let status = RpcStatus {
+            code: Code::Aborted as i32,
+            message: "test-only".to_string(),
+            details: vec![redirect],
+        };
+        let details = bytes::Bytes::from_owner(status.encode_to_vec());
+        let status = Status::with_details(Code::Aborted, "test-only", details);
+
+        // Arrange: State in Write mode with an initial chunk pending transmission.
+        let write_spec = WriteObjectSpec::default();
+        let initial_chunk = bytes::Bytes::from_static(b"initial-payload");
+        let mut state = AppendObjectSpecState::Write {
+            spec: Box::new(write_spec),
+            routing_token: None,
+            initial_chunk: Some(initial_chunk.clone()),
+        };
+
+        // Act: Handle redirect status from server.
+        let got = state.handle_redirect(status);
+        assert!(got.status().is_some(), "{got:?}");
+
+        // Assert: When transitioning from Write to Append on redirect, the initial_chunk
+        // must be preserved so retry attempts can re-send the unacknowledged initial payload.
+        if let AppendObjectSpecState::Append {
+            initial_chunk: Some(ref data),
+            ..
+        } = state
+        {
+            assert_eq!(data, &initial_chunk);
         } else {
             panic!("Expected AppendObjectSpecState::Append");
         }
@@ -306,11 +407,14 @@ mod tests {
             write_handle: Some(initial_handle.clone()),
             ..Default::default()
         };
-        let mut state = AppendObjectSpecState::Append(spec);
+        let mut state = AppendObjectSpecState::Append {
+            spec,
+            initial_chunk: None,
+        };
 
         let got = state.handle_redirect(status);
         assert!(got.status().is_some(), "{got:?}");
-        if let AppendObjectSpecState::Append(ref spec) = state {
+        if let AppendObjectSpecState::Append { ref spec, .. } = state {
             assert_eq!(spec.routing_token.as_deref(), Some("initial-token"));
             assert_eq!(spec.write_handle, Some(initial_handle));
             assert_eq!(spec.generation, 1);
@@ -337,12 +441,19 @@ mod tests {
         let status = Status::with_details(Code::Aborted, "test-only", details);
 
         let write_spec = WriteObjectSpec::default();
-        let mut state = AppendObjectSpecState::Write(Box::new(write_spec), None);
+        let mut state = AppendObjectSpecState::Write {
+            spec: Box::new(write_spec),
+            routing_token: None,
+            initial_chunk: None,
+        };
 
         let got = state.handle_redirect(status);
         assert!(got.status().is_some(), "{got:?}");
-        if let AppendObjectSpecState::Write(_, ref token) = state {
-            assert_eq!(token.as_deref(), Some("new-routing"));
+        if let AppendObjectSpecState::Write {
+            ref routing_token, ..
+        } = state
+        {
+            assert_eq!(routing_token.as_deref(), Some("new-routing"));
         } else {
             panic!("Expected AppendObjectSpecState::Write");
         }

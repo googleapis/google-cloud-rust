@@ -494,6 +494,7 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -504,6 +505,7 @@ impl super::stub::Agents for Agents {
                 let path_template = "/v2/{parent}/agent:train";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -522,6 +524,7 @@ impl super::stub::Agents for Agents {
                 let path_template = "/v2/{parent}/agent:train";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -585,6 +588,7 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -595,6 +599,7 @@ impl super::stub::Agents for Agents {
                 let path_template = "/v2/{parent}/agent:export";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -613,6 +618,7 @@ impl super::stub::Agents for Agents {
                 let path_template = "/v2/{parent}/agent:export";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -676,6 +682,7 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -686,6 +693,7 @@ impl super::stub::Agents for Agents {
                 let path_template = "/v2/{parent}/agent:import";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -704,6 +712,7 @@ impl super::stub::Agents for Agents {
                 let path_template = "/v2/{parent}/agent:import";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -767,6 +776,7 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -777,6 +787,7 @@ impl super::stub::Agents for Agents {
                 let path_template = "/v2/{parent}/agent:restore";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -795,6 +806,7 @@ impl super::stub::Agents for Agents {
                 let path_template = "/v2/{parent}/agent:restore";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4174,6 +4186,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4189,6 +4202,7 @@ impl super::stub::Conversations for Conversations {
                 let path_template = "/v2/{name}:complete";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4209,6 +4223,7 @@ impl super::stub::Conversations for Conversations {
                 let path_template = "/v2/{name}:complete";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4279,6 +4294,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_conversation = try_match(
@@ -4296,6 +4312,7 @@ impl super::stub::Conversations for Conversations {
                 let path_template = "/v2/{conversation}:ingestContextReferences";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_conversation,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.conversation));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4464,6 +4481,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_conversation = try_match(
@@ -4482,6 +4500,7 @@ impl super::stub::Conversations for Conversations {
                 let path_template = "/v2/{conversation}/suggestions:suggestConversationSummary";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_conversation,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.conversation));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4505,6 +4524,7 @@ impl super::stub::Conversations for Conversations {
                 let path_template = "/v2/{conversation}/suggestions:suggestConversationSummary";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_conversation,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.conversation));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4577,6 +4597,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_stateless_conversation_parent = try_match(
@@ -4597,6 +4618,9 @@ impl super::stub::Conversations for Conversations {
                     "//dialogflow.googleapis.com/{}",
                     var_stateless_conversation_parent,
                 );
+                let _ = Some(&mut req)
+                    .and_then(|m| m.stateless_conversation.as_mut())
+                    .map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4625,6 +4649,9 @@ impl super::stub::Conversations for Conversations {
                     "//dialogflow.googleapis.com/{}",
                     var_stateless_conversation_parent,
                 );
+                let _ = Some(&mut req)
+                    .and_then(|m| m.stateless_conversation.as_mut())
+                    .map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4696,6 +4723,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -4711,6 +4739,7 @@ impl super::stub::Conversations for Conversations {
                 let path_template = "/v2/{parent}/statelessSuggestion:generate";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4766,6 +4795,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -4776,6 +4806,7 @@ impl super::stub::Conversations for Conversations {
                 let path_template = "/v2/{parent}/suggestions:searchKnowledge";
 
                 let resource_name = String::new();
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4794,6 +4825,7 @@ impl super::stub::Conversations for Conversations {
                 let path_template = "/v2/{parent}/suggestions:searchKnowledge";
 
                 let resource_name = String::new();
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4812,6 +4844,7 @@ impl super::stub::Conversations for Conversations {
                 let path_template = "/v2/{conversation}/suggestions:searchKnowledge";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_conversation,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.conversation));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4832,6 +4865,7 @@ impl super::stub::Conversations for Conversations {
                 let path_template = "/v2/{conversation}/suggestions:searchKnowledge";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_conversation,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.conversation));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4927,6 +4961,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_conversation = try_match(
@@ -4942,6 +4977,7 @@ impl super::stub::Conversations for Conversations {
                 let path_template = "/v2/{conversation}/suggestions:generate";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_conversation,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.conversation));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4962,6 +4998,7 @@ impl super::stub::Conversations for Conversations {
                 let path_template = "/v2/{conversation}/suggestions:generate";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_conversation,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.conversation));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5844,6 +5881,7 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -5859,6 +5897,7 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 let path_template = "/v2/{name}:importConversationData";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5879,6 +5918,7 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 let path_template = "/v2/{name}:importConversationData";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6823,6 +6863,7 @@ impl super::stub::ConversationModels for ConversationModels {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -6837,6 +6878,7 @@ impl super::stub::ConversationModels for ConversationModels {
                 let path = format!("/v2/{}:deploy", var_name,);
                 let path_template = "/v2/{name}:deploy";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -6856,6 +6898,7 @@ impl super::stub::ConversationModels for ConversationModels {
                 let path = format!("/v2/{}:deploy", var_name,);
                 let path_template = "/v2/{name}:deploy";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -6927,6 +6970,7 @@ impl super::stub::ConversationModels for ConversationModels {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -6941,6 +6985,7 @@ impl super::stub::ConversationModels for ConversationModels {
                 let path = format!("/v2/{}:undeploy", var_name,);
                 let path_template = "/v2/{name}:undeploy";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -6960,6 +7005,7 @@ impl super::stub::ConversationModels for ConversationModels {
                 let path = format!("/v2/{}:undeploy", var_name,);
                 let path_template = "/v2/{name}:undeploy";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -7247,6 +7293,7 @@ impl super::stub::ConversationModels for ConversationModels {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -7264,6 +7311,7 @@ impl super::stub::ConversationModels for ConversationModels {
                 let path_template = "/v2/{parent}/evaluations";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8349,6 +8397,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_conversation_profile = try_match(
@@ -8368,6 +8417,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 );
                 let path_template = "/v2/{conversation_profile}:setSuggestionFeatureConfig";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.conversation_profile));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -8392,6 +8442,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 );
                 let path_template = "/v2/{conversation_profile}:setSuggestionFeatureConfig";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.conversation_profile));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -8465,6 +8516,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_conversation_profile = try_match(
@@ -8484,6 +8536,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 );
                 let path_template = "/v2/{conversation_profile}:clearSuggestionFeatureConfig";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.conversation_profile));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -8508,6 +8561,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 );
                 let path_template = "/v2/{conversation_profile}:clearSuggestionFeatureConfig";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.conversation_profile));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -9496,6 +9550,7 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -9511,6 +9566,7 @@ impl super::stub::Documents for Documents {
                 let path_template = "/v2/{parent}/documents:import";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9531,6 +9587,7 @@ impl super::stub::Documents for Documents {
                 let path_template = "/v2/{parent}/documents:import";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9951,6 +10008,7 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -9968,6 +10026,7 @@ impl super::stub::Documents for Documents {
                 let path_template = "/v2/{name}:reload";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9990,6 +10049,7 @@ impl super::stub::Documents for Documents {
                 let path_template = "/v2/{name}:reload";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -10010,6 +10070,7 @@ impl super::stub::Documents for Documents {
                 let path_template = "/v2/{name}:reload";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -10101,6 +10162,7 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -10118,6 +10180,7 @@ impl super::stub::Documents for Documents {
                 let path_template = "/v2/{name}:export";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -10140,6 +10203,7 @@ impl super::stub::Documents for Documents {
                 let path_template = "/v2/{name}:export";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -10766,6 +10830,7 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_encryption_spec_name = try_match(
@@ -10784,6 +10849,9 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
                 let path = format!("/v2/{}:initialize", var_encryption_spec_name,);
                 let path_template = "/v2/{encryption_spec.name}:initialize";
 
+                let _ = Some(&mut req)
+                    .and_then(|m| m.encryption_spec.as_mut())
+                    .map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -11890,6 +11958,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -11904,6 +11973,7 @@ impl super::stub::EntityTypes for EntityTypes {
                 let path_template = "/v2/{parent}/entityTypes:batchUpdate";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11923,6 +11993,7 @@ impl super::stub::EntityTypes for EntityTypes {
                 let path_template = "/v2/{parent}/entityTypes:batchUpdate";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11991,6 +12062,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -12005,6 +12077,7 @@ impl super::stub::EntityTypes for EntityTypes {
                 let path_template = "/v2/{parent}/entityTypes:batchDelete";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -12024,6 +12097,7 @@ impl super::stub::EntityTypes for EntityTypes {
                 let path_template = "/v2/{parent}/entityTypes:batchDelete";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -12092,6 +12166,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -12107,6 +12182,7 @@ impl super::stub::EntityTypes for EntityTypes {
                 let path_template = "/v2/{parent}/entities:batchCreate";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -12127,6 +12203,7 @@ impl super::stub::EntityTypes for EntityTypes {
                 let path_template = "/v2/{parent}/entities:batchCreate";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -12197,6 +12274,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -12212,6 +12290,7 @@ impl super::stub::EntityTypes for EntityTypes {
                 let path_template = "/v2/{parent}/entities:batchUpdate";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -12232,6 +12311,7 @@ impl super::stub::EntityTypes for EntityTypes {
                 let path_template = "/v2/{parent}/entities:batchUpdate";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -12302,6 +12382,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -12317,6 +12398,7 @@ impl super::stub::EntityTypes for EntityTypes {
                 let path_template = "/v2/{parent}/entities:batchDelete";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -12337,6 +12419,7 @@ impl super::stub::EntityTypes for EntityTypes {
                 let path_template = "/v2/{parent}/entities:batchDelete";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -17071,6 +17154,7 @@ impl super::stub::Intents for Intents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -17085,6 +17169,7 @@ impl super::stub::Intents for Intents {
                 let path_template = "/v2/{parent}/intents:batchUpdate";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -17104,6 +17189,7 @@ impl super::stub::Intents for Intents {
                 let path_template = "/v2/{parent}/intents:batchUpdate";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -17172,6 +17258,7 @@ impl super::stub::Intents for Intents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -17186,6 +17273,7 @@ impl super::stub::Intents for Intents {
                 let path_template = "/v2/{parent}/intents:batchDelete";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -17205,6 +17293,7 @@ impl super::stub::Intents for Intents {
                 let path_template = "/v2/{parent}/intents:batchDelete";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -19418,6 +19507,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_participant = try_match(
@@ -19435,6 +19525,7 @@ impl super::stub::Participants for Participants {
                 let path_template = "/v2/{participant}:analyzeContent";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_participant,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.participant));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -19457,6 +19548,7 @@ impl super::stub::Participants for Participants {
                 let path_template = "/v2/{participant}:analyzeContent";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_participant,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.participant));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -19531,6 +19623,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -19548,6 +19641,7 @@ impl super::stub::Participants for Participants {
                 let path_template = "/v2/{parent}/suggestions:suggestArticles";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -19570,6 +19664,7 @@ impl super::stub::Participants for Participants {
                 let path_template = "/v2/{parent}/suggestions:suggestArticles";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -19644,6 +19739,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -19661,6 +19757,7 @@ impl super::stub::Participants for Participants {
                 let path_template = "/v2/{parent}/suggestions:suggestFaqAnswers";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -19683,6 +19780,7 @@ impl super::stub::Participants for Participants {
                 let path_template = "/v2/{parent}/suggestions:suggestFaqAnswers";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -19757,6 +19855,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -19774,6 +19873,7 @@ impl super::stub::Participants for Participants {
                 let path_template = "/v2/{parent}/suggestions:suggestSmartReplies";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -19796,6 +19896,7 @@ impl super::stub::Participants for Participants {
                 let path_template = "/v2/{parent}/suggestions:suggestSmartReplies";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -19870,6 +19971,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -19887,6 +19989,7 @@ impl super::stub::Participants for Participants {
                 let path_template = "/v2/{parent}/suggestions:suggestKnowledgeAssist";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -19909,6 +20012,7 @@ impl super::stub::Participants for Participants {
                 let path_template = "/v2/{parent}/suggestions:suggestKnowledgeAssist";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20451,6 +20555,7 @@ impl super::stub::Sessions for Sessions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_session = try_match(
@@ -20466,6 +20571,7 @@ impl super::stub::Sessions for Sessions {
                 let path_template = "/v2/{session}:detectIntent";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_session,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.session));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20488,6 +20594,7 @@ impl super::stub::Sessions for Sessions {
                 let path_template = "/v2/{session}:detectIntent";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_session,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.session));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20508,6 +20615,7 @@ impl super::stub::Sessions for Sessions {
                 let path_template = "/v2/{session}:detectIntent";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_session,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.session));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20532,6 +20640,7 @@ impl super::stub::Sessions for Sessions {
                 let path_template = "/v2/{session}:detectIntent";
 
                 let resource_name = format!("//dialogflow.googleapis.com/{}", var_session,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.session));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))

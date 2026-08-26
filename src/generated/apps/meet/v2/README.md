@@ -27,9 +27,9 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-apps-meet-v2/1.0.0)
+- Read the [crate's documentation](https://docs.rs/google-apps-meet-v2/1.1.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[SpacesService]: https://docs.rs/google-apps-meet-v2/1.0.0/google_apps_meet_v2/client/struct.SpacesService.html
-[ConferenceRecordsService]: https://docs.rs/google-apps-meet-v2/1.0.0/google_apps_meet_v2/client/struct.ConferenceRecordsService.html
+[SpacesService]: https://docs.rs/google-apps-meet-v2/1.1.0/google_apps_meet_v2/client/struct.SpacesService.html
+[ConferenceRecordsService]: https://docs.rs/google-apps-meet-v2/1.1.0/google_apps_meet_v2/client/struct.ConferenceRecordsService.html

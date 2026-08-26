@@ -13,10 +13,11 @@
 // limitations under the License.
 
 use super::super::generated::gapic_storage::client::BigQueryWrite;
-use super::super::model::write_stream::Type;
-use super::super::model::{ArrowSchema, WriteStream};
 use super::super::transport::Transport;
-use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter};
+use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter, Writer};
+use crate::model::write_stream::Type;
+use crate::model::{ArrowSchema, WriteStream};
+use crate::write::error::{AttachError, AttachResult};
 use crate::{Error, Result};
 use gaxi::path_parameter::{PathMismatchBuilder, try_match};
 use gaxi::routing_parameter::Segment;
@@ -37,6 +38,22 @@ impl WriterBuilder {
 
     /// Create a writer for the [default stream] for the given table.
     ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample(client: Write) -> anyhow::Result<()> {
+    /// let writer = client
+    ///     .arrow(schema())
+    ///     .default("projects/my-project/datasets/my-dataset/tables/my-table")?;
+    /// # Ok(()) }
+    ///
+    /// use google_cloud_bigquery::model::ArrowSchema;
+    /// fn schema() -> ArrowSchema {
+    ///   todo!("Define your table's schema...")
+    /// }
+    /// ```
+    ///
     /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
     pub fn default<T: Into<String>>(self, table: T) -> Result<DefaultWriter> {
         let table = table.into();
@@ -47,6 +64,23 @@ impl WriterBuilder {
     }
 
     /// Creates a pending writer for the given table.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample(client: Write) -> anyhow::Result<()> {
+    /// let writer = client
+    ///     .arrow(schema())
+    ///     .pending("projects/my-project/datasets/my-dataset/tables/my-table")
+    ///     .await?;
+    /// # Ok(()) }
+    ///
+    /// use google_cloud_bigquery::model::ArrowSchema;
+    /// fn schema() -> ArrowSchema {
+    ///   todo!("Define your table's schema...")
+    /// }
+    /// ```
     pub async fn pending<T: Into<String>>(self, table: T) -> Result<PendingWriter> {
         let table = table.into();
         validate_table(table.as_str())?;
@@ -67,6 +101,23 @@ impl WriterBuilder {
     }
 
     /// Creates a committed writer for the given table.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample(client: Write) -> anyhow::Result<()> {
+    /// let writer = client
+    ///     .arrow(schema())
+    ///     .committed("projects/my-project/datasets/my-dataset/tables/my-table")
+    ///     .await?;
+    /// # Ok(()) }
+    ///
+    /// use google_cloud_bigquery::model::ArrowSchema;
+    /// fn schema() -> ArrowSchema {
+    ///   todo!("Define your table's schema...")
+    /// }
+    /// ```
     pub async fn committed<T: Into<String>>(self, table: T) -> Result<CommittedWriter> {
         let table = table.into();
         validate_table(table.as_str())?;
@@ -87,6 +138,23 @@ impl WriterBuilder {
     }
 
     /// Creates a buffered writer for the given table.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample(client: Write) -> anyhow::Result<()> {
+    /// let writer = client
+    ///     .arrow(schema())
+    ///     .buffered("projects/my-project/datasets/my-dataset/tables/my-table")
+    ///     .await?;
+    /// # Ok(()) }
+    ///
+    /// use google_cloud_bigquery::model::ArrowSchema;
+    /// fn schema() -> ArrowSchema {
+    ///   todo!("Define your table's schema...")
+    /// }
+    /// ```
     pub async fn buffered<T: Into<String>>(self, table: T) -> Result<BufferedWriter> {
         let table = table.into();
         validate_table(table.as_str())?;
@@ -104,6 +172,46 @@ impl WriterBuilder {
             write_stream.name,
             self.schema,
         ))
+    }
+
+    /// Attaches the builder to an existing stream.
+    ///
+    /// # Example
+    /// ```
+    /// use google_cloud_bigquery::write::arrow::CommittedWriter;
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample(client: Write) -> anyhow::Result<()> {
+    /// let writer: CommittedWriter = client
+    ///     .arrow(schema())
+    ///     .attach("projects/my-project/datasets/my_dataset/tables/my_table/streams/my_stream")
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// #
+    /// # use google_cloud_bigquery::model::ArrowSchema;
+    /// # fn schema() -> ArrowSchema {
+    /// #   todo!("Define your table's schema...")
+    /// # }
+    /// ```
+    pub async fn attach<U: Writer, S: Into<String>>(self, write_stream: S) -> AttachResult<U> {
+        let write_stream = write_stream.into();
+        validate_stream(write_stream.as_str())?;
+
+        let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
+        let stream = client
+            .get_write_stream()
+            .set_name(&write_stream)
+            .send()
+            .await?;
+
+        let stream_type = stream.r#type.clone();
+        if stream_type != U::STREAM_TYPE {
+            return Err(AttachError::TypeMismatch {
+                expected: U::STREAM_TYPE,
+                actual: stream_type,
+            });
+        }
+        Ok(U::build(self.inner, write_stream, self.schema))
     }
 }
 
@@ -131,16 +239,44 @@ fn validate_table(table: &str) -> Result<()> {
         .map(|_| ())
 }
 
+fn validate_stream(stream: &str) -> crate::Result<()> {
+    let segments = &[
+        Segment::Literal("projects/"),
+        Segment::SingleWildcard,
+        Segment::Literal("/datasets/"),
+        Segment::SingleWildcard,
+        Segment::Literal("/tables/"),
+        Segment::SingleWildcard,
+        Segment::Literal("/streams/"),
+        Segment::SingleWildcard,
+    ];
+    try_match(Some(stream), segments)
+        .ok_or_else(|| {
+            let builder = gaxi::path_parameter::PathMismatchBuilder::default();
+            let builder = builder.maybe_add(
+                Some(stream),
+                segments,
+                "write_stream",
+                "projects/*/datasets/*/tables/*/streams/*",
+            );
+            Error::binding(BindingError {
+                paths: vec![builder.build()],
+            })
+        })
+        .map(|_| ())
+}
+
 #[cfg(test)]
 mod tests {
     use super::super::super::transport::tests::test_transport;
     use super::*;
+    use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
+    use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use test_case::test_case;
+    use tokio::task::JoinHandle;
 
     #[tokio::test]
     async fn pending_success() -> anyhow::Result<()> {
-        use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
-        use bigquery_grpc_mock::{MockBigQueryWrite, start};
         let mut mock = MockBigQueryWrite::new();
         mock.expect_create_write_stream().return_once(|req| {
             let req = req.into_inner();
@@ -158,10 +294,10 @@ mod tests {
         let builder = WriterBuilder::new(transport, schema.clone());
         let writer = builder.pending("projects/p/datasets/d/tables/t").await?;
         assert_eq!(
-            writer.write_stream,
+            writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.schema, schema);
+        assert_eq!(writer.inner.schema, schema);
         Ok(())
     }
 
@@ -183,8 +319,6 @@ mod tests {
 
     #[tokio::test]
     async fn committed_success() -> anyhow::Result<()> {
-        use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
-        use bigquery_grpc_mock::{MockBigQueryWrite, start};
         let mut mock = MockBigQueryWrite::new();
         mock.expect_create_write_stream().return_once(|req| {
             let req = req.into_inner();
@@ -202,10 +336,10 @@ mod tests {
         let builder = WriterBuilder::new(transport, schema.clone());
         let writer = builder.committed("projects/p/datasets/d/tables/t").await?;
         assert_eq!(
-            writer.write_stream,
+            writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.schema, schema);
+        assert_eq!(writer.inner.schema, schema);
         Ok(())
     }
 
@@ -258,8 +392,6 @@ mod tests {
     }
     #[tokio::test]
     async fn buffered_success() -> anyhow::Result<()> {
-        use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
-        use bigquery_grpc_mock::{MockBigQueryWrite, start};
         let mut mock = MockBigQueryWrite::new();
         mock.expect_create_write_stream().return_once(|req| {
             let req = req.into_inner();
@@ -277,10 +409,10 @@ mod tests {
         let builder = WriterBuilder::new(transport, schema.clone());
         let writer = builder.buffered("projects/p/datasets/d/tables/t").await?;
         assert_eq!(
-            writer.write_stream,
+            writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.schema, schema);
+        assert_eq!(writer.inner.schema, schema);
         Ok(())
     }
 
@@ -297,6 +429,101 @@ mod tests {
             .await
             .expect_err("should fail locally on bad format");
         assert!(err.is_binding(), "{err:?}");
+        Ok(())
+    }
+
+    async fn attach_mock(stream_type: Type) -> anyhow::Result<(Arc<Transport>, JoinHandle<()>)> {
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_get_write_stream().return_once(move |req| {
+            let req = req.into_inner();
+            assert_eq!(req.name, "projects/p/datasets/d/tables/t/streams/s");
+            Ok(gaxi::grpc::tonic::Response::new(MockWriteStream {
+                name: "projects/p/datasets/d/tables/t/streams/s".to_string(),
+                r#type: stream_type.value().expect("known enum value"),
+                ..Default::default()
+            }))
+        });
+        let (endpoint, server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+        Ok((transport, server))
+    }
+
+    #[tokio::test]
+    async fn attach_committed_success() -> anyhow::Result<()> {
+        let (transport, _server) = attach_mock(Type::Committed).await?;
+        let schema = ArrowSchema::new().set_serialized_schema("test");
+        let builder = WriterBuilder::new(transport, schema.clone());
+        let writer: CommittedWriter = builder
+            .attach("projects/p/datasets/d/tables/t/streams/s")
+            .await?;
+        assert_eq!(
+            writer.inner.write_stream,
+            "projects/p/datasets/d/tables/t/streams/s"
+        );
+        assert_eq!(writer.inner.schema, schema);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn attach_pending_success() -> anyhow::Result<()> {
+        let (transport, _server) = attach_mock(Type::Pending).await?;
+        let schema = ArrowSchema::new().set_serialized_schema("test");
+        let builder = WriterBuilder::new(transport, schema.clone());
+        let writer: PendingWriter = builder
+            .attach("projects/p/datasets/d/tables/t/streams/s")
+            .await?;
+        assert_eq!(
+            writer.inner.write_stream,
+            "projects/p/datasets/d/tables/t/streams/s"
+        );
+        assert_eq!(writer.inner.schema, schema);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn attach_buffered_success() -> anyhow::Result<()> {
+        let (transport, _server) = attach_mock(Type::Buffered).await?;
+        let schema = ArrowSchema::new().set_serialized_schema("test");
+        let builder = WriterBuilder::new(transport, schema.clone());
+        let writer: BufferedWriter = builder
+            .attach("projects/p/datasets/d/tables/t/streams/s")
+            .await?;
+        assert_eq!(
+            writer.inner.write_stream,
+            "projects/p/datasets/d/tables/t/streams/s"
+        );
+        assert_eq!(writer.inner.schema, schema);
+        Ok(())
+    }
+
+    #[test_case("projects/p")]
+    #[test_case("projects/p/tables/t")]
+    #[test_case("projects/p/datasets/d/tables/t")]
+    #[test_case("projects/p/datasets/d/tables/t/streams/")]
+    #[tokio::test]
+    async fn attach_bad_stream_format(stream: &str) -> anyhow::Result<()> {
+        let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
+        let schema = ArrowSchema::new().set_serialized_schema("test");
+        let builder = WriterBuilder::new(transport, schema.clone());
+        let err = builder
+            .attach::<CommittedWriter, _>(stream)
+            .await
+            .expect_err("should fail locally on bad format");
+        assert!(matches!(err, AttachError::Rpc { source: e } if e.is_binding()));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn attach_stream_type_mismatch() -> anyhow::Result<()> {
+        let (transport, _server) = attach_mock(Type::Buffered).await?;
+        let schema = ArrowSchema::new().set_serialized_schema("test");
+        let builder = WriterBuilder::new(transport, schema.clone());
+        let err = builder
+            .attach::<CommittedWriter, _>("projects/p/datasets/d/tables/t/streams/s")
+            .await
+            .expect_err("should return type mismatch error");
+        assert!(matches!(err, AttachError::TypeMismatch { .. }));
+        assert!(err.to_string().contains("stream type mismatch: requested"));
         Ok(())
     }
 }

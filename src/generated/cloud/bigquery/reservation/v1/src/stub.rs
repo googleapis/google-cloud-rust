@@ -343,4 +343,15 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
+
+    /// Implements [super::client::ReservationService::update_reservation_group].
+    fn update_reservation_group(
+        &self,
+        _req: crate::model::UpdateReservationGroupRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ReservationGroup>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
 }

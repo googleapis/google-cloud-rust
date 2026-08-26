@@ -188,6 +188,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -198,6 +199,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
                 let path_template = "/v1/{parent}/instanceConfigs";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -248,6 +250,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_instance_config_name = try_match(
@@ -265,6 +268,9 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
                 let path = format!("/v1/{}", var_instance_config_name,);
                 let path_template = "/v1/{instance_config.name}";
 
+                let _ = Some(&mut req)
+                    .and_then(|m| m.instance_config.as_mut())
+                    .map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template)))
@@ -698,6 +704,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -708,6 +715,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
                 let path_template = "/v1/{parent}/instances";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -756,6 +764,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_instance_name = try_match(
@@ -773,6 +782,9 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
                 let path = format!("/v1/{}", var_instance_name,);
                 let path_template = "/v1/{instance.name}";
 
+                let _ = Some(&mut req)
+                    .and_then(|m| m.instance.as_mut())
+                    .map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template)))
@@ -902,6 +914,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -917,6 +930,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -970,6 +984,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -985,6 +1000,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
                 let path_template = "/v1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1038,6 +1054,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -1053,6 +1070,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1182,6 +1200,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -1197,6 +1216,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
                 let path_template = "/v1/{parent}/instancePartitions";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1333,6 +1353,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_instance_partition_name = try_match(
@@ -1352,6 +1373,9 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
                 let path = format!("/v1/{}", var_instance_partition_name,);
                 let path_template = "/v1/{instance_partition.name}";
 
+                let _ = Some(&mut req)
+                    .and_then(|m| m.instance_partition.as_mut())
+                    .map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template)))
@@ -1494,6 +1518,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1509,6 +1534,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
                 let path_template = "/v1/{name}:move";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))

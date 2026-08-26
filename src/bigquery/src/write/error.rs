@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::model::RowError;
 use crate::Error;
+use crate::model::RowError;
 
 /// Represents an error that can occur when appending rows.
 #[derive(thiserror::Error, Debug)]
@@ -43,6 +43,32 @@ pub enum AppendError {
 }
 
 pub(crate) type AppendResult<T> = std::result::Result<T, AppendError>;
+
+/// Represents an error that can occur when attaching to an existing stream.
+#[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
+pub enum AttachError {
+    /// The stream type provided by the service did not match the expected type.
+    #[error("stream type mismatch: requested {expected:?}, but matched resource yields {actual:?}")]
+    TypeMismatch {
+        /// The expected stream type.
+        expected: crate::model::write_stream::Type,
+        /// The actual stream type returned by the service.
+        actual: crate::model::write_stream::Type,
+    },
+
+    /// The underlying RPC failed.
+    #[non_exhaustive]
+    #[error("the operation failed. RPC error: {source}")]
+    Rpc {
+        /// The error returned by the service for the request.
+        #[from]
+        #[source]
+        source: Error,
+    },
+}
+
+pub(crate) type AttachResult<T> = std::result::Result<T, AttachError>;
 
 #[cfg(test)]
 mod tests {

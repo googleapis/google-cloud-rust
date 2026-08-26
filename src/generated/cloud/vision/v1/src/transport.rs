@@ -56,6 +56,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1/images:annotate".to_string();
@@ -78,6 +79,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                 let path = format!("/v1/{}/images:annotate", var_parent,);
                 let path_template = "/v1/{parent}/images:annotate";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -90,6 +92,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                 let path = format!("/v1/{}/images:annotate", var_parent,);
                 let path_template = "/v1/{parent}/images:annotate";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -156,6 +159,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1/files:annotate".to_string();
@@ -178,6 +182,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                 let path = format!("/v1/{}/files:annotate", var_parent,);
                 let path_template = "/v1/{parent}/files:annotate";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -190,6 +195,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                 let path = format!("/v1/{}/files:annotate", var_parent,);
                 let path_template = "/v1/{parent}/files:annotate";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -256,6 +262,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1/images:asyncBatchAnnotate".to_string();
@@ -278,6 +285,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                 let path = format!("/v1/{}/images:asyncBatchAnnotate", var_parent,);
                 let path_template = "/v1/{parent}/images:asyncBatchAnnotate";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -290,6 +298,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                 let path = format!("/v1/{}/images:asyncBatchAnnotate", var_parent,);
                 let path_template = "/v1/{parent}/images:asyncBatchAnnotate";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -358,6 +367,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1/files:asyncBatchAnnotate".to_string();
@@ -380,6 +390,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                 let path = format!("/v1/{}/files:asyncBatchAnnotate", var_parent,);
                 let path_template = "/v1/{parent}/files:asyncBatchAnnotate";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -392,6 +403,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                 let path = format!("/v1/{}/files:asyncBatchAnnotate", var_parent,);
                 let path_template = "/v1/{parent}/files:asyncBatchAnnotate";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1716,6 +1728,7 @@ impl super::stub::ProductSearch for ProductSearch {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1733,6 +1746,7 @@ impl super::stub::ProductSearch for ProductSearch {
                 let path_template = "/v1/{name}:addProduct";
 
                 let resource_name = format!("//vision.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1794,6 +1808,7 @@ impl super::stub::ProductSearch for ProductSearch {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1811,6 +1826,7 @@ impl super::stub::ProductSearch for ProductSearch {
                 let path_template = "/v1/{name}:removeProduct";
 
                 let resource_name = format!("//vision.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1948,6 +1964,7 @@ impl super::stub::ProductSearch for ProductSearch {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -1963,6 +1980,7 @@ impl super::stub::ProductSearch for ProductSearch {
                 let path_template = "/v1/{parent}/productSets:import";
 
                 let resource_name = format!("//vision.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2016,6 +2034,7 @@ impl super::stub::ProductSearch for ProductSearch {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -2031,6 +2050,7 @@ impl super::stub::ProductSearch for ProductSearch {
                 let path_template = "/v1/{parent}/products:purge";
 
                 let resource_name = format!("//vision.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))

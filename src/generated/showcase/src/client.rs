@@ -731,6 +731,13 @@ impl Echo {
     }
 
     #[cfg(google_cloud_unstable_gapic_streaming)]
+    /// This method splits the given content into words and will pass each word back
+    /// through the stream. This method showcases server-side streaming RPCs.
+    pub fn expand(&self) -> super::builder::echo::Expand {
+        super::builder::echo::Expand::new(self.inner.clone())
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
     /// This method, upon receiving a request on the stream, will pass the same
     /// content back on the stream. This method showcases bidirectional
     /// streaming RPCs.
@@ -1878,6 +1885,13 @@ impl Messaging {
     }
 
     #[cfg(google_cloud_unstable_gapic_streaming)]
+    /// This returns a stream that emits the blurbs that are created for a
+    /// particular chat room or user profile.
+    pub fn stream_blurbs(&self) -> super::builder::messaging::StreamBlurbs {
+        super::builder::messaging::StreamBlurbs::new(self.inner.clone())
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
     /// This method starts a bidirectional stream that receives all blurbs that
     /// are being created after the stream has started and sends requests to create
     /// blurbs. If an invalid blurb is requested to be created, the stream will
@@ -2320,6 +2334,17 @@ impl SequenceService {
     /// ```
     pub fn attempt_sequence(&self) -> super::builder::sequence_service::AttemptSequence {
         super::builder::sequence_service::AttemptSequence::new(self.inner.clone())
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    /// Attempts a server streaming call with a sequence of responses
+    /// Can be used to test retries and stream resumption logic
+    /// May not function as expected in HTTP mode due to when http statuses are sent
+    /// See <https://github.com/googleapis/gapic-showcase/issues/1377> for more details
+    pub fn attempt_streaming_sequence(
+        &self,
+    ) -> super::builder::sequence_service::AttemptStreamingSequence {
+        super::builder::sequence_service::AttemptStreamingSequence::new(self.inner.clone())
     }
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.

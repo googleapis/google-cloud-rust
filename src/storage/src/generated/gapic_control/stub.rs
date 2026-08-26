@@ -263,6 +263,17 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::StorageControl::disable_rapid_cache].
+    fn disable_rapid_cache(
+        &self,
+        _req: crate::model::DisableRapidCacheRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::StorageControl::get_rapid_cache].
     fn get_rapid_cache(
         &self,

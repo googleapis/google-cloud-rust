@@ -56,6 +56,7 @@ impl super::stub::AnalyticsService for AnalyticsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_catalog = try_match(
@@ -72,6 +73,7 @@ impl super::stub::AnalyticsService for AnalyticsService {
                 let path = format!("/v2/{}:exportAnalyticsMetrics", var_catalog,);
                 let path_template = "/v2/{catalog}:exportAnalyticsMetrics";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.catalog));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -654,6 +656,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_catalog = try_match(
@@ -671,6 +674,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v2/{catalog}:setDefaultBranch";
 
                 let resource_name = format!("//retail.googleapis.com/{}", var_catalog,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.catalog));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1132,6 +1136,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_attributes_config = try_match(
@@ -1150,6 +1155,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v2/{attributes_config}:addCatalogAttribute";
 
                 let resource_name = format!("//retail.googleapis.com/{}", var_attributes_config,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.attributes_config));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1206,6 +1212,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_attributes_config = try_match(
@@ -1224,6 +1231,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v2/{attributes_config}:removeCatalogAttribute";
 
                 let resource_name = format!("//retail.googleapis.com/{}", var_attributes_config,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.attributes_config));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1280,6 +1288,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_attributes_config = try_match(
@@ -1298,6 +1307,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v2/{attributes_config}:replaceCatalogAttribute";
 
                 let resource_name = format!("//retail.googleapis.com/{}", var_attributes_config,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.attributes_config));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1794,6 +1804,7 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -1811,6 +1822,7 @@ impl super::stub::CompletionService for CompletionService {
                 let path_template = "/v2/{parent}/completionData:import";
 
                 let resource_name = format!("//retail.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3667,6 +3679,7 @@ impl super::stub::GenerativeQuestionService for GenerativeQuestionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -3684,6 +3697,7 @@ impl super::stub::GenerativeQuestionService for GenerativeQuestionService {
                 let path_template = "/v2/{parent}/generativeQuestion:batchUpdate";
 
                 let resource_name = format!("//retail.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4242,6 +4256,7 @@ impl super::stub::ModelService for ModelService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4261,6 +4276,7 @@ impl super::stub::ModelService for ModelService {
                 let path_template = "/v2/{name}:pause";
 
                 let resource_name = format!("//retail.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4318,6 +4334,7 @@ impl super::stub::ModelService for ModelService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4336,6 +4353,7 @@ impl super::stub::ModelService for ModelService {
                 let path = format!("/v2/{}:resume", var_name,);
                 let path_template = "/v2/{name}:resume";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -4640,6 +4658,7 @@ impl super::stub::ModelService for ModelService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4659,6 +4678,7 @@ impl super::stub::ModelService for ModelService {
                 let path_template = "/v2/{name}:tune";
 
                 let resource_name = format!("//retail.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5084,6 +5104,7 @@ impl super::stub::PredictionService for PredictionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_placement = try_match(
@@ -5102,6 +5123,7 @@ impl super::stub::PredictionService for PredictionService {
                 let path = format!("/v2/{}:predict", var_placement,);
                 let path_template = "/v2/{placement}:predict";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.placement));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -5123,6 +5145,7 @@ impl super::stub::PredictionService for PredictionService {
                 let path = format!("/v2/{}:predict", var_placement,);
                 let path_template = "/v2/{placement}:predict";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.placement));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -5983,6 +6006,7 @@ impl super::stub::ProductService for ProductService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -6002,6 +6026,7 @@ impl super::stub::ProductService for ProductService {
                 let path_template = "/v2/{parent}/products:purge";
 
                 let resource_name = format!("//retail.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6059,6 +6084,7 @@ impl super::stub::ProductService for ProductService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -6078,6 +6104,7 @@ impl super::stub::ProductService for ProductService {
                 let path_template = "/v2/{parent}/products:import";
 
                 let resource_name = format!("//retail.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6135,6 +6162,7 @@ impl super::stub::ProductService for ProductService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_inventory_name = try_match(
@@ -6158,6 +6186,9 @@ impl super::stub::ProductService for ProductService {
                 let path = format!("/v2/{}:setInventory", var_inventory_name,);
                 let path_template = "/v2/{inventory.name}:setInventory";
 
+                let _ = Some(&mut req)
+                    .and_then(|m| m.inventory.as_mut())
+                    .map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -6219,6 +6250,7 @@ impl super::stub::ProductService for ProductService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_product = try_match(
@@ -6240,6 +6272,7 @@ impl super::stub::ProductService for ProductService {
                 let path_template = "/v2/{product}:addFulfillmentPlaces";
 
                 let resource_name = format!("//retail.googleapis.com/{}", var_product,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.product));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6299,6 +6332,7 @@ impl super::stub::ProductService for ProductService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_product = try_match(
@@ -6320,6 +6354,7 @@ impl super::stub::ProductService for ProductService {
                 let path_template = "/v2/{product}:removeFulfillmentPlaces";
 
                 let resource_name = format!("//retail.googleapis.com/{}", var_product,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.product));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6379,6 +6414,7 @@ impl super::stub::ProductService for ProductService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_product = try_match(
@@ -6400,6 +6436,7 @@ impl super::stub::ProductService for ProductService {
                 let path_template = "/v2/{product}:addLocalInventories";
 
                 let resource_name = format!("//retail.googleapis.com/{}", var_product,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.product));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6459,6 +6496,7 @@ impl super::stub::ProductService for ProductService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_product = try_match(
@@ -6480,6 +6518,7 @@ impl super::stub::ProductService for ProductService {
                 let path_template = "/v2/{product}:removeLocalInventories";
 
                 let resource_name = format!("//retail.googleapis.com/{}", var_product,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.product));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6907,6 +6946,7 @@ impl super::stub::SearchService for SearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_placement = try_match(
@@ -6925,6 +6965,7 @@ impl super::stub::SearchService for SearchService {
                 let path = format!("/v2/{}:search", var_placement,);
                 let path_template = "/v2/{placement}:search";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.placement));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -6946,6 +6987,7 @@ impl super::stub::SearchService for SearchService {
                 let path = format!("/v2/{}:search", var_placement,);
                 let path_template = "/v2/{placement}:search";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.placement));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -7780,6 +7822,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_serving_config = try_match(
@@ -7799,6 +7842,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 let path_template = "/v2/{serving_config}:addControl";
 
                 let resource_name = format!("//retail.googleapis.com/{}", var_serving_config,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.serving_config));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7856,6 +7900,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_serving_config = try_match(
@@ -7875,6 +7920,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 let path_template = "/v2/{serving_config}:removeControl";
 
                 let resource_name = format!("//retail.googleapis.com/{}", var_serving_config,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.serving_config));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8471,6 +8517,7 @@ impl super::stub::UserEventService for UserEventService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -8488,6 +8535,7 @@ impl super::stub::UserEventService for UserEventService {
                 let path_template = "/v2/{parent}/userEvents:purge";
 
                 let resource_name = format!("//retail.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8543,6 +8591,7 @@ impl super::stub::UserEventService for UserEventService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -8560,6 +8609,7 @@ impl super::stub::UserEventService for UserEventService {
                 let path_template = "/v2/{parent}/userEvents:import";
 
                 let resource_name = format!("//retail.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8615,6 +8665,7 @@ impl super::stub::UserEventService for UserEventService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -8631,6 +8682,7 @@ impl super::stub::UserEventService for UserEventService {
                 let path = format!("/v2/{}/userEvents:rejoin", var_parent,);
                 let path_template = "/v2/{parent}/userEvents:rejoin";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

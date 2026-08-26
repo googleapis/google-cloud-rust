@@ -27,17 +27,8 @@
 //! For executing queries and managing jobs:
 //! * [BigQuery][client::BigQuery]
 //!
-//! For handling query execution:
-//! * [Query](crate::query::Query)
-//! * [CompleteQuery](crate::query::CompleteQuery)
-//!
-//! For streaming and reading results:
-//! * [RowIterator](crate::query::RowIterator)
-//! * [Row](crate::query::Row)
-//!
-//! For converting results to Rust types:
-//! * [FromRow](crate::query::FromRow)
-//! * [FromSql](crate::query::FromSql)
+//! For streaming data to BigQuery:
+//! * [Write][client::Write]
 //!
 //! [bigquery]: https://cloud.google.com/bigquery
 //!
@@ -95,6 +86,32 @@
 //! # Ok(())
 //! # }
 //! ```
+//!
+//! # Example: Writing to BigQuery
+//!
+//! ```
+//! use google_cloud_bigquery::client::Write;
+//! use google_cloud_bigquery::model::{ArrowSchema, ArrowRecordBatch};
+//! # async fn sample() -> anyhow::Result<()> {
+//! let client = Write::builder().build().await?;
+//! let writer = client
+//!     .arrow(schema())
+//!     .default("projects/my-project/datasets/my-dataset/tables/my-table")?;
+//!
+//! let f1 = writer.append(rows()).send();
+//! let f2 = writer.append(rows()).send();
+//!
+//! let _ = f1.await?;
+//! let _ = f2.await?;
+//! # Ok(()) }
+//!
+//! fn schema() -> ArrowSchema {
+//!     todo!("Define your table's schema...")
+//! }
+//! fn rows() -> ArrowRecordBatch {
+//!     todo!("Serialize your rows...")
+//! }
+//! ```
 
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
@@ -108,7 +125,20 @@ pub mod client {
     // TODO(#6152) - add Write admin client
 }
 
-/// Extends [google_cloud_bigquery_v2::model] with types that improve ergonomics.
+/// The messages and enums that are part of this client library
+pub mod model {
+    pub(crate) use crate::write::generated::gapic_storage::model::*;
+    pub use crate::write::generated::gapic_storage::model::{
+        ArrowRecordBatch, ArrowSchema, BatchCommitWriteStreamsResponse,
+        FinalizeWriteStreamResponse, FlushRowsResponse, RowError, StorageError, TableFieldSchema,
+        TableSchema, row_error, storage_error, table_field_schema,
+    };
+}
+
+/// Extends [crate::model].
+///
+/// Note that there is no real distinction between the types in `model` and
+/// `model_ext`. The two modules are separate for library maintenance reasons.
 pub mod model_ext {
     pub use crate::generated::{CompleteQueryMetadata, QueryMetadata, QueryRequest};
     pub use crate::write::append_response::AppendResponse;

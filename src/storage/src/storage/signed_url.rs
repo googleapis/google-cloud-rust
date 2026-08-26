@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use crate::{error::SigningError, signed_url::UrlStyle, storage::client::ENCODED_CHARS};
-use chrono::{DateTime, Utc};
 use google_cloud_auth::signer::Signer;
+use jiff::Timestamp;
 use percent_encoding::{AsciiSet, utf8_percent_encode};
 use sha2::{Digest, Sha256};
 use std::collections::BTreeMap;
@@ -127,7 +127,7 @@ pub struct SignedUrlBuilder {
     endpoint: Option<String>,
     universe_domain: Option<String>,
     client_email: Option<String>,
-    timestamp: DateTime<Utc>,
+    timestamp: Timestamp,
     url_style: UrlStyle,
 }
 
@@ -232,7 +232,7 @@ impl SignedUrlBuilder {
             endpoint: None,
             universe_domain: None,
             client_email: None,
-            timestamp: Utc::now(),
+            timestamp: Timestamp::now(),
             url_style: UrlStyle::PathStyle,
         }
     }
@@ -511,8 +511,8 @@ impl SignedUrlBuilder {
         self.scope.check_bucket_name()?;
 
         let now = self.timestamp;
-        let request_timestamp = now.format("%Y%m%dT%H%M%SZ").to_string();
-        let datestamp = now.format("%Y%m%d");
+        let request_timestamp = now.strftime("%Y%m%dT%H%M%SZ").to_string();
+        let datestamp = now.strftime("%Y%m%d");
         let credential_scope = format!("{datestamp}/auto/storage/goog4_request");
         let client_email = if let Some(email) = self.client_email.clone() {
             email
@@ -642,9 +642,9 @@ impl SignedUrlEndpoint {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use chrono::DateTime;
     use google_cloud_auth::credentials::service_account::Builder as ServiceAccount;
     use google_cloud_auth::signer::{Result as SignResult, Signer, SigningError, SigningProvider};
+    use jiff::Timestamp;
     use serde::Deserialize;
     use std::collections::HashMap;
     use tokio::time::Duration;
@@ -663,7 +663,7 @@ mod tests {
 
     impl SignedUrlBuilder {
         /// Sets the timestamp for the signed URL. Only used in tests.
-        fn with_timestamp(mut self, timestamp: DateTime<Utc>) -> Self {
+        fn with_timestamp(mut self, timestamp: Timestamp) -> Self {
             self.timestamp = timestamp;
             self
         }
@@ -870,8 +870,7 @@ mod tests {
         let mut passed_tests = Vec::new();
         let total_tests = suite.signing_v4_tests.len();
         for test in suite.signing_v4_tests {
-            let timestamp =
-                DateTime::parse_from_rfc3339(&test.timestamp).expect("invalid timestamp");
+            let timestamp: Timestamp = test.timestamp.parse().expect("invalid timestamp");
             let method = http::Method::from_bytes(test.method.as_bytes()).expect("invalid method");
             let scheme = test.scheme.unwrap_or("https".to_string());
             let url_style = match test.url_style {
@@ -898,7 +897,7 @@ mod tests {
                 .with_method(method)
                 .with_url_style(url_style)
                 .with_expiration(Duration::from_secs(test.expiration))
-                .with_timestamp(timestamp.into());
+                .with_timestamp(timestamp);
 
             let builder = test
                 .universe_domain

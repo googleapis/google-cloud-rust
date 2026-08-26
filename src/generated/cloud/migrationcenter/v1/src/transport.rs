@@ -291,6 +291,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -306,6 +307,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 let path_template = "/v1/{parent}/assets:batchUpdate";
 
                 let resource_name = format!("//migrationcenter.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -440,6 +442,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -455,6 +458,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 let path_template = "/v1/{parent}/assets:batchDelete";
 
                 let resource_name = format!("//migrationcenter.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -585,6 +589,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -599,6 +604,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 let path = format!("/v1/{}/assets:aggregateValues", var_parent,);
                 let path_template = "/v1/{parent}/assets:aggregateValues";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1040,6 +1046,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1057,6 +1064,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 let path_template = "/v1/{name}:validate";
 
                 let resource_name = format!("//migrationcenter.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1114,6 +1122,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1131,6 +1140,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 let path_template = "/v1/{name}:run";
 
                 let resource_name = format!("//migrationcenter.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1873,6 +1883,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_group = try_match(
@@ -1890,6 +1901,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 let path_template = "/v1/{group}:addAssets";
 
                 let resource_name = format!("//migrationcenter.googleapis.com/{}", var_group,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.group));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1947,6 +1959,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_group = try_match(
@@ -1964,6 +1977,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 let path_template = "/v1/{group}:removeAssets";
 
                 let resource_name = format!("//migrationcenter.googleapis.com/{}", var_group,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.group));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4038,6 +4052,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4054,6 +4069,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

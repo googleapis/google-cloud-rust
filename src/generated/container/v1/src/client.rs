@@ -895,4 +895,27 @@ impl ClusterManager {
     ) -> super::builder::cluster_manager::FetchNodePoolUpgradeInfo {
         super::builder::cluster_manager::FetchNodePoolUpgradeInfo::new(self.inner.clone())
     }
+
+    /// CompleteControlPlaneUpgrade completes the rollback-safe upgrade by
+    /// performing the step two upgrade for a specific cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// use google_cloud_container_v1::Result;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> Result<()> {
+    ///     let response = client.complete_control_plane_upgrade()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn complete_control_plane_upgrade(
+        &self,
+    ) -> super::builder::cluster_manager::CompleteControlPlaneUpgrade {
+        super::builder::cluster_manager::CompleteControlPlaneUpgrade::new(self.inner.clone())
+    }
 }

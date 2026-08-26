@@ -50,8 +50,8 @@ impl Future for AppendFuture {
 
 #[cfg(test)]
 mod tests {
-    use super::super::model::TableSchema;
     use super::*;
+    use crate::model::TableSchema;
 
     #[tokio::test]
     async fn happy_path() {

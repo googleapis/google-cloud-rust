@@ -322,7 +322,6 @@ impl MutationGroup {
         &self.mutations
     }
 
-    #[allow(dead_code)]
     pub(crate) fn build_proto(self) -> ProtoMutationGroup {
         ProtoMutationGroup::new().set_mutations(self.mutations.into_iter().map(|m| m.build_proto()))
     }

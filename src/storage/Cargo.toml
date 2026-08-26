@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-storage"
-version     = "1.17.0"
+version     = "1.18.0"
 description = "Google Cloud Client Libraries for Rust - Storage"
 # Inherit other attributes from the workspace.
 edition.workspace      = true
@@ -36,7 +36,7 @@ async-trait.workspace      = true
 base64.workspace           = true
 bytes.workspace            = true
 crc32c.workspace           = true
-chrono                     = { workspace = true, features = ["clock"] }
+jiff                       = { workspace = true, features = ["std"] }
 http.workspace             = true
 futures.workspace          = true
 http-body.workspace        = true

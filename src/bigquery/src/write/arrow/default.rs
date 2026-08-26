@@ -13,10 +13,10 @@
 // limitations under the License.
 
 use super::super::append_builder::Append;
-use super::super::model::append_rows_request::ArrowData;
-use super::super::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema};
 use super::super::runner::Runner;
 use super::super::transport::Transport;
+use crate::model::append_rows_request::ArrowData;
+use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema};
 use std::sync::Arc;
 
 /// A writer for the [default stream]

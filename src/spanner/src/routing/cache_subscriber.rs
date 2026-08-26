@@ -383,12 +383,12 @@ async fn execute_subscriber_iteration(
         config.max_recipe_count,
         config.max_range_count,
     );
-    let channel_hint = config.spanner.next_channel_hint();
+    let channel = config.spanner.next_channel();
 
     debug!(database = %config.database, "Connecting to FetchCacheUpdate stream");
     let connect_future = config
         .spanner
-        .fetch_cache_update(request, RequestOptions::default(), channel_hint)
+        .fetch_cache_update(request, RequestOptions::default(), channel)
         .send();
     tokio::pin!(connect_future);
 
