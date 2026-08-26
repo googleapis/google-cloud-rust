@@ -22,7 +22,6 @@ use crate::Result;
 #[derive(Clone)]
 pub struct Speech {
     inner: gaxi::http::ReqwestClient,
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     grpc_inner: gaxi::grpc::Client,
 }
 
@@ -30,7 +29,6 @@ impl std::fmt::Debug for Speech {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         let mut builder = f.debug_struct("Speech");
         builder.field("inner", &self.inner);
-        #[cfg(google_cloud_unstable_gapic_streaming)]
         builder.field("grpc_inner", &self.grpc_inner);
         builder.finish()
     }
@@ -45,7 +43,6 @@ impl Speech {
         } else {
             inner
         };
-        #[cfg(google_cloud_unstable_gapic_streaming)]
         let grpc_inner = if tracing_is_enabled {
             gaxi::grpc::Client::new_with_instrumentation(
                 config,
@@ -56,11 +53,7 @@ impl Speech {
         } else {
             gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
         };
-        Ok(Self {
-            inner,
-            #[cfg(google_cloud_unstable_gapic_streaming)]
-            grpc_inner,
-        })
+        Ok(Self { inner, grpc_inner })
     }
 }
 
@@ -590,7 +583,6 @@ impl super::stub::Speech for Speech {
         self.inner.execute(builder, body, options).await
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn streaming_recognize(
         &self,
         options: crate::RequestOptions,

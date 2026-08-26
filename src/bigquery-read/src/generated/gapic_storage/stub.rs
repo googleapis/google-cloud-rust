@@ -49,7 +49,6 @@ pub trait Read: std::fmt::Debug + Send + Sync {
     }
 
     /// Implements [super::client::Read::read_rows].
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn read_rows(
         &self,
         _req: crate::model::ReadRowsRequest,

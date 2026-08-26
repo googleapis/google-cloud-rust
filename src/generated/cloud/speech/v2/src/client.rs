@@ -339,7 +339,6 @@ impl Speech {
         super::builder::speech::Recognize::new(self.inner.clone())
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     /// Performs bidirectional streaming speech recognition: receive results while
     /// sending audio. This method is only available via the gRPC API (not REST).
     ///

@@ -15,7 +15,6 @@
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_speech_streaming_recognize() -> anyhow::Result<()> {
         use google_cloud_test_utils::errors::anydump;

@@ -26,7 +26,6 @@ mod compliance;
 mod echo;
 mod identity;
 pub mod pqc;
-#[cfg(google_cloud_unstable_gapic_streaming)]
 mod streaming;
 
 /// The version of gapic-showcase used in these tests.
@@ -65,11 +64,8 @@ pub async fn run() -> Result<()> {
     tracing::info!("running tests for Compliance service");
     compliance::run().await?;
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
-    {
-        tracing::info!("running tests for Streaming");
-        streaming::run().await?;
-    }
+    tracing::info!("running tests for Streaming");
+    streaming::run().await?;
 
     Ok(())
 }

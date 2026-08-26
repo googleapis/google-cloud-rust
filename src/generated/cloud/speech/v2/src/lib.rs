@@ -83,7 +83,6 @@ pub(crate) mod tracing;
 #[doc(hidden)]
 pub(crate) mod transport;
 
-#[cfg(google_cloud_unstable_gapic_streaming)]
 #[doc(hidden)]
 #[allow(clippy::all)]
 #[allow(unused_imports)]
