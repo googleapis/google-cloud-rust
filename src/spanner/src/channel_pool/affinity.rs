@@ -78,13 +78,14 @@ impl TransactionAffinity {
 
     /// Returns the pinned monotonic channel entry ID, or `None` if unpinned.
     pub(crate) fn pinned_entry_id(&self) -> Option<u64> {
-        let id = self.entry_id.load(Ordering::Relaxed);
+        let id = self.entry_id.load(Ordering::Acquire);
         (id != 0).then_some(id)
     }
 
     /// Sets the pinned channel entry ID.
     pub(crate) fn set_entry_id(&self, entry_id: u64) {
-        self.entry_id.store(entry_id, Ordering::Relaxed);
+        debug_assert_ne!(entry_id, 0, "entry_id must be non-zero");
+        self.entry_id.store(entry_id, Ordering::Release);
     }
 
     /// Atomically sets the pinned channel entry ID if matching `current`.
@@ -99,7 +100,7 @@ impl TransactionAffinity {
 
     /// Clears the pinned channel entry ID, making this handle unpinned.
     pub(crate) fn reset(&self) {
-        self.entry_id.store(0, Ordering::Relaxed);
+        self.entry_id.store(0, Ordering::Release);
     }
 }
 
@@ -116,6 +117,22 @@ mod tests {
 
     #[test]
     fn transaction_affinity_pin_and_reset() {
+        assert_eq!(
+            AffinityKind::default(),
+            AffinityKind::ReadWrite,
+            "Default AffinityKind must be ReadWrite"
+        );
+        let default_affinity = TransactionAffinity::default();
+        assert!(
+            default_affinity.is_read_write(),
+            "Default affinity must be ReadWrite"
+        );
+        let new_affinity = TransactionAffinity::new();
+        assert!(
+            new_affinity.is_read_write(),
+            "TransactionAffinity::new must be ReadWrite"
+        );
+
         let affinity = TransactionAffinity::new_read_write();
         assert!(
             affinity.is_read_write(),
@@ -175,29 +192,6 @@ mod tests {
         assert!(
             !read_only_affinity.is_read_write(),
             "ReadOnly affinity is not ReadWrite"
-        );
-
-        let default_affinity = TransactionAffinity::default();
-        assert!(
-            default_affinity.is_read_write(),
-            "default() must create ReadWrite affinity"
-        );
-        assert_eq!(
-            default_affinity.pinned_entry_id(),
-            None,
-            "default() affinity must start unpinned"
-        );
-
-        let new_affinity = TransactionAffinity::new();
-        assert!(
-            new_affinity.is_read_write(),
-            "new() must create ReadWrite affinity"
-        );
-
-        assert_eq!(
-            AffinityKind::default(),
-            AffinityKind::ReadWrite,
-            "AffinityKind default must be ReadWrite"
         );
     }
 }

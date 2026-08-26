@@ -61,6 +61,7 @@ use std::future::Future;
 use std::pin::Pin;
 use std::sync::Arc;
 use tokio::sync::mpsc;
+type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
 
 /// An error returned when sending a request over a stream fails.
 ///
@@ -93,25 +94,8 @@ pub enum SendError {
     StreamClosed,
 
     /// Serialization / proto conversion of the request failed.
-    #[error(transparent)]
-    Serialization(#[from] crate::error::Error),
-}
-
-impl SendError {
-    /// Not part of the public API, subject to change without notice.
-    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn stream_closed() -> Self {
-        Self::StreamClosed
-    }
-
-    /// Not part of the public API, subject to change without notice.
-    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn ser<T>(source: T) -> Self
-    where
-        T: Into<Box<dyn std::error::Error + Send + Sync>>,
-    {
-        Self::Serialization(crate::error::Error::ser(source))
-    }
+    #[error("cannot serialize the request: {0}")]
+    Serialization(#[source] BoxError),
 }
 
 /// A type-erased asynchronous function that sends a request item over a stream.
@@ -221,12 +205,7 @@ where
     fn from(req_tx: mpsc::Sender<Req>) -> RequestSender<Req> {
         Self::from_fn(move |item| {
             let req_tx = req_tx.clone();
-            async move {
-                req_tx
-                    .send(item)
-                    .await
-                    .map_err(|_| SendError::stream_closed())
-            }
+            async move { req_tx.send(item).await.map_err(|_| SendError::StreamClosed) }
         })
     }
 }
@@ -454,16 +433,15 @@ mod tests {
             err.to_string(),
             "cannot send request: stream is closed; inspect ResponseReceiver for details"
         );
-
-        let constructed = SendError::stream_closed();
-        assert!(matches!(constructed, SendError::StreamClosed));
     }
 
     #[tokio::test]
     async fn request_sender_send_error_serialization() {
         let sender = RequestSender::from_fn(|item: i32| async move {
             if item < 0 {
-                Err(SendError::ser("negative number"))
+                Err(SendError::Serialization(Box::new(std::io::Error::other(
+                    "negative number",
+                ))))
             } else {
                 Ok(())
             }
@@ -477,12 +455,9 @@ mod tests {
         assert!(matches!(err, SendError::Serialization(_)));
         assert_eq!(
             err.to_string(),
-            "cannot serialize the request negative number"
+            "cannot serialize the request: negative number"
         );
         assert_eq!(format!("{sender:?}"), "RequestSender");
-
-        let ser_err = SendError::ser("test ser");
-        assert!(matches!(ser_err, SendError::Serialization(_)));
     }
 
     #[tokio::test]

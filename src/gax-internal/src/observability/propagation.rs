@@ -39,7 +39,9 @@ pub(crate) struct HeaderInjector<'a>(pub &'a mut HeaderMap);
 
 impl<'a> Injector for HeaderInjector<'a> {
     fn set(&mut self, key: &str, value: String) {
-        if let (Ok(key), Ok(value)) = (HeaderName::from_str(key), HeaderValue::from_str(&value)) {
+        if let Ok(key) = HeaderName::from_str(key)
+            && let Ok(value) = HeaderValue::from_str(&value)
+        {
             self.0.insert(key, value);
         }
     }

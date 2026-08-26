@@ -29,10 +29,10 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-devicesandservices-health-v4/1.0.0)
+- Read the [crate's documentation](https://docs.rs/google-devicesandservices-health-v4/1.1.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[DataPointsService]: https://docs.rs/google-devicesandservices-health-v4/1.0.0/google_devicesandservices_health_v4/client/struct.DataPointsService.html
-[DataSubscriptionService]: https://docs.rs/google-devicesandservices-health-v4/1.0.0/google_devicesandservices_health_v4/client/struct.DataSubscriptionService.html
-[HealthProfileService]: https://docs.rs/google-devicesandservices-health-v4/1.0.0/google_devicesandservices_health_v4/client/struct.HealthProfileService.html
+[DataPointsService]: https://docs.rs/google-devicesandservices-health-v4/1.1.0/google_devicesandservices_health_v4/client/struct.DataPointsService.html
+[DataSubscriptionService]: https://docs.rs/google-devicesandservices-health-v4/1.1.0/google_devicesandservices_health_v4/client/struct.DataSubscriptionService.html
+[HealthProfileService]: https://docs.rs/google-devicesandservices-health-v4/1.1.0/google_devicesandservices_health_v4/client/struct.HealthProfileService.html

@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::channel_pool::TransactionAffinity;
 use crate::client::{DatabaseClient, amend_request_options_for_lar};
 use crate::model::request_options::Priority;
 use crate::model::transaction_options::ReadWrite;
@@ -413,6 +414,7 @@ impl WriteOnlyTransaction {
         let session_name = self.session_name.clone();
         let previous_transaction_id = Arc::new(Mutex::new(Bytes::new()));
         let channel_hint = client.next_channel_hint();
+        let affinity = Arc::new(TransactionAffinity::new_read_write());
 
         let max_commit_delay = self.max_commit_delay;
         let return_commit_stats = self.return_commit_stats;
@@ -427,6 +429,7 @@ impl WriteOnlyTransaction {
             let previous_transaction_id = previous_transaction_id.clone();
             let begin_gax_options = begin_gax_options.clone();
             let commit_gax_options = commit_gax_options.clone();
+            let _affinity = Arc::clone(&affinity);
 
             async move {
                 let previous_id: Bytes = previous_transaction_id.lock().unwrap().clone();
@@ -1598,7 +1601,11 @@ mod tests {
             .build()
             .await?;
 
-        let db_client = client.database_client("db").build().await?;
+        let db_client = client
+            .database_client("db")
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
         let mutation = Mutation::delete("Users", KeySet::all());
         db_client
             .write_only_transaction()
@@ -1685,7 +1692,11 @@ mod tests {
             .build()
             .await?;
 
-        let db_client = client.database_client("db").build().await?;
+        let db_client = client
+            .database_client("db")
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
         let mutation = Mutation::delete("Users", KeySet::all());
         db_client
             .write_only_transaction()

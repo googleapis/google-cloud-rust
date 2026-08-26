@@ -380,6 +380,46 @@ impl Client {
         Ok(result)
     }
 
+    /// Opens a server stream with automatic model <-> proto conversion and stream mapping.
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    pub async fn execute_server_streaming<DomainReq, DomainResp, ProstReq, ProstResp>(
+        &self,
+        extensions: tonic::Extensions,
+        path: http::uri::PathAndQuery,
+        request: DomainReq,
+        options: RequestOptions,
+        api_client_header: &'static str,
+        request_params: &str,
+    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<DomainResp>>
+    where
+        DomainReq: crate::prost::ToProto<ProstReq, Output = ProstReq>,
+        DomainResp: Send + 'static,
+        ProstReq: prost::Message + Clone + 'static,
+        ProstResp: prost::Message + Default + crate::prost::FromProto<DomainResp> + 'static,
+    {
+        let req = request
+            .to_proto()
+            .map_err(google_cloud_gax::error::Error::ser)?;
+
+        let result = self
+            .server_streaming_with_status::<ProstReq, ProstResp>(
+                extensions,
+                path,
+                req,
+                options,
+                api_client_header,
+                request_params,
+            )
+            .await?
+            .map_err(to_gax_error)?;
+
+        let response_receiver = google_cloud_gax::streaming::ResponseReceiver::from_stream(
+            streaming::decode_response_stream(result.into_inner()),
+        );
+
+        Ok(response_receiver)
+    }
+
     /// Runs the retry loop.
     async fn retry_loop<Request, Response>(
         &self,

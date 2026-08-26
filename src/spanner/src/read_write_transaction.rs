@@ -15,6 +15,7 @@
 use crate::Error;
 use crate::RequestOptions;
 use crate::batch::BatchDml;
+use crate::channel_pool::TransactionAffinity;
 use crate::client::amend_request_options_for_lar;
 use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
@@ -75,6 +76,7 @@ pub(crate) struct ReadWriteTransactionBuilder {
     begin_transaction_option: BeginTransactionOption,
     begin_gax_options: Option<crate::RequestOptions>,
     commit_gax_options: Option<crate::RequestOptions>,
+    affinity: Option<Arc<TransactionAffinity>>,
 }
 
 impl ReadWriteTransactionBuilder {
@@ -91,6 +93,7 @@ impl ReadWriteTransactionBuilder {
             begin_transaction_option: BeginTransactionOption::InlineBegin,
             begin_gax_options: None,
             commit_gax_options: None,
+            affinity: None,
         }
     }
 
@@ -189,10 +192,9 @@ impl ReadWriteTransactionBuilder {
     }
 
     pub(crate) async fn build(
-        &self,
+        self,
         deadline: Option<Instant>,
     ) -> crate::Result<ReadWriteTransaction> {
-        let session_name = self.session_name.clone();
         let channel_hint = self.client.next_channel_hint();
         let transaction_selector = match self.begin_transaction_option {
             BeginTransactionOption::ExplicitBegin => {
@@ -203,33 +205,45 @@ impl ReadWriteTransactionBuilder {
                     &mut options,
                 );
 
-                self.begin(session_name.clone(), channel_hint, options)
+                self.begin(self.session_name.clone(), channel_hint, options)
                     .await?
             }
             BeginTransactionOption::InlineBegin => ReadContextTransactionSelector::Lazy(Arc::new(
-                Mutex::new(TransactionState::NotStarted(self.options.clone())),
+                Mutex::new(TransactionState::NotStarted(self.options)),
             )),
         };
 
+        let affinity = Some(
+            self.affinity
+                .unwrap_or_else(|| Arc::new(TransactionAffinity::new_read_write())),
+        );
+
         Ok(ReadWriteTransaction {
             context: ReadContext {
-                session_name,
-                client: self.client.clone(),
+                session_name: self.session_name,
+                client: self.client,
                 transaction_selector,
                 precommit_token_tracker: PrecommitTokenTracker::new(),
-                transaction_tag: self.transaction_tag.clone(),
+                transaction_tag: self.transaction_tag,
                 channel_hint,
                 begin_transaction_request_options: None,
+                affinity,
             },
             seqno: Arc::new(AtomicI64::new(1)),
             max_commit_delay: self.max_commit_delay,
             return_commit_stats: self.return_commit_stats,
             deadline,
-            commit_priority: self.commit_priority.clone(),
+            commit_priority: self.commit_priority,
             mutations: Arc::new(Mutex::new(Vec::new())),
-            begin_gax_options: self.begin_gax_options.clone(),
-            commit_gax_options: self.commit_gax_options.clone(),
+            begin_gax_options: self.begin_gax_options,
+            commit_gax_options: self.commit_gax_options,
         })
+    }
+
+    #[allow(dead_code)]
+    pub(crate) fn with_affinity(mut self, affinity: Arc<TransactionAffinity>) -> Self {
+        self.affinity = Some(affinity);
+        self
     }
 }
 
@@ -703,6 +717,12 @@ impl ReadWriteTransaction {
             self.deadline,
             options,
         );
+    }
+
+    /// Returns a reference to the transaction channel affinity handle, if set.
+    #[allow(dead_code)]
+    pub(crate) fn affinity(&self) -> Option<&TransactionAffinity> {
+        self.context.affinity()
     }
 }
 
@@ -4111,7 +4131,11 @@ mod tests {
             .build()
             .await?;
 
-        let db_client = client.database_client("db").build().await?;
+        let db_client = client
+            .database_client("db")
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
         let runner = db_client.read_write_transaction().build().await?;
         runner.run(|_transaction| async move { Ok(()) }).await?;
 
@@ -4205,7 +4229,11 @@ mod tests {
             .build()
             .await?;
 
-        let db_client = client.database_client("db").build().await?;
+        let db_client = client
+            .database_client("db")
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
         let runner = db_client.read_write_transaction().build().await?;
         runner
             .run(|transaction: ReadWriteTransaction| async move {
@@ -4225,6 +4253,90 @@ mod tests {
             .find_range(b"batch5", &[], RangeMode::CoveringSplit);
         assert!(found.is_some(), "range covering 'batch5' should be cached");
         assert_eq!(found.expect("range present").group_uid, 88);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_affinity_preserved_and_shared() -> crate::Result<()> {
+        use crate::read_only_transaction::tests::setup_select1_with_transaction_id;
+        use crate::result_set::tests::adapt;
+        use crate::statement::Statement;
+        use gaxi::grpc::tonic::Response;
+
+        let mut mock = create_session_mock();
+        mock.expect_execute_streaming_sql().once().returning(|_| {
+            Ok(Response::from(adapt([Ok(
+                setup_select1_with_transaction_id(vec![1, 2, 3]),
+            )])))
+        });
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let affinity = Arc::new(TransactionAffinity::new_read_write());
+        let builder =
+            ReadWriteTransactionBuilder::new(db_client).with_affinity(Arc::clone(&affinity));
+
+        let transaction = builder.build(None).await?;
+        assert!(
+            transaction
+                .affinity()
+                .expect("affinity present")
+                .is_read_write(),
+            "ReadWriteTransaction affinity must be ReadWrite"
+        );
+        assert_eq!(
+            transaction
+                .affinity()
+                .expect("affinity present")
+                .pinned_entry_id(),
+            None,
+            "Initial pinned entry ID should be None"
+        );
+
+        transaction
+            .affinity()
+            .expect("affinity present")
+            .set_entry_id(101);
+        assert_eq!(
+            affinity.pinned_entry_id(),
+            Some(101),
+            "Affinity handle passed to builder must observe the pinned channel ID"
+        );
+
+        let result_set = transaction
+            .execute_query(Statement::builder("SELECT 1").build())
+            .await?;
+        assert_eq!(
+            result_set.affinity().pinned_entry_id(),
+            Some(101),
+            "ResultSet generated from ReadWrite transaction must share the same pinned affinity"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_default_affinity_created() -> crate::Result<()> {
+        let mock = create_session_mock();
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let builder = ReadWriteTransactionBuilder::new(db_client);
+        let transaction = builder.build(None).await?;
+        assert!(
+            transaction
+                .affinity()
+                .expect("affinity present")
+                .is_read_write(),
+            "Default ReadWriteTransaction affinity must be ReadWrite"
+        );
+        assert_eq!(
+            transaction
+                .affinity()
+                .expect("affinity present")
+                .pinned_entry_id(),
+            None,
+            "Default affinity should start unpinned"
+        );
 
         Ok(())
     }

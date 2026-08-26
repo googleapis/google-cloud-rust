@@ -446,6 +446,20 @@ where
             self.inner.list_reservation_groups(req, options));
         pending.await
     }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_reservation_group(
+        &self,
+        req: crate::model::UpdateReservationGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ReservationGroup>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ReservationService::update_reservation_group",
+            self.inner.update_reservation_group(req, options));
+        pending.await
+    }
 }
 
 pub(crate) mod info {

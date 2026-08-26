@@ -52,7 +52,6 @@ pub async fn run() -> Result<()> {
         .build()
         .await?;
 
-    // TODO(#2202) - enums don't work: echo(&client).await?;
     echo_error_details(&client).await?;
     fail_echo_with_details(&client).await?;
     paged_expand(&client).await?;
@@ -60,6 +59,7 @@ pub async fn run() -> Result<()> {
     paged_expand_mapped(&client).await?;
     // Wait() tests timeouts, which we already have tests for.
     // Block() tests timeouts, which we already have tests for.
+    // Echo() with enums is skipped: https://github.com/googleapis/gapic-showcase/issues/1592.
     request_id_unset(&client).await?;
     request_id_custom(&client).await?;
 
@@ -170,6 +170,7 @@ async fn paged_expand_mapped(client: &Echo) -> Result<()> {
 // Verify that the library auto-populates request IDs
 async fn request_id_unset(client: &Echo) -> Result<()> {
     let response = client.echo().set_content(CONTENT).send().await?;
+    assert_eq!(response.content, CONTENT);
     let uuid1 = uuid::Uuid::try_parse(&response.request_id)?;
     let uuid2 = uuid::Uuid::try_parse(&response.other_request_id)?;
     assert!(!uuid1.is_nil());

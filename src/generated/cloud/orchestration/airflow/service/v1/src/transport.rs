@@ -414,6 +414,7 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_environment = try_match(
@@ -430,6 +431,7 @@ impl super::stub::Environments for Environments {
                 let path = format!("/v1/{}:executeAirflowCommand", var_environment,);
                 let path_template = "/v1/{environment}:executeAirflowCommand";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.environment));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -484,6 +486,7 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_environment = try_match(
@@ -500,6 +503,7 @@ impl super::stub::Environments for Environments {
                 let path = format!("/v1/{}:stopAirflowCommand", var_environment,);
                 let path_template = "/v1/{environment}:stopAirflowCommand";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.environment));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -554,6 +558,7 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_environment = try_match(
@@ -570,6 +575,7 @@ impl super::stub::Environments for Environments {
                 let path = format!("/v1/{}:pollAirflowCommand", var_environment,);
                 let path_template = "/v1/{environment}:pollAirflowCommand";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.environment));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -701,6 +707,7 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_environment = try_match(
@@ -717,6 +724,7 @@ impl super::stub::Environments for Environments {
                 let path = format!("/v1/{}:checkUpgrade", var_environment,);
                 let path_template = "/v1/{environment}:checkUpgrade";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.environment));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1541,6 +1549,7 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_environment = try_match(
@@ -1557,6 +1566,7 @@ impl super::stub::Environments for Environments {
                 let path = format!("/v1/{}:saveSnapshot", var_environment,);
                 let path_template = "/v1/{environment}:saveSnapshot";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.environment));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1613,6 +1623,7 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_environment = try_match(
@@ -1629,6 +1640,7 @@ impl super::stub::Environments for Environments {
                 let path = format!("/v1/{}:loadSnapshot", var_environment,);
                 let path_template = "/v1/{environment}:loadSnapshot";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.environment));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1685,6 +1697,7 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_environment = try_match(
@@ -1701,6 +1714,7 @@ impl super::stub::Environments for Environments {
                 let path = format!("/v1/{}:databaseFailover", var_environment,);
                 let path_template = "/v1/{environment}:databaseFailover";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.environment));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

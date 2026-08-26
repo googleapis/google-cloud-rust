@@ -1383,6 +1383,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -1400,6 +1401,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1422,6 +1424,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1446,6 +1449,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1468,6 +1472,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1488,6 +1493,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1508,6 +1514,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1530,6 +1537,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1550,6 +1558,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1570,6 +1579,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1590,6 +1600,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1610,6 +1621,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1630,6 +1642,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1650,6 +1663,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1670,6 +1684,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1692,6 +1707,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1714,6 +1730,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1734,6 +1751,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1754,6 +1772,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1774,6 +1793,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1794,6 +1814,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3229,6 +3250,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -3246,6 +3268,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3268,6 +3291,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3292,6 +3316,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3314,6 +3339,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3334,6 +3360,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3354,6 +3381,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3376,6 +3404,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3396,6 +3425,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3416,6 +3446,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3436,6 +3467,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3456,6 +3488,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3476,6 +3509,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3496,6 +3530,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3516,6 +3551,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3538,6 +3574,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3560,6 +3597,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3580,6 +3618,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3600,6 +3639,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3620,6 +3660,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3640,6 +3681,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4358,6 +4400,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4374,6 +4417,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -4393,6 +4437,7 @@ impl super::stub::BusinessGlossaryService for BusinessGlossaryService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -6131,6 +6176,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -6145,6 +6191,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path = format!("/v1/{}:modifyEntry", var_name,);
                 let path_template = "/v1/{name}:modifyEntry";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -6485,6 +6532,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -6502,6 +6550,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{name}:cancel";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6872,6 +6921,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -6886,6 +6936,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path = format!("/v1/{}:lookupContext", var_name,);
                 let path_template = "/v1/{name}:lookupContext";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -7514,6 +7565,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -7531,6 +7583,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7553,6 +7606,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7577,6 +7631,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7599,6 +7654,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7619,6 +7675,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7639,6 +7696,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7661,6 +7719,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7681,6 +7740,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7701,6 +7761,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7721,6 +7782,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7741,6 +7803,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7761,6 +7824,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7781,6 +7845,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7801,6 +7866,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7823,6 +7889,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7845,6 +7912,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7865,6 +7933,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7885,6 +7954,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7905,6 +7975,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7925,6 +7996,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9360,6 +9432,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -9377,6 +9450,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9399,6 +9473,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9423,6 +9498,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9445,6 +9521,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9465,6 +9542,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9485,6 +9563,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9507,6 +9586,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9527,6 +9607,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9547,6 +9628,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9567,6 +9649,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9587,6 +9670,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9607,6 +9691,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9627,6 +9712,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9647,6 +9733,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9669,6 +9756,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9691,6 +9779,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9711,6 +9800,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9731,6 +9821,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9751,6 +9842,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9771,6 +9863,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -10489,6 +10582,7 @@ impl super::stub::CatalogService for CatalogService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -10505,6 +10599,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -10524,6 +10619,7 @@ impl super::stub::CatalogService for CatalogService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -11146,6 +11242,7 @@ impl super::stub::CmekService for CmekService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -11163,6 +11260,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11185,6 +11283,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11209,6 +11308,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11231,6 +11331,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11251,6 +11352,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11271,6 +11373,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11293,6 +11396,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11313,6 +11417,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11333,6 +11438,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11353,6 +11459,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11373,6 +11480,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11393,6 +11501,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11413,6 +11522,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11433,6 +11543,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11455,6 +11566,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11477,6 +11589,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11497,6 +11610,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11517,6 +11631,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11537,6 +11652,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11557,6 +11673,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -12992,6 +13109,7 @@ impl super::stub::CmekService for CmekService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -13009,6 +13127,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13031,6 +13150,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13055,6 +13175,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13077,6 +13198,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13097,6 +13219,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13117,6 +13240,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13139,6 +13263,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13159,6 +13284,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13179,6 +13305,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13199,6 +13326,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13219,6 +13347,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13239,6 +13368,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13259,6 +13389,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13279,6 +13410,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13301,6 +13433,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13323,6 +13456,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13343,6 +13477,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13363,6 +13498,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13383,6 +13519,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13403,6 +13540,7 @@ impl super::stub::CmekService for CmekService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14121,6 +14259,7 @@ impl super::stub::CmekService for CmekService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -14137,6 +14276,7 @@ impl super::stub::CmekService for CmekService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -14156,6 +14296,7 @@ impl super::stub::CmekService for CmekService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -14401,6 +14542,7 @@ impl super::stub::ContentService for ContentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -14418,6 +14560,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14440,6 +14583,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14464,6 +14608,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14486,6 +14631,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14506,6 +14652,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14526,6 +14673,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14548,6 +14696,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14568,6 +14717,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14588,6 +14738,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14608,6 +14759,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14628,6 +14780,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14648,6 +14801,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14668,6 +14822,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14688,6 +14843,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14710,6 +14866,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14732,6 +14889,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14752,6 +14910,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14772,6 +14931,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14792,6 +14952,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14812,6 +14973,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -16247,6 +16409,7 @@ impl super::stub::ContentService for ContentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -16264,6 +16427,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -16286,6 +16450,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -16310,6 +16475,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -16332,6 +16498,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -16352,6 +16519,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -16372,6 +16540,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -16394,6 +16563,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -16414,6 +16584,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -16434,6 +16605,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -16454,6 +16626,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -16474,6 +16647,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -16494,6 +16668,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -16514,6 +16689,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -16534,6 +16710,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -16556,6 +16733,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -16578,6 +16756,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -16598,6 +16777,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -16618,6 +16798,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -16638,6 +16819,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -16658,6 +16840,7 @@ impl super::stub::ContentService for ContentService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -17376,6 +17559,7 @@ impl super::stub::ContentService for ContentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -17392,6 +17576,7 @@ impl super::stub::ContentService for ContentService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -17411,6 +17596,7 @@ impl super::stub::ContentService for ContentService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -17894,6 +18080,7 @@ impl super::stub::DataProductService for DataProductService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -17911,6 +18098,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{parent}:requestAccess";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18490,6 +18678,7 @@ impl super::stub::DataProductService for DataProductService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -18507,6 +18696,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18529,6 +18719,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18553,6 +18744,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18575,6 +18767,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18595,6 +18788,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18615,6 +18809,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18637,6 +18832,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18657,6 +18853,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18677,6 +18874,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18697,6 +18895,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18717,6 +18916,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18737,6 +18937,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18757,6 +18958,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18777,6 +18979,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18799,6 +19002,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18821,6 +19025,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18841,6 +19046,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18861,6 +19067,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18881,6 +19088,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18901,6 +19109,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20336,6 +20545,7 @@ impl super::stub::DataProductService for DataProductService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -20353,6 +20563,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20375,6 +20586,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20399,6 +20611,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20421,6 +20634,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20441,6 +20655,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20461,6 +20676,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20483,6 +20699,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20503,6 +20720,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20523,6 +20741,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20543,6 +20762,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20563,6 +20783,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20583,6 +20804,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20603,6 +20825,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20623,6 +20846,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20645,6 +20869,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20667,6 +20892,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20687,6 +20913,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20707,6 +20934,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20727,6 +20955,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20747,6 +20976,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -21465,6 +21695,7 @@ impl super::stub::DataProductService for DataProductService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -21481,6 +21712,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -21500,6 +21732,7 @@ impl super::stub::DataProductService for DataProductService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -22931,6 +23164,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -22948,6 +23182,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -22970,6 +23205,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -22994,6 +23230,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23016,6 +23253,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23036,6 +23274,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23056,6 +23295,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23078,6 +23318,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23098,6 +23339,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23118,6 +23360,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23138,6 +23381,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23158,6 +23402,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23178,6 +23423,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23198,6 +23444,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23218,6 +23465,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23240,6 +23488,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23262,6 +23511,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23282,6 +23532,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23302,6 +23553,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23322,6 +23574,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23342,6 +23595,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -24777,6 +25031,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -24794,6 +25049,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -24816,6 +25072,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -24840,6 +25097,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -24862,6 +25120,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -24882,6 +25141,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -24902,6 +25162,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -24924,6 +25185,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -24944,6 +25206,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -24964,6 +25227,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -24984,6 +25248,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -25004,6 +25269,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -25024,6 +25290,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -25044,6 +25311,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -25064,6 +25332,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -25086,6 +25355,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -25108,6 +25378,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -25128,6 +25399,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -25148,6 +25420,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -25168,6 +25441,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -25188,6 +25462,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -25906,6 +26181,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -25922,6 +26198,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -25941,6 +26218,7 @@ impl super::stub::DataTaxonomyService for DataTaxonomyService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -26438,6 +26716,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -26455,6 +26734,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{name}:run";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -26662,6 +26942,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -26681,6 +26962,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{name}:cancel";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -26738,6 +27020,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -26754,6 +27037,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path = format!("/v1/{}:generateDataQualityRules", var_name,);
                 let path_template = "/v1/{name}:generateDataQualityRules";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -26775,6 +27059,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path = format!("/v1/{}:generateDataQualityRules", var_name,);
                 let path_template = "/v1/{name}:generateDataQualityRules";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -26975,6 +27260,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -26992,6 +27278,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -27014,6 +27301,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -27038,6 +27326,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -27060,6 +27349,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -27080,6 +27370,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -27100,6 +27391,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -27122,6 +27414,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -27142,6 +27435,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -27162,6 +27456,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -27182,6 +27477,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -27202,6 +27498,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -27222,6 +27519,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -27242,6 +27540,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -27262,6 +27561,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -27284,6 +27584,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -27306,6 +27607,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -27326,6 +27628,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -27346,6 +27649,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -27366,6 +27670,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -27386,6 +27691,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -28821,6 +29127,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -28838,6 +29145,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -28860,6 +29168,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -28884,6 +29193,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -28906,6 +29216,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -28926,6 +29237,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -28946,6 +29258,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -28968,6 +29281,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -28988,6 +29302,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -29008,6 +29323,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -29028,6 +29344,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -29048,6 +29365,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -29068,6 +29386,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -29088,6 +29407,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -29108,6 +29428,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -29130,6 +29451,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -29152,6 +29474,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -29172,6 +29495,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -29192,6 +29516,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -29212,6 +29537,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -29232,6 +29558,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -29950,6 +30277,7 @@ impl super::stub::DataScanService for DataScanService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -29966,6 +30294,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -29985,6 +30314,7 @@ impl super::stub::DataScanService for DataScanService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -30981,6 +31311,7 @@ impl super::stub::MetadataService for MetadataService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -30998,6 +31329,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -31020,6 +31352,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -31044,6 +31377,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -31066,6 +31400,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -31086,6 +31421,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -31106,6 +31442,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -31128,6 +31465,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -31148,6 +31486,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -31168,6 +31507,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -31188,6 +31528,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -31208,6 +31549,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -31228,6 +31570,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -31248,6 +31591,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -31268,6 +31612,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -31290,6 +31635,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -31312,6 +31658,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -31332,6 +31679,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -31352,6 +31700,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -31372,6 +31721,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -31392,6 +31742,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -32827,6 +33178,7 @@ impl super::stub::MetadataService for MetadataService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -32844,6 +33196,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -32866,6 +33219,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -32890,6 +33244,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -32912,6 +33267,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -32932,6 +33288,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -32952,6 +33309,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -32974,6 +33332,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -32994,6 +33353,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -33014,6 +33374,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -33034,6 +33395,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -33054,6 +33416,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -33074,6 +33437,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -33094,6 +33458,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -33114,6 +33479,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -33136,6 +33502,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -33158,6 +33525,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -33178,6 +33546,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -33198,6 +33567,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -33218,6 +33588,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -33238,6 +33609,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -33956,6 +34328,7 @@ impl super::stub::MetadataService for MetadataService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -33972,6 +34345,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -33991,6 +34365,7 @@ impl super::stub::MetadataService for MetadataService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -35997,6 +36372,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -36016,6 +36392,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{name}:run";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -36153,6 +36530,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -36174,6 +36552,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{name}:cancel";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -36364,6 +36743,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -36381,6 +36761,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -36403,6 +36784,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -36427,6 +36809,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -36449,6 +36832,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -36469,6 +36853,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -36489,6 +36874,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -36511,6 +36897,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -36531,6 +36918,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -36551,6 +36939,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -36571,6 +36960,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -36591,6 +36981,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -36611,6 +37002,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -36631,6 +37023,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -36651,6 +37044,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -36673,6 +37067,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -36695,6 +37090,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -36715,6 +37111,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -36735,6 +37132,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -36755,6 +37153,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -36775,6 +37174,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -38210,6 +38610,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -38227,6 +38628,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -38249,6 +38651,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -38273,6 +38676,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -38295,6 +38699,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -38315,6 +38720,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -38335,6 +38741,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -38357,6 +38764,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -38377,6 +38785,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -38397,6 +38806,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -38417,6 +38827,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -38437,6 +38848,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -38457,6 +38869,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -38477,6 +38890,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -38497,6 +38911,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -38519,6 +38934,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -38541,6 +38957,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -38561,6 +38978,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -38581,6 +38999,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -38601,6 +39020,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -38621,6 +39041,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataplex.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -39339,6 +39760,7 @@ impl super::stub::DataplexService for DataplexService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -39355,6 +39777,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -39374,6 +39797,7 @@ impl super::stub::DataplexService for DataplexService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

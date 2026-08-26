@@ -12,58 +12,46 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::super::append_builder::AppendWithOffset;
-use super::super::generated::gapic_storage::client::BigQueryWrite;
-use super::super::runner::Runner;
-use super::super::transport::Transport;
+use super::base::BaseWriter;
 use crate::Result;
-use crate::model::append_rows_request::ArrowData;
 use crate::model::{
-    AppendRowsRequest, ArrowRecordBatch, ArrowSchema, BatchCommitWriteStreamsResponse,
-    FinalizeWriteStreamResponse,
+    ArrowRecordBatch, ArrowSchema, BatchCommitWriteStreamsResponse, FinalizeWriteStreamResponse,
 };
+use crate::write::append_builder::AppendWithOffset;
+use crate::write::transport::Transport;
 use std::sync::Arc;
 
-/// A writer for a pending stream.
+/// A writer for a [pending stream].
+///
+/// [pending stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#pending_type
 #[derive(Debug)]
 pub struct PendingWriter {
-    runner: Runner,
-    pub(crate) write_stream: String,
-    pub(crate) schema: ArrowSchema,
-    client: BigQueryWrite,
+    pub(crate) inner: BaseWriter,
 }
 
 impl PendingWriter {
     pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
-        let runner = Runner::new(inner.clone());
-        let client = BigQueryWrite::from_stub::<Transport>(inner);
         Self {
-            runner,
-            write_stream,
-            schema,
-            client,
+            inner: BaseWriter::new(inner, write_stream, schema),
         }
+    }
+
+    /// Returns the full resource name of the underlying write stream.
+    pub fn write_stream(&self) -> &str {
+        &self.inner.write_stream
     }
 
     /// Appends rows to the pending stream.
     pub fn append(&self, rows: ArrowRecordBatch) -> AppendWithOffset {
-        let req = AppendRowsRequest::new()
-            .set_write_stream(&self.write_stream)
-            .set_arrow_rows(
-                ArrowData::new()
-                    .set_writer_schema(self.schema.clone())
-                    .set_rows(rows),
-            );
-        AppendWithOffset::new(self.runner.req_tx.clone(), req)
+        AppendWithOffset::new(
+            self.inner.runner.req_tx.clone(),
+            self.inner.append_request(rows),
+        )
     }
 
     /// Finalizes the pending stream, preventing further writes.
     pub async fn finalize(&self) -> Result<FinalizeWriteStreamResponse> {
-        self.client
-            .finalize_write_stream()
-            .set_name(&self.write_stream)
-            .send()
-            .await
+        self.inner.finalize().await
     }
 
     /// Commits the pending stream to the table.
@@ -71,15 +59,17 @@ impl PendingWriter {
         // Extract the parent table path from the stream name:
         // "projects/p/datasets/d/tables/t/streams/s" -> "projects/p/datasets/d/tables/t"
         let parent = self
+            .inner
             .write_stream
             .split_once("/streams/")
-            .map_or(self.write_stream.as_str(), |(p, _)| p)
+            .map_or(self.inner.write_stream.as_str(), |(p, _)| p)
             .to_string();
 
-        self.client
+        self.inner
+            .client
             .batch_commit_write_streams()
             .set_parent(parent)
-            .set_write_streams(vec![self.write_stream.clone()])
+            .set_write_streams(vec![self.inner.write_stream.clone()])
             .send()
             .await
     }
@@ -98,6 +88,7 @@ mod tests {
     async fn request_fields() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
         let writer = PendingWriter::new(transport, write_stream(), schema());
+        assert_eq!(writer.write_stream(), write_stream());
 
         let b = writer.append(rows(1));
         assert_eq!(b.req.write_stream, write_stream());
@@ -132,6 +123,7 @@ mod tests {
         let transport = Arc::new(test_transport(endpoint).await?);
 
         let writer = PendingWriter::new(transport, write_stream(), schema());
+        assert_eq!(writer.write_stream(), write_stream());
 
         response_tx.send(Ok(convert(&test_response(1)))).await?;
         let resp = writer.append(rows(1)).send().await?;

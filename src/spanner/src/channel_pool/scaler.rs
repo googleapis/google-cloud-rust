@@ -292,7 +292,7 @@ pub(crate) async fn dial_and_prime_channel(
     prime_timeout: Duration,
     prime_max_attempts: usize,
 ) -> Result<Channel> {
-    let channel = match timeout(prime_timeout, Channel::create(&client_config)).await {
+    let channel = match timeout(prime_timeout, Channel::create(&client_config, 0)).await {
         Ok(Ok(channel)) => channel,
         Ok(Err(err)) => return Err(GaxError::connect(err)),
         Err(_) => return Err(GaxError::timeout("Channel creation timed out")),
