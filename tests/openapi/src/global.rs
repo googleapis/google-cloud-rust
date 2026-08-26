@@ -14,6 +14,7 @@
 
 use anyhow::Result;
 use google_cloud_gax::paginator::Paginator;
+use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
 use google_cloud_test_utils::resource_names::random_secret_id;
 use google_cloud_test_utils::runtime_config::{project_id, test_service_account};
 use google_cloud_wkt::FieldMask;
@@ -22,6 +23,7 @@ use secretmanager_openapi_v1::model::{
     AddSecretVersionRequest, Automatic, Binding, Replication, Secret, SecretPayload,
     SetIamPolicyRequest, TestIamPermissionsRequest,
 };
+use std::time::Duration;
 
 pub async fn run() -> Result<()> {
     let project_id = project_id()?;
@@ -29,6 +31,11 @@ pub async fn run() -> Result<()> {
 
     let client = SecretManagerService::builder()
         .with_tracing()
+        .with_retry_policy(
+            AlwaysRetry
+                .with_time_limit(Duration::from_secs(60))
+                .with_attempt_limit(10),
+        )
         .build()
         .await?;
 
