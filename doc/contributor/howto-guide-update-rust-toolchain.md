@@ -137,7 +137,7 @@ release date** (checked automatically weekly by
 To bump the MSRV, update `rust-version` in `Cargo.toml`.
 
 Then search for the current MSRV version number across the repository and update
-it everywhere else it is used:
+it everywhere else it is used (escape the dot, e.g., using the actual current MSRV instead of 1.XX):
 
 ```bash
 git grep -n "1\.XX\.0"
