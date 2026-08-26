@@ -165,8 +165,8 @@ pub async fn run(builder: ClientBuilder) -> Result<()> {
 
 pub fn retry_policy() -> impl RetryPolicy {
     AlwaysRetry
-        .with_time_limit(Duration::from_secs(15))
-        .with_attempt_limit(5)
+        .with_time_limit(Duration::from_secs(60))
+        .with_attempt_limit(10)
 }
 
 async fn run_locations(client: &SecretManagerService, project_id: &str) -> Result<()> {
