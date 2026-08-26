@@ -38,6 +38,7 @@ impl std::fmt::Debug for super::Reservation {
         debug_struct.field("reservation_group", &self.reservation_group);
         debug_struct.field("replication_status", &self.replication_status);
         debug_struct.field("scheduling_policy", &self.scheduling_policy);
+        debug_struct.field("reservation_group_path", &self.reservation_group_path);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -87,6 +88,9 @@ impl std::fmt::Debug for super::ReservationGroup {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReservationGroup");
         debug_struct.field("name", &self.name);
+        debug_struct.field("parent_group", &self.parent_group);
+        debug_struct.field("creation_time", &self.creation_time);
+        debug_struct.field("update_time", &self.update_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -252,6 +256,18 @@ impl std::fmt::Debug for super::DeleteReservationGroupRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteReservationGroupRequest");
         debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UpdateReservationGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateReservationGroupRequest");
+        debug_struct.field("reservation_group", &self.reservation_group);
+        debug_struct.field("update_mask", &self.update_mask);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

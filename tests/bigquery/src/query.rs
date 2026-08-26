@@ -16,7 +16,7 @@ use super::INSTANCE_LABEL;
 use anyhow::Result;
 use google_cloud_bigquery::client::BigQuery;
 use google_cloud_bigquery::datatypes::{Interval, Range};
-use google_cloud_bigquery::{FromRow, FromSql};
+use google_cloud_bigquery::query::{FromRow, FromSql};
 use google_cloud_test_utils::runtime_config::project_id;
 use google_cloud_type::model::Decimal;
 use rust_decimal::Decimal as RustDecimal;

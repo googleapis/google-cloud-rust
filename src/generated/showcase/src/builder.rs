@@ -2711,13 +2711,109 @@ pub mod echo {
         }
     }
 
+    /// The request builder for [Echo::expand][crate::client::Echo::expand] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::builder::echo::Expand;
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut receiver = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> Expand {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[derive(Clone, Debug)]
+    pub struct Expand(RequestBuilder<crate::model::ExpandRequest>);
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    impl Expand {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ExpandRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>>
+        {
+            (*self.0.stub).expand(self.0.request, self.0.options).await
+        }
+
+        /// Sets the value of [content][crate::model::ExpandRequest::content].
+        pub fn set_content<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.content = v.into();
+            self
+        }
+
+        /// Sets the value of [error][crate::model::ExpandRequest::error].
+        pub fn set_error<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
+        {
+            self.0.request.error = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [error][crate::model::ExpandRequest::error].
+        pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_rpc::model::Status>,
+        {
+            self.0.request.error = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [stream_wait_time][crate::model::ExpandRequest::stream_wait_time].
+        pub fn set_stream_wait_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.stream_wait_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [stream_wait_time][crate::model::ExpandRequest::stream_wait_time].
+        pub fn set_or_clear_stream_wait_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.stream_wait_time = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[doc(hidden)]
+    impl crate::RequestBuilder for Expand {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [Echo::chat][crate::client::Echo::chat] calls.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::echo::Chat;
     /// # use google_cloud_showcase_v1beta1::model::EchoRequest;
-    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
     /// let (sender, mut receiver) = builder.build();
     ///
@@ -6274,13 +6370,101 @@ pub mod messaging {
         }
     }
 
+    /// The request builder for [Messaging::stream_blurbs][crate::client::Messaging::stream_blurbs] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::builder::messaging::StreamBlurbs;
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut receiver = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StreamBlurbs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[derive(Clone, Debug)]
+    pub struct StreamBlurbs(RequestBuilder<crate::model::StreamBlurbsRequest>);
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    impl StreamBlurbs {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::StreamBlurbsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>>
+        {
+            (*self.0.stub)
+                .stream_blurbs(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [name][crate::model::StreamBlurbsRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [expire_time][crate::model::StreamBlurbsRequest::expire_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_expire_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.expire_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [expire_time][crate::model::StreamBlurbsRequest::expire_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.expire_time = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamBlurbs {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [Messaging::connect][crate::client::Messaging::connect] calls.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_showcase_v1beta1::builder::messaging::Connect;
     /// # use google_cloud_showcase_v1beta1::model::ConnectRequest;
-    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
     /// let (sender, mut receiver) = builder.build();
     ///
@@ -7489,6 +7673,86 @@ pub mod sequence_service {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for AttemptSequence {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SequenceService::attempt_streaming_sequence][crate::client::SequenceService::attempt_streaming_sequence] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::builder::sequence_service::AttemptStreamingSequence;
+    /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut receiver = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> AttemptStreamingSequence {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[derive(Clone, Debug)]
+    pub struct AttemptStreamingSequence(
+        RequestBuilder<crate::model::AttemptStreamingSequenceRequest>,
+    );
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    impl AttemptStreamingSequence {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SequenceService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::AttemptStreamingSequenceRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<
+            google_cloud_gax::streaming::ResponseReceiver<
+                crate::model::AttemptStreamingSequenceResponse,
+            >,
+        > {
+            (*self.0.stub)
+                .attempt_streaming_sequence(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [name][crate::model::AttemptStreamingSequenceRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [last_fail_index][crate::model::AttemptStreamingSequenceRequest::last_fail_index].
+        pub fn set_last_fail_index<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.last_fail_index = v.into();
+            self
+        }
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[doc(hidden)]
+    impl crate::RequestBuilder for AttemptStreamingSequence {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

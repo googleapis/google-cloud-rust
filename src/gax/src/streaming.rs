@@ -12,14 +12,77 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Types for gRPC streaming requests and responses.
+//! Defines types and handles for streaming RPCs.
+//!
+//! In streaming RPCs, the client and server can stream messages to each other
+//! asynchronously. This module provides [`RequestSender`] to send outbound request
+//! messages and [`ResponseReceiver`] to receive inbound response messages.
+//!
+//! Client libraries use these types to manage streaming communication without
+//! exposing raw gRPC transport or Protobuf wire models in the public API.
+//!
+//! Connection establishment begins immediately when the streaming RPC is initiated.
+//! In bidirectional streaming, the server may require initial request messages sent via
+//! [`RequestSender`] before returning response headers; completing this handshake is awaited
+//! on the first call to [`ResponseReceiver::recv()`].
+//!
+//! # Examples
+//!
+//! Sending requests and receiving responses in a bidirectional streaming RPC:
+//!
+//! ```
+//! # use google_cloud_gax::streaming::{RequestSender, ResponseReceiver};
+//! async fn interact_with_bidi_stream(
+//!     sender: RequestSender<String>,
+//!     mut receiver: ResponseReceiver<String>,
+//! ) {
+//!     // Send request messages to the server:
+//!     if let Err(err) = sender.send("hello".to_string()).await {
+//!         println!("Failed to send message: {err}");
+//!     }
+//!
+//!     // Close the outbound request stream when done sending:
+//!     drop(sender);
+//!
+//!     // Receive response messages from the server:
+//!     while let Some(response) = receiver.recv().await {
+//!         match response {
+//!             Ok(item) => println!("Received response: {item}"),
+//!             Err(err) => {
+//!                 println!("Received error: {err}");
+//!                 break;
+//!             }
+//!         }
+//!     }
+//! }
+//! ```
 
 use std::future::Future;
 use std::pin::Pin;
 use std::sync::Arc;
 use tokio::sync::mpsc;
+type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
 
 /// An error returned when sending a request over a stream fails.
+///
+/// Returned by [`RequestSender::send`].
+///
+/// # Examples
+///
+/// ```
+/// # use google_cloud_gax::streaming::SendError;
+/// fn handle_error(err: SendError) {
+///     match err {
+///         SendError::StreamClosed => {
+///             println!("Stream closed; check ResponseReceiver for server status");
+///         }
+///         SendError::Serialization(e) => {
+///             println!("Failed to serialize request: {e}");
+///         }
+///         _ => println!("Other send error"),
+///     }
+/// }
+/// ```
 #[derive(Debug, thiserror::Error)]
 #[non_exhaustive]
 pub enum SendError {
@@ -31,25 +94,8 @@ pub enum SendError {
     StreamClosed,
 
     /// Serialization / proto conversion of the request failed.
-    #[error(transparent)]
-    Serialization(#[from] crate::error::Error),
-}
-
-impl SendError {
-    /// Not part of the public API, subject to change without notice.
-    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn stream_closed() -> Self {
-        Self::StreamClosed
-    }
-
-    /// Not part of the public API, subject to change without notice.
-    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn ser<T>(source: T) -> Self
-    where
-        T: Into<Box<dyn std::error::Error + Send + Sync>>,
-    {
-        Self::Serialization(crate::error::Error::ser(source))
-    }
+    #[error("cannot serialize the request: {0}")]
+    Serialization(#[source] BoxError),
 }
 
 /// A type-erased asynchronous function that sends a request item over a stream.
@@ -62,7 +108,28 @@ impl SendError {
 type SenderFn<Req> =
     dyn Fn(Req) -> Pin<Box<dyn Future<Output = Result<(), SendError>> + Send>> + Send + Sync;
 
-/// A handle for sending outbound request items over a gRPC stream.
+/// A handle for sending outbound request items over a streaming RPC.
+///
+/// Typically, you receive a `RequestSender` as the result of initiating a streaming RPC.
+/// Outbound messages are buffered and sent asynchronously to the server. The buffer size
+/// defaults to 16 and can be configured via
+/// [`RequestOptionsBuilder::with_request_stream_channel_capacity`][crate::options::RequestOptionsBuilder::with_request_stream_channel_capacity].
+///
+/// `RequestSender` is cheaply cloneable. Sending from multiple clones concurrently may
+/// interleave messages; if delivery order is important, send messages sequentially.
+/// The outbound request stream is closed once all clones of the `RequestSender` are dropped.
+///
+/// # Examples
+///
+/// ```
+/// # use google_cloud_gax::streaming::{RequestSender, SendError};
+/// # async fn sample(sender: RequestSender<String>) -> Result<(), SendError> {
+/// sender.send("message 1".to_string()).await?;
+/// sender.send("message 2".to_string()).await?;
+/// drop(sender); // Close outbound request stream
+/// # Ok(())
+/// # }
+/// ```
 #[derive(Clone)]
 pub struct RequestSender<Req> {
     inner: Arc<SenderFn<Req>>,
@@ -76,6 +143,25 @@ impl<Req> std::fmt::Debug for RequestSender<Req> {
 
 impl<Req> RequestSender<Req> {
     /// Sends a request item over the stream.
+    ///
+    /// If the internal request buffer is full, this method awaits asynchronously until
+    /// capacity is available. The buffer size defaults to 16 and can be configured via
+    /// [`RequestOptionsBuilder::with_request_stream_channel_capacity`][crate::options::RequestOptionsBuilder::with_request_stream_channel_capacity].
+    ///
+    /// # Errors
+    ///
+    /// - Returns [`SendError::StreamClosed`] if the stream was closed by the server or receiver.
+    /// - Returns [`SendError::Serialization`] if the request item cannot be serialized.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use google_cloud_gax::streaming::{RequestSender, SendError};
+    /// # async fn sample(sender: RequestSender<String>) -> Result<(), SendError> {
+    /// sender.send("hello".to_string()).await?;
+    /// # Ok(())
+    /// # }
+    /// ```
     pub async fn send(&self, item: Req) -> Result<(), SendError> {
         (self.inner)(item).await
     }
@@ -102,6 +188,16 @@ impl<Req> RequestSender<Req> {
     }
 }
 
+/// Creates a [`RequestSender`] from a Tokio [`mpsc::Sender`], useful for mocking in tests.
+///
+/// # Examples
+///
+/// ```
+/// # use google_cloud_gax::streaming::RequestSender;
+/// # use tokio::sync::mpsc;
+/// let (tx, mut rx) = mpsc::channel::<String>(16);
+/// let sender = RequestSender::from(tx);
+/// ```
 impl<Req> From<mpsc::Sender<Req>> for RequestSender<Req>
 where
     Req: Send + 'static,
@@ -109,12 +205,7 @@ where
     fn from(req_tx: mpsc::Sender<Req>) -> RequestSender<Req> {
         Self::from_fn(move |item| {
             let req_tx = req_tx.clone();
-            async move {
-                req_tx
-                    .send(item)
-                    .await
-                    .map_err(|_| SendError::stream_closed())
-            }
+            async move { req_tx.send(item).await.map_err(|_| SendError::StreamClosed) }
         })
     }
 }
@@ -141,7 +232,29 @@ enum ResponseState<Resp> {
     Closed,
 }
 
-/// A handle for receiving inbound response items from a gRPC stream.
+/// A handle for receiving inbound response items from a streaming RPC.
+///
+/// Typically, you receive a `ResponseReceiver` as the result of initiating a streaming RPC.
+/// Unlike [`RequestSender`], `ResponseReceiver` cannot be cloned and represents exclusive
+/// ownership of the inbound stream. Call [`recv`](Self::recv) to consume incoming messages
+/// sequentially. Dropping the `ResponseReceiver` cancels the stream.
+///
+/// Enable the `unstable-stream` feature to convert this type into a [`Stream`][futures::Stream]
+/// via `into_stream`.
+///
+/// # Examples
+///
+/// ```
+/// # use google_cloud_gax::streaming::ResponseReceiver;
+/// # use google_cloud_gax::Result;
+/// # async fn sample(mut receiver: ResponseReceiver<String>) -> Result<()> {
+/// while let Some(item) = receiver.recv().await {
+///     let item = item?;
+///     println!("Received: {item}");
+/// }
+/// # Ok(())
+/// # }
+/// ```
 pub struct ResponseReceiver<Resp> {
     state: ResponseState<Resp>,
 }
@@ -153,11 +266,24 @@ impl<Resp> std::fmt::Debug for ResponseReceiver<Resp> {
 }
 
 impl<Resp> ResponseReceiver<Resp> {
-    /// Receives the next response message from the stream.
+    /// Receives the next response message from the stream, or `None` if the stream has finished.
     ///
-    /// On the first invocation, this awaits the server's response headers and connection
-    /// establishment if constructed via [`from_future`][Self::from_future]. If the server
-    /// rejected the stream during setup, the error is returned here.
+    /// Returns `Some(Err(e))` if a transport, server status, or deserialization error occurs.
+    /// Once an error or stream completion is reached, subsequent calls return `None`.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use google_cloud_gax::streaming::ResponseReceiver;
+    /// # use google_cloud_gax::Result;
+    /// # async fn sample(mut receiver: ResponseReceiver<String>) -> Result<()> {
+    /// while let Some(item) = receiver.recv().await {
+    ///     let item = item?;
+    ///     println!("Received: {item}");
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
     pub async fn recv(&mut self) -> Option<Result<Resp, crate::error::Error>> {
         use futures::StreamExt as _;
         loop {
@@ -186,6 +312,22 @@ impl<Resp> ResponseReceiver<Resp> {
     #[cfg(feature = "unstable-stream")]
     #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
     /// Converts the receiver into an asynchronous [`Stream`][futures::Stream].
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use google_cloud_gax::streaming::ResponseReceiver;
+    /// # use google_cloud_gax::Result;
+    /// # use futures::StreamExt as _;
+    /// # async fn sample(receiver: ResponseReceiver<String>) -> Result<()> {
+    /// let mut stream = receiver.into_stream();
+    /// while let Some(item) = stream.next().await {
+    ///     let item = item?;
+    ///     println!("Received: {item}");
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn into_stream(
         self,
     ) -> impl futures::Stream<Item = Result<Resp, crate::error::Error>> + Send + Unpin {
@@ -199,7 +341,7 @@ impl<Resp> ResponseReceiver<Resp> {
     ///
     /// This constructor is `doc(hidden)` (except when `_internal-semver` is enabled)
     /// so that generated client transports can construct [`ResponseReceiver`] instances
-    /// that lazily await HTTP/2 response headers.
+    /// that asynchronously await HTTP/2 response headers.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn from_future<Fut, S>(fut: Fut) -> Self
     where
@@ -232,6 +374,17 @@ impl<Resp> ResponseReceiver<Resp> {
     }
 }
 
+/// Creates a [`ResponseReceiver`] from a Tokio [`mpsc::Receiver`], useful for mocking in tests.
+///
+/// # Examples
+///
+/// ```
+/// # use google_cloud_gax::streaming::ResponseReceiver;
+/// # use google_cloud_gax::Result;
+/// # use tokio::sync::mpsc;
+/// let (tx, rx) = mpsc::channel::<Result<String>>(16);
+/// let receiver = ResponseReceiver::from(rx);
+/// ```
 impl<Resp> From<mpsc::Receiver<crate::Result<Resp>>> for ResponseReceiver<Resp>
 where
     Resp: Send + 'static,
@@ -280,16 +433,15 @@ mod tests {
             err.to_string(),
             "cannot send request: stream is closed; inspect ResponseReceiver for details"
         );
-
-        let constructed = SendError::stream_closed();
-        assert!(matches!(constructed, SendError::StreamClosed));
     }
 
     #[tokio::test]
     async fn request_sender_send_error_serialization() {
         let sender = RequestSender::from_fn(|item: i32| async move {
             if item < 0 {
-                Err(SendError::ser("negative number"))
+                Err(SendError::Serialization(Box::new(std::io::Error::other(
+                    "negative number",
+                ))))
             } else {
                 Ok(())
             }
@@ -303,12 +455,9 @@ mod tests {
         assert!(matches!(err, SendError::Serialization(_)));
         assert_eq!(
             err.to_string(),
-            "cannot serialize the request negative number"
+            "cannot serialize the request: negative number"
         );
         assert_eq!(format!("{sender:?}"), "RequestSender");
-
-        let ser_err = SendError::ser("test ser");
-        assert!(matches!(ser_err, SendError::Serialization(_)));
     }
 
     #[tokio::test]

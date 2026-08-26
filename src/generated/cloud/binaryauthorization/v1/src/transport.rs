@@ -527,6 +527,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -542,6 +543,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
 
                 let resource_name =
                     format!("//binaryauthorization.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -561,6 +563,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
 
                 let resource_name =
                     format!("//binaryauthorization.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -753,6 +756,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -768,6 +772,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
 
                 let resource_name =
                     format!("//binaryauthorization.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -787,6 +792,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
 
                 let resource_name =
                     format!("//binaryauthorization.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -951,6 +957,7 @@ impl super::stub::SystemPolicyV1 for SystemPolicyV1 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -966,6 +973,7 @@ impl super::stub::SystemPolicyV1 for SystemPolicyV1 {
 
                 let resource_name =
                     format!("//binaryauthorization.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -985,6 +993,7 @@ impl super::stub::SystemPolicyV1 for SystemPolicyV1 {
 
                 let resource_name =
                     format!("//binaryauthorization.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1177,6 +1186,7 @@ impl super::stub::SystemPolicyV1 for SystemPolicyV1 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -1192,6 +1202,7 @@ impl super::stub::SystemPolicyV1 for SystemPolicyV1 {
 
                 let resource_name =
                     format!("//binaryauthorization.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1211,6 +1222,7 @@ impl super::stub::SystemPolicyV1 for SystemPolicyV1 {
 
                 let resource_name =
                     format!("//binaryauthorization.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1307,6 +1319,7 @@ impl super::stub::ValidationHelperV1 for ValidationHelperV1 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_attestor = try_match(
@@ -1321,6 +1334,7 @@ impl super::stub::ValidationHelperV1 for ValidationHelperV1 {
                 let path = format!("/v1/{}:validateAttestationOccurrence", var_attestor,);
                 let path_template = "/v1/{attestor}:validateAttestationOccurrence";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.attestor));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1373,6 +1387,7 @@ impl super::stub::ValidationHelperV1 for ValidationHelperV1 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -1388,6 +1403,7 @@ impl super::stub::ValidationHelperV1 for ValidationHelperV1 {
 
                 let resource_name =
                     format!("//binaryauthorization.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1407,6 +1423,7 @@ impl super::stub::ValidationHelperV1 for ValidationHelperV1 {
 
                 let resource_name =
                     format!("//binaryauthorization.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1599,6 +1616,7 @@ impl super::stub::ValidationHelperV1 for ValidationHelperV1 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -1614,6 +1632,7 @@ impl super::stub::ValidationHelperV1 for ValidationHelperV1 {
 
                 let resource_name =
                     format!("//binaryauthorization.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1633,6 +1652,7 @@ impl super::stub::ValidationHelperV1 for ValidationHelperV1 {
 
                 let resource_name =
                     format!("//binaryauthorization.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))

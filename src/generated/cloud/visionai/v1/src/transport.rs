@@ -762,6 +762,7 @@ impl super::stub::HealthCheckService for HealthCheckService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -778,6 +779,7 @@ impl super::stub::HealthCheckService for HealthCheckService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -941,6 +943,7 @@ impl super::stub::LiveVideoAnalytics for LiveVideoAnalytics {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -956,6 +959,7 @@ impl super::stub::LiveVideoAnalytics for LiveVideoAnalytics {
                 let path_template = "/v1/{parent}:resolveOperatorInfo";
 
                 let resource_name = format!("//visionai.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2179,6 +2183,7 @@ impl super::stub::LiveVideoAnalytics for LiveVideoAnalytics {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -2196,6 +2201,7 @@ impl super::stub::LiveVideoAnalytics for LiveVideoAnalytics {
                 let path_template = "/v1/{parent}/processes:batchRun";
 
                 let resource_name = format!("//visionai.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2885,6 +2891,7 @@ impl super::stub::LiveVideoAnalytics for LiveVideoAnalytics {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2901,6 +2908,7 @@ impl super::stub::LiveVideoAnalytics for LiveVideoAnalytics {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -3381,6 +3389,7 @@ impl super::stub::AppPlatform for AppPlatform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -3398,6 +3407,7 @@ impl super::stub::AppPlatform for AppPlatform {
                 let path_template = "/v1/{name}:deploy";
 
                 let resource_name = format!("//visionai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3453,6 +3463,7 @@ impl super::stub::AppPlatform for AppPlatform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -3470,6 +3481,7 @@ impl super::stub::AppPlatform for AppPlatform {
                 let path_template = "/v1/{name}:undeploy";
 
                 let resource_name = format!("//visionai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3525,6 +3537,7 @@ impl super::stub::AppPlatform for AppPlatform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -3542,6 +3555,7 @@ impl super::stub::AppPlatform for AppPlatform {
                 let path_template = "/v1/{name}:addStreamInput";
 
                 let resource_name = format!("//visionai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3599,6 +3613,7 @@ impl super::stub::AppPlatform for AppPlatform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -3616,6 +3631,7 @@ impl super::stub::AppPlatform for AppPlatform {
                 let path_template = "/v1/{name}:removeStreamInput";
 
                 let resource_name = format!("//visionai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3673,6 +3689,7 @@ impl super::stub::AppPlatform for AppPlatform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -3690,6 +3707,7 @@ impl super::stub::AppPlatform for AppPlatform {
                 let path_template = "/v1/{name}:updateStreamInput";
 
                 let resource_name = format!("//visionai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3899,6 +3917,7 @@ impl super::stub::AppPlatform for AppPlatform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -3916,6 +3935,7 @@ impl super::stub::AppPlatform for AppPlatform {
                 let path_template = "/v1/{name}:createApplicationInstances";
 
                 let resource_name = format!("//visionai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3973,6 +3993,7 @@ impl super::stub::AppPlatform for AppPlatform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -3990,6 +4011,7 @@ impl super::stub::AppPlatform for AppPlatform {
                 let path_template = "/v1/{name}:deleteApplicationInstances";
 
                 let resource_name = format!("//visionai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4047,6 +4069,7 @@ impl super::stub::AppPlatform for AppPlatform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4064,6 +4087,7 @@ impl super::stub::AppPlatform for AppPlatform {
                 let path_template = "/v1/{name}:updateApplicationInstances";
 
                 let resource_name = format!("//visionai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4590,6 +4614,7 @@ impl super::stub::AppPlatform for AppPlatform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -4605,6 +4630,7 @@ impl super::stub::AppPlatform for AppPlatform {
                 let path_template = "/v1/{parent}/processors:prebuilt";
 
                 let resource_name = format!("//visionai.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5596,6 +5622,7 @@ impl super::stub::AppPlatform for AppPlatform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -5612,6 +5639,7 @@ impl super::stub::AppPlatform for AppPlatform {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -5715,6 +5743,7 @@ impl super::stub::StreamingService for StreamingService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_series = try_match(
@@ -5733,6 +5762,7 @@ impl super::stub::StreamingService for StreamingService {
                 let path = format!("/v1/{}:acquireLease", var_series,);
                 let path_template = "/v1/{series}:acquireLease";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.series));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -5789,6 +5819,7 @@ impl super::stub::StreamingService for StreamingService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_series = try_match(
@@ -5807,6 +5838,7 @@ impl super::stub::StreamingService for StreamingService {
                 let path = format!("/v1/{}:renewLease", var_series,);
                 let path_template = "/v1/{series}:renewLease";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.series));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -5863,6 +5895,7 @@ impl super::stub::StreamingService for StreamingService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_series = try_match(
@@ -5881,6 +5914,7 @@ impl super::stub::StreamingService for StreamingService {
                 let path = format!("/v1/{}:releaseLease", var_series,);
                 let path_template = "/v1/{series}:releaseLease";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.series));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -6571,6 +6605,7 @@ impl super::stub::StreamingService for StreamingService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -6587,6 +6622,7 @@ impl super::stub::StreamingService for StreamingService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -7448,6 +7484,7 @@ impl super::stub::StreamsService for StreamsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_stream = try_match(
@@ -7466,6 +7503,7 @@ impl super::stub::StreamsService for StreamsService {
                 let path = format!("/v1/{}:getThumbnail", var_stream,);
                 let path_template = "/v1/{stream}:getThumbnail";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.stream));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -7522,6 +7560,7 @@ impl super::stub::StreamsService for StreamsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_stream = try_match(
@@ -7540,6 +7579,7 @@ impl super::stub::StreamsService for StreamsService {
                 let path = format!("/v1/{}:generateStreamHlsToken", var_stream,);
                 let path_template = "/v1/{stream}:generateStreamHlsToken";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.stream));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -9098,6 +9138,7 @@ impl super::stub::StreamsService for StreamsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -9114,6 +9155,7 @@ impl super::stub::StreamsService for StreamsService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -9612,6 +9654,7 @@ impl super::stub::Warehouse for Warehouse {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -9631,6 +9674,7 @@ impl super::stub::Warehouse for Warehouse {
                 let path_template = "/v1/{name}:upload";
 
                 let resource_name = format!("//warehouse-visionai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9688,6 +9732,7 @@ impl super::stub::Warehouse for Warehouse {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -9707,6 +9752,7 @@ impl super::stub::Warehouse for Warehouse {
                 let path_template = "/v1/{name}:generateRetrievalUrl";
 
                 let resource_name = format!("//warehouse-visionai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9764,6 +9810,7 @@ impl super::stub::Warehouse for Warehouse {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -9783,6 +9830,7 @@ impl super::stub::Warehouse for Warehouse {
                 let path_template = "/v1/{name}:analyze";
 
                 let resource_name = format!("//warehouse-visionai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9840,6 +9888,7 @@ impl super::stub::Warehouse for Warehouse {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -9859,6 +9908,7 @@ impl super::stub::Warehouse for Warehouse {
                 let path_template = "/v1/{name}:index";
 
                 let resource_name = format!("//warehouse-visionai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9916,6 +9966,7 @@ impl super::stub::Warehouse for Warehouse {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -9935,6 +9986,7 @@ impl super::stub::Warehouse for Warehouse {
                 let path_template = "/v1/{name}:removeIndex";
 
                 let resource_name = format!("//warehouse-visionai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -10835,6 +10887,7 @@ impl super::stub::Warehouse for Warehouse {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -10852,6 +10905,7 @@ impl super::stub::Warehouse for Warehouse {
                 let path_template = "/v1/{name}:analyze";
 
                 let resource_name = format!("//warehouse-visionai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11724,6 +11778,7 @@ impl super::stub::Warehouse for Warehouse {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -11743,6 +11798,7 @@ impl super::stub::Warehouse for Warehouse {
                 let path_template = "/v1/{name}:clip";
 
                 let resource_name = format!("//warehouse-visionai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11800,6 +11856,7 @@ impl super::stub::Warehouse for Warehouse {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -11819,6 +11876,7 @@ impl super::stub::Warehouse for Warehouse {
                 let path_template = "/v1/{name}:generateHlsUri";
 
                 let resource_name = format!("//warehouse-visionai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11876,6 +11934,7 @@ impl super::stub::Warehouse for Warehouse {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -11893,6 +11952,7 @@ impl super::stub::Warehouse for Warehouse {
                 let path_template = "/v1/{parent}/assets:import";
 
                 let resource_name = format!("//warehouse-visionai.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -12744,6 +12804,7 @@ impl super::stub::Warehouse for Warehouse {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_corpus = try_match(
@@ -12761,6 +12822,7 @@ impl super::stub::Warehouse for Warehouse {
                 let path_template = "/v1/{corpus}:searchAssets";
 
                 let resource_name = format!("//warehouse-visionai.googleapis.com/{}", var_corpus,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.corpus));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -12816,6 +12878,7 @@ impl super::stub::Warehouse for Warehouse {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_index_endpoint = try_match(
@@ -12834,6 +12897,7 @@ impl super::stub::Warehouse for Warehouse {
 
                 let resource_name =
                     format!("//warehouse-visionai.googleapis.com/{}", var_index_endpoint,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.index_endpoint));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13261,6 +13325,7 @@ impl super::stub::Warehouse for Warehouse {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_index_endpoint = try_match(
@@ -13279,6 +13344,7 @@ impl super::stub::Warehouse for Warehouse {
 
                 let resource_name =
                     format!("//warehouse-visionai.googleapis.com/{}", var_index_endpoint,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.index_endpoint));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13334,6 +13400,7 @@ impl super::stub::Warehouse for Warehouse {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_index_endpoint = try_match(
@@ -13352,6 +13419,7 @@ impl super::stub::Warehouse for Warehouse {
 
                 let resource_name =
                     format!("//warehouse-visionai.googleapis.com/{}", var_index_endpoint,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.index_endpoint));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13801,6 +13869,7 @@ impl super::stub::Warehouse for Warehouse {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_item_collection = try_match(
@@ -13826,6 +13895,9 @@ impl super::stub::Warehouse for Warehouse {
                     "//warehouse-visionai.googleapis.com/{}",
                     var_item_collection,
                 );
+                let _ = Some(&mut req)
+                    .and_then(|m| m.item.as_mut())
+                    .map(|m| std::mem::take(&mut m.collection));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13886,6 +13958,7 @@ impl super::stub::Warehouse for Warehouse {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_item_collection = try_match(
@@ -13911,6 +13984,9 @@ impl super::stub::Warehouse for Warehouse {
                     "//warehouse-visionai.googleapis.com/{}",
                     var_item_collection,
                 );
+                let _ = Some(&mut req)
+                    .and_then(|m| m.item.as_mut())
+                    .map(|m| std::mem::take(&mut m.collection));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14684,6 +14760,7 @@ impl super::stub::Warehouse for Warehouse {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -14700,6 +14777,7 @@ impl super::stub::Warehouse for Warehouse {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

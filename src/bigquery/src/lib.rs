@@ -27,17 +27,8 @@
 //! For executing queries and managing jobs:
 //! * [BigQuery][client::BigQuery]
 //!
-//! For handling query execution:
-//! * [Query]
-//! * [CompleteQuery]
-//!
-//! For streaming and reading results:
-//! * [RowIterator]
-//! * [Row]
-//!
-//! For converting results to Rust types:
-//! * [FromRow]
-//! * [FromSql]
+//! For streaming data to BigQuery:
+//! * [Write][client::Write]
 //!
 //! [bigquery]: https://cloud.google.com/bigquery
 //!
@@ -74,7 +65,7 @@
 //!
 //! ```
 //! # use google_cloud_bigquery::client::BigQuery;
-//! # use google_cloud_bigquery::FromRow;
+//! # use google_cloud_bigquery::query::FromRow;
 //! #[derive(FromRow, Debug)]
 //! struct UserStats {
 //!     name: String,
@@ -95,36 +86,112 @@
 //! # Ok(())
 //! # }
 //! ```
+//!
+//! # Example: Writing to BigQuery
+//!
+//! ```
+//! use google_cloud_bigquery::client::Write;
+//! use google_cloud_bigquery::model::{ArrowSchema, ArrowRecordBatch};
+//! # async fn sample() -> anyhow::Result<()> {
+//! let client = Write::builder().build().await?;
+//! let writer = client
+//!     .arrow(schema())
+//!     .default("projects/my-project/datasets/my-dataset/tables/my-table")?;
+//!
+//! let f1 = writer.append(rows()).send();
+//! let f2 = writer.append(rows()).send();
+//!
+//! let _ = f1.await?;
+//! let _ = f2.await?;
+//! # Ok(()) }
+//!
+//! fn schema() -> ArrowSchema {
+//!     todo!("Define your table's schema...")
+//! }
+//! fn rows() -> ArrowRecordBatch {
+//!     todo!("Serialize your rows...")
+//! }
+//! ```
 
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
-pub mod datatypes;
-pub mod error;
-pub use crate::error::{ConvertError, QueryError, RowError};
-pub use crate::query::{CompleteQuery, FromSql, Query, Row, RowIterator};
-pub use google_cloud_bigquery_derive::{FromRow, FromSql};
 
 pub(crate) mod generated;
-pub(crate) mod query;
-pub(crate) mod retry_policy;
-pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
 
 /// Clients to interact with Google Cloud BigQuery.
-pub mod client;
-mod client_builder;
-
-pub mod model {
-    //! Re-exports for the Google Cloud BigQuery v2 API types.
-    pub use crate::generated::{CompleteQueryMetadata, QueryMetadata};
-    pub use google_cloud_bigquery_v2::model::*;
+pub mod client {
+    pub use crate::query::client::BigQuery;
+    pub use crate::write::client::Write;
+    // TODO(#6152) - add Write admin client
 }
 
+/// The messages and enums that are part of this client library
+pub mod model {
+    pub(crate) use crate::write::generated::gapic_storage::model::*;
+    pub use crate::write::generated::gapic_storage::model::{
+        ArrowRecordBatch, ArrowSchema, BatchCommitWriteStreamsResponse,
+        FinalizeWriteStreamResponse, FlushRowsResponse, RowError, StorageError, TableFieldSchema,
+        TableSchema, row_error, storage_error, table_field_schema,
+    };
+}
+
+/// Extends [crate::model].
+///
+/// Note that there is no real distinction between the types in `model` and
+/// `model_ext`. The two modules are separate for library maintenance reasons.
+pub mod model_ext {
+    pub use crate::generated::{CompleteQueryMetadata, QueryMetadata, QueryRequest};
+    pub use crate::write::append_response::AppendResponse;
+}
+
+/// Request and client builders.
 pub mod builder {
-    //! Builders for the BigQuery client.
+    /// Request and client builders for the [BigQuery][crate::client::BigQuery] client.
     pub mod bigquery {
-        //! Builder for [BigQuery][crate::client::BigQuery].
-        pub use crate::client_builder::ClientBuilder;
         pub use crate::generated::QueryRequest;
         pub use crate::query::builder::Query;
+        pub use crate::query::client_builder::ClientBuilder;
+    }
+    /// Request and client builders for the [Write][crate::client::Write] client.
+    pub mod write {
+        pub use crate::write::append_builder::{Append, AppendWithOffset};
+        pub use crate::write::client_builder::ClientBuilder;
+    }
+}
+
+/// Custom errors for the BigQuery clients.
+pub mod error;
+
+/// Types related to querying with a [BigQuery][crate::client::BigQuery] client.
+pub mod query;
+
+/// Types related to writing with a [Write][crate::client::Write] client.
+pub mod write;
+
+pub mod datatypes;
+
+pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
+pub(crate) use google_cloud_gax::options::RequestOptions;
+pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
+pub(crate) use google_cloud_gax::response::Response;
+
+#[allow(dead_code)]
+pub(crate) mod google {
+    pub mod api {
+        include!("write/generated/protos/storage/google.api.rs");
+    }
+    pub mod cloud {
+        pub mod bigquery {
+            pub mod storage {
+                pub mod v1 {
+                    #![allow(deprecated)]
+                    include!("write/generated/protos/storage/google.cloud.bigquery.storage.v1.rs");
+                    include!("write/generated/convert/storage/convert.rs");
+                }
+            }
+        }
+    }
+    pub mod rpc {
+        include!("write/generated/protos/storage/google.rpc.rs");
     }
 }

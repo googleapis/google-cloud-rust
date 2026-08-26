@@ -315,6 +315,7 @@ impl super::stub::TextToSpeechLongAudioSynthesize for TextToSpeechLongAudioSynth
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -329,6 +330,7 @@ impl super::stub::TextToSpeechLongAudioSynthesize for TextToSpeechLongAudioSynth
                 let path = format!("/v1/{}:synthesizeLongAudio", var_parent,);
                 let path_template = "/v1/{parent}:synthesizeLongAudio";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

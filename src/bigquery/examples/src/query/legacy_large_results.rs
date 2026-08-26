@@ -14,7 +14,7 @@
 
 // [START bigquery_query_legacy_large_results]
 use google_cloud_bigquery::client::BigQuery;
-use google_cloud_bigquery::model::TableReference;
+use google_cloud_bigquery_v2::model::TableReference;
 
 pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyhow::Result<()> {
     let client = BigQuery::builder().build().await?;
