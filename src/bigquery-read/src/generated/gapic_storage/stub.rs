@@ -48,6 +48,20 @@ pub trait Read: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Read::read_rows].
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    fn read_rows(
+        &self,
+        _req: crate::model::ReadRowsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseReceiver<crate::model::ReadRowsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
+    }
+
     /// Implements [super::client::Read::split_read_stream].
     fn split_read_stream(
         &self,

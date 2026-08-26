@@ -16,6 +16,7 @@ use anyhow::Result;
 use bigquery_samples::{
     cleanup_stale_datasets, create_dataset, create_table, delete_dataset, random_dataset_id,
 };
+use google_cloud_bigquery::client::BigQuery;
 use google_cloud_bigquery_read::client::Read;
 use google_cloud_bigquery_read::model::{DataFormat, ReadSession};
 use google_cloud_bigquery_v2::client::{DatasetService, TableService};
@@ -39,7 +40,23 @@ pub async fn run_reads() -> Result<()> {
             TableFieldSchema::new().set_name("age").set_type("INTEGER"),
         ]);
         create_table(&table_service, &project_id, &dataset_id, table_id, schema).await?;
-        basic(&project_id, &dataset_id, table_id).await
+
+        // Insert sample data into the table.
+        let bq_client = BigQuery::builder().build().await?;
+        let insert_query = format!(
+            "INSERT INTO `{project_id}.{dataset_id}.{table_id}` (name, age) VALUES ('Alice', 25), ('Bob', 28), ('Charlie', 31)"
+        );
+        bq_client
+            .query(insert_query)
+            .with_project_id(&project_id)
+            .set_labels(vec![(bigquery_samples::INSTANCE_LABEL, "true")])
+            .until_done()
+            .await?;
+
+        basic(&project_id, &dataset_id, table_id).await?;
+        #[cfg(google_cloud_unstable_gapic_streaming)]
+        read_rows(&project_id, &dataset_id, table_id).await?;
+        Ok(())
     }
     .await;
 
@@ -47,7 +64,7 @@ pub async fn run_reads() -> Result<()> {
     result
 }
 
-// Calls the one unary RPC the service has to offer.
+// Calls the unary CreateReadSession RPC.
 pub async fn basic(project_id: &str, dataset_id: &str, table_id: &str) -> Result<()> {
     let client = Read::builder().build().await?;
 
@@ -64,5 +81,45 @@ pub async fn basic(project_id: &str, dataset_id: &str, table_id: &str) -> Result
         .send()
         .await?;
     println!("Successfully created ReadSession: {session:?}");
+    Ok(())
+}
+
+// Calls the server-streaming ReadRows RPC and consumes responses.
+#[cfg(google_cloud_unstable_gapic_streaming)]
+pub async fn read_rows(project_id: &str, dataset_id: &str, table_id: &str) -> Result<()> {
+    let client = Read::builder().build().await?;
+
+    let table = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}");
+    let session = client
+        .create_read_session()
+        .set_parent(format!("projects/{project_id}"))
+        .set_read_session(
+            ReadSession::new()
+                .set_data_format(DataFormat::Arrow)
+                .set_table(table),
+        )
+        .set_max_stream_count(1)
+        .send()
+        .await?;
+
+    assert!(
+        !session.streams.is_empty(),
+        "expected at least one stream in read session"
+    );
+
+    let stream_name = &session.streams[0].name;
+    let mut stream = client
+        .read_rows()
+        .set_read_stream(stream_name)
+        .send()
+        .await?;
+
+    let mut total_rows = 0;
+    while let Some(response) = stream.recv().await {
+        let response = response?;
+        total_rows += response.row_count;
+    }
+    assert_eq!(total_rows, 3, "expected 3 rows to be read from stream");
+
     Ok(())
 }

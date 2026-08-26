@@ -55,6 +55,15 @@ where
         pending.await
     }
 
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    async fn read_rows(
+        &self,
+        req: crate::model::ReadRowsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::ReadRowsResponse>> {
+        self.inner.read_rows(req, options).await
+    }
+
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn split_read_stream(
         &self,

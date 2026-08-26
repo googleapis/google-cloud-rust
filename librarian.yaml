@@ -586,6 +586,7 @@ libraries:
         - extend_grpc_transport: true
           generate_setter_samples: "false"
           generate_rpc_samples: "false"
+          include_server_streaming_methods: true
           included_ids:
             - .google.cloud.bigquery.storage.v1.BigQueryRead
           name_overrides: .google.cloud.bigquery.storage.v1.BigQueryRead=Read
