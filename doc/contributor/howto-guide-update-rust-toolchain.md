@@ -148,7 +148,7 @@ Submit a PR with the MSRV update:
 
 ```bash
 git checkout -b chore-bump-msrv-1.XX
-git commit -am "chore: update MSRV to 1.XX.0" -m "Update Minimum Supported Rust Version to 1.XX.0 across Cargo.toml, .clippy.toml, CI configurations, and documentation."
+git commit -am "chore(ci): update MSRV to 1.XX.0" -m "Update Minimum Supported Rust Version to 1.XX.0 across Cargo.toml, .clippy.toml, CI configurations, and documentation."
 ```
 
 ### Code Clean Ups
