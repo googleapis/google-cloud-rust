@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.39.1-0.20260826135306-a5a970776839
+version: v0.39.1-0.20260826211627-9acd367c5252
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -588,6 +588,7 @@ libraries:
           generate_rpc_samples: "false"
           included_ids:
             - .google.cloud.bigquery.storage.v1.BigQueryRead
+          include_server_streaming_methods: true
           name_overrides: .google.cloud.bigquery.storage.v1.BigQueryRead=Read
           output: src/bigquery-read/src/generated/gapic_storage
           service_config: google/cloud/bigquery/storage/v1/bigquerystorage_v1.yaml
