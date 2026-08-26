@@ -15,24 +15,51 @@
 use super::{RESUMABLE_UPLOAD_QUANTUM, SizeHint};
 use crate::client::Storage;
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
-use httptest::{Expectation, Server, matchers::*, responders::status_code};
+use httptest::{Expectation, Server, matchers::*};
 
 type Result = anyhow::Result<()>;
 
+struct Capture(std::sync::Arc<std::sync::Mutex<Option<(String, bytes::Bytes)>>>);
+
+impl httptest::responders::Responder for Capture {
+    fn respond<'a>(
+        &mut self,
+        req: &'a http::Request<bytes::Bytes>,
+    ) -> std::pin::Pin<
+        Box<dyn futures::Future<Output = http::Response<bytes::Bytes>> + std::marker::Send + 'a>,
+    > {
+        let ct = req
+            .headers()
+            .get("content-type")
+            .and_then(|v| v.to_str().ok())
+            .unwrap_or_default()
+            .to_string();
+        *self.0.lock().unwrap() = Some((ct, req.body().clone()));
+        let res = http::Response::builder()
+            .status(200)
+            .header("content-type", "application/json")
+            .body(
+                serde_json::json!({
+                    "name": "test-object",
+                    "bucket": "test-bucket",
+                    "metadata": {
+                        "is-test-object": "true",
+                    }
+                })
+                .to_string()
+                .into(),
+            )
+            .unwrap();
+        Box::pin(async move { res })
+    }
+}
+
 // We rely on the tests from `unbuffered.rs` for coverage of other
-// single-shot upload features. Here we just want to verify the right upload
-// type is selected depending on the with_resumable_upload_threshold()
-// option.
+// single-shot upload features. Here we verify the right upload type is selected
+// and that buffered uploads compute CRC32C upfront in Part 1 without trailing metadata.
 #[tokio::test]
 async fn upload_object_buffered() -> Result {
-    let payload = serde_json::json!({
-        "name": "test-object",
-        "bucket": "test-bucket",
-        "metadata": {
-            "is-test-object": "true",
-        }
-    })
-    .to_string();
+    let captured = std::sync::Arc::new(std::sync::Mutex::new(None));
     let server = Server::run();
     server.expect(
         Expectation::matching(all_of![
@@ -40,11 +67,7 @@ async fn upload_object_buffered() -> Result {
             request::query(url_decoded(contains(("name", "test-object")))),
             request::query(url_decoded(contains(("uploadType", "multipart")))),
         ])
-        .respond_with(
-            status_code(200)
-                .append_header("content-type", "application/json")
-                .body(payload),
-        ),
+        .respond_with(Capture(captured.clone())),
     );
 
     let client = Storage::builder()
@@ -53,8 +76,10 @@ async fn upload_object_buffered() -> Result {
         .with_resumable_upload_threshold(4 * RESUMABLE_UPLOAD_QUANTUM)
         .build()
         .await?;
+
+    const PAYLOAD: &str = "how vexingly quick daft zebras jump";
     let response = client
-        .write_object("projects/_/buckets/test-bucket", "test-object", "")
+        .write_object("projects/_/buckets/test-bucket", "test-object", PAYLOAD)
         .send_buffered()
         .await?;
     assert_eq!(response.name, "test-object");
@@ -62,6 +87,39 @@ async fn upload_object_buffered() -> Result {
     assert_eq!(
         response.metadata.get("is-test-object").map(String::as_str),
         Some("true")
+    );
+
+    let (content_type, body) = captured.lock().unwrap().take().expect("captured request");
+    let boundary = content_type
+        .strip_prefix("multipart/related; boundary=")
+        .expect("content-type must specify multipart boundary")
+        .to_string();
+
+    let stream = futures::stream::once(async move { Ok::<_, std::io::Error>(body) });
+    let mut multipart = multer::Multipart::new(stream, boundary);
+
+    // Part 1: Metadata containing upfront computed crc32c
+    let m = multipart
+        .next_field()
+        .await?
+        .expect("missing metadata field");
+    let metadata_json: serde_json::Value = serde_json::from_slice(&m.bytes().await?)?;
+    assert_eq!(
+        metadata_json.get("crc32c"),
+        Some(&serde_json::json!("9esWHQ=="))
+    );
+
+    // Part 2: Media payload bytes
+    let p = multipart
+        .next_field()
+        .await?
+        .expect("missing payload field");
+    assert_eq!(p.bytes().await?, PAYLOAD);
+
+    // Part 3: Must NOT be present
+    assert!(
+        multipart.next_field().await?.is_none(),
+        "buffered single-shot must not append Part 3 trailing metadata"
     );
 
     Ok(())
