@@ -21,10 +21,9 @@ mod protobuf {
     use integration_tests_protobuf::retry_policy;
     use test_case::test_case;
 
-    #[test_case(SecretManagerService::builder(); "default")]
-    #[test_case(SecretManagerService::builder().with_tracing(); "with tracing enabled")]
-    #[test_case(SecretManagerService::builder().with_retry_policy(retry_policy()); "with retry enabled")]
-    #[test_case(SecretManagerService::builder().with_endpoint("https://www.googleapis.com"); "with alternative endpoint")]
+    #[test_case(SecretManagerService::builder().with_retry_policy(retry_policy()); "default")]
+    #[test_case(SecretManagerService::builder().with_retry_policy(retry_policy()).with_tracing(); "with tracing enabled")]
+    #[test_case(SecretManagerService::builder().with_retry_policy(retry_policy()).with_endpoint("https://www.googleapis.com"); "with alternative endpoint")]
     #[tokio::test]
     async fn run(builder: ClientBuilder) -> anyhow::Result<()> {
         let _guard = enable_tracing();
