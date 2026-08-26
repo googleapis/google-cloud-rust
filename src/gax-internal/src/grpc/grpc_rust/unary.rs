@@ -143,6 +143,7 @@ where
 mod tests {
     use super::super::testing::*;
     use super::*;
+    use crate::grpc::from_status::{ConnectError, to_gax_error};
     use grpc::client::{ResponseHeaders, Trailers};
     use grpc::metadata::MetadataValue;
     use grpc::{StatusCodeError, StatusError};
@@ -346,7 +347,7 @@ mod tests {
         .expect_err("unary invocation should fail on connect failure");
 
         // Assert
-        let gax_err = crate::grpc::from_status::to_gax_error(status);
+        let gax_err = to_gax_error(status);
         assert!(
             gax_err.is_connect(),
             "connect failure should map to connect error: {gax_err:?}"
@@ -354,7 +355,7 @@ mod tests {
         let connect_error = gax_err
             .source()
             .and_then(|e| e.source())
-            .and_then(|e| e.downcast_ref::<crate::grpc::from_status::ConnectError>())
+            .and_then(|e| e.downcast_ref::<ConnectError>())
             .expect("error source chain should contain ConnectError");
 
         let inner_status = connect_error

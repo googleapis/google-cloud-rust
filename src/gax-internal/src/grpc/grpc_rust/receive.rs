@@ -267,6 +267,7 @@ fn grpc_rust_error_to_tonic_code(code: StatusCodeError) -> tonic::Code {
 mod tests {
     use super::super::testing::*;
     use super::*;
+    use crate::grpc::from_status::to_gax_error;
     use grpc::StatusError;
     use grpc::client::ResponseHeaders;
     use grpc::metadata::MetadataValue;
@@ -331,7 +332,7 @@ mod tests {
             .expect("error trailers should map to status");
 
         // Assert
-        let gax_err = crate::grpc::from_status::to_gax_error(got);
+        let gax_err = to_gax_error(got);
         assert!(
             gax_err.is_connect(),
             "pre-connect failure should map to connect error: {gax_err:?}"
@@ -372,7 +373,7 @@ mod tests {
             .expect("error trailers should map to status");
 
         // Assert
-        let gax_err = crate::grpc::from_status::to_gax_error(got);
+        let gax_err = to_gax_error(got);
         assert!(
             !gax_err.is_connect(),
             "pre-connection internal error should not map to connect error: {gax_err:?}"
@@ -398,7 +399,7 @@ mod tests {
             .expect("error trailers should map to status");
 
         // Assert
-        let gax_err = crate::grpc::from_status::to_gax_error(got);
+        let gax_err = to_gax_error(got);
         assert!(
             !gax_err.is_connect(),
             "trailers with connection_info should not map to connect error: {gax_err:?}"
@@ -421,7 +422,7 @@ mod tests {
             .expect("error trailers should map to status");
 
         // Assert
-        let gax_err = crate::grpc::from_status::to_gax_error(got);
+        let gax_err = to_gax_error(got);
         assert!(
             !gax_err.is_connect(),
             "post-headers error should not map to connect error: {gax_err:?}"
