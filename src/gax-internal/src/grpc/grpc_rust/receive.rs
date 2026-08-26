@@ -17,6 +17,7 @@
 //! as well as [`GrpcRustRecv`] to decode protobuf messages using Prost.
 
 use super::metadata::to_tonic_map;
+use crate::grpc::from_status::ConnectError;
 use bytes::Buf;
 use grpc::StatusCodeError;
 use grpc::client::{RecvStream, ResponseStreamItem, Trailers};
@@ -162,16 +163,20 @@ async fn receive_responses<Response, R>(
 {
     // A container into which incoming message payloads are decoded.
     let mut slot = GrpcRustRecv::<Response>::default();
+    let mut seen_headers = false;
     loop {
         // Reserve before receiving to apply backpressure.
         let Ok(permit) = tx.reserve().await else {
             return;
         };
         let (response, is_terminal) = match recv.recv(&mut slot).await {
-            ResponseStreamItem::Headers(headers) => (
-                Ok(Some(RecvItem::Headers(to_tonic_map(headers.metadata())))),
-                false,
-            ),
+            ResponseStreamItem::Headers(headers) => {
+                seen_headers = true;
+                (
+                    Ok(Some(RecvItem::Headers(to_tonic_map(headers.metadata())))),
+                    false,
+                )
+            }
             ResponseStreamItem::Message => match slot.take() {
                 Ok(message) => (Ok(Some(RecvItem::Message(message))), false),
                 // A missing/undecodable message breaks the stream sequence
@@ -179,7 +184,7 @@ async fn receive_responses<Response, R>(
                 Err(status) => (Err(status), true),
             },
             ResponseStreamItem::Trailers(trailers) => (
-                trailers_to_tonic_status(trailers).map_or(Ok(None), Err),
+                trailers_to_tonic_status(trailers, seen_headers).map_or(Ok(None), Err),
                 true,
             ),
             ResponseStreamItem::StreamClosed => (
@@ -197,19 +202,40 @@ async fn receive_responses<Response, R>(
 }
 
 /// Converts gRPC response [`Trailers`] into a [`tonic::Status`], preserving status code, message, metadata, and `grpc-status-details-bin`.
-pub(super) fn trailers_to_tonic_status(trailers: Trailers) -> Option<tonic::Status> {
+///
+/// When an RPC fails before a connection is established (e.g. TCP connect failure, DNS resolution failure,
+/// channel closed before ready), no headers were received (`!seen_headers`), `trailers.connection_info()` is `None`,
+/// and the `grpc-rust` status is [`StatusCodeError::Unavailable`].
+/// In that case, a [`ConnectError`] wrapping the fully constructed [`tonic::Status`] as its source is returned.
+/// This enables [`to_gax_error`](crate::grpc::from_status::to_gax_error) to accurately classify it as a connection failure (`err.is_connect() == true`).
+pub(super) fn trailers_to_tonic_status(
+    trailers: Trailers,
+    seen_headers: bool,
+) -> Option<tonic::Status> {
     let status = trailers.status().as_ref().err()?;
     let metadata = to_tonic_map(trailers.metadata());
     let details = metadata
         .get_bin("grpc-status-details-bin")
         .and_then(|value| value.to_bytes().ok())
         .unwrap_or_default();
-    Some(tonic::Status::with_details_and_metadata(
+
+    let tonic_status = tonic::Status::with_details_and_metadata(
         grpc_rust_error_to_tonic_code(status.code()),
         status.message().to_string(),
         details,
         metadata,
-    ))
+    );
+
+    if !seen_headers
+        && trailers.connection_info().is_none()
+        && status.code() == StatusCodeError::Unavailable
+    {
+        return Some(tonic::Status::from_error(Box::new(ConnectError(
+            tonic_status,
+        ))));
+    }
+
+    Some(tonic_status)
 }
 
 /// Maps a `grpc-rust` [`StatusCodeError`] to the corresponding [`tonic::Code`].
@@ -241,6 +267,7 @@ fn grpc_rust_error_to_tonic_code(code: StatusCodeError) -> tonic::Code {
 mod tests {
     use super::super::testing::*;
     use super::*;
+    use crate::grpc::from_status::to_gax_error;
     use grpc::StatusError;
     use grpc::client::ResponseHeaders;
     use grpc::metadata::MetadataValue;
@@ -266,7 +293,8 @@ mod tests {
         .with_metadata(metadata);
 
         // Act
-        let got = trailers_to_tonic_status(trailers).expect("non-OK trailers should map to status");
+        let got = trailers_to_tonic_status(trailers, /* seen_headers= */ true)
+            .expect("non-OK trailers should map to status");
 
         // Assert
         assert_eq!(got.code(), tonic::Code::PermissionDenied);
@@ -278,6 +306,129 @@ mod tests {
                 .and_then(|value| value.to_str().ok()),
             Some(TEST_VALUE)
         );
+    }
+
+    #[test]
+    fn trailers_to_tonic_status_pre_connect_failure_maps_to_connect_error() {
+        // Arrange
+        use std::error::Error;
+        const TEST_HEADER: &str = "x-test-header";
+        const TEST_VALUE: &str = "test-value";
+        const GRPC_STATUS_DETAILS_BIN: &str = "grpc-status-details-bin";
+        const ERROR_MESSAGE_UNAVAILABLE: &str = "Service was not ready: transport connect failed";
+
+        let details = b"status-details";
+        let mut metadata = grpc::metadata::MetadataMap::new();
+        metadata.insert_bin(GRPC_STATUS_DETAILS_BIN, MetadataValue::from_bytes(details));
+        metadata.insert(TEST_HEADER, MetadataValue::from_static(TEST_VALUE));
+        let trailers = Trailers::new(Err(StatusError::new(
+            StatusCodeError::Unavailable,
+            ERROR_MESSAGE_UNAVAILABLE,
+        )))
+        .with_metadata(metadata);
+
+        // Act
+        let got = trailers_to_tonic_status(trailers, /* seen_headers= */ false)
+            .expect("error trailers should map to status");
+
+        // Assert
+        let gax_err = to_gax_error(got);
+        assert!(
+            gax_err.is_connect(),
+            "pre-connect failure should map to connect error: {gax_err:?}"
+        );
+        let connect_error = gax_err
+            .source()
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<ConnectError>())
+            .expect("error source chain should contain ConnectError");
+
+        let inner_status = connect_error
+            .source()
+            .and_then(|e| e.downcast_ref::<tonic::Status>())
+            .expect("ConnectError should wrap inner tonic::Status as source");
+        assert_eq!(inner_status.code(), tonic::Code::Unavailable);
+        assert_eq!(inner_status.message(), ERROR_MESSAGE_UNAVAILABLE);
+        assert_eq!(inner_status.details(), details);
+        assert_eq!(
+            inner_status
+                .metadata()
+                .get(TEST_HEADER)
+                .and_then(|value| value.to_str().ok()),
+            Some(TEST_VALUE)
+        );
+    }
+
+    #[test]
+    fn trailers_to_tonic_status_pre_connect_internal_error_maps_to_rpc_error() {
+        // Arrange
+        const ERROR_MESSAGE_INTERNAL: &str = "internal error before connect";
+        let trailers = Trailers::new(Err(StatusError::new(
+            StatusCodeError::Internal,
+            ERROR_MESSAGE_INTERNAL,
+        )));
+
+        // Act
+        let got = trailers_to_tonic_status(trailers, /* seen_headers= */ false)
+            .expect("error trailers should map to status");
+
+        // Assert
+        let gax_err = to_gax_error(got);
+        assert!(
+            !gax_err.is_connect(),
+            "pre-connection internal error should not map to connect error: {gax_err:?}"
+        );
+        let status = gax_err.status().expect("status should be present");
+        assert_eq!(status.code, google_cloud_gax::error::rpc::Code::Internal);
+        assert_eq!(status.message, ERROR_MESSAGE_INTERNAL);
+    }
+
+    #[test]
+    fn trailers_to_tonic_status_trailers_only_with_connection_info_maps_to_rpc_error() {
+        // Arrange
+        const ERROR_MESSAGE_UNAVAILABLE: &str = "server overloaded";
+
+        let trailers = Trailers::new(Err(StatusError::new(
+            StatusCodeError::Unavailable,
+            ERROR_MESSAGE_UNAVAILABLE,
+        )))
+        .with_connection_info(Some(test_connection_info()));
+
+        // Act
+        let got = trailers_to_tonic_status(trailers, /* seen_headers= */ false)
+            .expect("error trailers should map to status");
+
+        // Assert
+        let gax_err = to_gax_error(got);
+        assert!(
+            !gax_err.is_connect(),
+            "trailers with connection_info should not map to connect error: {gax_err:?}"
+        );
+        let status = gax_err.status().expect("status should be present");
+        assert_eq!(status.code, google_cloud_gax::error::rpc::Code::Unavailable);
+    }
+
+    #[test]
+    fn trailers_to_tonic_status_post_headers_error_maps_to_rpc_error() {
+        // Arrange
+        const ERROR_MESSAGE_UNAVAILABLE: &str = "stream aborted mid-call";
+        let trailers = Trailers::new(Err(StatusError::new(
+            StatusCodeError::Unavailable,
+            ERROR_MESSAGE_UNAVAILABLE,
+        )));
+
+        // Act
+        let got = trailers_to_tonic_status(trailers, /* seen_headers= */ true)
+            .expect("error trailers should map to status");
+
+        // Assert
+        let gax_err = to_gax_error(got);
+        assert!(
+            !gax_err.is_connect(),
+            "post-headers error should not map to connect error: {gax_err:?}"
+        );
+        let status = gax_err.status().expect("status should be present");
+        assert_eq!(status.code, google_cloud_gax::error::rpc::Code::Unavailable);
     }
 
     #[test_case(StatusCodeError::Cancelled, tonic::Code::Cancelled)]
@@ -456,7 +607,9 @@ mod tests {
         let mut metadata = grpc::metadata::MetadataMap::new();
         metadata.insert(HEADER_KEY, MetadataValue::from_static(HEADER_VALUE));
         let stream = MockRecvStream::new([
-            MockRecvAction::Headers(ResponseHeaders::new().with_metadata(metadata)),
+            MockRecvAction::Headers(
+                ResponseHeaders::new(test_connection_info()).with_metadata(metadata),
+            ),
             MockRecvAction::Message(TestMessage::new(MESSAGE_VALUE)),
             MockRecvAction::Trailers(Trailers::new(Ok(()))),
         ]);

@@ -276,7 +276,10 @@ mod tests {
         need_send(&start);
 
         let err = start.await.unwrap_err();
-        assert!(err.is_connect(), "{err:?}");
+        assert!(
+            err.is_connect(),
+            "expected connect error for bad endpoint: {err:?}"
+        );
 
         Ok(())
     }

@@ -31,35 +31,12 @@ pub fn to_gax_error(status: tonic::Status) -> Error {
     if as_inner::<tonic::TimeoutExpired, _>(&status).is_some() {
         return Error::timeout(status);
     }
-    if as_inner::<tonic::ConnectError, _>(&status).is_some() {
+    let is_tonic_connect_error = as_inner::<tonic::ConnectError, _>(&status).is_some();
+    let is_grpc_rust_connect_error = as_inner::<ConnectError, _>(&status).is_some();
+    if is_tonic_connect_error || is_grpc_rust_connect_error {
         return Error::connect(status);
     }
     let headers = status.metadata().clone().into_headers();
-    // TODO(#5991): Treat `Unavailable` with empty metadata as a
-    // connect error so retry policies correctly recognize pre-request
-    // connection failures as safe to retry (`err.is_connect() == true`).
-    //
-    // `grpc-rust` discards the `.source()` error chain (`tonic::ConnectError`)
-    // when converting transport errors to `grpc::StatusError`, so when that
-    // `StatusError` is converted back to a `tonic::Status` in
-    // `trailers_to_tonic_status`, we can't recover the source of the error. We
-    // fallback on `grpc-rust`'s behaviour of returning `tonic::Code::Unavailable`
-    // with empty metadata to detect when a TCP connection cannot be established.
-    //
-    // Checking only `Code::Unavailable` with empty metadata is too broad because a
-    // server can return `Unavailable` without trailing metadata on an active stream.
-    // We use a message substring heuristic to distinguish actual TCP connect
-    // failures from server stream errors.
-    //
-    // Going forward, check with `grpc-rust` whether `.source()` and other error
-    // information can be preserved.
-    #[cfg(google_cloud_unstable_grpc_rust)]
-    if status.code() == tonic::Code::Unavailable && headers.is_empty() {
-        let msg = status.message().to_lowercase();
-        if msg.contains("connection refused") || msg.contains("connect error") {
-            return Error::connect(status);
-        }
-    }
     if status.source().is_some() {
         return Error::transport(headers, status);
     }
@@ -77,6 +54,11 @@ pub fn to_gax_error(status: tonic::Status) -> Error {
     let gax_status = to_gax_status(&status);
     Error::service_full(gax_status, None, Some(headers), Some(Box::new(status)))
 }
+
+/// An error representing a failure to establish a connection to the gRPC endpoint.
+#[derive(Debug, thiserror::Error)]
+#[error("grpc connection error: {0}")]
+pub(crate) struct ConnectError(#[source] pub(crate) tonic::Status);
 
 #[derive(Debug, thiserror::Error)]
 enum GrpcError {
@@ -98,6 +80,7 @@ impl std::fmt::Display for GrpcError {
 mod tests {
     use super::*;
     use google_cloud_gax::error::rpc::{Code, StatusDetails};
+    use pretty_assertions::assert_eq;
     use test_case::test_case;
 
     #[test_case(tonic::Code::Ok, Code::Ok)]
@@ -245,14 +228,68 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(google_cloud_unstable_grpc_rust)]
     #[test]
-    fn gax_error_unavailable_with_empty_metadata_maps_to_connect_error() {
-        let status = tonic::Status::new(
-            tonic::Code::Unavailable,
-            "Connection refused (os error 111)",
+    fn gax_error_with_connect_error_maps_to_connect_error() {
+        // Arrange
+        const TEST_HEADER: &str = "x-test-header";
+        const TEST_VALUE: &str = "test-value";
+        const ERROR_MESSAGE_UNAVAILABLE: &str = "transport connect failed";
+
+        let details = b"status-details";
+        let mut metadata = tonic::metadata::MetadataMap::new();
+        metadata.insert(
+            TEST_HEADER,
+            tonic::metadata::AsciiMetadataValue::from_static(TEST_VALUE),
         );
+        let inner_status = tonic::Status::with_details_and_metadata(
+            tonic::Code::Unavailable,
+            ERROR_MESSAGE_UNAVAILABLE,
+            bytes::Bytes::from_static(details),
+            metadata,
+        );
+        let connect_err = ConnectError(inner_status);
+        let status = tonic::Status::from_error(Box::new(connect_err));
+
+        // Act
         let got = to_gax_error(status);
+
+        // Assert
         assert!(got.is_connect(), "{got:?}");
+        let connect_error = got
+            .source()
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<ConnectError>())
+            .expect("error source chain should contain ConnectError");
+        let inner_status = connect_error
+            .source()
+            .and_then(|e| e.downcast_ref::<tonic::Status>())
+            .expect("ConnectError should wrap inner tonic::Status as source");
+        assert_eq!(inner_status.code(), tonic::Code::Unavailable);
+        assert_eq!(inner_status.message(), ERROR_MESSAGE_UNAVAILABLE);
+        assert_eq!(inner_status.details(), details);
+        assert_eq!(
+            inner_status
+                .metadata()
+                .get(TEST_HEADER)
+                .and_then(|value| value.to_str().ok()),
+            Some(TEST_VALUE)
+        );
+    }
+
+    #[test]
+    fn gax_error_unavailable_without_connect_error_maps_to_rpc_error() {
+        // Arrange
+        let status = tonic::Status::new(tonic::Code::Unavailable, "server temporarily unavailable");
+
+        // Act
+        let got = to_gax_error(status);
+
+        // Assert
+        assert!(
+            !got.is_connect(),
+            "server unavailable should not map to connect error: {got:?}"
+        );
+        assert!(got.status().is_some(), "{got:?}");
+        assert_eq!(got.status().unwrap().code, Code::Unavailable);
     }
 }

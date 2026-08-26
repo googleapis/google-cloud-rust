@@ -6778,7 +6778,7 @@ dependencies = [
 [[package]]
 name = "grpc"
 version = "0.10.0"
-source = "git+https://github.com/grpc/grpc-rust.git?rev=110d4f439207ae01101fce40e82eb51febe185e1#110d4f439207ae01101fce40e82eb51febe185e1"
+source = "git+https://github.com/grpc/grpc-rust.git?rev=ecd8e0371aeb23ea1d4724194fec5e497d695fb9#ecd8e0371aeb23ea1d4724194fec5e497d695fb9"
 dependencies = [
  "base64 0.22.1",
  "bytes",
@@ -10367,7 +10367,7 @@ checksum = "009dbb7700f11c55ef83aebbe4c0e9cf1f1ac0844bd8d6f00dc38f302026e13a"
 [[package]]
 name = "tonic"
 version = "0.14.6"
-source = "git+https://github.com/grpc/grpc-rust.git?rev=110d4f439207ae01101fce40e82eb51febe185e1#110d4f439207ae01101fce40e82eb51febe185e1"
+source = "git+https://github.com/grpc/grpc-rust.git?rev=ecd8e0371aeb23ea1d4724194fec5e497d695fb9#ecd8e0371aeb23ea1d4724194fec5e497d695fb9"
 dependencies = [
  "async-trait",
  "base64 0.22.1",
