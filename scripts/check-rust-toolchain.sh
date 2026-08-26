@@ -22,10 +22,10 @@ if [[ ! -f "${WORKFLOW_FILE}" ]]; then
   exit 1
 fi
 
-CURRENT_VERSION=$(grep -oP "(?<=CURRENT_RUST_VERSION: ')[0-9.]+" "${WORKFLOW_FILE}")
+CURRENT_VERSION=$(sed -nE "s/.*CURRENT_RUST_VERSION: '([0-9.]+)'.*/\1/p" "${WORKFLOW_FILE}")
 echo "Current configured Rust toolchain version: ${CURRENT_VERSION}"
 
-LATEST_MINOR=$(curl -sSL https://raw.githubusercontent.com/rust-lang/rust/master/RELEASES.md | grep -oP '(?<=Version 1\.)[0-9]+' | head -n 1)
+LATEST_MINOR=$(curl -sSL https://raw.githubusercontent.com/rust-lang/rust/master/RELEASES.md | sed -nE 's/^Version 1\.([0-9]+)\..*/\1/p' | sed -n '1p')
 LATEST_VERSION="1.${LATEST_MINOR}"
 echo "Latest stable Rust release:               ${LATEST_VERSION}"
 
