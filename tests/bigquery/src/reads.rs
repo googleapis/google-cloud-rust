@@ -53,8 +53,6 @@ pub async fn run_reads() -> Result<()> {
             .until_done()
             .await?;
 
-        basic(&project_id, &dataset_id, table_id).await?;
-        #[cfg(google_cloud_unstable_gapic_streaming)]
         read_rows(&project_id, &dataset_id, table_id).await?;
         Ok(())
     }
@@ -64,28 +62,7 @@ pub async fn run_reads() -> Result<()> {
     result
 }
 
-// Calls the unary CreateReadSession RPC.
-pub async fn basic(project_id: &str, dataset_id: &str, table_id: &str) -> Result<()> {
-    let client = Read::builder().build().await?;
-
-    let table = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}");
-    let session = client
-        .create_read_session()
-        .set_parent(format!("projects/{project_id}"))
-        .set_read_session(
-            ReadSession::new()
-                .set_data_format(DataFormat::Arrow)
-                .set_table(table),
-        )
-        .set_max_stream_count(1)
-        .send()
-        .await?;
-    println!("Successfully created ReadSession: {session:?}");
-    Ok(())
-}
-
 // Calls the server-streaming ReadRows RPC and consumes responses.
-#[cfg(google_cloud_unstable_gapic_streaming)]
 pub async fn read_rows(project_id: &str, dataset_id: &str, table_id: &str) -> Result<()> {
     let client = Read::builder().build().await?;
 
@@ -107,19 +84,22 @@ pub async fn read_rows(project_id: &str, dataset_id: &str, table_id: &str) -> Re
         "expected at least one stream in read session"
     );
 
-    let stream_name = &session.streams[0].name;
-    let mut stream = client
-        .read_rows()
-        .set_read_stream(stream_name)
-        .send()
-        .await?;
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    {
+        let stream_name = &session.streams[0].name;
+        let mut stream = client
+            .read_rows()
+            .set_read_stream(stream_name)
+            .send()
+            .await?;
 
-    let mut total_rows = 0;
-    while let Some(response) = stream.recv().await {
-        let response = response?;
-        total_rows += response.row_count;
+        let mut total_rows = 0;
+        while let Some(response) = stream.recv().await {
+            let response = response?;
+            total_rows += response.row_count;
+        }
+        assert_eq!(total_rows, 3, "expected 3 rows to be read from stream");
     }
-    assert_eq!(total_rows, 3, "expected 3 rows to be read from stream");
 
     Ok(())
 }
