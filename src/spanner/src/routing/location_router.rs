@@ -24,9 +24,6 @@
 // TODO(#6236): Remove dead_code allowance once LocationRouter is integrated into DatabaseClient.
 #![allow(dead_code)]
 
-#[cfg(test)]
-mod golden_tests;
-
 use crate::routing::connection_cache::ConnectionCache;
 use crate::routing::endpoint_cooldown::EndpointCooldownTracker;
 use crate::routing::key_range_cache::{KeyRangeCache, RangeMode};
@@ -240,6 +237,9 @@ impl LocationRouter {
         self.cooldown_tracker.record_failure(address);
     }
 }
+
+#[cfg(test)]
+mod golden_tests;
 
 #[cfg(test)]
 mod tests {

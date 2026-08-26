@@ -12,9 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(#4969)
-#![allow(dead_code)]
-
 use crate::google::spanner::v1::BatchWriteResponse;
 use crate::google::spanner::v1::CacheUpdate as ProtoCacheUpdate;
 use crate::google::spanner::v1::PartialResultSet;
@@ -52,6 +49,8 @@ impl PartialResultSetStream {
 #[derive(Debug)]
 pub(crate) struct BatchWriteStream {
     pub(crate) inner: Streaming<BatchWriteResponse>,
+    // TODO(#6083): Used when recording attempt metrics and server-timing headers for BatchWrite.
+    #[allow(dead_code)]
     pub(crate) headers: HeaderMap,
 }
 
@@ -61,6 +60,8 @@ impl BatchWriteStream {
     }
 
     /// Returns the initial response headers for the stream.
+    // TODO(#6083): Used when recording attempt metrics and server-timing headers for BatchWrite.
+    #[allow(dead_code)]
     pub(crate) fn headers(&self) -> &HeaderMap {
         &self.headers
     }

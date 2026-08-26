@@ -570,6 +570,7 @@ async fn multi_server_routing_resolves_and_prewarms_tablet_endpoint() -> anyhow:
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
         .build()
         .await?;
 
@@ -643,6 +644,7 @@ async fn multi_replica_power_of_two_selection_distributes_requests() -> anyhow::
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
         .build()
         .await?;
 
@@ -728,6 +730,7 @@ async fn non_leader_failover_when_candidate_replica_skipped() -> anyhow::Result<
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
         .build()
         .await?;
 
@@ -874,6 +877,7 @@ async fn transaction_affinity_lifecycle_binds_and_clears_affinity() -> anyhow::R
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
         .build()
         .await?;
 
@@ -969,6 +973,7 @@ async fn read_only_transaction_does_not_bind_affinity_and_routes_independently()
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
         .build()
         .await?;
 
@@ -1102,6 +1107,7 @@ async fn concurrent_transactions_bind_independent_affinities() -> anyhow::Result
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
         .build()
         .await?;
 
@@ -1273,6 +1279,7 @@ async fn directed_read_routes_to_matching_location_and_role() -> anyhow::Result<
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
         .build()
         .await?;
 
@@ -1375,6 +1382,7 @@ async fn directed_read_exclude_replicas_filters_out_excluded_locations() -> anyh
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
         .build()
         .await?;
 
@@ -1481,6 +1489,7 @@ async fn multi_region_distance_tier_prioritizes_local_replicas() -> anyhow::Resu
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
         .build()
         .await?;
 
@@ -1583,6 +1592,7 @@ async fn endpoint_cooldown_leader_on_cooldown_falls_back_to_gateway() -> anyhow:
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
         .build()
         .await?;
 
@@ -1650,6 +1660,7 @@ async fn endpoint_cooldown_recovers_after_clear() -> anyhow::Result<()> {
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
         .build()
         .await?;
 
@@ -1719,6 +1730,7 @@ async fn all_replicas_on_cooldown_falls_back_to_gateway() -> anyhow::Result<()> 
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
         .build()
         .await?;
 
@@ -1776,6 +1788,7 @@ async fn skipped_tablets_fall_back_to_gateway() -> anyhow::Result<()> {
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
         .build()
         .await?;
 
@@ -1843,6 +1856,7 @@ async fn split_updates_replaces_parent_ranges_and_routes_to_new_groups() -> anyh
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
         .build()
         .await?;
 
@@ -2278,6 +2292,7 @@ async fn concurrent_cache_updates_and_lookups_are_thread_safe() -> anyhow::Resul
     let database_client = Arc::new(
         spanner
             .database_client("projects/test-project/instances/test-instance/databases/test-db")
+            .with_location_aware_routing(true)
             .build()
             .await?,
     );
@@ -2423,6 +2438,7 @@ async fn setup_mock_database_client(
 
     let database_client = spanner
         .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
         .build()
         .await?;
 
