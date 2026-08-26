@@ -7330,6 +7330,7 @@ dependencies = [
  "google-cloud-test-utils",
  "google-cloud-wkt",
  "http",
+ "scoped-env",
  "serial_test",
  "tokio",
  "tracing",
