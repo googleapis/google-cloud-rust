@@ -1,14 +1,21 @@
 # How-To Guide: Updating the Rust Toolchain
 
 This guide describes how to update the Rust toolchain version in
-`google-cloud-rust` when a new stable Rust compiler is released.
+`google-cloud-rust` when a new stable Rust compiler is released, and how Minimum
+Supported Rust Version (MSRV) updates are managed.
 
 ## Overview
 
-The repository tracks the current stable compiler (`_RUST_VERSION` /
-`CURRENT_RUST_VERSION`), which is updated every 6 weeks when the Rust project
-releases a new stable minor release (e.g. `1.97` -> `1.98`). All CI checks,
-formatting, and clippy verification run on the latest stable compiler.
+The repository tracks two distinct Rust version configurations:
+
+1. **Current Stable Compiler (`_RUST_VERSION` / `CURRENT_RUST_VERSION`)**:
+   Updated when the Rust project releases a new stable minor release (e.g.
+   `1.97` -> `1.98`). All CI checks, formatting, and clippy verification run on
+   the latest stable compiler.
+1. **Minimum Supported Rust Version (MSRV)**: Managed independently under the
+   **1-year policy** (`Cargo.toml` `rust-version = "1.XX.0"` and
+   `.gcb/msrv.yaml`). Support for an MSRV release is dropped only after 1 year
+   has passed since its initial release.
 
 ______________________________________________________________________
 
@@ -119,6 +126,37 @@ Common files to update include:
    ```bash
    git commit -am "chore(ci): update Rust toolchain to 1.XX" -m "Update stable compiler version to 1.XX across GitHub Actions and Google Cloud Build configurations."
    ```
+
+## Updating the Minimum Supported Rust Version (MSRV)
+
+Under our MSRV policy, we can drop support for a Rust version **1 year after its
+release date** (checked automatically weekly by
+`.github/workflows/rust-toolchain-check.yaml` or manually at
+[releases.rs](https://releases.rs/)).
+
+To bump the MSRV, update `rust-version` in `Cargo.toml`.
+
+Then search for the current MSRV version number across the repository and update
+it everywhere else it is used (escape the dot, e.g., using the actual current
+MSRV instead of 1.XX):
+
+```bash
+git grep -n "1\.XX\.0"
+git grep -n "1\.XX"
+```
+
+Submit a PR with the MSRV update:
+
+```bash
+git checkout -b chore-bump-msrv-1.XX
+git commit -am "chore(ci): update MSRV to 1.XX.0" -m "Update Minimum Supported Rust Version to 1.XX.0 across Cargo.toml, .clippy.toml, CI configurations, and documentation."
+```
+
+### Code Clean Ups
+
+Consider applying any code cleanups or adopting standard library features
+enabled by the newer MSRV. This is optional and not a required part of bumping
+the version.
 
 [contributing guide]: ../../CONTRIBUTING.md
 [librarian]: https://github.com/googleapis/librarian
