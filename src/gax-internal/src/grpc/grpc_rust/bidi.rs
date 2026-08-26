@@ -237,6 +237,7 @@ where
 mod tests {
     use super::super::testing::*;
     use super::*;
+    use crate::grpc::from_status::{ConnectError, to_gax_error};
     use grpc::client::{ResponseHeaders, Trailers};
     use grpc::metadata::MetadataValue;
     use grpc::{StatusCodeError, StatusError};
@@ -260,7 +261,9 @@ mod tests {
             send_stream.clone(),
             MockRecvStream::new([
                 MockRecvAction::Wait(send_stream.notify_handle()),
-                MockRecvAction::Headers(ResponseHeaders::new().with_metadata(metadata)),
+                MockRecvAction::Headers(
+                    ResponseHeaders::new(test_connection_info()).with_metadata(metadata),
+                ),
                 MockRecvAction::Message(TestMessage::new(RESPONSE_VALUE)),
                 MockRecvAction::Trailers(Trailers::new(Ok(()))),
             ]),
@@ -312,7 +315,7 @@ mod tests {
         let invoker = MockInvoker::new(
             MockSendStream::default(),
             MockRecvStream::with_headers_and_trailers(
-                ResponseHeaders::new(),
+                ResponseHeaders::new(test_connection_info()),
                 Trailers::new(Err(err)),
             ),
         );
@@ -345,7 +348,9 @@ mod tests {
         let err = StatusError::new(StatusCodeError::Aborted, ERROR_MESSAGE);
         let invoker = MockInvoker::new(
             MockSendStream::default(),
-            MockRecvStream::with_immediate_trailers(Trailers::new(Err(err))),
+            MockRecvStream::with_immediate_trailers(
+                Trailers::new(Err(err)).with_connection_info(Some(test_connection_info())),
+            ),
         );
         let headers = RequestHeaders::new().with_method_name(METHOD_NAME);
 
@@ -404,7 +409,9 @@ mod tests {
         let server_error = StatusError::new(StatusCodeError::InvalidArgument, ERROR_MESSAGE);
         let invoker = MockInvoker::new(
             FailingSendStream,
-            MockRecvStream::with_immediate_trailers(Trailers::new(Err(server_error))),
+            MockRecvStream::with_immediate_trailers(
+                Trailers::new(Err(server_error)).with_connection_info(Some(test_connection_info())),
+            ),
         );
         let headers = RequestHeaders::new().with_method_name(METHOD_NAME);
         let request = TestMessage::new("request");
@@ -421,6 +428,71 @@ mod tests {
         // Assert
         assert_eq!(err.code(), tonic::Code::InvalidArgument);
         assert_eq!(err.message(), ERROR_MESSAGE);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn bidi_call_returns_connect_error_on_pre_connect_failure() -> anyhow::Result<()> {
+        // Arrange
+        use std::error::Error;
+        const METHOD_NAME: &str = "/google.test.v1.Test/Bidi";
+        const TEST_HEADER: &str = "x-test-header";
+        const TEST_VALUE: &str = "test-value";
+        const GRPC_STATUS_DETAILS_BIN: &str = "grpc-status-details-bin";
+        const ERROR_MESSAGE_UNAVAILABLE: &str = "Service was not ready: transport connect failed";
+
+        let details = b"status-details";
+        let mut metadata = grpc::metadata::MetadataMap::new();
+        metadata.insert_bin(GRPC_STATUS_DETAILS_BIN, MetadataValue::from_bytes(details));
+        metadata.insert(TEST_HEADER, MetadataValue::from_static(TEST_VALUE));
+        let trailers = Trailers::new(Err(StatusError::new(
+            StatusCodeError::Unavailable,
+            ERROR_MESSAGE_UNAVAILABLE,
+        )))
+        .with_metadata(metadata);
+
+        let invoker = MockInvoker::new(
+            FailingSendStream,
+            MockRecvStream::with_immediate_trailers(trailers),
+        );
+        let headers = RequestHeaders::new().with_method_name(METHOD_NAME);
+        let request = TestMessage::new("request");
+
+        // Act
+        let status = invoke_bidi::<TestMessage, TestMessage, _>(
+            &invoker,
+            headers,
+            tokio_stream::iter([request]),
+        )
+        .await
+        .expect_err("should fail with connect error");
+
+        // Assert
+        let gax_err = to_gax_error(status);
+        assert!(
+            gax_err.is_connect(),
+            "pre-connect failure should map to connect error: {gax_err:?}"
+        );
+        let connect_error = gax_err
+            .source()
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<ConnectError>())
+            .expect("error source chain should contain ConnectError");
+
+        let inner_status = connect_error
+            .source()
+            .and_then(|e| e.downcast_ref::<tonic::Status>())
+            .expect("ConnectError should wrap inner tonic::Status as source");
+        assert_eq!(inner_status.code(), tonic::Code::Unavailable);
+        assert_eq!(inner_status.message(), ERROR_MESSAGE_UNAVAILABLE);
+        assert_eq!(inner_status.details(), details);
+        assert_eq!(
+            inner_status
+                .metadata()
+                .get(TEST_HEADER)
+                .and_then(|value| value.to_str().ok()),
+            Some(TEST_VALUE)
+        );
         Ok(())
     }
 
@@ -508,7 +580,7 @@ mod tests {
 
         // Emit initial response headers and pause the server stream until unblocked by `receive_gate`.
         let mut actions = vec![
-            MockRecvAction::Headers(ResponseHeaders::new()),
+            MockRecvAction::Headers(ResponseHeaders::new(test_connection_info())),
             MockRecvAction::Wait(receive_gate.clone()),
         ];
         actions.extend(server_actions);
