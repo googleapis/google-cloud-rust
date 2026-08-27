@@ -559,6 +559,15 @@ pub async fn checksums(client: &Storage, bucket_name: &str) -> Result<()> {
             ),
         ),
         (
+            "unbuffered/verify/default",
+            Box::pin(
+                client
+                    .write_object(bucket_name, "unbuffered/verify/default", VEXING)
+                    .set_if_generation_match(0)
+                    .send_unbuffered(),
+            ),
+        ),
+        (
             "computed/md5",
             Box::pin(
                 client
