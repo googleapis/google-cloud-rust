@@ -296,7 +296,6 @@ pub trait Echo: std::fmt::Debug + Send + Sync {
     }
 
     /// Implements [super::client::Echo::expand].
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn expand(
         &self,
         _req: crate::model::ExpandRequest,
@@ -310,7 +309,6 @@ pub trait Echo: std::fmt::Debug + Send + Sync {
     }
 
     /// Implements [super::client::Echo::chat].
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn chat(
         &self,
         _options: crate::RequestOptions,
@@ -800,7 +798,6 @@ pub trait Messaging: std::fmt::Debug + Send + Sync {
     }
 
     /// Implements [super::client::Messaging::stream_blurbs].
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn stream_blurbs(
         &self,
         _req: crate::model::StreamBlurbsRequest,
@@ -814,7 +811,6 @@ pub trait Messaging: std::fmt::Debug + Send + Sync {
     }
 
     /// Implements [super::client::Messaging::connect].
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn connect(
         &self,
         _options: crate::RequestOptions,
@@ -1026,7 +1022,6 @@ pub trait SequenceService: std::fmt::Debug + Send + Sync {
     }
 
     /// Implements [super::client::SequenceService::attempt_streaming_sequence].
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn attempt_streaming_sequence(
         &self,
         _req: crate::model::AttemptStreamingSequenceRequest,

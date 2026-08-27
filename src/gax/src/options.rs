@@ -50,7 +50,6 @@ pub struct RequestOptions {
     retry_throttler: Option<SharedRetryThrottler>,
     polling_error_policy: Option<Arc<dyn PollingErrorPolicy>>,
     polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     request_stream_channel_capacity: Option<usize>,
     extensions: http::Extensions,
 }
@@ -174,7 +173,6 @@ impl RequestOptions {
     }
 
     /// Gets the current request stream channel capacity, if set.
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     pub fn request_stream_channel_capacity(&self) -> Option<usize> {
         self.request_stream_channel_capacity
     }
@@ -182,7 +180,6 @@ impl RequestOptions {
     /// Sets the buffer capacity of the internal request channel for streaming RPCs.
     ///
     /// Valid values are between `1` and `usize::MAX >> 3`. Values outside this range will be clamped.
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     pub fn set_request_stream_channel_capacity(&mut self, capacity: usize) {
         self.request_stream_channel_capacity =
             Some(capacity.clamp(1, MAX_REQUEST_CHANNEL_CAPACITY));
@@ -193,7 +190,6 @@ impl RequestOptions {
 ///
 /// This upper limit matches Tokio's internal `mpsc::channel` capacity limit
 /// (`usize::MAX >> 3`).
-#[cfg(google_cloud_unstable_gapic_streaming)]
 const MAX_REQUEST_CHANNEL_CAPACITY: usize = usize::MAX >> 3;
 
 /// Implementations of this trait provide setters to configure request options.
@@ -304,7 +300,6 @@ pub trait RequestOptionsBuilder: internal::RequestBuilder {
     ///
     /// Valid values are between `1` and `usize::MAX >> 3`. The default
     /// capacity is `16`. Values outside this range will be clamped.
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn with_request_stream_channel_capacity(self, _capacity: usize) -> Self
     where
         Self: Sized,
@@ -482,7 +477,6 @@ where
         self
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn with_request_stream_channel_capacity(mut self, capacity: usize) -> Self {
         self.request_options()
             .set_request_stream_channel_capacity(capacity);
@@ -718,7 +712,6 @@ mod tests {
         );
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[test]
     fn request_options_builder_request_stream_channel_capacity() {
         let builder = TestBuilder::default();

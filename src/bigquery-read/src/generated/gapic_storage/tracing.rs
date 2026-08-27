@@ -55,7 +55,6 @@ where
         pending.await
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn read_rows(
         &self,
         req: crate::model::ReadRowsRequest,

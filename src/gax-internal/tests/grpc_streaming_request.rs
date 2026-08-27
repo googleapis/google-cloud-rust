@@ -259,13 +259,11 @@ mod tests {
             .await
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[derive(Clone, Debug, PartialEq)]
     struct DomainEchoRequest {
         message: String,
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     impl google_cloud_gax_internal::prost::ToProto<EchoRequest> for DomainEchoRequest {
         type Output = EchoRequest;
         fn to_proto(
@@ -279,13 +277,11 @@ mod tests {
         }
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[derive(Clone, Debug, PartialEq)]
     struct DomainEchoResponse {
         message: String,
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     impl google_cloud_gax_internal::prost::FromProto<DomainEchoResponse> for EchoResponse {
         fn cnv(
             self,
@@ -297,7 +293,6 @@ mod tests {
         }
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[tokio::test]
     async fn execute_bidi_streaming_basic() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;

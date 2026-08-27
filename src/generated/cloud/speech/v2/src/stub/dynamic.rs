@@ -59,7 +59,6 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::RecognizeResponse>>;
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn streaming_recognize(
         &self,
         options: crate::RequestOptions,
@@ -277,7 +276,6 @@ impl<T: super::Speech> Speech for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn streaming_recognize(
         &self,
         options: crate::RequestOptions,

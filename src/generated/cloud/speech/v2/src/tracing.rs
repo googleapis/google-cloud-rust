@@ -139,7 +139,6 @@ where
         pending.await
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn streaming_recognize(
         &self,
         options: crate::RequestOptions,

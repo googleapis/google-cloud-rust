@@ -19,7 +19,6 @@ mod grpc_helpers;
 #[cfg(google_cloud_unstable_grpc_rust)]
 mod grpc_rust;
 pub mod status;
-#[cfg(google_cloud_unstable_gapic_streaming)]
 pub(crate) mod streaming;
 pub mod tonic;
 mod transport_policies;
@@ -230,7 +229,6 @@ impl Client {
     }
 
     /// Opens a bidirectional stream with automatic model <-> proto conversion and channel management.
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     pub fn execute_bidi_streaming<DomainReq, DomainResp, ProstReq, ProstResp>(
         &self,
         extensions: tonic::Extensions,
@@ -264,7 +262,6 @@ impl Client {
         )
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn spawn_bidi_stream<ProstReq, ProstResp>(
         &self,
         extensions: tonic::Extensions,
@@ -381,7 +378,6 @@ impl Client {
     }
 
     /// Opens a server stream with automatic model <-> proto conversion and stream mapping.
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     pub async fn execute_server_streaming<DomainReq, DomainResp, ProstReq, ProstResp>(
         &self,
         extensions: tonic::Extensions,

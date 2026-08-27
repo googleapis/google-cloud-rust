@@ -115,7 +115,6 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
     }
 
     /// Implements [super::client::Speech::streaming_recognize].
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn streaming_recognize(
         &self,
         _options: crate::RequestOptions,

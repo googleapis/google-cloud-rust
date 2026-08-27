@@ -70,14 +70,12 @@ pub mod speech {
     }
 
     /// Common implementation for [crate::client::Speech] bidi stream builders.
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[derive(Clone, Debug)]
     pub(crate) struct BidiStreamBuilder {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>,
         options: crate::RequestOptions,
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     impl BidiStreamBuilder {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self {
@@ -987,11 +985,9 @@ pub mod speech {
     ///   // ... details omitted ...
     /// }
     /// ```
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[derive(Clone, Debug)]
     pub struct StreamingRecognize(BidiStreamBuilder);
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     impl StreamingRecognize {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(BidiStreamBuilder::new(stub))
@@ -1014,7 +1010,6 @@ pub mod speech {
         }
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[doc(hidden)]
     impl crate::RequestBuilder for StreamingRecognize {
         fn request_options(&mut self) -> &mut crate::RequestOptions {

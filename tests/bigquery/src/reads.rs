@@ -84,22 +84,19 @@ pub async fn read_rows(project_id: &str, dataset_id: &str, table_id: &str) -> Re
         "expected at least one stream in read session"
     );
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
-    {
-        let stream_name = &session.streams[0].name;
-        let mut stream = client
-            .read_rows()
-            .set_read_stream(stream_name)
-            .send()
-            .await?;
+    let stream_name = &session.streams[0].name;
+    let mut stream = client
+        .read_rows()
+        .set_read_stream(stream_name)
+        .send()
+        .await?;
 
-        let mut total_rows = 0;
-        while let Some(response) = stream.recv().await {
-            let response = response?;
-            total_rows += response.row_count;
-        }
-        assert_eq!(total_rows, 3, "expected 3 rows to be read from stream");
+    let mut total_rows = 0;
+    while let Some(response) = stream.recv().await {
+        let response = response?;
+        total_rows += response.row_count;
     }
+    assert_eq!(total_rows, 3, "expected 3 rows to be read from stream");
 
     Ok(())
 }
