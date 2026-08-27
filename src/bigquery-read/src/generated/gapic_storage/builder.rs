@@ -166,6 +166,105 @@ pub mod read {
         }
     }
 
+    /// The request builder for [Read::read_rows][crate::client::Read::read_rows] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_read::builder::read::ReadRows;
+    /// # async fn sample() -> google_cloud_bigquery_read::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut receiver = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ReadRows {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[derive(Clone, Debug)]
+    pub struct ReadRows(RequestBuilder<crate::model::ReadRowsRequest>);
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    impl ReadRows {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Read>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ReadRowsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::ReadRowsResponse>>
+        {
+            (*self.0.stub)
+                .read_rows(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [read_stream][crate::model::ReadRowsRequest::read_stream].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_read_stream<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.read_stream = v.into();
+            self
+        }
+
+        /// Sets the value of [offset][crate::model::ReadRowsRequest::offset].
+        pub fn set_offset<T: Into<i64>>(mut self, v: T) -> Self {
+            self.0.request.offset = v.into();
+            self
+        }
+
+        /// Sets the value of [output_format_serialization_options][crate::model::ReadRowsRequest::output_format_serialization_options].
+        ///
+        /// Note that all the setters affecting `output_format_serialization_options` are
+        /// mutually exclusive.
+        pub fn set_output_format_serialization_options<
+            T: Into<Option<crate::model::read_rows_request::OutputFormatSerializationOptions>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.output_format_serialization_options = v.into();
+            self
+        }
+
+        /// Sets the value of [output_format_serialization_options][crate::model::ReadRowsRequest::output_format_serialization_options]
+        /// to hold a `ArrowSerializationOptions`.
+        ///
+        /// Note that all the setters affecting `output_format_serialization_options` are
+        /// mutually exclusive.
+        pub fn set_arrow_serialization_options<
+            T: std::convert::Into<std::boxed::Box<crate::model::ArrowSerializationOptions>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_arrow_serialization_options(v);
+            self
+        }
+    }
+
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ReadRows {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [Read::split_read_stream][crate::client::Read::split_read_stream] calls.
     ///
     /// # Example

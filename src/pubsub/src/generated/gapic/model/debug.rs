@@ -194,6 +194,18 @@ impl std::fmt::Debug for super::JavaScriptUDF {
     }
 }
 
+impl std::fmt::Debug for super::Compression {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Compression");
+        debug_struct.field("compression_algorithm", &self.compression_algorithm);
+        debug_struct.field("compression_mode", &self.compression_mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::AIInference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AIInference");
@@ -788,6 +800,7 @@ impl std::fmt::Debug for super::Schema {
         debug_struct.field("definition", &self.definition);
         debug_struct.field("revision_id", &self.revision_id);
         debug_struct.field("revision_create_time", &self.revision_create_time);
+        debug_struct.field("configuration", &self.configuration);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -958,6 +971,18 @@ impl std::fmt::Debug for super::ValidateMessageRequest {
 impl std::fmt::Debug for super::ValidateMessageResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ValidateMessageResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CompiledProtoSchema {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CompiledProtoSchema");
+        debug_struct.field("root_message", &self.root_message);
+        debug_struct.field("compiled_bytes", &self.compiled_bytes);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

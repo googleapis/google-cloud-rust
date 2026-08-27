@@ -36,6 +36,7 @@ google-cloud-rpc.workspace    = true
 google-cloud-showcase-v1beta1 = { workspace = true, features = ["default"] }
 google-cloud-wkt.workspace    = true
 http.workspace                = true
+scoped-env.workspace          = true
 serial_test.workspace         = true
 tokio.workspace               = true
 tracing.workspace             = true

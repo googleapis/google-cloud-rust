@@ -336,6 +336,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn disable_rapid_cache(
+        &self,
+        req: crate::model::DisableRapidCacheRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::disable_rapid_cache",
+            self.inner.disable_rapid_cache(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_rapid_cache(
         &self,
         req: crate::model::GetRapidCacheRequest,

@@ -110,6 +110,9 @@ impl serde::ser::Serialize for super::Reservation {
         if self.scheduling_policy.is_some() {
             state.serialize_entry("schedulingPolicy", &self.scheduling_policy)?;
         }
+        if !self.reservation_group_path.is_empty() {
+            state.serialize_entry("reservationGroupPath", &self.reservation_group_path)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -252,6 +255,15 @@ impl serde::ser::Serialize for super::ReservationGroup {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
+        }
+        if !self.parent_group.is_empty() {
+            state.serialize_entry("parentGroup", &self.parent_group)?;
+        }
+        if self.creation_time.is_some() {
+            state.serialize_entry("creationTime", &self.creation_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -631,6 +643,31 @@ impl serde::ser::Serialize for super::DeleteReservationGroupRequest {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::UpdateReservationGroupRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.reservation_group.is_some() {
+            state.serialize_entry("reservationGroup", &self.reservation_group)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

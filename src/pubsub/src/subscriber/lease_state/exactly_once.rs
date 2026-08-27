@@ -105,62 +105,41 @@ impl Leases {
         max_lease_extension: Duration,
     ) -> Vec<Vec<String>> {
         let now = Instant::now();
+        let mut batches = Vec::new();
+        let mut batch = Vec::new();
 
-        // We want to extract some values from `HashMap`, leaving the rest
-        // unchanged.
-        // - `extract_if()` is not available as our MSRV is 1.87 and that appears
-        //   in 1.88.
-        // - `retain` does not work because we need a *value* of `info` to
-        //   change `tx` and that only gives us a `&mut ExactlyOnceInfo`.
-        // - using `Option<Sender>` would complicate the rest of the code.
-        //
-        // We believe the iterations are most of the problem.
-
-        let mut expired = Vec::new();
-        let remaining = self
-            .under_lease
-            .iter_mut()
-            .filter_map(|(id, info)| match info.status {
-                MessageStatus::Nacking => None,
-                MessageStatus::Acking => {
+        self.under_lease
+            .extract_if(|id, info| match info.status {
+                MessageStatus::Leased if info.receive_time + max_lease < now => {
+                    // Extract expired leases.
+                    true
+                }
+                MessageStatus::Nacking => false,
+                MessageStatus::Acking | MessageStatus::Leased => {
                     if info.last_extension.is_some_and(|i| {
                         i + max_lease_extension > now + EXTEND_PERIOD + EXTEND_BUFFER
                     }) {
-                        // The lease is still valid for a while. No need to extend.
-                        None
+                        // The current lease is valid for a while. Retain the message,
+                        // but do not extend its lease.
                     } else {
-                        // Continue to extend messages being acked.
-                        Some(id.clone())
+                        // Extend leases for all other messages.
+                        batch.push(id.clone());
+                        if batch.len() == MAX_IDS_PER_RPC {
+                            // Flush the batch when it is full.
+                            batches.push(std::mem::take(&mut batch));
+                        }
                     }
-                }
-                MessageStatus::Leased => {
-                    if info.receive_time + max_lease < now {
-                        // Drop messages that have been held for too long.
-                        expired.push(id.clone());
-                        None
-                    } else if info.last_extension.is_some_and(|i| {
-                        i + max_lease_extension > now + EXTEND_PERIOD + EXTEND_BUFFER
-                    }) {
-                        // The lease is still valid for a while. No need to extend.
-                        None
-                    } else {
-                        // Extend leases for all other messages
-                        Some(id.clone())
-                    }
+                    false
                 }
             })
-            .collect::<Vec<_>>()
-            .chunks(MAX_IDS_PER_RPC)
-            .map(|c| c.to_vec())
-            .collect::<Vec<_>>();
-
-        expired
-            .into_iter()
-            .filter_map(|id| self.under_lease.remove_entry(&id))
             .for_each(|(_id, info)| {
                 let _ = info.result_tx.send(Err(AckError::LeaseExpired));
             });
-        remaining
+
+        if !batch.is_empty() {
+            batches.push(batch);
+        }
+        batches
     }
 
     /// Nacks all messages under lease management that have not been acked by

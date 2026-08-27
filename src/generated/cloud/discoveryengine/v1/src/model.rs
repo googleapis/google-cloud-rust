@@ -5450,6 +5450,9 @@ pub struct StreamAssistRequest {
     /// Optional. Information about the user initiating the query.
     pub user_metadata: std::option::Option<crate::model::AssistUserMetadata>,
 
+    /// Optional. Specification of agents that are used to serve the request.
+    pub agents_spec: std::option::Option<crate::model::stream_assist_request::AgentsSpec>,
+
     /// Optional. Specification of tools that are used to serve the request.
     pub tools_spec: std::option::Option<crate::model::stream_assist_request::ToolsSpec>,
 
@@ -5565,6 +5568,39 @@ impl StreamAssistRequest {
         self
     }
 
+    /// Sets the value of [agents_spec][crate::model::StreamAssistRequest::agents_spec].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::StreamAssistRequest;
+    /// use google_cloud_discoveryengine_v1::model::stream_assist_request::AgentsSpec;
+    /// let x = StreamAssistRequest::new().set_agents_spec(AgentsSpec::default()/* use setters */);
+    /// ```
+    pub fn set_agents_spec<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::stream_assist_request::AgentsSpec>,
+    {
+        self.agents_spec = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [agents_spec][crate::model::StreamAssistRequest::agents_spec].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::StreamAssistRequest;
+    /// use google_cloud_discoveryengine_v1::model::stream_assist_request::AgentsSpec;
+    /// let x = StreamAssistRequest::new().set_or_clear_agents_spec(Some(AgentsSpec::default()/* use setters */));
+    /// let x = StreamAssistRequest::new().set_or_clear_agents_spec(None::<AgentsSpec>);
+    /// ```
+    pub fn set_or_clear_agents_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::stream_assist_request::AgentsSpec>,
+    {
+        self.agents_spec = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [tools_spec][crate::model::StreamAssistRequest::tools_spec].
     ///
     /// # Example
@@ -5644,6 +5680,106 @@ impl wkt::message::Message for StreamAssistRequest {
 pub mod stream_assist_request {
     #[allow(unused_imports)]
     use super::*;
+
+    /// Specification of agents that are used to serve the request.
+    #[cfg(feature = "assistant-service")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AgentsSpec {
+        /// Optional. Specification of agents that are used to serve the request.
+        pub agent_specs: std::vec::Vec<crate::model::stream_assist_request::agents_spec::AgentSpec>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "assistant-service")]
+    impl AgentsSpec {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [agent_specs][crate::model::stream_assist_request::AgentsSpec::agent_specs].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::stream_assist_request::AgentsSpec;
+        /// use google_cloud_discoveryengine_v1::model::stream_assist_request::agents_spec::AgentSpec;
+        /// let x = AgentsSpec::new()
+        ///     .set_agent_specs([
+        ///         AgentSpec::default()/* use setters */,
+        ///         AgentSpec::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_agent_specs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::stream_assist_request::agents_spec::AgentSpec>,
+        {
+            use std::iter::Iterator;
+            self.agent_specs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[cfg(feature = "assistant-service")]
+    impl wkt::message::Message for AgentsSpec {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.StreamAssistRequest.AgentsSpec"
+        }
+    }
+
+    /// Defines additional types related to [AgentsSpec].
+    #[cfg(feature = "assistant-service")]
+    pub mod agents_spec {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Specification of an agent.
+        #[cfg(feature = "assistant-service")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct AgentSpec {
+            /// Required. ID to identify the agent resource serving the request.
+            ///
+            /// This field must conform to
+            /// [RFC-1034](https://tools.ietf.org/html/rfc1034)
+            /// with a length limit of 63 characters.
+            pub agent_id: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "assistant-service")]
+        impl AgentSpec {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [agent_id][crate::model::stream_assist_request::agents_spec::AgentSpec::agent_id].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_discoveryengine_v1::model::stream_assist_request::agents_spec::AgentSpec;
+            /// let x = AgentSpec::new().set_agent_id("example");
+            /// ```
+            pub fn set_agent_id<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.agent_id = v.into();
+                self
+            }
+        }
+
+        #[cfg(feature = "assistant-service")]
+        impl wkt::message::Message for AgentSpec {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.discoveryengine.v1.StreamAssistRequest.AgentsSpec.AgentSpec"
+            }
+        }
+    }
 
     /// Specification of tools that are used to serve the request.
     #[cfg(feature = "assistant-service")]

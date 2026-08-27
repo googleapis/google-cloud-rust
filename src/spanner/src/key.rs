@@ -156,7 +156,6 @@ impl KeyRange {
         }
     }
 
-    #[allow(dead_code)]
     pub(crate) fn into_proto(self) -> crate::model::KeyRange {
         let mut proto = crate::model::KeyRange::new();
 
@@ -216,7 +215,6 @@ impl KeySet {
         }
     }
 
-    #[allow(dead_code)]
     pub(crate) fn into_proto(self) -> crate::model::KeySet {
         let mut proto = crate::model::KeySet::new();
         if self.all {

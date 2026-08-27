@@ -36,6 +36,11 @@ impl PendingWriter {
         }
     }
 
+    /// Returns the full resource name of the underlying write stream.
+    pub fn write_stream(&self) -> &str {
+        &self.inner.write_stream
+    }
+
     /// Appends rows to the pending stream.
     pub fn append(&self, rows: ArrowRecordBatch) -> AppendWithOffset {
         AppendWithOffset::new(
@@ -83,6 +88,7 @@ mod tests {
     async fn request_fields() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
         let writer = PendingWriter::new(transport, write_stream(), schema());
+        assert_eq!(writer.write_stream(), write_stream());
 
         let b = writer.append(rows(1));
         assert_eq!(b.req.write_stream, write_stream());
@@ -117,6 +123,7 @@ mod tests {
         let transport = Arc::new(test_transport(endpoint).await?);
 
         let writer = PendingWriter::new(transport, write_stream(), schema());
+        assert_eq!(writer.write_stream(), write_stream());
 
         response_tx.send(Ok(convert(&test_response(1)))).await?;
         let resp = writer.append(rows(1)).send().await?;

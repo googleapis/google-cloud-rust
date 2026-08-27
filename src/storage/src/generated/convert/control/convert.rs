@@ -781,6 +781,30 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::UpdateRapidC
     }
 }
 
+impl gaxi::prost::ToProto<DisableRapidCacheMetadata> for crate::generated::gapic_control::model::DisableRapidCacheMetadata {
+    type Output = DisableRapidCacheMetadata;
+    fn to_proto(self) -> std::result::Result<DisableRapidCacheMetadata, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            common_metadata: self.common_metadata.map(|v| v.to_proto()).transpose()?,
+            rapid_cache_id: self.rapid_cache_id.map(|v| v.to_proto()).transpose()?,
+            zone: self.zone.map(|v| v.to_proto()).transpose()?,
+            cache_type: self.cache_type.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::DisableRapidCacheMetadata> for DisableRapidCacheMetadata {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::DisableRapidCacheMetadata, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::DisableRapidCacheMetadata::new()
+                .set_or_clear_common_metadata(self.common_metadata.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_rapid_cache_id(self.rapid_cache_id.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_zone(self.zone.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_cache_type(self.cache_type.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
 impl gaxi::prost::ToProto<AnywhereCache> for crate::generated::gapic_control::model::AnywhereCache {
     type Output = AnywhereCache;
     fn to_proto(self) -> std::result::Result<AnywhereCache, gaxi::prost::ConvertError> {
@@ -1060,6 +1084,26 @@ impl gaxi::prost::FromProto<crate::generated::gapic_control::model::UpdateRapidC
             crate::generated::gapic_control::model::UpdateRapidCacheRequest::new()
                 .set_or_clear_rapid_cache(self.rapid_cache.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
+                .set_request_id(self.request_id)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<DisableRapidCacheRequest> for crate::generated::gapic_control::model::DisableRapidCacheRequest {
+    type Output = DisableRapidCacheRequest;
+    fn to_proto(self) -> std::result::Result<DisableRapidCacheRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+            request_id: self.request_id.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic_control::model::DisableRapidCacheRequest> for DisableRapidCacheRequest {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic_control::model::DisableRapidCacheRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic_control::model::DisableRapidCacheRequest::new()
+                .set_name(self.name)
                 .set_request_id(self.request_id)
         )
     }

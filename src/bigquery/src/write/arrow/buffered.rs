@@ -34,6 +34,11 @@ impl BufferedWriter {
         }
     }
 
+    /// Return the full resource name of the underlying write stream.
+    pub fn write_stream(&self) -> &str {
+        &self.inner.write_stream
+    }
+
     /// Append rows to the buffered stream.
     pub fn append(&self, rows: ArrowRecordBatch) -> AppendWithOffset {
         AppendWithOffset::new(
@@ -73,6 +78,7 @@ mod tests {
     async fn request_fields() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
         let writer = BufferedWriter::new(transport, write_stream(), schema());
+        assert_eq!(writer.write_stream(), write_stream());
 
         let b = writer.append(rows(1));
         assert_eq!(b.req.write_stream, write_stream());
@@ -122,6 +128,7 @@ mod tests {
         let transport = Arc::new(test_transport(endpoint).await?);
 
         let writer = BufferedWriter::new(transport, write_stream(), schema());
+        assert_eq!(writer.write_stream(), write_stream());
 
         response_tx.send(Ok(convert(&test_response(1)))).await?;
         let resp = writer.append(rows(1)).send().await?;
@@ -163,6 +170,7 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let writer = BufferedWriter::new(transport, write_stream(), schema());
+        assert_eq!(writer.write_stream(), write_stream());
 
         response_tx.send(Ok(convert(&test_response(1)))).await?;
         let _ = writer.append(rows(1)).send().await?;

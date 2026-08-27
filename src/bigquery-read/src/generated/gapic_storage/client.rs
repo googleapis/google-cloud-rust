@@ -145,6 +145,18 @@ impl Read {
         super::builder::read::CreateReadSession::new(self.inner.clone())
     }
 
+    #[cfg(google_cloud_unstable_gapic_streaming)]
+    /// Reads rows from the stream in the format prescribed by the ReadSession.
+    /// Each response contains one or more table rows, up to a maximum of 128 MB
+    /// per response; read requests which attempt to read individual rows larger
+    /// than 128 MB will fail.
+    ///
+    /// Each request also returns a set of stream statistics reflecting the current
+    /// state of the stream.
+    pub fn read_rows(&self) -> super::builder::read::ReadRows {
+        super::builder::read::ReadRows::new(self.inner.clone())
+    }
+
     /// Splits a given `ReadStream` into two `ReadStream` objects. These
     /// `ReadStream` objects are referred to as the primary and the residual
     /// streams of the split. The original `ReadStream` can still be read from in

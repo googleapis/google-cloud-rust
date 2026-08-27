@@ -239,11 +239,20 @@ impl serde::ser::Serialize for super::PolylineDetails {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.tunnel_info.is_empty() {
+            state.serialize_entry("tunnelInfo", &self.tunnel_info)?;
+        }
         if !self.flyover_info.is_empty() {
             state.serialize_entry("flyoverInfo", &self.flyover_info)?;
         }
         if !self.narrow_road_info.is_empty() {
             state.serialize_entry("narrowRoadInfo", &self.narrow_road_info)?;
+        }
+        if !self.bridge_info.is_empty() {
+            state.serialize_entry("bridgeInfo", &self.bridge_info)?;
+        }
+        if !self.skyway_info.is_empty() {
+            state.serialize_entry("skywayInfo", &self.skyway_info)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -291,6 +300,81 @@ impl serde::ser::Serialize for super::polyline_details::PolylinePointIndex {
                 }
             }
             state.serialize_entry("endIndex", &__With(&self.end_index))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::polyline_details::TunnelInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.tunnel_presence) {
+            state.serialize_entry("tunnelPresence", &self.tunnel_presence)?;
+        }
+        if self.polyline_point_index.is_some() {
+            state.serialize_entry("polylinePointIndex", &self.polyline_point_index)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::polyline_details::BridgeInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.bridge_presence) {
+            state.serialize_entry("bridgePresence", &self.bridge_presence)?;
+        }
+        if self.polyline_point_index.is_some() {
+            state.serialize_entry("polylinePointIndex", &self.polyline_point_index)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::polyline_details::SkywayInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.skyway_presence) {
+            state.serialize_entry("skywayPresence", &self.skyway_presence)?;
+        }
+        if self.polyline_point_index.is_some() {
+            state.serialize_entry("polylinePointIndex", &self.polyline_point_index)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -940,6 +1024,9 @@ impl serde::ser::Serialize for super::RouteModifiers {
         }
         if !self.toll_passes.is_empty() {
             state.serialize_entry("tollPasses", &self.toll_passes)?;
+        }
+        if !wkt::internal::is_default(&self.avoid_tunnels) {
+            state.serialize_entry("avoidTunnels", &self.avoid_tunnels)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
