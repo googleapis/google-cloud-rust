@@ -21,7 +21,7 @@ mod driver {
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_speech_streaming_recognize() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests::speech::streaming_recognize()
+        integration_tests_streaming::speech::streaming_recognize()
             .await
             .inspect_err(anydump)
     }
