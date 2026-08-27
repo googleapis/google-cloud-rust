@@ -29,7 +29,7 @@ use crate::routing::key_recipe_cache::KeyRecipeCache;
 use gaxi::options::ClientConfig;
 use std::fmt::{self, Debug, Formatter};
 use std::sync::atomic::{AtomicU64, Ordering};
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, RwLock};
 use tokio::runtime::Handle;
 
 /// Orchestrates updates to the location-aware routing caches.
@@ -42,7 +42,7 @@ pub(crate) struct CacheUpdater {
     connection_cache: Arc<ConnectionCache>,
     client_config: Arc<ClientConfig>,
     database_id: AtomicU64,
-    update_lock: Mutex<()>,
+    update_lock: RwLock<()>,
 }
 
 impl Debug for CacheUpdater {
@@ -50,7 +50,7 @@ impl Debug for CacheUpdater {
         f.debug_struct("CacheUpdater")
             .field("connection_cache", &self.connection_cache)
             .field("client_config", &self.client_config)
-            .field("database_id", &self.database_id.load(Ordering::Relaxed))
+            .field("database_id", &self.database_id.load(Ordering::Acquire))
             .finish_non_exhaustive()
     }
 }
@@ -69,7 +69,7 @@ impl CacheUpdater {
             connection_cache,
             client_config: Arc::new(client_config),
             database_id: AtomicU64::new(0),
-            update_lock: Mutex::new(()),
+            update_lock: RwLock::new(()),
         }
     }
 
@@ -85,7 +85,7 @@ impl CacheUpdater {
 
     /// Returns the current active database ID recorded by the cache updater.
     pub(crate) fn database_id(&self) -> u64 {
-        self.database_id.load(Ordering::Relaxed)
+        self.database_id.load(Ordering::Acquire)
     }
 
     /// Returns a reference to the underlying [`ConnectionCache`].
@@ -100,48 +100,62 @@ impl CacheUpdater {
 
     /// Ingests a [`CacheUpdate`] payload, updating the routing table, key recipe cache,
     /// and asynchronously pre-warming server connections for newly discovered tablet endpoints.
-    pub(crate) fn process_cache_update(&self, cache_update: &CacheUpdate) {
-        let _guard = self
-            .update_lock
-            .lock()
-            .expect("lock cache updater for update");
+    ///
+    /// Synchronizes concurrent incremental updates under a shared read lock and coordinates
+    /// database ID transitions/cache invalidations under an exclusive write lock.
+    pub(crate) fn process_cache_update(&self, cache_update: CacheUpdate) {
+        let update_database_id = cache_update.database_id;
 
-        self.check_database_id_change(cache_update.database_id);
-        self.process_key_recipes(cache_update);
+        // If the update specifies a database ID that differs from the active one,
+        // or on initial startup, acquire an exclusive write lock to transition the ID
+        // and safely clear stale caches.
+        if update_database_id != 0 {
+            let current_id = self.database_id.load(Ordering::Acquire);
+            if current_id != update_database_id {
+                let _write_guard = self.update_lock.write().expect("poisoned update lock");
+                let current_id = self.database_id.load(Ordering::Acquire);
+                if current_id != update_database_id {
+                    if current_id != 0 && update_database_id < current_id {
+                        // Stale update from an older database generation: abort ingestion.
+                        return;
+                    }
+                    if current_id != 0 {
+                        self.key_range_cache.clear();
+                        self.key_recipe_cache.clear();
+                    }
+                    self.database_id
+                        .store(update_database_id, Ordering::Release);
+                    self.ingest_cache_payload(cache_update);
+                    return;
+                }
+            }
+        }
+
+        // Shared read path: Multiple threads can concurrently ingest incremental updates for the current active database.
+        // The shared read lock prevents cache updates from racing with an exclusive cache invalidation / database ID switch.
+        let _read_guard = self.update_lock.read().expect("poisoned update lock");
+        if update_database_id != 0 && update_database_id < self.database_id.load(Ordering::Acquire)
+        {
+            // A database ID switch occurred before acquiring the read lock; abort stale update.
+            return;
+        }
+
+        self.ingest_cache_payload(cache_update);
+    }
+
+    /// Ingests recipes, ranges, and pre-warms endpoints for an accepted [`CacheUpdate`].
+    fn ingest_cache_payload(&self, mut cache_update: CacheUpdate) {
+        if let Some(key_recipes) = cache_update.key_recipes.take() {
+            self.key_recipe_cache.update_from_recipe_list(key_recipes);
+        }
 
         if !cache_update.group.is_empty() || !cache_update.range.is_empty() {
             // Apply tablet ranges and group metadata to the key range cache.
-            self.key_range_cache.add_ranges(cache_update);
+            self.key_range_cache.add_ranges(&cache_update);
         }
 
         // Pre-warm server connections for any newly discovered tablet addresses.
-        self.prewarm_server_connections(cache_update);
-    }
-
-    /// Checks if the incoming `database_id` differs from the currently tracked ID.
-    ///
-    /// If a non-zero database ID changed (e.g. database dropped and recreated with the same name),
-    /// updates the ID and invalidates both the key range cache and key recipe cache.
-    fn check_database_id_change(&self, update_database_id: u64) {
-        if update_database_id == 0 {
-            return;
-        }
-        let current_database_id = self.database_id.load(Ordering::Acquire);
-        if current_database_id != update_database_id {
-            if current_database_id != 0 {
-                self.key_range_cache.clear();
-                self.key_recipe_cache.clear();
-            }
-            self.database_id
-                .store(update_database_id, Ordering::Release);
-        }
-    }
-
-    /// Ingests any key recipes in `cache_update` into the attached [`KeyRecipeCache`].
-    fn process_key_recipes(&self, cache_update: &CacheUpdate) {
-        if let Some(key_recipes) = &cache_update.key_recipes {
-            self.key_recipe_cache.insert_batch(&key_recipes.recipe);
-        }
+        self.prewarm_server_connections(&cache_update);
     }
 
     /// Identifies new server addresses in `cache_update` and spawns asynchronous background tasks
@@ -264,7 +278,7 @@ mod tests {
     fn cache_updater_process_empty_update() {
         let updater = make_test_updater();
         let update = CacheUpdate::default();
-        updater.process_cache_update(&update);
+        updater.process_cache_update(update);
         assert!(updater.key_range_cache().is_empty());
         assert_eq!(updater.connection_cache().len(), 1);
     }
@@ -295,7 +309,7 @@ mod tests {
             .set_group(vec![group])
             .set_range(vec![range]);
 
-        updater.process_cache_update(&update);
+        updater.process_cache_update(update);
         assert_eq!(updater.key_range_cache().len(), 1);
         assert!(updater.key_range_cache().get_group(100).is_some());
     }
@@ -317,7 +331,7 @@ mod tests {
             .set_group(vec![group])
             .set_range(vec![range]);
 
-        updater.process_cache_update(&update);
+        updater.process_cache_update(update);
         assert_eq!(updater.connection_cache().len(), 1);
     }
 
@@ -334,7 +348,7 @@ mod tests {
             .set_group(vec![group])
             .set_range(vec![range]);
 
-        updater.process_cache_update(&update);
+        updater.process_cache_update(update);
         assert_eq!(updater.key_range_cache().len(), 1);
         assert_eq!(updater.connection_cache().len(), 1);
     }
@@ -363,7 +377,7 @@ mod tests {
             .set_group(vec![group])
             .set_range(vec![range]);
 
-        updater.process_cache_update(&update);
+        updater.process_cache_update(update);
 
         wait_for_connections(&updater, 2).await;
 
@@ -397,7 +411,7 @@ mod tests {
             .set_group(vec![group])
             .set_range(vec![range]);
 
-        updater.process_cache_update(&update);
+        updater.process_cache_update(update);
 
         wait_for_connections(&updater, 2).await;
 
@@ -429,7 +443,7 @@ mod tests {
             .set_group(vec![group])
             .set_range(vec![range]);
 
-        updater.process_cache_update(&update);
+        updater.process_cache_update(update);
 
         wait_for_connections(&updater, 2).await;
 
@@ -463,7 +477,7 @@ mod tests {
             .set_group(vec![group])
             .set_range(vec![range]);
 
-        updater.process_cache_update(&update);
+        updater.process_cache_update(update);
 
         wait_for_connections(&updater, 3).await;
 
@@ -511,7 +525,7 @@ mod tests {
             .set_group(vec![group])
             .set_range(vec![range]);
 
-        updater.process_cache_update(&update);
+        updater.process_cache_update(update);
 
         wait_for_connections(&updater, 3).await;
 
@@ -550,7 +564,7 @@ mod tests {
             .set_group(vec![group_old])
             .set_range(vec![range.clone()]);
 
-        updater.process_cache_update(&update_old);
+        updater.process_cache_update(update_old);
         assert_eq!(
             updater
                 .key_range_cache()
@@ -573,7 +587,7 @@ mod tests {
             .set_group(vec![group_new])
             .set_range(vec![range]);
 
-        updater.process_cache_update(&update_new);
+        updater.process_cache_update(update_new);
         assert_eq!(
             updater
                 .key_range_cache()
@@ -604,14 +618,14 @@ mod tests {
             .set_group(vec![initial_group])
             .set_range(vec![initial_range]);
 
-        updater.process_cache_update(&initial_update);
+        updater.process_cache_update(initial_update);
         assert_eq!(updater.database_id(), 100);
         assert_eq!(updater.key_range_cache().len(), 1);
         assert!(recipe_cache.get_table_recipe("Users").is_some());
 
         // Ingest an update with a different database_id (e.g. database dropped and recreated)
         let new_update = CacheUpdate::new().set_database_id(200u64);
-        updater.process_cache_update(&new_update);
+        updater.process_cache_update(new_update);
 
         assert_eq!(updater.database_id(), 200);
         assert_eq!(
@@ -641,7 +655,7 @@ mod tests {
 
         // First update establishing initial database_id must not wipe the pre-populated entries
         let first_update = CacheUpdate::new().set_database_id(100u64);
-        updater.process_cache_update(&first_update);
+        updater.process_cache_update(first_update);
 
         assert_eq!(updater.database_id(), 100);
         assert!(
@@ -663,10 +677,114 @@ mod tests {
             .set_database_id(1u64)
             .set_key_recipes(RecipeList::new().set_recipe(vec![recipe]));
 
-        updater.process_cache_update(&update);
+        updater.process_cache_update(update);
         assert!(
             recipe_cache.get_table_recipe("Albums").is_some(),
             "KeyRecipeCache must receive recipes from CacheUpdate"
+        );
+    }
+
+    #[test]
+    fn stale_database_id_update_is_ignored_and_does_not_regress_state() {
+        let updater = make_test_updater();
+        let recipe_cache = Arc::clone(updater.key_recipe_cache());
+
+        // Step 1: Establish active database ID 200 with range and recipe
+        let recipe_200 = KeyRecipe::new()
+            .set_table_name("ActiveTable")
+            .set_part(vec![Part::new().set_tag(10u32)]);
+        let range_200 = Range::new()
+            .set_group_uid(200u64)
+            .set_start_key(vec![0x10])
+            .set_limit_key(vec![0x20]);
+        let update_200 = CacheUpdate::new()
+            .set_database_id(200u64)
+            .set_key_recipes(RecipeList::new().set_recipe(vec![recipe_200]))
+            .set_range(vec![range_200]);
+
+        updater.process_cache_update(update_200);
+        assert_eq!(updater.database_id(), 200);
+        assert_eq!(updater.key_range_cache().len(), 1);
+        assert!(recipe_cache.get_table_recipe("ActiveTable").is_some());
+
+        // Step 2: Attempt to ingest a stale update with an older database ID 100
+        let stale_recipe = KeyRecipe::new()
+            .set_table_name("StaleTable")
+            .set_part(vec![Part::new().set_tag(99u32)]);
+        let stale_range = Range::new()
+            .set_group_uid(100u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let stale_update = CacheUpdate::new()
+            .set_database_id(100u64)
+            .set_key_recipes(RecipeList::new().set_recipe(vec![stale_recipe]))
+            .set_range(vec![stale_range]);
+
+        updater.process_cache_update(stale_update);
+
+        // Database ID must remain 200, and active ranges/recipes must not be cleared or corrupted
+        assert_eq!(
+            updater.database_id(),
+            200,
+            "stale update with older database_id must not regress active database ID"
+        );
+        assert_eq!(
+            updater.key_range_cache().len(),
+            1,
+            "active ranges must not be wiped by stale update"
+        );
+        assert!(
+            recipe_cache.get_table_recipe("ActiveTable").is_some(),
+            "active recipes must be preserved"
+        );
+        assert!(
+            recipe_cache.get_table_recipe("StaleTable").is_none(),
+            "stale recipes must be rejected"
+        );
+    }
+
+    #[test]
+    fn concurrent_incremental_updates_under_shared_read_lock_do_not_clear_cache() {
+        let updater = make_test_updater();
+        let recipe_cache = Arc::clone(updater.key_recipe_cache());
+
+        // Initial update establishing database ID 300
+        let initial_update = CacheUpdate::new().set_database_id(300u64).set_range(vec![
+            Range::new()
+                .set_group_uid(301u64)
+                .set_start_key(vec![0x01])
+                .set_limit_key(vec![0x10]),
+        ]);
+        updater.process_cache_update(initial_update);
+        assert_eq!(updater.database_id(), 300);
+        assert_eq!(updater.key_range_cache().len(), 1);
+
+        // Incremental update 1 with same database ID 300
+        let incremental_1 = CacheUpdate::new().set_database_id(300u64).set_range(vec![
+            Range::new()
+                .set_group_uid(302u64)
+                .set_start_key(vec![0x10])
+                .set_limit_key(vec![0x20]),
+        ]);
+        updater.process_cache_update(incremental_1);
+        assert_eq!(updater.key_range_cache().len(), 2);
+
+        // Incremental update 2 with database ID 0 (unspecified)
+        let incremental_2 =
+            CacheUpdate::new().set_key_recipes(RecipeList::new().set_recipe(vec![KeyRecipe::new()
+                .set_table_name("IncTable")
+                .set_part(vec![Part::new().set_tag(5u32)])]));
+        updater.process_cache_update(incremental_2);
+
+        assert_eq!(updater.database_id(), 300);
+        assert_eq!(
+            updater.key_range_cache().len(),
+            2,
+            "existing ranges must not be cleared during incremental updates"
+        );
+        assert!(
+            recipe_cache.get_table_recipe("IncTable").is_some(),
+            "recipes from incremental updates must be present"
         );
     }
 }
