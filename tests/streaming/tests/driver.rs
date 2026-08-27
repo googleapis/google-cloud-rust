@@ -14,12 +14,13 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
-    use google_cloud_test_utils::errors::anydump;
-    use google_cloud_test_utils::tracing::enable_tracing;
 
     #[cfg(google_cloud_unstable_gapic_streaming)]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_speech_streaming_recognize() -> anyhow::Result<()> {
+        use google_cloud_test_utils::errors::anydump;
+        use google_cloud_test_utils::tracing::enable_tracing;
+
         let _guard = enable_tracing();
         integration_tests_streaming::speech::streaming_recognize()
             .await
