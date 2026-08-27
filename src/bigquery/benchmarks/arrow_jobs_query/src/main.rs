@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use clap::{Parser, ValueEnum};
-use google_cloud_bigquery::FromRow;
 use google_cloud_bigquery::client::BigQuery;
+use google_cloud_bigquery::query::FromRow;
 use stats_alloc::{Region, StatsAlloc};
 use std::alloc::System;
 use std::time::{Duration, Instant};

@@ -227,14 +227,14 @@ impl<T: FromSql> FromSql for Range<T> {
 
                 Ok(Range { start, end })
             }
-            wkt::Value::Object(obj) => {
-                let start = match obj.get("start") {
+            wkt::Value::Object(mut obj) => {
+                let start = match obj.remove("start") {
                     Some(wkt::Value::Null) | None => None,
-                    Some(val) => Some(T::from_sql(val.clone())?),
+                    Some(val) => Some(T::from_sql(val)?),
                 };
-                let end = match obj.get("end") {
+                let end = match obj.remove("end") {
                     Some(wkt::Value::Null) | None => None,
-                    Some(val) => Some(T::from_sql(val.clone())?),
+                    Some(val) => Some(T::from_sql(val)?),
                 };
                 Ok(Range { start, end })
             }

@@ -15,6 +15,7 @@
 use arrow::ipc::reader::StreamReader;
 use google_cloud_bigquery_v2::model::{TableFieldSchema, TableSchema};
 use std::io::Cursor;
+
 /// Schema of a table.
 #[derive(Clone, Debug)]
 pub(crate) struct Schema(TableSchema);
@@ -55,58 +56,9 @@ fn table_schema_from_arrow_schema(arrow_schema: &arrow::datatypes::Schema) -> Ta
     let fields: Vec<TableFieldSchema> = arrow_schema
         .fields()
         .iter()
-        .map(|f| arrow_field_to_table_field(f.as_ref()))
+        .map(|f| TableFieldSchema::new().set_name(f.name().clone()))
         .collect();
     TableSchema::new().set_fields(fields)
-}
-
-fn arrow_field_to_table_field(field: &arrow::datatypes::Field) -> TableFieldSchema {
-    use arrow::datatypes::DataType;
-
-    let mode = match field.data_type() {
-        DataType::List(_) | DataType::LargeList(_) => "REPEATED",
-        _ if !field.is_nullable() => "REQUIRED",
-        _ => "NULLABLE",
-    };
-
-    let (r#type, nested_fields) = match field.data_type() {
-        DataType::Null => ("INTEGER", vec![]),
-        DataType::Boolean => ("BOOLEAN", vec![]),
-        DataType::Int8 | DataType::Int16 | DataType::Int32 | DataType::Int64 => ("INTEGER", vec![]),
-        DataType::UInt8 | DataType::UInt16 | DataType::UInt32 | DataType::UInt64 => {
-            ("INTEGER", vec![])
-        }
-        DataType::Float16 | DataType::Float32 | DataType::Float64 => ("FLOAT", vec![]),
-        DataType::Utf8 | DataType::LargeUtf8 => ("STRING", vec![]),
-        DataType::Binary | DataType::LargeBinary => ("BYTES", vec![]),
-        DataType::Date32 | DataType::Date64 => ("DATE", vec![]),
-        DataType::Time32(_) | DataType::Time64(_) => ("TIME", vec![]),
-        DataType::Timestamp(_, Some(_)) => ("TIMESTAMP", vec![]),
-        DataType::Timestamp(_, None) => ("DATETIME", vec![]),
-        DataType::Decimal128(_, _) | DataType::Decimal256(_, _) => ("NUMERIC", vec![]),
-        DataType::Struct(fields) => {
-            let children = fields
-                .iter()
-                .map(|f| arrow_field_to_table_field(f.as_ref()))
-                .collect();
-            ("RECORD", children)
-        }
-        DataType::List(inner) | DataType::LargeList(inner) => {
-            let inner_schema = arrow_field_to_table_field(inner.as_ref());
-            return TableFieldSchema::new()
-                .set_name(field.name().clone())
-                .set_type(inner_schema.r#type)
-                .set_mode("REPEATED")
-                .set_fields(inner_schema.fields);
-        }
-        _ => ("STRING", vec![]),
-    };
-
-    TableFieldSchema::new()
-        .set_name(field.name().clone())
-        .set_type(r#type)
-        .set_mode(mode)
-        .set_fields(nested_fields)
 }
 
 #[cfg(test)]
@@ -145,12 +97,8 @@ mod tests {
 
         let f0 = schema.get_field_by_index(0).unwrap();
         assert_eq!(f0.name, "name");
-        assert_eq!(f0.r#type, "STRING");
-        assert_eq!(f0.mode, "REQUIRED");
 
         let f2 = schema.get_field_by_index(2).unwrap();
         assert_eq!(f2.name, "tags");
-        assert_eq!(f2.r#type, "STRING");
-        assert_eq!(f2.mode, "REPEATED");
     }
 }

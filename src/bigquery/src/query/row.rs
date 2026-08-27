@@ -517,15 +517,13 @@ fn convert_arrow_interval(array: &dyn Array, row_idx: usize, unit: &IntervalUnit
             let v = arr.value(row_idx);
             // Format Year-Month (e.g. "1-2" or "-1-2")
             let ym_sign = if v.months < 0 { "-" } else { "" };
-            let years = v.months.abs() / 12;
-            let months = v.months.abs() % 12;
+            let total_months = v.months.unsigned_abs();
+            let years = total_months / 12;
+            let months = total_months % 12;
 
             // Format Time H:MM:SS[.fffffffff]
-            let (time_sign, total_nanos) = if v.nanoseconds < 0 {
-                ("-", (-v.nanoseconds) as u64)
-            } else {
-                ("", v.nanoseconds as u64)
-            };
+            let time_sign = if v.nanoseconds < 0 { "-" } else { "" };
+            let total_nanos = v.nanoseconds.unsigned_abs();
             let nanos = total_nanos % 1_000_000_000;
             let total_secs = total_nanos / 1_000_000_000;
             let seconds = total_secs % 60;
@@ -1234,6 +1232,7 @@ mod tests {
                 -3,
                 -((4 * 3600 + 5 * 60 + 6) * 1_000_000_000 + 123_000_000),
             ),
+            arrow::datatypes::IntervalMonthDayNanoType::make_value(i32::MIN, 0, i64::MIN),
         ]);
 
         let batch = RecordBatch::try_new(arrow_schema, vec![Arc::new(intervals)])?;
@@ -1272,6 +1271,11 @@ mod tests {
                 nanos: -123_000_000,
             }
         );
+
+        // Verifies no overflow on i32::MIN and i64::MIN
+        let row2 = Row::try_new_from_arrow(&batch, 2, &schema)?;
+        let val2: String = row2.get("duration");
+        assert!(val2.starts_with("-178956970-8 0 -"));
 
         Ok(())
     }
