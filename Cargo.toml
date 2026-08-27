@@ -116,6 +116,7 @@ members = [
   "src/generated/cloud/apihub/v1",
   "src/generated/cloud/apiregistry/v1",
   "src/generated/cloud/apphub/v1",
+  "src/generated/cloud/apptopology/v1",
   "src/generated/cloud/asset/v1",
   "src/generated/cloud/assuredworkloads/v1",
   "src/generated/cloud/auditmanager/v1",

@@ -437,6 +437,9 @@ libraries:
         - name: google-cloud-apps-script-type
           package: google-cloud-apps-script-type
           source: google.apps.script.type
+  - name: google-cloud-apptopology-v1
+    version: 1.0.0
+    copyright_year: "2026"
   - name: google-cloud-artifactregistry-v1
     version: 1.13.0
     apis:
