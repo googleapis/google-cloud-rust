@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::channel_pool::TransactionAffinity;
 use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
 use crate::google::spanner::v1::{self, PartialResultSet};
@@ -92,6 +93,7 @@ pub struct ResultSet {
     operation_start_time: Instant,
     attempt_recorded: bool,
     operation_recorded: bool,
+    affinity: Arc<TransactionAffinity>,
 }
 
 #[derive(Debug, Clone)]
@@ -113,6 +115,7 @@ pub(crate) struct ResultSetParams {
     pub method_name: &'static str,
     pub attempt_start_time: Option<Instant>,
     pub operation_start_time: Option<Instant>,
+    pub affinity: Option<Arc<TransactionAffinity>>,
 }
 
 // The maximum number of PartialResultSets to buffer without a resume token.
@@ -150,12 +153,14 @@ impl ResultSet {
             method_name,
             attempt_start_time,
             operation_start_time,
+            affinity,
         } = params;
 
         let gax_options = Self::apply_defaults(gax_options);
         let attempt_start = attempt_start_time.unwrap_or_else(Instant::now);
         let operation_start = operation_start_time.unwrap_or(attempt_start);
         let headers = stream.headers().clone();
+        let affinity = affinity.unwrap_or_else(|| Arc::new(TransactionAffinity::new_read_only()));
 
         Self {
             stream: Some(stream),
@@ -186,6 +191,7 @@ impl ResultSet {
             operation_start_time: operation_start,
             attempt_recorded: false,
             operation_recorded: false,
+            affinity,
         }
     }
 
@@ -596,6 +602,7 @@ impl ResultSet {
                 is_stream_fallback: true,
                 precommit_token_tracker: self.precommit_token_tracker.clone(),
                 mutation_key: None,
+                affinity: Some(Arc::clone(&self.affinity)),
             })
             .await?;
 
@@ -791,6 +798,12 @@ impl ResultSet {
             }
         }
         Err(e)
+    }
+
+    /// Returns a reference to the transaction affinity handle attached to this result set.
+    #[allow(dead_code)]
+    pub(crate) fn affinity(&self) -> &TransactionAffinity {
+        &self.affinity
     }
 }
 
@@ -1983,6 +1996,7 @@ pub(crate) mod tests {
             method_name: "ExecuteStreamingSql",
             attempt_start_time: None,
             operation_start_time: None,
+            affinity: None,
         })
         .await?;
 
@@ -3056,7 +3070,11 @@ pub(crate) mod tests {
             .build()
             .await?;
 
-        let db_client = client.database_client("db").build().await?;
+        let db_client = client
+            .database_client("db")
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
         let transaction = db_client.single_use().build();
         let mut result_set = transaction.execute_query("SELECT 1").await?;
 

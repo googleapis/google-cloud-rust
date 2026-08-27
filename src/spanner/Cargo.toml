@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-spanner"
-version     = "0.34.4-preview"
+version     = "0.34.5-preview"
 description = "Google Cloud Client Libraries for Rust - Spanner"
 # Inherit other attributes from the workspace.
 edition.workspace      = true
@@ -39,6 +39,7 @@ _experimental-builtin-metrics = [
   "dep:opentelemetry",
   "dep:opentelemetry_sdk",
   "dep:uuid",
+  "gaxi/_internal-http-client",
 ]
 
 [dependencies]
@@ -81,6 +82,7 @@ google-cloud-test-macros.workspace = true
 mockall.workspace                  = true
 opentelemetry_sdk                  = { workspace = true, features = ["metrics", "testing"] }
 scoped-env.workspace               = true
+serial_test.workspace              = true
 spanner-grpc-mock                  = { path = "grpc-mock" }
 static_assertions.workspace        = true
 tokio                              = { workspace = true, features = ["test-util"] }

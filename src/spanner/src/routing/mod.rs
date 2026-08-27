@@ -33,3 +33,6 @@ pub(crate) mod temporal;
 #[cfg(test)]
 pub(crate) mod textproto_test_utils;
 pub(crate) mod uuid;
+
+#[cfg(test)]
+mod mock_tests;

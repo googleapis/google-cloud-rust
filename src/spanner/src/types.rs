@@ -12,9 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(#4969)
-#![allow(dead_code)]
-
 use crate::generated::gapic_dataplane::model;
 use crate::generated::gapic_dataplane::model::TypeAnnotationCode;
 use crate::google::spanner::v1 as spanner_v1;

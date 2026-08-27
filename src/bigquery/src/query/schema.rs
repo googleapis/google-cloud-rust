@@ -24,10 +24,6 @@ impl Schema {
         Self(schema)
     }
 
-    pub(crate) fn new_from_field(field: TableFieldSchema) -> Self {
-        Self(TableSchema::new().set_fields(field.fields))
-    }
-
     pub(crate) fn get_field_index_by_name(&self, name: &str) -> Option<usize> {
         self.0.fields.iter().position(|f| f.name == name)
     }
@@ -38,6 +34,10 @@ impl Schema {
 
     pub(crate) fn len(&self) -> usize {
         self.0.fields.len()
+    }
+
+    pub(crate) fn fields(&self) -> &[TableFieldSchema] {
+        &self.0.fields
     }
 
     pub(crate) fn try_from_arrow_ipc(

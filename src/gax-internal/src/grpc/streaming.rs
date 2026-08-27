@@ -51,11 +51,13 @@ where
     RequestSender::from_fn(move |item: DomainReq| {
         let req_tx = req_tx.clone();
         async move {
-            let prost_item = item.to_proto().map_err(SendError::ser)?;
+            let prost_item = item
+                .to_proto()
+                .map_err(|e| SendError::Serialization(Box::new(e)))?;
             req_tx
                 .send(prost_item)
                 .await
-                .map_err(|_| SendError::stream_closed())
+                .map_err(|_| SendError::StreamClosed)
         }
     })
 }

@@ -15,10 +15,12 @@
 use crate::batch_read_only_transaction::BatchReadOnlyTransactionBuilder;
 use crate::batch_write_transaction::BatchWriteTransactionBuilder;
 use crate::client::Spanner;
+use crate::model::transaction_selector::Selector;
 use crate::model::{
     BatchWriteRequest, BeginTransactionRequest, CacheUpdate, CommitRequest, CommitResponse,
     ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest, PartitionQueryRequest,
     PartitionReadRequest, PartitionResponse, ReadRequest, ResultSet, RollbackRequest, Transaction,
+    TransactionSelector,
 };
 use crate::observability::Observability;
 use crate::omni::{InstanceType, format_database_name};
@@ -29,9 +31,10 @@ use crate::read_only_transaction::{
 use crate::routing::cache_updater::CacheUpdater;
 use crate::routing::connection_cache::ConnectionCache;
 use crate::routing::endpoint_cooldown::EndpointCooldownTracker;
+use crate::routing::key_extractor::extract_proto_read_request_routing_key;
 use crate::routing::key_range_cache::KeyRangeCache;
 use crate::routing::key_recipe_cache::KeyRecipeCache;
-use crate::routing::location_router::LocationRouter;
+use crate::routing::location_router::{LocationRouter, RoutingContext};
 use crate::routing::server_connection::ServerConnection;
 use crate::server_streaming::builder::{BatchWrite, ExecuteStreamingSql, StreamingRead};
 use crate::session_maintainer::ManagedSessionMaintainer;
@@ -76,16 +79,17 @@ pub struct DatabaseClient {
 }
 
 macro_rules! define_db_rpc {
-    ($method:ident, $request_type:ty, $response_type:ty) => {
+    ($method:ident, $expect_method:ident, $request_type:ty, $response_type:ty) => {
         pub(crate) async fn $method(
             &self,
             request: $request_type,
             options: RequestOptions,
             channel_hint: usize,
         ) -> Result<$response_type> {
+            let channel = self.spanner.get_channel(channel_hint);
             let response = self
                 .spanner
-                .$method(request, options, channel_hint, &self.o11y)
+                .$method(request, options, channel, &self.o11y)
                 .await?;
             response.observe(self);
             Ok(response)
@@ -94,15 +98,114 @@ macro_rules! define_db_rpc {
 }
 
 macro_rules! define_db_streaming_rpc {
-    ($method:ident, $request_type:ty, $builder_type:ty) => {
+    ($method:ident, $expect_method:ident, $request_type:ty, $builder_type:ty) => {
         pub(crate) fn $method(
             &self,
             request: $request_type,
             options: RequestOptions,
             channel_hint: usize,
         ) -> $builder_type {
-            self.spanner.$method(request, options, channel_hint)
+            let channel = self.spanner.get_channel(channel_hint);
+            self.spanner.$method(request, options, channel)
         }
+    };
+    ($method:ident, $expect_method:ident, $request_type:ty, $builder_type:ty, $extract_key:expr) => {
+        pub(crate) fn $method(
+            &self,
+            request: $request_type,
+            options: RequestOptions,
+            channel_hint: usize,
+        ) -> $builder_type {
+            // Step 1: When location-aware routing is disabled (standard Cloud Spanner),
+            // `self.location_routing` is `None` so `$extract_key` is skipped immediately.
+            // When enabled (Spanner Omni), extract the binary routing key from the request if present.
+            let routing_key = self
+                .location_routing
+                .as_ref()
+                .and_then(|routing| $extract_key(routing, &request));
+
+            // Step 2: Resolve the optimal server connection if location-aware routing is enabled.
+            // - If disabled (standard Cloud Spanner), returns `None` immediately on the fast path.
+            // - If enabled but both `transaction_id` and `routing_key` are `None`, returns `None` early.
+            // - If a target tablet replica or affinity connection is found, returns `Some(connection)`.
+            let connection = self
+                .resolve_routing_connection(request.transaction.as_ref(), routing_key.as_deref());
+
+            // Step 3: Select the gRPC channel:
+            // - If location-aware routing resolved a direct node connection (`Some(connection)`), use `connection.channel()`.
+            // - Otherwise (location routing disabled, unkeyed query/read, or cold cache), fall back to round-robin
+            //   load-balancing across the client's channel pool via `self.spanner.get_channel(channel_hint)`.
+            //   This fallback is a fast O(1) slice index without any heap allocation, cloning, or lock acquisition.
+            let channel = match &connection {
+                Some(connection) => connection.channel(),
+                None => self.spanner.get_channel(channel_hint),
+            };
+            self.spanner.$method(request, options, channel)
+        }
+    };
+}
+
+macro_rules! for_all_unary_db_rpcs {
+    ($macro:ident) => {
+        $macro!(
+            begin_transaction,
+            expect_begin_transaction,
+            BeginTransactionRequest,
+            Transaction
+        );
+        $macro!(commit, expect_commit, CommitRequest, CommitResponse);
+        $macro!(
+            execute_batch_dml,
+            expect_execute_batch_dml,
+            ExecuteBatchDmlRequest,
+            ExecuteBatchDmlResponse
+        );
+        $macro!(
+            execute_sql,
+            expect_execute_sql,
+            ExecuteSqlRequest,
+            ResultSet
+        );
+        $macro!(rollback, expect_rollback, RollbackRequest, ());
+        $macro!(
+            partition_query,
+            expect_partition_query,
+            PartitionQueryRequest,
+            PartitionResponse
+        );
+        $macro!(
+            partition_read,
+            expect_partition_read,
+            PartitionReadRequest,
+            PartitionResponse
+        );
+    };
+}
+
+macro_rules! for_all_streaming_db_rpcs {
+    ($macro:ident) => {
+        $macro!(
+            execute_streaming_sql,
+            expect_execute_streaming_sql,
+            ExecuteSqlRequest,
+            ExecuteStreamingSql,
+            |_routing, _request| None::<Vec<u8>>
+        );
+        $macro!(
+            streaming_read,
+            expect_streaming_read,
+            ReadRequest,
+            StreamingRead,
+            |routing: &LocationRoutingState, request: &ReadRequest| {
+                extract_proto_read_request_routing_key(&routing.key_recipe_cache, request)
+            }
+        );
+        $macro!(
+            batch_write,
+            expect_batch_write,
+            BatchWriteRequest,
+            BatchWrite
+        );
     };
 }
 
@@ -120,28 +223,47 @@ impl DatabaseClient {
         options: RequestOptions,
         channel_hint: usize,
     ) -> RequestOptions {
-        self.spanner.attach_request_id(options, channel_hint)
+        let channel = self.spanner.get_channel(channel_hint);
+        self.spanner.attach_request_id(options, channel)
     }
 
-    define_db_rpc!(begin_transaction, BeginTransactionRequest, Transaction);
-    define_db_rpc!(commit, CommitRequest, CommitResponse);
-    define_db_rpc!(
-        execute_batch_dml,
-        ExecuteBatchDmlRequest,
-        ExecuteBatchDmlResponse
-    );
-    define_db_rpc!(execute_sql, ExecuteSqlRequest, ResultSet);
-    define_db_rpc!(rollback, RollbackRequest, ());
-    define_db_rpc!(partition_query, PartitionQueryRequest, PartitionResponse);
-    define_db_rpc!(partition_read, PartitionReadRequest, PartitionResponse);
+    for_all_unary_db_rpcs!(define_db_rpc);
 
-    define_db_streaming_rpc!(
-        execute_streaming_sql,
-        ExecuteSqlRequest,
-        ExecuteStreamingSql
-    );
-    define_db_streaming_rpc!(streaming_read, ReadRequest, StreamingRead);
-    define_db_streaming_rpc!(batch_write, BatchWriteRequest, BatchWrite);
+    /// Resolves the optimal [`ServerConnection`] for a request if location-aware routing is enabled.
+    ///
+    /// # Performance & Routing Flow:
+    /// - **Location routing disabled (Standard Cloud Spanner default)**: Returns `None` immediately on
+    ///   the fast path (`self.location_routing.as_ref()?`) without extracting keys, checking transactions,
+    ///   or acquiring any locks.
+    /// - **Location routing enabled (Spanner Omni)**:
+    ///   - If neither a `transaction_id` nor a `routing_key` is present (e.g. unkeyed reads or queries),
+    ///     returns `None` early to allow standard round-robin channel pooling across channels 1..=4.
+    ///   - If a routing key or transaction affinity matches an active endpoint in cache, returns `Some(connection)`
+    ///     pointing directly to the target node.
+    pub(crate) fn resolve_routing_connection(
+        &self,
+        transaction: Option<&TransactionSelector>,
+        routing_key: Option<&[u8]>,
+    ) -> Option<ServerConnection> {
+        // Fast path: When location routing is disabled (standard Cloud Spanner), exit immediately.
+        let routing = self.location_routing.as_ref()?;
+
+        // Fast path: No routing metadata available to route the request (preserves channel pooling).
+        let transaction_id = extract_transaction_id(transaction);
+        if transaction_id.is_none() && routing_key.is_none() {
+            return None;
+        }
+
+        let routing_context = RoutingContext {
+            transaction_id,
+            routing_key,
+            prefer_leader: false,
+            use_transaction_affinity: transaction_id.is_some(),
+        };
+        Some(routing.location_router.resolve_connection(&routing_context))
+    }
+
+    for_all_streaming_db_rpcs!(define_db_streaming_rpc);
 
     /// Returns a builder for a single-use read-only transaction.
     ///
@@ -428,6 +550,13 @@ impl DatabaseClient {
     }
 }
 
+fn extract_transaction_id(transaction: Option<&TransactionSelector>) -> Option<&[u8]> {
+    match transaction?.selector.as_ref()? {
+        Selector::Id(bytes) => Some(bytes.as_ref()),
+        _ => None,
+    }
+}
+
 /// A builder for [DatabaseClient].
 pub struct DatabaseClientBuilder {
     spanner: Spanner,
@@ -435,6 +564,7 @@ pub struct DatabaseClientBuilder {
     database_role: Option<String>,
     options: Option<RequestOptions>,
     leader_aware_routing_enabled: bool,
+    location_aware_routing_enabled: Option<bool>,
 }
 
 impl DatabaseClientBuilder {
@@ -445,6 +575,7 @@ impl DatabaseClientBuilder {
             database_role: None,
             options: None,
             leader_aware_routing_enabled: true,
+            location_aware_routing_enabled: None,
         }
     }
 
@@ -525,6 +656,12 @@ impl DatabaseClientBuilder {
         self
     }
 
+    #[cfg(test)]
+    pub(crate) fn with_location_aware_routing(mut self, enabled: bool) -> Self {
+        self.location_aware_routing_enabled = Some(enabled);
+        self
+    }
+
     /// Builds the [DatabaseClient] and creates a single multiplexed session that
     /// will be used for all operations on the database.
     pub async fn build(self) -> crate::Result<DatabaseClient> {
@@ -553,10 +690,15 @@ impl DatabaseClientBuilder {
         )
         .await?;
 
-        let location_aware_routing_enabled = env::var("GOOGLE_SPANNER_EXPERIMENTAL_LOCATION_API")
-            .ok()
-            .and_then(|v| v.parse::<bool>().ok())
-            .unwrap_or(is_omni);
+        // TODO: Enable location-aware routing by default for Omni instances once fully stabilized.
+        let location_aware_routing_enabled = self
+            .location_aware_routing_enabled
+            .or_else(|| {
+                env::var("GOOGLE_SPANNER_EXPERIMENTAL_LOCATION_API")
+                    .ok()
+                    .and_then(|v| v.parse::<bool>().ok())
+            })
+            .unwrap_or(false);
 
         let location_routing = location_aware_routing_enabled
             .then(|| Arc::new(LocationRoutingState::new(&self.spanner)));
@@ -668,8 +810,15 @@ impl ObserveResponse for PartitionResponse {
 mod tests {
     use super::*;
     use crate::client::SpannerBuilderExt;
-    use crate::model::{CacheUpdate, CommitResponse, Group, KeyRecipe, Range, RecipeList, Tablet};
+    use crate::model::key_recipe::Part;
+    use crate::model::key_recipe::part::{NullOrder, Order};
+    use crate::model::{
+        CacheUpdate, CommitResponse, Group, KeyRecipe, KeySet, Range, RecipeList, Tablet,
+        TransactionOptions, Type, TypeCode,
+    };
+    use crate::result_set::tests::adapt;
     use crate::routing::key_range_cache::RangeMode;
+    use gaxi::options::ClientConfig;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_test_macros::tokio_test_no_panics;
     use spanner_grpc_mock::{MockSpanner, start};
@@ -865,14 +1014,25 @@ mod tests {
             .await
             .expect("Failed to build client");
 
+        let db_client_omni_default = spanner_omni
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await
+            .expect("omni default build should succeed");
+        assert!(
+            !db_client_omni_default.is_location_aware_routing_enabled(),
+            "location-aware routing should be disabled by default for Omni instances"
+        );
+
         let db_client_enabled = spanner_omni
             .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
             .build()
             .await
             .expect("build with enabled location-aware routing should succeed");
         assert!(
             db_client_enabled.is_location_aware_routing_enabled(),
-            "location-aware routing should be enabled for Omni instances"
+            "location-aware routing should be enabled when explicitly configured"
         );
     }
 
@@ -904,6 +1064,7 @@ mod tests {
 
         let db_client = spanner
             .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
             .build()
             .await
             .expect("build should succeed");
@@ -1023,6 +1184,7 @@ mod tests {
 
         let db_client = spanner
             .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
             .build()
             .await
             .expect("build should succeed");
@@ -1076,6 +1238,7 @@ mod tests {
 
         let db_client = spanner
             .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
             .build()
             .await
             .expect("build should succeed");
@@ -1140,6 +1303,7 @@ mod tests {
 
         let db_client = spanner
             .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
             .build()
             .await
             .expect("build should succeed");
@@ -1206,6 +1370,7 @@ mod tests {
         let db_client = Arc::new(
             spanner
                 .database_client("projects/p/instances/i/databases/d")
+                .with_location_aware_routing(true)
                 .build()
                 .await
                 .expect("build should succeed"),
@@ -1263,6 +1428,7 @@ mod tests {
 
         let original_client = spanner
             .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
             .build()
             .await
             .expect("build should succeed");
@@ -1367,6 +1533,7 @@ mod tests {
 
         let db_client = spanner
             .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
             .build()
             .await
             .expect("build should succeed");
@@ -1429,6 +1596,7 @@ mod tests {
 
         let db_client = spanner
             .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
             .build()
             .await
             .expect("build should succeed");
@@ -1494,6 +1662,7 @@ mod tests {
         let db_client = Arc::new(
             spanner
                 .database_client("projects/p/instances/i/databases/d")
+                .with_location_aware_routing(true)
                 .build()
                 .await
                 .expect("build should succeed"),
@@ -1540,5 +1709,664 @@ mod tests {
             recipe_cache.get_table_recipe("NewTable_2").is_some(),
             "new database recipes must be preserved"
         );
+    }
+
+    #[tokio_test_no_panics]
+    async fn resolve_read_channel_cloud_spanner_uses_default_channel() {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|req| {
+            let req = req.into_inner();
+            let session = req.session.expect("session present in request");
+            Ok(gaxi::grpc::tonic::Response::new(
+                spanner_grpc_mock::google::spanner::v1::Session {
+                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
+                    multiplexed: session.multiplexed,
+                    ..Default::default()
+                },
+            ))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Cloud)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let db_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await
+            .expect("build should succeed");
+
+        assert!(!db_client.is_location_aware_routing_enabled());
+        let connection = db_client.resolve_routing_connection(None, Some(b"Users.id=1".as_slice()));
+        assert!(connection.is_none());
+    }
+
+    #[tokio_test_no_panics]
+    async fn resolve_routing_connection_omni_cold_start_and_cache_hit_and_cooldown() {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|req| {
+            let req = req.into_inner();
+            let session = req.session.expect("session present in request");
+            Ok(gaxi::grpc::tonic::Response::new(
+                spanner_grpc_mock::google::spanner::v1::Session {
+                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
+                    multiplexed: session.multiplexed,
+                    ..Default::default()
+                },
+            ))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let db_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        assert!(db_client.is_location_aware_routing_enabled());
+
+        let mut key_set = KeySet::new();
+        key_set
+            .keys
+            .push(vec![serde_json::Value::String("m".to_string())]);
+        let read_request = ReadRequest::new().set_table("Users").set_key_set(key_set);
+
+        // 1. Cold start: empty cache yields no routing key, so resolve returns None (preserving channel pool round-robin)
+        let routing_key = db_client.location_routing.as_ref().and_then(|routing| {
+            extract_proto_read_request_routing_key(&routing.key_recipe_cache, &read_request)
+        });
+        assert!(routing_key.is_none());
+        let cold_start_connection =
+            db_client.resolve_routing_connection(None, routing_key.as_deref());
+        assert!(
+            cold_start_connection.is_none(),
+            "Cold start with unpopulated cache must resolve to None"
+        );
+
+        // 2. Populate cache with a split covering "a" to "z" on node address
+        let node_address = "node-1.spanner.internal:15000";
+        let recipe = KeyRecipe::new().set_table_name("Users").set_part(vec![
+            Part::new().set_tag(50020u32),
+            Part::new()
+                .set_tag(1u32)
+                .set_identifier("id")
+                .set_type(Type::new().set_code(TypeCode::String))
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull),
+        ]);
+        let cache_update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_key_recipes(RecipeList::new().set_recipe(vec![recipe]))
+            .set_group(vec![
+                Group::new()
+                    .set_group_uid(100u64)
+                    .set_leader_index(0)
+                    .set_tablets(vec![Tablet::new().set_server_address(node_address)]),
+            ])
+            .set_range(vec![
+                Range::new()
+                    .set_group_uid(100u64)
+                    .set_start_key(b"".to_vec())
+                    .set_limit_key(b"\xff".to_vec()),
+            ]);
+        db_client.observe_cache_update(Some(cache_update));
+
+        let router = db_client.location_router().expect("router present");
+        let _ = router
+            .connection_cache()
+            .get(node_address, &ClientConfig::default())
+            .await
+            .expect("should initialize connection");
+
+        // 3. Cache hit: returns direct node connection
+        let routing_key = db_client.location_routing.as_ref().and_then(|routing| {
+            extract_proto_read_request_routing_key(&routing.key_recipe_cache, &read_request)
+        });
+        let hit_connection = db_client
+            .resolve_routing_connection(None, routing_key.as_deref())
+            .expect("hit connection present");
+        assert_eq!(hit_connection.address(), node_address);
+
+        // 4. Mark node on cooldown: falls back to default connection
+        router.cooldown_tracker().record_failure(node_address);
+        let fallback_connection = db_client
+            .resolve_routing_connection(None, routing_key.as_deref())
+            .expect("fallback connection present");
+        assert_ne!(fallback_connection.address(), node_address);
+    }
+
+    #[test]
+    fn extract_transaction_id_cases() {
+        assert_eq!(extract_transaction_id(None), None);
+
+        let selector_none = TransactionSelector::new();
+        assert_eq!(extract_transaction_id(Some(&selector_none)), None);
+
+        let selector_single = TransactionSelector::new().set_single_use(TransactionOptions::new());
+        assert_eq!(extract_transaction_id(Some(&selector_single)), None);
+
+        let selector_id = TransactionSelector::new().set_id(bytes::Bytes::from_static(b"txn-123"));
+        assert_eq!(
+            extract_transaction_id(Some(&selector_id)),
+            Some(b"txn-123".as_slice())
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn resolve_routing_connection_omni_without_routing_info_returns_none() {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|req| {
+            let req = req.into_inner();
+            let session = req.session.expect("session present in request");
+            Ok(gaxi::grpc::tonic::Response::new(
+                spanner_grpc_mock::google::spanner::v1::Session {
+                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
+                    multiplexed: session.multiplexed,
+                    ..Default::default()
+                },
+            ))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let db_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        assert!(db_client.is_location_aware_routing_enabled());
+
+        // 1. Neither transaction_id nor routing_key: must return None to preserve channel pool round-robin
+        assert!(
+            db_client.resolve_routing_connection(None, None).is_none(),
+            "Requests with neither transaction_id nor routing_key must resolve to None"
+        );
+
+        // 2. Transaction selector without an explicit ID and no routing key: must return None
+        let selector_none = TransactionSelector::new();
+        assert!(
+            db_client
+                .resolve_routing_connection(Some(&selector_none), None)
+                .is_none(),
+            "Requests with empty transaction selector must resolve to None"
+        );
+
+        let selector_single = TransactionSelector::new().set_single_use(TransactionOptions::new());
+        assert!(
+            db_client
+                .resolve_routing_connection(Some(&selector_single), None)
+                .is_none(),
+            "Requests with single_use transaction selector must resolve to None"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn resolve_routing_connection_uses_transaction_affinity_when_transaction_id_present() {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|req| {
+            let req = req.into_inner();
+            let session = req.session.expect("session present in request");
+            Ok(gaxi::grpc::tonic::Response::new(
+                spanner_grpc_mock::google::spanner::v1::Session {
+                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
+                    multiplexed: session.multiplexed,
+                    ..Default::default()
+                },
+            ))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let db_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        // 1. Populate cache with node-1
+        let node_address = "node-1.spanner.internal:15000";
+        let cache_update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![
+                Group::new()
+                    .set_group_uid(100u64)
+                    .set_leader_index(0)
+                    .set_tablets(vec![Tablet::new().set_server_address(node_address)]),
+            ])
+            .set_range(vec![
+                Range::new()
+                    .set_group_uid(100u64)
+                    .set_start_key(b"".to_vec())
+                    .set_limit_key(b"\xff".to_vec()),
+            ]);
+        db_client.observe_cache_update(Some(cache_update));
+
+        let router = db_client.location_router().expect("router present");
+        let _ = router
+            .connection_cache()
+            .get(node_address, &ClientConfig::default())
+            .await
+            .expect("should initialize connection");
+
+        let transaction_id = b"tx-rw-affinity-1";
+        let selector = TransactionSelector::new().set_id(bytes::Bytes::from_static(transaction_id));
+        let routing_key = b"Users.id=10";
+
+        // 2. Initial request with transaction_id and routing_key:
+        //    Resolves to node-1 AND records transaction affinity in LocationRouter.
+        let initial_connection = db_client
+            .resolve_routing_connection(Some(&selector), Some(routing_key.as_slice()))
+            .expect("initial connection resolved");
+        assert_eq!(initial_connection.address(), node_address);
+        assert_eq!(
+            router.get_transaction_affinity(transaction_id).as_deref(),
+            Some(node_address),
+            "Transaction affinity must be recorded after initial request"
+        );
+
+        // 3. Clear key range cache so any key lookup would miss.
+        router.key_range_cache().clear();
+
+        // 4. Subsequent request with transaction_id but NO routing_key (e.g. unkeyed query):
+        //    Must resolve to node-1 via transaction affinity.
+        let unkeyed_connection = db_client
+            .resolve_routing_connection(Some(&selector), None)
+            .expect("unkeyed request with transaction affinity must resolve to connection");
+        assert_eq!(
+            unkeyed_connection.address(),
+            node_address,
+            "Unkeyed query with active transaction_id must route to affinity node"
+        );
+
+        // 5. Subsequent request with transaction_id and a different routing key:
+        //    Must STILL resolve to node-1 via transaction affinity.
+        let different_key_connection = db_client
+            .resolve_routing_connection(Some(&selector), Some(b"Orders.id=99".as_slice()))
+            .expect("different key request with transaction affinity must resolve");
+        assert_eq!(
+            different_key_connection.address(),
+            node_address,
+            "Query with active transaction_id must prioritize affinity node over key"
+        );
+
+        // 6. Explicitly clear affinity (simulating Commit or Rollback).
+        router.clear_transaction_affinity(transaction_id);
+        assert_eq!(
+            router.get_transaction_affinity(transaction_id),
+            None,
+            "Affinity must be cleared"
+        );
+
+        // 7. Request with transaction_id after affinity is cleared and with no routing_key:
+        //    Must resolve to fallback connection.
+        let post_cleanup_connection = db_client
+            .resolve_routing_connection(Some(&selector), None)
+            .expect("post-cleanup resolution fallback");
+        assert_ne!(
+            post_cleanup_connection.address(),
+            node_address,
+            "After affinity is cleared, request with no routing key must fall back"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn resolve_routing_connection_does_not_record_affinity_without_transaction_id() {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|req| {
+            let req = req.into_inner();
+            let session = req.session.expect("session present in request");
+            Ok(gaxi::grpc::tonic::Response::new(
+                spanner_grpc_mock::google::spanner::v1::Session {
+                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
+                    multiplexed: session.multiplexed,
+                    ..Default::default()
+                },
+            ))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let db_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        let node_address = "node-1.spanner.internal:15000";
+        let cache_update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![
+                Group::new()
+                    .set_group_uid(100u64)
+                    .set_leader_index(0)
+                    .set_tablets(vec![Tablet::new().set_server_address(node_address)]),
+            ])
+            .set_range(vec![
+                Range::new()
+                    .set_group_uid(100u64)
+                    .set_start_key(b"".to_vec())
+                    .set_limit_key(b"\xff".to_vec()),
+            ]);
+        db_client.observe_cache_update(Some(cache_update));
+
+        let router = db_client.location_router().expect("router present");
+        let _ = router
+            .connection_cache()
+            .get(node_address, &ClientConfig::default())
+            .await
+            .expect("should initialize connection");
+
+        let routing_key = b"Users.id=10";
+
+        // 1. None transaction selector with routing key: routes to node-1 without recording affinity
+        let connection_none = db_client
+            .resolve_routing_connection(None, Some(routing_key.as_slice()))
+            .expect("keyed request resolves to connection");
+        assert_eq!(connection_none.address(), node_address);
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "Must not record transaction affinity when transaction is None"
+        );
+
+        // 2. Single-use transaction selector with routing key: routes to node-1 without recording affinity
+        let selector_single = TransactionSelector::new().set_single_use(TransactionOptions::new());
+        let connection_single = db_client
+            .resolve_routing_connection(Some(&selector_single), Some(routing_key.as_slice()))
+            .expect("single-use keyed request resolves to connection");
+        assert_eq!(connection_single.address(), node_address);
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "Must not record transaction affinity for single_use transaction"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn channel_pool_round_robin_for_all_rpcs_when_location_routing_disabled() {
+        use std::sync::Mutex;
+
+        let captured_requests = Arc::new(Mutex::new(Vec::new()));
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|req| {
+            let req = req.into_inner();
+            let session = req.session.expect("session present in request");
+            Ok(gaxi::grpc::tonic::Response::new(
+                spanner_grpc_mock::google::spanner::v1::Session {
+                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
+                    multiplexed: session.multiplexed,
+                    ..Default::default()
+                },
+            ))
+        });
+
+        // 1. Map unary methods to default mock responses
+        macro_rules! mock_unary_response {
+            (begin_transaction) => {
+                spanner_grpc_mock::google::spanner::v1::Transaction::default()
+            };
+            (commit) => {
+                spanner_grpc_mock::google::spanner::v1::CommitResponse::default()
+            };
+            (execute_batch_dml) => {
+                spanner_grpc_mock::google::spanner::v1::ExecuteBatchDmlResponse::default()
+            };
+            (execute_sql) => {
+                spanner_grpc_mock::google::spanner::v1::ResultSet::default()
+            };
+            (rollback) => {
+                ()
+            };
+            (partition_query) => {
+                spanner_grpc_mock::google::spanner::v1::PartitionResponse::default()
+            };
+            (partition_read) => {
+                spanner_grpc_mock::google::spanner::v1::PartitionResponse::default()
+            };
+        }
+
+        // Set up mock expectations for all unary RPCs via macro
+        macro_rules! setup_unary_mock {
+            ($method:ident, $expect_method:ident, $request_type:ident, $response_type:ty) => {
+                let captured_clone = Arc::clone(&captured_requests);
+                mock.$expect_method().returning(move |req| {
+                    if let Some(id) = req.metadata().get("x-goog-spanner-request-id") {
+                        captured_clone
+                            .lock()
+                            .expect("lock should succeed")
+                            .push((stringify!($method), id.to_str().expect("ascii").to_string()));
+                    }
+                    Ok(gaxi::grpc::tonic::Response::new(mock_unary_response!(
+                        $method
+                    )))
+                });
+            };
+        }
+        for_all_unary_db_rpcs!(setup_unary_mock);
+
+        // Set up mock expectations for all streaming RPCs via macro
+        macro_rules! setup_streaming_mock {
+            ($method:ident, $expect_method:ident, $request_type:ident, $builder_type:ident $(, $extract_key:expr)?) => {
+                let captured_clone = Arc::clone(&captured_requests);
+                mock.$expect_method().returning(move |req| {
+                    if let Some(id) = req.metadata().get("x-goog-spanner-request-id") {
+                        captured_clone
+                            .lock()
+                            .expect("lock should succeed")
+                            .push((stringify!($method), id.to_str().expect("ascii").to_string()));
+                    }
+                    Ok(gaxi::grpc::tonic::Response::from(adapt([])))
+                });
+            };
+        }
+        for_all_streaming_db_rpcs!(setup_streaming_mock);
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Cloud)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let db_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await
+            .expect("build should succeed");
+
+        assert!(!db_client.is_location_aware_routing_enabled());
+
+        // Verify round-robin channel distribution 1..=4 for all mapped RPCs across 4 hints
+        for channel_hint in 0..4 {
+            let expected_channel_id = format!(".{}.", channel_hint + 1);
+
+            macro_rules! call_unary_rpc {
+                ($method:ident, $expect_method:ident, $request_type:ident, $response_type:ty) => {
+                    let _ = db_client
+                        .$method(
+                            $request_type::default(),
+                            RequestOptions::default(),
+                            channel_hint,
+                        )
+                        .await;
+                };
+            }
+            for_all_unary_db_rpcs!(call_unary_rpc);
+
+            macro_rules! call_streaming_rpc {
+                ($method:ident, $expect_method:ident, $request_type:ident, $builder_type:ident $(, $extract_key:expr)?) => {
+                    let _ = db_client
+                        .$method(
+                            $request_type::default(),
+                            RequestOptions::default(),
+                            channel_hint,
+                        )
+                        .send()
+                        .await;
+                };
+            }
+            for_all_streaming_db_rpcs!(call_streaming_rpc);
+
+            let calls = captured_requests.lock().expect("lock").clone();
+            captured_requests.lock().expect("lock").clear();
+            assert_eq!(
+                calls.len(),
+                10,
+                "each RPC method must be called once per hint"
+            );
+            for (rpc_name, request_id) in calls {
+                assert!(
+                    request_id.contains(&expected_channel_id),
+                    "RPC {rpc_name} with channel_hint {channel_hint} must use channel ID {expected_channel_id}, got {request_id}"
+                );
+            }
+        }
+    }
+
+    #[tokio_test_no_panics]
+    async fn streaming_rpcs_round_robin_when_location_routing_enabled_without_routing_key() {
+        use std::sync::Mutex;
+
+        let captured_requests = Arc::new(Mutex::new(Vec::new()));
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|req| {
+            let req = req.into_inner();
+            let session = req.session.expect("session present in request");
+            Ok(gaxi::grpc::tonic::Response::new(
+                spanner_grpc_mock::google::spanner::v1::Session {
+                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
+                    multiplexed: session.multiplexed,
+                    ..Default::default()
+                },
+            ))
+        });
+
+        let captured = Arc::clone(&captured_requests);
+        mock.expect_execute_streaming_sql().returning(move |req| {
+            if let Some(id) = req.metadata().get("x-goog-spanner-request-id") {
+                captured.lock().expect("lock").push((
+                    "execute_streaming_sql",
+                    id.to_str().expect("ascii").to_string(),
+                ));
+            }
+            Ok(gaxi::grpc::tonic::Response::from(adapt([])))
+        });
+
+        let captured = Arc::clone(&captured_requests);
+        mock.expect_streaming_read().returning(move |req| {
+            if let Some(id) = req.metadata().get("x-goog-spanner-request-id") {
+                captured
+                    .lock()
+                    .expect("lock")
+                    .push(("streaming_read", id.to_str().expect("ascii").to_string()));
+            }
+            Ok(gaxi::grpc::tonic::Response::from(adapt([])))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let db_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        assert!(db_client.is_location_aware_routing_enabled());
+
+        for channel_hint in 0..4 {
+            let expected_channel_id = format!(".{}.", channel_hint + 1);
+
+            // execute_streaming_sql (no routing key)
+            let _ = db_client
+                .execute_streaming_sql(
+                    ExecuteSqlRequest::default(),
+                    RequestOptions::default(),
+                    channel_hint,
+                )
+                .send()
+                .await;
+
+            // streaming_read with KeySet::all() (no routing key)
+            let mut key_set = KeySet::new();
+            key_set.all = true;
+            let read_request = ReadRequest::new().set_table("Users").set_key_set(key_set);
+            let _ = db_client
+                .streaming_read(read_request, RequestOptions::default(), channel_hint)
+                .send()
+                .await;
+
+            let calls = captured_requests.lock().expect("lock").clone();
+            captured_requests.lock().expect("lock").clear();
+            assert_eq!(calls.len(), 2);
+            for (rpc_name, request_id) in calls {
+                assert!(
+                    request_id.contains(&expected_channel_id),
+                    "Even when location routing is enabled, {rpc_name} without routing key must round-robin onto channel {expected_channel_id}, got {request_id}"
+                );
+            }
+        }
     }
 }

@@ -746,11 +746,23 @@ pub mod polyline {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolylineDetails {
+    /// Tunnel details along the polyline. This field is populated if the request
+    /// specifies the `avoid_tunnels` route modifier and the resultant route fails
+    /// to avoid them, OR if `TUNNEL_INFO_ON_POLYLINE` is specified in
+    /// `extra_computations` and the route contains tunnels.
+    pub tunnel_info: std::vec::Vec<crate::model::polyline_details::TunnelInfo>,
+
     /// Flyover details along the polyline.
     pub flyover_info: std::vec::Vec<crate::model::polyline_details::FlyoverInfo>,
 
     /// Narrow road details along the polyline.
     pub narrow_road_info: std::vec::Vec<crate::model::polyline_details::NarrowRoadInfo>,
+
+    /// Bridge details along the polyline.
+    pub bridge_info: std::vec::Vec<crate::model::polyline_details::BridgeInfo>,
+
+    /// Skyway details along the polyline.
+    pub skyway_info: std::vec::Vec<crate::model::polyline_details::SkywayInfo>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -759,6 +771,28 @@ impl PolylineDetails {
     /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [tunnel_info][crate::model::PolylineDetails::tunnel_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_routing_v2::model::PolylineDetails;
+    /// use google_maps_routing_v2::model::polyline_details::TunnelInfo;
+    /// let x = PolylineDetails::new()
+    ///     .set_tunnel_info([
+    ///         TunnelInfo::default()/* use setters */,
+    ///         TunnelInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_tunnel_info<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::polyline_details::TunnelInfo>,
+    {
+        use std::iter::Iterator;
+        self.tunnel_info = v.into_iter().map(|i| i.into()).collect();
+        self
     }
 
     /// Sets the value of [flyover_info][crate::model::PolylineDetails::flyover_info].
@@ -802,6 +836,50 @@ impl PolylineDetails {
     {
         use std::iter::Iterator;
         self.narrow_road_info = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [bridge_info][crate::model::PolylineDetails::bridge_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_routing_v2::model::PolylineDetails;
+    /// use google_maps_routing_v2::model::polyline_details::BridgeInfo;
+    /// let x = PolylineDetails::new()
+    ///     .set_bridge_info([
+    ///         BridgeInfo::default()/* use setters */,
+    ///         BridgeInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_bridge_info<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::polyline_details::BridgeInfo>,
+    {
+        use std::iter::Iterator;
+        self.bridge_info = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [skyway_info][crate::model::PolylineDetails::skyway_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_routing_v2::model::PolylineDetails;
+    /// use google_maps_routing_v2::model::polyline_details::SkywayInfo;
+    /// let x = PolylineDetails::new()
+    ///     .set_skyway_info([
+    ///         SkywayInfo::default()/* use setters */,
+    ///         SkywayInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_skyway_info<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::polyline_details::SkywayInfo>,
+    {
+        use std::iter::Iterator;
+        self.skyway_info = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -904,6 +982,243 @@ pub mod polyline_details {
     impl wkt::message::Message for PolylinePointIndex {
         fn typename() -> &'static str {
             "type.googleapis.com/google.maps.routing.v2.PolylineDetails.PolylinePointIndex"
+        }
+    }
+
+    /// Encapsulates information about tunnels along the polyline.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct TunnelInfo {
+        /// Denotes whether a tunnel exists for a given stretch of the polyline.
+        pub tunnel_presence: crate::model::polyline_details::RoadFeatureState,
+
+        /// The location of tunnel related information along the polyline.
+        pub polyline_point_index:
+            std::option::Option<crate::model::polyline_details::PolylinePointIndex>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl TunnelInfo {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [tunnel_presence][crate::model::polyline_details::TunnelInfo::tunnel_presence].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_maps_routing_v2::model::polyline_details::TunnelInfo;
+        /// use google_maps_routing_v2::model::polyline_details::RoadFeatureState;
+        /// let x0 = TunnelInfo::new().set_tunnel_presence(RoadFeatureState::Exists);
+        /// let x1 = TunnelInfo::new().set_tunnel_presence(RoadFeatureState::DoesNotExist);
+        /// ```
+        pub fn set_tunnel_presence<
+            T: std::convert::Into<crate::model::polyline_details::RoadFeatureState>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.tunnel_presence = v.into();
+            self
+        }
+
+        /// Sets the value of [polyline_point_index][crate::model::polyline_details::TunnelInfo::polyline_point_index].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_maps_routing_v2::model::polyline_details::TunnelInfo;
+        /// use google_maps_routing_v2::model::polyline_details::PolylinePointIndex;
+        /// let x = TunnelInfo::new().set_polyline_point_index(PolylinePointIndex::default()/* use setters */);
+        /// ```
+        pub fn set_polyline_point_index<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::polyline_details::PolylinePointIndex>,
+        {
+            self.polyline_point_index = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [polyline_point_index][crate::model::polyline_details::TunnelInfo::polyline_point_index].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_maps_routing_v2::model::polyline_details::TunnelInfo;
+        /// use google_maps_routing_v2::model::polyline_details::PolylinePointIndex;
+        /// let x = TunnelInfo::new().set_or_clear_polyline_point_index(Some(PolylinePointIndex::default()/* use setters */));
+        /// let x = TunnelInfo::new().set_or_clear_polyline_point_index(None::<PolylinePointIndex>);
+        /// ```
+        pub fn set_or_clear_polyline_point_index<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::polyline_details::PolylinePointIndex>,
+        {
+            self.polyline_point_index = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for TunnelInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.maps.routing.v2.PolylineDetails.TunnelInfo"
+        }
+    }
+
+    /// Encapsulates information about bridges along the polyline.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct BridgeInfo {
+        /// Denotes whether a bridge exists for a given stretch of the polyline.
+        pub bridge_presence: crate::model::polyline_details::RoadFeatureState,
+
+        /// The location of bridge related information along the polyline.
+        pub polyline_point_index:
+            std::option::Option<crate::model::polyline_details::PolylinePointIndex>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl BridgeInfo {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [bridge_presence][crate::model::polyline_details::BridgeInfo::bridge_presence].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_maps_routing_v2::model::polyline_details::BridgeInfo;
+        /// use google_maps_routing_v2::model::polyline_details::RoadFeatureState;
+        /// let x0 = BridgeInfo::new().set_bridge_presence(RoadFeatureState::Exists);
+        /// let x1 = BridgeInfo::new().set_bridge_presence(RoadFeatureState::DoesNotExist);
+        /// ```
+        pub fn set_bridge_presence<
+            T: std::convert::Into<crate::model::polyline_details::RoadFeatureState>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.bridge_presence = v.into();
+            self
+        }
+
+        /// Sets the value of [polyline_point_index][crate::model::polyline_details::BridgeInfo::polyline_point_index].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_maps_routing_v2::model::polyline_details::BridgeInfo;
+        /// use google_maps_routing_v2::model::polyline_details::PolylinePointIndex;
+        /// let x = BridgeInfo::new().set_polyline_point_index(PolylinePointIndex::default()/* use setters */);
+        /// ```
+        pub fn set_polyline_point_index<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::polyline_details::PolylinePointIndex>,
+        {
+            self.polyline_point_index = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [polyline_point_index][crate::model::polyline_details::BridgeInfo::polyline_point_index].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_maps_routing_v2::model::polyline_details::BridgeInfo;
+        /// use google_maps_routing_v2::model::polyline_details::PolylinePointIndex;
+        /// let x = BridgeInfo::new().set_or_clear_polyline_point_index(Some(PolylinePointIndex::default()/* use setters */));
+        /// let x = BridgeInfo::new().set_or_clear_polyline_point_index(None::<PolylinePointIndex>);
+        /// ```
+        pub fn set_or_clear_polyline_point_index<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::polyline_details::PolylinePointIndex>,
+        {
+            self.polyline_point_index = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for BridgeInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.maps.routing.v2.PolylineDetails.BridgeInfo"
+        }
+    }
+
+    /// Encapsulates information about skyways along the polyline.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SkywayInfo {
+        /// Denotes whether a skyway exists for a given stretch of the polyline.
+        pub skyway_presence: crate::model::polyline_details::RoadFeatureState,
+
+        /// The location of skyway related information along the polyline.
+        pub polyline_point_index:
+            std::option::Option<crate::model::polyline_details::PolylinePointIndex>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SkywayInfo {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [skyway_presence][crate::model::polyline_details::SkywayInfo::skyway_presence].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_maps_routing_v2::model::polyline_details::SkywayInfo;
+        /// use google_maps_routing_v2::model::polyline_details::RoadFeatureState;
+        /// let x0 = SkywayInfo::new().set_skyway_presence(RoadFeatureState::Exists);
+        /// let x1 = SkywayInfo::new().set_skyway_presence(RoadFeatureState::DoesNotExist);
+        /// ```
+        pub fn set_skyway_presence<
+            T: std::convert::Into<crate::model::polyline_details::RoadFeatureState>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.skyway_presence = v.into();
+            self
+        }
+
+        /// Sets the value of [polyline_point_index][crate::model::polyline_details::SkywayInfo::polyline_point_index].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_maps_routing_v2::model::polyline_details::SkywayInfo;
+        /// use google_maps_routing_v2::model::polyline_details::PolylinePointIndex;
+        /// let x = SkywayInfo::new().set_polyline_point_index(PolylinePointIndex::default()/* use setters */);
+        /// ```
+        pub fn set_polyline_point_index<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::polyline_details::PolylinePointIndex>,
+        {
+            self.polyline_point_index = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [polyline_point_index][crate::model::polyline_details::SkywayInfo::polyline_point_index].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_maps_routing_v2::model::polyline_details::SkywayInfo;
+        /// use google_maps_routing_v2::model::polyline_details::PolylinePointIndex;
+        /// let x = SkywayInfo::new().set_or_clear_polyline_point_index(Some(PolylinePointIndex::default()/* use setters */));
+        /// let x = SkywayInfo::new().set_or_clear_polyline_point_index(None::<PolylinePointIndex>);
+        /// ```
+        pub fn set_or_clear_polyline_point_index<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::polyline_details::PolylinePointIndex>,
+        {
+            self.polyline_point_index = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for SkywayInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.maps.routing.v2.PolylineDetails.SkywayInfo"
         }
     }
 
@@ -3849,6 +4164,18 @@ pub struct RouteModifiers {
     /// [google.maps.routing.v2.RouteTravelMode]: crate::model::RouteTravelMode
     pub toll_passes: std::vec::Vec<crate::model::TollPass>,
 
+    /// Optional. When set to true, avoids tunnels where reasonable, giving
+    /// preference to routes not containing tunnels. Applies only to the `DRIVE`
+    /// and `TWO_WHEELER`
+    /// [`RouteTravelMode`][google.maps.routing.v2.RouteTravelMode].
+    /// [`RoutingPreference`][google.maps.routing.v2.RoutingPreference]
+    /// must be set to `TRAFFIC_AWARE_OPTIMAL`.
+    /// This field is not supported in ComputeRouteMatrix.
+    ///
+    /// [google.maps.routing.v2.RouteTravelMode]: crate::model::RouteTravelMode
+    /// [google.maps.routing.v2.RoutingPreference]: crate::model::RoutingPreference
+    pub avoid_tunnels: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3960,6 +4287,18 @@ impl RouteModifiers {
         self.toll_passes = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [avoid_tunnels][crate::model::RouteModifiers::avoid_tunnels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_routing_v2::model::RouteModifiers;
+    /// let x = RouteModifiers::new().set_avoid_tunnels(true);
+    /// ```
+    pub fn set_avoid_tunnels<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.avoid_tunnels = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for RouteModifiers {
@@ -4055,9 +4394,9 @@ pub struct ComputeRoutesRequest {
     /// Optional. If set to true, the service attempts to minimize the overall cost
     /// of the route by re-ordering the specified intermediate waypoints. The
     /// request fails if any of the intermediate waypoints is a `via` waypoint. Use
-    /// `ComputeRoutesResponse.Routes.optimized_intermediate_waypoint_index` to
+    /// `ComputeRoutesResponse.routes.optimized_intermediate_waypoint_index` to
     /// find the new ordering.
-    /// If `ComputeRoutesResponseroutes.optimized_intermediate_waypoint_index` is
+    /// If `ComputeRoutesResponse.routes.optimized_intermediate_waypoint_index` is
     /// not requested in the `X-Goog-FieldMask` header, the request fails.
     /// If `optimize_waypoint_order` is set to false,
     /// `ComputeRoutesResponse.optimized_intermediate_waypoint_index` will be
@@ -4690,6 +5029,7 @@ pub mod compute_routes_request {
     }
 
     /// Extra computations to perform while completing the request.
+    /// Additional values may be added in the future.
     ///
     /// # Working with unknown values
     ///
@@ -4715,23 +5055,37 @@ pub mod compute_routes_request {
         FuelConsumption,
         /// Traffic aware polylines for the route(s).
         TrafficOnPolyline,
-        /// [`NavigationInstructions`](google.maps.routing.v2.NavigationInstructions.instructions)
+        /// [`NavigationInstruction`][google.maps.routing.v2.NavigationInstruction]
         /// presented as a formatted HTML text string. This content
         /// is meant to be read as-is. This content is for display only.
         /// Do not programmatically parse it.
+        ///
+        /// [google.maps.routing.v2.NavigationInstruction]: crate::model::NavigationInstruction
         HtmlFormattedNavigationInstructions,
         /// Flyover information for the route(s). The
         /// `routes.polyline_details.flyover_info` fieldmask must be specified to
-        /// return this information. This data will only currently be populated for
+        /// return this information. This data will currently only be populated for
         /// certain metros in India. This feature is experimental, and the
         /// SKU/charge is subject to change.
         FlyoverInfoOnPolyline,
         /// Narrow road information for the route(s). The
         /// `routes.polyline_details.narrow_road_info` fieldmask must be specified
-        /// to return this information. This data will only currently be populated
+        /// to return this information. This data will currently only be populated
         /// for certain metros in India. This feature is experimental, and the
         /// SKU/charge is subject to change.
         NarrowRoadInfoOnPolyline,
+        /// Tunnel information for the route(s). The
+        /// `routes.polyline_details.tunnel_info` fieldmask must be specified to
+        /// return this information.
+        TunnelInfoOnPolyline,
+        /// Bridge information for the route(s). The
+        /// `routes.polyline_details.bridge_info` fieldmask must be specified to
+        /// return this information.
+        BridgeInfoOnPolyline,
+        /// Skyway information for the route(s). The
+        /// `routes.polyline_details.skyway_info` fieldmask must be specified to
+        /// return this information.
+        SkywayInfoOnPolyline,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [ExtraComputation::value] or
@@ -4761,6 +5115,9 @@ pub mod compute_routes_request {
                 Self::HtmlFormattedNavigationInstructions => std::option::Option::Some(4),
                 Self::FlyoverInfoOnPolyline => std::option::Option::Some(7),
                 Self::NarrowRoadInfoOnPolyline => std::option::Option::Some(8),
+                Self::TunnelInfoOnPolyline => std::option::Option::Some(9),
+                Self::BridgeInfoOnPolyline => std::option::Option::Some(10),
+                Self::SkywayInfoOnPolyline => std::option::Option::Some(11),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -4784,6 +5141,9 @@ pub mod compute_routes_request {
                 Self::NarrowRoadInfoOnPolyline => {
                     std::option::Option::Some("NARROW_ROAD_INFO_ON_POLYLINE")
                 }
+                Self::TunnelInfoOnPolyline => std::option::Option::Some("TUNNEL_INFO_ON_POLYLINE"),
+                Self::BridgeInfoOnPolyline => std::option::Option::Some("BRIDGE_INFO_ON_POLYLINE"),
+                Self::SkywayInfoOnPolyline => std::option::Option::Some("SKYWAY_INFO_ON_POLYLINE"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -4812,6 +5172,9 @@ pub mod compute_routes_request {
                 4 => Self::HtmlFormattedNavigationInstructions,
                 7 => Self::FlyoverInfoOnPolyline,
                 8 => Self::NarrowRoadInfoOnPolyline,
+                9 => Self::TunnelInfoOnPolyline,
+                10 => Self::BridgeInfoOnPolyline,
+                11 => Self::SkywayInfoOnPolyline,
                 _ => Self::UnknownValue(extra_computation::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -4832,6 +5195,9 @@ pub mod compute_routes_request {
                 }
                 "FLYOVER_INFO_ON_POLYLINE" => Self::FlyoverInfoOnPolyline,
                 "NARROW_ROAD_INFO_ON_POLYLINE" => Self::NarrowRoadInfoOnPolyline,
+                "TUNNEL_INFO_ON_POLYLINE" => Self::TunnelInfoOnPolyline,
+                "BRIDGE_INFO_ON_POLYLINE" => Self::BridgeInfoOnPolyline,
+                "SKYWAY_INFO_ON_POLYLINE" => Self::SkywayInfoOnPolyline,
                 _ => Self::UnknownValue(extra_computation::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -4852,6 +5218,9 @@ pub mod compute_routes_request {
                 Self::HtmlFormattedNavigationInstructions => serializer.serialize_i32(4),
                 Self::FlyoverInfoOnPolyline => serializer.serialize_i32(7),
                 Self::NarrowRoadInfoOnPolyline => serializer.serialize_i32(8),
+                Self::TunnelInfoOnPolyline => serializer.serialize_i32(9),
+                Self::BridgeInfoOnPolyline => serializer.serialize_i32(10),
+                Self::SkywayInfoOnPolyline => serializer.serialize_i32(11),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -7895,7 +8264,7 @@ pub mod waypoint {
         /// See <https://plus.codes> for details.
         Address(std::string::String),
         /// A token that identifies a
-        /// [`NavigationPoint`](https://developers.google.com/maps/documentation/geocoding/reference/rest/v4alpha/geocode.destinations/searchDestinations#navigationpoint),
+        /// [`NavigationPoint`](/maps/documentation/geocoding/reference/rest/v4alpha/geocode.destinations/searchDestinations#navigationpoint),
         /// obtained from the `SearchDestinations` method of the Geocoding API.
         NavigationPointToken(std::string::String),
     }
@@ -9474,6 +9843,8 @@ pub enum TollPass {
     /// MI, USA.
     UsMiBcpass,
     /// MI, USA.
+    UsMiBreakaway,
+    /// MI, USA.
     UsMiGrosseIleTollBridgePassTag,
     /// MI, USA.
     /// Deprecated as this pass type no longer exists.
@@ -9636,6 +10007,7 @@ impl TollPass {
             Self::UsMeEzpassme => std::option::Option::Some(35),
             Self::UsMiAmbassadorBridgePremierCommuterCard => std::option::Option::Some(36),
             Self::UsMiBcpass => std::option::Option::Some(94),
+            Self::UsMiBreakaway => std::option::Option::Some(101),
             Self::UsMiGrosseIleTollBridgePassTag => std::option::Option::Some(37),
             Self::UsMiIqProxCard => std::option::Option::Some(38),
             Self::UsMiIqTag => std::option::Option::Some(95),
@@ -9759,6 +10131,7 @@ impl TollPass {
                 std::option::Option::Some("US_MI_AMBASSADOR_BRIDGE_PREMIER_COMMUTER_CARD")
             }
             Self::UsMiBcpass => std::option::Option::Some("US_MI_BCPASS"),
+            Self::UsMiBreakaway => std::option::Option::Some("US_MI_BREAKAWAY"),
             Self::UsMiGrosseIleTollBridgePassTag => {
                 std::option::Option::Some("US_MI_GROSSE_ILE_TOLL_BRIDGE_PASS_TAG")
             }
@@ -9933,6 +10306,7 @@ impl std::convert::From<i32> for TollPass {
             98 => Self::JpEtc,
             99 => Self::JpEtc2,
             100 => Self::UsWvMovPass,
+            101 => Self::UsMiBreakaway,
             _ => Self::UnknownValue(toll_pass::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -10009,6 +10383,7 @@ impl std::convert::From<&str> for TollPass {
                 Self::UsMiAmbassadorBridgePremierCommuterCard
             }
             "US_MI_BCPASS" => Self::UsMiBcpass,
+            "US_MI_BREAKAWAY" => Self::UsMiBreakaway,
             "US_MI_GROSSE_ILE_TOLL_BRIDGE_PASS_TAG" => Self::UsMiGrosseIleTollBridgePassTag,
             "US_MI_IQ_PROX_CARD" => Self::UsMiIqProxCard,
             "US_MI_IQ_TAG" => Self::UsMiIqTag,
@@ -10121,6 +10496,7 @@ impl serde::ser::Serialize for TollPass {
             Self::UsMeEzpassme => serializer.serialize_i32(35),
             Self::UsMiAmbassadorBridgePremierCommuterCard => serializer.serialize_i32(36),
             Self::UsMiBcpass => serializer.serialize_i32(94),
+            Self::UsMiBreakaway => serializer.serialize_i32(101),
             Self::UsMiGrosseIleTollBridgePassTag => serializer.serialize_i32(37),
             Self::UsMiIqProxCard => serializer.serialize_i32(38),
             Self::UsMiIqTag => serializer.serialize_i32(95),
