@@ -14,9 +14,10 @@
 
 // TODO(#5716): Lift to shared bidi module
 
+use super::coalescing_buffer::CoalescingBuffer;
 use super::connector::{Connection, Connector};
 use super::worker::{UploadIntent, Worker};
-use super::{Client, TonicStreaming};
+use super::{Client, MAX_WRITE_CHUNK_SIZE, TonicStreaming};
 use crate::google::storage::v2::BidiWriteObjectResponse;
 use crate::google::storage::v2::ObjectChecksums;
 use crate::google::storage::v2::{
@@ -31,12 +32,23 @@ use gaxi::prost::FromProto;
 use tokio::sync::mpsc::Sender;
 use tokio::sync::oneshot;
 
+/// Defines the maximum number of queued intents in the foreground-to-worker channel.
+///
+/// Each write intent carries a coalesced chunk of up to [`MAX_WRITE_CHUNK_SIZE`] (2 MiB).
+/// Sizing this queue to 4 slots (8 MiB total in-flight payload) balances two goals:
+/// 1. Pipelining: Keeps the background worker stream continuously saturated without network starvation.
+/// 2. Backpressure and Memory Footprint: Bounds queued channel memory to 8 MiB so that combined
+///    with the 32 MiB worker replay buffer and 2 MiB coalescing buffer, total in-flight data
+///    remains predictably capped around 42 MiB before foreground `.append()` calls suspend.
+const CHANNEL_BUFFER_SIZE: usize = 4;
+
 #[derive(Clone, Copy, Debug)]
 struct InitialPayload {
     len: usize,
     crc32c: u32,
 }
 
+/// Implements the appendable object write transport over bidirectional gRPC streams.
 #[derive(Debug)]
 pub struct AppendableObjectWriterTransport {
     tx: Sender<UploadIntent>,
@@ -44,10 +56,12 @@ pub struct AppendableObjectWriterTransport {
     persisted_size: i64,
     write_offset: i64,
     running_crc32c: Option<u32>,
+    coalescing_buffer: CoalescingBuffer,
     worker_handle: Option<tokio::task::JoinHandle<Result<()>>>,
 }
 
 impl AppendableObjectWriterTransport {
+    /// Opens a new appendable object write stream.
     pub async fn new_open<T>(
         mut connector: Connector<T>,
         req: OpenAppendableObjectRequest,
@@ -105,6 +119,7 @@ impl AppendableObjectWriterTransport {
         Ok(transport)
     }
 
+    /// Reopens an existing appendable object write stream.
     pub async fn new_reopen<T>(
         mut connector: Connector<T>,
         req: ReopenAppendableObjectRequest,
@@ -171,7 +186,7 @@ impl AppendableObjectWriterTransport {
         // we can't reliably continue a running checksum, so it remains `None`.
         // TODO(#5716): Check whether this is a valid case.
 
-        let (tx, rx) = tokio::sync::mpsc::channel(100);
+        let (tx, rx) = tokio::sync::mpsc::channel(CHANNEL_BUFFER_SIZE);
         let worker = Worker::new(connector);
         let worker_handle = Some(tokio::spawn(worker.run(connection, rx)));
 
@@ -184,6 +199,7 @@ impl AppendableObjectWriterTransport {
             persisted_size,
             write_offset,
             running_crc32c,
+            coalescing_buffer: CoalescingBuffer::new(),
             worker_handle,
         })
     }
@@ -252,32 +268,25 @@ impl AppendableObjectWriterTransport {
     }
 }
 
-/// Maximum payload chunk size for a single write request over gRPC (2 MiB).
-///
-/// The GCS v2 API specification (`google/storage/v2/storage.proto`) restricts the
-/// `ChecksummedData.content` payload length to at most 2 MiB per chunk. Splitting
-/// larger writes into <= 2 MiB chunks also ensures individual gRPC messages remain
-/// safely under gRPC's default 4 MiB message size limit.
-const MAX_WRITE_CHUNK_SIZE: usize = 2 * 1024 * 1024;
-
 impl AppendableObjectWriter for AppendableObjectWriterTransport {
     async fn append(&mut self, chunk: Bytes) -> Result<()> {
         if chunk.is_empty() {
             return Ok(());
         }
 
-        let mut offset = 0;
-        while offset < chunk.len() {
-            let end = (offset + MAX_WRITE_CHUNK_SIZE).min(chunk.len());
-            let sub_chunk = chunk.slice(offset..end);
+        let ready_chunks = self.coalescing_buffer.push(chunk);
+        for sub_chunk in ready_chunks {
             self.append_sub_chunk(sub_chunk).await?;
-            offset = end;
         }
 
         Ok(())
     }
 
     async fn flush(&mut self) -> Result<i64> {
+        if let Some(residual) = self.coalescing_buffer.flush() {
+            self.append_sub_chunk(residual).await?;
+        }
+
         let (sender, receiver) = oneshot::channel();
         let request = BidiWriteObjectRequest {
             flush: true,
@@ -305,6 +314,10 @@ impl AppendableObjectWriter for AppendableObjectWriterTransport {
     }
 
     async fn finalize(mut self) -> Result<crate::model::Object> {
+        if let Some(residual) = self.coalescing_buffer.flush() {
+            self.append_sub_chunk(residual).await?;
+        }
+
         let (sender, receiver) = oneshot::channel();
         let object_checksums = self.running_crc32c.map(|crc| ObjectChecksums {
             crc32c: Some(crc),
@@ -368,13 +381,14 @@ mod tests {
 
     #[tokio::test]
     async fn success() -> anyhow::Result<()> {
-        let (tx, mut rx) = mpsc::channel(1);
+        let (tx, mut rx) = mpsc::channel(10);
         let transport = AppendableObjectWriterTransport {
             tx,
             write_offset: 0,
             running_crc32c: Some(0),
             generation: 123456,
             persisted_size: 0,
+            coalescing_buffer: CoalescingBuffer::new(),
             worker_handle: None,
         };
 
@@ -455,13 +469,15 @@ mod tests {
             running_crc32c: Some(0),
             generation: 123456,
             persisted_size: 0,
+            coalescing_buffer: CoalescingBuffer::new(),
             worker_handle: None,
         };
 
         // Simulate an early stream closure, e.g. worker dying.
         drop(rx);
+        // Append full 2 MiB to force flush to channel
         let err = transport
-            .append(bytes::Bytes::from("hello"))
+            .append(bytes::Bytes::from(vec![1u8; MAX_WRITE_CHUNK_SIZE]))
             .await
             .unwrap_err();
         assert!(err.is_io(), "{err:?}");
@@ -482,11 +498,15 @@ mod tests {
             running_crc32c: None, // No running crc
             generation: 123456,
             persisted_size: 0,
+            coalescing_buffer: CoalescingBuffer::new(),
             worker_handle: None,
         };
 
         let handle = tokio::spawn(async move {
-            transport.append(bytes::Bytes::from("hello")).await.unwrap();
+            transport
+                .append(bytes::Bytes::from(vec![1u8; MAX_WRITE_CHUNK_SIZE]))
+                .await
+                .unwrap();
             transport
         });
 
@@ -510,6 +530,7 @@ mod tests {
             running_crc32c: Some(0),
             generation: 123456,
             persisted_size: 0,
+            coalescing_buffer: CoalescingBuffer::new(),
             worker_handle: None,
         };
 
@@ -519,6 +540,8 @@ mod tests {
 
         let handle = tokio::spawn(async move {
             transport.append(large_payload).await.unwrap();
+            // Flushing drains the remaining 1 MiB residual
+            transport.flush().await.unwrap();
             transport
         });
 
@@ -561,6 +584,20 @@ mod tests {
             panic!("expected Append");
         }
 
+        // Fourth intent: Flush
+        let intent4 = rx.recv().await.unwrap();
+        if let UploadIntent::Flush(req, sender) = intent4 {
+            assert!(req.flush);
+            assert_eq!(req.write_offset, 5 * 1024 * 1024);
+            let resp = BidiWriteObjectResponse {
+                write_status: Some(WriteStatus::PersistedSize(5 * 1024 * 1024)),
+                ..Default::default()
+            };
+            sender.send(Ok(resp)).unwrap();
+        } else {
+            panic!("expected Flush");
+        }
+
         let transport = handle.await?;
         assert_eq!(transport.write_offset, (5 * 1024 * 1024) as i64);
         assert_eq!(transport.running_crc32c, Some(expected_total_crc));
@@ -576,6 +613,7 @@ mod tests {
             running_crc32c: Some(0),
             generation: 123456,
             persisted_size: 0,
+            coalescing_buffer: CoalescingBuffer::new(),
             worker_handle: None,
         };
 
@@ -595,6 +633,7 @@ mod tests {
             running_crc32c: Some(0),
             generation: 123456,
             persisted_size: 0,
+            coalescing_buffer: CoalescingBuffer::new(),
             worker_handle: None,
         };
 
@@ -634,6 +673,7 @@ mod tests {
             running_crc32c: Some(0),
             generation: 123456,
             persisted_size: 0,
+            coalescing_buffer: CoalescingBuffer::new(),
             worker_handle: None,
         };
 
@@ -672,6 +712,7 @@ mod tests {
             running_crc32c: Some(0),
             generation: 123456,
             persisted_size: 0,
+            coalescing_buffer: CoalescingBuffer::new(),
             worker_handle: Some(worker_handle),
         };
 
@@ -708,6 +749,7 @@ mod tests {
             running_crc32c: Some(0),
             generation: 123456,
             persisted_size: 0,
+            coalescing_buffer: CoalescingBuffer::new(),
             worker_handle: Some(worker_handle),
         };
 
@@ -743,6 +785,7 @@ mod tests {
             running_crc32c: None,
             generation: 123456,
             persisted_size: 0,
+            coalescing_buffer: CoalescingBuffer::new(),
             worker_handle: None,
         };
 
@@ -780,6 +823,7 @@ mod tests {
             running_crc32c: Some(0),
             generation: 123456,
             persisted_size: 0,
+            coalescing_buffer: CoalescingBuffer::new(),
             worker_handle: None,
         };
 
@@ -818,6 +862,7 @@ mod tests {
             running_crc32c: Some(0),
             generation: 123456,
             persisted_size: 0,
+            coalescing_buffer: CoalescingBuffer::new(),
             worker_handle: Some(worker_handle),
         };
 
@@ -861,11 +906,13 @@ mod tests {
             running_crc32c: Some(0),
             generation: 123456,
             persisted_size: 0,
+            coalescing_buffer: CoalescingBuffer::new(),
             worker_handle: Some(worker_handle),
         };
 
+        // Append 2 MiB to force channel send
         let err = transport
-            .append(bytes::Bytes::from("hello"))
+            .append(bytes::Bytes::from(vec![1u8; MAX_WRITE_CHUNK_SIZE]))
             .await
             .unwrap_err();
         assert!(
@@ -1201,10 +1248,11 @@ mod tests {
     async fn open_and_append_exceeding_max_chunk_size() -> anyhow::Result<()> {
         // Arrange: 3 MiB payload. The first 2 MiB (MAX_WRITE_CHUNK_SIZE) will be sent
         // in the initial opening request, and the remaining 1 MiB will be dispatched
-        // via transport.append().
+        // via transport.append() into the coalescing buffer.
         let connector = setup_mock_open_transport_connector(987654321).await?;
         let chunk = bytes::Bytes::from(vec![0xBBu8; THREE_MIB]);
-        let expected_crc = crc32c::crc32c(&chunk);
+        let first_chunk = chunk.slice(0..MAX_WRITE_CHUNK_SIZE);
+        let expected_first_crc = crc32c::crc32c(&first_chunk);
 
         // Act: Open with 3 MiB payload.
         let transport = AppendableObjectWriterTransport::new_open_and_append(
@@ -1214,11 +1262,12 @@ mod tests {
         )
         .await?;
 
-        // Assert: Write offset advances to 3 MiB and running CRC32C combines both segments.
+        // Assert: 2 MiB was sent in the opening request; the remaining 1 MiB is held in the coalescing buffer.
         assert_eq!(transport.generation(), 987654321);
         assert_eq!(transport.persisted_size(), 0);
-        assert_eq!(transport.write_offset, THREE_MIB as i64);
-        assert_eq!(transport.running_crc32c, Some(expected_crc));
+        assert_eq!(transport.write_offset, MAX_WRITE_CHUNK_SIZE as i64);
+        assert_eq!(transport.running_crc32c, Some(expected_first_crc));
+        assert_eq!(transport.coalescing_buffer.len(), ONE_MIB);
         Ok(())
     }
 }
