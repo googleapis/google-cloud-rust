@@ -5709,30 +5709,150 @@ impl super::stub::AppPlatform for AppPlatform {
 #[derive(Clone)]
 pub struct StreamingService {
     inner: gaxi::http::ReqwestClient,
+    grpc_inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for StreamingService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("StreamingService")
-            .field("inner", &self.inner)
-            .finish()
+        let mut builder = f.debug_struct("StreamingService");
+        builder.field("inner", &self.inner);
+        builder.field("grpc_inner", &self.grpc_inner);
+        builder.finish()
     }
 }
 
 impl StreamingService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
-        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config.clone(), crate::DEFAULT_HOST).await?;
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
             inner
         };
-        Ok(Self { inner })
+        let grpc_inner = if tracing_is_enabled {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                crate::DEFAULT_HOST,
+                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
+        };
+        Ok(Self { inner, grpc_inner })
     }
 }
 
 impl super::stub::StreamingService for StreamingService {
+    fn send_packets(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::SendPacketsRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::SendPacketsResponse>,
+    ) {
+        let x_goog_request_params = "";
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.cloud.visionai.v1.StreamingService",
+                "SendPackets",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.cloud.visionai.v1.StreamingService/SendPackets",
+        );
+
+        self.grpc_inner
+            .execute_bidi_streaming::<
+                crate::model::SendPacketsRequest,
+                crate::model::SendPacketsResponse,
+                crate::prost::google::cloud::visionai::v1::SendPacketsRequest,
+                crate::prost::google::cloud::visionai::v1::SendPacketsResponse,
+            >(
+                extensions,
+                path,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                x_goog_request_params,
+            )
+    }
+
+    fn receive_packets(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::ReceivePacketsRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::ReceivePacketsResponse>,
+    ) {
+        let x_goog_request_params = "";
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.cloud.visionai.v1.StreamingService",
+                "ReceivePackets",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.cloud.visionai.v1.StreamingService/ReceivePackets",
+        );
+
+        self.grpc_inner
+            .execute_bidi_streaming::<
+                crate::model::ReceivePacketsRequest,
+                crate::model::ReceivePacketsResponse,
+                crate::prost::google::cloud::visionai::v1::ReceivePacketsRequest,
+                crate::prost::google::cloud::visionai::v1::ReceivePacketsResponse,
+            >(
+                extensions,
+                path,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                x_goog_request_params,
+            )
+    }
+
+    fn receive_events(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::ReceiveEventsRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::ReceiveEventsResponse>,
+    ) {
+        let x_goog_request_params = "";
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.cloud.visionai.v1.StreamingService",
+                "ReceiveEvents",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.cloud.visionai.v1.StreamingService/ReceiveEvents",
+        );
+
+        self.grpc_inner
+            .execute_bidi_streaming::<
+                crate::model::ReceiveEventsRequest,
+                crate::model::ReceiveEventsResponse,
+                crate::prost::google::cloud::visionai::v1::ReceiveEventsRequest,
+                crate::prost::google::cloud::visionai::v1::ReceiveEventsResponse,
+            >(
+                extensions,
+                path,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                x_goog_request_params,
+            )
+    }
+
     async fn acquire_lease(
         &self,
         req: crate::model::AcquireLeaseRequest,
@@ -9225,26 +9345,38 @@ impl super::stub::StreamsService for StreamsService {
 #[derive(Clone)]
 pub struct Warehouse {
     inner: gaxi::http::ReqwestClient,
+    grpc_inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for Warehouse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("Warehouse")
-            .field("inner", &self.inner)
-            .finish()
+        let mut builder = f.debug_struct("Warehouse");
+        builder.field("inner", &self.inner);
+        builder.field("grpc_inner", &self.grpc_inner);
+        builder.finish()
     }
 }
 
 impl Warehouse {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
-        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config.clone(), crate::DEFAULT_HOST).await?;
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
             inner
         };
-        Ok(Self { inner })
+        let grpc_inner = if tracing_is_enabled {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                crate::DEFAULT_HOST,
+                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
+        };
+        Ok(Self { inner, grpc_inner })
     }
 }
 
@@ -11766,6 +11898,41 @@ impl super::stub::Warehouse for Warehouse {
                 let (parts, _) = r.into_parts();
                 crate::Response::from_parts(parts, ())
             })
+    }
+
+    fn ingest_asset(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::IngestAssetRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::IngestAssetResponse>,
+    ) {
+        let x_goog_request_params = "";
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.cloud.visionai.v1.Warehouse",
+                "IngestAsset",
+            ));
+            e
+        };
+        let path =
+            http::uri::PathAndQuery::from_static("/google.cloud.visionai.v1.Warehouse/IngestAsset");
+
+        self.grpc_inner
+            .execute_bidi_streaming::<
+                crate::model::IngestAssetRequest,
+                crate::model::IngestAssetResponse,
+                crate::prost::google::cloud::visionai::v1::IngestAssetRequest,
+                crate::prost::google::cloud::visionai::v1::IngestAssetResponse,
+            >(
+                extensions,
+                path,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                x_goog_request_params,
+            )
     }
 
     async fn clip_asset(

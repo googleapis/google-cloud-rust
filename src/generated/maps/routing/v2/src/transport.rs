@@ -22,26 +22,38 @@ use crate::Result;
 #[derive(Clone)]
 pub struct Routes {
     inner: gaxi::http::ReqwestClient,
+    grpc_inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for Routes {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("Routes")
-            .field("inner", &self.inner)
-            .finish()
+        let mut builder = f.debug_struct("Routes");
+        builder.field("inner", &self.inner);
+        builder.field("grpc_inner", &self.grpc_inner);
+        builder.finish()
     }
 }
 
 impl Routes {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
-        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config.clone(), crate::DEFAULT_HOST).await?;
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
             inner
         };
-        Ok(Self { inner })
+        let grpc_inner = if tracing_is_enabled {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                crate::DEFAULT_HOST,
+                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
+        };
+        Ok(Self { inner, grpc_inner })
     }
 }
 
@@ -88,5 +100,45 @@ impl super::stub::Routes for Routes {
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
+    }
+
+    async fn compute_route_matrix(
+        &self,
+        req: crate::model::ComputeRouteMatrixRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::RouteMatrixElement>>
+    {
+        let x_goog_request_params = [None::<String>; 0]
+            .into_iter()
+            .flatten()
+            .fold(String::new(), |b, p| b + "&" + &p);
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.maps.routing.v2.Routes",
+                "ComputeRouteMatrix",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.maps.routing.v2.Routes/ComputeRouteMatrix",
+        );
+
+        self.grpc_inner
+            .execute_server_streaming::<
+                crate::model::ComputeRouteMatrixRequest,
+                crate::model::RouteMatrixElement,
+                crate::prost::google::maps::routing::v2::ComputeRouteMatrixRequest,
+                crate::prost::google::maps::routing::v2::RouteMatrixElement,
+            >(
+                extensions,
+                path,
+                req,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
     }
 }

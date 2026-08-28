@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.39.1-0.20260827174510-d04c05be6896
+version: v0.39.1-0.20260828045539-a4bf9cd6b741
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -145,6 +145,8 @@ default:
     generate_rpc_samples: "true"
     detailed_tracing_attributes: true
     lro_stub_options: true
+    include_bidi_streaming_methods: true
+    include_server_streaming_methods: true
 libraries:
   - name: bigquery-grpc-mock
     copyright_year: "2026"
@@ -219,6 +221,7 @@ libraries:
     version: 1.16.0
     copyright_year: "2025"
     rust:
+      include_server_streaming_methods: false
       per_service_features: true
       default_features:
         - data-foundry-service
@@ -344,6 +347,8 @@ libraries:
   - name: google-cloud-apigeeconnect-v1
     version: 1.11.0
     copyright_year: "2025"
+    rust:
+      include_bidi_streaming_methods: false
   - name: google-cloud-apihub-v1
     version: 1.14.0
     copyright_year: "2025"
@@ -506,6 +511,8 @@ libraries:
     copyright_year: "2026"
     output: src/bigquery
     rust:
+      include_bidi_streaming_methods: false
+      include_server_streaming_methods: false
       modules:
         - module_path: crate::write::generated::gapic_storage::model
           output: src/bigquery/src/write/generated/convert/storage
@@ -657,6 +664,9 @@ libraries:
   - name: google-cloud-ces-v1
     version: 1.5.0
     copyright_year: "2026"
+    rust:
+      include_bidi_streaming_methods: false
+      include_server_streaming_methods: false
   - name: google-cloud-chronicle-v1
     version: 1.14.0
     copyright_year: "2025"
@@ -912,6 +922,8 @@ libraries:
     output: src/firestore
     skip_release: true
     rust:
+      include_bidi_streaming_methods: false
+      include_server_streaming_methods: false
       modules:
         - module_path: crate::generated::gapic::model
           output: src/firestore/src/generated/convert/firestore
@@ -1140,6 +1152,7 @@ libraries:
     copyright_year: "2025"
     rust:
       generate_rpc_samples: "false"
+      include_bidi_streaming_methods: false
   - name: google-cloud-longrunning
     version: 1.13.0
     apis:
@@ -1304,6 +1317,8 @@ libraries:
     copyright_year: "2025"
     output: src/pubsub
     rust:
+      include_bidi_streaming_methods: false
+      include_server_streaming_methods: false
       modules:
         - included_ids:
             - .google.pubsub.v1.Publisher.Publish
@@ -1478,6 +1493,8 @@ libraries:
     copyright_year: "2026"
     output: src/spanner
     rust:
+      include_bidi_streaming_methods: false
+      include_server_streaming_methods: false
       modules:
         - module_path: crate::generated::gapic_dataplane::model
           output: src/spanner/src/generated/convert/spanner
@@ -1557,6 +1574,8 @@ libraries:
     output: src/storage
     rust:
       resource_name_heuristic: true
+      include_bidi_streaming_methods: false
+      include_server_streaming_methods: false
       modules:
         - module_path: crate::generated::gapic_control::model
           name_overrides: .google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_buckets=CloudStorageBucketsOneOf,.google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_locations=CloudStorageLocationsOneOf

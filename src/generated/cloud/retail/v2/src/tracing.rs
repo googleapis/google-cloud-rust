@@ -737,6 +737,16 @@ impl<T> super::stub::ConversationalSearchService for ConversationalSearchService
 where
     T: super::stub::ConversationalSearchService + std::fmt::Debug + Send + Sync,
 {
+    async fn conversational_search(
+        &self,
+        req: crate::model::ConversationalSearchRequest,
+        options: crate::RequestOptions,
+    ) -> Result<
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::ConversationalSearchResponse>,
+    > {
+        self.inner.conversational_search(req, options).await
+    }
+
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_operations(
         &self,

@@ -293,6 +293,15 @@ where
         pending.await
     }
 
+    async fn list_partitions(
+        &self,
+        req: crate::model::ListPartitionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::ListPartitionsResponse>>
+    {
+        self.inner.list_partitions(req, options).await
+    }
+
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn failover_hive_catalog(
         &self,

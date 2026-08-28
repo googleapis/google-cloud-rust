@@ -1332,6 +1332,16 @@ impl ConversationalSearchService {
             .map(super::tracing::ConversationalSearchService::new)
     }
 
+    /// Performs a conversational search.
+    ///
+    /// This feature is only available for users who have Conversational Search
+    /// enabled.
+    pub fn conversational_search(
+        &self,
+    ) -> super::builder::conversational_search_service::ConversationalSearch {
+        super::builder::conversational_search_service::ConversationalSearch::new(self.inner.clone())
+    }
+
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
