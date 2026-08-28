@@ -55,7 +55,7 @@ impl<'a> ArrowCell<'a> {
     }
 
     /// Returns the data type of the underlying array.
-    fn data_type(&self) -> &arrow::datatypes::DataType {
+    pub(crate) fn data_type(&self) -> &arrow::datatypes::DataType {
         self.array.data_type()
     }
 
