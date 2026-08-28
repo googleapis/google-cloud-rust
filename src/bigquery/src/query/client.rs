@@ -55,8 +55,8 @@ use std::sync::Arc;
 ///     .read();
 ///
 /// while let Some(row) = rows.next().await.transpose()? {
-///     let name: String = row.get("name");
-///     let count: i64 = row.get("count");
+///     let name: String = row.get("name")?;
+///     let count: i64 = row.get("count")?;
 ///     println!("{name}: {count}");
 /// }
 /// # Ok(()) }
@@ -144,8 +144,8 @@ impl BigQuery {
     ///     .read();
     ///
     /// while let Some(row) = rows.next().await.transpose()? {
-    ///     let name: String = row.get("name");
-    ///     let count: i64 = row.get("count");
+    ///     let name: String = row.get("name")?;
+    ///     let count: i64 = row.get("count")?;
     ///     println!("{name}: {count}");
     /// }
     /// # Ok(())

@@ -37,7 +37,7 @@ LIMIT 2500
 
     let mut count = 0;
     while let Some(row) = rows.next().await.transpose()? {
-        let _name: String = row.get("name");
+        let _name: String = row.get("name")?;
         count += 1;
     }
     println!("Total rows fetched via pagination: {count}");

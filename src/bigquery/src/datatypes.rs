@@ -43,7 +43,7 @@ use crate::query::from_sql::parse_time;
 ///     .read();
 ///
 /// if let Some(row) = rows.next().await.transpose()? {
-///     let interval: Interval = row.get("duration");
+///     let interval: Interval = row.get("duration")?;
 ///     println!("{} years, {} months, {} days", interval.years, interval.months, interval.days);
 /// }
 /// # Ok(())
@@ -169,7 +169,7 @@ impl FromSql for Interval {
 ///     .read();
 ///
 /// if let Some(row) = rows.next().await.transpose()? {
-///     let date_range: Range<Date> = row.get("date_range");
+///     let date_range: Range<Date> = row.get("date_range")?;
 ///     println!("Start: {:?}, End: {:?}", date_range.start, date_range.end);
 /// }
 /// # Ok(())
