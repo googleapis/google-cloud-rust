@@ -27,7 +27,7 @@
 use crate::model::Tablet;
 use crate::routing::connection_cache::ConnectionCache;
 use crate::routing::endpoint_cooldown::EndpointCooldownTracker;
-use crate::routing::key_range_cache::{CachedRange, KeyRangeCache, RangeMode};
+use crate::routing::key_range_cache::{CachedGroup, CachedRange, KeyRangeCache};
 use crate::routing::latency_registry::LatencyRegistry;
 use crate::routing::power_of_two_selector::PowerOfTwoSelector;
 use crate::routing::server_connection::ServerConnection;
@@ -208,9 +208,7 @@ impl LocationRouter {
 
         // Step 2: Query key range cache and select healthy replica.
         if let Some(routing_key) = context.routing_key
-            && let Some(range) = self
-                .key_range_cache
-                .find_range(routing_key, &[], RangeMode::CoveringSplit)
+            && let Some(range) = self.key_range_cache.find_key(routing_key)
             && let Some((tablet, connection)) =
                 self.select_healthy_replica(&range, context.prefer_leader)
         {
@@ -235,62 +233,97 @@ impl LocationRouter {
         prefer_leader: bool,
     ) -> Option<(Tablet, ServerConnection)> {
         let group = self.key_range_cache.get_group(range.group_uid)?;
-
-        // 1. If leader is preferred, check if the local leader is healthy and routable.
         if prefer_leader {
-            let leader = group.local_leader()?;
-            let connection = self.get_routable_connection(leader)?;
-            return Some((leader.clone(), connection));
+            return self.select_healthy_leader(&group);
+        }
+        self.select_healthy_follower(&group, range.group_uid)
+    }
+
+    /// Selects the local leader tablet if healthy and routable.
+    fn select_healthy_leader(&self, group: &CachedGroup) -> Option<(Tablet, ServerConnection)> {
+        let leader = group.local_leader()?;
+        let connection = self.get_routable_connection(leader)?;
+        Some((leader.clone(), connection))
+    }
+
+    /// Selects a follower replica using P2C replica selection weighted by latency and in-flight load.
+    fn select_healthy_follower(
+        &self,
+        group: &CachedGroup,
+        group_uid: u64,
+    ) -> Option<(Tablet, ServerConnection)> {
+        const MAX_ROUTABLE_CANDIDATES: usize = 8;
+        // Filter routable replicas in the lowest distance tier into a fixed-size stack buffer
+        // to eliminate heap allocation on the hot request path while ensuring P2C samples from
+        // the active healthy candidate set.
+        let mut routable: [Option<(&Tablet, ServerConnection)>; MAX_ROUTABLE_CANDIDATES] =
+            [const { None }; MAX_ROUTABLE_CANDIDATES];
+        let mut routable_count = 0;
+        for &index in &group.eligible_replica_indices {
+            if routable_count >= routable.len() {
+                break;
+            }
+            let tablet = &group.tablets[index];
+            if let Some(connection) = self.get_routable_connection(tablet) {
+                routable[routable_count] = Some((tablet, connection));
+                routable_count += 1;
+            }
         }
 
-        // 2. Fast-path single-replica groups without allocating a Vec.
-        if group.eligible_replica_indices.len() == 1 {
-            let tablet = &group.tablets[group.eligible_replica_indices[0]];
-            let connection = self.get_routable_connection(tablet)?;
-            return Some((tablet.clone(), connection));
-        }
-
-        // 3. Follower selection (prefer_leader = false): Single-pass filter over precomputed lowest-distance
-        // replica indices, pairing each routable replica with its pre-warmed connection in a single lookup.
-        let routable: Vec<(&Tablet, ServerConnection)> = group
-            .eligible_replica_indices
-            .iter()
-            .map(|&index| &group.tablets[index])
-            .filter_map(|tablet| {
-                self.get_routable_connection(tablet)
-                    .map(|connection| (tablet, connection))
-            })
-            .collect();
-
-        if routable.is_empty() {
+        if routable_count == 0 {
             return None;
         }
-        if routable.len() == 1 {
-            return Some((routable[0].0.clone(), routable[0].1.clone()));
+        if routable_count == 1 {
+            return routable[0]
+                .take()
+                .map(|(tablet, connection)| (tablet.clone(), connection));
         }
 
-        // 4. When multiple candidate replicas are tied in the lowest distance tier,
-        // use Power of Two Choices (P2C) to sample 2 candidates and pick the one with the lower cost:
-        // cost = EWMA_latency * (active_inflight_requests + 1)
-        let selected = self
-            .replica_selector
-            .select(&routable, |(tablet, connection)| {
-                self.latency_registry.get_selection_cost(
-                    Some(&self.database_scope),
-                    range.group_uid,
-                    connection.active_request_count(),
-                    &tablet.server_address,
-                )
-            })?;
+        self.select_p2c_winner(&mut routable, routable_count, group_uid)
+    }
 
-        Some((selected.0.clone(), selected.1.clone()))
+    /// Compares sampled candidates from the routable stack buffer using P2C and returns the winner.
+    fn select_p2c_winner(
+        &self,
+        routable: &mut [Option<(&Tablet, ServerConnection)>],
+        routable_count: usize,
+        group_uid: u64,
+    ) -> Option<(Tablet, ServerConnection)> {
+        let (first_index, second_index) = self.replica_selector.sample_two_distinct(routable_count);
+
+        let (first_tablet, first_connection) = routable.get(first_index)?.as_ref()?;
+        let (second_tablet, second_connection) = routable.get(second_index)?.as_ref()?;
+
+        let first_cost = self.latency_registry.get_selection_cost(
+            Some(&self.database_scope),
+            group_uid,
+            first_connection.active_request_count(),
+            &first_tablet.server_address,
+        );
+        let second_cost = self.latency_registry.get_selection_cost(
+            Some(&self.database_scope),
+            group_uid,
+            second_connection.active_request_count(),
+            &second_tablet.server_address,
+        );
+
+        let selected_index = if first_cost <= second_cost {
+            first_index
+        } else {
+            second_index
+        };
+
+        let (selected_tablet, selected_connection) = routable.get_mut(selected_index)?.take()?;
+        Some((selected_tablet.clone(), selected_connection))
     }
 
     /// Returns the pre-warmed, healthy [`ServerConnection`] for a tablet if it has a non-empty
     /// server address, is not currently on cooldown, and is ready in the connection cache.
     fn get_routable_connection(&self, tablet: &Tablet) -> Option<ServerConnection> {
         if tablet.server_address.is_empty()
-            || self.cooldown_tracker.is_cooling_down(&tablet.server_address)
+            || self
+                .cooldown_tracker
+                .is_cooling_down(&tablet.server_address)
         {
             return None;
         }
@@ -980,5 +1013,230 @@ mod tests {
                 "must route to the only pre-warmed healthy replica"
             );
         }
+    }
+
+    #[tokio::test]
+    async fn select_healthy_replica_returns_gateway_when_group_missing() {
+        let router = make_test_router();
+
+        // Create range pointing to group UID 999 which is not added to the cache
+        let range = Range::new()
+            .set_group_uid(999u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        let connection = router.resolve_connection(&context);
+        assert_eq!(
+            connection.address(),
+            "spanner.googleapis.com:443",
+            "must fall back to default gateway when group is missing from cache"
+        );
+    }
+
+    #[tokio::test]
+    async fn select_healthy_leader_falls_back_to_gateway_when_group_has_no_leader() {
+        let router = make_test_router();
+
+        // Create a group without setting leader_index
+        let tablet = Tablet::default()
+            .set_tablet_uid(10u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_distance(0u32);
+
+        let group = Group::new()
+            .set_group_uid(100u64)
+            .set_leader_index(-1)
+            .set_tablets(vec![tablet]);
+        let range = Range::new()
+            .set_group_uid(100u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("init connection");
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: true,
+            use_transaction_affinity: false,
+        };
+
+        let connection = router.resolve_connection(&context);
+        assert_eq!(
+            connection.address(),
+            "spanner.googleapis.com:443",
+            "must fall back to default gateway when leader is requested but no leader exists"
+        );
+    }
+
+    #[tokio::test]
+    async fn select_healthy_follower_falls_back_to_gateway_when_no_replicas_routable() {
+        let router = make_test_router();
+
+        let tablet1 = Tablet::default()
+            .set_tablet_uid(10u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_distance(0u32);
+        let tablet2 = Tablet::default()
+            .set_tablet_uid(11u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_distance(0u32);
+
+        let group = Group::new()
+            .set_group_uid(100u64)
+            .set_tablets(vec![tablet1, tablet2]);
+        let range = Range::new()
+            .set_group_uid(100u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        // Neither node is pre-warmed in the connection cache
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        let connection = router.resolve_connection(&context);
+        assert_eq!(
+            connection.address(),
+            "spanner.googleapis.com:443",
+            "must fall back to gateway when no candidate replicas are routable"
+        );
+    }
+
+    #[tokio::test]
+    async fn select_healthy_follower_routes_among_multiple_p2c_candidates() {
+        let router = make_test_router();
+
+        let mut tablets = Vec::new();
+        for index in 0..4 {
+            let address = format!("10.0.0.{}:15000", index + 1);
+            let tablet = Tablet::default()
+                .set_tablet_uid(10u64 + index as u64)
+                .set_server_address(address.clone())
+                .set_distance(0u32);
+            tablets.push(tablet);
+
+            let _ = router
+                .connection_cache()
+                .get(&address, &ClientConfig::default())
+                .await
+                .expect("initialize candidate connection");
+        }
+
+        let group = Group::new().set_group_uid(100u64).set_tablets(tablets);
+        let range = Range::new()
+            .set_group_uid(100u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        // Record latencies: node 1 is fastest (5ms), node 4 is slowest (200ms)
+        router.record_latency(100, "10.0.0.1:15000", Duration::from_millis(5));
+        router.record_latency(100, "10.0.0.2:15000", Duration::from_millis(20));
+        router.record_latency(100, "10.0.0.3:15000", Duration::from_millis(50));
+        router.record_latency(100, "10.0.0.4:15000", Duration::from_millis(200));
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        for _ in 0..20 {
+            let connection = router.resolve_connection(&context);
+            assert!(
+                connection.address() != "spanner.googleapis.com:443",
+                "must route to one of the healthy candidates"
+            );
+        }
+    }
+
+    #[tokio::test]
+    async fn select_healthy_follower_caps_at_stack_buffer_limit() {
+        let router = make_test_router();
+
+        // Create 10 replicas (exceeding the stack buffer size of 8)
+        let mut tablets = Vec::new();
+        for index in 0..10 {
+            let address = format!("10.0.0.{}:15000", index + 1);
+            let tablet = Tablet::default()
+                .set_tablet_uid(10u64 + index as u64)
+                .set_server_address(address.clone())
+                .set_distance(0u32);
+            tablets.push(tablet);
+
+            let _ = router
+                .connection_cache()
+                .get(&address, &ClientConfig::default())
+                .await
+                .expect("initialize candidate connection");
+        }
+
+        let group = Group::new().set_group_uid(100u64).set_tablets(tablets);
+        let range = Range::new()
+            .set_group_uid(100u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        let connection = router.resolve_connection(&context);
+        assert!(
+            connection.address().starts_with("10.0.0."),
+            "must successfully route even when candidate count exceeds stack buffer capacity"
+        );
     }
 }

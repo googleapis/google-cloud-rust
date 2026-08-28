@@ -506,6 +506,11 @@ impl KeyRangeCache {
         state.ranges.insert(start_key, new_range);
     }
 
+    /// Finds a cached range covering the specified single routing key using [`RangeMode::CoveringSplit`].
+    pub(crate) fn find_key(&self, key: &[u8]) -> Option<Arc<CachedRange>> {
+        self.find_range(key, &[], RangeMode::CoveringSplit)
+    }
+
     /// Finds a cached range covering the specified key or range.
     ///
     /// Uses zero-allocation slice borrowing (`Bound::Excluded(key)`) to query the B-tree map.
