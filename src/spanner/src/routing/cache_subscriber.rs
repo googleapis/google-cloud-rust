@@ -283,7 +283,7 @@ fn build_fetch_request(
 fn handle_stream_message(proto_cache_update: ProtoCacheUpdate, cache_updater: &CacheUpdater) {
     match proto_cache_update.cnv() {
         Ok(cache_update) => {
-            cache_updater.process_cache_update(&cache_update);
+            cache_updater.process_cache_update(cache_update);
         }
         Err(conversion_error) => {
             warn!(
@@ -505,6 +505,7 @@ async fn run_subscriber_loop(
 mod tests {
     use super::*;
     use crate::client::Channel;
+    use crate::model::{CacheUpdate, Range};
     use crate::routing::connection_cache::ConnectionCache;
     use crate::routing::key_range_cache::{KeyRangeCache, RangeMode};
     use crate::routing::key_recipe_cache::KeyRecipeCache;
@@ -1103,6 +1104,74 @@ mod tests {
             }
             tokio::task::yield_now().await;
         }
+
+        subscriber.wait_for_shutdown().await;
+    }
+
+    #[tokio_test_no_panics]
+    async fn subscriber_updates_database_id_and_invalidates_caches_on_database_switch() {
+        let cache_updater = sample_cache_updater();
+        let (attempt_sender, mut attempt_receiver) = mpsc::channel(4);
+
+        // Pre-populate with database ID 1
+        let pre_update = CacheUpdate::new().set_database_id(1u64).set_range(vec![
+            Range::new()
+                .set_group_uid(1u64)
+                .set_start_key(vec![b'a'])
+                .set_limit_key(vec![b'm']),
+        ]);
+        cache_updater.process_cache_update(pre_update);
+        assert_eq!(cache_updater.database_id(), 1);
+        assert_eq!(cache_updater.key_range_cache().len(), 1);
+
+        let mut mock = MockSpanner::new();
+        mock.expect_fetch_cache_update().returning(move |_req| {
+            let _ = attempt_sender.try_send(());
+            let (stream_sender, stream_receiver) = mpsc::channel(4);
+            let mut new_db_update =
+                sample_proto_cache_update(b"m", b"z", "new-node.spanner.internal:1000");
+            new_db_update.database_id = 999;
+            tokio::spawn(async move {
+                let _ = stream_sender.send(Ok(new_db_update)).await;
+            });
+            Ok(Response::new(stream_receiver))
+        });
+
+        let (spanner, _server) = setup_spanner(mock).await;
+        let subscriber = CacheSubscriber::start(
+            "projects/p/instances/i/databases/d".to_string(),
+            spanner,
+            Arc::clone(&cache_updater),
+        );
+
+        attempt_receiver
+            .recv()
+            .await
+            .expect("initial connection attempt should arrive");
+
+        loop {
+            if cache_updater.database_id() == 999 {
+                break;
+            }
+            tokio::task::yield_now().await;
+        }
+
+        // Cache must have been invalidated on DB switch from 1 to 999, so only the new range (m..z) exists
+        assert_eq!(cache_updater.database_id(), 999);
+        assert!(
+            cache_updater
+                .key_range_cache()
+                .find_range(b"b", &[], RangeMode::CoveringSplit)
+                .is_none(),
+            "old database range must be cleared on database ID switch"
+        );
+        assert!(
+            cache_updater
+                .key_range_cache()
+                .find_range(b"p", &[], RangeMode::CoveringSplit)
+                .is_some(),
+            "new database range must be present"
+        );
 
         subscriber.wait_for_shutdown().await;
     }

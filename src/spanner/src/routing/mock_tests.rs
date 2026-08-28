@@ -1581,7 +1581,8 @@ async fn multi_region_distance_tier_prioritizes_local_replicas() -> anyhow::Resu
 }
 
 #[tokio_test_no_panics]
-async fn endpoint_cooldown_leader_on_cooldown_falls_back_to_gateway() -> anyhow::Result<()> {
+async fn endpoint_cooldown_leader_on_cooldown_falls_back_to_follower_then_gateway()
+-> anyhow::Result<()> {
     let mock_gateway = create_base_mock();
     let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
 
@@ -1640,12 +1641,23 @@ async fn endpoint_cooldown_leader_on_cooldown_falls_back_to_gateway() -> anyhow:
     // Place the leader on cooldown
     router.cooldown_tracker().record_failure(&leader_address);
 
-    // For prefer_leader: true requests, when the leader is on cooldown, router falls back to default gateway
+    // When the leader is on cooldown, prefer_leader: true requests fall back to a healthy follower replica in the group
     let resolved_fallback = router.resolve_connection(&context);
     assert_eq!(
         resolved_fallback.address(),
+        follower_address,
+        "prefer_leader request must fall back to healthy follower replica when leader is on cooldown"
+    );
+
+    // Place the follower on cooldown as well
+    router.cooldown_tracker().record_failure(&follower_address);
+
+    // When all replicas in the group are on cooldown, router falls back to default gateway
+    let resolved_gateway = router.resolve_connection(&context);
+    assert_eq!(
+        resolved_gateway.address(),
         gateway_address,
-        "request requiring leader must fall back to default gateway when leader is on cooldown"
+        "request must fall back to default gateway when all group replicas are on cooldown"
     );
 
     Ok(())
@@ -2415,6 +2427,34 @@ async fn proactive_cache_subscriber_streams_update_to_router() -> anyhow::Result
     assert_eq!(
         found_range.group_uid, 9999,
         "cached range must map to streamed group 9999"
+    );
+    assert_eq!(
+        database_client.database_id(),
+        Some(888888),
+        "database_client.database_id() must immediately reflect the database ID from subscriber stream"
+    );
+
+    // Ingest a stale inline update with an older database ID (111111 < 888888)
+    let stale_update = sample_model_cache_update(
+        111111,
+        1111,
+        "stale-leader.spanner.internal:15000",
+        "stale-follower.spanner.internal:15000",
+    );
+    database_client.observe_cache_update(Some(stale_update));
+
+    assert_eq!(
+        database_client.database_id(),
+        Some(888888),
+        "stale inline update must not regress database_id established by subscriber"
+    );
+    let preserved_range = router
+        .key_range_cache()
+        .find_range(b"singer_500", &[], RangeMode::CoveringSplit)
+        .expect("streamed range must be preserved");
+    assert_eq!(
+        preserved_range.group_uid, 9999,
+        "streamed ranges must not be wiped by stale inline update"
     );
 
     Ok(())
