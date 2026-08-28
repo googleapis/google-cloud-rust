@@ -26,6 +26,7 @@ categories.workspace   = true
 rust-version.workspace = true
 
 [dependencies]
+arrow                        = { workspace = true, features = ["ipc", "ipc_compression"] }
 async-trait.workspace        = true
 base64.workspace             = true
 bytes.workspace              = true

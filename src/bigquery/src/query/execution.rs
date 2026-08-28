@@ -20,7 +20,8 @@ use crate::query::retry_policy::JobRetryResult;
 use crate::query::{Query as QueryHandle, Result};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{
-    InsertJobRequest, Job, JobConfiguration, PostQueryRequest, QueryRequest, QueryResponse,
+    DataFormatOptions, InsertJobRequest, Job, JobConfiguration, PostQueryRequest, QueryRequest,
+    QueryResponse,
 };
 use google_cloud_gax::options::RequestOptionsBuilder as _;
 use google_cloud_gax::retry_state::RetryState;
@@ -200,11 +201,20 @@ impl RetryContext {
         let query_request_id = generate_prefixed_id(QUERY_REQUEST_ID_PREFIX);
         let query_request: QueryRequest = self.template.request.clone().into();
         let query_request = query_request
-            .set_format_options(
-                google_cloud_bigquery_v2::model::DataFormatOptions::new()
-                    .set_use_int64_timestamp(true),
-            )
-            .set_request_id(query_request_id);
+            .set_format_options(DataFormatOptions::new().set_use_int64_timestamp(true));
+        #[cfg(google_cloud_unstable_bigquery_arrow)]
+        let query_request = query_request
+            .set_query_results_format(google_cloud_bigquery_v2::model::query_request::QueryResultsFormat::Arrow)
+            .set_results_format_serialization_options(
+                google_cloud_bigquery_v2::model::query_request::ResultsFormatSerializationOptions::ArrowSerializationOptions(
+                    Box::new(
+                        google_cloud_bigquery_v2::model::ArrowSerializationOptions::new().set_buffer_compression(
+                            google_cloud_bigquery_v2::model::arrow_serialization_options::CompressionCodec::Zstd,
+                        ),
+                    ),
+                ),
+            );
+        let query_request = query_request.set_request_id(query_request_id);
         let req = PostQueryRequest::new()
             .set_project_id(project_id)
             .set_query_request(query_request);
@@ -263,7 +273,7 @@ mod tests {
             .clone()
             .expect("should have job_ref");
         assert_eq!(job_ref.job_id, "my-job-123", "{job_ref:?}");
-        assert!(query.cached_rows.is_some(), "{query:?}");
+        assert!(query.cached_data.is_some(), "{query:?}");
 
         Ok(())
     }

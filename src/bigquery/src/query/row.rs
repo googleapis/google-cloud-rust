@@ -13,7 +13,9 @@
 // limitations under the License.
 
 use crate::error::{ConvertError, RowError};
+use crate::query::from_sql::ArrowCell;
 use crate::query::{FromSql, Schema};
+use arrow::record_batch::RecordBatch;
 use google_cloud_bigquery_v2::model::TableFieldSchema;
 use std::sync::Arc;
 use wkt::{ListValue, Struct, Value};
@@ -62,8 +64,17 @@ pub type Result<T> = std::result::Result<T, RowError>;
 /// ```
 #[derive(Clone, Debug)]
 pub struct Row {
-    pub(crate) values: Value,
+    pub(crate) inner: RowInner,
     pub(crate) schema: Arc<Schema>,
+}
+
+#[derive(Clone, Debug)]
+pub(crate) enum RowInner {
+    Json(ListValue),
+    Arrow {
+        batch: Arc<RecordBatch>,
+        row_idx: usize,
+    },
 }
 
 mod sealed {
@@ -80,11 +91,22 @@ mod sealed {
 pub trait ColumnIndex: sealed::ColumnIndex + std::fmt::Display {
     /// Returns the index of the column in the given row, if it exists.
     fn index(&self, row: &Row) -> Option<usize>;
+
+    /// Returns the index of the column in the given arrow struct array, if it exists.
+    fn arrow_index(&self, struct_arr: &arrow::array::StructArray) -> Option<usize>;
 }
 
 impl ColumnIndex for usize {
     fn index(&self, row: &Row) -> Option<usize> {
         row.schema.get_field_by_index(*self).map(|_| *self)
+    }
+
+    fn arrow_index(&self, struct_arr: &arrow::array::StructArray) -> Option<usize> {
+        if *self < struct_arr.num_columns() {
+            Some(*self)
+        } else {
+            None
+        }
     }
 }
 
@@ -92,11 +114,19 @@ impl ColumnIndex for &str {
     fn index(&self, row: &Row) -> Option<usize> {
         row.schema.get_field_index_by_name(self)
     }
+
+    fn arrow_index(&self, struct_arr: &arrow::array::StructArray) -> Option<usize> {
+        struct_arr.fields().iter().position(|f| f.name() == self)
+    }
 }
 
 impl ColumnIndex for String {
     fn index(&self, row: &Row) -> Option<usize> {
         self.as_str().index(row)
+    }
+
+    fn arrow_index(&self, struct_arr: &arrow::array::StructArray) -> Option<usize> {
+        self.as_str().arrow_index(struct_arr)
     }
 }
 
@@ -105,7 +135,29 @@ impl Row {
         let values = convert_row(row, schema.fields())?;
 
         Ok(Self {
-            values: Value::Array(values),
+            inner: RowInner::Json(values),
+            schema: schema.clone(),
+        })
+    }
+
+    pub(crate) fn try_new_from_arrow(
+        batch: &Arc<RecordBatch>,
+        row_idx: usize,
+        schema: &Arc<Schema>,
+    ) -> Result<Self> {
+        if batch.num_columns() != schema.len() {
+            return Err(RowError::InvalidRowFormat(format!(
+                "schema and row cell mismatch (expected {}, got {})",
+                schema.len(),
+                batch.num_columns()
+            )));
+        }
+
+        Ok(Self {
+            inner: RowInner::Arrow {
+                batch: Arc::clone(batch),
+                row_idx,
+            },
             schema: schema.clone(),
         })
     }
@@ -155,15 +207,35 @@ impl Row {
     /// ```
     pub fn try_get<T: FromSql, I: ColumnIndex>(&self, index: I) -> Result<T> {
         let idx = self.resolve_index(&index)?;
-        let val = self
-            .values
-            .get(idx)
-            .ok_or_else(|| RowError::IndexOutOfRange {
-                index: idx,
-                len: self.schema.len(),
-            })?;
-
-        self.convert_value_at(idx, val.clone())
+        match &self.inner {
+            RowInner::Json(values) => {
+                let val = values.get(idx).ok_or_else(|| RowError::IndexOutOfRange {
+                    index: idx,
+                    len: self.schema.len(),
+                })?;
+                self.convert_value_at(idx, val.clone())
+            }
+            RowInner::Arrow { batch, row_idx } => {
+                let col = batch
+                    .columns()
+                    .get(idx)
+                    .ok_or_else(|| RowError::IndexOutOfRange {
+                        index: idx,
+                        len: self.schema.len(),
+                    })?;
+                T::from_arrow(ArrowCell::new(col.as_ref(), *row_idx)).map_err(|e| {
+                    let field_name = self
+                        .schema
+                        .get_field_by_index(idx)
+                        .map(|f| f.name.clone())
+                        .unwrap_or_else(|| idx.to_string());
+                    RowError::TypeConversion {
+                        column: field_name,
+                        source: e,
+                    }
+                })
+            }
+        }
     }
 
     /// Takes ownership of a value from the row by column name or zero-based
@@ -189,18 +261,40 @@ impl Row {
     /// ```
     pub fn take<T: FromSql, I: ColumnIndex>(&mut self, index: I) -> Result<T> {
         let idx = self.resolve_index(&index)?;
+        match &mut self.inner {
+            RowInner::Json(values) => {
+                let val = values
+                    .get_mut(idx)
+                    .ok_or_else(|| RowError::IndexOutOfRange {
+                        index: idx,
+                        len: self.schema.len(),
+                    })?;
 
-        let val = self
-            .values
-            .get_mut(idx)
-            .ok_or_else(|| RowError::IndexOutOfRange {
-                index: idx,
-                len: self.schema.len(),
-            })?;
-
-        // swap out the value in-place to avoid clones
-        let owned_val = std::mem::replace(val, Value::Null);
-        self.convert_value_at(idx, owned_val)
+                // swap out the value in-place to avoid clones
+                let owned_val = std::mem::replace(val, Value::Null);
+                self.convert_value_at(idx, owned_val)
+            }
+            RowInner::Arrow { batch, row_idx } => {
+                let col = batch
+                    .columns()
+                    .get(idx)
+                    .ok_or_else(|| RowError::IndexOutOfRange {
+                        index: idx,
+                        len: self.schema.len(),
+                    })?;
+                T::from_arrow(ArrowCell::new(col.as_ref(), *row_idx)).map_err(|e| {
+                    let field_name = self
+                        .schema
+                        .get_field_by_index(idx)
+                        .map(|f| f.name.clone())
+                        .unwrap_or_else(|| idx.to_string());
+                    RowError::TypeConversion {
+                        column: field_name,
+                        source: e,
+                    }
+                })
+            }
+        }
     }
 
     /// Retrieves a value from the row by column name or zero-based index.
@@ -830,6 +924,171 @@ mod tests {
 
         let err = TestRow::try_from(row).unwrap_err();
         assert!(matches!(err, RowError::ColumnNotFound(col) if col == "custom_int"));
+        Ok(())
+    }
+
+    #[test]
+    fn try_new_from_arrow_batch() -> TestResult {
+        use arrow::array::{
+            BooleanArray, Float64Array, Int64Array, StringArray, TimestampMicrosecondArray,
+        };
+        use arrow::datatypes::{DataType, Field, Schema as ArrowSchema, TimeUnit};
+
+        let arrow_schema = Arc::new(ArrowSchema::new(vec![
+            Field::new("name", DataType::Utf8, false),
+            Field::new("age", DataType::Int64, true),
+            Field::new("active", DataType::Boolean, false),
+            Field::new("score", DataType::Float64, false),
+            Field::new(
+                "created_ts",
+                DataType::Timestamp(TimeUnit::Microsecond, Some("UTC".into())),
+                false,
+            ),
+            Field::new(
+                "created_dt",
+                DataType::Timestamp(TimeUnit::Microsecond, None),
+                false,
+            ),
+        ]));
+
+        let name = StringArray::from(vec!["Alice", "Bob"]);
+        let age = Int64Array::from(vec![Some(30), None]);
+        let active = BooleanArray::from(vec![true, false]);
+        let score = Float64Array::from(vec![98.5, 87.25]);
+        let created_ts =
+            TimestampMicrosecondArray::from(vec![1_600_000_000_000_000, 1_700_000_000_000_000])
+                .with_timezone("UTC");
+        let created_dt =
+            TimestampMicrosecondArray::from(vec![1_600_000_000_000_000, 1_700_000_000_000_000]);
+
+        let batch = Arc::new(RecordBatch::try_new(
+            arrow_schema,
+            vec![
+                Arc::new(name),
+                Arc::new(age),
+                Arc::new(active),
+                Arc::new(score),
+                Arc::new(created_ts),
+                Arc::new(created_dt),
+            ],
+        )?);
+
+        let table_schema = TableSchema::new().set_fields([
+            TableFieldSchema::new().set_name("name").set_type("STRING"),
+            TableFieldSchema::new().set_name("age").set_type("INTEGER"),
+            TableFieldSchema::new()
+                .set_name("active")
+                .set_type("BOOLEAN"),
+            TableFieldSchema::new().set_name("score").set_type("FLOAT"),
+            TableFieldSchema::new()
+                .set_name("created_ts")
+                .set_type("TIMESTAMP"),
+            TableFieldSchema::new()
+                .set_name("created_dt")
+                .set_type("DATETIME"),
+        ]);
+        let schema = Arc::new(Schema::new(table_schema));
+
+        let row0 = Row::try_new_from_arrow(&batch, 0, &schema)?;
+        assert_eq!(row0.get::<String, _>("name"), "Alice");
+        assert_eq!(row0.get::<Option<i64>, _>("age"), Some(30));
+        assert!(row0.get::<bool, _>("active"));
+        assert_eq!(row0.get::<f64, _>("score"), 98.5);
+        assert_eq!(
+            row0.get::<wkt::Timestamp, _>("created_ts"),
+            wkt::Timestamp::new(1_600_000_000, 0).unwrap()
+        );
+
+        let row1 = Row::try_new_from_arrow(&batch, 1, &schema)?;
+        assert_eq!(row1.get::<String, _>("name"), "Bob");
+        assert_eq!(row1.get::<Option<i64>, _>("age"), None);
+        assert!(!row1.get::<bool, _>("active"));
+        assert_eq!(row1.get::<f64, _>("score"), 87.25);
+        assert_eq!(
+            row1.get::<wkt::Timestamp, _>("created_ts"),
+            wkt::Timestamp::new(1_700_000_000, 0).unwrap()
+        );
+
+        Ok(())
+    }
+
+    #[test]
+    fn try_new_from_arrow_interval() -> TestResult {
+        use crate::datatypes::Interval;
+        use arrow::array::IntervalMonthDayNanoArray;
+        use arrow::datatypes::{DataType, Field, IntervalUnit, Schema as ArrowSchema};
+
+        let arrow_schema = Arc::new(ArrowSchema::new(vec![Field::new(
+            "duration",
+            DataType::Interval(IntervalUnit::MonthDayNano),
+            false,
+        )]));
+
+        let intervals = IntervalMonthDayNanoArray::from(vec![
+            arrow::datatypes::IntervalMonthDayNanoType::make_value(
+                14,
+                3,
+                (4 * 3600 + 5 * 60 + 6) * 1_000_000_000 + 789_123_456,
+            ),
+            arrow::datatypes::IntervalMonthDayNanoType::make_value(
+                -14,
+                -3,
+                -((4 * 3600 + 5 * 60 + 6) * 1_000_000_000 + 123_000_000),
+            ),
+            arrow::datatypes::IntervalMonthDayNanoType::make_value(i32::MIN, 0, i64::MIN),
+        ]);
+
+        let batch = Arc::new(RecordBatch::try_new(
+            arrow_schema,
+            vec![Arc::new(intervals)],
+        )?);
+
+        let table_schema = TableSchema::new().set_fields([TableFieldSchema::new()
+            .set_name("duration")
+            .set_type("INTERVAL")]);
+        let schema = Arc::new(Schema::new(table_schema));
+
+        let row0 = Row::try_new_from_arrow(&batch, 0, &schema)?;
+        let int0: Interval = row0.get("duration");
+        assert_eq!(
+            int0,
+            Interval {
+                years: 1,
+                months: 2,
+                days: 3,
+                hours: 4,
+                minutes: 5,
+                seconds: 6,
+                nanos: 789_123_456,
+            }
+        );
+
+        let row1 = Row::try_new_from_arrow(&batch, 1, &schema)?;
+        let int1: Interval = row1.get("duration");
+        assert_eq!(
+            int1,
+            Interval {
+                years: -1,
+                months: -2,
+                days: -3,
+                hours: -4,
+                minutes: -5,
+                seconds: -6,
+                nanos: -123_000_000,
+            }
+        );
+
+        // Verifies no overflow on i32::MIN and i64::MIN
+        let row2 = Row::try_new_from_arrow(&batch, 2, &schema)?;
+        let int2: Interval = row2.get("duration");
+        assert_eq!(int2.years, -178956970);
+        assert_eq!(int2.months, -8);
+        assert_eq!(int2.days, 0);
+        assert_eq!(int2.hours, -2562047);
+        assert_eq!(int2.minutes, -47);
+        assert_eq!(int2.seconds, -16);
+        assert_eq!(int2.nanos, -854_775_808);
+
         Ok(())
     }
 }

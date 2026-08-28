@@ -13,10 +13,14 @@
 // limitations under the License.
 
 use crate::error::RowError;
+use crate::query::query_handle::CachedData;
 use crate::query::{CompleteQuery, Row, Schema};
+use arrow::ipc::reader::StreamReader;
+use arrow::record_batch::RecordBatch;
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{GetQueryResultsRequest, JobReference};
 use std::collections::VecDeque;
+use std::io::{Cursor, Read};
 use std::sync::Arc;
 
 pub type Result<T> = std::result::Result<T, RowError>;
@@ -53,18 +57,41 @@ pub struct RowIterator {
     job_ref: Option<JobReference>,
     schema: Arc<Schema>,
     page_token: Option<String>,
+    record_batches: VecDeque<Arc<RecordBatch>>,
+    row_index: usize,
     rows: VecDeque<wkt::Struct>,
     max_results: Option<u32>,
 }
 
 impl RowIterator {
     pub(crate) fn new(q: CompleteQuery) -> Self {
+        let (rows, record_batches) = match q.cached_data {
+            CachedData::Rows(rows) => (rows, VecDeque::new()),
+            CachedData::Arrow {
+                serialized_record_batch,
+                serialized_schema,
+            } => {
+                let reader = StreamReader::try_new(
+                    Cursor::new(serialized_schema).chain(Cursor::new(serialized_record_batch)),
+                    None,
+                )
+                .expect("valid arrow IPC stream"); // TODO: convert error
+                let batches = reader
+                    .map(|res| res.map(Arc::new))
+                    .collect::<std::result::Result<VecDeque<_>, _>>()
+                    .expect("valid record batches"); // TODO: convert error
+                (VecDeque::new(), batches)
+            }
+        };
+
         Self {
             job_service: q.job_service,
             job_ref: q.job_ref,
             schema: q.schema,
             page_token: q.page_token,
-            rows: q.cached_rows,
+            record_batches,
+            row_index: 0,
+            rows,
             max_results: q.max_results,
         }
     }
@@ -111,6 +138,16 @@ impl RowIterator {
     /// ```
     pub async fn next(&mut self) -> Option<Result<Row>> {
         loop {
+            while let Some(batch) = self.record_batches.front() {
+                if self.row_index < batch.num_rows() {
+                    let idx = self.row_index;
+                    self.row_index += 1;
+                    return Some(Row::try_new_from_arrow(batch, idx, &self.schema));
+                }
+                self.record_batches.pop_front();
+                self.row_index = 0;
+            }
+
             if let Some(raw_row) = self.rows.pop_front() {
                 return Some(Row::try_new(raw_row, &self.schema));
             }
@@ -119,7 +156,7 @@ impl RowIterator {
                 return Some(Err(e));
             }
 
-            if self.rows.is_empty() && self.page_token.is_none() {
+            if self.record_batches.is_empty() && self.rows.is_empty() && self.page_token.is_none() {
                 return None;
             }
         }
@@ -415,6 +452,62 @@ mod tests {
             err.to_string().contains("temporary service error"),
             "{err:?}"
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_row_iterator_cached_arrow() -> TestResult {
+        use arrow::array::{Int64Array, StringArray};
+        use arrow::datatypes::{DataType, Field, Schema as ArrowSchema};
+        use arrow::ipc::writer::StreamWriter;
+
+        let arrow_schema = Arc::new(ArrowSchema::new(vec![
+            Field::new("col", DataType::Utf8, false),
+            Field::new("num", DataType::Int64, false),
+        ]));
+
+        let mut schema_buf = Vec::new();
+        let _ = StreamWriter::try_new(&mut schema_buf, &arrow_schema)?;
+
+        let col = StringArray::from(vec!["hello", "world"]);
+        let num = Int64Array::from(vec![42, 100]);
+        let batch = RecordBatch::try_new(arrow_schema.clone(), vec![Arc::new(col), Arc::new(num)])?;
+
+        let mut batch_buf = Vec::new();
+        let mut writer = StreamWriter::try_new(&mut batch_buf, &arrow_schema)?;
+        writer.write(&batch)?;
+        let batch_buf = batch_buf[schema_buf.len()..].to_vec();
+
+        let table_schema = TableSchema::new().set_fields([
+            TableFieldSchema::new().set_name("col").set_type("STRING"),
+            TableFieldSchema::new().set_name("num").set_type("INTEGER"),
+        ]);
+        let schema = Arc::new(Schema::new(table_schema));
+
+        let job_service = create_job_service(MockJobService::new());
+        let q = CompleteQuery {
+            job_service,
+            job_ref: None,
+            cached_data: CachedData::Arrow {
+                serialized_schema: schema_buf.into(),
+                serialized_record_batch: batch_buf.into(),
+            },
+            schema,
+            page_token: None,
+            metadata: crate::generated::CompleteQueryMetadata::default(),
+            max_results: None,
+        };
+
+        let mut iter = q.read();
+        let row1 = iter.next().await.expect("row 1")?;
+        assert_eq!(row1.get::<String, _>("col"), "hello");
+        assert_eq!(row1.get::<i64, _>("num"), 42);
+
+        let row2 = iter.next().await.expect("row 2")?;
+        assert_eq!(row2.get::<String, _>("col"), "world");
+        assert_eq!(row2.get::<i64, _>("num"), 100);
+
+        assert!(iter.next().await.is_none());
         Ok(())
     }
 }

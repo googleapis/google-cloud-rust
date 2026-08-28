@@ -19,7 +19,7 @@
 
 use crate::error::ConvertError;
 use crate::query::FromSql;
-use crate::query::from_sql::parse_time;
+use crate::query::from_sql::{ArrowCell, parse_time};
 
 /// Represents a BigQuery time [INTERVAL] value.
 ///
@@ -144,6 +144,35 @@ impl FromSql for Interval {
             }),
         }
     }
+
+    fn from_arrow(cell: ArrowCell<'_>) -> Result<Self, ConvertError> {
+        cell.downcast_value::<arrow::array::IntervalMonthDayNanoArray, _, _>(|arr, idx| {
+            let v = arr.value(idx);
+            let ym_sign = if v.months < 0 { -1 } else { 1 };
+            let total_months = v.months.unsigned_abs();
+            let years = (total_months / 12) as i32 * ym_sign;
+            let months = (total_months % 12) as i32 * ym_sign;
+
+            let time_sign = if v.nanoseconds < 0 { -1 } else { 1 };
+            let total_nanos = v.nanoseconds.unsigned_abs();
+            let nanos = (total_nanos % 1_000_000_000) as i32 * time_sign;
+            let total_secs = total_nanos / 1_000_000_000;
+            let seconds = (total_secs % 60) as i32 * time_sign;
+            let total_mins = total_secs / 60;
+            let minutes = (total_mins % 60) as i32 * time_sign;
+            let hours = (total_mins / 60) as i32 * time_sign;
+
+            Interval {
+                years,
+                months,
+                days: v.days,
+                hours,
+                minutes,
+                seconds,
+                nanos,
+            }
+        })
+    }
 }
 
 /// Represents a BigQuery [RANGE] value.
@@ -227,12 +256,32 @@ impl<T: FromSql> FromSql for Range<T> {
 
                 Ok(Range { start, end })
             }
+            wkt::Value::Object(mut obj) => {
+                let start = match obj.remove("start") {
+                    Some(wkt::Value::Null) | None => None,
+                    Some(val) => Some(T::from_sql(val)?),
+                };
+                let end = match obj.remove("end") {
+                    Some(wkt::Value::Null) | None => None,
+                    Some(val) => Some(T::from_sql(val)?),
+                };
+                Ok(Range { start, end })
+            }
             wkt::Value::Null => Err(ConvertError::NotNull),
             other => Err(ConvertError::TypeMismatch {
-                expected: "string",
+                expected: "string or object",
                 got: other,
             }),
         }
+    }
+
+    fn from_arrow(cell: ArrowCell<'_>) -> Result<Self, ConvertError> {
+        if cell.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        let start = cell.take("start")?;
+        let end = cell.take("end")?;
+        Ok(Range { start, end })
     }
 }
 
@@ -283,7 +332,7 @@ mod tests {
     #[test_case(wkt::Value::String("[UNBOUNDED, 2026-05-29)".to_string()) => Ok(Range { start: None, end: Some(google_cloud_type::model::Date::new().set_year(2026).set_month(5).set_day(29)) }) ; "date range unbounded start")]
     #[test_case(wkt::Value::String("[UNBOUNDED, UNBOUNDED)".to_string()) => Ok(Range { start: None, end: None }) ; "date range unbounded both")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null range")]
-    #[test_case(wkt::Value::Number(123.into()) => Err(TestConvertError::TypeMismatch("string")) ; "range type mismatch")]
+    #[test_case(wkt::Value::Number(123.into()) => Err(TestConvertError::TypeMismatch("string or object")) ; "range type mismatch")]
     #[test_case(wkt::Value::String("[2026-05-28)".to_string()) => Err(TestConvertError::Convert("invalid range format: expected 2 parts, got 1".to_string())) ; "range invalid format one part")]
     #[test_case(wkt::Value::String("[2026-05-28, 2026-05-29, 2026-05-30)".to_string()) => Err(TestConvertError::Convert("invalid range format: expected 2 parts, got 3".to_string())) ; "range invalid format three parts")]
     #[test_case(wkt::Value::String("[".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range too short")]
