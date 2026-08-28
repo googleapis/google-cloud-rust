@@ -24,9 +24,6 @@
 //! reconnects using configured [`RetryPolicy`] and [`BackoffPolicy`] implementations. Permanent or
 //! exhausted errors terminate the subscriber task cleanly.
 
-// TODO(#6236): Remove dead_code allowance once CacheSubscriber is integrated into DatabaseClient lifecycle.
-#![allow(dead_code)]
-
 use crate::RequestOptions;
 use crate::client::Spanner;
 use crate::google::spanner::v1::CacheUpdate as ProtoCacheUpdate;
@@ -81,11 +78,13 @@ impl CacheSubscriber {
     }
 
     /// Requests the background subscriber task to shut down.
+    #[allow(dead_code)] // Used in tests and lifecycle shutdown
     pub(crate) fn stop(&self) {
         let _ = self.shutdown_sender.send(true);
     }
 
     /// Returns `true` if the background subscriber task has finished executing.
+    #[allow(dead_code)] // Used for lifecycle monitoring and tests
     pub(crate) fn is_finished(&self) -> bool {
         self.task_handle
             .as_ref()
@@ -94,6 +93,7 @@ impl CacheSubscriber {
     }
 
     /// Signals the background subscriber task to shut down and waits for it to complete.
+    #[allow(dead_code)] // Used for lifecycle shutdown and tests
     pub(crate) async fn wait_for_shutdown(mut self) {
         self.stop();
         if let Some(handle) = self.task_handle.take() {
@@ -142,24 +142,28 @@ impl CacheSubscriberBuilder {
     }
 
     /// Sets the retry policy applied to determine if a stream disconnect or error is retryable.
+    #[allow(dead_code)] // Used for custom retry configuration and tests
     pub(crate) fn with_retry_policy(mut self, policy: impl Into<RetryPolicyArg>) -> Self {
         self.retry_policy = policy.into().into();
         self
     }
 
     /// Sets the backoff policy applied between stream reconnection attempts.
+    #[allow(dead_code)] // Used for custom backoff configuration and tests
     pub(crate) fn with_backoff_policy(mut self, policy: impl Into<BackoffPolicyArg>) -> Self {
         self.backoff_policy = policy.into().into();
         self
     }
 
     /// Sets the maximum number of key recipes requested in each cache update.
+    #[allow(dead_code)] // Used for tuning update batch limits and tests
     pub(crate) fn with_max_recipe_count(mut self, max_recipe_count: i32) -> Self {
         self.max_recipe_count = Some(max_recipe_count);
         self
     }
 
     /// Sets the maximum number of key ranges requested in each cache update.
+    #[allow(dead_code)] // Used for tuning update batch limits and tests
     pub(crate) fn with_max_range_count(mut self, max_range_count: i32) -> Self {
         self.max_range_count = Some(max_range_count);
         self

@@ -41,7 +41,6 @@ use crate::mutation::Mutation;
 use crate::omni::InstanceType;
 use crate::read::ReadRequest;
 use crate::read_write_transaction::ReadWriteTransaction;
-use crate::routing::cache_subscriber::CacheSubscriber;
 use crate::routing::directed_read::select_eligible_tablets_for_directed_read;
 use crate::routing::key_range_cache::RangeMode;
 use crate::routing::latency_registry::LatencyRegistry;
@@ -2371,16 +2370,11 @@ async fn proactive_cache_subscriber_streams_update_to_router() -> anyhow::Result
         Ok(Response::from(stream_receiver))
     });
 
-    let (database_client, spanner, _server) = setup_mock_database_client(mock).await?;
+    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await?;
 
-    let cache_updater = database_client
-        .cache_updater()
-        .expect("cache updater must be present");
-
-    let subscriber = CacheSubscriber::start(
-        "projects/test-project/instances/test-instance/databases/test-db".to_string(),
-        spanner.clone(),
-        Arc::clone(cache_updater),
+    assert!(
+        database_client.cache_subscriber().is_some(),
+        "cache subscriber must be started by database_client"
     );
 
     // Deterministically wait for the initial connection and subsequent reconnection attempt,
@@ -2405,8 +2399,6 @@ async fn proactive_cache_subscriber_streams_update_to_router() -> anyhow::Result
         found_range.group_uid, 9999,
         "cached range must map to streamed group 9999"
     );
-
-    subscriber.wait_for_shutdown().await;
 
     Ok(())
 }

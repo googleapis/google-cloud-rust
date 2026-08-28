@@ -85,7 +85,7 @@ impl CacheUpdater {
 
     /// Returns the current active database ID recorded by the cache updater.
     pub(crate) fn database_id(&self) -> u64 {
-        self.database_id.load(Ordering::Relaxed)
+        self.database_id.load(Ordering::Acquire)
     }
 
     /// Returns a reference to the underlying [`ConnectionCache`].
