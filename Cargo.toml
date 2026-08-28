@@ -68,9 +68,9 @@ members = [
   "guide/samples",
   "src/auth",
   "src/bigquery",
-  "src/bigquery/benchmarks/arrow_jobs_query",
   "src/bigquery-derive",
   "src/bigquery-read",
+  "src/bigquery/benchmarks/arrow_jobs_query",
   "src/bigquery/examples",
   "src/bigquery/grpc-mock",
   "src/bigtable",
@@ -606,13 +606,13 @@ storage-grpc-mock         = { path = "src/storage/grpc-mock" }
 
 [workspace.lints.rust]
 unexpected_cfgs = { level = "deny", check-cfg = [
+  'cfg(google_cloud_unstable_bigquery_arrow)',
   'cfg(google_cloud_unstable_gapic_streaming)',
   'cfg(google_cloud_unstable_grpc_rust)',
   'cfg(google_cloud_unstable_grpc_server_streaming)',
   'cfg(google_cloud_unstable_storage_bidi)',
   'cfg(google_cloud_unstable_tracing)',
   'cfg(google_cloud_unstable_trust_boundaries)',
-  'cfg(google_cloud_unstable_bigquery_arrow)',
   # Enables re-generation of protos. Only needed on major version updates to
   # Prost and/or Tonic.
   'cfg(google_cloud_generate_protos)',
