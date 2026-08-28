@@ -26,7 +26,6 @@ pub use query::{
     query_client, query_client_datatypes, query_client_job, query_client_multi_page,
     query_client_nested_types, query_client_numeric_limits,
 };
-#[cfg(google_cloud_unstable_gapic_streaming)]
 pub use reads::read_rows;
 pub use reads::run_reads;
 pub use writes::run_writes;

@@ -2416,14 +2416,12 @@ pub mod echo {
     }
 
     /// Common implementation for [crate::client::Echo] bidi stream builders.
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[derive(Clone, Debug)]
     pub(crate) struct BidiStreamBuilder {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>,
         options: crate::RequestOptions,
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     impl BidiStreamBuilder {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self {
@@ -2726,11 +2724,9 @@ pub mod echo {
     ///   // ... details omitted ...
     /// }
     /// ```
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[derive(Clone, Debug)]
     pub struct Expand(RequestBuilder<crate::model::ExpandRequest>);
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     impl Expand {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self(RequestBuilder::new(stub))
@@ -2799,7 +2795,6 @@ pub mod echo {
         }
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[doc(hidden)]
     impl crate::RequestBuilder for Expand {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
@@ -2831,11 +2826,9 @@ pub mod echo {
     ///   // ... details omitted ...
     /// }
     /// ```
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[derive(Clone, Debug)]
     pub struct Chat(BidiStreamBuilder);
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     impl Chat {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
             Self(BidiStreamBuilder::new(stub))
@@ -2858,7 +2851,6 @@ pub mod echo {
         }
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[doc(hidden)]
     impl crate::RequestBuilder for Chat {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
@@ -5435,14 +5427,12 @@ pub mod messaging {
     }
 
     /// Common implementation for [crate::client::Messaging] bidi stream builders.
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[derive(Clone, Debug)]
     pub(crate) struct BidiStreamBuilder {
         stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
         options: crate::RequestOptions,
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     impl BidiStreamBuilder {
         pub(crate) fn new(
             stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
@@ -6385,11 +6375,9 @@ pub mod messaging {
     ///   // ... details omitted ...
     /// }
     /// ```
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[derive(Clone, Debug)]
     pub struct StreamBlurbs(RequestBuilder<crate::model::StreamBlurbsRequest>);
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     impl StreamBlurbs {
         pub(crate) fn new(
             stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
@@ -6450,7 +6438,6 @@ pub mod messaging {
         }
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[doc(hidden)]
     impl crate::RequestBuilder for StreamBlurbs {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
@@ -6482,11 +6469,9 @@ pub mod messaging {
     ///   // ... details omitted ...
     /// }
     /// ```
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[derive(Clone, Debug)]
     pub struct Connect(BidiStreamBuilder);
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     impl Connect {
         pub(crate) fn new(
             stub: std::sync::Arc<dyn super::super::stub::dynamic::Messaging>,
@@ -6511,7 +6496,6 @@ pub mod messaging {
         }
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[doc(hidden)]
     impl crate::RequestBuilder for Connect {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
@@ -7693,13 +7677,11 @@ pub mod sequence_service {
     ///   // ... details omitted ...
     /// }
     /// ```
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[derive(Clone, Debug)]
     pub struct AttemptStreamingSequence(
         RequestBuilder<crate::model::AttemptStreamingSequenceRequest>,
     );
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     impl AttemptStreamingSequence {
         pub(crate) fn new(
             stub: std::sync::Arc<dyn super::super::stub::dynamic::SequenceService>,
@@ -7750,7 +7732,6 @@ pub mod sequence_service {
         }
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[doc(hidden)]
     impl crate::RequestBuilder for AttemptStreamingSequence {
         fn request_options(&mut self) -> &mut crate::RequestOptions {

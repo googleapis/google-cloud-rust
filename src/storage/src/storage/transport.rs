@@ -360,6 +360,59 @@ impl Storage {
             super::tracing::TracingAppendableObjectWriter::new(writer.into_parts()),
         ))
     }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    async fn open_appendable_object_and_append_plain(
+        &self,
+        request: OpenAppendableObjectRequest,
+        chunk: bytes::Bytes,
+        options: RequestOptions,
+    ) -> Result<AppendableObjectWriter> {
+        let connector = BidiWriteConnector::new(options, self.inner.grpc.clone());
+        let transport =
+            AppendableObjectWriterTransport::new_open_and_append(connector, request, chunk).await?;
+        Ok(AppendableObjectWriter::new(transport))
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[tracing::instrument(name = "open_appendable_object", level = tracing::Level::DEBUG, ret, err(Debug), skip(chunk))]
+    async fn open_appendable_object_and_append_tracing(
+        &self,
+        request: OpenAppendableObjectRequest,
+        chunk: bytes::Bytes,
+        options: RequestOptions,
+    ) -> Result<AppendableObjectWriter> {
+        let resource_name = format!(
+            "//storage.googleapis.com/{}",
+            request
+                .spec
+                .resource
+                .as_ref()
+                .map(|r| r.bucket.as_str())
+                .unwrap_or_default()
+        );
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.metric.clone(),
+            info: *INSTRUMENTATION,
+            method: "client::Storage::open_appendable_object",
+            async {
+                if let Some(recorder) = RequestRecorder::current() {
+                    recorder.on_client_request(
+                        ClientRequestAttributes::default()
+                            .set_rpc_method("google.storage.v2.Storage/BidiWriteObject")
+                            .set_url_template("/upload/storage/v1/b/{bucket}/o")
+                            .set_resource_name(resource_name),
+                    );
+                }
+                self.open_appendable_object_and_append_plain(request, chunk, options)
+                    .await
+            }
+        );
+        let writer = pending.await?;
+        Ok(AppendableObjectWriter::new(
+            super::tracing::TracingAppendableObjectWriter::new(writer.into_parts()),
+        ))
+    }
 }
 
 impl super::stub::Storage for Storage {
@@ -434,6 +487,22 @@ impl super::stub::Storage for Storage {
             return self.open_appendable_object_tracing(request, options).await;
         }
         self.open_appendable_object_plain(request, options).await
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    async fn open_appendable_object_and_append(
+        &self,
+        request: OpenAppendableObjectRequest,
+        chunk: bytes::Bytes,
+        options: RequestOptions,
+    ) -> Result<AppendableObjectWriter> {
+        if self.tracing {
+            return self
+                .open_appendable_object_and_append_tracing(request, chunk, options)
+                .await;
+        }
+        self.open_appendable_object_and_append_plain(request, chunk, options)
+            .await
     }
 
     #[cfg(google_cloud_unstable_storage_bidi)]
@@ -985,6 +1054,132 @@ mod tests {
 
         check_bidi_write_span_attributes(&captured, "append", 98765, Some(5));
         check_bidi_write_span_attributes(&captured, "flush", 98765, Some(5));
+        check_bidi_write_span_attributes(&captured, "finalize", 98765, Some(5));
+
+        Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[tokio::test]
+    async fn open_appendable_object_and_append_bucket_not_found() -> anyhow::Result<()> {
+        use gaxi::grpc::tonic::Status as TonicStatus;
+        use google_cloud_gax::error::rpc::Code;
+        use storage_grpc_mock::{MockStorage, start};
+
+        // Arrange.
+        let guard = TestLayer::initialize();
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_write_object()
+            .return_once(|_| Err(TonicStatus::not_found("not here")));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+
+        let client = crate::client::Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint.clone())
+            .with_tracing()
+            .build()
+            .await?;
+
+        // Act.
+        let response = client
+            .open_appendable_object("projects/_/buckets/test-bucket", "test-object")
+            .send_and_append(bytes::Bytes::from("hello"))
+            .await;
+
+        // Assert.
+        assert!(
+            matches!(response, Err(ref e) if e.status().is_some_and(|s| s.code == Code::NotFound)),
+            "{response:?}"
+        );
+        let captured = TestLayer::capture(&guard);
+        check_debug_log(&captured, "open_appendable_object");
+
+        client_request_span(&captured, "open_appendable_object", "NOT_FOUND", "grpc");
+
+        Ok(())
+    }
+
+    /// Models an opening stream with initial payload: `send_and_append` -> `finalize`.
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[tokio::test]
+    async fn open_appendable_object_and_append_success() -> anyhow::Result<()> {
+        use bytes::Bytes;
+        use gaxi::grpc::tonic::{Response as TonicResponse, Result as TonicResult};
+        use storage_grpc_mock::google::storage::v2::{
+            BidiWriteObjectResponse, Object, bidi_write_object_response::WriteStatus,
+        };
+        use storage_grpc_mock::{MockStorage, start};
+        const BUCKET_NAME: &str = "projects/_/buckets/test-bucket";
+        const OBJECT_NAME: &str = "test-object";
+        const BIND_ADDRESS: &str = "0.0.0.0:0";
+
+        // Arrange.
+        let guard = TestLayer::initialize();
+
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(10);
+
+        let initial_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::Resource(Object {
+                bucket: BUCKET_NAME.to_string(),
+                name: OBJECT_NAME.to_string(),
+                generation: 98765,
+                ..Default::default()
+            })),
+            ..BidiWriteObjectResponse::default()
+        };
+
+        let finalize_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::Resource(Object {
+                bucket: BUCKET_NAME.to_string(),
+                name: OBJECT_NAME.to_string(),
+                generation: 98765,
+                size: 5,
+                ..Default::default()
+            })),
+            ..BidiWriteObjectResponse::default()
+        };
+
+        // Initial handshake response sent immediately upon stream opening.
+        tx.send(Ok(initial_response)).await?;
+
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_write_object().return_once(move |req| {
+            let mut stream = req.into_inner();
+            tokio::spawn(async move {
+                while let Some(Ok(msg)) = stream.recv().await {
+                    if msg.finish_write {
+                        let _ = tx.send(Ok(finalize_response.clone())).await;
+                    }
+                }
+            });
+            Ok(TonicResponse::new(rx))
+        });
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+
+        let client = crate::client::Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint.clone())
+            .with_tracing()
+            .build()
+            .await?;
+
+        // Act.
+        let writer = client
+            .open_appendable_object(BUCKET_NAME, OBJECT_NAME)
+            .send_and_append(Bytes::from_static(b"hello"))
+            .await?;
+
+        let obj = writer.finalize().await?;
+
+        // Assert.
+        assert_eq!(obj.size, 5);
+
+        let captured = TestLayer::capture(&guard);
+        let _span = captured
+            .iter()
+            .find(|s| s.name == "client_request")
+            .unwrap_or_else(|| panic!("missing `client_request` span in capture: {captured:#?}"));
+
         check_bidi_write_span_attributes(&captured, "finalize", 98765, Some(5));
 
         Ok(())

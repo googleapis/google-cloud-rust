@@ -98,6 +98,7 @@ wrappers = [
   "integration-tests-o11y",
   "integration-tests-spanner",
   "integration-tests-storage",
+  "integration-tests-streaming",
   "test-auth",
   "user-guide-samples",
 ]

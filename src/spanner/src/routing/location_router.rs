@@ -451,6 +451,9 @@ impl LocationRouter {
 }
 
 #[cfg(test)]
+mod golden_tests;
+
+#[cfg(test)]
 mod tests {
     use super::*;
     use crate::client::Channel;

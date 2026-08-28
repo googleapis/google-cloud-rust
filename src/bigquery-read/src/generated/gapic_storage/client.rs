@@ -145,7 +145,6 @@ impl Read {
         super::builder::read::CreateReadSession::new(self.inner.clone())
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     /// Reads rows from the stream in the format prescribed by the ReadSession.
     /// Each response contains one or more table rows, up to a maximum of 128 MB
     /// per response; read requests which attempt to read individual rows larger

@@ -23,7 +23,6 @@ pub trait Read: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ReadSession>>;
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn read_rows(
         &self,
         req: crate::model::ReadRowsRequest,
@@ -50,7 +49,6 @@ impl<T: super::Read> Read for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn read_rows(
         &self,
         req: crate::model::ReadRowsRequest,

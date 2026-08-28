@@ -24,7 +24,8 @@ use crate::Result;
 use crate::key::{Endpoint, KeySet};
 use crate::model::mutation::Operation as ProtoOperation;
 use crate::model::{
-    KeyRecipe, KeySet as ProtoKeySet, Mutation as ProtoMutation, ReadRequest as ProtoReadRequest,
+    KeyRecipe, KeySet as ProtoKeySet, Mutation as ProtoMutation, PartitionReadRequest,
+    ReadRequest as ProtoReadRequest,
 };
 use crate::mutation::{InternalMutation, Mutation};
 use crate::read::ReadRequest;
@@ -362,6 +363,7 @@ pub(crate) fn extract_read_routing_key(
     index: Option<&str>,
     key_set: &KeySet,
 ) -> Option<Vec<u8>> {
+    // Fast path: bypass KeyRecipeCache lock and recipe lookup for full table scans or empty key sets.
     if key_set.all || (key_set.keys.is_empty() && key_set.ranges.is_empty()) {
         return None;
     }
@@ -411,32 +413,61 @@ pub(crate) fn extract_key_from_proto_key_set(
     Ok(Some(buffer))
 }
 
-/// Resolves the table or index [`KeyRecipe`] from [`KeyRecipeCache`] and encodes the routing key for a protobuf [`ProtoReadRequest`].
-pub(crate) fn extract_proto_read_request_routing_key(
+/// Resolves the table or index [`KeyRecipe`] from [`KeyRecipeCache`] and encodes the routing key for read request parameters.
+pub(crate) fn extract_proto_read_key_set_routing_key(
     key_recipe_cache: &KeyRecipeCache,
-    request: &ProtoReadRequest,
+    table: &str,
+    index: &str,
+    key_set: Option<&ProtoKeySet>,
 ) -> Option<Vec<u8>> {
-    let key_set = request.key_set.as_ref()?;
+    let key_set = key_set?;
+    // Fast path: bypass KeyRecipeCache lock and recipe lookup for full table scans or empty key sets.
     if key_set.all || (key_set.keys.is_empty() && key_set.ranges.is_empty()) {
         return None;
     }
-    let recipe = if !request.index.is_empty() {
-        key_recipe_cache.get_index_recipe(&request.index)?
+    let recipe = if !index.is_empty() {
+        key_recipe_cache.get_index_recipe(index)?
     } else {
-        key_recipe_cache.get_table_recipe(&request.table)?
+        key_recipe_cache.get_table_recipe(table)?
     };
     match extract_key_from_proto_key_set(&recipe, key_set) {
         Ok(key) => key,
         Err(err) => {
             warn!(
                 error = %err,
-                table = request.table.as_str(),
-                index = request.index.as_str(),
+                table = table,
+                index = index,
                 "Failed to extract routing key from proto read request"
             );
             None
         }
     }
+}
+
+/// Resolves the table or index [`KeyRecipe`] from [`KeyRecipeCache`] and encodes the routing key for a protobuf [`ProtoReadRequest`].
+pub(crate) fn extract_proto_read_request_routing_key(
+    key_recipe_cache: &KeyRecipeCache,
+    request: &ProtoReadRequest,
+) -> Option<Vec<u8>> {
+    extract_proto_read_key_set_routing_key(
+        key_recipe_cache,
+        &request.table,
+        &request.index,
+        request.key_set.as_ref(),
+    )
+}
+
+/// Resolves the table or index [`KeyRecipe`] from [`KeyRecipeCache`] and encodes the routing key for a protobuf [`PartitionReadRequest`].
+pub(crate) fn extract_proto_partition_read_request_routing_key(
+    key_recipe_cache: &KeyRecipeCache,
+    request: &PartitionReadRequest,
+) -> Option<Vec<u8>> {
+    extract_proto_read_key_set_routing_key(
+        key_recipe_cache,
+        &request.table,
+        &request.index,
+        request.key_set.as_ref(),
+    )
 }
 
 #[cfg(test)]
@@ -1477,6 +1508,111 @@ mod tests {
             extract_proto_read_request_routing_key(&cache, &request),
             None,
             "Invalid date key value must fail encoding, log warning, and return None"
+        );
+    }
+
+    #[test]
+    fn extract_proto_partition_read_request_routing_key_all_cases() {
+        let cache = KeyRecipeCache::new();
+        let recipe = sample_table_recipe_with_identifiers(
+            "Users",
+            vec![(
+                Part::new()
+                    .set_order(Order::Ascending)
+                    .set_null_order(NullOrder::NotNull)
+                    .set_type(Type::default().set_code(TypeCode::Int64)),
+                "id",
+            )],
+        );
+        cache.insert(recipe);
+
+        let index_recipe = sample_index_recipe_with_identifiers(
+            "UsersByEmail",
+            vec![(
+                Part::new()
+                    .set_order(Order::Ascending)
+                    .set_null_order(NullOrder::NotNull)
+                    .set_type(Type::default().set_code(TypeCode::String)),
+                "email",
+            )],
+        );
+        cache.insert(index_recipe);
+
+        // Missing key_set returns None
+        let request_no_key_set = PartitionReadRequest::new().set_table("Users");
+        assert_eq!(
+            extract_proto_partition_read_request_routing_key(&cache, &request_no_key_set),
+            None
+        );
+
+        // KeySet::all returns None
+        let mut key_set_all = ProtoKeySet::new();
+        key_set_all.all = true;
+        let request_all = PartitionReadRequest::new()
+            .set_table("Users")
+            .set_key_set(key_set_all);
+        assert_eq!(
+            extract_proto_partition_read_request_routing_key(&cache, &request_all),
+            None
+        );
+
+        // Table partition read with valid point key
+        let mut key_set_point = ProtoKeySet::new();
+        key_set_point
+            .keys
+            .push(vec![serde_json::Value::String("42".to_string())]);
+        let request_point = PartitionReadRequest::new()
+            .set_table("Users")
+            .set_key_set(key_set_point);
+        let routing_key = extract_proto_partition_read_request_routing_key(&cache, &request_point);
+        assert!(
+            routing_key.is_some(),
+            "Point key in PartitionReadRequest must encode routing key"
+        );
+
+        // Index partition read with valid point key
+        let mut key_set_index = ProtoKeySet::new();
+        key_set_index.keys.push(vec![serde_json::Value::String(
+            "alice@example.com".to_string(),
+        )]);
+        let request_index = PartitionReadRequest::new()
+            .set_table("Users")
+            .set_index("UsersByEmail")
+            .set_key_set(key_set_index);
+        let index_routing_key =
+            extract_proto_partition_read_request_routing_key(&cache, &request_index);
+        assert!(
+            index_routing_key.is_some(),
+            "Index point key in PartitionReadRequest must encode routing key"
+        );
+
+        // Table partition read with closed range
+        let mut key_set_closed_range = ProtoKeySet::new();
+        let range_closed = ProtoKeyRange::new()
+            .set_start_closed(vec![serde_json::Value::String("100".to_string())])
+            .set_end_open(vec![serde_json::Value::String("200".to_string())]);
+        key_set_closed_range.ranges.push(range_closed);
+        let request_closed_range = PartitionReadRequest::new()
+            .set_table("Users")
+            .set_key_set(key_set_closed_range);
+        let closed_range_key =
+            extract_proto_partition_read_request_routing_key(&cache, &request_closed_range);
+        assert!(
+            closed_range_key.is_some(),
+            "Range start in PartitionReadRequest must encode routing key"
+        );
+
+        // Uncached table returns None
+        let mut key_set_uncached = ProtoKeySet::new();
+        key_set_uncached
+            .keys
+            .push(vec![serde_json::Value::String("1".to_string())]);
+        let request_uncached = PartitionReadRequest::new()
+            .set_table("NonExistent")
+            .set_key_set(key_set_uncached);
+        assert_eq!(
+            extract_proto_partition_read_request_routing_key(&cache, &request_uncached),
+            None
         );
     }
 }

@@ -1608,7 +1608,6 @@ impl super::stub::Compliance for Compliance {
 #[derive(Clone)]
 pub struct Echo {
     inner: gaxi::http::ReqwestClient,
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     grpc_inner: gaxi::grpc::Client,
 }
 
@@ -1616,7 +1615,6 @@ impl std::fmt::Debug for Echo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         let mut builder = f.debug_struct("Echo");
         builder.field("inner", &self.inner);
-        #[cfg(google_cloud_unstable_gapic_streaming)]
         builder.field("grpc_inner", &self.grpc_inner);
         builder.finish()
     }
@@ -1631,7 +1629,6 @@ impl Echo {
         } else {
             inner
         };
-        #[cfg(google_cloud_unstable_gapic_streaming)]
         let grpc_inner = if tracing_is_enabled {
             gaxi::grpc::Client::new_with_instrumentation(
                 config,
@@ -1642,11 +1639,7 @@ impl Echo {
         } else {
             gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
         };
-        Ok(Self {
-            inner,
-            #[cfg(google_cloud_unstable_gapic_streaming)]
-            grpc_inner,
-        })
+        Ok(Self { inner, grpc_inner })
     }
 }
 
@@ -1793,7 +1786,6 @@ impl super::stub::Echo for Echo {
         self.inner.execute(builder, body, options).await
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn expand(
         &self,
         req: crate::model::ExpandRequest,
@@ -1831,7 +1823,6 @@ impl super::stub::Echo for Echo {
             .await
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn chat(
         &self,
         options: crate::RequestOptions,
@@ -4119,7 +4110,6 @@ impl super::stub::Identity for Identity {
 #[derive(Clone)]
 pub struct Messaging {
     inner: gaxi::http::ReqwestClient,
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     grpc_inner: gaxi::grpc::Client,
 }
 
@@ -4127,7 +4117,6 @@ impl std::fmt::Debug for Messaging {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         let mut builder = f.debug_struct("Messaging");
         builder.field("inner", &self.inner);
-        #[cfg(google_cloud_unstable_gapic_streaming)]
         builder.field("grpc_inner", &self.grpc_inner);
         builder.finish()
     }
@@ -4142,7 +4131,6 @@ impl Messaging {
         } else {
             inner
         };
-        #[cfg(google_cloud_unstable_gapic_streaming)]
         let grpc_inner = if tracing_is_enabled {
             gaxi::grpc::Client::new_with_instrumentation(
                 config,
@@ -4153,11 +4141,7 @@ impl Messaging {
         } else {
             gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
         };
-        Ok(Self {
-            inner,
-            #[cfg(google_cloud_unstable_gapic_streaming)]
-            grpc_inner,
-        })
+        Ok(Self { inner, grpc_inner })
     }
 }
 
@@ -5070,7 +5054,6 @@ impl super::stub::Messaging for Messaging {
         self.inner.execute(builder, body, options).await
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn stream_blurbs(
         &self,
         req: crate::model::StreamBlurbsRequest,
@@ -5113,7 +5096,6 @@ impl super::stub::Messaging for Messaging {
             .await
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn connect(
         &self,
         options: crate::RequestOptions,
@@ -6010,7 +5992,6 @@ impl super::stub::Messaging for Messaging {
 #[derive(Clone)]
 pub struct SequenceService {
     inner: gaxi::http::ReqwestClient,
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     grpc_inner: gaxi::grpc::Client,
 }
 
@@ -6018,7 +5999,6 @@ impl std::fmt::Debug for SequenceService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         let mut builder = f.debug_struct("SequenceService");
         builder.field("inner", &self.inner);
-        #[cfg(google_cloud_unstable_gapic_streaming)]
         builder.field("grpc_inner", &self.grpc_inner);
         builder.finish()
     }
@@ -6033,7 +6013,6 @@ impl SequenceService {
         } else {
             inner
         };
-        #[cfg(google_cloud_unstable_gapic_streaming)]
         let grpc_inner = if tracing_is_enabled {
             gaxi::grpc::Client::new_with_instrumentation(
                 config,
@@ -6044,11 +6023,7 @@ impl SequenceService {
         } else {
             gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
         };
-        Ok(Self {
-            inner,
-            #[cfg(google_cloud_unstable_gapic_streaming)]
-            grpc_inner,
-        })
+        Ok(Self { inner, grpc_inner })
     }
 }
 
@@ -6343,7 +6318,6 @@ impl super::stub::SequenceService for SequenceService {
             })
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn attempt_streaming_sequence(
         &self,
         req: crate::model::AttemptStreamingSequenceRequest,
