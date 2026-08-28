@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub(super) mod arrow;
 pub(super) mod builder;
 pub(super) mod client;
 pub(super) mod client_builder;
@@ -23,13 +24,14 @@ mod retry_policy;
 mod row;
 mod schema;
 
+pub use arrow::ArrowCell;
 pub use iterator::RowIterator;
 pub use query_handle::{CompleteQuery, Query};
 pub(crate) use schema::Schema;
 
 pub use from_sql::FromSql;
 pub use google_cloud_bigquery_derive::{FromRow, FromSql};
-pub use row::Row;
+pub use row::{ColumnIndex, Row};
 
 /// Result type for query execution.
 pub(super) type Result<T> = std::result::Result<T, crate::error::QueryError>;

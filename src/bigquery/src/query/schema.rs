@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use arrow::datatypes::DataType;
 use arrow::ipc::reader::StreamReader;
 use google_cloud_bigquery_v2::model::{TableFieldSchema, TableSchema};
 use std::io::Cursor;
@@ -56,9 +57,54 @@ fn table_schema_from_arrow_schema(arrow_schema: &arrow::datatypes::Schema) -> Ta
     let fields: Vec<TableFieldSchema> = arrow_schema
         .fields()
         .iter()
-        .map(|f| TableFieldSchema::new().set_name(f.name().clone()))
+        .map(|f| arrow_field_to_table_field(f))
         .collect();
     TableSchema::new().set_fields(fields)
+}
+
+fn arrow_field_to_table_field(field: &arrow::datatypes::Field) -> TableFieldSchema {
+    let tf = TableFieldSchema::new().set_name(field.name().clone());
+    let mode = if field.is_nullable() {
+        "NULLABLE"
+    } else {
+        "REQUIRED"
+    };
+
+    match field.data_type() {
+        DataType::Boolean => tf.set_type("BOOLEAN").set_mode(mode),
+        DataType::Int8
+        | DataType::Int16
+        | DataType::Int32
+        | DataType::Int64
+        | DataType::UInt8
+        | DataType::UInt16
+        | DataType::UInt32
+        | DataType::UInt64 => tf.set_type("INTEGER").set_mode(mode),
+        DataType::Float32 | DataType::Float64 => tf.set_type("FLOAT64").set_mode(mode),
+        DataType::Utf8 | DataType::LargeUtf8 => tf.set_type("STRING").set_mode(mode),
+        DataType::Binary | DataType::LargeBinary => tf.set_type("BYTES").set_mode(mode),
+        DataType::Date32 | DataType::Date64 => tf.set_type("DATE").set_mode(mode),
+        DataType::Time32(_) | DataType::Time64(_) => tf.set_type("TIME").set_mode(mode),
+        DataType::Timestamp(_, _) => tf.set_type("TIMESTAMP").set_mode(mode),
+        DataType::Interval(_) => tf.set_type("INTERVAL").set_mode(mode),
+        DataType::Decimal128(_, _) | DataType::Decimal256(_, _) => {
+            tf.set_type("NUMERIC").set_mode(mode)
+        }
+        DataType::Struct(fields) => {
+            let sub_fields: Vec<TableFieldSchema> = fields
+                .iter()
+                .map(|f| arrow_field_to_table_field(f))
+                .collect();
+            tf.set_type("RECORD").set_mode(mode).set_fields(sub_fields)
+        }
+        DataType::List(sub_field) | DataType::LargeList(sub_field) => {
+            let mut sub = arrow_field_to_table_field(sub_field);
+            sub.name = field.name().clone();
+            sub.mode = "REPEATED".to_string();
+            sub
+        }
+        _ => tf.set_type("STRING").set_mode(mode),
+    }
 }
 
 #[cfg(test)]

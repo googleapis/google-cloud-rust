@@ -112,6 +112,9 @@ pub fn derive_from_sql(input: TokenStream) -> TokenStream {
     let field_idents_struct_obj = fields
         .iter()
         .map(|f| f.ident.as_ref().expect("named field must have identifier"));
+    let field_idents_struct_arrow = fields
+        .iter()
+        .map(|f| f.ident.as_ref().expect("named field must have identifier"));
 
     let field_extractions_array = fields.iter().map(|f| {
         let field_name = f.ident.as_ref().expect("named field must have identifier");
@@ -130,6 +133,14 @@ pub fn derive_from_sql(input: TokenStream) -> TokenStream {
             let #field_name = obj.remove(#db_column_name)
                 .ok_or_else(|| google_cloud_bigquery::error::ConvertError::MissingField(#db_column_name.to_string()))?;
             let #field_name = google_cloud_bigquery::query::FromSql::from_sql(#field_name)?;
+        }
+    });
+
+    let field_extractions_arrow = fields.iter().map(|f| {
+        let field_name = f.ident.as_ref().expect("named field must have identifier");
+        let db_column_name = get_field_name(f);
+        quote! {
+            let #field_name = cell.take(#db_column_name)?;
         }
     });
 
@@ -155,6 +166,16 @@ pub fn derive_from_sql(input: TokenStream) -> TokenStream {
                         got: other,
                     }),
                 }
+            }
+
+            fn from_arrow(cell: google_cloud_bigquery::query::ArrowCell<'_>) -> std::result::Result<Self, google_cloud_bigquery::error::ConvertError> {
+                if cell.is_null() {
+                    return std::result::Result::Err(google_cloud_bigquery::error::ConvertError::NotNull);
+                }
+                #( #field_extractions_arrow )*
+                std::result::Result::Ok(Self {
+                    #( #field_idents_struct_arrow, )*
+                })
             }
         }
     };

@@ -73,11 +73,110 @@ pub(crate) const BIGQUERY_DATETIME_SUBSEC_FORMAT: &[time::format_description::Fo
 pub trait FromSql: Sized {
     /// Converts a BigQuery `wkt::Value` into the implementing type.
     fn from_sql(value: wkt::Value) -> Result<Self, ConvertError>;
+
+    /// Converts a BigQuery Arrow cell into the implementing type.
+    #[doc(hidden)]
+    fn from_arrow(cell: ArrowCell<'_>) -> Result<Self, ConvertError> {
+        let val = wkt::Value::from_arrow(cell)?;
+        Self::from_sql(val)
+    }
 }
+
+pub use super::arrow::ArrowCell;
 
 impl FromSql for wkt::Value {
     fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
         Ok(value)
+    }
+
+    fn from_arrow(cell: ArrowCell<'_>) -> Result<Self, ConvertError> {
+        if cell.is_null() {
+            return Ok(wkt::Value::Null);
+        }
+        use arrow::datatypes::DataType;
+        match cell.data_type() {
+            DataType::Null => Ok(wkt::Value::Null),
+            DataType::Boolean => Ok(wkt::Value::Bool(cell.as_bool()?)),
+            DataType::Int64 => Ok(wkt::Value::Number(serde_json::Number::from(cell.as_i64()?))),
+            DataType::Float64 => {
+                let n = serde_json::Number::from_f64(cell.as_f64()?)
+                    .ok_or_else(|| ConvertError::Convert("invalid f64 value".into()))?;
+                Ok(wkt::Value::Number(n))
+            }
+            DataType::Utf8 | DataType::LargeUtf8 => {
+                Ok(wkt::Value::String(cell.as_str()?.to_string()))
+            }
+            DataType::Binary | DataType::LargeBinary => {
+                Ok(wkt::Value::String(BASE64_STANDARD.encode(cell.as_bytes()?)))
+            }
+            DataType::Date32 => {
+                let d = google_cloud_type::model::Date::from_arrow(cell)?;
+                Ok(wkt::Value::String(format!(
+                    "{:04}-{:02}-{:02}",
+                    d.year, d.month, d.day
+                )))
+            }
+            DataType::Time64(arrow::datatypes::TimeUnit::Microsecond) => {
+                let t = google_cloud_type::model::TimeOfDay::from_arrow(cell)?;
+                if t.nanos == 0 {
+                    Ok(wkt::Value::String(format!(
+                        "{:02}:{:02}:{:02}",
+                        t.hours, t.minutes, t.seconds
+                    )))
+                } else {
+                    let subsec_micros = t.nanos / 1_000;
+                    Ok(wkt::Value::String(format!(
+                        "{:02}:{:02}:{:02}.{subsec_micros:06}",
+                        t.hours, t.minutes, t.seconds
+                    )))
+                }
+            }
+            DataType::Timestamp(arrow::datatypes::TimeUnit::Microsecond, _) => {
+                let micros = cell.downcast_value::<arrow::array::TimestampMicrosecondArray, _, _>(
+                    |arr, idx| arr.value(idx),
+                )?;
+                Ok(wkt::Value::String(micros.to_string()))
+            }
+            DataType::Decimal128(_, _) => {
+                let s =
+                    cell.downcast_value::<arrow::array::Decimal128Array, _, _>(|arr, idx| {
+                        arr.value_as_string(idx)
+                    })?;
+                Ok(wkt::Value::String(s))
+            }
+            DataType::Decimal256(_, _) => {
+                let s =
+                    cell.downcast_value::<arrow::array::Decimal256Array, _, _>(|arr, idx| {
+                        arr.value_as_string(idx)
+                    })?;
+                Ok(wkt::Value::String(s))
+            }
+            DataType::Interval(arrow::datatypes::IntervalUnit::MonthDayNano) => {
+                let interval = crate::datatypes::Interval::from_arrow(cell)?;
+                Ok(wkt::Value::String(format!(
+                    "{}-{} {} {:02}:{:02}:{:02}.{:09}",
+                    interval.years,
+                    interval.months,
+                    interval.days,
+                    interval.hours,
+                    interval.minutes,
+                    interval.seconds,
+                    interval.nanos
+                )))
+            }
+            DataType::Struct(_) => {
+                let s = wkt::Struct::from_arrow(cell)?;
+                Ok(wkt::Value::Object(s))
+            }
+            DataType::List(_) => {
+                let v = Vec::<wkt::Value>::from_arrow(cell)?;
+                Ok(wkt::Value::Array(v))
+            }
+            _ => Err(ConvertError::TypeMismatch {
+                expected: "supported arrow value",
+                got: wkt::Value::String(cell.data_type_str()),
+            }),
+        }
     }
 }
 
@@ -91,6 +190,10 @@ impl FromSql for String {
                 got: other,
             }),
         }
+    }
+
+    fn from_arrow(cell: ArrowCell<'_>) -> Result<Self, ConvertError> {
+        cell.as_str().map(ToString::to_string)
     }
 }
 
@@ -111,6 +214,10 @@ impl FromSql for i32 {
             }),
         }
     }
+
+    fn from_arrow(cell: ArrowCell<'_>) -> Result<Self, ConvertError> {
+        cell.as_i32()
+    }
 }
 
 impl FromSql for i64 {
@@ -128,6 +235,10 @@ impl FromSql for i64 {
                 got: other,
             }),
         }
+    }
+
+    fn from_arrow(cell: ArrowCell<'_>) -> Result<Self, ConvertError> {
+        cell.as_i64()
     }
 }
 
@@ -148,6 +259,10 @@ impl FromSql for f32 {
             }),
         }
     }
+
+    fn from_arrow(cell: ArrowCell<'_>) -> Result<Self, ConvertError> {
+        cell.as_f32()
+    }
 }
 
 impl FromSql for f64 {
@@ -166,6 +281,10 @@ impl FromSql for f64 {
             }),
         }
     }
+
+    fn from_arrow(cell: ArrowCell<'_>) -> Result<Self, ConvertError> {
+        cell.as_f64()
+    }
 }
 
 impl FromSql for bool {
@@ -182,6 +301,10 @@ impl FromSql for bool {
             }),
         }
     }
+
+    fn from_arrow(cell: ArrowCell<'_>) -> Result<Self, ConvertError> {
+        cell.as_bool()
+    }
 }
 
 impl<T: FromSql> FromSql for Option<T> {
@@ -189,6 +312,14 @@ impl<T: FromSql> FromSql for Option<T> {
         match value {
             wkt::Value::Null => Ok(None),
             other => T::from_sql(other).map(Some),
+        }
+    }
+
+    fn from_arrow(cell: ArrowCell<'_>) -> Result<Self, ConvertError> {
+        if cell.is_null() {
+            Ok(None)
+        } else {
+            T::from_arrow(cell).map(Some)
         }
     }
 }
@@ -204,6 +335,24 @@ impl<T: FromSql> FromSql for Vec<T> {
             }),
         }
     }
+
+    fn from_arrow(cell: ArrowCell<'_>) -> Result<Self, ConvertError> {
+        if cell.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        if let Some(arr) = cell.downcast_ref::<arrow::array::ListArray>() {
+            let value_arr = arr.value(cell.row_idx);
+            let mut result = Vec::with_capacity(value_arr.len());
+            for i in 0..value_arr.len() {
+                result.push(T::from_arrow(ArrowCell::new(value_arr.as_ref(), i))?);
+            }
+            return Ok(result);
+        }
+        Err(ConvertError::TypeMismatch {
+            expected: "list array",
+            got: wkt::Value::String(cell.data_type_str()),
+        })
+    }
 }
 
 impl FromSql for wkt::Struct {
@@ -216,6 +365,25 @@ impl FromSql for wkt::Struct {
                 got: other,
             }),
         }
+    }
+
+    fn from_arrow(cell: ArrowCell<'_>) -> Result<Self, ConvertError> {
+        if cell.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        if let Some(arr) = cell.downcast_ref::<arrow::array::StructArray>() {
+            let mut obj = wkt::Struct::new();
+            let row_idx = cell.row_idx;
+            for (field, col) in arr.fields().iter().zip(arr.columns()) {
+                let val = wkt::Value::from_arrow(ArrowCell::new(col.as_ref(), row_idx))?;
+                obj.insert(field.name().clone(), val);
+            }
+            return Ok(obj);
+        }
+        Err(ConvertError::TypeMismatch {
+            expected: "struct array",
+            got: wkt::Value::String(cell.data_type_str()),
+        })
     }
 }
 
@@ -240,6 +408,14 @@ impl FromSql for wkt::Timestamp {
                 got: other,
             }),
         }
+    }
+
+    fn from_arrow(cell: ArrowCell<'_>) -> Result<Self, ConvertError> {
+        let micros =
+            cell.downcast_value::<arrow::array::TimestampMicrosecondArray, _, _>(|arr, idx| {
+                arr.value(idx)
+            })?;
+        timestamp_from_micros(micros)
     }
 }
 
@@ -268,6 +444,18 @@ impl FromSql for google_cloud_type::model::Date {
                 got: other,
             }),
         }
+    }
+
+    fn from_arrow(cell: ArrowCell<'_>) -> Result<Self, ConvertError> {
+        let days =
+            cell.downcast_value::<arrow::array::Date32Array, _, _>(|arr, idx| arr.value(idx))?;
+        let date = time::OffsetDateTime::from_unix_timestamp(days as i64 * 86400)
+            .map_err(|e| ConvertError::Convert(Box::new(e)))?
+            .date();
+        Ok(google_cloud_type::model::Date::new()
+            .set_year(date.year())
+            .set_month(u8::from(date.month()) as i32)
+            .set_day(date.day() as i32))
     }
 }
 
@@ -298,6 +486,24 @@ impl FromSql for google_cloud_type::model::TimeOfDay {
             }),
         }
     }
+
+    fn from_arrow(cell: ArrowCell<'_>) -> Result<Self, ConvertError> {
+        let micros =
+            cell.downcast_value::<arrow::array::Time64MicrosecondArray, _, _>(|arr, idx| {
+                arr.value(idx)
+            })?;
+        let nanos = (micros % 1_000_000) * 1_000;
+        let total_secs = micros / 1_000_000;
+        let seconds = total_secs % 60;
+        let total_mins = total_secs / 60;
+        let minutes = total_mins % 60;
+        let hours = total_mins / 60;
+        Ok(google_cloud_type::model::TimeOfDay::new()
+            .set_hours(hours as i32)
+            .set_minutes(minutes as i32)
+            .set_seconds(seconds as i32)
+            .set_nanos(nanos as i32))
+    }
 }
 
 impl FromSql for google_cloud_type::model::DateTime {
@@ -327,6 +533,23 @@ impl FromSql for google_cloud_type::model::DateTime {
             }),
         }
     }
+
+    fn from_arrow(cell: ArrowCell<'_>) -> Result<Self, ConvertError> {
+        let micros =
+            cell.downcast_value::<arrow::array::TimestampMicrosecondArray, _, _>(|arr, idx| {
+                arr.value(idx)
+            })?;
+        let odt = time::OffsetDateTime::from_unix_timestamp_nanos(micros as i128 * 1_000)
+            .map_err(|e| ConvertError::Convert(Box::new(e)))?;
+        Ok(google_cloud_type::model::DateTime::new()
+            .set_year(odt.year())
+            .set_month(u8::from(odt.month()) as i32)
+            .set_day(odt.day() as i32)
+            .set_hours(odt.hour() as i32)
+            .set_minutes(odt.minute() as i32)
+            .set_seconds(odt.second() as i32)
+            .set_nanos(odt.nanosecond() as i32))
+    }
 }
 
 impl FromSql for google_cloud_type::model::Decimal {
@@ -342,6 +565,25 @@ impl FromSql for google_cloud_type::model::Decimal {
                 got: other,
             }),
         }
+    }
+
+    fn from_arrow(cell: ArrowCell<'_>) -> Result<Self, ConvertError> {
+        if cell.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        let row_idx = cell.row_idx;
+        if let Some(arr) = cell.downcast_ref::<arrow::array::Decimal128Array>() {
+            let s = arr.value_as_string(row_idx);
+            return Ok(google_cloud_type::model::Decimal::new().set_value(s));
+        }
+        if let Some(arr) = cell.downcast_ref::<arrow::array::Decimal256Array>() {
+            let s = arr.value_as_string(row_idx);
+            return Ok(google_cloud_type::model::Decimal::new().set_value(s));
+        }
+        Err(ConvertError::TypeMismatch {
+            expected: "decimal",
+            got: wkt::Value::String(cell.data_type_str()),
+        })
     }
 }
 
@@ -371,6 +613,39 @@ impl FromSql for rust_decimal::Decimal {
             }),
         }
     }
+
+    fn from_arrow(cell: ArrowCell<'_>) -> Result<Self, ConvertError> {
+        if cell.is_null() {
+            return Err(ConvertError::NotNull);
+        }
+        let row_idx = cell.row_idx;
+        if let Some(arr) = cell.downcast_ref::<arrow::array::Decimal128Array>() {
+            let val = arr.value(row_idx);
+            let scale = arr.scale() as u32;
+            return rust_decimal::Decimal::try_from_i128_with_scale(val, scale)
+                .map_err(|e| ConvertError::Convert(Box::new(e)));
+        }
+        if let Some(arr) = cell.downcast_ref::<arrow::array::Decimal256Array>() {
+            let s = arr.value_as_string(row_idx);
+            let trimmed = if let Some((int_part, frac_part)) = s.split_once('.') {
+                let frac_trimmed = frac_part.trim_end_matches('0');
+                if frac_trimmed.is_empty() {
+                    int_part.to_string()
+                } else {
+                    format!("{int_part}.{frac_trimmed}")
+                }
+            } else {
+                s
+            };
+            return trimmed
+                .parse::<rust_decimal::Decimal>()
+                .map_err(|e| ConvertError::Convert(Box::new(e)));
+        }
+        Err(ConvertError::TypeMismatch {
+            expected: "decimal",
+            got: wkt::Value::String(cell.data_type_str()),
+        })
+    }
 }
 
 impl FromSql for Vec<u8> {
@@ -386,11 +661,19 @@ impl FromSql for Vec<u8> {
             }),
         }
     }
+
+    fn from_arrow(cell: ArrowCell<'_>) -> Result<Self, ConvertError> {
+        cell.as_bytes().map(|b| b.to_vec())
+    }
 }
 
 impl FromSql for bytes::Bytes {
     fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
         Vec::<u8>::from_sql(value).map(bytes::Bytes::from)
+    }
+
+    fn from_arrow(cell: ArrowCell<'_>) -> Result<Self, ConvertError> {
+        cell.as_bytes().map(bytes::Bytes::copy_from_slice)
     }
 }
 

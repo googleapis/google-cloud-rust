@@ -13,18 +13,9 @@
 // limitations under the License.
 
 use crate::error::{ConvertError, RowError};
+use crate::query::from_sql::ArrowCell;
 use crate::query::{FromSql, Schema};
-use arrow::array::{
-    Array, BinaryArray, BooleanArray, Float32Array, Float64Array, Int8Array, Int16Array,
-    Int32Array, Int64Array, IntervalMonthDayNanoArray, LargeBinaryArray, LargeListArray,
-    LargeStringArray, ListArray, StringArray, StructArray, TimestampMicrosecondArray,
-    TimestampMillisecondArray, TimestampNanosecondArray, TimestampSecondArray, UInt8Array,
-    UInt16Array, UInt32Array, UInt64Array,
-};
-use arrow::datatypes::IntervalUnit;
-use arrow::datatypes::{DataType, TimeUnit};
 use arrow::record_batch::RecordBatch;
-use base64::Engine;
 use google_cloud_bigquery_v2::model::TableFieldSchema;
 use std::sync::Arc;
 use wkt::{ListValue, Struct, Value};
@@ -73,8 +64,17 @@ pub type Result<T> = std::result::Result<T, RowError>;
 /// ```
 #[derive(Clone, Debug)]
 pub struct Row {
-    pub(crate) values: Value,
+    pub(crate) inner: RowInner,
     pub(crate) schema: Arc<Schema>,
+}
+
+#[derive(Clone, Debug)]
+pub(crate) enum RowInner {
+    Json(ListValue),
+    Arrow {
+        batch: Arc<RecordBatch>,
+        row_idx: usize,
+    },
 }
 
 mod sealed {
@@ -91,11 +91,22 @@ mod sealed {
 pub trait ColumnIndex: sealed::ColumnIndex + std::fmt::Display {
     /// Returns the index of the column in the given row, if it exists.
     fn index(&self, row: &Row) -> Option<usize>;
+
+    /// Returns the index of the column in the given arrow struct array, if it exists.
+    fn arrow_index(&self, struct_arr: &arrow::array::StructArray) -> Option<usize>;
 }
 
 impl ColumnIndex for usize {
     fn index(&self, row: &Row) -> Option<usize> {
         row.schema.get_field_by_index(*self).map(|_| *self)
+    }
+
+    fn arrow_index(&self, struct_arr: &arrow::array::StructArray) -> Option<usize> {
+        if *self < struct_arr.num_columns() {
+            Some(*self)
+        } else {
+            None
+        }
     }
 }
 
@@ -103,11 +114,19 @@ impl ColumnIndex for &str {
     fn index(&self, row: &Row) -> Option<usize> {
         row.schema.get_field_index_by_name(self)
     }
+
+    fn arrow_index(&self, struct_arr: &arrow::array::StructArray) -> Option<usize> {
+        struct_arr.fields().iter().position(|f| f.name() == self)
+    }
 }
 
 impl ColumnIndex for String {
     fn index(&self, row: &Row) -> Option<usize> {
         self.as_str().index(row)
+    }
+
+    fn arrow_index(&self, struct_arr: &arrow::array::StructArray) -> Option<usize> {
+        self.as_str().arrow_index(struct_arr)
     }
 }
 
@@ -116,13 +135,13 @@ impl Row {
         let values = convert_row(row, schema.fields())?;
 
         Ok(Self {
-            values: Value::Array(values),
+            inner: RowInner::Json(values),
             schema: schema.clone(),
         })
     }
 
     pub(crate) fn try_new_from_arrow(
-        batch: &RecordBatch,
+        batch: &Arc<RecordBatch>,
         row_idx: usize,
         schema: &Arc<Schema>,
     ) -> Result<Self> {
@@ -134,15 +153,11 @@ impl Row {
             )));
         }
 
-        let mut values = ListValue::new();
-        for col_idx in 0..batch.num_columns() {
-            let col = batch.column(col_idx);
-            let value = arrow_to_value(col.as_ref(), row_idx)?;
-            values.push(value);
-        }
-
         Ok(Self {
-            values: Value::Array(values),
+            inner: RowInner::Arrow {
+                batch: Arc::clone(batch),
+                row_idx,
+            },
             schema: schema.clone(),
         })
     }
@@ -192,15 +207,35 @@ impl Row {
     /// ```
     pub fn try_get<T: FromSql, I: ColumnIndex>(&self, index: I) -> Result<T> {
         let idx = self.resolve_index(&index)?;
-        let val = self
-            .values
-            .get(idx)
-            .ok_or_else(|| RowError::IndexOutOfRange {
-                index: idx,
-                len: self.schema.len(),
-            })?;
-
-        self.convert_value_at(idx, val.clone())
+        match &self.inner {
+            RowInner::Json(values) => {
+                let val = values.get(idx).ok_or_else(|| RowError::IndexOutOfRange {
+                    index: idx,
+                    len: self.schema.len(),
+                })?;
+                self.convert_value_at(idx, val.clone())
+            }
+            RowInner::Arrow { batch, row_idx } => {
+                let col = batch
+                    .columns()
+                    .get(idx)
+                    .ok_or_else(|| RowError::IndexOutOfRange {
+                        index: idx,
+                        len: self.schema.len(),
+                    })?;
+                T::from_arrow(ArrowCell::new(col.as_ref(), *row_idx)).map_err(|e| {
+                    let field_name = self
+                        .schema
+                        .get_field_by_index(idx)
+                        .map(|f| f.name.clone())
+                        .unwrap_or_else(|| idx.to_string());
+                    RowError::TypeConversion {
+                        column: field_name,
+                        source: e,
+                    }
+                })
+            }
+        }
     }
 
     /// Takes ownership of a value from the row by column name or zero-based
@@ -226,18 +261,40 @@ impl Row {
     /// ```
     pub fn take<T: FromSql, I: ColumnIndex>(&mut self, index: I) -> Result<T> {
         let idx = self.resolve_index(&index)?;
+        match &mut self.inner {
+            RowInner::Json(values) => {
+                let val = values
+                    .get_mut(idx)
+                    .ok_or_else(|| RowError::IndexOutOfRange {
+                        index: idx,
+                        len: self.schema.len(),
+                    })?;
 
-        let val = self
-            .values
-            .get_mut(idx)
-            .ok_or_else(|| RowError::IndexOutOfRange {
-                index: idx,
-                len: self.schema.len(),
-            })?;
-
-        // swap out the value in-place to avoid clones
-        let owned_val = std::mem::replace(val, Value::Null);
-        self.convert_value_at(idx, owned_val)
+                // swap out the value in-place to avoid clones
+                let owned_val = std::mem::replace(val, Value::Null);
+                self.convert_value_at(idx, owned_val)
+            }
+            RowInner::Arrow { batch, row_idx } => {
+                let col = batch
+                    .columns()
+                    .get(idx)
+                    .ok_or_else(|| RowError::IndexOutOfRange {
+                        index: idx,
+                        len: self.schema.len(),
+                    })?;
+                T::from_arrow(ArrowCell::new(col.as_ref(), *row_idx)).map_err(|e| {
+                    let field_name = self
+                        .schema
+                        .get_field_by_index(idx)
+                        .map(|f| f.name.clone())
+                        .unwrap_or_else(|| idx.to_string());
+                    RowError::TypeConversion {
+                        column: field_name,
+                        source: e,
+                    }
+                })
+            }
+        }
     }
 
     /// Retrieves a value from the row by column name or zero-based index.
@@ -371,260 +428,6 @@ fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Resu
             field_type, field_name
         ))),
     }
-}
-
-fn arrow_to_value(array: &dyn Array, row_idx: usize) -> Result<Value> {
-    if array.is_null(row_idx) {
-        return Ok(Value::Null);
-    }
-
-    match array.data_type() {
-        DataType::Null => Ok(Value::Null),
-        DataType::Boolean => {
-            let arr = array
-                .as_any()
-                .downcast_ref::<BooleanArray>()
-                .ok_or_else(|| RowError::InvalidRowFormat("expected BooleanArray".into()))?;
-            Ok(Value::Bool(arr.value(row_idx)))
-        }
-        DataType::Int8 => {
-            let arr = array
-                .as_any()
-                .downcast_ref::<Int8Array>()
-                .ok_or_else(|| RowError::InvalidRowFormat("expected Int8Array".into()))?;
-            Ok(Value::Number(serde_json::Number::from(arr.value(row_idx))))
-        }
-        DataType::Int16 => {
-            let arr = array
-                .as_any()
-                .downcast_ref::<Int16Array>()
-                .ok_or_else(|| RowError::InvalidRowFormat("expected Int16Array".into()))?;
-            Ok(Value::Number(serde_json::Number::from(arr.value(row_idx))))
-        }
-        DataType::Int32 => {
-            let arr = array
-                .as_any()
-                .downcast_ref::<Int32Array>()
-                .ok_or_else(|| RowError::InvalidRowFormat("expected Int32Array".into()))?;
-            Ok(Value::Number(serde_json::Number::from(arr.value(row_idx))))
-        }
-        DataType::Int64 => {
-            let arr = array
-                .as_any()
-                .downcast_ref::<Int64Array>()
-                .ok_or_else(|| RowError::InvalidRowFormat("expected Int64Array".into()))?;
-            Ok(Value::Number(serde_json::Number::from(arr.value(row_idx))))
-        }
-        DataType::UInt8 => {
-            let arr = array
-                .as_any()
-                .downcast_ref::<UInt8Array>()
-                .ok_or_else(|| RowError::InvalidRowFormat("expected UInt8Array".into()))?;
-            Ok(Value::Number(serde_json::Number::from(arr.value(row_idx))))
-        }
-        DataType::UInt16 => {
-            let arr = array
-                .as_any()
-                .downcast_ref::<UInt16Array>()
-                .ok_or_else(|| RowError::InvalidRowFormat("expected UInt16Array".into()))?;
-            Ok(Value::Number(serde_json::Number::from(arr.value(row_idx))))
-        }
-        DataType::UInt32 => {
-            let arr = array
-                .as_any()
-                .downcast_ref::<UInt32Array>()
-                .ok_or_else(|| RowError::InvalidRowFormat("expected UInt32Array".into()))?;
-            Ok(Value::Number(serde_json::Number::from(arr.value(row_idx))))
-        }
-        DataType::UInt64 => {
-            let arr = array
-                .as_any()
-                .downcast_ref::<UInt64Array>()
-                .ok_or_else(|| RowError::InvalidRowFormat("expected UInt64Array".into()))?;
-            Ok(Value::Number(serde_json::Number::from(arr.value(row_idx))))
-        }
-        DataType::Float32 => {
-            let arr = array
-                .as_any()
-                .downcast_ref::<Float32Array>()
-                .ok_or_else(|| RowError::InvalidRowFormat("expected Float32Array".into()))?;
-            let n = serde_json::Number::from_f64(arr.value(row_idx) as f64)
-                .ok_or_else(|| RowError::InvalidRowFormat("invalid f32 value".into()))?;
-            Ok(Value::Number(n))
-        }
-        DataType::Float64 => {
-            let arr = array
-                .as_any()
-                .downcast_ref::<Float64Array>()
-                .ok_or_else(|| RowError::InvalidRowFormat("expected Float64Array".into()))?;
-            let n = serde_json::Number::from_f64(arr.value(row_idx))
-                .ok_or_else(|| RowError::InvalidRowFormat("invalid f64 value".into()))?;
-            Ok(Value::Number(n))
-        }
-        DataType::Utf8 => {
-            let arr = array
-                .as_any()
-                .downcast_ref::<StringArray>()
-                .ok_or_else(|| RowError::InvalidRowFormat("expected StringArray".into()))?;
-            Ok(Value::String(arr.value(row_idx).to_string()))
-        }
-        DataType::LargeUtf8 => {
-            let arr = array
-                .as_any()
-                .downcast_ref::<LargeStringArray>()
-                .ok_or_else(|| RowError::InvalidRowFormat("expected LargeStringArray".into()))?;
-            Ok(Value::String(arr.value(row_idx).to_string()))
-        }
-        DataType::Binary => {
-            let arr = array
-                .as_any()
-                .downcast_ref::<BinaryArray>()
-                .ok_or_else(|| RowError::InvalidRowFormat("expected BinaryArray".into()))?;
-            Ok(Value::String(
-                base64::prelude::BASE64_STANDARD.encode(arr.value(row_idx)),
-            ))
-        }
-        DataType::LargeBinary => {
-            let arr = array
-                .as_any()
-                .downcast_ref::<LargeBinaryArray>()
-                .ok_or_else(|| RowError::InvalidRowFormat("expected LargeBinaryArray".into()))?;
-            Ok(Value::String(
-                base64::prelude::BASE64_STANDARD.encode(arr.value(row_idx)),
-            ))
-        }
-        DataType::Interval(unit) => convert_arrow_interval(array, row_idx, unit),
-        DataType::Timestamp(unit, Some(_)) => convert_arrow_timestamp(array, row_idx, unit),
-        DataType::Struct(_) => convert_arrow_struct(array, row_idx),
-        DataType::List(_) | DataType::LargeList(_) => convert_arrow_list(array, row_idx),
-        _ => {
-            let formatter =
-                arrow::util::display::ArrayFormatter::try_new(array, &Default::default()).map_err(
-                    |e| RowError::InvalidRowFormat(format!("failed to format arrow value: {e}")),
-                )?;
-            Ok(Value::String(formatter.value(row_idx).to_string()))
-        }
-    }
-}
-
-fn convert_arrow_interval(array: &dyn Array, row_idx: usize, unit: &IntervalUnit) -> Result<Value> {
-    match unit {
-        IntervalUnit::MonthDayNano => {
-            let arr = array
-                .as_any()
-                .downcast_ref::<IntervalMonthDayNanoArray>()
-                .ok_or_else(|| RowError::InvalidRowFormat("expected IntervalArray".into()))?;
-            let v = arr.value(row_idx);
-            // Format Year-Month (e.g. "1-2" or "-1-2")
-            let ym_sign = if v.months < 0 { "-" } else { "" };
-            let total_months = v.months.unsigned_abs();
-            let years = total_months / 12;
-            let months = total_months % 12;
-
-            // Format Time H:MM:SS[.fffffffff]
-            let time_sign = if v.nanoseconds < 0 { "-" } else { "" };
-            let total_nanos = v.nanoseconds.unsigned_abs();
-            let nanos = total_nanos % 1_000_000_000;
-            let total_secs = total_nanos / 1_000_000_000;
-            let seconds = total_secs % 60;
-            let total_mins = total_secs / 60;
-            let minutes = total_mins % 60;
-            let hours = total_mins / 60;
-
-            let time_str = if nanos == 0 {
-                format!("{time_sign}{hours}:{minutes:02}:{seconds:02}")
-            } else {
-                let frac = format!("{nanos:09}");
-                let frac = frac.trim_end_matches('0');
-                format!("{time_sign}{hours}:{minutes:02}:{seconds:02}.{frac}")
-            };
-
-            Ok(Value::String(format!(
-                "{ym_sign}{years}-{months} {} {time_str}",
-                v.days
-            )))
-        }
-        _ => Err(RowError::InvalidRowFormat(format!(
-            "unsupported interval unit: {unit:?}"
-        ))),
-    }
-}
-
-fn convert_arrow_timestamp(array: &dyn Array, row_idx: usize, unit: &TimeUnit) -> Result<Value> {
-    let micros = match unit {
-        TimeUnit::Microsecond => {
-            let arr = array
-                .as_any()
-                .downcast_ref::<TimestampMicrosecondArray>()
-                .ok_or_else(|| {
-                    RowError::InvalidRowFormat("expected TimestampMicrosecondArray".into())
-                })?;
-            arr.value(row_idx)
-        }
-        TimeUnit::Millisecond => {
-            let arr = array
-                .as_any()
-                .downcast_ref::<TimestampMillisecondArray>()
-                .ok_or_else(|| {
-                    RowError::InvalidRowFormat("expected TimestampMillisecondArray".into())
-                })?;
-            arr.value(row_idx) * 1_000
-        }
-        TimeUnit::Second => {
-            let arr = array
-                .as_any()
-                .downcast_ref::<TimestampSecondArray>()
-                .ok_or_else(|| {
-                    RowError::InvalidRowFormat("expected TimestampSecondArray".into())
-                })?;
-            arr.value(row_idx) * 1_000_000
-        }
-        TimeUnit::Nanosecond => {
-            let arr = array
-                .as_any()
-                .downcast_ref::<TimestampNanosecondArray>()
-                .ok_or_else(|| {
-                    RowError::InvalidRowFormat("expected TimestampNanosecondArray".into())
-                })?;
-            arr.value(row_idx) / 1_000
-        }
-    };
-    Ok(Value::Number(serde_json::Number::from(micros)))
-}
-
-fn convert_arrow_struct(array: &dyn Array, row_idx: usize) -> Result<Value> {
-    let struct_arr = array
-        .as_any()
-        .downcast_ref::<StructArray>()
-        .ok_or_else(|| RowError::InvalidRowFormat("expected StructArray".into()))?;
-    let mut obj = Struct::new();
-    for (field, col) in struct_arr.fields().iter().zip(struct_arr.columns()) {
-        let val = arrow_to_value(col.as_ref(), row_idx)?;
-        obj.insert(field.name().to_string(), val);
-    }
-    Ok(Value::Object(obj))
-}
-
-fn convert_arrow_list(array: &dyn Array, row_idx: usize) -> Result<Value> {
-    if let Some(list_arr) = array.as_any().downcast_ref::<ListArray>() {
-        let sub_arr = list_arr.value(row_idx);
-        let mut values = ListValue::new();
-        for i in 0..sub_arr.len() {
-            values.push(arrow_to_value(sub_arr.as_ref(), i)?);
-        }
-        return Ok(Value::Array(values));
-    }
-    if let Some(list_arr) = array.as_any().downcast_ref::<LargeListArray>() {
-        let sub_arr = list_arr.value(row_idx);
-        let mut values = ListValue::new();
-        for i in 0..sub_arr.len() {
-            values.push(arrow_to_value(sub_arr.as_ref(), i)?);
-        }
-        return Ok(Value::Array(values));
-    }
-    Err(RowError::InvalidRowFormat(
-        "expected ListArray or LargeListArray".into(),
-    ))
 }
 
 #[cfg(test)]
@@ -1158,7 +961,7 @@ mod tests {
         let created_dt =
             TimestampMicrosecondArray::from(vec![1_600_000_000_000_000, 1_700_000_000_000_000]);
 
-        let batch = RecordBatch::try_new(
+        let batch = Arc::new(RecordBatch::try_new(
             arrow_schema,
             vec![
                 Arc::new(name),
@@ -1168,7 +971,7 @@ mod tests {
                 Arc::new(created_ts),
                 Arc::new(created_dt),
             ],
-        )?;
+        )?);
 
         let table_schema = TableSchema::new().set_fields([
             TableFieldSchema::new().set_name("name").set_type("STRING"),
@@ -1235,7 +1038,10 @@ mod tests {
             arrow::datatypes::IntervalMonthDayNanoType::make_value(i32::MIN, 0, i64::MIN),
         ]);
 
-        let batch = RecordBatch::try_new(arrow_schema, vec![Arc::new(intervals)])?;
+        let batch = Arc::new(RecordBatch::try_new(
+            arrow_schema,
+            vec![Arc::new(intervals)],
+        )?);
 
         let table_schema = TableSchema::new().set_fields([TableFieldSchema::new()
             .set_name("duration")
@@ -1274,8 +1080,14 @@ mod tests {
 
         // Verifies no overflow on i32::MIN and i64::MIN
         let row2 = Row::try_new_from_arrow(&batch, 2, &schema)?;
-        let val2: String = row2.get("duration");
-        assert!(val2.starts_with("-178956970-8 0 -"));
+        let int2: Interval = row2.get("duration");
+        assert_eq!(int2.years, -178956970);
+        assert_eq!(int2.months, -8);
+        assert_eq!(int2.days, 0);
+        assert_eq!(int2.hours, -2562047);
+        assert_eq!(int2.minutes, -47);
+        assert_eq!(int2.seconds, -16);
+        assert_eq!(int2.nanos, -854_775_808);
 
         Ok(())
     }

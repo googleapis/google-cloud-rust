@@ -57,7 +57,7 @@ pub struct RowIterator {
     job_ref: Option<JobReference>,
     schema: Arc<Schema>,
     page_token: Option<String>,
-    record_batches: VecDeque<RecordBatch>,
+    record_batches: VecDeque<Arc<RecordBatch>>,
     row_index: usize,
     rows: VecDeque<wkt::Struct>,
     max_results: Option<u32>,
@@ -77,6 +77,7 @@ impl RowIterator {
                 )
                 .expect("valid arrow IPC stream"); // TODO: convert error
                 let batches = reader
+                    .map(|res| res.map(Arc::new))
                     .collect::<std::result::Result<VecDeque<_>, _>>()
                     .expect("valid record batches"); // TODO: convert error
                 (VecDeque::new(), batches)
