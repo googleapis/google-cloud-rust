@@ -21,8 +21,8 @@ use crate::model::transaction_selector::Selector;
 use crate::model::{
     BatchWriteRequest, BeginTransactionRequest, CacheUpdate, CommitRequest, CommitResponse,
     ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest, PartitionQueryRequest,
-    PartitionReadRequest, PartitionResponse, ReadRequest, ResultSet, RollbackRequest, Transaction,
-    TransactionOptions, TransactionSelector,
+    PartitionReadRequest, PartitionResponse, ReadRequest, ResultSet, RollbackRequest, RoutingHint,
+    Transaction, TransactionOptions, TransactionSelector,
 };
 use crate::observability::Observability;
 use crate::omni::{InstanceType, format_database_name};
@@ -48,8 +48,7 @@ use crate::write_only_transaction::WriteOnlyTransactionBuilder;
 use crate::{RequestOptions, Result};
 use bytes::Bytes;
 use std::env;
-use std::sync::atomic::{AtomicU64, Ordering};
-use std::sync::{Arc, RwLock};
+use std::sync::Arc;
 
 /// A client for interacting with a specific Spanner database.
 ///
@@ -131,7 +130,7 @@ macro_rules! define_db_streaming_rpc {
     ($method:ident, $expect_method:ident, $request_type:ty, $builder_type:ty, $extract_key:expr) => {
         pub(crate) fn $method(
             &self,
-            request: $request_type,
+            mut request: $request_type,
             options: RequestOptions,
             channel_hint: usize,
         ) -> $builder_type {
@@ -143,15 +142,16 @@ macro_rules! define_db_streaming_rpc {
                 .as_ref()
                 .and_then(|routing| $extract_key(routing, &request));
 
-            // Step 2: Resolve the optimal server connection if location-aware routing is enabled.
-            // - If disabled (standard Cloud Spanner), returns `None` immediately on the fast path.
-            // - If enabled but both `transaction_id` and `routing_key` are `None`, returns `None` early.
-            // - If a target tablet replica or affinity connection is found, returns `Some(connection)`.
-            let context =
-                routing_context_from_selector(request.transaction.as_ref(), routing_key.as_deref());
-            let connection = self.resolve_routing_connection(&context);
+            // Step 2: Resolve the optimal server connection and routing hint in a single atomic pass.
+            let (connection, routing_hint) =
+                self.resolve_streaming_route(request.transaction.as_ref(), routing_key.as_deref());
 
-            // Step 3: Select the gRPC channel:
+            // Step 3: Attach the routing hint if present.
+            if let Some(hint) = routing_hint {
+                request.routing_hint = Some(hint);
+            }
+
+            // Step 4: Select the gRPC channel:
             // - If location-aware routing resolved a direct node connection (`Some(connection)`), use `connection.channel()`.
             // - Otherwise (location routing disabled, unkeyed query/read, or cold cache), fall back to round-robin
             //   load-balancing across the client's channel pool via `self.spanner.get_channel(channel_hint)`.
@@ -284,6 +284,7 @@ impl DatabaseClient {
     ///     returns `None` early to allow standard round-robin channel pooling across channels 1..=4.
     ///   - If a routing key or transaction affinity matches an active endpoint in cache, returns `Some(connection)`
     ///     pointing directly to the target node.
+    #[allow(dead_code)] // TODO(#6236): Used by request routing in subsequent PRs
     pub(crate) fn resolve_routing_connection(
         &self,
         context: &RoutingContext,
@@ -527,11 +528,36 @@ impl DatabaseClient {
     }
 
     /// Returns the database ID assigned by the server for location-aware routing, if known.
-    #[allow(dead_code)] // TODO: Used when constructing RoutingHint on requests in subsequent PRs
+    #[allow(dead_code)] // TODO(#6236): Used by request routing in subsequent PRs
     pub(crate) fn database_id(&self) -> Option<u64> {
         self.location_routing
             .as_ref()
-            .map(|routing| routing.database_id.load(Ordering::Acquire))
+            .map(|routing| routing.cache_updater.database_id())
+    }
+
+    /// Resolves the optimal [`ServerConnection`] and [`RoutingHint`] in a single pass for a streaming request.
+    fn resolve_streaming_route(
+        &self,
+        transaction: Option<&TransactionSelector>,
+        routing_key: Option<&[u8]>,
+    ) -> (Option<ServerConnection>, Option<RoutingHint>) {
+        let Some(routing) = &self.location_routing else {
+            return (None, None);
+        };
+        let context = routing_context_from_selector(transaction, routing_key);
+        if context.transaction_id.is_none() && context.routing_key.is_none() {
+            return (None, None);
+        }
+        let database_id = routing.cache_updater.database_id();
+        let schema_generation = routing.key_recipe_cache.schema_generation();
+        let resolved = routing.location_router.resolve_route(
+            &context,
+            database_id,
+            schema_generation,
+            0,
+            None,
+        );
+        (Some(resolved.connection), resolved.routing_hint)
     }
 
     /// Observes an incoming [`CacheUpdate`], updating routing ranges, pre-warming connections, and caching key recipes.
@@ -539,46 +565,7 @@ impl DatabaseClient {
         let (Some(routing), Some(cache_update)) = (&self.location_routing, cache_update) else {
             return;
         };
-        let update_database_id = cache_update.database_id;
-
-        // If the update specifies a database ID that differs from the active one,
-        // or on initial startup, acquire an exclusive write lock to transition the ID
-        // and safely clear stale caches.
-        if update_database_id != 0 {
-            let current_id = routing.database_id.load(Ordering::Acquire);
-            if current_id != update_database_id {
-                let _write_guard = routing.update_lock.write().expect("poisoned update lock");
-                let current_id = routing.database_id.load(Ordering::Acquire);
-                if current_id != update_database_id {
-                    if current_id != 0 && update_database_id < current_id {
-                        // Stale update from an older database generation: abort ingestion.
-                        return;
-                    }
-                    routing.cache_updater.process_cache_update(&cache_update);
-                    routing
-                        .database_id
-                        .store(routing.cache_updater.database_id(), Ordering::Release);
-                    return;
-                }
-            }
-        }
-
-        // Shared read path: Multiple threads can concurrently ingest incremental updates for the current active database.
-        // The shared read lock prevents cache updates from racing with an exclusive cache invalidation / database ID switch.
-        let _read_guard = routing.update_lock.read().expect("poisoned update lock");
-        if update_database_id != 0
-            && update_database_id < routing.database_id.load(Ordering::Acquire)
-        {
-            // A database ID switch occurred before acquiring the read lock; abort stale update.
-            return;
-        }
-
-        routing.cache_updater.process_cache_update(&cache_update);
-        if update_database_id != 0 {
-            routing
-                .database_id
-                .store(routing.cache_updater.database_id(), Ordering::Release);
-        }
+        routing.cache_updater.process_cache_update(cache_update);
     }
 
     fn pre_route_begin_transaction(
@@ -875,7 +862,6 @@ fn is_read_write_begin(selector: Option<&TransactionSelector>) -> bool {
         _ => false,
     }
 }
-
 /// A builder for [DatabaseClient].
 pub struct DatabaseClientBuilder {
     spanner: Spanner,
@@ -1037,8 +1023,6 @@ pub(crate) struct LocationRoutingState {
     pub(crate) location_router: Arc<LocationRouter>,
     pub(crate) cache_updater: Arc<CacheUpdater>,
     pub(crate) key_recipe_cache: Arc<KeyRecipeCache>,
-    pub(crate) database_id: AtomicU64,
-    pub(crate) update_lock: RwLock<()>,
 }
 
 const DEFAULT_ENDPOINT: &str = "spanner.googleapis.com:443";
@@ -1074,15 +1058,11 @@ impl LocationRoutingState {
             connection_cache,
             spanner.config.clone(),
         ));
-        let database_id = AtomicU64::new(0);
-        let update_lock = RwLock::new(());
 
         Self {
             location_router,
             cache_updater,
             key_recipe_cache,
-            database_id,
-            update_lock,
         }
     }
 }
@@ -2843,5 +2823,284 @@ mod tests {
                 );
             }
         }
+    }
+
+    #[tokio_test_no_panics]
+    async fn streaming_read_attaches_routing_hint_when_location_routing_active() {
+        use crate::model::key_recipe::Part;
+        use crate::model::key_recipe::part::{NullOrder, Order};
+        use bytes::Bytes;
+        use std::sync::Mutex;
+
+        let captured_hints = Arc::new(Mutex::new(Vec::new()));
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|request| {
+            let request = request.into_inner();
+            let session = request.session.expect("session present in request");
+            Ok(gaxi::grpc::tonic::Response::new(
+                spanner_grpc_mock::google::spanner::v1::Session {
+                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
+                    multiplexed: session.multiplexed,
+                    ..Default::default()
+                },
+            ))
+        });
+
+        let captured = Arc::clone(&captured_hints);
+        mock.expect_streaming_read().returning(move |request| {
+            let request = request.into_inner();
+            captured.lock().expect("lock").push(request.routing_hint);
+            Ok(gaxi::grpc::tonic::Response::from(adapt([])))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        // 1. Initial streaming read without cache update -> routing_hint is None (cold cache, db_id = 0)
+        let mut key_set = KeySet::new();
+        key_set
+            .keys
+            .push(vec![serde_json::Value::String("user123".to_string())]);
+        let read_request = ReadRequest::new()
+            .set_table("Users")
+            .set_columns(vec!["name".to_string()])
+            .set_key_set(key_set.clone());
+
+        let _ = database_client
+            .streaming_read(read_request.clone(), RequestOptions::default(), 0)
+            .send()
+            .await;
+
+        let hints = captured_hints.lock().expect("lock").clone();
+        captured_hints.lock().expect("lock").clear();
+        assert_eq!(
+            hints.len(),
+            1,
+            "exactly one initial request must be captured"
+        );
+        assert!(
+            hints[0].is_none(),
+            "cold cache without database_id must not attach RoutingHint"
+        );
+
+        // 2. Ingest CacheUpdate with database_id, recipe list, and key range
+        let recipe = KeyRecipe::new().set_table_name("Users").set_part(vec![
+            Part::new().set_tag(50020u32),
+            Part::new()
+                .set_tag(1u32)
+                .set_identifier("id")
+                .set_type(Type::new().set_code(TypeCode::String))
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull),
+        ]);
+        let recipe_list = RecipeList::new()
+            .set_schema_generation(Bytes::from_static(b"schema-v1"))
+            .set_recipe(vec![recipe]);
+
+        let tablet = Tablet::default()
+            .set_tablet_uid(301u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_incarnation(Bytes::from_static(b"inc-1"));
+        let group = Group::new()
+            .set_group_uid(400u64)
+            .set_leader_index(0)
+            .set_tablets(vec![tablet]);
+        let range = Range::new()
+            .set_group_uid(400u64)
+            .set_split_id(500u64)
+            .set_start_key(vec![0x00])
+            .set_limit_key(vec![0xff]);
+
+        let cache_update = CacheUpdate::new()
+            .set_database_id(999u64)
+            .set_key_recipes(recipe_list)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        database_client.observe_cache_update(Some(cache_update));
+
+        // 3. Subsequent streaming read for table Users -> RoutingHint must be populated and attached
+        let _ = database_client
+            .streaming_read(read_request, RequestOptions::default(), 0)
+            .send()
+            .await;
+
+        let hints = captured_hints.lock().expect("lock").clone();
+        assert_eq!(
+            hints.len(),
+            1,
+            "exactly one subsequent request must be captured"
+        );
+        let hint = hints[0].as_ref().expect("RoutingHint must be attached");
+
+        assert_eq!(
+            database_client.database_id(),
+            Some(999),
+            "database_id must match active database"
+        );
+        assert_eq!(
+            hint.operation_uid, 0,
+            "operation_uid is 0 for unshaped read"
+        );
+        assert_eq!(hint.database_id, 999, "database_id must match CacheUpdate");
+        assert_eq!(
+            &hint.schema_generation[..],
+            b"schema-v1",
+            "schema_generation must match RecipeList"
+        );
+        assert_eq!(hint.group_uid, 400, "group_uid must match CacheUpdate");
+        assert_eq!(hint.split_id, 500, "split_id must match CacheUpdate");
+        assert_eq!(
+            hint.tablet_uid, 301,
+            "tablet_uid must match selected tablet"
+        );
+        assert_eq!(&hint.key[..], &[0x00], "key must match range start_key");
+        assert_eq!(
+            &hint.limit_key[..],
+            &[0xff],
+            "limit_key must match range limit_key"
+        );
+    }
+
+    #[test]
+    fn routing_context_prefer_leader_classification() {
+        use crate::model::transaction_options::{PartitionedDml, ReadOnly, ReadWrite};
+        use crate::model::{TransactionOptions, TransactionSelector};
+        use bytes::Bytes;
+
+        // None selector defaults to prefer_leader = true
+        let context_none = routing_context_from_selector(None, None);
+        assert!(
+            context_none.prefer_leader,
+            "None selector must prefer leader"
+        );
+        assert!(
+            context_none.transaction_id.is_none(),
+            "transaction_id must be None"
+        );
+        assert!(
+            !context_none.use_transaction_affinity,
+            "use_transaction_affinity must be false without transaction_id"
+        );
+
+        // Transaction ID selector sets affinity and defaults to prefer_leader = true
+        let id_selector = TransactionSelector::new().set_id(Bytes::from_static(b"tx-123"));
+        let context_id = routing_context_from_selector(Some(&id_selector), None);
+        assert!(
+            context_id.prefer_leader,
+            "Transaction ID selector must prefer leader"
+        );
+        assert_eq!(
+            context_id.transaction_id,
+            Some(b"tx-123".as_slice()),
+            "transaction_id must match Bytes"
+        );
+        assert!(
+            context_id.use_transaction_affinity,
+            "use_transaction_affinity must be true when transaction_id is present"
+        );
+
+        // ReadWrite transaction prefers leader
+        let rw_options = TransactionOptions::new().set_read_write(ReadWrite::default());
+        let rw_selector = TransactionSelector::new().set_begin(rw_options);
+        let context_rw = routing_context_from_selector(Some(&rw_selector), None);
+        assert!(
+            context_rw.prefer_leader,
+            "ReadWrite transaction must prefer leader"
+        );
+
+        // PartitionedDML transaction prefers leader
+        let pdml_options = TransactionOptions::new().set_partitioned_dml(PartitionedDml::default());
+        let pdml_selector = TransactionSelector::new().set_begin(pdml_options);
+        let context_pdml = routing_context_from_selector(Some(&pdml_selector), None);
+        assert!(
+            context_pdml.prefer_leader,
+            "PartitionedDML transaction must prefer leader"
+        );
+
+        // Read-only with default options (no timestamp bound) defaults to strong -> prefers leader
+        let ro_default = TransactionOptions::new().set_read_only(ReadOnly::default());
+        let selector_ro_default = TransactionSelector::new().set_single_use(ro_default);
+        let context_ro_default = routing_context_from_selector(Some(&selector_ro_default), None);
+        assert!(
+            context_ro_default.prefer_leader,
+            "ReadOnly with default options must prefer leader"
+        );
+
+        // Read-only with Strong(true) timestamp bound -> prefer_leader = true
+        let strong_true_ro =
+            TransactionOptions::new().set_read_only(ReadOnly::new().set_strong(true));
+        let selector_strong_true = TransactionSelector::new().set_single_use(strong_true_ro);
+        let context_strong_true = routing_context_from_selector(Some(&selector_strong_true), None);
+        assert!(
+            context_strong_true.prefer_leader,
+            "Strong(true) read must prefer leader"
+        );
+
+        // Read-only with Strong(false) timestamp bound -> prefer_leader = false
+        let strong_false_ro =
+            TransactionOptions::new().set_read_only(ReadOnly::new().set_strong(false));
+        let selector_strong_false = TransactionSelector::new().set_single_use(strong_false_ro);
+        let context_strong_false =
+            routing_context_from_selector(Some(&selector_strong_false), None);
+        assert!(
+            !context_strong_false.prefer_leader,
+            "Strong(false) read must route to follower"
+        );
+
+        // Read-only with ExactStaleness timestamp bound -> prefer_leader = false
+        let exact_staleness_ro = TransactionOptions::new()
+            .set_read_only(ReadOnly::new().set_exact_staleness(wkt::Duration::clamp(10, 0)));
+        let selector_exact = TransactionSelector::new().set_begin(exact_staleness_ro);
+        let context_exact = routing_context_from_selector(Some(&selector_exact), None);
+        assert!(
+            !context_exact.prefer_leader,
+            "ExactStaleness read must route to follower"
+        );
+
+        // Read-only with MaxStaleness timestamp bound -> prefer_leader = false
+        let max_staleness_ro = TransactionOptions::new()
+            .set_read_only(ReadOnly::new().set_max_staleness(wkt::Duration::clamp(10, 0)));
+        let selector_max = TransactionSelector::new().set_single_use(max_staleness_ro);
+        let context_max = routing_context_from_selector(Some(&selector_max), None);
+        assert!(
+            !context_max.prefer_leader,
+            "MaxStaleness read must route to follower"
+        );
+
+        // Read-only with ReadTimestamp timestamp bound -> prefer_leader = false
+        let read_timestamp_ro = TransactionOptions::new()
+            .set_read_only(ReadOnly::new().set_read_timestamp(wkt::Timestamp::clamp(100, 0)));
+        let selector_read_ts = TransactionSelector::new().set_single_use(read_timestamp_ro);
+        let context_read_ts = routing_context_from_selector(Some(&selector_read_ts), None);
+        assert!(
+            !context_read_ts.prefer_leader,
+            "ReadTimestamp read must route to follower"
+        );
+
+        // Read-only with MinReadTimestamp timestamp bound -> prefer_leader = false
+        let min_read_timestamp_ro = TransactionOptions::new()
+            .set_read_only(ReadOnly::new().set_min_read_timestamp(wkt::Timestamp::clamp(100, 0)));
+        let selector_min_ts = TransactionSelector::new().set_single_use(min_read_timestamp_ro);
+        let context_min_ts = routing_context_from_selector(Some(&selector_min_ts), None);
+        assert!(
+            !context_min_ts.prefer_leader,
+            "MinReadTimestamp read must route to follower"
+        );
     }
 }
