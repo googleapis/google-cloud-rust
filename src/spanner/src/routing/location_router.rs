@@ -24,13 +24,17 @@
 // TODO(#6236): Remove dead_code allowance once LocationRouter is integrated into DatabaseClient.
 #![allow(dead_code)]
 
+use crate::model::Tablet;
 use crate::routing::connection_cache::ConnectionCache;
 use crate::routing::endpoint_cooldown::EndpointCooldownTracker;
-use crate::routing::key_range_cache::{KeyRangeCache, RangeMode};
+use crate::routing::key_range_cache::{CachedRange, KeyRangeCache, RangeMode};
+use crate::routing::latency_registry::LatencyRegistry;
+use crate::routing::power_of_two_selector::PowerOfTwoSelector;
 use crate::routing::server_connection::ServerConnection;
 use std::collections::HashMap;
 use std::fmt::{self, Debug, Formatter};
 use std::sync::{Arc, RwLock};
+use std::time::Duration;
 
 /// Context parameters used by [`LocationRouter`] to determine the target server connection.
 #[derive(Clone, Debug, Default)]
@@ -95,21 +99,26 @@ impl AffinityTracker {
     }
 }
 
-/// Routes Spanner requests to specific server node connections using location metadata and
-/// transaction affinity.
+/// Routes Spanner requests to specific server node connections using location metadata,
+/// latency scores, and transaction affinity.
 #[derive(Clone)]
 pub(crate) struct LocationRouter {
+    database_scope: String,
     key_range_cache: Arc<KeyRangeCache>,
     connection_cache: Arc<ConnectionCache>,
     cooldown_tracker: Arc<EndpointCooldownTracker>,
+    latency_registry: Arc<LatencyRegistry>,
+    replica_selector: PowerOfTwoSelector,
     affinity_tracker: Arc<RwLock<AffinityTracker>>,
 }
 
 impl Debug for LocationRouter {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         f.debug_struct("LocationRouter")
+            .field("database_scope", &self.database_scope)
             .field("connection_cache", &self.connection_cache)
             .field("cooldown_tracker", &self.cooldown_tracker)
+            .field("latency_registry", &self.latency_registry)
             .finish_non_exhaustive()
     }
 }
@@ -117,16 +126,30 @@ impl Debug for LocationRouter {
 impl LocationRouter {
     /// Creates a new `LocationRouter`.
     pub(crate) fn new(
+        database_scope: String,
         key_range_cache: Arc<KeyRangeCache>,
         connection_cache: Arc<ConnectionCache>,
         cooldown_tracker: Arc<EndpointCooldownTracker>,
+        latency_registry: Arc<LatencyRegistry>,
     ) -> Self {
+        debug_assert!(
+            !database_scope.is_empty(),
+            "database scope must not be empty"
+        );
         Self {
+            database_scope,
             key_range_cache,
             connection_cache,
             cooldown_tracker,
+            latency_registry,
+            replica_selector: PowerOfTwoSelector::new(),
             affinity_tracker: Arc::new(RwLock::new(AffinityTracker::new())),
         }
+    }
+
+    /// Returns the database scope configured for this router.
+    pub(crate) fn database_scope(&self) -> &str {
+        &self.database_scope
     }
 
     /// Returns a reference to the underlying [`KeyRangeCache`].
@@ -144,12 +167,34 @@ impl LocationRouter {
         &self.cooldown_tracker
     }
 
+    /// Returns a reference to the underlying [`LatencyRegistry`].
+    pub(crate) fn latency_registry(&self) -> &LatencyRegistry {
+        &self.latency_registry
+    }
+
+    /// Records an observed round-trip latency sample for an endpoint address within a paxos group.
+    pub(crate) fn record_latency(&self, group_uid: u64, server_address: &str, latency: Duration) {
+        self.latency_registry.record_latency(
+            Some(&self.database_scope),
+            group_uid,
+            server_address,
+            latency,
+        );
+    }
+
+    /// Records an RPC error penalty for an endpoint address within a paxos group.
+    pub(crate) fn record_error(&self, group_uid: u64, server_address: &str) {
+        self.latency_registry
+            .record_error(Some(&self.database_scope), group_uid, server_address);
+    }
+
     /// Resolves the optimal [`ServerConnection`] for the provided request routing context.
     ///
     /// 1. Checks transaction affinity for an existing session address.
     /// 2. If no affinity match is found, looks up the routing key in the key range cache.
-    /// 3. Skips endpoints marked on cooldown.
-    /// 4. Falls back to the default server connection if no cached node connection is available.
+    /// 3. Selects a healthy tablet replica, using P2C latency-aware selection among follower replicas.
+    /// 4. Skips endpoints marked on cooldown.
+    /// 5. Falls back to the default server connection if no cached node connection is available.
     pub(crate) fn resolve_connection(&self, context: &RoutingContext<'_>) -> ServerConnection {
         // Step 1: Check existing transaction affinity.
         if context.use_transaction_affinity
@@ -161,18 +206,13 @@ impl LocationRouter {
             return connection;
         }
 
-        // Step 2: Query key range cache for tablet replica address.
+        // Step 2: Query key range cache and select healthy replica.
         if let Some(routing_key) = context.routing_key
-            && let Some(range) =
-                self.key_range_cache
-                    .find_range(routing_key, &[], RangeMode::CoveringSplit)
-            && let Some(tablet) = self
+            && let Some(range) = self
                 .key_range_cache
-                .select_tablet(&range, context.prefer_leader)
-            && !self
-                .cooldown_tracker
-                .is_cooling_down(&tablet.server_address)
-            && let Some(connection) = self.connection_cache.get_if_present(&tablet.server_address)
+                .find_range(routing_key, &[], RangeMode::CoveringSplit)
+            && let Some((tablet, connection)) =
+                self.select_healthy_replica(&range, context.prefer_leader)
         {
             // Bind transaction affinity if enabled and a transaction ID is present.
             if context.use_transaction_affinity
@@ -185,6 +225,78 @@ impl LocationRouter {
 
         // Step 3: Fall back cleanly to the default fallback connection.
         self.connection_cache.default_connection().clone()
+    }
+
+    /// Selects an eligible, non-cooling-down tablet replica and its pre-warmed connection for the given cached range,
+    /// using P2C replica selection weighted by EWMA latency and active in-flight requests.
+    fn select_healthy_replica(
+        &self,
+        range: &CachedRange,
+        prefer_leader: bool,
+    ) -> Option<(Tablet, ServerConnection)> {
+        let group = self.key_range_cache.get_group(range.group_uid)?;
+
+        // 1. If leader is preferred, check if the local leader is healthy and routable.
+        if prefer_leader {
+            let leader = group.local_leader()?;
+            let connection = self.get_routable_connection(leader)?;
+            return Some((leader.clone(), connection));
+        }
+
+        // 2. Fast-path single-replica groups without allocating a Vec.
+        if group.eligible_replica_indices.len() == 1 {
+            let tablet = &group.tablets[group.eligible_replica_indices[0]];
+            let connection = self.get_routable_connection(tablet)?;
+            return Some((tablet.clone(), connection));
+        }
+
+        // 3. Follower selection (prefer_leader = false): Single-pass filter over precomputed lowest-distance
+        // replica indices, pairing each routable replica with its pre-warmed connection in a single lookup.
+        let routable: Vec<(&Tablet, ServerConnection)> = group
+            .eligible_replica_indices
+            .iter()
+            .map(|&index| &group.tablets[index])
+            .filter_map(|tablet| {
+                self.get_routable_connection(tablet)
+                    .map(|connection| (tablet, connection))
+            })
+            .collect();
+
+        if routable.is_empty() {
+            return None;
+        }
+        if routable.len() == 1 {
+            return Some((routable[0].0.clone(), routable[0].1.clone()));
+        }
+
+        // 4. When multiple candidate replicas are tied in the lowest distance tier,
+        // use Power of Two Choices (P2C) to sample 2 candidates and pick the one with the lower cost:
+        // cost = EWMA_latency * (active_inflight_requests + 1)
+        let selected = self
+            .replica_selector
+            .select(&routable, |(tablet, connection)| {
+                self.latency_registry.get_selection_cost(
+                    Some(&self.database_scope),
+                    range.group_uid,
+                    connection.active_request_count(),
+                    &tablet.server_address,
+                )
+            })?;
+
+        Some((selected.0.clone(), selected.1.clone()))
+    }
+
+    /// Returns the pre-warmed, healthy [`ServerConnection`] for a tablet if it has a non-empty
+    /// server address, is not currently on cooldown, and is ready in the connection cache.
+    fn get_routable_connection(&self, tablet: &Tablet) -> Option<ServerConnection> {
+        if tablet.server_address.is_empty()
+            || self.cooldown_tracker.is_cooling_down(&tablet.server_address)
+        {
+            return None;
+        }
+        self.connection_cache
+            .get_if_present(&tablet.server_address)
+            .filter(ServerConnection::is_healthy)
     }
 
     /// Records affinity mapping `transaction_id` to `address` if not already present.
@@ -266,7 +378,14 @@ mod tests {
         let connection_cache = Arc::new(ConnectionCache::new(default_connection));
         let key_range_cache = Arc::new(KeyRangeCache::new());
         let cooldown_tracker = Arc::new(EndpointCooldownTracker::new());
-        LocationRouter::new(key_range_cache, connection_cache, cooldown_tracker)
+        let latency_registry = Arc::new(LatencyRegistry::new());
+        LocationRouter::new(
+            "projects/test-project/instances/test-instance/databases/test-database".to_string(),
+            key_range_cache,
+            connection_cache,
+            cooldown_tracker,
+            latency_registry,
+        )
     }
 
     async fn populate_test_routing_table(
@@ -526,5 +645,340 @@ mod tests {
         let router = make_test_router();
         router.record_failure("10.0.0.1:15000");
         assert!(router.cooldown_tracker().is_cooling_down("10.0.0.1:15000"));
+    }
+
+    #[tokio::test]
+    async fn select_replica_picks_lower_latency_follower() {
+        let router = make_test_router();
+
+        let tablet_fast = Tablet::default()
+            .set_tablet_uid(10u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_distance(0u32);
+        let tablet_slow = Tablet::default()
+            .set_tablet_uid(11u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_distance(0u32);
+
+        let group = Group::new()
+            .set_group_uid(100u64)
+            .set_tablets(vec![tablet_fast, tablet_slow]);
+        let range = Range::new()
+            .set_group_uid(100u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("initialize fast connection");
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.2:15000", &ClientConfig::default())
+            .await
+            .expect("initialize slow connection");
+
+        // Record 5ms latency for fast node and 100ms latency for slow node
+        router.record_latency(100, "10.0.0.1:15000", Duration::from_millis(5));
+        router.record_latency(100, "10.0.0.2:15000", Duration::from_millis(100));
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        // P2C sampling 2 candidates without replacement will compare fast (5ms) vs slow (100ms)
+        // and must pick the fast node.
+        for _ in 0..10 {
+            let connection = router.resolve_connection(&context);
+            assert_eq!(
+                connection.address(),
+                "10.0.0.1:15000",
+                "P2C must choose the lower-latency replica"
+            );
+        }
+    }
+
+    #[tokio::test]
+    async fn select_replica_weights_active_inflight_requests() {
+        let router = make_test_router();
+
+        let tablet_busy = Tablet::default()
+            .set_tablet_uid(10u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_distance(0u32);
+        let tablet_idle = Tablet::default()
+            .set_tablet_uid(11u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_distance(0u32);
+
+        let group = Group::new()
+            .set_group_uid(100u64)
+            .set_tablets(vec![tablet_busy, tablet_idle]);
+        let range = Range::new()
+            .set_group_uid(100u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let connection_busy = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("initialize busy connection");
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.2:15000", &ClientConfig::default())
+            .await
+            .expect("initialize idle connection");
+
+        // Both nodes have equal baseline latency (10ms)
+        router.record_latency(100, "10.0.0.1:15000", Duration::from_millis(10));
+        router.record_latency(100, "10.0.0.2:15000", Duration::from_millis(10));
+
+        // Simulate 5 active inflight requests on node 1
+        for _ in 0..5 {
+            connection_busy.increment_active_requests();
+        }
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        // P2C compares cost: node 1 (10ms * 6 = 60ms) vs node 2 (10ms * 1 = 10ms), picking node 2
+        for _ in 0..10 {
+            let connection = router.resolve_connection(&context);
+            assert_eq!(
+                connection.address(),
+                "10.0.0.2:15000",
+                "P2C must choose the unburdened replica with fewer active requests"
+            );
+        }
+    }
+
+    #[tokio::test]
+    async fn select_replica_error_penalty_steers_traffic_away() {
+        let router = make_test_router();
+
+        let tablet_failing = Tablet::default()
+            .set_tablet_uid(10u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_distance(0u32);
+        let tablet_healthy = Tablet::default()
+            .set_tablet_uid(11u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_distance(0u32);
+
+        let group = Group::new()
+            .set_group_uid(100u64)
+            .set_tablets(vec![tablet_failing, tablet_healthy]);
+        let range = Range::new()
+            .set_group_uid(100u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("initialize connection 1");
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.2:15000", &ClientConfig::default())
+            .await
+            .expect("initialize connection 2");
+
+        // Both nodes have equal initial latency (10ms)
+        router.record_latency(100, "10.0.0.1:15000", Duration::from_millis(10));
+        router.record_latency(100, "10.0.0.2:15000", Duration::from_millis(10));
+
+        // Record error on node 1
+        router.record_error(100, "10.0.0.1:15000");
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        for _ in 0..10 {
+            let connection = router.resolve_connection(&context);
+            assert_eq!(
+                connection.address(),
+                "10.0.0.2:15000",
+                "P2C must steer traffic away from penalized node"
+            );
+        }
+    }
+
+    #[tokio::test]
+    async fn select_healthy_tablet_falls_back_to_p2c_followers_when_leader_on_cooldown() {
+        let router = make_test_router();
+
+        let tablet_leader = Tablet::default()
+            .set_tablet_uid(10u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_distance(0u32);
+        let tablet_follower_fast = Tablet::default()
+            .set_tablet_uid(11u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_distance(0u32);
+        let tablet_follower_slow = Tablet::default()
+            .set_tablet_uid(12u64)
+            .set_server_address("10.0.0.3:15000")
+            .set_distance(0u32);
+
+        let group = Group::new()
+            .set_group_uid(100u64)
+            .set_leader_index(0)
+            .set_tablets(vec![
+                tablet_leader,
+                tablet_follower_fast,
+                tablet_follower_slow,
+            ]);
+        let range = Range::new()
+            .set_group_uid(100u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("init leader");
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.2:15000", &ClientConfig::default())
+            .await
+            .expect("init fast follower");
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.3:15000", &ClientConfig::default())
+            .await
+            .expect("init slow follower");
+
+        // Record latencies for followers
+        router.record_latency(100, "10.0.0.2:15000", Duration::from_millis(5));
+        router.record_latency(100, "10.0.0.3:15000", Duration::from_millis(50));
+
+        // Place leader on cooldown
+        router.record_failure("10.0.0.1:15000");
+
+        let key = vec![0x05];
+        let context_write = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: true,
+            use_transaction_affinity: false,
+        };
+
+        // Leader is cooling down: prefer_leader write operations must fall back to the gateway
+        let connection_write = router.resolve_connection(&context_write);
+        assert_eq!(
+            connection_write.address(),
+            "spanner.googleapis.com:443",
+            "write requiring leader must fall back to gateway when leader is on cooldown"
+        );
+
+        let context_read = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        // Read query (prefer_leader: false) evaluates healthy followers with P2C, selecting fast follower
+        let connection_read = router.resolve_connection(&context_read);
+        assert_eq!(
+            connection_read.address(),
+            "10.0.0.2:15000",
+            "read query must select lower-latency follower with P2C"
+        );
+    }
+
+    #[tokio::test]
+    async fn select_healthy_tablet_skips_unwarmed_follower_replica() {
+        let router = make_test_router();
+
+        let tablet_connected = Tablet::default()
+            .set_tablet_uid(10u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_distance(0u32);
+        let tablet_unwarmed = Tablet::default()
+            .set_tablet_uid(11u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_distance(0u32);
+
+        let group = Group::new()
+            .set_group_uid(100u64)
+            .set_tablets(vec![tablet_connected, tablet_unwarmed]);
+        let range = Range::new()
+            .set_group_uid(100u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        // Only pre-warm tablet 10.0.0.1; tablet 10.0.0.2 is NOT in connection_cache
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("init connected node");
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        // Routing must pick the ready/warmed replica (10.0.0.1) and NOT pick 10.0.0.2 (which would fall back to gateway)
+        for _ in 0..10 {
+            let connection = router.resolve_connection(&context);
+            assert_eq!(
+                connection.address(),
+                "10.0.0.1:15000",
+                "must route to the only pre-warmed healthy replica"
+            );
+        }
     }
 }

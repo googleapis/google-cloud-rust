@@ -34,6 +34,7 @@ use crate::routing::endpoint_cooldown::EndpointCooldownTracker;
 use crate::routing::key_extractor::extract_proto_read_request_routing_key;
 use crate::routing::key_range_cache::KeyRangeCache;
 use crate::routing::key_recipe_cache::KeyRecipeCache;
+use crate::routing::latency_registry::LatencyRegistry;
 use crate::routing::location_router::{LocationRouter, RoutingContext};
 use crate::routing::server_connection::ServerConnection;
 use crate::server_streaming::builder::{BatchWrite, ExecuteStreamingSql, StreamingRead};
@@ -44,6 +45,7 @@ use crate::{RequestOptions, Result};
 use std::env;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, RwLock};
+use std::time::Duration;
 
 /// A client for interacting with a specific Spanner database.
 ///
@@ -494,6 +496,36 @@ impl DatabaseClient {
         self.location_routing.is_some()
     }
 
+    /// Returns a reference to the [`LatencyRegistry`] used by location-aware routing, if enabled.
+    #[allow(dead_code)] // TODO: Used for latency recording in subsequent PRs
+    pub(crate) fn latency_registry(&self) -> Option<&LatencyRegistry> {
+        self.location_routing
+            .as_ref()
+            .map(|routing| routing.location_router.latency_registry())
+    }
+
+    /// Records an observed round-trip latency sample for an endpoint address within a paxos group.
+    #[allow(dead_code)] // TODO: Used for latency recording in subsequent PRs
+    pub(crate) fn record_latency(&self, group_uid: u64, server_address: &str, latency: Duration) {
+        let Some(routing) = &self.location_routing else {
+            return;
+        };
+        routing
+            .location_router
+            .record_latency(group_uid, server_address, latency);
+    }
+
+    /// Records an RPC error penalty for an endpoint address within a paxos group.
+    #[allow(dead_code)] // TODO: Used for error penalty recording in subsequent PRs
+    pub(crate) fn record_routing_error(&self, group_uid: u64, server_address: &str) {
+        let Some(routing) = &self.location_routing else {
+            return;
+        };
+        routing
+            .location_router
+            .record_error(group_uid, server_address);
+    }
+
     /// Returns the database ID assigned by the server for location-aware routing, if known.
     #[allow(dead_code)] // TODO: Used when constructing RoutingHint on requests in subsequent PRs
     pub(crate) fn database_id(&self) -> Option<u64> {
@@ -700,8 +732,12 @@ impl DatabaseClientBuilder {
             })
             .unwrap_or(false);
 
-        let location_routing = location_aware_routing_enabled
-            .then(|| Arc::new(LocationRoutingState::new(&self.spanner)));
+        let location_routing = location_aware_routing_enabled.then(|| {
+            Arc::new(LocationRoutingState::new(
+                session_maintainer.database_name.clone(),
+                &self.spanner,
+            ))
+        });
 
         Ok(DatabaseClient {
             spanner: self.spanner,
@@ -725,7 +761,7 @@ pub(crate) struct LocationRoutingState {
 const DEFAULT_ENDPOINT: &str = "spanner.googleapis.com:443";
 
 impl LocationRoutingState {
-    fn new(spanner: &Spanner) -> Self {
+    fn new(database_name: String, spanner: &Spanner) -> Self {
         let default_endpoint = spanner
             .config
             .endpoint
@@ -744,10 +780,13 @@ impl LocationRoutingState {
         let key_range_cache = Arc::new(KeyRangeCache::new());
         let key_recipe_cache = Arc::new(KeyRecipeCache::new());
         let cooldown_tracker = Arc::new(EndpointCooldownTracker::new());
+        let latency_registry = Arc::new(LatencyRegistry::new());
         let location_router = Arc::new(LocationRouter::new(
+            database_name,
             Arc::clone(&key_range_cache),
             Arc::clone(&connection_cache),
             cooldown_tracker,
+            latency_registry,
         ));
         let cache_updater = Arc::new(CacheUpdater::new(
             key_range_cache,
@@ -2368,5 +2407,103 @@ mod tests {
                 );
             }
         }
+    }
+
+    #[tokio_test_no_panics]
+    async fn database_client_latency_recording_and_error_tracking() {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|req| {
+            let req = req.into_inner();
+            let session = req.session.expect("session present in request");
+            Ok(gaxi::grpc::tonic::Response::new(
+                spanner_grpc_mock::google::spanner::v1::Session {
+                    name: "projects/test-p/instances/test-i/databases/test-d/sessions/s1"
+                        .to_string(),
+                    multiplexed: session.multiplexed,
+                    ..Default::default()
+                },
+            ))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("build spanner");
+
+        let database_name = "projects/test-p/instances/test-i/databases/test-d";
+        let database_client = spanner
+            .database_client(database_name)
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build database_client");
+
+        let latency_registry = database_client
+            .latency_registry()
+            .expect("latency registry must be present when location routing is enabled");
+
+        // Record latency and error
+        database_client.record_latency(100, "10.0.0.1:15000", Duration::from_millis(25));
+        database_client.record_routing_error(100, "10.0.0.2:15000");
+
+        // Verify the score is attributed under the database scope
+        let cost_scoped =
+            latency_registry.get_selection_cost(Some(database_name), 100, 0, "10.0.0.1:15000");
+        assert!(
+            cost_scoped > 0.0,
+            "measured score must be greater than zero"
+        );
+
+        // Also verify location router holds the correct database scope
+        let router = database_client
+            .location_router()
+            .expect("location router present");
+        assert_eq!(router.database_scope(), database_name);
+    }
+
+    #[tokio_test_no_panics]
+    async fn database_client_latency_recording_when_disabled_is_noop() {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|req| {
+            let req = req.into_inner();
+            let session = req.session.expect("session present in request");
+            Ok(gaxi::grpc::tonic::Response::new(
+                spanner_grpc_mock::google::spanner::v1::Session {
+                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
+                    multiplexed: session.multiplexed,
+                    ..Default::default()
+                },
+            ))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("build spanner");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(false)
+            .build()
+            .await
+            .expect("build database_client");
+
+        assert!(database_client.latency_registry().is_none());
+        assert!(database_client.location_router().is_none());
+
+        // Calling record_latency and record_routing_error when disabled must be a clean no-op
+        database_client.record_latency(100, "10.0.0.1:15000", Duration::from_millis(50));
+        database_client.record_routing_error(100, "10.0.0.1:15000");
     }
 }

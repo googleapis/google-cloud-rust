@@ -44,7 +44,6 @@ use crate::read_write_transaction::ReadWriteTransaction;
 use crate::routing::cache_subscriber::CacheSubscriber;
 use crate::routing::directed_read::select_eligible_tablets_for_directed_read;
 use crate::routing::key_range_cache::RangeMode;
-use crate::routing::latency_registry::LatencyRegistry;
 use crate::routing::location_router::RoutingContext;
 use crate::statement::Statement;
 use bytes::Bytes;
@@ -2338,17 +2337,68 @@ async fn concurrent_cache_updates_and_lookups_are_thread_safe() -> anyhow::Resul
 
 #[tokio_test_no_panics]
 async fn latency_aware_selection_prefers_lower_latency_replica() -> anyhow::Result<()> {
-    let latency_registry = LatencyRegistry::new();
-    latency_registry.record_latency(None, 4001, "fast-node:15000", Duration::from_millis(5));
-    latency_registry.record_latency(None, 4001, "slow-node:15000", Duration::from_millis(500));
+    let mock_gateway = create_base_mock();
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
 
-    let fast_score = latency_registry.get_selection_cost(None, 4001, 0, "fast-node:15000");
-    let slow_score = latency_registry.get_selection_cost(None, 4001, 0, "slow-node:15000");
+    let mock_fast = create_base_mock();
+    let (fast_address, _fast_server) = start("127.0.0.1:0", mock_fast).await?;
 
-    assert!(
-        fast_score < slow_score,
-        "fast node must exhibit strictly lower effective latency than slow node"
-    );
+    let mock_slow = create_base_mock();
+    let (slow_address, _slow_server) = start("127.0.0.1:0", mock_slow).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address)
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    // Ingest cache update with two follower replicas
+    let update = sample_model_cache_update(4001, 4001, &fast_address, &slow_address);
+    database_client.observe_cache_update(Some(update));
+
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&fast_address, client_config)
+        .await?;
+    let _ = router
+        .connection_cache()
+        .get(&slow_address, client_config)
+        .await?;
+
+    // Record 5ms latency for fast node and 500ms latency for slow node via DatabaseClient
+    database_client.record_latency(4001, &fast_address, Duration::from_millis(5));
+    database_client.record_latency(4001, &slow_address, Duration::from_millis(500));
+
+    let context = RoutingContext {
+        routing_key: Some(b"singer_500"),
+        prefer_leader: false,
+        ..Default::default()
+    };
+
+    // LocationRouter P2C selection compares fast (5ms) vs slow (500ms) and resolves to fast replica
+    for _ in 0..10 {
+        let connection = router.resolve_connection(&context);
+        assert_eq!(
+            connection.address(),
+            fast_address,
+            "router must consistently select the lower-latency replica"
+        );
+    }
 
     Ok(())
 }
