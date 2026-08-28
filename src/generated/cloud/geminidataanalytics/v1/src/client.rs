@@ -667,6 +667,14 @@ impl DataChatService {
             .map(super::tracing::DataChatService::new)
     }
 
+    /// Answers a data question by generating a stream of
+    /// [Message][google.cloud.geminidataanalytics.v1.Message] objects.
+    ///
+    /// [google.cloud.geminidataanalytics.v1.Message]: crate::model::Message
+    pub fn chat(&self) -> super::builder::data_chat_service::Chat {
+        super::builder::data_chat_service::Chat::new(self.inner.clone())
+    }
+
     /// Creates a new conversation to persist the conversation history. Each
     /// conversation will have multiple messages associated with it.
     ///

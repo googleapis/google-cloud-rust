@@ -39,6 +39,38 @@ impl PowerOfTwoSelector {
         Self
     }
 
+    /// Samples two distinct indices without replacement from `0..total_candidates`.
+    ///
+    /// # Panics
+    ///
+    /// Panics if `total_candidates < 2`.
+    pub(crate) fn sample_two_distinct(&self, total_candidates: usize) -> (usize, usize) {
+        let mut local_rng = rng();
+        self.sample_two_distinct_with_rng(total_candidates, &mut local_rng)
+    }
+
+    /// Samples two distinct indices without replacement using the provided RNG.
+    ///
+    /// # Panics
+    ///
+    /// Panics if `total_candidates < 2`.
+    pub(crate) fn sample_two_distinct_with_rng<R: RngExt + ?Sized>(
+        &self,
+        total_candidates: usize,
+        rng: &mut R,
+    ) -> (usize, usize) {
+        debug_assert!(
+            total_candidates >= 2,
+            "total_candidates must be at least 2 to sample two distinct candidates"
+        );
+        let first_index = rng.random_range(0..total_candidates);
+        let mut second_index = rng.random_range(0..total_candidates - 1);
+        if second_index >= first_index {
+            second_index += 1;
+        }
+        (first_index, second_index)
+    }
+
     /// Selects the index of a candidate from `candidates` using the provided random number generator.
     ///
     /// - Returns `None` if `candidates` is empty.
@@ -63,12 +95,7 @@ impl PowerOfTwoSelector {
             return Some(0);
         }
 
-        let total_candidates = candidates.len();
-        let first_index = rng.random_range(0..total_candidates);
-        let mut second_index = rng.random_range(0..total_candidates - 1);
-        if second_index >= first_index {
-            second_index += 1;
-        }
+        let (first_index, second_index) = self.sample_two_distinct_with_rng(candidates.len(), rng);
 
         let first_score = score_lookup(&candidates[first_index]);
         let second_score = score_lookup(&candidates[second_index]);
@@ -112,7 +139,7 @@ mod tests {
     use super::*;
     use rand::SeedableRng;
     use rand::rngs::SmallRng;
-    use std::collections::HashMap;
+    use std::collections::{HashMap, HashSet};
 
     #[test]
     fn traits() {
@@ -380,5 +407,31 @@ mod tests {
                 "node_{index} should receive at least some traffic under P2C"
             );
         }
+    }
+
+    #[test]
+    fn sample_two_distinct_indices_maps_all_candidate_pairs_exhaustively() {
+        let selector = PowerOfTwoSelector::new();
+        let mut rng = SmallRng::seed_from_u64(42);
+
+        let mut observed_pairs = HashSet::new();
+
+        // With seed 42, exactly 15 iterations are sufficient to deterministically observe all 6
+        // possible ordered pairs for N = 3 candidates.
+        for _ in 0..15 {
+            let (first, second) = selector.sample_two_distinct_with_rng(3, &mut rng);
+            assert_ne!(first, second, "sampled indices must always be distinct");
+            assert!(
+                first < 3 && second < 3,
+                "indices must be within candidate bounds"
+            );
+            observed_pairs.insert((first, second));
+        }
+
+        assert_eq!(
+            observed_pairs.len(),
+            6,
+            "must observe all 6 possible distinct pairs for 3 candidates"
+        );
     }
 }

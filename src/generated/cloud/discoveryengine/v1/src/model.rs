@@ -28,6 +28,9 @@ extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate google_cloud_rpc;
 extern crate google_cloud_type;
+extern crate http;
+extern crate prost;
+extern crate prost_types;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -5419,6 +5422,8 @@ impl wkt::message::Message for AssistUserMetadata {
 /// Request for the
 /// [AssistantService.StreamAssist][google.cloud.discoveryengine.v1.AssistantService.StreamAssist]
 /// method.
+///
+/// [google.cloud.discoveryengine.v1.AssistantService.StreamAssist]: crate::client::AssistantService::stream_assist
 #[cfg(feature = "assistant-service")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -6180,6 +6185,8 @@ pub mod stream_assist_request {
 /// Response for the
 /// [AssistantService.StreamAssist][google.cloud.discoveryengine.v1.AssistantService.StreamAssist]
 /// method.
+///
+/// [google.cloud.discoveryengine.v1.AssistantService.StreamAssist]: crate::client::AssistantService::stream_assist
 #[cfg(feature = "assistant-service")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]

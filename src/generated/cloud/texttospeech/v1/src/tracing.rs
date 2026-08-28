@@ -69,6 +69,16 @@ where
         pending.await
     }
 
+    fn streaming_synthesize(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingSynthesizeRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingSynthesizeResponse>,
+    ) {
+        self.inner.streaming_synthesize(options)
+    }
+
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_operations(
         &self,
