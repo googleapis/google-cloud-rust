@@ -22,26 +22,38 @@ use crate::Result;
 #[derive(Clone)]
 pub struct Lineage {
     inner: gaxi::http::ReqwestClient,
+    grpc_inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for Lineage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("Lineage")
-            .field("inner", &self.inner)
-            .finish()
+        let mut builder = f.debug_struct("Lineage");
+        builder.field("inner", &self.inner);
+        builder.field("grpc_inner", &self.grpc_inner);
+        builder.finish()
     }
 }
 
 impl Lineage {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
-        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config.clone(), crate::DEFAULT_HOST).await?;
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
             inner
         };
-        Ok(Self { inner })
+        let grpc_inner = if tracing_is_enabled {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                crate::DEFAULT_HOST,
+                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
+        };
+        Ok(Self { inner, grpc_inner })
     }
 }
 
@@ -1353,6 +1365,50 @@ impl super::stub::Lineage for Lineage {
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
+    }
+
+    async fn search_lineage_streaming(
+        &self,
+        req: crate::model::SearchLineageStreamingRequest,
+        options: crate::RequestOptions,
+    ) -> Result<
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::SearchLineageStreamingResponse>,
+    > {
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.parent)
+            .map(|s| s.as_str())
+            .map(|v| format!("parent={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.cloud.datacatalog.lineage.v1.Lineage",
+                "SearchLineageStreaming",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.cloud.datacatalog.lineage.v1.Lineage/SearchLineageStreaming",
+        );
+
+        self.grpc_inner
+            .execute_server_streaming::<
+                crate::model::SearchLineageStreamingRequest,
+                crate::model::SearchLineageStreamingResponse,
+                crate::prost::google::cloud::datacatalog::lineage::v1::SearchLineageStreamingRequest,
+                crate::prost::google::cloud::datacatalog::lineage::v1::SearchLineageStreamingResponse,
+            >(
+                extensions,
+                path,
+                req,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
     }
 
     async fn list_operations(
