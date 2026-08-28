@@ -15,12 +15,14 @@
 use crate::batch_read_only_transaction::BatchReadOnlyTransactionBuilder;
 use crate::batch_write_transaction::BatchWriteTransactionBuilder;
 use crate::client::Spanner;
+use crate::model::transaction_options::Mode;
+use crate::model::transaction_options::read_only::TimestampBound;
 use crate::model::transaction_selector::Selector;
 use crate::model::{
     BatchWriteRequest, BeginTransactionRequest, CacheUpdate, CommitRequest, CommitResponse,
     ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest, PartitionQueryRequest,
     PartitionReadRequest, PartitionResponse, ReadRequest, ResultSet, RollbackRequest, Transaction,
-    TransactionSelector,
+    TransactionOptions, TransactionSelector,
 };
 use crate::observability::Observability;
 use crate::omni::{InstanceType, format_database_name};
@@ -31,7 +33,10 @@ use crate::read_only_transaction::{
 use crate::routing::cache_updater::CacheUpdater;
 use crate::routing::connection_cache::ConnectionCache;
 use crate::routing::endpoint_cooldown::EndpointCooldownTracker;
-use crate::routing::key_extractor::extract_proto_read_request_routing_key;
+use crate::routing::key_extractor::{
+    extract_mutation_routing_key, extract_mutations_routing_key,
+    extract_proto_partition_read_request_routing_key, extract_proto_read_request_routing_key,
+};
 use crate::routing::key_range_cache::KeyRangeCache;
 use crate::routing::key_recipe_cache::KeyRecipeCache;
 use crate::routing::latency_registry::LatencyRegistry;
@@ -42,6 +47,7 @@ use crate::session_maintainer::ManagedSessionMaintainer;
 use crate::transaction_runner::TransactionRunnerBuilder;
 use crate::write_only_transaction::WriteOnlyTransactionBuilder;
 use crate::{RequestOptions, Result};
+use bytes::Bytes;
 use std::env;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, RwLock};
@@ -81,18 +87,31 @@ pub struct DatabaseClient {
 }
 
 macro_rules! define_db_rpc {
-    ($method:ident, $expect_method:ident, $request_type:ty, $response_type:ty) => {
+    (
+        $method:ident,
+        $expect_method:ident,
+        $request_type:ty,
+        $response_type:ty,
+        $pre_route:path,
+        $post_hook:path
+    ) => {
         pub(crate) async fn $method(
             &self,
             request: $request_type,
             options: RequestOptions,
             channel_hint: usize,
         ) -> Result<$response_type> {
-            let channel = self.spanner.get_channel(channel_hint);
-            let response = self
+            let (connection, routing_context) = $pre_route(self, &request);
+            let channel = match &connection {
+                Some(connection) => connection.channel(),
+                None => self.spanner.get_channel(channel_hint),
+            };
+            let result = self
                 .spanner
                 .$method(request, options, channel, &self.o11y)
-                .await?;
+                .await;
+            $post_hook(self, routing_context, connection.as_ref(), &result);
+            let response = result?;
             response.observe(self);
             Ok(response)
         }
@@ -130,8 +149,9 @@ macro_rules! define_db_streaming_rpc {
             // - If disabled (standard Cloud Spanner), returns `None` immediately on the fast path.
             // - If enabled but both `transaction_id` and `routing_key` are `None`, returns `None` early.
             // - If a target tablet replica or affinity connection is found, returns `Some(connection)`.
-            let connection = self
-                .resolve_routing_connection(request.transaction.as_ref(), routing_key.as_deref());
+            let context =
+                routing_context_from_selector(request.transaction.as_ref(), routing_key.as_deref());
+            let connection = self.resolve_routing_connection(&context);
 
             // Step 3: Select the gRPC channel:
             // - If location-aware routing resolved a direct node connection (`Some(connection)`), use `connection.channel()`.
@@ -153,33 +173,57 @@ macro_rules! for_all_unary_db_rpcs {
             begin_transaction,
             expect_begin_transaction,
             BeginTransactionRequest,
-            Transaction
+            Transaction,
+            DatabaseClient::pre_route_begin_transaction,
+            DatabaseClient::post_route_begin_transaction
         );
-        $macro!(commit, expect_commit, CommitRequest, CommitResponse);
+        $macro!(
+            commit,
+            expect_commit,
+            CommitRequest,
+            CommitResponse,
+            DatabaseClient::pre_route_commit,
+            DatabaseClient::post_route_commit
+        );
         $macro!(
             execute_batch_dml,
             expect_execute_batch_dml,
             ExecuteBatchDmlRequest,
-            ExecuteBatchDmlResponse
+            ExecuteBatchDmlResponse,
+            DatabaseClient::pre_route_execute_batch_dml,
+            DatabaseClient::post_route_execute_batch_dml
         );
         $macro!(
             execute_sql,
             expect_execute_sql,
             ExecuteSqlRequest,
-            ResultSet
+            ResultSet,
+            DatabaseClient::pre_route_execute_sql,
+            DatabaseClient::post_route_execute_sql
         );
-        $macro!(rollback, expect_rollback, RollbackRequest, ());
+        $macro!(
+            rollback,
+            expect_rollback,
+            RollbackRequest,
+            (),
+            DatabaseClient::pre_route_rollback,
+            DatabaseClient::post_route_rollback
+        );
         $macro!(
             partition_query,
             expect_partition_query,
             PartitionQueryRequest,
-            PartitionResponse
+            PartitionResponse,
+            DatabaseClient::pre_route_partition_query,
+            DatabaseClient::post_route_noop
         );
         $macro!(
             partition_read,
             expect_partition_read,
             PartitionReadRequest,
-            PartitionResponse
+            PartitionResponse,
+            DatabaseClient::pre_route_partition_read,
+            DatabaseClient::post_route_noop
         );
     };
 }
@@ -244,25 +288,13 @@ impl DatabaseClient {
     ///     pointing directly to the target node.
     pub(crate) fn resolve_routing_connection(
         &self,
-        transaction: Option<&TransactionSelector>,
-        routing_key: Option<&[u8]>,
+        context: &RoutingContext,
     ) -> Option<ServerConnection> {
-        // Fast path: When location routing is disabled (standard Cloud Spanner), exit immediately.
         let routing = self.location_routing.as_ref()?;
-
-        // Fast path: No routing metadata available to route the request (preserves channel pooling).
-        let transaction_id = extract_transaction_id(transaction);
-        if transaction_id.is_none() && routing_key.is_none() {
+        if context.transaction_id.is_none() && context.routing_key.is_none() {
             return None;
         }
-
-        let routing_context = RoutingContext {
-            transaction_id,
-            routing_key,
-            prefer_leader: false,
-            use_transaction_affinity: transaction_id.is_some(),
-        };
-        Some(routing.location_router.resolve_connection(&routing_context))
+        Some(routing.location_router.resolve_connection(context))
     }
 
     for_all_streaming_db_rpcs!(define_db_streaming_rpc);
@@ -580,12 +612,299 @@ impl DatabaseClient {
                 .store(routing.cache_updater.database_id(), Ordering::Release);
         }
     }
+
+    fn pre_route_begin_transaction(
+        &self,
+        request: &BeginTransactionRequest,
+    ) -> (Option<ServerConnection>, bool) {
+        let Some(routing) = &self.location_routing else {
+            return (None, false);
+        };
+        let routing_key = request.mutation_key.as_ref().and_then(|mutation_key| {
+            extract_mutation_routing_key(&routing.key_recipe_cache, mutation_key)
+        });
+        let prefer_leader = prefer_leader_from_options(request.options.as_ref());
+        let context = RoutingContext {
+            routing_key: routing_key.as_deref(),
+            prefer_leader,
+            ..Default::default()
+        };
+        let connection = self.resolve_routing_connection(&context);
+        let is_read_write = is_read_write_options(request.options.as_ref());
+        (connection, is_read_write)
+    }
+
+    fn post_route_begin_transaction(
+        &self,
+        is_read_write: bool,
+        connection: Option<&ServerConnection>,
+        result: &Result<Transaction>,
+    ) {
+        self.record_transaction_affinity_routing(
+            is_read_write,
+            result
+                .as_ref()
+                .ok()
+                .map(|transaction| transaction.id.as_ref()),
+            connection,
+        );
+    }
+
+    fn pre_route_commit(
+        &self,
+        request: &CommitRequest,
+    ) -> (Option<ServerConnection>, Option<Bytes>) {
+        let Some(routing) = &self.location_routing else {
+            return (None, None);
+        };
+        let transaction_id = request
+            .transaction_id()
+            .filter(|id| !id.is_empty())
+            .cloned();
+        let routing_key = if transaction_id.is_none() && !request.mutations.is_empty() {
+            extract_mutations_routing_key(&routing.key_recipe_cache, &request.mutations)
+        } else {
+            None
+        };
+        let context = RoutingContext {
+            transaction_id: transaction_id.as_deref(),
+            routing_key: routing_key.as_deref(),
+            prefer_leader: true,
+            use_transaction_affinity: transaction_id.is_some(),
+        };
+        let connection = self.resolve_routing_connection(&context);
+        (connection, transaction_id)
+    }
+
+    fn post_route_commit(
+        &self,
+        transaction_id: Option<Bytes>,
+        _connection: Option<&ServerConnection>,
+        _result: &Result<CommitResponse>,
+    ) {
+        self.clear_transaction_affinity_routing(transaction_id.as_deref());
+    }
+
+    fn pre_route_execute_batch_dml(
+        &self,
+        request: &ExecuteBatchDmlRequest,
+    ) -> (Option<ServerConnection>, bool) {
+        self.pre_route_transaction_selector(request.transaction.as_ref())
+    }
+
+    fn post_route_execute_batch_dml(
+        &self,
+        is_read_write_begin: bool,
+        connection: Option<&ServerConnection>,
+        result: &Result<ExecuteBatchDmlResponse>,
+    ) {
+        let transaction_id = result
+            .as_ref()
+            .ok()
+            .and_then(|response| response.result_sets.first())
+            .and_then(|result_set| result_set.metadata.as_ref())
+            .and_then(|metadata| metadata.transaction.as_ref())
+            .map(|transaction| transaction.id.as_ref());
+        self.record_transaction_affinity_routing(is_read_write_begin, transaction_id, connection);
+    }
+
+    fn pre_route_execute_sql(
+        &self,
+        request: &ExecuteSqlRequest,
+    ) -> (Option<ServerConnection>, bool) {
+        self.pre_route_transaction_selector(request.transaction.as_ref())
+    }
+
+    fn post_route_execute_sql(
+        &self,
+        is_read_write_begin: bool,
+        connection: Option<&ServerConnection>,
+        result: &Result<ResultSet>,
+    ) {
+        let transaction_id = result
+            .as_ref()
+            .ok()
+            .and_then(|result_set| result_set.metadata.as_ref())
+            .and_then(|metadata| metadata.transaction.as_ref())
+            .map(|transaction| transaction.id.as_ref());
+        self.record_transaction_affinity_routing(is_read_write_begin, transaction_id, connection);
+    }
+
+    fn pre_route_rollback(
+        &self,
+        request: &RollbackRequest,
+    ) -> (Option<ServerConnection>, Option<Bytes>) {
+        let Some(_routing) = &self.location_routing else {
+            return (None, None);
+        };
+        let transaction_id =
+            (!request.transaction_id.is_empty()).then(|| request.transaction_id.clone());
+        let context = RoutingContext {
+            transaction_id: transaction_id.as_deref(),
+            routing_key: None,
+            prefer_leader: true,
+            use_transaction_affinity: transaction_id.is_some(),
+        };
+        let connection = self.resolve_routing_connection(&context);
+        (connection, transaction_id)
+    }
+
+    fn post_route_rollback(
+        &self,
+        transaction_id: Option<Bytes>,
+        _connection: Option<&ServerConnection>,
+        _result: &Result<()>,
+    ) {
+        self.clear_transaction_affinity_routing(transaction_id.as_deref());
+    }
+
+    fn pre_route_partition_query(
+        &self,
+        request: &PartitionQueryRequest,
+    ) -> (Option<ServerConnection>, ()) {
+        (
+            self.pre_route_transaction_selector(request.transaction.as_ref())
+                .0,
+            (),
+        )
+    }
+
+    fn pre_route_partition_read(
+        &self,
+        request: &PartitionReadRequest,
+    ) -> (Option<ServerConnection>, ()) {
+        let Some(routing) = &self.location_routing else {
+            return (None, ());
+        };
+        let routing_key =
+            extract_proto_partition_read_request_routing_key(&routing.key_recipe_cache, request);
+        let context =
+            routing_context_from_selector(request.transaction.as_ref(), routing_key.as_deref());
+        (self.resolve_routing_connection(&context), ())
+    }
+
+    fn post_route_noop<T>(
+        &self,
+        _context: (),
+        _connection: Option<&ServerConnection>,
+        _result: &Result<T>,
+    ) {
+    }
+
+    fn pre_route_transaction_selector(
+        &self,
+        transaction: Option<&TransactionSelector>,
+    ) -> (Option<ServerConnection>, bool) {
+        let Some(_routing) = &self.location_routing else {
+            return (None, false);
+        };
+        let context = routing_context_from_selector(transaction, None);
+        let connection = self.resolve_routing_connection(&context);
+        let is_read_write_begin = is_read_write_begin(transaction);
+        (connection, is_read_write_begin)
+    }
+
+    fn record_transaction_affinity_routing(
+        &self,
+        should_record: bool,
+        transaction_id: Option<&[u8]>,
+        connection: Option<&ServerConnection>,
+    ) {
+        if !should_record {
+            return;
+        }
+        let Some(transaction_id) = transaction_id.filter(|id| !id.is_empty()) else {
+            return;
+        };
+        let Some(routing) = &self.location_routing else {
+            return;
+        };
+        let address = match connection {
+            Some(connection) => connection.address(),
+            None => routing
+                .location_router
+                .connection_cache()
+                .default_connection()
+                .address(),
+        };
+        routing
+            .location_router
+            .record_transaction_affinity(transaction_id, address);
+    }
+
+    fn clear_transaction_affinity_routing(&self, transaction_id: Option<&[u8]>) {
+        let Some(transaction_id) = transaction_id.filter(|id| !id.is_empty()) else {
+            return;
+        };
+        let Some(routing) = &self.location_routing else {
+            return;
+        };
+        routing
+            .location_router
+            .clear_transaction_affinity(transaction_id);
+    }
+}
+
+fn routing_context_from_selector<'a>(
+    transaction: Option<&'a TransactionSelector>,
+    routing_key: Option<&'a [u8]>,
+) -> RoutingContext<'a> {
+    let transaction_id = extract_transaction_id(transaction);
+    let prefer_leader = prefer_leader_from_selector(transaction);
+    RoutingContext {
+        transaction_id,
+        routing_key,
+        prefer_leader,
+        use_transaction_affinity: transaction_id.is_some(),
+    }
 }
 
 fn extract_transaction_id(transaction: Option<&TransactionSelector>) -> Option<&[u8]> {
-    match transaction?.selector.as_ref()? {
-        Selector::Id(bytes) => Some(bytes.as_ref()),
+    match transaction.and_then(|t| t.selector.as_ref()) {
+        Some(Selector::Id(id)) => Some(id.as_ref()),
         _ => None,
+    }
+}
+
+fn prefer_leader_from_selector(selector: Option<&TransactionSelector>) -> bool {
+    let Some(selector) = selector else {
+        return true;
+    };
+    match &selector.selector {
+        Some(Selector::Begin(options)) => prefer_leader_from_options(Some(options)),
+        Some(Selector::SingleUse(options)) => prefer_leader_from_options(Some(options)),
+        _ => true,
+    }
+}
+
+fn prefer_leader_from_options(options: Option<&TransactionOptions>) -> bool {
+    let Some(options) = options else {
+        return true;
+    };
+    match &options.mode {
+        Some(Mode::ReadOnly(read_only)) => match &read_only.timestamp_bound {
+            Some(TimestampBound::Strong(strong)) => *strong,
+            Some(_) => false,
+            None => true,
+        },
+        _ => true,
+    }
+}
+
+fn is_read_write_options(options: Option<&TransactionOptions>) -> bool {
+    let Some(options) = options else {
+        return false;
+    };
+    matches!(&options.mode, Some(Mode::ReadWrite(_)))
+}
+
+fn is_read_write_begin(selector: Option<&TransactionSelector>) -> bool {
+    let Some(selector) = selector else {
+        return false;
+    };
+    match &selector.selector {
+        Some(Selector::Begin(options)) => is_read_write_options(Some(options)),
+        _ => false,
     }
 }
 
@@ -851,6 +1170,7 @@ mod tests {
     use crate::client::SpannerBuilderExt;
     use crate::model::key_recipe::Part;
     use crate::model::key_recipe::part::{NullOrder, Order};
+    use crate::model::transaction_options::{PartitionedDml, ReadOnly, ReadWrite};
     use crate::model::{
         CacheUpdate, CommitResponse, Group, KeyRecipe, KeySet, Range, RecipeList, Tablet,
         TransactionOptions, Type, TypeCode,
@@ -1783,7 +2103,11 @@ mod tests {
             .expect("build should succeed");
 
         assert!(!db_client.is_location_aware_routing_enabled());
-        let connection = db_client.resolve_routing_connection(None, Some(b"Users.id=1".as_slice()));
+        let context = RoutingContext {
+            routing_key: Some(b"Users.id=1".as_slice()),
+            ..Default::default()
+        };
+        let connection = db_client.resolve_routing_connection(&context);
         assert!(connection.is_none());
     }
 
@@ -1833,8 +2157,8 @@ mod tests {
             extract_proto_read_request_routing_key(&routing.key_recipe_cache, &read_request)
         });
         assert!(routing_key.is_none());
-        let cold_start_connection =
-            db_client.resolve_routing_connection(None, routing_key.as_deref());
+        let cold_start_context = routing_context_from_selector(None, routing_key.as_deref());
+        let cold_start_connection = db_client.resolve_routing_connection(&cold_start_context);
         assert!(
             cold_start_connection.is_none(),
             "Cold start with unpopulated cache must resolve to None"
@@ -1879,15 +2203,16 @@ mod tests {
         let routing_key = db_client.location_routing.as_ref().and_then(|routing| {
             extract_proto_read_request_routing_key(&routing.key_recipe_cache, &read_request)
         });
+        let hit_context = routing_context_from_selector(None, routing_key.as_deref());
         let hit_connection = db_client
-            .resolve_routing_connection(None, routing_key.as_deref())
+            .resolve_routing_connection(&hit_context)
             .expect("hit connection present");
         assert_eq!(hit_connection.address(), node_address);
 
         // 4. Mark node on cooldown: falls back to default connection
         router.cooldown_tracker().record_failure(node_address);
         let fallback_connection = db_client
-            .resolve_routing_connection(None, routing_key.as_deref())
+            .resolve_routing_connection(&hit_context)
             .expect("fallback connection present");
         assert_ne!(fallback_connection.address(), node_address);
     }
@@ -1907,6 +2232,144 @@ mod tests {
             extract_transaction_id(Some(&selector_id)),
             Some(b"txn-123".as_slice())
         );
+    }
+
+    #[test]
+    fn is_read_write_begin_cases() {
+        assert!(!is_read_write_begin(None));
+
+        let selector_id = TransactionSelector::new().set_id(bytes::Bytes::from_static(b"tx-1"));
+        assert!(!is_read_write_begin(Some(&selector_id)));
+
+        let selector_single = TransactionSelector::new()
+            .set_single_use(TransactionOptions::new().set_read_write(ReadWrite::default()));
+        assert!(!is_read_write_begin(Some(&selector_single)));
+
+        let selector_begin_ro = TransactionSelector::new()
+            .set_begin(TransactionOptions::new().set_read_only(ReadOnly::default()));
+        assert!(!is_read_write_begin(Some(&selector_begin_ro)));
+
+        let selector_begin_pdml = TransactionSelector::new()
+            .set_begin(TransactionOptions::new().set_partitioned_dml(PartitionedDml::default()));
+        assert!(!is_read_write_begin(Some(&selector_begin_pdml)));
+
+        let selector_begin_rw = TransactionSelector::new()
+            .set_begin(TransactionOptions::new().set_read_write(ReadWrite::default()));
+        assert!(is_read_write_begin(Some(&selector_begin_rw)));
+    }
+
+    #[test]
+    fn prefer_leader_from_selector_cases() {
+        assert!(prefer_leader_from_selector(None));
+
+        let selector_empty = TransactionSelector::new();
+        assert!(prefer_leader_from_selector(Some(&selector_empty)));
+
+        let selector_id = TransactionSelector::new().set_id(bytes::Bytes::from_static(b"tx-1"));
+        assert!(prefer_leader_from_selector(Some(&selector_id)));
+
+        // ReadOnly with default options (no timestamp bound) defaults to strong -> prefers leader
+        let ro_default = ReadOnly::new();
+        let selector_ro_default = TransactionSelector::new()
+            .set_single_use(TransactionOptions::new().set_read_only(ro_default));
+        assert!(prefer_leader_from_selector(Some(&selector_ro_default)));
+
+        // Strong read prefers leader
+        let ro_strong = ReadOnly::new().set_strong(true);
+        let selector_ro_strong = TransactionSelector::new()
+            .set_single_use(TransactionOptions::new().set_read_only(ro_strong));
+        assert!(prefer_leader_from_selector(Some(&selector_ro_strong)));
+
+        let ro_strong_false = ReadOnly::new().set_strong(false);
+        let selector_ro_strong_false = TransactionSelector::new()
+            .set_single_use(TransactionOptions::new().set_read_only(ro_strong_false));
+        assert!(!prefer_leader_from_selector(Some(
+            &selector_ro_strong_false
+        )));
+
+        // Exact staleness read does not prefer leader
+        let ro_exact_staleness = ReadOnly::new().set_exact_staleness(wkt::Duration::clamp(10, 0));
+        let selector_ro_exact_staleness = TransactionSelector::new()
+            .set_single_use(TransactionOptions::new().set_read_only(ro_exact_staleness));
+        assert!(!prefer_leader_from_selector(Some(
+            &selector_ro_exact_staleness
+        )));
+
+        // Max staleness read does not prefer leader
+        let ro_max_staleness = ReadOnly::new().set_max_staleness(wkt::Duration::clamp(10, 0));
+        let selector_ro_max_staleness = TransactionSelector::new()
+            .set_single_use(TransactionOptions::new().set_read_only(ro_max_staleness));
+        assert!(!prefer_leader_from_selector(Some(
+            &selector_ro_max_staleness
+        )));
+
+        // Min read timestamp does not prefer leader
+        let ro_min_timestamp =
+            ReadOnly::new().set_min_read_timestamp(wkt::Timestamp::clamp(100, 0));
+        let selector_ro_min_timestamp = TransactionSelector::new()
+            .set_single_use(TransactionOptions::new().set_read_only(ro_min_timestamp));
+        assert!(!prefer_leader_from_selector(Some(
+            &selector_ro_min_timestamp
+        )));
+
+        // Read timestamp does not prefer leader
+        let ro_read_timestamp = ReadOnly::new().set_read_timestamp(wkt::Timestamp::clamp(100, 0));
+        let selector_ro_read_timestamp = TransactionSelector::new()
+            .set_single_use(TransactionOptions::new().set_read_only(ro_read_timestamp));
+        assert!(!prefer_leader_from_selector(Some(
+            &selector_ro_read_timestamp
+        )));
+
+        // ReadWrite and PartitionedDml prefer leader
+        let selector_rw = TransactionSelector::new()
+            .set_begin(TransactionOptions::new().set_read_write(ReadWrite::default()));
+        assert!(prefer_leader_from_selector(Some(&selector_rw)));
+
+        let selector_pdml = TransactionSelector::new()
+            .set_begin(TransactionOptions::new().set_partitioned_dml(PartitionedDml::default()));
+        assert!(prefer_leader_from_selector(Some(&selector_pdml)));
+
+        // Empty options (mode: None) prefers leader
+        let selector_empty_options =
+            TransactionSelector::new().set_begin(TransactionOptions::new());
+        assert!(prefer_leader_from_selector(Some(&selector_empty_options)));
+    }
+
+    #[test]
+    fn routing_context_from_selector_cases() {
+        // None selector
+        let context_none = routing_context_from_selector(None, Some(b"key1"));
+        assert_eq!(context_none.transaction_id, None);
+        assert_eq!(context_none.routing_key, Some(b"key1".as_slice()));
+        assert!(context_none.prefer_leader);
+        assert!(!context_none.use_transaction_affinity);
+
+        // SingleUse selector
+        let selector_single = TransactionSelector::new()
+            .set_single_use(TransactionOptions::new().set_read_write(ReadWrite::default()));
+        let context_single = routing_context_from_selector(Some(&selector_single), Some(b"key2"));
+        assert_eq!(context_single.transaction_id, None);
+        assert!(!context_single.use_transaction_affinity);
+
+        // Id selector
+        let selector_id = TransactionSelector::new().set_id(bytes::Bytes::from_static(b"tx-123"));
+        let context_id = routing_context_from_selector(Some(&selector_id), Some(b"key3"));
+        assert_eq!(context_id.transaction_id, Some(b"tx-123".as_slice()));
+        assert!(context_id.use_transaction_affinity);
+
+        // Begin ReadWrite selector: no transaction_id yet, so use_transaction_affinity is false
+        let selector_begin_rw = TransactionSelector::new()
+            .set_begin(TransactionOptions::new().set_read_write(ReadWrite::default()));
+        let context_begin_rw = routing_context_from_selector(Some(&selector_begin_rw), None);
+        assert_eq!(context_begin_rw.transaction_id, None);
+        assert!(!context_begin_rw.use_transaction_affinity);
+
+        // Begin ReadOnly selector: no transaction_id yet, so use_transaction_affinity is false
+        let selector_begin_ro = TransactionSelector::new()
+            .set_begin(TransactionOptions::new().set_read_only(ReadOnly::default()));
+        let context_begin_ro = routing_context_from_selector(Some(&selector_begin_ro), None);
+        assert_eq!(context_begin_ro.transaction_id, None);
+        assert!(!context_begin_ro.use_transaction_affinity);
     }
 
     #[tokio_test_no_panics]
@@ -1946,23 +2409,27 @@ mod tests {
 
         // 1. Neither transaction_id nor routing_key: must return None to preserve channel pool round-robin
         assert!(
-            db_client.resolve_routing_connection(None, None).is_none(),
+            db_client
+                .resolve_routing_connection(&RoutingContext::default())
+                .is_none(),
             "Requests with neither transaction_id nor routing_key must resolve to None"
         );
 
         // 2. Transaction selector without an explicit ID and no routing key: must return None
         let selector_none = TransactionSelector::new();
+        let context_none = routing_context_from_selector(Some(&selector_none), None);
         assert!(
             db_client
-                .resolve_routing_connection(Some(&selector_none), None)
+                .resolve_routing_connection(&context_none)
                 .is_none(),
             "Requests with empty transaction selector must resolve to None"
         );
 
         let selector_single = TransactionSelector::new().set_single_use(TransactionOptions::new());
+        let context_single = routing_context_from_selector(Some(&selector_single), None);
         assert!(
             db_client
-                .resolve_routing_connection(Some(&selector_single), None)
+                .resolve_routing_connection(&context_single)
                 .is_none(),
             "Requests with single_use transaction selector must resolve to None"
         );
@@ -2032,8 +2499,10 @@ mod tests {
 
         // 2. Initial request with transaction_id and routing_key:
         //    Resolves to node-1 AND records transaction affinity in LocationRouter.
+        let initial_context =
+            routing_context_from_selector(Some(&selector), Some(routing_key.as_slice()));
         let initial_connection = db_client
-            .resolve_routing_connection(Some(&selector), Some(routing_key.as_slice()))
+            .resolve_routing_connection(&initial_context)
             .expect("initial connection resolved");
         assert_eq!(initial_connection.address(), node_address);
         assert_eq!(
@@ -2047,8 +2516,9 @@ mod tests {
 
         // 4. Subsequent request with transaction_id but NO routing_key (e.g. unkeyed query):
         //    Must resolve to node-1 via transaction affinity.
+        let unkeyed_context = routing_context_from_selector(Some(&selector), None);
         let unkeyed_connection = db_client
-            .resolve_routing_connection(Some(&selector), None)
+            .resolve_routing_connection(&unkeyed_context)
             .expect("unkeyed request with transaction affinity must resolve to connection");
         assert_eq!(
             unkeyed_connection.address(),
@@ -2058,8 +2528,10 @@ mod tests {
 
         // 5. Subsequent request with transaction_id and a different routing key:
         //    Must STILL resolve to node-1 via transaction affinity.
+        let different_key_context =
+            routing_context_from_selector(Some(&selector), Some(b"Orders.id=99".as_slice()));
         let different_key_connection = db_client
-            .resolve_routing_connection(Some(&selector), Some(b"Orders.id=99".as_slice()))
+            .resolve_routing_connection(&different_key_context)
             .expect("different key request with transaction affinity must resolve");
         assert_eq!(
             different_key_connection.address(),
@@ -2078,7 +2550,7 @@ mod tests {
         // 7. Request with transaction_id after affinity is cleared and with no routing_key:
         //    Must resolve to fallback connection.
         let post_cleanup_connection = db_client
-            .resolve_routing_connection(Some(&selector), None)
+            .resolve_routing_connection(&unkeyed_context)
             .expect("post-cleanup resolution fallback");
         assert_ne!(
             post_cleanup_connection.address(),
@@ -2147,8 +2619,9 @@ mod tests {
         let routing_key = b"Users.id=10";
 
         // 1. None transaction selector with routing key: routes to node-1 without recording affinity
+        let context_none = routing_context_from_selector(None, Some(routing_key.as_slice()));
         let connection_none = db_client
-            .resolve_routing_connection(None, Some(routing_key.as_slice()))
+            .resolve_routing_connection(&context_none)
             .expect("keyed request resolves to connection");
         assert_eq!(connection_none.address(), node_address);
         assert_eq!(
@@ -2159,8 +2632,10 @@ mod tests {
 
         // 2. Single-use transaction selector with routing key: routes to node-1 without recording affinity
         let selector_single = TransactionSelector::new().set_single_use(TransactionOptions::new());
+        let context_single =
+            routing_context_from_selector(Some(&selector_single), Some(routing_key.as_slice()));
         let connection_single = db_client
-            .resolve_routing_connection(Some(&selector_single), Some(routing_key.as_slice()))
+            .resolve_routing_connection(&context_single)
             .expect("single-use keyed request resolves to connection");
         assert_eq!(connection_single.address(), node_address);
         assert_eq!(
@@ -2215,7 +2690,7 @@ mod tests {
 
         // Set up mock expectations for all unary RPCs via macro
         macro_rules! setup_unary_mock {
-            ($method:ident, $expect_method:ident, $request_type:ident, $response_type:ty) => {
+            ($method:ident, $expect_method:ident, $request_type:ident, $response_type:ty $(, $extra:expr)*) => {
                 let captured_clone = Arc::clone(&captured_requests);
                 mock.$expect_method().returning(move |req| {
                     if let Some(id) = req.metadata().get("x-goog-spanner-request-id") {
@@ -2273,7 +2748,7 @@ mod tests {
             let expected_channel_id = format!(".{}.", channel_hint + 1);
 
             macro_rules! call_unary_rpc {
-                ($method:ident, $expect_method:ident, $request_type:ident, $response_type:ty) => {
+                ($method:ident, $expect_method:ident, $request_type:ident, $response_type:ty $(, $extra:expr)*) => {
                     let _ = db_client
                         .$method(
                             $request_type::default(),
