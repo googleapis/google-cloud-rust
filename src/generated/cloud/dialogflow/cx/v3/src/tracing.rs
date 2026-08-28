@@ -3268,6 +3268,27 @@ where
         pending.await
     }
 
+    async fn server_streaming_detect_intent(
+        &self,
+        req: crate::model::DetectIntentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::DetectIntentResponse>>
+    {
+        self.inner
+            .server_streaming_detect_intent(req, options)
+            .await
+    }
+
+    fn streaming_detect_intent(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingDetectIntentRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingDetectIntentResponse>,
+    ) {
+        self.inner.streaming_detect_intent(options)
+    }
+
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn match_intent(
         &self,

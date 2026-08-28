@@ -520,6 +520,11 @@ impl HiveMetastoreService {
         super::builder::hive_metastore_service::BatchUpdatePartitions::new(self.inner.clone())
     }
 
+    /// Streams list of partitions from a table.
+    pub fn list_partitions(&self) -> super::builder::hive_metastore_service::ListPartitions {
+        super::builder::hive_metastore_service::ListPartitions::new(self.inner.clone())
+    }
+
     /// Failover the catalog to a new primary replica region.
     ///
     /// # Example

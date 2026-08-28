@@ -167,6 +167,26 @@ where
         pending.await
     }
 
+    fn stream_sanitize_user_prompt(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::SanitizeUserPromptRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::SanitizeUserPromptResponse>,
+    ) {
+        self.inner.stream_sanitize_user_prompt(options)
+    }
+
+    fn stream_sanitize_model_response(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::SanitizeModelResponseRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::SanitizeModelResponseResponse>,
+    ) {
+        self.inner.stream_sanitize_model_response(options)
+    }
+
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,

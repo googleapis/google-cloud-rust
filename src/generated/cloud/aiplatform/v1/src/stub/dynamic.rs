@@ -1881,6 +1881,14 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::SearchNearestEntitiesResponse>>;
 
+    fn feature_view_direct_write(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::FeatureViewDirectWriteRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::FeatureViewDirectWriteResponse>,
+    );
+
     async fn generate_fetch_access_token(
         &self,
         req: crate::model::GenerateFetchAccessTokenRequest,
@@ -1968,6 +1976,17 @@ impl<T: super::FeatureOnlineStoreService> FeatureOnlineStoreService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::SearchNearestEntitiesResponse>> {
         T::search_nearest_entities(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    fn feature_view_direct_write(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::FeatureViewDirectWriteRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::FeatureViewDirectWriteResponse>,
+    ) {
+        T::feature_view_direct_write(self, options)
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -8134,6 +8153,38 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::DirectRawPredictResponse>>;
 
+    fn stream_direct_predict(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectPredictRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamDirectPredictResponse>,
+    );
+
+    fn stream_direct_raw_predict(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectRawPredictRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamDirectRawPredictResponse>,
+    );
+
+    fn streaming_predict(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingPredictRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingPredictResponse>,
+    );
+
+    fn streaming_raw_predict(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingRawPredictRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingRawPredictResponse>,
+    );
+
     async fn explain(
         &self,
         req: crate::model::ExplainRequest,
@@ -8251,6 +8302,50 @@ impl<T: super::PredictionService> PredictionService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::DirectRawPredictResponse>> {
         T::direct_raw_predict(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    fn stream_direct_predict(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectPredictRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamDirectPredictResponse>,
+    ) {
+        T::stream_direct_predict(self, options)
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    fn stream_direct_raw_predict(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectRawPredictRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamDirectRawPredictResponse>,
+    ) {
+        T::stream_direct_raw_predict(self, options)
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    fn streaming_predict(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingPredictRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingPredictResponse>,
+    ) {
+        T::streaming_predict(self, options)
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    fn streaming_raw_predict(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingRawPredictRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingRawPredictResponse>,
+    ) {
+        T::streaming_raw_predict(self, options)
     }
 
     /// Forwards the call to the implementation provided by `T`.

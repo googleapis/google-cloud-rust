@@ -22,26 +22,38 @@ use crate::Result;
 #[derive(Clone)]
 pub struct ModelArmor {
     inner: gaxi::http::ReqwestClient,
+    grpc_inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for ModelArmor {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("ModelArmor")
-            .field("inner", &self.inner)
-            .finish()
+        let mut builder = f.debug_struct("ModelArmor");
+        builder.field("inner", &self.inner);
+        builder.field("grpc_inner", &self.grpc_inner);
+        builder.finish()
     }
 }
 
 impl ModelArmor {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
-        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config.clone(), crate::DEFAULT_HOST).await?;
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
             inner
         };
-        Ok(Self { inner })
+        let grpc_inner = if tracing_is_enabled {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                crate::DEFAULT_HOST,
+                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
+        };
+        Ok(Self { inner, grpc_inner })
     }
 }
 
@@ -904,6 +916,78 @@ impl super::stub::ModelArmor for ModelArmor {
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
+    }
+
+    fn stream_sanitize_user_prompt(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::SanitizeUserPromptRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::SanitizeUserPromptResponse>,
+    ) {
+        let x_goog_request_params = "";
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.cloud.modelarmor.v1.ModelArmor",
+                "StreamSanitizeUserPrompt",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.cloud.modelarmor.v1.ModelArmor/StreamSanitizeUserPrompt",
+        );
+
+        self.grpc_inner
+            .execute_bidi_streaming::<
+                crate::model::SanitizeUserPromptRequest,
+                crate::model::SanitizeUserPromptResponse,
+                crate::prost::google::cloud::modelarmor::v1::SanitizeUserPromptRequest,
+                crate::prost::google::cloud::modelarmor::v1::SanitizeUserPromptResponse,
+            >(
+                extensions,
+                path,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                x_goog_request_params,
+            )
+    }
+
+    fn stream_sanitize_model_response(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::SanitizeModelResponseRequest>,
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::SanitizeModelResponseResponse>,
+    ) {
+        let x_goog_request_params = "";
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.cloud.modelarmor.v1.ModelArmor",
+                "StreamSanitizeModelResponse",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.cloud.modelarmor.v1.ModelArmor/StreamSanitizeModelResponse",
+        );
+
+        self.grpc_inner
+            .execute_bidi_streaming::<
+                crate::model::SanitizeModelResponseRequest,
+                crate::model::SanitizeModelResponseResponse,
+                crate::prost::google::cloud::modelarmor::v1::SanitizeModelResponseRequest,
+                crate::prost::google::cloud::modelarmor::v1::SanitizeModelResponseResponse,
+            >(
+                extensions,
+                path,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                x_goog_request_params,
+            )
     }
 
     async fn list_locations(

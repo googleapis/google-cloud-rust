@@ -2964,30 +2964,86 @@ impl super::stub::ControlService for ControlService {
 #[derive(Clone)]
 pub struct ConversationalSearchService {
     inner: gaxi::http::ReqwestClient,
+    grpc_inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for ConversationalSearchService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("ConversationalSearchService")
-            .field("inner", &self.inner)
-            .finish()
+        let mut builder = f.debug_struct("ConversationalSearchService");
+        builder.field("inner", &self.inner);
+        builder.field("grpc_inner", &self.grpc_inner);
+        builder.finish()
     }
 }
 
 impl ConversationalSearchService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
-        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config.clone(), crate::DEFAULT_HOST).await?;
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
             inner
         };
-        Ok(Self { inner })
+        let grpc_inner = if tracing_is_enabled {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                crate::DEFAULT_HOST,
+                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
+        };
+        Ok(Self { inner, grpc_inner })
     }
 }
 
 impl super::stub::ConversationalSearchService for ConversationalSearchService {
+    async fn conversational_search(
+        &self,
+        req: crate::model::ConversationalSearchRequest,
+        options: crate::RequestOptions,
+    ) -> Result<
+        google_cloud_gax::streaming::ResponseReceiver<crate::model::ConversationalSearchResponse>,
+    > {
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.placement)
+            .map(|s| s.as_str())
+            .map(|v| format!("placement={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.cloud.retail.v2.ConversationalSearchService",
+                "ConversationalSearch",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.cloud.retail.v2.ConversationalSearchService/ConversationalSearch",
+        );
+
+        self.grpc_inner
+            .execute_server_streaming::<
+                crate::model::ConversationalSearchRequest,
+                crate::model::ConversationalSearchResponse,
+                crate::prost::google::cloud::retail::v2::ConversationalSearchRequest,
+                crate::prost::google::cloud::retail::v2::ConversationalSearchResponse,
+            >(
+                extensions,
+                path,
+                req,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+    }
+
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,

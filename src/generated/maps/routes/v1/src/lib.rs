@@ -16,13 +16,6 @@
 
 //! Google Cloud Client Libraries for Rust - Routes Preferred API
 //!
-//! **WARNING:** some RPCs have no corresponding Rust function to call them.
-//! Typically these are streaming RPCs. We expect adding these RPCs in a
-//! way that does not break the existing APIs or changes their behavior in a
-//! significant way. We do anticipate a number of new crate dependencies
-//! will be required. If you need these RPCs please open an issue in our
-//! GitHub repository.
-//!
 //! This crate contains traits, types, and functions to interact with Routes Preferred API
 //! Most applications will use the structs defined in the [client] module.
 //!
@@ -85,6 +78,15 @@ pub(crate) mod tracing;
 
 #[doc(hidden)]
 pub(crate) mod transport;
+
+#[doc(hidden)]
+#[allow(clippy::all)]
+#[allow(unused_imports)]
+#[allow(dead_code)]
+#[allow(missing_docs)]
+pub(crate) mod prost {
+    include!("prost/includes.rs");
+}
 
 /// The default host used by the service.
 const DEFAULT_HOST: &str = "https://routespreferred.googleapis.com/";
