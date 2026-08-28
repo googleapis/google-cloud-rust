@@ -2803,16 +2803,7 @@ mod tests {
         use std::sync::Mutex;
 
         let captured_hints = Arc::new(Mutex::new(Vec::new()));
-        let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|request| {
-            let request = request.into_inner();
-            let session = request.session.expect("session present in request");
-            Ok(Response::new(mock_v1::Session {
-                name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-                multiplexed: session.multiplexed,
-                ..Default::default()
-            }))
-        });
+        let mut mock = create_test_mock();
 
         let captured = Arc::clone(&captured_hints);
         mock.expect_streaming_read().returning(move |request| {
