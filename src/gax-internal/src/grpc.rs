@@ -262,6 +262,40 @@ impl Client {
         )
     }
 
+    /// Opens a bidirectional stream with automatic model <-> proto conversion and channel management.
+    pub fn execute_bidi_streaming_tmp<DomainReq, DomainResp, ProstReq, ProstResp>(
+        &self,
+        extensions: tonic::Extensions,
+        path: http::uri::PathAndQuery,
+        options: RequestOptions,
+        api_client_header: &'static str,
+        request_params: &str,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<DomainReq>,
+        google_cloud_gax::streaming::ResponseStream<DomainResp>,
+    )
+    where
+        DomainReq: crate::prost::ToProto<ProstReq, Output = ProstReq> + Send + 'static,
+        DomainResp: Send + 'static,
+        ProstReq: prost::Message + Send + 'static,
+        ProstResp: prost::Message + Default + crate::prost::FromProto<DomainResp> + 'static,
+    {
+        let (req_tx, req_stream) = streaming::create_request_channel(&options);
+        let resp_rx = self.spawn_bidi_stream::<ProstReq, ProstResp>(
+            extensions,
+            path,
+            req_stream,
+            options,
+            api_client_header,
+            request_params,
+        );
+
+        (
+            streaming::create_request_sender(req_tx),
+            streaming::create_response_receiver_tmp(resp_rx),
+        )
+    }
+
     fn spawn_bidi_stream<ProstReq, ProstResp>(
         &self,
         extensions: tonic::Extensions,
@@ -410,6 +444,45 @@ impl Client {
             .map_err(to_gax_error)?;
 
         let response_receiver = google_cloud_gax::streaming::ResponseReceiver::from_stream(
+            streaming::decode_response_stream(result.into_inner()),
+        );
+
+        Ok(response_receiver)
+    }
+
+    /// Opens a server stream with automatic model <-> proto conversion and stream mapping.
+    pub async fn execute_server_streaming_tmp<DomainReq, DomainResp, ProstReq, ProstResp>(
+        &self,
+        extensions: tonic::Extensions,
+        path: http::uri::PathAndQuery,
+        request: DomainReq,
+        options: RequestOptions,
+        api_client_header: &'static str,
+        request_params: &str,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<DomainResp>>
+    where
+        DomainReq: crate::prost::ToProto<ProstReq, Output = ProstReq>,
+        DomainResp: Send + 'static,
+        ProstReq: prost::Message + Clone + 'static,
+        ProstResp: prost::Message + Default + crate::prost::FromProto<DomainResp> + 'static,
+    {
+        let req = request
+            .to_proto()
+            .map_err(google_cloud_gax::error::Error::ser)?;
+
+        let result = self
+            .server_streaming_with_status::<ProstReq, ProstResp>(
+                extensions,
+                path,
+                req,
+                options,
+                api_client_header,
+                request_params,
+            )
+            .await?
+            .map_err(to_gax_error)?;
+
+        let response_receiver = google_cloud_gax::streaming::ResponseStream::from_stream(
             streaming::decode_response_stream(result.into_inner()),
         );
 

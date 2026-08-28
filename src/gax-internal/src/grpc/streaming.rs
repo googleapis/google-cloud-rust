@@ -20,7 +20,7 @@ use futures::FutureExt as _;
 use futures::stream::StreamExt as _;
 use google_cloud_gax::error::Error;
 use google_cloud_gax::options::RequestOptions;
-use google_cloud_gax::streaming::{RequestSender, ResponseReceiver, SendError};
+use google_cloud_gax::streaming::{RequestSender, ResponseReceiver, ResponseStream, SendError};
 
 /// Default buffer capacity for request streaming channels.
 pub(crate) const DEFAULT_REQUEST_CHANNEL_CAPACITY: usize = 16;
@@ -96,6 +96,27 @@ where
         ))),
     });
     ResponseReceiver::from_future(future)
+}
+
+/// Constructs a [`ResponseReceiver<DomainResp>`] from a oneshot receiver waiting for the tonic response.
+pub(crate) fn create_response_receiver_tmp<DomainResp, ProstResp>(
+    resp_rx: tokio::sync::oneshot::Receiver<
+        google_cloud_gax::Result<tonic::Response<tonic::Streaming<ProstResp>>>,
+    >,
+) -> ResponseStream<DomainResp>
+where
+    DomainResp: Send + 'static,
+    ProstResp: FromProto<DomainResp> + Send + 'static,
+{
+    let future = resp_rx.map(|res| match res {
+        Ok(Ok(response)) => Ok(decode_response_stream(response.into_inner())),
+        Ok(Err(err)) => Err(err),
+        Err(_) => Err(Error::io(std::io::Error::new(
+            std::io::ErrorKind::BrokenPipe,
+            "stream initialization task cancelled",
+        ))),
+    });
+    ResponseStream::from_future(future)
 }
 
 #[cfg(test)]

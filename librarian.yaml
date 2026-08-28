@@ -966,10 +966,12 @@ libraries:
     version: 1.15.0
     copyright_year: "2025"
     output: src/gax
+    skip_release: true
   - name: google-cloud-gax-internal
     version: 0.7.19
     copyright_year: "2025"
     output: src/gax-internal
+    skip_release: true
     rust:
       modules:
         - module_path: google_cloud_rpc::model
