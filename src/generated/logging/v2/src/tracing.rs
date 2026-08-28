@@ -111,6 +111,16 @@ where
         pending.await
     }
 
+    fn tail_log_entries(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::TailLogEntriesRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::TailLogEntriesResponse>,
+    ) {
+        self.inner.tail_log_entries(options)
+    }
+
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_operations(
         &self,

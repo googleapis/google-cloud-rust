@@ -2464,6 +2464,14 @@ pub trait FeaturestoreOnlineServingService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ReadFeatureValuesResponse>>;
 
+    async fn streaming_read_feature_values(
+        &self,
+        req: crate::model::StreamingReadFeatureValuesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::ReadFeatureValuesResponse>,
+    >;
+
     async fn write_feature_values(
         &self,
         req: crate::model::WriteFeatureValuesRequest,
@@ -2542,6 +2550,17 @@ impl<T: super::FeaturestoreOnlineServingService> FeaturestoreOnlineServingServic
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ReadFeatureValuesResponse>> {
         T::read_feature_values(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn streaming_read_feature_values(
+        &self,
+        req: crate::model::StreamingReadFeatureValuesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::ReadFeatureValuesResponse>,
+    > {
+        T::streaming_read_feature_values(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -8141,6 +8160,12 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_api::model::HttpBody>>;
 
+    async fn stream_raw_predict(
+        &self,
+        req: crate::model::StreamRawPredictRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<google_cloud_api::model::HttpBody>>;
+
     async fn direct_predict(
         &self,
         req: crate::model::DirectPredictRequest,
@@ -8177,6 +8202,14 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPredictResponse>,
     );
 
+    async fn server_streaming_predict(
+        &self,
+        req: crate::model::StreamingPredictRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPredictResponse>,
+    >;
+
     fn streaming_raw_predict(
         &self,
         options: crate::RequestOptions,
@@ -8196,6 +8229,14 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         req: crate::model::GenerateContentRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::GenerateContentResponse>>;
+
+    async fn stream_generate_content(
+        &self,
+        req: crate::model::GenerateContentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::GenerateContentResponse>,
+    >;
 
     async fn embed_content(
         &self,
@@ -8287,6 +8328,16 @@ impl<T: super::PredictionService> PredictionService for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn stream_raw_predict(
+        &self,
+        req: crate::model::StreamRawPredictRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<google_cloud_api::model::HttpBody>>
+    {
+        T::stream_raw_predict(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn direct_predict(
         &self,
         req: crate::model::DirectPredictRequest,
@@ -8338,6 +8389,17 @@ impl<T: super::PredictionService> PredictionService for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn server_streaming_predict(
+        &self,
+        req: crate::model::StreamingPredictRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPredictResponse>,
+    > {
+        T::server_streaming_predict(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     fn streaming_raw_predict(
         &self,
         options: crate::RequestOptions,
@@ -8364,6 +8426,17 @@ impl<T: super::PredictionService> PredictionService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::GenerateContentResponse>> {
         T::generate_content(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn stream_generate_content(
+        &self,
+        req: crate::model::GenerateContentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::GenerateContentResponse>,
+    > {
+        T::stream_generate_content(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -8478,6 +8551,12 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::QueryReasoningEngineResponse>>;
 
+    async fn stream_query_reasoning_engine(
+        &self,
+        req: crate::model::StreamQueryReasoningEngineRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<google_cloud_api::model::HttpBody>>;
+
     async fn async_query_reasoning_engine(
         &self,
         req: crate::model::AsyncQueryReasoningEngineRequest,
@@ -8577,6 +8656,16 @@ impl<T: super::ReasoningEngineExecutionService> ReasoningEngineExecutionService 
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::QueryReasoningEngineResponse>> {
         T::query_reasoning_engine(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn stream_query_reasoning_engine(
+        &self,
+        req: crate::model::StreamQueryReasoningEngineRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<google_cloud_api::model::HttpBody>>
+    {
+        T::stream_query_reasoning_engine(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -10023,6 +10112,14 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ReadTensorboardTimeSeriesDataResponse>>;
 
+    async fn read_tensorboard_blob_data(
+        &self,
+        req: crate::model::ReadTensorboardBlobDataRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::ReadTensorboardBlobDataResponse>,
+    >;
+
     async fn write_tensorboard_experiment_data(
         &self,
         req: crate::model::WriteTensorboardExperimentDataRequest,
@@ -10355,6 +10452,17 @@ impl<T: super::TensorboardService> TensorboardService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ReadTensorboardTimeSeriesDataResponse>> {
         T::read_tensorboard_time_series_data(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn read_tensorboard_blob_data(
+        &self,
+        req: crate::model::ReadTensorboardBlobDataRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::ReadTensorboardBlobDataResponse>,
+    > {
+        T::read_tensorboard_blob_data(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

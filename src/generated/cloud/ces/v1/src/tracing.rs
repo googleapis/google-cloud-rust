@@ -903,6 +903,24 @@ where
         pending.await
     }
 
+    async fn stream_run_session(
+        &self,
+        req: crate::model::RunSessionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::RunSessionResponse>> {
+        self.inner.stream_run_session(req, options).await
+    }
+
+    fn bidi_run_session(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::BidiSessionClientMessage>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::BidiSessionServerMessage>,
+    ) {
+        self.inner.bidi_run_session(options)
+    }
+
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
