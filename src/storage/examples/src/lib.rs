@@ -705,7 +705,9 @@ async fn make_object(client: &Storage, bucket_id: &str, name: &str) -> anyhow::R
     const VEXING: &str = "how vexingly quick daft zebras jump\n";
     let object = client
         .write_object(format!("projects/_/buckets/{bucket_id}"), name, VEXING)
-        .set_if_generation_match(0)
+        // Creating test objects in a temporary test bucket is safe to
+        // retry on transient network errors by overwriting with the same data.
+        .with_idempotency(true)
         .send_buffered()
         .await?;
     Ok(object)
