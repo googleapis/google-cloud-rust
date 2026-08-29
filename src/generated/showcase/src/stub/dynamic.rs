@@ -330,20 +330,18 @@ pub trait Echo: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::FailEchoWithDetailsResponse>>;
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn expand(
         &self,
         req: crate::model::ExpandRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>>;
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>>;
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn chat(
         &self,
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>,
     );
 
     async fn paged_expand(
@@ -477,24 +475,22 @@ impl<T: super::Echo> Echo for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn expand(
         &self,
         req: crate::model::ExpandRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>>
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>>
     {
         T::expand(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn chat(
         &self,
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>,
     ) {
         T::chat(self, options)
     }
@@ -938,22 +934,20 @@ pub trait Messaging: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn stream_blurbs(
         &self,
         req: crate::model::StreamBlurbsRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>,
     >;
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn connect(
         &self,
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>,
     );
 
     async fn list_locations(
@@ -1129,25 +1123,23 @@ impl<T: super::Messaging> Messaging for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn stream_blurbs(
         &self,
         req: crate::model::StreamBlurbsRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>,
     > {
         T::stream_blurbs(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn connect(
         &self,
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>,
     ) {
         T::connect(self, options)
     }
@@ -1290,15 +1282,12 @@ pub trait SequenceService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn attempt_streaming_sequence(
         &self,
         req: crate::model::AttemptStreamingSequenceRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<
-        google_cloud_gax::streaming::ResponseReceiver<
-            crate::model::AttemptStreamingSequenceResponse,
-        >,
+        google_cloud_gax::streaming::ResponseStream<crate::model::AttemptStreamingSequenceResponse>,
     >;
 
     async fn list_locations(
@@ -1405,15 +1394,12 @@ impl<T: super::SequenceService> SequenceService for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn attempt_streaming_sequence(
         &self,
         req: crate::model::AttemptStreamingSequenceRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<
-        google_cloud_gax::streaming::ResponseReceiver<
-            crate::model::AttemptStreamingSequenceResponse,
-        >,
+        google_cloud_gax::streaming::ResponseStream<crate::model::AttemptStreamingSequenceResponse>,
     > {
         T::attempt_streaming_sequence(self, req, options).await
     }

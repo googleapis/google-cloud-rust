@@ -18,7 +18,6 @@ mod pqc {
 
     #[tokio::test]
     #[serial_test::serial]
-    #[ignore = "TODO(#6542) - disabled because it was flaky"]
     async fn run() -> anyhow::Result<()> {
         integration_tests_showcase::pqc::run()
             .await

@@ -23,6 +23,12 @@ pub trait RoutesPreferred: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ComputeRoutesResponse>>;
 
+    async fn compute_route_matrix(
+        &self,
+        req: crate::model::ComputeRouteMatrixRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::RouteMatrixElement>>;
+
     async fn compute_custom_routes(
         &self,
         req: crate::model::ComputeCustomRoutesRequest,
@@ -40,6 +46,16 @@ impl<T: super::RoutesPreferred> RoutesPreferred for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ComputeRoutesResponse>> {
         T::compute_routes(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn compute_route_matrix(
+        &self,
+        req: crate::model::ComputeRouteMatrixRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::RouteMatrixElement>>
+    {
+        T::compute_route_matrix(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

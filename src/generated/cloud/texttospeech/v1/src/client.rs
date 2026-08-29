@@ -164,6 +164,33 @@ impl TextToSpeech {
         super::builder::text_to_speech::SynthesizeSpeech::new(self.inner.clone())
     }
 
+    /// Performs bidirectional streaming speech synthesis: receives audio while
+    /// sending text.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::client::TextToSpeech;
+    /// # use google_cloud_texttospeech_v1::model::StreamingSynthesizeRequest;
+    /// async fn sample(
+    ///    client: &TextToSpeech
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.streaming_synthesize()
+    ///         .build();
+    ///
+    ///     sender.send(StreamingSynthesizeRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn streaming_synthesize(&self) -> super::builder::text_to_speech::StreamingSynthesize {
+        super::builder::text_to_speech::StreamingSynthesize::new(self.inner.clone())
+    }
+
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations

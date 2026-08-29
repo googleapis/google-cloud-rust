@@ -73,6 +73,165 @@ pub mod assistant_service {
         }
     }
 
+    /// The request builder for [AssistantService::stream_assist][crate::client::AssistantService::stream_assist] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::assistant_service::StreamAssist;
+    /// # async fn sample() -> google_cloud_discoveryengine_v1::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut receiver = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StreamAssist {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StreamAssist(RequestBuilder<crate::model::StreamAssistRequest>);
+
+    impl StreamAssist {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssistantService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::StreamAssistRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::StreamAssistResponse>>
+        {
+            (*self.0.stub)
+                .stream_assist(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [name][crate::model::StreamAssistRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [query][crate::model::StreamAssistRequest::query].
+        pub fn set_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Query>,
+        {
+            self.0.request.query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [query][crate::model::StreamAssistRequest::query].
+        pub fn set_or_clear_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Query>,
+        {
+            self.0.request.query = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [session][crate::model::StreamAssistRequest::session].
+        pub fn set_session<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.session = v.into();
+            self
+        }
+
+        /// Sets the value of [user_metadata][crate::model::StreamAssistRequest::user_metadata].
+        pub fn set_user_metadata<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AssistUserMetadata>,
+        {
+            self.0.request.user_metadata = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_metadata][crate::model::StreamAssistRequest::user_metadata].
+        pub fn set_or_clear_user_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AssistUserMetadata>,
+        {
+            self.0.request.user_metadata = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [agents_spec][crate::model::StreamAssistRequest::agents_spec].
+        pub fn set_agents_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::stream_assist_request::AgentsSpec>,
+        {
+            self.0.request.agents_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [agents_spec][crate::model::StreamAssistRequest::agents_spec].
+        pub fn set_or_clear_agents_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::stream_assist_request::AgentsSpec>,
+        {
+            self.0.request.agents_spec = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [tools_spec][crate::model::StreamAssistRequest::tools_spec].
+        pub fn set_tools_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::stream_assist_request::ToolsSpec>,
+        {
+            self.0.request.tools_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tools_spec][crate::model::StreamAssistRequest::tools_spec].
+        pub fn set_or_clear_tools_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::stream_assist_request::ToolsSpec>,
+        {
+            self.0.request.tools_spec = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [generation_spec][crate::model::StreamAssistRequest::generation_spec].
+        pub fn set_generation_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::stream_assist_request::GenerationSpec>,
+        {
+            self.0.request.generation_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [generation_spec][crate::model::StreamAssistRequest::generation_spec].
+        pub fn set_or_clear_generation_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::stream_assist_request::GenerationSpec>,
+        {
+            self.0.request.generation_spec = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamAssist {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [AssistantService::list_operations][crate::client::AssistantService::list_operations] calls.
     ///
     /// # Example
@@ -3660,6 +3819,247 @@ pub mod conversational_search_service {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for AnswerQuery {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [ConversationalSearchService::stream_answer_query][crate::client::ConversationalSearchService::stream_answer_query] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::conversational_search_service::StreamAnswerQuery;
+    /// # async fn sample() -> google_cloud_discoveryengine_v1::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut receiver = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StreamAnswerQuery {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StreamAnswerQuery(RequestBuilder<crate::model::AnswerQueryRequest>);
+
+    impl StreamAnswerQuery {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConversationalSearchService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::AnswerQueryRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::AnswerQueryResponse>>
+        {
+            (*self.0.stub)
+                .stream_answer_query(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [serving_config][crate::model::AnswerQueryRequest::serving_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_serving_config<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.serving_config = v.into();
+            self
+        }
+
+        /// Sets the value of [query][crate::model::AnswerQueryRequest::query].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Query>,
+        {
+            self.0.request.query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [query][crate::model::AnswerQueryRequest::query].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Query>,
+        {
+            self.0.request.query = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [session][crate::model::AnswerQueryRequest::session].
+        pub fn set_session<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.session = v.into();
+            self
+        }
+
+        /// Sets the value of [safety_spec][crate::model::AnswerQueryRequest::safety_spec].
+        pub fn set_safety_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::SafetySpec>,
+        {
+            self.0.request.safety_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [safety_spec][crate::model::AnswerQueryRequest::safety_spec].
+        pub fn set_or_clear_safety_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::SafetySpec>,
+        {
+            self.0.request.safety_spec = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [related_questions_spec][crate::model::AnswerQueryRequest::related_questions_spec].
+        pub fn set_related_questions_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::RelatedQuestionsSpec>,
+        {
+            self.0.request.related_questions_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [related_questions_spec][crate::model::AnswerQueryRequest::related_questions_spec].
+        pub fn set_or_clear_related_questions_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::RelatedQuestionsSpec>,
+        {
+            self.0.request.related_questions_spec = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [grounding_spec][crate::model::AnswerQueryRequest::grounding_spec].
+        pub fn set_grounding_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::GroundingSpec>,
+        {
+            self.0.request.grounding_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [grounding_spec][crate::model::AnswerQueryRequest::grounding_spec].
+        pub fn set_or_clear_grounding_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::GroundingSpec>,
+        {
+            self.0.request.grounding_spec = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [answer_generation_spec][crate::model::AnswerQueryRequest::answer_generation_spec].
+        pub fn set_answer_generation_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::AnswerGenerationSpec>,
+        {
+            self.0.request.answer_generation_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [answer_generation_spec][crate::model::AnswerQueryRequest::answer_generation_spec].
+        pub fn set_or_clear_answer_generation_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::AnswerGenerationSpec>,
+        {
+            self.0.request.answer_generation_spec = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [search_spec][crate::model::AnswerQueryRequest::search_spec].
+        pub fn set_search_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::SearchSpec>,
+        {
+            self.0.request.search_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [search_spec][crate::model::AnswerQueryRequest::search_spec].
+        pub fn set_or_clear_search_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::SearchSpec>,
+        {
+            self.0.request.search_spec = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [query_understanding_spec][crate::model::AnswerQueryRequest::query_understanding_spec].
+        pub fn set_query_understanding_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::QueryUnderstandingSpec>,
+        {
+            self.0.request.query_understanding_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [query_understanding_spec][crate::model::AnswerQueryRequest::query_understanding_spec].
+        pub fn set_or_clear_query_understanding_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::QueryUnderstandingSpec>,
+        {
+            self.0.request.query_understanding_spec = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [asynchronous_mode][crate::model::AnswerQueryRequest::asynchronous_mode].
+        #[deprecated]
+        pub fn set_asynchronous_mode<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.asynchronous_mode = v.into();
+            self
+        }
+
+        /// Sets the value of [user_pseudo_id][crate::model::AnswerQueryRequest::user_pseudo_id].
+        pub fn set_user_pseudo_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.user_pseudo_id = v.into();
+            self
+        }
+
+        /// Sets the value of [user_labels][crate::model::AnswerQueryRequest::user_labels].
+        pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [end_user_spec][crate::model::AnswerQueryRequest::end_user_spec].
+        pub fn set_end_user_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::EndUserSpec>,
+        {
+            self.0.request.end_user_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [end_user_spec][crate::model::AnswerQueryRequest::end_user_spec].
+        pub fn set_or_clear_end_user_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::answer_query_request::EndUserSpec>,
+        {
+            self.0.request.end_user_spec = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamAnswerQuery {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
@@ -7526,6 +7926,86 @@ pub mod grounded_generation_service {
                 request: R::default(),
                 options: crate::RequestOptions::default(),
             }
+        }
+    }
+
+    /// Common implementation for [crate::client::GroundedGenerationService] bidi stream builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct BidiStreamBuilder {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::GroundedGenerationService>,
+        options: crate::RequestOptions,
+    }
+
+    impl BidiStreamBuilder {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GroundedGenerationService>,
+        ) -> Self {
+            Self {
+                stub,
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [GroundedGenerationService::stream_generate_grounded_content][crate::client::GroundedGenerationService::stream_generate_grounded_content] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::grounded_generation_service::StreamGenerateGroundedContent;
+    /// # use google_cloud_discoveryengine_v1::model::GenerateGroundedContentRequest;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(GenerateGroundedContentRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StreamGenerateGroundedContent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StreamGenerateGroundedContent(BidiStreamBuilder);
+
+    impl StreamGenerateGroundedContent {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GroundedGenerationService>,
+        ) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<
+                crate::model::GenerateGroundedContentRequest,
+            >,
+            google_cloud_gax::streaming::ResponseStream<
+                crate::model::GenerateGroundedContentResponse,
+            >,
+        ) {
+            (*self.0.stub).stream_generate_grounded_content(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamGenerateGroundedContent {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
         }
     }
 

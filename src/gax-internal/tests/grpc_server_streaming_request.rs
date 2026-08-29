@@ -255,13 +255,11 @@ mod tests {
             .await
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[derive(Clone, Debug, PartialEq)]
     struct DomainEchoRequest {
         message: String,
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     impl google_cloud_gax_internal::prost::ToProto<EchoRequest> for DomainEchoRequest {
         type Output = EchoRequest;
         fn to_proto(
@@ -275,13 +273,11 @@ mod tests {
         }
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[derive(Clone, Debug, PartialEq)]
     struct DomainEchoResponse {
         message: String,
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     impl google_cloud_gax_internal::prost::FromProto<DomainEchoResponse> for EchoResponse {
         fn cnv(
             self,
@@ -293,7 +289,6 @@ mod tests {
         }
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[tokio::test]
     async fn execute_server_streaming_basic() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
@@ -316,7 +311,7 @@ mod tests {
             o
         };
 
-        let mut receiver = client
+        let mut resp_stream = client
             .execute_server_streaming::<DomainEchoRequest, DomainEchoResponse, EchoRequest, EchoResponse>(
                 extensions,
                 http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Expand"),
@@ -329,7 +324,7 @@ mod tests {
             )
             .await?;
 
-        let r0 = receiver.recv().await;
+        let r0 = resp_stream.next().await;
         assert_eq!(
             r0.transpose()?,
             Some(DomainEchoResponse {
@@ -337,7 +332,7 @@ mod tests {
             })
         );
 
-        let r1 = receiver.recv().await;
+        let r1 = resp_stream.next().await;
         assert_eq!(
             r1.transpose()?,
             Some(DomainEchoResponse {
@@ -345,7 +340,7 @@ mod tests {
             })
         );
 
-        let r2 = receiver.recv().await;
+        let r2 = resp_stream.next().await;
         assert!(r2.is_none());
 
         Ok(())

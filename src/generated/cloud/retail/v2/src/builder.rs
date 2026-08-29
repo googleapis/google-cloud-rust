@@ -2809,6 +2809,195 @@ pub mod conversational_search_service {
         }
     }
 
+    /// The request builder for [ConversationalSearchService::conversational_search][crate::client::ConversationalSearchService::conversational_search] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::builder::conversational_search_service::ConversationalSearch;
+    /// # async fn sample() -> google_cloud_retail_v2::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut receiver = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ConversationalSearch {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ConversationalSearch(RequestBuilder<crate::model::ConversationalSearchRequest>);
+
+    impl ConversationalSearch {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConversationalSearchService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ConversationalSearchRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::ConversationalSearchResponse>,
+        > {
+            (*self.0.stub)
+                .conversational_search(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [placement][crate::model::ConversationalSearchRequest::placement].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_placement<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.placement = v.into();
+            self
+        }
+
+        /// Sets the value of [branch][crate::model::ConversationalSearchRequest::branch].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_branch<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.branch = v.into();
+            self
+        }
+
+        /// Sets the value of [query][crate::model::ConversationalSearchRequest::query].
+        pub fn set_query<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.query = v.into();
+            self
+        }
+
+        /// Sets the value of [page_categories][crate::model::ConversationalSearchRequest::page_categories].
+        pub fn set_page_categories<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.page_categories = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [conversation_id][crate::model::ConversationalSearchRequest::conversation_id].
+        pub fn set_conversation_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.conversation_id = v.into();
+            self
+        }
+
+        /// Sets the value of [search_params][crate::model::ConversationalSearchRequest::search_params].
+        pub fn set_search_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::conversational_search_request::SearchParams>,
+        {
+            self.0.request.search_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [search_params][crate::model::ConversationalSearchRequest::search_params].
+        pub fn set_or_clear_search_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::conversational_search_request::SearchParams>,
+        {
+            self.0.request.search_params = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [visitor_id][crate::model::ConversationalSearchRequest::visitor_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_visitor_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.visitor_id = v.into();
+            self
+        }
+
+        /// Sets the value of [user_info][crate::model::ConversationalSearchRequest::user_info].
+        pub fn set_user_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UserInfo>,
+        {
+            self.0.request.user_info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_info][crate::model::ConversationalSearchRequest::user_info].
+        pub fn set_or_clear_user_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UserInfo>,
+        {
+            self.0.request.user_info = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [conversational_filtering_spec][crate::model::ConversationalSearchRequest::conversational_filtering_spec].
+        pub fn set_conversational_filtering_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::conversational_search_request::ConversationalFilteringSpec,
+                >,
+        {
+            self.0.request.conversational_filtering_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [conversational_filtering_spec][crate::model::ConversationalSearchRequest::conversational_filtering_spec].
+        pub fn set_or_clear_conversational_filtering_spec<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::conversational_search_request::ConversationalFilteringSpec,
+                >,
+        {
+            self.0.request.conversational_filtering_spec = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [user_labels][crate::model::ConversationalSearchRequest::user_labels].
+        pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [safety_settings][crate::model::ConversationalSearchRequest::safety_settings].
+        pub fn set_safety_settings<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::SafetySetting>,
+        {
+            use std::iter::Iterator;
+            self.0.request.safety_settings = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ConversationalSearch {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [ConversationalSearchService::list_operations][crate::client::ConversationalSearchService::list_operations] calls.
     ///
     /// # Example

@@ -71,6 +71,24 @@ pub mod text_to_speech {
         }
     }
 
+    /// Common implementation for [crate::client::TextToSpeech] bidi stream builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct BidiStreamBuilder {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeech>,
+        options: crate::RequestOptions,
+    }
+
+    impl BidiStreamBuilder {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeech>,
+        ) -> Self {
+            Self {
+                stub,
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
     /// The request builder for [TextToSpeech::list_voices][crate::client::TextToSpeech::list_voices] calls.
     ///
     /// # Example
@@ -267,6 +285,64 @@ pub mod text_to_speech {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for SynthesizeSpeech {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [TextToSpeech::streaming_synthesize][crate::client::TextToSpeech::streaming_synthesize] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::builder::text_to_speech::StreamingSynthesize;
+    /// # use google_cloud_texttospeech_v1::model::StreamingSynthesizeRequest;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(StreamingSynthesizeRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StreamingSynthesize {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StreamingSynthesize(BidiStreamBuilder);
+
+    impl StreamingSynthesize {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeech>,
+        ) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::StreamingSynthesizeRequest>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::StreamingSynthesizeResponse>,
+        ) {
+            (*self.0.stub).streaming_synthesize(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamingSynthesize {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

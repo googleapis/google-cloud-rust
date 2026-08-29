@@ -13077,14 +13077,16 @@ impl super::stub::SecuritySettingsService for SecuritySettingsService {
 #[derive(Clone)]
 pub struct Sessions {
     inner: gaxi::http::ReqwestClient,
+    grpc_inner: gaxi::grpc::Client,
 }
 
 #[cfg(feature = "sessions")]
 impl std::fmt::Debug for Sessions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("Sessions")
-            .field("inner", &self.inner)
-            .finish()
+        let mut builder = f.debug_struct("Sessions");
+        builder.field("inner", &self.inner);
+        builder.field("grpc_inner", &self.grpc_inner);
+        builder.finish()
     }
 }
 
@@ -13092,13 +13094,23 @@ impl std::fmt::Debug for Sessions {
 impl Sessions {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
-        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config.clone(), crate::DEFAULT_HOST).await?;
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
             inner
         };
-        Ok(Self { inner })
+        let grpc_inner = if tracing_is_enabled {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                crate::DEFAULT_HOST,
+                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
+        };
+        Ok(Self { inner, grpc_inner })
     }
 }
 
@@ -13226,6 +13238,85 @@ impl super::stub::Sessions for Sessions {
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
+    }
+
+    async fn server_streaming_detect_intent(
+        &self,
+        req: crate::model::DetectIntentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::DetectIntentResponse>>
+    {
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.session)
+            .map(|s| s.as_str())
+            .map(|v| format!("session={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.cloud.dialogflow.cx.v3.Sessions",
+                "ServerStreamingDetectIntent",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.cloud.dialogflow.cx.v3.Sessions/ServerStreamingDetectIntent",
+        );
+
+        self.grpc_inner
+            .execute_server_streaming_tmp::<
+                crate::model::DetectIntentRequest,
+                crate::model::DetectIntentResponse,
+                crate::prost::google::cloud::dialogflow::cx::v3::DetectIntentRequest,
+                crate::prost::google::cloud::dialogflow::cx::v3::DetectIntentResponse,
+            >(
+                extensions,
+                path,
+                req,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+    }
+
+    fn streaming_detect_intent(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingDetectIntentRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingDetectIntentResponse>,
+    ) {
+        let x_goog_request_params = "";
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.cloud.dialogflow.cx.v3.Sessions",
+                "StreamingDetectIntent",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.cloud.dialogflow.cx.v3.Sessions/StreamingDetectIntent",
+        );
+
+        self.grpc_inner
+            .execute_bidi_streaming_tmp::<
+                crate::model::StreamingDetectIntentRequest,
+                crate::model::StreamingDetectIntentResponse,
+                crate::prost::google::cloud::dialogflow::cx::v3::StreamingDetectIntentRequest,
+                crate::prost::google::cloud::dialogflow::cx::v3::StreamingDetectIntentResponse,
+            >(
+                extensions,
+                path,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                x_goog_request_params,
+            )
     }
 
     async fn match_intent(

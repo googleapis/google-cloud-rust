@@ -265,6 +265,123 @@ pub mod routes_preferred {
         }
     }
 
+    /// The request builder for [RoutesPreferred::compute_route_matrix][crate::client::RoutesPreferred::compute_route_matrix] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_maps_routes_v1::builder::routes_preferred::ComputeRouteMatrix;
+    /// # async fn sample() -> google_maps_routes_v1::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut receiver = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ComputeRouteMatrix {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ComputeRouteMatrix(RequestBuilder<crate::model::ComputeRouteMatrixRequest>);
+
+    impl ComputeRouteMatrix {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutesPreferred>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ComputeRouteMatrixRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::RouteMatrixElement>>
+        {
+            (*self.0.stub)
+                .compute_route_matrix(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [origins][crate::model::ComputeRouteMatrixRequest::origins].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_origins<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::RouteMatrixOrigin>,
+        {
+            use std::iter::Iterator;
+            self.0.request.origins = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [destinations][crate::model::ComputeRouteMatrixRequest::destinations].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_destinations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::RouteMatrixDestination>,
+        {
+            use std::iter::Iterator;
+            self.0.request.destinations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [travel_mode][crate::model::ComputeRouteMatrixRequest::travel_mode].
+        pub fn set_travel_mode<T: Into<crate::model::RouteTravelMode>>(mut self, v: T) -> Self {
+            self.0.request.travel_mode = v.into();
+            self
+        }
+
+        /// Sets the value of [routing_preference][crate::model::ComputeRouteMatrixRequest::routing_preference].
+        pub fn set_routing_preference<T: Into<crate::model::RoutingPreference>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.routing_preference = v.into();
+            self
+        }
+
+        /// Sets the value of [departure_time][crate::model::ComputeRouteMatrixRequest::departure_time].
+        pub fn set_departure_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.departure_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [departure_time][crate::model::ComputeRouteMatrixRequest::departure_time].
+        pub fn set_or_clear_departure_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.departure_time = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ComputeRouteMatrix {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [RoutesPreferred::compute_custom_routes][crate::client::RoutesPreferred::compute_custom_routes] calls.
     ///
     /// # Example

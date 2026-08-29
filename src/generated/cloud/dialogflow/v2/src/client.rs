@@ -7119,6 +7119,48 @@ impl Participants {
         super::builder::participants::AnalyzeContent::new(self.inner.clone())
     }
 
+    /// Adds a text (chat, for example), or audio (phone recording, for example)
+    /// message from a participant into the conversation.
+    /// Note: This method is only available through the gRPC API (not REST).
+    ///
+    /// The top-level message sent to the client by the server is
+    /// `StreamingAnalyzeContentResponse`. Multiple response messages can be
+    /// returned in order. The first one or more messages contain the
+    /// `recognition_result` field. Each result represents a more complete
+    /// transcript of what the user said. The next message contains the
+    /// `reply_text` field and potentially the `reply_audio` field. The message can
+    /// also contain the `automated_agent_reply` field.
+    ///
+    /// Note: Always use agent versions for production traffic
+    /// sent to virtual agents. See [Versions and
+    /// environments](https://cloud.google.com/dialogflow/es/docs/agents-versions).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Participants;
+    /// # use google_cloud_dialogflow_v2::model::StreamingAnalyzeContentRequest;
+    /// async fn sample(
+    ///    client: &Participants
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.streaming_analyze_content()
+    ///         .build();
+    ///
+    ///     sender.send(StreamingAnalyzeContentRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn streaming_analyze_content(
+        &self,
+    ) -> super::builder::participants::StreamingAnalyzeContent {
+        super::builder::participants::StreamingAnalyzeContent::new(self.inner.clone())
+    }
+
     /// Gets suggested articles for a participant based on specific historical
     /// messages.
     ///
@@ -7476,6 +7518,47 @@ impl Sessions {
     /// ```
     pub fn detect_intent(&self) -> super::builder::sessions::DetectIntent {
         super::builder::sessions::DetectIntent::new(self.inner.clone())
+    }
+
+    /// Processes a natural language query in audio format in a streaming fashion
+    /// and returns structured, actionable data as a result. This method is only
+    /// available via the gRPC API (not REST).
+    ///
+    /// If you might use
+    /// [Agent Assist](https://cloud.google.com/dialogflow/docs/#aa)
+    /// or other CCAI products now or in the future, consider using
+    /// [StreamingAnalyzeContent][google.cloud.dialogflow.v2.Participants.StreamingAnalyzeContent]
+    /// instead of `StreamingDetectIntent`. `StreamingAnalyzeContent` has
+    /// additional functionality for Agent Assist and other CCAI products.
+    ///
+    /// Note: Always use agent versions for production traffic.
+    /// See [Versions and
+    /// environments](https://cloud.google.com/dialogflow/es/docs/agents-versions).
+    ///
+    /// [google.cloud.dialogflow.v2.Participants.StreamingAnalyzeContent]: crate::client::Participants::streaming_analyze_content
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Sessions;
+    /// # use google_cloud_dialogflow_v2::model::StreamingDetectIntentRequest;
+    /// async fn sample(
+    ///    client: &Sessions
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.streaming_detect_intent()
+    ///         .build();
+    ///
+    ///     sender.send(StreamingDetectIntentRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn streaming_detect_intent(&self) -> super::builder::sessions::StreamingDetectIntent {
+        super::builder::sessions::StreamingDetectIntent::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.

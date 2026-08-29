@@ -195,6 +195,7 @@ where
         let builder = self.apply_preconditions(builder);
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
 
+        // Multipart part 1: JSON object metadata
         let metadata = multipart::Part::text(v1::insert_body(self.resource()).to_string())
             .mime_str("application/json; charset=UTF-8")
             .map_err(Error::ser)?;
@@ -204,12 +205,37 @@ where
             .seek(0)
             .await
             .map_err(Error::ser)?;
+
+        // Multipart part 2: Media payload stream
         let payload = self.payload_to_body().await?;
         let form = multipart::Form::new().part("metadata", metadata);
         let form = if let Some(exact) = hint.exact() {
             form.part("media", multipart::Part::stream_with_length(payload, exact))
         } else {
             form.part("media", multipart::Part::stream(payload))
+        };
+
+        // Multipart part 3: Trailing checksums metadata
+        // We only append Part 3 trailing metadata when on-the-fly streaming calculation
+        // is active and no upfront CRC32C checksum was already placed into Part 1
+        // (e.g. from known/precomputed checksums or delegated buffered uploads).
+        let has_on_the_fly =
+            self.options.checksum.crc32c.is_some() || self.options.checksum.md5_hash.is_some();
+        let has_upfront_crc32c = self
+            .resource()
+            .checksums
+            .as_ref()
+            .and_then(|c| c.crc32c)
+            .is_some();
+
+        let form = if has_on_the_fly && !has_upfront_crc32c {
+            let checksums = self.trailing_checksums_to_body()?;
+            let part = multipart::Part::stream(checksums)
+                .mime_str("application/json; charset=UTF-8")
+                .map_err(Error::ser)?;
+            form.part("checksums", part)
+        } else {
+            form
         };
 
         let builder = builder.header(
@@ -228,6 +254,43 @@ where
                     drop(guard);
                     return Some((next, Some(payload)));
                 }
+            }
+            None
+        }));
+        Ok(Body::wrap_stream(stream))
+    }
+
+    fn trailing_checksums_to_body(&self) -> Result<Body> {
+        let payload = self.payload.clone();
+        let stream = Box::pin(unfold(Some(payload), move |state| async move {
+            if let Some(payload) = state {
+                let checksums = payload.lock().await.final_checksum();
+
+                #[derive(serde::Serialize)]
+                #[serde(rename_all = "camelCase")]
+                struct TrailingMetadata {
+                    #[serde(skip_serializing_if = "Option::is_none")]
+                    crc32c: Option<String>,
+                    #[serde(skip_serializing_if = "Option::is_none")]
+                    md5_hash: Option<String>,
+                }
+
+                use base64::{Engine, prelude::BASE64_STANDARD};
+                let trailing = TrailingMetadata {
+                    crc32c: checksums
+                        .crc32c
+                        .map(|c| BASE64_STANDARD.encode(c.to_be_bytes())),
+                    md5_hash: if checksums.md5_hash.is_empty() {
+                        None
+                    } else {
+                        Some(BASE64_STANDARD.encode(&checksums.md5_hash))
+                    },
+                };
+
+                let body = serde_json::to_vec(&trailing)
+                    .map(bytes::Bytes::from)
+                    .map_err(|e| std::io::Error::new(std::io::ErrorKind::InvalidData, e));
+                return Some((body, None));
             }
             None
         }));

@@ -55,6 +55,14 @@ where
         pending.await
     }
 
+    async fn compute_route_matrix(
+        &self,
+        req: crate::model::ComputeRouteMatrixRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::RouteMatrixElement>> {
+        self.inner.compute_route_matrix(req, options).await
+    }
+
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn compute_custom_routes(
         &self,

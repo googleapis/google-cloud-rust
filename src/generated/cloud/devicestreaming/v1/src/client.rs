@@ -263,4 +263,33 @@ impl DirectAccessService {
     ) -> super::builder::direct_access_service::UpdateDeviceSession {
         super::builder::direct_access_service::UpdateDeviceSession::new(self.inner.clone())
     }
+
+    /// Exposes an ADB connection if the device supports ADB.
+    /// gRPC headers are used to authenticate the Connect RPC, as well as
+    /// associate to a particular DeviceSession.
+    /// In particular, the user must specify the "X-Omnilab-Session-Name" header.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_devicestreaming_v1::client::DirectAccessService;
+    /// # use google_cloud_devicestreaming_v1::model::AdbMessage;
+    /// async fn sample(
+    ///    client: &DirectAccessService
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.adb_connect()
+    ///         .build();
+    ///
+    ///     sender.send(AdbMessage::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn adb_connect(&self) -> super::builder::direct_access_service::AdbConnect {
+        super::builder::direct_access_service::AdbConnect::new(self.inner.clone())
+    }
 }

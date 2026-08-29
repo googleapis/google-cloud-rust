@@ -46,6 +46,14 @@ pub trait DirectAccessService: std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateDeviceSessionRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::DeviceSession>>;
+
+    fn adb_connect(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::AdbMessage>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::DeviceMessage>,
+    );
 }
 
 /// All implementations of [super::DirectAccessService] also implement [DirectAccessService].
@@ -94,5 +102,16 @@ impl<T: super::DirectAccessService> DirectAccessService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::DeviceSession>> {
         T::update_device_session(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    fn adb_connect(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::AdbMessage>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::DeviceMessage>,
+    ) {
+        T::adb_connect(self, options)
     }
 }

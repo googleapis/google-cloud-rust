@@ -71,6 +71,24 @@ pub mod model_armor {
         }
     }
 
+    /// Common implementation for [crate::client::ModelArmor] bidi stream builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct BidiStreamBuilder {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        options: crate::RequestOptions,
+    }
+
+    impl BidiStreamBuilder {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
+            Self {
+                stub,
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
     /// The request builder for [ModelArmor::list_templates][crate::client::ModelArmor::list_templates] calls.
     ///
     /// # Example
@@ -931,6 +949,124 @@ pub mod model_armor {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for SanitizeModelResponse {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [ModelArmor::stream_sanitize_user_prompt][crate::client::ModelArmor::stream_sanitize_user_prompt] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::builder::model_armor::StreamSanitizeUserPrompt;
+    /// # use google_cloud_modelarmor_v1::model::SanitizeUserPromptRequest;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(SanitizeUserPromptRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StreamSanitizeUserPrompt {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StreamSanitizeUserPrompt(BidiStreamBuilder);
+
+    impl StreamSanitizeUserPrompt {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::SanitizeUserPromptRequest>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::SanitizeUserPromptResponse>,
+        ) {
+            (*self.0.stub).stream_sanitize_user_prompt(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamSanitizeUserPrompt {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [ModelArmor::stream_sanitize_model_response][crate::client::ModelArmor::stream_sanitize_model_response] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::builder::model_armor::StreamSanitizeModelResponse;
+    /// # use google_cloud_modelarmor_v1::model::SanitizeModelResponseRequest;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(SanitizeModelResponseRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StreamSanitizeModelResponse {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StreamSanitizeModelResponse(BidiStreamBuilder);
+
+    impl StreamSanitizeModelResponse {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::SanitizeModelResponseRequest>,
+            google_cloud_gax::streaming::ResponseStream<
+                crate::model::SanitizeModelResponseResponse,
+            >,
+        ) {
+            (*self.0.stub).stream_sanitize_model_response(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamSanitizeModelResponse {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

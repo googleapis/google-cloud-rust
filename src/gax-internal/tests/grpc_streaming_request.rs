@@ -259,13 +259,11 @@ mod tests {
             .await
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[derive(Clone, Debug, PartialEq)]
     struct DomainEchoRequest {
         message: String,
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     impl google_cloud_gax_internal::prost::ToProto<EchoRequest> for DomainEchoRequest {
         type Output = EchoRequest;
         fn to_proto(
@@ -279,13 +277,11 @@ mod tests {
         }
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[derive(Clone, Debug, PartialEq)]
     struct DomainEchoResponse {
         message: String,
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     impl google_cloud_gax_internal::prost::FromProto<DomainEchoResponse> for EchoResponse {
         fn cnv(
             self,
@@ -297,7 +293,6 @@ mod tests {
         }
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     #[tokio::test]
     async fn execute_bidi_streaming_basic() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
@@ -320,7 +315,7 @@ mod tests {
             o
         };
 
-        let (sender, mut receiver) = client
+        let (sender, mut resp_stream) = client
             .execute_bidi_streaming::<DomainEchoRequest, DomainEchoResponse, EchoRequest, EchoResponse>(
                 extensions,
                 http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
@@ -335,7 +330,7 @@ mod tests {
             })
             .await?;
 
-        let r = receiver.recv().await;
+        let r = resp_stream.next().await;
         assert_eq!(
             r.transpose()?,
             Some(DomainEchoResponse {
@@ -348,7 +343,7 @@ mod tests {
                 message: "msg1".to_string(),
             })
             .await?;
-        let r = receiver.recv().await;
+        let r = resp_stream.next().await;
         assert_eq!(
             r.transpose()?,
             Some(DomainEchoResponse {
@@ -357,7 +352,7 @@ mod tests {
         );
 
         drop(sender);
-        let r = receiver.recv().await;
+        let r = resp_stream.next().await;
         assert!(r.is_none());
 
         Ok(())

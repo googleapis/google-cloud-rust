@@ -2154,6 +2154,16 @@ where
         pending.await
     }
 
+    fn feature_view_direct_write(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::FeatureViewDirectWriteRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::FeatureViewDirectWriteResponse>,
+    ) {
+        self.inner.feature_view_direct_write(options)
+    }
+
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn generate_fetch_access_token(
         &self,
@@ -8946,6 +8956,46 @@ where
             method: "client::PredictionService::direct_raw_predict",
             self.inner.direct_raw_predict(req, options));
         pending.await
+    }
+
+    fn stream_direct_predict(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectPredictRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamDirectPredictResponse>,
+    ) {
+        self.inner.stream_direct_predict(options)
+    }
+
+    fn stream_direct_raw_predict(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectRawPredictRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamDirectRawPredictResponse>,
+    ) {
+        self.inner.stream_direct_raw_predict(options)
+    }
+
+    fn streaming_predict(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingPredictRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPredictResponse>,
+    ) {
+        self.inner.streaming_predict(options)
+    }
+
+    fn streaming_raw_predict(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingRawPredictRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingRawPredictResponse>,
+    ) {
+        self.inner.streaming_raw_predict(options)
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]

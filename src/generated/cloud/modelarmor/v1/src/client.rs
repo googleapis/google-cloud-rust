@@ -327,6 +327,62 @@ impl ModelArmor {
         super::builder::model_armor::SanitizeModelResponse::new(self.inner.clone())
     }
 
+    /// Streaming version of Sanitize User Prompt.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::client::ModelArmor;
+    /// # use google_cloud_modelarmor_v1::model::SanitizeUserPromptRequest;
+    /// async fn sample(
+    ///    client: &ModelArmor
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.stream_sanitize_user_prompt()
+    ///         .build();
+    ///
+    ///     sender.send(SanitizeUserPromptRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn stream_sanitize_user_prompt(
+        &self,
+    ) -> super::builder::model_armor::StreamSanitizeUserPrompt {
+        super::builder::model_armor::StreamSanitizeUserPrompt::new(self.inner.clone())
+    }
+
+    /// Streaming version of Sanitizes Model Response.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::client::ModelArmor;
+    /// # use google_cloud_modelarmor_v1::model::SanitizeModelResponseRequest;
+    /// async fn sample(
+    ///    client: &ModelArmor
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.stream_sanitize_model_response()
+    ///         .build();
+    ///
+    ///     sender.send(SanitizeModelResponseRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn stream_sanitize_model_response(
+        &self,
+    ) -> super::builder::model_armor::StreamSanitizeModelResponse {
+        super::builder::model_armor::StreamSanitizeModelResponse::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
     ///
     /// # Example

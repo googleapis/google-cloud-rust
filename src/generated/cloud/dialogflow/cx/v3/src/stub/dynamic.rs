@@ -2663,6 +2663,22 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::DetectIntentResponse>>;
 
+    async fn server_streaming_detect_intent(
+        &self,
+        req: crate::model::DetectIntentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::DetectIntentResponse>,
+    >;
+
+    fn streaming_detect_intent(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingDetectIntentRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingDetectIntentResponse>,
+    );
+
     async fn match_intent(
         &self,
         req: crate::model::MatchIntentRequest,
@@ -2723,6 +2739,28 @@ impl<T: super::Sessions> Sessions for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::DetectIntentResponse>> {
         T::detect_intent(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn server_streaming_detect_intent(
+        &self,
+        req: crate::model::DetectIntentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::DetectIntentResponse>,
+    > {
+        T::server_streaming_detect_intent(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    fn streaming_detect_intent(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingDetectIntentRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingDetectIntentResponse>,
+    ) {
+        T::streaming_detect_intent(self, options)
     }
 
     /// Forwards the call to the implementation provided by `T`.

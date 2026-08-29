@@ -3975,6 +3975,16 @@ where
         pending.await
     }
 
+    fn streaming_analyze_content(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingAnalyzeContentRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingAnalyzeContentResponse>,
+    ) {
+        self.inner.streaming_analyze_content(options)
+    }
+
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn suggest_articles(
         &self,
@@ -4183,6 +4193,16 @@ where
             method: "client::Sessions::detect_intent",
             self.inner.detect_intent(req, options));
         pending.await
+    }
+
+    fn streaming_detect_intent(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingDetectIntentRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingDetectIntentResponse>,
+    ) {
+        self.inner.streaming_detect_intent(options)
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]

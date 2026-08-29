@@ -18009,6 +18009,24 @@ pub mod participants {
         }
     }
 
+    /// Common implementation for [crate::client::Participants] bidi stream builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct BidiStreamBuilder {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Participants>,
+        options: crate::RequestOptions,
+    }
+
+    impl BidiStreamBuilder {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Participants>,
+        ) -> Self {
+            Self {
+                stub,
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
     /// The request builder for [Participants::create_participant][crate::client::Participants::create_participant] calls.
     ///
     /// # Example
@@ -18569,6 +18587,68 @@ pub mod participants {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for AnalyzeContent {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Participants::streaming_analyze_content][crate::client::Participants::streaming_analyze_content] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::participants::StreamingAnalyzeContent;
+    /// # use google_cloud_dialogflow_v2::model::StreamingAnalyzeContentRequest;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(StreamingAnalyzeContentRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StreamingAnalyzeContent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StreamingAnalyzeContent(BidiStreamBuilder);
+
+    impl StreamingAnalyzeContent {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Participants>,
+        ) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<
+                crate::model::StreamingAnalyzeContentRequest,
+            >,
+            google_cloud_gax::streaming::ResponseStream<
+                crate::model::StreamingAnalyzeContentResponse,
+            >,
+        ) {
+            (*self.0.stub).streaming_analyze_content(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamingAnalyzeContent {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
@@ -19422,6 +19502,22 @@ pub mod sessions {
         }
     }
 
+    /// Common implementation for [crate::client::Sessions] bidi stream builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct BidiStreamBuilder {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Sessions>,
+        options: crate::RequestOptions,
+    }
+
+    impl BidiStreamBuilder {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Sessions>) -> Self {
+            Self {
+                stub,
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
     /// The request builder for [Sessions::detect_intent][crate::client::Sessions::detect_intent] calls.
     ///
     /// # Example
@@ -19559,6 +19655,64 @@ pub mod sessions {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for DetectIntent {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Sessions::streaming_detect_intent][crate::client::Sessions::streaming_detect_intent] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::sessions::StreamingDetectIntent;
+    /// # use google_cloud_dialogflow_v2::model::StreamingDetectIntentRequest;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(StreamingDetectIntentRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StreamingDetectIntent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StreamingDetectIntent(BidiStreamBuilder);
+
+    impl StreamingDetectIntent {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Sessions>) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::StreamingDetectIntentRequest>,
+            google_cloud_gax::streaming::ResponseStream<
+                crate::model::StreamingDetectIntentResponse,
+            >,
+        ) {
+            (*self.0.stub).streaming_detect_intent(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamingDetectIntent {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

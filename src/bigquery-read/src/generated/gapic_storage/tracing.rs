@@ -55,6 +55,14 @@ where
         pending.await
     }
 
+    async fn read_rows(
+        &self,
+        req: crate::model::ReadRowsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::ReadRowsResponse>> {
+        self.inner.read_rows(req, options).await
+    }
+
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn split_read_stream(
         &self,

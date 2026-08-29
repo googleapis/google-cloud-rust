@@ -11791,6 +11791,24 @@ pub mod feature_online_store_service {
         }
     }
 
+    /// Common implementation for [crate::client::FeatureOnlineStoreService] bidi stream builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct BidiStreamBuilder {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::FeatureOnlineStoreService>,
+        options: crate::RequestOptions,
+    }
+
+    impl BidiStreamBuilder {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FeatureOnlineStoreService>,
+        ) -> Self {
+            Self {
+                stub,
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
     /// The request builder for [FeatureOnlineStoreService::fetch_feature_values][crate::client::FeatureOnlineStoreService::fetch_feature_values] calls.
     ///
     /// # Example
@@ -11971,6 +11989,66 @@ pub mod feature_online_store_service {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for SearchNearestEntities {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FeatureOnlineStoreService::feature_view_direct_write][crate::client::FeatureOnlineStoreService::feature_view_direct_write] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::FeatureViewDirectWrite;
+    /// # use google_cloud_aiplatform_v1::model::FeatureViewDirectWriteRequest;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(FeatureViewDirectWriteRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> FeatureViewDirectWrite {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct FeatureViewDirectWrite(BidiStreamBuilder);
+
+    impl FeatureViewDirectWrite {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FeatureOnlineStoreService>,
+        ) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::FeatureViewDirectWriteRequest>,
+            google_cloud_gax::streaming::ResponseStream<
+                crate::model::FeatureViewDirectWriteResponse,
+            >,
+        ) {
+            (*self.0.stub).feature_view_direct_write(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for FeatureViewDirectWrite {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
@@ -48820,6 +48898,24 @@ pub mod prediction_service {
         }
     }
 
+    /// Common implementation for [crate::client::PredictionService] bidi stream builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct BidiStreamBuilder {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::PredictionService>,
+        options: crate::RequestOptions,
+    }
+
+    impl BidiStreamBuilder {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PredictionService>,
+        ) -> Self {
+            Self {
+                stub,
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
     /// The request builder for [PredictionService::predict][crate::client::PredictionService::predict] calls.
     ///
     /// # Example
@@ -49167,6 +49263,240 @@ pub mod prediction_service {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for DirectRawPredict {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [PredictionService::stream_direct_predict][crate::client::PredictionService::stream_direct_predict] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::StreamDirectPredict;
+    /// # use google_cloud_aiplatform_v1::model::StreamDirectPredictRequest;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(StreamDirectPredictRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StreamDirectPredict {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StreamDirectPredict(BidiStreamBuilder);
+
+    impl StreamDirectPredict {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PredictionService>,
+        ) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectPredictRequest>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::StreamDirectPredictResponse>,
+        ) {
+            (*self.0.stub).stream_direct_predict(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamDirectPredict {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [PredictionService::stream_direct_raw_predict][crate::client::PredictionService::stream_direct_raw_predict] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::StreamDirectRawPredict;
+    /// # use google_cloud_aiplatform_v1::model::StreamDirectRawPredictRequest;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(StreamDirectRawPredictRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StreamDirectRawPredict {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StreamDirectRawPredict(BidiStreamBuilder);
+
+    impl StreamDirectRawPredict {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PredictionService>,
+        ) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectRawPredictRequest>,
+            google_cloud_gax::streaming::ResponseStream<
+                crate::model::StreamDirectRawPredictResponse,
+            >,
+        ) {
+            (*self.0.stub).stream_direct_raw_predict(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamDirectRawPredict {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [PredictionService::streaming_predict][crate::client::PredictionService::streaming_predict] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::StreamingPredict;
+    /// # use google_cloud_aiplatform_v1::model::StreamingPredictRequest;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(StreamingPredictRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StreamingPredict {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StreamingPredict(BidiStreamBuilder);
+
+    impl StreamingPredict {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PredictionService>,
+        ) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::StreamingPredictRequest>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPredictResponse>,
+        ) {
+            (*self.0.stub).streaming_predict(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamingPredict {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [PredictionService::streaming_raw_predict][crate::client::PredictionService::streaming_raw_predict] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::StreamingRawPredict;
+    /// # use google_cloud_aiplatform_v1::model::StreamingRawPredictRequest;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(StreamingRawPredictRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StreamingRawPredict {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StreamingRawPredict(BidiStreamBuilder);
+
+    impl StreamingRawPredict {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PredictionService>,
+        ) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::StreamingRawPredictRequest>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::StreamingRawPredictResponse>,
+        ) {
+            (*self.0.stub).streaming_raw_predict(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamingRawPredict {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

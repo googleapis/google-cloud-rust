@@ -122,6 +122,19 @@ pub(crate) mod tracing;
 #[doc(hidden)]
 pub(crate) mod transport;
 
+#[cfg(any(
+    feature = "feature-online-store-service",
+    feature = "prediction-service",
+))]
+#[doc(hidden)]
+#[allow(clippy::all)]
+#[allow(unused_imports)]
+#[allow(dead_code)]
+#[allow(missing_docs)]
+pub(crate) mod prost {
+    include!("prost/includes.rs");
+}
+
 /// The default host used by the service.
 #[cfg(any(
     feature = "data-foundry-service",

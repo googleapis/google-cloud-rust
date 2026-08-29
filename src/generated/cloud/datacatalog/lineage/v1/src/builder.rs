@@ -1769,6 +1769,157 @@ pub mod lineage {
         }
     }
 
+    /// The request builder for [Lineage::search_lineage_streaming][crate::client::Lineage::search_lineage_streaming] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::SearchLineageStreaming;
+    /// # async fn sample() -> google_cloud_datacatalog_lineage_v1::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut receiver = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> SearchLineageStreaming {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SearchLineageStreaming(RequestBuilder<crate::model::SearchLineageStreamingRequest>);
+
+    impl SearchLineageStreaming {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::SearchLineageStreamingRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<
+            google_cloud_gax::streaming::ResponseStream<
+                crate::model::SearchLineageStreamingResponse,
+            >,
+        > {
+            (*self.0.stub)
+                .search_lineage_streaming(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [parent][crate::model::SearchLineageStreamingRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [locations][crate::model::SearchLineageStreamingRequest::locations].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_locations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.locations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [root_criteria][crate::model::SearchLineageStreamingRequest::root_criteria].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_root_criteria<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_lineage_streaming_request::RootCriteria>,
+        {
+            self.0.request.root_criteria = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [root_criteria][crate::model::SearchLineageStreamingRequest::root_criteria].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_root_criteria<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_lineage_streaming_request::RootCriteria>,
+        {
+            self.0.request.root_criteria = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [direction][crate::model::SearchLineageStreamingRequest::direction].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_direction<
+            T: Into<crate::model::search_lineage_streaming_request::SearchDirection>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.direction = v.into();
+            self
+        }
+
+        /// Sets the value of [filters][crate::model::SearchLineageStreamingRequest::filters].
+        pub fn set_filters<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_lineage_streaming_request::SearchFilters>,
+        {
+            self.0.request.filters = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filters][crate::model::SearchLineageStreamingRequest::filters].
+        pub fn set_or_clear_filters<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_lineage_streaming_request::SearchFilters>,
+        {
+            self.0.request.filters = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [limits][crate::model::SearchLineageStreamingRequest::limits].
+        pub fn set_limits<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_lineage_streaming_request::SearchLimits>,
+        {
+            self.0.request.limits = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [limits][crate::model::SearchLineageStreamingRequest::limits].
+        pub fn set_or_clear_limits<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_lineage_streaming_request::SearchLimits>,
+        {
+            self.0.request.limits = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for SearchLineageStreaming {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [Lineage::list_operations][crate::client::Lineage::list_operations] calls.
     ///
     /// # Example

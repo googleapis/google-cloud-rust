@@ -125,6 +125,14 @@ pub trait HiveMetastoreService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::BatchUpdatePartitionsResponse>>;
 
+    async fn list_partitions(
+        &self,
+        req: crate::model::ListPartitionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::ListPartitionsResponse>,
+    >;
+
     async fn failover_hive_catalog(
         &self,
         req: crate::model::FailoverHiveCatalogRequest,
@@ -295,6 +303,17 @@ impl<T: super::HiveMetastoreService> HiveMetastoreService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::BatchUpdatePartitionsResponse>> {
         T::batch_update_partitions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_partitions(
+        &self,
+        req: crate::model::ListPartitionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::ListPartitionsResponse>,
+    > {
+        T::list_partitions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

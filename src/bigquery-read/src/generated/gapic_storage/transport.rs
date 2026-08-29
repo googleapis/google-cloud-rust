@@ -126,6 +126,47 @@ impl super::stub::Read for Read {
             .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ReadSession>)
     }
 
+    async fn read_rows(
+        &self,
+        req: crate::model::ReadRowsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::ReadRowsResponse>> {
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.cloud.bigquery.storage.v1.BigQueryRead",
+                "ReadRows",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.cloud.bigquery.storage.v1.BigQueryRead/ReadRows",
+        );
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.read_stream)
+            .map(|s| s.as_str())
+            .map(|v| format!("read_stream={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        self.inner
+            .execute_server_streaming_tmp::<
+                crate::model::ReadRowsRequest,
+                crate::model::ReadRowsResponse,
+                crate::google::cloud::bigquery::storage::v1::ReadRowsRequest,
+                crate::google::cloud::bigquery::storage::v1::ReadRowsResponse,
+            >(
+                extensions,
+                path,
+                req,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+    }
+
     async fn split_read_stream(
         &self,
         req: crate::model::SplitReadStreamRequest,

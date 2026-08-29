@@ -3640,6 +3640,38 @@ impl FeatureOnlineStoreService {
         super::builder::feature_online_store_service::SearchNearestEntities::new(self.inner.clone())
     }
 
+    /// Bidirectional streaming RPC to directly write to feature values in a
+    /// feature view. Requests may not have a one-to-one mapping to responses and
+    /// responses may be returned out-of-order to reduce latency.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// # use google_cloud_aiplatform_v1::model::FeatureViewDirectWriteRequest;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.feature_view_direct_write()
+    ///         .build();
+    ///
+    ///     sender.send(FeatureViewDirectWriteRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn feature_view_direct_write(
+        &self,
+    ) -> super::builder::feature_online_store_service::FeatureViewDirectWrite {
+        super::builder::feature_online_store_service::FeatureViewDirectWrite::new(
+            self.inner.clone(),
+        )
+    }
+
     /// RPC to generate an access token for the given feature view. FeatureViews
     /// under the same FeatureOnlineStore share the same access token.
     ///
@@ -15043,6 +15075,115 @@ impl PredictionService {
     /// ```
     pub fn direct_raw_predict(&self) -> super::builder::prediction_service::DirectRawPredict {
         super::builder::prediction_service::DirectRawPredict::new(self.inner.clone())
+    }
+
+    /// Perform a streaming online prediction request to a gRPC model server for
+    /// Vertex first-party products and frameworks.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// # use google_cloud_aiplatform_v1::model::StreamDirectPredictRequest;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.stream_direct_predict()
+    ///         .build();
+    ///
+    ///     sender.send(StreamDirectPredictRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn stream_direct_predict(&self) -> super::builder::prediction_service::StreamDirectPredict {
+        super::builder::prediction_service::StreamDirectPredict::new(self.inner.clone())
+    }
+
+    /// Perform a streaming online prediction request to a gRPC model server for
+    /// custom containers.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// # use google_cloud_aiplatform_v1::model::StreamDirectRawPredictRequest;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.stream_direct_raw_predict()
+    ///         .build();
+    ///
+    ///     sender.send(StreamDirectRawPredictRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn stream_direct_raw_predict(
+        &self,
+    ) -> super::builder::prediction_service::StreamDirectRawPredict {
+        super::builder::prediction_service::StreamDirectRawPredict::new(self.inner.clone())
+    }
+
+    /// Perform a streaming online prediction request for Vertex first-party
+    /// products and frameworks.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// # use google_cloud_aiplatform_v1::model::StreamingPredictRequest;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.streaming_predict()
+    ///         .build();
+    ///
+    ///     sender.send(StreamingPredictRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn streaming_predict(&self) -> super::builder::prediction_service::StreamingPredict {
+        super::builder::prediction_service::StreamingPredict::new(self.inner.clone())
+    }
+
+    /// Perform a streaming online prediction request through gRPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// # use google_cloud_aiplatform_v1::model::StreamingRawPredictRequest;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.streaming_raw_predict()
+    ///         .build();
+    ///
+    ///     sender.send(StreamingRawPredictRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn streaming_raw_predict(&self) -> super::builder::prediction_service::StreamingRawPredict {
+        super::builder::prediction_service::StreamingRawPredict::new(self.inner.clone())
     }
 
     /// Perform an online explanation.

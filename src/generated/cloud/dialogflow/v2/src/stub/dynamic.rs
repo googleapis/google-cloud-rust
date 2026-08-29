@@ -3219,6 +3219,14 @@ pub trait Participants: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::AnalyzeContentResponse>>;
 
+    fn streaming_analyze_content(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingAnalyzeContentRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingAnalyzeContentResponse>,
+    );
+
     async fn suggest_articles(
         &self,
         req: crate::model::SuggestArticlesRequest,
@@ -3324,6 +3332,17 @@ impl<T: super::Participants> Participants for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    fn streaming_analyze_content(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingAnalyzeContentRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingAnalyzeContentResponse>,
+    ) {
+        T::streaming_analyze_content(self, options)
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn suggest_articles(
         &self,
         req: crate::model::SuggestArticlesRequest,
@@ -3416,6 +3435,14 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::DetectIntentResponse>>;
 
+    fn streaming_detect_intent(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingDetectIntentRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingDetectIntentResponse>,
+    );
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -3458,6 +3485,17 @@ impl<T: super::Sessions> Sessions for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::DetectIntentResponse>> {
         T::detect_intent(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    fn streaming_detect_intent(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingDetectIntentRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingDetectIntentResponse>,
+    ) {
+        T::streaming_detect_intent(self, options)
     }
 
     /// Forwards the call to the implementation provided by `T`.

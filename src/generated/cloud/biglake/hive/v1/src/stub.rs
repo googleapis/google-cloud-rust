@@ -222,6 +222,19 @@ pub trait HiveMetastoreService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::HiveMetastoreService::list_partitions].
+    fn list_partitions(
+        &self,
+        _req: crate::model::ListPartitionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::ListPartitionsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub_tmp()
+    }
+
     /// Implements [super::client::HiveMetastoreService::failover_hive_catalog].
     fn failover_hive_catalog(
         &self,

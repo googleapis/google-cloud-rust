@@ -1821,6 +1821,213 @@ pub mod data_chat_service {
         }
     }
 
+    /// The request builder for [DataChatService::chat][crate::client::DataChatService::chat] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_geminidataanalytics_v1::builder::data_chat_service::Chat;
+    /// # async fn sample() -> google_cloud_geminidataanalytics_v1::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut receiver = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> Chat {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Chat(RequestBuilder<crate::model::ChatRequest>);
+
+    impl Chat {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataChatService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ChatRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::Message>> {
+            (*self.0.stub).chat(self.0.request, self.0.options).await
+        }
+
+        /// Sets the value of [parent][crate::model::ChatRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [messages][crate::model::ChatRequest::messages].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_messages<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Message>,
+        {
+            use std::iter::Iterator;
+            self.0.request.messages = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [credentials][crate::model::ChatRequest::credentials].
+        pub fn set_credentials<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Credentials>,
+        {
+            self.0.request.credentials = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [credentials][crate::model::ChatRequest::credentials].
+        pub fn set_or_clear_credentials<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Credentials>,
+        {
+            self.0.request.credentials = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [thinking_mode][crate::model::ChatRequest::thinking_mode].
+        pub fn set_thinking_mode<T: Into<crate::model::chat_request::ThinkingMode>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.thinking_mode = v.into();
+            self
+        }
+
+        /// Sets the value of [model][crate::model::ChatRequest::model].
+        pub fn set_model<T: Into<crate::model::chat_request::Model>>(mut self, v: T) -> Self {
+            self.0.request.model = v.into();
+            self
+        }
+
+        /// Sets the value of [context_provider][crate::model::ChatRequest::context_provider].
+        ///
+        /// Note that all the setters affecting `context_provider` are
+        /// mutually exclusive.
+        pub fn set_context_provider<
+            T: Into<Option<crate::model::chat_request::ContextProvider>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.context_provider = v.into();
+            self
+        }
+
+        /// Sets the value of [context_provider][crate::model::ChatRequest::context_provider]
+        /// to hold a `InlineContext`.
+        ///
+        /// Note that all the setters affecting `context_provider` are
+        /// mutually exclusive.
+        pub fn set_inline_context<T: std::convert::Into<std::boxed::Box<crate::model::Context>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_inline_context(v);
+            self
+        }
+
+        /// Sets the value of [context_provider][crate::model::ChatRequest::context_provider]
+        /// to hold a `ConversationReference`.
+        ///
+        /// Note that all the setters affecting `context_provider` are
+        /// mutually exclusive.
+        pub fn set_conversation_reference<
+            T: std::convert::Into<std::boxed::Box<crate::model::ConversationReference>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_conversation_reference(v);
+            self
+        }
+
+        /// Sets the value of [context_provider][crate::model::ChatRequest::context_provider]
+        /// to hold a `DataAgentContext`.
+        ///
+        /// Note that all the setters affecting `context_provider` are
+        /// mutually exclusive.
+        pub fn set_data_agent_context<
+            T: std::convert::Into<std::boxed::Box<crate::model::DataAgentContext>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_data_agent_context(v);
+            self
+        }
+
+        /// Sets the value of [context_provider][crate::model::ChatRequest::context_provider]
+        /// to hold a `ClientManagedResourceContext`.
+        ///
+        /// Note that all the setters affecting `context_provider` are
+        /// mutually exclusive.
+        pub fn set_client_managed_resource_context<
+            T: std::convert::Into<std::boxed::Box<crate::model::ClientManagedResourceContext>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_client_managed_resource_context(v);
+            self
+        }
+
+        /// Sets the value of [datasource_settings][crate::model::ChatRequest::datasource_settings].
+        ///
+        /// Note that all the setters affecting `datasource_settings` are
+        /// mutually exclusive.
+        pub fn set_datasource_settings<
+            T: Into<Option<crate::model::chat_request::DatasourceSettings>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.datasource_settings = v.into();
+            self
+        }
+
+        /// Sets the value of [datasource_settings][crate::model::ChatRequest::datasource_settings]
+        /// to hold a `LookerSettings`.
+        ///
+        /// Note that all the setters affecting `datasource_settings` are
+        /// mutually exclusive.
+        pub fn set_looker_settings<
+            T: std::convert::Into<std::boxed::Box<crate::model::LookerSettings>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_looker_settings(v);
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for Chat {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [DataChatService::create_conversation][crate::client::DataChatService::create_conversation] calls.
     ///
     /// # Example

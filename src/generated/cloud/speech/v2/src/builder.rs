@@ -69,6 +69,22 @@ pub mod speech {
         }
     }
 
+    /// Common implementation for [crate::client::Speech] bidi stream builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct BidiStreamBuilder {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>,
+        options: crate::RequestOptions,
+    }
+
+    impl BidiStreamBuilder {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+            Self {
+                stub,
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
     /// The request builder for [Speech::create_recognizer][crate::client::Speech::create_recognizer] calls.
     ///
     /// # Example
@@ -940,6 +956,62 @@ pub mod speech {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for Recognize {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Speech::streaming_recognize][crate::client::Speech::streaming_recognize] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::builder::speech::StreamingRecognize;
+    /// # use google_cloud_speech_v2::model::StreamingRecognizeRequest;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(StreamingRecognizeRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StreamingRecognize {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StreamingRecognize(BidiStreamBuilder);
+
+    impl StreamingRecognize {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::StreamingRecognizeRequest>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::StreamingRecognizeResponse>,
+        ) {
+            (*self.0.stub).streaming_recognize(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamingRecognize {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

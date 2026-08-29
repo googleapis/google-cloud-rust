@@ -14576,6 +14576,22 @@ pub mod sessions {
         }
     }
 
+    /// Common implementation for [crate::client::Sessions] bidi stream builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct BidiStreamBuilder {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Sessions>,
+        options: crate::RequestOptions,
+    }
+
+    impl BidiStreamBuilder {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Sessions>) -> Self {
+            Self {
+                stub,
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
     /// The request builder for [Sessions::detect_intent][crate::client::Sessions::detect_intent] calls.
     ///
     /// # Example
@@ -14698,6 +14714,192 @@ pub mod sessions {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for DetectIntent {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Sessions::server_streaming_detect_intent][crate::client::Sessions::server_streaming_detect_intent] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_cx_v3::builder::sessions::ServerStreamingDetectIntent;
+    /// # async fn sample() -> google_cloud_dialogflow_cx_v3::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut receiver = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ServerStreamingDetectIntent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ServerStreamingDetectIntent(RequestBuilder<crate::model::DetectIntentRequest>);
+
+    impl ServerStreamingDetectIntent {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Sessions>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DetectIntentRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::DetectIntentResponse>>
+        {
+            (*self.0.stub)
+                .server_streaming_detect_intent(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [session][crate::model::DetectIntentRequest::session].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_session<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.session = v.into();
+            self
+        }
+
+        /// Sets the value of [query_params][crate::model::DetectIntentRequest::query_params].
+        pub fn set_query_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QueryParameters>,
+        {
+            self.0.request.query_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [query_params][crate::model::DetectIntentRequest::query_params].
+        pub fn set_or_clear_query_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QueryParameters>,
+        {
+            self.0.request.query_params = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [query_input][crate::model::DetectIntentRequest::query_input].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_query_input<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QueryInput>,
+        {
+            self.0.request.query_input = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [query_input][crate::model::DetectIntentRequest::query_input].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_query_input<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QueryInput>,
+        {
+            self.0.request.query_input = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [output_audio_config][crate::model::DetectIntentRequest::output_audio_config].
+        pub fn set_output_audio_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::OutputAudioConfig>,
+        {
+            self.0.request.output_audio_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [output_audio_config][crate::model::DetectIntentRequest::output_audio_config].
+        pub fn set_or_clear_output_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::OutputAudioConfig>,
+        {
+            self.0.request.output_audio_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [response_view][crate::model::DetectIntentRequest::response_view].
+        pub fn set_response_view<T: Into<crate::model::DetectIntentResponseView>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.response_view = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ServerStreamingDetectIntent {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Sessions::streaming_detect_intent][crate::client::Sessions::streaming_detect_intent] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_cx_v3::builder::sessions::StreamingDetectIntent;
+    /// # use google_cloud_dialogflow_cx_v3::model::StreamingDetectIntentRequest;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(StreamingDetectIntentRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StreamingDetectIntent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StreamingDetectIntent(BidiStreamBuilder);
+
+    impl StreamingDetectIntent {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Sessions>) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::StreamingDetectIntentRequest>,
+            google_cloud_gax::streaming::ResponseStream<
+                crate::model::StreamingDetectIntentResponse,
+            >,
+        ) {
+            (*self.0.stub).streaming_detect_intent(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamingDetectIntent {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

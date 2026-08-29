@@ -1591,6 +1591,75 @@ pub mod hive_metastore_service {
         }
     }
 
+    /// The request builder for [HiveMetastoreService::list_partitions][crate::client::HiveMetastoreService::list_partitions] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_hive_v1::builder::hive_metastore_service::ListPartitions;
+    /// # async fn sample() -> google_cloud_biglake_hive_v1::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut receiver = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListPartitions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListPartitions(RequestBuilder<crate::model::ListPartitionsRequest>);
+
+    impl ListPartitions {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::HiveMetastoreService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListPartitionsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::ListPartitionsResponse>>
+        {
+            (*self.0.stub)
+                .list_partitions(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [parent][crate::model::ListPartitionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListPartitionsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListPartitions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [HiveMetastoreService::failover_hive_catalog][crate::client::HiveMetastoreService::failover_hive_catalog] calls.
     ///
     /// # Example

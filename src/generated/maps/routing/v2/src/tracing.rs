@@ -54,6 +54,14 @@ where
             self.inner.compute_routes(req, options));
         pending.await
     }
+
+    async fn compute_route_matrix(
+        &self,
+        req: crate::model::ComputeRouteMatrixRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::RouteMatrixElement>> {
+        self.inner.compute_route_matrix(req, options).await
+    }
 }
 
 pub(crate) mod info {

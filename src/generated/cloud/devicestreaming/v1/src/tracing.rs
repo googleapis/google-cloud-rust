@@ -110,6 +110,16 @@ where
             self.inner.update_device_session(req, options));
         pending.await
     }
+
+    fn adb_connect(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::AdbMessage>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::DeviceMessage>,
+    ) {
+        self.inner.adb_connect(options)
+    }
 }
 
 pub(crate) mod info {

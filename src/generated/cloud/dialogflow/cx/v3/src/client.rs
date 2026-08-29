@@ -5676,6 +5676,49 @@ impl Sessions {
         super::builder::sessions::DetectIntent::new(self.inner.clone())
     }
 
+    /// Processes a natural language query and returns structured, actionable data
+    /// as a result through server-side streaming. Server-side streaming allows
+    /// Dialogflow to send [partial
+    /// responses](https://cloud.google.com/dialogflow/cx/docs/concept/fulfillment#partial-response)
+    /// earlier in a single request.
+    pub fn server_streaming_detect_intent(
+        &self,
+    ) -> super::builder::sessions::ServerStreamingDetectIntent {
+        super::builder::sessions::ServerStreamingDetectIntent::new(self.inner.clone())
+    }
+
+    /// Processes a natural language query in audio format in a streaming fashion
+    /// and returns structured, actionable data as a result. This method is only
+    /// available via the gRPC API (not REST).
+    ///
+    /// Note: Always use agent versions for production traffic.
+    /// See [Versions and
+    /// environments](https://cloud.google.com/dialogflow/cx/docs/concept/version).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_cx_v3::client::Sessions;
+    /// # use google_cloud_dialogflow_cx_v3::model::StreamingDetectIntentRequest;
+    /// async fn sample(
+    ///    client: &Sessions
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.streaming_detect_intent()
+    ///         .build();
+    ///
+    ///     sender.send(StreamingDetectIntentRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn streaming_detect_intent(&self) -> super::builder::sessions::StreamingDetectIntent {
+        super::builder::sessions::StreamingDetectIntent::new(self.inner.clone())
+    }
+
     /// Returns preliminary intent match results, doesn't change the session
     /// status.
     ///

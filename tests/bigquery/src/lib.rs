@@ -19,11 +19,14 @@ mod reads;
 mod writes;
 
 pub use dataset::dataset_admin;
-pub use job::{job_service, job_service_poller, job_service_poller_error};
+pub use job::{
+    job_service, job_service_poller, job_service_poller_error, job_service_poller_heavy,
+};
 pub use query::{
     query_client, query_client_datatypes, query_client_job, query_client_multi_page,
     query_client_nested_types, query_client_numeric_limits,
 };
+pub use reads::read_rows;
 pub use reads::run_reads;
 pub use writes::run_writes;
 

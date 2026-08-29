@@ -25,17 +25,25 @@
 //! - Transaction affinity isolation across concurrent transactions and independence for read-only transactions.
 //! - Proactive background cache synchronization via `CacheSubscriber`.
 
+use crate::RequestOptions;
 use crate::client::{Spanner, SpannerBuilderExt};
 use crate::database_client::DatabaseClient;
+use crate::key;
 use crate::key::KeySet;
 use crate::model::directed_read_options::replica_selection::Type as ReplicaType;
 use crate::model::directed_read_options::{
     ExcludeReplicas, IncludeReplicas, ReplicaSelection, Replicas,
 };
+use crate::model::execute_batch_dml_request::Statement as BatchStatement;
+use crate::model::key_recipe::part::{NullOrder, Order, ValueType};
+use crate::model::key_recipe::{Part, Target};
 use crate::model::tablet::Role;
+use crate::model::transaction_options::{ReadOnly, ReadWrite};
 use crate::model::{
-    CacheUpdate as ModelCacheUpdate, DirectedReadOptions, Group as ModelGroup, Range as ModelRange,
-    Tablet as ModelTablet,
+    BeginTransactionRequest, CacheUpdate as ModelCacheUpdate, CommitRequest, DirectedReadOptions,
+    ExecuteBatchDmlRequest, ExecuteSqlRequest, Group as ModelGroup, KeyRecipe,
+    PartitionQueryRequest, PartitionReadRequest, Range as ModelRange, RecipeList, RollbackRequest,
+    Tablet as ModelTablet, TransactionOptions, TransactionSelector, Type, TypeCode,
 };
 use crate::mutation::Mutation;
 use crate::omni::InstanceType;
@@ -44,7 +52,6 @@ use crate::read_write_transaction::ReadWriteTransaction;
 use crate::routing::cache_subscriber::CacheSubscriber;
 use crate::routing::directed_read::select_eligible_tablets_for_directed_read;
 use crate::routing::key_range_cache::RangeMode;
-use crate::routing::latency_registry::LatencyRegistry;
 use crate::routing::location_router::RoutingContext;
 use crate::statement::Statement;
 use bytes::Bytes;
@@ -57,6 +64,7 @@ use spanner_grpc_mock::google::rpc::Status;
 use spanner_grpc_mock::google::spanner::v1 as mock_v1;
 use spanner_grpc_mock::start;
 use std::sync::Arc;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::Duration;
 use tokio::sync::mpsc;
 
@@ -1573,7 +1581,8 @@ async fn multi_region_distance_tier_prioritizes_local_replicas() -> anyhow::Resu
 }
 
 #[tokio_test_no_panics]
-async fn endpoint_cooldown_leader_on_cooldown_falls_back_to_gateway() -> anyhow::Result<()> {
+async fn endpoint_cooldown_leader_on_cooldown_falls_back_to_follower_then_gateway()
+-> anyhow::Result<()> {
     let mock_gateway = create_base_mock();
     let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
 
@@ -1632,12 +1641,23 @@ async fn endpoint_cooldown_leader_on_cooldown_falls_back_to_gateway() -> anyhow:
     // Place the leader on cooldown
     router.cooldown_tracker().record_failure(&leader_address);
 
-    // For prefer_leader: true requests, when the leader is on cooldown, router falls back to default gateway
+    // When the leader is on cooldown, prefer_leader: true requests fall back to a healthy follower replica in the group
     let resolved_fallback = router.resolve_connection(&context);
     assert_eq!(
         resolved_fallback.address(),
+        follower_address,
+        "prefer_leader request must fall back to healthy follower replica when leader is on cooldown"
+    );
+
+    // Place the follower on cooldown as well
+    router.cooldown_tracker().record_failure(&follower_address);
+
+    // When all replicas in the group are on cooldown, router falls back to default gateway
+    let resolved_gateway = router.resolve_connection(&context);
+    assert_eq!(
+        resolved_gateway.address(),
         gateway_address,
-        "request requiring leader must fall back to default gateway when leader is on cooldown"
+        "request must fall back to default gateway when all group replicas are on cooldown"
     );
 
     Ok(())
@@ -2338,17 +2358,68 @@ async fn concurrent_cache_updates_and_lookups_are_thread_safe() -> anyhow::Resul
 
 #[tokio_test_no_panics]
 async fn latency_aware_selection_prefers_lower_latency_replica() -> anyhow::Result<()> {
-    let latency_registry = LatencyRegistry::new();
-    latency_registry.record_latency(None, 4001, "fast-node:15000", Duration::from_millis(5));
-    latency_registry.record_latency(None, 4001, "slow-node:15000", Duration::from_millis(500));
+    let mock_gateway = create_base_mock();
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
 
-    let fast_score = latency_registry.get_selection_cost(None, 4001, 0, "fast-node:15000");
-    let slow_score = latency_registry.get_selection_cost(None, 4001, 0, "slow-node:15000");
+    let mock_fast = create_base_mock();
+    let (fast_address, _fast_server) = start("127.0.0.1:0", mock_fast).await?;
 
-    assert!(
-        fast_score < slow_score,
-        "fast node must exhibit strictly lower effective latency than slow node"
-    );
+    let mock_slow = create_base_mock();
+    let (slow_address, _slow_server) = start("127.0.0.1:0", mock_slow).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address)
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    // Ingest cache update with two follower replicas
+    let update = sample_model_cache_update(4001, 4001, &fast_address, &slow_address);
+    database_client.observe_cache_update(Some(update));
+
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&fast_address, client_config)
+        .await?;
+    let _ = router
+        .connection_cache()
+        .get(&slow_address, client_config)
+        .await?;
+
+    // Record 5ms latency for fast node and 500ms latency for slow node via DatabaseClient
+    database_client.record_latency(4001, &fast_address, Duration::from_millis(5));
+    database_client.record_latency(4001, &slow_address, Duration::from_millis(500));
+
+    let context = RoutingContext {
+        routing_key: Some(b"singer_500"),
+        prefer_leader: false,
+        ..Default::default()
+    };
+
+    // LocationRouter P2C selection compares fast (5ms) vs slow (500ms) and resolves to fast replica
+    for _ in 0..10 {
+        let connection = router.resolve_connection(&context);
+        assert_eq!(
+            connection.address(),
+            fast_address,
+            "router must consistently select the lower-latency replica"
+        );
+    }
 
     Ok(())
 }
@@ -2405,8 +2476,888 @@ async fn proactive_cache_subscriber_streams_update_to_router() -> anyhow::Result
         found_range.group_uid, 9999,
         "cached range must map to streamed group 9999"
     );
+    assert_eq!(
+        database_client.database_id(),
+        Some(888888),
+        "database_client.database_id() must immediately reflect the database ID from subscriber stream"
+    );
+
+    // Ingest a stale inline update with an older database ID (111111 < 888888)
+    let stale_update = sample_model_cache_update(
+        111111,
+        1111,
+        "stale-leader.spanner.internal:15000",
+        "stale-follower.spanner.internal:15000",
+    );
+    database_client.observe_cache_update(Some(stale_update));
+
+    assert_eq!(
+        database_client.database_id(),
+        Some(888888),
+        "stale inline update must not regress database_id established by subscriber"
+    );
+    let preserved_range = router
+        .key_range_cache()
+        .find_range(b"singer_500", &[], RangeMode::CoveringSplit)
+        .expect("streamed range must be preserved");
+    assert_eq!(
+        preserved_range.group_uid, 9999,
+        "streamed ranges must not be wiped by stale inline update"
+    );
 
     subscriber.wait_for_shutdown().await;
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn unary_commit_routes_to_affinity_address_and_clears_affinity() -> anyhow::Result<()> {
+    let mock_gateway = create_base_mock();
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let mut mock_tablet = create_base_mock();
+    let tablet_commit_received = Arc::new(AtomicBool::new(false));
+    let tablet_commit_received_clone = Arc::clone(&tablet_commit_received);
+    mock_tablet.expect_commit().returning(move |_| {
+        tablet_commit_received_clone.store(true, Ordering::SeqCst);
+        Ok(Response::new(mock_v1::CommitResponse {
+            commit_timestamp: Some(Timestamp {
+                seconds: 1700000001,
+                nanos: 0,
+            }),
+            ..Default::default()
+        }))
+    });
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    let transaction_id = b"tx-commit-affinity-test";
+    router.record_transaction_affinity(transaction_id, &tablet_address);
+    assert_eq!(
+        router.get_transaction_affinity(transaction_id),
+        Some(Arc::from(tablet_address.as_str())),
+        "affinity must be recorded before commit"
+    );
+
+    let commit_request = CommitRequest::default()
+        .set_session(
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1",
+        )
+        .set_transaction_id(Bytes::copy_from_slice(transaction_id));
+
+    let response = database_client
+        .commit(commit_request, RequestOptions::default(), 0)
+        .await?;
+
+    assert!(
+        tablet_commit_received.load(Ordering::SeqCst),
+        "commit request must be routed directly to the tablet affinity connection"
+    );
+    assert_eq!(
+        response
+            .commit_timestamp
+            .as_ref()
+            .map(|timestamp| timestamp.seconds()),
+        Some(1700000001),
+        "commit response timestamp must match mock"
+    );
+    assert_eq!(
+        router.get_transaction_affinity(transaction_id),
+        None,
+        "commit completion must clear transaction affinity"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn unary_rollback_routes_to_affinity_address_and_clears_affinity() -> anyhow::Result<()> {
+    let mock_gateway = create_base_mock();
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let mut mock_tablet = create_base_mock();
+    let tablet_rollback_received = Arc::new(AtomicBool::new(false));
+    let tablet_rollback_received_clone = Arc::clone(&tablet_rollback_received);
+    mock_tablet.expect_rollback().returning(move |_| {
+        tablet_rollback_received_clone.store(true, Ordering::SeqCst);
+        Ok(Response::new(()))
+    });
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    let transaction_id = b"tx-rollback-affinity-test";
+    router.record_transaction_affinity(transaction_id, &tablet_address);
+    assert_eq!(
+        router.get_transaction_affinity(transaction_id),
+        Some(Arc::from(tablet_address.as_str())),
+        "affinity must be recorded before rollback"
+    );
+
+    let rollback_request = RollbackRequest::default()
+        .set_session(
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1",
+        )
+        .set_transaction_id(Bytes::copy_from_slice(transaction_id));
+
+    database_client
+        .rollback(rollback_request, RequestOptions::default(), 0)
+        .await?;
+
+    assert!(
+        tablet_rollback_received.load(Ordering::SeqCst),
+        "rollback request must be routed directly to the tablet affinity connection"
+    );
+    assert_eq!(
+        router.get_transaction_affinity(transaction_id),
+        None,
+        "rollback completion must clear transaction affinity"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn unary_single_use_commit_routes_to_leader_tablet_replica() -> anyhow::Result<()> {
+    let mock_gateway = create_base_mock();
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let mut mock_tablet_leader = create_base_mock();
+    let leader_commit_received = Arc::new(AtomicBool::new(false));
+    let leader_commit_received_clone = Arc::clone(&leader_commit_received);
+    mock_tablet_leader.expect_commit().returning(move |_| {
+        leader_commit_received_clone.store(true, Ordering::SeqCst);
+        Ok(Response::new(mock_v1::CommitResponse {
+            commit_timestamp: Some(Timestamp {
+                seconds: 1700000002,
+                nanos: 0,
+            }),
+            ..Default::default()
+        }))
+    });
+    let (tablet_leader_address, _tablet_leader_server) =
+        start("127.0.0.1:0", mock_tablet_leader).await?;
+
+    let mock_tablet_follower = create_base_mock();
+    let (tablet_follower_address, _tablet_follower_server) =
+        start("127.0.0.1:0", mock_tablet_follower).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let mut update = sample_model_cache_update(
+        10101,
+        8001,
+        &tablet_leader_address,
+        &tablet_follower_address,
+    );
+    update.range = vec![ModelRange {
+        start_key: Bytes::from_static(b""),
+        limit_key: Bytes::from_static(b""),
+        group_uid: 8001,
+        split_id: 8001,
+        generation: Bytes::from_static(b"gen_1"),
+        _unknown_fields: Default::default(),
+    }];
+    database_client.observe_cache_update(Some(update));
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_leader_address, client_config)
+        .await?;
+
+    let mutation = Mutation::new_insert_builder("Singers")
+        .set("SingerId")
+        .to(101i64)
+        .set("Name")
+        .to("Alice")
+        .build();
+
+    let commit_request = CommitRequest::default()
+        .set_session(
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1",
+        )
+        .set_mutations(vec![mutation.build_proto()]);
+
+    let response = database_client
+        .commit(commit_request, RequestOptions::default(), 0)
+        .await?;
+
+    assert!(
+        leader_commit_received.load(Ordering::SeqCst),
+        "single-use commit must route directly to the leader tablet replica"
+    );
+    assert_eq!(
+        response
+            .commit_timestamp
+            .as_ref()
+            .map(|timestamp| timestamp.seconds()),
+        Some(1700000002),
+        "commit response timestamp must match mock"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn unary_begin_transaction_with_mutation_key_routes_to_leader_and_records_affinity()
+-> anyhow::Result<()> {
+    let mock_gateway = create_base_mock();
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let mut mock_tablet_leader = create_base_mock();
+    let leader_begin_received = Arc::new(AtomicBool::new(false));
+    let leader_begin_received_clone = Arc::clone(&leader_begin_received);
+    mock_tablet_leader
+        .expect_begin_transaction()
+        .returning(move |_| {
+            leader_begin_received_clone.store(true, Ordering::SeqCst);
+            Ok(Response::new(mock_v1::Transaction {
+                id: b"tx-begin-routed-123".to_vec(),
+                ..Default::default()
+            }))
+        });
+    let (tablet_leader_address, _tablet_leader_server) =
+        start("127.0.0.1:0", mock_tablet_leader).await?;
+
+    let mock_tablet_follower = create_base_mock();
+    let (tablet_follower_address, _tablet_follower_server) =
+        start("127.0.0.1:0", mock_tablet_follower).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let mut update = sample_model_cache_update(
+        10102,
+        8002,
+        &tablet_leader_address,
+        &tablet_follower_address,
+    );
+    update.range = vec![ModelRange {
+        start_key: Bytes::from_static(b""),
+        limit_key: Bytes::from_static(b""),
+        group_uid: 8002,
+        split_id: 8002,
+        generation: Bytes::from_static(b"gen_1"),
+        _unknown_fields: Default::default(),
+    }];
+    database_client.observe_cache_update(Some(update));
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_leader_address, client_config)
+        .await?;
+
+    let mutation = Mutation::new_insert_builder("Singers")
+        .set("SingerId")
+        .to(101i64)
+        .build();
+
+    let begin_request = BeginTransactionRequest::default()
+        .set_session(
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1",
+        )
+        .set_options(TransactionOptions::default().set_read_write(ReadWrite::default()))
+        .set_mutation_key(mutation.build_proto());
+
+    let response = database_client
+        .begin_transaction(begin_request, RequestOptions::default(), 0)
+        .await?;
+
+    assert!(
+        leader_begin_received.load(Ordering::SeqCst),
+        "explicit begin transaction with mutation key must route to the leader tablet"
+    );
+    assert_eq!(
+        response.id.as_ref(),
+        b"tx-begin-routed-123",
+        "transaction ID must match mock"
+    );
+    assert_eq!(
+        router.get_transaction_affinity(b"tx-begin-routed-123"),
+        Some(Arc::from(tablet_leader_address.as_str())),
+        "read-write transaction ID returned from begin_transaction must bind server affinity"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn unary_begin_transaction_with_read_only_options_does_not_record_affinity()
+-> anyhow::Result<()> {
+    let mock_gateway = create_base_mock();
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let mut mock_tablet_leader = create_base_mock();
+    let leader_begin_received = Arc::new(AtomicBool::new(false));
+    let leader_begin_received_clone = Arc::clone(&leader_begin_received);
+    mock_tablet_leader
+        .expect_begin_transaction()
+        .returning(move |_| {
+            leader_begin_received_clone.store(true, Ordering::SeqCst);
+            Ok(Response::new(mock_v1::Transaction {
+                id: b"tx-ro-begin-123".to_vec(),
+                ..Default::default()
+            }))
+        });
+    let (tablet_leader_address, _tablet_leader_server) =
+        start("127.0.0.1:0", mock_tablet_leader).await?;
+
+    let mock_tablet_follower = create_base_mock();
+    let (tablet_follower_address, _tablet_follower_server) =
+        start("127.0.0.1:0", mock_tablet_follower).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let mut update = sample_model_cache_update(
+        10103,
+        8003,
+        &tablet_leader_address,
+        &tablet_follower_address,
+    );
+    update.range = vec![ModelRange {
+        start_key: Bytes::from_static(b""),
+        limit_key: Bytes::from_static(b""),
+        group_uid: 8003,
+        split_id: 8003,
+        generation: Bytes::from_static(b"gen_1"),
+        _unknown_fields: Default::default(),
+    }];
+    database_client.observe_cache_update(Some(update));
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_leader_address, client_config)
+        .await?;
+
+    let mutation = Mutation::new_insert_builder("Singers")
+        .set("SingerId")
+        .to(101i64)
+        .build();
+
+    let begin_request = BeginTransactionRequest::default()
+        .set_session(
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1",
+        )
+        .set_options(TransactionOptions::default().set_read_only(ReadOnly::new().set_strong(true)))
+        .set_mutation_key(mutation.build_proto());
+
+    let response = database_client
+        .begin_transaction(begin_request, RequestOptions::default(), 0)
+        .await?;
+
+    assert!(
+        leader_begin_received.load(Ordering::SeqCst),
+        "read-only begin transaction with mutation key routes to tablet leader"
+    );
+    assert_eq!(
+        response.id.as_ref(),
+        b"tx-ro-begin-123",
+        "transaction ID must match mock"
+    );
+    assert_eq!(
+        router.get_transaction_affinity(b"tx-ro-begin-123"),
+        None,
+        "read-only transaction must NOT bind transaction affinity in location router"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn unary_execute_sql_routes_to_affinity_address() -> anyhow::Result<()> {
+    let mock_gateway = create_base_mock();
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let mut mock_tablet = create_base_mock();
+    let tablet_sql_received = Arc::new(AtomicBool::new(false));
+    let tablet_sql_received_clone = Arc::clone(&tablet_sql_received);
+    mock_tablet.expect_execute_sql().returning(move |_| {
+        tablet_sql_received_clone.store(true, Ordering::SeqCst);
+        Ok(Response::new(mock_v1::ResultSet::default()))
+    });
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    let transaction_id = b"tx-sql-affinity-test";
+    router.record_transaction_affinity(transaction_id, &tablet_address);
+
+    let execute_sql_request = ExecuteSqlRequest::default()
+        .set_session(
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1",
+        )
+        .set_sql("SELECT 1")
+        .set_transaction(
+            TransactionSelector::default().set_id(Bytes::copy_from_slice(transaction_id)),
+        );
+
+    let _ = database_client
+        .execute_sql(execute_sql_request, RequestOptions::default(), 0)
+        .await?;
+
+    assert!(
+        tablet_sql_received.load(Ordering::SeqCst),
+        "execute_sql request with transaction affinity must route to affinity tablet"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn unary_execute_sql_with_inline_begin_rw_records_affinity() -> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let gateway_sql_received = Arc::new(AtomicBool::new(false));
+    let gateway_sql_received_clone = Arc::clone(&gateway_sql_received);
+    mock_gateway.expect_execute_sql().returning(move |_| {
+        gateway_sql_received_clone.store(true, Ordering::SeqCst);
+        Ok(Response::new(mock_v1::ResultSet {
+            metadata: Some(mock_v1::ResultSetMetadata {
+                transaction: Some(mock_v1::Transaction {
+                    id: b"tx-inline-sql-rw".to_vec(),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }),
+            ..Default::default()
+        }))
+    });
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    let execute_sql_request = ExecuteSqlRequest::default()
+        .set_session(
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1",
+        )
+        .set_sql("SELECT 1")
+        .set_transaction(
+            TransactionSelector::default()
+                .set_begin(TransactionOptions::default().set_read_write(ReadWrite::default())),
+        );
+
+    let _ = database_client
+        .execute_sql(execute_sql_request, RequestOptions::default(), 0)
+        .await?;
+
+    assert!(
+        gateway_sql_received.load(Ordering::SeqCst),
+        "execute_sql with inline begin must be executed"
+    );
+    assert_eq!(
+        router.get_transaction_affinity(b"tx-inline-sql-rw"),
+        Some(Arc::from(gateway_address.as_str())),
+        "inline begin in execute_sql must record transaction affinity"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn unary_execute_batch_dml_routes_to_affinity_address() -> anyhow::Result<()> {
+    let mock_gateway = create_base_mock();
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let mut mock_tablet = create_base_mock();
+    let tablet_batch_received = Arc::new(AtomicBool::new(false));
+    let tablet_batch_received_clone = Arc::clone(&tablet_batch_received);
+    mock_tablet.expect_execute_batch_dml().returning(move |_| {
+        tablet_batch_received_clone.store(true, Ordering::SeqCst);
+        Ok(Response::new(mock_v1::ExecuteBatchDmlResponse::default()))
+    });
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    let transaction_id = b"tx-batch-affinity-test";
+    router.record_transaction_affinity(transaction_id, &tablet_address);
+
+    let batch_dml_request = ExecuteBatchDmlRequest::default()
+        .set_session(
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1",
+        )
+        .set_transaction(
+            TransactionSelector::default().set_id(Bytes::copy_from_slice(transaction_id)),
+        )
+        .set_statements(vec![
+            BatchStatement::default().set_sql("UPDATE Singers SET Name = 'Bob' WHERE SingerId = 1"),
+        ])
+        .set_seqno(1);
+
+    let _ = database_client
+        .execute_batch_dml(batch_dml_request, RequestOptions::default(), 0)
+        .await?;
+
+    assert!(
+        tablet_batch_received.load(Ordering::SeqCst),
+        "execute_batch_dml request with transaction affinity must route to affinity tablet"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn unary_execute_batch_dml_with_inline_begin_rw_records_affinity() -> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let gateway_batch_received = Arc::new(AtomicBool::new(false));
+    let gateway_batch_received_clone = Arc::clone(&gateway_batch_received);
+    mock_gateway.expect_execute_batch_dml().returning(move |_| {
+        gateway_batch_received_clone.store(true, Ordering::SeqCst);
+        Ok(Response::new(mock_v1::ExecuteBatchDmlResponse {
+            result_sets: vec![mock_v1::ResultSet {
+                metadata: Some(mock_v1::ResultSetMetadata {
+                    transaction: Some(mock_v1::Transaction {
+                        id: b"tx-inline-batch-rw".to_vec(),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }],
+            ..Default::default()
+        }))
+    });
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    let batch_dml_request = ExecuteBatchDmlRequest::default()
+        .set_session(
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1",
+        )
+        .set_transaction(
+            TransactionSelector::default()
+                .set_begin(TransactionOptions::default().set_read_write(ReadWrite::default())),
+        )
+        .set_statements(vec![
+            BatchStatement::default().set_sql("UPDATE Singers SET Name = 'Bob' WHERE SingerId = 1"),
+        ])
+        .set_seqno(1);
+
+    let _ = database_client
+        .execute_batch_dml(batch_dml_request, RequestOptions::default(), 0)
+        .await?;
+
+    assert!(
+        gateway_batch_received.load(Ordering::SeqCst),
+        "execute_batch_dml with inline begin must be executed"
+    );
+    assert_eq!(
+        router.get_transaction_affinity(b"tx-inline-batch-rw"),
+        Some(Arc::from(gateway_address.as_str())),
+        "inline begin in execute_batch_dml must record transaction affinity"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn unary_partition_read_routes_to_tablet_node() -> anyhow::Result<()> {
+    let mock_gateway = create_base_mock();
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let mut mock_tablet = create_base_mock();
+    let tablet_partition_read_received = Arc::new(AtomicBool::new(false));
+    let tablet_partition_read_received_clone = Arc::clone(&tablet_partition_read_received);
+    mock_tablet.expect_partition_read().returning(move |_| {
+        tablet_partition_read_received_clone.store(true, Ordering::SeqCst);
+        Ok(Response::new(mock_v1::PartitionResponse::default()))
+    });
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let mut update = sample_model_cache_update(10106, 8006, &tablet_address, &tablet_address);
+    update.range = vec![ModelRange {
+        start_key: Bytes::from_static(b""),
+        limit_key: Bytes::from_static(b""),
+        group_uid: 8006,
+        split_id: 8006,
+        generation: Bytes::from_static(b"gen_1"),
+        _unknown_fields: Default::default(),
+    }];
+    database_client.observe_cache_update(Some(update));
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    let key_set = KeySet::from(key![101i64]);
+    let partition_read_request = PartitionReadRequest::default()
+        .set_session(
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1",
+        )
+        .set_table("Singers")
+        .set_key_set(key_set.into_proto());
+
+    let _ = database_client
+        .partition_read(partition_read_request, RequestOptions::default(), 0)
+        .await?;
+
+    assert!(
+        tablet_partition_read_received.load(Ordering::SeqCst),
+        "partition_read request with point key must route to tablet connection"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn unary_partition_query_with_transaction_id_routes_to_affinity_address() -> anyhow::Result<()>
+{
+    let mock_gateway = create_base_mock();
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let mut mock_tablet = create_base_mock();
+    let tablet_partition_query_received = Arc::new(AtomicBool::new(false));
+    let tablet_partition_query_received_clone = Arc::clone(&tablet_partition_query_received);
+    mock_tablet.expect_partition_query().returning(move |_| {
+        tablet_partition_query_received_clone.store(true, Ordering::SeqCst);
+        Ok(Response::new(mock_v1::PartitionResponse::default()))
+    });
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    let transaction_id = b"tx-part-query-affinity";
+    router.record_transaction_affinity(transaction_id, &tablet_address);
+
+    let partition_query_request = PartitionQueryRequest::default()
+        .set_session(
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1",
+        )
+        .set_sql("SELECT * FROM Singers")
+        .set_transaction(
+            TransactionSelector::default().set_id(Bytes::copy_from_slice(transaction_id)),
+        );
+
+    let _ = database_client
+        .partition_query(partition_query_request, RequestOptions::default(), 0)
+        .await?;
+
+    assert!(
+        tablet_partition_query_received.load(Ordering::SeqCst),
+        "partition_query request with transaction affinity must route to affinity tablet"
+    );
 
     Ok(())
 }
@@ -2590,7 +3541,37 @@ fn sample_model_cache_update(
             generation: Bytes::from_static(b"gen_1"),
             _unknown_fields: Default::default(),
         }],
-        key_recipes: None,
+        key_recipes: Some(RecipeList {
+            schema_generation: Bytes::from_static(b"schema_v1"),
+            recipe: vec![KeyRecipe {
+                target: Some(Target::TableName("Singers".to_string())),
+                part: vec![
+                    Part {
+                        tag: 100,
+                        order: Order::Unspecified,
+                        null_order: NullOrder::Unspecified,
+                        r#type: None,
+                        struct_identifiers: vec![],
+                        value_type: None,
+                        _unknown_fields: Default::default(),
+                    },
+                    Part {
+                        tag: 0,
+                        order: Order::Ascending,
+                        null_order: NullOrder::NullsFirst,
+                        r#type: Some(Type {
+                            code: TypeCode::Int64,
+                            ..Default::default()
+                        }),
+                        struct_identifiers: vec![],
+                        value_type: Some(ValueType::Identifier("SingerId".to_string())),
+                        _unknown_fields: Default::default(),
+                    },
+                ],
+                _unknown_fields: Default::default(),
+            }],
+            _unknown_fields: Default::default(),
+        }),
         _unknown_fields: Default::default(),
     }
 }

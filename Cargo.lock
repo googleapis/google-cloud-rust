@@ -1616,6 +1616,9 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-type",
  "google-cloud-wkt",
+ "http",
+ "prost",
+ "prost-types",
  "serde",
  "serde_json",
  "serde_with",
@@ -2025,6 +2028,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-apptopology-v1"
+version = "1.0.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-location",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-wkt",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-artifactregistry-v1"
 version = "1.13.0"
 dependencies = [
@@ -2298,6 +2320,9 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-wkt",
+ "http",
+ "prost",
+ "prost-types",
  "serde",
  "serde_json",
  "serde_with",
@@ -2967,6 +2992,9 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-type",
  "google-cloud-wkt",
+ "http",
+ "prost",
+ "prost-types",
  "serde",
  "serde_json",
  "serde_with",
@@ -3166,6 +3194,9 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-wkt",
+ "http",
+ "prost",
+ "prost-types",
  "serde",
  "serde_json",
  "serde_with",
@@ -3187,6 +3218,9 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-type",
  "google-cloud-wkt",
+ "http",
+ "prost",
+ "prost-types",
  "serde",
  "serde_json",
  "serde_with",
@@ -3208,6 +3242,9 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-type",
  "google-cloud-wkt",
+ "http",
+ "prost",
+ "prost-types",
  "serde",
  "serde_json",
  "serde_with",
@@ -3229,6 +3266,9 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-type",
  "google-cloud-wkt",
+ "http",
+ "prost",
+ "prost-types",
  "serde",
  "serde_json",
  "serde_with",
@@ -3507,7 +3547,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax"
-version = "1.14.0"
+version = "1.15.0"
 dependencies = [
  "anyhow",
  "bytes",
@@ -3529,7 +3569,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax-internal"
-version = "0.7.18"
+version = "0.7.19"
 dependencies = [
  "anyhow",
  "bytes",
@@ -3593,6 +3633,9 @@ dependencies = [
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",
+ "http",
+ "prost",
+ "prost-types",
  "serde",
  "serde_json",
  "serde_with",
@@ -4309,6 +4352,9 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-location",
  "google-cloud-wkt",
+ "http",
+ "prost",
+ "prost-types",
  "serde",
  "serde_json",
  "serde_with",
@@ -4969,6 +5015,9 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-type",
  "google-cloud-wkt",
+ "http",
+ "prost",
+ "prost-types",
  "serde",
  "serde_json",
  "serde_with",
@@ -5347,6 +5396,9 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-rpc",
  "google-cloud-wkt",
+ "http",
+ "prost",
+ "prost-types",
  "serde",
  "serde_json",
  "serde_with",
@@ -5597,6 +5649,9 @@ dependencies = [
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-wkt",
+ "http",
+ "prost",
+ "prost-types",
  "serde",
  "serde_json",
  "serde_with",
@@ -5836,6 +5891,9 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-type",
  "google-cloud-wkt",
+ "http",
+ "prost",
+ "prost-types",
  "serde",
  "serde_json",
  "serde_with",
@@ -6301,6 +6359,9 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "google-geo-type",
+ "http",
+ "prost",
+ "prost-types",
  "serde",
  "serde_json",
  "serde_with",
@@ -6309,7 +6370,7 @@ dependencies = [
 
 [[package]]
 name = "google-maps-routing-v2"
-version = "1.0.0"
+version = "1.1.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -6320,6 +6381,9 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "google-geo-type",
+ "http",
+ "prost",
+ "prost-types",
  "serde",
  "serde_json",
  "serde_with",
@@ -7048,6 +7112,7 @@ dependencies = [
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-gax-internal",
+ "google-cloud-speech-v2",
  "google-cloud-storage",
  "google-cloud-telcoautomation-v1",
  "google-cloud-test-utils",
@@ -7330,6 +7395,7 @@ dependencies = [
  "google-cloud-test-utils",
  "google-cloud-wkt",
  "http",
+ "scoped-env",
  "serial_test",
  "tokio",
  "tracing",
@@ -7388,6 +7454,25 @@ dependencies = [
  "http",
  "reqwest 0.13.4",
  "storage-samples",
+ "test-case",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
+name = "integration-tests-streaming"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "google-cloud-auth",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-speech-v2",
+ "google-cloud-test-utils",
+ "httptest",
+ "reqwest 0.13.4",
+ "serde",
+ "serde_json",
  "test-case",
  "tokio",
  "tracing",

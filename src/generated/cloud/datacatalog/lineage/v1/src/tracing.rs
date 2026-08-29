@@ -279,6 +279,16 @@ where
         pending.await
     }
 
+    async fn search_lineage_streaming(
+        &self,
+        req: crate::model::SearchLineageStreamingRequest,
+        options: crate::RequestOptions,
+    ) -> Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::SearchLineageStreamingResponse>,
+    > {
+        self.inner.search_lineage_streaming(req, options).await
+    }
+
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_operations(
         &self,

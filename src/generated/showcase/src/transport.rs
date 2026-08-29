@@ -1608,7 +1608,6 @@ impl super::stub::Compliance for Compliance {
 #[derive(Clone)]
 pub struct Echo {
     inner: gaxi::http::ReqwestClient,
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     grpc_inner: gaxi::grpc::Client,
 }
 
@@ -1616,7 +1615,6 @@ impl std::fmt::Debug for Echo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         let mut builder = f.debug_struct("Echo");
         builder.field("inner", &self.inner);
-        #[cfg(google_cloud_unstable_gapic_streaming)]
         builder.field("grpc_inner", &self.grpc_inner);
         builder.finish()
     }
@@ -1631,7 +1629,6 @@ impl Echo {
         } else {
             inner
         };
-        #[cfg(google_cloud_unstable_gapic_streaming)]
         let grpc_inner = if tracing_is_enabled {
             gaxi::grpc::Client::new_with_instrumentation(
                 config,
@@ -1642,11 +1639,7 @@ impl Echo {
         } else {
             gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
         };
-        Ok(Self {
-            inner,
-            #[cfg(google_cloud_unstable_gapic_streaming)]
-            grpc_inner,
-        })
+        Ok(Self { inner, grpc_inner })
     }
 }
 
@@ -1793,12 +1786,11 @@ impl super::stub::Echo for Echo {
         self.inner.execute(builder, body, options).await
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn expand(
         &self,
         req: crate::model::ExpandRequest,
         options: crate::RequestOptions,
-    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>> {
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>> {
         let x_goog_request_params = [None::<String>; 0]
             .into_iter()
             .flatten()
@@ -1815,7 +1807,7 @@ impl super::stub::Echo for Echo {
         let path = http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Echo/Expand");
 
         self.grpc_inner
-            .execute_server_streaming::<
+            .execute_server_streaming_tmp::<
                 crate::model::ExpandRequest,
                 crate::model::EchoResponse,
                 crate::prost::google::showcase::v1beta1::ExpandRequest,
@@ -1831,13 +1823,12 @@ impl super::stub::Echo for Echo {
             .await
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn chat(
         &self,
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>,
     ) {
         let x_goog_request_params = "";
 
@@ -1852,7 +1843,7 @@ impl super::stub::Echo for Echo {
         let path = http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Echo/Chat");
 
         self.grpc_inner
-            .execute_bidi_streaming::<
+            .execute_bidi_streaming_tmp::<
                 crate::model::EchoRequest,
                 crate::model::EchoResponse,
                 crate::prost::google::showcase::v1beta1::EchoRequest,
@@ -4119,7 +4110,6 @@ impl super::stub::Identity for Identity {
 #[derive(Clone)]
 pub struct Messaging {
     inner: gaxi::http::ReqwestClient,
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     grpc_inner: gaxi::grpc::Client,
 }
 
@@ -4127,7 +4117,6 @@ impl std::fmt::Debug for Messaging {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         let mut builder = f.debug_struct("Messaging");
         builder.field("inner", &self.inner);
-        #[cfg(google_cloud_unstable_gapic_streaming)]
         builder.field("grpc_inner", &self.grpc_inner);
         builder.finish()
     }
@@ -4142,7 +4131,6 @@ impl Messaging {
         } else {
             inner
         };
-        #[cfg(google_cloud_unstable_gapic_streaming)]
         let grpc_inner = if tracing_is_enabled {
             gaxi::grpc::Client::new_with_instrumentation(
                 config,
@@ -4153,11 +4141,7 @@ impl Messaging {
         } else {
             gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
         };
-        Ok(Self {
-            inner,
-            #[cfg(google_cloud_unstable_gapic_streaming)]
-            grpc_inner,
-        })
+        Ok(Self { inner, grpc_inner })
     }
 }
 
@@ -5070,12 +5054,11 @@ impl super::stub::Messaging for Messaging {
         self.inner.execute(builder, body, options).await
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn stream_blurbs(
         &self,
         req: crate::model::StreamBlurbsRequest,
         options: crate::RequestOptions,
-    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>>
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>>
     {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.name)
@@ -5097,7 +5080,7 @@ impl super::stub::Messaging for Messaging {
             http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Messaging/StreamBlurbs");
 
         self.grpc_inner
-            .execute_server_streaming::<
+            .execute_server_streaming_tmp::<
                 crate::model::StreamBlurbsRequest,
                 crate::model::StreamBlurbsResponse,
                 crate::prost::google::showcase::v1beta1::StreamBlurbsRequest,
@@ -5113,13 +5096,12 @@ impl super::stub::Messaging for Messaging {
             .await
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     fn connect(
         &self,
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>,
     ) {
         let x_goog_request_params = "";
 
@@ -5135,7 +5117,7 @@ impl super::stub::Messaging for Messaging {
             http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Messaging/Connect");
 
         self.grpc_inner
-            .execute_bidi_streaming::<
+            .execute_bidi_streaming_tmp::<
                 crate::model::ConnectRequest,
                 crate::model::StreamBlurbsResponse,
                 crate::prost::google::showcase::v1beta1::ConnectRequest,
@@ -6010,7 +5992,6 @@ impl super::stub::Messaging for Messaging {
 #[derive(Clone)]
 pub struct SequenceService {
     inner: gaxi::http::ReqwestClient,
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     grpc_inner: gaxi::grpc::Client,
 }
 
@@ -6018,7 +5999,6 @@ impl std::fmt::Debug for SequenceService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         let mut builder = f.debug_struct("SequenceService");
         builder.field("inner", &self.inner);
-        #[cfg(google_cloud_unstable_gapic_streaming)]
         builder.field("grpc_inner", &self.grpc_inner);
         builder.finish()
     }
@@ -6033,7 +6013,6 @@ impl SequenceService {
         } else {
             inner
         };
-        #[cfg(google_cloud_unstable_gapic_streaming)]
         let grpc_inner = if tracing_is_enabled {
             gaxi::grpc::Client::new_with_instrumentation(
                 config,
@@ -6044,11 +6023,7 @@ impl SequenceService {
         } else {
             gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
         };
-        Ok(Self {
-            inner,
-            #[cfg(google_cloud_unstable_gapic_streaming)]
-            grpc_inner,
-        })
+        Ok(Self { inner, grpc_inner })
     }
 }
 
@@ -6343,15 +6318,12 @@ impl super::stub::SequenceService for SequenceService {
             })
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     async fn attempt_streaming_sequence(
         &self,
         req: crate::model::AttemptStreamingSequenceRequest,
         options: crate::RequestOptions,
     ) -> Result<
-        google_cloud_gax::streaming::ResponseReceiver<
-            crate::model::AttemptStreamingSequenceResponse,
-        >,
+        google_cloud_gax::streaming::ResponseStream<crate::model::AttemptStreamingSequenceResponse>,
     > {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.name)
@@ -6374,7 +6346,7 @@ impl super::stub::SequenceService for SequenceService {
         );
 
         self.grpc_inner
-            .execute_server_streaming::<
+            .execute_server_streaming_tmp::<
                 crate::model::AttemptStreamingSequenceRequest,
                 crate::model::AttemptStreamingSequenceResponse,
                 crate::prost::google::showcase::v1beta1::AttemptStreamingSequenceRequest,
