@@ -940,7 +940,7 @@ impl super::stub::ModelArmor for ModelArmor {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::SanitizeUserPromptRequest,
                 crate::model::SanitizeUserPromptResponse,
                 crate::prost::google::cloud::modelarmor::v1::SanitizeUserPromptRequest,
@@ -976,7 +976,7 @@ impl super::stub::ModelArmor for ModelArmor {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::SanitizeModelResponseRequest,
                 crate::model::SanitizeModelResponseResponse,
                 crate::prost::google::cloud::modelarmor::v1::SanitizeModelResponseRequest,

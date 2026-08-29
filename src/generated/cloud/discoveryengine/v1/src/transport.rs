@@ -112,7 +112,7 @@ impl super::stub::AssistantService for AssistantService {
         );
 
         self.grpc_inner
-            .execute_server_streaming_tmp::<
+            .execute_server_streaming::<
                 crate::model::StreamAssistRequest,
                 crate::model::StreamAssistResponse,
                 crate::prost::google::cloud::discoveryengine::v1::StreamAssistRequest,
@@ -7450,7 +7450,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
 
         self.grpc_inner
-            .execute_server_streaming_tmp::<
+            .execute_server_streaming::<
                 crate::model::AnswerQueryRequest,
                 crate::model::AnswerQueryResponse,
                 crate::prost::google::cloud::discoveryengine::v1::AnswerQueryRequest,
@@ -14909,7 +14909,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::GenerateGroundedContentRequest,
                 crate::model::GenerateGroundedContentResponse,
                 crate::prost::google::cloud::discoveryengine::v1::GenerateGroundedContentRequest,

@@ -5767,7 +5767,7 @@ impl super::stub::StreamingService for StreamingService {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::SendPacketsRequest,
                 crate::model::SendPacketsResponse,
                 crate::prost::google::cloud::visionai::v1::SendPacketsRequest,
@@ -5803,7 +5803,7 @@ impl super::stub::StreamingService for StreamingService {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::ReceivePacketsRequest,
                 crate::model::ReceivePacketsResponse,
                 crate::prost::google::cloud::visionai::v1::ReceivePacketsRequest,
@@ -5839,7 +5839,7 @@ impl super::stub::StreamingService for StreamingService {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::ReceiveEventsRequest,
                 crate::model::ReceiveEventsResponse,
                 crate::prost::google::cloud::visionai::v1::ReceiveEventsRequest,
@@ -11921,7 +11921,7 @@ impl super::stub::Warehouse for Warehouse {
             http::uri::PathAndQuery::from_static("/google.cloud.visionai.v1.Warehouse/IngestAsset");
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::IngestAssetRequest,
                 crate::model::IngestAssetResponse,
                 crate::prost::google::cloud::visionai::v1::IngestAssetRequest,

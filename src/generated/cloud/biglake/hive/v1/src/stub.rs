@@ -232,7 +232,7 @@ pub trait HiveMetastoreService: std::fmt::Debug + Send + Sync {
             google_cloud_gax::streaming::ResponseStream<crate::model::ListPartitionsResponse>,
         >,
     > + Send {
-        gaxi::unimplemented::unimplemented_server_streaming_stub_tmp()
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
     }
 
     /// Implements [super::client::HiveMetastoreService::failover_hive_catalog].

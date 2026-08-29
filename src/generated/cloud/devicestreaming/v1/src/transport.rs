@@ -438,7 +438,7 @@ impl super::stub::DirectAccessService for DirectAccessService {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::AdbMessage,
                 crate::model::DeviceMessage,
                 crate::prost::google::cloud::devicestreaming::v1::AdbMessage,

@@ -3028,7 +3028,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
 
         self.grpc_inner
-            .execute_server_streaming_tmp::<
+            .execute_server_streaming::<
                 crate::model::ConversationalSearchRequest,
                 crate::model::ConversationalSearchResponse,
                 crate::prost::google::cloud::retail::v2::ConversationalSearchRequest,

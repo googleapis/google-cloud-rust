@@ -40,14 +40,6 @@ pub async fn unimplemented_server_streaming_stub<O: Send>() -> Result<ResponseSt
     unimplemented!("{UNIMPLEMENTED}");
 }
 
-pub fn unimplemented_bidi_stub_tmp<I, O>() -> (RequestSender<I>, ResponseStream<O>) {
-    unimplemented_bidi_stub()
-}
-
-pub async fn unimplemented_server_streaming_stub_tmp<O: Send>() -> Result<ResponseStream<O>> {
-    unimplemented_server_streaming_stub().await
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
