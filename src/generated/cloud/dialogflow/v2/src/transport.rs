@@ -19630,9 +19630,7 @@ impl super::stub::Participants for Participants {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingAnalyzeContentRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<
-            crate::model::StreamingAnalyzeContentResponse,
-        >,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingAnalyzeContentResponse>,
     ) {
         let x_goog_request_params = "";
 
@@ -19649,7 +19647,7 @@ impl super::stub::Participants for Participants {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming::<
+            .execute_bidi_streaming_tmp::<
                 crate::model::StreamingAnalyzeContentRequest,
                 crate::model::StreamingAnalyzeContentResponse,
                 crate::prost::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest,
@@ -20808,7 +20806,7 @@ impl super::stub::Sessions for Sessions {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingDetectIntentRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingDetectIntentResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingDetectIntentResponse>,
     ) {
         let x_goog_request_params = "";
 
@@ -20825,7 +20823,7 @@ impl super::stub::Sessions for Sessions {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming::<
+            .execute_bidi_streaming_tmp::<
                 crate::model::StreamingDetectIntentRequest,
                 crate::model::StreamingDetectIntentResponse,
                 crate::prost::google::cloud::dialogflow::v2::StreamingDetectIntentRequest,

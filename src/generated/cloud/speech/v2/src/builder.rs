@@ -969,12 +969,12 @@ pub mod speech {
     /// # use google_cloud_speech_v2::model::StreamingRecognizeRequest;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let (sender, mut receiver) = builder.build();
+    /// let (sender, mut resp_stream) = builder.build();
     ///
     /// sender.send(StreamingRecognizeRequest::default()).await?;
     /// drop(sender); // Half-close the stream
     ///
-    /// while let Some(response) = receiver.recv().await {
+    /// while let Some(response) = resp_stream.next().await {
     ///     let response = response?;
     ///     println!("response {:?}", response);
     /// }
@@ -1004,7 +1004,7 @@ pub mod speech {
             self,
         ) -> (
             google_cloud_gax::streaming::RequestSender<crate::model::StreamingRecognizeRequest>,
-            google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingRecognizeResponse>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::StreamingRecognizeResponse>,
         ) {
             (*self.0.stub).streaming_recognize(self.0.options)
         }

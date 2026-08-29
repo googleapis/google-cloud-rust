@@ -1384,7 +1384,7 @@ impl super::stub::DataChatService for DataChatService {
         &self,
         req: crate::model::ChatRequest,
         options: crate::RequestOptions,
-    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::Message>> {
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::Message>> {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.parent)
             .map(|s| s.as_str())
@@ -1406,7 +1406,7 @@ impl super::stub::DataChatService for DataChatService {
         );
 
         self.grpc_inner
-            .execute_server_streaming::<
+            .execute_server_streaming_tmp::<
                 crate::model::ChatRequest,
                 crate::model::Message,
                 crate::prost::google::cloud::geminidataanalytics::v1::ChatRequest,

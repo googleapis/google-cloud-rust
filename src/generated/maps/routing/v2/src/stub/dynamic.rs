@@ -27,9 +27,7 @@ pub trait Routes: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ComputeRouteMatrixRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::RouteMatrixElement>,
-    >;
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::RouteMatrixElement>>;
 }
 
 /// All implementations of [super::Routes] also implement [Routes].
@@ -49,9 +47,8 @@ impl<T: super::Routes> Routes for T {
         &self,
         req: crate::model::ComputeRouteMatrixRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::RouteMatrixElement>,
-    > {
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::RouteMatrixElement>>
+    {
         T::compute_route_matrix(self, req, options).await
     }
 }

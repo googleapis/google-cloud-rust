@@ -321,7 +321,7 @@ pub trait DataChatService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ChatRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::Message>>;
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::Message>>;
 
     async fn create_conversation(
         &self,
@@ -398,7 +398,7 @@ impl<T: super::DataChatService> DataChatService for T {
         &self,
         req: crate::model::ChatRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::Message>> {
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::Message>> {
         T::chat(self, req, options).await
     }
 

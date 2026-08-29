@@ -5702,13 +5702,13 @@ impl Sessions {
     /// async fn sample(
     ///    client: &Sessions
     /// ) -> anyhow::Result<()> {
-    ///     let (sender, mut receiver) = client.streaming_detect_intent()
+    ///     let (sender, mut resp_stream) = client.streaming_detect_intent()
     ///         .build();
     ///
     ///     sender.send(StreamingDetectIntentRequest::default()).await?;
     ///     drop(sender); // Half-close the stream
     ///
-    ///     while let Some(response) = receiver.recv().await {
+    ///     while let Some(response) = resp_stream.next().await {
     ///         let response = response?;
     ///         println!("response {:?}", response);
     ///     }

@@ -1790,7 +1790,7 @@ impl super::stub::Echo for Echo {
         &self,
         req: crate::model::ExpandRequest,
         options: crate::RequestOptions,
-    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>> {
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>> {
         let x_goog_request_params = [None::<String>; 0]
             .into_iter()
             .flatten()
@@ -1807,7 +1807,7 @@ impl super::stub::Echo for Echo {
         let path = http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Echo/Expand");
 
         self.grpc_inner
-            .execute_server_streaming::<
+            .execute_server_streaming_tmp::<
                 crate::model::ExpandRequest,
                 crate::model::EchoResponse,
                 crate::prost::google::showcase::v1beta1::ExpandRequest,
@@ -1828,7 +1828,7 @@ impl super::stub::Echo for Echo {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>,
     ) {
         let x_goog_request_params = "";
 
@@ -1843,7 +1843,7 @@ impl super::stub::Echo for Echo {
         let path = http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Echo/Chat");
 
         self.grpc_inner
-            .execute_bidi_streaming::<
+            .execute_bidi_streaming_tmp::<
                 crate::model::EchoRequest,
                 crate::model::EchoResponse,
                 crate::prost::google::showcase::v1beta1::EchoRequest,
@@ -5058,7 +5058,7 @@ impl super::stub::Messaging for Messaging {
         &self,
         req: crate::model::StreamBlurbsRequest,
         options: crate::RequestOptions,
-    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>>
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>>
     {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.name)
@@ -5080,7 +5080,7 @@ impl super::stub::Messaging for Messaging {
             http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Messaging/StreamBlurbs");
 
         self.grpc_inner
-            .execute_server_streaming::<
+            .execute_server_streaming_tmp::<
                 crate::model::StreamBlurbsRequest,
                 crate::model::StreamBlurbsResponse,
                 crate::prost::google::showcase::v1beta1::StreamBlurbsRequest,
@@ -5101,7 +5101,7 @@ impl super::stub::Messaging for Messaging {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>,
     ) {
         let x_goog_request_params = "";
 
@@ -5117,7 +5117,7 @@ impl super::stub::Messaging for Messaging {
             http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Messaging/Connect");
 
         self.grpc_inner
-            .execute_bidi_streaming::<
+            .execute_bidi_streaming_tmp::<
                 crate::model::ConnectRequest,
                 crate::model::StreamBlurbsResponse,
                 crate::prost::google::showcase::v1beta1::ConnectRequest,
@@ -6323,9 +6323,7 @@ impl super::stub::SequenceService for SequenceService {
         req: crate::model::AttemptStreamingSequenceRequest,
         options: crate::RequestOptions,
     ) -> Result<
-        google_cloud_gax::streaming::ResponseReceiver<
-            crate::model::AttemptStreamingSequenceResponse,
-        >,
+        google_cloud_gax::streaming::ResponseStream<crate::model::AttemptStreamingSequenceResponse>,
     > {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.name)
@@ -6348,7 +6346,7 @@ impl super::stub::SequenceService for SequenceService {
         );
 
         self.grpc_inner
-            .execute_server_streaming::<
+            .execute_server_streaming_tmp::<
                 crate::model::AttemptStreamingSequenceRequest,
                 crate::model::AttemptStreamingSequenceResponse,
                 crate::prost::google::showcase::v1beta1::AttemptStreamingSequenceRequest,

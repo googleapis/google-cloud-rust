@@ -238,7 +238,7 @@ impl Client {
         request_params: &str,
     ) -> (
         google_cloud_gax::streaming::RequestSender<DomainReq>,
-        google_cloud_gax::streaming::ResponseReceiver<DomainResp>,
+        google_cloud_gax::streaming::ResponseStream<DomainResp>,
     )
     where
         DomainReq: crate::prost::ToProto<ProstReq, Output = ProstReq> + Send + 'static,
@@ -258,7 +258,7 @@ impl Client {
 
         (
             streaming::create_request_sender(req_tx),
-            streaming::create_response_receiver(resp_rx),
+            streaming::create_response_stream(resp_rx),
         )
     }
 
@@ -292,7 +292,7 @@ impl Client {
 
         (
             streaming::create_request_sender(req_tx),
-            streaming::create_response_receiver_tmp(resp_rx),
+            streaming::create_response_stream(resp_rx),
         )
     }
 
@@ -326,7 +326,7 @@ impl Client {
                     let _ = resp_tx.send(result);
                 }
                 _ = resp_tx.closed() => {
-                    // ResponseReceiver was dropped before the stream was established;
+                    // ResponseStream was dropped before the stream was established;
                     // abort the connection attempt immediately.
                 }
             }
@@ -420,7 +420,7 @@ impl Client {
         options: RequestOptions,
         api_client_header: &'static str,
         request_params: &str,
-    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<DomainResp>>
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<DomainResp>>
     where
         DomainReq: crate::prost::ToProto<ProstReq, Output = ProstReq>,
         DomainResp: Send + 'static,
@@ -443,11 +443,11 @@ impl Client {
             .await?
             .map_err(to_gax_error)?;
 
-        let response_receiver = google_cloud_gax::streaming::ResponseReceiver::from_stream(
+        let response_stream = google_cloud_gax::streaming::ResponseStream::from_stream(
             streaming::decode_response_stream(result.into_inner()),
         );
 
-        Ok(response_receiver)
+        Ok(response_stream)
     }
 
     /// Opens a server stream with automatic model <-> proto conversion and stream mapping.
@@ -482,11 +482,11 @@ impl Client {
             .await?
             .map_err(to_gax_error)?;
 
-        let response_receiver = google_cloud_gax::streaming::ResponseStream::from_stream(
+        let response_stream = google_cloud_gax::streaming::ResponseStream::from_stream(
             streaming::decode_response_stream(result.into_inner()),
         );
 
-        Ok(response_receiver)
+        Ok(response_stream)
     }
 
     /// Runs the retry loop.

@@ -52,7 +52,7 @@ pub trait DirectAccessService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::AdbMessage>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::DeviceMessage>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::DeviceMessage>,
     );
 }
 
@@ -110,7 +110,7 @@ impl<T: super::DirectAccessService> DirectAccessService for T {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::AdbMessage>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::DeviceMessage>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::DeviceMessage>,
     ) {
         T::adb_connect(self, options)
     }

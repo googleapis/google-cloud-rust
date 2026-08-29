@@ -375,7 +375,7 @@ where
         &self,
         req: crate::model::ChatRequest,
         options: crate::RequestOptions,
-    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::Message>> {
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::Message>> {
         self.inner.chat(req, options).await
     }
 

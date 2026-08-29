@@ -89,7 +89,7 @@ impl super::stub::AssistantService for AssistantService {
         &self,
         req: crate::model::StreamAssistRequest,
         options: crate::RequestOptions,
-    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamAssistResponse>>
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::StreamAssistResponse>>
     {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.name)
@@ -112,7 +112,7 @@ impl super::stub::AssistantService for AssistantService {
         );
 
         self.grpc_inner
-            .execute_server_streaming::<
+            .execute_server_streaming_tmp::<
                 crate::model::StreamAssistRequest,
                 crate::model::StreamAssistResponse,
                 crate::prost::google::cloud::discoveryengine::v1::StreamAssistRequest,
@@ -7427,7 +7427,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         &self,
         req: crate::model::AnswerQueryRequest,
         options: crate::RequestOptions,
-    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::AnswerQueryResponse>>
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::AnswerQueryResponse>>
     {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.serving_config)
@@ -7450,7 +7450,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
 
         self.grpc_inner
-            .execute_server_streaming::<
+            .execute_server_streaming_tmp::<
                 crate::model::AnswerQueryRequest,
                 crate::model::AnswerQueryResponse,
                 crate::prost::google::cloud::discoveryengine::v1::AnswerQueryRequest,
@@ -14892,9 +14892,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::GenerateGroundedContentRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<
-            crate::model::GenerateGroundedContentResponse,
-        >,
+        google_cloud_gax::streaming::ResponseStream<crate::model::GenerateGroundedContentResponse>,
     ) {
         let x_goog_request_params = "";
 
@@ -14911,7 +14909,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming::<
+            .execute_bidi_streaming_tmp::<
                 crate::model::GenerateGroundedContentRequest,
                 crate::model::GenerateGroundedContentResponse,
                 crate::prost::google::cloud::discoveryengine::v1::GenerateGroundedContentRequest,

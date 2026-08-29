@@ -76,7 +76,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::SanitizeUserPromptRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::SanitizeUserPromptResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SanitizeUserPromptResponse>,
     );
 
     fn stream_sanitize_model_response(
@@ -84,7 +84,7 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::SanitizeModelResponseRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::SanitizeModelResponseResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SanitizeModelResponseResponse>,
     );
 
     async fn list_locations(
@@ -190,7 +190,7 @@ impl<T: super::ModelArmor> ModelArmor for T {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::SanitizeUserPromptRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::SanitizeUserPromptResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SanitizeUserPromptResponse>,
     ) {
         T::stream_sanitize_user_prompt(self, options)
     }
@@ -201,7 +201,7 @@ impl<T: super::ModelArmor> ModelArmor for T {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::SanitizeModelResponseRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::SanitizeModelResponseResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SanitizeModelResponseResponse>,
     ) {
         T::stream_sanitize_model_response(self, options)
     }

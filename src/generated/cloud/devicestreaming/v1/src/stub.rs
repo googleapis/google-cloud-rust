@@ -97,8 +97,8 @@ pub trait DirectAccessService: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::AdbMessage>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::DeviceMessage>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::DeviceMessage>,
     ) {
-        gaxi::unimplemented::unimplemented_bidi_stub()
+        gaxi::unimplemented::unimplemented_bidi_stub_tmp()
     }
 }

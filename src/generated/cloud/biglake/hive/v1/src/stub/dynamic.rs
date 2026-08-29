@@ -130,7 +130,7 @@ pub trait HiveMetastoreService: std::fmt::Debug + Send + Sync {
         req: crate::model::ListPartitionsRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::ListPartitionsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ListPartitionsResponse>,
     >;
 
     async fn failover_hive_catalog(
@@ -311,7 +311,7 @@ impl<T: super::HiveMetastoreService> HiveMetastoreService for T {
         req: crate::model::ListPartitionsRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::ListPartitionsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ListPartitionsResponse>,
     > {
         T::list_partitions(self, req, options).await
     }

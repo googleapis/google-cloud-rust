@@ -3005,7 +3005,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         req: crate::model::ConversationalSearchRequest,
         options: crate::RequestOptions,
     ) -> Result<
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::ConversationalSearchResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ConversationalSearchResponse>,
     > {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.placement)
@@ -3028,7 +3028,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
 
         self.grpc_inner
-            .execute_server_streaming::<
+            .execute_server_streaming_tmp::<
                 crate::model::ConversationalSearchRequest,
                 crate::model::ConversationalSearchResponse,
                 crate::prost::google::cloud::retail::v2::ConversationalSearchRequest,

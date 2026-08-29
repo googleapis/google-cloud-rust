@@ -742,7 +742,7 @@ where
         req: crate::model::ConversationalSearchRequest,
         options: crate::RequestOptions,
     ) -> Result<
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::ConversationalSearchResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ConversationalSearchResponse>,
     > {
         self.inner.conversational_search(req, options).await
     }

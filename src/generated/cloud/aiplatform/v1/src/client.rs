@@ -3651,13 +3651,13 @@ impl FeatureOnlineStoreService {
     /// async fn sample(
     ///    client: &FeatureOnlineStoreService
     /// ) -> anyhow::Result<()> {
-    ///     let (sender, mut receiver) = client.feature_view_direct_write()
+    ///     let (sender, mut resp_stream) = client.feature_view_direct_write()
     ///         .build();
     ///
     ///     sender.send(FeatureViewDirectWriteRequest::default()).await?;
     ///     drop(sender); // Half-close the stream
     ///
-    ///     while let Some(response) = receiver.recv().await {
+    ///     while let Some(response) = resp_stream.next().await {
     ///         let response = response?;
     ///         println!("response {:?}", response);
     ///     }
@@ -15087,13 +15087,13 @@ impl PredictionService {
     /// async fn sample(
     ///    client: &PredictionService
     /// ) -> anyhow::Result<()> {
-    ///     let (sender, mut receiver) = client.stream_direct_predict()
+    ///     let (sender, mut resp_stream) = client.stream_direct_predict()
     ///         .build();
     ///
     ///     sender.send(StreamDirectPredictRequest::default()).await?;
     ///     drop(sender); // Half-close the stream
     ///
-    ///     while let Some(response) = receiver.recv().await {
+    ///     while let Some(response) = resp_stream.next().await {
     ///         let response = response?;
     ///         println!("response {:?}", response);
     ///     }
@@ -15114,13 +15114,13 @@ impl PredictionService {
     /// async fn sample(
     ///    client: &PredictionService
     /// ) -> anyhow::Result<()> {
-    ///     let (sender, mut receiver) = client.stream_direct_raw_predict()
+    ///     let (sender, mut resp_stream) = client.stream_direct_raw_predict()
     ///         .build();
     ///
     ///     sender.send(StreamDirectRawPredictRequest::default()).await?;
     ///     drop(sender); // Half-close the stream
     ///
-    ///     while let Some(response) = receiver.recv().await {
+    ///     while let Some(response) = resp_stream.next().await {
     ///         let response = response?;
     ///         println!("response {:?}", response);
     ///     }
@@ -15143,13 +15143,13 @@ impl PredictionService {
     /// async fn sample(
     ///    client: &PredictionService
     /// ) -> anyhow::Result<()> {
-    ///     let (sender, mut receiver) = client.streaming_predict()
+    ///     let (sender, mut resp_stream) = client.streaming_predict()
     ///         .build();
     ///
     ///     sender.send(StreamingPredictRequest::default()).await?;
     ///     drop(sender); // Half-close the stream
     ///
-    ///     while let Some(response) = receiver.recv().await {
+    ///     while let Some(response) = resp_stream.next().await {
     ///         let response = response?;
     ///         println!("response {:?}", response);
     ///     }
@@ -15169,13 +15169,13 @@ impl PredictionService {
     /// async fn sample(
     ///    client: &PredictionService
     /// ) -> anyhow::Result<()> {
-    ///     let (sender, mut receiver) = client.streaming_raw_predict()
+    ///     let (sender, mut resp_stream) = client.streaming_raw_predict()
     ///         .build();
     ///
     ///     sender.send(StreamingRawPredictRequest::default()).await?;
     ///     drop(sender); // Half-close the stream
     ///
-    ///     while let Some(response) = receiver.recv().await {
+    ///     while let Some(response) = resp_stream.next().await {
     ///         let response = response?;
     ///         println!("response {:?}", response);
     ///     }

@@ -535,7 +535,7 @@ pub trait ConversationalSearchService: std::fmt::Debug + Send + Sync {
         req: crate::model::ConversationalSearchRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::ConversationalSearchResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ConversationalSearchResponse>,
     >;
 
     async fn list_operations(
@@ -560,7 +560,7 @@ impl<T: super::ConversationalSearchService> ConversationalSearchService for T {
         req: crate::model::ConversationalSearchRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::ConversationalSearchResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ConversationalSearchResponse>,
     > {
         T::conversational_search(self, req, options).await
     }

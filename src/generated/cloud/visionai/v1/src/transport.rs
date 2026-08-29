@@ -5750,7 +5750,7 @@ impl super::stub::StreamingService for StreamingService {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::SendPacketsRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::SendPacketsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SendPacketsResponse>,
     ) {
         let x_goog_request_params = "";
 
@@ -5767,7 +5767,7 @@ impl super::stub::StreamingService for StreamingService {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming::<
+            .execute_bidi_streaming_tmp::<
                 crate::model::SendPacketsRequest,
                 crate::model::SendPacketsResponse,
                 crate::prost::google::cloud::visionai::v1::SendPacketsRequest,
@@ -5786,7 +5786,7 @@ impl super::stub::StreamingService for StreamingService {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::ReceivePacketsRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::ReceivePacketsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ReceivePacketsResponse>,
     ) {
         let x_goog_request_params = "";
 
@@ -5803,7 +5803,7 @@ impl super::stub::StreamingService for StreamingService {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming::<
+            .execute_bidi_streaming_tmp::<
                 crate::model::ReceivePacketsRequest,
                 crate::model::ReceivePacketsResponse,
                 crate::prost::google::cloud::visionai::v1::ReceivePacketsRequest,
@@ -5822,7 +5822,7 @@ impl super::stub::StreamingService for StreamingService {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::ReceiveEventsRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::ReceiveEventsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ReceiveEventsResponse>,
     ) {
         let x_goog_request_params = "";
 
@@ -5839,7 +5839,7 @@ impl super::stub::StreamingService for StreamingService {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming::<
+            .execute_bidi_streaming_tmp::<
                 crate::model::ReceiveEventsRequest,
                 crate::model::ReceiveEventsResponse,
                 crate::prost::google::cloud::visionai::v1::ReceiveEventsRequest,
@@ -11905,7 +11905,7 @@ impl super::stub::Warehouse for Warehouse {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::IngestAssetRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::IngestAssetResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::IngestAssetResponse>,
     ) {
         let x_goog_request_params = "";
 
@@ -11921,7 +11921,7 @@ impl super::stub::Warehouse for Warehouse {
             http::uri::PathAndQuery::from_static("/google.cloud.visionai.v1.Warehouse/IngestAsset");
 
         self.grpc_inner
-            .execute_bidi_streaming::<
+            .execute_bidi_streaming_tmp::<
                 crate::model::IngestAssetRequest,
                 crate::model::IngestAssetResponse,
                 crate::prost::google::cloud::visionai::v1::IngestAssetRequest,

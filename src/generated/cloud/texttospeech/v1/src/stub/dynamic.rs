@@ -34,7 +34,7 @@ pub trait TextToSpeech: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingSynthesizeRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingSynthesizeResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingSynthesizeResponse>,
     );
 
     async fn list_operations(
@@ -77,7 +77,7 @@ impl<T: super::TextToSpeech> TextToSpeech for T {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingSynthesizeRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingSynthesizeResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingSynthesizeResponse>,
     ) {
         T::streaming_synthesize(self, options)
     }

@@ -56,10 +56,10 @@ pub trait RoutesPreferred: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            google_cloud_gax::streaming::ResponseReceiver<crate::model::RouteMatrixElement>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::RouteMatrixElement>,
         >,
     > + Send {
-        gaxi::unimplemented::unimplemented_server_streaming_stub()
+        gaxi::unimplemented::unimplemented_server_streaming_stub_tmp()
     }
 
     /// Implements [super::client::RoutesPreferred::compute_custom_routes].

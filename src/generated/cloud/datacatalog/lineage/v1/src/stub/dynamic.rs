@@ -124,7 +124,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         req: crate::model::SearchLineageStreamingRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::SearchLineageStreamingResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SearchLineageStreamingResponse>,
     >;
 
     async fn list_operations(
@@ -329,7 +329,7 @@ impl<T: super::Lineage> Lineage for T {
         req: crate::model::SearchLineageStreamingRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::SearchLineageStreamingResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SearchLineageStreamingResponse>,
     > {
         T::search_lineage_streaming(self, req, options).await
     }

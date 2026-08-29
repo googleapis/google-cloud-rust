@@ -74,7 +74,7 @@ where
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingSynthesizeRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingSynthesizeResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingSynthesizeResponse>,
     ) {
         self.inner.streaming_synthesize(options)
     }

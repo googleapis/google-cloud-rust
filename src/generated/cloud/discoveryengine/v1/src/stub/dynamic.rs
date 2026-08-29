@@ -23,7 +23,7 @@ pub trait AssistantService: std::fmt::Debug + Send + Sync {
         req: crate::model::StreamAssistRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamAssistResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamAssistResponse>,
     >;
 
     async fn list_operations(
@@ -55,7 +55,7 @@ impl<T: super::AssistantService> AssistantService for T {
         req: crate::model::StreamAssistRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamAssistResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamAssistResponse>,
     > {
         T::stream_assist(self, req, options).await
     }
@@ -589,9 +589,7 @@ pub trait ConversationalSearchService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::AnswerQueryRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::AnswerQueryResponse>,
-    >;
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::AnswerQueryResponse>>;
 
     async fn get_answer(
         &self,
@@ -720,9 +718,8 @@ impl<T: super::ConversationalSearchService> ConversationalSearchService for T {
         &self,
         req: crate::model::AnswerQueryRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::AnswerQueryResponse>,
-    > {
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::AnswerQueryResponse>>
+    {
         T::stream_answer_query(self, req, options).await
     }
 
@@ -1364,9 +1361,7 @@ pub trait GroundedGenerationService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::GenerateGroundedContentRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<
-            crate::model::GenerateGroundedContentResponse,
-        >,
+        google_cloud_gax::streaming::ResponseStream<crate::model::GenerateGroundedContentResponse>,
     );
 
     async fn generate_grounded_content(
@@ -1410,9 +1405,7 @@ impl<T: super::GroundedGenerationService> GroundedGenerationService for T {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::GenerateGroundedContentRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<
-            crate::model::GenerateGroundedContentResponse,
-        >,
+        google_cloud_gax::streaming::ResponseStream<crate::model::GenerateGroundedContentResponse>,
     ) {
         T::stream_generate_grounded_content(self, options)
     }

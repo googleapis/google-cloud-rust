@@ -7205,12 +7205,12 @@ pub mod streaming_service {
     /// # use google_cloud_visionai_v1::model::SendPacketsRequest;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let (sender, mut receiver) = builder.build();
+    /// let (sender, mut resp_stream) = builder.build();
     ///
     /// sender.send(SendPacketsRequest::default()).await?;
     /// drop(sender); // Half-close the stream
     ///
-    /// while let Some(response) = receiver.recv().await {
+    /// while let Some(response) = resp_stream.next().await {
     ///     let response = response?;
     ///     println!("response {:?}", response);
     /// }
@@ -7242,7 +7242,7 @@ pub mod streaming_service {
             self,
         ) -> (
             google_cloud_gax::streaming::RequestSender<crate::model::SendPacketsRequest>,
-            google_cloud_gax::streaming::ResponseReceiver<crate::model::SendPacketsResponse>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::SendPacketsResponse>,
         ) {
             (*self.0.stub).send_packets(self.0.options)
         }
@@ -7263,12 +7263,12 @@ pub mod streaming_service {
     /// # use google_cloud_visionai_v1::model::ReceivePacketsRequest;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let (sender, mut receiver) = builder.build();
+    /// let (sender, mut resp_stream) = builder.build();
     ///
     /// sender.send(ReceivePacketsRequest::default()).await?;
     /// drop(sender); // Half-close the stream
     ///
-    /// while let Some(response) = receiver.recv().await {
+    /// while let Some(response) = resp_stream.next().await {
     ///     let response = response?;
     ///     println!("response {:?}", response);
     /// }
@@ -7300,7 +7300,7 @@ pub mod streaming_service {
             self,
         ) -> (
             google_cloud_gax::streaming::RequestSender<crate::model::ReceivePacketsRequest>,
-            google_cloud_gax::streaming::ResponseReceiver<crate::model::ReceivePacketsResponse>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::ReceivePacketsResponse>,
         ) {
             (*self.0.stub).receive_packets(self.0.options)
         }
@@ -7321,12 +7321,12 @@ pub mod streaming_service {
     /// # use google_cloud_visionai_v1::model::ReceiveEventsRequest;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let (sender, mut receiver) = builder.build();
+    /// let (sender, mut resp_stream) = builder.build();
     ///
     /// sender.send(ReceiveEventsRequest::default()).await?;
     /// drop(sender); // Half-close the stream
     ///
-    /// while let Some(response) = receiver.recv().await {
+    /// while let Some(response) = resp_stream.next().await {
     ///     let response = response?;
     ///     println!("response {:?}", response);
     /// }
@@ -7358,7 +7358,7 @@ pub mod streaming_service {
             self,
         ) -> (
             google_cloud_gax::streaming::RequestSender<crate::model::ReceiveEventsRequest>,
-            google_cloud_gax::streaming::ResponseReceiver<crate::model::ReceiveEventsResponse>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::ReceiveEventsResponse>,
         ) {
             (*self.0.stub).receive_events(self.0.options)
         }
@@ -14757,12 +14757,12 @@ pub mod warehouse {
     /// # use google_cloud_visionai_v1::model::IngestAssetRequest;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let (sender, mut receiver) = builder.build();
+    /// let (sender, mut resp_stream) = builder.build();
     ///
     /// sender.send(IngestAssetRequest::default()).await?;
     /// drop(sender); // Half-close the stream
     ///
-    /// while let Some(response) = receiver.recv().await {
+    /// while let Some(response) = resp_stream.next().await {
     ///     let response = response?;
     ///     println!("response {:?}", response);
     /// }
@@ -14794,7 +14794,7 @@ pub mod warehouse {
             self,
         ) -> (
             google_cloud_gax::streaming::RequestSender<crate::model::IngestAssetRequest>,
-            google_cloud_gax::streaming::ResponseReceiver<crate::model::IngestAssetResponse>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::IngestAssetResponse>,
         ) {
             (*self.0.stub).ingest_asset(self.0.options)
         }

@@ -204,7 +204,7 @@ pub mod read {
         /// Initiates the server stream.
         pub async fn send(
             self,
-        ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::ReadRowsResponse>>
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::ReadRowsResponse>>
         {
             (*self.0.stub)
                 .read_rows(self.0.request, self.0.options)

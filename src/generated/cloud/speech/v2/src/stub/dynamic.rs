@@ -64,7 +64,7 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingRecognizeRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingRecognizeResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingRecognizeResponse>,
     );
 
     async fn batch_recognize(
@@ -281,7 +281,7 @@ impl<T: super::Speech> Speech for T {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingRecognizeRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingRecognizeResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingRecognizeResponse>,
     ) {
         T::streaming_recognize(self, options)
     }

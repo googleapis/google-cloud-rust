@@ -380,7 +380,7 @@ pub mod routes {
         /// Initiates the server stream.
         pub async fn send(
             self,
-        ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::RouteMatrixElement>>
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::RouteMatrixElement>>
         {
             (*self.0.stub)
                 .compute_route_matrix(self.0.request, self.0.options)

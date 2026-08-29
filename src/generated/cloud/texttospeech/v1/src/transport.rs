@@ -152,7 +152,7 @@ impl super::stub::TextToSpeech for TextToSpeech {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingSynthesizeRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingSynthesizeResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingSynthesizeResponse>,
     ) {
         let x_goog_request_params = "";
 
@@ -169,7 +169,7 @@ impl super::stub::TextToSpeech for TextToSpeech {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming::<
+            .execute_bidi_streaming_tmp::<
                 crate::model::StreamingSynthesizeRequest,
                 crate::model::StreamingSynthesizeResponse,
                 crate::prost::google::cloud::texttospeech::v1::StreamingSynthesizeRequest,

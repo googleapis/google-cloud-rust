@@ -224,12 +224,12 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            google_cloud_gax::streaming::ResponseReceiver<
+            google_cloud_gax::streaming::ResponseStream<
                 crate::model::SearchLineageStreamingResponse,
             >,
         >,
     > + Send {
-        gaxi::unimplemented::unimplemented_server_streaming_stub()
+        gaxi::unimplemented::unimplemented_server_streaming_stub_tmp()
     }
 
     /// Implements [super::client::Lineage::list_operations].

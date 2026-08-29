@@ -1886,7 +1886,7 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::FeatureViewDirectWriteRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::FeatureViewDirectWriteResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::FeatureViewDirectWriteResponse>,
     );
 
     async fn generate_fetch_access_token(
@@ -1984,7 +1984,7 @@ impl<T: super::FeatureOnlineStoreService> FeatureOnlineStoreService for T {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::FeatureViewDirectWriteRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::FeatureViewDirectWriteResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::FeatureViewDirectWriteResponse>,
     ) {
         T::feature_view_direct_write(self, options)
     }
@@ -8158,7 +8158,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectPredictRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamDirectPredictResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamDirectPredictResponse>,
     );
 
     fn stream_direct_raw_predict(
@@ -8166,7 +8166,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectRawPredictRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamDirectRawPredictResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamDirectRawPredictResponse>,
     );
 
     fn streaming_predict(
@@ -8174,7 +8174,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingPredictRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingPredictResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPredictResponse>,
     );
 
     fn streaming_raw_predict(
@@ -8182,7 +8182,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingRawPredictRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingRawPredictResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingRawPredictResponse>,
     );
 
     async fn explain(
@@ -8310,7 +8310,7 @@ impl<T: super::PredictionService> PredictionService for T {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectPredictRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamDirectPredictResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamDirectPredictResponse>,
     ) {
         T::stream_direct_predict(self, options)
     }
@@ -8321,7 +8321,7 @@ impl<T: super::PredictionService> PredictionService for T {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectRawPredictRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamDirectRawPredictResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamDirectRawPredictResponse>,
     ) {
         T::stream_direct_raw_predict(self, options)
     }
@@ -8332,7 +8332,7 @@ impl<T: super::PredictionService> PredictionService for T {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingPredictRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingPredictResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPredictResponse>,
     ) {
         T::streaming_predict(self, options)
     }
@@ -8343,7 +8343,7 @@ impl<T: super::PredictionService> PredictionService for T {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingRawPredictRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingRawPredictResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingRawPredictResponse>,
     ) {
         T::streaming_raw_predict(self, options)
     }

@@ -3224,9 +3224,7 @@ pub trait Participants: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingAnalyzeContentRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<
-            crate::model::StreamingAnalyzeContentResponse,
-        >,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingAnalyzeContentResponse>,
     );
 
     async fn suggest_articles(
@@ -3339,9 +3337,7 @@ impl<T: super::Participants> Participants for T {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingAnalyzeContentRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<
-            crate::model::StreamingAnalyzeContentResponse,
-        >,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingAnalyzeContentResponse>,
     ) {
         T::streaming_analyze_content(self, options)
     }
@@ -3444,7 +3440,7 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingDetectIntentRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingDetectIntentResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingDetectIntentResponse>,
     );
 
     async fn list_locations(
@@ -3497,7 +3493,7 @@ impl<T: super::Sessions> Sessions for T {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingDetectIntentRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingDetectIntentResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingDetectIntentResponse>,
     ) {
         T::streaming_detect_intent(self, options)
     }

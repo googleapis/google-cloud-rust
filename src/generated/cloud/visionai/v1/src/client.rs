@@ -2174,13 +2174,13 @@ impl StreamingService {
     /// async fn sample(
     ///    client: &StreamingService
     /// ) -> anyhow::Result<()> {
-    ///     let (sender, mut receiver) = client.send_packets()
+    ///     let (sender, mut resp_stream) = client.send_packets()
     ///         .build();
     ///
     ///     sender.send(SendPacketsRequest::default()).await?;
     ///     drop(sender); // Half-close the stream
     ///
-    ///     while let Some(response) = receiver.recv().await {
+    ///     while let Some(response) = resp_stream.next().await {
     ///         let response = response?;
     ///         println!("response {:?}", response);
     ///     }
@@ -2200,13 +2200,13 @@ impl StreamingService {
     /// async fn sample(
     ///    client: &StreamingService
     /// ) -> anyhow::Result<()> {
-    ///     let (sender, mut receiver) = client.receive_packets()
+    ///     let (sender, mut resp_stream) = client.receive_packets()
     ///         .build();
     ///
     ///     sender.send(ReceivePacketsRequest::default()).await?;
     ///     drop(sender); // Half-close the stream
     ///
-    ///     while let Some(response) = receiver.recv().await {
+    ///     while let Some(response) = resp_stream.next().await {
     ///         let response = response?;
     ///         println!("response {:?}", response);
     ///     }
@@ -2226,13 +2226,13 @@ impl StreamingService {
     /// async fn sample(
     ///    client: &StreamingService
     /// ) -> anyhow::Result<()> {
-    ///     let (sender, mut receiver) = client.receive_events()
+    ///     let (sender, mut resp_stream) = client.receive_events()
     ///         .build();
     ///
     ///     sender.send(ReceiveEventsRequest::default()).await?;
     ///     drop(sender); // Half-close the stream
     ///
-    ///     while let Some(response) = receiver.recv().await {
+    ///     while let Some(response) = resp_stream.next().await {
     ///         let response = response?;
     ///         println!("response {:?}", response);
     ///     }
@@ -4307,13 +4307,13 @@ impl Warehouse {
     /// async fn sample(
     ///    client: &Warehouse
     /// ) -> anyhow::Result<()> {
-    ///     let (sender, mut receiver) = client.ingest_asset()
+    ///     let (sender, mut resp_stream) = client.ingest_asset()
     ///         .build();
     ///
     ///     sender.send(IngestAssetRequest::default()).await?;
     ///     drop(sender); // Half-close the stream
     ///
-    ///     while let Some(response) = receiver.recv().await {
+    ///     while let Some(response) = resp_stream.next().await {
     ///         let response = response?;
     ///         println!("response {:?}", response);
     ///     }

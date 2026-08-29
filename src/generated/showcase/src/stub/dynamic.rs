@@ -334,14 +334,14 @@ pub trait Echo: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ExpandRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>>;
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>>;
 
     fn chat(
         &self,
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>,
     );
 
     async fn paged_expand(
@@ -479,7 +479,7 @@ impl<T: super::Echo> Echo for T {
         &self,
         req: crate::model::ExpandRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>>
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>>
     {
         T::expand(self, req, options).await
     }
@@ -490,7 +490,7 @@ impl<T: super::Echo> Echo for T {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>,
     ) {
         T::chat(self, options)
     }
@@ -939,7 +939,7 @@ pub trait Messaging: std::fmt::Debug + Send + Sync {
         req: crate::model::StreamBlurbsRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>,
     >;
 
     fn connect(
@@ -947,7 +947,7 @@ pub trait Messaging: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>,
     );
 
     async fn list_locations(
@@ -1128,7 +1128,7 @@ impl<T: super::Messaging> Messaging for T {
         req: crate::model::StreamBlurbsRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>,
     > {
         T::stream_blurbs(self, req, options).await
     }
@@ -1139,7 +1139,7 @@ impl<T: super::Messaging> Messaging for T {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>,
     ) {
         T::connect(self, options)
     }
@@ -1287,9 +1287,7 @@ pub trait SequenceService: std::fmt::Debug + Send + Sync {
         req: crate::model::AttemptStreamingSequenceRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<
-        google_cloud_gax::streaming::ResponseReceiver<
-            crate::model::AttemptStreamingSequenceResponse,
-        >,
+        google_cloud_gax::streaming::ResponseStream<crate::model::AttemptStreamingSequenceResponse>,
     >;
 
     async fn list_locations(
@@ -1401,9 +1399,7 @@ impl<T: super::SequenceService> SequenceService for T {
         req: crate::model::AttemptStreamingSequenceRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<
-        google_cloud_gax::streaming::ResponseReceiver<
-            crate::model::AttemptStreamingSequenceResponse,
-        >,
+        google_cloud_gax::streaming::ResponseStream<crate::model::AttemptStreamingSequenceResponse>,
     > {
         T::attempt_streaming_sequence(self, req, options).await
     }

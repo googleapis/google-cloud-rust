@@ -18600,12 +18600,12 @@ pub mod participants {
     /// # use google_cloud_dialogflow_v2::model::StreamingAnalyzeContentRequest;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let (sender, mut receiver) = builder.build();
+    /// let (sender, mut resp_stream) = builder.build();
     ///
     /// sender.send(StreamingAnalyzeContentRequest::default()).await?;
     /// drop(sender); // Half-close the stream
     ///
-    /// while let Some(response) = receiver.recv().await {
+    /// while let Some(response) = resp_stream.next().await {
     ///     let response = response?;
     ///     println!("response {:?}", response);
     /// }
@@ -18639,7 +18639,7 @@ pub mod participants {
             google_cloud_gax::streaming::RequestSender<
                 crate::model::StreamingAnalyzeContentRequest,
             >,
-            google_cloud_gax::streaming::ResponseReceiver<
+            google_cloud_gax::streaming::ResponseStream<
                 crate::model::StreamingAnalyzeContentResponse,
             >,
         ) {
@@ -19668,12 +19668,12 @@ pub mod sessions {
     /// # use google_cloud_dialogflow_v2::model::StreamingDetectIntentRequest;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let (sender, mut receiver) = builder.build();
+    /// let (sender, mut resp_stream) = builder.build();
     ///
     /// sender.send(StreamingDetectIntentRequest::default()).await?;
     /// drop(sender); // Half-close the stream
     ///
-    /// while let Some(response) = receiver.recv().await {
+    /// while let Some(response) = resp_stream.next().await {
     ///     let response = response?;
     ///     println!("response {:?}", response);
     /// }
@@ -19703,7 +19703,7 @@ pub mod sessions {
             self,
         ) -> (
             google_cloud_gax::streaming::RequestSender<crate::model::StreamingDetectIntentRequest>,
-            google_cloud_gax::streaming::ResponseReceiver<
+            google_cloud_gax::streaming::ResponseStream<
                 crate::model::StreamingDetectIntentResponse,
             >,
         ) {

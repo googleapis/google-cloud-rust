@@ -92,7 +92,7 @@ pub async fn read_rows(project_id: &str, dataset_id: &str, table_id: &str) -> Re
         .await?;
 
     let mut total_rows = 0;
-    while let Some(response) = stream.recv().await {
+    while let Some(response) = stream.next().await {
         let response = response?;
         total_rows += response.row_count;
     }

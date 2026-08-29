@@ -59,7 +59,7 @@ where
         &self,
         req: crate::model::ReadRowsRequest,
         options: crate::RequestOptions,
-    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::ReadRowsResponse>> {
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::ReadRowsResponse>> {
         self.inner.read_rows(req, options).await
     }
 
