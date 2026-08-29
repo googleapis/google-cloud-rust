@@ -48,7 +48,7 @@ pub async fn run() -> Result<()> {
 async fn chat_send_before_recv(client: &Echo) -> Result<()> {
     const TOTAL_MESSAGES: usize = 50;
 
-    let (sender, mut receiver) = client.chat().build();
+    let (sender, mut resp_stream) = client.chat().build();
 
     for i in 0..TOTAL_MESSAGES {
         sender
@@ -59,7 +59,7 @@ async fn chat_send_before_recv(client: &Echo) -> Result<()> {
     drop(sender);
 
     let mut received = Vec::new();
-    while let Some(res) = receiver.recv().await {
+    while let Some(res) = resp_stream.next().await {
         received.push(res?.content);
     }
 
@@ -73,7 +73,7 @@ async fn chat_send_before_recv(client: &Echo) -> Result<()> {
 async fn chat_bidi_and_half_close(client: &Echo) -> Result<()> {
     const TOTAL_MESSAGES: usize = 10;
 
-    let (sender, mut receiver) = client.chat().build();
+    let (sender, mut resp_stream) = client.chat().build();
 
     let sender_handle = tokio::spawn(async move {
         for i in 0..TOTAL_MESSAGES {
@@ -86,7 +86,7 @@ async fn chat_bidi_and_half_close(client: &Echo) -> Result<()> {
     });
 
     let mut received = Vec::new();
-    while let Some(res) = receiver.recv().await {
+    while let Some(res) = resp_stream.next().await {
         received.push(res?.content);
     }
 
@@ -98,20 +98,20 @@ async fn chat_bidi_and_half_close(client: &Echo) -> Result<()> {
     assert_eq!(received, expected);
 
     // Further recv() calls on closed receiver must return None.
-    assert!(receiver.recv().await.is_none());
-    assert!(receiver.recv().await.is_none());
+    assert!(resp_stream.next().await.is_none());
+    assert!(resp_stream.next().await.is_none());
 
     Ok(())
 }
 
 async fn chat_server_error(client: &Echo) -> Result<()> {
-    let (sender, mut receiver) = client.chat().build();
+    let (sender, mut resp_stream) = client.chat().build();
 
     // 1. First message should succeed.
     sender
         .send(EchoRequest::new().set_content("before-error"))
         .await?;
-    let res = receiver.recv().await.expect("expected response")?;
+    let res = resp_stream.next().await.expect("expected response")?;
     assert_eq!(res.content, "before-error");
 
     // 2. Send request with injected error status.
@@ -123,8 +123,8 @@ async fn chat_server_error(client: &Echo) -> Result<()> {
     sender.send(error_request).await?;
 
     // 3. Server should return the error.
-    let res = receiver
-        .recv()
+    let res = resp_stream
+        .next()
         .await
         .expect("expected error item from receiver");
     let err = res.expect_err("response should be an error");
@@ -135,7 +135,7 @@ async fn chat_server_error(client: &Echo) -> Result<()> {
     assert_eq!(status.message.as_str(), "injected error for bidi test");
 
     // 4. Server stream should now be closed.
-    assert!(receiver.recv().await.is_none());
+    assert!(resp_stream.next().await.is_none());
 
     // 5. Sending on stream after server termination should fail.
     let err = sender
@@ -153,7 +153,7 @@ async fn chat_server_error(client: &Echo) -> Result<()> {
 async fn chat_options_and_headers(client: &Echo) -> Result<()> {
     let header_name = http::header::HeaderName::from_static("x-custom-test-header");
     let header_value = http::header::HeaderValue::from_static("custom-header-value");
-    let (sender, mut receiver) = client
+    let (sender, mut resp_stream) = client
         .chat()
         .with_request_stream_channel_capacity(8)
         .with_custom_header(header_name, header_value)
@@ -162,23 +162,23 @@ async fn chat_options_and_headers(client: &Echo) -> Result<()> {
     sender
         .send(EchoRequest::new().set_content("header-and-capacity-test"))
         .await?;
-    let res = receiver.recv().await.expect("expected response")?;
+    let res = resp_stream.next().await.expect("expected response")?;
     assert_eq!(res.content, "header-and-capacity-test");
     drop(sender);
-    assert!(receiver.recv().await.is_none());
+    assert!(resp_stream.next().await.is_none());
 
     Ok(())
 }
 
 async fn expand_happy_path(client: &Echo) -> Result<()> {
-    let mut receiver = client
+    let mut resp_stream = client
         .expand()
         .set_content("The quick brown fox jumps over the lazy dog")
         .send()
         .await?;
 
     let mut words = Vec::new();
-    while let Some(res) = receiver.recv().await {
+    while let Some(res) = resp_stream.next().await {
         words.push(res?.content);
     }
 
@@ -188,14 +188,14 @@ async fn expand_happy_path(client: &Echo) -> Result<()> {
     assert_eq!(words, expected);
 
     // Further recv() calls on closed receiver must return None.
-    assert!(receiver.recv().await.is_none());
-    assert!(receiver.recv().await.is_none());
+    assert!(resp_stream.next().await.is_none());
+    assert!(resp_stream.next().await.is_none());
 
     Ok(())
 }
 
 async fn expand_server_error(client: &Echo) -> Result<()> {
-    let mut receiver = client
+    let mut resp_stream = client
         .expand()
         .set_content("hello world")
         .set_error(
@@ -207,15 +207,15 @@ async fn expand_server_error(client: &Echo) -> Result<()> {
         .await?;
 
     // Words are streamed first.
-    let first = receiver.recv().await.expect("expected first word")?;
+    let first = resp_stream.next().await.expect("expected first word")?;
     assert_eq!(first.content, "hello");
 
-    let second = receiver.recv().await.expect("expected second word")?;
+    let second = resp_stream.next().await.expect("expected second word")?;
     assert_eq!(second.content, "world");
 
     // Server error is delivered after the words.
-    let res = receiver
-        .recv()
+    let res = resp_stream
+        .next()
         .await
         .expect("expected error item from receiver");
     let err = res.expect_err("response should be an error");
@@ -226,7 +226,7 @@ async fn expand_server_error(client: &Echo) -> Result<()> {
     assert_eq!(status.message.as_str(), "injected error for expand test");
 
     // Server stream should now be closed.
-    assert!(receiver.recv().await.is_none());
+    assert!(resp_stream.next().await.is_none());
 
     Ok(())
 }
@@ -234,43 +234,43 @@ async fn expand_server_error(client: &Echo) -> Result<()> {
 async fn expand_options_and_headers(client: &Echo) -> Result<()> {
     let header_name = http::header::HeaderName::from_static("x-custom-test-header");
     let header_value = http::header::HeaderValue::from_static("custom-header-value");
-    let mut receiver = client
+    let mut resp_stream = client
         .expand()
         .with_custom_header(header_name, header_value)
         .set_content("header test")
         .send()
         .await?;
 
-    let first = receiver.recv().await.expect("expected first word")?;
+    let first = resp_stream.next().await.expect("expected first word")?;
     assert_eq!(first.content, "header");
 
-    let second = receiver.recv().await.expect("expected second word")?;
+    let second = resp_stream.next().await.expect("expected second word")?;
     assert_eq!(second.content, "test");
 
-    assert!(receiver.recv().await.is_none());
+    assert!(resp_stream.next().await.is_none());
 
     Ok(())
 }
 
 async fn chat_zero_message_stream(client: &Echo) -> Result<()> {
-    let (sender, mut receiver) = client.chat().build();
+    let (sender, mut resp_stream) = client.chat().build();
     drop(sender);
 
-    assert!(receiver.recv().await.is_none());
+    assert!(resp_stream.next().await.is_none());
 
     Ok(())
 }
 
 async fn chat_early_receiver_drop(client: &Echo) -> Result<()> {
-    let (sender, mut receiver) = client.chat().build();
+    let (sender, mut resp_stream) = client.chat().build();
 
     sender
         .send(EchoRequest::new().set_content("first-message"))
         .await?;
-    let res = receiver.recv().await.expect("expected response")?;
+    let res = resp_stream.next().await.expect("expected response")?;
     assert_eq!(res.content, "first-message");
 
-    drop(receiver);
+    drop(resp_stream);
 
     // Dropping the receiver closes the stream; subsequent sends may succeed into the
     // internal buffer or return an error if the background task has shut down.
@@ -283,32 +283,32 @@ async fn chat_early_receiver_drop(client: &Echo) -> Result<()> {
 }
 
 async fn expand_empty_content(client: &Echo) -> Result<()> {
-    let mut receiver = client.expand().set_content("").send().await?;
+    let mut resp_stream = client.expand().set_content("").send().await?;
 
-    assert!(receiver.recv().await.is_none());
+    assert!(resp_stream.next().await.is_none());
 
     Ok(())
 }
 
 async fn expand_early_receiver_drop(client: &Echo) -> Result<()> {
-    let mut receiver = client
+    let mut resp_stream = client
         .expand()
         .set_content("The quick brown fox jumps over the lazy dog")
         .send()
         .await?;
 
-    let first = receiver.recv().await.expect("expected first word")?;
+    let first = resp_stream.next().await.expect("expected first word")?;
     assert_eq!(first.content, "The");
 
     // Dropping receiver cancels the stream gracefully.
-    drop(receiver);
+    drop(resp_stream);
 
     Ok(())
 }
 
 async fn expand_stream_wait_time(client: &Echo) -> Result<()> {
     let start = std::time::Instant::now();
-    let mut receiver = client
+    let mut resp_stream = client
         .expand()
         .set_content("one two three")
         .set_stream_wait_time(wkt::Duration::clamp(0, 50_000_000))
@@ -316,7 +316,7 @@ async fn expand_stream_wait_time(client: &Echo) -> Result<()> {
         .await?;
 
     let mut words = Vec::new();
-    while let Some(res) = receiver.recv().await {
+    while let Some(res) = resp_stream.next().await {
         words.push(res?.content);
     }
 

@@ -315,7 +315,7 @@ mod tests {
             o
         };
 
-        let (sender, mut receiver) = client
+        let (sender, mut resp_stream) = client
             .execute_bidi_streaming::<DomainEchoRequest, DomainEchoResponse, EchoRequest, EchoResponse>(
                 extensions,
                 http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
@@ -330,7 +330,7 @@ mod tests {
             })
             .await?;
 
-        let r = receiver.recv().await;
+        let r = resp_stream.next().await;
         assert_eq!(
             r.transpose()?,
             Some(DomainEchoResponse {
@@ -343,7 +343,7 @@ mod tests {
                 message: "msg1".to_string(),
             })
             .await?;
-        let r = receiver.recv().await;
+        let r = resp_stream.next().await;
         assert_eq!(
             r.transpose()?,
             Some(DomainEchoResponse {
@@ -352,7 +352,7 @@ mod tests {
         );
 
         drop(sender);
-        let r = receiver.recv().await;
+        let r = resp_stream.next().await;
         assert!(r.is_none());
 
         Ok(())

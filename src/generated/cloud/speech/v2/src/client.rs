@@ -349,13 +349,13 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> anyhow::Result<()> {
-    ///     let (sender, mut receiver) = client.streaming_recognize()
+    ///     let (sender, mut resp_stream) = client.streaming_recognize()
     ///         .build();
     ///
     ///     sender.send(StreamingRecognizeRequest::default()).await?;
     ///     drop(sender); // Half-close the stream
     ///
-    ///     while let Some(response) = receiver.recv().await {
+    ///     while let Some(response) = resp_stream.next().await {
     ///         let response = response?;
     ///         println!("response {:?}", response);
     ///     }

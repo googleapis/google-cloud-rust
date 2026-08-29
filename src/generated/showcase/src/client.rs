@@ -747,13 +747,13 @@ impl Echo {
     /// async fn sample(
     ///    client: &Echo
     /// ) -> anyhow::Result<()> {
-    ///     let (sender, mut receiver) = client.chat()
+    ///     let (sender, mut resp_stream) = client.chat()
     ///         .build();
     ///
     ///     sender.send(EchoRequest::default()).await?;
     ///     drop(sender); // Half-close the stream
     ///
-    ///     while let Some(response) = receiver.recv().await {
+    ///     while let Some(response) = resp_stream.next().await {
     ///         let response = response?;
     ///         println!("response {:?}", response);
     ///     }
@@ -1900,13 +1900,13 @@ impl Messaging {
     /// async fn sample(
     ///    client: &Messaging
     /// ) -> anyhow::Result<()> {
-    ///     let (sender, mut receiver) = client.connect()
+    ///     let (sender, mut resp_stream) = client.connect()
     ///         .build();
     ///
     ///     sender.send(ConnectRequest::default()).await?;
     ///     drop(sender); // Half-close the stream
     ///
-    ///     while let Some(response) = receiver.recv().await {
+    ///     while let Some(response) = resp_stream.next().await {
     ///         let response = response?;
     ///         println!("response {:?}", response);
     ///     }

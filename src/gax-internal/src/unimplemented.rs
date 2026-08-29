@@ -14,7 +14,7 @@
 
 use google_cloud_gax::Result;
 use google_cloud_gax::response::Response;
-use google_cloud_gax::streaming::{RequestSender, ResponseReceiver, ResponseStream};
+use google_cloud_gax::streaming::{RequestSender, ResponseStream};
 
 pub const UNIMPLEMENTED: &str = concat!(
     "to prevent breaking changes as services gain new RPCs, the stub ",
@@ -32,20 +32,20 @@ pub async fn unimplemented_stub<T: Send>() -> Result<Response<T>> {
     unimplemented!("{UNIMPLEMENTED}");
 }
 
-pub fn unimplemented_bidi_stub<I, O>() -> (RequestSender<I>, ResponseReceiver<O>) {
+pub fn unimplemented_bidi_stub<I, O>() -> (RequestSender<I>, ResponseStream<O>) {
     unimplemented!("{UNIMPLEMENTED}");
 }
 
-pub async fn unimplemented_server_streaming_stub<O: Send>() -> Result<ResponseReceiver<O>> {
+pub async fn unimplemented_server_streaming_stub<O: Send>() -> Result<ResponseStream<O>> {
     unimplemented!("{UNIMPLEMENTED}");
 }
 
 pub fn unimplemented_bidi_stub_tmp<I, O>() -> (RequestSender<I>, ResponseStream<O>) {
-    unimplemented!("{UNIMPLEMENTED}");
+    unimplemented_bidi_stub()
 }
 
 pub async fn unimplemented_server_streaming_stub_tmp<O: Send>() -> Result<ResponseStream<O>> {
-    unimplemented!("{UNIMPLEMENTED}");
+    unimplemented_server_streaming_stub().await
 }
 
 #[cfg(test)]

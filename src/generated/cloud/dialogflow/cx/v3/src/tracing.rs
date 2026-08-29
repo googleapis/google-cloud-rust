@@ -3272,7 +3272,7 @@ where
         &self,
         req: crate::model::DetectIntentRequest,
         options: crate::RequestOptions,
-    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::DetectIntentResponse>>
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::DetectIntentResponse>>
     {
         self.inner
             .server_streaming_detect_intent(req, options)
@@ -3284,7 +3284,7 @@ where
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingDetectIntentRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingDetectIntentResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingDetectIntentResponse>,
     ) {
         self.inner.streaming_detect_intent(options)
     }

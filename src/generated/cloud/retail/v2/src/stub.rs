@@ -462,12 +462,10 @@ pub trait ConversationalSearchService: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            google_cloud_gax::streaming::ResponseReceiver<
-                crate::model::ConversationalSearchResponse,
-            >,
+            google_cloud_gax::streaming::ResponseStream<crate::model::ConversationalSearchResponse>,
         >,
     > + Send {
-        gaxi::unimplemented::unimplemented_server_streaming_stub()
+        gaxi::unimplemented::unimplemented_server_streaming_stub_tmp()
     }
 
     /// Implements [super::client::ConversationalSearchService::list_operations].

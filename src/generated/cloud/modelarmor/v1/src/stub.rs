@@ -138,9 +138,9 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::SanitizeUserPromptRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::SanitizeUserPromptResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SanitizeUserPromptResponse>,
     ) {
-        gaxi::unimplemented::unimplemented_bidi_stub()
+        gaxi::unimplemented::unimplemented_bidi_stub_tmp()
     }
 
     /// Implements [super::client::ModelArmor::stream_sanitize_model_response].
@@ -149,9 +149,9 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::SanitizeModelResponseRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::SanitizeModelResponseResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SanitizeModelResponseResponse>,
     ) {
-        gaxi::unimplemented::unimplemented_bidi_stub()
+        gaxi::unimplemented::unimplemented_bidi_stub_tmp()
     }
 
     /// Implements [super::client::ModelArmor::list_locations].

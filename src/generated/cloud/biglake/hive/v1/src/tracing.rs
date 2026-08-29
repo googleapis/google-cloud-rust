@@ -297,7 +297,7 @@ where
         &self,
         req: crate::model::ListPartitionsRequest,
         options: crate::RequestOptions,
-    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::ListPartitionsResponse>>
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::ListPartitionsResponse>>
     {
         self.inner.list_partitions(req, options).await
     }

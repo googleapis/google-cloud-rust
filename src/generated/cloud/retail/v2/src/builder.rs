@@ -2853,9 +2853,7 @@ pub mod conversational_search_service {
         pub async fn send(
             self,
         ) -> Result<
-            google_cloud_gax::streaming::ResponseReceiver<
-                crate::model::ConversationalSearchResponse,
-            >,
+            google_cloud_gax::streaming::ResponseStream<crate::model::ConversationalSearchResponse>,
         > {
             (*self.0.stub)
                 .conversational_search(self.0.request, self.0.options)

@@ -12002,12 +12002,12 @@ pub mod feature_online_store_service {
     /// # use google_cloud_aiplatform_v1::model::FeatureViewDirectWriteRequest;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let (sender, mut receiver) = builder.build();
+    /// let (sender, mut resp_stream) = builder.build();
     ///
     /// sender.send(FeatureViewDirectWriteRequest::default()).await?;
     /// drop(sender); // Half-close the stream
     ///
-    /// while let Some(response) = receiver.recv().await {
+    /// while let Some(response) = resp_stream.next().await {
     ///     let response = response?;
     ///     println!("response {:?}", response);
     /// }
@@ -12039,7 +12039,7 @@ pub mod feature_online_store_service {
             self,
         ) -> (
             google_cloud_gax::streaming::RequestSender<crate::model::FeatureViewDirectWriteRequest>,
-            google_cloud_gax::streaming::ResponseReceiver<
+            google_cloud_gax::streaming::ResponseStream<
                 crate::model::FeatureViewDirectWriteResponse,
             >,
         ) {
@@ -49276,12 +49276,12 @@ pub mod prediction_service {
     /// # use google_cloud_aiplatform_v1::model::StreamDirectPredictRequest;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let (sender, mut receiver) = builder.build();
+    /// let (sender, mut resp_stream) = builder.build();
     ///
     /// sender.send(StreamDirectPredictRequest::default()).await?;
     /// drop(sender); // Half-close the stream
     ///
-    /// while let Some(response) = receiver.recv().await {
+    /// while let Some(response) = resp_stream.next().await {
     ///     let response = response?;
     ///     println!("response {:?}", response);
     /// }
@@ -49313,9 +49313,7 @@ pub mod prediction_service {
             self,
         ) -> (
             google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectPredictRequest>,
-            google_cloud_gax::streaming::ResponseReceiver<
-                crate::model::StreamDirectPredictResponse,
-            >,
+            google_cloud_gax::streaming::ResponseStream<crate::model::StreamDirectPredictResponse>,
         ) {
             (*self.0.stub).stream_direct_predict(self.0.options)
         }
@@ -49336,12 +49334,12 @@ pub mod prediction_service {
     /// # use google_cloud_aiplatform_v1::model::StreamDirectRawPredictRequest;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let (sender, mut receiver) = builder.build();
+    /// let (sender, mut resp_stream) = builder.build();
     ///
     /// sender.send(StreamDirectRawPredictRequest::default()).await?;
     /// drop(sender); // Half-close the stream
     ///
-    /// while let Some(response) = receiver.recv().await {
+    /// while let Some(response) = resp_stream.next().await {
     ///     let response = response?;
     ///     println!("response {:?}", response);
     /// }
@@ -49373,7 +49371,7 @@ pub mod prediction_service {
             self,
         ) -> (
             google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectRawPredictRequest>,
-            google_cloud_gax::streaming::ResponseReceiver<
+            google_cloud_gax::streaming::ResponseStream<
                 crate::model::StreamDirectRawPredictResponse,
             >,
         ) {
@@ -49396,12 +49394,12 @@ pub mod prediction_service {
     /// # use google_cloud_aiplatform_v1::model::StreamingPredictRequest;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let (sender, mut receiver) = builder.build();
+    /// let (sender, mut resp_stream) = builder.build();
     ///
     /// sender.send(StreamingPredictRequest::default()).await?;
     /// drop(sender); // Half-close the stream
     ///
-    /// while let Some(response) = receiver.recv().await {
+    /// while let Some(response) = resp_stream.next().await {
     ///     let response = response?;
     ///     println!("response {:?}", response);
     /// }
@@ -49433,7 +49431,7 @@ pub mod prediction_service {
             self,
         ) -> (
             google_cloud_gax::streaming::RequestSender<crate::model::StreamingPredictRequest>,
-            google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingPredictResponse>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPredictResponse>,
         ) {
             (*self.0.stub).streaming_predict(self.0.options)
         }
@@ -49454,12 +49452,12 @@ pub mod prediction_service {
     /// # use google_cloud_aiplatform_v1::model::StreamingRawPredictRequest;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let (sender, mut receiver) = builder.build();
+    /// let (sender, mut resp_stream) = builder.build();
     ///
     /// sender.send(StreamingRawPredictRequest::default()).await?;
     /// drop(sender); // Half-close the stream
     ///
-    /// while let Some(response) = receiver.recv().await {
+    /// while let Some(response) = resp_stream.next().await {
     ///     let response = response?;
     ///     println!("response {:?}", response);
     /// }
@@ -49491,9 +49489,7 @@ pub mod prediction_service {
             self,
         ) -> (
             google_cloud_gax::streaming::RequestSender<crate::model::StreamingRawPredictRequest>,
-            google_cloud_gax::streaming::ResponseReceiver<
-                crate::model::StreamingRawPredictResponse,
-            >,
+            google_cloud_gax::streaming::ResponseStream<crate::model::StreamingRawPredictResponse>,
         ) {
             (*self.0.stub).streaming_raw_predict(self.0.options)
         }

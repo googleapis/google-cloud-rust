@@ -113,7 +113,7 @@ pub mod assistant_service {
         /// Initiates the server stream.
         pub async fn send(
             self,
-        ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamAssistResponse>>
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::StreamAssistResponse>>
         {
             (*self.0.stub)
                 .stream_assist(self.0.request, self.0.options)
@@ -3864,7 +3864,7 @@ pub mod conversational_search_service {
         /// Initiates the server stream.
         pub async fn send(
             self,
-        ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::AnswerQueryResponse>>
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::AnswerQueryResponse>>
         {
             (*self.0.stub)
                 .stream_answer_query(self.0.request, self.0.options)
@@ -7955,12 +7955,12 @@ pub mod grounded_generation_service {
     /// # use google_cloud_discoveryengine_v1::model::GenerateGroundedContentRequest;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let (sender, mut receiver) = builder.build();
+    /// let (sender, mut resp_stream) = builder.build();
     ///
     /// sender.send(GenerateGroundedContentRequest::default()).await?;
     /// drop(sender); // Half-close the stream
     ///
-    /// while let Some(response) = receiver.recv().await {
+    /// while let Some(response) = resp_stream.next().await {
     ///     let response = response?;
     ///     println!("response {:?}", response);
     /// }
@@ -7994,7 +7994,7 @@ pub mod grounded_generation_service {
             google_cloud_gax::streaming::RequestSender<
                 crate::model::GenerateGroundedContentRequest,
             >,
-            google_cloud_gax::streaming::ResponseReceiver<
+            google_cloud_gax::streaming::ResponseStream<
                 crate::model::GenerateGroundedContentResponse,
             >,
         ) {

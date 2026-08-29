@@ -59,8 +59,7 @@ where
         &self,
         req: crate::model::ComputeRouteMatrixRequest,
         options: crate::RequestOptions,
-    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::RouteMatrixElement>>
-    {
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::RouteMatrixElement>> {
         self.inner.compute_route_matrix(req, options).await
     }
 

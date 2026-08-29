@@ -1811,7 +1811,7 @@ pub mod lineage {
         pub async fn send(
             self,
         ) -> Result<
-            google_cloud_gax::streaming::ResponseReceiver<
+            google_cloud_gax::streaming::ResponseStream<
                 crate::model::SearchLineageStreamingResponse,
             >,
         > {

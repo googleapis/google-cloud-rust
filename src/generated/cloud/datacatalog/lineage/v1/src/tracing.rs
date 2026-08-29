@@ -284,7 +284,7 @@ where
         req: crate::model::SearchLineageStreamingRequest,
         options: crate::RequestOptions,
     ) -> Result<
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::SearchLineageStreamingResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SearchLineageStreamingResponse>,
     > {
         self.inner.search_lineage_streaming(req, options).await
     }

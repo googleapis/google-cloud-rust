@@ -71,7 +71,7 @@ where
         &self,
         req: crate::model::StreamAssistRequest,
         options: crate::RequestOptions,
-    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamAssistResponse>>
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::StreamAssistResponse>>
     {
         self.inner.stream_assist(req, options).await
     }
@@ -872,7 +872,7 @@ where
         &self,
         req: crate::model::AnswerQueryRequest,
         options: crate::RequestOptions,
-    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::AnswerQueryResponse>>
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::AnswerQueryResponse>>
     {
         self.inner.stream_answer_query(req, options).await
     }
@@ -1741,9 +1741,7 @@ where
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::GenerateGroundedContentRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<
-            crate::model::GenerateGroundedContentResponse,
-        >,
+        google_cloud_gax::streaming::ResponseStream<crate::model::GenerateGroundedContentResponse>,
     ) {
         self.inner.stream_generate_grounded_content(options)
     }

@@ -130,7 +130,7 @@ impl super::stub::Read for Read {
         &self,
         req: crate::model::ReadRowsRequest,
         options: crate::RequestOptions,
-    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::ReadRowsResponse>> {
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::ReadRowsResponse>> {
         let extensions = {
             let mut e = gaxi::grpc::tonic::Extensions::new();
             e.insert(gaxi::grpc::tonic::GrpcMethod::new(
@@ -151,7 +151,7 @@ impl super::stub::Read for Read {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         self.inner
-            .execute_server_streaming::<
+            .execute_server_streaming_tmp::<
                 crate::model::ReadRowsRequest,
                 crate::model::ReadRowsResponse,
                 crate::google::cloud::bigquery::storage::v1::ReadRowsRequest,

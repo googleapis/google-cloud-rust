@@ -2911,13 +2911,13 @@ impl GroundedGenerationService {
     /// async fn sample(
     ///    client: &GroundedGenerationService
     /// ) -> anyhow::Result<()> {
-    ///     let (sender, mut receiver) = client.stream_generate_grounded_content()
+    ///     let (sender, mut resp_stream) = client.stream_generate_grounded_content()
     ///         .build();
     ///
     ///     sender.send(GenerateGroundedContentRequest::default()).await?;
     ///     drop(sender); // Half-close the stream
     ///
-    ///     while let Some(response) = receiver.recv().await {
+    ///     while let Some(response) = resp_stream.next().await {
     ///         let response = response?;
     ///         println!("response {:?}", response);
     ///     }

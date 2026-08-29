@@ -532,12 +532,12 @@ pub mod direct_access_service {
     /// # use google_cloud_devicestreaming_v1::model::AdbMessage;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let (sender, mut receiver) = builder.build();
+    /// let (sender, mut resp_stream) = builder.build();
     ///
     /// sender.send(AdbMessage::default()).await?;
     /// drop(sender); // Half-close the stream
     ///
-    /// while let Some(response) = receiver.recv().await {
+    /// while let Some(response) = resp_stream.next().await {
     ///     let response = response?;
     ///     println!("response {:?}", response);
     /// }
@@ -569,7 +569,7 @@ pub mod direct_access_service {
             self,
         ) -> (
             google_cloud_gax::streaming::RequestSender<crate::model::AdbMessage>,
-            google_cloud_gax::streaming::ResponseReceiver<crate::model::DeviceMessage>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::DeviceMessage>,
         ) {
             (*self.0.stub).adb_connect(self.0.options)
         }

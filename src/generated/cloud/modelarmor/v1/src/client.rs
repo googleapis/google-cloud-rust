@@ -336,13 +336,13 @@ impl ModelArmor {
     /// async fn sample(
     ///    client: &ModelArmor
     /// ) -> anyhow::Result<()> {
-    ///     let (sender, mut receiver) = client.stream_sanitize_user_prompt()
+    ///     let (sender, mut resp_stream) = client.stream_sanitize_user_prompt()
     ///         .build();
     ///
     ///     sender.send(SanitizeUserPromptRequest::default()).await?;
     ///     drop(sender); // Half-close the stream
     ///
-    ///     while let Some(response) = receiver.recv().await {
+    ///     while let Some(response) = resp_stream.next().await {
     ///         let response = response?;
     ///         println!("response {:?}", response);
     ///     }
@@ -364,13 +364,13 @@ impl ModelArmor {
     /// async fn sample(
     ///    client: &ModelArmor
     /// ) -> anyhow::Result<()> {
-    ///     let (sender, mut receiver) = client.stream_sanitize_model_response()
+    ///     let (sender, mut resp_stream) = client.stream_sanitize_model_response()
     ///         .build();
     ///
     ///     sender.send(SanitizeModelResponseRequest::default()).await?;
     ///     drop(sender); // Half-close the stream
     ///
-    ///     while let Some(response) = receiver.recv().await {
+    ///     while let Some(response) = resp_stream.next().await {
     ///         let response = response?;
     ///         println!("response {:?}", response);
     ///     }

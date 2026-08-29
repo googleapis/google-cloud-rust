@@ -962,12 +962,12 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::model::SanitizeUserPromptRequest;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let (sender, mut receiver) = builder.build();
+    /// let (sender, mut resp_stream) = builder.build();
     ///
     /// sender.send(SanitizeUserPromptRequest::default()).await?;
     /// drop(sender); // Half-close the stream
     ///
-    /// while let Some(response) = receiver.recv().await {
+    /// while let Some(response) = resp_stream.next().await {
     ///     let response = response?;
     ///     println!("response {:?}", response);
     /// }
@@ -999,7 +999,7 @@ pub mod model_armor {
             self,
         ) -> (
             google_cloud_gax::streaming::RequestSender<crate::model::SanitizeUserPromptRequest>,
-            google_cloud_gax::streaming::ResponseReceiver<crate::model::SanitizeUserPromptResponse>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::SanitizeUserPromptResponse>,
         ) {
             (*self.0.stub).stream_sanitize_user_prompt(self.0.options)
         }
@@ -1020,12 +1020,12 @@ pub mod model_armor {
     /// # use google_cloud_modelarmor_v1::model::SanitizeModelResponseRequest;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let (sender, mut receiver) = builder.build();
+    /// let (sender, mut resp_stream) = builder.build();
     ///
     /// sender.send(SanitizeModelResponseRequest::default()).await?;
     /// drop(sender); // Half-close the stream
     ///
-    /// while let Some(response) = receiver.recv().await {
+    /// while let Some(response) = resp_stream.next().await {
     ///     let response = response?;
     ///     println!("response {:?}", response);
     /// }
@@ -1057,7 +1057,7 @@ pub mod model_armor {
             self,
         ) -> (
             google_cloud_gax::streaming::RequestSender<crate::model::SanitizeModelResponseRequest>,
-            google_cloud_gax::streaming::ResponseReceiver<
+            google_cloud_gax::streaming::ResponseStream<
                 crate::model::SanitizeModelResponseResponse,
             >,
         ) {

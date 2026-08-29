@@ -1861,7 +1861,7 @@ pub mod data_chat_service {
         /// Initiates the server stream.
         pub async fn send(
             self,
-        ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::Message>> {
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::Message>> {
             (*self.0.stub).chat(self.0.request, self.0.options).await
         }
 

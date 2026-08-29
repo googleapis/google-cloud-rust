@@ -273,11 +273,9 @@ pub trait DataChatService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ChatRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<
-            google_cloud_gax::streaming::ResponseReceiver<crate::model::Message>,
-        >,
+        Output = crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::Message>>,
     > + Send {
-        gaxi::unimplemented::unimplemented_server_streaming_stub()
+        gaxi::unimplemented::unimplemented_server_streaming_stub_tmp()
     }
 
     /// Implements [super::client::DataChatService::create_conversation].

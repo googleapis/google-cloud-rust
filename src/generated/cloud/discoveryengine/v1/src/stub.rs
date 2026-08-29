@@ -47,10 +47,10 @@ pub trait AssistantService: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamAssistResponse>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::StreamAssistResponse>,
         >,
     > + Send {
-        gaxi::unimplemented::unimplemented_server_streaming_stub()
+        gaxi::unimplemented::unimplemented_server_streaming_stub_tmp()
     }
 
     /// Implements [super::client::AssistantService::list_operations].
@@ -543,10 +543,10 @@ pub trait ConversationalSearchService: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            google_cloud_gax::streaming::ResponseReceiver<crate::model::AnswerQueryResponse>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::AnswerQueryResponse>,
         >,
     > + Send {
-        gaxi::unimplemented::unimplemented_server_streaming_stub()
+        gaxi::unimplemented::unimplemented_server_streaming_stub_tmp()
     }
 
     /// Implements [super::client::ConversationalSearchService::get_answer].
@@ -1098,11 +1098,9 @@ pub trait GroundedGenerationService: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::GenerateGroundedContentRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<
-            crate::model::GenerateGroundedContentResponse,
-        >,
+        google_cloud_gax::streaming::ResponseStream<crate::model::GenerateGroundedContentResponse>,
     ) {
-        gaxi::unimplemented::unimplemented_bidi_stub()
+        gaxi::unimplemented::unimplemented_bidi_stub_tmp()
     }
 
     /// Implements [super::client::GroundedGenerationService::generate_grounded_content].

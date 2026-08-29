@@ -421,7 +421,7 @@ impl super::stub::DirectAccessService for DirectAccessService {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::AdbMessage>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::DeviceMessage>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::DeviceMessage>,
     ) {
         let x_goog_request_params = "";
 
@@ -438,7 +438,7 @@ impl super::stub::DirectAccessService for DirectAccessService {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming::<
+            .execute_bidi_streaming_tmp::<
                 crate::model::AdbMessage,
                 crate::model::DeviceMessage,
                 crate::prost::google::cloud::devicestreaming::v1::AdbMessage,

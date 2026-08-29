@@ -276,13 +276,13 @@ impl DirectAccessService {
     /// async fn sample(
     ///    client: &DirectAccessService
     /// ) -> anyhow::Result<()> {
-    ///     let (sender, mut receiver) = client.adb_connect()
+    ///     let (sender, mut resp_stream) = client.adb_connect()
     ///         .build();
     ///
     ///     sender.send(AdbMessage::default()).await?;
     ///     drop(sender); // Half-close the stream
     ///
-    ///     while let Some(response) = receiver.recv().await {
+    ///     while let Some(response) = resp_stream.next().await {
     ///         let response = response?;
     ///         println!("response {:?}", response);
     ///     }

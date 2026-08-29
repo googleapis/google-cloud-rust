@@ -2747,7 +2747,7 @@ pub mod echo {
         /// Initiates the server stream.
         pub async fn send(
             self,
-        ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>>
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>>
         {
             (*self.0.stub).expand(self.0.request, self.0.options).await
         }
@@ -2810,12 +2810,12 @@ pub mod echo {
     /// # use google_cloud_showcase_v1beta1::model::EchoRequest;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let (sender, mut receiver) = builder.build();
+    /// let (sender, mut resp_stream) = builder.build();
     ///
     /// sender.send(EchoRequest::default()).await?;
     /// drop(sender); // Half-close the stream
     ///
-    /// while let Some(response) = receiver.recv().await {
+    /// while let Some(response) = resp_stream.next().await {
     ///     let response = response?;
     ///     println!("response {:?}", response);
     /// }
@@ -2845,7 +2845,7 @@ pub mod echo {
             self,
         ) -> (
             google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
-            google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>,
         ) {
             (*self.0.stub).chat(self.0.options)
         }
@@ -6400,7 +6400,7 @@ pub mod messaging {
         /// Initiates the server stream.
         pub async fn send(
             self,
-        ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>>
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>>
         {
             (*self.0.stub)
                 .stream_blurbs(self.0.request, self.0.options)
@@ -6453,12 +6453,12 @@ pub mod messaging {
     /// # use google_cloud_showcase_v1beta1::model::ConnectRequest;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let (sender, mut receiver) = builder.build();
+    /// let (sender, mut resp_stream) = builder.build();
     ///
     /// sender.send(ConnectRequest::default()).await?;
     /// drop(sender); // Half-close the stream
     ///
-    /// while let Some(response) = receiver.recv().await {
+    /// while let Some(response) = resp_stream.next().await {
     ///     let response = response?;
     ///     println!("response {:?}", response);
     /// }
@@ -6490,7 +6490,7 @@ pub mod messaging {
             self,
         ) -> (
             google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
-            google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>,
         ) {
             (*self.0.stub).connect(self.0.options)
         }
@@ -7708,7 +7708,7 @@ pub mod sequence_service {
         pub async fn send(
             self,
         ) -> Result<
-            google_cloud_gax::streaming::ResponseReceiver<
+            google_cloud_gax::streaming::ResponseStream<
                 crate::model::AttemptStreamingSequenceResponse,
             >,
         > {

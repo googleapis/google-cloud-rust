@@ -144,7 +144,7 @@ where
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingRecognizeRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingRecognizeResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingRecognizeResponse>,
     ) {
         self.inner.streaming_recognize(options)
     }

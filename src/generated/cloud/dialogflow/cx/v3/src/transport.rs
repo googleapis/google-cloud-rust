@@ -13244,7 +13244,7 @@ impl super::stub::Sessions for Sessions {
         &self,
         req: crate::model::DetectIntentRequest,
         options: crate::RequestOptions,
-    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::DetectIntentResponse>>
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::DetectIntentResponse>>
     {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.session)
@@ -13267,7 +13267,7 @@ impl super::stub::Sessions for Sessions {
         );
 
         self.grpc_inner
-            .execute_server_streaming::<
+            .execute_server_streaming_tmp::<
                 crate::model::DetectIntentRequest,
                 crate::model::DetectIntentResponse,
                 crate::prost::google::cloud::dialogflow::cx::v3::DetectIntentRequest,
@@ -13288,7 +13288,7 @@ impl super::stub::Sessions for Sessions {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingDetectIntentRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingDetectIntentResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingDetectIntentResponse>,
     ) {
         let x_goog_request_params = "";
 
@@ -13305,7 +13305,7 @@ impl super::stub::Sessions for Sessions {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming::<
+            .execute_bidi_streaming_tmp::<
                 crate::model::StreamingDetectIntentRequest,
                 crate::model::StreamingDetectIntentResponse,
                 crate::prost::google::cloud::dialogflow::cx::v3::StreamingDetectIntentRequest,

@@ -194,7 +194,7 @@ async fn test_pqc_grpc() -> Result<()> {
         .await?;
 
     const TOTAL_MESSAGES: usize = 5;
-    let (sender, mut receiver) = client.chat().build();
+    let (sender, mut resp_stream) = client.chat().build();
 
     for i in 0..TOTAL_MESSAGES {
         sender
@@ -204,7 +204,7 @@ async fn test_pqc_grpc() -> Result<()> {
     drop(sender);
 
     let mut received = Vec::new();
-    while let Some(res) = receiver.recv().await {
+    while let Some(res) = resp_stream.next().await {
         received.push(res?.content);
     }
 

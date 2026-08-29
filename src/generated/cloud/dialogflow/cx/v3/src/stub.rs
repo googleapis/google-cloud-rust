@@ -2099,10 +2099,10 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            google_cloud_gax::streaming::ResponseReceiver<crate::model::DetectIntentResponse>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::DetectIntentResponse>,
         >,
     > + Send {
-        gaxi::unimplemented::unimplemented_server_streaming_stub()
+        gaxi::unimplemented::unimplemented_server_streaming_stub_tmp()
     }
 
     /// Implements [super::client::Sessions::streaming_detect_intent].
@@ -2111,9 +2111,9 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingDetectIntentRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingDetectIntentResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingDetectIntentResponse>,
     ) {
-        gaxi::unimplemented::unimplemented_bidi_stub()
+        gaxi::unimplemented::unimplemented_bidi_stub_tmp()
     }
 
     /// Implements [super::client::Sessions::match_intent].

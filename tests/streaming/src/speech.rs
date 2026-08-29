@@ -33,7 +33,7 @@ pub async fn streaming_recognize() -> Result<()> {
 
     let streaming_config = StreamingRecognitionConfig::new().set_config(recognition_config);
 
-    let (sender, mut receiver) = client.streaming_recognize().build();
+    let (sender, mut resp_stream) = client.streaming_recognize().build();
 
     let config_req = StreamingRecognizeRequest::new()
         .set_recognizer(&recognizer)
@@ -60,7 +60,7 @@ pub async fn streaming_recognize() -> Result<()> {
     drop(sender);
 
     let mut transcripts = Vec::new();
-    while let Some(res) = receiver.recv().await {
+    while let Some(res) = resp_stream.next().await {
         let response = res?;
         tracing::info!("Received response: {response:?}");
         for result in response.results {

@@ -923,7 +923,7 @@ impl super::stub::ModelArmor for ModelArmor {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::SanitizeUserPromptRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::SanitizeUserPromptResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SanitizeUserPromptResponse>,
     ) {
         let x_goog_request_params = "";
 
@@ -940,7 +940,7 @@ impl super::stub::ModelArmor for ModelArmor {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming::<
+            .execute_bidi_streaming_tmp::<
                 crate::model::SanitizeUserPromptRequest,
                 crate::model::SanitizeUserPromptResponse,
                 crate::prost::google::cloud::modelarmor::v1::SanitizeUserPromptRequest,
@@ -959,7 +959,7 @@ impl super::stub::ModelArmor for ModelArmor {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::SanitizeModelResponseRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::SanitizeModelResponseResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SanitizeModelResponseResponse>,
     ) {
         let x_goog_request_params = "";
 
@@ -976,7 +976,7 @@ impl super::stub::ModelArmor for ModelArmor {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming::<
+            .execute_bidi_streaming_tmp::<
                 crate::model::SanitizeModelResponseRequest,
                 crate::model::SanitizeModelResponseResponse,
                 crate::prost::google::cloud::modelarmor::v1::SanitizeModelResponseRequest,

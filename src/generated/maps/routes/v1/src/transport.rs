@@ -106,8 +106,7 @@ impl super::stub::RoutesPreferred for RoutesPreferred {
         &self,
         req: crate::model::ComputeRouteMatrixRequest,
         options: crate::RequestOptions,
-    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::RouteMatrixElement>>
-    {
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::RouteMatrixElement>> {
         let x_goog_request_params = [None::<String>; 0]
             .into_iter()
             .flatten()
@@ -126,7 +125,7 @@ impl super::stub::RoutesPreferred for RoutesPreferred {
         );
 
         self.grpc_inner
-            .execute_server_streaming::<
+            .execute_server_streaming_tmp::<
                 crate::model::ComputeRouteMatrixRequest,
                 crate::model::RouteMatrixElement,
                 crate::prost::google::maps::routes::v1::ComputeRouteMatrixRequest,

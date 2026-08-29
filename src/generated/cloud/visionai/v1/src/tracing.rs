@@ -1179,7 +1179,7 @@ where
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::SendPacketsRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::SendPacketsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SendPacketsResponse>,
     ) {
         self.inner.send_packets(options)
     }
@@ -1189,7 +1189,7 @@ where
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::ReceivePacketsRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::ReceivePacketsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ReceivePacketsResponse>,
     ) {
         self.inner.receive_packets(options)
     }
@@ -1199,7 +1199,7 @@ where
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::ReceiveEventsRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::ReceiveEventsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ReceiveEventsResponse>,
     ) {
         self.inner.receive_events(options)
     }
@@ -2348,7 +2348,7 @@ where
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::IngestAssetRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::IngestAssetResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::IngestAssetResponse>,
     ) {
         self.inner.ingest_asset(options)
     }

@@ -1066,7 +1066,7 @@ pub trait StreamingService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::SendPacketsRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::SendPacketsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SendPacketsResponse>,
     );
 
     fn receive_packets(
@@ -1074,7 +1074,7 @@ pub trait StreamingService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::ReceivePacketsRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::ReceivePacketsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ReceivePacketsResponse>,
     );
 
     fn receive_events(
@@ -1082,7 +1082,7 @@ pub trait StreamingService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::ReceiveEventsRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::ReceiveEventsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ReceiveEventsResponse>,
     );
 
     async fn acquire_lease(
@@ -1149,7 +1149,7 @@ impl<T: super::StreamingService> StreamingService for T {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::SendPacketsRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::SendPacketsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SendPacketsResponse>,
     ) {
         T::send_packets(self, options)
     }
@@ -1160,7 +1160,7 @@ impl<T: super::StreamingService> StreamingService for T {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::ReceivePacketsRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::ReceivePacketsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ReceivePacketsResponse>,
     ) {
         T::receive_packets(self, options)
     }
@@ -1171,7 +1171,7 @@ impl<T: super::StreamingService> StreamingService for T {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::ReceiveEventsRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::ReceiveEventsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ReceiveEventsResponse>,
     ) {
         T::receive_events(self, options)
     }
@@ -1939,7 +1939,7 @@ pub trait Warehouse: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::IngestAssetRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::IngestAssetResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::IngestAssetResponse>,
     );
 
     async fn clip_asset(
@@ -2471,7 +2471,7 @@ impl<T: super::Warehouse> Warehouse for T {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::IngestAssetRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::IngestAssetResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::IngestAssetResponse>,
     ) {
         T::ingest_asset(self, options)
     }

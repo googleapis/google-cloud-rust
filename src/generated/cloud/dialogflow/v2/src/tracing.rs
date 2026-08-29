@@ -3980,9 +3980,7 @@ where
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingAnalyzeContentRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<
-            crate::model::StreamingAnalyzeContentResponse,
-        >,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingAnalyzeContentResponse>,
     ) {
         self.inner.streaming_analyze_content(options)
     }
@@ -4202,7 +4200,7 @@ where
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingDetectIntentRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingDetectIntentResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingDetectIntentResponse>,
     ) {
         self.inner.streaming_detect_intent(options)
     }

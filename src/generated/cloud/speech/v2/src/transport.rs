@@ -588,7 +588,7 @@ impl super::stub::Speech for Speech {
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingRecognizeRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingRecognizeResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingRecognizeResponse>,
     ) {
         let x_goog_request_params = "";
 
@@ -605,7 +605,7 @@ impl super::stub::Speech for Speech {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming::<
+            .execute_bidi_streaming_tmp::<
                 crate::model::StreamingRecognizeRequest,
                 crate::model::StreamingRecognizeResponse,
                 crate::prost::google::cloud::speech::v2::StreamingRecognizeRequest,

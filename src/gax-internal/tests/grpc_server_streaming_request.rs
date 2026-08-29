@@ -311,7 +311,7 @@ mod tests {
             o
         };
 
-        let mut receiver = client
+        let mut resp_stream = client
             .execute_server_streaming::<DomainEchoRequest, DomainEchoResponse, EchoRequest, EchoResponse>(
                 extensions,
                 http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Expand"),
@@ -324,7 +324,7 @@ mod tests {
             )
             .await?;
 
-        let r0 = receiver.recv().await;
+        let r0 = resp_stream.next().await;
         assert_eq!(
             r0.transpose()?,
             Some(DomainEchoResponse {
@@ -332,7 +332,7 @@ mod tests {
             })
         );
 
-        let r1 = receiver.recv().await;
+        let r1 = resp_stream.next().await;
         assert_eq!(
             r1.transpose()?,
             Some(DomainEchoResponse {
@@ -340,7 +340,7 @@ mod tests {
             })
         );
 
-        let r2 = receiver.recv().await;
+        let r2 = resp_stream.next().await;
         assert!(r2.is_none());
 
         Ok(())

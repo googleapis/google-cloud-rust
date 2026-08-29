@@ -1467,7 +1467,7 @@ impl super::stub::HiveMetastoreService for HiveMetastoreService {
         &self,
         req: crate::model::ListPartitionsRequest,
         options: crate::RequestOptions,
-    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::ListPartitionsResponse>>
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::ListPartitionsResponse>>
     {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.parent)
@@ -1490,7 +1490,7 @@ impl super::stub::HiveMetastoreService for HiveMetastoreService {
         );
 
         self.grpc_inner
-            .execute_server_streaming::<
+            .execute_server_streaming_tmp::<
                 crate::model::ListPartitionsRequest,
                 crate::model::ListPartitionsResponse,
                 crate::prost::google::cloud::biglake::hive::v1::ListPartitionsRequest,

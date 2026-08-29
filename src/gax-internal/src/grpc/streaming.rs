@@ -20,7 +20,7 @@ use futures::FutureExt as _;
 use futures::stream::StreamExt as _;
 use google_cloud_gax::error::Error;
 use google_cloud_gax::options::RequestOptions;
-use google_cloud_gax::streaming::{RequestSender, ResponseReceiver, ResponseStream, SendError};
+use google_cloud_gax::streaming::{RequestSender, ResponseStream, SendError};
 
 /// Default buffer capacity for request streaming channels.
 pub(crate) const DEFAULT_REQUEST_CHANNEL_CAPACITY: usize = 16;
@@ -77,29 +77,8 @@ where
     })
 }
 
-/// Constructs a [`ResponseReceiver<DomainResp>`] from a oneshot receiver waiting for the tonic response.
-pub(crate) fn create_response_receiver<DomainResp, ProstResp>(
-    resp_rx: tokio::sync::oneshot::Receiver<
-        google_cloud_gax::Result<tonic::Response<tonic::Streaming<ProstResp>>>,
-    >,
-) -> ResponseReceiver<DomainResp>
-where
-    DomainResp: Send + 'static,
-    ProstResp: FromProto<DomainResp> + Send + 'static,
-{
-    let future = resp_rx.map(|res| match res {
-        Ok(Ok(response)) => Ok(decode_response_stream(response.into_inner())),
-        Ok(Err(err)) => Err(err),
-        Err(_) => Err(Error::io(std::io::Error::new(
-            std::io::ErrorKind::BrokenPipe,
-            "stream initialization task cancelled",
-        ))),
-    });
-    ResponseReceiver::from_future(future)
-}
-
-/// Constructs a [`ResponseReceiver<DomainResp>`] from a oneshot receiver waiting for the tonic response.
-pub(crate) fn create_response_receiver_tmp<DomainResp, ProstResp>(
+/// Constructs a [`ResponseStream<DomainResp>`] from a oneshot receiver waiting for the tonic response.
+pub(crate) fn create_response_stream<DomainResp, ProstResp>(
     resp_rx: tokio::sync::oneshot::Receiver<
         google_cloud_gax::Result<tonic::Response<tonic::Streaming<ProstResp>>>,
     >,
@@ -457,9 +436,9 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn create_response_receiver_success_empty() {
+    async fn create_response_stream_success_empty() {
         let (resp_tx, resp_rx) = tokio::sync::oneshot::channel();
-        let mut receiver = create_response_receiver::<MockDomainResp, MockProstResp>(resp_rx);
+        let mut resp_stream = create_response_stream::<MockDomainResp, MockProstResp>(resp_rx);
 
         let streaming = tonic::codec::Streaming::new_empty(
             tonic_prost::ProstDecoder::<MockProstResp>::default(),
@@ -468,42 +447,42 @@ mod tests {
         let response = tonic::Response::new(streaming);
         resp_tx.send(Ok(response)).unwrap();
 
-        assert!(receiver.recv().await.is_none());
+        assert!(resp_stream.next().await.is_none());
     }
 
     #[test_case(Code::PermissionDenied, "permission denied"; "permission denied")]
     #[test_case(Code::NotFound, "not found"; "not found")]
     #[test_case(Code::Unavailable, "unavailable"; "unavailable")]
     #[tokio::test]
-    async fn create_response_receiver_connection_error(code: Code, msg: &'static str) {
+    async fn create_response_stream_connection_error(code: Code, msg: &'static str) {
         let (resp_tx, resp_rx) = tokio::sync::oneshot::channel();
-        let mut receiver = create_response_receiver::<MockDomainResp, MockProstResp>(resp_rx);
+        let mut resp_stream = create_response_stream::<MockDomainResp, MockProstResp>(resp_rx);
 
         let status = google_cloud_gax::error::rpc::Status::default()
             .set_code(code)
             .set_message(msg);
         let _ = resp_tx.send(Err(google_cloud_gax::error::Error::service(status)));
 
-        let err = receiver
-            .recv()
+        let err = resp_stream
+            .next()
             .await
             .expect("item")
             .expect_err("should be Err");
         assert_eq!(err.status().map(|s| s.code), Some(code));
-        assert!(receiver.recv().await.is_none());
+        assert!(resp_stream.next().await.is_none());
     }
 
     #[tokio::test]
-    async fn create_response_receiver_task_cancelled() {
+    async fn create_response_stream_task_cancelled() {
         let (resp_tx, resp_rx) = tokio::sync::oneshot::channel::<
             google_cloud_gax::Result<tonic::Response<tonic::Streaming<MockProstResp>>>,
         >();
-        let mut receiver = create_response_receiver::<MockDomainResp, MockProstResp>(resp_rx);
+        let mut resp_stream = create_response_stream::<MockDomainResp, MockProstResp>(resp_rx);
 
         drop(resp_tx); // task cancelled
 
-        let err = receiver
-            .recv()
+        let err = resp_stream
+            .next()
             .await
             .expect("item")
             .expect_err("should be Err");
@@ -512,6 +491,6 @@ mod tests {
             err.to_string()
                 .contains("stream initialization task cancelled")
         );
-        assert!(receiver.recv().await.is_none());
+        assert!(resp_stream.next().await.is_none());
     }
 }

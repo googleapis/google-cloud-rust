@@ -1631,9 +1631,8 @@ pub mod hive_metastore_service {
         /// Initiates the server stream.
         pub async fn send(
             self,
-        ) -> Result<
-            google_cloud_gax::streaming::ResponseReceiver<crate::model::ListPartitionsResponse>,
-        > {
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::ListPartitionsResponse>>
+        {
             (*self.0.stub)
                 .list_partitions(self.0.request, self.0.options)
                 .await

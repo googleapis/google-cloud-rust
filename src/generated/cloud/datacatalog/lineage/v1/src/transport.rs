@@ -1372,7 +1372,7 @@ impl super::stub::Lineage for Lineage {
         req: crate::model::SearchLineageStreamingRequest,
         options: crate::RequestOptions,
     ) -> Result<
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::SearchLineageStreamingResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SearchLineageStreamingResponse>,
     > {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.parent)
@@ -1395,7 +1395,7 @@ impl super::stub::Lineage for Lineage {
         );
 
         self.grpc_inner
-            .execute_server_streaming::<
+            .execute_server_streaming_tmp::<
                 crate::model::SearchLineageStreamingRequest,
                 crate::model::SearchLineageStreamingResponse,
                 crate::prost::google::cloud::datacatalog::lineage::v1::SearchLineageStreamingRequest,

@@ -420,7 +420,7 @@ where
         &self,
         req: crate::model::ExpandRequest,
         options: crate::RequestOptions,
-    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>> {
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>> {
         self.inner.expand(req, options).await
     }
 
@@ -429,7 +429,7 @@ where
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>,
     ) {
         self.inner.chat(options)
     }
@@ -1143,7 +1143,7 @@ where
         &self,
         req: crate::model::StreamBlurbsRequest,
         options: crate::RequestOptions,
-    ) -> Result<google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>>
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>>
     {
         self.inner.stream_blurbs(req, options).await
     }
@@ -1153,7 +1153,7 @@ where
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>,
     ) {
         self.inner.connect(options)
     }
@@ -1451,9 +1451,7 @@ where
         req: crate::model::AttemptStreamingSequenceRequest,
         options: crate::RequestOptions,
     ) -> Result<
-        google_cloud_gax::streaming::ResponseReceiver<
-            crate::model::AttemptStreamingSequenceResponse,
-        >,
+        google_cloud_gax::streaming::ResponseStream<crate::model::AttemptStreamingSequenceResponse>,
     > {
         self.inner.attempt_streaming_sequence(req, options).await
     }

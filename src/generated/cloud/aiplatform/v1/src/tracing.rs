@@ -2159,7 +2159,7 @@ where
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::FeatureViewDirectWriteRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::FeatureViewDirectWriteResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::FeatureViewDirectWriteResponse>,
     ) {
         self.inner.feature_view_direct_write(options)
     }
@@ -8963,7 +8963,7 @@ where
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectPredictRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamDirectPredictResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamDirectPredictResponse>,
     ) {
         self.inner.stream_direct_predict(options)
     }
@@ -8973,7 +8973,7 @@ where
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectRawPredictRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamDirectRawPredictResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamDirectRawPredictResponse>,
     ) {
         self.inner.stream_direct_raw_predict(options)
     }
@@ -8983,7 +8983,7 @@ where
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingPredictRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingPredictResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPredictResponse>,
     ) {
         self.inner.streaming_predict(options)
     }
@@ -8993,7 +8993,7 @@ where
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingRawPredictRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamingRawPredictResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingRawPredictResponse>,
     ) {
         self.inner.streaming_raw_predict(options)
     }
