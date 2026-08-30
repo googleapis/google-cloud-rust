@@ -70,9 +70,10 @@ impl ChannelEntry {
     pub(crate) fn new_with_created_at(
         id: u64,
         logical_channel_id: usize,
-        channel: Channel,
+        mut channel: Channel,
         created_at: Instant,
     ) -> Self {
+        channel.channel_id = logical_channel_id;
         Self {
             id,
             logical_channel_id,
@@ -245,9 +246,7 @@ impl ActiveRpcGuard {
         result: &Result<T, E>,
         extract_code: impl Fn(&E) -> Option<Code>,
     ) {
-        if let Err(err) = result
-            && let Some(code) = extract_code(err)
-        {
+        if let Some(code) = result.as_ref().err().and_then(extract_code) {
             self.entry.apply_error_penalty(
                 code,
                 self.penalty_step,
@@ -331,6 +330,11 @@ impl ChannelLease {
     /// Returns the unique monotonic internal entry ID.
     pub(crate) fn entry_id(&self) -> u64 {
         self.guard.entry.id
+    }
+
+    /// Creates an RAII guard that pins this channel entry for an active Read/Write transaction.
+    pub(crate) fn rw_affinity_guard(&self) -> RwTransactionAffinityGuard {
+        RwTransactionAffinityGuard::new(Arc::clone(&self.guard.entry))
     }
 }
 
@@ -667,7 +671,7 @@ mod tests {
     fn channel_lease_accessors() {
         let channel = create_mock_channel();
         let entry = Arc::new(ChannelEntry::new(42, 3, channel));
-        let guard = ActiveRpcGuard::new(entry, 0, Duration::ZERO, 0);
+        let guard = ActiveRpcGuard::new(Arc::clone(&entry), 0, Duration::ZERO, 0);
         let lease = ChannelLease::new(guard);
 
         assert_eq!(
@@ -681,5 +685,19 @@ mod tests {
             "logical_channel_id() must return entry's logical id 3"
         );
         let _channel = lease.channel();
+
+        // rw_affinity_guard helper creates an RAII guard incrementing active_rw_transactions
+        let rw_guard = lease.rw_affinity_guard();
+        assert_eq!(
+            entry.active_rw_count(),
+            1,
+            "rw_affinity_guard() must increment active_rw_transactions"
+        );
+        drop(rw_guard);
+        assert_eq!(
+            entry.active_rw_count(),
+            0,
+            "dropping RwTransactionAffinityGuard must decrement active_rw_transactions"
+        );
     }
 }

@@ -230,12 +230,11 @@ async fn dial_prime_and_publish_channels_parallel(
     while let Some(join_result) = join_set.join_next().await {
         match join_result {
             Ok(Ok(channel)) => {
-                if let Some(inner) = weak_inner.upgrade() {
-                    publish_primed_channel(&inner, channel, config.max_channels);
-                } else {
+                let Some(inner) = weak_inner.upgrade() else {
                     // Pool was dropped while dialing/priming was in flight; discard channel.
                     return;
-                }
+                };
+                publish_primed_channel(&inner, channel, config.max_channels);
             }
             Ok(Err(error)) => {
                 tracing::warn!("Failed to dial and prime scaled-up channel: {error:?}");
@@ -354,10 +353,10 @@ pub(crate) async fn scale_down_monitor_loop(
     mut shutdown_receiver: WatchReceiver<()>,
     interval: Duration,
 ) {
-    if match weak_inner.upgrade() {
-        Some(inner) => !matches!(inner.config, ChannelPoolConfig::Dynamic(_)),
-        None => true,
-    } {
+    let is_dynamic = weak_inner
+        .upgrade()
+        .is_some_and(|inner| matches!(inner.config, ChannelPoolConfig::Dynamic(_)));
+    if !is_dynamic {
         return;
     }
 
@@ -457,29 +456,37 @@ fn evaluate_and_execute_scale_down(inner: &ChannelPoolInner, config: &DynamicCha
     let mut draining_write = inner.draining_entries.write().expect("lock poisoned");
 
     // Snapshot stable keys to prevent race conditions during sorting if in-flight counts change concurrently.
-    let mut active_with_keys: Vec<(u32, Instant, Arc<ChannelEntry>)> = active_write
-        .iter()
-        .map(|entry| (entry.in_flight(), entry.created_at, Arc::clone(entry)))
+    // Order:
+    // 1. in_flight: lowest active RPC load drained first.
+    // 2. active_rw_count: between channels with equal active load, prefer draining channels with 0 R/W transactions.
+    // 3. created_at (reversed): prefer newer channels on tie, preserving older/warmer channels.
+    let mut active_with_keys: Vec<(u32, u32, Instant, Arc<ChannelEntry>)> = active_write
+        .drain(..)
+        .map(|entry| {
+            (
+                entry.in_flight(),
+                entry.active_rw_count(),
+                entry.created_at,
+                entry,
+            )
+        })
         .collect();
-    active_with_keys
-        .sort_unstable_by_key(|(in_flight, created_at, _)| (*in_flight, Reverse(*created_at)));
-    *active_write = active_with_keys
-        .into_iter()
-        .map(|(_, _, entry)| entry)
-        .collect();
+    active_with_keys.sort_unstable_by_key(|(in_flight, rw_count, created_at, _)| {
+        (*in_flight, *rw_count, Reverse(*created_at))
+    });
 
     // Exactly calculate number of channels eligible to remove without breaching min_channels.
-    let eligible_to_remove = active_write
+    let eligible_to_remove = active_with_keys
         .len()
         .saturating_sub(config.min_channels)
         .min(channels_to_remove);
 
-    if eligible_to_remove > 0 {
-        let drained_entries: Vec<Arc<ChannelEntry>> =
-            active_write.drain(0..eligible_to_remove).collect();
-        for entry in drained_entries {
+    for (index, (_, _, _, entry)) in active_with_keys.into_iter().enumerate() {
+        if index < eligible_to_remove {
             entry.set_state(ChannelState::Draining);
             draining_write.push(entry);
+        } else {
+            active_write.push(entry);
         }
     }
 
@@ -493,8 +500,8 @@ fn evaluate_and_execute_scale_down(inner: &ChannelPoolInner, config: &DynamicCha
 /// Rules:
 /// 1. Channels with active in-flight RPCs remain in `Draining` state.
 /// 2. Channels with attached Read/Write transactions remain in `Draining` state until
-///    either the transaction completes or the Spanner server 10-second idle abort timeout elapses.
-/// 3. Channels with 0 load and no R/W transactions are closed once `drain_idle_grace` (1 min) elapses.
+///    the transaction completes, or `SPANNER_RW_TRANSACTION_IDLE_TIMEOUT` (10s) plus `drain_idle_grace` elapses.
+/// 3. Channels with 0 load and no R/W transactions are closed once `drain_idle_grace` elapses.
 pub(crate) fn sweep_draining_channels(inner: &ChannelPoolInner, drain_idle_grace: Duration) {
     let mut draining_write = inner.draining_entries.write().expect("lock poisoned");
 
@@ -505,17 +512,17 @@ pub(crate) fn sweep_draining_channels(inner: &ChannelPoolInner, drain_idle_grace
 
         let idle_duration = entry.elapsed_since_activity();
 
-        // If active R/W transactions are attached, close only if server abort timeout (10s) elapsed.
-        if entry.active_rw_count() > 0 {
-            if idle_duration >= SPANNER_RW_TRANSACTION_IDLE_TIMEOUT {
-                entry.set_state(ChannelState::Closed);
-                return false;
-            }
-            return true;
-        }
+        // Determine required idle duration:
+        // - If active R/W transactions are attached, wait until the 10s Spanner server abort timeout
+        //   plus drain_idle_grace as extra safety buffer.
+        // - Otherwise, wait drain_idle_grace after the last activity has ceased.
+        let required_idle = if entry.active_rw_count() > 0 {
+            SPANNER_RW_TRANSACTION_IDLE_TIMEOUT + drain_idle_grace
+        } else {
+            drain_idle_grace
+        };
 
-        // If no R/W transactions and idle >= drain_idle_grace, close channel.
-        if idle_duration >= drain_idle_grace {
+        if idle_duration >= required_idle {
             entry.set_state(ChannelState::Closed);
             return false;
         }
@@ -541,6 +548,8 @@ mod tests {
     use std::sync::{Mutex, RwLock};
     use tokio::sync::Notify;
     use tokio::sync::watch::channel as watch_channel;
+    use tokio::task::yield_now;
+    use tokio::time::{advance, pause};
 
     #[derive(Debug, Default)]
     struct MockSpannerStub;
@@ -608,25 +617,26 @@ mod tests {
             selector: PowerOfTwoSelector::new(),
         };
 
-        sweep_draining_channels(&inner, Duration::from_secs(60));
+        sweep_draining_channels(&inner, Duration::from_secs(5));
 
-        let remaining = inner
-            .draining_entries
-            .read()
-            .expect("lock poisoned")
-            .clone();
-        assert_eq!(remaining.len(), 1, "Only channel_1 should remain draining");
+        let draining_guard = inner.draining_entries.read().expect("lock poisoned");
         assert_eq!(
-            remaining[0].id, 1,
+            draining_guard.len(),
+            1,
+            "Only channel_1 should remain draining"
+        );
+        assert_eq!(
+            draining_guard[0].id, 1,
             "remaining draining channel ID must be 1"
         );
+        drop(draining_guard);
         assert!(
             channel_2.is_closed(),
-            "channel_2 must be closed after 10s idle R/W timeout"
+            "channel_2 must be closed after 10s idle R/W timeout plus 5s grace"
         );
         assert!(
             channel_3.is_closed(),
-            "channel_3 must be closed after 60s idle grace"
+            "channel_3 must be closed after 5s idle grace"
         );
     }
 
@@ -759,6 +769,59 @@ mod tests {
 
         let draining = inner.draining_entries.read().expect("lock");
         assert_eq!(draining.len(), 1, "Exactly 1 channel should be draining");
+    }
+
+    #[test]
+    fn scale_down_candidate_sort_priority() {
+        // channel_1: in_flight=0, active_rw=1
+        let channel_1 = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
+        channel_1.active_rw_transactions.store(1, Ordering::Relaxed);
+
+        // channel_2: in_flight=0, active_rw=0 -> should be drained before channel_1
+        let channel_2 = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
+
+        // channel_3: in_flight=5, active_rw=0 -> should NOT be drained before channel_1
+        let channel_3 = Arc::new(ChannelEntry::new(3, 3, create_mock_channel()));
+        channel_3.in_flight_rpcs.store(5, Ordering::Relaxed);
+
+        let inner = Arc::new(ChannelPoolInner {
+            config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig {
+                min_channels: 2,
+                max_channels: 4,
+                min_rpc_per_channel: 15.0,
+                max_rpc_per_channel: 25.0,
+                consecutive_low_load_checks: 1,
+                max_remove_channels: 1,
+                ..Default::default()
+            }),
+            client_config: ClientConfig::default(),
+            active_entries: RwLock::new(vec![
+                Arc::clone(&channel_1),
+                Arc::clone(&channel_2),
+                Arc::clone(&channel_3),
+            ]),
+            draining_entries: RwLock::new(Vec::new()),
+            next_entry_id: AtomicU64::new(4),
+            scale_up_notify: Arc::new(Notify::new()),
+            shutdown_sender: watch_channel(()).0,
+            last_scale_up_time: Mutex::new(None),
+            consecutive_low_load_checks: AtomicUsize::new(0),
+            prime_session: RwLock::new(None),
+            selector: PowerOfTwoSelector::new(),
+        });
+
+        let dynamic_config = match &inner.config {
+            ChannelPoolConfig::Dynamic(config) => config.clone(),
+            ChannelPoolConfig::Static(_) => unreachable!(),
+        };
+        evaluate_and_execute_scale_down(&inner, &dynamic_config);
+
+        let draining = inner.draining_entries.read().expect("lock poisoned");
+        assert_eq!(draining.len(), 1, "Exactly 1 channel should be draining");
+        assert_eq!(
+            draining[0].id, 2,
+            "channel_2 (in_flight=0, active_rw=0) must be drained before channel_1 (in_flight=0, active_rw=1)"
+        );
     }
 
     #[tokio::test]
@@ -1163,7 +1226,7 @@ mod tests {
                         .in_flight_rpcs
                         .store(iteration % 5, Ordering::Relaxed);
                 }
-                tokio::task::yield_now().await;
+                yield_now().await;
             }
         });
 
@@ -1218,10 +1281,10 @@ mod tests {
             selector: PowerOfTwoSelector::new(),
         };
 
-        // Sweep with 60s idle grace:
+        // Sweep with 5s idle grace:
         // - channel_in_flight has in_flight=2 -> retained
-        // - channel_recent_idle was active recently (< 60s) -> retained
-        sweep_draining_channels(&inner, Duration::from_secs(60));
+        // - channel_recent_idle was active recently (< 5s) -> retained
+        sweep_draining_channels(&inner, Duration::from_secs(5));
         assert_eq!(
             inner.draining_entries.read().expect("lock").len(),
             2,
@@ -1248,7 +1311,7 @@ mod tests {
         );
         let weak_static = Arc::downgrade(&static_pool.inner);
         scale_up_worker_loop(
-            weak_static.clone(),
+            Weak::clone(&weak_static),
             static_pool.inner.shutdown_sender.subscribe(),
         )
         .await;
@@ -1284,7 +1347,7 @@ mod tests {
         });
 
         // Yield execution so the worker loop enters notify.notified()
-        tokio::task::yield_now().await;
+        yield_now().await;
         drop(inner_up);
 
         let scale_up_result = scale_up_handle.await;
@@ -1294,7 +1357,7 @@ mod tests {
         );
 
         // 4. Dynamic pool scale-down monitor loop -> executes ticks and terminates cleanly on pool drop
-        tokio::time::pause();
+        pause();
 
         let inner_down = Arc::new(ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
@@ -1320,14 +1383,14 @@ mod tests {
         });
 
         // Advance virtual time to trigger an active monitor loop tick deterministically
-        tokio::time::advance(Duration::from_millis(50)).await;
-        tokio::task::yield_now().await;
+        advance(Duration::from_millis(50)).await;
+        yield_now().await;
 
         // Drop the inner instance so the subsequent tick observes None
         drop(inner_down);
 
         // Advance virtual time to fire the next tick
-        tokio::time::advance(Duration::from_millis(50)).await;
+        advance(Duration::from_millis(50)).await;
 
         let scale_down_result = scale_down_handle.await;
         assert!(
@@ -1411,7 +1474,7 @@ mod tests {
             if Instant::now() >= deadline {
                 panic!("Timed out waiting for channel count to reach 3");
             }
-            tokio::task::yield_now().await;
+            yield_now().await;
         }
 
         assert_eq!(
@@ -1719,13 +1782,13 @@ mod tests {
 
         // 1. Trigger notification while prime_session is None -> worker should continue looping
         inner.scale_up_notify.notify_one();
-        tokio::task::yield_now().await;
+        yield_now().await;
 
         // 2. Set prime_session, but load is 0 so channels_to_add is 0 -> worker should continue looping
         *inner.prime_session.write().expect("lock") =
             Some("projects/p/instances/i/databases/d/sessions/s1".to_string());
         inner.scale_up_notify.notify_one();
-        tokio::task::yield_now().await;
+        yield_now().await;
 
         drop(inner);
         let result = worker_handle.await;
@@ -1758,7 +1821,7 @@ mod tests {
         });
 
         let weak_dynamic = Arc::downgrade(&inner);
-        let weak_worker = weak_dynamic.clone();
+        let weak_worker = Weak::clone(&weak_dynamic);
         let receiver = inner.shutdown_sender.subscribe();
         let worker_handle = tokio::spawn(async move {
             scale_up_worker_loop(weak_worker, receiver).await;
@@ -1766,7 +1829,7 @@ mod tests {
 
         // Trigger notification while in active cooldown -> worker enters sleep(remaining)
         inner.scale_up_notify.notify_one();
-        tokio::task::yield_now().await;
+        yield_now().await;
 
         // Dropping inner while worker is in cooldown sleep must wake it via shutdown receiver and exit cleanly.
         // Because inner was scoped before entering sleep, dropping it here must immediately drop ChannelPoolInner.
@@ -1855,7 +1918,7 @@ mod tests {
             if Instant::now() >= deadline {
                 panic!("Timed out waiting for channel count to reach 2");
             }
-            tokio::task::yield_now().await;
+            yield_now().await;
         }
 
         assert_eq!(
@@ -1943,7 +2006,7 @@ mod tests {
             if Instant::now() >= deadline {
                 panic!("Timed out waiting for channel count to reach 2");
             }
-            tokio::task::yield_now().await;
+            yield_now().await;
         }
 
         assert_eq!(
@@ -2067,7 +2130,7 @@ mod tests {
         });
 
         // Yield so monitor loop begins waiting on select! with timer and shutdown_receiver
-        tokio::task::yield_now().await;
+        yield_now().await;
 
         // Drop pool inner immediately; task should terminate without waiting 180s
         drop(inner);
@@ -2116,7 +2179,7 @@ mod tests {
         for _ in 0..10 {
             inner.scale_up_notify.notify_one();
         }
-        tokio::task::yield_now().await;
+        yield_now().await;
 
         // Worker must have committed a cooldown timestamp rather than spinning in a tight loop
         assert!(
@@ -2206,7 +2269,7 @@ mod tests {
             if Instant::now() >= deadline {
                 panic!("Timed out waiting for channel count to reach 2");
             }
-            tokio::task::yield_now().await;
+            yield_now().await;
         }
 
         assert_eq!(
@@ -2354,7 +2417,7 @@ mod tests {
 
         // 1. Trigger notification when aggregate load is insufficient (e.g., 0 in-flight)
         inner.scale_up_notify.notify_one();
-        tokio::task::yield_now().await;
+        yield_now().await;
 
         // Verify that no cooldown timestamp was committed
         assert!(
@@ -2375,7 +2438,7 @@ mod tests {
             if Instant::now() >= deadline {
                 panic!("Timed out waiting for pool to scale up after traffic burst");
             }
-            tokio::task::yield_now().await;
+            yield_now().await;
         }
 
         assert_eq!(
@@ -2447,7 +2510,7 @@ mod tests {
         for _ in 0..10 {
             inner.scale_up_notify.notify_one();
         }
-        tokio::task::yield_now().await;
+        yield_now().await;
 
         // Worker debounces and must NOT scale up
         assert_eq!(

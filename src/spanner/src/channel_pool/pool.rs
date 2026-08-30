@@ -29,6 +29,7 @@ use gaxi::options::ClientConfig;
 use std::sync::atomic::{AtomicU64, AtomicUsize};
 use std::sync::{Arc, Mutex, RwLock};
 use std::time::{Duration, Instant};
+use tokio::spawn;
 use tokio::sync::Notify;
 use tokio::sync::watch::{
     Receiver as WatchReceiver, Sender as WatchSender, channel as watch_channel,
@@ -108,14 +109,14 @@ impl ChannelPool {
         // Spawn background scale-up worker using a weak handle and persistent shutdown receiver.
         let weak_up = Arc::downgrade(&inner);
         let receiver_up = shutdown_receiver.clone();
-        tokio::spawn(async move {
+        spawn(async move {
             scale_up_worker_loop(weak_up, receiver_up).await;
         });
 
         // Spawn background scale-down monitor using a weak handle and persistent shutdown receiver.
         let weak_down = Arc::downgrade(&inner);
         let receiver_down = shutdown_receiver;
-        tokio::spawn(async move {
+        spawn(async move {
             scale_down_monitor_loop(weak_down, receiver_down, scale_down_interval).await;
         });
 
@@ -128,8 +129,13 @@ impl ChannelPool {
 
         // Signal scale-up if high load threshold is exceeded on dynamic pools.
         // Works consistently across both standalone RPCs and pinned affinity transactions.
-        if let Some(dynamic_config) = self.inner.config.dynamic_config()
-            && guard.entry.effective_pick_load() as f64 > dynamic_config.max_rpc_per_channel
+        if self
+            .inner
+            .config
+            .dynamic_config()
+            .is_some_and(|dynamic_config| {
+                guard.entry.effective_pick_load() as f64 > dynamic_config.max_rpc_per_channel
+            })
         {
             self.inner.scale_up_notify.notify_one();
         }
@@ -204,18 +210,18 @@ impl ChannelPool {
                     .iter()
                     .find(|entry| entry.id == winner_id && entry.is_active())
                 {
-                    Some(self.make_lease(Arc::clone(winner_entry)))
-                } else if affinity.is_read_write()
-                    && let draining_guard =
-                        self.inner.draining_entries.read().expect("lock poisoned")
-                    && let Some(entry) = draining_guard
+                    return Some(self.make_lease(Arc::clone(winner_entry)));
+                }
+                if affinity.is_read_write() {
+                    let draining_guard = self.inner.draining_entries.read().expect("lock poisoned");
+                    if let Some(entry) = draining_guard
                         .iter()
                         .find(|entry| entry.id == winner_id && !entry.is_closed())
-                {
-                    Some(self.make_lease(Arc::clone(entry)))
-                } else {
-                    Some(lease)
+                    {
+                        return Some(self.make_lease(Arc::clone(entry)));
+                    }
                 }
+                Some(lease)
             }
         }
     }

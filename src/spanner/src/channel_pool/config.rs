@@ -136,7 +136,7 @@ pub(crate) struct DynamicChannelPoolConfig {
     pub(crate) max_scale_up_percent: u32,
     /// Maximum number of channels marked draining per scale-down cycle (default: 2).
     pub(crate) max_remove_channels: usize,
-    /// Idle grace duration a draining channel is kept alive after load drops to 0 (default: 1 minute).
+    /// Idle grace duration a draining channel is kept alive after load drops to 0 (default: 5 seconds).
     pub(crate) drain_idle_grace: Duration,
     /// Timeout for executing SELECT 1 priming on a new scaled-up channel (default: 10 seconds).
     pub(crate) prime_timeout: Duration,
@@ -162,7 +162,7 @@ impl Default for DynamicChannelPoolConfig {
             consecutive_low_load_checks: 3,
             max_scale_up_percent: 30,
             max_remove_channels: 2,
-            drain_idle_grace: Duration::from_secs(60),
+            drain_idle_grace: Duration::from_secs(5),
             prime_timeout: Duration::from_secs(10),
             prime_max_attempts: 3,
             selection_strategy: ChannelSelectionStrategy::PowerOfTwoLeastBusy,

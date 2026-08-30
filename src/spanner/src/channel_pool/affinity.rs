@@ -19,18 +19,6 @@
 
 use std::sync::atomic::{AtomicU64, Ordering};
 
-/// Stickiness kind for transaction channel affinity.
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
-pub(crate) enum AffinityKind {
-    /// Read/Write transactions require hard stickiness,
-    /// even if the channel has transitioned to draining.
-    #[default]
-    ReadWrite,
-    /// Read-Only transactions prefer soft stickiness, but seamlessly
-    /// switch to a fresh active channel if their pinned channel begins draining.
-    ReadOnly,
-}
-
 /// Caller-owned handle managing channel affinity across multi-statement transactions.
 #[derive(Debug)]
 pub(crate) struct TransactionAffinity {
@@ -102,6 +90,18 @@ impl TransactionAffinity {
     pub(crate) fn reset(&self) {
         self.entry_id.store(0, Ordering::Release);
     }
+}
+
+/// Stickiness kind for transaction channel affinity.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub(crate) enum AffinityKind {
+    /// Read/Write transactions require hard stickiness,
+    /// even if the channel has transitioned to draining.
+    #[default]
+    ReadWrite,
+    /// Read-Only transactions prefer soft stickiness, but seamlessly
+    /// switch to a fresh active channel if their pinned channel begins draining.
+    ReadOnly,
 }
 
 #[cfg(test)]
