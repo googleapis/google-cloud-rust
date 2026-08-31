@@ -1372,6 +1372,199 @@ async fn directed_read_routes_to_matching_location_and_role() -> anyhow::Result<
         "directed read targeting us-east1 must select the east replica"
     );
 
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&central_address, client_config)
+        .await?;
+    let _ = router
+        .connection_cache()
+        .get(&east_address, client_config)
+        .await?;
+
+    let context = RoutingContext {
+        transaction_id: None,
+        routing_key: Some(b"singer_001"),
+        prefer_leader: false,
+        use_transaction_affinity: false,
+    };
+    let route = router.resolve_route(&context, Some(&directed_options), 4004, None, 1, None);
+    assert_eq!(
+        route.connection.address(),
+        east_address,
+        "LocationRouter with directed read targeting us-east1 must route to the east replica"
+    );
+    assert_eq!(
+        route.routing_hint.as_ref().map(|hint| hint.tablet_uid),
+        Some(4002),
+        "RoutingHint must record the matched east tablet UID"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn end_to_end_single_use_read_with_directed_read_options_routes_to_matching_replica()
+-> anyhow::Result<()> {
+    let mock_gateway = create_base_mock();
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let mock_central = create_base_mock();
+    let (central_address, _central_server) = start("127.0.0.1:0", mock_central).await?;
+
+    let mut mock_east = create_base_mock();
+    let east_called = Arc::new(AtomicBool::new(false));
+    let east_called_clone = Arc::clone(&east_called);
+    mock_east.expect_streaming_read().returning(move |request| {
+        east_called_clone.store(true, Ordering::SeqCst);
+        let hint = request
+            .get_ref()
+            .routing_hint
+            .as_ref()
+            .expect("routing hint must be present on routed request");
+        assert_eq!(
+            hint.tablet_uid, 4002,
+            "routing hint must target east tablet 4002"
+        );
+        let partial_result_set = sample_int64_partial_result_set("SingerId", "100", None);
+        let (sender, receiver) = mpsc::channel(1);
+        let _ = sender.try_send(Ok(partial_result_set));
+        Ok(Response::from(receiver))
+    });
+    let (east_address, _east_server) = start("127.0.0.1:0", mock_east).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address)
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let update = ModelCacheUpdate {
+        database_id: 4004,
+        range: vec![ModelRange {
+            start_key: Bytes::from_static(b""),
+            limit_key: Bytes::from_static(b""),
+            group_uid: 4001,
+            split_id: 4001,
+            generation: Bytes::from_static(b"gen_1"),
+            _unknown_fields: Default::default(),
+        }],
+        group: vec![ModelGroup {
+            group_uid: 4001,
+            leader_index: 0,
+            tablets: vec![
+                ModelTablet {
+                    tablet_uid: 4001,
+                    server_address: central_address.clone(),
+                    location: "us-central1".to_string(),
+                    role: Role::ReadWrite,
+                    incarnation: Bytes::from_static(b"inc_1"),
+                    distance: 1,
+                    skip: false,
+                    _unknown_fields: Default::default(),
+                },
+                ModelTablet {
+                    tablet_uid: 4002,
+                    server_address: east_address.clone(),
+                    location: "us-east1".to_string(),
+                    role: Role::ReadOnly,
+                    incarnation: Bytes::from_static(b"inc_1"),
+                    distance: 2,
+                    skip: false,
+                    _unknown_fields: Default::default(),
+                },
+            ],
+            generation: Bytes::from_static(b"gen_1"),
+            _unknown_fields: Default::default(),
+        }],
+        key_recipes: Some(RecipeList {
+            schema_generation: Bytes::from_static(b"schema_v1"),
+            recipe: vec![KeyRecipe {
+                target: Some(Target::TableName("Singers".to_string())),
+                part: vec![
+                    Part {
+                        tag: 100,
+                        order: Order::Unspecified,
+                        null_order: NullOrder::Unspecified,
+                        r#type: None,
+                        struct_identifiers: vec![],
+                        value_type: None,
+                        _unknown_fields: Default::default(),
+                    },
+                    Part {
+                        tag: 0,
+                        order: Order::Ascending,
+                        null_order: NullOrder::NullsFirst,
+                        r#type: Some(Type {
+                            code: TypeCode::Int64,
+                            ..Default::default()
+                        }),
+                        struct_identifiers: vec![],
+                        value_type: Some(ValueType::Identifier("SingerId".to_string())),
+                        _unknown_fields: Default::default(),
+                    },
+                ],
+                _unknown_fields: Default::default(),
+            }],
+            _unknown_fields: Default::default(),
+        }),
+        _unknown_fields: Default::default(),
+    };
+    database_client.observe_cache_update(Some(update));
+
+    let router = database_client
+        .location_router()
+        .expect("location router present");
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&central_address, client_config)
+        .await?;
+    let _ = router
+        .connection_cache()
+        .get(&east_address, client_config)
+        .await?;
+
+    let directed_options = DirectedReadOptions {
+        replicas: Some(Replicas::IncludeReplicas(Box::new(IncludeReplicas {
+            replica_selections: vec![ReplicaSelection {
+                location: "us-east1".to_string(),
+                r#type: ReplicaType::ReadOnly,
+                _unknown_fields: Default::default(),
+            }],
+            auto_failover_disabled: false,
+            _unknown_fields: Default::default(),
+        }))),
+        _unknown_fields: Default::default(),
+    };
+
+    let transaction = database_client.single_use().build();
+    let read_request = ReadRequest::builder("Singers", vec!["SingerId"])
+        .with_keys(KeySet::from(key![100i64]))
+        .set_directed_read_options(directed_options)
+        .build();
+
+    let mut result_set = transaction.execute_read(read_request).await?;
+    let row = result_set.next().await;
+    assert!(row.is_some(), "read should return at least one row");
+    assert!(
+        east_called.load(Ordering::SeqCst),
+        "streaming_read request must be dispatched directly to mock_east server"
+    );
+
     Ok(())
 }
 
@@ -1381,7 +1574,7 @@ async fn directed_read_exclude_replicas_filters_out_excluded_locations() -> anyh
     let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
 
     let spanner = Spanner::builder()
-        .with_endpoint(gateway_address)
+        .with_endpoint(&gateway_address)
         .with_instance_type(InstanceType::Omni)
         .with_credentials(Anonymous::new().build())
         .build()
@@ -1471,6 +1664,64 @@ async fn directed_read_exclude_replicas_filters_out_excluded_locations() -> anyh
     assert_eq!(
         eligible[0].server_address, "east-node:15000",
         "eligible replica must be east-node"
+    );
+
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get("central-node:15000", client_config)
+        .await?;
+    let _ = router
+        .connection_cache()
+        .get("east-node:15000", client_config)
+        .await?;
+
+    let context = RoutingContext {
+        transaction_id: None,
+        routing_key: Some(b"singer_001"),
+        prefer_leader: false,
+        use_transaction_affinity: false,
+    };
+    let route = router.resolve_route(&context, Some(&exclude_options), 4005, None, 2, None);
+    assert_eq!(
+        route.connection.address(),
+        "east-node:15000",
+        "LocationRouter excluding us-central1 must route to the east replica"
+    );
+    assert_eq!(
+        route.routing_hint.as_ref().map(|hint| hint.tablet_uid),
+        Some(5002),
+        "RoutingHint must record the matched east tablet UID"
+    );
+
+    // When directed read options match no replica, route must fall back to default gateway
+    let no_match_options = DirectedReadOptions {
+        replicas: Some(Replicas::IncludeReplicas(Box::new(IncludeReplicas {
+            replica_selections: vec![ReplicaSelection {
+                location: "europe-west1".to_string(),
+                ..Default::default()
+            }],
+            ..Default::default()
+        }))),
+        ..Default::default()
+    };
+    let route_fallback =
+        router.resolve_route(&context, Some(&no_match_options), 4005, None, 3, None);
+    assert_eq!(
+        route_fallback.connection.address(),
+        gateway_address,
+        "must fall back to default gateway when directed read options match no replica"
+    );
+    assert_eq!(
+        route_fallback
+            .routing_hint
+            .as_ref()
+            .map(|hint| hint.tablet_uid),
+        Some(0),
+        "RoutingHint must record tablet_uid 0 on gateway fallback"
     );
 
     Ok(())

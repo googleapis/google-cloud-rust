@@ -20,9 +20,9 @@ use crate::model::transaction_options::read_only::TimestampBound;
 use crate::model::transaction_selector::Selector;
 use crate::model::{
     BatchWriteRequest, BeginTransactionRequest, CacheUpdate, CommitRequest, CommitResponse,
-    ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest, PartitionQueryRequest,
-    PartitionReadRequest, PartitionResponse, ReadRequest, ResultSet, RollbackRequest, RoutingHint,
-    Transaction, TransactionOptions, TransactionSelector,
+    DirectedReadOptions, ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest,
+    PartitionQueryRequest, PartitionReadRequest, PartitionResponse, ReadRequest, ResultSet,
+    RollbackRequest, RoutingHint, Transaction, TransactionOptions, TransactionSelector,
 };
 use crate::observability::Observability;
 use crate::omni::{InstanceType, format_database_name};
@@ -146,8 +146,11 @@ macro_rules! define_db_streaming_rpc {
                 .and_then(|routing| $extract_key(routing, &request));
 
             // Step 2: Resolve the optimal server connection and routing hint in a single atomic pass.
-            let (connection, routing_hint) =
-                self.resolve_streaming_route(request.transaction.as_ref(), routing_key.as_deref());
+            let (connection, routing_hint) = self.resolve_streaming_route(
+                request.transaction.as_ref(),
+                request.directed_read_options.as_ref(),
+                routing_key.as_deref(),
+            );
 
             // Step 3: Attach the routing hint if present.
             if let Some(hint) = routing_hint {
@@ -579,12 +582,15 @@ impl DatabaseClient {
     fn resolve_streaming_route(
         &self,
         transaction: Option<&TransactionSelector>,
+        directed_read_options: Option<&DirectedReadOptions>,
         routing_key: Option<&[u8]>,
     ) -> (Option<ServerConnection>, Option<RoutingHint>) {
         let Some(routing) = &self.location_routing else {
             return (None, None);
         };
         let context = routing_context_from_selector(transaction, routing_key);
+        // Fast path: if neither transaction affinity nor a routing key is available (such as an unkeyed
+        // SQL query where key recipes cannot be extracted), fall back to the default channel pool.
         if context.transaction_id.is_none() && context.routing_key.is_none() {
             return (None, None);
         }
@@ -592,6 +598,7 @@ impl DatabaseClient {
         let schema_generation = routing.key_recipe_cache.schema_generation();
         let resolved = routing.location_router.resolve_route(
             &context,
+            directed_read_options,
             database_id,
             schema_generation,
             0,
