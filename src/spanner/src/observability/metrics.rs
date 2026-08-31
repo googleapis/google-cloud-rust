@@ -524,11 +524,6 @@ impl Observability {
 
         let client_uid = generate_client_uid();
         let client_name = client_name();
-        let common_attributes = [
-            KeyValue::new("client_uid", client_uid.clone()),
-            KeyValue::new("client_name", client_name),
-            KeyValue::new("database", database_id.to_string()),
-        ];
 
         let mut metrics = Vec::new();
         if let (true, Some(provider)) = (enable_builtin_to_custom, &custom_meter_provider) {
@@ -558,6 +553,12 @@ impl Observability {
         } else {
             None
         };
+
+        let common_attributes = [
+            KeyValue::new("client_uid", client_uid),
+            KeyValue::new("client_name", client_name),
+            KeyValue::new("database", database_id.to_string()),
+        ];
 
         Self {
             metrics,
@@ -978,9 +979,7 @@ mod tests {
     use http::HeaderValue;
     use opentelemetry_sdk::metrics::data::{AggregatedMetrics, MetricData, ResourceMetrics};
     use opentelemetry_sdk::metrics::{InMemoryMetricExporter, PeriodicReader, SdkMeterProvider};
-    #[cfg(feature = "builtin-metrics")]
     use scoped_env::ScopedEnv;
-    #[cfg(feature = "builtin-metrics")]
     use serial_test::serial;
     use std::collections::HashMap;
     use std::fmt::Debug;
@@ -1670,6 +1669,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[serial]
     async fn observability_init_disabled_env() {
         let _env = scoped_env::ScopedEnv::set("SPANNER_DISABLE_BUILTIN_METRICS", "true");
         let o11y = Observability::init(
@@ -1878,6 +1878,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[serial]
     async fn observability_init_disabled_env_does_not_disable_custom_provider() {
         let _env = scoped_env::ScopedEnv::set("SPANNER_DISABLE_BUILTIN_METRICS", "true");
         let exporter = InMemoryMetricExporter::default();
