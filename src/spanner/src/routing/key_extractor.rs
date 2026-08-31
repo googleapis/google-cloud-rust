@@ -24,16 +24,22 @@ use crate::Result;
 use crate::key::{Endpoint, KeySet};
 use crate::model::mutation::Operation as ProtoOperation;
 use crate::model::{
-    KeyRecipe, KeySet as ProtoKeySet, Mutation as ProtoMutation, PartitionReadRequest,
-    ReadRequest as ProtoReadRequest,
+    ExecuteSqlRequest, KeyRecipe, KeySet as ProtoKeySet, Mutation as ProtoMutation,
+    PartitionReadRequest, ReadRequest as ProtoReadRequest,
 };
 use crate::mutation::{InternalMutation, Mutation};
 use crate::read::ReadRequest;
 use crate::routing::key_recipe::{
     encode_key_from_columns_and_values_into, encode_key_from_json_columns_and_values_into,
-    encode_key_from_json_recipe_into, encode_key_from_recipe_into,
+    encode_key_from_json_query_params, encode_key_from_json_query_params_into,
+    encode_key_from_json_recipe_into, encode_key_from_query_params,
+    encode_key_from_query_params_into, encode_key_from_recipe_into,
 };
 use crate::routing::key_recipe_cache::KeyRecipeCache;
+use crate::statement::Statement;
+use crate::value::Value;
+use serde_json::{Map, Value as JsonValue};
+use std::collections::BTreeMap;
 use tracing::warn;
 
 /// Extracts and encodes a binary routing key (`Vec<u8>`) from a [`KeyRecipe`] and [`KeySet`].
@@ -470,6 +476,168 @@ pub(crate) fn extract_proto_partition_read_request_routing_key(
     )
 }
 
+/// Extracts and encodes a binary routing key (`Vec<u8>`) from a SQL [`KeyRecipe`] and JSON query parameters.
+///
+/// Evaluates the recipe against `parameters`:
+/// - If `part.tag != 0`, the tag number is encoded into the key.
+/// - If `part.tag == 0`, the column name is looked up case-insensitively in `parameters`.
+///
+/// Returns:
+/// - `Ok(Some(routing_key))` if parameter evaluation and encoding succeeded.
+/// - `Err(error)` if encoding failed (e.g. missing parameter, type mismatch, or structural error).
+///
+/// # Caller Fallback Contract
+/// If encoding returns an error, callers (`LocationRouter` / `DatabaseClient`) MUST
+/// catch the error and gracefully fall back to default routing rather than failing the user's RPC.
+pub(crate) fn extract_key_from_json_query_params(
+    recipe: &KeyRecipe,
+    parameters: &Map<String, JsonValue>,
+) -> Result<Option<Vec<u8>>> {
+    encode_key_from_json_query_params(recipe, parameters).map(Some)
+}
+
+/// Extracts and encodes a binary routing key from a SQL [`KeyRecipe`] and JSON query parameters
+/// directly into an existing output buffer.
+///
+/// Returns:
+/// - `Ok(true)` if a routing key was successfully extracted and written to `buffer`.
+/// - `Err(error)` if encoding failed, in which case `buffer` is truncated back to its initial length.
+pub(crate) fn extract_key_from_json_query_params_into(
+    recipe: &KeyRecipe,
+    parameters: &Map<String, JsonValue>,
+    buffer: &mut Vec<u8>,
+) -> Result<bool> {
+    encode_key_from_json_query_params_into(recipe, parameters, buffer)?;
+    Ok(true)
+}
+
+/// Extracts and encodes a binary routing key (`Vec<u8>`) from a SQL [`KeyRecipe`] and typed [`Value`] query parameters.
+///
+/// Returns:
+/// - `Ok(Some(routing_key))` if parameter evaluation and encoding succeeded.
+/// - `Err(error)` if encoding failed (e.g. missing parameter, type mismatch, or structural error).
+pub(crate) fn extract_key_from_statement_params(
+    recipe: &KeyRecipe,
+    parameters: &BTreeMap<String, Value>,
+) -> Result<Option<Vec<u8>>> {
+    encode_key_from_query_params(recipe, parameters).map(Some)
+}
+
+/// Extracts and encodes a binary routing key from a SQL [`KeyRecipe`] and typed [`Value`] query parameters
+/// directly into an existing output buffer.
+///
+/// Returns:
+/// - `Ok(true)` if a routing key was successfully extracted and written to `buffer`.
+/// - `Err(error)` if encoding failed, in which case `buffer` is truncated back to its initial length.
+pub(crate) fn extract_key_from_statement_params_into(
+    recipe: &KeyRecipe,
+    parameters: &BTreeMap<String, Value>,
+    buffer: &mut Vec<u8>,
+) -> Result<bool> {
+    encode_key_from_query_params_into(recipe, parameters, buffer)?;
+    Ok(true)
+}
+
+/// Internal helper resolving the query [`KeyRecipe`] from [`KeyRecipeCache`] and extracting a routing
+/// key via `extractor`. Catches encoding errors, logs a warning, and returns `None` per Spanner
+/// graceful fallback requirements.
+fn extract_query_routing_key_internal(
+    key_recipe_cache: &KeyRecipeCache,
+    operation_uid: u64,
+    target_name: &'static str,
+    extractor: impl FnOnce(&KeyRecipe) -> Result<Option<Vec<u8>>>,
+) -> Option<Vec<u8>> {
+    // Fast path: early return if operation UID is unassigned (0), bypassing cache lock.
+    if operation_uid == 0 {
+        return None;
+    }
+    let recipe = key_recipe_cache.get_query_recipe(operation_uid)?;
+    match extractor(&recipe) {
+        Ok(routing_key) => routing_key,
+        Err(error) => {
+            warn!(
+                %error,
+                operation_uid,
+                "Failed to extract routing key from {target_name}"
+            );
+            None
+        }
+    }
+}
+
+/// Resolves the query [`KeyRecipe`] from [`KeyRecipeCache`] for the given operation UID and encodes
+/// the routing key using the query's JSON parameter values.
+///
+/// If `parameters` is `None`, an empty parameter map is evaluated to support tag-only and constant recipes.
+///
+/// Returns `None` if:
+/// - `operation_uid` is 0 (unassigned).
+/// - No query recipe is present in [`KeyRecipeCache`] for `operation_uid`.
+/// - Key encoding returned an error (e.g. missing parameter or type mismatch), logging a warning.
+pub(crate) fn extract_json_query_routing_key(
+    key_recipe_cache: &KeyRecipeCache,
+    operation_uid: u64,
+    parameters: Option<&Map<String, JsonValue>>,
+) -> Option<Vec<u8>> {
+    let empty_parameters;
+    let parameters_map = match parameters {
+        Some(parameters) => parameters,
+        None => {
+            empty_parameters = Map::new();
+            &empty_parameters
+        }
+    };
+    extract_query_routing_key_internal(
+        key_recipe_cache,
+        operation_uid,
+        "query parameters",
+        |recipe| extract_key_from_json_query_params(recipe, parameters_map),
+    )
+}
+
+/// Resolves the query [`KeyRecipe`] from [`KeyRecipeCache`] for the given operation UID and encodes
+/// the routing key using the parameters from an [`ExecuteSqlRequest`].
+pub(crate) fn extract_execute_sql_request_routing_key(
+    key_recipe_cache: &KeyRecipeCache,
+    operation_uid: u64,
+    request: &ExecuteSqlRequest,
+) -> Option<Vec<u8>> {
+    // Fast path: early return if operation UID is unassigned (0) or partitioned query token is present.
+    if operation_uid == 0 || !request.partition_token.is_empty() {
+        return None;
+    }
+    extract_json_query_routing_key(key_recipe_cache, operation_uid, request.params.as_ref())
+}
+
+/// Resolves the query [`KeyRecipe`] from [`KeyRecipeCache`] for the given operation UID and encodes
+/// the routing key using typed statement parameters.
+pub(crate) fn extract_statement_params_routing_key(
+    key_recipe_cache: &KeyRecipeCache,
+    operation_uid: u64,
+    parameters: &BTreeMap<String, Value>,
+) -> Option<Vec<u8>> {
+    extract_query_routing_key_internal(
+        key_recipe_cache,
+        operation_uid,
+        "statement parameters",
+        |recipe| extract_key_from_statement_params(recipe, parameters),
+    )
+}
+
+/// Resolves the query [`KeyRecipe`] from [`KeyRecipeCache`] for the given operation UID and encodes
+/// the routing key using the statement's parameter bindings.
+pub(crate) fn extract_statement_routing_key(
+    key_recipe_cache: &KeyRecipeCache,
+    operation_uid: u64,
+    statement: &Statement,
+) -> Option<Vec<u8>> {
+    // Fast path: early return if operation UID is unassigned (0).
+    if operation_uid == 0 {
+        return None;
+    }
+    extract_statement_params_routing_key(key_recipe_cache, operation_uid, &statement.params)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -500,6 +668,19 @@ mod tests {
         KeyRecipe::new()
             .set_index_name(index_name.to_string())
             .set_part(all_parts)
+    }
+
+    fn sample_query_recipe(operation_uid: u64, identifier: &str) -> KeyRecipe {
+        KeyRecipe::new()
+            .set_operation_uid(operation_uid)
+            .set_part(vec![
+                Part::new().set_tag(10_u32),
+                Part::new()
+                    .set_identifier(identifier)
+                    .set_order(Order::Ascending)
+                    .set_null_order(NullOrder::NullsFirst)
+                    .set_type(Type::default().set_code(TypeCode::Int64)),
+            ])
     }
 
     fn int64_part(order: Order) -> Part {
@@ -1612,7 +1793,255 @@ mod tests {
             .set_key_set(key_set_uncached);
         assert_eq!(
             extract_proto_partition_read_request_routing_key(&cache, &request_uncached),
-            None
+            None,
+            "Uncached table in PartitionReadRequest must return None"
+        );
+    }
+
+    #[test]
+    fn extract_key_from_json_query_params_success_and_case_insensitivity() {
+        let recipe = sample_query_recipe(100, "singer_id");
+
+        let mut parameters = Map::new();
+        parameters.insert("Singer_Id".to_string(), JsonValue::from(42));
+
+        let routing_key = extract_key_from_json_query_params(&recipe, &parameters)
+            .expect("key extraction should succeed");
+        assert!(
+            routing_key.is_some(),
+            "routing key must be Some for valid query parameters"
+        );
+        let extracted_bytes = routing_key.expect("routing key must be present");
+        assert!(
+            !extracted_bytes.is_empty(),
+            "extracted routing key must not be empty"
+        );
+    }
+
+    #[test]
+    fn extract_key_from_json_query_params_missing_parameter_returns_error() {
+        let recipe = sample_query_recipe(100, "album_id");
+
+        let mut parameters = Map::new();
+        parameters.insert("other_param".to_string(), JsonValue::from(1));
+
+        let result = extract_key_from_json_query_params(&recipe, &parameters);
+        assert!(
+            result.is_err(),
+            "missing parameter must return an encoding error"
+        );
+    }
+
+    #[test]
+    fn extract_key_from_json_query_params_into_preserves_buffer_on_error() {
+        let recipe = sample_query_recipe(100, "missing_column");
+
+        let parameters = Map::new();
+        let mut buffer = vec![0xaa, 0xbb];
+
+        let result = extract_key_from_json_query_params_into(&recipe, &parameters, &mut buffer);
+        assert!(result.is_err(), "missing parameter must return an error");
+        assert_eq!(
+            buffer,
+            vec![0xaa, 0xbb],
+            "buffer must be restored to initial contents on error"
+        );
+    }
+
+    #[test]
+    fn extract_key_from_statement_params_success() {
+        let recipe = sample_query_recipe(100, "user_id");
+
+        let mut statement_parameters = BTreeMap::new();
+        statement_parameters.insert("user_id".to_string(), 42_i64.to_value());
+
+        let routing_key = extract_key_from_statement_params(&recipe, &statement_parameters)
+            .expect("extraction should succeed");
+        assert!(routing_key.is_some(), "statement routing key must be Some");
+
+        let mut buffer = vec![0x11];
+        let success =
+            extract_key_from_statement_params_into(&recipe, &statement_parameters, &mut buffer)
+                .expect("extraction into buffer should succeed");
+        assert!(
+            success,
+            "extract_key_from_statement_params_into must return true"
+        );
+        assert!(
+            buffer.len() > 1,
+            "buffer must contain encoded key bytes appended to initial byte"
+        );
+    }
+
+    #[test]
+    fn extract_key_from_statement_params_missing_parameter_returns_error() {
+        let recipe = sample_query_recipe(100, "album_id");
+
+        let mut statement_parameters = BTreeMap::new();
+        statement_parameters.insert("other_param".to_string(), 1_i64.to_value());
+
+        let result = extract_key_from_statement_params(&recipe, &statement_parameters);
+        assert!(
+            result.is_err(),
+            "missing parameter in statement params must return an encoding error"
+        );
+    }
+
+    #[test]
+    fn extract_key_from_statement_params_into_preserves_buffer_on_error() {
+        let recipe = sample_query_recipe(100, "missing_column");
+
+        let statement_parameters = BTreeMap::new();
+        let mut buffer = vec![0xcc, 0xdd];
+
+        let result =
+            extract_key_from_statement_params_into(&recipe, &statement_parameters, &mut buffer);
+        assert!(
+            result.is_err(),
+            "missing parameter in statement params must return an error"
+        );
+        assert_eq!(
+            buffer,
+            vec![0xcc, 0xdd],
+            "buffer must be restored to initial contents on error"
+        );
+    }
+
+    #[test]
+    fn extract_execute_sql_request_routing_key_all_cases() {
+        let cache = KeyRecipeCache::new();
+        let operation_uid = 42_u64;
+
+        let recipe = sample_query_recipe(operation_uid, "account_id");
+        cache.insert(recipe);
+
+        // 1. Valid parameters match cached recipe
+        let mut parameters = Map::new();
+        parameters.insert("Account_Id".to_string(), JsonValue::from(1001));
+        let mut request = ExecuteSqlRequest::new();
+        request.params = Some(parameters.clone());
+
+        let routing_key = extract_execute_sql_request_routing_key(&cache, operation_uid, &request);
+        assert!(
+            routing_key.is_some(),
+            "valid parameters in ExecuteSqlRequest must produce a routing key"
+        );
+
+        // 2. Statement routing key with typed parameters
+        let mut statement_parameters = BTreeMap::new();
+        statement_parameters.insert("account_id".to_string(), 1001_i64.to_value());
+        let statement_params_key =
+            extract_statement_params_routing_key(&cache, operation_uid, &statement_parameters);
+        assert_eq!(
+            routing_key, statement_params_key,
+            "json params and statement params must encode the exact same routing key"
+        );
+
+        // 3. High-level Statement struct overload
+        let statement = Statement::builder("SELECT * FROM accounts WHERE account_id = @account_id")
+            .add_param("account_id", 1001_i64)
+            .build();
+        let statement_key = extract_statement_routing_key(&cache, operation_uid, &statement);
+        assert_eq!(
+            routing_key, statement_key,
+            "Statement struct routing key must match execute sql request key"
+        );
+
+        // 4. Missing parameter in request returns None (graceful fallback)
+        let request_missing = ExecuteSqlRequest::new();
+        assert_eq!(
+            extract_execute_sql_request_routing_key(&cache, operation_uid, &request_missing),
+            None,
+            "missing parameters when recipe requires them must return None"
+        );
+
+        // 5. Missing parameter in statement returns None (graceful fallback)
+        let statement_missing = Statement::builder("SELECT 1").build();
+        assert_eq!(
+            extract_statement_routing_key(&cache, operation_uid, &statement_missing),
+            None,
+            "missing parameters in Statement must return None"
+        );
+        let empty_params = BTreeMap::new();
+        assert_eq!(
+            extract_statement_params_routing_key(&cache, operation_uid, &empty_params),
+            None,
+            "empty parameters in extract_statement_params_routing_key must return None"
+        );
+
+        // 6. Uncached operation UID returns None
+        assert_eq!(
+            extract_execute_sql_request_routing_key(&cache, 9999, &request),
+            None,
+            "uncached operation UID must return None"
+        );
+        assert_eq!(
+            extract_statement_params_routing_key(&cache, 9999, &statement_parameters),
+            None,
+            "uncached operation UID in extract_statement_params_routing_key must return None"
+        );
+        assert_eq!(
+            extract_statement_routing_key(&cache, 9999, &statement),
+            None,
+            "uncached operation UID in extract_statement_routing_key must return None"
+        );
+
+        // 7. Early return fast paths: operation_uid == 0
+        assert_eq!(
+            extract_execute_sql_request_routing_key(&cache, 0, &request),
+            None,
+            "operation_uid == 0 in extract_execute_sql_request_routing_key must return None"
+        );
+        assert_eq!(
+            extract_statement_params_routing_key(&cache, 0, &statement_parameters),
+            None,
+            "operation_uid == 0 in extract_statement_params_routing_key must return None"
+        );
+        assert_eq!(
+            extract_statement_routing_key(&cache, 0, &statement),
+            None,
+            "operation_uid == 0 in extract_statement_routing_key must return None"
+        );
+
+        // 8. Early return fast paths: partitioned query with partition_token
+        let mut request_partitioned = request.clone();
+        request_partitioned.partition_token = ::bytes::Bytes::from_static(b"partition-token-xyz");
+        assert_eq!(
+            extract_execute_sql_request_routing_key(&cache, operation_uid, &request_partitioned),
+            None,
+            "request with partition_token must immediately return None"
+        );
+    }
+
+    #[test]
+    fn extract_execute_sql_request_routing_key_tag_only_recipe_succeeds_without_params() {
+        let cache = KeyRecipeCache::new();
+        let operation_uid = 99_u64;
+
+        let recipe = KeyRecipe::new()
+            .set_operation_uid(operation_uid)
+            .set_part(vec![Part::new().set_tag(10_u32)]);
+        cache.insert(recipe);
+
+        let request_no_params = ExecuteSqlRequest::new();
+        assert!(
+            request_no_params.params.is_none(),
+            "request without parameters must have params == None"
+        );
+
+        let routing_key =
+            extract_execute_sql_request_routing_key(&cache, operation_uid, &request_no_params);
+        assert!(
+            routing_key.is_some(),
+            "tag-only recipe must succeed and encode routing key even when request.params is None"
+        );
+
+        let empty_statement_params = BTreeMap::new();
+        let statement_key =
+            extract_statement_params_routing_key(&cache, operation_uid, &empty_statement_params);
+        assert_eq!(
+            routing_key, statement_key,
+            "json params None and empty statement params must produce the identical tag-only routing key"
         );
     }
 }
