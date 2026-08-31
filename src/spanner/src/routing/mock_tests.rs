@@ -49,7 +49,6 @@ use crate::mutation::Mutation;
 use crate::omni::InstanceType;
 use crate::read::ReadRequest;
 use crate::read_write_transaction::ReadWriteTransaction;
-use crate::routing::cache_subscriber::CacheSubscriber;
 use crate::routing::directed_read::select_eligible_tablets_for_directed_read;
 use crate::routing::key_range_cache::RangeMode;
 use crate::routing::location_router::RoutingContext;
@@ -2427,7 +2426,15 @@ async fn latency_aware_selection_prefers_lower_latency_replica() -> anyhow::Resu
 #[tokio_test_no_panics]
 async fn proactive_cache_subscriber_streams_update_to_router() -> anyhow::Result<()> {
     let (attempt_sender, mut attempt_receiver) = mpsc::channel(4);
-    let mut mock = create_base_mock();
+    let mut mock = MockSpanner::new();
+    mock.expect_create_session().returning(|_| {
+        Ok(Response::new(mock_v1::Session {
+            name:
+                "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1"
+                    .to_string(),
+            ..Default::default()
+        }))
+    });
     let update = sample_mock_cache_update(
         888888,
         9999,
@@ -2442,16 +2449,11 @@ async fn proactive_cache_subscriber_streams_update_to_router() -> anyhow::Result
         Ok(Response::from(stream_receiver))
     });
 
-    let (database_client, spanner, _server) = setup_mock_database_client(mock).await?;
+    let (database_client, _spanner, _server) = setup_mock_database_client(mock).await?;
 
-    let cache_updater = database_client
-        .cache_updater()
-        .expect("cache updater must be present");
-
-    let subscriber = CacheSubscriber::start(
-        "projects/test-project/instances/test-instance/databases/test-db".to_string(),
-        spanner.clone(),
-        Arc::clone(cache_updater),
+    assert!(
+        database_client.cache_subscriber().is_some(),
+        "cache subscriber must be started by database_client"
     );
 
     // Deterministically wait for the initial connection and subsequent reconnection attempt,
@@ -2504,8 +2506,6 @@ async fn proactive_cache_subscriber_streams_update_to_router() -> anyhow::Result
         preserved_range.group_uid, 9999,
         "streamed ranges must not be wiped by stale inline update"
     );
-
-    subscriber.wait_for_shutdown().await;
 
     Ok(())
 }
@@ -3364,6 +3364,10 @@ async fn unary_partition_query_with_transaction_id_routes_to_affinity_address() 
 
 fn create_base_mock() -> MockSpanner {
     let mut mock = MockSpanner::new();
+    mock.expect_fetch_cache_update().returning(|_| {
+        let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+        Ok(Response::from(receiver))
+    });
     mock.expect_create_session().returning(|_| {
         Ok(Response::new(mock_v1::Session {
             name:

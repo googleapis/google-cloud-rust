@@ -3053,6 +3053,11 @@ pub(crate) mod tests {
             Ok(Response::from(stream))
         });
 
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            Ok(Response::from(receiver))
+        });
+
         mock.expect_create_session().returning(|_| {
             Ok(Response::new(Session {
                 name: "session".to_string(),

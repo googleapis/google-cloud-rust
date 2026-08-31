@@ -30,6 +30,7 @@ use crate::partitioned_dml_transaction::PartitionedDmlTransactionBuilder;
 use crate::read_only_transaction::{
     MultiUseReadOnlyTransactionBuilder, SingleUseReadOnlyTransactionBuilder,
 };
+use crate::routing::cache_subscriber::CacheSubscriber;
 use crate::routing::cache_updater::CacheUpdater;
 use crate::routing::connection_cache::ConnectionCache;
 use crate::routing::endpoint_cooldown::EndpointCooldownTracker;
@@ -567,6 +568,13 @@ impl DatabaseClient {
             .map(|routing| routing.cache_updater.database_id())
     }
 
+    /// Returns a reference to the background [`CacheSubscriber`] if location-aware routing is enabled.
+    #[allow(dead_code)] // TODO: Used for lifecycle inspection in subsequent PRs
+    pub(crate) fn cache_subscriber(&self) -> Option<&CacheSubscriber> {
+        self.location_routing
+            .as_ref()
+            .map(|routing| &routing.cache_subscriber)
+    }
     /// Resolves the optimal [`ServerConnection`] and [`RoutingHint`] in a single pass for a streaming request.
     fn resolve_streaming_route(
         &self,
@@ -1033,15 +1041,6 @@ impl DatabaseClientBuilder {
             )
             .await,
         );
-        let session_maintainer = ManagedSessionMaintainer::create_and_start_maintenance(
-            self.spanner.clone(),
-            database_name,
-            self.database_role.unwrap_or_default(),
-            self.options.unwrap_or_default(),
-            Arc::clone(&o11y),
-        )
-        .await?;
-
         // TODO: Enable location-aware routing by default for Omni instances once fully stabilized.
         let location_aware_routing_enabled = self
             .location_aware_routing_enabled
@@ -1051,6 +1050,15 @@ impl DatabaseClientBuilder {
                     .and_then(|v| v.parse::<bool>().ok())
             })
             .unwrap_or(false);
+
+        let session_maintainer = ManagedSessionMaintainer::create_and_start_maintenance(
+            self.spanner.clone(),
+            database_name,
+            self.database_role.unwrap_or_default(),
+            self.options.unwrap_or_default(),
+            Arc::clone(&o11y),
+        )
+        .await?;
 
         let location_routing = location_aware_routing_enabled.then(|| {
             Arc::new(LocationRoutingState::new(
@@ -1074,6 +1082,7 @@ pub(crate) struct LocationRoutingState {
     pub(crate) location_router: Arc<LocationRouter>,
     pub(crate) cache_updater: Arc<CacheUpdater>,
     pub(crate) key_recipe_cache: Arc<KeyRecipeCache>,
+    pub(crate) cache_subscriber: CacheSubscriber,
 }
 
 const DEFAULT_ENDPOINT: &str = "spanner.googleapis.com:443";
@@ -1100,7 +1109,7 @@ impl LocationRoutingState {
         let cooldown_tracker = Arc::new(EndpointCooldownTracker::new());
         let latency_registry = Arc::new(LatencyRegistry::new());
         let location_router = Arc::new(LocationRouter::new(
-            database_name,
+            database_name.clone(),
             Arc::clone(&key_range_cache),
             Arc::clone(&connection_cache),
             cooldown_tracker,
@@ -1112,12 +1121,21 @@ impl LocationRoutingState {
             connection_cache,
             spanner.config.clone(),
         ));
+        let cache_subscriber =
+            CacheSubscriber::start(database_name, spanner.clone(), Arc::clone(&cache_updater));
 
         Self {
             location_router,
             cache_updater,
             key_recipe_cache,
+            cache_subscriber,
         }
+    }
+}
+
+impl Drop for LocationRoutingState {
+    fn drop(&mut self) {
+        self.cache_subscriber.stop();
     }
 }
 
@@ -1172,11 +1190,32 @@ mod tests {
     };
     use crate::result_set::tests::adapt;
     use crate::routing::key_range_cache::RangeMode;
+    use gaxi::grpc::tonic::Response;
     use gaxi::options::ClientConfig;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_test_macros::tokio_test_no_panics;
+    use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use spanner_grpc_mock::{MockSpanner, start};
     use std::fmt;
+    use tokio::sync::mpsc;
+
+    fn create_test_mock() -> MockSpanner {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|req| {
+            let req = req.into_inner();
+            let session = req.session.expect("session present in request");
+            Ok(Response::new(mock_v1::Session {
+                name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
+                multiplexed: session.multiplexed,
+                ..Default::default()
+            }))
+        });
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = mpsc::channel(1);
+            Ok(Response::from(receiver))
+        });
+        mock
+    }
 
     #[test]
     fn auto_traits() {
@@ -1328,18 +1367,7 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn database_client_builder_with_location_aware_routing_flag() {
-        let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|req| {
-            let req = req.into_inner();
-            let session = req.session.expect("session present in request");
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-                    multiplexed: session.multiplexed,
-                    ..Default::default()
-                },
-            ))
-        });
+        let mock = create_test_mock();
 
         let (address, _server) = start("0.0.0.0:0", mock)
             .await
@@ -1393,18 +1421,7 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn database_client_observe_cache_update_database_id_switch_clears_caches() {
-        let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|req| {
-            let req = req.into_inner();
-            let session = req.session.expect("session present in request");
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-                    multiplexed: session.multiplexed,
-                    ..Default::default()
-                },
-            ))
-        });
+        let mock = create_test_mock();
 
         let (address, _server) = start("0.0.0.0:0", mock)
             .await
@@ -1513,18 +1530,7 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn database_client_observe_metadata_populates_key_recipe_cache() {
-        let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|req| {
-            let req = req.into_inner();
-            let session = req.session.expect("session present in request");
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-                    multiplexed: session.multiplexed,
-                    ..Default::default()
-                },
-            ))
-        });
+        let mock = create_test_mock();
 
         let (address, _server) = start("0.0.0.0:0", mock)
             .await
@@ -1567,18 +1573,7 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn database_client_observe_cache_update_populates_key_range_cache() {
-        let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|req| {
-            let req = req.into_inner();
-            let session = req.session.expect("session present in request");
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-                    multiplexed: session.multiplexed,
-                    ..Default::default()
-                },
-            ))
-        });
+        let mock = create_test_mock();
 
         let (address, _server) = start("0.0.0.0:0", mock)
             .await
@@ -1632,18 +1627,7 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn database_client_observe_commit_response_populates_key_range_cache() {
-        let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|req| {
-            let req = req.into_inner();
-            let session = req.session.expect("session present in request");
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-                    multiplexed: session.multiplexed,
-                    ..Default::default()
-                },
-            ))
-        });
+        let mock = create_test_mock();
 
         let (address, _server) = start("0.0.0.0:0", mock)
             .await
@@ -1698,18 +1682,7 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn database_client_observe_cache_update_concurrent_access() {
-        let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|req| {
-            let req = req.into_inner();
-            let session = req.session.expect("session present in request");
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-                    multiplexed: session.multiplexed,
-                    ..Default::default()
-                },
-            ))
-        });
+        let mock = create_test_mock();
 
         let (address, _server) = start("0.0.0.0:0", mock)
             .await
@@ -1757,18 +1730,7 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn database_client_clone_shares_location_routing_state() {
-        let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|req| {
-            let req = req.into_inner();
-            let session = req.session.expect("session present in request");
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-                    multiplexed: session.multiplexed,
-                    ..Default::default()
-                },
-            ))
-        });
+        let mock = create_test_mock();
 
         let (address, _server) = start("0.0.0.0:0", mock)
             .await
@@ -1818,18 +1780,7 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn database_client_accessors_and_observe_when_disabled() {
-        let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|req| {
-            let req = req.into_inner();
-            let session = req.session.expect("session present in request");
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-                    multiplexed: session.multiplexed,
-                    ..Default::default()
-                },
-            ))
-        });
+        let mock = create_test_mock();
 
         let (address, _server) = start("0.0.0.0:0", mock)
             .await
@@ -1862,18 +1813,7 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn database_client_observe_execute_batch_dml_response() {
-        let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|req| {
-            let req = req.into_inner();
-            let session = req.session.expect("session present in request");
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-                    multiplexed: session.multiplexed,
-                    ..Default::default()
-                },
-            ))
-        });
+        let mock = create_test_mock();
 
         let (address, _server) = start("0.0.0.0:0", mock)
             .await
@@ -1925,18 +1865,7 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn database_client_observe_cache_update_stale_database_id_aborts_ingestion() {
-        let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|req| {
-            let req = req.into_inner();
-            let session = req.session.expect("session present in request");
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-                    multiplexed: session.multiplexed,
-                    ..Default::default()
-                },
-            ))
-        });
+        let mock = create_test_mock();
 
         let (address, _server) = start("0.0.0.0:0", mock)
             .await
@@ -1990,18 +1919,7 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn database_client_observe_cache_update_concurrent_id_switch() {
-        let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|req| {
-            let req = req.into_inner();
-            let session = req.session.expect("session present in request");
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-                    multiplexed: session.multiplexed,
-                    ..Default::default()
-                },
-            ))
-        });
+        let mock = create_test_mock();
 
         let (address, _server) = start("0.0.0.0:0", mock)
             .await
@@ -2068,18 +1986,7 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn resolve_read_channel_cloud_spanner_uses_default_channel() {
-        let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|req| {
-            let req = req.into_inner();
-            let session = req.session.expect("session present in request");
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-                    multiplexed: session.multiplexed,
-                    ..Default::default()
-                },
-            ))
-        });
+        let mock = create_test_mock();
 
         let (address, _server) = start("0.0.0.0:0", mock)
             .await
@@ -2109,18 +2016,7 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn resolve_routing_connection_omni_cold_start_and_cache_hit_and_cooldown() {
-        let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|req| {
-            let req = req.into_inner();
-            let session = req.session.expect("session present in request");
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-                    multiplexed: session.multiplexed,
-                    ..Default::default()
-                },
-            ))
-        });
+        let mock = create_test_mock();
 
         let (address, _server) = start("0.0.0.0:0", mock)
             .await
@@ -2370,18 +2266,7 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn resolve_routing_connection_omni_without_routing_info_returns_none() {
-        let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|req| {
-            let req = req.into_inner();
-            let session = req.session.expect("session present in request");
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-                    multiplexed: session.multiplexed,
-                    ..Default::default()
-                },
-            ))
-        });
+        let mock = create_test_mock();
 
         let (address, _server) = start("0.0.0.0:0", mock)
             .await
@@ -2433,18 +2318,7 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn resolve_routing_connection_uses_transaction_affinity_when_transaction_id_present() {
-        let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|req| {
-            let req = req.into_inner();
-            let session = req.session.expect("session present in request");
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-                    multiplexed: session.multiplexed,
-                    ..Default::default()
-                },
-            ))
-        });
+        let mock = create_test_mock();
 
         let (address, _server) = start("0.0.0.0:0", mock)
             .await
@@ -2557,18 +2431,7 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn resolve_routing_connection_does_not_record_affinity_without_transaction_id() {
-        let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|req| {
-            let req = req.into_inner();
-            let session = req.session.expect("session present in request");
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-                    multiplexed: session.multiplexed,
-                    ..Default::default()
-                },
-            ))
-        });
+        let mock = create_test_mock();
 
         let (address, _server) = start("0.0.0.0:0", mock)
             .await
@@ -2646,18 +2509,7 @@ mod tests {
         use std::sync::Mutex;
 
         let captured_requests = Arc::new(Mutex::new(Vec::new()));
-        let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|req| {
-            let req = req.into_inner();
-            let session = req.session.expect("session present in request");
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-                    multiplexed: session.multiplexed,
-                    ..Default::default()
-                },
-            ))
-        });
+        let mut mock = create_test_mock();
 
         // 1. Map unary methods to default mock responses
         macro_rules! mock_unary_response {
@@ -2791,18 +2643,7 @@ mod tests {
         use std::sync::Mutex;
 
         let captured_requests = Arc::new(Mutex::new(Vec::new()));
-        let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|req| {
-            let req = req.into_inner();
-            let session = req.session.expect("session present in request");
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-                    multiplexed: session.multiplexed,
-                    ..Default::default()
-                },
-            ))
-        });
+        let mut mock = create_test_mock();
 
         let captured = Arc::clone(&captured_requests);
         mock.expect_execute_streaming_sql().returning(move |req| {
@@ -2882,19 +2723,7 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn database_client_latency_recording_and_error_tracking() {
-        let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|req| {
-            let req = req.into_inner();
-            let session = req.session.expect("session present in request");
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/test-p/instances/test-i/databases/test-d/sessions/s1"
-                        .to_string(),
-                    multiplexed: session.multiplexed,
-                    ..Default::default()
-                },
-            ))
-        });
+        let mock = create_test_mock();
 
         let (address, _server) = start("0.0.0.0:0", mock)
             .await
@@ -2939,18 +2768,7 @@ mod tests {
 
     #[tokio_test_no_panics]
     async fn database_client_latency_recording_when_disabled_is_noop() {
-        let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|req| {
-            let req = req.into_inner();
-            let session = req.session.expect("session present in request");
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-                    multiplexed: session.multiplexed,
-                    ..Default::default()
-                },
-            ))
-        });
+        let mock = create_test_mock();
 
         let (address, _server) = start("0.0.0.0:0", mock)
             .await
@@ -2978,31 +2796,75 @@ mod tests {
     }
 
     #[tokio_test_no_panics]
-    async fn streaming_read_attaches_routing_hint_when_location_routing_active() {
-        use crate::model::key_recipe::Part;
-        use crate::model::key_recipe::part::{NullOrder, Order};
-        use bytes::Bytes;
-        use std::sync::Mutex;
+    async fn cache_subscriber_lifecycle_when_location_routing_disabled() {
+        let mock = create_test_mock();
 
-        let captured_hints = Arc::new(Mutex::new(Vec::new()));
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await
+            .expect("build should succeed");
+
+        assert!(
+            database_client.cache_subscriber().is_none(),
+            "cache subscriber should not be initialized when location-aware routing is disabled"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn cache_subscriber_lifecycle_when_location_routing_enabled() {
+        let (attempt_sender, mut attempt_receiver) = mpsc::channel(4);
         let mut mock = MockSpanner::new();
-        mock.expect_create_session().returning(|request| {
-            let request = request.into_inner();
-            let session = request.session.expect("session present in request");
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-                    multiplexed: session.multiplexed,
-                    ..Default::default()
-                },
-            ))
+        mock.expect_create_session().returning(|req| {
+            let req = req.into_inner();
+            let session = req.session.expect("session present in request");
+            Ok(Response::new(mock_v1::Session {
+                name: "projects/p/instances/i/databases/d/sessions/s1".to_string(),
+                multiplexed: session.multiplexed,
+                ..Default::default()
+            }))
         });
 
-        let captured = Arc::clone(&captured_hints);
-        mock.expect_streaming_read().returning(move |request| {
-            let request = request.into_inner();
-            captured.lock().expect("lock").push(request.routing_hint);
-            Ok(gaxi::grpc::tonic::Response::from(adapt([])))
+        let update = mock_v1::CacheUpdate {
+            database_id: 12345,
+            group: vec![mock_v1::Group {
+                group_uid: 99,
+                leader_index: 0,
+                tablets: vec![mock_v1::Tablet {
+                    server_address: "node-99.spanner.internal:15000".to_string(),
+                    location: "us-central1".to_string(),
+                    role: 1, // ReadWrite
+                    distance: 0,
+                    ..Default::default()
+                }],
+                ..Default::default()
+            }],
+            range: vec![mock_v1::Range {
+                group_uid: 99,
+                start_key: b"a".to_vec(),
+                limit_key: b"z".to_vec(),
+                generation: vec![1],
+                ..Default::default()
+            }],
+            ..Default::default()
+        };
+
+        mock.expect_fetch_cache_update().returning(move |_| {
+            let _ = attempt_sender.try_send(());
+            let (stream_sender, stream_receiver) = mpsc::channel(4);
+            let _ = stream_sender.try_send(Ok(update.clone()));
+            Ok(Response::from(stream_receiver))
         });
 
         let (address, _server) = start("0.0.0.0:0", mock)
@@ -3023,6 +2885,76 @@ mod tests {
             .await
             .expect("build should succeed");
 
+        assert!(
+            database_client.cache_subscriber().is_some(),
+            "cache subscriber must be initialized when location-aware routing is enabled"
+        );
+
+        // Deterministically wait for the initial connection and subsequent reconnection attempt,
+        // which guarantees that the first stream's CacheUpdate was completely ingested into KeyRangeCache.
+        attempt_receiver
+            .recv()
+            .await
+            .expect("initial subscriber stream request should arrive");
+        attempt_receiver
+            .recv()
+            .await
+            .expect("reconnection attempt should arrive after first stream finishes");
+
+        let location_router = database_client
+            .location_router()
+            .expect("location router must be present");
+        let found_range = location_router
+            .key_range_cache()
+            .find_range(b"m", &[], RangeMode::CoveringSplit)
+            .expect("range should be populated by background cache subscriber");
+        assert_eq!(
+            found_range.group_uid, 99,
+            "streamed range must map to group 99"
+        );
+        assert_eq!(
+            database_client.database_id(),
+            Some(12345),
+            "streamed database id must be updated"
+        );
+
+        drop(database_client);
+    }
+
+    #[tokio_test_no_panics]
+    async fn streaming_read_attaches_routing_hint_when_location_routing_active() {
+        use crate::model::key_recipe::Part;
+        use crate::model::key_recipe::part::{NullOrder, Order};
+        use bytes::Bytes;
+        use std::sync::Mutex;
+
+        let captured_hints = Arc::new(Mutex::new(Vec::new()));
+        let mut mock = create_test_mock();
+
+        let captured = Arc::clone(&captured_hints);
+        mock.expect_streaming_read().returning(move |request| {
+            let request = request.into_inner();
+            captured.lock().expect("lock").push(request.routing_hint);
+            Ok(Response::from(adapt([])))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
         // 1. Initial streaming read without cache update -> routing_hint is None (cold cache, db_id = 0)
         let mut key_set = KeySet::new();
         key_set
