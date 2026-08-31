@@ -1551,6 +1551,10 @@ mod tests {
         use spanner_grpc_mock::{MockSpanner, start};
 
         let mut mock = MockSpanner::new();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            Ok(Response::from(receiver))
+        });
         mock.expect_create_session().returning(|_| {
             Ok(Response::new(Session {
                 name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
@@ -1641,6 +1645,10 @@ mod tests {
         use spanner_grpc_mock::{MockSpanner, start};
 
         let mut mock = MockSpanner::new();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            Ok(Response::from(receiver))
+        });
         mock.expect_create_session().returning(|_| {
             Ok(Response::new(Session {
                 name: "session".to_string(),
