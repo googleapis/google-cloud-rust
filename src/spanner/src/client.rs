@@ -21,7 +21,7 @@ use crate::model::{
     Transaction,
 };
 use crate::observability::Observability;
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "metrics")]
 use crate::observability::metrics::SpannerMetricsInterceptor;
 use crate::omni::{InstanceType, TlsConfig, TlsError, is_plaintext_endpoint};
 use crate::request_id::RequestIdCreator;
@@ -48,8 +48,14 @@ use std::sync::{
 };
 
 pub use crate::database_client::DatabaseClient;
+#[cfg(feature = "metrics")]
+use crate::observability::SharedMeterProvider;
+#[cfg(feature = "metrics")]
+use google_cloud_gax::client_builder::Extensions;
 pub use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
 pub use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
+#[cfg(feature = "metrics")]
+use opentelemetry::metrics::MeterProvider;
 
 /// A client for the [Spanner] API.
 ///
@@ -64,6 +70,12 @@ pub struct Spanner {
     pub(crate) is_emulator: bool,
     pub(crate) instance_type: InstanceType,
     pub(crate) request_id_creator: Arc<RequestIdCreator>,
+    #[cfg(feature = "builtin-metrics")]
+    pub(crate) export_builtin_metrics_to_cloud_monitoring: Option<bool>,
+    #[cfg(feature = "metrics")]
+    pub(crate) export_builtin_metrics_to_custom_provider: Option<bool>,
+    #[cfg(feature = "metrics")]
+    pub(crate) meter_provider: Option<SharedMeterProvider>,
 }
 
 /// A factory for constructing `Spanner` clients.
@@ -123,6 +135,16 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             channels.push(Channel::create(&config, index + 1).await?);
         }
 
+        #[cfg(feature = "builtin-metrics")]
+        let export_builtin_metrics_to_cloud_monitoring = config
+            .extensions
+            .get::<ExportBuiltinMetricsToCloudMonitoring>()
+            .map(|config| config.0);
+
+        #[cfg(feature = "metrics")]
+        let (export_builtin_metrics_to_custom_provider, meter_provider) =
+            extract_metrics_config(&config.extensions);
+
         Ok(Spanner {
             channels,
             counter: Arc::new(AtomicUsize::new(0)),
@@ -130,6 +152,12 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             is_emulator,
             instance_type,
             request_id_creator: Arc::new(RequestIdCreator::new()),
+            #[cfg(feature = "builtin-metrics")]
+            export_builtin_metrics_to_cloud_monitoring,
+            #[cfg(feature = "metrics")]
+            export_builtin_metrics_to_custom_provider,
+            #[cfg(feature = "metrics")]
+            meter_provider,
         })
     }
 }
@@ -172,7 +200,136 @@ pub trait SpannerBuilderExt {
     ///
     /// Calling this method automatically configures the client instance type as `InstanceType::Omni`.
     fn with_omni_tls(self, tls_config: TlsConfig) -> Self;
+
+    /// Configures a custom OpenTelemetry [`MeterProvider`] for recording Client metrics.
+    ///
+    /// # Example
+    /// ```
+    /// # use std::sync::Arc;
+    /// # use opentelemetry_sdk::metrics::SdkMeterProvider;
+    /// # use google_cloud_spanner::client::{Spanner, SpannerBuilderExt};
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let provider = Arc::new(SdkMeterProvider::builder().build());
+    /// let spanner = Spanner::builder()
+    ///     .with_meter_provider(provider)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// The caller owns the lifecycle of this provider; Spanner will not shut it down.
+    ///
+    /// # Client Metrics
+    ///
+    /// When configured, Client metrics (such as gRPC channel pool metrics) are recorded
+    /// directly to this provider.
+    ///
+    /// # Built-in Metrics Export (Secondary)
+    ///
+    /// In addition to Client metrics, this provider can optionally receive Spanner
+    /// built-in request and attempt latency metrics:
+    ///
+    /// - **Cloud Spanner**: Built-in metrics are exported directly to Google Cloud
+    ///   Monitoring free of charge and are **not** duplicated to this provider by default
+    ///   to protect users from unexpected third-party monitoring costs. To export built-in
+    ///   metrics to this provider as well, call
+    ///   [`with_export_builtin_metrics_to_custom_provider(true)`](Self::with_export_builtin_metrics_to_custom_provider).
+    ///   Note that this opt-in is required on Cloud Spanner even when the `builtin-metrics`
+    ///   Cargo feature is compiled out.
+    ///
+    /// - **Spanner Omni**: Because Cloud Monitoring is not active for Omni, built-in metrics
+    ///   are exported to this provider by default.
+    #[cfg(feature = "metrics")]
+    fn with_meter_provider(self, provider: Arc<dyn MeterProvider + Send + Sync>) -> Self;
+
+    /// Configures whether built-in request and attempt latency metrics should be
+    /// exported to the custom [`MeterProvider`] configured via
+    /// [`with_meter_provider`](Self::with_meter_provider).
+    ///
+    /// # Example
+    /// ```
+    /// # use std::sync::Arc;
+    /// # use opentelemetry_sdk::metrics::SdkMeterProvider;
+    /// # use google_cloud_spanner::client::{Spanner, SpannerBuilderExt};
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let provider = Arc::new(SdkMeterProvider::builder().build());
+    /// let client = Spanner::builder()
+    ///     .with_meter_provider(provider)
+    ///     .with_export_builtin_metrics_to_custom_provider(true)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// # Background & Cost Considerations
+    ///
+    /// Cloud Spanner collects curated client metrics (such as `operation_latencies`,
+    /// `attempt_latencies`, and `attempt_count`).
+    ///
+    /// - **Cloud Spanner**: Built-in metrics are exported directly to Google Cloud
+    ///   Monitoring (GCM) free of charge under the `spanner.googleapis.com/internal/client/`
+    ///   namespace.
+    ///   If these high-frequency histograms were automatically duplicated to a customer's
+    ///   custom `MeterProvider` (which may export to Datadog, New Relic, Dynatrace, or
+    ///   custom GCM ingestion pipelines), the customer could incur substantial unexpected
+    ///   monitoring and ingestion costs.
+    ///   Therefore, on Cloud Spanner, exporting built-in metrics to the custom `MeterProvider`
+    ///   **defaults to `false`** (even when the `builtin-metrics` Cargo feature is compiled out).
+    ///   Callers must explicitly opt in by calling
+    ///   `with_export_builtin_metrics_to_custom_provider(true)` if they want built-in metrics
+    ///   sent to their custom OpenTelemetry sink.
+    ///
+    /// - **Spanner Omni**: Spanner Omni instances run outside GCP where Cloud Monitoring is
+    ///   not active. Omni customers providing a custom `MeterProvider` rely on it as their
+    ///   primary metrics sink.
+    ///   Therefore, on Spanner Omni, exporting built-in metrics to the custom `MeterProvider`
+    ///   **defaults to `true`**.
+    ///
+    /// - **Emulator**: When connecting to the Spanner emulator, all built-in metrics collection
+    ///   and export are disabled.
+    #[cfg(feature = "metrics")]
+    fn with_export_builtin_metrics_to_custom_provider(self, export: bool) -> Self;
+
+    /// Configures whether built-in request and attempt latency metrics should be
+    /// exported to Google Cloud Monitoring.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Spanner, SpannerBuilderExt};
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Spanner::builder()
+    ///     .with_export_builtin_metrics_to_cloud_monitoring(false)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// # Default & Environment Overrides
+    ///
+    /// - **Cloud Spanner**: Defaults to `true`. Export to Google Cloud Monitoring can also
+    ///   be disabled by setting the environment variable `SPANNER_DISABLE_BUILTIN_METRICS=true`.
+    ///   When explicitly configured via this method, the programmatic setting takes precedence.
+    ///
+    /// - **Spanner Omni & Emulator**: Defaults to `false`. Cloud Monitoring export is never
+    ///   enabled for Spanner Omni instances or when connecting to the Spanner emulator.
+    ///
+    /// # Independence from Custom Provider Export
+    ///
+    /// Disabling Cloud Monitoring export does **not** affect built-in metrics exported to a
+    /// custom [`MeterProvider`] configured via
+    /// [`with_meter_provider`](Self::with_meter_provider) and
+    /// [`with_export_builtin_metrics_to_custom_provider`](Self::with_export_builtin_metrics_to_custom_provider).
+    #[cfg(feature = "builtin-metrics")]
+    fn with_export_builtin_metrics_to_cloud_monitoring(self, export: bool) -> Self;
 }
+
+#[cfg(feature = "builtin-metrics")]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+struct ExportBuiltinMetricsToCloudMonitoring(bool);
+
+#[cfg(feature = "metrics")]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+struct ExportBuiltinMetricsToCustomProvider(bool);
 
 impl SpannerBuilderExt for ClientBuilder {
     fn with_instance_type(self, instance_type: InstanceType) -> Self {
@@ -183,6 +340,21 @@ impl SpannerBuilderExt for ClientBuilder {
         self.with_extension(InstanceType::Omni)
             .with_extension(tls_config)
     }
+
+    #[cfg(feature = "metrics")]
+    fn with_meter_provider(self, provider: Arc<dyn MeterProvider + Send + Sync>) -> Self {
+        self.with_extension(SharedMeterProvider::from(provider))
+    }
+
+    #[cfg(feature = "metrics")]
+    fn with_export_builtin_metrics_to_custom_provider(self, export: bool) -> Self {
+        self.with_extension(ExportBuiltinMetricsToCustomProvider(export))
+    }
+
+    #[cfg(feature = "builtin-metrics")]
+    fn with_export_builtin_metrics_to_cloud_monitoring(self, export: bool) -> Self {
+        self.with_extension(ExportBuiltinMetricsToCloudMonitoring(export))
+    }
 }
 
 fn parse_emulator_endpoint(endpoint: &str) -> String {
@@ -190,6 +362,22 @@ fn parse_emulator_endpoint(endpoint: &str) -> String {
         Ok(url) if url.has_host() => endpoint.to_string(),
         _ => format!("http://{}", endpoint),
     }
+}
+
+#[cfg(feature = "metrics")]
+fn extract_metrics_config(extensions: &Extensions) -> (Option<bool>, Option<SharedMeterProvider>) {
+    let export_builtin_metrics_to_custom_provider = extensions
+        .get::<ExportBuiltinMetricsToCustomProvider>()
+        .map(|config| config.0);
+    let meter_provider = extensions
+        .get::<SharedMeterProvider>()
+        .cloned()
+        .or_else(|| {
+            extensions
+                .get::<Arc<dyn MeterProvider + Send + Sync>>()
+                .map(|provider| SharedMeterProvider::from(Arc::clone(provider)))
+        });
+    (export_builtin_metrics_to_custom_provider, meter_provider)
 }
 
 macro_rules! define_idempotent_rpc {
@@ -202,7 +390,7 @@ macro_rules! define_idempotent_rpc {
             o11y: &Arc<Observability>,
         ) -> crate::Result<$response_type> {
             let options = self.attach_request_id(options, channel);
-            #[cfg(feature = "_experimental-builtin-metrics")]
+            #[cfg(feature = "metrics")]
             let options = options.insert_extension(Arc::clone(o11y));
             o11y.trace_operation(
                 $canonical_name,
@@ -372,7 +560,33 @@ impl Spanner {
             is_emulator: false,
             instance_type: InstanceType::Cloud,
             request_id_creator: Arc::new(RequestIdCreator::new()),
+            #[cfg(feature = "builtin-metrics")]
+            export_builtin_metrics_to_cloud_monitoring: None,
+            #[cfg(feature = "metrics")]
+            export_builtin_metrics_to_custom_provider: None,
+            #[cfg(feature = "metrics")]
+            meter_provider: None,
         }
+    }
+
+    #[cfg(feature = "builtin-metrics")]
+    pub(crate) fn export_builtin_metrics_to_cloud_monitoring(&self) -> Option<bool> {
+        self.export_builtin_metrics_to_cloud_monitoring
+    }
+
+    #[cfg(all(feature = "metrics", not(feature = "builtin-metrics")))]
+    pub(crate) fn export_builtin_metrics_to_cloud_monitoring(&self) -> Option<bool> {
+        None
+    }
+
+    #[cfg(feature = "metrics")]
+    pub(crate) fn export_builtin_metrics_to_custom_provider(&self) -> Option<bool> {
+        self.export_builtin_metrics_to_custom_provider
+    }
+
+    #[cfg(feature = "metrics")]
+    pub(crate) fn meter_provider(&self) -> Option<SharedMeterProvider> {
+        self.meter_provider.clone()
     }
 
     pub(crate) fn is_emulator(&self) -> bool {
@@ -555,13 +769,13 @@ impl Channel {
         let request_id_interceptor: Arc<dyn AttemptInterceptor> =
             Arc::new(SpannerRequestIdInterceptor);
 
-        #[cfg(feature = "_experimental-builtin-metrics")]
+        #[cfg(feature = "metrics")]
         let interceptor: Arc<dyn AttemptInterceptor> = Arc::new(vec![
             request_id_interceptor,
             Arc::new(SpannerMetricsInterceptor),
         ]);
 
-        #[cfg(not(feature = "_experimental-builtin-metrics"))]
+        #[cfg(not(feature = "metrics"))]
         let interceptor: Arc<dyn AttemptInterceptor> = request_id_interceptor;
 
         transport.inner.set_attempt_interceptor(interceptor);
@@ -619,6 +833,8 @@ mod tests {
     use spanner_grpc_mock::google::spanner::v1::result_set_stats::RowCount;
     use spanner_grpc_mock::{MockSpanner, start};
     use static_assertions::{assert_impl_all, assert_not_impl_any};
+    use std::fmt::Debug;
+    use std::panic::{RefUnwindSafe, UnwindSafe};
     use std::sync::Arc;
     use std::sync::atomic::{AtomicU64, Ordering};
     use std::time::Duration;
@@ -633,8 +849,8 @@ mod tests {
 
     #[test]
     fn auto_traits() {
-        assert_impl_all!(Spanner: std::fmt::Debug, Clone, Send, Sync);
-        assert_not_impl_any!(Spanner: std::panic::RefUnwindSafe, std::panic::UnwindSafe);
+        assert_impl_all!(Spanner: Debug, Clone, Send, Sync);
+        assert_not_impl_any!(Spanner: RefUnwindSafe, UnwindSafe);
     }
 
     #[tokio_test_no_panics]
@@ -2061,6 +2277,220 @@ mod tests {
             headers.get(&super::ROUTE_TO_LEADER_HEADER),
             Some(&super::ROUTE_TO_LEADER_VALUE),
             "LAR header should match ROUTE_TO_LEADER_VALUE"
+        );
+    }
+
+    #[cfg(feature = "builtin-metrics")]
+    #[tokio_test_no_panics]
+    async fn spanner_builder_with_meter_provider_cloud_spanner_default_does_not_export_builtin_metrics()
+     {
+        use opentelemetry::metrics::MeterProvider;
+        use opentelemetry_sdk::metrics::{
+            InMemoryMetricExporter, PeriodicReader, SdkMeterProvider,
+        };
+
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().once().returning(|req| {
+            let req = req.into_inner();
+            let session = req.session.expect("session present in request");
+            assert!(session.multiplexed, "session should be multiplexed");
+
+            Ok(Response::new(Session {
+                name:
+                    "projects/test-project/instances/test-instance/databases/test-db/sessions/123"
+                        .to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(exporter).build();
+        let provider: Arc<dyn MeterProvider + Send + Sync> =
+            Arc::new(SdkMeterProvider::builder().with_reader(reader).build());
+
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .with_meter_provider(Arc::clone(&provider))
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        assert!(
+            spanner.meter_provider().is_some(),
+            "provider should be stored on spanner"
+        );
+        assert_eq!(
+            spanner.export_builtin_metrics_to_custom_provider(),
+            None,
+            "export_builtin_metrics_to_custom_provider should default to None"
+        );
+
+        let db_client = spanner
+            .database_client("projects/test-project/instances/test-instance/databases/test-db")
+            .build()
+            .await
+            .expect("Failed to create DatabaseClient");
+
+        assert!(
+            !db_client.o11y.is_enabled(),
+            "Observability should be disabled for built-in metrics on Cloud Spanner by default"
+        );
+        assert!(
+            db_client.o11y.caller_meter_provider.is_some(),
+            "caller_meter_provider should be preserved on the client"
+        );
+        assert_eq!(
+            db_client.o11y.metrics.len(),
+            0,
+            "Cloud Spanner default does not duplicate built-in metrics to caller provider"
+        );
+    }
+
+    #[cfg(feature = "builtin-metrics")]
+    #[tokio_test_no_panics]
+    async fn spanner_builder_with_export_builtin_metrics_to_custom_provider() {
+        use opentelemetry::metrics::MeterProvider;
+        use opentelemetry_sdk::metrics::{
+            InMemoryMetricExporter, PeriodicReader, SdkMeterProvider,
+        };
+
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().once().returning(|req| {
+            let req = req.into_inner();
+            let session = req.session.expect("session present in request");
+            assert!(session.multiplexed, "session should be multiplexed");
+
+            Ok(Response::new(Session {
+                name:
+                    "projects/test-project/instances/test-instance/databases/test-db/sessions/123"
+                        .to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(exporter).build();
+        let provider: Arc<dyn MeterProvider + Send + Sync> =
+            Arc::new(SdkMeterProvider::builder().with_reader(reader).build());
+
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .with_meter_provider(Arc::clone(&provider))
+            .with_export_builtin_metrics_to_custom_provider(true)
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        assert_eq!(
+            spanner.export_builtin_metrics_to_custom_provider(),
+            Some(true),
+            "export flag should be Some(true)"
+        );
+
+        let db_client = spanner
+            .database_client("projects/test-project/instances/test-instance/databases/test-db")
+            .build()
+            .await
+            .expect("Failed to create DatabaseClient");
+
+        assert!(
+            db_client.o11y.is_enabled(),
+            "Observability should be enabled when opting in to export built-in metrics"
+        );
+        assert_eq!(
+            db_client.o11y.metrics.len(),
+            1,
+            "expected 1 metrics sink for the custom provider"
+        );
+    }
+
+    #[cfg(feature = "builtin-metrics")]
+    #[tokio_test_no_panics]
+    async fn spanner_builder_omni_with_meter_provider_defaults_to_export_builtin_metrics() {
+        use opentelemetry::metrics::MeterProvider;
+        use opentelemetry_sdk::metrics::{
+            InMemoryMetricExporter, PeriodicReader, SdkMeterProvider,
+        };
+
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().once().returning(|req| {
+            let req = req.into_inner();
+            let session = req.session.expect("session present in request");
+            assert!(session.multiplexed, "session should be multiplexed");
+
+            Ok(Response::new(Session {
+                name:
+                    "projects/test-project/instances/test-instance/databases/test-db/sessions/123"
+                        .to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(exporter).build();
+        let provider: Arc<dyn MeterProvider + Send + Sync> =
+            Arc::new(SdkMeterProvider::builder().with_reader(reader).build());
+
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_meter_provider(Arc::clone(&provider))
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        assert_eq!(
+            spanner.export_builtin_metrics_to_custom_provider(),
+            None,
+            "export flag defaults to None"
+        );
+
+        let db_client = spanner
+            .database_client("projects/test-project/instances/test-instance/databases/test-db")
+            .build()
+            .await
+            .expect("Failed to create DatabaseClient");
+
+        assert!(
+            db_client.o11y.is_enabled(),
+            "Observability should be enabled on Omni by default when provider is supplied"
+        );
+        assert_eq!(
+            db_client.o11y.metrics.len(),
+            1,
+            "expected 1 metrics sink for Omni custom provider"
+        );
+    }
+
+    #[cfg(feature = "builtin-metrics")]
+    #[tokio_test_no_panics]
+    async fn spanner_builder_with_export_builtin_metrics_to_cloud_monitoring() {
+        let spanner = Spanner::builder()
+            .with_endpoint("0.0.0.0:9010")
+            .with_credentials(Anonymous::new().build())
+            .with_export_builtin_metrics_to_cloud_monitoring(false)
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        assert_eq!(
+            spanner.export_builtin_metrics_to_cloud_monitoring(),
+            Some(false),
+            "export_builtin_metrics_to_cloud_monitoring should be Some(false)"
         );
     }
 }
