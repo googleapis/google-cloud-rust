@@ -28,6 +28,7 @@ pub(crate) mod key_recipe_cache;
 pub(crate) mod latency_registry;
 pub(crate) mod location_router;
 pub(crate) mod power_of_two_selector;
+pub(crate) mod prepared_operation;
 pub(crate) mod server_connection;
 pub(crate) mod ssformat;
 pub(crate) mod temporal;
