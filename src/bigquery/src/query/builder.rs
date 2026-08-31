@@ -48,7 +48,7 @@ pub(crate) const QUERY_REQUEST_ID_PREFIX: &str = "req_";
 ///     .read();
 ///
 /// while let Some(row) = rows.next().await.transpose()? {
-///     let name: String = row.get("name");
+///     let name: String = row.get("name")?;
 ///     println!("Name: {name}");
 /// }
 /// # Ok(())
@@ -133,7 +133,7 @@ impl Query {
     ///
     /// let mut rows = completed_query.read();
     /// if let Some(row) = rows.next().await.transpose()? {
-    ///     let now: String = row.get("now");
+    ///     let now: String = row.get("now")?;
     ///     println!("Current time: {now}");
     /// }
     /// # Ok(())
@@ -168,7 +168,7 @@ impl Query {
     ///
     /// let mut rows = completed_query.read();
     /// if let Some(row) = rows.next().await.transpose()? {
-    ///     let now: String = row.get("now");
+    ///     let now: String = row.get("now")?;
     ///     println!("Current time: {now}");
     /// }
     /// # Ok(())

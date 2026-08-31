@@ -40,9 +40,9 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
         .read();
 
     while let Some(row) = rows.next().await.transpose()? {
-        let str_col: String = row.get("str_col");
-        let int_col: i64 = row.get("int_col");
-        let float_col: f64 = row.get("float_col");
+        let str_col: String = row.get("str_col")?;
+        let int_col: i64 = row.get("int_col")?;
+        let float_col: f64 = row.get("float_col")?;
         println!("String: {str_col}, Int: {int_col}, Float: {float_col}");
     }
     Ok(())
