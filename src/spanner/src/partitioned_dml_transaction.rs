@@ -519,6 +519,10 @@ mod tests {
         use spanner_grpc_mock::start;
 
         let mut mock = MockSpanner::new();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
         mock.expect_create_session().returning(|_| {
             Ok(tonic::Response::new(v1::Session {
                 name: "projects/p/instances/i/databases/d/sessions/123".to_string(),

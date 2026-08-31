@@ -4087,6 +4087,10 @@ mod tests {
         use spanner_grpc_mock::start;
 
         let mut mock = create_session_mock();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
         mock.expect_begin_transaction().returning(|_| {
             Ok(tonic::Response::new(v1::Transaction {
                 id: vec![1, 2, 3],
@@ -4166,6 +4170,10 @@ mod tests {
         use spanner_grpc_mock::start;
 
         let mut mock = create_session_mock();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
         mock.expect_begin_transaction().returning(|_| {
             Ok(tonic::Response::new(v1::Transaction {
                 id: vec![1, 2, 3],
