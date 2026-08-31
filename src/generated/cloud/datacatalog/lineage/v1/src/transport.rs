@@ -1395,7 +1395,7 @@ impl super::stub::Lineage for Lineage {
         );
 
         self.grpc_inner
-            .execute_server_streaming_tmp::<
+            .execute_server_streaming::<
                 crate::model::SearchLineageStreamingRequest,
                 crate::model::SearchLineageStreamingResponse,
                 crate::prost::google::cloud::datacatalog::lineage::v1::SearchLineageStreamingRequest,

@@ -169,7 +169,7 @@ impl super::stub::TextToSpeech for TextToSpeech {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::StreamingSynthesizeRequest,
                 crate::model::StreamingSynthesizeResponse,
                 crate::prost::google::cloud::texttospeech::v1::StreamingSynthesizeRequest,

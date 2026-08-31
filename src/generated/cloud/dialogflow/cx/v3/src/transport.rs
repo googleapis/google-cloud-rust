@@ -13267,7 +13267,7 @@ impl super::stub::Sessions for Sessions {
         );
 
         self.grpc_inner
-            .execute_server_streaming_tmp::<
+            .execute_server_streaming::<
                 crate::model::DetectIntentRequest,
                 crate::model::DetectIntentResponse,
                 crate::prost::google::cloud::dialogflow::cx::v3::DetectIntentRequest,
@@ -13305,7 +13305,7 @@ impl super::stub::Sessions for Sessions {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::StreamingDetectIntentRequest,
                 crate::model::StreamingDetectIntentResponse,
                 crate::prost::google::cloud::dialogflow::cx::v3::StreamingDetectIntentRequest,

@@ -605,7 +605,7 @@ impl super::stub::Speech for Speech {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::StreamingRecognizeRequest,
                 crate::model::StreamingRecognizeResponse,
                 crate::prost::google::cloud::speech::v2::StreamingRecognizeRequest,

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.39.1-0.20260829003228-d503f745af63
+version: v0.39.1-0.20260831202050-0f2bc29bfe10
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -966,12 +966,10 @@ libraries:
     version: 1.15.0
     copyright_year: "2025"
     output: src/gax
-    skip_release: true
   - name: google-cloud-gax-internal
     version: 0.7.19
     copyright_year: "2025"
     output: src/gax-internal
-    skip_release: true
     rust:
       modules:
         - module_path: google_cloud_rpc::model

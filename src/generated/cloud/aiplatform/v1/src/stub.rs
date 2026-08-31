@@ -1502,7 +1502,7 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
         google_cloud_gax::streaming::RequestSender<crate::model::FeatureViewDirectWriteRequest>,
         google_cloud_gax::streaming::ResponseStream<crate::model::FeatureViewDirectWriteResponse>,
     ) {
-        gaxi::unimplemented::unimplemented_bidi_stub_tmp()
+        gaxi::unimplemented::unimplemented_bidi_stub()
     }
 
     /// Implements [super::client::FeatureOnlineStoreService::generate_fetch_access_token].
@@ -6315,7 +6315,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectPredictRequest>,
         google_cloud_gax::streaming::ResponseStream<crate::model::StreamDirectPredictResponse>,
     ) {
-        gaxi::unimplemented::unimplemented_bidi_stub_tmp()
+        gaxi::unimplemented::unimplemented_bidi_stub()
     }
 
     /// Implements [super::client::PredictionService::stream_direct_raw_predict].
@@ -6326,7 +6326,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectRawPredictRequest>,
         google_cloud_gax::streaming::ResponseStream<crate::model::StreamDirectRawPredictResponse>,
     ) {
-        gaxi::unimplemented::unimplemented_bidi_stub_tmp()
+        gaxi::unimplemented::unimplemented_bidi_stub()
     }
 
     /// Implements [super::client::PredictionService::streaming_predict].
@@ -6337,7 +6337,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingPredictRequest>,
         google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPredictResponse>,
     ) {
-        gaxi::unimplemented::unimplemented_bidi_stub_tmp()
+        gaxi::unimplemented::unimplemented_bidi_stub()
     }
 
     /// Implements [super::client::PredictionService::streaming_raw_predict].
@@ -6348,7 +6348,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingRawPredictRequest>,
         google_cloud_gax::streaming::ResponseStream<crate::model::StreamingRawPredictResponse>,
     ) {
-        gaxi::unimplemented::unimplemented_bidi_stub_tmp()
+        gaxi::unimplemented::unimplemented_bidi_stub()
     }
 
     /// Implements [super::client::PredictionService::explain].

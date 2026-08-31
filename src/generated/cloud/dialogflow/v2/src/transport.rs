@@ -19647,7 +19647,7 @@ impl super::stub::Participants for Participants {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::StreamingAnalyzeContentRequest,
                 crate::model::StreamingAnalyzeContentResponse,
                 crate::prost::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest,
@@ -20823,7 +20823,7 @@ impl super::stub::Sessions for Sessions {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::StreamingDetectIntentRequest,
                 crate::model::StreamingDetectIntentResponse,
                 crate::prost::google::cloud::dialogflow::v2::StreamingDetectIntentRequest,

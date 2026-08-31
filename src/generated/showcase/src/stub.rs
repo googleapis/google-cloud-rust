@@ -305,7 +305,7 @@ pub trait Echo: std::fmt::Debug + Send + Sync {
             google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>,
         >,
     > + Send {
-        gaxi::unimplemented::unimplemented_server_streaming_stub_tmp()
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
     }
 
     /// Implements [super::client::Echo::chat].
@@ -316,7 +316,7 @@ pub trait Echo: std::fmt::Debug + Send + Sync {
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
         google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>,
     ) {
-        gaxi::unimplemented::unimplemented_bidi_stub_tmp()
+        gaxi::unimplemented::unimplemented_bidi_stub()
     }
 
     /// Implements [super::client::Echo::paged_expand].
@@ -807,7 +807,7 @@ pub trait Messaging: std::fmt::Debug + Send + Sync {
             google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>,
         >,
     > + Send {
-        gaxi::unimplemented::unimplemented_server_streaming_stub_tmp()
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
     }
 
     /// Implements [super::client::Messaging::connect].
@@ -818,7 +818,7 @@ pub trait Messaging: std::fmt::Debug + Send + Sync {
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
         google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>,
     ) {
-        gaxi::unimplemented::unimplemented_bidi_stub_tmp()
+        gaxi::unimplemented::unimplemented_bidi_stub()
     }
 
     /// Implements [super::client::Messaging::list_locations].
@@ -1033,7 +1033,7 @@ pub trait SequenceService: std::fmt::Debug + Send + Sync {
             >,
         >,
     > + Send {
-        gaxi::unimplemented::unimplemented_server_streaming_stub_tmp()
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
     }
 
     /// Implements [super::client::SequenceService::list_locations].

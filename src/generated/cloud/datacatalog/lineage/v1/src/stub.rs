@@ -229,7 +229,7 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
             >,
         >,
     > + Send {
-        gaxi::unimplemented::unimplemented_server_streaming_stub_tmp()
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
     }
 
     /// Implements [super::client::Lineage::list_operations].

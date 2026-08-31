@@ -1406,7 +1406,7 @@ impl super::stub::DataChatService for DataChatService {
         );
 
         self.grpc_inner
-            .execute_server_streaming_tmp::<
+            .execute_server_streaming::<
                 crate::model::ChatRequest,
                 crate::model::Message,
                 crate::prost::google::cloud::geminidataanalytics::v1::ChatRequest,
