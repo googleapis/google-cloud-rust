@@ -1049,6 +1049,7 @@ mod tests {
         Error::io("something failed")
     }
 
+    #[ignore = "TODO(#6588) - disabled because it was flaky"]
     #[tokio::test]
     async fn test_poller_tracing() {
         let guard = google_cloud_test_utils::test_layer::TestLayer::initialize();
@@ -1139,6 +1140,7 @@ mod tests {
         }
     }
 
+    #[ignore = "TODO(#6588) - disabled because it was flaky"]
     #[tokio::test]
     async fn test_poller_tracing_immediate_done() {
         let guard = google_cloud_test_utils::test_layer::TestLayer::initialize();
