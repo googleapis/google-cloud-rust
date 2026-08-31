@@ -23,12 +23,12 @@
 
 use crate::model::key_recipe::Target;
 use crate::model::{KeyRecipe, RecipeList};
+use crate::routing::clock_cache::{ClockEntry, ClockStore};
 use bytes::Bytes;
-use std::collections::hash_map::Entry;
-use std::collections::{HashMap, VecDeque};
+use std::collections::HashMap;
 use std::fmt::{self, Debug, Formatter};
 use std::mem::take;
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, RwLock, RwLockReadGuard, RwLockWriteGuard};
 
 /// Default maximum number of SQL query recipes cached simultaneously.
@@ -42,9 +42,15 @@ pub(crate) const DEFAULT_QUERY_RECIPE_CACHE_CAPACITY: usize = 2_000;
 /// Backed by [`RwLock`] around separate hash maps for tables, indexes, and queries, enabling
 /// zero-allocation `&str` lookups, non-blocking concurrent reads across Tokio tasks, and
 /// scan-resistant CLOCK (Second-Chance) eviction for query recipes.
-#[derive(Default)]
 pub(crate) struct KeyRecipeCache {
     store: RwLock<RecipeStore>,
+    next_operation_uid: AtomicU64,
+}
+
+impl Default for KeyRecipeCache {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl Debug for KeyRecipeCache {
@@ -60,16 +66,20 @@ impl Debug for KeyRecipeCache {
 impl KeyRecipeCache {
     /// Creates a new, empty [`KeyRecipeCache`] with the default query recipe capacity (`2,000`).
     pub(crate) fn new() -> Self {
-        Self {
-            store: RwLock::new(RecipeStore::default()),
-        }
+        Self::with_query_capacity(DEFAULT_QUERY_RECIPE_CACHE_CAPACITY)
     }
 
     /// Creates a new, empty [`KeyRecipeCache`] with the specified query recipe capacity limit.
     pub(crate) fn with_query_capacity(query_capacity: usize) -> Self {
         Self {
             store: RwLock::new(RecipeStore::with_query_capacity(query_capacity)),
+            next_operation_uid: AtomicU64::new(1),
         }
+    }
+
+    /// Generates and returns a monotonically increasing operation UID for SQL query operations and prepared operations.
+    pub(crate) fn next_operation_uid(&self) -> u64 {
+        self.next_operation_uid.fetch_add(1, Ordering::Relaxed)
     }
 
     fn read_store(&self) -> RwLockReadGuard<'_, RecipeStore> {
@@ -117,10 +127,7 @@ impl KeyRecipeCache {
     /// is a lookup operation, consistent with `HashMap::get`, `ConnectionCache::get_if_present`, and
     /// `KeyRangeCache::get_group`.
     pub(crate) fn get_query_recipe(&self, operation_uid: u64) -> Option<Arc<KeyRecipe>> {
-        let guard = self.read_store();
-        let entry = guard.queries.get(&operation_uid)?;
-        entry.referenced.store(true, Ordering::Relaxed);
-        Some(Arc::clone(&entry.recipe))
+        self.read_store().queries.get(&operation_uid)
     }
 
     /// Inserts a [`KeyRecipe`] into the cache.
@@ -131,8 +138,10 @@ impl KeyRecipeCache {
     /// heap allocations occur outside the critical section, reducing lock hold duration to a pure
     /// $O(1)$ hashmap insertion.
     ///
-    /// The lock guard is explicitly dropped before any displaced previous recipe is deallocated,
-    /// ensuring heap deallocations also occur outside the critical section.
+    /// The lock guard is explicitly dropped before any displaced overwritten recipe is deallocated,
+    /// ensuring heap deallocations for overwritten entries occur outside the critical section.
+    /// (Evicted entries from bounded query store capacity limits are dropped on removal under the write guard,
+    /// which is an $O(1)$ atomic reference counter decrement).
     ///
     /// Returns `true` if the recipe contained a target and was stored in the cache;
     /// returns `false` if `recipe.target` was `None`.
@@ -142,48 +151,52 @@ impl KeyRecipeCache {
         };
         let recipe_arc = Arc::new(recipe);
         let mut guard = self.write_store();
-        let _old = match target {
+        let _previous_recipe = match target {
             Target::TableName(name) => guard.tables.insert(name, recipe_arc),
             Target::IndexName(name) => guard.indexes.insert(name, recipe_arc),
-            Target::OperationUid(operation_uid) => guard.insert_query(operation_uid, recipe_arc),
+            Target::OperationUid(operation_uid) => guard.queries.insert(operation_uid, recipe_arc),
         };
-        // Explicitly drop the lock guard before `_old` is dropped so that if an existing
+        // Explicitly drop the lock guard before `_previous_recipe` is dropped so that if an existing
         // recipe with reference count 1 was overwritten, its heap deallocation occurs
         // outside the critical section.
         drop(guard);
         true
     }
 
-    /// Ingests a slice of [`KeyRecipe`]s into the cache in a single batch,
+    /// Ingests an iterator of [`KeyRecipe`]s into the cache in a single batch,
     /// acquiring the write lock only once.
-    pub(crate) fn insert_batch(&self, recipes: &[KeyRecipe]) {
-        if recipes.is_empty() {
-            return;
-        }
+    pub(crate) fn insert_batch<I>(&self, recipes: I)
+    where
+        I: IntoIterator<Item = KeyRecipe>,
+    {
+        let iterator = recipes.into_iter();
+        let (lower_bound, _) = iterator.size_hint();
         // Prepare target and Arc outside the write lock to minimize lock hold duration.
-        let mut prepared = Vec::with_capacity(recipes.len());
-        for recipe in recipes {
+        let mut prepared = Vec::with_capacity(lower_bound);
+        for recipe in iterator {
             if let Some(target) = recipe.target.clone() {
-                prepared.push((target, Arc::new(recipe.clone())));
+                prepared.push((target, Arc::new(recipe)));
             }
         }
         if prepared.is_empty() {
             return;
         }
+        let mut displaced_recipes = Vec::new();
         let mut guard = self.write_store();
         for (target, recipe_arc) in prepared {
-            match target {
-                Target::TableName(name) => {
-                    guard.tables.insert(name, recipe_arc);
-                }
-                Target::IndexName(name) => {
-                    guard.indexes.insert(name, recipe_arc);
-                }
+            let previous_recipe = match target {
+                Target::TableName(name) => guard.tables.insert(name, recipe_arc),
+                Target::IndexName(name) => guard.indexes.insert(name, recipe_arc),
                 Target::OperationUid(operation_uid) => {
-                    guard.insert_query(operation_uid, recipe_arc);
+                    guard.queries.insert(operation_uid, recipe_arc)
                 }
+            };
+            if let Some(displaced) = previous_recipe {
+                displaced_recipes.push(displaced);
             }
         }
+        drop(guard);
+        drop(displaced_recipes);
     }
 
     /// Ingests all recipes and schema generation from a [`RecipeList`] returned in [`CacheUpdate`](crate::model::CacheUpdate).
@@ -197,6 +210,14 @@ impl KeyRecipeCache {
         let incoming_generation = recipe_list.schema_generation;
         if recipe_list.recipe.is_empty() && incoming_generation.is_empty() {
             return;
+        }
+
+        // Prepare targets and Arcs outside the write lock to minimize lock hold duration.
+        let mut prepared = Vec::with_capacity(recipe_list.recipe.len());
+        for recipe in recipe_list.recipe {
+            if let Some(target) = recipe.target.clone() {
+                prepared.push((target, Arc::new(recipe)));
+            }
         }
 
         let mut guard = self.write_store();
@@ -217,35 +238,24 @@ impl KeyRecipeCache {
             _ => None,
         };
 
-        let mut displaced = Vec::new();
-        for recipe in recipe_list.recipe {
-            if let Some(target) = &recipe.target {
-                let target = target.clone();
-                let recipe_arc = Arc::new(recipe);
-                match target {
-                    Target::TableName(name) => {
-                        if let Some(old) = guard.tables.insert(name, recipe_arc) {
-                            displaced.push(old);
-                        }
-                    }
-                    Target::IndexName(name) => {
-                        if let Some(old) = guard.indexes.insert(name, recipe_arc) {
-                            displaced.push(old);
-                        }
-                    }
-                    Target::OperationUid(operation_uid) => {
-                        if let Some(old) = guard.insert_query(operation_uid, recipe_arc) {
-                            displaced.push(old);
-                        }
-                    }
+        let mut displaced_recipes = Vec::new();
+        for (target, recipe_arc) in prepared {
+            let previous_recipe = match target {
+                Target::TableName(name) => guard.tables.insert(name, recipe_arc),
+                Target::IndexName(name) => guard.indexes.insert(name, recipe_arc),
+                Target::OperationUid(operation_uid) => {
+                    guard.queries.insert(operation_uid, recipe_arc)
                 }
+            };
+            if let Some(displaced) = previous_recipe {
+                displaced_recipes.push(displaced);
             }
         }
 
         // Release write lock before deallocating any old invalidated recipe collections or displaced recipes.
         drop(guard);
         drop(_dropped_entries);
-        drop(displaced);
+        drop(displaced_recipes);
     }
 
     /// Returns the schema generation of the most recently ingested [`RecipeList`], if any.
@@ -259,6 +269,10 @@ impl KeyRecipeCache {
     }
 
     /// Clears all entries from the cache while preserving configured capacity limits.
+    ///
+    /// Note: Intentionally retains `next_operation_uid` monotonically increasing to ensure
+    /// operation UIDs remain globally unique across the client lifecycle, preventing collisions
+    /// with in-flight asynchronous queries.
     pub(crate) fn clear(&self) {
         let old_entries = {
             let mut guard = self.write_store();
@@ -284,14 +298,7 @@ impl KeyRecipeCache {
 struct InvalidatedEntries {
     tables: HashMap<String, Arc<KeyRecipe>>,
     indexes: HashMap<String, Arc<KeyRecipe>>,
-    queries: HashMap<u64, QueryRecipeEntry>,
-}
-
-/// Entry for a cached query recipe, pairing the recipe pointer with an atomic reference flag
-/// for CLOCK (Second-Chance) cache eviction.
-struct QueryRecipeEntry {
-    recipe: Arc<KeyRecipe>,
-    referenced: AtomicBool,
+    queries: HashMap<u64, ClockEntry<Arc<KeyRecipe>>>,
 }
 
 /// Internal storage for key recipes, separated by target type to allow zero-allocation
@@ -299,16 +306,8 @@ struct QueryRecipeEntry {
 struct RecipeStore {
     tables: HashMap<String, Arc<KeyRecipe>>,
     indexes: HashMap<String, Arc<KeyRecipe>>,
-    queries: HashMap<u64, QueryRecipeEntry>,
-    query_order: VecDeque<u64>,
-    query_capacity: usize,
+    queries: ClockStore<u64, Arc<KeyRecipe>>,
     schema_generation: Option<Bytes>,
-}
-
-impl Default for RecipeStore {
-    fn default() -> Self {
-        Self::with_query_capacity(DEFAULT_QUERY_RECIPE_CACHE_CAPACITY)
-    }
 }
 
 impl RecipeStore {
@@ -316,9 +315,7 @@ impl RecipeStore {
         Self {
             tables: HashMap::new(),
             indexes: HashMap::new(),
-            queries: HashMap::new(),
-            query_order: VecDeque::new(),
-            query_capacity,
+            queries: ClockStore::with_capacity(query_capacity),
             schema_generation: None,
         }
     }
@@ -333,63 +330,12 @@ impl RecipeStore {
     fn invalidate_all(&mut self, new_schema_generation: Option<Bytes>) -> InvalidatedEntries {
         let tables = take(&mut self.tables);
         let indexes = take(&mut self.indexes);
-        let queries = take(&mut self.queries);
-        self.query_order.clear();
+        let queries = self.queries.take_all();
         self.schema_generation = new_schema_generation;
         InvalidatedEntries {
             tables,
             indexes,
             queries,
-        }
-    }
-
-    fn insert_query(
-        &mut self,
-        operation_uid: u64,
-        recipe: Arc<KeyRecipe>,
-    ) -> Option<Arc<KeyRecipe>> {
-        if self.query_capacity == 0 {
-            return None;
-        }
-        match self.queries.entry(operation_uid) {
-            Entry::Occupied(mut occupied) => {
-                let entry = occupied.get_mut();
-                let previous_recipe = Arc::clone(&entry.recipe);
-                entry.recipe = recipe;
-                // Overwriting an existing entry marks it as recently referenced, granting it a
-                // second chance in CLOCK eviction so freshly updated recipes are not prematurely evicted.
-                entry.referenced.store(true, Ordering::Relaxed);
-                Some(previous_recipe)
-            }
-            Entry::Vacant(vacant) => {
-                vacant.insert(QueryRecipeEntry {
-                    recipe,
-                    referenced: AtomicBool::new(false),
-                });
-                self.query_order.push_back(operation_uid);
-                self.evict_excess_queries();
-                None
-            }
-        }
-    }
-
-    /// Evicts excess query recipes beyond `query_capacity` using the CLOCK (Second-Chance) algorithm.
-    fn evict_excess_queries(&mut self) {
-        while self.queries.len() > self.query_capacity {
-            let Some(candidate_uid) = self.query_order.pop_front() else {
-                break;
-            };
-            let Some(entry) = self.queries.get(&candidate_uid) else {
-                // Stale queue entry (already removed/overwritten): discard and continue.
-                continue;
-            };
-            if entry.referenced.swap(false, Ordering::Relaxed) {
-                // Entry was referenced since last inspection: grant a second chance.
-                self.query_order.push_back(candidate_uid);
-            } else {
-                // Entry was not referenced: evict from cache.
-                self.queries.remove(&candidate_uid);
-            }
         }
     }
 }
@@ -543,14 +489,14 @@ mod tests {
     #[test]
     fn insert_batch_empty_or_no_targets() {
         let cache = KeyRecipeCache::new();
-        cache.insert_batch(&[]);
+        cache.insert_batch(Vec::new());
         assert!(
             cache.is_empty(),
             "cache must remain empty after empty batch"
         );
 
         let untargeted_recipe = KeyRecipe::new();
-        cache.insert_batch(&[untargeted_recipe]);
+        cache.insert_batch(vec![untargeted_recipe]);
         assert!(
             cache.is_empty(),
             "cache must remain empty when batch contains only untargeted recipes"
@@ -565,7 +511,12 @@ mod tests {
         let query_recipe = KeyRecipe::new().set_operation_uid(42u64);
         let untargeted_recipe = KeyRecipe::new();
 
-        cache.insert_batch(&[table_recipe, index_recipe, query_recipe, untargeted_recipe]);
+        cache.insert_batch(vec![
+            table_recipe,
+            index_recipe,
+            query_recipe,
+            untargeted_recipe,
+        ]);
 
         assert_eq!(
             cache.len(),
@@ -663,7 +614,7 @@ mod tests {
             KeyRecipe::new().set_table_name("UnboundedTable"),
         ];
 
-        cache.insert_batch(&batch);
+        cache.insert_batch(batch);
 
         // Table recipe is stored, but queries are bounded to 2 (100 is evicted, 200 and 300 remain)
         assert_eq!(
@@ -692,12 +643,21 @@ mod tests {
     #[test]
     fn query_recipe_cache_overwrite_does_not_evict() {
         let cache = KeyRecipeCache::with_query_capacity(2);
-        assert!(cache.insert(KeyRecipe::new().set_operation_uid(1u64)));
-        assert!(cache.insert(KeyRecipe::new().set_operation_uid(2u64)));
-        assert_eq!(cache.len(), 2);
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(1u64)),
+            "insert query 1 must succeed"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(2u64)),
+            "insert query 2 must succeed"
+        );
+        assert_eq!(cache.len(), 2, "length must be 2 after two inserts");
 
         // Overwrite query 1
-        assert!(cache.insert(KeyRecipe::new().set_operation_uid(1u64)));
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(1u64)),
+            "overwrite query 1 must succeed"
+        );
         assert_eq!(
             cache.len(),
             2,
@@ -705,8 +665,14 @@ mod tests {
         );
 
         // Both queries 1 and 2 must still be present
-        assert!(cache.get_query_recipe(1).is_some());
-        assert!(cache.get_query_recipe(2).is_some());
+        assert!(
+            cache.get_query_recipe(1).is_some(),
+            "query 1 must be present"
+        );
+        assert!(
+            cache.get_query_recipe(2).is_some(),
+            "query 2 must be present"
+        );
     }
 
     #[test]
@@ -714,17 +680,29 @@ mod tests {
         let cache = KeyRecipeCache::with_query_capacity(2);
 
         // Insert query 1 (head of FIFO queue) and query 2 (tail of FIFO queue) without reading them
-        assert!(cache.insert(KeyRecipe::new().set_operation_uid(1u64)));
-        assert!(cache.insert(KeyRecipe::new().set_operation_uid(2u64)));
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(1u64)),
+            "insert query 1 must succeed"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(2u64)),
+            "insert query 2 must succeed"
+        );
 
         // Overwrite query 1 with an updated recipe (without calling get_query_recipe)
         let updated_recipe = KeyRecipe::new()
             .set_operation_uid(1u64)
             .set_part(vec![Part::new()]);
-        assert!(cache.insert(updated_recipe));
+        assert!(
+            cache.insert(updated_recipe),
+            "overwrite query 1 must succeed"
+        );
 
         // Insert query 3 to trigger eviction under capacity limit of 2
-        assert!(cache.insert(KeyRecipe::new().set_operation_uid(3u64)));
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(3u64)),
+            "insert query 3 must succeed"
+        );
 
         assert_eq!(cache.len(), 2, "cache length must remain at capacity 2");
 
@@ -764,37 +742,70 @@ mod tests {
             0,
             "cache with zero query capacity must store 0 query recipes"
         );
-        assert!(cache.get_query_recipe(1).is_none());
+        assert!(
+            cache.get_query_recipe(1).is_none(),
+            "query 1 must not be stored"
+        );
 
         // Tables and indexes can still be stored
-        assert!(cache.insert(KeyRecipe::new().set_table_name("Users")));
-        assert_eq!(cache.len(), 1);
-        assert!(cache.get_table_recipe("Users").is_some());
+        assert!(
+            cache.insert(KeyRecipe::new().set_table_name("Users")),
+            "insert table recipe must succeed"
+        );
+        assert_eq!(cache.len(), 1, "table recipe must be stored in cache");
+        assert!(
+            cache.get_table_recipe("Users").is_some(),
+            "table recipe must be retrieved"
+        );
     }
 
     #[test]
     fn clear_preserves_query_capacity() {
         let cache = KeyRecipeCache::with_query_capacity(2);
-        assert!(cache.insert(KeyRecipe::new().set_operation_uid(1u64)));
-        assert!(cache.insert(KeyRecipe::new().set_operation_uid(2u64)));
-        assert_eq!(cache.len(), 2);
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(1u64)),
+            "insert query 1 must succeed"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(2u64)),
+            "insert query 2 must succeed"
+        );
+        assert_eq!(cache.len(), 2, "cache length must be 2");
 
         cache.clear();
-        assert!(cache.is_empty());
+        assert!(cache.is_empty(), "cache must be empty after clear");
 
         // Insert 3 new queries, capacity limit of 2 must still be enforced
-        assert!(cache.insert(KeyRecipe::new().set_operation_uid(10u64)));
-        assert!(cache.insert(KeyRecipe::new().set_operation_uid(20u64)));
-        assert!(cache.insert(KeyRecipe::new().set_operation_uid(30u64)));
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(10u64)),
+            "insert query 10 must succeed"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(20u64)),
+            "insert query 20 must succeed"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(30u64)),
+            "insert query 30 must succeed"
+        );
 
         assert_eq!(
             cache.len(),
             2,
             "capacity limit of 2 must be preserved after clear"
         );
-        assert!(cache.get_query_recipe(10).is_none());
-        assert!(cache.get_query_recipe(20).is_some());
-        assert!(cache.get_query_recipe(30).is_some());
+        assert!(
+            cache.get_query_recipe(10).is_none(),
+            "query 10 must be evicted"
+        );
+        assert!(
+            cache.get_query_recipe(20).is_some(),
+            "query 20 must be present"
+        );
+        assert!(
+            cache.get_query_recipe(30).is_some(),
+            "query 30 must be present"
+        );
     }
 
     #[test]
@@ -802,8 +813,14 @@ mod tests {
         let cache = KeyRecipeCache::with_query_capacity(2);
 
         // Insert query 1 and query 2
-        assert!(cache.insert(KeyRecipe::new().set_operation_uid(1u64)));
-        assert!(cache.insert(KeyRecipe::new().set_operation_uid(2u64)));
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(1u64)),
+            "insert query 1 must succeed"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(2u64)),
+            "insert query 2 must succeed"
+        );
 
         // Read query 1 (marks query 1 as referenced)
         let query_1 = cache.get_query_recipe(1);
@@ -812,7 +829,10 @@ mod tests {
         // Query 2 is NOT accessed (referenced = false)
 
         // Insert query 3 (triggers eviction)
-        assert!(cache.insert(KeyRecipe::new().set_operation_uid(3u64)));
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(3u64)),
+            "insert query 3 must succeed"
+        );
 
         // Cache must still hold at most 2 queries
         assert_eq!(cache.len(), 2, "cache length must remain at capacity 2");
@@ -841,20 +861,35 @@ mod tests {
         let cache = KeyRecipeCache::with_query_capacity(3);
 
         // Insert hot queries 1 and 2
-        assert!(cache.insert(KeyRecipe::new().set_operation_uid(1u64)));
-        assert!(cache.insert(KeyRecipe::new().set_operation_uid(2u64)));
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(1u64)),
+            "insert query 1 must succeed"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(2u64)),
+            "insert query 2 must succeed"
+        );
 
         // Repeatedly hit hot queries 1 and 2
-        assert!(cache.get_query_recipe(1).is_some());
-        assert!(cache.get_query_recipe(2).is_some());
+        assert!(cache.get_query_recipe(1).is_some(), "query 1 must be hit");
+        assert!(cache.get_query_recipe(2).is_some(), "query 2 must be hit");
 
         // Simulate a burst of 10 ad-hoc / one-off queries (100..110)
         for i in 100u64..110u64 {
-            assert!(cache.insert(KeyRecipe::new().set_operation_uid(i)));
+            assert!(
+                cache.insert(KeyRecipe::new().set_operation_uid(i)),
+                "insert ad-hoc query must succeed"
+            );
             // Note: Ad-hoc queries are never read, so their referenced bit remains false
             // Keep refreshing hot queries 1 and 2 during the workload
-            assert!(cache.get_query_recipe(1).is_some());
-            assert!(cache.get_query_recipe(2).is_some());
+            assert!(
+                cache.get_query_recipe(1).is_some(),
+                "query 1 must remain hit"
+            );
+            assert!(
+                cache.get_query_recipe(2).is_some(),
+                "query 2 must remain hit"
+            );
         }
 
         // Cache must not exceed capacity 3
@@ -1160,5 +1195,89 @@ mod tests {
         );
 
         assert_eq!(cache.len(), 3, "total cached recipe count must remain 3");
+    }
+
+    #[test]
+    fn key_recipe_cache_next_operation_uid_increments_monotonically() {
+        let cache = KeyRecipeCache::new();
+        assert_eq!(cache.next_operation_uid(), 1, "first UID must be 1");
+        assert_eq!(cache.next_operation_uid(), 2, "second UID must be 2");
+        assert_eq!(cache.next_operation_uid(), 3, "third UID must be 3");
+    }
+
+    #[test]
+    fn key_recipe_cache_next_operation_uid_concurrent_access() {
+        let cache = Arc::new(KeyRecipeCache::new());
+        let mut handles = Vec::new();
+        for _ in 0..10 {
+            let cache_clone = Arc::clone(&cache);
+            handles.push(thread::spawn(move || {
+                let mut uids = Vec::with_capacity(100);
+                for _ in 0..100 {
+                    uids.push(cache_clone.next_operation_uid());
+                }
+                uids
+            }));
+        }
+
+        let mut all_uids = Vec::new();
+        for handle in handles {
+            let uids = handle.join().expect("thread should join cleanly");
+            all_uids.extend(uids);
+        }
+
+        assert_eq!(all_uids.len(), 1000, "must collect 1000 total UIDs");
+        all_uids.sort_unstable();
+        all_uids.dedup();
+        assert_eq!(
+            all_uids.len(),
+            1000,
+            "all 1000 generated UIDs must be unique and monotonic"
+        );
+        assert_eq!(all_uids.first(), Some(&1), "first UID generated must be 1");
+        assert_eq!(
+            all_uids.last(),
+            Some(&1000),
+            "last UID generated must be 1000"
+        );
+    }
+
+    #[test]
+    fn key_recipe_cache_default_is_empty() {
+        let cache = KeyRecipeCache::default();
+        assert!(cache.is_empty(), "default cache must be empty");
+        assert_eq!(cache.len(), 0, "default cache length must be zero");
+    }
+
+    #[test]
+    fn update_from_recipe_list_empty_list_noops() {
+        let cache = KeyRecipeCache::new();
+        cache.update_from_recipe_list(RecipeList::new());
+        assert!(
+            cache.is_empty(),
+            "cache must remain empty after empty RecipeList update"
+        );
+        assert!(
+            cache.schema_generation().is_none(),
+            "schema generation must remain None"
+        );
+    }
+
+    #[test]
+    fn update_from_recipe_list_skips_untargeted_recipes() {
+        let cache = KeyRecipeCache::new();
+        let recipe_list = RecipeList::new()
+            .set_schema_generation(Bytes::from_static(b"v1"))
+            .set_recipe(vec![KeyRecipe::new()]);
+        cache.update_from_recipe_list(recipe_list);
+        assert!(
+            cache.is_empty(),
+            "cache must remain empty when RecipeList contains only untargeted recipes"
+        );
+        assert_eq!(
+            cache.schema_generation(),
+            Some(Bytes::from_static(b"v1")),
+            "schema generation must still be recorded"
+        );
     }
 }
