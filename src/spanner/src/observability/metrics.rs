@@ -2193,5 +2193,34 @@ mod tests {
         use static_assertions::assert_impl_all;
         assert_impl_all!(SharedMeterProvider: Send, Sync, Clone, Debug);
         assert_impl_all!(Observability: Send, Sync, Debug);
+
+        let exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(exporter).build();
+        let sdk_provider = SdkMeterProvider::builder().with_reader(reader).build();
+        let provider: Arc<dyn MeterProvider + Send + Sync> = Arc::new(sdk_provider);
+        let shared = SharedMeterProvider::from(provider);
+        let formatted = format!("{shared:?}");
+        assert!(
+            formatted.contains("MeterProvider"),
+            "debug representation should contain struct name"
+        );
+        let cloned = shared.clone();
+        assert_eq!(format!("{cloned:?}"), formatted);
+    }
+
+    #[tokio::test]
+    async fn observability_init_invalid_database_name() {
+        let o11y = Observability::init(
+            &ClientConfig::default(),
+            InstanceType::Cloud,
+            "invalid-database-name",
+            false,
+            None,
+            None,
+            None,
+        )
+        .await;
+        assert!(!o11y.is_enabled());
+        assert!(o11y.metrics.is_empty());
     }
 }

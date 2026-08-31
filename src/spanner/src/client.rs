@@ -42,6 +42,7 @@ use http::{
     HeaderMap,
     header::{HeaderName, HeaderValue},
 };
+use std::env;
 use std::sync::{
     Arc,
     atomic::{AtomicUsize, Ordering},
@@ -86,19 +87,7 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
     type Credentials = Credentials;
 
     async fn build(self, mut config: ClientConfig) -> crate::ClientBuilderResult<Self::Client> {
-        let mut is_emulator = false;
-        if let Some(endpoint) = std::env::var("SPANNER_EMULATOR_HOST")
-            .ok()
-            .filter(|s| !s.is_empty())
-        {
-            is_emulator = true;
-            if config.endpoint.is_none() {
-                config.endpoint = Some(parse_emulator_endpoint(&endpoint));
-            }
-            if config.cred.is_none() {
-                config.cred = Some(anonymous::Builder::new().build());
-            }
-        }
+        let is_emulator = detect_and_configure_emulator(&mut config);
 
         let is_plaintext = config
             .endpoint
@@ -125,7 +114,7 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             config.cred = Some(anonymous::Builder::new().build());
         }
 
-        let num_channels = std::env::var("SPANNER_NUM_CHANNELS")
+        let num_channels = env::var("SPANNER_NUM_CHANNELS")
             .ok()
             .and_then(|s| s.parse::<usize>().ok())
             .unwrap_or(4);
@@ -362,6 +351,46 @@ fn parse_emulator_endpoint(endpoint: &str) -> String {
         Ok(url) if url.has_host() => endpoint.to_string(),
         _ => format!("http://{}", endpoint),
     }
+}
+
+fn detect_and_configure_emulator(config: &mut ClientConfig) -> bool {
+    let Ok(endpoint) = env::var("SPANNER_EMULATOR_HOST") else {
+        return false;
+    };
+    detect_and_configure_emulator_from_host(config, &endpoint)
+}
+
+fn detect_and_configure_emulator_from_host(config: &mut ClientConfig, emulator_host: &str) -> bool {
+    if emulator_host.is_empty() {
+        return false;
+    }
+
+    let emulator_endpoint = parse_emulator_endpoint(emulator_host);
+    let is_emulator = match config.endpoint.as_deref() {
+        // If no endpoint was explicitly set on the client config, adopt the emulator host.
+        None => {
+            config.endpoint = Some(emulator_endpoint);
+            true
+        }
+        // If an explicit endpoint was specified, only treat the client as connecting to the
+        // emulator if that endpoint actually points to the emulator host (either raw or parsed URL).
+        Some(configured_endpoint)
+            if configured_endpoint == emulator_host || configured_endpoint == emulator_endpoint =>
+        {
+            true
+        }
+        // An explicit endpoint pointing to another host (e.g. a mock server, Omni, or Cloud Spanner)
+        // is not considered an emulator connection.
+        Some(_) => false,
+    };
+
+    // The emulator does not require authentication; default to anonymous credentials
+    // if none were provided.
+    if is_emulator && config.cred.is_none() {
+        config.cred = Some(anonymous::Builder::new().build());
+    }
+
+    is_emulator
 }
 
 #[cfg(feature = "metrics")]
@@ -2480,7 +2509,7 @@ mod tests {
     #[tokio_test_no_panics]
     async fn spanner_builder_with_export_builtin_metrics_to_cloud_monitoring() {
         let spanner = Spanner::builder()
-            .with_endpoint("0.0.0.0:9010")
+            .with_endpoint("http://127.0.0.1:1")
             .with_credentials(Anonymous::new().build())
             .with_export_builtin_metrics_to_cloud_monitoring(false)
             .build()
@@ -2491,6 +2520,118 @@ mod tests {
             spanner.export_builtin_metrics_to_cloud_monitoring(),
             Some(false),
             "export_builtin_metrics_to_cloud_monitoring should be Some(false)"
+        );
+
+        let spanner_enabled = Spanner::builder()
+            .with_endpoint("http://127.0.0.1:1")
+            .with_credentials(Anonymous::new().build())
+            .with_export_builtin_metrics_to_cloud_monitoring(true)
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        assert_eq!(
+            spanner_enabled.export_builtin_metrics_to_cloud_monitoring(),
+            Some(true),
+            "export_builtin_metrics_to_cloud_monitoring should be Some(true)"
+        );
+    }
+
+    #[cfg(feature = "builtin-metrics")]
+    #[tokio_test_no_panics]
+    async fn spanner_builder_with_raw_meter_provider_extension() {
+        use opentelemetry::metrics::MeterProvider;
+        use opentelemetry_sdk::metrics::{
+            InMemoryMetricExporter, PeriodicReader, SdkMeterProvider,
+        };
+
+        let exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(exporter).build();
+        let provider: Arc<dyn MeterProvider + Send + Sync> =
+            Arc::new(SdkMeterProvider::builder().with_reader(reader).build());
+
+        let spanner = Spanner::builder()
+            .with_endpoint("http://127.0.0.1:1")
+            .with_credentials(Anonymous::new().build())
+            .with_extension(Arc::clone(&provider))
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        assert!(
+            spanner.meter_provider().is_some(),
+            "raw Arc<dyn MeterProvider> extension should be recognized"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_empty_host() {
+        let mut config = ClientConfig::default();
+        let is_emulator = super::detect_and_configure_emulator_from_host(&mut config, "");
+        assert!(
+            !is_emulator,
+            "empty emulator host should not be detected as emulator"
+        );
+        assert!(config.endpoint.is_none(), "endpoint should remain None");
+        assert!(config.cred.is_none(), "credentials should remain None");
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_default_endpoint_and_credentials() {
+        let mut config = ClientConfig::default();
+        let is_emulator =
+            super::detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        assert!(is_emulator, "emulator host should be detected as emulator");
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("http://localhost:9010"),
+            "endpoint should be populated with emulator URL"
+        );
+        assert!(
+            config.cred.is_some(),
+            "anonymous credentials should be automatically configured"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_distinct_endpoint_not_emulator() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("0.0.0.0:12345".to_string());
+        let is_emulator =
+            super::detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        assert!(
+            !is_emulator,
+            "distinct endpoint should not be marked as emulator"
+        );
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("0.0.0.0:12345"),
+            "distinct endpoint should not be overwritten"
+        );
+        assert!(
+            config.cred.is_none(),
+            "credentials should not be set for non-emulator endpoint"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_matching_explicit_endpoint() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("localhost:9010".to_string());
+        let is_emulator =
+            super::detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        assert!(
+            is_emulator,
+            "matching explicit endpoint should be marked as emulator"
+        );
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("localhost:9010"),
+            "explicit endpoint should be preserved"
+        );
+        assert!(
+            config.cred.is_some(),
+            "anonymous credentials should be configured"
         );
     }
 }
