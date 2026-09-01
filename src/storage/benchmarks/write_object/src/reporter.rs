@@ -134,8 +134,13 @@ pub fn report(
     // 1. Output summary table to terminal
     report.print_stdout();
 
-    // 2. Always persist raw CSV and summary JSON to output_dir
-    let output_dir = Path::new(&args.output_dir);
+    // 2. Persist raw CSV and summary JSON to output_dir if provided
+    let Some(output_dir_str) = args.output_dir.as_deref().filter(|s| !s.trim().is_empty()) else {
+        println!("Output directory not specified; file reporting skipped (terminal output only).");
+        return Ok(());
+    };
+
+    let output_dir = Path::new(output_dir_str);
     std::fs::create_dir_all(output_dir).map_err(|e| {
         anyhow::anyhow!(
             "Failed to create output directory '{}'. Check write permissions: {e}",

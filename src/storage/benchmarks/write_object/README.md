@@ -48,14 +48,22 @@ Before creating large test files or running measured iterations, the benchmark p
   ```bash
   gcloud auth application-default login
   ```
-- Set target bucket environment variable:
+- Set required benchmark environment variables:
   ```bash
-  export GOOGLE_CLOUD_RUST_BENCHMARKS_BUCKET="my-benchmark-bucket"
+  # Target GCS bucket for uploads (required)
+  export GOOGLE_CLOUD_RUST_BENCHMARKS_BUCKET="rust-write-object-benchmark-bucket"
+
+  # Directory on physical SSD for temporary test file generation (required)
+  export GOOGLE_CLOUD_RUST_BENCHMARKS_DATA_PATH="/usr/local/google/tmp/rust-write-object-benchmarking-data"
+
+  # Directory for saving CSV latencies and JSON summary metrics (optional)
+  # If omitted, metrics are printed to the terminal and file writing is skipped.
+  export GOOGLE_CLOUD_RUST_BENCHMARKS_STATS_OUTPUT_PATH="/usr/local/google/tmp/rust-write-object-benchmarking-data/results"
   ```
 
 ## Running the Benchmark
 
-### Run All 5 Tiers
+### Run All 5 Tiers (12 MiB, 64 MiB, 512 MiB, 2 GiB, 8 GiB)
 ```bash
 chmod +x run_all.sh
 ./run_all.sh
@@ -64,14 +72,21 @@ chmod +x run_all.sh
 ### Run a Single Configuration
 ```bash
 cargo run --release -p storage-benchmark-write-object -- \
-  --object-size 67108864 \
+  --object-size 12582912 \
   --scenario all \
-  --cold-cache true \
-  --temp-dir /usr/local/google/tmp/rust-write-object-benchmarking-data \
   --measured-iterations 5
 ```
 
-### Save Output Metrics (CSV & JSON)
-```bash
-./run_all.sh --output-dir=/path/to/results
-```
+### CLI Options Reference
+
+| Flag | Env Variable | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `--bucket-name` | `GOOGLE_CLOUD_RUST_BENCHMARKS_BUCKET` | *(none, required)* | Target bucket name |
+| `--temp-dir` | `GOOGLE_CLOUD_RUST_BENCHMARKS_DATA_PATH` | *(none, required)* | Physical SSD directory for scratch file |
+| `--output-dir` | `GOOGLE_CLOUD_RUST_BENCHMARKS_STATS_OUTPUT_PATH` | *(none, optional)* | Output folder for CSV and JSON reports |
+| `--object-size` | | `67108864` (64 MiB) | Object size in bytes |
+| `--scenario` | | `all` | Scenario (`option-a`, `option-b`, `option-c`, `all`) |
+| `--cold-cache` | | `true` | Evict page cache between iterations |
+| `--cleanup` | | `true` | Delete uploaded object after iteration |
+| `--measured-iterations`| | `5` | Measured iterations per scenario |
+

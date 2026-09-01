@@ -31,7 +31,7 @@ pub enum UploadScenario {
 pub struct Args {
     /// The name of the bucket to use for the benchmark.
     #[arg(long, env = "GOOGLE_CLOUD_RUST_BENCHMARKS_BUCKET")]
-    pub bucket_name: String,
+    pub bucket_name: Option<String>,
 
     /// Number of measured iterations per scenario.
     #[arg(long, default_value_t = 5)]
@@ -51,18 +51,13 @@ pub struct Args {
     pub cold_cache: bool,
 
     /// Directory on physical SSD storage for creating the temporary test file.
-    #[arg(
-        long,
-        default_value = "/usr/local/google/tmp/rust-write-object-benchmarking-data"
-    )]
-    pub temp_dir: String,
+    #[arg(long, env = "GOOGLE_CLOUD_RUST_BENCHMARKS_DATA_PATH")]
+    pub temp_dir: Option<String>,
 
     /// Directory for saving output artifacts (raw CSV latencies and summary JSON).
-    #[arg(
-        long,
-        default_value = "/usr/local/google/tmp/rust-write-object-benchmarking-data/results"
-    )]
-    pub output_dir: String,
+    /// If omitted or empty, file reporting is skipped and results are printed to the terminal.
+    #[arg(long, env = "GOOGLE_CLOUD_RUST_BENCHMARKS_STATS_OUTPUT_PATH")]
+    pub output_dir: Option<String>,
 
     /// Whether to delete test objects from GCS after each iteration.
     #[arg(long, action = clap::ArgAction::Set, default_value_t = true)]
@@ -79,6 +74,8 @@ mod tests {
             "benchmark",
             "--bucket-name",
             "test-bucket",
+            "--temp-dir",
+            "/tmp/test-data",
             "--object-size",
             "12582912",
             "--scenario",
@@ -92,7 +89,8 @@ mod tests {
         ])
         .unwrap();
 
-        assert_eq!(args.bucket_name, "test-bucket");
+        assert_eq!(args.bucket_name.as_deref(), Some("test-bucket"));
+        assert_eq!(args.temp_dir.as_deref(), Some("/tmp/test-data"));
         assert_eq!(args.object_size, 12_582_912);
         assert_eq!(args.scenario, UploadScenario::OptionA);
         assert!(!args.cleanup);

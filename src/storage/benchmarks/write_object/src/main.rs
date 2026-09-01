@@ -34,6 +34,46 @@ async fn main() -> anyhow::Result<()> {
         anyhow::bail!("Measured iterations must be greater than 0");
     }
 
+    let bucket_name = match args.bucket_name.as_deref().filter(|s| !s.trim().is_empty()) {
+        Some(b) => b.to_string(),
+        None => {
+            eprintln!("\n============================================================");
+            eprintln!("ERROR: Target GCS bucket name is missing!");
+            eprintln!("Please specify the bucket name via one of the following:");
+            eprintln!("  1. Flag: --bucket-name <your-bucket-name>");
+            eprintln!(
+                "  2. Environment variable: export GOOGLE_CLOUD_RUST_BENCHMARKS_BUCKET=\"<your-bucket-name>\""
+            );
+            eprintln!("============================================================\n");
+            anyhow::bail!(
+                "Missing bucket name. Set GOOGLE_CLOUD_RUST_BENCHMARKS_BUCKET or pass --bucket-name."
+            );
+        }
+    };
+
+    let temp_dir = match args.temp_dir.as_deref().filter(|s| !s.trim().is_empty()) {
+        Some(d) => d.to_string(),
+        None => {
+            eprintln!("\n============================================================");
+            eprintln!("ERROR: Temporary data directory path is missing!");
+            eprintln!("Please specify the temporary directory on physical storage via:");
+            eprintln!("  1. Flag: --temp-dir <path>");
+            eprintln!(
+                "  2. Environment variable: export GOOGLE_CLOUD_RUST_BENCHMARKS_DATA_PATH=\"/usr/local/google/tmp/rust-write-object-benchmarking-data\""
+            );
+            eprintln!("============================================================\n");
+            anyhow::bail!(
+                "Missing temporary directory. Set GOOGLE_CLOUD_RUST_BENCHMARKS_DATA_PATH or pass --temp-dir."
+            );
+        }
+    };
+
+    let output_dir_display = args
+        .output_dir
+        .as_deref()
+        .filter(|s| !s.trim().is_empty())
+        .unwrap_or("<terminal only (file output skipped)>");
+
     let credentials = google_cloud_auth::credentials::Builder::default().build()?;
     let client = Storage::builder()
         .with_credentials(credentials.clone())
@@ -46,19 +86,19 @@ async fn main() -> anyhow::Result<()> {
 
     println!("============================================================");
     println!("GCS write_object Benchmark Suite");
-    println!("Target Bucket:       {}", args.bucket_name);
+    println!("Target Bucket:       {}", bucket_name);
     println!(
         "Object Size:         {} bytes ({:.2} MiB)",
         args.object_size,
         args.object_size as f64 / (1024.0 * 1024.0)
     );
     println!("Cold Cache Eviction: {}", args.cold_cache);
-    println!("Temp Directory:      {}", args.temp_dir);
-    println!("Output Directory:    {}", args.output_dir);
+    println!("Temp Directory:      {}", temp_dir);
+    println!("Output Directory:    {}", output_dir_display);
     println!("Measured Iterations: {}", args.measured_iterations);
     println!("============================================================");
 
-    let formatted_bucket = format!("projects/_/buckets/{}", args.bucket_name);
+    let formatted_bucket = format!("projects/_/buckets/{}", bucket_name);
 
     // Pre-flight check: 512 KiB global warmup to verify auth & prime TLS connection pool
     println!("\n[1/3] Running pre-flight warmup check (512 KiB payload)...");
@@ -68,7 +108,7 @@ async fn main() -> anyhow::Result<()> {
     // Generate local test file on physical SSD
     println!("\n[2/3] Generating local test file on physical SSD...");
     let (temp_handle, temp_file_path) =
-        source::create_temp_test_file(args.object_size, &args.temp_dir).await?;
+        source::create_temp_test_file(args.object_size, &temp_dir).await?;
     println!("Test file created at: {}", temp_file_path.display());
 
     // Execute upload benchmark scenarios
