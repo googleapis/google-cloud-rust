@@ -240,29 +240,11 @@ impl serde::ser::Serialize for super::DescriptorProto {
         if !self.field.is_empty() {
             state.serialize_entry("field", &self.field)?;
         }
-        if !self.extension.is_empty() {
-            state.serialize_entry("extension", &self.extension)?;
-        }
         if !self.nested_type.is_empty() {
             state.serialize_entry("nestedType", &self.nested_type)?;
         }
         if !self.enum_type.is_empty() {
             state.serialize_entry("enumType", &self.enum_type)?;
-        }
-        if !self.extension_range.is_empty() {
-            state.serialize_entry("extensionRange", &self.extension_range)?;
-        }
-        if !self.oneof_decl.is_empty() {
-            state.serialize_entry("oneofDecl", &self.oneof_decl)?;
-        }
-        if self.options.is_some() {
-            state.serialize_entry("options", &self.options)?;
-        }
-        if !self.reserved_range.is_empty() {
-            state.serialize_entry("reservedRange", &self.reserved_range)?;
-        }
-        if !self.reserved_name.is_empty() {
-            state.serialize_entry("reservedName", &self.reserved_name)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

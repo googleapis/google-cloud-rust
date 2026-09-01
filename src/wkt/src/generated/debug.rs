@@ -102,14 +102,8 @@ impl std::fmt::Debug for super::DescriptorProto {
         let mut debug_struct = f.debug_struct("DescriptorProto");
         debug_struct.field("name", &self.name);
         debug_struct.field("field", &self.field);
-        debug_struct.field("extension", &self.extension);
         debug_struct.field("nested_type", &self.nested_type);
         debug_struct.field("enum_type", &self.enum_type);
-        debug_struct.field("extension_range", &self.extension_range);
-        debug_struct.field("oneof_decl", &self.oneof_decl);
-        debug_struct.field("options", &self.options);
-        debug_struct.field("reserved_range", &self.reserved_range);
-        debug_struct.field("reserved_name", &self.reserved_name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

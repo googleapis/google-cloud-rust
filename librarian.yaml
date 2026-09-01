@@ -1816,6 +1816,13 @@ libraries:
             - descriptor.proto
           module_path: crate
           output: src/wkt/src/generated
+          skipped_ids:
+            - .google.protobuf.DescriptorProto.extension
+            - .google.protobuf.DescriptorProto.oneof_decl
+            - .google.protobuf.DescriptorProto.options
+            - .google.protobuf.DescriptorProto.reserved_range
+            - .google.protobuf.DescriptorProto.reserved_name
+            - .google.protobuf.DescriptorProto.extension_range
           api_path: google/protobuf
           template: mod
   - name: google-cloud-workflows-executions-v1

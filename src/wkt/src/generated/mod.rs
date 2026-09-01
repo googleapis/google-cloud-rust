@@ -895,29 +895,10 @@ pub struct DescriptorProto {
     pub field: std::vec::Vec<crate::FieldDescriptorProto>,
 
     #[allow(missing_docs)]
-    pub extension: std::vec::Vec<crate::FieldDescriptorProto>,
-
-    #[allow(missing_docs)]
     pub nested_type: std::vec::Vec<crate::DescriptorProto>,
 
     #[allow(missing_docs)]
     pub enum_type: std::vec::Vec<crate::EnumDescriptorProto>,
-
-    #[allow(missing_docs)]
-    pub extension_range: std::vec::Vec<crate::descriptor_proto::ExtensionRange>,
-
-    #[allow(missing_docs)]
-    pub oneof_decl: std::vec::Vec<crate::OneofDescriptorProto>,
-
-    #[allow(missing_docs)]
-    pub options: std::option::Option<crate::MessageOptions>,
-
-    #[allow(missing_docs)]
-    pub reserved_range: std::vec::Vec<crate::descriptor_proto::ReservedRange>,
-
-    /// Reserved field names, which may not be used by fields in the same message.
-    /// A given name may only be reserved once.
-    pub reserved_name: std::vec::Vec<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -962,28 +943,6 @@ impl DescriptorProto {
         self
     }
 
-    /// Sets the value of [extension][crate::DescriptorProto::extension].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_wkt::DescriptorProto;
-    /// use google_cloud_wkt::FieldDescriptorProto;
-    /// let x = DescriptorProto::new()
-    ///     .set_extension([
-    ///         FieldDescriptorProto::default()/* use setters */,
-    ///         FieldDescriptorProto::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
-    pub fn set_extension<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::FieldDescriptorProto>,
-    {
-        use std::iter::Iterator;
-        self.extension = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
     /// Sets the value of [nested_type][crate::DescriptorProto::nested_type].
     ///
     /// # Example
@@ -1024,122 +983,6 @@ impl DescriptorProto {
     {
         use std::iter::Iterator;
         self.enum_type = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [extension_range][crate::DescriptorProto::extension_range].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_wkt::DescriptorProto;
-    /// use google_cloud_wkt::descriptor_proto::ExtensionRange;
-    /// let x = DescriptorProto::new()
-    ///     .set_extension_range([
-    ///         ExtensionRange::default()/* use setters */,
-    ///         ExtensionRange::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
-    pub fn set_extension_range<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::descriptor_proto::ExtensionRange>,
-    {
-        use std::iter::Iterator;
-        self.extension_range = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [oneof_decl][crate::DescriptorProto::oneof_decl].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_wkt::DescriptorProto;
-    /// use google_cloud_wkt::OneofDescriptorProto;
-    /// let x = DescriptorProto::new()
-    ///     .set_oneof_decl([
-    ///         OneofDescriptorProto::default()/* use setters */,
-    ///         OneofDescriptorProto::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
-    pub fn set_oneof_decl<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::OneofDescriptorProto>,
-    {
-        use std::iter::Iterator;
-        self.oneof_decl = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [options][crate::DescriptorProto::options].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_wkt::DescriptorProto;
-    /// use google_cloud_wkt::MessageOptions;
-    /// let x = DescriptorProto::new().set_options(MessageOptions::default()/* use setters */);
-    /// ```
-    pub fn set_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::MessageOptions>,
-    {
-        self.options = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [options][crate::DescriptorProto::options].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_wkt::DescriptorProto;
-    /// use google_cloud_wkt::MessageOptions;
-    /// let x = DescriptorProto::new().set_or_clear_options(Some(MessageOptions::default()/* use setters */));
-    /// let x = DescriptorProto::new().set_or_clear_options(None::<MessageOptions>);
-    /// ```
-    pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::MessageOptions>,
-    {
-        self.options = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [reserved_range][crate::DescriptorProto::reserved_range].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_wkt::DescriptorProto;
-    /// use google_cloud_wkt::descriptor_proto::ReservedRange;
-    /// let x = DescriptorProto::new()
-    ///     .set_reserved_range([
-    ///         ReservedRange::default()/* use setters */,
-    ///         ReservedRange::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
-    pub fn set_reserved_range<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::descriptor_proto::ReservedRange>,
-    {
-        use std::iter::Iterator;
-        self.reserved_range = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [reserved_name][crate::DescriptorProto::reserved_name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_wkt::DescriptorProto;
-    /// let x = DescriptorProto::new().set_reserved_name(["a", "b", "c"]);
-    /// ```
-    pub fn set_reserved_name<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.reserved_name = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

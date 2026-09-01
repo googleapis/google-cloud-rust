@@ -754,14 +754,8 @@ impl<'de> serde::de::Deserialize<'de> for super::DescriptorProto {
         enum __FieldTag {
             __name,
             __field,
-            __extension,
             __nested_type,
             __enum_type,
-            __extension_range,
-            __oneof_decl,
-            __options,
-            __reserved_range,
-            __reserved_name,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -784,20 +778,10 @@ impl<'de> serde::de::Deserialize<'de> for super::DescriptorProto {
                         match value {
                             "name" => Ok(__FieldTag::__name),
                             "field" => Ok(__FieldTag::__field),
-                            "extension" => Ok(__FieldTag::__extension),
                             "nestedType" => Ok(__FieldTag::__nested_type),
                             "nested_type" => Ok(__FieldTag::__nested_type),
                             "enumType" => Ok(__FieldTag::__enum_type),
                             "enum_type" => Ok(__FieldTag::__enum_type),
-                            "extensionRange" => Ok(__FieldTag::__extension_range),
-                            "extension_range" => Ok(__FieldTag::__extension_range),
-                            "oneofDecl" => Ok(__FieldTag::__oneof_decl),
-                            "oneof_decl" => Ok(__FieldTag::__oneof_decl),
-                            "options" => Ok(__FieldTag::__options),
-                            "reservedRange" => Ok(__FieldTag::__reserved_range),
-                            "reserved_range" => Ok(__FieldTag::__reserved_range),
-                            "reservedName" => Ok(__FieldTag::__reserved_name),
-                            "reserved_name" => Ok(__FieldTag::__reserved_name),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -841,14 +825,6 @@ impl<'de> serde::de::Deserialize<'de> for super::DescriptorProto {
                             }
                             result.field = map.next_value::<std::option::Option<std::vec::Vec<crate::FieldDescriptorProto>>>()?.unwrap_or_default();
                         }
-                        __FieldTag::__extension => {
-                            if !fields.insert(__FieldTag::__extension) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for extension",
-                                ));
-                            }
-                            result.extension = map.next_value::<std::option::Option<std::vec::Vec<crate::FieldDescriptorProto>>>()?.unwrap_or_default();
-                        }
                         __FieldTag::__nested_type => {
                             if !fields.insert(__FieldTag::__nested_type) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -864,55 +840,6 @@ impl<'de> serde::de::Deserialize<'de> for super::DescriptorProto {
                                 ));
                             }
                             result.enum_type = map.next_value::<std::option::Option<std::vec::Vec<crate::EnumDescriptorProto>>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::__extension_range => {
-                            if !fields.insert(__FieldTag::__extension_range) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for extension_range",
-                                ));
-                            }
-                            result.extension_range = map
-                                .next_value::<std::option::Option<
-                                    std::vec::Vec<crate::descriptor_proto::ExtensionRange>,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__oneof_decl => {
-                            if !fields.insert(__FieldTag::__oneof_decl) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for oneof_decl",
-                                ));
-                            }
-                            result.oneof_decl = map.next_value::<std::option::Option<std::vec::Vec<crate::OneofDescriptorProto>>>()?.unwrap_or_default();
-                        }
-                        __FieldTag::__options => {
-                            if !fields.insert(__FieldTag::__options) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for options",
-                                ));
-                            }
-                            result.options =
-                                map.next_value::<std::option::Option<crate::MessageOptions>>()?;
-                        }
-                        __FieldTag::__reserved_range => {
-                            if !fields.insert(__FieldTag::__reserved_range) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for reserved_range",
-                                ));
-                            }
-                            result.reserved_range = map
-                                .next_value::<std::option::Option<
-                                    std::vec::Vec<crate::descriptor_proto::ReservedRange>,
-                                >>()?
-                                .unwrap_or_default();
-                        }
-                        __FieldTag::__reserved_name => {
-                            if !fields.insert(__FieldTag::__reserved_name) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for reserved_name",
-                                ));
-                            }
-                            result.reserved_name = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
