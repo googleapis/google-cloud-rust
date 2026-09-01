@@ -110,8 +110,10 @@ pub fn drop_file_from_page_cache(path: &Path) -> std::io::Result<()> {
         let std_file = File::open(path)?;
         let fd = std_file.as_raw_fd();
         // Sync dirty pages to disk first.
+        // SAFETY: `fdatasync` is called with a valid open file descriptor owned by `std_file`.
         let _ = unsafe { libc::fdatasync(fd) };
         // Tell the OS kernel to discard cached pages for the entire file range.
+        // SAFETY: `posix_fadvise` is called with a valid open file descriptor owned by `std_file` and valid offset/len arguments.
         let ret = unsafe { libc::posix_fadvise(fd, 0, 0, libc::POSIX_FADV_DONTNEED) };
         if ret != 0 {
             return Err(std::io::Error::from_raw_os_error(ret));
