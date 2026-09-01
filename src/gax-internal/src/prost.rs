@@ -645,6 +645,17 @@ mod tests {
             .set_json_name("testField".to_string())
             .set_default_value("42".to_string());
         input.field = vec![field];
+
+        let nested_type = wkt::DescriptorProto::default().set_name("NestedMessage".to_string());
+        input.nested_type = vec![nested_type];
+
+        let enum_val = wkt::EnumValueDescriptorProto::default()
+            .set_name("UNKNOWN".to_string())
+            .set_number(0);
+        let enum_type = wkt::EnumDescriptorProto::default()
+            .set_name("TestEnum".to_string())
+            .set_value(vec![enum_val]);
+        input.enum_type = vec![enum_type];
         let prost_msg: prost_types::DescriptorProto = input.clone().to_proto()?;
         assert_eq!(prost_msg.name, Some("TestMessage".to_string()));
         assert_eq!(prost_msg.field.len(), 1);
@@ -662,15 +673,23 @@ mod tests {
         assert_eq!(prost_msg.field[0].json_name, Some("testField".to_string()));
         assert_eq!(prost_msg.field[0].default_value, Some("42".to_string()));
 
+        assert_eq!(prost_msg.nested_type.len(), 1);
+        assert_eq!(
+            prost_msg.nested_type[0].name,
+            Some("NestedMessage".to_string())
+        );
+
+        assert_eq!(prost_msg.enum_type.len(), 1);
+        assert_eq!(prost_msg.enum_type[0].name, Some("TestEnum".to_string()));
+        assert_eq!(prost_msg.enum_type[0].value.len(), 1);
+        assert_eq!(
+            prost_msg.enum_type[0].value[0].name,
+            Some("UNKNOWN".to_string())
+        );
+        assert_eq!(prost_msg.enum_type[0].value[0].number, Some(0));
+
         let back: wkt::DescriptorProto = prost_msg.cnv()?;
-        assert_eq!(back.name, input.name);
-        assert_eq!(back.field[0].name, input.field[0].name);
-        assert_eq!(back.field[0].number, input.field[0].number);
-        assert_eq!(back.field[0].label, input.field[0].label);
-        assert_eq!(back.field[0].r#type, input.field[0].r#type);
-        assert_eq!(back.field[0].type_name, input.field[0].type_name);
-        assert_eq!(back.field[0].json_name, input.field[0].json_name);
-        assert_eq!(back.field[0].default_value, input.field[0].default_value);
+        assert_eq!(back, input);
         Ok(())
     }
 }
