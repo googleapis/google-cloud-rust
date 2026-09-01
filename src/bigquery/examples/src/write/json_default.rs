@@ -16,7 +16,6 @@
 use anyhow::Result;
 use arrow::datatypes::{DataType, Field, Schema};
 use arrow::ipc::writer::StreamWriter;
-use arrow::record_batch::RecordBatch;
 use arrow_json::ReaderBuilder;
 use google_cloud_bigquery::client::Write;
 use google_cloud_bigquery::model::{ArrowRecordBatch, ArrowSchema};
