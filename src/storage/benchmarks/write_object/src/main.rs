@@ -54,6 +54,7 @@ async fn main() -> anyhow::Result<()> {
     );
     println!("Cold Cache Eviction: {}", args.cold_cache);
     println!("Temp Directory:      {}", args.temp_dir);
+    println!("Output Directory:    {}", args.output_dir);
     println!("Measured Iterations: {}", args.measured_iterations);
     println!("============================================================");
 
@@ -178,7 +179,7 @@ async fn run_single_scenario(
             eprintln!("Warning: Failed to drop file from page cache: {e}");
         }
 
-        let object_name = format!("bench-write-object-{}", Uuid::new_v4());
+        let object_name = format!("bench-write-object-{}-{}", scenario_name, Uuid::new_v4());
         let res = match scenario {
             UploadScenario::OptionA => {
                 scenarios::scenario_option_a(

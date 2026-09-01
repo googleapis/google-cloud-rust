@@ -57,10 +57,12 @@ pub struct Args {
     )]
     pub temp_dir: String,
 
-    /// Directory for output artifacts (raw CSV latencies and summary JSON). If not provided, file
-    /// reporting is skipped.
-    #[arg(long)]
-    pub output_dir: Option<String>,
+    /// Directory for saving output artifacts (raw CSV latencies and summary JSON).
+    #[arg(
+        long,
+        default_value = "/usr/local/google/tmp/rust-write-object-benchmarking-data/results"
+    )]
+    pub output_dir: String,
 
     /// Whether to delete test objects from GCS after each iteration.
     #[arg(long, default_value_t = true)]

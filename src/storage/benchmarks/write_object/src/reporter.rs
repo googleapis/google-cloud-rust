@@ -98,7 +98,7 @@ impl BenchmarkReport<'_> {
     }
 }
 
-/// Formats and outputs the benchmark metrics to stdout and optionally to output files.
+/// Formats and outputs the benchmark metrics to stdout and always persists CSV and JSON to disk.
 pub fn report(
     scenario_name: &str,
     metrics: Option<Metrics>,
@@ -131,43 +131,55 @@ pub fn report(
         mean_precompute_ms,
     };
 
+    // 1. Output summary table to terminal
     report.print_stdout();
 
-    if let Some(dir_str) = args
-        .output_dir
-        .as_deref()
-        .filter(|s| !s.is_empty() && !results.is_empty())
-    {
-        let timestamp = std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .map(|d| d.as_secs())
-            .unwrap_or(0);
-        let output_dir = Path::new(dir_str);
-        std::fs::create_dir_all(output_dir)?;
+    // 2. Always persist raw CSV and summary JSON to output_dir
+    let output_dir = Path::new(&args.output_dir);
+    std::fs::create_dir_all(output_dir).map_err(|e| {
+        anyhow::anyhow!(
+            "Failed to create output directory '{}'. Check write permissions: {e}",
+            output_dir.display()
+        )
+    })?;
 
-        let csv_path = output_dir.join(format!(
-            "{}_s{}_{}_raw.csv",
-            scenario_name, args.object_size, timestamp
-        ));
-        let mut csv_file = File::create(&csv_path)?;
-        writeln!(csv_file, "iteration,total_latency_ms,precompute_ms")?;
-        for (i, r) in results.iter().enumerate() {
-            let pre_ms = r
-                .precompute_duration
-                .map(|d| format!("{:.2}", d.as_secs_f64() * 1000.0))
-                .unwrap_or_else(|| "0.0".to_string());
-            writeln!(csv_file, "{},{},{}", i, r.total_elapsed.as_millis(), pre_ms)?;
-        }
-        println!("Raw latencies written to {}", csv_path.display());
+    let timestamp = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_secs())
+        .unwrap_or(0);
 
-        let json_path = output_dir.join(format!(
-            "{}_s{}_{}_summary.json",
-            scenario_name, args.object_size, timestamp
-        ));
-        let mut json_file = File::create(&json_path)?;
-        report.write_json(&mut json_file)?;
-        println!("Metrics summary written to {}", json_path.display());
+    let csv_path = output_dir.join(format!(
+        "{}_s{}_{}_raw.csv",
+        scenario_name, args.object_size, timestamp
+    ));
+    let mut csv_file = File::create(&csv_path).map_err(|e| {
+        anyhow::anyhow!(
+            "Failed to create raw CSV file '{}'. Check permissions: {e}",
+            csv_path.display()
+        )
+    })?;
+    writeln!(csv_file, "iteration,total_latency_ms,precompute_ms")?;
+    for (i, r) in results.iter().enumerate() {
+        let pre_ms = r
+            .precompute_duration
+            .map(|d| format!("{:.2}", d.as_secs_f64() * 1000.0))
+            .unwrap_or_else(|| "0.0".to_string());
+        writeln!(csv_file, "{},{},{}", i, r.total_elapsed.as_millis(), pre_ms)?;
     }
+    println!("Raw latencies saved to:   {}", csv_path.display());
+
+    let json_path = output_dir.join(format!(
+        "{}_s{}_{}_summary.json",
+        scenario_name, args.object_size, timestamp
+    ));
+    let mut json_file = File::create(&json_path).map_err(|e| {
+        anyhow::anyhow!(
+            "Failed to create summary JSON file '{}'. Check permissions: {e}",
+            json_path.display()
+        )
+    })?;
+    report.write_json(&mut json_file)?;
+    println!("Summary metrics saved to: {}", json_path.display());
 
     Ok(())
 }
