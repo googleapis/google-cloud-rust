@@ -157,10 +157,20 @@ impl ConnectionService {
 /// # Example
 /// ```
 /// # use google_cloud_apigeeconnect_v1::client::Tether;
+/// # use google_cloud_apigeeconnect_v1::model::EgressResponse;
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = Tether::builder().build().await?;
-///     // use `client` to make requests to the Apigee Connect API.
+///     let (sender, mut resp_stream) = client.egress()
+///         .build();
+///
+///     sender.send(EgressResponse::default()).await?;
+///     drop(sender); // Half-close the stream
+///
+///     while let Some(response) = resp_stream.next().await {
+///         let response = response?;
+///         println!("response {:?}", response);
+///     }
 ///     Ok(())
 /// }
 /// ```
