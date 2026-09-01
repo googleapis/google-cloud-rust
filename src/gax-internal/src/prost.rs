@@ -231,6 +231,12 @@ impl FromProto<wkt::NullValue> for prost_types::NullValue {
     }
 }
 
+/// A narrow, intentionally incomplete conversion for `DescriptorProto`.
+///  
+/// This conversion drops several AST fields and must not be used as
+/// a general-purpose converter. It exists solely to bypass librarian
+/// limitations when generating `ProtoSchema` in BigQuery.
+#[cfg(feature = "_internal-descriptor-proto-conversion")]
 impl FromProto<wkt::DescriptorProto> for prost_types::DescriptorProto {
     fn cnv(self) -> Result<wkt::DescriptorProto> {
         Ok(wkt::DescriptorProto::default()
@@ -273,6 +279,12 @@ impl FromProto<wkt::DescriptorProto> for prost_types::DescriptorProto {
     }
 }
 
+/// A narrow, intentionally incomplete conversion for `DescriptorProto`.
+///  
+/// This conversion drops several AST fields and must not be used as
+/// a general-purpose converter. It exists solely to bypass librarian
+/// limitations when generating `ProtoSchema` in BigQuery.
+#[cfg(feature = "_internal-descriptor-proto-conversion")]
 impl ToProto<prost_types::DescriptorProto> for wkt::DescriptorProto {
     type Output = prost_types::DescriptorProto;
     fn to_proto(self) -> Result<prost_types::DescriptorProto> {
@@ -608,6 +620,7 @@ mod tests {
         Ok(())
     }
     #[test]
+    #[cfg(feature = "_internal-descriptor-proto-conversion")]
     fn test_descriptor_proto_conversion() -> anyhow::Result<()> {
         let mut input = wkt::DescriptorProto::default().set_name("TestMessage".to_string());
         let field = wkt::FieldDescriptorProto::default()
