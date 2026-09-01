@@ -29,10 +29,17 @@ When uploading seekable data (such as local disk files), SDKs face a protocol tr
 4. **2 GiB (Large Resumable)**: 256 chunks in Option C vs. 1 continuous stream in Option B.
 5. **8 GiB (Stress Resumable)**: 1,024 chunks in Option C vs. 1 continuous stream in Option B.
 
+## Pre-flight Check & 512 KiB Global Warmup
+
+Before creating large test files or running measured iterations, the benchmark performs a single **512 KiB pre-flight warmup check**:
+- Validates Google Cloud authentication and bucket write/delete permissions. If authentication or permissions fail, the benchmark aborts immediately with remediation guidance.
+- Primes DNS resolution and the TLS 1.3 keep-alive connection pool.
+- Eliminates the need for redundant multi-gigabyte warmup uploads during actual scenario testing.
+
 ## Page Cache, Storage Medium & Disk Cleanup
 
-- **Physical SSD Storage:** By default, test files are created under `/usr/local/google/tmp/rust-write-object-benchmarking-data` on the physical SSD drive (avoiding RAM-backed `/tmp`). This can be customized via `--temp-dir=/path/to/dir`.
-- **Cold Cache Eviction:** By default, `--cold-cache=true` is enabled. Before every iteration, the benchmark calls `posix_fadvise(DONTNEED)` once to evict the test file from the OS page cache (RAM), ensuring a cold physical disk read.
+- **Physical SSD Storage:** By default, test files are created under `/usr/local/google/tmp/rust-write-object-benchmarking-data` on physical SSD storage. This can be overridden via `--temp-dir=/path/to/dir`.
+- **Cold Cache Eviction:** By default, `--cold-cache=true` is enabled. Before every measured iteration, the benchmark calls `posix_fadvise(DONTNEED)` once to evict the test file from the OS page cache (RAM), ensuring a cold physical disk read.
 - **Disk Cleanup:** Upon benchmark completion, the temporary file is automatically removed from physical disk.
 
 ## Pre-requisites
@@ -61,7 +68,6 @@ cargo run --release -p storage-benchmark-write-object -- \
   --scenario all \
   --cold-cache true \
   --temp-dir /usr/local/google/tmp/rust-write-object-benchmarking-data \
-  --warmup-iterations 1 \
   --measured-iterations 5
 ```
 

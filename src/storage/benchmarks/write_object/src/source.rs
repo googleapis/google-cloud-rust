@@ -12,15 +12,65 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use bytes::Bytes;
+use google_cloud_storage::client::{Storage, StorageControl};
 use rand::rngs::StdRng;
 use rand::{RngExt, SeedableRng};
 use std::fs::File;
 use std::path::{Path, PathBuf};
 use tempfile::NamedTempFile;
 use tokio::io::AsyncWriteExt;
+use uuid::Uuid;
 
 #[cfg(unix)]
 use std::os::unix::io::AsRawFd;
+
+const WARMUP_PAYLOAD_SIZE: usize = 512 * 1024; // 512 KiB
+
+/// Performs a one-time global warmup by uploading and deleting a 512 KiB payload.
+/// Primes OAuth authentication tokens, DNS resolution, and the TLS connection pool.
+/// If an authentication or permission error occurs, returns a fatal error with remediation advice.
+pub async fn perform_global_warmup(
+    client: &Storage,
+    control: &StorageControl,
+    bucket: &str,
+) -> anyhow::Result<()> {
+    let warmup_object_name = format!("bench-warmup-{}", Uuid::new_v4());
+    let warmup_data = Bytes::from(vec![0u8; WARMUP_PAYLOAD_SIZE]);
+
+    let upload_res = client
+        .write_object(bucket, &warmup_object_name, warmup_data)
+        .send_unbuffered()
+        .await;
+
+    if let Err(e) = upload_res {
+        eprintln!("\n============================================================");
+        eprintln!("FATAL ERROR: Pre-flight warmup check failed!");
+        eprintln!("Failed to upload warmup payload (512 KiB) to bucket: {bucket}");
+        eprintln!("Error details: {e:#}");
+        eprintln!("------------------------------------------------------------");
+        eprintln!("Troubleshooting Suggestions:");
+        eprintln!("1. Authentication: Ensure your credentials are valid by running:");
+        eprintln!("   gcloud auth application-default login");
+        eprintln!("2. Bucket Access: Ensure the target bucket exists and your account has");
+        eprintln!("   'Storage Object Admin' (or 'Storage Object Creator') permissions:");
+        eprintln!("   export GOOGLE_CLOUD_RUST_BENCHMARKS_BUCKET=\"<your-bucket-name>\"");
+        eprintln!("============================================================\n");
+        anyhow::bail!("Warmup pre-flight check failed: {e}");
+    }
+
+    if let Err(e) = control
+        .delete_object()
+        .set_bucket(bucket)
+        .set_object(&warmup_object_name)
+        .send()
+        .await
+    {
+        eprintln!("Warning: Failed to delete warmup object {warmup_object_name}: {e}");
+    }
+
+    Ok(())
+}
 
 /// Creates a temporary file of the given size populated with pseudo-random bytes.
 /// The file is created in `temp_dir` on physical SSD storage.

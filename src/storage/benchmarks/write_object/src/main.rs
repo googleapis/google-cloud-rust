@@ -54,17 +54,24 @@ async fn main() -> anyhow::Result<()> {
     );
     println!("Cold Cache Eviction: {}", args.cold_cache);
     println!("Temp Directory:      {}", args.temp_dir);
-    println!("Warmup Iterations:   {}", args.warmup_iterations);
     println!("Measured Iterations: {}", args.measured_iterations);
     println!("============================================================");
 
-    println!("Generating local test file on physical SSD...");
+    let formatted_bucket = format!("projects/_/buckets/{}", args.bucket_name);
+
+    // Pre-flight check: 512 KiB global warmup to verify auth & prime TLS connection pool
+    println!("\n[1/3] Running pre-flight warmup check (512 KiB payload)...");
+    source::perform_global_warmup(&client, &control, &formatted_bucket).await?;
+    println!("Pre-flight warmup check succeeded: Authentication verified & TLS pool primed.");
+
+    // Generate local test file on physical SSD
+    println!("\n[2/3] Generating local test file on physical SSD...");
     let (temp_handle, temp_file_path) =
         source::create_temp_test_file(args.object_size, &args.temp_dir).await?;
     println!("Test file created at: {}", temp_file_path.display());
 
-    let formatted_bucket = format!("projects/_/buckets/{}", args.bucket_name);
-
+    // Execute upload benchmark scenarios
+    println!("\n[3/3] Executing benchmark scenarios...");
     match args.scenario {
         UploadScenario::OptionA => {
             run_single_scenario(
@@ -132,11 +139,12 @@ async fn main() -> anyhow::Result<()> {
         }
     }
 
+    // Clean up local physical disk file
     println!(
-        "\nDeleting local benchmark test file on disk: {}",
+        "\nCleaning up local test file on disk: {}",
         temp_file_path.display()
     );
-    drop(temp_handle); // Automatically removes the temporary file from physical disk.
+    drop(temp_handle);
     println!("Local test file successfully deleted.");
 
     Ok(())
@@ -160,9 +168,8 @@ async fn run_single_scenario(
     println!("\n>>> Running Scenario: {} <<<", scenario_name);
     let mut results = Vec::new();
     let mut errors = 0;
-    let total_iterations = args.warmup_iterations + args.measured_iterations;
 
-    for i in 0..total_iterations {
+    for i in 0..args.measured_iterations {
         // If cold_cache is enabled, evict the test file from OS page cache once before the
         // iteration starts to ensure a cold physical disk read.
         if args.cold_cache
@@ -208,19 +215,15 @@ async fn run_single_scenario(
 
         match res {
             Ok(r) => {
-                if i < args.warmup_iterations {
-                    println!("Warmup {:>2}: {:?}", i + 1, r.total_elapsed);
-                } else {
-                    println!(
-                        "Measured {:>2}: {:?}{}",
-                        i - args.warmup_iterations + 1,
-                        r.total_elapsed,
-                        r.precompute_duration
-                            .map(|d| format!(" (Pass 1 Hash: {:?})", d))
-                            .unwrap_or_default()
-                    );
-                    results.push(r);
-                }
+                println!(
+                    "Measured {:>2}: {:?}{}",
+                    i + 1,
+                    r.total_elapsed,
+                    r.precompute_duration
+                        .map(|d| format!(" (Pass 1 Hash: {:?})", d))
+                        .unwrap_or_default()
+                );
+                results.push(r);
             }
             Err(err) => {
                 eprintln!("Error during iteration {}: {err:#}", i + 1);

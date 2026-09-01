@@ -33,11 +33,7 @@ pub struct Args {
     #[arg(long, env = "GOOGLE_CLOUD_RUST_BENCHMARKS_BUCKET")]
     pub bucket_name: String,
 
-    /// Number of warmup iterations.
-    #[arg(long, default_value_t = 1)]
-    pub warmup_iterations: usize,
-
-    /// Number of measured iterations.
+    /// Number of measured iterations per scenario.
     #[arg(long, default_value_t = 5)]
     pub measured_iterations: usize,
 
