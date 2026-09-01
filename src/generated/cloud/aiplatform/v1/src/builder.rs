@@ -15386,7 +15386,11 @@ pub mod featurestore_online_serving_service {
     /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::StreamingReadFeatureValues;
     /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let mut receiver = builder.send().await?;
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
     /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StreamingReadFeatureValues {
@@ -49211,7 +49215,11 @@ pub mod prediction_service {
     /// # use google_cloud_aiplatform_v1::builder::prediction_service::StreamRawPredict;
     /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let mut receiver = builder.send().await?;
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
     /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StreamRawPredict {
@@ -49639,7 +49647,11 @@ pub mod prediction_service {
     /// # use google_cloud_aiplatform_v1::builder::prediction_service::ServerStreamingPredict;
     /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let mut receiver = builder.send().await?;
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
     /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ServerStreamingPredict {
@@ -50099,7 +50111,11 @@ pub mod prediction_service {
     /// # use google_cloud_aiplatform_v1::builder::prediction_service::StreamGenerateContent;
     /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let mut receiver = builder.send().await?;
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
     /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StreamGenerateContent {
@@ -51463,7 +51479,11 @@ pub mod reasoning_engine_execution_service {
     /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::StreamQueryReasoningEngine;
     /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let mut receiver = builder.send().await?;
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
     /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StreamQueryReasoningEngine {
@@ -61471,7 +61491,11 @@ pub mod tensorboard_service {
     /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ReadTensorboardBlobData;
     /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let mut receiver = builder.send().await?;
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
     /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ReadTensorboardBlobData {

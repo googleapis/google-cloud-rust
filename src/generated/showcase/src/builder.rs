@@ -2716,7 +2716,11 @@ pub mod echo {
     /// # use google_cloud_showcase_v1beta1::builder::echo::Expand;
     /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let mut receiver = builder.send().await?;
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
     /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> Expand {
@@ -6367,7 +6371,11 @@ pub mod messaging {
     /// # use google_cloud_showcase_v1beta1::builder::messaging::StreamBlurbs;
     /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let mut receiver = builder.send().await?;
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
     /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StreamBlurbs {
@@ -7669,7 +7677,11 @@ pub mod sequence_service {
     /// # use google_cloud_showcase_v1beta1::builder::sequence_service::AttemptStreamingSequence;
     /// # async fn sample() -> google_cloud_showcase_v1beta1::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let mut receiver = builder.send().await?;
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
     /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AttemptStreamingSequence {
