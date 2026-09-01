@@ -222,7 +222,7 @@ libraries:
     copyright_year: "2025"
     rust:
       allow_streaming_any_types:
-      - .google.api.HttpBody.extensions
+        - .google.api.HttpBody.extensions
       per_service_features: true
       default_features:
         - data-foundry-service
