@@ -31,7 +31,7 @@ pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyho
         Field::new("string", DataType::Utf8, false),
         Field::new("int", DataType::Int64, false),
     ]));
-    
+
     // Initialize an IPC stream writer and extract the serialized schema
     let mut ipc_writer = StreamWriter::try_new(Vec::new(), &schema)?;
     let schema_buf = std::mem::take(ipc_writer.get_mut());
