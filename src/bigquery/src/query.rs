@@ -52,7 +52,7 @@ pub(crate) mod tests {
     mockall::mock! {
         #[derive(Debug)]
         pub JobService {}
-        impl google_cloud_bigquery_v2::stub::JobService for JobService {
+        impl crate::stub::JobService for JobService {
             async fn get_job(
                 &self,
                 req: GetJobRequest,

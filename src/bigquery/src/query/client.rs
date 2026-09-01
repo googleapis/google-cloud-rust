@@ -99,7 +99,7 @@ impl BigQuery {
     /// ```
     pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
-        T: google_cloud_bigquery_v2::stub::JobService + 'static,
+        T: crate::stub::JobService + 'static,
     {
         Self {
             job_service: Arc::new(JobService::from_stub(stub)),
