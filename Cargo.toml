@@ -442,6 +442,7 @@ humantime             = { default-features = false, version = "2" }
 hyper                 = { default-features = false, version = "1.10" }
 jiff                  = { default-features = false, version = "0.2.32" }
 jsonwebtoken          = { default-features = false, version = "11" }
+libc                  = { default-features = false, version = "0.2.168" }
 markdown              = { default-features = false, version = "1.0" }
 opentelemetry         = { default-features = false, version = "0.32" }
 opentelemetry-proto   = { default-features = false, version = "0.32" }
