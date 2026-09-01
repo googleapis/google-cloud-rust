@@ -36,6 +36,7 @@
     feature = "user-event-service",
     feature = "user-license-service",
 ))]
+#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements a [AssistantService](super::stub::AssistantService) decorator for logging and tracing.
@@ -46,6 +47,7 @@ where
     T: super::stub::AssistantService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -749,6 +751,7 @@ where
     T: super::stub::ConversationalSearchService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -1715,6 +1718,7 @@ where
     T: super::stub::GroundedGenerationService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 

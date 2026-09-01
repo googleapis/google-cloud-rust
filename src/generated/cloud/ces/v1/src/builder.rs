@@ -5151,6 +5151,24 @@ pub mod session_service {
         }
     }
 
+    /// Common implementation for [crate::client::SessionService] bidi stream builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct BidiStreamBuilder {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionService>,
+        options: crate::RequestOptions,
+    }
+
+    impl BidiStreamBuilder {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionService>,
+        ) -> Self {
+            Self {
+                stub,
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
     /// The request builder for [SessionService::run_session][crate::client::SessionService::run_session] calls.
     ///
     /// # Example
@@ -5235,6 +5253,154 @@ pub mod session_service {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for RunSession {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SessionService::stream_run_session][crate::client::SessionService::stream_run_session] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_ces_v1::builder::session_service::StreamRunSession;
+    /// # async fn sample() -> google_cloud_ces_v1::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut receiver = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StreamRunSession {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StreamRunSession(RequestBuilder<crate::model::RunSessionRequest>);
+
+    impl StreamRunSession {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::RunSessionRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::RunSessionResponse>>
+        {
+            (*self.0.stub)
+                .stream_run_session(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [config][crate::model::RunSessionRequest::config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SessionConfig>,
+        {
+            self.0.request.config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [config][crate::model::RunSessionRequest::config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SessionConfig>,
+        {
+            self.0.request.config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [inputs][crate::model::RunSessionRequest::inputs].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_inputs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::SessionInput>,
+        {
+            use std::iter::Iterator;
+            self.0.request.inputs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamRunSession {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SessionService::bidi_run_session][crate::client::SessionService::bidi_run_session] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_ces_v1::builder::session_service::BidiRunSession;
+    /// # use google_cloud_ces_v1::model::BidiSessionClientMessage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(BidiSessionClientMessage::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> BidiRunSession {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct BidiRunSession(BidiStreamBuilder);
+
+    impl BidiRunSession {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionService>,
+        ) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::BidiSessionClientMessage>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::BidiSessionServerMessage>,
+        ) {
+            (*self.0.stub).bidi_run_session(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for BidiRunSession {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

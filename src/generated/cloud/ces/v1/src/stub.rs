@@ -651,6 +651,30 @@ pub trait SessionService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::SessionService::stream_run_session].
+    fn stream_run_session(
+        &self,
+        _req: crate::model::RunSessionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::RunSessionResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
+    }
+
+    /// Implements [super::client::SessionService::bidi_run_session].
+    fn bidi_run_session(
+        &self,
+        _options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::BidiSessionClientMessage>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::BidiSessionServerMessage>,
+    ) {
+        gaxi::unimplemented::unimplemented_bidi_stub()
+    }
+
     /// Implements [super::client::SessionService::list_locations].
     fn list_locations(
         &self,

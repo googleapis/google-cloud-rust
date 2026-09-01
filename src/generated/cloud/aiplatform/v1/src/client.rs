@@ -4742,6 +4742,17 @@ impl FeaturestoreOnlineServingService {
         )
     }
 
+    /// Reads Feature values for multiple entities. Depending on their size, data
+    /// for different entities may be broken
+    /// up across multiple responses.
+    pub fn streaming_read_feature_values(
+        &self,
+    ) -> super::builder::featurestore_online_serving_service::StreamingReadFeatureValues {
+        super::builder::featurestore_online_serving_service::StreamingReadFeatureValues::new(
+            self.inner.clone(),
+        )
+    }
+
     /// Writes Feature values of one or more entities of an EntityType.
     ///
     /// The Feature values are merged into existing entities if any. The Feature
@@ -15035,6 +15046,11 @@ impl PredictionService {
         super::builder::prediction_service::RawPredict::new(self.inner.clone())
     }
 
+    /// Perform a streaming online prediction with an arbitrary HTTP payload.
+    pub fn stream_raw_predict(&self) -> super::builder::prediction_service::StreamRawPredict {
+        super::builder::prediction_service::StreamRawPredict::new(self.inner.clone())
+    }
+
     /// Perform an unary online prediction request to a gRPC model server for
     /// Vertex first-party products and frameworks.
     ///
@@ -15160,6 +15176,14 @@ impl PredictionService {
         super::builder::prediction_service::StreamingPredict::new(self.inner.clone())
     }
 
+    /// Perform a server-side streaming online prediction request for Vertex
+    /// LLM streaming.
+    pub fn server_streaming_predict(
+        &self,
+    ) -> super::builder::prediction_service::ServerStreamingPredict {
+        super::builder::prediction_service::ServerStreamingPredict::new(self.inner.clone())
+    }
+
     /// Perform a streaming online prediction request through gRPC.
     ///
     /// # Example
@@ -15237,6 +15261,13 @@ impl PredictionService {
     /// ```
     pub fn generate_content(&self) -> super::builder::prediction_service::GenerateContent {
         super::builder::prediction_service::GenerateContent::new(self.inner.clone())
+    }
+
+    /// Generate content with multimodal inputs with streaming support.
+    pub fn stream_generate_content(
+        &self,
+    ) -> super::builder::prediction_service::StreamGenerateContent {
+        super::builder::prediction_service::StreamGenerateContent::new(self.inner.clone())
     }
 
     /// Embed content with multimodal inputs.
@@ -15617,6 +15648,15 @@ impl ReasoningEngineExecutionService {
         &self,
     ) -> super::builder::reasoning_engine_execution_service::QueryReasoningEngine {
         super::builder::reasoning_engine_execution_service::QueryReasoningEngine::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Streams queries using a reasoning engine.
+    pub fn stream_query_reasoning_engine(
+        &self,
+    ) -> super::builder::reasoning_engine_execution_service::StreamQueryReasoningEngine {
+        super::builder::reasoning_engine_execution_service::StreamQueryReasoningEngine::new(
             self.inner.clone(),
         )
     }
@@ -18775,6 +18815,16 @@ impl TensorboardService {
         &self,
     ) -> super::builder::tensorboard_service::ReadTensorboardTimeSeriesData {
         super::builder::tensorboard_service::ReadTensorboardTimeSeriesData::new(self.inner.clone())
+    }
+
+    /// Gets bytes of TensorboardBlobs.
+    /// This is to allow reading blob data stored in consumer project's Cloud
+    /// Storage bucket without users having to obtain Cloud Storage access
+    /// permission.
+    pub fn read_tensorboard_blob_data(
+        &self,
+    ) -> super::builder::tensorboard_service::ReadTensorboardBlobData {
+        super::builder::tensorboard_service::ReadTensorboardBlobData::new(self.inner.clone())
     }
 
     /// Write time series data points of multiple TensorboardTimeSeries in multiple

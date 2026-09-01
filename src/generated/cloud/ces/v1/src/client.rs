@@ -1537,6 +1537,127 @@ impl SessionService {
         super::builder::session_service::RunSession::new(self.inner.clone())
     }
 
+    /// Initiates a single-turn interaction with the CES agent. Uses server-side
+    /// streaming to deliver incremental results and partial responses as they are
+    /// generated.
+    ///
+    /// By default, complete responses (e.g., messages from callbacks or full LLM
+    /// responses) are sent to the client as soon as they are available. To enable
+    /// streaming individual text chunks directly from the model, set
+    /// [enable_text_streaming][google.cloud.ces.v1.SessionConfig.enable_text_streaming]
+    /// to true.
+    ///
+    /// [google.cloud.ces.v1.SessionConfig.enable_text_streaming]: crate::model::SessionConfig::enable_text_streaming
+    pub fn stream_run_session(&self) -> super::builder::session_service::StreamRunSession {
+        super::builder::session_service::StreamRunSession::new(self.inner.clone())
+    }
+
+    /// Establishes a bidirectional streaming connection with the CES agent.
+    /// The agent processes continuous multimodal inputs (e.g., text, audio) and
+    /// generates real-time multimodal output streams.
+    ///
+    /// --- Client Request Stream ---
+    /// The client streams requests in the following order:
+    ///
+    /// 1. Initialization:
+    ///    The first message must contain
+    ///    [SessionConfig][google.cloud.ces.v1.BidiSessionClientMessage.config].
+    ///    For audio sessions, this should also include
+    ///    [InputAudioConfig][google.cloud.ces.v1.SessionConfig.input_audio_config]
+    ///    and
+    ///    [OutputAudioConfig][google.cloud.ces.v1.SessionConfig.output_audio_config]
+    ///    to define audio processing and synthesis parameters.
+    ///
+    /// 1. Interaction:
+    ///    Subsequent messages stream
+    ///    [SessionInput][google.cloud.ces.v1.BidiSessionClientMessage.realtime_input]
+    ///    containing real-time user input data.
+    ///
+    /// 1. Termination:
+    ///    The client should half-close the stream when there is no more user
+    ///    input. It should also half-close upon receiving
+    ///    [EndSession][google.cloud.ces.v1.BidiSessionServerMessage.end_session]
+    ///    or [GoAway][google.cloud.ces.v1.BidiSessionServerMessage.go_away] from
+    ///    the agent.
+    ///
+    ///
+    /// --- Server Response Stream ---
+    /// For each interaction turn, the agent streams messages in the following
+    /// sequence:
+    ///
+    /// 1. Speech Recognition (First N messages):
+    ///    Contains
+    ///    [RecognitionResult][google.cloud.ces.v1.BidiSessionServerMessage.recognition_result]
+    ///    representing the concatenated user speech segments captured so far.
+    ///    This is only populated for audio sessions.
+    ///
+    /// 1. Response (Next M messages):
+    ///    Contains
+    ///    [SessionOutput][google.cloud.ces.v1.BidiSessionServerMessage.session_output]
+    ///    delivering the agent's response in various modalities (e.g., text,
+    ///    audio).
+    ///
+    /// 1. Turn Completion (Final message of the turn):
+    ///    Contains
+    ///    [SessionOutput][google.cloud.ces.v1.BidiSessionServerMessage.session_output]
+    ///    with [turn_completed][google.cloud.ces.v1.SessionOutput.turn_completed]
+    ///    set to true. This signals the end of the current turn and includes
+    ///    [DiagnosticInfo][google.cloud.ces.v1.SessionOutput.diagnostic_info]
+    ///    with execution details.
+    ///
+    ///
+    /// --- Audio Best Practices ---
+    ///
+    /// 1. Streaming:
+    ///    Stream [audio data][google.cloud.ces.v1.SessionInput.audio]
+    ///    **CONTINUOUSLY**, even during silence. Recommended chunk size: 40-120ms
+    ///    (balances latency vs. efficiency).
+    ///
+    /// 1. Playback & Interruption:
+    ///    Play [audio responses][google.cloud.ces.v1.SessionOutput.audio] upon
+    ///    receipt. Stop playback immediately if an
+    ///    [InterruptionSignal][google.cloud.ces.v1.BidiSessionServerMessage.interruption_signal]
+    ///    is received (e.g., user barge-in or new agent response).
+    ///
+    ///
+    /// [google.cloud.ces.v1.BidiSessionClientMessage.config]: crate::model::BidiSessionClientMessage::message_type
+    /// [google.cloud.ces.v1.BidiSessionClientMessage.realtime_input]: crate::model::BidiSessionClientMessage::message_type
+    /// [google.cloud.ces.v1.BidiSessionServerMessage.end_session]: crate::model::BidiSessionServerMessage::message_type
+    /// [google.cloud.ces.v1.BidiSessionServerMessage.go_away]: crate::model::BidiSessionServerMessage::message_type
+    /// [google.cloud.ces.v1.BidiSessionServerMessage.interruption_signal]: crate::model::BidiSessionServerMessage::message_type
+    /// [google.cloud.ces.v1.BidiSessionServerMessage.recognition_result]: crate::model::BidiSessionServerMessage::message_type
+    /// [google.cloud.ces.v1.BidiSessionServerMessage.session_output]: crate::model::BidiSessionServerMessage::message_type
+    /// [google.cloud.ces.v1.SessionConfig.input_audio_config]: crate::model::SessionConfig::input_audio_config
+    /// [google.cloud.ces.v1.SessionConfig.output_audio_config]: crate::model::SessionConfig::output_audio_config
+    /// [google.cloud.ces.v1.SessionInput.audio]: crate::model::SessionInput::input_type
+    /// [google.cloud.ces.v1.SessionOutput.audio]: crate::model::SessionOutput::output_type
+    /// [google.cloud.ces.v1.SessionOutput.diagnostic_info]: crate::model::SessionOutput::diagnostic_info
+    /// [google.cloud.ces.v1.SessionOutput.turn_completed]: crate::model::SessionOutput::turn_completed
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_ces_v1::client::SessionService;
+    /// # use google_cloud_ces_v1::model::BidiSessionClientMessage;
+    /// async fn sample(
+    ///    client: &SessionService
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.bidi_run_session()
+    ///         .build();
+    ///
+    ///     sender.send(BidiSessionClientMessage::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn bidi_run_session(&self) -> super::builder::session_service::BidiRunSession {
+        super::builder::session_service::BidiRunSession::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
     ///
     /// This method lists locations based on the resource scope provided in

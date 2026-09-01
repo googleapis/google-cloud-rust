@@ -38,6 +38,7 @@ use crate::Error;
     feature = "versions",
     feature = "webhooks",
 ))]
+#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements [Agents](super::stub::Agents) using a [gaxi::http::ReqwestClient].
@@ -13277,7 +13278,7 @@ impl super::stub::Sessions for Sessions {
                 path,
                 req,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 &x_goog_request_params,
             )
             .await
@@ -13314,7 +13315,7 @@ impl super::stub::Sessions for Sessions {
                 extensions,
                 path,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 x_goog_request_params,
             )
     }
