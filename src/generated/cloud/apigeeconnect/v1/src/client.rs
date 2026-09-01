@@ -151,3 +151,140 @@ impl ConnectionService {
         super::builder::connection_service::ListConnections::new(self.inner.clone())
     }
 }
+
+/// Implements a client for the Apigee Connect API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_apigeeconnect_v1::client::Tether;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = Tether::builder().build().await?;
+///     // use `client` to make requests to the Apigee Connect API.
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Tether provides a way for the control plane to send HTTP API requests to
+/// services in data planes that runs in a remote datacenter without
+/// requiring customers to open firewalls on their runtime plane.
+///
+/// # Configuration
+///
+/// To configure `Tether` use the `with_*` methods in the type returned
+/// by [builder()][Tether::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://apigeeconnect.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::tether::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::tether::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `Tether` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `Tether` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct Tether {
+    inner: std::sync::Arc<dyn super::stub::dynamic::Tether>,
+}
+
+impl Tether {
+    /// Returns a builder for [Tether].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_apigeeconnect_v1::client::Tether;
+    /// let client = Tether::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::tether::ClientBuilder {
+        crate::new_client_builder(super::builder::tether::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::Tether + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Tether>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::Tether> {
+        super::transport::Tether::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::Tether> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Tether::new)
+    }
+
+    /// Egress streams egress requests and responses. Logically, this is not
+    /// actually a streaming request, but uses streaming as a mechanism to flip
+    /// the client-server relationship of gRPC so that the server can act as a
+    /// client.
+    /// The listener, the RPC server, accepts connections from the dialer,
+    /// the RPC client.
+    /// The listener streams http requests and the dialer streams http responses.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apigeeconnect_v1::client::Tether;
+    /// # use google_cloud_apigeeconnect_v1::model::EgressResponse;
+    /// async fn sample(
+    ///    client: &Tether
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.egress()
+    ///         .build();
+    ///
+    ///     sender.send(EgressResponse::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn egress(&self) -> super::builder::tether::Egress {
+        super::builder::tether::Egress::new(self.inner.clone())
+    }
+}

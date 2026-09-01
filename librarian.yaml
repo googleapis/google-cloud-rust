@@ -348,8 +348,6 @@ libraries:
   - name: google-cloud-apigeeconnect-v1
     version: 1.11.0
     copyright_year: "2025"
-    rust:
-      include_bidi_streaming_methods: false
   - name: google-cloud-apihub-v1
     version: 1.14.0
     copyright_year: "2025"
