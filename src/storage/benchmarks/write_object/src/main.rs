@@ -34,8 +34,57 @@ async fn main() -> anyhow::Result<()> {
         anyhow::bail!("Measured iterations must be greater than 0");
     }
 
-    let bucket_name = match args.bucket_name.as_deref().filter(|s| !s.trim().is_empty()) {
-        Some(b) => b.to_string(),
+    let bucket_name = resolve_bucket_name(&args)?;
+    let temp_dir = resolve_temp_dir(&args)?;
+    let output_dir_display = args
+        .output_dir
+        .as_deref()
+        .filter(|s| !s.trim().is_empty())
+        .unwrap_or("<terminal only (file output skipped)>");
+
+    print_benchmark_banner(&bucket_name, &temp_dir, output_dir_display, &args);
+
+    let credentials = google_cloud_auth::credentials::Builder::default().build()?;
+    let client = Storage::builder()
+        .with_credentials(credentials.clone())
+        .build()
+        .await?;
+    let control = StorageControl::builder()
+        .with_credentials(credentials)
+        .build()
+        .await?;
+
+    let formatted_bucket = format!("projects/_/buckets/{}", bucket_name);
+
+    // [1/3] Pre-flight check: 512 KiB warmup to verify auth & prime TLS connection pool
+    println!("\n[1/3] Running pre-flight warmup check (512 KiB payload)...");
+    source::perform_global_warmup(&client, &control, &formatted_bucket).await?;
+    println!("Pre-flight warmup check succeeded: Authentication verified & TLS pool primed.");
+
+    // [2/3] Generate local test file on physical SSD
+    println!("\n[2/3] Generating local test file on physical SSD...");
+    let (temp_handle, temp_file_path) =
+        source::create_temp_test_file(args.object_size, &temp_dir).await?;
+    println!("Test file created at: {}", temp_file_path.display());
+
+    // [3/3] Execute upload benchmark scenarios
+    println!("\n[3/3] Executing benchmark scenarios...");
+    run_scenarios(&client, &control, &formatted_bucket, &temp_file_path, &args).await?;
+
+    // Clean up local physical disk file
+    println!(
+        "\nCleaning up local test file on disk: {}",
+        temp_file_path.display()
+    );
+    drop(temp_handle);
+    println!("Local test file successfully deleted.");
+
+    Ok(())
+}
+
+fn resolve_bucket_name(args: &Args) -> anyhow::Result<String> {
+    match args.bucket_name.as_deref().filter(|s| !s.trim().is_empty()) {
+        Some(b) => Ok(b.to_string()),
         None => {
             eprintln!("\n============================================================");
             eprintln!("ERROR: Target GCS bucket name is missing!");
@@ -49,10 +98,12 @@ async fn main() -> anyhow::Result<()> {
                 "Missing bucket name. Set GOOGLE_CLOUD_RUST_BENCHMARKS_BUCKET or pass --bucket-name."
             );
         }
-    };
+    }
+}
 
-    let temp_dir = match args.temp_dir.as_deref().filter(|s| !s.trim().is_empty()) {
-        Some(d) => d.to_string(),
+fn resolve_temp_dir(args: &Args) -> anyhow::Result<String> {
+    match args.temp_dir.as_deref().filter(|s| !s.trim().is_empty()) {
+        Some(d) => Ok(d.to_string()),
         None => {
             eprintln!("\n============================================================");
             eprintln!("ERROR: Temporary data directory path is missing!");
@@ -66,27 +117,13 @@ async fn main() -> anyhow::Result<()> {
                 "Missing temporary directory. Set GOOGLE_CLOUD_RUST_BENCHMARKS_DATA_PATH or pass --temp-dir."
             );
         }
-    };
+    }
+}
 
-    let output_dir_display = args
-        .output_dir
-        .as_deref()
-        .filter(|s| !s.trim().is_empty())
-        .unwrap_or("<terminal only (file output skipped)>");
-
-    let credentials = google_cloud_auth::credentials::Builder::default().build()?;
-    let client = Storage::builder()
-        .with_credentials(credentials.clone())
-        .build()
-        .await?;
-    let control = StorageControl::builder()
-        .with_credentials(credentials)
-        .build()
-        .await?;
-
+fn print_benchmark_banner(bucket: &str, temp_dir: &str, output_dir: &str, args: &Args) {
     println!("============================================================");
     println!("GCS write_object Benchmark Suite");
-    println!("Target Bucket:       {}", bucket_name);
+    println!("Target Bucket:       {}", bucket);
     println!(
         "Object Size:         {} bytes ({:.2} MiB)",
         args.object_size,
@@ -94,100 +131,32 @@ async fn main() -> anyhow::Result<()> {
     );
     println!("Cold Cache Eviction: {}", args.cold_cache);
     println!("Temp Directory:      {}", temp_dir);
-    println!("Output Directory:    {}", output_dir_display);
+    println!("Output Directory:    {}", output_dir);
     println!("Measured Iterations: {}", args.measured_iterations);
     println!("============================================================");
+}
 
-    let formatted_bucket = format!("projects/_/buckets/{}", bucket_name);
+async fn run_scenarios(
+    client: &Storage,
+    control: &StorageControl,
+    bucket: &str,
+    file_path: &Path,
+    args: &Args,
+) -> anyhow::Result<()> {
+    let scenarios = match args.scenario {
+        UploadScenario::OptionA => vec![UploadScenario::OptionA],
+        UploadScenario::OptionB => vec![UploadScenario::OptionB],
+        UploadScenario::OptionC => vec![UploadScenario::OptionC],
+        UploadScenario::All => vec![
+            UploadScenario::OptionA,
+            UploadScenario::OptionB,
+            UploadScenario::OptionC,
+        ],
+    };
 
-    // Pre-flight check: 512 KiB global warmup to verify auth & prime TLS connection pool
-    println!("\n[1/3] Running pre-flight warmup check (512 KiB payload)...");
-    source::perform_global_warmup(&client, &control, &formatted_bucket).await?;
-    println!("Pre-flight warmup check succeeded: Authentication verified & TLS pool primed.");
-
-    // Generate local test file on physical SSD
-    println!("\n[2/3] Generating local test file on physical SSD...");
-    let (temp_handle, temp_file_path) =
-        source::create_temp_test_file(args.object_size, &temp_dir).await?;
-    println!("Test file created at: {}", temp_file_path.display());
-
-    // Execute upload benchmark scenarios
-    println!("\n[3/3] Executing benchmark scenarios...");
-    match args.scenario {
-        UploadScenario::OptionA => {
-            run_single_scenario(
-                &client,
-                &control,
-                &formatted_bucket,
-                &temp_file_path,
-                &args,
-                UploadScenario::OptionA,
-            )
-            .await?;
-        }
-        UploadScenario::OptionB => {
-            run_single_scenario(
-                &client,
-                &control,
-                &formatted_bucket,
-                &temp_file_path,
-                &args,
-                UploadScenario::OptionB,
-            )
-            .await?;
-        }
-        UploadScenario::OptionC => {
-            run_single_scenario(
-                &client,
-                &control,
-                &formatted_bucket,
-                &temp_file_path,
-                &args,
-                UploadScenario::OptionC,
-            )
-            .await?;
-        }
-        UploadScenario::All => {
-            run_single_scenario(
-                &client,
-                &control,
-                &formatted_bucket,
-                &temp_file_path,
-                &args,
-                UploadScenario::OptionA,
-            )
-            .await?;
-
-            run_single_scenario(
-                &client,
-                &control,
-                &formatted_bucket,
-                &temp_file_path,
-                &args,
-                UploadScenario::OptionB,
-            )
-            .await?;
-
-            run_single_scenario(
-                &client,
-                &control,
-                &formatted_bucket,
-                &temp_file_path,
-                &args,
-                UploadScenario::OptionC,
-            )
-            .await?;
-        }
+    for scenario in scenarios {
+        run_single_scenario(client, control, bucket, file_path, args, scenario).await?;
     }
-
-    // Clean up local physical disk file
-    println!(
-        "\nCleaning up local test file on disk: {}",
-        temp_file_path.display()
-    );
-    drop(temp_handle);
-    println!("Local test file successfully deleted.");
-
     Ok(())
 }
 
