@@ -231,6 +231,89 @@ impl FromProto<wkt::NullValue> for prost_types::NullValue {
     }
 }
 
+impl FromProto<wkt::DescriptorProto> for prost_types::DescriptorProto {
+    fn cnv(self) -> Result<wkt::DescriptorProto> {
+        Ok(wkt::DescriptorProto::default()
+            .set_name(self.name.unwrap_or_default())
+            .set_field(
+                self.field
+                    .into_iter()
+                    .map(|v| {
+                        wkt::FieldDescriptorProto::default()
+                            .set_name(v.name.unwrap_or_default())
+                            .set_number(v.number.unwrap_or_default())
+                    })
+                    .collect::<Vec<_>>(),
+            )
+            .set_nested_type(
+                self.nested_type
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<Result<Vec<_>>>()?,
+            )
+            .set_enum_type(
+                self.enum_type
+                    .into_iter()
+                    .map(|v| {
+                        wkt::EnumDescriptorProto::default()
+                            .set_name(v.name.unwrap_or_default())
+                            .set_value(
+                                v.value
+                                    .into_iter()
+                                    .map(|ev| {
+                                        wkt::EnumValueDescriptorProto::default()
+                                            .set_name(ev.name.unwrap_or_default())
+                                            .set_number(ev.number.unwrap_or_default())
+                                    })
+                                    .collect::<Vec<_>>(),
+                            )
+                    })
+                    .collect::<Vec<_>>(),
+            ))
+    }
+}
+
+impl ToProto<prost_types::DescriptorProto> for wkt::DescriptorProto {
+    type Output = prost_types::DescriptorProto;
+    fn to_proto(self) -> Result<prost_types::DescriptorProto> {
+        Ok(prost_types::DescriptorProto {
+            name: Some(self.name),
+            field: self
+                .field
+                .into_iter()
+                .map(|v| prost_types::FieldDescriptorProto {
+                    name: Some(v.name),
+                    number: Some(v.number),
+                    ..Default::default()
+                })
+                .collect(),
+            nested_type: self
+                .nested_type
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<Result<Vec<_>>>()?,
+            enum_type: self
+                .enum_type
+                .into_iter()
+                .map(|v| prost_types::EnumDescriptorProto {
+                    name: Some(v.name),
+                    value: v
+                        .value
+                        .into_iter()
+                        .map(|ev| prost_types::EnumValueDescriptorProto {
+                            name: Some(ev.name),
+                            number: Some(ev.number),
+                            ..Default::default()
+                        })
+                        .collect(),
+                    ..Default::default()
+                })
+                .collect(),
+            ..Default::default()
+        })
+    }
+}
+
 /// A placeholder for `google.protobuf.Empty`.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Empty {}
@@ -308,6 +391,7 @@ mod tests {
     #[test_case(Err(err()), Ok(2))]
     #[test_case(Ok(1), Err(err()))]
     #[test_case(Err(err()), Err(err()))]
+
     fn pair_transpose_error(a: Result<i32>, b: Result<i32>) -> anyhow::Result<()> {
         let got = super::pair_transpose(a, b);
         assert!(got.is_err(), "{got:?}");
@@ -521,6 +605,23 @@ mod tests {
         let url = super::Empty::type_url();
         let want = format!("type.googleapis.com/{full}");
         assert_eq!(url, want);
+        Ok(())
+    }
+    #[test]
+    fn test_descriptor_proto_conversion() -> anyhow::Result<()> {
+        let mut input = wkt::DescriptorProto::default().set_name("TestMessage".to_string());
+        let field = wkt::FieldDescriptorProto::default()
+            .set_name("test_field".to_string())
+            .set_number(1);
+        input.field = vec![field];
+        let prost_msg: prost_types::DescriptorProto = input.clone().to_proto()?;
+        assert_eq!(prost_msg.name, Some("TestMessage".to_string()));
+        assert_eq!(prost_msg.field.len(), 1);
+        assert_eq!(prost_msg.field[0].name, Some("test_field".to_string()));
+        assert_eq!(prost_msg.field[0].number, Some(1));
+        let back: wkt::DescriptorProto = prost_msg.cnv()?;
+        assert_eq!(back.name, input.name);
+        assert_eq!(back.field[0].name, input.field[0].name);
         Ok(())
     }
 }
