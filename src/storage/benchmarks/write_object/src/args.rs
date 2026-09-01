@@ -47,7 +47,7 @@ pub struct Args {
 
     /// Whether to evict the test file from the OS page cache (RAM) before each iteration to
     /// simulate a cold physical disk read.
-    #[arg(long, default_value_t = true)]
+    #[arg(long, action = clap::ArgAction::Set, default_value_t = true)]
     pub cold_cache: bool,
 
     /// Directory on physical SSD storage for creating the temporary test file.
@@ -65,6 +65,38 @@ pub struct Args {
     pub output_dir: String,
 
     /// Whether to delete test objects from GCS after each iteration.
-    #[arg(long, default_value_t = true)]
+    #[arg(long, action = clap::ArgAction::Set, default_value_t = true)]
     pub cleanup: bool,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_args_parsing_with_boolean_values() {
+        let args = Args::try_parse_from([
+            "benchmark",
+            "--bucket-name",
+            "test-bucket",
+            "--object-size",
+            "12582912",
+            "--scenario",
+            "option-a",
+            "--cleanup",
+            "false",
+            "--cold-cache",
+            "false",
+            "--measured-iterations",
+            "1",
+        ])
+        .unwrap();
+
+        assert_eq!(args.bucket_name, "test-bucket");
+        assert_eq!(args.object_size, 12_582_912);
+        assert_eq!(args.scenario, UploadScenario::OptionA);
+        assert!(!args.cleanup);
+        assert!(!args.cold_cache);
+        assert_eq!(args.measured_iterations, 1);
+    }
 }
