@@ -49,6 +49,7 @@
     feature = "vertex-rag-service",
     feature = "vizier-service",
 ))]
+#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements a [DataFoundryService](super::stub::DataFoundryService) decorator for logging and tracing.
@@ -2105,6 +2106,7 @@ where
     T: super::stub::FeatureOnlineStoreService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -2756,6 +2758,7 @@ where
     T: super::stub::FeaturestoreOnlineServingService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -8890,6 +8893,7 @@ where
     T: super::stub::PredictionService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -9265,6 +9269,7 @@ where
     T: super::stub::ReasoningEngineExecutionService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -10827,6 +10832,7 @@ where
     T: super::stub::TensorboardService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 

@@ -39,6 +39,7 @@ use crate::Error;
     feature = "user-event-service",
     feature = "user-license-service",
 ))]
+#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements [AssistantService](super::stub::AssistantService) using a [gaxi::http::ReqwestClient].
@@ -122,7 +123,7 @@ impl super::stub::AssistantService for AssistantService {
                 path,
                 req,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 &x_goog_request_params,
             )
             .await
@@ -7460,7 +7461,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 path,
                 req,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 &x_goog_request_params,
             )
             .await
@@ -14918,7 +14919,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 extensions,
                 path,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 x_goog_request_params,
             )
     }
