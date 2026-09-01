@@ -54,4 +54,17 @@ mod tests {
         assert_eq!(back, input);
         Ok(())
     }
+
+    #[test]
+    fn test_proto_schema_none_conversion() -> anyhow::Result<()> {
+        let input = ProtoSchema::new(); // proto_descriptor is None by default
+
+        let proto: v1::ProtoSchema = input.clone().to_proto()?;
+        assert!(proto.proto_descriptor.is_none());
+
+        let back: ProtoSchema = proto.cnv()?;
+        assert_eq!(back, input);
+        assert!(back.proto_descriptor.is_none());
+        Ok(())
+    }
 }
