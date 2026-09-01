@@ -41,7 +41,7 @@ pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyho
     let schema_buf = std::mem::take(ipc_writer.get_mut());
 
     let table = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}");
-    // Create a writer for the default stream
+    // Create a writer for the pending stream
     let writer = client
         .arrow(ArrowSchema::new().set_serialized_schema(schema_buf))
         .pending(table)
