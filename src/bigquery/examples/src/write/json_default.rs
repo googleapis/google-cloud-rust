@@ -36,8 +36,10 @@ pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyho
         Field::new("string", DataType::Utf8, false),
         Field::new("int", DataType::Int64, false),
     ]));
-    let schema_buf = serialize_schema(&schema)?;
-    let schema_len = schema_buf.len();
+
+    // Initialize an IPC stream writer and extract the serialized schema
+    let mut ipc_writer = StreamWriter::try_new(Vec::new(), &schema)?;
+    let schema_buf = std::mem::take(ipc_writer.get_mut());
 
     let table = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}");
     // Create a writer for the default stream
@@ -56,8 +58,13 @@ pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyho
             let _ = decoder.decode(json.as_bytes())?;
         }
         if let Some(batch) = decoder.flush()? {
-            let batch_buf = serialize_batch(&batch, schema_len)?;
-            let batch = ArrowRecordBatch::new().set_serialized_record_batch(batch_buf);
+            // Serialize the batch
+            let batch = {
+                ipc_writer.write(&batch)?;
+                let batch_bytes = std::mem::take(ipc_writer.get_mut());
+                ArrowRecordBatch::new().set_serialized_record_batch(batch_bytes)
+            };
+            // Write the batch to BigQuery
             writes.spawn(writer.append(batch).send());
         }
     }
@@ -66,23 +73,5 @@ pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyho
     println!("Successfully wrote 100 record batches of 10 rows each.");
 
     Ok(())
-}
-
-fn serialize_schema(schema: &Schema) -> Result<Vec<u8>> {
-    let mut buf = Vec::new();
-    let _ = StreamWriter::try_new(&mut buf, schema)?;
-    Ok(buf)
-}
-
-fn serialize_batch(batch: &RecordBatch, schema_len: usize) -> Result<Vec<u8>> {
-    let mut buf = Vec::new();
-    {
-        let mut writer = StreamWriter::try_new(&mut buf, &batch.schema())?;
-        writer.write(batch)?;
-    }
-    // Note that the schema is encoded in the front of the record batch, per the
-    // IPC spec. BigQuery does not expect this, so we need to strip it.
-    buf.drain(0..schema_len);
-    Ok(buf)
 }
 // [END bigquerystorage_jsonstreamwriter_default]
