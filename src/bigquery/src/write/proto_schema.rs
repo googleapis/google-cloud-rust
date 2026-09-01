@@ -31,3 +31,27 @@ impl FromProto<ProtoSchema> for v1::ProtoSchema {
             .set_or_clear_proto_descriptor(self.proto_descriptor.map(|v| v.cnv()).transpose()?))
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use gaxi::prost::{FromProto, ToProto};
+    use wkt;
+
+    #[test]
+    fn test_proto_schema_conversion() -> anyhow::Result<()> {
+        let descriptor = wkt::DescriptorProto::default().set_name("TestMessage".to_string());
+        let input = ProtoSchema::new().set_proto_descriptor(descriptor.clone());
+
+        let proto: v1::ProtoSchema = input.clone().to_proto()?;
+        assert!(proto.proto_descriptor.is_some());
+        assert_eq!(
+            proto.proto_descriptor.as_ref().unwrap().name,
+            Some("TestMessage".to_string())
+        );
+
+        let back: ProtoSchema = proto.cnv()?;
+        assert_eq!(back, input);
+        Ok(())
+    }
+}
