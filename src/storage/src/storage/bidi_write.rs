@@ -21,6 +21,8 @@ pub(crate) mod connector;
 #[allow(dead_code)]
 mod redirect;
 #[allow(dead_code)]
+pub(crate) mod replay_buffer;
+#[allow(dead_code)]
 mod retry_redirect;
 #[allow(dead_code)]
 pub(crate) mod state;
