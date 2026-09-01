@@ -49,6 +49,16 @@ pub struct Args {
     #[arg(long, value_enum, default_value_t = UploadScenario::All)]
     pub scenario: UploadScenario,
 
+    /// Whether to evict the test file from the OS page cache (RAM) before each iteration to
+    /// simulate a cold physical disk read.
+    #[arg(long, default_value_t = true)]
+    pub cold_cache: bool,
+
+    /// Custom directory for creating the temporary test file (e.g., on a real physical SSD/HDD
+    /// mount instead of `/tmp`). If not specified, the system default temporary directory is used.
+    #[arg(long)]
+    pub temp_dir: Option<String>,
+
     /// Directory for output artifacts (raw CSV latencies and summary JSON). If not provided, file
     /// reporting is skipped.
     #[arg(long)]

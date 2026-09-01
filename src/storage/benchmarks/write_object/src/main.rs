@@ -52,12 +52,14 @@ async fn main() -> anyhow::Result<()> {
         args.object_size,
         args.object_size as f64 / (1024.0 * 1024.0)
     );
+    println!("Cold Cache Eviction: {}", args.cold_cache);
     println!("Warmup Iterations:   {}", args.warmup_iterations);
     println!("Measured Iterations: {}", args.measured_iterations);
     println!("============================================================");
 
     println!("Generating local test file on disk...");
-    let (_temp_handle, temp_file_path) = source::create_temp_test_file(args.object_size).await?;
+    let (_temp_handle, temp_file_path) =
+        source::create_temp_test_file(args.object_size, args.temp_dir.as_deref()).await?;
     println!("Test file created at: {}", temp_file_path.display());
 
     let formatted_bucket = format!("projects/_/buckets/{}", args.bucket_name);
@@ -153,6 +155,14 @@ async fn run_single_scenario(
     let total_iterations = args.warmup_iterations + args.measured_iterations;
 
     for i in 0..total_iterations {
+        // If cold_cache is enabled, evict the test file from OS page cache once before the
+        // iteration starts to ensure a cold physical disk read.
+        if args.cold_cache
+            && let Err(e) = source::drop_file_from_page_cache(file_path)
+        {
+            eprintln!("Warning: Failed to drop file from page cache: {e}");
+        }
+
         let object_name = format!("bench-write-object-{}", Uuid::new_v4());
         let res = match scenario {
             UploadScenario::OptionA => {

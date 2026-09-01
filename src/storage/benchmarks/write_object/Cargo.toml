@@ -30,6 +30,7 @@ clap                        = { workspace = true, features = ["derive", "env", "
 crc32c.workspace            = true
 google-cloud-auth.workspace = true
 google-cloud-storage        = { workspace = true, features = ["default-rustls-provider", "unstable-stream"] }
+libc                        = "0.2"
 rand.workspace              = true
 tempfile.workspace          = true
 tokio                       = { workspace = true, features = ["fs", "io-util", "macros", "rt-multi-thread"] }

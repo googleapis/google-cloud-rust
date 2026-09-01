@@ -9544,6 +9544,7 @@ dependencies = [
  "crc32c",
  "google-cloud-auth",
  "google-cloud-storage",
+ "libc",
  "rand 0.10.2",
  "tempfile",
  "tokio",

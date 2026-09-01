@@ -30,6 +30,8 @@ pub struct BenchmarkReport<'a> {
     pub warmup_iterations: usize,
     /// Number of measured iterations.
     pub measured_iterations: usize,
+    /// Whether cold-cache eviction was enabled before each iteration.
+    pub cold_cache: bool,
     /// Number of errors encountered.
     pub errors: usize,
     /// Calculated latency metrics.
@@ -48,6 +50,7 @@ impl BenchmarkReport<'_> {
             self.object_size,
             self.object_size as f64 / (1024.0 * 1024.0)
         );
+        println!("Cold Cache Eviction: {}", self.cold_cache);
         println!("Warmup Iterations:   {}", self.warmup_iterations);
         println!("Measured Iterations: {}", self.measured_iterations);
         println!("Errors Recorded:     {}", self.errors);
@@ -69,6 +72,7 @@ impl BenchmarkReport<'_> {
         writeln!(writer, "{{")?;
         writeln!(writer, "  \"scenario\": \"{}\",", self.scenario)?;
         writeln!(writer, "  \"object_size_bytes\": {},", self.object_size)?;
+        writeln!(writer, "  \"cold_cache\": {},", self.cold_cache)?;
         writeln!(
             writer,
             "  \"warmup_iterations\": {},",
@@ -130,6 +134,7 @@ pub fn report(
         object_size: args.object_size,
         warmup_iterations: args.warmup_iterations,
         measured_iterations: args.measured_iterations,
+        cold_cache: args.cold_cache,
         errors,
         metrics,
         mean_precompute_ms,

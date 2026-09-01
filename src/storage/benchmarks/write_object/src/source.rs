@@ -14,14 +14,25 @@
 
 use rand::rngs::StdRng;
 use rand::{RngExt, SeedableRng};
-use std::path::PathBuf;
+use std::fs::File;
+use std::path::{Path, PathBuf};
 use tempfile::NamedTempFile;
 use tokio::io::AsyncWriteExt;
 
+#[cfg(unix)]
+use std::os::unix::io::AsRawFd;
+
 /// Creates a temporary file of the given size populated with pseudo-random bytes.
+/// If `temp_dir` is provided, the file is created in that directory.
 /// Returns the path to the temporary file and the NamedTempFile handle.
-pub async fn create_temp_test_file(size_bytes: usize) -> anyhow::Result<(NamedTempFile, PathBuf)> {
-    let temp_file = NamedTempFile::new()?;
+pub async fn create_temp_test_file(
+    size_bytes: usize,
+    temp_dir: Option<&str>,
+) -> anyhow::Result<(NamedTempFile, PathBuf)> {
+    let temp_file = match temp_dir {
+        Some(dir) => NamedTempFile::new_in(dir)?,
+        None => NamedTempFile::new()?,
+    };
     let path = temp_file.path().to_path_buf();
 
     // Use a 1 MiB chunk of pseudo-random data written repeatedly to disk
@@ -40,4 +51,21 @@ pub async fn create_temp_test_file(size_bytes: usize) -> anyhow::Result<(NamedTe
     async_file.flush().await?;
 
     Ok((temp_file, path))
+}
+
+/// Evicts the given file's data from the OS page cache (RAM) to simulate a cold physical disk read.
+pub fn drop_file_from_page_cache(path: &Path) -> std::io::Result<()> {
+    #[cfg(unix)]
+    {
+        let std_file = File::open(path)?;
+        let fd = std_file.as_raw_fd();
+        // Sync dirty pages to disk first.
+        let _ = unsafe { libc::fdatasync(fd) };
+        // Tell the OS kernel to discard cached pages for the entire file range.
+        let ret = unsafe { libc::posix_fadvise(fd, 0, 0, libc::POSIX_FADV_DONTNEED) };
+        if ret != 0 {
+            return Err(std::io::Error::from_raw_os_error(ret));
+        }
+    }
+    Ok(())
 }
