@@ -80,7 +80,7 @@ pub async fn create_temp_test_file(
     temp_dir: &str,
 ) -> anyhow::Result<(NamedTempFile, PathBuf)> {
     // Ensure parent directory exists
-    std::fs::create_dir_all(temp_dir)?;
+    tokio::fs::create_dir_all(temp_dir).await?;
 
     let temp_file = NamedTempFile::new_in(temp_dir)?;
     let path = temp_file.path().to_path_buf();
