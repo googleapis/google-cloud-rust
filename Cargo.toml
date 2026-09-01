@@ -354,6 +354,7 @@ members = [
   "src/storage/benchmarks/appendable_object",
   "src/storage/benchmarks/random",
   "src/storage/benchmarks/w1r3",
+  "src/storage/benchmarks/write_object",
   "src/storage/examples",
   "src/storage/tests/scenarios",
   "src/wkt",

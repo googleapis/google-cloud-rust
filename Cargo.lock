@@ -9535,6 +9535,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "storage-benchmark-write-object"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "bytes",
+ "clap",
+ "crc32c",
+ "google-cloud-auth",
+ "google-cloud-storage",
+ "rand 0.10.2",
+ "tempfile",
+ "tokio",
+ "tracing-subscriber",
+ "uuid",
+]
+
+[[package]]
 name = "storage-grpc-mock"
 version = "0.0.0"
 dependencies = [
