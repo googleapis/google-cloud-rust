@@ -36,10 +36,6 @@ workspace = true
 
 [features]
 default = ["_default-rustls-provider"]
-# Enables the narrow, intentionally incomplete `wkt::DescriptorProto` conversion.
-#
-# Used exclusively by BigQuery to bypass librarian struct generation constraints.
-_internal-descriptor-proto-conversion = []
 # Enables the HTTP client.
 #
 # Currently this is based on reqwest, and this crate implicitly uses the same
