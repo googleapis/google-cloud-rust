@@ -53,13 +53,14 @@ async fn main() -> anyhow::Result<()> {
         args.object_size as f64 / (1024.0 * 1024.0)
     );
     println!("Cold Cache Eviction: {}", args.cold_cache);
+    println!("Temp Directory:      {}", args.temp_dir);
     println!("Warmup Iterations:   {}", args.warmup_iterations);
     println!("Measured Iterations: {}", args.measured_iterations);
     println!("============================================================");
 
-    println!("Generating local test file on disk...");
-    let (_temp_handle, temp_file_path) =
-        source::create_temp_test_file(args.object_size, args.temp_dir.as_deref()).await?;
+    println!("Generating local test file on physical SSD...");
+    let (temp_handle, temp_file_path) =
+        source::create_temp_test_file(args.object_size, &args.temp_dir).await?;
     println!("Test file created at: {}", temp_file_path.display());
 
     let formatted_bucket = format!("projects/_/buckets/{}", args.bucket_name);
@@ -130,6 +131,13 @@ async fn main() -> anyhow::Result<()> {
             .await?;
         }
     }
+
+    println!(
+        "\nDeleting local benchmark test file on disk: {}",
+        temp_file_path.display()
+    );
+    drop(temp_handle); // Automatically removes the temporary file from physical disk.
+    println!("Local test file successfully deleted.");
 
     Ok(())
 }

@@ -29,14 +29,11 @@ When uploading seekable data (such as local disk files), SDKs face a protocol tr
 4. **2 GiB (Large Resumable)**: 256 chunks in Option C vs. 1 continuous stream in Option B.
 5. **8 GiB (Stress Resumable)**: 1,024 chunks in Option C vs. 1 continuous stream in Option B.
 
-## Page Cache & Cold Disk Simulation
+## Page Cache, Storage Medium & Disk Cleanup
 
-By default, `--cold-cache=true` is enabled. Before every iteration, the benchmark calls `posix_fadvise(DONTNEED)` once to evict the test file from the OS page cache (RAM). This ensures that:
-- **Option A** performs 1 cold disk read (streamed to network).
-- **Option B** performs 1 cold disk read in Pass 1 (local SIMD checksumming), and Pass 2 naturally streams from the hot page cache populated by Pass 1.
-- **Option C** performs 1 cold disk read (in 8 MiB chunks streamed to network).
-
-To place the test file on a specific physical SSD/HDD mount instead of `/tmp`, pass `--temp-dir=/path/to/mount`.
+- **Physical SSD Storage:** By default, test files are created under `/usr/local/google/tmp/rust-write-object-benchmarking-data` on the physical SSD drive (avoiding RAM-backed `/tmp`). This can be customized via `--temp-dir=/path/to/dir`.
+- **Cold Cache Eviction:** By default, `--cold-cache=true` is enabled. Before every iteration, the benchmark calls `posix_fadvise(DONTNEED)` once to evict the test file from the OS page cache (RAM), ensuring a cold physical disk read.
+- **Disk Cleanup:** Upon benchmark completion, the temporary file is automatically removed from physical disk.
 
 ## Pre-requisites
 
@@ -63,6 +60,7 @@ cargo run --release -p storage-benchmark-write-object -- \
   --object-size 67108864 \
   --scenario all \
   --cold-cache true \
+  --temp-dir /usr/local/google/tmp/rust-write-object-benchmarking-data \
   --warmup-iterations 1 \
   --measured-iterations 5
 ```

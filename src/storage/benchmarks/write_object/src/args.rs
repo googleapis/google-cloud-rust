@@ -54,10 +54,12 @@ pub struct Args {
     #[arg(long, default_value_t = true)]
     pub cold_cache: bool,
 
-    /// Custom directory for creating the temporary test file (e.g., on a real physical SSD/HDD
-    /// mount instead of `/tmp`). If not specified, the system default temporary directory is used.
-    #[arg(long)]
-    pub temp_dir: Option<String>,
+    /// Directory on physical SSD storage for creating the temporary test file.
+    #[arg(
+        long,
+        default_value = "/usr/local/google/tmp/rust-write-object-benchmarking-data"
+    )]
+    pub temp_dir: String,
 
     /// Directory for output artifacts (raw CSV latencies and summary JSON). If not provided, file
     /// reporting is skipped.

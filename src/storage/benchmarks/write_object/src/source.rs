@@ -23,16 +23,16 @@ use tokio::io::AsyncWriteExt;
 use std::os::unix::io::AsRawFd;
 
 /// Creates a temporary file of the given size populated with pseudo-random bytes.
-/// If `temp_dir` is provided, the file is created in that directory.
+/// The file is created in `temp_dir` on physical SSD storage.
 /// Returns the path to the temporary file and the NamedTempFile handle.
 pub async fn create_temp_test_file(
     size_bytes: usize,
-    temp_dir: Option<&str>,
+    temp_dir: &str,
 ) -> anyhow::Result<(NamedTempFile, PathBuf)> {
-    let temp_file = match temp_dir {
-        Some(dir) => NamedTempFile::new_in(dir)?,
-        None => NamedTempFile::new()?,
-    };
+    // Ensure parent directory exists
+    std::fs::create_dir_all(temp_dir)?;
+
+    let temp_file = NamedTempFile::new_in(temp_dir)?;
     let path = temp_file.path().to_path_buf();
 
     // Use a 1 MiB chunk of pseudo-random data written repeatedly to disk
