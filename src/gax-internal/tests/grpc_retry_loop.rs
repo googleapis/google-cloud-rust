@@ -22,7 +22,7 @@ mod tests {
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use google_cloud_gax_internal::attempt_interceptor::AttemptInterceptor;
-    use google_cloud_gax_internal::grpc;
+    use google_cloud_gax_internal::grpc::tonic as grpc;
     use google_cloud_gax_internal::options::ClientConfig;
     use grpc_server::google::test::v1::EchoResponse;
     use grpc_server::{builder, google, start_fixed_responses};

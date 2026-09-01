@@ -22,7 +22,7 @@ mod tests {
     use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     use google_cloud_gax::retry_state::RetryState;
     use google_cloud_gax::retry_throttler::{CircuitBreaker, RetryThrottlerArg};
-    use google_cloud_gax_internal::grpc;
+    use google_cloud_gax_internal::grpc::tonic as grpc;
     use grpc_server::{builder, google, start_echo_server};
     use std::sync::{Arc, Mutex};
     use std::time::Duration;

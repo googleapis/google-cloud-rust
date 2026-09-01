@@ -58,6 +58,8 @@ _internal-grpc-client = [
   "dep:tower",
   "dep:wkt",
 ]
+# Makes available a gRPC transport (GrpcRustClient) built on grpc-rust.
+_internal-grpc-rust = ["_internal-grpc-client"]
 # Enable support for the multipart requests in the HTTP client.
 #
 # Specifically, this enables the `reqwest::multipart` module, which is used by

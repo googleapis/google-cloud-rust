@@ -68,6 +68,7 @@ wkt.workspace            = true
 gaxi = { workspace = true, features = [
   "_internal-common",
   "_internal-grpc-client",
+  "_internal-grpc-rust",
   # Storage always uses the multipart feature for uploads.
   "_internal-http-multipart",
   # Storage always uses the multipart feature for uploads.

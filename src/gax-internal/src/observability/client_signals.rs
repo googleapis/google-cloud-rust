@@ -370,7 +370,7 @@ mod tests {
 
         config.cred = Some(Anonymous::new().build());
 
-        let client = crate::grpc::Client::new(config, url)
+        let client = crate::grpc::tonic::Client::new(config, url)
             .await
             .map_err(|e| Error::io(e.to_string()))?;
 
@@ -426,7 +426,7 @@ mod tests {
 
         config.cred = Some(Anonymous::new().build());
 
-        let client = crate::grpc::Client::new(config, url)
+        let client = crate::grpc::tonic::Client::new(config, url)
             .await
             .map_err(|e| Error::io(e.to_string()))?;
 
@@ -475,7 +475,7 @@ mod tests {
 
         config.cred = Some(Anonymous::new().build());
 
-        let client = crate::grpc::Client::new(config, url)
+        let client = crate::grpc::tonic::Client::new(config, url)
             .await
             .map_err(|e| Error::io(e.to_string()))?;
 

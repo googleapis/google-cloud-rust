@@ -135,7 +135,7 @@ pub fn builder(default_endpoint: impl Into<String>) -> ClientBuilder<Factory, Cr
 
 pub struct Factory(String);
 impl ClientFactory for Factory {
-    type Client = gaxi::grpc::Client;
+    type Client = gaxi::grpc::tonic::Client;
     type Credentials = Credentials;
     async fn build(self, config: gaxi::options::ClientConfig) -> ClientBuilderResult<Self::Client> {
         Self::Client::new(config, &self.0).await

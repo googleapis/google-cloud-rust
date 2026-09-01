@@ -17,7 +17,7 @@ mod tests {
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
     use google_cloud_gax::Result;
     use google_cloud_gax::options::RequestOptions;
-    use google_cloud_gax_internal::grpc;
+    use google_cloud_gax_internal::grpc::tonic as grpc;
     use grpc_server::{builder, google, start_echo_server};
 
     fn test_credentials() -> Credentials {

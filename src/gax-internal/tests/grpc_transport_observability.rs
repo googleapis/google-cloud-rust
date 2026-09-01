@@ -118,7 +118,7 @@ mod tests {
         ));
         config.cred = Some(Anonymous::new().build());
 
-        let client = google_cloud_gax_internal::grpc::Client::new_with_instrumentation(
+        let client = google_cloud_gax_internal::grpc::tonic::Client::new_with_instrumentation(
             config, url, &TEST_INFO,
         )
         .await

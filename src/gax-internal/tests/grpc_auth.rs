@@ -23,7 +23,7 @@ mod tests {
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use google_cloud_gax::options::*;
     use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
-    use google_cloud_gax_internal::grpc;
+    use google_cloud_gax_internal::grpc::tonic as grpc;
     use grpc_server::{builder, google, start_echo_server};
     use std::error::Error as _;
 

@@ -19,7 +19,7 @@ mod tests {
     };
     use google_cloud_gax::options::*;
     use google_cloud_gax::retry_policy::NeverRetry;
-    use google_cloud_gax_internal::grpc;
+    use google_cloud_gax_internal::grpc::tonic as grpc;
     use grpc_server::google::test::v1::{EchoRequest, EchoResponse};
     use grpc_server::{builder, start_echo_server};
 

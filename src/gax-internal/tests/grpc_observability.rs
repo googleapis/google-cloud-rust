@@ -20,7 +20,7 @@ mod tests {
     use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
     use google_cloud_gax::retry_policy::Aip194Strict;
     use google_cloud_gax::retry_policy::RetryPolicyExt;
-    use google_cloud_gax_internal::grpc;
+    use google_cloud_gax_internal::grpc::tonic as grpc;
     use google_cloud_gax_internal::observability::{ClientRequestAttributes, RequestRecorder};
     use google_cloud_gax_internal::options::{ClientConfig, InstrumentationClientInfo};
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer, TestLayerGuard};
