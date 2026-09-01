@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Copyright 2025 Google LLC
+# Copyright 2026 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,15 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -ev
-
-source "$(dirname "$0")"/install-go.sh
-
-cargo version
-rustup show active-toolchain -v
-
-cargo test -p integration-tests-showcase --features run-showcase-tests
-
-echo "==== DONE ===="
-
-/workspace/.bin/sccache --show-stats
+echo "==== Install go compiler ===="
+curl -fsSL --retry 5 --retry-delay 15 https://go.dev/dl/go1.26.7.linux-amd64.tar.gz -o /tmp/go.tar.gz
+sha256sum -c <(echo ffb5f8de10c62550dfddab66b36b57030721e0a44a3218e9e1181d7b59f121ca /tmp/go.tar.gz)
+rm -rf /usr/local/go && tar -C /usr/local -xzf /tmp/go.tar.gz
+export PATH=/usr/local/go/bin:${PATH}
