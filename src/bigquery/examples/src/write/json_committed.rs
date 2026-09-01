@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START bigquerystorage_jsonstreamwriter_pending]
+// [START bigquerystorage_jsonstreamwriter_committed]
 use anyhow::Result;
 use arrow::datatypes::{DataType, Field, Schema};
 use arrow::ipc::writer::StreamWriter;
@@ -41,10 +41,10 @@ pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyho
     let schema_buf = std::mem::take(ipc_writer.get_mut());
 
     let table = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}");
-    // Create a writer for a pending stream
+    // Create a writer for a committed stream
     let writer = client
         .arrow(ArrowSchema::new().set_serialized_schema(schema_buf))
-        .pending(table)
+        .committed(table)
         .await?;
 
     // Create a decoder to convert JSON to Arrow
@@ -64,7 +64,7 @@ pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyho
                 let batch_bytes = std::mem::take(ipc_writer.get_mut());
                 ArrowRecordBatch::new().set_serialized_record_batch(batch_bytes)
             };
-            // Write the batch to the pending stream
+            // Write the batch to the committed stream
             writes.spawn(writer.append(batch).set_offset(10 * i).send());
         }
     }
@@ -78,10 +78,6 @@ pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyho
         resp.row_count
     );
 
-    // Commit the stream to BigQuery
-    let resp = writer.commit().await?;
-    println!("Successfully committed the rows. {resp:?}");
-
     Ok(())
 }
-// [END bigquerystorage_jsonstreamwriter_pending]
+// [END bigquerystorage_jsonstreamwriter_committed]
