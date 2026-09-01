@@ -661,7 +661,7 @@ pub trait SessionService: std::fmt::Debug + Send + Sync {
             google_cloud_gax::streaming::ResponseStream<crate::model::RunSessionResponse>,
         >,
     > + Send {
-        gaxi::unimplemented::unimplemented_server_streaming_stub_tmp()
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
     }
 
     /// Implements [super::client::SessionService::bidi_run_session].
@@ -672,7 +672,7 @@ pub trait SessionService: std::fmt::Debug + Send + Sync {
         google_cloud_gax::streaming::RequestSender<crate::model::BidiSessionClientMessage>,
         google_cloud_gax::streaming::ResponseStream<crate::model::BidiSessionServerMessage>,
     ) {
-        gaxi::unimplemented::unimplemented_bidi_stub_tmp()
+        gaxi::unimplemented::unimplemented_bidi_stub()
     }
 
     /// Implements [super::client::SessionService::list_locations].

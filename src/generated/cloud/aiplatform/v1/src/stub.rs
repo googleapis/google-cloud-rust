@@ -1945,7 +1945,7 @@ pub trait FeaturestoreOnlineServingService: std::fmt::Debug + Send + Sync {
             google_cloud_gax::streaming::ResponseStream<crate::model::ReadFeatureValuesResponse>,
         >,
     > + Send {
-        gaxi::unimplemented::unimplemented_server_streaming_stub_tmp()
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
     }
 
     /// Implements [super::client::FeaturestoreOnlineServingService::write_feature_values].
@@ -6308,7 +6308,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
             google_cloud_gax::streaming::ResponseStream<google_cloud_api::model::HttpBody>,
         >,
     > + Send {
-        gaxi::unimplemented::unimplemented_server_streaming_stub_tmp()
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
     }
 
     /// Implements [super::client::PredictionService::direct_predict].
@@ -6376,7 +6376,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
             google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPredictResponse>,
         >,
     > + Send {
-        gaxi::unimplemented::unimplemented_server_streaming_stub_tmp()
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
     }
 
     /// Implements [super::client::PredictionService::streaming_raw_predict].
@@ -6422,7 +6422,7 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
             google_cloud_gax::streaming::ResponseStream<crate::model::GenerateContentResponse>,
         >,
     > + Send {
-        gaxi::unimplemented::unimplemented_server_streaming_stub_tmp()
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
     }
 
     /// Implements [super::client::PredictionService::embed_content].
@@ -6584,7 +6584,7 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
             google_cloud_gax::streaming::ResponseStream<google_cloud_api::model::HttpBody>,
         >,
     > + Send {
-        gaxi::unimplemented::unimplemented_server_streaming_stub_tmp()
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
     }
 
     /// Implements [super::client::ReasoningEngineExecutionService::async_query_reasoning_engine].
@@ -7974,7 +7974,7 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
             >,
         >,
     > + Send {
-        gaxi::unimplemented::unimplemented_server_streaming_stub_tmp()
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
     }
 
     /// Implements [super::client::TensorboardService::write_tensorboard_experiment_data].

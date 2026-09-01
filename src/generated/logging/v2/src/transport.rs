@@ -806,7 +806,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::TailLogEntriesRequest,
                 crate::model::TailLogEntriesResponse,
                 crate::prost::google::logging::v2::TailLogEntriesRequest,

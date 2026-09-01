@@ -4407,7 +4407,7 @@ impl super::stub::SessionService for SessionService {
         );
 
         self.grpc_inner
-            .execute_server_streaming_tmp::<
+            .execute_server_streaming::<
                 crate::model::RunSessionRequest,
                 crate::model::RunSessionResponse,
                 crate::prost::google::cloud::ces::v1::RunSessionRequest,
@@ -4445,7 +4445,7 @@ impl super::stub::SessionService for SessionService {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::BidiSessionClientMessage,
                 crate::model::BidiSessionServerMessage,
                 crate::prost::google::cloud::ces::v1::BidiSessionClientMessage,
