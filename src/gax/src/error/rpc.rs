@@ -407,7 +407,11 @@ impl TryFrom<&bytes::Bytes> for Status {
         let details = Some(wrapper.details)
             .filter(|d| !d.is_empty())
             .unwrap_or_else(|| {
-                wrapper.errors.into_iter().map(StatusDetails::from).collect()
+                wrapper
+                    .errors
+                    .into_iter()
+                    .map(StatusDetails::from)
+                    .collect()
             });
         Ok(Status {
             code,
