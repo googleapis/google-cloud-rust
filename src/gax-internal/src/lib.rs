@@ -55,6 +55,11 @@ pub mod prost;
 pub mod attempt_interceptor;
 
 #[cfg(feature = "_internal-common")]
+pub mod auth {
+    pub use google_cloud_auth::*;
+}
+
+#[cfg(feature = "_internal-common")]
 pub mod options;
 
 #[cfg(feature = "_internal-common")]

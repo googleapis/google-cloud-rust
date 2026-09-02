@@ -37,9 +37,23 @@ pub struct ClientBuilder {
 
 impl ClientBuilder {
     pub(super) fn new() -> Self {
-        Self {
-            config: ClientConfig::default(),
+        let mut config = ClientConfig::default();
+
+        if let Some(endpoint) = std::env::var("BIGQUERY_EMULATOR_HOST")
+            .ok()
+            .filter(|s| !s.is_empty())
+        {
+            let endpoint = if endpoint.contains("://") {
+                endpoint.clone()
+            } else {
+                format!("http://{}", endpoint)
+            };
+            config.endpoint = Some(endpoint);
+            // The emulator does not require valid credentials.
+            config.cred = Some(google_cloud_auth::credentials::anonymous::Builder::new().build());
         }
+
+        Self { config }
     }
 
     /// Creates a new client.
@@ -151,6 +165,7 @@ mod tests {
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 
     #[test]
+    #[serial_test::serial]
     fn defaults() {
         let builder = ClientBuilder::new();
         assert!(builder.config.endpoint.is_none(), "{:?}", builder.config);
@@ -164,6 +179,32 @@ mod tests {
             builder.config.grpc_subchannel_count.is_none(),
             "{:?}",
             builder.config
+        );
+    }
+
+    #[test]
+    #[serial_test::serial]
+    fn test_emulator_host() {
+        // Safety: This test modifies the global environment variable `BIGQUERY_EMULATOR_HOST`.
+        // We use `#[serial]` to ensure it runs in isolation and does not interfere with other tests.
+        let _env = scoped_env::ScopedEnv::set("BIGQUERY_EMULATOR_HOST", "localhost:9050");
+        let builder = ClientBuilder::new();
+        assert_eq!(
+            builder.config.endpoint,
+            Some("http://localhost:9050".to_string())
+        );
+    }
+
+    #[test]
+    #[serial_test::serial]
+    fn test_emulator_host_with_scheme() {
+        // Safety: This test modifies the global environment variable `BIGQUERY_EMULATOR_HOST`.
+        // We use `#[serial]` to ensure it runs in isolation and does not interfere with other tests.
+        let _env = scoped_env::ScopedEnv::set("BIGQUERY_EMULATOR_HOST", "http://localhost:9050");
+        let builder = ClientBuilder::new();
+        assert_eq!(
+            builder.config.endpoint,
+            Some("http://localhost:9050".to_string())
         );
     }
 
