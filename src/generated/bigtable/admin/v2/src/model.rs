@@ -15778,7 +15778,7 @@ pub mod tiered_storage_rule {
     }
 }
 
-/// Represents a protobuf schema.
+/// Represents a collection of protobuf schemas.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProtoSchema {
@@ -15826,6 +15826,50 @@ impl ProtoSchema {
 impl wkt::message::Message for ProtoSchema {
     fn typename() -> &'static str {
         "type.googleapis.com/google.bigtable.admin.v2.ProtoSchema"
+    }
+}
+
+/// Represents a collection of Avro schemas.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AvroSchema {
+    /// Required. The Avro schemas in JSON format.
+    /// Each element must be the content of a valid, self-contained Avro schema
+    /// file (.avsc), as described in <https://avro.apache.org/docs/1.8.1/spec.html>.
+    /// Use repeated elements to include multiple Avro schema files in a single
+    /// bundle.
+    pub json_schemas: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AvroSchema {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [json_schemas][crate::model::AvroSchema::json_schemas].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::AvroSchema;
+    /// let x = AvroSchema::new().set_json_schemas(["a", "b", "c"]);
+    /// ```
+    pub fn set_json_schemas<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.json_schemas = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for AvroSchema {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.AvroSchema"
     }
 }
 
@@ -15930,6 +15974,7 @@ impl SchemaBundle {
     /// use google_cloud_bigtable_admin_v2::model::ProtoSchema;
     /// let x = SchemaBundle::new().set_proto_schema(ProtoSchema::default()/* use setters */);
     /// assert!(x.proto_schema().is_some());
+    /// assert!(x.avro_schema().is_none());
     /// ```
     pub fn set_proto_schema<T: std::convert::Into<std::boxed::Box<crate::model::ProtoSchema>>>(
         mut self,
@@ -15937,6 +15982,40 @@ impl SchemaBundle {
     ) -> Self {
         self.r#type =
             std::option::Option::Some(crate::model::schema_bundle::Type::ProtoSchema(v.into()));
+        self
+    }
+
+    /// The value of [r#type][crate::model::SchemaBundle::r#type]
+    /// if it holds a `AvroSchema`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn avro_schema(&self) -> std::option::Option<&std::boxed::Box<crate::model::AvroSchema>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::schema_bundle::Type::AvroSchema(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [r#type][crate::model::SchemaBundle::r#type]
+    /// to hold a `AvroSchema`.
+    ///
+    /// Note that all the setters affecting `r#type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::SchemaBundle;
+    /// use google_cloud_bigtable_admin_v2::model::AvroSchema;
+    /// let x = SchemaBundle::new().set_avro_schema(AvroSchema::default()/* use setters */);
+    /// assert!(x.avro_schema().is_some());
+    /// assert!(x.proto_schema().is_none());
+    /// ```
+    pub fn set_avro_schema<T: std::convert::Into<std::boxed::Box<crate::model::AvroSchema>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type =
+            std::option::Option::Some(crate::model::schema_bundle::Type::AvroSchema(v.into()));
         self
     }
 }
@@ -15959,6 +16038,8 @@ pub mod schema_bundle {
     pub enum Type {
         /// Schema for Protobufs.
         ProtoSchema(std::boxed::Box<crate::model::ProtoSchema>),
+        /// Optional. Schema for Avros.
+        AvroSchema(std::boxed::Box<crate::model::AvroSchema>),
     }
 }
 

@@ -31,6 +31,10 @@ impl ::prost::Name for DatasourceReferences {
 pub struct BigQueryTableReferences {
     #[prost(message, repeated, tag = "1")]
     pub table_references: ::prost::alloc::vec::Vec<BigQueryTableReference>,
+    #[prost(message, repeated, tag = "2")]
+    pub property_graph_references: ::prost::alloc::vec::Vec<
+        BigQueryPropertyGraphReference,
+    >,
 }
 impl ::prost::Name for BigQueryTableReferences {
     const NAME: &'static str = "BigQueryTableReferences";

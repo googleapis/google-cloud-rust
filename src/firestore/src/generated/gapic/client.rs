@@ -216,6 +216,24 @@ impl Firestore {
     ///
     /// Documents returned by this method are not guaranteed to be returned in the
     /// same order that they were requested.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore::client::Firestore;
+    /// use google_cloud_firestore::Result;
+    /// async fn sample(
+    ///    client: &Firestore
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.batch_get_documents()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_get_documents(&self) -> super::builder::firestore::BatchGetDocuments {
         super::builder::firestore::BatchGetDocuments::new(self.inner.clone())
     }
@@ -280,6 +298,24 @@ impl Firestore {
     }
 
     /// Runs a query.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore::client::Firestore;
+    /// use google_cloud_firestore::Result;
+    /// async fn sample(
+    ///    client: &Firestore
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.run_query()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn run_query(&self) -> super::builder::firestore::RunQuery {
         super::builder::firestore::RunQuery::new(self.inner.clone())
     }
@@ -301,6 +337,24 @@ impl Firestore {
     /// [google.firestore.v1.AggregationResult]: crate::model::AggregationResult
     /// [google.firestore.v1.Document]: crate::model::Document
     /// [google.firestore.v1.Firestore.RunQuery]: crate::client::Firestore::run_query
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore::client::Firestore;
+    /// use google_cloud_firestore::Result;
+    /// async fn sample(
+    ///    client: &Firestore
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.run_aggregation_query()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn run_aggregation_query(&self) -> super::builder::firestore::RunAggregationQuery {
         super::builder::firestore::RunAggregationQuery::new(self.inner.clone())
     }

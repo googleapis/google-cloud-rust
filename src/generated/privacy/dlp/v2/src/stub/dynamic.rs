@@ -346,6 +346,36 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateConnectionRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Connection>>;
+
+    async fn create_content_policy(
+        &self,
+        req: crate::model::CreateContentPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ContentPolicy>>;
+
+    async fn update_content_policy(
+        &self,
+        req: crate::model::UpdateContentPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ContentPolicy>>;
+
+    async fn get_content_policy(
+        &self,
+        req: crate::model::GetContentPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ContentPolicy>>;
+
+    async fn list_content_policies(
+        &self,
+        req: crate::model::ListContentPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListContentPoliciesResponse>>;
+
+    async fn delete_content_policy(
+        &self,
+        req: crate::model::DeleteContentPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
 }
 
 /// All implementations of [super::DlpService] also implement [DlpService].
@@ -844,5 +874,50 @@ impl<T: super::DlpService> DlpService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Connection>> {
         T::update_connection(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_content_policy(
+        &self,
+        req: crate::model::CreateContentPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ContentPolicy>> {
+        T::create_content_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_content_policy(
+        &self,
+        req: crate::model::UpdateContentPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ContentPolicy>> {
+        T::update_content_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_content_policy(
+        &self,
+        req: crate::model::GetContentPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ContentPolicy>> {
+        T::get_content_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_content_policies(
+        &self,
+        req: crate::model::ListContentPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListContentPoliciesResponse>> {
+        T::list_content_policies(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_content_policy(
+        &self,
+        req: crate::model::DeleteContentPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::delete_content_policy(self, req, options).await
     }
 }
