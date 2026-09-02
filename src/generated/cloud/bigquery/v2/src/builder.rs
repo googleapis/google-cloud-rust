@@ -43,6 +43,17 @@ pub mod dataset_service {
                 self,
                 config: gaxi::options::ClientConfig,
             ) -> crate::ClientBuilderResult<Self::Client> {
+                let mut config = config;
+                if let Some(endpoint) = std::env::var_os("BIGQUERY_EMULATOR_HOST") {
+                    let endpoint = endpoint.to_string_lossy().into_owned();
+                    let endpoint = if endpoint.starts_with("http") {
+                        endpoint
+                    } else {
+                        format!("http://{endpoint}")
+                    };
+                    config.endpoint = Some(endpoint);
+                    config.cred = Some(gaxi::auth::credentials::anonymous::Builder::new().build());
+                }
                 Self::Client::new(config).await
             }
         }
@@ -790,6 +801,17 @@ pub mod job_service {
                 self,
                 config: gaxi::options::ClientConfig,
             ) -> crate::ClientBuilderResult<Self::Client> {
+                let mut config = config;
+                if let Some(endpoint) = std::env::var_os("BIGQUERY_EMULATOR_HOST") {
+                    let endpoint = endpoint.to_string_lossy().into_owned();
+                    let endpoint = if endpoint.starts_with("http") {
+                        endpoint
+                    } else {
+                        format!("http://{endpoint}")
+                    };
+                    config.endpoint = Some(endpoint);
+                    config.cred = Some(gaxi::auth::credentials::anonymous::Builder::new().build());
+                }
                 Self::Client::new(config).await
             }
         }
@@ -1628,6 +1650,17 @@ pub mod model_service {
                 self,
                 config: gaxi::options::ClientConfig,
             ) -> crate::ClientBuilderResult<Self::Client> {
+                let mut config = config;
+                if let Some(endpoint) = std::env::var_os("BIGQUERY_EMULATOR_HOST") {
+                    let endpoint = endpoint.to_string_lossy().into_owned();
+                    let endpoint = if endpoint.starts_with("http") {
+                        endpoint
+                    } else {
+                        format!("http://{endpoint}")
+                    };
+                    config.endpoint = Some(endpoint);
+                    config.cred = Some(gaxi::auth::credentials::anonymous::Builder::new().build());
+                }
                 Self::Client::new(config).await
             }
         }
@@ -2066,6 +2099,17 @@ pub mod project_service {
                 self,
                 config: gaxi::options::ClientConfig,
             ) -> crate::ClientBuilderResult<Self::Client> {
+                let mut config = config;
+                if let Some(endpoint) = std::env::var_os("BIGQUERY_EMULATOR_HOST") {
+                    let endpoint = endpoint.to_string_lossy().into_owned();
+                    let endpoint = if endpoint.starts_with("http") {
+                        endpoint
+                    } else {
+                        format!("http://{endpoint}")
+                    };
+                    config.endpoint = Some(endpoint);
+                    config.cred = Some(gaxi::auth::credentials::anonymous::Builder::new().build());
+                }
                 Self::Client::new(config).await
             }
         }
@@ -2189,6 +2233,17 @@ pub mod routine_service {
                 self,
                 config: gaxi::options::ClientConfig,
             ) -> crate::ClientBuilderResult<Self::Client> {
+                let mut config = config;
+                if let Some(endpoint) = std::env::var_os("BIGQUERY_EMULATOR_HOST") {
+                    let endpoint = endpoint.to_string_lossy().into_owned();
+                    let endpoint = if endpoint.starts_with("http") {
+                        endpoint
+                    } else {
+                        format!("http://{endpoint}")
+                    };
+                    config.endpoint = Some(endpoint);
+                    config.cred = Some(gaxi::auth::credentials::anonymous::Builder::new().build());
+                }
                 Self::Client::new(config).await
             }
         }
@@ -2725,6 +2780,17 @@ pub mod row_access_policy_service {
                 self,
                 config: gaxi::options::ClientConfig,
             ) -> crate::ClientBuilderResult<Self::Client> {
+                let mut config = config;
+                if let Some(endpoint) = std::env::var_os("BIGQUERY_EMULATOR_HOST") {
+                    let endpoint = endpoint.to_string_lossy().into_owned();
+                    let endpoint = if endpoint.starts_with("http") {
+                        endpoint
+                    } else {
+                        format!("http://{endpoint}")
+                    };
+                    config.endpoint = Some(endpoint);
+                    config.cred = Some(gaxi::auth::credentials::anonymous::Builder::new().build());
+                }
                 Self::Client::new(config).await
             }
         }
@@ -3432,6 +3498,17 @@ pub mod table_service {
                 self,
                 config: gaxi::options::ClientConfig,
             ) -> crate::ClientBuilderResult<Self::Client> {
+                let mut config = config;
+                if let Some(endpoint) = std::env::var_os("BIGQUERY_EMULATOR_HOST") {
+                    let endpoint = endpoint.to_string_lossy().into_owned();
+                    let endpoint = if endpoint.starts_with("http") {
+                        endpoint
+                    } else {
+                        format!("http://{endpoint}")
+                    };
+                    config.endpoint = Some(endpoint);
+                    config.cred = Some(gaxi::auth::credentials::anonymous::Builder::new().build());
+                }
                 Self::Client::new(config).await
             }
         }
