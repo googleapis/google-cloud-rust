@@ -22,8 +22,11 @@
 #![allow(dead_code)]
 
 use crate::model::key_recipe::Target;
-use crate::model::{KeyRecipe, RecipeList};
+use crate::model::{ExecuteSqlRequest, KeyRecipe, ReadRequest, RecipeList};
 use crate::routing::clock_cache::{ClockEntry, ClockStore};
+use crate::routing::prepared_operation::{
+    PreparedQuery, PreparedRead, fingerprint_execute_sql_request, fingerprint_proto_read_request,
+};
 use bytes::Bytes;
 use std::collections::HashMap;
 use std::fmt::{self, Debug, Formatter};
@@ -128,6 +131,75 @@ impl KeyRecipeCache {
     /// `KeyRangeCache::get_group`.
     pub(crate) fn get_query_recipe(&self, operation_uid: u64) -> Option<Arc<KeyRecipe>> {
         self.read_store().queries.get(&operation_uid)
+    }
+
+    fn get_or_prepare_operation<T: PreparedOperation>(
+        &self,
+        fingerprint: u64,
+        matches: impl Fn(&T) -> bool,
+        create: impl FnOnce(u64) -> T,
+    ) -> Option<u64> {
+        // Optimistic read path: lookup existing prepared descriptor under read lock.
+        if let Some(prepared) = T::clock_store(&self.read_store()).get_ref(&fingerprint) {
+            if matches(prepared) {
+                return Some(prepared.operation_uid());
+            }
+            return None;
+        }
+
+        // Slow write path: allocate new operation UID and insert descriptor.
+        let operation_uid = self.next_operation_uid();
+        let prepared = create(operation_uid);
+
+        let mut guard = self.write_store();
+        if let Some(existing) = T::clock_store_mut(&mut guard).get_ref(&fingerprint) {
+            if matches(existing) {
+                return Some(existing.operation_uid());
+            }
+            return None;
+        }
+
+        T::clock_store_mut(&mut guard).insert(fingerprint, prepared);
+        Some(operation_uid)
+    }
+
+    /// Returns the cached `operation_uid` for an [`ExecuteSqlRequest`], preparing and caching
+    /// a new [`PreparedQuery`] descriptor if this query shape has not been encountered yet.
+    ///
+    /// Returns `None` if the request has empty SQL, is a partitioned query, or if a fingerprint
+    /// hash collision occurs with an existing query of different shape.
+    pub(crate) fn get_or_prepare_query(&self, request: &ExecuteSqlRequest) -> Option<u64> {
+        // Fast path: partitioned queries and empty queries cannot have prepared operation UIDs.
+        if request.sql.is_empty() || !request.partition_token.is_empty() {
+            return None;
+        }
+
+        let fingerprint = fingerprint_execute_sql_request(request);
+        self.get_or_prepare_operation::<PreparedQuery>(
+            fingerprint,
+            |prepared| prepared.matches(request),
+            |operation_uid| PreparedQuery::new(request, operation_uid),
+        )
+    }
+
+    /// Returns the cached `operation_uid` for a [`ReadRequest`], preparing and caching
+    /// a new [`PreparedRead`] descriptor if this read shape has not been encountered yet.
+    ///
+    /// Returns `None` if the request has an empty table name, is a partitioned read, or if a fingerprint
+    /// hash collision occurs with an existing read of different shape.
+    pub(crate) fn get_or_prepare_read(&self, request: &ReadRequest) -> Option<u64> {
+        // Fast path: partitioned reads and reads missing a target table name cannot have prepared operation UIDs.
+        // In Cloud Spanner, the `table` field is mandatory for all reads, including secondary index reads.
+        if request.table.is_empty() || !request.partition_token.is_empty() {
+            return None;
+        }
+
+        let fingerprint = fingerprint_proto_read_request(request);
+        self.get_or_prepare_operation::<PreparedRead>(
+            fingerprint,
+            |prepared| prepared.matches_proto_read_request(request),
+            |operation_uid| PreparedRead::from_proto_read_request(request, operation_uid),
+        )
     }
 
     /// Inserts a [`KeyRecipe`] into the cache.
@@ -274,12 +346,17 @@ impl KeyRecipeCache {
     /// operation UIDs remain globally unique across the client lifecycle, preventing collisions
     /// with in-flight asynchronous queries.
     pub(crate) fn clear(&self) {
-        let old_entries = {
+        let (old_entries, old_prepared_queries, old_prepared_reads) = {
             let mut guard = self.write_store();
-            guard.invalidate_all(None)
+            let old_prepared_queries = guard.prepared_queries.take_all();
+            let old_prepared_reads = guard.prepared_reads.take_all();
+            let old_entries = guard.invalidate_all(None);
+            (old_entries, old_prepared_queries, old_prepared_reads)
         };
-        // Drop old collections (and cached Arc<KeyRecipe> entries) outside the write lock.
+        // Drop old collections outside the write lock.
         drop(old_entries);
+        drop(old_prepared_queries);
+        drop(old_prepared_reads);
     }
 
     /// Returns the total number of recipes stored in the cache.
@@ -287,9 +364,56 @@ impl KeyRecipeCache {
         self.read_store().len()
     }
 
+    /// Returns the number of prepared query descriptors currently stored in the cache.
+    #[allow(dead_code)]
+    pub(crate) fn prepared_queries_len(&self) -> usize {
+        self.read_store().prepared_queries.len()
+    }
+
+    /// Returns the number of prepared read descriptors currently stored in the cache.
+    #[allow(dead_code)]
+    pub(crate) fn prepared_reads_len(&self) -> usize {
+        self.read_store().prepared_reads.len()
+    }
+
     /// Returns `true` if the cache is empty.
     pub(crate) fn is_empty(&self) -> bool {
         self.len() == 0
+    }
+}
+
+/// Trait abstracting over prepared query and read descriptors to enable unified cache lookup and preparation.
+trait PreparedOperation: Sized {
+    fn operation_uid(&self) -> u64;
+    fn clock_store(store: &RecipeStore) -> &ClockStore<u64, Self>;
+    fn clock_store_mut(store: &mut RecipeStore) -> &mut ClockStore<u64, Self>;
+}
+
+impl PreparedOperation for PreparedQuery {
+    fn operation_uid(&self) -> u64 {
+        self.operation_uid
+    }
+
+    fn clock_store(store: &RecipeStore) -> &ClockStore<u64, Self> {
+        &store.prepared_queries
+    }
+
+    fn clock_store_mut(store: &mut RecipeStore) -> &mut ClockStore<u64, Self> {
+        &mut store.prepared_queries
+    }
+}
+
+impl PreparedOperation for PreparedRead {
+    fn operation_uid(&self) -> u64 {
+        self.operation_uid
+    }
+
+    fn clock_store(store: &RecipeStore) -> &ClockStore<u64, Self> {
+        &store.prepared_reads
+    }
+
+    fn clock_store_mut(store: &mut RecipeStore) -> &mut ClockStore<u64, Self> {
+        &mut store.prepared_reads
     }
 }
 
@@ -307,6 +431,8 @@ struct RecipeStore {
     tables: HashMap<String, Arc<KeyRecipe>>,
     indexes: HashMap<String, Arc<KeyRecipe>>,
     queries: ClockStore<u64, Arc<KeyRecipe>>,
+    prepared_queries: ClockStore<u64, PreparedQuery>,
+    prepared_reads: ClockStore<u64, PreparedRead>,
     schema_generation: Option<Bytes>,
 }
 
@@ -316,6 +442,8 @@ impl RecipeStore {
             tables: HashMap::new(),
             indexes: HashMap::new(),
             queries: ClockStore::with_capacity(query_capacity),
+            prepared_queries: ClockStore::with_capacity(query_capacity),
+            prepared_reads: ClockStore::with_capacity(query_capacity),
             schema_generation: None,
         }
     }
@@ -325,6 +453,13 @@ impl RecipeStore {
     }
 
     /// Invalidates all cached tables, indexes, and query recipes, and transitions to the new schema generation.
+    ///
+    /// # Prepared Operations Lifecycle Retention:
+    /// Does not invalidate `prepared_queries` or `prepared_reads`. Schema generation updates
+    /// indicate database DDL changes that invalidate server-compiled key recipes, but the structural
+    /// shape of application queries/reads and their assigned `operation_uid`s remain valid. Retaining
+    /// them allows the client to immediately re-request updated recipes under the new schema generation
+    /// using their existing operation UIDs without thrashing or reallocation.
     ///
     /// Returns the previous collections using [`take`] so deallocation can occur outside the write lock.
     fn invalidate_all(&mut self, new_schema_generation: Option<Bytes>) -> InvalidatedEntries {
@@ -442,9 +577,63 @@ mod tests {
         assert!(cache.insert(KeyRecipe::new().set_index_name("IndexA")));
         assert_eq!(cache.len(), 2, "cache length must be 2");
 
+        let request = ExecuteSqlRequest::new().set_sql("SELECT 1");
+        let initial_query_uid = cache.get_or_prepare_query(&request).expect("prepare query");
+        assert_eq!(
+            initial_query_uid, 1,
+            "initial query must allocate operation UID 1"
+        );
+
+        let read_request = ReadRequest::new()
+            .set_table("Users")
+            .set_columns(vec!["Id".to_string()]);
+        let initial_read_uid = cache
+            .get_or_prepare_read(&read_request)
+            .expect("prepare read");
+        assert_eq!(
+            initial_read_uid, 2,
+            "initial read must allocate operation UID 2"
+        );
+        assert_eq!(
+            cache.prepared_queries_len(),
+            1,
+            "prepared queries count must be 1 before clear"
+        );
+        assert_eq!(
+            cache.prepared_reads_len(),
+            1,
+            "prepared reads count must be 1 before clear"
+        );
+
         cache.clear();
         assert!(cache.is_empty(), "cache must be empty after clear");
         assert_eq!(cache.len(), 0, "cache length must be zero after clear");
+        assert_eq!(
+            cache.prepared_queries_len(),
+            0,
+            "prepared queries count must be 0 after clear"
+        );
+        assert_eq!(
+            cache.prepared_reads_len(),
+            0,
+            "prepared reads count must be 0 after clear"
+        );
+
+        // After clear, prepared operations are cleared, so re-preparing allocates new monotonically increasing UIDs
+        let post_clear_query_uid = cache
+            .get_or_prepare_query(&request)
+            .expect("prepare query after clear");
+        assert_eq!(
+            post_clear_query_uid, 3,
+            "prepared queries must be cleared so query is re-prepared with a new UID"
+        );
+        let post_clear_read_uid = cache
+            .get_or_prepare_read(&read_request)
+            .expect("prepare read after clear");
+        assert_eq!(
+            post_clear_read_uid, 4,
+            "prepared reads must be cleared so read is re-prepared with a new UID"
+        );
     }
 
     #[test]
@@ -996,6 +1185,17 @@ mod tests {
         let cache = KeyRecipeCache::new();
 
         // 1. Initial schema generation v1 with Users table and a cached query
+        let query_request = ExecuteSqlRequest::new().set_sql("SELECT 1");
+        let query_uid = cache
+            .get_or_prepare_query(&query_request)
+            .expect("prepare query");
+        let read_request = ReadRequest::new()
+            .set_table("Users")
+            .set_columns(vec!["Id".to_string()]);
+        let read_uid = cache
+            .get_or_prepare_read(&read_request)
+            .expect("prepare read");
+
         let v1_list = RecipeList::new()
             .set_schema_generation(Bytes::from_static(b"v1"))
             .set_recipe(vec![
@@ -1038,6 +1238,28 @@ mod tests {
         assert!(
             cache.get_query_recipe(42).is_none(),
             "Query 42 recipe from v1 must be invalidated"
+        );
+
+        // Prepared queries and reads must be retained across schema generation updates
+        assert_eq!(
+            cache.prepared_queries_len(),
+            1,
+            "prepared queries must be retained across schema updates"
+        );
+        assert_eq!(
+            cache.prepared_reads_len(),
+            1,
+            "prepared reads must be retained across schema updates"
+        );
+        assert_eq!(
+            cache.get_or_prepare_query(&query_request),
+            Some(query_uid),
+            "re-preparing same query after schema bump must reuse existing operation UID"
+        );
+        assert_eq!(
+            cache.get_or_prepare_read(&read_request),
+            Some(read_uid),
+            "re-preparing same read after schema bump must reuse existing operation UID"
         );
     }
 
@@ -1278,6 +1500,144 @@ mod tests {
             cache.schema_generation(),
             Some(Bytes::from_static(b"v1")),
             "schema generation must still be recorded"
+        );
+    }
+
+    #[test]
+    fn get_or_prepare_query_caches_and_reuses_operation_uid() {
+        let cache = KeyRecipeCache::new();
+
+        // 1. Empty SQL returns None
+        let empty_request = ExecuteSqlRequest::default();
+        assert_eq!(
+            cache.get_or_prepare_query(&empty_request),
+            None,
+            "empty SQL query must return None"
+        );
+
+        // 2. Partitioned query returns None
+        let partitioned_request = ExecuteSqlRequest::new()
+            .set_sql("SELECT * FROM Singers WHERE SingerId = @id")
+            .set_partition_token(Bytes::from_static(b"token_1"));
+        assert_eq!(
+            cache.get_or_prepare_query(&partitioned_request),
+            None,
+            "partitioned query must return None"
+        );
+
+        // 3. First execution allocates initial operation UID
+        let mut params = serde_json::Map::new();
+        params.insert("id".to_string(), serde_json::Value::from(100));
+        let first_request = ExecuteSqlRequest::new()
+            .set_sql("SELECT * FROM Singers WHERE SingerId = @id")
+            .set_params(params);
+
+        let first_uid = cache
+            .get_or_prepare_query(&first_request)
+            .expect("first query must allocate operation UID");
+        assert_eq!(first_uid, 1, "first operation UID allocated must be 1");
+
+        // 4. Repeated query with different parameter value returns same operation UID
+        let mut second_params = serde_json::Map::new();
+        second_params.insert("id".to_string(), serde_json::Value::from(200));
+        let second_request = ExecuteSqlRequest::new()
+            .set_sql("SELECT * FROM Singers WHERE SingerId = @id")
+            .set_params(second_params);
+
+        let second_uid = cache
+            .get_or_prepare_query(&second_request)
+            .expect("repeated query must resolve cached operation UID");
+        assert_eq!(
+            second_uid, first_uid,
+            "repeated query with identical shape must reuse operation UID"
+        );
+
+        // 5. Structurally distinct query allocates new operation UID
+        let mut distinct_params = serde_json::Map::new();
+        distinct_params.insert("album_id".to_string(), serde_json::Value::from(42));
+        let distinct_request = ExecuteSqlRequest::new()
+            .set_sql("SELECT * FROM Albums WHERE AlbumId = @album_id")
+            .set_params(distinct_params);
+
+        let distinct_uid = cache
+            .get_or_prepare_query(&distinct_request)
+            .expect("distinct query must allocate operation UID");
+        assert_ne!(
+            distinct_uid, first_uid,
+            "distinct query shape must allocate distinct operation UID"
+        );
+    }
+
+    #[test]
+    fn get_or_prepare_read_caches_and_reuses_operation_uid() {
+        let cache = KeyRecipeCache::new();
+
+        // 1. Empty table returns None
+        let empty_request = ReadRequest::default();
+        assert_eq!(
+            cache.get_or_prepare_read(&empty_request),
+            None,
+            "empty table read must return None"
+        );
+
+        // 2. Partitioned read returns None
+        let partitioned_request = ReadRequest::new()
+            .set_table("Singers")
+            .set_columns(vec!["SingerId".to_string()])
+            .set_partition_token(Bytes::from_static(b"token_read_1"));
+        assert_eq!(
+            cache.get_or_prepare_read(&partitioned_request),
+            None,
+            "partitioned read must return None"
+        );
+
+        // 3. First execution allocates initial operation UID
+        let first_request = ReadRequest::new()
+            .set_table("Singers")
+            .set_columns(vec!["SingerId".to_string(), "Name".to_string()]);
+
+        let first_uid = cache
+            .get_or_prepare_read(&first_request)
+            .expect("first read must allocate operation UID");
+        assert_eq!(first_uid, 1, "first operation UID allocated must be 1");
+
+        // 4. Repeated read with identical shape returns same operation UID
+        let second_request = ReadRequest::new()
+            .set_table("Singers")
+            .set_columns(vec!["SingerId".to_string(), "Name".to_string()]);
+
+        let second_uid = cache
+            .get_or_prepare_read(&second_request)
+            .expect("repeated read must resolve cached operation UID");
+        assert_eq!(
+            second_uid, first_uid,
+            "repeated read with identical shape must reuse operation UID"
+        );
+
+        // 5. Structurally distinct read (different table) allocates new operation UID
+        let distinct_table_request = ReadRequest::new()
+            .set_table("Albums")
+            .set_columns(vec!["AlbumId".to_string(), "Title".to_string()]);
+
+        let distinct_table_uid = cache
+            .get_or_prepare_read(&distinct_table_request)
+            .expect("distinct table read must allocate operation UID");
+        assert_ne!(
+            distinct_table_uid, first_uid,
+            "distinct table read must allocate distinct operation UID"
+        );
+
+        // 6. Structurally distinct read (same table, different columns) allocates new operation UID
+        let distinct_columns_request = ReadRequest::new()
+            .set_table("Singers")
+            .set_columns(vec!["SingerId".to_string()]);
+
+        let distinct_columns_uid = cache
+            .get_or_prepare_read(&distinct_columns_request)
+            .expect("distinct columns read must allocate operation UID");
+        assert_ne!(
+            distinct_columns_uid, first_uid,
+            "distinct columns read must allocate distinct operation UID"
         );
     }
 }

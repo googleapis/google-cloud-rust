@@ -54,7 +54,7 @@ use crate::routing::key_range_cache::RangeMode;
 use crate::routing::location_router::RoutingContext;
 use crate::statement::Statement;
 use bytes::Bytes;
-use gaxi::grpc::tonic::Response;
+use gaxi::grpc::tonic::{Response, Status as TonicStatus};
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use google_cloud_test_macros::tokio_test_no_panics;
 use prost_types::{Timestamp, Value};
@@ -62,8 +62,8 @@ use spanner_grpc_mock::MockSpanner;
 use spanner_grpc_mock::google::rpc::Status;
 use spanner_grpc_mock::google::spanner::v1 as mock_v1;
 use spanner_grpc_mock::start;
-use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use tokio::sync::mpsc;
 
@@ -3578,4 +3578,355 @@ fn sample_model_cache_update(
         }),
         _unknown_fields: Default::default(),
     }
+}
+
+fn single_row_streaming_response(
+    column_name: &str,
+    value: &str,
+    cache_update: Option<mock_v1::CacheUpdate>,
+) -> Result<Response<mpsc::Receiver<Result<mock_v1::PartialResultSet, TonicStatus>>>, TonicStatus> {
+    let partial_result_set = sample_int64_partial_result_set(column_name, value, cache_update);
+    let (sender, receiver) = mpsc::channel(1);
+    sender
+        .try_send(Ok(partial_result_set))
+        .expect("send partial result set");
+    Ok(Response::from(receiver))
+}
+
+fn sample_query_mock_cache_update(
+    database_id: u64,
+    operation_uid: u64,
+    group_uid: u64,
+    tablet_address: &str,
+) -> mock_v1::CacheUpdate {
+    mock_v1::CacheUpdate {
+        database_id,
+        range: vec![mock_v1::Range {
+            start_key: Vec::new(),
+            limit_key: vec![0xff, 0xff],
+            group_uid,
+            split_id: group_uid,
+            generation: b"gen_1".to_vec(),
+        }],
+        group: vec![mock_v1::Group {
+            group_uid,
+            leader_index: 0,
+            tablets: vec![mock_v1::Tablet {
+                tablet_uid: group_uid,
+                server_address: tablet_address.to_string(),
+                location: "us-central1".to_string(),
+                role: mock_v1::tablet::Role::ReadOnly as i32,
+                incarnation: b"inc_1".to_vec(),
+                distance: 0,
+                skip: false,
+            }],
+            generation: b"gen_1".to_vec(),
+        }],
+        key_recipes: Some(mock_v1::RecipeList {
+            schema_generation: b"schema_v1".to_vec(),
+            recipe: vec![mock_v1::KeyRecipe {
+                target: Some(mock_v1::key_recipe::Target::OperationUid(operation_uid)),
+                part: vec![
+                    mock_v1::key_recipe::Part {
+                        tag: 10,
+                        order: 0,
+                        null_order: 0,
+                        r#type: None,
+                        struct_identifiers: Vec::new(),
+                        value_type: None,
+                    },
+                    mock_v1::key_recipe::Part {
+                        tag: 0,
+                        order: mock_v1::key_recipe::part::Order::Ascending as i32,
+                        null_order: mock_v1::key_recipe::part::NullOrder::NullsFirst as i32,
+                        r#type: Some(mock_v1::Type {
+                            code: mock_v1::TypeCode::Int64 as i32,
+                            ..Default::default()
+                        }),
+                        struct_identifiers: Vec::new(),
+                        value_type: Some(mock_v1::key_recipe::part::ValueType::Identifier(
+                            "account_id".to_string(),
+                        )),
+                    },
+                ],
+            }],
+        }),
+    }
+}
+
+#[tokio_test_no_panics]
+async fn end_to_end_execute_query_with_key_recipe_routes_to_tablet_replica() -> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let mut mock_tablet = create_base_mock();
+
+    // 1. Tablet mock expects direct execute_streaming_sql on cache hit
+    let tablet_called = Arc::new(AtomicBool::new(false));
+    let tablet_called_clone = Arc::clone(&tablet_called);
+    let captured_tablet_hint = Arc::new(Mutex::new(None));
+    let captured_tablet_hint_clone = Arc::clone(&captured_tablet_hint);
+
+    mock_tablet
+        .expect_execute_streaming_sql()
+        .times(1)
+        .returning(move |request| {
+            tablet_called_clone.store(true, Ordering::SeqCst);
+            *captured_tablet_hint_clone
+                .lock()
+                .expect("lock captured tablet hint") = request.get_ref().routing_hint.clone();
+            single_row_streaming_response("account_id", "42", None)
+        });
+
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    // 2. Gateway mock expects initial cold-start query, capturing operation UID and returning recipe
+    let gateway_called = Arc::new(AtomicBool::new(false));
+    let gateway_called_clone = Arc::clone(&gateway_called);
+    let captured_gateway_hint = Arc::new(Mutex::new(None));
+    let captured_gateway_hint_clone = Arc::clone(&captured_gateway_hint);
+    let tablet_address_for_update = tablet_address.clone();
+
+    mock_gateway
+        .expect_execute_streaming_sql()
+        .times(1)
+        .returning(move |request| {
+            gateway_called_clone.store(true, Ordering::SeqCst);
+            *captured_gateway_hint_clone
+                .lock()
+                .expect("lock captured gateway hint") = request.get_ref().routing_hint.clone();
+
+            let operation_uid = request
+                .get_ref()
+                .routing_hint
+                .as_ref()
+                .map(|hint| hint.operation_uid)
+                .unwrap_or(1);
+
+            let cache_update = sample_query_mock_cache_update(
+                5555,
+                operation_uid,
+                9001,
+                &tablet_address_for_update,
+            );
+            single_row_streaming_response("account_id", "42", Some(cache_update))
+        });
+
+    let (database_client, _spanner, _gateway_server) =
+        setup_mock_database_client(mock_gateway).await?;
+
+    // 3. First execution (cold start): routes to gateway, assigns operation UID
+    let statement = Statement::builder("SELECT * FROM Users WHERE account_id = @account_id")
+        .add_param("account_id", 42i64)
+        .build();
+
+    let transaction = database_client.single_use().build();
+    let mut result_set = transaction.execute_query(statement.clone()).await?;
+    let row = result_set.next().await;
+    assert!(row.is_some(), "first query should yield a row from gateway");
+
+    assert!(
+        gateway_called.load(Ordering::SeqCst),
+        "gateway must be called on initial query execution"
+    );
+    let gateway_hint = captured_gateway_hint
+        .lock()
+        .expect("lock captured gateway hint")
+        .take()
+        .expect("routing hint must be attached on initial query execution");
+    assert_ne!(
+        gateway_hint.operation_uid, 0,
+        "operation UID must be assigned and sent on initial query execution"
+    );
+
+    // Pre-warm tablet connection in background/connection cache
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater must be present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    // Reset gateway flag to verify it is NOT called for subsequent keyed query
+    gateway_called.store(false, Ordering::SeqCst);
+
+    // 4. Second execution (cache hit): routes directly to tablet mock
+    let transaction2 = database_client.single_use().build();
+    let mut result_set2 = transaction2.execute_query(statement).await?;
+    let row2 = result_set2.next().await;
+    assert!(
+        row2.is_some(),
+        "second query should yield a row from tablet"
+    );
+
+    assert!(
+        tablet_called.load(Ordering::SeqCst),
+        "tablet mock must receive the query on cache hit"
+    );
+    assert!(
+        !gateway_called.load(Ordering::SeqCst),
+        "gateway mock must NOT receive the query after recipe and range are cached"
+    );
+
+    let tablet_hint = captured_tablet_hint
+        .lock()
+        .expect("lock captured tablet hint")
+        .take()
+        .expect("routing hint must be attached on tablet routed query");
+    assert_eq!(
+        tablet_hint.operation_uid, gateway_hint.operation_uid,
+        "operation UID must match the initially assigned UID"
+    );
+    assert_eq!(
+        tablet_hint.tablet_uid, 9001,
+        "routing hint tablet UID must match target tablet"
+    );
+    assert_eq!(
+        tablet_hint.database_id, 5555,
+        "routing hint database ID must match updated database ID"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn end_to_end_unary_execute_sql_with_key_recipe_routes_to_tablet_replica()
+-> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let mut mock_tablet = create_base_mock();
+
+    // 1. Tablet mock expects direct unary execute_sql on cache hit
+    let tablet_called = Arc::new(AtomicBool::new(false));
+    let tablet_called_clone = Arc::clone(&tablet_called);
+    let captured_tablet_hint = Arc::new(Mutex::new(None));
+    let captured_tablet_hint_clone = Arc::clone(&captured_tablet_hint);
+
+    mock_tablet
+        .expect_execute_sql()
+        .times(1)
+        .returning(move |request| {
+            tablet_called_clone.store(true, Ordering::SeqCst);
+            *captured_tablet_hint_clone
+                .lock()
+                .expect("lock captured tablet hint") = request.get_ref().routing_hint.clone();
+            Ok(Response::new(mock_v1::ResultSet::default()))
+        });
+
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    // 2. Gateway mock expects initial cold-start unary execute_sql, capturing operation UID and returning recipe
+    let gateway_called = Arc::new(AtomicBool::new(false));
+    let gateway_called_clone = Arc::clone(&gateway_called);
+    let captured_gateway_hint = Arc::new(Mutex::new(None));
+    let captured_gateway_hint_clone = Arc::clone(&captured_gateway_hint);
+    let tablet_address_for_update = tablet_address.clone();
+
+    mock_gateway
+        .expect_execute_sql()
+        .times(1)
+        .returning(move |request| {
+            gateway_called_clone.store(true, Ordering::SeqCst);
+            *captured_gateway_hint_clone
+                .lock()
+                .expect("lock captured gateway hint") = request.get_ref().routing_hint.clone();
+
+            let operation_uid = request
+                .get_ref()
+                .routing_hint
+                .as_ref()
+                .map(|hint| hint.operation_uid)
+                .unwrap_or(1);
+
+            let cache_update = sample_query_mock_cache_update(
+                5555,
+                operation_uid,
+                9001,
+                &tablet_address_for_update,
+            );
+            Ok(Response::new(mock_v1::ResultSet {
+                cache_update: Some(cache_update),
+                ..Default::default()
+            }))
+        });
+
+    let (database_client, _spanner, _gateway_server) =
+        setup_mock_database_client(mock_gateway).await?;
+
+    // 3. First execution (cold start): routes to gateway, assigns operation UID in bootstrap hint
+    let statement = Statement::builder("SELECT * FROM Users WHERE account_id = @account_id")
+        .add_param("account_id", 42i64)
+        .build();
+    let request1 = statement.clone().into_request();
+
+    let _ = database_client
+        .execute_sql(request1, RequestOptions::default(), 0)
+        .await?;
+
+    assert!(
+        gateway_called.load(Ordering::SeqCst),
+        "gateway must be called on initial unary execute_sql execution"
+    );
+    let gateway_hint = captured_gateway_hint
+        .lock()
+        .expect("lock captured gateway hint")
+        .take()
+        .expect("routing hint must be attached on initial unary execution");
+    assert_ne!(
+        gateway_hint.operation_uid, 0,
+        "operation UID must be assigned and sent on initial unary execution"
+    );
+
+    // Pre-warm tablet connection in background/connection cache
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater must be present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    // Reset gateway flag to verify it is NOT called for subsequent keyed query
+    gateway_called.store(false, Ordering::SeqCst);
+
+    // 4. Second execution (cache hit): routes directly to tablet mock with attached routing hint
+    let request2 = statement.into_request();
+    let _ = database_client
+        .execute_sql(request2, RequestOptions::default(), 0)
+        .await?;
+
+    assert!(
+        tablet_called.load(Ordering::SeqCst),
+        "tablet mock must receive unary execute_sql on cache hit"
+    );
+    assert!(
+        !gateway_called.load(Ordering::SeqCst),
+        "gateway mock must NOT receive unary execute_sql after recipe and range are cached"
+    );
+
+    let tablet_hint = captured_tablet_hint
+        .lock()
+        .expect("lock captured tablet hint")
+        .take()
+        .expect("routing hint must be attached on tablet routed unary query");
+    assert_eq!(
+        tablet_hint.operation_uid, gateway_hint.operation_uid,
+        "operation UID must match the initially assigned UID"
+    );
+    assert_eq!(
+        tablet_hint.tablet_uid, 9001,
+        "routing hint tablet UID must match target tablet"
+    );
+    assert_eq!(
+        tablet_hint.database_id, 5555,
+        "routing hint database ID must match updated database ID"
+    );
+
+    Ok(())
 }
