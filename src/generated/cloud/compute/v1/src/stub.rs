@@ -12837,6 +12837,16 @@ pub trait ReservationSlots: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::ReservationSlots::get_health].
+    fn get_health(
+        &self,
+        _req: crate::model::reservation_slots::GetHealthRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::ReservationSlots::get_version].
     fn get_version(
         &self,

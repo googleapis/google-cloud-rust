@@ -14185,6 +14185,85 @@ impl<'de> serde::de::Deserialize<'de> for super::ProtoSchema {
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::AvroSchema {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __json_schemas,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AvroSchema")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "jsonSchemas" => Ok(__FieldTag::__json_schemas),
+                            "json_schemas" => Ok(__FieldTag::__json_schemas),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::AvroSchema;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AvroSchema")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__json_schemas => {
+                            if !fields.insert(__FieldTag::__json_schemas) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for json_schemas",
+                                ));
+                            }
+                            result.json_schemas = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::SchemaBundle {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -14196,6 +14275,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SchemaBundle {
         enum __FieldTag {
             __name,
             __proto_schema,
+            __avro_schema,
             __etag,
             Unknown(std::string::String),
         }
@@ -14220,6 +14300,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SchemaBundle {
                             "name" => Ok(__FieldTag::__name),
                             "protoSchema" => Ok(__FieldTag::__proto_schema),
                             "proto_schema" => Ok(__FieldTag::__proto_schema),
+                            "avroSchema" => Ok(__FieldTag::__avro_schema),
+                            "avro_schema" => Ok(__FieldTag::__avro_schema),
                             "etag" => Ok(__FieldTag::__etag),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -14271,6 +14353,26 @@ impl<'de> serde::de::Deserialize<'de> for super::SchemaBundle {
                                 crate::model::schema_bundle::Type::ProtoSchema(
                                     map.next_value::<std::option::Option<
                                         std::boxed::Box<crate::model::ProtoSchema>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__avro_schema => {
+                            if !fields.insert(__FieldTag::__avro_schema) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for avro_schema",
+                                ));
+                            }
+                            if result.r#type.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `r#type`, a oneof with full ID .google.bigtable.admin.v2.SchemaBundle.avro_schema, latest field was avroSchema",
+                                ));
+                            }
+                            result.r#type = std::option::Option::Some(
+                                crate::model::schema_bundle::Type::AvroSchema(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::AvroSchema>,
                                     >>()?
                                     .unwrap_or_default(),
                                 ),
