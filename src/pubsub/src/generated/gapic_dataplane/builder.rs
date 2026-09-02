@@ -129,6 +129,24 @@ pub mod subscriber {
         }
     }
 
+    /// Common implementation for [crate::client::Subscriber] bidi stream builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct BidiStreamBuilder {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        options: crate::RequestOptions,
+    }
+
+    impl BidiStreamBuilder {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        ) -> Self {
+            Self {
+                stub,
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
     /// The request builder for [Subscriber::modify_ack_deadline][crate::client::Subscriber::modify_ack_deadline] calls.
     #[derive(Clone, Debug)]
     pub(crate) struct ModifyAckDeadline(RequestBuilder<crate::model::ModifyAckDeadlineRequest>);
@@ -255,6 +273,41 @@ pub mod subscriber {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for Acknowledge {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Subscriber::streaming_pull][crate::client::Subscriber::streaming_pull] calls.
+    #[derive(Clone, Debug)]
+    pub(crate) struct StreamingPull(BidiStreamBuilder);
+
+    impl StreamingPull {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Subscriber>,
+        ) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::StreamingPullRequest>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPullResponse>,
+        ) {
+            (*self.0.stub).streaming_pull(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamingPull {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

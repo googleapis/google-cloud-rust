@@ -1317,8 +1317,6 @@ libraries:
     copyright_year: "2025"
     output: src/pubsub
     rust:
-      include_bidi_streaming_methods: false
-      include_server_streaming_methods: false
       modules:
         - included_ids:
             - .google.pubsub.v1.Publisher.Publish
