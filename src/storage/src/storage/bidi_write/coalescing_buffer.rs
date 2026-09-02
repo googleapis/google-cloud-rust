@@ -29,9 +29,15 @@ pub const COALESCING_CHUNK_SIZE: usize = MAX_WRITE_CHUNK_SIZE;
 /// [`flush`](Self::flush).
 ///
 /// Once chunks are coalesced and returned to the caller, downstream write failures are handled at
-/// the transport and application level: transient stream failures are replayed by the background
-/// worker, and terminal errors are recovered by reopening the object at the server's acknowledged
-/// `persisted_size`.
+/// the transport and application level:
+/// * TODO(#5716): Transient stream failures are replayed by the background worker at the transport
+///   level.
+/// * Terminal errors are returned to the application level. Progress is recovered by reopening
+///   the object at the server's acknowledged `persisted_size`. In
+///   [`AppendableObjectWriterTransport::append`](super::transport::AppendableObjectWriterTransport::append),
+///   downstream operations only fail if `tx.send()` fails. In `mpsc`, `send()` fails only if
+///   the worker task crashed or terminated. Once the worker channel is closed, transport is
+///   permanently inoperable.
 #[derive(Debug)]
 pub struct CoalescingBuffer {
     buffer: BytesMut,
