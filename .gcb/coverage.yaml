@@ -22,7 +22,7 @@ options:
   substitutionOption: 'ALLOW_LOOSE'
   logging: CLOUD_LOGGING_ONLY
   env:
-    - CARGO_BUILD_JOBS=24
+    - CARGO_BUILD_JOBS=16
     - GOOGLE_CLOUD_RUST_TEST_RUNNING_ON_GCB=1
     - GOOGLE_CLOUD_PROJECT=${PROJECT_ID}
     - SCCACHE_GCS_BUCKET=${PROJECT_ID}-build-cache
