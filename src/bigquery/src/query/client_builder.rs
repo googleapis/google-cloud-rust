@@ -192,7 +192,6 @@ impl ClientBuilder {
     /// # use google_cloud_bigquery::client::BigQuery;
     /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
-    /// use std::time::Duration;
     /// let policy = ExponentialBackoff::default();
     /// let client = BigQuery::builder()
     ///     .with_backoff_policy(policy)
