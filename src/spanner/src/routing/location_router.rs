@@ -33,6 +33,7 @@ use crate::routing::latency_registry::LatencyRegistry;
 use crate::routing::power_of_two_selector::PowerOfTwoSelector;
 use crate::routing::server_connection::ServerConnection;
 use bytes::Bytes;
+use google_cloud_gax::error::rpc::Code;
 use std::collections::HashMap;
 use std::fmt::{self, Debug, Formatter};
 use std::sync::{Arc, RwLock};
@@ -173,7 +174,7 @@ impl LocationRouter {
     }
 
     /// Returns a reference to the underlying [`EndpointCooldownTracker`].
-    pub(crate) fn cooldown_tracker(&self) -> &Arc<EndpointCooldownTracker> {
+    pub(crate) fn cooldown_tracker(&self) -> &EndpointCooldownTracker {
         &self.cooldown_tracker
     }
 
@@ -596,9 +597,66 @@ impl LocationRouter {
         tracker.len()
     }
 
+    /// Returns `true` if the given address matches the default fallback gateway connection.
+    pub(crate) fn is_default_endpoint(&self, address: &str) -> bool {
+        self.connection_cache.is_default_address(address)
+    }
+
     /// Helper to record an overload failure cooldown for an endpoint address.
-    pub(crate) fn record_failure(&self, address: &str) {
-        self.cooldown_tracker.record_failure(address);
+    ///
+    /// Skips placing the default fallback gateway on cooldown to ensure fallback routing remains viable.
+    pub(crate) fn record_failure(&self, address: &str) -> Duration {
+        self.record_failure_with_delay(address, None)
+    }
+
+    /// Helper to record an error with an optional server-recommended retry delay.
+    ///
+    /// Places the endpoint on cooldown if the error code is `RESOURCE_EXHAUSTED` or `UNAVAILABLE`.
+    /// Skips placing the default fallback gateway on cooldown.
+    pub(crate) fn record_cooldown_error_with_delay(
+        &self,
+        address: &str,
+        status_code: Code,
+        server_retry_delay: Option<Duration>,
+    ) -> Option<Duration> {
+        if self.is_default_endpoint(address) {
+            return None;
+        }
+        self.cooldown_tracker
+            .record_error_with_delay(address, status_code, server_retry_delay)
+    }
+
+    /// Helper to record an RPC failure without a server delay hint.
+    ///
+    /// Skips placing the default fallback gateway on cooldown.
+    pub(crate) fn record_cooldown_error(
+        &self,
+        address: &str,
+        status_code: Code,
+    ) -> Option<Duration> {
+        self.record_cooldown_error_with_delay(address, status_code, None)
+    }
+
+    /// Helper to record a failure with an optional server retry delay hint.
+    ///
+    /// Skips placing the default fallback gateway on cooldown.
+    pub(crate) fn record_failure_with_delay(
+        &self,
+        address: &str,
+        server_retry_delay: Option<Duration>,
+    ) -> Duration {
+        self.record_cooldown_error_with_delay(address, Code::ResourceExhausted, server_retry_delay)
+            .unwrap_or(Duration::ZERO)
+    }
+
+    /// Helper to record a successful RPC completion, advancing failure tier repair for the endpoint.
+    ///
+    /// Skips recording for the default fallback gateway.
+    pub(crate) fn record_success(&self, address: &str) {
+        if self.is_default_endpoint(address) {
+            return;
+        }
+        self.cooldown_tracker.record_success(address);
     }
 }
 
@@ -902,6 +960,92 @@ mod tests {
         assert!(
             router.cooldown_tracker().is_cooling_down("10.0.0.1:15000"),
             "endpoint must be cooling down after failure recorded"
+        );
+    }
+
+    #[test]
+    fn location_router_record_failure_skips_default_connection() {
+        let router = make_test_router();
+        let default_address = router.connection_cache.default_connection().address();
+
+        assert!(
+            router.is_default_endpoint(default_address),
+            "is_default_endpoint must return true for default connection"
+        );
+        assert!(
+            !router.is_default_endpoint("10.0.0.1:15000"),
+            "is_default_endpoint must return false for tablet connection"
+        );
+
+        router.record_failure(default_address);
+        assert!(
+            !router.cooldown_tracker().is_cooling_down(default_address),
+            "default connection must never be placed on cooldown"
+        );
+
+        assert_eq!(
+            router.record_cooldown_error(default_address, Code::ResourceExhausted),
+            None,
+            "record_cooldown_error on default connection must return None"
+        );
+        assert_eq!(
+            router.record_cooldown_error_with_delay(
+                default_address,
+                Code::Unavailable,
+                Some(Duration::from_secs(5)),
+            ),
+            None,
+            "record_cooldown_error_with_delay on default connection must return None"
+        );
+        assert_eq!(
+            router.record_failure_with_delay(default_address, Some(Duration::from_secs(5))),
+            Duration::ZERO,
+            "record_failure_with_delay on default connection must return Duration::ZERO"
+        );
+        router.record_success(default_address);
+        assert!(
+            !router.cooldown_tracker().is_cooling_down(default_address),
+            "default connection must remain not cooling down"
+        );
+    }
+
+    #[test]
+    fn location_router_record_error_helpers_delegate_for_tablets() {
+        let router = make_test_router();
+        let tablet_address = "10.0.0.2:15000";
+
+        let cooldown = router.record_cooldown_error(tablet_address, Code::Unavailable);
+        assert!(
+            cooldown.is_some(),
+            "record_cooldown_error must place tablet on cooldown for UNAVAILABLE"
+        );
+        assert!(
+            router.cooldown_tracker().is_cooling_down(tablet_address),
+            "tablet must be cooling down"
+        );
+
+        router.record_success(tablet_address);
+
+        let tablet_address_2 = "10.0.0.3:15000";
+        let hinted_cooldown = router.record_cooldown_error_with_delay(
+            tablet_address_2,
+            Code::ResourceExhausted,
+            Some(Duration::from_millis(500)),
+        );
+        assert!(
+            hinted_cooldown.is_some(),
+            "record_cooldown_error_with_delay must place tablet on cooldown"
+        );
+        assert!(
+            router.cooldown_tracker().is_cooling_down(tablet_address_2),
+            "tablet must be cooling down after hinted error"
+        );
+
+        let failure_cooldown =
+            router.record_failure_with_delay(tablet_address_2, Some(Duration::from_millis(600)));
+        assert!(
+            failure_cooldown >= Duration::from_millis(500),
+            "cooldown must be at least hinted duration"
         );
     }
 

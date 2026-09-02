@@ -54,6 +54,11 @@ impl ConnectionCache {
         &self.default_connection
     }
 
+    /// Returns `true` if the given address matches the default fallback server connection.
+    pub(crate) fn is_default_address(&self, address: &str) -> bool {
+        self.default_connection.address() == address
+    }
+
     /// Returns a cached connection for the given address without creating it if missing.
     ///
     /// This method is used by location-aware routing to avoid foreground connection creation on the
@@ -112,7 +117,7 @@ impl ConnectionCache {
     /// If `address` matches the default connection's address, this method does nothing and returns
     /// `false`. Otherwise, returns `true` if a connection was removed from the cache.
     pub(crate) fn evict(&self, address: &str) -> bool {
-        if self.default_connection.address() == address {
+        if self.is_default_address(address) {
             return false;
         }
         let mut guard = self
@@ -176,6 +181,14 @@ mod tests {
         assert_eq!(
             cache.default_connection().address(),
             "spanner.googleapis.com:443"
+        );
+        assert!(
+            cache.is_default_address("spanner.googleapis.com:443"),
+            "must return true for default address"
+        );
+        assert!(
+            !cache.is_default_address("10.0.0.1:15000"),
+            "must return false for non-default address"
         );
 
         let cached_default = cache
