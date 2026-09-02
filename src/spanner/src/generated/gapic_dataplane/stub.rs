@@ -99,6 +99,19 @@ pub trait Spanner: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Spanner::execute_streaming_sql].
+    fn execute_streaming_sql(
+        &self,
+        _req: crate::model::ExecuteSqlRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::PartialResultSet>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
+    }
+
     /// Implements [super::client::Spanner::execute_batch_dml].
     fn execute_batch_dml(
         &self,
@@ -118,6 +131,19 @@ pub trait Spanner: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::ResultSet>>> + Send
     {
         gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Spanner::streaming_read].
+    fn streaming_read(
+        &self,
+        _req: crate::model::ReadRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::PartialResultSet>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
     }
 
     /// Implements [super::client::Spanner::begin_transaction].
@@ -170,5 +196,31 @@ pub trait Spanner: std::fmt::Debug + Send + Sync {
         Output = crate::Result<crate::Response<crate::model::PartitionResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Spanner::batch_write].
+    fn batch_write(
+        &self,
+        _req: crate::model::BatchWriteRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::BatchWriteResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
+    }
+
+    /// Implements [super::client::Spanner::fetch_cache_update].
+    fn fetch_cache_update(
+        &self,
+        _req: crate::model::FetchCacheUpdateRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::CacheUpdate>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
     }
 }

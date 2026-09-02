@@ -399,6 +399,46 @@ impl super::stub::Spanner for Spanner {
             .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ResultSet>)
     }
 
+    async fn execute_streaming_sql(
+        &self,
+        req: crate::model::ExecuteSqlRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::PartialResultSet>> {
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.spanner.v1.Spanner",
+                "ExecuteStreamingSql",
+            ));
+            e
+        };
+        let path =
+            http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/ExecuteStreamingSql");
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.session)
+            .map(|s| s.as_str())
+            .map(|v| format!("session={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        self.inner
+            .execute_server_streaming::<
+                crate::model::ExecuteSqlRequest,
+                crate::model::PartialResultSet,
+                crate::google::spanner::v1::ExecuteSqlRequest,
+                crate::google::spanner::v1::PartialResultSet,
+            >(
+                extensions,
+                path,
+                req,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+    }
+
     async fn execute_batch_dml(
         &self,
         req: crate::model::ExecuteBatchDmlRequest,
@@ -509,6 +549,45 @@ impl super::stub::Spanner for Spanner {
             )
             .await
             .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ResultSet>)
+    }
+
+    async fn streaming_read(
+        &self,
+        req: crate::model::ReadRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::PartialResultSet>> {
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.spanner.v1.Spanner",
+                "StreamingRead",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/StreamingRead");
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.session)
+            .map(|s| s.as_str())
+            .map(|v| format!("session={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        self.inner
+            .execute_server_streaming::<
+                crate::model::ReadRequest,
+                crate::model::PartialResultSet,
+                crate::google::spanner::v1::ReadRequest,
+                crate::google::spanner::v1::PartialResultSet,
+            >(
+                extensions,
+                path,
+                req,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
     }
 
     async fn begin_transaction(
@@ -790,5 +869,84 @@ impl super::stub::Spanner for Spanner {
             )
             .await
             .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::PartitionResponse>)
+    }
+
+    async fn batch_write(
+        &self,
+        req: crate::model::BatchWriteRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::BatchWriteResponse>> {
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.spanner.v1.Spanner",
+                "BatchWrite",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/BatchWrite");
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.session)
+            .map(|s| s.as_str())
+            .map(|v| format!("session={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        self.inner
+            .execute_server_streaming::<
+                crate::model::BatchWriteRequest,
+                crate::model::BatchWriteResponse,
+                crate::google::spanner::v1::BatchWriteRequest,
+                crate::google::spanner::v1::BatchWriteResponse,
+            >(
+                extensions,
+                path,
+                req,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+    }
+
+    async fn fetch_cache_update(
+        &self,
+        req: crate::model::FetchCacheUpdateRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::CacheUpdate>> {
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.spanner.v1.Spanner",
+                "FetchCacheUpdate",
+            ));
+            e
+        };
+        let path =
+            http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/FetchCacheUpdate");
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.database)
+            .map(|s| s.as_str())
+            .map(|v| format!("database={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        self.inner
+            .execute_server_streaming::<
+                crate::model::FetchCacheUpdateRequest,
+                crate::model::CacheUpdate,
+                crate::google::spanner::v1::FetchCacheUpdateRequest,
+                crate::google::spanner::v1::CacheUpdate,
+            >(
+                extensions,
+                path,
+                req,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
     }
 }
