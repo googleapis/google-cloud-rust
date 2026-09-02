@@ -212,6 +212,14 @@ impl Firestore {
         super::builder::firestore::DeleteDocument::new(self.inner.clone())
     }
 
+    /// Gets multiple documents.
+    ///
+    /// Documents returned by this method are not guaranteed to be returned in the
+    /// same order that they were requested.
+    pub fn batch_get_documents(&self) -> super::builder::firestore::BatchGetDocuments {
+        super::builder::firestore::BatchGetDocuments::new(self.inner.clone())
+    }
+
     /// Starts a new transaction.
     ///
     /// # Example
@@ -271,6 +279,32 @@ impl Firestore {
         super::builder::firestore::Rollback::new(self.inner.clone())
     }
 
+    /// Runs a query.
+    pub fn run_query(&self) -> super::builder::firestore::RunQuery {
+        super::builder::firestore::RunQuery::new(self.inner.clone())
+    }
+
+    /// Runs an aggregation query.
+    ///
+    /// Rather than producing [Document][google.firestore.v1.Document] results like
+    /// [Firestore.RunQuery][google.firestore.v1.Firestore.RunQuery], this API
+    /// allows running an aggregation to produce a series of
+    /// [AggregationResult][google.firestore.v1.AggregationResult] server-side.
+    ///
+    /// High-Level Example:
+    ///
+    /// ```norust
+    /// -- Return the number of documents in table given a filter.
+    /// SELECT COUNT(*) FROM ( SELECT * FROM k where a = true );
+    /// ```
+    ///
+    /// [google.firestore.v1.AggregationResult]: crate::model::AggregationResult
+    /// [google.firestore.v1.Document]: crate::model::Document
+    /// [google.firestore.v1.Firestore.RunQuery]: crate::client::Firestore::run_query
+    pub fn run_aggregation_query(&self) -> super::builder::firestore::RunAggregationQuery {
+        super::builder::firestore::RunAggregationQuery::new(self.inner.clone())
+    }
+
     /// Partitions a query by returning partition cursors that can be used to run
     /// the query in parallel. The returned partition cursors are split points that
     /// can be used by RunQuery as starting/end points for the query results.
@@ -294,6 +328,60 @@ impl Firestore {
     /// ```
     pub fn partition_query(&self) -> super::builder::firestore::PartitionQuery {
         super::builder::firestore::PartitionQuery::new(self.inner.clone())
+    }
+
+    /// Streams batches of document updates and deletes, in order. This method is
+    /// only available via gRPC or WebChannel (not REST).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore::client::Firestore;
+    /// # use google_cloud_firestore::model::WriteRequest;
+    /// async fn sample(
+    ///    client: &Firestore
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.write()
+    ///         .build();
+    ///
+    ///     sender.send(WriteRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn write(&self) -> super::builder::firestore::Write {
+        super::builder::firestore::Write::new(self.inner.clone())
+    }
+
+    /// Listens to changes. This method is only available via gRPC or WebChannel
+    /// (not REST).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore::client::Firestore;
+    /// # use google_cloud_firestore::model::ListenRequest;
+    /// async fn sample(
+    ///    client: &Firestore
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.listen()
+    ///         .build();
+    ///
+    ///     sender.send(ListenRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn listen(&self) -> super::builder::firestore::Listen {
+        super::builder::firestore::Listen::new(self.inner.clone())
     }
 
     /// Lists all the collection IDs underneath a document.

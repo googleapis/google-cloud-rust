@@ -921,8 +921,6 @@ libraries:
     output: src/firestore
     skip_release: true
     rust:
-      include_bidi_streaming_methods: false
-      include_server_streaming_methods: false
       modules:
         - module_path: crate::generated::gapic::model
           output: src/firestore/src/generated/convert/firestore
