@@ -1568,8 +1568,6 @@ libraries:
     output: src/storage
     rust:
       resource_name_heuristic: true
-      include_bidi_streaming_methods: false
-      include_server_streaming_methods: false
       modules:
         - module_path: crate::generated::gapic_control::model
           name_overrides: .google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_buckets=CloudStorageBucketsOneOf,.google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_locations=CloudStorageLocationsOneOf
