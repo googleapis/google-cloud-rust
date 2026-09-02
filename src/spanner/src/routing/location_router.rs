@@ -28,6 +28,7 @@ use crate::model::routing_hint::SkippedTablet;
 use crate::model::{RoutingHint, Tablet};
 use crate::routing::connection_cache::ConnectionCache;
 use crate::routing::endpoint_cooldown::EndpointCooldownTracker;
+use crate::routing::endpoint_lifecycle::EndpointLifecycleManager;
 use crate::routing::key_range_cache::{CachedGroup, CachedRange, KeyRangeCache, RangeMode};
 use crate::routing::latency_registry::LatencyRegistry;
 use crate::routing::power_of_two_selector::PowerOfTwoSelector;
@@ -116,6 +117,7 @@ pub(crate) struct LocationRouter {
     database_scope: String,
     key_range_cache: Arc<KeyRangeCache>,
     connection_cache: Arc<ConnectionCache>,
+    endpoint_lifecycle_manager: Arc<EndpointLifecycleManager>,
     cooldown_tracker: Arc<EndpointCooldownTracker>,
     latency_registry: Arc<LatencyRegistry>,
     replica_selector: PowerOfTwoSelector,
@@ -139,6 +141,7 @@ impl LocationRouter {
         database_scope: String,
         key_range_cache: Arc<KeyRangeCache>,
         connection_cache: Arc<ConnectionCache>,
+        endpoint_lifecycle_manager: Arc<EndpointLifecycleManager>,
         cooldown_tracker: Arc<EndpointCooldownTracker>,
         latency_registry: Arc<LatencyRegistry>,
     ) -> Self {
@@ -150,6 +153,7 @@ impl LocationRouter {
             database_scope,
             key_range_cache,
             connection_cache,
+            endpoint_lifecycle_manager,
             cooldown_tracker,
             latency_registry,
             replica_selector: PowerOfTwoSelector::new(),
@@ -170,6 +174,11 @@ impl LocationRouter {
     /// Returns a reference to the underlying [`ConnectionCache`].
     pub(crate) fn connection_cache(&self) -> &Arc<ConnectionCache> {
         &self.connection_cache
+    }
+
+    /// Returns a reference to the underlying [`EndpointLifecycleManager`].
+    pub(crate) fn endpoint_lifecycle_manager(&self) -> &EndpointLifecycleManager {
+        &self.endpoint_lifecycle_manager
     }
 
     /// Returns a reference to the underlying [`EndpointCooldownTracker`].
@@ -225,23 +234,24 @@ impl LocationRouter {
 
         // Step 2: Query key range cache for covering range and group.
         let range_and_group = self.find_range_and_group(context.routing_key);
-        let selected_tablet = range_and_group.as_ref().and_then(|(range, group)| {
-            self.select_healthy_tablet(range, group, context.prefer_leader)
-        });
+        let selected_target = range_and_group
+            .as_ref()
+            .and_then(|(_, group)| self.select_healthy_tablet(group, context.prefer_leader));
 
-        // Step 3: Resolve ServerConnection (affinity -> direct tablet -> default gateway).
-        let connection =
-            self.resolve_target_connection(context, affinity_connection, selected_tablet.as_ref());
-
-        // Step 4: Construct RoutingHint in the exact same pass if database_id is active.
+        // Step 3: Construct RoutingHint in the exact same pass if database_id is active.
+        let selected_tablet = selected_target.as_ref().map(|(tablet, _)| *tablet);
         let routing_hint = self.build_routing_hint(
             database_id,
             schema_generation,
             operation_uid,
             client_location,
             range_and_group.as_ref(),
-            selected_tablet.as_ref(),
+            selected_tablet,
         );
+
+        // Step 4: Resolve ServerConnection (affinity -> direct tablet -> default gateway).
+        let connection =
+            self.resolve_target_connection(context, affinity_connection, selected_target);
 
         ResolvedRoute {
             connection,
@@ -284,29 +294,85 @@ impl LocationRouter {
 
     /// Selects an eligible, non-cooling-down tablet replica for the given cached range and group.
     ///
-    /// 1. If `prefer_leader` is true, tries selecting the local leader.
+    /// Replica priority:
+    /// 1. If `prefer_leader` is true, tries selecting the local leader if routable.
+    ///    - If leader is pre-warmed, routes directly to the leader.
+    ///    - If leader is unwarmed, checks if an eligible follower is pre-warmed and falls back to that follower.
+    ///    - If no follower is pre-warmed either, preserves the preferred leader (routed via gateway).
     /// 2. If leader is not available, not routable, or cooling down (or if `prefer_leader` is false),
-    ///    selects an eligible follower replica using P2C replica selection weighted by latency and in-flight load.
-    /// 3. Returns `None` if all candidate replicas are cooling down, unroutable, or unwarmed.
-    fn select_healthy_tablet(
+    ///    selects an eligible follower replica using P2C replica selection.
+    /// 3. Returns `None` if all candidate replicas are cooling down or unroutable.
+    fn select_healthy_tablet<'a>(
         &self,
-        range: &CachedRange,
-        group: &CachedGroup,
+        group: &'a CachedGroup,
         prefer_leader: bool,
-    ) -> Option<Tablet> {
-        if prefer_leader && let Some(leader) = self.select_healthy_leader(group) {
-            return Some(leader);
+    ) -> Option<(&'a Tablet, Option<ServerConnection>)> {
+        if prefer_leader && let Some((leader, maybe_connection)) = self.select_healthy_leader(group)
+        {
+            if let Some(connection) = maybe_connection {
+                return Some((leader, Some(connection)));
+            }
+            // Leader is routable but unwarmed. Check if any eligible follower is already warmed.
+            if let Some((follower, Some(follower_connection))) =
+                self.select_healthy_follower(group, group.group_uid)
+            {
+                return Some((follower, Some(follower_connection)));
+            }
+            // No warmed follower available; stick with the preferred leader (routed via gateway).
+            return Some((leader, None));
         }
 
-        self.select_healthy_follower(group, range.group_uid)
+        self.select_healthy_follower(group, group.group_uid)
     }
 
-    /// Returns `true` if the tablet has a non-empty server address and is not currently on cooldown.
-    fn is_tablet_routable(&self, tablet: &Tablet) -> bool {
-        !tablet.server_address.is_empty()
-            && !self
+    /// Evaluates a tablet's routability and retrieves its warmed connection if present.
+    ///
+    /// - Returns `None` if the tablet is unroutable (empty address, cooling down, or in transient failure).
+    /// - Returns `Some(Some(connection))` if the tablet is routable and pre-warmed.
+    /// - Returns `Some(None)` if the tablet is routable but currently unwarmed.
+    fn resolve_candidate_connection(&self, tablet: &Tablet) -> Option<Option<ServerConnection>> {
+        if tablet.server_address.is_empty()
+            || self
                 .cooldown_tracker
                 .is_cooling_down(&tablet.server_address)
+            || self
+                .endpoint_lifecycle_manager
+                .check_transient_failure_evicted_and_request_recreation(&tablet.server_address)
+        {
+            return None;
+        }
+
+        let connection = self.connection_cache.get_if_present(&tablet.server_address);
+        match connection {
+            Some(connection) if connection.is_transient_failure() => None,
+            Some(connection) if connection.is_healthy() => Some(Some(connection)),
+            Some(_) => Some(None),
+            None => {
+                self.endpoint_lifecycle_manager
+                    .request_endpoint_recreation(&tablet.server_address);
+                Some(None)
+            }
+        }
+    }
+
+    /// Returns `true` if the tablet has a non-empty server address, is not currently on cooldown,
+    /// is not in transient failure, and is not evicted due to transient failure.
+    fn is_tablet_routable(&self, tablet: &Tablet) -> bool {
+        if tablet.server_address.is_empty()
+            || self
+                .cooldown_tracker
+                .is_cooling_down(&tablet.server_address)
+            || self
+                .endpoint_lifecycle_manager
+                .is_transient_failure_evicted(&tablet.server_address)
+        {
+            return false;
+        }
+
+        !self
+            .connection_cache
+            .get_if_present(&tablet.server_address)
+            .is_some_and(|connection| connection.is_transient_failure())
     }
 
     /// Resolves the [`ServerConnection`] according to priority:
@@ -317,15 +383,19 @@ impl LocationRouter {
         &self,
         context: &RoutingContext<'_>,
         affinity_connection: Option<ServerConnection>,
-        selected_tablet: Option<&Tablet>,
+        selected_target: Option<(&Tablet, Option<ServerConnection>)>,
     ) -> ServerConnection {
         if let Some(connection) = affinity_connection {
+            self.endpoint_lifecycle_manager
+                .record_real_traffic(connection.address());
             return connection;
         }
 
-        if let Some(tablet) = selected_tablet
-            && let Some(connection) = self.get_routable_connection(tablet)
+        if let Some((tablet, maybe_connection)) = selected_target
+            && let Some(connection) = maybe_connection
         {
+            self.endpoint_lifecycle_manager
+                .record_real_traffic(&tablet.server_address);
             if context.use_transaction_affinity
                 && let Some(transaction_id) = context.transaction_id
             {
@@ -337,20 +407,25 @@ impl LocationRouter {
         self.connection_cache.default_connection().clone()
     }
 
-    /// Selects the local leader tablet if designated, routable, and not on cooldown.
-    fn select_healthy_leader(&self, group: &CachedGroup) -> Option<Tablet> {
+    /// Selects the local leader tablet if designated and routable.
+    fn select_healthy_leader<'a>(
+        &self,
+        group: &'a CachedGroup,
+    ) -> Option<(&'a Tablet, Option<ServerConnection>)> {
         let leader = group.local_leader()?;
-        if !self.is_tablet_routable(leader) {
-            return None;
-        }
-        Some(leader.clone())
+        let maybe_connection = self.resolve_candidate_connection(leader)?;
+        Some((leader, maybe_connection))
     }
 
     /// Selects a follower replica using P2C replica selection weighted by latency and in-flight load.
-    fn select_healthy_follower(&self, group: &CachedGroup, group_uid: u64) -> Option<Tablet> {
+    fn select_healthy_follower<'a>(
+        &self,
+        group: &'a CachedGroup,
+        group_uid: u64,
+    ) -> Option<(&'a Tablet, Option<ServerConnection>)> {
         const MAX_ROUTABLE_CANDIDATES: usize = 8;
-        let mut routable: [Option<(&Tablet, Option<ServerConnection>)>; MAX_ROUTABLE_CANDIDATES] =
-            [const { None }; MAX_ROUTABLE_CANDIDATES];
+        let mut routable: [Option<(&'a Tablet, Option<ServerConnection>)>;
+            MAX_ROUTABLE_CANDIDATES] = [const { None }; MAX_ROUTABLE_CANDIDATES];
         let mut routable_count = 0;
         let mut warmed_count = 0;
 
@@ -359,8 +434,7 @@ impl LocationRouter {
                 break;
             }
             let tablet = &group.tablets[index];
-            if self.is_tablet_routable(tablet) {
-                let maybe_connection = self.get_routable_connection(tablet);
+            if let Some(maybe_connection) = self.resolve_candidate_connection(tablet) {
                 if maybe_connection.is_some() {
                     warmed_count += 1;
                 }
@@ -376,7 +450,7 @@ impl LocationRouter {
         // If at least one candidate is pre-warmed, filter down to only the pre-warmed candidates
         // so P2C never selects an unwarmed replica over a warmed one.
         if warmed_count > 0 && warmed_count < routable_count {
-            let mut warmed_only: [Option<(&Tablet, Option<ServerConnection>)>;
+            let mut warmed_only: [Option<(&'a Tablet, Option<ServerConnection>)>;
                 MAX_ROUTABLE_CANDIDATES] = [const { None }; MAX_ROUTABLE_CANDIDATES];
             let mut new_warmed_count = 0;
             for slot in routable[..routable_count].iter_mut() {
@@ -390,21 +464,19 @@ impl LocationRouter {
         }
 
         if routable_count == 1 {
-            return routable[0]
-                .take()
-                .map(|(tablet, _maybe_connection)| tablet.clone());
+            return routable[0].take();
         }
 
         self.select_p2c_winner(&mut routable, routable_count, group_uid)
     }
 
     /// Compares sampled candidates from the routable stack buffer using P2C and returns the winner.
-    fn select_p2c_winner(
+    fn select_p2c_winner<'a>(
         &self,
-        routable: &mut [Option<(&Tablet, Option<ServerConnection>)>],
+        routable: &mut [Option<(&'a Tablet, Option<ServerConnection>)>],
         routable_count: usize,
         group_uid: u64,
-    ) -> Option<Tablet> {
+    ) -> Option<(&'a Tablet, Option<ServerConnection>)> {
         let (first_index, second_index) = self.replica_selector.sample_two_distinct(routable_count);
 
         let (first_tablet, first_connection) = routable.get(first_index)?.as_ref()?;
@@ -436,32 +508,31 @@ impl LocationRouter {
             second_index
         };
 
-        let (selected_tablet, _connection) = routable.get_mut(selected_index)?.take()?;
-        Some(selected_tablet.clone())
+        routable.get_mut(selected_index)?.take()
     }
 
-    /// Returns the pre-warmed, healthy [`ServerConnection`] for a tablet if it has a non-empty
-    /// server address, is not currently on cooldown, and is ready in the connection cache.
-    fn get_routable_connection(&self, tablet: &Tablet) -> Option<ServerConnection> {
-        if !self.is_tablet_routable(tablet) {
-            return None;
-        }
-        self.connection_cache
-            .get_if_present(&tablet.server_address)
-            .filter(ServerConnection::is_healthy)
-    }
-    /// Gathers all skipped, unroutable (empty `server_address`), or cooling-down tablets
+    /// Gathers all skipped, unroutable (empty `server_address`), cooling-down, or transient-failure tablets
     /// excluding the currently selected tablet.
     fn collect_skipped_tablets(
         &self,
         group: &CachedGroup,
         selected_tablet_uid: Option<u64>,
     ) -> Vec<SkippedTablet> {
-        let has_unroutable_tablets = group
+        let has_skipped_or_empty = group
             .tablets
             .iter()
             .any(|tablet| tablet.skip || tablet.server_address.is_empty());
-        if !has_unroutable_tablets && self.cooldown_tracker.is_empty() {
+        if !has_skipped_or_empty
+            && self.cooldown_tracker.is_empty()
+            && !self
+                .endpoint_lifecycle_manager
+                .has_transient_failure_evictions()
+            && !group.tablets.iter().any(|tablet| {
+                self.connection_cache
+                    .get_if_present(&tablet.server_address)
+                    .is_some_and(|connection| connection.is_transient_failure())
+            })
+        {
             return Vec::new();
         }
 
@@ -613,6 +684,8 @@ mod tests {
     use crate::model::{CacheUpdate, Group, Range, Tablet};
     use crate::routing::server_connection::ServerConnection;
     use gaxi::options::ClientConfig;
+    use std::collections::HashSet;
+    use std::time::Instant;
 
     #[test]
     fn location_router_implements_send_sync_debug_clone() {
@@ -632,12 +705,15 @@ mod tests {
         let default_connection = create_test_connection("spanner.googleapis.com:443");
         let connection_cache = Arc::new(ConnectionCache::new(default_connection));
         let key_range_cache = Arc::new(KeyRangeCache::new());
+        let endpoint_lifecycle_manager =
+            Arc::new(EndpointLifecycleManager::new(Arc::clone(&connection_cache)));
         let cooldown_tracker = Arc::new(EndpointCooldownTracker::new());
         let latency_registry = Arc::new(LatencyRegistry::new());
         LocationRouter::new(
             "projects/test-project/instances/test-instance/databases/test-database".to_string(),
             key_range_cache,
             connection_cache,
+            endpoint_lifecycle_manager,
             cooldown_tracker,
             latency_registry,
         )
@@ -675,9 +751,25 @@ mod tests {
     #[test]
     fn location_router_new_and_accessors() {
         let router = make_test_router();
-        assert!(router.key_range_cache().is_empty());
-        assert_eq!(router.connection_cache().len(), 1);
-        assert_eq!(router.affinity_count(), 0);
+        assert!(
+            router.key_range_cache().is_empty(),
+            "key range cache should initially be empty"
+        );
+        assert_eq!(
+            router.connection_cache().len(),
+            1,
+            "connection cache should have default connection"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "affinity count should initially be 0"
+        );
+        assert_eq!(
+            router.endpoint_lifecycle_manager().len(),
+            0,
+            "lifecycle manager should have no tracked endpoints"
+        );
     }
 
     #[test]
@@ -685,7 +777,11 @@ mod tests {
         let router = make_test_router();
         let context = RoutingContext::default();
         let connection = router.resolve_connection(&context);
-        assert_eq!(connection.address(), "spanner.googleapis.com:443");
+        assert_eq!(
+            connection.address(),
+            "spanner.googleapis.com:443",
+            "empty cache should route to default gateway"
+        );
     }
 
     #[tokio::test]
@@ -701,7 +797,11 @@ mod tests {
             use_transaction_affinity: false,
         };
         let connection = router.resolve_connection(&context);
-        assert_eq!(connection.address(), "10.0.0.1:15000");
+        assert_eq!(
+            connection.address(),
+            "10.0.0.1:15000",
+            "should route to cached tablet connection"
+        );
     }
 
     #[tokio::test]
@@ -720,10 +820,15 @@ mod tests {
 
         // First resolve: discovers address via key and binds affinity.
         let connection_first = router.resolve_connection(&context);
-        assert_eq!(connection_first.address(), "10.0.0.1:15000");
+        assert_eq!(
+            connection_first.address(),
+            "10.0.0.1:15000",
+            "first resolve should route to tablet"
+        );
         assert_eq!(
             router.get_transaction_affinity(transaction_id).as_deref(),
-            Some("10.0.0.1:15000")
+            Some("10.0.0.1:15000"),
+            "transaction affinity should be recorded"
         );
 
         // Clear key range cache so key lookup would miss.
@@ -737,7 +842,11 @@ mod tests {
             use_transaction_affinity: true,
         };
         let connection_second = router.resolve_connection(&context_affinity);
-        assert_eq!(connection_second.address(), "10.0.0.1:15000");
+        assert_eq!(
+            connection_second.address(),
+            "10.0.0.1:15000",
+            "second resolve should use affinity"
+        );
     }
 
     #[tokio::test]
@@ -756,8 +865,16 @@ mod tests {
 
         // Resolves connection via key range, but should NOT record affinity because use_transaction_affinity = false.
         let connection = router.resolve_connection(&context);
-        assert_eq!(connection.address(), "10.0.0.1:15000");
-        assert_eq!(router.get_transaction_affinity(transaction_id), None);
+        assert_eq!(
+            connection.address(),
+            "10.0.0.1:15000",
+            "should route to tablet without affinity"
+        );
+        assert_eq!(
+            router.get_transaction_affinity(transaction_id),
+            None,
+            "read only query should not record affinity"
+        );
     }
 
     #[tokio::test]
@@ -777,7 +894,11 @@ mod tests {
 
         let connection = router.resolve_connection(&context);
         // Falls back to default because target is on cooldown.
-        assert_eq!(connection.address(), "spanner.googleapis.com:443");
+        assert_eq!(
+            connection.address(),
+            "spanner.googleapis.com:443",
+            "cooldown target should fall back to default gateway"
+        );
     }
 
     #[tokio::test]
@@ -797,28 +918,52 @@ mod tests {
 
         let connection = router.resolve_connection(&context);
         // Bypasses cooldown affinity and returns default fallback.
-        assert_eq!(connection.address(), "spanner.googleapis.com:443");
+        assert_eq!(
+            connection.address(),
+            "spanner.googleapis.com:443",
+            "cooldown affinity target should fall back to default gateway"
+        );
     }
 
     #[test]
     fn location_router_clear_transaction_affinity() {
         let router = make_test_router();
         router.record_transaction_affinity(b"tx1", "10.0.0.1:15000");
-        assert_eq!(router.affinity_count(), 1);
+        assert_eq!(
+            router.affinity_count(),
+            1,
+            "affinity count should be 1 after recording"
+        );
 
         router.clear_transaction_affinity(b"tx1");
-        assert_eq!(router.affinity_count(), 0);
-        assert_eq!(router.get_transaction_affinity(b"tx1"), None);
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "affinity count should be 0 after clearing"
+        );
+        assert_eq!(
+            router.get_transaction_affinity(b"tx1"),
+            None,
+            "cleared transaction affinity should be None"
+        );
     }
 
     #[test]
     fn location_router_ignores_empty_transaction_id() {
         let router = make_test_router();
         router.record_transaction_affinity(&[], "10.0.0.1:15000");
-        assert_eq!(router.affinity_count(), 0);
-        assert_eq!(router.get_transaction_affinity(&[]), None);
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "empty transaction id should not record affinity"
+        );
+        assert_eq!(
+            router.get_transaction_affinity(&[]),
+            None,
+            "empty transaction id should return None"
+        );
         router.clear_transaction_affinity(&[]);
-        assert_eq!(router.affinity_count(), 0);
+        assert_eq!(router.affinity_count(), 0, "affinity count should remain 0");
     }
 
     #[test]
@@ -829,19 +974,29 @@ mod tests {
         router.record_transaction_affinity(b"tx2", "10.0.0.2:15000");
         router.record_transaction_affinity(b"tx3", "10.0.0.3:15000");
 
-        assert_eq!(router.affinity_count(), 3);
+        assert_eq!(router.affinity_count(), 3, "affinity count should be 3");
         assert_eq!(
             router.get_transaction_affinity(b"tx1").as_deref(),
-            Some("10.0.0.1:15000")
+            Some("10.0.0.1:15000"),
+            "tx1 affinity address should match"
         );
         assert_eq!(
             router.get_transaction_affinity(b"tx2").as_deref(),
-            Some("10.0.0.2:15000")
+            Some("10.0.0.2:15000"),
+            "tx2 affinity address should match"
         );
 
         router.clear_transaction_affinity(b"tx1");
-        assert_eq!(router.affinity_count(), 2);
-        assert_eq!(router.get_transaction_affinity(b"tx1"), None);
+        assert_eq!(
+            router.affinity_count(),
+            2,
+            "affinity count should be 2 after clearing tx1"
+        );
+        assert_eq!(
+            router.get_transaction_affinity(b"tx1"),
+            None,
+            "tx1 affinity should be None"
+        );
     }
 
     #[tokio::test]
@@ -883,16 +1038,29 @@ mod tests {
             use_transaction_affinity: false,
         };
         let connection = router.resolve_connection(&context);
-        assert_eq!(connection.address(), "10.0.0.1:15000");
+        assert_eq!(
+            connection.address(),
+            "10.0.0.1:15000",
+            "should route to leader connection"
+        );
     }
 
     #[test]
     fn location_router_debug_formatting() {
         let router = make_test_router();
         let debug_str = format!("{:?}", router);
-        assert!(debug_str.contains("LocationRouter"));
-        assert!(debug_str.contains("connection_cache"));
-        assert!(debug_str.contains("cooldown_tracker"));
+        assert!(
+            debug_str.contains("LocationRouter"),
+            "debug string should contain LocationRouter"
+        );
+        assert!(
+            debug_str.contains("connection_cache"),
+            "debug string should contain connection_cache"
+        );
+        assert!(
+            debug_str.contains("cooldown_tracker"),
+            "debug string should contain cooldown_tracker"
+        );
     }
 
     #[test]
@@ -1865,6 +2033,295 @@ mod tests {
         assert!(
             connection.address().starts_with("10.0.0."),
             "must successfully route even when candidate count exceeds stack buffer capacity"
+        );
+    }
+
+    #[tokio::test]
+    async fn location_router_records_real_traffic_on_routed_connection() {
+        let router = make_test_router();
+        populate_test_routing_table(&router, "10.0.0.1:15000", vec![0x01], vec![0x09]).await;
+
+        let past = Instant::now() - Duration::from_secs(20);
+        let mut addresses = HashSet::new();
+        addresses.insert("10.0.0.1:15000".to_string());
+        router
+            .endpoint_lifecycle_manager()
+            .update_active_addresses_at(router.database_scope(), addresses, past);
+
+        let initial_state = router
+            .endpoint_lifecycle_manager()
+            .get_endpoint_state("10.0.0.1:15000")
+            .expect("endpoint state must exist");
+        let initial_traffic_time = initial_state.last_real_traffic_at;
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+        let connection = router.resolve_connection(&context);
+        assert_eq!(
+            connection.address(),
+            "10.0.0.1:15000",
+            "resolved connection should match tablet address"
+        );
+
+        let updated_state = router
+            .endpoint_lifecycle_manager()
+            .get_endpoint_state("10.0.0.1:15000")
+            .expect("endpoint state must exist");
+        assert!(
+            updated_state.last_real_traffic_at > initial_traffic_time,
+            "real traffic timestamp must be updated after routing"
+        );
+    }
+
+    #[tokio::test]
+    async fn location_router_bypasses_transient_failure_evicted_tablet() {
+        let router = make_test_router();
+        populate_test_routing_table(&router, "10.0.0.1:15000", vec![0x01], vec![0x09]).await;
+
+        let mut addresses = HashSet::new();
+        addresses.insert("10.0.0.1:15000".to_string());
+        router
+            .endpoint_lifecycle_manager()
+            .update_active_addresses(router.database_scope(), addresses);
+
+        let connection = router
+            .connection_cache()
+            .get_if_present("10.0.0.1:15000")
+            .expect("connection must be present");
+        connection.set_transient_failure();
+
+        let now = Instant::now();
+        router
+            .endpoint_lifecycle_manager()
+            .probe_all_endpoints_at(now + Duration::from_secs(60));
+        router
+            .endpoint_lifecycle_manager()
+            .probe_all_endpoints_at(now + Duration::from_secs(120));
+        let evicted = router
+            .endpoint_lifecycle_manager()
+            .probe_all_endpoints_at(now + Duration::from_secs(180));
+        assert_eq!(
+            evicted.len(),
+            1,
+            "endpoint must be evicted due to transient failure"
+        );
+        assert!(
+            router
+                .endpoint_lifecycle_manager()
+                .is_transient_failure_evicted("10.0.0.1:15000"),
+            "endpoint must be marked as transient failure evicted"
+        );
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        let route = router.resolve_route(&context, 100, None, 1, None);
+        assert_eq!(
+            route.connection.address(),
+            "spanner.googleapis.com:443",
+            "must fall back to default connection when tablet is evicted"
+        );
+
+        let hint = route.routing_hint.expect("hint must be present");
+        assert_eq!(
+            hint.tablet_uid, 0,
+            "no tablet should be selected when all are unroutable"
+        );
+        assert_eq!(
+            hint.skipped_tablet_uid.len(),
+            1,
+            "transient failure evicted tablet must be recorded in skipped_tablet_uid"
+        );
+        assert_eq!(
+            hint.skipped_tablet_uid[0].tablet_uid, 10,
+            "skipped tablet uid must match evicted tablet"
+        );
+    }
+
+    #[tokio::test]
+    async fn location_router_requests_endpoint_recreation_when_connection_absent() {
+        let router = make_test_router();
+
+        let mut addresses = HashSet::new();
+        addresses.insert("10.0.0.1:15000".to_string());
+        router
+            .endpoint_lifecycle_manager()
+            .update_active_addresses(router.database_scope(), addresses);
+
+        let group = Group::new().set_group_uid(100u64).set_tablets(vec![
+            Tablet::default()
+                .set_tablet_uid(10u64)
+                .set_server_address("10.0.0.1:15000"),
+        ]);
+        let range = Range::new()
+            .set_group_uid(100u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+        router.key_range_cache().add_ranges(&update);
+
+        let now = Instant::now();
+        router
+            .endpoint_lifecycle_manager()
+            .check_idle_eviction_at(now + Duration::from_secs(4000));
+        assert!(
+            router
+                .endpoint_lifecycle_manager()
+                .get_endpoint_state("10.0.0.1:15000")
+                .is_none(),
+            "endpoint must be idle evicted"
+        );
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        let _ = router.resolve_route(&context, 100, None, 1, None);
+
+        assert!(
+            router
+                .endpoint_lifecycle_manager()
+                .get_endpoint_state("10.0.0.1:15000")
+                .is_some(),
+            "endpoint must be recreated in lifecycle manager when routed"
+        );
+    }
+
+    #[tokio::test]
+    async fn select_healthy_tablet_falls_back_to_p2c_followers_when_leader_is_unwarmed() {
+        let router = make_test_router();
+
+        let tablet_leader = Tablet::default()
+            .set_tablet_uid(10u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_distance(0u32);
+        let tablet_follower = Tablet::default()
+            .set_tablet_uid(11u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_distance(0u32);
+
+        let group = Group::new()
+            .set_group_uid(100u64)
+            .set_leader_index(0)
+            .set_tablets(vec![tablet_leader, tablet_follower]);
+        let range = Range::new()
+            .set_group_uid(100u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        // Pre-warm ONLY the follower connection; leader remains unwarmed
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.2:15000", &ClientConfig::default())
+            .await
+            .expect("init follower");
+
+        let key = vec![0x05];
+        let context_prefer_leader = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: true,
+            use_transaction_affinity: false,
+        };
+
+        let connection = router.resolve_connection(&context_prefer_leader);
+        assert_eq!(
+            connection.address(),
+            "10.0.0.2:15000",
+            "request preferring leader must fall back to warmed follower when leader is unwarmed"
+        );
+    }
+
+    #[tokio::test]
+    async fn location_router_transient_failure_connection_marked_unroutable_and_skipped() {
+        let router = make_test_router();
+
+        let tablet_leader = Tablet::default()
+            .set_tablet_uid(10u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_distance(0u32);
+        let tablet_follower = Tablet::default()
+            .set_tablet_uid(11u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_distance(0u32);
+
+        let group = Group::new()
+            .set_group_uid(100u64)
+            .set_leader_index(0)
+            .set_tablets(vec![tablet_leader, tablet_follower]);
+        let range = Range::new()
+            .set_group_uid(100u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let leader_connection = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("init leader");
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.2:15000", &ClientConfig::default())
+            .await
+            .expect("init follower");
+
+        // Mark the active leader connection as TRANSIENT_FAILURE
+        leader_connection.set_transient_failure();
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: true,
+            use_transaction_affinity: false,
+        };
+
+        let route = router.resolve_route(&context, 100, None, 1, None);
+        assert_eq!(
+            route.connection.address(),
+            "10.0.0.2:15000",
+            "must steer traffic to healthy follower when leader connection is in TRANSIENT_FAILURE"
+        );
+
+        let hint = route.routing_hint.expect("routing hint must be present");
+        assert_eq!(hint.tablet_uid, 11, "follower tablet must be selected");
+        let skipped_uids: Vec<u64> = hint
+            .skipped_tablet_uid
+            .iter()
+            .map(|skipped| skipped.tablet_uid)
+            .collect();
+        assert!(
+            skipped_uids.contains(&10),
+            "leader tablet UID 10 must be included in skipped_tablet_uid due to TRANSIENT_FAILURE"
         );
     }
 }

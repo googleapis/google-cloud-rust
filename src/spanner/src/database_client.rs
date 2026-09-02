@@ -34,6 +34,7 @@ use crate::routing::cache_subscriber::CacheSubscriber;
 use crate::routing::cache_updater::CacheUpdater;
 use crate::routing::connection_cache::ConnectionCache;
 use crate::routing::endpoint_cooldown::EndpointCooldownTracker;
+use crate::routing::endpoint_lifecycle::EndpointLifecycleManager;
 use crate::routing::key_extractor::{
     extract_execute_sql_request_routing, extract_mutation_routing_key,
     extract_mutations_routing_key, extract_proto_partition_read_request_routing_key,
@@ -577,6 +578,14 @@ impl DatabaseClient {
             .as_ref()
             .map(|routing| &routing.cache_subscriber)
     }
+    /// Returns a reference to the [`EndpointLifecycleManager`] if location-aware routing is enabled.
+    #[allow(dead_code)] // TODO: Used for lifecycle inspection in subsequent PRs
+    pub(crate) fn endpoint_lifecycle_manager(&self) -> Option<&EndpointLifecycleManager> {
+        self.location_routing
+            .as_ref()
+            .map(|routing| &*routing.endpoint_lifecycle_manager)
+    }
+
     /// Resolves the optimal [`ServerConnection`] and [`RoutingHint`] in a single pass for a request.
     fn resolve_request_route(
         &self,
@@ -1136,6 +1145,7 @@ pub(crate) struct LocationRoutingState {
     pub(crate) cache_updater: Arc<CacheUpdater>,
     pub(crate) key_recipe_cache: Arc<KeyRecipeCache>,
     pub(crate) cache_subscriber: CacheSubscriber,
+    pub(crate) endpoint_lifecycle_manager: Arc<EndpointLifecycleManager>,
 }
 
 const DEFAULT_ENDPOINT: &str = "spanner.googleapis.com:443";
@@ -1159,6 +1169,10 @@ impl LocationRoutingState {
 
         let default_connection = ServerConnection::new(default_endpoint, default_channel);
         let connection_cache = Arc::new(ConnectionCache::new(default_connection));
+        let endpoint_lifecycle_manager = Arc::new(EndpointLifecycleManager::with_client_config(
+            Arc::clone(&connection_cache),
+            spanner.config.clone(),
+        ));
         let key_range_cache = Arc::new(KeyRangeCache::new());
         let key_recipe_cache = Arc::new(KeyRecipeCache::new());
         let cooldown_tracker = Arc::new(EndpointCooldownTracker::new());
@@ -1167,23 +1181,28 @@ impl LocationRoutingState {
             database_name.clone(),
             Arc::clone(&key_range_cache),
             Arc::clone(&connection_cache),
+            Arc::clone(&endpoint_lifecycle_manager),
             cooldown_tracker,
             latency_registry,
         ));
         let cache_updater = Arc::new(CacheUpdater::new(
+            database_name.clone(),
             key_range_cache,
             Arc::clone(&key_recipe_cache),
             connection_cache,
+            Arc::clone(&endpoint_lifecycle_manager),
             spanner.config.clone(),
         ));
         let cache_subscriber =
             CacheSubscriber::start(database_name, spanner.clone(), Arc::clone(&cache_updater));
+        endpoint_lifecycle_manager.start_maintenance();
 
         Self {
             location_router,
             cache_updater,
             key_recipe_cache,
             cache_subscriber,
+            endpoint_lifecycle_manager,
         }
     }
 }
@@ -1191,6 +1210,7 @@ impl LocationRoutingState {
 impl Drop for LocationRoutingState {
     fn drop(&mut self) {
         self.cache_subscriber.stop();
+        self.endpoint_lifecycle_manager.stop_maintenance();
     }
 }
 
@@ -3225,6 +3245,10 @@ mod tests {
             database_client.cache_subscriber().is_none(),
             "cache subscriber should not be initialized when location-aware routing is disabled"
         );
+        assert!(
+            database_client.endpoint_lifecycle_manager().is_none(),
+            "endpoint lifecycle manager should not be initialized when location-aware routing is disabled"
+        );
     }
 
     #[tokio_test_no_panics]
@@ -3294,6 +3318,22 @@ mod tests {
             database_client.cache_subscriber().is_some(),
             "cache subscriber must be initialized when location-aware routing is enabled"
         );
+        assert!(
+            database_client.endpoint_lifecycle_manager().is_some(),
+            "endpoint lifecycle manager must be initialized when location-aware routing is enabled"
+        );
+        assert!(
+            database_client
+                .endpoint_lifecycle_manager()
+                .expect("lifecycle manager must exist")
+                .is_maintenance_active(),
+            "maintenance task must be active while client is alive"
+        );
+        let lifecycle_manager = database_client
+            .location_routing
+            .as_ref()
+            .map(|routing| Arc::clone(&routing.endpoint_lifecycle_manager))
+            .expect("lifecycle manager must exist");
 
         // Deterministically wait for the initial connection and subsequent reconnection attempt,
         // which guarantees that the first stream's CacheUpdate was completely ingested into KeyRangeCache.
@@ -3324,6 +3364,10 @@ mod tests {
         );
 
         drop(database_client);
+        assert!(
+            !lifecycle_manager.is_maintenance_active(),
+            "maintenance task must be stopped when client is dropped"
+        );
     }
 
     #[tokio_test_no_panics]
