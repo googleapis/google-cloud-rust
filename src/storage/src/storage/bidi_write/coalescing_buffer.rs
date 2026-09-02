@@ -117,7 +117,10 @@ mod tests {
 
     #[test]
     fn new_buffer_is_empty() {
+        // Arrange & Act.
         let mut buf = CoalescingBuffer::new();
+
+        // Assert.
         assert!(buf.is_empty());
         assert_eq!(buf.len(), 0);
         assert_eq!(buf.flush(), None);
@@ -125,8 +128,13 @@ mod tests {
 
     #[test]
     fn push_empty_chunk() {
+        // Arrange.
         let mut buf = CoalescingBuffer::new();
+
+        // Act.
         let ready = buf.push(Bytes::new());
+
+        // Assert.
         assert!(ready.is_empty());
         assert!(buf.is_empty());
         assert_eq!(buf.len(), 0);
@@ -134,36 +142,41 @@ mod tests {
 
     #[test]
     fn small_appends_coalesce_into_2mib() {
+        // Arrange.
         let mut buf = CoalescingBuffer::new();
         let payload_1mib = Bytes::from(vec![1u8; 1024 * 1024]);
 
-        // First 1 MiB -> no ready chunks
-        let ready = buf.push(payload_1mib.clone());
-        assert!(ready.is_empty());
+        // Act & Assert 1: First 1 MiB -> no ready chunks, buffered in accumulator.
+        let ready1 = buf.push(payload_1mib.clone());
+        assert!(ready1.is_empty());
         assert_eq!(buf.len(), 1024 * 1024);
         assert!(!buf.is_empty());
 
-        // Second 1 MiB -> completes 2 MiB chunk
-        let ready = buf.push(payload_1mib.clone());
-        assert_eq!(ready.len(), 1);
-        assert_eq!(ready[0].len(), COALESCING_CHUNK_SIZE);
-        assert_eq!(&ready[0][..1024 * 1024], payload_1mib.as_ref());
-        assert_eq!(&ready[0][1024 * 1024..], payload_1mib.as_ref());
+        // Act & Assert 2: Second 1 MiB -> completes 2 MiB coalesced chunk.
+        let ready2 = buf.push(payload_1mib.clone());
+        assert_eq!(ready2.len(), 1);
+        assert_eq!(ready2[0].len(), COALESCING_CHUNK_SIZE);
+        assert_eq!(&ready2[0][..1024 * 1024], payload_1mib.as_ref());
+        assert_eq!(&ready2[0][1024 * 1024..], payload_1mib.as_ref());
         assert!(buf.is_empty());
         assert_eq!(buf.len(), 0);
     }
 
     #[test]
     fn large_append_fast_path_zero_copy() {
+        // Arrange.
         let mut buf = CoalescingBuffer::new();
         let payload_5mib = Bytes::from(vec![42u8; 5 * 1024 * 1024]);
 
+        // Act.
         let ready = buf.push(payload_5mib.clone());
+
+        // Assert: 2 complete chunks returned immediately via zero-copy slicing.
         assert_eq!(ready.len(), 2);
         assert_eq!(ready[0].len(), COALESCING_CHUNK_SIZE);
         assert_eq!(ready[1].len(), COALESCING_CHUNK_SIZE);
 
-        // Verify zero-copy: chunk memory pointers match the exact slices of the source payload
+        // Verify zero-copy: chunk memory pointers match the exact slices of the source payload.
         assert_eq!(
             ready[0].as_ptr(),
             payload_5mib[..COALESCING_CHUNK_SIZE].as_ptr()
@@ -173,6 +186,7 @@ mod tests {
             payload_5mib[COALESCING_CHUNK_SIZE..2 * COALESCING_CHUNK_SIZE].as_ptr()
         );
 
+        // Remaining 1 MiB is held in accumulator.
         assert_eq!(buf.len(), 1024 * 1024);
         assert!(!buf.is_empty());
 
@@ -183,22 +197,23 @@ mod tests {
 
     #[test]
     fn lazy_allocation_and_flush_capacity() {
+        // Arrange.
         let mut buf = CoalescingBuffer::new();
         assert_eq!(buf.capacity(), 0);
 
-        // Chunks >= 2 MiB follow the fast path and do not allocate buffer capacity
+        // Act & Assert 1: Chunks >= 2 MiB follow fast path without allocating in buffer.
         let exact = Bytes::from(vec![1u8; COALESCING_CHUNK_SIZE]);
         let ready = buf.push(exact);
         assert_eq!(ready.len(), 1);
         assert_eq!(buf.capacity(), 0);
 
-        // Residual data triggers lazy allocation
+        // Act & Assert 2: Residual data (< 2 MiB) triggers lazy allocation.
         let partial = Bytes::from_static(b"hello world");
         let ready = buf.push(partial);
         assert!(ready.is_empty());
         assert!(buf.capacity() >= COALESCING_CHUNK_SIZE);
 
-        // Flushing drains data without re-reserving
+        // Act & Assert 3: Flushing drains data without eagerly re-allocating.
         let flushed = buf.flush();
         assert!(flushed.is_some());
         assert_eq!(buf.len(), 0);
@@ -206,7 +221,10 @@ mod tests {
 
     #[test]
     fn default_buffer() {
+        // Arrange & Act.
         let buf = CoalescingBuffer::default();
+
+        // Assert.
         assert!(buf.is_empty());
         assert_eq!(buf.len(), 0);
         assert_eq!(buf.capacity(), 0);
@@ -214,33 +232,41 @@ mod tests {
 
     #[test]
     fn mixed_small_and_large_appends() {
+        // Arrange.
         let mut buf = CoalescingBuffer::new();
         let small = Bytes::from(vec![0xAAu8; 512 * 1024]); // 512 KiB
         let large = Bytes::from(vec![0xBBu8; 3 * 1024 * 1024]); // 3 MiB
 
-        // Push 512 KiB
+        // Act 1: Push 512 KiB.
         let ready1 = buf.push(small);
+        // Assert 1.
         assert!(ready1.is_empty());
         assert_eq!(buf.len(), 512 * 1024);
 
-        // Push 3 MiB (needs 1.5 MiB to seal first chunk, then 1.5 MiB remains)
+        // Act 2: Push 3 MiB (needs 1.5 MiB to seal first chunk, then 1.5 MiB remains).
         let ready2 = buf.push(large);
+        // Assert 2.
         assert_eq!(ready2.len(), 1);
         assert_eq!(ready2[0].len(), COALESCING_CHUNK_SIZE);
-        // Residual in buffer is 1.5 MiB
         assert_eq!(buf.len(), (1024 + 512) * 1024);
 
+        // Act 3: Flush residual.
         let residual = buf.flush().unwrap();
+        // Assert 3.
         assert_eq!(residual.len(), (1024 + 512) * 1024);
         assert!(buf.is_empty());
     }
 
     #[test]
     fn exact_chunk_size_append() {
+        // Arrange.
         let mut buf = CoalescingBuffer::new();
         let exact = Bytes::from(vec![0x77u8; COALESCING_CHUNK_SIZE]);
 
+        // Act.
         let ready = buf.push(exact.clone());
+
+        // Assert.
         assert_eq!(ready.len(), 1);
         assert_eq!(ready[0], exact);
         assert!(buf.is_empty());
@@ -249,10 +275,14 @@ mod tests {
 
     #[test]
     fn multiple_flushes() {
+        // Arrange.
         let mut buf = CoalescingBuffer::new();
         let payload = Bytes::from_static(b"hello world");
 
+        // Act.
         buf.push(payload.clone());
+
+        // Assert.
         assert_eq!(buf.flush(), Some(payload));
         assert_eq!(buf.flush(), None);
         assert_eq!(buf.flush(), None);
@@ -260,7 +290,10 @@ mod tests {
 
     #[test]
     fn flush_empty_buffer() {
+        // Arrange.
         let mut buf = CoalescingBuffer::new();
+
+        // Act & Assert.
         assert_eq!(buf.flush(), None);
     }
 }

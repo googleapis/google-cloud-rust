@@ -897,6 +897,7 @@ mod tests {
 
     #[tokio::test]
     async fn finalize_with_coalesced_residual() -> anyhow::Result<()> {
+        // Arrange: Transport with 1 MiB residual in the coalescing buffer.
         let (tx, mut rx) = mpsc::channel(10);
         let mut transport = AppendableObjectWriterTransport {
             tx,
@@ -908,6 +909,7 @@ mod tests {
             worker_handle: None,
         };
 
+        // Act: Append partial data (< 2 MiB) and finalize.
         let handle = tokio::spawn(async move {
             // Append 1 MiB (< 2 MiB) into coalescing buffer
             transport
@@ -918,7 +920,7 @@ mod tests {
             transport.finalize().await.unwrap()
         });
 
-        // First intent: Append from flushed residual
+        // Assert: First intent is Append for the drained 1 MiB residual.
         let intent1 = rx.recv().await.unwrap();
         if let UploadIntent::Append(req) = intent1 {
             assert_eq!(req.write_offset, 0);
@@ -926,7 +928,7 @@ mod tests {
             panic!("expected Append intent for residual");
         }
 
-        // Second intent: Finalize
+        // Assert: Second intent is Finalize at write_offset 1 MiB.
         let intent2 = rx.recv().await.unwrap();
         if let UploadIntent::Finalize(req, sender) = intent2 {
             assert_eq!(req.write_offset, ONE_MIB as i64);
