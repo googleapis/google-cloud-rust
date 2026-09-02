@@ -76,6 +76,42 @@ impl BigQueryWrite {
         super::builder::big_query_write::CreateWriteStream::new(self.inner.clone())
     }
 
+    /// Appends data to the given stream.
+    ///
+    /// If `offset` is specified, the `offset` is checked against the end of
+    /// stream. The server returns `OUT_OF_RANGE` in `AppendRowsResponse` if an
+    /// attempt is made to append to an offset beyond the current end of the stream
+    /// or `ALREADY_EXISTS` if user provides an `offset` that has already been
+    /// written to. User can retry with adjusted offset within the same RPC
+    /// connection. If `offset` is not specified, append happens at the end of the
+    /// stream.
+    ///
+    /// The response contains an optional offset at which the append
+    /// happened.  No offset information will be returned for appends to a
+    /// default stream.
+    ///
+    /// Responses are received in the same order in which requests are sent.
+    /// There will be one response for each successful inserted request.  Responses
+    /// may optionally embed error information if the originating AppendRequest was
+    /// not successfully processed.
+    ///
+    /// The specifics of when successfully appended data is made visible to the
+    /// table are governed by the type of stream:
+    ///
+    /// * For COMMITTED streams (which includes the default stream), data is
+    ///   visible immediately upon successful append.
+    ///
+    /// * For BUFFERED streams, data is made visible via a subsequent `FlushRows`
+    ///   rpc which advances a cursor to a newer offset in the stream.
+    ///
+    /// * For PENDING streams, data is not made visible until the stream itself is
+    ///   finalized (via the `FinalizeWriteStream` rpc), and the stream is explicitly
+    ///   committed via the `BatchCommitWriteStreams` rpc.
+    ///
+    pub(crate) fn append_rows(&self) -> super::builder::big_query_write::AppendRows {
+        super::builder::big_query_write::AppendRows::new(self.inner.clone())
+    }
+
     /// Gets information about a write stream.
     pub(crate) fn get_write_stream(&self) -> super::builder::big_query_write::GetWriteStream {
         super::builder::big_query_write::GetWriteStream::new(self.inner.clone())

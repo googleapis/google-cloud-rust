@@ -510,8 +510,6 @@ libraries:
     copyright_year: "2026"
     output: src/bigquery
     rust:
-      include_bidi_streaming_methods: false
-      include_server_streaming_methods: false
       modules:
         - module_path: crate::write::generated::gapic_storage::model
           output: src/bigquery/src/write/generated/convert/storage
