@@ -35,11 +35,13 @@ use tokio::sync::oneshot;
 /// Defines the maximum number of queued intents in the foreground-to-worker channel.
 ///
 /// Each write intent carries a coalesced chunk of up to [`MAX_WRITE_CHUNK_SIZE`] (2 MiB).
-/// Sizing this queue to 4 slots (8 MiB total in-flight payload) balances two goals:
-/// 1. Pipelining: Keeps the background worker stream continuously saturated without network starvation.
+/// Sizing this queue to 4 slots means there is a total of 8 MiB total in-flight payload.
+/// This balances two goals:
+/// 1. Pipelining: Keeps the background worker stream continuously saturated without network
+///    starvation.
 /// 2. Backpressure and Memory Footprint: Bounds queued channel memory to 8 MiB (4 slots × 2 MiB),
-///    which combined with the 2 MiB coalescing buffer keeps total foreground in-flight buffer memory
-///    predictably capped around 10 MiB before foreground `.append()` calls suspend.
+///    which combined with the 2 MiB coalescing buffer keeps total foreground in-flight buffer
+///    memory predictably capped around 10 MiB before foreground `.append()` calls suspend.
 const CHANNEL_BUFFER_SIZE: usize = 4;
 
 #[derive(Clone, Copy, Debug)]
