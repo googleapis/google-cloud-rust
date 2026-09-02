@@ -25,7 +25,13 @@ pub const COALESCING_CHUNK_SIZE: usize = MAX_WRITE_CHUNK_SIZE;
 /// Batches small write operations into standard [`COALESCING_CHUNK_SIZE`] (2 MiB) chunks.
 ///
 /// Provides zero-copy slicing for incoming chunks larger than or equal to [`COALESCING_CHUNK_SIZE`]
-/// and buffers residual partial writes until filled or explicitly flushed via [`flush`](Self::flush).
+/// and lazily buffers residual partial writes until filled or explicitly flushed via
+/// [`flush`](Self::flush).
+///
+/// Once chunks are coalesced and returned to the caller, downstream write failures are handled at
+/// the transport and application level: transient stream failures are replayed by the background
+/// worker, and terminal errors are recovered by reopening the object at the server's acknowledged
+/// `persisted_size`.
 #[derive(Debug)]
 pub struct CoalescingBuffer {
     buffer: BytesMut,
@@ -38,10 +44,10 @@ impl Default for CoalescingBuffer {
 }
 
 impl CoalescingBuffer {
-    /// Creates a new, empty coalescing buffer with pre-allocated 2 MiB capacity.
+    /// Creates a new, empty coalescing buffer with lazy allocation.
     pub fn new() -> Self {
         Self {
-            buffer: BytesMut::with_capacity(COALESCING_CHUNK_SIZE),
+            buffer: BytesMut::new(),
         }
     }
 
@@ -56,10 +62,9 @@ impl CoalescingBuffer {
                 self.buffer.extend_from_slice(&chunk);
                 return ready_chunks;
             }
-            let prefix = chunk.slice(..needed);
-            self.buffer.extend_from_slice(&prefix);
+            // SAFETY: `needed` is guaranteed to be within the bounds of `chunk`.
+            self.buffer.extend_from_slice(&chunk[..needed]);
             ready_chunks.push(self.buffer.split().freeze());
-            self.buffer.reserve(COALESCING_CHUNK_SIZE);
             chunk = chunk.slice(needed..);
         }
 
@@ -69,8 +74,12 @@ impl CoalescingBuffer {
             chunk = chunk.slice(COALESCING_CHUNK_SIZE..);
         }
 
-        // 3. Store remaining trailing bytes (< 2 MiB) in accumulator.
+        // 3. Store remaining trailing bytes (< 2 MiB) in accumulator with lazy capacity allocation.
         if !chunk.is_empty() {
+            if self.buffer.capacity() < COALESCING_CHUNK_SIZE {
+                self.buffer
+                    .reserve(COALESCING_CHUNK_SIZE - self.buffer.len());
+            }
             self.buffer.extend_from_slice(&chunk);
         }
 
@@ -80,12 +89,10 @@ impl CoalescingBuffer {
     /// Drains any residual unsealed buffered bytes (< 2 MiB).
     pub fn flush(&mut self) -> Option<Bytes> {
         if self.buffer.is_empty() {
-            None
-        } else {
-            let residual = self.buffer.split().freeze();
-            self.buffer.reserve(COALESCING_CHUNK_SIZE);
-            Some(residual)
+            return None;
         }
+        let residual = self.buffer.split().freeze();
+        Some(residual)
     }
 
     /// Returns `true` if the coalescing buffer contains no bytes.
@@ -96,6 +103,11 @@ impl CoalescingBuffer {
     /// Returns the number of unsealed bytes currently stored in the buffer.
     pub fn len(&self) -> usize {
         self.buffer.len()
+    }
+
+    /// Returns the allocated byte capacity of the internal accumulator.
+    pub fn capacity(&self) -> usize {
+        self.buffer.capacity()
     }
 }
 
@@ -146,16 +158,58 @@ mod tests {
         let mut buf = CoalescingBuffer::new();
         let payload_5mib = Bytes::from(vec![42u8; 5 * 1024 * 1024]);
 
-        let ready = buf.push(payload_5mib);
+        let ready = buf.push(payload_5mib.clone());
         assert_eq!(ready.len(), 2);
         assert_eq!(ready[0].len(), COALESCING_CHUNK_SIZE);
         assert_eq!(ready[1].len(), COALESCING_CHUNK_SIZE);
+
+        // Verify zero-copy: chunk memory pointers match the exact slices of the source payload
+        assert_eq!(
+            ready[0].as_ptr(),
+            payload_5mib[..COALESCING_CHUNK_SIZE].as_ptr()
+        );
+        assert_eq!(
+            ready[1].as_ptr(),
+            payload_5mib[COALESCING_CHUNK_SIZE..2 * COALESCING_CHUNK_SIZE].as_ptr()
+        );
+
         assert_eq!(buf.len(), 1024 * 1024);
         assert!(!buf.is_empty());
 
         let residual = buf.flush();
         assert_eq!(residual.map(|b| b.len()), Some(1024 * 1024));
         assert!(buf.is_empty());
+    }
+
+    #[test]
+    fn lazy_allocation_and_flush_capacity() {
+        let mut buf = CoalescingBuffer::new();
+        assert_eq!(buf.capacity(), 0);
+
+        // Chunks >= 2 MiB follow the fast path and do not allocate buffer capacity
+        let exact = Bytes::from(vec![1u8; COALESCING_CHUNK_SIZE]);
+        let ready = buf.push(exact);
+        assert_eq!(ready.len(), 1);
+        assert_eq!(buf.capacity(), 0);
+
+        // Residual data triggers lazy allocation
+        let partial = Bytes::from_static(b"hello world");
+        let ready = buf.push(partial);
+        assert!(ready.is_empty());
+        assert!(buf.capacity() >= COALESCING_CHUNK_SIZE);
+
+        // Flushing drains data without re-reserving
+        let flushed = buf.flush();
+        assert!(flushed.is_some());
+        assert_eq!(buf.len(), 0);
+    }
+
+    #[test]
+    fn default_buffer() {
+        let buf = CoalescingBuffer::default();
+        assert!(buf.is_empty());
+        assert_eq!(buf.len(), 0);
+        assert_eq!(buf.capacity(), 0);
     }
 
     #[test]

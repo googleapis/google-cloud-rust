@@ -37,9 +37,9 @@ use tokio::sync::oneshot;
 /// Each write intent carries a coalesced chunk of up to [`MAX_WRITE_CHUNK_SIZE`] (2 MiB).
 /// Sizing this queue to 4 slots (8 MiB total in-flight payload) balances two goals:
 /// 1. Pipelining: Keeps the background worker stream continuously saturated without network starvation.
-/// 2. Backpressure and Memory Footprint: Bounds queued channel memory to 8 MiB so that combined
-///    with the 32 MiB worker replay buffer and 2 MiB coalescing buffer, total in-flight data
-///    remains predictably capped around 42 MiB before foreground `.append()` calls suspend.
+/// 2. Backpressure and Memory Footprint: Bounds queued channel memory to 8 MiB (4 slots × 2 MiB),
+///    which combined with the 2 MiB coalescing buffer keeps total foreground in-flight buffer memory
+///    predictably capped around 10 MiB before foreground `.append()` calls suspend.
 const CHANNEL_BUFFER_SIZE: usize = 4;
 
 #[derive(Clone, Copy, Debug)]
@@ -892,6 +892,59 @@ mod tests {
         let err = handle.await?.unwrap_err();
         assert!(err.to_string().contains("trailing metadata EOF error!"));
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn finalize_with_coalesced_residual() -> anyhow::Result<()> {
+        let (tx, mut rx) = mpsc::channel(10);
+        let mut transport = AppendableObjectWriterTransport {
+            tx,
+            write_offset: 0,
+            running_crc32c: Some(0),
+            generation: 123456,
+            persisted_size: 0,
+            coalescing_buffer: CoalescingBuffer::new(),
+            worker_handle: None,
+        };
+
+        let handle = tokio::spawn(async move {
+            // Append 1 MiB (< 2 MiB) into coalescing buffer
+            transport
+                .append(bytes::Bytes::from(vec![1u8; ONE_MIB]))
+                .await
+                .unwrap();
+            // Finalize should drain the 1 MiB residual and then send Finalize intent
+            transport.finalize().await.unwrap()
+        });
+
+        // First intent: Append from flushed residual
+        let intent1 = rx.recv().await.unwrap();
+        if let UploadIntent::Append(req) = intent1 {
+            assert_eq!(req.write_offset, 0);
+        } else {
+            panic!("expected Append intent for residual");
+        }
+
+        // Second intent: Finalize
+        let intent2 = rx.recv().await.unwrap();
+        if let UploadIntent::Finalize(req, sender) = intent2 {
+            assert_eq!(req.write_offset, ONE_MIB as i64);
+            let resp = BidiWriteObjectResponse {
+                write_status: Some(WriteStatus::Resource(Object {
+                    name: "finalized-obj".into(),
+                    generation: 123456,
+                    ..Default::default()
+                })),
+                ..Default::default()
+            };
+            sender.send(Ok(resp)).unwrap();
+        } else {
+            panic!("expected Finalize intent");
+        }
+
+        let obj = handle.await?;
+        assert_eq!(obj.name, "finalized-obj");
         Ok(())
     }
 
