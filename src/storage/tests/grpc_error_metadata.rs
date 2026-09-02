@@ -46,11 +46,7 @@ async fn open_object_error_exposes_grpc_metadata_in_headers() -> Result<()> {
     };
 
     let mut metadata = MetadataMap::new();
-    metadata.insert(
-        CUSTOM_METADATA_KEY,
-        CUSTOM_METADATA_VALUE
-            .parse()?,
-    );
+    metadata.insert(CUSTOM_METADATA_KEY, CUSTOM_METADATA_VALUE.parse()?);
 
     let status = Status::with_details_and_metadata(
         Code::PermissionDenied,
