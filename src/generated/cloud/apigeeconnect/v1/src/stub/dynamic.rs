@@ -36,3 +36,30 @@ impl<T: super::ConnectionService> ConnectionService for T {
         T::list_connections(self, req, options).await
     }
 }
+
+/// A dyn-compatible, crate-private version of [super::Tether].
+#[async_trait::async_trait]
+pub trait Tether: std::fmt::Debug + Send + Sync {
+    fn egress(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::EgressResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::EgressRequest>,
+    );
+}
+
+/// All implementations of [super::Tether] also implement [Tether].
+#[async_trait::async_trait]
+impl<T: super::Tether> Tether for T {
+    /// Forwards the call to the implementation provided by `T`.
+    fn egress(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::EgressResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::EgressRequest>,
+    ) {
+        T::egress(self, options)
+    }
+}

@@ -671,6 +671,24 @@ impl DataChatService {
     /// [Message][google.cloud.geminidataanalytics.v1.Message] objects.
     ///
     /// [google.cloud.geminidataanalytics.v1.Message]: crate::model::Message
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_geminidataanalytics_v1::client::DataChatService;
+    /// use google_cloud_geminidataanalytics_v1::Result;
+    /// async fn sample(
+    ///    client: &DataChatService
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.chat()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn chat(&self) -> super::builder::data_chat_service::Chat {
         super::builder::data_chat_service::Chat::new(self.inner.clone())
     }

@@ -16,13 +16,6 @@
 
 //! Google Cloud Client Libraries for Rust - Vertex AI API
 //!
-//! **WARNING:** some RPCs have no corresponding Rust function to call them.
-//! Typically these are streaming RPCs. We expect adding these RPCs in a
-//! way that does not break the existing APIs or changes their behavior in a
-//! significant way. We do anticipate a number of new crate dependencies
-//! will be required. If you need these RPCs please open an issue in our
-//! GitHub repository.
-//!
 //! This crate contains traits, types, and functions to interact with Vertex AI API
 //! Most applications will use the structs defined in the [client] module.
 //!
@@ -124,7 +117,10 @@ pub(crate) mod transport;
 
 #[cfg(any(
     feature = "feature-online-store-service",
+    feature = "featurestore-online-serving-service",
     feature = "prediction-service",
+    feature = "reasoning-engine-execution-service",
+    feature = "tensorboard-service",
 ))]
 #[doc(hidden)]
 #[allow(clippy::all)]
@@ -221,6 +217,16 @@ pub(crate) mod info {
                 library_type: gaxi::api_header::GAPIC,
             };
             ac.rest_header_value()
+        });
+    #[allow(dead_code)]
+    pub(crate) static X_GOOG_API_CLIENT_GRPC_HEADER: std::sync::LazyLock<String> =
+        std::sync::LazyLock::new(|| {
+            let ac = gaxi::api_header::XGoogApiClient {
+                name: NAME,
+                version: VERSION,
+                library_type: gaxi::api_header::GAPIC,
+            };
+            ac.grpc_header_value()
         });
 }
 

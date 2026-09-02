@@ -352,6 +352,7 @@ where
     T: super::stub::DataChatService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 

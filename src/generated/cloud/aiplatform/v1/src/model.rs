@@ -61225,6 +61225,8 @@ pub mod read_feature_values_response {
 
 /// Request message for
 /// [FeaturestoreOnlineServingService.StreamingReadFeatureValues][google.cloud.aiplatform.v1.FeaturestoreOnlineServingService.StreamingReadFeatureValues].
+///
+/// [google.cloud.aiplatform.v1.FeaturestoreOnlineServingService.StreamingReadFeatureValues]: crate::client::FeaturestoreOnlineServingService::streaming_read_feature_values
 #[cfg(feature = "featurestore-online-serving-service")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -116422,6 +116424,8 @@ impl wkt::message::Message for RawPredictRequest {
 
 /// Request message for
 /// [PredictionService.StreamRawPredict][google.cloud.aiplatform.v1.PredictionService.StreamRawPredict].
+///
+/// [google.cloud.aiplatform.v1.PredictionService.StreamRawPredict]: crate::client::PredictionService::stream_raw_predict
 #[cfg(feature = "prediction-service")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -138159,6 +138163,8 @@ impl wkt::message::Message for GetTensorboardRunRequest {
 
 /// Request message for
 /// [TensorboardService.ReadTensorboardBlobData][google.cloud.aiplatform.v1.TensorboardService.ReadTensorboardBlobData].
+///
+/// [google.cloud.aiplatform.v1.TensorboardService.ReadTensorboardBlobData]: crate::client::TensorboardService::read_tensorboard_blob_data
 #[cfg(feature = "tensorboard-service")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -138226,6 +138232,8 @@ impl wkt::message::Message for ReadTensorboardBlobDataRequest {
 
 /// Response message for
 /// [TensorboardService.ReadTensorboardBlobData][google.cloud.aiplatform.v1.TensorboardService.ReadTensorboardBlobData].
+///
+/// [google.cloud.aiplatform.v1.TensorboardService.ReadTensorboardBlobData]: crate::client::TensorboardService::read_tensorboard_blob_data
 #[cfg(feature = "tensorboard-service")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]

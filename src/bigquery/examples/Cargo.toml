@@ -26,6 +26,7 @@ categories.workspace = true
 [dependencies]
 anyhow.workspace           = true
 arrow                      = { workspace = true, features = ["ipc"] }
+arrow-json.workspace       = true
 futures.workspace          = true
 google-cloud-bigquery      = { workspace = true, features = ["default"] }
 google-cloud-bigquery-v2   = { workspace = true, features = ["default"] }

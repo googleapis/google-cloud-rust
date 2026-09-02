@@ -16,13 +16,6 @@
 
 //! Google Cloud Client Libraries for Rust - Gemini Enterprise for Customer Experience API
 //!
-//! **WARNING:** some RPCs have no corresponding Rust function to call them.
-//! Typically these are streaming RPCs. We expect adding these RPCs in a
-//! way that does not break the existing APIs or changes their behavior in a
-//! significant way. We do anticipate a number of new crate dependencies
-//! will be required. If you need these RPCs please open an issue in our
-//! GitHub repository.
-//!
 //! This crate contains traits, types, and functions to interact with Gemini Enterprise for Customer Experience API
 //! Most applications will use the structs defined in the [client] module.
 //!
@@ -95,6 +88,15 @@ pub(crate) mod tracing;
 #[doc(hidden)]
 pub(crate) mod transport;
 
+#[doc(hidden)]
+#[allow(clippy::all)]
+#[allow(unused_imports)]
+#[allow(dead_code)]
+#[allow(missing_docs)]
+pub(crate) mod prost {
+    include!("prost/includes.rs");
+}
+
 /// The default host used by the service.
 const DEFAULT_HOST: &str = "https://ces.googleapis.com/";
 
@@ -109,6 +111,16 @@ pub(crate) mod info {
                 library_type: gaxi::api_header::GAPIC,
             };
             ac.rest_header_value()
+        });
+    #[allow(dead_code)]
+    pub(crate) static X_GOOG_API_CLIENT_GRPC_HEADER: std::sync::LazyLock<String> =
+        std::sync::LazyLock::new(|| {
+            let ac = gaxi::api_header::XGoogApiClient {
+                name: NAME,
+                version: VERSION,
+                library_type: gaxi::api_header::GAPIC,
+            };
+            ac.grpc_header_value()
         });
 }
 

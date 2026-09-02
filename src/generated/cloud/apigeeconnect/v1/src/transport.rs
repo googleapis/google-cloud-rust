@@ -16,6 +16,7 @@
 
 #[allow(unused_imports)]
 use crate::Error;
+#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements [ConnectionService](super::stub::ConnectionService) using a [gaxi::http::ReqwestClient].
@@ -116,5 +117,81 @@ impl super::stub::ConnectionService for ConnectionService {
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner.execute(builder, body, options).await
+    }
+}
+
+/// Implements [Tether](super::stub::Tether) using a [gaxi::http::ReqwestClient].
+#[derive(Clone)]
+pub struct Tether {
+    inner: gaxi::http::ReqwestClient,
+    grpc_inner: gaxi::grpc::Client,
+}
+
+impl std::fmt::Debug for Tether {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        let mut builder = f.debug_struct("Tether");
+        builder.field("inner", &self.inner);
+        builder.field("grpc_inner", &self.grpc_inner);
+        builder.finish()
+    }
+}
+
+impl Tether {
+    pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
+        let inner = gaxi::http::ReqwestClient::new(config.clone(), crate::DEFAULT_HOST).await?;
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
+        let grpc_inner = if tracing_is_enabled {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                crate::DEFAULT_HOST,
+                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
+        };
+        Ok(Self { inner, grpc_inner })
+    }
+}
+
+impl super::stub::Tether for Tether {
+    fn egress(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::EgressResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::EgressRequest>,
+    ) {
+        let x_goog_request_params = "";
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.cloud.apigeeconnect.v1.Tether",
+                "Egress",
+            ));
+            e
+        };
+        let path =
+            http::uri::PathAndQuery::from_static("/google.cloud.apigeeconnect.v1.Tether/Egress");
+
+        self.grpc_inner
+            .execute_bidi_streaming::<
+                crate::model::EgressResponse,
+                crate::model::EgressRequest,
+                crate::prost::google::cloud::apigeeconnect::v1::EgressResponse,
+                crate::prost::google::cloud::apigeeconnect::v1::EgressRequest,
+            >(
+                extensions,
+                path,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
+                x_goog_request_params,
+            )
     }
 }

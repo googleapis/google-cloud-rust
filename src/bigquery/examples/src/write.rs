@@ -13,6 +13,8 @@
 // limitations under the License.
 
 mod arrow_default;
+mod json_default;
+mod json_pending;
 
 use crate::{create_dataset, create_table, delete_dataset, random_dataset_id};
 use google_cloud_bigquery_v2::client::{DatasetService, TableService};
@@ -39,6 +41,8 @@ pub async fn run_samples() -> anyhow::Result<()> {
 
     let result = async {
         arrow_default::sample(&project_id, &dataset_id, table_id).await?;
+        json_default::sample(&project_id, &dataset_id, table_id).await?;
+        json_pending::sample(&project_id, &dataset_id, table_id).await?;
         Ok(())
     }
     .await;

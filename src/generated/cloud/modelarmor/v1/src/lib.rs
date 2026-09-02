@@ -106,6 +106,16 @@ pub(crate) mod info {
             };
             ac.rest_header_value()
         });
+    #[allow(dead_code)]
+    pub(crate) static X_GOOG_API_CLIENT_GRPC_HEADER: std::sync::LazyLock<String> =
+        std::sync::LazyLock::new(|| {
+            let ac = gaxi::api_header::XGoogApiClient {
+                name: NAME,
+                version: VERSION,
+                library_type: gaxi::api_header::GAPIC,
+            };
+            ac.grpc_header_value()
+        });
 }
 
 // Define some shortcuts for imported crates.

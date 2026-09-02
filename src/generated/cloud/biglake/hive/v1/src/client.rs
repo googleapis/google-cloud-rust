@@ -521,6 +521,24 @@ impl HiveMetastoreService {
     }
 
     /// Streams list of partitions from a table.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_hive_v1::client::HiveMetastoreService;
+    /// use google_cloud_biglake_hive_v1::Result;
+    /// async fn sample(
+    ///    client: &HiveMetastoreService
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.list_partitions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_partitions(&self) -> super::builder::hive_metastore_service::ListPartitions {
         super::builder::hive_metastore_service::ListPartitions::new(self.inner.clone())
     }

@@ -22,6 +22,7 @@ where
     T: super::stub::RoutesPreferred + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 

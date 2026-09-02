@@ -591,6 +591,24 @@ impl Lineage {
     ///
     /// * `datalineage.processes.get` permission for the project where the process
     ///   is stored.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.search_lineage_streaming()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_lineage_streaming(&self) -> super::builder::lineage::SearchLineageStreaming {
         super::builder::lineage::SearchLineageStreaming::new(self.inner.clone())
     }

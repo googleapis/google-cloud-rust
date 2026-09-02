@@ -16,6 +16,7 @@
 
 #[allow(unused_imports)]
 use crate::Error;
+#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements [Compliance](super::stub::Compliance) using a [gaxi::http::ReqwestClient].
@@ -1817,7 +1818,7 @@ impl super::stub::Echo for Echo {
                 path,
                 req,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 &x_goog_request_params,
             )
             .await
@@ -1852,7 +1853,7 @@ impl super::stub::Echo for Echo {
                 extensions,
                 path,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 x_goog_request_params,
             )
     }
@@ -5090,7 +5091,7 @@ impl super::stub::Messaging for Messaging {
                 path,
                 req,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 &x_goog_request_params,
             )
             .await
@@ -5126,7 +5127,7 @@ impl super::stub::Messaging for Messaging {
                 extensions,
                 path,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 x_goog_request_params,
             )
     }
@@ -6356,7 +6357,7 @@ impl super::stub::SequenceService for SequenceService {
                 path,
                 req,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 &x_goog_request_params,
             )
             .await

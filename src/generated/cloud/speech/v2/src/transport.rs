@@ -16,6 +16,7 @@
 
 #[allow(unused_imports)]
 use crate::Error;
+#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements [Speech](super::stub::Speech) using a [gaxi::http::ReqwestClient].
@@ -614,7 +615,7 @@ impl super::stub::Speech for Speech {
                 extensions,
                 path,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 x_goog_request_params,
             )
     }
