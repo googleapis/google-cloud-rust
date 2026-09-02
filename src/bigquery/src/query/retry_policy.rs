@@ -29,7 +29,6 @@ use std::time::Duration;
 
 /// Follows the RPC retry strategy recommended by the BigQuery guides on error handling.
 #[derive(Clone, Debug)]
-#[allow(dead_code)]
 pub(crate) struct RetryableErrors;
 
 impl RetryPolicy for RetryableErrors {
@@ -58,7 +57,6 @@ impl RetryPolicy for RetryableErrors {
     }
 }
 
-#[allow(dead_code)]
 pub(crate) fn default_retry_policy() -> Arc<dyn RetryPolicy> {
     Arc::new(RetryableErrors)
 }
@@ -166,7 +164,6 @@ pub(crate) fn is_retryable_errors(errors: &[ErrorProto]) -> bool {
     !errors.is_empty() && errors.iter().all(|e| is_retryable_error_reason(&e.reason))
 }
 
-#[allow(dead_code)]
 pub(crate) fn is_retryable_error_reason(reason: &str) -> bool {
     matches!(
         reason,
