@@ -461,7 +461,7 @@ pub enum StatusDetails {
 
     /// Describes the cause of the error with structured details.
     ///
-    /// See [ErrorInfo][google_cloud_rpc::model::ErrorInfo] for more information.
+    /// See [ErrorInfo] for more information.
     #[serde(rename = "type.googleapis.com/google.rpc.ErrorInfo")]
     ErrorInfo(google_cloud_rpc::model::ErrorInfo),
 
