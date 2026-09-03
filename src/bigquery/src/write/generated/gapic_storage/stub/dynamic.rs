@@ -23,6 +23,18 @@ pub trait BigQueryWrite: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::write::generated::gapic_storage::model::WriteStream>>;
 
+    fn append_rows(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<
+            crate::write::generated::gapic_storage::model::AppendRowsRequest,
+        >,
+        google_cloud_gax::streaming::ResponseStream<
+            crate::write::generated::gapic_storage::model::AppendRowsResponse,
+        >,
+    );
+
     async fn get_write_stream(
         &self,
         req: crate::write::generated::gapic_storage::model::GetWriteStreamRequest,
@@ -67,6 +79,21 @@ impl<T: super::BigQueryWrite> BigQueryWrite for T {
     ) -> crate::Result<crate::Response<crate::write::generated::gapic_storage::model::WriteStream>>
     {
         T::create_write_stream(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    fn append_rows(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<
+            crate::write::generated::gapic_storage::model::AppendRowsRequest,
+        >,
+        google_cloud_gax::streaming::ResponseStream<
+            crate::write::generated::gapic_storage::model::AppendRowsResponse,
+        >,
+    ) {
+        T::append_rows(self, options)
     }
 
     /// Forwards the call to the implementation provided by `T`.
