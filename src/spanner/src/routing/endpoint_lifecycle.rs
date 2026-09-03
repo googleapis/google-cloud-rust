@@ -2119,4 +2119,205 @@ mod tests {
             "channel must be evicted from cache if manager was dropped before connection finished"
         );
     }
+
+    #[test]
+    fn lifecycle_manager_start_maintenance_outside_tokio_runtime_no_op() {
+        let (manager, _cache) = make_test_manager();
+        let manager = Arc::new(manager);
+        // start_maintenance should gracefully no-op when called outside a Tokio runtime context
+        manager.start_maintenance();
+        assert_eq!(
+            manager.len(),
+            0,
+            "manager state must remain unaffected when started outside tokio runtime"
+        );
+        assert!(
+            !manager.is_maintenance_active(),
+            "maintenance task must not be active when started outside tokio runtime"
+        );
+    }
+
+    #[tokio::test]
+    async fn lifecycle_manager_maintenance_loop_runs_and_terminates_on_drop() {
+        tokio::time::pause();
+
+        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let connection_cache = Arc::new(ConnectionCache::new(default_connection));
+        let manager = Arc::new(EndpointLifecycleManager::with_options(
+            Arc::clone(&connection_cache),
+            Duration::from_millis(10),
+            Duration::from_millis(50),
+        ));
+
+        let mut active = HashSet::new();
+        active.insert("10.0.0.1:15000".to_string());
+        manager.update_active_addresses("database-1", active);
+
+        manager.start_maintenance();
+        assert!(
+            manager.is_maintenance_active(),
+            "maintenance task must be active"
+        );
+
+        // Yield to allow the spawned maintenance task to start and consume its initial immediate tick
+        yield_now().await;
+
+        // Advance time through multiple probe ticks and past the idle eviction interval (5 ticks)
+        tokio::time::advance(Duration::from_millis(65)).await;
+
+        // Dropping the manager triggers Drop::drop which aborts the task,
+        // and also causes weak.upgrade() inside run_maintenance_loop to return None.
+        drop(manager);
+
+        // Advance virtual time slightly so the task can observe shutdown
+        tokio::time::advance(Duration::from_millis(15)).await;
+    }
+
+    #[tokio::test]
+    async fn lifecycle_manager_check_transient_failure_evicted_for_non_evicted_address_returns_false()
+     {
+        let (manager, cache) = make_test_manager();
+        let now = Instant::now();
+
+        let mut active = HashSet::new();
+        active.insert("10.0.0.1:15000".to_string());
+        active.insert("10.0.0.2:15000".to_string());
+        manager.update_active_addresses_at("database-1", active, now);
+
+        let connection = cache
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("connection create failed");
+        connection.set_transient_failure();
+
+        // Evict 10.0.0.1 via transient failure (3 consecutive probes)
+        manager.probe_endpoint_at("10.0.0.1:15000", now + Duration::from_secs(60));
+        manager.probe_endpoint_at("10.0.0.1:15000", now + Duration::from_secs(120));
+        let eviction_reason =
+            manager.probe_endpoint_at("10.0.0.1:15000", now + Duration::from_secs(180));
+        assert_eq!(
+            eviction_reason,
+            Some(EvictionReason::TransientFailure),
+            "endpoint must be evicted due to transient failure"
+        );
+
+        assert!(
+            manager.has_transient_failure_evictions(),
+            "must have transient failure evictions recorded"
+        );
+        assert!(
+            manager.is_transient_failure_evicted("10.0.0.1:15000"),
+            "10.0.0.1:15000 must be marked transient failure evicted"
+        );
+
+        // Address 10.0.0.2 is NOT transient failure evicted, so checking it must return false
+        assert!(
+            !manager.check_transient_failure_evicted_and_request_recreation("10.0.0.2:15000"),
+            "non-evicted address must return false"
+        );
+    }
+
+    #[tokio::test]
+    async fn lifecycle_manager_connection_task_handles_cache_get_error() {
+        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let manager = EndpointLifecycleManager::with_client_config(
+            Arc::clone(&cache),
+            ClientConfig::default(),
+        );
+
+        let invalid_address = "invalid uri with spaces";
+        let mut active = HashSet::new();
+        active.insert(invalid_address.to_string());
+        manager.update_active_addresses("database-1", active);
+
+        let connection_task = manager
+            .spawn_connection_task(invalid_address)
+            .expect("task should spawn");
+        connection_task.await.expect("task join should succeed");
+
+        assert!(
+            cache.get_if_present(invalid_address).is_none(),
+            "failed connection must not be cached"
+        );
+    }
+
+    #[test]
+    fn lifecycle_manager_record_traffic_concurrent_double_check() {
+        let (manager, _cache) = make_test_manager();
+        let manager = Arc::new(manager);
+        let now = Instant::now();
+        let address = "10.0.0.1:15000";
+
+        let mut active = HashSet::new();
+        active.insert(address.to_string());
+        manager.update_active_addresses_at("database-1", active, now);
+
+        const CONCURRENT_CALLERS: usize = 8;
+        let advanced_time = now + Duration::from_secs(10);
+        let barrier = Arc::new(Barrier::new(CONCURRENT_CALLERS));
+        let mut handles = Vec::new();
+
+        for _ in 0..CONCURRENT_CALLERS {
+            let manager_clone = Arc::clone(&manager);
+            let barrier_clone = Arc::clone(&barrier);
+            handles.push(thread::spawn(move || {
+                barrier_clone.wait();
+                manager_clone.record_real_traffic_at(address, advanced_time);
+            }));
+        }
+
+        for handle in handles {
+            handle.join().expect("thread join must succeed");
+        }
+    }
+
+    #[test]
+    fn lifecycle_manager_request_endpoint_recreation_concurrent_double_check() {
+        let (manager, cache) = make_test_manager();
+        let manager = Arc::new(manager);
+        let now = Instant::now();
+        let address = "10.0.0.1:15000";
+
+        let mut active = HashSet::new();
+        active.insert(address.to_string());
+        manager.update_active_addresses_at("database-1", active, now);
+
+        // Evict endpoint from manager so recreation is needed
+        manager.check_idle_eviction_at(now + Duration::from_secs(4000));
+        assert!(
+            manager.get_endpoint_state(address).is_none(),
+            "endpoint must be evicted for recreation test"
+        );
+        cache.evict(address);
+
+        const CONCURRENT_CALLERS: usize = 8;
+        let barrier = Arc::new(Barrier::new(CONCURRENT_CALLERS));
+        let mut handles = Vec::new();
+
+        for _ in 0..CONCURRENT_CALLERS {
+            let manager_clone = Arc::clone(&manager);
+            let barrier_clone = Arc::clone(&barrier);
+            handles.push(thread::spawn(move || {
+                barrier_clone.wait();
+                manager_clone.request_endpoint_recreation(address)
+            }));
+        }
+
+        let mut recreated_count = 0;
+        for handle in handles {
+            if handle.join().expect("thread join must succeed") {
+                recreated_count += 1;
+            }
+        }
+
+        assert_eq!(
+            recreated_count, 1,
+            "exactly one thread must succeed in recreating the endpoint"
+        );
+        assert!(
+            manager.get_endpoint_state(address).is_some(),
+            "endpoint must be tracked after recreation"
+        );
+    }
 }

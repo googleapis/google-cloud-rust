@@ -2324,4 +2324,63 @@ mod tests {
             "leader tablet UID 10 must be included in skipped_tablet_uid due to TRANSIENT_FAILURE"
         );
     }
+
+    #[tokio::test]
+    async fn location_router_unhealthy_candidate_connection_treated_as_unwarmed() {
+        let router = make_test_router();
+
+        let tablet_leader = Tablet::default()
+            .set_tablet_uid(10u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_distance(0u32);
+        let tablet_follower = Tablet::default()
+            .set_tablet_uid(11u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_distance(0u32);
+
+        let group = Group::new()
+            .set_group_uid(100u64)
+            .set_leader_index(0)
+            .set_tablets(vec![tablet_leader, tablet_follower]);
+        let range = Range::new()
+            .set_group_uid(100u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let leader_connection = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("init leader");
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.2:15000", &ClientConfig::default())
+            .await
+            .expect("init follower");
+
+        // Mark leader connection unhealthy (neither READY nor TRANSIENT_FAILURE)
+        leader_connection.set_unhealthy();
+
+        let key = vec![0x05];
+        let context_prefer_leader = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: true,
+            use_transaction_affinity: false,
+        };
+
+        // When leader is unhealthy (classified as unwarmed), route must fall back to healthy follower
+        let route = router.resolve_route(&context_prefer_leader, 100, None, 1, None);
+        assert_eq!(
+            route.connection.address(),
+            "10.0.0.2:15000",
+            "request preferring leader must fall back to healthy follower when leader connection is unhealthy"
+        );
+    }
 }
