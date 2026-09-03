@@ -32,7 +32,7 @@ async fn open_object_error_exposes_grpc_metadata_in_headers() -> Result<()> {
     const CUSTOM_METADATA_KEY: &str = "x-parity-probe";
     const CUSTOM_METADATA_VALUE: &str = "present";
 
-    // Construct gRPC error details
+    // Construct BidiRead error details
     let detail = BidiReadObjectRedirectedError {
         routing_token: Some("non-aborted-detail".to_string()),
         read_handle: Some(BidiReadHandle {
