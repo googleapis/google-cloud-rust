@@ -1657,6 +1657,9 @@ pub mod migration_subtask {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MigrationTaskResult {
+    /// The map of task output types to the task outputs, e.g. "LINEAGE".
+    pub task_outputs: std::collections::HashMap<std::string::String, crate::model::TaskOutput>,
+
     /// Details specific to the task type.
     pub details: std::option::Option<crate::model::migration_task_result::Details>,
 
@@ -1667,6 +1670,28 @@ impl MigrationTaskResult {
     /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [task_outputs][crate::model::MigrationTaskResult::task_outputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::MigrationTaskResult;
+    /// use google_cloud_bigquery_migration_v2::model::TaskOutput;
+    /// let x = MigrationTaskResult::new().set_task_outputs([
+    ///     ("key0", TaskOutput::default()/* use setters */),
+    ///     ("key1", TaskOutput::default()/* use (different) setters */),
+    /// ]);
+    /// ```
+    pub fn set_task_outputs<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::TaskOutput>,
+    {
+        use std::iter::Iterator;
+        self.task_outputs = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
     }
 
     /// Sets the value of [details][crate::model::MigrationTaskResult::details].
@@ -1834,6 +1859,1067 @@ impl TranslationTaskResult {
 impl wkt::message::Message for TranslationTaskResult {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.bigquery.migration.v2.TranslationTaskResult"
+    }
+}
+
+/// The task output for a task type including the status and any errors.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TaskOutput {
+    /// Output only. The current state of the task output.
+    pub state: crate::model::task_output::State,
+
+    /// An explanation that may be populated when the task output is in FAILED
+    /// state.
+    pub processing_error: std::option::Option<google_cloud_rpc::model::ErrorInfo>,
+
+    /// The detailed output of the task.
+    pub output: std::option::Option<crate::model::task_output::Output>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TaskOutput {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [state][crate::model::TaskOutput::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::TaskOutput;
+    /// use google_cloud_bigquery_migration_v2::model::task_output::State;
+    /// let x0 = TaskOutput::new().set_state(State::Pending);
+    /// let x1 = TaskOutput::new().set_state(State::Succeeded);
+    /// let x2 = TaskOutput::new().set_state(State::Failed);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::task_output::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [processing_error][crate::model::TaskOutput::processing_error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::TaskOutput;
+    /// use google_cloud_rpc::model::ErrorInfo;
+    /// let x = TaskOutput::new().set_processing_error(ErrorInfo::default()/* use setters */);
+    /// ```
+    pub fn set_processing_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::ErrorInfo>,
+    {
+        self.processing_error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [processing_error][crate::model::TaskOutput::processing_error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::TaskOutput;
+    /// use google_cloud_rpc::model::ErrorInfo;
+    /// let x = TaskOutput::new().set_or_clear_processing_error(Some(ErrorInfo::default()/* use setters */));
+    /// let x = TaskOutput::new().set_or_clear_processing_error(None::<ErrorInfo>);
+    /// ```
+    pub fn set_or_clear_processing_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::ErrorInfo>,
+    {
+        self.processing_error = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [output][crate::model::TaskOutput::output].
+    ///
+    /// Note that all the setters affecting `output` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::TaskOutput;
+    /// use google_cloud_bigquery_migration_v2::model::LineageOutput;
+    /// let x = TaskOutput::new().set_output(Some(
+    ///     google_cloud_bigquery_migration_v2::model::task_output::Output::LineageOutput(LineageOutput::default().into())));
+    /// ```
+    pub fn set_output<
+        T: std::convert::Into<std::option::Option<crate::model::task_output::Output>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output = v.into();
+        self
+    }
+
+    /// The value of [output][crate::model::TaskOutput::output]
+    /// if it holds a `LineageOutput`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn lineage_output(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::LineageOutput>> {
+        #[allow(unreachable_patterns)]
+        self.output.as_ref().and_then(|v| match v {
+            crate::model::task_output::Output::LineageOutput(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [output][crate::model::TaskOutput::output]
+    /// to hold a `LineageOutput`.
+    ///
+    /// Note that all the setters affecting `output` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::TaskOutput;
+    /// use google_cloud_bigquery_migration_v2::model::LineageOutput;
+    /// let x = TaskOutput::new().set_lineage_output(LineageOutput::default()/* use setters */);
+    /// assert!(x.lineage_output().is_some());
+    /// ```
+    pub fn set_lineage_output<
+        T: std::convert::Into<std::boxed::Box<crate::model::LineageOutput>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output =
+            std::option::Option::Some(crate::model::task_output::Output::LineageOutput(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for TaskOutput {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.migration.v2.TaskOutput"
+    }
+}
+
+/// Defines additional types related to [TaskOutput].
+pub mod task_output {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Possible task output states.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Task output state is unspecified.
+        Unspecified,
+        /// Task output is pending.
+        Pending,
+        /// Task output is succeeded.
+        Succeeded,
+        /// Task output is failed. This does not mean that there is no useful
+        /// information in the output; partial outputs or failure details may be
+        /// available.
+        Failed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Pending => std::option::Option::Some(1),
+                Self::Succeeded => std::option::Option::Some(2),
+                Self::Failed => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Pending => std::option::Option::Some("PENDING"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Pending,
+                2 => Self::Succeeded,
+                3 => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "PENDING" => Self::Pending,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Pending => serializer.serialize_i32(1),
+                Self::Succeeded => serializer.serialize_i32(2),
+                Self::Failed => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.bigquery.migration.v2.TaskOutput.State",
+            ))
+        }
+    }
+
+    /// The detailed output of the task.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Output {
+        /// The output of the task with output type "LINEAGE".
+        LineageOutput(std::boxed::Box<crate::model::LineageOutput>),
+    }
+}
+
+/// The output of a task with output type "LINEAGE".
+///
+/// Actual generated lineage can be queried separately (see
+/// [webapp_uri][google.cloud.bigquery.migration.v2.LineageOutput.webapp_uri]),
+/// this message contains only metadata: processing status, errors, etc.
+///
+/// [google.cloud.bigquery.migration.v2.LineageOutput.webapp_uri]: crate::model::LineageOutput::webapp_uri
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct LineageOutput {
+    /// The URI of the webapp that visualizes the lineage.
+    /// The user needs the `bigquerymigration.googleapis.com/lineageDbs.query` IAM
+    /// permission to use the webapp.
+    pub webapp_uri: std::string::String,
+
+    /// Output only. Recognized lineage inputs.
+    ///
+    /// All inputs are processed only if the task succeeds and all work is in state
+    /// [SUCCEEDED](ProgressReport.WorkSummary.State.SUCCEEDED) (in particular,
+    /// nothing is [SKIPPED](ProgressReport.WorkSummary.State.SKIPPED)).
+    ///
+    /// Even with all inputs processed successfully, there may be transpiler errors
+    /// present leading to inaccurate lineage.
+    pub recognized_inputs: std::vec::Vec<crate::model::lineage_output::RecognizedInput>,
+
+    /// Output only. Work processing progress reports broken up by processing
+    /// stage.
+    pub processing_progress_reports: std::vec::Vec<crate::model::lineage_output::ProgressReport>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl LineageOutput {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [webapp_uri][crate::model::LineageOutput::webapp_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::LineageOutput;
+    /// let x = LineageOutput::new().set_webapp_uri("example");
+    /// ```
+    pub fn set_webapp_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.webapp_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [recognized_inputs][crate::model::LineageOutput::recognized_inputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::LineageOutput;
+    /// use google_cloud_bigquery_migration_v2::model::lineage_output::RecognizedInput;
+    /// let x = LineageOutput::new()
+    ///     .set_recognized_inputs([
+    ///         RecognizedInput::default()/* use setters */,
+    ///         RecognizedInput::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_recognized_inputs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::lineage_output::RecognizedInput>,
+    {
+        use std::iter::Iterator;
+        self.recognized_inputs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [processing_progress_reports][crate::model::LineageOutput::processing_progress_reports].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_migration_v2::model::LineageOutput;
+    /// use google_cloud_bigquery_migration_v2::model::lineage_output::ProgressReport;
+    /// let x = LineageOutput::new()
+    ///     .set_processing_progress_reports([
+    ///         ProgressReport::default()/* use setters */,
+    ///         ProgressReport::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_processing_progress_reports<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::lineage_output::ProgressReport>,
+    {
+        use std::iter::Iterator;
+        self.processing_progress_reports = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for LineageOutput {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.migration.v2.LineageOutput"
+    }
+}
+
+/// Defines additional types related to [LineageOutput].
+pub mod lineage_output {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Information about lineage input of the given type that lineage generation
+    /// recognized.
+    ///
+    /// If you expected to process more of the given input, verify your input was
+    /// uploaded and is in the correct format and the request to generate lineage
+    /// correctly specified the input location.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RecognizedInput {
+        /// Output only. The type of the input.
+        pub r#type: crate::model::lineage_output::recognized_input::Type,
+
+        /// Output only. The uncompressed size of the recognized input of the given
+        /// type.
+        pub uncompressed_size_bytes: i64,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RecognizedInput {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [r#type][crate::model::lineage_output::RecognizedInput::type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_migration_v2::model::lineage_output::RecognizedInput;
+        /// use google_cloud_bigquery_migration_v2::model::lineage_output::recognized_input::Type;
+        /// let x0 = RecognizedInput::new().set_type(Type::Metadata);
+        /// let x1 = RecognizedInput::new().set_type(Type::QueryLog);
+        /// let x2 = RecognizedInput::new().set_type(Type::Script);
+        /// ```
+        pub fn set_type<
+            T: std::convert::Into<crate::model::lineage_output::recognized_input::Type>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.r#type = v.into();
+            self
+        }
+
+        /// Sets the value of [uncompressed_size_bytes][crate::model::lineage_output::RecognizedInput::uncompressed_size_bytes].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_migration_v2::model::lineage_output::RecognizedInput;
+        /// let x = RecognizedInput::new().set_uncompressed_size_bytes(42);
+        /// ```
+        pub fn set_uncompressed_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.uncompressed_size_bytes = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for RecognizedInput {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.migration.v2.LineageOutput.RecognizedInput"
+        }
+    }
+
+    /// Defines additional types related to [RecognizedInput].
+    pub mod recognized_input {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Input type recognized by the lineage processing.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Type {
+            /// The type is not specified.
+            Unspecified,
+            /// The input is metadata.
+            Metadata,
+            /// The input is a query log.
+            QueryLog,
+            /// The input is a SQL script.
+            Script,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Type::value] or
+            /// [Type::name].
+            UnknownValue(r#type::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod r#type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl Type {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Metadata => std::option::Option::Some(1),
+                    Self::QueryLog => std::option::Option::Some(2),
+                    Self::Script => std::option::Option::Some(3),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                    Self::Metadata => std::option::Option::Some("METADATA"),
+                    Self::QueryLog => std::option::Option::Some("QUERY_LOG"),
+                    Self::Script => std::option::Option::Some("SCRIPT"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for Type {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Type {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Type {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Metadata,
+                    2 => Self::QueryLog,
+                    3 => Self::Script,
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Type {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "METADATA" => Self::Metadata,
+                    "QUERY_LOG" => Self::QueryLog,
+                    "SCRIPT" => Self::Script,
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Type {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Metadata => serializer.serialize_i32(1),
+                    Self::QueryLog => serializer.serialize_i32(2),
+                    Self::Script => serializer.serialize_i32(3),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Type {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                    ".google.cloud.bigquery.migration.v2.LineageOutput.RecognizedInput.Type",
+                ))
+            }
+        }
+    }
+
+    /// Breaks down processing progress of work.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ProgressReport {
+        /// Output only. The processing stage this progress report describes.
+        pub processing_stage: crate::model::lineage_output::progress_report::ProcessingStage,
+
+        /// Output only. Summaries of work broken up by the state of the work. Each
+        /// work summary describes how much work is in the given state.
+        ///
+        /// To get numbers for the total work covered, aggregate the numbers from all
+        /// summaries.
+        pub work_summaries:
+            std::vec::Vec<crate::model::lineage_output::progress_report::WorkSummary>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ProgressReport {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [processing_stage][crate::model::lineage_output::ProgressReport::processing_stage].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_migration_v2::model::lineage_output::ProgressReport;
+        /// use google_cloud_bigquery_migration_v2::model::lineage_output::progress_report::ProcessingStage;
+        /// let x0 = ProgressReport::new().set_processing_stage(ProcessingStage::InputIngestion);
+        /// let x1 = ProgressReport::new().set_processing_stage(ProcessingStage::Postprocessing);
+        /// ```
+        pub fn set_processing_stage<
+            T: std::convert::Into<crate::model::lineage_output::progress_report::ProcessingStage>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.processing_stage = v.into();
+            self
+        }
+
+        /// Sets the value of [work_summaries][crate::model::lineage_output::ProgressReport::work_summaries].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_migration_v2::model::lineage_output::ProgressReport;
+        /// use google_cloud_bigquery_migration_v2::model::lineage_output::progress_report::WorkSummary;
+        /// let x = ProgressReport::new()
+        ///     .set_work_summaries([
+        ///         WorkSummary::default()/* use setters */,
+        ///         WorkSummary::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_work_summaries<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::lineage_output::progress_report::WorkSummary>,
+        {
+            use std::iter::Iterator;
+            self.work_summaries = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ProgressReport {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.migration.v2.LineageOutput.ProgressReport"
+        }
+    }
+
+    /// Defines additional types related to [ProgressReport].
+    pub mod progress_report {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Summary of work in the given state.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct WorkSummary {
+            /// Output only. The state of the work this summary describes.
+            pub state: crate::model::lineage_output::progress_report::work_summary::State,
+
+            /// Output only. Size of the work in the given State.
+            ///
+            /// Size counts "units of work". Units represent arbitrary division of
+            /// work; there's no expectation each unit takes similar time to process.
+            pub size: i64,
+
+            /// Output only. Human-readable comment.
+            pub comment: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl WorkSummary {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [state][crate::model::lineage_output::progress_report::WorkSummary::state].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_bigquery_migration_v2::model::lineage_output::progress_report::WorkSummary;
+            /// use google_cloud_bigquery_migration_v2::model::lineage_output::progress_report::work_summary::State;
+            /// let x0 = WorkSummary::new().set_state(State::Succeeded);
+            /// let x1 = WorkSummary::new().set_state(State::Failed);
+            /// let x2 = WorkSummary::new().set_state(State::InProgress);
+            /// ```
+            pub fn set_state<
+                T: std::convert::Into<
+                        crate::model::lineage_output::progress_report::work_summary::State,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.state = v.into();
+                self
+            }
+
+            /// Sets the value of [size][crate::model::lineage_output::progress_report::WorkSummary::size].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_bigquery_migration_v2::model::lineage_output::progress_report::WorkSummary;
+            /// let x = WorkSummary::new().set_size(42);
+            /// ```
+            pub fn set_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+                self.size = v.into();
+                self
+            }
+
+            /// Sets the value of [comment][crate::model::lineage_output::progress_report::WorkSummary::comment].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_bigquery_migration_v2::model::lineage_output::progress_report::WorkSummary;
+            /// let x = WorkSummary::new().set_comment("example");
+            /// ```
+            pub fn set_comment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.comment = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for WorkSummary {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.bigquery.migration.v2.LineageOutput.ProgressReport.WorkSummary"
+            }
+        }
+
+        /// Defines additional types related to [WorkSummary].
+        pub mod work_summary {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// States of work. Each piece of work is in exactly one state.
+            /// [SUCCEEDED], [FAILED] and [SKIPPED] are terminal states; work in the
+            /// [IN_PROGRESS] will eventually transition to one of the terminal states.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum State {
+                /// The state is not specified.
+                Unspecified,
+                /// Work that was processed successfully.
+                Succeeded,
+                /// Work that failed processing.
+                Failed,
+                /// Work that is currently being processed or queued for processing.
+                InProgress,
+                /// Work that was recognised as necessary to fully process inputs but was
+                /// skipped due to system limitations.
+                Skipped,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [State::value] or
+                /// [State::name].
+                UnknownValue(state::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            pub mod state {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
+
+            impl State {
+                /// Gets the enum value.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::Succeeded => std::option::Option::Some(1),
+                        Self::Failed => std::option::Option::Some(2),
+                        Self::InProgress => std::option::Option::Some(3),
+                        Self::Skipped => std::option::Option::Some(4),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
+                }
+
+                /// Gets the enum value as a string.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                        Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                        Self::Failed => std::option::Option::Some("FAILED"),
+                        Self::InProgress => std::option::Option::Some("IN_PROGRESS"),
+                        Self::Skipped => std::option::Option::Some("SKIPPED"),
+                        Self::UnknownValue(u) => u.0.name(),
+                    }
+                }
+            }
+
+            impl std::default::Default for State {
+                fn default() -> Self {
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for State {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for State {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::Succeeded,
+                        2 => Self::Failed,
+                        3 => Self::InProgress,
+                        4 => Self::Skipped,
+                        _ => Self::UnknownValue(state::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for State {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "STATE_UNSPECIFIED" => Self::Unspecified,
+                        "SUCCEEDED" => Self::Succeeded,
+                        "FAILED" => Self::Failed,
+                        "IN_PROGRESS" => Self::InProgress,
+                        "SKIPPED" => Self::Skipped,
+                        _ => Self::UnknownValue(state::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for State {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::Succeeded => serializer.serialize_i32(1),
+                        Self::Failed => serializer.serialize_i32(2),
+                        Self::InProgress => serializer.serialize_i32(3),
+                        Self::Skipped => serializer.serialize_i32(4),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for State {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                        ".google.cloud.bigquery.migration.v2.LineageOutput.ProgressReport.WorkSummary.State"))
+                }
+            }
+        }
+
+        /// The processing stage the progress report describes.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum ProcessingStage {
+            /// The stage is not specified.
+            Unspecified,
+            /// The input ingestion stage.
+            InputIngestion,
+            /// The lineage DB postprocessing stage.
+            Postprocessing,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [ProcessingStage::value] or
+            /// [ProcessingStage::name].
+            UnknownValue(processing_stage::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod processing_stage {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl ProcessingStage {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::InputIngestion => std::option::Option::Some(1000),
+                    Self::Postprocessing => std::option::Option::Some(2000),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("PROCESSING_STAGE_UNSPECIFIED"),
+                    Self::InputIngestion => std::option::Option::Some("INPUT_INGESTION"),
+                    Self::Postprocessing => std::option::Option::Some("POSTPROCESSING"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for ProcessingStage {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for ProcessingStage {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for ProcessingStage {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1000 => Self::InputIngestion,
+                    2000 => Self::Postprocessing,
+                    _ => Self::UnknownValue(processing_stage::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for ProcessingStage {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "PROCESSING_STAGE_UNSPECIFIED" => Self::Unspecified,
+                    "INPUT_INGESTION" => Self::InputIngestion,
+                    "POSTPROCESSING" => Self::Postprocessing,
+                    _ => Self::UnknownValue(processing_stage::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for ProcessingStage {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::InputIngestion => serializer.serialize_i32(1000),
+                    Self::Postprocessing => serializer.serialize_i32(2000),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for ProcessingStage {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<ProcessingStage>::new(
+                    ".google.cloud.bigquery.migration.v2.LineageOutput.ProgressReport.ProcessingStage"))
+            }
+        }
     }
 }
 

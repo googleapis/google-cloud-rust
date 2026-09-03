@@ -672,7 +672,11 @@ pub mod firestore {
     /// # use google_cloud_firestore::builder::firestore::BatchGetDocuments;
     /// # async fn sample() -> google_cloud_firestore::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let mut receiver = builder.send().await?;
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
     /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchGetDocuments {
@@ -1124,7 +1128,11 @@ pub mod firestore {
     /// # use google_cloud_firestore::builder::firestore::RunQuery;
     /// # async fn sample() -> google_cloud_firestore::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let mut receiver = builder.send().await?;
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
     /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RunQuery {
@@ -1302,7 +1310,11 @@ pub mod firestore {
     /// # use google_cloud_firestore::builder::firestore::RunAggregationQuery;
     /// # async fn sample() -> google_cloud_firestore::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let mut receiver = builder.send().await?;
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
     /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RunAggregationQuery {

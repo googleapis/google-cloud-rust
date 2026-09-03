@@ -694,6 +694,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AnswerQueryRequest {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __query,
+            __filter,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -715,6 +716,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AnswerQueryRequest {
                         use std::string::ToString;
                         match value {
                             "query" => Ok(__FieldTag::__query),
+                            "filter" => Ok(__FieldTag::__filter),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -747,6 +749,16 @@ impl<'de> serde::de::Deserialize<'de> for super::AnswerQueryRequest {
                                 ));
                             }
                             result.query = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__filter => {
+                            if !fields.insert(__FieldTag::__filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter",
+                                ));
+                            }
+                            result.filter = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
