@@ -44,6 +44,1427 @@ impl gaxi::prost::FromProto<google_cloud_rpc::model::Status> for crate::prost::g
     }
 }
 
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<HarmCategory> for crate::model::HarmCategory {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::HarmCategory"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<Modality> for crate::model::Modality {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::Modality"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<Type> for crate::model::Type {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::Type"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<Content> for crate::model::Content {
+    type Output = Content;
+    fn to_proto(self) -> std::result::Result<Content, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            role: self.role.to_proto()?,
+            parts: self.parts
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::Content> for Content {
+    fn cnv(self) -> std::result::Result<crate::model::Content, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::Content::new()
+                .set_role(self.role)
+                .set_parts(self.parts.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<part::media_resolution::Level> for crate::model::part::media_resolution::Level {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::part::media_resolution::Level"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<part::media_resolution::Value> for crate::model::part::media_resolution::Value {
+    type Output = part::media_resolution::Value;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::Level(v) => Ok(Self::Output::Level(v.to_proto()?)),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::part::media_resolution::Value> for part::media_resolution::Value {
+    fn cnv(self) -> std::result::Result<crate::model::part::media_resolution::Value, gaxi::prost::ConvertError> {
+        use crate::model::part::media_resolution::Value as T;
+        match self {
+            Self::Level(v) => Ok(T::Level(v.into())),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<part::MediaResolution> for crate::model::part::MediaResolution {
+    type Output = part::MediaResolution;
+    fn to_proto(self) -> std::result::Result<part::MediaResolution, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            value: self.value.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::part::MediaResolution> for part::MediaResolution {
+    fn cnv(self) -> std::result::Result<crate::model::part::MediaResolution, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::part::MediaResolution::new()
+                .set_value(self.value.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<part::Data> for crate::model::part::Data {
+    type Output = part::Data;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::Text(v) => Ok(Self::Output::Text(v.to_proto()?)),
+            Self::InlineData(v) => Ok(Self::Output::InlineData((*v).to_proto()?)),
+            Self::FileData(v) => Ok(Self::Output::FileData((*v).to_proto()?)),
+            Self::FunctionCall(v) => Ok(Self::Output::FunctionCall((*v).to_proto()?)),
+            Self::FunctionResponse(v) => Ok(Self::Output::FunctionResponse((*v).to_proto()?)),
+            Self::ExecutableCode(v) => Ok(Self::Output::ExecutableCode((*v).to_proto()?)),
+            Self::CodeExecutionResult(v) => Ok(Self::Output::CodeExecutionResult((*v).to_proto()?)),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::part::Data> for part::Data {
+    fn cnv(self) -> std::result::Result<crate::model::part::Data, gaxi::prost::ConvertError> {
+        use crate::model::part::Data as T;
+        match self {
+            Self::Text(v) => Ok(T::Text(v.cnv()?)),
+            Self::InlineData(v) => Ok(T::InlineData(std::boxed::Box::new(v.cnv()?))),
+            Self::FileData(v) => Ok(T::FileData(std::boxed::Box::new(v.cnv()?))),
+            Self::FunctionCall(v) => Ok(T::FunctionCall(std::boxed::Box::new(v.cnv()?))),
+            Self::FunctionResponse(v) => Ok(T::FunctionResponse(std::boxed::Box::new(v.cnv()?))),
+            Self::ExecutableCode(v) => Ok(T::ExecutableCode(std::boxed::Box::new(v.cnv()?))),
+            Self::CodeExecutionResult(v) => Ok(T::CodeExecutionResult(std::boxed::Box::new(v.cnv()?))),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<part::Metadata> for crate::model::part::Metadata {
+    type Output = part::Metadata;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::VideoMetadata(v) => Ok(Self::Output::VideoMetadata((*v).to_proto()?)),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::part::Metadata> for part::Metadata {
+    fn cnv(self) -> std::result::Result<crate::model::part::Metadata, gaxi::prost::ConvertError> {
+        use crate::model::part::Metadata as T;
+        match self {
+            Self::VideoMetadata(v) => Ok(T::VideoMetadata(std::boxed::Box::new(v.cnv()?))),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<Part> for crate::model::Part {
+    type Output = Part;
+    fn to_proto(self) -> std::result::Result<Part, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            thought: self.thought.to_proto()?,
+            thought_signature: self.thought_signature.to_proto()?,
+            media_resolution: self.media_resolution.map(|v| v.to_proto()).transpose()?,
+            data: self.data.map(|v| v.to_proto()).transpose()?,
+            metadata: self.metadata.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::Part> for Part {
+    fn cnv(self) -> std::result::Result<crate::model::Part, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::Part::new()
+                .set_thought(self.thought)
+                .set_thought_signature(self.thought_signature)
+                .set_or_clear_media_resolution(self.media_resolution.map(|v| v.cnv()).transpose()?)
+                .set_data(self.data.map(|v| v.cnv()).transpose()?)
+                .set_metadata(self.metadata.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<Blob> for crate::model::Blob {
+    type Output = Blob;
+    fn to_proto(self) -> std::result::Result<Blob, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            mime_type: self.mime_type.to_proto()?,
+            data: self.data.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::Blob> for Blob {
+    fn cnv(self) -> std::result::Result<crate::model::Blob, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::Blob::new()
+                .set_mime_type(self.mime_type)
+                .set_data(self.data)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<FileData> for crate::model::FileData {
+    type Output = FileData;
+    fn to_proto(self) -> std::result::Result<FileData, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            mime_type: self.mime_type.to_proto()?,
+            file_uri: self.file_uri.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::FileData> for FileData {
+    fn cnv(self) -> std::result::Result<crate::model::FileData, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::FileData::new()
+                .set_mime_type(self.mime_type)
+                .set_file_uri(self.file_uri)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<VideoMetadata> for crate::model::VideoMetadata {
+    type Output = VideoMetadata;
+    fn to_proto(self) -> std::result::Result<VideoMetadata, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            start_offset: self.start_offset.map(|v| v.to_proto()).transpose()?,
+            end_offset: self.end_offset.map(|v| v.to_proto()).transpose()?,
+            fps: self.fps.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::VideoMetadata> for VideoMetadata {
+    fn cnv(self) -> std::result::Result<crate::model::VideoMetadata, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::VideoMetadata::new()
+                .set_or_clear_start_offset(self.start_offset.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_end_offset(self.end_offset.map(|v| v.cnv()).transpose()?)
+                .set_fps(self.fps)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<PrebuiltVoiceConfig> for crate::model::PrebuiltVoiceConfig {
+    type Output = PrebuiltVoiceConfig;
+    fn to_proto(self) -> std::result::Result<PrebuiltVoiceConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            voice_name: self.voice_name.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::PrebuiltVoiceConfig> for PrebuiltVoiceConfig {
+    fn cnv(self) -> std::result::Result<crate::model::PrebuiltVoiceConfig, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::PrebuiltVoiceConfig::new()
+                .set_or_clear_voice_name(self.voice_name.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<ReplicatedVoiceConfig> for crate::model::ReplicatedVoiceConfig {
+    type Output = ReplicatedVoiceConfig;
+    fn to_proto(self) -> std::result::Result<ReplicatedVoiceConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            mime_type: self.mime_type.to_proto()?,
+            voice_sample_audio: self.voice_sample_audio.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::ReplicatedVoiceConfig> for ReplicatedVoiceConfig {
+    fn cnv(self) -> std::result::Result<crate::model::ReplicatedVoiceConfig, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::ReplicatedVoiceConfig::new()
+                .set_mime_type(self.mime_type)
+                .set_voice_sample_audio(self.voice_sample_audio)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<voice_config::VoiceConfig> for crate::model::voice_config::VoiceConfig {
+    type Output = voice_config::VoiceConfig;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::PrebuiltVoiceConfig(v) => Ok(Self::Output::PrebuiltVoiceConfig((*v).to_proto()?)),
+            Self::ReplicatedVoiceConfig(v) => Ok(Self::Output::ReplicatedVoiceConfig((*v).to_proto()?)),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::voice_config::VoiceConfig> for voice_config::VoiceConfig {
+    fn cnv(self) -> std::result::Result<crate::model::voice_config::VoiceConfig, gaxi::prost::ConvertError> {
+        use crate::model::voice_config::VoiceConfig as T;
+        match self {
+            Self::PrebuiltVoiceConfig(v) => Ok(T::PrebuiltVoiceConfig(std::boxed::Box::new(v.cnv()?))),
+            Self::ReplicatedVoiceConfig(v) => Ok(T::ReplicatedVoiceConfig(std::boxed::Box::new(v.cnv()?))),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<VoiceConfig> for crate::model::VoiceConfig {
+    type Output = VoiceConfig;
+    fn to_proto(self) -> std::result::Result<VoiceConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            voice_config: self.voice_config.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::VoiceConfig> for VoiceConfig {
+    fn cnv(self) -> std::result::Result<crate::model::VoiceConfig, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::VoiceConfig::new()
+                .set_voice_config(self.voice_config.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<SpeakerVoiceConfig> for crate::model::SpeakerVoiceConfig {
+    type Output = SpeakerVoiceConfig;
+    fn to_proto(self) -> std::result::Result<SpeakerVoiceConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            speaker: self.speaker.to_proto()?,
+            voice_config: self.voice_config.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::SpeakerVoiceConfig> for SpeakerVoiceConfig {
+    fn cnv(self) -> std::result::Result<crate::model::SpeakerVoiceConfig, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::SpeakerVoiceConfig::new()
+                .set_speaker(self.speaker)
+                .set_or_clear_voice_config(self.voice_config.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<MultiSpeakerVoiceConfig> for crate::model::MultiSpeakerVoiceConfig {
+    type Output = MultiSpeakerVoiceConfig;
+    fn to_proto(self) -> std::result::Result<MultiSpeakerVoiceConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            speaker_voice_configs: self.speaker_voice_configs
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::MultiSpeakerVoiceConfig> for MultiSpeakerVoiceConfig {
+    fn cnv(self) -> std::result::Result<crate::model::MultiSpeakerVoiceConfig, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::MultiSpeakerVoiceConfig::new()
+                .set_speaker_voice_configs(self.speaker_voice_configs.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<SpeechConfig> for crate::model::SpeechConfig {
+    type Output = SpeechConfig;
+    fn to_proto(self) -> std::result::Result<SpeechConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            voice_config: self.voice_config.map(|v| v.to_proto()).transpose()?,
+            language_code: self.language_code.to_proto()?,
+            multi_speaker_voice_config: self.multi_speaker_voice_config.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::SpeechConfig> for SpeechConfig {
+    fn cnv(self) -> std::result::Result<crate::model::SpeechConfig, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::SpeechConfig::new()
+                .set_or_clear_voice_config(self.voice_config.map(|v| v.cnv()).transpose()?)
+                .set_language_code(self.language_code)
+                .set_or_clear_multi_speaker_voice_config(self.multi_speaker_voice_config.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<image_config::ImageOutputOptions> for crate::model::image_config::ImageOutputOptions {
+    type Output = image_config::ImageOutputOptions;
+    fn to_proto(self) -> std::result::Result<image_config::ImageOutputOptions, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            mime_type: self.mime_type.map(|v| v.to_proto()).transpose()?,
+            compression_quality: self.compression_quality.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::image_config::ImageOutputOptions> for image_config::ImageOutputOptions {
+    fn cnv(self) -> std::result::Result<crate::model::image_config::ImageOutputOptions, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::image_config::ImageOutputOptions::new()
+                .set_or_clear_mime_type(self.mime_type.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_compression_quality(self.compression_quality.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<image_config::PersonGeneration> for crate::model::image_config::PersonGeneration {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::image_config::PersonGeneration"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<ImageConfig> for crate::model::ImageConfig {
+    type Output = ImageConfig;
+    fn to_proto(self) -> std::result::Result<ImageConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            image_output_options: self.image_output_options.map(|v| v.to_proto()).transpose()?,
+            aspect_ratio: self.aspect_ratio.map(|v| v.to_proto()).transpose()?,
+            person_generation: self.person_generation.map(|v| v.to_proto()).transpose()?,
+            image_size: self.image_size.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::ImageConfig> for ImageConfig {
+    fn cnv(self) -> std::result::Result<crate::model::ImageConfig, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::ImageConfig::new()
+                .set_or_clear_image_output_options(self.image_output_options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_aspect_ratio(self.aspect_ratio.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_person_generation(self.person_generation.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_image_size(self.image_size.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<generation_config::routing_config::auto_routing_mode::ModelRoutingPreference> for crate::model::generation_config::routing_config::auto_routing_mode::ModelRoutingPreference {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::generation_config::routing_config::auto_routing_mode::ModelRoutingPreference"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<generation_config::routing_config::AutoRoutingMode> for crate::model::generation_config::routing_config::AutoRoutingMode {
+    type Output = generation_config::routing_config::AutoRoutingMode;
+    fn to_proto(self) -> std::result::Result<generation_config::routing_config::AutoRoutingMode, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            model_routing_preference: self.model_routing_preference.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::generation_config::routing_config::AutoRoutingMode> for generation_config::routing_config::AutoRoutingMode {
+    fn cnv(self) -> std::result::Result<crate::model::generation_config::routing_config::AutoRoutingMode, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::generation_config::routing_config::AutoRoutingMode::new()
+                .set_or_clear_model_routing_preference(self.model_routing_preference.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<generation_config::routing_config::ManualRoutingMode> for crate::model::generation_config::routing_config::ManualRoutingMode {
+    type Output = generation_config::routing_config::ManualRoutingMode;
+    fn to_proto(self) -> std::result::Result<generation_config::routing_config::ManualRoutingMode, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            model_name: self.model_name.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::generation_config::routing_config::ManualRoutingMode> for generation_config::routing_config::ManualRoutingMode {
+    fn cnv(self) -> std::result::Result<crate::model::generation_config::routing_config::ManualRoutingMode, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::generation_config::routing_config::ManualRoutingMode::new()
+                .set_or_clear_model_name(self.model_name.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<generation_config::routing_config::RoutingConfig> for crate::model::generation_config::routing_config::RoutingConfig {
+    type Output = generation_config::routing_config::RoutingConfig;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::AutoMode(v) => Ok(Self::Output::AutoMode((*v).to_proto()?)),
+            Self::ManualMode(v) => Ok(Self::Output::ManualMode((*v).to_proto()?)),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::generation_config::routing_config::RoutingConfig> for generation_config::routing_config::RoutingConfig {
+    fn cnv(self) -> std::result::Result<crate::model::generation_config::routing_config::RoutingConfig, gaxi::prost::ConvertError> {
+        use crate::model::generation_config::routing_config::RoutingConfig as T;
+        match self {
+            Self::AutoMode(v) => Ok(T::AutoMode(std::boxed::Box::new(v.cnv()?))),
+            Self::ManualMode(v) => Ok(T::ManualMode(std::boxed::Box::new(v.cnv()?))),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<generation_config::RoutingConfig> for crate::model::generation_config::RoutingConfig {
+    type Output = generation_config::RoutingConfig;
+    fn to_proto(self) -> std::result::Result<generation_config::RoutingConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            routing_config: self.routing_config.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::generation_config::RoutingConfig> for generation_config::RoutingConfig {
+    fn cnv(self) -> std::result::Result<crate::model::generation_config::RoutingConfig, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::generation_config::RoutingConfig::new()
+                .set_routing_config(self.routing_config.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<generation_config::thinking_config::ThinkingLevel> for crate::model::generation_config::thinking_config::ThinkingLevel {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::generation_config::thinking_config::ThinkingLevel"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<generation_config::ThinkingConfig> for crate::model::generation_config::ThinkingConfig {
+    type Output = generation_config::ThinkingConfig;
+    fn to_proto(self) -> std::result::Result<generation_config::ThinkingConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            include_thoughts: self.include_thoughts.map(|v| v.to_proto()).transpose()?,
+            thinking_budget: self.thinking_budget.map(|v| v.to_proto()).transpose()?,
+            thinking_level: self.thinking_level.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::generation_config::ThinkingConfig> for generation_config::ThinkingConfig {
+    fn cnv(self) -> std::result::Result<crate::model::generation_config::ThinkingConfig, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::generation_config::ThinkingConfig::new()
+                .set_or_clear_include_thoughts(self.include_thoughts.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_thinking_budget(self.thinking_budget.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_thinking_level(self.thinking_level.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<generation_config::Modality> for crate::model::generation_config::Modality {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::generation_config::Modality"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<generation_config::MediaResolution> for crate::model::generation_config::MediaResolution {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::generation_config::MediaResolution"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<GenerationConfig> for crate::model::GenerationConfig {
+    type Output = GenerationConfig;
+    fn to_proto(self) -> std::result::Result<GenerationConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            temperature: self.temperature.map(|v| v.to_proto()).transpose()?,
+            top_p: self.top_p.map(|v| v.to_proto()).transpose()?,
+            top_k: self.top_k.map(|v| v.to_proto()).transpose()?,
+            candidate_count: self.candidate_count.map(|v| v.to_proto()).transpose()?,
+            max_output_tokens: self.max_output_tokens.map(|v| v.to_proto()).transpose()?,
+            stop_sequences: self.stop_sequences
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            response_logprobs: self.response_logprobs.map(|v| v.to_proto()).transpose()?,
+            logprobs: self.logprobs.map(|v| v.to_proto()).transpose()?,
+            presence_penalty: self.presence_penalty.map(|v| v.to_proto()).transpose()?,
+            frequency_penalty: self.frequency_penalty.map(|v| v.to_proto()).transpose()?,
+            seed: self.seed.map(|v| v.to_proto()).transpose()?,
+            response_mime_type: self.response_mime_type.to_proto()?,
+            response_schema: self.response_schema.map(|v| v.to_proto()).transpose()?,
+            response_json_schema: self.response_json_schema.map(|v| v.to_proto()).transpose()?,
+            routing_config: self.routing_config.map(|v| v.to_proto()).transpose()?,
+            audio_timestamp: self.audio_timestamp.map(|v| v.to_proto()).transpose()?,
+            response_modalities: self.response_modalities
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            media_resolution: self.media_resolution.map(|v| v.to_proto()).transpose()?,
+            speech_config: self.speech_config.map(|v| v.to_proto()).transpose()?,
+            thinking_config: self.thinking_config.map(|v| v.to_proto()).transpose()?,
+            image_config: self.image_config.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::GenerationConfig> for GenerationConfig {
+    fn cnv(self) -> std::result::Result<crate::model::GenerationConfig, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::GenerationConfig::new()
+                .set_or_clear_temperature(self.temperature.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_top_p(self.top_p.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_top_k(self.top_k.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_candidate_count(self.candidate_count.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_max_output_tokens(self.max_output_tokens.map(|v| v.cnv()).transpose()?)
+                .set_stop_sequences(self.stop_sequences.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_response_logprobs(self.response_logprobs.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_logprobs(self.logprobs.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_presence_penalty(self.presence_penalty.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_frequency_penalty(self.frequency_penalty.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_seed(self.seed.map(|v| v.cnv()).transpose()?)
+                .set_response_mime_type(self.response_mime_type)
+                .set_or_clear_response_schema(self.response_schema.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_response_json_schema(self.response_json_schema.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_routing_config(self.routing_config.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_audio_timestamp(self.audio_timestamp.map(|v| v.cnv()).transpose()?)
+                .set_response_modalities(self.response_modalities.into_iter().map(crate::model::generation_config::Modality::from))
+                .set_or_clear_media_resolution(self.media_resolution.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_speech_config(self.speech_config.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_thinking_config(self.thinking_config.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_image_config(self.image_config.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<safety_setting::HarmBlockThreshold> for crate::model::safety_setting::HarmBlockThreshold {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::safety_setting::HarmBlockThreshold"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<safety_setting::HarmBlockMethod> for crate::model::safety_setting::HarmBlockMethod {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::safety_setting::HarmBlockMethod"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<SafetySetting> for crate::model::SafetySetting {
+    type Output = SafetySetting;
+    fn to_proto(self) -> std::result::Result<SafetySetting, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            category: self.category.to_proto()?,
+            threshold: self.threshold.to_proto()?,
+            method: self.method.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::SafetySetting> for SafetySetting {
+    fn cnv(self) -> std::result::Result<crate::model::SafetySetting, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::SafetySetting::new()
+                .set_category(self.category)
+                .set_threshold(self.threshold)
+                .set_method(self.method)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<safety_rating::HarmProbability> for crate::model::safety_rating::HarmProbability {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::safety_rating::HarmProbability"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<safety_rating::HarmSeverity> for crate::model::safety_rating::HarmSeverity {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::safety_rating::HarmSeverity"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<SafetyRating> for crate::model::SafetyRating {
+    type Output = SafetyRating;
+    fn to_proto(self) -> std::result::Result<SafetyRating, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            category: self.category.to_proto()?,
+            probability: self.probability.to_proto()?,
+            probability_score: self.probability_score.to_proto()?,
+            severity: self.severity.to_proto()?,
+            severity_score: self.severity_score.to_proto()?,
+            blocked: self.blocked.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::SafetyRating> for SafetyRating {
+    fn cnv(self) -> std::result::Result<crate::model::SafetyRating, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::SafetyRating::new()
+                .set_category(self.category)
+                .set_probability(self.probability)
+                .set_probability_score(self.probability_score)
+                .set_severity(self.severity)
+                .set_severity_score(self.severity_score)
+                .set_blocked(self.blocked)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<CitationMetadata> for crate::model::CitationMetadata {
+    type Output = CitationMetadata;
+    fn to_proto(self) -> std::result::Result<CitationMetadata, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            citations: self.citations
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::CitationMetadata> for CitationMetadata {
+    fn cnv(self) -> std::result::Result<crate::model::CitationMetadata, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::CitationMetadata::new()
+                .set_citations(self.citations.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<Citation> for crate::model::Citation {
+    type Output = Citation;
+    fn to_proto(self) -> std::result::Result<Citation, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            start_index: self.start_index.to_proto()?,
+            end_index: self.end_index.to_proto()?,
+            uri: self.uri.to_proto()?,
+            title: self.title.to_proto()?,
+            license: self.license.to_proto()?,
+            publication_date: self.publication_date.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::Citation> for Citation {
+    fn cnv(self) -> std::result::Result<crate::model::Citation, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::Citation::new()
+                .set_start_index(self.start_index)
+                .set_end_index(self.end_index)
+                .set_uri(self.uri)
+                .set_title(self.title)
+                .set_license(self.license)
+                .set_or_clear_publication_date(self.publication_date.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<candidate::FinishReason> for crate::model::candidate::FinishReason {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::candidate::FinishReason"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<Candidate> for crate::model::Candidate {
+    type Output = Candidate;
+    fn to_proto(self) -> std::result::Result<Candidate, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            index: self.index.to_proto()?,
+            content: self.content.map(|v| v.to_proto()).transpose()?,
+            score: self.score.to_proto()?,
+            avg_logprobs: self.avg_logprobs.to_proto()?,
+            logprobs_result: self.logprobs_result.map(|v| v.to_proto()).transpose()?,
+            finish_reason: self.finish_reason.to_proto()?,
+            safety_ratings: self.safety_ratings
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            finish_message: self.finish_message.map(|v| v.to_proto()).transpose()?,
+            citation_metadata: self.citation_metadata.map(|v| v.to_proto()).transpose()?,
+            grounding_metadata: self.grounding_metadata.map(|v| v.to_proto()).transpose()?,
+            url_context_metadata: self.url_context_metadata.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::Candidate> for Candidate {
+    fn cnv(self) -> std::result::Result<crate::model::Candidate, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::Candidate::new()
+                .set_index(self.index)
+                .set_or_clear_content(self.content.map(|v| v.cnv()).transpose()?)
+                .set_score(self.score)
+                .set_avg_logprobs(self.avg_logprobs)
+                .set_or_clear_logprobs_result(self.logprobs_result.map(|v| v.cnv()).transpose()?)
+                .set_finish_reason(self.finish_reason)
+                .set_safety_ratings(self.safety_ratings.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_finish_message(self.finish_message.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_citation_metadata(self.citation_metadata.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_grounding_metadata(self.grounding_metadata.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_url_context_metadata(self.url_context_metadata.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<UrlContextMetadata> for crate::model::UrlContextMetadata {
+    type Output = UrlContextMetadata;
+    fn to_proto(self) -> std::result::Result<UrlContextMetadata, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            url_metadata: self.url_metadata
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::UrlContextMetadata> for UrlContextMetadata {
+    fn cnv(self) -> std::result::Result<crate::model::UrlContextMetadata, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::UrlContextMetadata::new()
+                .set_url_metadata(self.url_metadata.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<url_metadata::UrlRetrievalStatus> for crate::model::url_metadata::UrlRetrievalStatus {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::url_metadata::UrlRetrievalStatus"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<UrlMetadata> for crate::model::UrlMetadata {
+    type Output = UrlMetadata;
+    fn to_proto(self) -> std::result::Result<UrlMetadata, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            retrieved_url: self.retrieved_url.to_proto()?,
+            url_retrieval_status: self.url_retrieval_status.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::UrlMetadata> for UrlMetadata {
+    fn cnv(self) -> std::result::Result<crate::model::UrlMetadata, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::UrlMetadata::new()
+                .set_retrieved_url(self.retrieved_url)
+                .set_url_retrieval_status(self.url_retrieval_status)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<logprobs_result::Candidate> for crate::model::logprobs_result::Candidate {
+    type Output = logprobs_result::Candidate;
+    fn to_proto(self) -> std::result::Result<logprobs_result::Candidate, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            token: self.token.map(|v| v.to_proto()).transpose()?,
+            token_id: self.token_id.map(|v| v.to_proto()).transpose()?,
+            log_probability: self.log_probability.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::logprobs_result::Candidate> for logprobs_result::Candidate {
+    fn cnv(self) -> std::result::Result<crate::model::logprobs_result::Candidate, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::logprobs_result::Candidate::new()
+                .set_or_clear_token(self.token.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_token_id(self.token_id.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_log_probability(self.log_probability.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<logprobs_result::TopCandidates> for crate::model::logprobs_result::TopCandidates {
+    type Output = logprobs_result::TopCandidates;
+    fn to_proto(self) -> std::result::Result<logprobs_result::TopCandidates, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            candidates: self.candidates
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::logprobs_result::TopCandidates> for logprobs_result::TopCandidates {
+    fn cnv(self) -> std::result::Result<crate::model::logprobs_result::TopCandidates, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::logprobs_result::TopCandidates::new()
+                .set_candidates(self.candidates.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<LogprobsResult> for crate::model::LogprobsResult {
+    type Output = LogprobsResult;
+    fn to_proto(self) -> std::result::Result<LogprobsResult, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            top_candidates: self.top_candidates
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            chosen_candidates: self.chosen_candidates
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::LogprobsResult> for LogprobsResult {
+    fn cnv(self) -> std::result::Result<crate::model::LogprobsResult, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::LogprobsResult::new()
+                .set_top_candidates(self.top_candidates.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_chosen_candidates(self.chosen_candidates.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<Segment> for crate::model::Segment {
+    type Output = Segment;
+    fn to_proto(self) -> std::result::Result<Segment, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            part_index: self.part_index.to_proto()?,
+            start_index: self.start_index.to_proto()?,
+            end_index: self.end_index.to_proto()?,
+            text: self.text.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::Segment> for Segment {
+    fn cnv(self) -> std::result::Result<crate::model::Segment, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::Segment::new()
+                .set_part_index(self.part_index)
+                .set_start_index(self.start_index)
+                .set_end_index(self.end_index)
+                .set_text(self.text)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<grounding_chunk::Web> for crate::model::grounding_chunk::Web {
+    type Output = grounding_chunk::Web;
+    fn to_proto(self) -> std::result::Result<grounding_chunk::Web, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            uri: self.uri.map(|v| v.to_proto()).transpose()?,
+            title: self.title.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::grounding_chunk::Web> for grounding_chunk::Web {
+    fn cnv(self) -> std::result::Result<crate::model::grounding_chunk::Web, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::grounding_chunk::Web::new()
+                .set_or_clear_uri(self.uri.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_title(self.title.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<grounding_chunk::retrieved_context::ContextDetails> for crate::model::grounding_chunk::retrieved_context::ContextDetails {
+    type Output = grounding_chunk::retrieved_context::ContextDetails;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::RagChunk(v) => Ok(Self::Output::RagChunk((*v).to_proto()?)),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::grounding_chunk::retrieved_context::ContextDetails> for grounding_chunk::retrieved_context::ContextDetails {
+    fn cnv(self) -> std::result::Result<crate::model::grounding_chunk::retrieved_context::ContextDetails, gaxi::prost::ConvertError> {
+        use crate::model::grounding_chunk::retrieved_context::ContextDetails as T;
+        match self {
+            Self::RagChunk(v) => Ok(T::RagChunk(std::boxed::Box::new(v.cnv()?))),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<grounding_chunk::RetrievedContext> for crate::model::grounding_chunk::RetrievedContext {
+    type Output = grounding_chunk::RetrievedContext;
+    fn to_proto(self) -> std::result::Result<grounding_chunk::RetrievedContext, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            uri: self.uri.map(|v| v.to_proto()).transpose()?,
+            title: self.title.map(|v| v.to_proto()).transpose()?,
+            text: self.text.map(|v| v.to_proto()).transpose()?,
+            document_name: self.document_name.map(|v| v.to_proto()).transpose()?,
+            context_details: self.context_details.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::grounding_chunk::RetrievedContext> for grounding_chunk::RetrievedContext {
+    fn cnv(self) -> std::result::Result<crate::model::grounding_chunk::RetrievedContext, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::grounding_chunk::RetrievedContext::new()
+                .set_or_clear_uri(self.uri.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_title(self.title.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_text(self.text.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_document_name(self.document_name.map(|v| v.cnv()).transpose()?)
+                .set_context_details(self.context_details.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<grounding_chunk::maps::place_answer_sources::ReviewSnippet> for crate::model::grounding_chunk::maps::place_answer_sources::ReviewSnippet {
+    type Output = grounding_chunk::maps::place_answer_sources::ReviewSnippet;
+    fn to_proto(self) -> std::result::Result<grounding_chunk::maps::place_answer_sources::ReviewSnippet, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            review_id: self.review_id.to_proto()?,
+            google_maps_uri: self.google_maps_uri.to_proto()?,
+            title: self.title.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::grounding_chunk::maps::place_answer_sources::ReviewSnippet> for grounding_chunk::maps::place_answer_sources::ReviewSnippet {
+    fn cnv(self) -> std::result::Result<crate::model::grounding_chunk::maps::place_answer_sources::ReviewSnippet, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::grounding_chunk::maps::place_answer_sources::ReviewSnippet::new()
+                .set_review_id(self.review_id)
+                .set_google_maps_uri(self.google_maps_uri)
+                .set_title(self.title)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<grounding_chunk::maps::PlaceAnswerSources> for crate::model::grounding_chunk::maps::PlaceAnswerSources {
+    type Output = grounding_chunk::maps::PlaceAnswerSources;
+    fn to_proto(self) -> std::result::Result<grounding_chunk::maps::PlaceAnswerSources, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            review_snippets: self.review_snippets
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::grounding_chunk::maps::PlaceAnswerSources> for grounding_chunk::maps::PlaceAnswerSources {
+    fn cnv(self) -> std::result::Result<crate::model::grounding_chunk::maps::PlaceAnswerSources, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::grounding_chunk::maps::PlaceAnswerSources::new()
+                .set_review_snippets(self.review_snippets.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<grounding_chunk::maps::Route> for crate::model::grounding_chunk::maps::Route {
+    type Output = grounding_chunk::maps::Route;
+    fn to_proto(self) -> std::result::Result<grounding_chunk::maps::Route, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            distance_meters: self.distance_meters.to_proto()?,
+            duration: self.duration.map(|v| v.to_proto()).transpose()?,
+            encoded_polyline: self.encoded_polyline.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::grounding_chunk::maps::Route> for grounding_chunk::maps::Route {
+    fn cnv(self) -> std::result::Result<crate::model::grounding_chunk::maps::Route, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::grounding_chunk::maps::Route::new()
+                .set_distance_meters(self.distance_meters)
+                .set_or_clear_duration(self.duration.map(|v| v.cnv()).transpose()?)
+                .set_encoded_polyline(self.encoded_polyline)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<grounding_chunk::Maps> for crate::model::grounding_chunk::Maps {
+    type Output = grounding_chunk::Maps;
+    fn to_proto(self) -> std::result::Result<grounding_chunk::Maps, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            uri: self.uri.map(|v| v.to_proto()).transpose()?,
+            title: self.title.map(|v| v.to_proto()).transpose()?,
+            text: self.text.map(|v| v.to_proto()).transpose()?,
+            place_id: self.place_id.map(|v| v.to_proto()).transpose()?,
+            place_answer_sources: self.place_answer_sources.map(|v| v.to_proto()).transpose()?,
+            route: self.route.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::grounding_chunk::Maps> for grounding_chunk::Maps {
+    fn cnv(self) -> std::result::Result<crate::model::grounding_chunk::Maps, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::grounding_chunk::Maps::new()
+                .set_or_clear_uri(self.uri.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_title(self.title.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_text(self.text.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_place_id(self.place_id.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_place_answer_sources(self.place_answer_sources.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_route(self.route.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<grounding_chunk::ChunkType> for crate::model::grounding_chunk::ChunkType {
+    type Output = grounding_chunk::ChunkType;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::Web(v) => Ok(Self::Output::Web((*v).to_proto()?)),
+            Self::RetrievedContext(v) => Ok(Self::Output::RetrievedContext((*v).to_proto()?)),
+            Self::Maps(v) => Ok(Self::Output::Maps((*v).to_proto()?)),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::grounding_chunk::ChunkType> for grounding_chunk::ChunkType {
+    fn cnv(self) -> std::result::Result<crate::model::grounding_chunk::ChunkType, gaxi::prost::ConvertError> {
+        use crate::model::grounding_chunk::ChunkType as T;
+        match self {
+            Self::Web(v) => Ok(T::Web(std::boxed::Box::new(v.cnv()?))),
+            Self::RetrievedContext(v) => Ok(T::RetrievedContext(std::boxed::Box::new(v.cnv()?))),
+            Self::Maps(v) => Ok(T::Maps(std::boxed::Box::new(v.cnv()?))),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<GroundingChunk> for crate::model::GroundingChunk {
+    type Output = GroundingChunk;
+    fn to_proto(self) -> std::result::Result<GroundingChunk, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            chunk_type: self.chunk_type.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::GroundingChunk> for GroundingChunk {
+    fn cnv(self) -> std::result::Result<crate::model::GroundingChunk, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::GroundingChunk::new()
+                .set_chunk_type(self.chunk_type.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<GroundingSupport> for crate::model::GroundingSupport {
+    type Output = GroundingSupport;
+    fn to_proto(self) -> std::result::Result<GroundingSupport, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            segment: self.segment.map(|v| v.to_proto()).transpose()?,
+            grounding_chunk_indices: self.grounding_chunk_indices
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            confidence_scores: self.confidence_scores
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::GroundingSupport> for GroundingSupport {
+    fn cnv(self) -> std::result::Result<crate::model::GroundingSupport, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::GroundingSupport::new()
+                .set_or_clear_segment(self.segment.map(|v| v.cnv()).transpose()?)
+                .set_grounding_chunk_indices(self.grounding_chunk_indices.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_confidence_scores(self.confidence_scores.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<grounding_metadata::SourceFlaggingUri> for crate::model::grounding_metadata::SourceFlaggingUri {
+    type Output = grounding_metadata::SourceFlaggingUri;
+    fn to_proto(self) -> std::result::Result<grounding_metadata::SourceFlaggingUri, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            source_id: self.source_id.to_proto()?,
+            flag_content_uri: self.flag_content_uri.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::grounding_metadata::SourceFlaggingUri> for grounding_metadata::SourceFlaggingUri {
+    fn cnv(self) -> std::result::Result<crate::model::grounding_metadata::SourceFlaggingUri, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::grounding_metadata::SourceFlaggingUri::new()
+                .set_source_id(self.source_id)
+                .set_flag_content_uri(self.flag_content_uri)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<GroundingMetadata> for crate::model::GroundingMetadata {
+    type Output = GroundingMetadata;
+    fn to_proto(self) -> std::result::Result<GroundingMetadata, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            web_search_queries: self.web_search_queries
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            search_entry_point: self.search_entry_point.map(|v| v.to_proto()).transpose()?,
+            retrieval_queries: self.retrieval_queries
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            grounding_chunks: self.grounding_chunks
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            grounding_supports: self.grounding_supports
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            retrieval_metadata: self.retrieval_metadata.map(|v| v.to_proto()).transpose()?,
+            google_maps_widget_context_token: self.google_maps_widget_context_token.map(|v| v.to_proto()).transpose()?,
+            source_flagging_uris: self.source_flagging_uris
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::GroundingMetadata> for GroundingMetadata {
+    fn cnv(self) -> std::result::Result<crate::model::GroundingMetadata, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::GroundingMetadata::new()
+                .set_web_search_queries(self.web_search_queries.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_search_entry_point(self.search_entry_point.map(|v| v.cnv()).transpose()?)
+                .set_retrieval_queries(self.retrieval_queries.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_grounding_chunks(self.grounding_chunks.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_grounding_supports(self.grounding_supports.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_retrieval_metadata(self.retrieval_metadata.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_google_maps_widget_context_token(self.google_maps_widget_context_token.map(|v| v.cnv()).transpose()?)
+                .set_source_flagging_uris(self.source_flagging_uris.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<SearchEntryPoint> for crate::model::SearchEntryPoint {
+    type Output = SearchEntryPoint;
+    fn to_proto(self) -> std::result::Result<SearchEntryPoint, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            rendered_content: self.rendered_content.to_proto()?,
+            sdk_blob: self.sdk_blob.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::SearchEntryPoint> for SearchEntryPoint {
+    fn cnv(self) -> std::result::Result<crate::model::SearchEntryPoint, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::SearchEntryPoint::new()
+                .set_rendered_content(self.rendered_content)
+                .set_sdk_blob(self.sdk_blob)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<RetrievalMetadata> for crate::model::RetrievalMetadata {
+    type Output = RetrievalMetadata;
+    fn to_proto(self) -> std::result::Result<RetrievalMetadata, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            google_search_dynamic_retrieval_score: self.google_search_dynamic_retrieval_score.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::RetrievalMetadata> for RetrievalMetadata {
+    fn cnv(self) -> std::result::Result<crate::model::RetrievalMetadata, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::RetrievalMetadata::new()
+                .set_google_search_dynamic_retrieval_score(self.google_search_dynamic_retrieval_score)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<ModelArmorConfig> for crate::model::ModelArmorConfig {
+    type Output = ModelArmorConfig;
+    fn to_proto(self) -> std::result::Result<ModelArmorConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            prompt_template_name: self.prompt_template_name.to_proto()?,
+            response_template_name: self.response_template_name.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::ModelArmorConfig> for ModelArmorConfig {
+    fn cnv(self) -> std::result::Result<crate::model::ModelArmorConfig, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::ModelArmorConfig::new()
+                .set_prompt_template_name(self.prompt_template_name)
+                .set_response_template_name(self.response_template_name)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<ModalityTokenCount> for crate::model::ModalityTokenCount {
+    type Output = ModalityTokenCount;
+    fn to_proto(self) -> std::result::Result<ModalityTokenCount, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            modality: self.modality.to_proto()?,
+            token_count: self.token_count.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::ModalityTokenCount> for ModalityTokenCount {
+    fn cnv(self) -> std::result::Result<crate::model::ModalityTokenCount, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::ModalityTokenCount::new()
+                .set_modality(self.modality)
+                .set_token_count(self.token_count)
+        )
+    }
+}
+
 #[cfg(feature = "feature-online-store-service" )]
 impl gaxi::prost::ToProto<feature_view_data_key::CompositeKey> for crate::model::feature_view_data_key::CompositeKey {
     type Output = feature_view_data_key::CompositeKey;
@@ -252,7 +1673,215 @@ impl gaxi::prost::FromProto<crate::model::FeatureViewDirectWriteResponse> for Fe
     }
 }
 
-#[cfg(feature = "feature-online-store-service" )]
+#[cfg(feature = "featurestore-online-serving-service" )]
+impl gaxi::prost::ToProto<IdMatcher> for crate::model::IdMatcher {
+    type Output = IdMatcher;
+    fn to_proto(self) -> std::result::Result<IdMatcher, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            ids: self.ids
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(feature = "featurestore-online-serving-service" )]
+impl gaxi::prost::FromProto<crate::model::IdMatcher> for IdMatcher {
+    fn cnv(self) -> std::result::Result<crate::model::IdMatcher, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::IdMatcher::new()
+                .set_ids(self.ids.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+#[cfg(feature = "featurestore-online-serving-service" )]
+impl gaxi::prost::ToProto<FeatureSelector> for crate::model::FeatureSelector {
+    type Output = FeatureSelector;
+    fn to_proto(self) -> std::result::Result<FeatureSelector, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            id_matcher: self.id_matcher.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "featurestore-online-serving-service" )]
+impl gaxi::prost::FromProto<crate::model::FeatureSelector> for FeatureSelector {
+    fn cnv(self) -> std::result::Result<crate::model::FeatureSelector, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::FeatureSelector::new()
+                .set_or_clear_id_matcher(self.id_matcher.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "featurestore-online-serving-service" )]
+impl gaxi::prost::ToProto<read_feature_values_response::FeatureDescriptor> for crate::model::read_feature_values_response::FeatureDescriptor {
+    type Output = read_feature_values_response::FeatureDescriptor;
+    fn to_proto(self) -> std::result::Result<read_feature_values_response::FeatureDescriptor, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            id: self.id.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "featurestore-online-serving-service" )]
+impl gaxi::prost::FromProto<crate::model::read_feature_values_response::FeatureDescriptor> for read_feature_values_response::FeatureDescriptor {
+    fn cnv(self) -> std::result::Result<crate::model::read_feature_values_response::FeatureDescriptor, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::read_feature_values_response::FeatureDescriptor::new()
+                .set_id(self.id)
+        )
+    }
+}
+
+#[cfg(feature = "featurestore-online-serving-service" )]
+impl gaxi::prost::ToProto<read_feature_values_response::Header> for crate::model::read_feature_values_response::Header {
+    type Output = read_feature_values_response::Header;
+    fn to_proto(self) -> std::result::Result<read_feature_values_response::Header, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            entity_type: self.entity_type.to_proto()?,
+            feature_descriptors: self.feature_descriptors
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(feature = "featurestore-online-serving-service" )]
+impl gaxi::prost::FromProto<crate::model::read_feature_values_response::Header> for read_feature_values_response::Header {
+    fn cnv(self) -> std::result::Result<crate::model::read_feature_values_response::Header, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::read_feature_values_response::Header::new()
+                .set_entity_type(self.entity_type)
+                .set_feature_descriptors(self.feature_descriptors.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+#[cfg(feature = "featurestore-online-serving-service" )]
+impl gaxi::prost::ToProto<read_feature_values_response::entity_view::data::Data> for crate::model::read_feature_values_response::entity_view::data::Data {
+    type Output = read_feature_values_response::entity_view::data::Data;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::Value(v) => Ok(Self::Output::Value((*v).to_proto()?)),
+            Self::Values(v) => Ok(Self::Output::Values((*v).to_proto()?)),
+        }
+    }
+}
+
+#[cfg(feature = "featurestore-online-serving-service" )]
+impl gaxi::prost::FromProto<crate::model::read_feature_values_response::entity_view::data::Data> for read_feature_values_response::entity_view::data::Data {
+    fn cnv(self) -> std::result::Result<crate::model::read_feature_values_response::entity_view::data::Data, gaxi::prost::ConvertError> {
+        use crate::model::read_feature_values_response::entity_view::data::Data as T;
+        match self {
+            Self::Value(v) => Ok(T::Value(std::boxed::Box::new(v.cnv()?))),
+            Self::Values(v) => Ok(T::Values(std::boxed::Box::new(v.cnv()?))),
+        }
+    }
+}
+
+#[cfg(feature = "featurestore-online-serving-service" )]
+impl gaxi::prost::ToProto<read_feature_values_response::entity_view::Data> for crate::model::read_feature_values_response::entity_view::Data {
+    type Output = read_feature_values_response::entity_view::Data;
+    fn to_proto(self) -> std::result::Result<read_feature_values_response::entity_view::Data, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            data: self.data.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "featurestore-online-serving-service" )]
+impl gaxi::prost::FromProto<crate::model::read_feature_values_response::entity_view::Data> for read_feature_values_response::entity_view::Data {
+    fn cnv(self) -> std::result::Result<crate::model::read_feature_values_response::entity_view::Data, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::read_feature_values_response::entity_view::Data::new()
+                .set_data(self.data.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "featurestore-online-serving-service" )]
+impl gaxi::prost::ToProto<read_feature_values_response::EntityView> for crate::model::read_feature_values_response::EntityView {
+    type Output = read_feature_values_response::EntityView;
+    fn to_proto(self) -> std::result::Result<read_feature_values_response::EntityView, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            entity_id: self.entity_id.to_proto()?,
+            data: self.data
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(feature = "featurestore-online-serving-service" )]
+impl gaxi::prost::FromProto<crate::model::read_feature_values_response::EntityView> for read_feature_values_response::EntityView {
+    fn cnv(self) -> std::result::Result<crate::model::read_feature_values_response::EntityView, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::read_feature_values_response::EntityView::new()
+                .set_entity_id(self.entity_id)
+                .set_data(self.data.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+#[cfg(feature = "featurestore-online-serving-service" )]
+impl gaxi::prost::ToProto<ReadFeatureValuesResponse> for crate::model::ReadFeatureValuesResponse {
+    type Output = ReadFeatureValuesResponse;
+    fn to_proto(self) -> std::result::Result<ReadFeatureValuesResponse, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            header: self.header.map(|v| v.to_proto()).transpose()?,
+            entity_view: self.entity_view.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "featurestore-online-serving-service" )]
+impl gaxi::prost::FromProto<crate::model::ReadFeatureValuesResponse> for ReadFeatureValuesResponse {
+    fn cnv(self) -> std::result::Result<crate::model::ReadFeatureValuesResponse, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::ReadFeatureValuesResponse::new()
+                .set_or_clear_header(self.header.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_entity_view(self.entity_view.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "featurestore-online-serving-service" )]
+impl gaxi::prost::ToProto<StreamingReadFeatureValuesRequest> for crate::model::StreamingReadFeatureValuesRequest {
+    type Output = StreamingReadFeatureValuesRequest;
+    fn to_proto(self) -> std::result::Result<StreamingReadFeatureValuesRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            entity_type: self.entity_type.to_proto()?,
+            entity_ids: self.entity_ids
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            feature_selector: self.feature_selector.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "featurestore-online-serving-service" )]
+impl gaxi::prost::FromProto<crate::model::StreamingReadFeatureValuesRequest> for StreamingReadFeatureValuesRequest {
+    fn cnv(self) -> std::result::Result<crate::model::StreamingReadFeatureValuesRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::StreamingReadFeatureValuesRequest::new()
+                .set_entity_type(self.entity_type)
+                .set_entity_ids(self.entity_ids.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_feature_selector(self.feature_selector.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(any ( feature = "feature-online-store-service",feature = "featurestore-online-serving-service", ) )]
 impl gaxi::prost::ToProto<feature_value::Metadata> for crate::model::feature_value::Metadata {
     type Output = feature_value::Metadata;
     fn to_proto(self) -> std::result::Result<feature_value::Metadata, gaxi::prost::ConvertError> {
@@ -262,7 +1891,7 @@ impl gaxi::prost::ToProto<feature_value::Metadata> for crate::model::feature_val
     }
 }
 
-#[cfg(feature = "feature-online-store-service" )]
+#[cfg(any ( feature = "feature-online-store-service",feature = "featurestore-online-serving-service", ) )]
 impl gaxi::prost::FromProto<crate::model::feature_value::Metadata> for feature_value::Metadata {
     fn cnv(self) -> std::result::Result<crate::model::feature_value::Metadata, gaxi::prost::ConvertError> {
         Ok(
@@ -272,7 +1901,7 @@ impl gaxi::prost::FromProto<crate::model::feature_value::Metadata> for feature_v
     }
 }
 
-#[cfg(feature = "feature-online-store-service" )]
+#[cfg(any ( feature = "feature-online-store-service",feature = "featurestore-online-serving-service", ) )]
 impl gaxi::prost::ToProto<feature_value::Value> for crate::model::feature_value::Value {
     type Output = feature_value::Value;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -291,7 +1920,7 @@ impl gaxi::prost::ToProto<feature_value::Value> for crate::model::feature_value:
     }
 }
 
-#[cfg(feature = "feature-online-store-service" )]
+#[cfg(any ( feature = "feature-online-store-service",feature = "featurestore-online-serving-service", ) )]
 impl gaxi::prost::FromProto<crate::model::feature_value::Value> for feature_value::Value {
     fn cnv(self) -> std::result::Result<crate::model::feature_value::Value, gaxi::prost::ConvertError> {
         use crate::model::feature_value::Value as T;
@@ -310,7 +1939,7 @@ impl gaxi::prost::FromProto<crate::model::feature_value::Value> for feature_valu
     }
 }
 
-#[cfg(feature = "feature-online-store-service" )]
+#[cfg(any ( feature = "feature-online-store-service",feature = "featurestore-online-serving-service", ) )]
 impl gaxi::prost::ToProto<FeatureValue> for crate::model::FeatureValue {
     type Output = FeatureValue;
     fn to_proto(self) -> std::result::Result<FeatureValue, gaxi::prost::ConvertError> {
@@ -321,7 +1950,7 @@ impl gaxi::prost::ToProto<FeatureValue> for crate::model::FeatureValue {
     }
 }
 
-#[cfg(feature = "feature-online-store-service" )]
+#[cfg(any ( feature = "feature-online-store-service",feature = "featurestore-online-serving-service", ) )]
 impl gaxi::prost::FromProto<crate::model::FeatureValue> for FeatureValue {
     fn cnv(self) -> std::result::Result<crate::model::FeatureValue, gaxi::prost::ConvertError> {
         Ok(
@@ -332,7 +1961,7 @@ impl gaxi::prost::FromProto<crate::model::FeatureValue> for FeatureValue {
     }
 }
 
-#[cfg(feature = "feature-online-store-service" )]
+#[cfg(any ( feature = "feature-online-store-service",feature = "featurestore-online-serving-service", ) )]
 impl gaxi::prost::ToProto<StructValue> for crate::model::StructValue {
     type Output = StructValue;
     fn to_proto(self) -> std::result::Result<StructValue, gaxi::prost::ConvertError> {
@@ -345,7 +1974,7 @@ impl gaxi::prost::ToProto<StructValue> for crate::model::StructValue {
     }
 }
 
-#[cfg(feature = "feature-online-store-service" )]
+#[cfg(any ( feature = "feature-online-store-service",feature = "featurestore-online-serving-service", ) )]
 impl gaxi::prost::FromProto<crate::model::StructValue> for StructValue {
     fn cnv(self) -> std::result::Result<crate::model::StructValue, gaxi::prost::ConvertError> {
         Ok(
@@ -356,7 +1985,7 @@ impl gaxi::prost::FromProto<crate::model::StructValue> for StructValue {
     }
 }
 
-#[cfg(feature = "feature-online-store-service" )]
+#[cfg(any ( feature = "feature-online-store-service",feature = "featurestore-online-serving-service", ) )]
 impl gaxi::prost::ToProto<StructFieldValue> for crate::model::StructFieldValue {
     type Output = StructFieldValue;
     fn to_proto(self) -> std::result::Result<StructFieldValue, gaxi::prost::ConvertError> {
@@ -367,13 +1996,157 @@ impl gaxi::prost::ToProto<StructFieldValue> for crate::model::StructFieldValue {
     }
 }
 
-#[cfg(feature = "feature-online-store-service" )]
+#[cfg(any ( feature = "feature-online-store-service",feature = "featurestore-online-serving-service", ) )]
 impl gaxi::prost::FromProto<crate::model::StructFieldValue> for StructFieldValue {
     fn cnv(self) -> std::result::Result<crate::model::StructFieldValue, gaxi::prost::ConvertError> {
         Ok(
             crate::model::StructFieldValue::new()
                 .set_name(self.name)
                 .set_or_clear_value(self.value.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "featurestore-online-serving-service" )]
+impl gaxi::prost::ToProto<FeatureValueList> for crate::model::FeatureValueList {
+    type Output = FeatureValueList;
+    fn to_proto(self) -> std::result::Result<FeatureValueList, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            values: self.values
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(feature = "featurestore-online-serving-service" )]
+impl gaxi::prost::FromProto<crate::model::FeatureValueList> for FeatureValueList {
+    fn cnv(self) -> std::result::Result<crate::model::FeatureValueList, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::FeatureValueList::new()
+                .set_values(self.values.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<Schema> for crate::model::Schema {
+    type Output = Schema;
+    fn to_proto(self) -> std::result::Result<Schema, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            r#type: self.r#type.to_proto()?,
+            format: self.format.to_proto()?,
+            title: self.title.to_proto()?,
+            description: self.description.to_proto()?,
+            nullable: self.nullable.to_proto()?,
+            default: self.default.map(|v| v.to_proto()).transpose()?,
+            items: self.items.map(|v| v.to_proto().map(std::boxed::Box::new)).transpose()?,
+            min_items: self.min_items.to_proto()?,
+            max_items: self.max_items.to_proto()?,
+            r#enum: self.r#enum
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            properties: self.properties
+                .into_iter()
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
+            property_ordering: self.property_ordering
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            required: self.required
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            min_properties: self.min_properties.to_proto()?,
+            max_properties: self.max_properties.to_proto()?,
+            minimum: self.minimum.to_proto()?,
+            maximum: self.maximum.to_proto()?,
+            min_length: self.min_length.to_proto()?,
+            max_length: self.max_length.to_proto()?,
+            pattern: self.pattern.to_proto()?,
+            example: self.example.map(|v| v.to_proto()).transpose()?,
+            any_of: self.any_of
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            additional_properties: self.additional_properties.map(|v| v.to_proto()).transpose()?,
+            r#ref: self.r#ref.to_proto()?,
+            defs: self.defs
+                .into_iter()
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::Schema> for Schema {
+    fn cnv(self) -> std::result::Result<crate::model::Schema, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::Schema::new()
+                .set_type(self.r#type)
+                .set_format(self.format)
+                .set_title(self.title)
+                .set_description(self.description)
+                .set_nullable(self.nullable)
+                .set_or_clear_default(self.default.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_items(self.items.map(|v| v.cnv()).transpose()?)
+                .set_min_items(self.min_items)
+                .set_max_items(self.max_items)
+                .set_enum(self.r#enum.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_properties(self.properties.into_iter()
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                    }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
+                .set_property_ordering(self.property_ordering.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_required(self.required.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_min_properties(self.min_properties)
+                .set_max_properties(self.max_properties)
+                .set_minimum(self.minimum)
+                .set_maximum(self.maximum)
+                .set_min_length(self.min_length)
+                .set_max_length(self.max_length)
+                .set_pattern(self.pattern)
+                .set_or_clear_example(self.example.map(|v| v.cnv()).transpose()?)
+                .set_any_of(self.any_of.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_additional_properties(self.additional_properties.map(|v| v.cnv()).transpose()?)
+                .set_ref(self.r#ref)
+                .set_defs(self.defs.into_iter()
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                    }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<StreamRawPredictRequest> for crate::model::StreamRawPredictRequest {
+    type Output = StreamRawPredictRequest;
+    fn to_proto(self) -> std::result::Result<StreamRawPredictRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            endpoint: self.endpoint.to_proto()?,
+            http_body: self.http_body.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::StreamRawPredictRequest> for StreamRawPredictRequest {
+    fn cnv(self) -> std::result::Result<crate::model::StreamRawPredictRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::StreamRawPredictRequest::new()
+                .set_endpoint(self.endpoint)
+                .set_or_clear_http_body(self.http_body.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -574,7 +2347,1254 @@ impl gaxi::prost::FromProto<crate::model::StreamingRawPredictResponse> for Strea
     }
 }
 
-#[cfg(feature = "feature-online-store-service" )]
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<GenerateContentRequest> for crate::model::GenerateContentRequest {
+    type Output = GenerateContentRequest;
+    fn to_proto(self) -> std::result::Result<GenerateContentRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            model: self.model.to_proto()?,
+            contents: self.contents
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            system_instruction: self.system_instruction.map(|v| v.to_proto()).transpose()?,
+            cached_content: self.cached_content.to_proto()?,
+            tools: self.tools
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            tool_config: self.tool_config.map(|v| v.to_proto()).transpose()?,
+            labels: self.labels
+                .into_iter()
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
+            safety_settings: self.safety_settings
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            model_armor_config: self.model_armor_config.map(|v| v.to_proto()).transpose()?,
+            generation_config: self.generation_config.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::GenerateContentRequest> for GenerateContentRequest {
+    fn cnv(self) -> std::result::Result<crate::model::GenerateContentRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::GenerateContentRequest::new()
+                .set_model(self.model)
+                .set_contents(self.contents.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_system_instruction(self.system_instruction.map(|v| v.cnv()).transpose()?)
+                .set_cached_content(self.cached_content)
+                .set_tools(self.tools.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_tool_config(self.tool_config.map(|v| v.cnv()).transpose()?)
+                .set_labels(self.labels.into_iter()
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                    }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
+                .set_safety_settings(self.safety_settings.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_model_armor_config(self.model_armor_config.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_generation_config(self.generation_config.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<generate_content_response::prompt_feedback::BlockedReason> for crate::model::generate_content_response::prompt_feedback::BlockedReason {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::generate_content_response::prompt_feedback::BlockedReason"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<generate_content_response::PromptFeedback> for crate::model::generate_content_response::PromptFeedback {
+    type Output = generate_content_response::PromptFeedback;
+    fn to_proto(self) -> std::result::Result<generate_content_response::PromptFeedback, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            block_reason: self.block_reason.to_proto()?,
+            safety_ratings: self.safety_ratings
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            block_reason_message: self.block_reason_message.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::generate_content_response::PromptFeedback> for generate_content_response::PromptFeedback {
+    fn cnv(self) -> std::result::Result<crate::model::generate_content_response::PromptFeedback, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::generate_content_response::PromptFeedback::new()
+                .set_block_reason(self.block_reason)
+                .set_safety_ratings(self.safety_ratings.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_block_reason_message(self.block_reason_message)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<generate_content_response::usage_metadata::TrafficType> for crate::model::generate_content_response::usage_metadata::TrafficType {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::generate_content_response::usage_metadata::TrafficType"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<generate_content_response::UsageMetadata> for crate::model::generate_content_response::UsageMetadata {
+    type Output = generate_content_response::UsageMetadata;
+    fn to_proto(self) -> std::result::Result<generate_content_response::UsageMetadata, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            prompt_token_count: self.prompt_token_count.to_proto()?,
+            candidates_token_count: self.candidates_token_count.to_proto()?,
+            thoughts_token_count: self.thoughts_token_count.to_proto()?,
+            total_token_count: self.total_token_count.to_proto()?,
+            cached_content_token_count: self.cached_content_token_count.to_proto()?,
+            prompt_tokens_details: self.prompt_tokens_details
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            cache_tokens_details: self.cache_tokens_details
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            candidates_tokens_details: self.candidates_tokens_details
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            tool_use_prompt_tokens_details: self.tool_use_prompt_tokens_details
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            traffic_type: self.traffic_type.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::generate_content_response::UsageMetadata> for generate_content_response::UsageMetadata {
+    fn cnv(self) -> std::result::Result<crate::model::generate_content_response::UsageMetadata, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::generate_content_response::UsageMetadata::new()
+                .set_prompt_token_count(self.prompt_token_count)
+                .set_candidates_token_count(self.candidates_token_count)
+                .set_thoughts_token_count(self.thoughts_token_count)
+                .set_total_token_count(self.total_token_count)
+                .set_cached_content_token_count(self.cached_content_token_count)
+                .set_prompt_tokens_details(self.prompt_tokens_details.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_cache_tokens_details(self.cache_tokens_details.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_candidates_tokens_details(self.candidates_tokens_details.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_tool_use_prompt_tokens_details(self.tool_use_prompt_tokens_details.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_traffic_type(self.traffic_type)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<GenerateContentResponse> for crate::model::GenerateContentResponse {
+    type Output = GenerateContentResponse;
+    fn to_proto(self) -> std::result::Result<GenerateContentResponse, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            candidates: self.candidates
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            model_version: self.model_version.to_proto()?,
+            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
+            response_id: self.response_id.to_proto()?,
+            prompt_feedback: self.prompt_feedback.map(|v| v.to_proto()).transpose()?,
+            usage_metadata: self.usage_metadata.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::GenerateContentResponse> for GenerateContentResponse {
+    fn cnv(self) -> std::result::Result<crate::model::GenerateContentResponse, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::GenerateContentResponse::new()
+                .set_candidates(self.candidates.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_model_version(self.model_version)
+                .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
+                .set_response_id(self.response_id)
+                .set_or_clear_prompt_feedback(self.prompt_feedback.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_usage_metadata(self.usage_metadata.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "reasoning-engine-execution-service" )]
+impl gaxi::prost::ToProto<StreamQueryReasoningEngineRequest> for crate::model::StreamQueryReasoningEngineRequest {
+    type Output = StreamQueryReasoningEngineRequest;
+    fn to_proto(self) -> std::result::Result<StreamQueryReasoningEngineRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+            input: self.input.map(|v| v.to_proto()).transpose()?,
+            class_method: self.class_method.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "reasoning-engine-execution-service" )]
+impl gaxi::prost::FromProto<crate::model::StreamQueryReasoningEngineRequest> for StreamQueryReasoningEngineRequest {
+    fn cnv(self) -> std::result::Result<crate::model::StreamQueryReasoningEngineRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::StreamQueryReasoningEngineRequest::new()
+                .set_name(self.name)
+                .set_or_clear_input(self.input.map(|v| v.cnv()).transpose()?)
+                .set_class_method(self.class_method)
+        )
+    }
+}
+
+#[cfg(feature = "tensorboard-service" )]
+impl gaxi::prost::ToProto<TensorboardBlob> for crate::model::TensorboardBlob {
+    type Output = TensorboardBlob;
+    fn to_proto(self) -> std::result::Result<TensorboardBlob, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            id: self.id.to_proto()?,
+            data: self.data.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "tensorboard-service" )]
+impl gaxi::prost::FromProto<crate::model::TensorboardBlob> for TensorboardBlob {
+    fn cnv(self) -> std::result::Result<crate::model::TensorboardBlob, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::TensorboardBlob::new()
+                .set_id(self.id)
+                .set_data(self.data)
+        )
+    }
+}
+
+#[cfg(feature = "tensorboard-service" )]
+impl gaxi::prost::ToProto<ReadTensorboardBlobDataRequest> for crate::model::ReadTensorboardBlobDataRequest {
+    type Output = ReadTensorboardBlobDataRequest;
+    fn to_proto(self) -> std::result::Result<ReadTensorboardBlobDataRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            time_series: self.time_series.to_proto()?,
+            blob_ids: self.blob_ids
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(feature = "tensorboard-service" )]
+impl gaxi::prost::FromProto<crate::model::ReadTensorboardBlobDataRequest> for ReadTensorboardBlobDataRequest {
+    fn cnv(self) -> std::result::Result<crate::model::ReadTensorboardBlobDataRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::ReadTensorboardBlobDataRequest::new()
+                .set_time_series(self.time_series)
+                .set_blob_ids(self.blob_ids.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+#[cfg(feature = "tensorboard-service" )]
+impl gaxi::prost::ToProto<ReadTensorboardBlobDataResponse> for crate::model::ReadTensorboardBlobDataResponse {
+    type Output = ReadTensorboardBlobDataResponse;
+    fn to_proto(self) -> std::result::Result<ReadTensorboardBlobDataResponse, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            blobs: self.blobs
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(feature = "tensorboard-service" )]
+impl gaxi::prost::FromProto<crate::model::ReadTensorboardBlobDataResponse> for ReadTensorboardBlobDataResponse {
+    fn cnv(self) -> std::result::Result<crate::model::ReadTensorboardBlobDataResponse, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::ReadTensorboardBlobDataResponse::new()
+                .set_blobs(self.blobs.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<tool::GoogleSearch> for crate::model::tool::GoogleSearch {
+    type Output = tool::GoogleSearch;
+    fn to_proto(self) -> std::result::Result<tool::GoogleSearch, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            exclude_domains: self.exclude_domains
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            blocking_confidence: self.blocking_confidence.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::tool::GoogleSearch> for tool::GoogleSearch {
+    fn cnv(self) -> std::result::Result<crate::model::tool::GoogleSearch, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::tool::GoogleSearch::new()
+                .set_exclude_domains(self.exclude_domains.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_blocking_confidence(self.blocking_confidence.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<tool::ParallelAiSearch> for crate::model::tool::ParallelAiSearch {
+    type Output = tool::ParallelAiSearch;
+    fn to_proto(self) -> std::result::Result<tool::ParallelAiSearch, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            api_key: self.api_key.to_proto()?,
+            enable_zero_data_retention: self.enable_zero_data_retention.to_proto()?,
+            custom_configs: self.custom_configs.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::tool::ParallelAiSearch> for tool::ParallelAiSearch {
+    fn cnv(self) -> std::result::Result<crate::model::tool::ParallelAiSearch, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::tool::ParallelAiSearch::new()
+                .set_api_key(self.api_key)
+                .set_enable_zero_data_retention(self.enable_zero_data_retention)
+                .set_or_clear_custom_configs(self.custom_configs.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<tool::ExaAiSearch> for crate::model::tool::ExaAiSearch {
+    type Output = tool::ExaAiSearch;
+    fn to_proto(self) -> std::result::Result<tool::ExaAiSearch, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            api_key: self.api_key.to_proto()?,
+            custom_configs: self.custom_configs.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::tool::ExaAiSearch> for tool::ExaAiSearch {
+    fn cnv(self) -> std::result::Result<crate::model::tool::ExaAiSearch, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::tool::ExaAiSearch::new()
+                .set_api_key(self.api_key)
+                .set_or_clear_custom_configs(self.custom_configs.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<tool::CodeExecution> for crate::model::tool::CodeExecution {
+    type Output = tool::CodeExecution;
+    fn to_proto(self) -> std::result::Result<tool::CodeExecution, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::tool::CodeExecution> for tool::CodeExecution {
+    fn cnv(self) -> std::result::Result<crate::model::tool::CodeExecution, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::tool::CodeExecution::new()
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<tool::computer_use::Environment> for crate::model::tool::computer_use::Environment {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::tool::computer_use::Environment"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<tool::ComputerUse> for crate::model::tool::ComputerUse {
+    type Output = tool::ComputerUse;
+    fn to_proto(self) -> std::result::Result<tool::ComputerUse, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            environment: self.environment.to_proto()?,
+            excluded_predefined_functions: self.excluded_predefined_functions
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::tool::ComputerUse> for tool::ComputerUse {
+    fn cnv(self) -> std::result::Result<crate::model::tool::ComputerUse, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::tool::ComputerUse::new()
+                .set_environment(self.environment)
+                .set_excluded_predefined_functions(self.excluded_predefined_functions.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<tool::PhishBlockThreshold> for crate::model::tool::PhishBlockThreshold {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::tool::PhishBlockThreshold"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<Tool> for crate::model::Tool {
+    type Output = Tool;
+    fn to_proto(self) -> std::result::Result<Tool, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            function_declarations: self.function_declarations
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            retrieval: self.retrieval.map(|v| v.to_proto()).transpose()?,
+            google_search: self.google_search.map(|v| v.to_proto()).transpose()?,
+            google_search_retrieval: self.google_search_retrieval.map(|v| v.to_proto()).transpose()?,
+            google_maps: self.google_maps.map(|v| v.to_proto()).transpose()?,
+            enterprise_web_search: self.enterprise_web_search.map(|v| v.to_proto()).transpose()?,
+            parallel_ai_search: self.parallel_ai_search.map(|v| v.to_proto()).transpose()?,
+            exa_ai_search: self.exa_ai_search.map(|v| v.to_proto()).transpose()?,
+            code_execution: self.code_execution.map(|v| v.to_proto()).transpose()?,
+            url_context: self.url_context.map(|v| v.to_proto()).transpose()?,
+            computer_use: self.computer_use.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::Tool> for Tool {
+    fn cnv(self) -> std::result::Result<crate::model::Tool, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::Tool::new()
+                .set_function_declarations(self.function_declarations.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_retrieval(self.retrieval.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_google_search(self.google_search.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_google_search_retrieval(self.google_search_retrieval.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_google_maps(self.google_maps.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_enterprise_web_search(self.enterprise_web_search.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_parallel_ai_search(self.parallel_ai_search.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_exa_ai_search(self.exa_ai_search.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_code_execution(self.code_execution.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_url_context(self.url_context.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_computer_use(self.computer_use.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<UrlContext> for crate::model::UrlContext {
+    type Output = UrlContext;
+    fn to_proto(self) -> std::result::Result<UrlContext, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::UrlContext> for UrlContext {
+    fn cnv(self) -> std::result::Result<crate::model::UrlContext, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::UrlContext::new()
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<FunctionDeclaration> for crate::model::FunctionDeclaration {
+    type Output = FunctionDeclaration;
+    fn to_proto(self) -> std::result::Result<FunctionDeclaration, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+            description: self.description.to_proto()?,
+            parameters: self.parameters.map(|v| v.to_proto()).transpose()?,
+            parameters_json_schema: self.parameters_json_schema.map(|v| v.to_proto()).transpose()?,
+            response: self.response.map(|v| v.to_proto()).transpose()?,
+            response_json_schema: self.response_json_schema.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::FunctionDeclaration> for FunctionDeclaration {
+    fn cnv(self) -> std::result::Result<crate::model::FunctionDeclaration, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::FunctionDeclaration::new()
+                .set_name(self.name)
+                .set_description(self.description)
+                .set_or_clear_parameters(self.parameters.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_parameters_json_schema(self.parameters_json_schema.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_response(self.response.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_response_json_schema(self.response_json_schema.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<FunctionCall> for crate::model::FunctionCall {
+    type Output = FunctionCall;
+    fn to_proto(self) -> std::result::Result<FunctionCall, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+            args: self.args.map(|v| v.to_proto()).transpose()?,
+            partial_args: self.partial_args
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            will_continue: self.will_continue.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::FunctionCall> for FunctionCall {
+    fn cnv(self) -> std::result::Result<crate::model::FunctionCall, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::FunctionCall::new()
+                .set_name(self.name)
+                .set_or_clear_args(self.args.map(|v| v.cnv()).transpose()?)
+                .set_partial_args(self.partial_args.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_will_continue(self.will_continue)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<partial_arg::Delta> for crate::model::partial_arg::Delta {
+    type Output = partial_arg::Delta;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::NullValue(v) => Ok(Self::Output::NullValue(v.to_proto()?)),
+            Self::NumberValue(v) => Ok(Self::Output::NumberValue(v.to_proto()?)),
+            Self::StringValue(v) => Ok(Self::Output::StringValue(v.to_proto()?)),
+            Self::BoolValue(v) => Ok(Self::Output::BoolValue(v.to_proto()?)),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::partial_arg::Delta> for partial_arg::Delta {
+    fn cnv(self) -> std::result::Result<crate::model::partial_arg::Delta, gaxi::prost::ConvertError> {
+        use crate::model::partial_arg::Delta as T;
+        match self {
+            Self::NullValue(v) => Ok(T::NullValue(v.into())),
+            Self::NumberValue(v) => Ok(T::NumberValue(v.cnv()?)),
+            Self::StringValue(v) => Ok(T::StringValue(v.cnv()?)),
+            Self::BoolValue(v) => Ok(T::BoolValue(v.cnv()?)),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<PartialArg> for crate::model::PartialArg {
+    type Output = PartialArg;
+    fn to_proto(self) -> std::result::Result<PartialArg, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            json_path: self.json_path.to_proto()?,
+            will_continue: self.will_continue.to_proto()?,
+            delta: self.delta.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::PartialArg> for PartialArg {
+    fn cnv(self) -> std::result::Result<crate::model::PartialArg, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::PartialArg::new()
+                .set_json_path(self.json_path)
+                .set_will_continue(self.will_continue)
+                .set_delta(self.delta.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<function_response_part::Data> for crate::model::function_response_part::Data {
+    type Output = function_response_part::Data;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::InlineData(v) => Ok(Self::Output::InlineData((*v).to_proto()?)),
+            Self::FileData(v) => Ok(Self::Output::FileData((*v).to_proto()?)),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::function_response_part::Data> for function_response_part::Data {
+    fn cnv(self) -> std::result::Result<crate::model::function_response_part::Data, gaxi::prost::ConvertError> {
+        use crate::model::function_response_part::Data as T;
+        match self {
+            Self::InlineData(v) => Ok(T::InlineData(std::boxed::Box::new(v.cnv()?))),
+            Self::FileData(v) => Ok(T::FileData(std::boxed::Box::new(v.cnv()?))),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<FunctionResponsePart> for crate::model::FunctionResponsePart {
+    type Output = FunctionResponsePart;
+    fn to_proto(self) -> std::result::Result<FunctionResponsePart, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            data: self.data.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::FunctionResponsePart> for FunctionResponsePart {
+    fn cnv(self) -> std::result::Result<crate::model::FunctionResponsePart, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::FunctionResponsePart::new()
+                .set_data(self.data.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<FunctionResponseBlob> for crate::model::FunctionResponseBlob {
+    type Output = FunctionResponseBlob;
+    fn to_proto(self) -> std::result::Result<FunctionResponseBlob, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            mime_type: self.mime_type.to_proto()?,
+            data: self.data.to_proto()?,
+            display_name: self.display_name.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::FunctionResponseBlob> for FunctionResponseBlob {
+    fn cnv(self) -> std::result::Result<crate::model::FunctionResponseBlob, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::FunctionResponseBlob::new()
+                .set_mime_type(self.mime_type)
+                .set_data(self.data)
+                .set_display_name(self.display_name)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<FunctionResponseFileData> for crate::model::FunctionResponseFileData {
+    type Output = FunctionResponseFileData;
+    fn to_proto(self) -> std::result::Result<FunctionResponseFileData, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            mime_type: self.mime_type.to_proto()?,
+            file_uri: self.file_uri.to_proto()?,
+            display_name: self.display_name.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::FunctionResponseFileData> for FunctionResponseFileData {
+    fn cnv(self) -> std::result::Result<crate::model::FunctionResponseFileData, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::FunctionResponseFileData::new()
+                .set_mime_type(self.mime_type)
+                .set_file_uri(self.file_uri)
+                .set_display_name(self.display_name)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<FunctionResponse> for crate::model::FunctionResponse {
+    type Output = FunctionResponse;
+    fn to_proto(self) -> std::result::Result<FunctionResponse, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            name: self.name.to_proto()?,
+            response: self.response.map(|v| v.to_proto()).transpose()?,
+            parts: self.parts
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::FunctionResponse> for FunctionResponse {
+    fn cnv(self) -> std::result::Result<crate::model::FunctionResponse, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::FunctionResponse::new()
+                .set_name(self.name)
+                .set_or_clear_response(self.response.map(|v| v.cnv()).transpose()?)
+                .set_parts(self.parts.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<executable_code::Language> for crate::model::executable_code::Language {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::executable_code::Language"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<ExecutableCode> for crate::model::ExecutableCode {
+    type Output = ExecutableCode;
+    fn to_proto(self) -> std::result::Result<ExecutableCode, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            language: self.language.to_proto()?,
+            code: self.code.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::ExecutableCode> for ExecutableCode {
+    fn cnv(self) -> std::result::Result<crate::model::ExecutableCode, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::ExecutableCode::new()
+                .set_language(self.language)
+                .set_code(self.code)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<code_execution_result::Outcome> for crate::model::code_execution_result::Outcome {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::code_execution_result::Outcome"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<CodeExecutionResult> for crate::model::CodeExecutionResult {
+    type Output = CodeExecutionResult;
+    fn to_proto(self) -> std::result::Result<CodeExecutionResult, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            outcome: self.outcome.to_proto()?,
+            output: self.output.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::CodeExecutionResult> for CodeExecutionResult {
+    fn cnv(self) -> std::result::Result<crate::model::CodeExecutionResult, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::CodeExecutionResult::new()
+                .set_outcome(self.outcome)
+                .set_output(self.output)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<retrieval::Source> for crate::model::retrieval::Source {
+    type Output = retrieval::Source;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::VertexAiSearch(v) => Ok(Self::Output::VertexAiSearch((*v).to_proto()?)),
+            Self::VertexRagStore(v) => Ok(Self::Output::VertexRagStore((*v).to_proto()?)),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::retrieval::Source> for retrieval::Source {
+    fn cnv(self) -> std::result::Result<crate::model::retrieval::Source, gaxi::prost::ConvertError> {
+        use crate::model::retrieval::Source as T;
+        match self {
+            Self::VertexAiSearch(v) => Ok(T::VertexAiSearch(std::boxed::Box::new(v.cnv()?))),
+            Self::VertexRagStore(v) => Ok(T::VertexRagStore(std::boxed::Box::new(v.cnv()?))),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<Retrieval> for crate::model::Retrieval {
+    type Output = Retrieval;
+    fn to_proto(self) -> std::result::Result<Retrieval, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            disable_attribution: self.disable_attribution.to_proto()?,
+            source: self.source.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::Retrieval> for Retrieval {
+    fn cnv(self) -> std::result::Result<crate::model::Retrieval, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::Retrieval::new()
+                .set_disable_attribution(self.disable_attribution)
+                .set_source(self.source.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<vertex_rag_store::RagResource> for crate::model::vertex_rag_store::RagResource {
+    type Output = vertex_rag_store::RagResource;
+    fn to_proto(self) -> std::result::Result<vertex_rag_store::RagResource, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            rag_corpus: self.rag_corpus.to_proto()?,
+            rag_file_ids: self.rag_file_ids
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::vertex_rag_store::RagResource> for vertex_rag_store::RagResource {
+    fn cnv(self) -> std::result::Result<crate::model::vertex_rag_store::RagResource, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::vertex_rag_store::RagResource::new()
+                .set_rag_corpus(self.rag_corpus)
+                .set_rag_file_ids(self.rag_file_ids.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<VertexRagStore> for crate::model::VertexRagStore {
+    type Output = VertexRagStore;
+    fn to_proto(self) -> std::result::Result<VertexRagStore, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            rag_resources: self.rag_resources
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            similarity_top_k: self.similarity_top_k.map(|v| v.to_proto()).transpose()?,
+            vector_distance_threshold: self.vector_distance_threshold.map(|v| v.to_proto()).transpose()?,
+            rag_retrieval_config: self.rag_retrieval_config.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::VertexRagStore> for VertexRagStore {
+    fn cnv(self) -> std::result::Result<crate::model::VertexRagStore, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::VertexRagStore::new()
+                .set_rag_resources(self.rag_resources.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_similarity_top_k(self.similarity_top_k.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_vector_distance_threshold(self.vector_distance_threshold.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_rag_retrieval_config(self.rag_retrieval_config.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<vertex_ai_search::DataStoreSpec> for crate::model::vertex_ai_search::DataStoreSpec {
+    type Output = vertex_ai_search::DataStoreSpec;
+    fn to_proto(self) -> std::result::Result<vertex_ai_search::DataStoreSpec, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            data_store: self.data_store.to_proto()?,
+            filter: self.filter.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::vertex_ai_search::DataStoreSpec> for vertex_ai_search::DataStoreSpec {
+    fn cnv(self) -> std::result::Result<crate::model::vertex_ai_search::DataStoreSpec, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::vertex_ai_search::DataStoreSpec::new()
+                .set_data_store(self.data_store)
+                .set_filter(self.filter)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<VertexAiSearch> for crate::model::VertexAISearch {
+    type Output = VertexAiSearch;
+    fn to_proto(self) -> std::result::Result<VertexAiSearch, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            datastore: self.datastore.to_proto()?,
+            engine: self.engine.to_proto()?,
+            max_results: self.max_results.to_proto()?,
+            filter: self.filter.to_proto()?,
+            data_store_specs: self.data_store_specs
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::VertexAISearch> for VertexAiSearch {
+    fn cnv(self) -> std::result::Result<crate::model::VertexAISearch, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::VertexAISearch::new()
+                .set_datastore(self.datastore)
+                .set_engine(self.engine)
+                .set_max_results(self.max_results)
+                .set_filter(self.filter)
+                .set_data_store_specs(self.data_store_specs.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<GoogleSearchRetrieval> for crate::model::GoogleSearchRetrieval {
+    type Output = GoogleSearchRetrieval;
+    fn to_proto(self) -> std::result::Result<GoogleSearchRetrieval, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            dynamic_retrieval_config: self.dynamic_retrieval_config.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::GoogleSearchRetrieval> for GoogleSearchRetrieval {
+    fn cnv(self) -> std::result::Result<crate::model::GoogleSearchRetrieval, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::GoogleSearchRetrieval::new()
+                .set_or_clear_dynamic_retrieval_config(self.dynamic_retrieval_config.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<GoogleMaps> for crate::model::GoogleMaps {
+    type Output = GoogleMaps;
+    fn to_proto(self) -> std::result::Result<GoogleMaps, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            enable_widget: self.enable_widget.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::GoogleMaps> for GoogleMaps {
+    fn cnv(self) -> std::result::Result<crate::model::GoogleMaps, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::GoogleMaps::new()
+                .set_enable_widget(self.enable_widget)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<EnterpriseWebSearch> for crate::model::EnterpriseWebSearch {
+    type Output = EnterpriseWebSearch;
+    fn to_proto(self) -> std::result::Result<EnterpriseWebSearch, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            exclude_domains: self.exclude_domains
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            blocking_confidence: self.blocking_confidence.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::EnterpriseWebSearch> for EnterpriseWebSearch {
+    fn cnv(self) -> std::result::Result<crate::model::EnterpriseWebSearch, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::EnterpriseWebSearch::new()
+                .set_exclude_domains(self.exclude_domains.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_blocking_confidence(self.blocking_confidence.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<dynamic_retrieval_config::Mode> for crate::model::dynamic_retrieval_config::Mode {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::dynamic_retrieval_config::Mode"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<DynamicRetrievalConfig> for crate::model::DynamicRetrievalConfig {
+    type Output = DynamicRetrievalConfig;
+    fn to_proto(self) -> std::result::Result<DynamicRetrievalConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            mode: self.mode.to_proto()?,
+            dynamic_threshold: self.dynamic_threshold.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::DynamicRetrievalConfig> for DynamicRetrievalConfig {
+    fn cnv(self) -> std::result::Result<crate::model::DynamicRetrievalConfig, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::DynamicRetrievalConfig::new()
+                .set_mode(self.mode)
+                .set_or_clear_dynamic_threshold(self.dynamic_threshold.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<ToolConfig> for crate::model::ToolConfig {
+    type Output = ToolConfig;
+    fn to_proto(self) -> std::result::Result<ToolConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            function_calling_config: self.function_calling_config.map(|v| v.to_proto()).transpose()?,
+            retrieval_config: self.retrieval_config.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::ToolConfig> for ToolConfig {
+    fn cnv(self) -> std::result::Result<crate::model::ToolConfig, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::ToolConfig::new()
+                .set_or_clear_function_calling_config(self.function_calling_config.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_retrieval_config(self.retrieval_config.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<function_calling_config::Mode> for crate::model::function_calling_config::Mode {
+    type Output = i32;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::function_calling_config::Mode"))
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<FunctionCallingConfig> for crate::model::FunctionCallingConfig {
+    type Output = FunctionCallingConfig;
+    fn to_proto(self) -> std::result::Result<FunctionCallingConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            mode: self.mode.to_proto()?,
+            allowed_function_names: self.allowed_function_names
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            stream_function_call_arguments: self.stream_function_call_arguments.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::FunctionCallingConfig> for FunctionCallingConfig {
+    fn cnv(self) -> std::result::Result<crate::model::FunctionCallingConfig, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::FunctionCallingConfig::new()
+                .set_mode(self.mode)
+                .set_allowed_function_names(self.allowed_function_names.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_stream_function_call_arguments(self.stream_function_call_arguments)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<RetrievalConfig> for crate::model::RetrievalConfig {
+    type Output = RetrievalConfig;
+    fn to_proto(self) -> std::result::Result<RetrievalConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            lat_lng: self.lat_lng.map(|v| v.to_proto()).transpose()?,
+            language_code: self.language_code.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::RetrievalConfig> for RetrievalConfig {
+    fn cnv(self) -> std::result::Result<crate::model::RetrievalConfig, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::RetrievalConfig::new()
+                .set_or_clear_lat_lng(self.lat_lng.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_language_code(self.language_code.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<rag_retrieval_config::filter::VectorDbThreshold> for crate::model::rag_retrieval_config::filter::VectorDbThreshold {
+    type Output = rag_retrieval_config::filter::VectorDbThreshold;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::VectorDistanceThreshold(v) => Ok(Self::Output::VectorDistanceThreshold(v.to_proto()?)),
+            Self::VectorSimilarityThreshold(v) => Ok(Self::Output::VectorSimilarityThreshold(v.to_proto()?)),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::filter::VectorDbThreshold> for rag_retrieval_config::filter::VectorDbThreshold {
+    fn cnv(self) -> std::result::Result<crate::model::rag_retrieval_config::filter::VectorDbThreshold, gaxi::prost::ConvertError> {
+        use crate::model::rag_retrieval_config::filter::VectorDbThreshold as T;
+        match self {
+            Self::VectorDistanceThreshold(v) => Ok(T::VectorDistanceThreshold(v.cnv()?)),
+            Self::VectorSimilarityThreshold(v) => Ok(T::VectorSimilarityThreshold(v.cnv()?)),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<rag_retrieval_config::Filter> for crate::model::rag_retrieval_config::Filter {
+    type Output = rag_retrieval_config::Filter;
+    fn to_proto(self) -> std::result::Result<rag_retrieval_config::Filter, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            metadata_filter: self.metadata_filter.to_proto()?,
+            vector_db_threshold: self.vector_db_threshold.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::Filter> for rag_retrieval_config::Filter {
+    fn cnv(self) -> std::result::Result<crate::model::rag_retrieval_config::Filter, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::rag_retrieval_config::Filter::new()
+                .set_metadata_filter(self.metadata_filter)
+                .set_vector_db_threshold(self.vector_db_threshold.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<rag_retrieval_config::ranking::RankService> for crate::model::rag_retrieval_config::ranking::RankService {
+    type Output = rag_retrieval_config::ranking::RankService;
+    fn to_proto(self) -> std::result::Result<rag_retrieval_config::ranking::RankService, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            model_name: self.model_name.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::ranking::RankService> for rag_retrieval_config::ranking::RankService {
+    fn cnv(self) -> std::result::Result<crate::model::rag_retrieval_config::ranking::RankService, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::rag_retrieval_config::ranking::RankService::new()
+                .set_or_clear_model_name(self.model_name.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<rag_retrieval_config::ranking::LlmRanker> for crate::model::rag_retrieval_config::ranking::LlmRanker {
+    type Output = rag_retrieval_config::ranking::LlmRanker;
+    fn to_proto(self) -> std::result::Result<rag_retrieval_config::ranking::LlmRanker, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            model_name: self.model_name.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::ranking::LlmRanker> for rag_retrieval_config::ranking::LlmRanker {
+    fn cnv(self) -> std::result::Result<crate::model::rag_retrieval_config::ranking::LlmRanker, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::rag_retrieval_config::ranking::LlmRanker::new()
+                .set_or_clear_model_name(self.model_name.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<rag_retrieval_config::ranking::RankingConfig> for crate::model::rag_retrieval_config::ranking::RankingConfig {
+    type Output = rag_retrieval_config::ranking::RankingConfig;
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        match self {
+            Self::RankService(v) => Ok(Self::Output::RankService((*v).to_proto()?)),
+            Self::LlmRanker(v) => Ok(Self::Output::LlmRanker((*v).to_proto()?)),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::ranking::RankingConfig> for rag_retrieval_config::ranking::RankingConfig {
+    fn cnv(self) -> std::result::Result<crate::model::rag_retrieval_config::ranking::RankingConfig, gaxi::prost::ConvertError> {
+        use crate::model::rag_retrieval_config::ranking::RankingConfig as T;
+        match self {
+            Self::RankService(v) => Ok(T::RankService(std::boxed::Box::new(v.cnv()?))),
+            Self::LlmRanker(v) => Ok(T::LlmRanker(std::boxed::Box::new(v.cnv()?))),
+        }
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<rag_retrieval_config::Ranking> for crate::model::rag_retrieval_config::Ranking {
+    type Output = rag_retrieval_config::Ranking;
+    fn to_proto(self) -> std::result::Result<rag_retrieval_config::Ranking, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            ranking_config: self.ranking_config.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::Ranking> for rag_retrieval_config::Ranking {
+    fn cnv(self) -> std::result::Result<crate::model::rag_retrieval_config::Ranking, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::rag_retrieval_config::Ranking::new()
+                .set_ranking_config(self.ranking_config.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<RagRetrievalConfig> for crate::model::RagRetrievalConfig {
+    type Output = RagRetrievalConfig;
+    fn to_proto(self) -> std::result::Result<RagRetrievalConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            top_k: self.top_k.to_proto()?,
+            filter: self.filter.map(|v| v.to_proto()).transpose()?,
+            ranking: self.ranking.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::RagRetrievalConfig> for RagRetrievalConfig {
+    fn cnv(self) -> std::result::Result<crate::model::RagRetrievalConfig, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::RagRetrievalConfig::new()
+                .set_top_k(self.top_k)
+                .set_or_clear_filter(self.filter.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_ranking(self.ranking.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(any ( feature = "feature-online-store-service",feature = "featurestore-online-serving-service", ) )]
 impl gaxi::prost::ToProto<BoolArray> for crate::model::BoolArray {
     type Output = BoolArray;
     fn to_proto(self) -> std::result::Result<BoolArray, gaxi::prost::ConvertError> {
@@ -587,7 +3607,7 @@ impl gaxi::prost::ToProto<BoolArray> for crate::model::BoolArray {
     }
 }
 
-#[cfg(feature = "feature-online-store-service" )]
+#[cfg(any ( feature = "feature-online-store-service",feature = "featurestore-online-serving-service", ) )]
 impl gaxi::prost::FromProto<crate::model::BoolArray> for BoolArray {
     fn cnv(self) -> std::result::Result<crate::model::BoolArray, gaxi::prost::ConvertError> {
         Ok(
@@ -598,7 +3618,7 @@ impl gaxi::prost::FromProto<crate::model::BoolArray> for BoolArray {
     }
 }
 
-#[cfg(feature = "feature-online-store-service" )]
+#[cfg(any ( feature = "feature-online-store-service",feature = "featurestore-online-serving-service", ) )]
 impl gaxi::prost::ToProto<DoubleArray> for crate::model::DoubleArray {
     type Output = DoubleArray;
     fn to_proto(self) -> std::result::Result<DoubleArray, gaxi::prost::ConvertError> {
@@ -611,7 +3631,7 @@ impl gaxi::prost::ToProto<DoubleArray> for crate::model::DoubleArray {
     }
 }
 
-#[cfg(feature = "feature-online-store-service" )]
+#[cfg(any ( feature = "feature-online-store-service",feature = "featurestore-online-serving-service", ) )]
 impl gaxi::prost::FromProto<crate::model::DoubleArray> for DoubleArray {
     fn cnv(self) -> std::result::Result<crate::model::DoubleArray, gaxi::prost::ConvertError> {
         Ok(
@@ -622,7 +3642,7 @@ impl gaxi::prost::FromProto<crate::model::DoubleArray> for DoubleArray {
     }
 }
 
-#[cfg(feature = "feature-online-store-service" )]
+#[cfg(any ( feature = "feature-online-store-service",feature = "featurestore-online-serving-service", ) )]
 impl gaxi::prost::ToProto<Int64Array> for crate::model::Int64Array {
     type Output = Int64Array;
     fn to_proto(self) -> std::result::Result<Int64Array, gaxi::prost::ConvertError> {
@@ -635,7 +3655,7 @@ impl gaxi::prost::ToProto<Int64Array> for crate::model::Int64Array {
     }
 }
 
-#[cfg(feature = "feature-online-store-service" )]
+#[cfg(any ( feature = "feature-online-store-service",feature = "featurestore-online-serving-service", ) )]
 impl gaxi::prost::FromProto<crate::model::Int64Array> for Int64Array {
     fn cnv(self) -> std::result::Result<crate::model::Int64Array, gaxi::prost::ConvertError> {
         Ok(
@@ -646,7 +3666,7 @@ impl gaxi::prost::FromProto<crate::model::Int64Array> for Int64Array {
     }
 }
 
-#[cfg(feature = "feature-online-store-service" )]
+#[cfg(any ( feature = "feature-online-store-service",feature = "featurestore-online-serving-service", ) )]
 impl gaxi::prost::ToProto<StringArray> for crate::model::StringArray {
     type Output = StringArray;
     fn to_proto(self) -> std::result::Result<StringArray, gaxi::prost::ConvertError> {
@@ -659,7 +3679,7 @@ impl gaxi::prost::ToProto<StringArray> for crate::model::StringArray {
     }
 }
 
-#[cfg(feature = "feature-online-store-service" )]
+#[cfg(any ( feature = "feature-online-store-service",feature = "featurestore-online-serving-service", ) )]
 impl gaxi::prost::FromProto<crate::model::StringArray> for StringArray {
     fn cnv(self) -> std::result::Result<crate::model::StringArray, gaxi::prost::ConvertError> {
         Ok(
@@ -771,6 +3791,119 @@ impl gaxi::prost::FromProto<crate::model::Tensor> for Tensor {
                         gaxi::prost::pair_transpose(k.cnv(), v.cnv())
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
                 .set_tensor_val(self.tensor_val)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<rag_chunk::PageSpan> for crate::model::rag_chunk::PageSpan {
+    type Output = rag_chunk::PageSpan;
+    fn to_proto(self) -> std::result::Result<rag_chunk::PageSpan, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            first_page: self.first_page.to_proto()?,
+            last_page: self.last_page.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::rag_chunk::PageSpan> for rag_chunk::PageSpan {
+    fn cnv(self) -> std::result::Result<crate::model::rag_chunk::PageSpan, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::rag_chunk::PageSpan::new()
+                .set_first_page(self.first_page)
+                .set_last_page(self.last_page)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<RagChunk> for crate::model::RagChunk {
+    type Output = RagChunk;
+    fn to_proto(self) -> std::result::Result<RagChunk, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            text: self.text.to_proto()?,
+            page_span: self.page_span.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<crate::model::RagChunk> for RagChunk {
+    fn cnv(self) -> std::result::Result<crate::model::RagChunk, gaxi::prost::ConvertError> {
+        Ok(
+            crate::model::RagChunk::new()
+                .set_text(self.text)
+                .set_or_clear_page_span(self.page_span.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+#[cfg(any ( feature = "prediction-service",feature = "reasoning-engine-execution-service", ) )]
+impl gaxi::prost::ToProto<crate::prost::google::api::HttpBody> for google_cloud_api::model::HttpBody {
+    type Output = crate::prost::google::api::HttpBody;
+    fn to_proto(self) -> std::result::Result<crate::prost::google::api::HttpBody, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            content_type: self.content_type.to_proto()?,
+            data: self.data.to_proto()?,
+            ..Self::Output::default()
+        })
+    }
+}
+
+#[cfg(any ( feature = "prediction-service",feature = "reasoning-engine-execution-service", ) )]
+impl gaxi::prost::FromProto<google_cloud_api::model::HttpBody> for crate::prost::google::api::HttpBody {
+    fn cnv(self) -> std::result::Result<google_cloud_api::model::HttpBody, gaxi::prost::ConvertError> {
+        Ok(
+            google_cloud_api::model::HttpBody::new()
+                .set_content_type(self.content_type)
+                .set_data(self.data)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<crate::prost::google::r#type::Date> for google_cloud_type::model::Date {
+    type Output = crate::prost::google::r#type::Date;
+    fn to_proto(self) -> std::result::Result<crate::prost::google::r#type::Date, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            year: self.year.to_proto()?,
+            month: self.month.to_proto()?,
+            day: self.day.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<google_cloud_type::model::Date> for crate::prost::google::r#type::Date {
+    fn cnv(self) -> std::result::Result<google_cloud_type::model::Date, gaxi::prost::ConvertError> {
+        Ok(
+            google_cloud_type::model::Date::new()
+                .set_year(self.year)
+                .set_month(self.month)
+                .set_day(self.day)
+        )
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::ToProto<crate::prost::google::r#type::LatLng> for google_cloud_type::model::LatLng {
+    type Output = crate::prost::google::r#type::LatLng;
+    fn to_proto(self) -> std::result::Result<crate::prost::google::r#type::LatLng, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            latitude: self.latitude.to_proto()?,
+            longitude: self.longitude.to_proto()?,
+        })
+    }
+}
+
+#[cfg(feature = "prediction-service" )]
+impl gaxi::prost::FromProto<google_cloud_type::model::LatLng> for crate::prost::google::r#type::LatLng {
+    fn cnv(self) -> std::result::Result<google_cloud_type::model::LatLng, gaxi::prost::ConvertError> {
+        Ok(
+            google_cloud_type::model::LatLng::new()
+                .set_latitude(self.latitude)
+                .set_longitude(self.longitude)
         )
     }
 }

@@ -129,10 +129,13 @@ impl Row {
         })
     }
 
-    /// Attempts to retrieve a value from the row by column name or zero-based
-    /// index.
+    /// Retrieves a value from the row by column name or zero-based index.
     ///
     /// The return type must implement [`FromSql`](crate::query::FromSql).
+    ///
+    /// The cell value is cloned from the row data without modifying `self`. If
+    /// you want to take ownership and avoid cloning large values, see
+    /// [`take()`](Row::take).
     ///
     /// # Example
     ///
@@ -160,9 +163,24 @@ impl Row {
     /// Takes ownership of a value from the row by column name or zero-based
     /// index.
     ///
-    /// This replaces the cell value in the row with `Value::Null` in-place to
-    /// avoid cloning. Attempting to read the column again after calling `take()`
-    /// yields `Value::Null`.
+    /// This method mutates `self` by extracting the cell value in-place to
+    /// avoid cloning. The extracted cell in the row is replaced with `NULL`.
+    /// Subsequent attempts to read or take the column will treat it as `NULL`
+    /// (returning `Ok(None)` when reading into `Option<T>`, or returning a
+    /// type conversion error for non-nullable types).
+    ///
+    /// <div class="warning">
+    ///
+    /// `take()` removes the value from `self` before converting it to `T`. If
+    /// type conversion fails and returns an error, the original value has
+    /// already been consumed and cannot be recovered from the row.
+    ///
+    /// </div>
+    ///
+    /// If you are not sure of the column's type or need to read the value
+    /// multiple times, use [`get()`](Row::get) instead of `take()`. Use `take()`
+    /// when you are confident of the type and want to avoid cloning large values
+    /// (such as strings, byte buffers, or nested records).
     ///
     /// # Example
     ///
@@ -171,6 +189,12 @@ impl Row {
     /// # fn sample(mut row: Row) -> anyhow::Result<()> {
     /// let text: String = row.take("big_text")?;
     /// println!("Length: {}", text.len());
+    ///
+    /// // Subsequent reads treat the column as NULL:
+    /// assert_eq!(row.get::<Option<String>, _>("big_text")?, None);
+    ///
+    /// // Attempting to read or take again as a non-nullable type fails:
+    /// assert!(row.take::<String, _>("big_text").is_err());
     /// # Ok(())
     /// # }
     /// ```

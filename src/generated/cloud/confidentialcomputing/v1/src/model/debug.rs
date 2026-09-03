@@ -373,6 +373,7 @@ impl std::fmt::Debug for super::VerifyConfidentialGkeRequest {
         let mut debug_struct = f.debug_struct("VerifyConfidentialGkeRequest");
         debug_struct.field("challenge", &self.challenge);
         debug_struct.field("options", &self.options);
+        debug_struct.field("platform_type", &self.platform_type);
         debug_struct.field("tee_attestation", &self.tee_attestation);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

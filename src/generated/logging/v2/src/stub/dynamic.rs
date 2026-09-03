@@ -47,6 +47,14 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListLogsResponse>>;
 
+    fn tail_log_entries(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::TailLogEntriesRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::TailLogEntriesResponse>,
+    );
+
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
@@ -113,6 +121,17 @@ impl<T: super::LoggingServiceV2> LoggingServiceV2 for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListLogsResponse>> {
         T::list_logs(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    fn tail_log_entries(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::TailLogEntriesRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::TailLogEntriesResponse>,
+    ) {
+        T::tail_log_entries(self, options)
     }
 
     /// Forwards the call to the implementation provided by `T`.

@@ -2102,7 +2102,7 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
             google_cloud_gax::streaming::ResponseStream<crate::model::DetectIntentResponse>,
         >,
     > + Send {
-        gaxi::unimplemented::unimplemented_server_streaming_stub_tmp()
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
     }
 
     /// Implements [super::client::Sessions::streaming_detect_intent].
@@ -2113,7 +2113,7 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingDetectIntentRequest>,
         google_cloud_gax::streaming::ResponseStream<crate::model::StreamingDetectIntentResponse>,
     ) {
-        gaxi::unimplemented::unimplemented_bidi_stub_tmp()
+        gaxi::unimplemented::unimplemented_bidi_stub()
     }
 
     /// Implements [super::client::Sessions::match_intent].

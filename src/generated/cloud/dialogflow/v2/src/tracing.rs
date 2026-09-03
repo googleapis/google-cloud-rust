@@ -37,6 +37,7 @@
     feature = "tools",
     feature = "versions",
 ))]
+#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements a [Agents](super::stub::Agents) decorator for logging and tracing.
@@ -3884,6 +3885,7 @@ where
     T: super::stub::Participants + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -4160,6 +4162,7 @@ where
     T: super::stub::Sessions + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 

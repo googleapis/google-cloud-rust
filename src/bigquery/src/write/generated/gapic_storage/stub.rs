@@ -51,6 +51,21 @@ pub trait BigQueryWrite: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::BigQueryWrite::append_rows].
+    fn append_rows(
+        &self,
+        _options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<
+            crate::write::generated::gapic_storage::model::AppendRowsRequest,
+        >,
+        google_cloud_gax::streaming::ResponseStream<
+            crate::write::generated::gapic_storage::model::AppendRowsResponse,
+        >,
+    ) {
+        gaxi::unimplemented::unimplemented_bidi_stub()
+    }
+
     /// Implements [super::client::BigQueryWrite::get_write_stream].
     fn get_write_stream(
         &self,

@@ -151,7 +151,7 @@ impl super::stub::Read for Read {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         self.inner
-            .execute_server_streaming_tmp::<
+            .execute_server_streaming::<
                 crate::model::ReadRowsRequest,
                 crate::model::ReadRowsResponse,
                 crate::google::cloud::bigquery::storage::v1::ReadRowsRequest,

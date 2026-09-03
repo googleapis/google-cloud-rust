@@ -231,6 +231,115 @@ impl FromProto<wkt::NullValue> for prost_types::NullValue {
     }
 }
 
+/// A narrow, intentionally incomplete conversion for `DescriptorProto`.
+///  
+/// This conversion drops several AST fields and must not be used as
+/// a general-purpose converter. It exists solely to bypass librarian
+/// limitations when generating `ProtoSchema` in BigQuery.
+// TODO(#6616): Generate this code.
+impl FromProto<wkt::DescriptorProto> for prost_types::DescriptorProto {
+    fn cnv(self) -> Result<wkt::DescriptorProto> {
+        Ok(wkt::DescriptorProto::default()
+            .set_name(self.name.unwrap_or_default())
+            .set_field(
+                self.field
+                    .into_iter()
+                    .map(|v| {
+                        wkt::FieldDescriptorProto::default()
+                            .set_name(v.name.unwrap_or_default())
+                            .set_number(v.number.unwrap_or_default())
+                            .set_label(wkt::field_descriptor_proto::Label::from(
+                                v.label.unwrap_or(0),
+                            ))
+                            .set_type(wkt::field_descriptor_proto::Type::from(
+                                v.r#type.unwrap_or(0),
+                            ))
+                            .set_type_name(v.type_name.unwrap_or_default())
+                            .set_json_name(v.json_name.unwrap_or_default())
+                            .set_default_value(v.default_value.unwrap_or_default())
+                    })
+                    .collect::<Vec<_>>(),
+            )
+            .set_nested_type(
+                self.nested_type
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<Result<Vec<_>>>()?,
+            )
+            .set_enum_type(
+                self.enum_type
+                    .into_iter()
+                    .map(|v| {
+                        wkt::EnumDescriptorProto::default()
+                            .set_name(v.name.unwrap_or_default())
+                            .set_value(
+                                v.value
+                                    .into_iter()
+                                    .map(|ev| {
+                                        wkt::EnumValueDescriptorProto::default()
+                                            .set_name(ev.name.unwrap_or_default())
+                                            .set_number(ev.number.unwrap_or_default())
+                                    })
+                                    .collect::<Vec<_>>(),
+                            )
+                    })
+                    .collect::<Vec<_>>(),
+            ))
+    }
+}
+
+/// A narrow, intentionally incomplete conversion for `DescriptorProto`.
+///  
+/// This conversion drops several AST fields and must not be used as
+/// a general-purpose converter. It exists solely to bypass librarian
+/// limitations when generating `ProtoSchema` in BigQuery.
+// TODO(#6616): Generate this code.
+impl ToProto<prost_types::DescriptorProto> for wkt::DescriptorProto {
+    type Output = prost_types::DescriptorProto;
+    fn to_proto(self) -> Result<prost_types::DescriptorProto> {
+        Ok(prost_types::DescriptorProto {
+            name: Some(self.name),
+            field: self
+                .field
+                .into_iter()
+                .map(|v| prost_types::FieldDescriptorProto {
+                    name: Some(v.name),
+                    number: Some(v.number),
+                    label: v.label.value(),
+                    r#type: v.r#type.value(),
+                    type_name: Some(v.type_name),
+                    json_name: Some(v.json_name),
+                    default_value: Some(v.default_value),
+                    ..Default::default()
+                })
+                .collect(),
+            nested_type: self
+                .nested_type
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<Result<Vec<_>>>()?,
+            enum_type: self
+                .enum_type
+                .into_iter()
+                .map(|v| prost_types::EnumDescriptorProto {
+                    name: Some(v.name),
+                    value: v
+                        .value
+                        .into_iter()
+                        .map(|ev| prost_types::EnumValueDescriptorProto {
+                            name: Some(ev.name),
+                            number: Some(ev.number),
+                            ..Default::default()
+                        })
+                        .collect(),
+                    ..Default::default()
+                })
+                .collect(),
+            ..Default::default()
+        })
+    }
+}
+
 /// A placeholder for `google.protobuf.Empty`.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Empty {}
@@ -521,6 +630,66 @@ mod tests {
         let url = super::Empty::type_url();
         let want = format!("type.googleapis.com/{full}");
         assert_eq!(url, want);
+        Ok(())
+    }
+
+    #[test]
+    fn test_descriptor_proto_conversion() -> anyhow::Result<()> {
+        let mut input = wkt::DescriptorProto::default().set_name("TestMessage".to_string());
+        let field = wkt::FieldDescriptorProto::default()
+            .set_name("test_field".to_string())
+            .set_number(1)
+            .set_label(wkt::field_descriptor_proto::Label::Optional)
+            .set_type(wkt::field_descriptor_proto::Type::Int32)
+            .set_type_name("int32".to_string())
+            .set_json_name("testField".to_string())
+            .set_default_value("42".to_string());
+        input.field = vec![field];
+
+        let nested_type = wkt::DescriptorProto::default().set_name("NestedMessage".to_string());
+        input.nested_type = vec![nested_type];
+
+        let enum_val = wkt::EnumValueDescriptorProto::default()
+            .set_name("UNKNOWN".to_string())
+            .set_number(0);
+        let enum_type = wkt::EnumDescriptorProto::default()
+            .set_name("TestEnum".to_string())
+            .set_value(vec![enum_val]);
+        input.enum_type = vec![enum_type];
+        let prost_msg: prost_types::DescriptorProto = input.clone().to_proto()?;
+        assert_eq!(prost_msg.name, Some("TestMessage".to_string()));
+        assert_eq!(prost_msg.field.len(), 1);
+        assert_eq!(prost_msg.field[0].name, Some("test_field".to_string()));
+        assert_eq!(prost_msg.field[0].number, Some(1));
+        assert_eq!(
+            prost_msg.field[0].label(),
+            prost_types::field_descriptor_proto::Label::Optional
+        );
+        assert_eq!(
+            prost_msg.field[0].r#type(),
+            prost_types::field_descriptor_proto::Type::Int32
+        );
+        assert_eq!(prost_msg.field[0].type_name, Some("int32".to_string()));
+        assert_eq!(prost_msg.field[0].json_name, Some("testField".to_string()));
+        assert_eq!(prost_msg.field[0].default_value, Some("42".to_string()));
+
+        assert_eq!(prost_msg.nested_type.len(), 1);
+        assert_eq!(
+            prost_msg.nested_type[0].name,
+            Some("NestedMessage".to_string())
+        );
+
+        assert_eq!(prost_msg.enum_type.len(), 1);
+        assert_eq!(prost_msg.enum_type[0].name, Some("TestEnum".to_string()));
+        assert_eq!(prost_msg.enum_type[0].value.len(), 1);
+        assert_eq!(
+            prost_msg.enum_type[0].value[0].name,
+            Some("UNKNOWN".to_string())
+        );
+        assert_eq!(prost_msg.enum_type[0].value[0].number, Some(0));
+
+        let back: wkt::DescriptorProto = prost_msg.cnv()?;
+        assert_eq!(back, input);
         Ok(())
     }
 }

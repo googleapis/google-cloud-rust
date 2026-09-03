@@ -839,7 +839,7 @@ pub trait StreamingService: std::fmt::Debug + Send + Sync {
         google_cloud_gax::streaming::RequestSender<crate::model::SendPacketsRequest>,
         google_cloud_gax::streaming::ResponseStream<crate::model::SendPacketsResponse>,
     ) {
-        gaxi::unimplemented::unimplemented_bidi_stub_tmp()
+        gaxi::unimplemented::unimplemented_bidi_stub()
     }
 
     /// Implements [super::client::StreamingService::receive_packets].
@@ -850,7 +850,7 @@ pub trait StreamingService: std::fmt::Debug + Send + Sync {
         google_cloud_gax::streaming::RequestSender<crate::model::ReceivePacketsRequest>,
         google_cloud_gax::streaming::ResponseStream<crate::model::ReceivePacketsResponse>,
     ) {
-        gaxi::unimplemented::unimplemented_bidi_stub_tmp()
+        gaxi::unimplemented::unimplemented_bidi_stub()
     }
 
     /// Implements [super::client::StreamingService::receive_events].
@@ -861,7 +861,7 @@ pub trait StreamingService: std::fmt::Debug + Send + Sync {
         google_cloud_gax::streaming::RequestSender<crate::model::ReceiveEventsRequest>,
         google_cloud_gax::streaming::ResponseStream<crate::model::ReceiveEventsResponse>,
     ) {
-        gaxi::unimplemented::unimplemented_bidi_stub_tmp()
+        gaxi::unimplemented::unimplemented_bidi_stub()
     }
 
     /// Implements [super::client::StreamingService::acquire_lease].
@@ -1678,7 +1678,7 @@ pub trait Warehouse: std::fmt::Debug + Send + Sync {
         google_cloud_gax::streaming::RequestSender<crate::model::IngestAssetRequest>,
         google_cloud_gax::streaming::ResponseStream<crate::model::IngestAssetResponse>,
     ) {
-        gaxi::unimplemented::unimplemented_bidi_stub_tmp()
+        gaxi::unimplemented::unimplemented_bidi_stub()
     }
 
     /// Implements [super::client::Warehouse::clip_asset].

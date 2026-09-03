@@ -2598,7 +2598,7 @@ pub trait Participants: std::fmt::Debug + Send + Sync {
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingAnalyzeContentRequest>,
         google_cloud_gax::streaming::ResponseStream<crate::model::StreamingAnalyzeContentResponse>,
     ) {
-        gaxi::unimplemented::unimplemented_bidi_stub_tmp()
+        gaxi::unimplemented::unimplemented_bidi_stub()
     }
 
     /// Implements [super::client::Participants::suggest_articles].
@@ -2736,7 +2736,7 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
         google_cloud_gax::streaming::RequestSender<crate::model::StreamingDetectIntentRequest>,
         google_cloud_gax::streaming::ResponseStream<crate::model::StreamingDetectIntentResponse>,
     ) {
-        gaxi::unimplemented::unimplemented_bidi_stub_tmp()
+        gaxi::unimplemented::unimplemented_bidi_stub()
     }
 
     /// Implements [super::client::Sessions::list_locations].

@@ -26,6 +26,9 @@ extern crate google_cloud_gax;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate http;
+extern crate prost;
+extern crate prost_types;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -28830,6 +28833,9 @@ pub struct SessionConfig {
     /// NOTE: This is only supported for text (non-voice) sessions via
     /// [StreamRunSession][google.cloud.ces.v1.SessionService.StreamRunSession] or
     /// [BidiRunSession][google.cloud.ces.v1.SessionService.BidiRunSession].
+    ///
+    /// [google.cloud.ces.v1.SessionService.BidiRunSession]: crate::client::SessionService::bidi_run_session
+    /// [google.cloud.ces.v1.SessionService.StreamRunSession]: crate::client::SessionService::stream_run_session
     pub enable_text_streaming: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -30666,6 +30672,8 @@ impl wkt::message::Message for RunSessionResponse {
 /// The top-level message sent by the client for the
 /// [SessionService.BidiRunSession][google.cloud.ces.v1.SessionService.BidiRunSession]
 /// method.
+///
+/// [google.cloud.ces.v1.SessionService.BidiRunSession]: crate::client::SessionService::bidi_run_session
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BidiSessionClientMessage {
@@ -30809,6 +30817,8 @@ pub mod bidi_session_client_message {
 /// The top-level message returned from
 /// [SessionService.BidiRunSession][google.cloud.ces.v1.SessionService.BidiRunSession]
 /// method.
+///
+/// [google.cloud.ces.v1.SessionService.BidiRunSession]: crate::client::SessionService::bidi_run_session
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BidiSessionServerMessage {

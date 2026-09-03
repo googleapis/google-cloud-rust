@@ -19,14 +19,52 @@ use gaxi::prost::{ConvertError, FromProto, ToProto};
 impl ToProto<v1::ProtoSchema> for ProtoSchema {
     type Output = v1::ProtoSchema;
     fn to_proto(self) -> Result<v1::ProtoSchema, ConvertError> {
-        // TODO(#5315) - implement conversions for DescriptorProto
-        Err(ConvertError::Unimplemented)
+        Ok(v1::ProtoSchema {
+            proto_descriptor: self.proto_descriptor.map(|v| v.to_proto()).transpose()?,
+        })
     }
 }
 
 impl FromProto<ProtoSchema> for v1::ProtoSchema {
     fn cnv(self) -> Result<ProtoSchema, ConvertError> {
-        // TODO(#5315) - implement conversions for DescriptorProto
-        Err(ConvertError::Unimplemented)
+        Ok(ProtoSchema::new()
+            .set_or_clear_proto_descriptor(self.proto_descriptor.map(|v| v.cnv()).transpose()?))
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use gaxi::prost::{FromProto, ToProto};
+    use wkt;
+
+    #[test]
+    fn test_proto_schema_conversion() -> anyhow::Result<()> {
+        let descriptor = wkt::DescriptorProto::default().set_name("TestMessage".to_string());
+        let input = ProtoSchema::new().set_proto_descriptor(descriptor.clone());
+
+        let proto: v1::ProtoSchema = input.clone().to_proto()?;
+        assert!(proto.proto_descriptor.is_some());
+        assert_eq!(
+            proto.proto_descriptor.as_ref().unwrap().name,
+            Some("TestMessage".to_string())
+        );
+
+        let back: ProtoSchema = proto.cnv()?;
+        assert_eq!(back, input);
+        Ok(())
+    }
+
+    #[test]
+    fn test_proto_schema_none_conversion() -> anyhow::Result<()> {
+        let input = ProtoSchema::new(); // proto_descriptor is None by default
+
+        let proto: v1::ProtoSchema = input.clone().to_proto()?;
+        assert!(proto.proto_descriptor.is_none());
+
+        let back: ProtoSchema = proto.cnv()?;
+        assert_eq!(back, input);
+        assert!(back.proto_descriptor.is_none());
+        Ok(())
     }
 }
