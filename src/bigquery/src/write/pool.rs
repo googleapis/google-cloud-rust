@@ -72,7 +72,20 @@ impl StreamPool {
         self.get_impl(&mut streams)
     }
 
-    // TODO(#5381) - add `pub(crate) fn evict_and_replace(&self, id: u64) -> StreamEntry`
+    /// Evicts a failed stream and replaces it in-place.
+    ///
+    /// If multiple callers report the same stream ID simultaneously,
+    /// only the first caller provisions a replacement.
+    pub(crate) fn evict_and_replace(&self, failed_id: u64) -> StreamEntry {
+        let mut streams = self.streams.lock().unwrap();
+        if let Some(pos) = streams.iter().position(|entry| entry.id == failed_id) {
+            // If we have not yet replaced the failed stream, do so.
+            let stream = self.new_stream_entry();
+            streams[pos] = stream.clone();
+            return stream;
+        }
+        self.get_impl(&mut streams)
+    }
 
     /// Selects the stream connection with the least load.
     ///
@@ -352,5 +365,65 @@ pub(crate) mod tests {
         assert_eq!(pool.streams.lock().unwrap().len(), 6);
 
         Ok(())
+    }
+
+    #[tokio::test]
+    async fn evict_basic() -> anyhow::Result<()> {
+        let transport = Arc::new(test_transport("ignored").await?);
+        let pool = StreamPool::new(transport, 10);
+
+        // Manually seed the pool
+        for load in [1, 2, 3, 4, 5, 6] {
+            let s = pool.new_stream_entry();
+            s.outstanding_requests.store(load, Ordering::Relaxed);
+            pool.streams.lock().unwrap().push(s);
+        }
+        assert_eq!(pool.stream_ids(), [1, 2, 3, 4, 5, 6]);
+
+        let s = pool.evict_and_replace(3);
+        assert_eq!(s.id, 7);
+        assert_eq!(pool.normalize_load(&s), 0.0);
+        assert_eq!(pool.stream_ids(), [1, 2, 4, 5, 6, 7]);
+
+        let s = pool.evict_and_replace(6);
+        assert_eq!(s.id, 8);
+        assert_eq!(pool.normalize_load(&s), 0.0);
+        assert_eq!(pool.stream_ids(), [1, 2, 4, 5, 7, 8]);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn evict_lock_contention() -> anyhow::Result<()> {
+        let transport = Arc::new(test_transport("ignored").await?);
+        let pool = Arc::new(StreamPool::new(transport, 10));
+
+        // Manually seed the pool
+        let s = pool.new_stream_entry();
+        s.outstanding_requests.store(1, Ordering::Relaxed);
+        pool.streams.lock().unwrap().push(s);
+
+        let mut streams = JoinSet::new();
+        for _ in 0..1000 {
+            let p = pool.clone();
+            streams.spawn(async move { p.evict_and_replace(1) });
+        }
+        // Verify each stream handle is for ID 2.
+        while let Some(s) = streams.join_next().await {
+            assert_eq!(s?.id, 2);
+        }
+        // Verify the pool stays at one stream total.
+        assert_eq!(pool.streams.lock().unwrap().len(), 1);
+
+        Ok(())
+    }
+
+    // Returns the stream IDs in the pool, in order.
+    impl StreamPool {
+        fn stream_ids(&self) -> Vec<u64> {
+            let mut ids: Vec<_> = self.streams.lock().unwrap().iter().map(|s| s.id).collect();
+            ids.sort();
+            ids
+        }
     }
 }
