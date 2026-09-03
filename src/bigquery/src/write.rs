@@ -25,6 +25,8 @@ pub(super) mod append_response;
 pub(super) mod client;
 pub(super) mod client_builder;
 pub(super) mod error;
+#[cfg_attr(not(test), expect(dead_code))]
+mod pool;
 mod proto_schema;
 mod runner;
 mod stream;
