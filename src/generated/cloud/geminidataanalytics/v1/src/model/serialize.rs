@@ -2200,6 +2200,9 @@ impl serde::ser::Serialize for super::BigQueryTableReferences {
         if !self.table_references.is_empty() {
             state.serialize_entry("tableReferences", &self.table_references)?;
         }
+        if !self.property_graph_references.is_empty() {
+            state.serialize_entry("propertyGraphReferences", &self.property_graph_references)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

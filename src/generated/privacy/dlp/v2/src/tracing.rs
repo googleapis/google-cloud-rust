@@ -810,6 +810,76 @@ where
             self.inner.update_connection(req, options));
         pending.await
     }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_content_policy(
+        &self,
+        req: crate::model::CreateContentPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ContentPolicy>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DlpService::create_content_policy",
+            self.inner.create_content_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_content_policy(
+        &self,
+        req: crate::model::UpdateContentPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ContentPolicy>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DlpService::update_content_policy",
+            self.inner.update_content_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_content_policy(
+        &self,
+        req: crate::model::GetContentPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ContentPolicy>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DlpService::get_content_policy",
+            self.inner.get_content_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_content_policies(
+        &self,
+        req: crate::model::ListContentPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListContentPoliciesResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DlpService::list_content_policies",
+            self.inner.list_content_policies(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_content_policy(
+        &self,
+        req: crate::model::DeleteContentPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DlpService::delete_content_policy",
+            self.inner.delete_content_policy(req, options));
+        pending.await
+    }
 }
 
 pub(crate) mod info {

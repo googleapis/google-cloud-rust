@@ -71,6 +71,24 @@ pub mod firestore {
         }
     }
 
+    /// Common implementation for [crate::client::Firestore] bidi stream builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct BidiStreamBuilder {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        options: crate::RequestOptions,
+    }
+
+    impl BidiStreamBuilder {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
+            Self {
+                stub,
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
     /// The request builder for [Firestore::get_document][crate::client::Firestore::get_document] calls.
     ///
     /// # Example
@@ -647,6 +665,176 @@ pub mod firestore {
         }
     }
 
+    /// The request builder for [Firestore::batch_get_documents][crate::client::Firestore::batch_get_documents] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore::builder::firestore::BatchGetDocuments;
+    /// # async fn sample() -> google_cloud_firestore::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> BatchGetDocuments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct BatchGetDocuments(RequestBuilder<crate::model::BatchGetDocumentsRequest>);
+
+    impl BatchGetDocuments {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::BatchGetDocumentsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::BatchGetDocumentsResponse>,
+        > {
+            (*self.0.stub)
+                .batch_get_documents(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [database][crate::model::BatchGetDocumentsRequest::database].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.database = v.into();
+            self
+        }
+
+        /// Sets the value of [documents][crate::model::BatchGetDocumentsRequest::documents].
+        pub fn set_documents<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.documents = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [mask][crate::model::BatchGetDocumentsRequest::mask].
+        pub fn set_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mask][crate::model::BatchGetDocumentsRequest::mask].
+        pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_options][crate::model::BatchGetDocumentsRequest::request_options].
+        pub fn set_request_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_options][crate::model::BatchGetDocumentsRequest::request_options].
+        pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector].
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
+        pub fn set_consistency_selector<
+            T: Into<Option<crate::model::batch_get_documents_request::ConsistencySelector>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.consistency_selector = v.into();
+            self
+        }
+
+        /// Sets the value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
+        /// to hold a `Transaction`.
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
+        pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_transaction(v);
+            self
+        }
+
+        /// Sets the value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
+        /// to hold a `NewTransaction`.
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
+        pub fn set_new_transaction<
+            T: std::convert::Into<std::boxed::Box<crate::model::TransactionOptions>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_new_transaction(v);
+            self
+        }
+
+        /// Sets the value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector]
+        /// to hold a `ReadTime`.
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
+        pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_read_time(v);
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for BatchGetDocuments {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [Firestore::begin_transaction][crate::client::Firestore::begin_transaction] calls.
     ///
     /// # Example
@@ -933,6 +1121,376 @@ pub mod firestore {
         }
     }
 
+    /// The request builder for [Firestore::run_query][crate::client::Firestore::run_query] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore::builder::firestore::RunQuery;
+    /// # async fn sample() -> google_cloud_firestore::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> RunQuery {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct RunQuery(RequestBuilder<crate::model::RunQueryRequest>);
+
+    impl RunQuery {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::RunQueryRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::RunQueryResponse>>
+        {
+            (*self.0.stub)
+                .run_query(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [parent][crate::model::RunQueryRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [explain_options][crate::model::RunQueryRequest::explain_options].
+        pub fn set_explain_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ExplainOptions>,
+        {
+            self.0.request.explain_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [explain_options][crate::model::RunQueryRequest::explain_options].
+        pub fn set_or_clear_explain_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ExplainOptions>,
+        {
+            self.0.request.explain_options = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_options][crate::model::RunQueryRequest::request_options].
+        pub fn set_request_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_options][crate::model::RunQueryRequest::request_options].
+        pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [query_type][crate::model::RunQueryRequest::query_type].
+        ///
+        /// Note that all the setters affecting `query_type` are
+        /// mutually exclusive.
+        pub fn set_query_type<T: Into<Option<crate::model::run_query_request::QueryType>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.query_type = v.into();
+            self
+        }
+
+        /// Sets the value of [query_type][crate::model::RunQueryRequest::query_type]
+        /// to hold a `StructuredQuery`.
+        ///
+        /// Note that all the setters affecting `query_type` are
+        /// mutually exclusive.
+        pub fn set_structured_query<
+            T: std::convert::Into<std::boxed::Box<crate::model::StructuredQuery>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_structured_query(v);
+            self
+        }
+
+        /// Sets the value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector].
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
+        pub fn set_consistency_selector<
+            T: Into<Option<crate::model::run_query_request::ConsistencySelector>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.consistency_selector = v.into();
+            self
+        }
+
+        /// Sets the value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
+        /// to hold a `Transaction`.
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
+        pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_transaction(v);
+            self
+        }
+
+        /// Sets the value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
+        /// to hold a `NewTransaction`.
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
+        pub fn set_new_transaction<
+            T: std::convert::Into<std::boxed::Box<crate::model::TransactionOptions>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_new_transaction(v);
+            self
+        }
+
+        /// Sets the value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector]
+        /// to hold a `ReadTime`.
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
+        pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_read_time(v);
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for RunQuery {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Firestore::run_aggregation_query][crate::client::Firestore::run_aggregation_query] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore::builder::firestore::RunAggregationQuery;
+    /// # async fn sample() -> google_cloud_firestore::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> RunAggregationQuery {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct RunAggregationQuery(RequestBuilder<crate::model::RunAggregationQueryRequest>);
+
+    impl RunAggregationQuery {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::RunAggregationQueryRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::RunAggregationQueryResponse>,
+        > {
+            (*self.0.stub)
+                .run_aggregation_query(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [parent][crate::model::RunAggregationQueryRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [explain_options][crate::model::RunAggregationQueryRequest::explain_options].
+        pub fn set_explain_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ExplainOptions>,
+        {
+            self.0.request.explain_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [explain_options][crate::model::RunAggregationQueryRequest::explain_options].
+        pub fn set_or_clear_explain_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ExplainOptions>,
+        {
+            self.0.request.explain_options = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_options][crate::model::RunAggregationQueryRequest::request_options].
+        pub fn set_request_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_options][crate::model::RunAggregationQueryRequest::request_options].
+        pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [query_type][crate::model::RunAggregationQueryRequest::query_type].
+        ///
+        /// Note that all the setters affecting `query_type` are
+        /// mutually exclusive.
+        pub fn set_query_type<
+            T: Into<Option<crate::model::run_aggregation_query_request::QueryType>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.query_type = v.into();
+            self
+        }
+
+        /// Sets the value of [query_type][crate::model::RunAggregationQueryRequest::query_type]
+        /// to hold a `StructuredAggregationQuery`.
+        ///
+        /// Note that all the setters affecting `query_type` are
+        /// mutually exclusive.
+        pub fn set_structured_aggregation_query<
+            T: std::convert::Into<std::boxed::Box<crate::model::StructuredAggregationQuery>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_structured_aggregation_query(v);
+            self
+        }
+
+        /// Sets the value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector].
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
+        pub fn set_consistency_selector<
+            T: Into<Option<crate::model::run_aggregation_query_request::ConsistencySelector>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.consistency_selector = v.into();
+            self
+        }
+
+        /// Sets the value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
+        /// to hold a `Transaction`.
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
+        pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_transaction(v);
+            self
+        }
+
+        /// Sets the value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
+        /// to hold a `NewTransaction`.
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
+        pub fn set_new_transaction<
+            T: std::convert::Into<std::boxed::Box<crate::model::TransactionOptions>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_new_transaction(v);
+            self
+        }
+
+        /// Sets the value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector]
+        /// to hold a `ReadTime`.
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
+        pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_read_time(v);
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for RunAggregationQuery {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [Firestore::partition_query][crate::client::Firestore::partition_query] calls.
     ///
     /// # Example
@@ -1112,6 +1670,122 @@ pub mod firestore {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for PartitionQuery {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Firestore::write][crate::client::Firestore::write] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore::builder::firestore::Write;
+    /// # use google_cloud_firestore::model::WriteRequest;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(WriteRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> Write {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Write(BidiStreamBuilder);
+
+    impl Write {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::WriteRequest>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::WriteResponse>,
+        ) {
+            (*self.0.stub).write(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for Write {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Firestore::listen][crate::client::Firestore::listen] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore::builder::firestore::Listen;
+    /// # use google_cloud_firestore::model::ListenRequest;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(ListenRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> Listen {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Listen(BidiStreamBuilder);
+
+    impl Listen {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::ListenRequest>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::ListenResponse>,
+        ) {
+            (*self.0.stub).listen(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for Listen {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
