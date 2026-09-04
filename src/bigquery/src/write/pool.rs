@@ -12,15 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::runner::{Runner, WriteRequest};
+use super::transport::Transport;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, Mutex};
+use tokio::sync::mpsc;
 
-// TODO(#5381) - hook up to a `Runner`
 /// An entry in the stream pool serviced by a `Runner`.
 #[derive(Clone, Debug)]
 pub(crate) struct StreamEntry {
     /// Unique identifier for this stream connection.
     pub(crate) id: u64,
+
+    /// Channel to send requests to the stream's background runner task.
+    pub(crate) req_tx: mpsc::UnboundedSender<WriteRequest>,
 
     /// The number of outstanding requests on this stream.
     pub(crate) outstanding_requests: Arc<AtomicU64>,
@@ -32,7 +37,7 @@ pub(crate) struct StreamEntry {
 /// A pool of open streams that supports multiplexing, load balancing.
 #[derive(Debug)]
 pub(crate) struct StreamPool {
-    // TODO(#5381) - hook up to transport layer
+    inner: Arc<Transport>,
     next_stream_id: AtomicU64,
     // We hold the streams in a `std::sync::Mutex` because we only want a single
     // caller to be able to scale up the pool, or remove a failed stream.
@@ -48,10 +53,10 @@ pub(crate) struct StreamPool {
 }
 
 impl StreamPool {
-    // TODO(#5381) - hook up to transport layer
     /// Initializes a new [StreamPool].
-    pub(crate) fn new(max_streams: usize) -> Self {
+    pub(crate) fn new(inner: Arc<Transport>, max_streams: usize) -> Self {
         Self {
+            inner,
             next_stream_id: AtomicU64::new(1),
             streams: Mutex::new(Vec::new()),
             max_streams,
@@ -97,10 +102,11 @@ impl StreamPool {
 
     fn new_stream_entry(&self) -> StreamEntry {
         let id = self.next_stream_id.fetch_add(1, Ordering::Relaxed);
-        // TODO(#5381) - attach to a `Runner`.
+        let runner = Runner::new(self.inner.clone());
 
         StreamEntry {
             id,
+            req_tx: runner.req_tx,
             outstanding_requests: Arc::new(AtomicU64::new(0)),
             outstanding_bytes: Arc::new(AtomicU64::new(0)),
         }
@@ -129,8 +135,13 @@ impl StreamPool {
 
 #[cfg(test)]
 pub(crate) mod tests {
+    use super::super::runner::tests::*;
+    use super::super::transport::tests::*;
     use super::*;
+    use bigquery_grpc_mock::{MockBigQueryWrite, start};
+    use gaxi::grpc::tonic::Response as TonicResponse;
     use test_case::test_case;
+    use tokio::sync::oneshot;
     use tokio::task::JoinSet;
 
     #[test_case(10, Some(100), 10_000, Some(100_000), 0.1, false)]
@@ -149,7 +160,9 @@ pub(crate) mod tests {
         expected_load: f64,
         expected_is_loaded: bool,
     ) -> anyhow::Result<()> {
+        let transport = Arc::new(test_transport("ignored").await?);
         let pool = StreamPool {
+            inner: transport,
             next_stream_id: AtomicU64::new(1),
             streams: Mutex::new(Vec::new()),
             max_streams: 10,
@@ -169,7 +182,13 @@ pub(crate) mod tests {
 
     #[tokio::test]
     async fn empty_pool_get_basic() -> anyhow::Result<()> {
-        let pool = StreamPool::new(10);
+        let (response_tx, response_rx) = mpsc::channel(10);
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_append_rows()
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+        let pool = StreamPool::new(transport, 10);
 
         let s1 = pool.get();
         assert_eq!(s1.id, 1);
@@ -179,14 +198,43 @@ pub(crate) mod tests {
         assert_eq!(s2.id, 1);
         assert_eq!(pool.streams.lock().unwrap().len(), 1);
 
-        // TODO(#5381) - verify the underlying gRPC stream
+        // Use the stream handles to send requests on the same underlying gRPC
+        // stream.
+
+        // write 1, from stream 1
+        let (resp_tx1, resp_rx1) = oneshot::channel();
+        let write1 = WriteRequest {
+            req: test_request(1),
+            resp_tx: resp_tx1,
+        };
+        s1.req_tx.send(write1)?;
+
+        // write 2, from stream 2
+        let (resp_tx2, resp_rx2) = oneshot::channel();
+        let write2 = WriteRequest {
+            req: test_request(2),
+            resp_tx: resp_tx2,
+        };
+        s2.req_tx.send(write2)?;
+
+        // resp 1
+        response_tx.send(Ok(convert(&test_response(1)))).await?;
+        let resp1 = resp_rx1.await??;
+        assert_eq!(resp1, test_response(1));
+
+        // resp 2
+        response_tx.send(Ok(convert(&test_response(2)))).await?;
+        let resp2 = resp_rx2.await??;
+        assert_eq!(resp2, test_response(2));
 
         Ok(())
     }
 
     #[tokio::test]
     async fn empty_pool_get_lock_contention() -> anyhow::Result<()> {
+        let transport = Arc::new(test_transport("ignored").await?);
         let pool = Arc::new(StreamPool {
+            inner: transport,
             next_stream_id: AtomicU64::new(1),
             streams: Mutex::new(Vec::new()),
             max_streams: 10,
@@ -213,7 +261,8 @@ pub(crate) mod tests {
 
     #[tokio::test]
     async fn get_least_loaded() -> anyhow::Result<()> {
-        let pool = StreamPool::new(10);
+        let transport = Arc::new(test_transport("ignored").await?);
+        let pool = StreamPool::new(transport, 10);
 
         // Manually seed the pool
         for load in [8, 2, 2, 3, 1, 9] {
@@ -230,7 +279,9 @@ pub(crate) mod tests {
 
     #[tokio::test]
     async fn get_should_grow() -> anyhow::Result<()> {
+        let transport = Arc::new(test_transport("ignored").await?);
         let pool = Arc::new(StreamPool {
+            inner: transport,
             next_stream_id: AtomicU64::new(1),
             streams: Mutex::new(Vec::new()),
             max_streams: 10,
@@ -276,7 +327,9 @@ pub(crate) mod tests {
 
     #[tokio::test]
     async fn fully_loaded_get() -> anyhow::Result<()> {
+        let transport = Arc::new(test_transport("ignored").await?);
         let pool = Arc::new(StreamPool {
+            inner: transport,
             next_stream_id: AtomicU64::new(1),
             streams: Mutex::new(Vec::new()),
             max_streams: 6,
