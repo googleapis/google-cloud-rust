@@ -52,7 +52,7 @@ async fn append_preserves_chunks_offsets_and_checksums() -> Result<()> {
     const GENERATION: i64 = 73_001;
     const MIB: usize = 1024 * 1024;
 
-    let payload = Bytes::from(vec![0x42; 5 * MIB]);
+    let payload = Bytes::from((0..5 * MIB).map(|i| (i % 251) as u8).collect::<Vec<u8>>());
     let wanted_crc32c = crc32c::crc32c(&payload);
     let (write_events_tx, write_events_rx) = tokio::sync::oneshot::channel();
 
@@ -175,12 +175,12 @@ async fn append_preserves_chunks_offsets_and_checksums() -> Result<()> {
             WriteEvent::Chunk {
                 write_offset: (2 * MIB) as i64,
                 size: 2 * MIB,
-                crc32c: Some(crc32c::crc32c(&payload[0..2 * MIB])),
+                crc32c: Some(crc32c::crc32c(&payload[2 * MIB..4 * MIB])),
             },
             WriteEvent::Chunk {
                 write_offset: (4 * MIB) as i64,
                 size: MIB,
-                crc32c: Some(crc32c::crc32c(&payload[0..MIB])),
+                crc32c: Some(crc32c::crc32c(&payload[4 * MIB..5 * MIB])),
             },
             WriteEvent::Flush {
                 write_offset: (5 * MIB) as i64,
