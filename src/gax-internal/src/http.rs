@@ -26,7 +26,9 @@ pub mod reqwest;
 
 use crate::as_inner::as_inner;
 use crate::attempt_info::AttemptInfo;
+use crate::headers::{X_GOOG_API_CLIENT, X_GOOG_USER_PROJECT, sanitize_custom_headers};
 use crate::observability::{HttpResultExt, RequestRecorder, create_http_attempt_span};
+use crate::options::Extensions;
 use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
 use ::reqwest::Url;
 use google_cloud_auth::credentials::{
@@ -56,8 +58,6 @@ use std::sync::Arc;
 use std::time::Duration;
 use tracing::Instrument;
 
-use crate::headers::{X_GOOG_USER_PROJECT, sanitize_custom_headers};
-
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {
     inner: ::reqwest::Client,
@@ -74,6 +74,7 @@ pub struct ReqwestClient {
     _tracing_enabled: bool,
     universe_domain: String,
     transport_metric: Option<crate::observability::TransportMetric>,
+    extensions: Extensions,
 }
 
 impl ReqwestClient {
@@ -138,6 +139,7 @@ impl ReqwestClient {
             universe_domain,
             attempt_timeout: config.attempt_timeout,
             transport_metric: None,
+            extensions: config.extensions,
         })
     }
 
@@ -270,10 +272,15 @@ impl ReqwestClient {
         mut builder: reqwest::RequestBuilder,
         body: Option<I>,
         options: RequestOptions,
+        api_client_header: &'static str,
     ) -> Result<Response<O>> {
         if let Some(body) = body {
             builder = builder.json(&body);
         }
+        let api_client_header =
+            crate::api_header::resolve_rest_header_value(&self.extensions, api_client_header)?;
+
+        let builder = builder.header(X_GOOG_API_CLIENT, api_client_header);
         self.retry_loop::<O>(builder, options).await
     }
 

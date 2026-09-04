@@ -67,7 +67,7 @@ mod tests {
         options = with_custom_header(options, "x-foo", "bar");
 
         let response: serde_json::Value = client
-            .execute(builder, Some(json!({})), options)
+            .execute(builder, Some(json!({})), options, "unused")
             .await?
             .into_body();
 
@@ -142,7 +142,7 @@ mod tests {
         options.set_quota_project("real-project");
 
         let response: serde_json::Value = client
-            .execute(builder, Some(json!({})), options)
+            .execute(builder, Some(json!({})), options, "unused")
             .await?
             .into_body();
 
@@ -204,7 +204,7 @@ mod tests {
         options = with_custom_header(options, "x-goog-api-key", "fake-api-key");
 
         let response: serde_json::Value = client
-            .execute(builder, Some(json!({})), options)
+            .execute(builder, Some(json!({})), options, "unused")
             .await?
             .into_body();
 
@@ -224,6 +224,66 @@ mod tests {
             get_header_value(&response, "x-goog-api-key").is_none(),
             "x-goog-api-key should be stripped when unset on options: {response:?}"
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn api_client_header_client_extension() -> anyhow::Result<()> {
+        let (endpoint, _server) = echo_server::start().await?;
+
+        let client = echo_server::builder(endpoint)
+            .with_credentials(Credentials::from(mock_credentials()))
+            .with_extension(google_cloud_gax_internal::api_header::XGoogApiClient {
+                name: "storage",
+                library_type: google_cloud_gax_internal::api_header::GCCL,
+                version: "1.0.0",
+            })
+            .build()
+            .await?;
+
+        let builder = client.builder(reqwest::Method::GET, "/echo".into());
+        let options = RequestOptions::default();
+
+        let response: serde_json::Value = client
+            .execute(builder, Some(json!({})), options, "gapic/0.0.0 rest/1.2.3")
+            .await?
+            .into_body();
+
+        let val = get_header_value(&response, "x-goog-api-client").expect("header present");
+        assert!(val.contains("gccl/1.0.0"), "{val}");
+        assert!(val.contains("rest/"), "{val}");
+        assert!(!val.contains("gapic/"), "{val}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn custom_header_does_not_override_api_client() -> anyhow::Result<()> {
+        let (endpoint, _server) = echo_server::start().await?;
+
+        let client = echo_server::builder(endpoint)
+            .with_credentials(Credentials::from(mock_credentials()))
+            .with_extension(google_cloud_gax_internal::api_header::XGoogApiClient {
+                name: "trusted-veneer",
+                library_type: google_cloud_gax_internal::api_header::GCCL,
+                version: "1.0.0",
+            })
+            .build()
+            .await?;
+
+        let builder = client.builder(reqwest::Method::GET, "/echo".into());
+        let mut options = RequestOptions::default();
+        options = with_custom_header(options, "x-goog-api-client", "malicious-header");
+
+        let response: serde_json::Value = client
+            .execute(builder, Some(json!({})), options, "gapic/0.0.0 rest/1.2.3")
+            .await?
+            .into_body();
+
+        let val = get_header_value(&response, "x-goog-api-client").expect("header present");
+        assert!(val.contains("gccl/1.0.0"), "{val}");
+        assert!(!val.contains("malicious-header"), "{val}");
+
         Ok(())
     }
 
