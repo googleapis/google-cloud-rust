@@ -24,9 +24,11 @@
 // TODO(#6236): Remove dead_code allowance once LocationRouter is integrated into DatabaseClient.
 #![allow(dead_code)]
 
+use crate::model::directed_read_options::Replicas;
 use crate::model::routing_hint::SkippedTablet;
-use crate::model::{RoutingHint, Tablet};
+use crate::model::{DirectedReadOptions, RoutingHint, Tablet};
 use crate::routing::connection_cache::ConnectionCache;
+use crate::routing::directed_read::matches_replicas;
 use crate::routing::endpoint_cooldown::EndpointCooldownTracker;
 use crate::routing::endpoint_lifecycle::EndpointLifecycleManager;
 use crate::routing::key_range_cache::{CachedGroup, CachedRange, KeyRangeCache, RangeMode};
@@ -59,6 +61,15 @@ pub(crate) struct RoutingContext<'a> {
 pub(crate) struct ResolvedRoute {
     pub(crate) connection: ServerConnection,
     pub(crate) routing_hint: Option<RoutingHint>,
+}
+
+/// Parameters used to construct a [`RoutingHint`].
+struct RoutingHintParams<'a> {
+    database_id: u64,
+    schema_generation: Option<Bytes>,
+    operation_uid: u64,
+    client_location: Option<&'a str>,
+    directed_read_options: Option<&'a DirectedReadOptions>,
 }
 
 /// Unbounded transaction affinity map.
@@ -224,6 +235,7 @@ impl LocationRouter {
     pub(crate) fn resolve_route(
         &self,
         context: &RoutingContext<'_>,
+        directed_read_options: Option<&DirectedReadOptions>,
         database_id: u64,
         schema_generation: Option<Bytes>,
         operation_uid: u64,
@@ -234,24 +246,32 @@ impl LocationRouter {
 
         // Step 2: Query key range cache for covering range and group.
         let range_and_group = self.find_range_and_group(context.routing_key);
-        let selected_target = range_and_group
-            .as_ref()
-            .and_then(|(_, group)| self.select_healthy_tablet(group, context.prefer_leader));
+        let selected_tablet = range_and_group.as_ref().and_then(|(range, group)| {
+            let index = self.select_healthy_tablet(
+                range,
+                group,
+                context.prefer_leader,
+                directed_read_options,
+            )?;
+            group.tablets.get(index)
+        });
 
-        // Step 3: Construct RoutingHint in the exact same pass if database_id is active.
-        let selected_tablet = selected_target.as_ref().map(|(tablet, _)| *tablet);
+        // Step 3: Resolve ServerConnection (affinity -> direct tablet -> default gateway).
+        let connection =
+            self.resolve_target_connection(context, affinity_connection, selected_tablet);
+
+        // Step 4: Construct RoutingHint in the exact same pass if database_id is active.
         let routing_hint = self.build_routing_hint(
-            database_id,
-            schema_generation,
-            operation_uid,
-            client_location,
+            RoutingHintParams {
+                database_id,
+                schema_generation,
+                operation_uid,
+                client_location,
+                directed_read_options,
+            },
             range_and_group.as_ref(),
             selected_tablet,
         );
-
-        // Step 4: Resolve ServerConnection (affinity -> direct tablet -> default gateway).
-        let connection =
-            self.resolve_target_connection(context, affinity_connection, selected_target);
 
         ResolvedRoute {
             connection,
@@ -292,37 +312,49 @@ impl LocationRouter {
         Some((range, group))
     }
 
-    /// Selects an eligible, non-cooling-down tablet replica for the given cached range and group.
+    /// Selects the 0-based index into `group.tablets` of an eligible, non-cooling-down tablet replica
+    /// for the given cached range and group.
     ///
     /// Replica priority:
-    /// 1. If `prefer_leader` is true, tries selecting the local leader if routable.
+    /// 1. If `prefer_leader` is true and no directed read options are specified, tries selecting the local leader if routable.
     ///    - If leader is pre-warmed, routes directly to the leader.
     ///    - If leader is unwarmed, checks if an eligible follower is pre-warmed and falls back to that follower.
     ///    - If no follower is pre-warmed either, preserves the preferred leader (routed via gateway).
-    /// 2. If leader is not available, not routable, or cooling down (or if `prefer_leader` is false),
-    ///    selects an eligible follower replica using P2C replica selection.
+    /// 2. If leader is not available, not routable, cooling down, or if directed read options are specified
+    ///    (or if `prefer_leader` is false), selects an eligible follower replica index using P2C replica selection
+    ///    weighted by latency and in-flight load among candidates matching `directed_read_options`.
     /// 3. Returns `None` if all candidate replicas are cooling down or unroutable.
-    fn select_healthy_tablet<'a>(
+    fn select_healthy_tablet(
         &self,
-        group: &'a CachedGroup,
+        range: &CachedRange,
+        group: &CachedGroup,
         prefer_leader: bool,
-    ) -> Option<(&'a Tablet, Option<ServerConnection>)> {
-        if prefer_leader && let Some((leader, maybe_connection)) = self.select_healthy_leader(group)
+        directed_read_options: Option<&DirectedReadOptions>,
+    ) -> Option<usize> {
+        let has_directed_read_options = directed_read_options
+            .and_then(|options| options.replicas.as_ref())
+            .is_some();
+
+        if prefer_leader
+            && !has_directed_read_options
+            && let Some((leader_index, maybe_connection)) = self.select_healthy_leader(group)
         {
-            if let Some(connection) = maybe_connection {
-                return Some((leader, Some(connection)));
+            if maybe_connection.is_some() {
+                return Some(leader_index);
             }
             // Leader is routable but unwarmed. Check if any eligible follower is already warmed.
-            if let Some((follower, Some(follower_connection))) =
-                self.select_healthy_follower(group, group.group_uid)
+            if let Some(follower_index) =
+                self.select_healthy_follower(group, range.group_uid, directed_read_options)
+                && let Some(tablet) = group.tablets.get(follower_index)
+                && let Some(Some(_)) = self.resolve_candidate_connection(tablet)
             {
-                return Some((follower, Some(follower_connection)));
+                return Some(follower_index);
             }
             // No warmed follower available; stick with the preferred leader (routed via gateway).
-            return Some((leader, None));
+            return Some(leader_index);
         }
 
-        self.select_healthy_follower(group, group.group_uid)
+        self.select_healthy_follower(group, range.group_uid, directed_read_options)
     }
 
     /// Evaluates a tablet's routability and retrieves its warmed connection if present.
@@ -383,7 +415,7 @@ impl LocationRouter {
         &self,
         context: &RoutingContext<'_>,
         affinity_connection: Option<ServerConnection>,
-        selected_target: Option<(&Tablet, Option<ServerConnection>)>,
+        selected_tablet: Option<&Tablet>,
     ) -> ServerConnection {
         if let Some(connection) = affinity_connection {
             self.endpoint_lifecycle_manager
@@ -391,8 +423,8 @@ impl LocationRouter {
             return connection;
         }
 
-        if let Some((tablet, maybe_connection)) = selected_target
-            && let Some(connection) = maybe_connection
+        if let Some(tablet) = selected_tablet
+            && let Some(connection) = self.get_routable_connection(tablet)
         {
             self.endpoint_lifecycle_manager
                 .record_real_traffic(&tablet.server_address);
@@ -407,41 +439,38 @@ impl LocationRouter {
         self.connection_cache.default_connection().clone()
     }
 
-    /// Selects the local leader tablet if designated and routable.
-    fn select_healthy_leader<'a>(
+    /// Selects the local leader tablet index into `group.tablets` along with its pre-warmed connection status
+    /// if designated and routable.
+    fn select_healthy_leader(
         &self,
-        group: &'a CachedGroup,
-    ) -> Option<(&'a Tablet, Option<ServerConnection>)> {
-        let leader = group.local_leader()?;
+        group: &CachedGroup,
+    ) -> Option<(usize, Option<ServerConnection>)> {
+        let leader_index = group.local_leader_index?;
+        let leader = group.tablets.get(leader_index)?;
         let maybe_connection = self.resolve_candidate_connection(leader)?;
-        Some((leader, maybe_connection))
+        Some((leader_index, maybe_connection))
     }
 
-    /// Selects a follower replica using P2C replica selection weighted by latency and in-flight load.
-    fn select_healthy_follower<'a>(
+    /// Selects a follower replica index into `group.tablets` using P2C replica selection weighted by latency and in-flight load.
+    ///
+    /// If `directed_read_options` specifies replica selectors, filters candidate tablets to matching,
+    /// routable replicas in the lowest available distance tier.
+    fn select_healthy_follower(
         &self,
-        group: &'a CachedGroup,
+        group: &CachedGroup,
         group_uid: u64,
-    ) -> Option<(&'a Tablet, Option<ServerConnection>)> {
+        directed_read_options: Option<&DirectedReadOptions>,
+    ) -> Option<usize> {
         const MAX_ROUTABLE_CANDIDATES: usize = 8;
-        let mut routable: [Option<(&'a Tablet, Option<ServerConnection>)>;
-            MAX_ROUTABLE_CANDIDATES] = [const { None }; MAX_ROUTABLE_CANDIDATES];
-        let mut routable_count = 0;
-        let mut warmed_count = 0;
+        let mut routable: [Option<(usize, Option<ServerConnection>)>; MAX_ROUTABLE_CANDIDATES] =
+            [const { None }; MAX_ROUTABLE_CANDIDATES];
 
-        for &index in &group.eligible_replica_indices {
-            if routable_count >= routable.len() {
-                break;
-            }
-            let tablet = &group.tablets[index];
-            if let Some(maybe_connection) = self.resolve_candidate_connection(tablet) {
-                if maybe_connection.is_some() {
-                    warmed_count += 1;
-                }
-                routable[routable_count] = Some((tablet, maybe_connection));
-                routable_count += 1;
-            }
-        }
+        let (mut routable_count, warmed_count) = match directed_read_options
+            .and_then(|options| options.replicas.as_ref())
+        {
+            Some(replicas) => self.collect_directed_read_candidates(group, replicas, &mut routable),
+            None => self.collect_default_candidates(group, &mut routable),
+        };
 
         if routable_count == 0 {
             return None;
@@ -450,12 +479,12 @@ impl LocationRouter {
         // If at least one candidate is pre-warmed, filter down to only the pre-warmed candidates
         // so P2C never selects an unwarmed replica over a warmed one.
         if warmed_count > 0 && warmed_count < routable_count {
-            let mut warmed_only: [Option<(&'a Tablet, Option<ServerConnection>)>;
+            let mut warmed_only: [Option<(usize, Option<ServerConnection>)>;
                 MAX_ROUTABLE_CANDIDATES] = [const { None }; MAX_ROUTABLE_CANDIDATES];
             let mut new_warmed_count = 0;
             for slot in routable[..routable_count].iter_mut() {
-                if let Some((tablet, Some(connection))) = slot.take() {
-                    warmed_only[new_warmed_count] = Some((tablet, Some(connection)));
+                if let Some((tablet_index, Some(connection))) = slot.take() {
+                    warmed_only[new_warmed_count] = Some((tablet_index, Some(connection)));
                     new_warmed_count += 1;
                 }
             }
@@ -464,23 +493,106 @@ impl LocationRouter {
         }
 
         if routable_count == 1 {
-            return routable[0].take();
+            return routable[0]
+                .take()
+                .map(|(tablet_index, _maybe_connection)| tablet_index);
         }
 
-        self.select_p2c_winner(&mut routable, routable_count, group_uid)
+        self.select_p2c_winner(group, &mut routable, routable_count, group_uid)
     }
 
-    /// Compares sampled candidates from the routable stack buffer using P2C and returns the winner.
-    fn select_p2c_winner<'a>(
+    /// Collects candidate follower replica indices matching directed read options into the stack buffer.
+    ///
+    /// Evaluates tablets in a single pass:
+    /// 1. Filters by directed read selectors and verifies routability (non-empty address, not cooling down, not in transient failure).
+    /// 2. Tracks the lowest distance tier among matching routable replicas. If a tablet with a lower
+    ///    distance is encountered, previous higher-distance candidates are discarded.
+    /// 3. Populates candidate indices and pre-warmed connection status directly into `routable`.
+    fn collect_directed_read_candidates(
         &self,
-        routable: &mut [Option<(&'a Tablet, Option<ServerConnection>)>],
+        group: &CachedGroup,
+        replicas: &Replicas,
+        routable: &mut [Option<(usize, Option<ServerConnection>)>],
+    ) -> (usize, usize) {
+        let mut routable_count = 0;
+        let mut warmed_count = 0;
+        let mut minimum_distance = u32::MAX;
+
+        for (index, tablet) in group.tablets.iter().enumerate() {
+            if tablet.skip || !matches_replicas(tablet, replicas) {
+                continue;
+            }
+
+            let Some(maybe_connection) = self.resolve_candidate_connection(tablet) else {
+                continue;
+            };
+
+            if tablet.distance > minimum_distance {
+                // Skip replicas that belong to a farther distance tier.
+                continue;
+            }
+
+            if tablet.distance < minimum_distance {
+                // Found a closer matching distance tier: discard previously collected candidates.
+                minimum_distance = tablet.distance;
+                routable[..routable_count].fill(None);
+                routable_count = 0;
+                warmed_count = 0;
+            }
+
+            if routable_count < routable.len() {
+                if maybe_connection.is_some() {
+                    warmed_count += 1;
+                }
+                routable[routable_count] = Some((index, maybe_connection));
+                routable_count += 1;
+            }
+        }
+
+        (routable_count, warmed_count)
+    }
+
+    /// Collects candidate follower replica indices from precomputed group eligible replica indices into the stack buffer.
+    fn collect_default_candidates(
+        &self,
+        group: &CachedGroup,
+        routable: &mut [Option<(usize, Option<ServerConnection>)>],
+    ) -> (usize, usize) {
+        let mut routable_count = 0;
+        let mut warmed_count = 0;
+
+        for &index in &group.eligible_replica_indices {
+            if routable_count >= routable.len() {
+                break;
+            }
+            if let Some(tablet) = group.tablets.get(index)
+                && let Some(maybe_connection) = self.resolve_candidate_connection(tablet)
+            {
+                if maybe_connection.is_some() {
+                    warmed_count += 1;
+                }
+                routable[routable_count] = Some((index, maybe_connection));
+                routable_count += 1;
+            }
+        }
+
+        (routable_count, warmed_count)
+    }
+
+    /// Compares sampled candidates from the routable stack buffer using P2C and returns the winning tablet index into `group.tablets`.
+    fn select_p2c_winner(
+        &self,
+        group: &CachedGroup,
+        routable: &mut [Option<(usize, Option<ServerConnection>)>],
         routable_count: usize,
         group_uid: u64,
-    ) -> Option<(&'a Tablet, Option<ServerConnection>)> {
-        let (first_index, second_index) = self.replica_selector.sample_two_distinct(routable_count);
+    ) -> Option<usize> {
+        let (first_slot, second_slot) = self.replica_selector.sample_two_distinct(routable_count);
+        let (first_index, first_connection) = routable.get(first_slot)?.as_ref()?;
+        let (second_index, second_connection) = routable.get(second_slot)?.as_ref()?;
 
-        let (first_tablet, first_connection) = routable.get(first_index)?.as_ref()?;
-        let (second_tablet, second_connection) = routable.get(second_index)?.as_ref()?;
+        let first_tablet = group.tablets.get(*first_index)?;
+        let second_tablet = group.tablets.get(*second_index)?;
 
         let first_active_requests = first_connection
             .as_ref()
@@ -502,21 +614,34 @@ impl LocationRouter {
             &second_tablet.server_address,
         );
 
-        let selected_index = if first_cost <= second_cost {
-            first_index
+        let selected_slot = if first_cost <= second_cost {
+            first_slot
         } else {
-            second_index
+            second_slot
         };
 
-        routable.get_mut(selected_index)?.take()
+        let (selected_index, _connection) = routable.get_mut(selected_slot)?.take()?;
+        Some(selected_index)
+    }
+
+    /// Returns the pre-warmed, healthy [`ServerConnection`] for a tablet if it has a non-empty
+    /// server address, is not currently on cooldown, and is ready in the connection cache.
+    fn get_routable_connection(&self, tablet: &Tablet) -> Option<ServerConnection> {
+        if !self.is_tablet_routable(tablet) {
+            return None;
+        }
+        self.connection_cache
+            .get_if_present(&tablet.server_address)
+            .filter(ServerConnection::is_healthy)
     }
 
     /// Gathers all skipped, unroutable (empty `server_address`), cooling-down, or transient-failure tablets
-    /// excluding the currently selected tablet.
+    /// matching directed read options, excluding the currently selected tablet.
     fn collect_skipped_tablets(
         &self,
         group: &CachedGroup,
         selected_tablet_uid: Option<u64>,
+        directed_read_options: Option<&DirectedReadOptions>,
     ) -> Vec<SkippedTablet> {
         let has_skipped_or_empty = group
             .tablets
@@ -536,12 +661,15 @@ impl LocationRouter {
             return Vec::new();
         }
 
+        let active_replicas = directed_read_options.and_then(|options| options.replicas.as_ref());
+
         group
             .tablets
             .iter()
             .filter(|tablet| {
                 (tablet.skip || !self.is_tablet_routable(tablet))
                     && selected_tablet_uid != Some(tablet.tablet_uid)
+                    && active_replicas.is_none_or(|replicas| matches_replicas(tablet, replicas))
             })
             .map(|tablet| {
                 SkippedTablet::new()
@@ -554,24 +682,22 @@ impl LocationRouter {
     /// Constructs a [`RoutingHint`] if `database_id != 0` and a covering range exists.
     fn build_routing_hint(
         &self,
-        database_id: u64,
-        schema_generation: Option<Bytes>,
-        operation_uid: u64,
-        client_location: Option<&str>,
+        params: RoutingHintParams<'_>,
         range_and_group: Option<&(Arc<CachedRange>, Arc<CachedGroup>)>,
         selected_tablet: Option<&Tablet>,
     ) -> Option<RoutingHint> {
-        if database_id == 0 {
+        if params.database_id == 0 {
             return None;
         }
         let (range, group) = range_and_group?;
         let selected_uid = selected_tablet.map(|tablet| tablet.tablet_uid);
         let tablet_uid = selected_uid.unwrap_or(0);
-        let skipped_tablet_uid = self.collect_skipped_tablets(group, selected_uid);
+        let skipped_tablet_uid =
+            self.collect_skipped_tablets(group, selected_uid, params.directed_read_options);
 
         let mut hint = RoutingHint::new()
-            .set_operation_uid(operation_uid)
-            .set_database_id(database_id)
+            .set_operation_uid(params.operation_uid)
+            .set_database_id(params.database_id)
             .set_key(range.start_key.clone())
             .set_limit_key(range.limit_key.clone())
             .set_group_uid(range.group_uid)
@@ -579,11 +705,11 @@ impl LocationRouter {
             .set_tablet_uid(tablet_uid)
             .set_skipped_tablet_uid(skipped_tablet_uid);
 
-        if let Some(schema_generation) = schema_generation {
+        if let Some(schema_generation) = params.schema_generation {
             hint = hint.set_schema_generation(schema_generation);
         }
 
-        if let Some(location) = client_location
+        if let Some(location) = params.client_location
             && !location.is_empty()
         {
             hint = hint.set_client_location(location);
@@ -594,7 +720,8 @@ impl LocationRouter {
 
     /// Resolves the optimal [`ServerConnection`] for the provided request routing context.
     pub(crate) fn resolve_connection(&self, context: &RoutingContext<'_>) -> ServerConnection {
-        self.resolve_route(context, 0, None, 0, None).connection
+        self.resolve_route(context, None, 0, None, 0, None)
+            .connection
     }
 
     /// Generates a [`RoutingHint`] based on the provided routing context, active database ID,
@@ -614,6 +741,7 @@ impl LocationRouter {
     ) -> Option<RoutingHint> {
         self.resolve_route(
             context,
+            None,
             database_id,
             schema_generation,
             operation_uid,
@@ -681,11 +809,16 @@ mod tests {
     use super::*;
     use crate::client::Channel;
     use crate::generated::gapic_dataplane::stub::Spanner as SpannerStub;
+    use crate::model::directed_read_options::replica_selection::Type as ReplicaType;
+    use crate::model::directed_read_options::{
+        ExcludeReplicas, IncludeReplicas, ReplicaSelection, Replicas,
+    };
+    use crate::model::tablet::Role;
     use crate::model::{CacheUpdate, Group, Range, Tablet};
     use crate::routing::server_connection::ServerConnection;
     use gaxi::options::ClientConfig;
     use std::collections::HashSet;
-    use std::time::Instant;
+    use std::time::{Duration, Instant};
 
     #[test]
     fn location_router_implements_send_sync_debug_clone() {
@@ -1384,7 +1517,7 @@ mod tests {
             use_transaction_affinity: false,
         };
 
-        let route = router.resolve_route(&context, 77, None, 500, Some("us-central1"));
+        let route = router.resolve_route(&context, None, 77, None, 500, Some("us-central1"));
         assert_eq!(
             route.connection.address(),
             "10.0.0.1:15000",
@@ -1449,7 +1582,7 @@ mod tests {
             use_transaction_affinity: false,
         };
 
-        let route = router.resolve_route(&context, 88, None, 600, None);
+        let route = router.resolve_route(&context, None, 88, None, 600, None);
         assert_eq!(
             route.connection.address(),
             "10.0.0.2:15000",
@@ -2037,6 +2170,1308 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn location_router_directed_read_include_replicas_selects_matching_replica() {
+        let router = make_test_router();
+
+        let tablet_central = Tablet::default()
+            .set_tablet_uid(101u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_location("us-central1")
+            .set_role(Role::ReadOnly)
+            .set_distance(1u32);
+        let tablet_east = Tablet::default()
+            .set_tablet_uid(102u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_location("us-east1")
+            .set_role(Role::ReadOnly)
+            .set_distance(1u32);
+
+        let group = Group::new()
+            .set_group_uid(200u64)
+            .set_tablets(vec![tablet_central, tablet_east]);
+        let range = Range::new()
+            .set_group_uid(200u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("initialize central connection");
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.2:15000", &ClientConfig::default())
+            .await
+            .expect("initialize east connection");
+
+        let directed_read_options = DirectedReadOptions {
+            replicas: Some(Replicas::IncludeReplicas(Box::new(IncludeReplicas {
+                replica_selections: vec![ReplicaSelection {
+                    location: "us-east1".to_string(),
+                    r#type: ReplicaType::ReadOnly,
+                    ..Default::default()
+                }],
+                auto_failover_disabled: false,
+                ..Default::default()
+            }))),
+            ..Default::default()
+        };
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        let route = router.resolve_route(&context, Some(&directed_read_options), 1, None, 10, None);
+        assert_eq!(
+            route.connection.address(),
+            "10.0.0.2:15000",
+            "directed read targeting us-east1 must route to the east replica"
+        );
+        let hint = route
+            .routing_hint
+            .expect("routing hint must be generated on cache hit");
+        assert_eq!(
+            hint.tablet_uid, 102,
+            "routing hint must record the matched east tablet UID"
+        );
+    }
+
+    #[tokio::test]
+    async fn location_router_directed_read_exclude_replicas_filters_excluded() {
+        let router = make_test_router();
+
+        let tablet_central = Tablet::default()
+            .set_tablet_uid(201u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_location("us-central1")
+            .set_role(Role::ReadOnly)
+            .set_distance(1u32);
+        let tablet_east = Tablet::default()
+            .set_tablet_uid(202u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_location("us-east1")
+            .set_role(Role::ReadOnly)
+            .set_distance(1u32);
+
+        let group = Group::new()
+            .set_group_uid(300u64)
+            .set_tablets(vec![tablet_central, tablet_east]);
+        let range = Range::new()
+            .set_group_uid(300u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(2u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("initialize central connection");
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.2:15000", &ClientConfig::default())
+            .await
+            .expect("initialize east connection");
+
+        let directed_read_options = DirectedReadOptions {
+            replicas: Some(Replicas::ExcludeReplicas(Box::new(ExcludeReplicas {
+                replica_selections: vec![ReplicaSelection {
+                    location: "us-central1".to_string(),
+                    ..Default::default()
+                }],
+                ..Default::default()
+            }))),
+            ..Default::default()
+        };
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        let route = router.resolve_route(&context, Some(&directed_read_options), 2, None, 20, None);
+        assert_eq!(
+            route.connection.address(),
+            "10.0.0.2:15000",
+            "directed read excluding us-central1 must route to the east replica"
+        );
+        let hint = route
+            .routing_hint
+            .expect("routing hint must be generated on cache hit");
+        assert_eq!(
+            hint.tablet_uid, 202,
+            "routing hint must record the matched east tablet UID"
+        );
+    }
+
+    #[tokio::test]
+    async fn location_router_directed_read_selects_lowest_distance_among_matching() {
+        let router = make_test_router();
+
+        let tablet_europe_1 = Tablet::default()
+            .set_tablet_uid(301u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_location("europe-west1")
+            .set_role(Role::ReadOnly)
+            .set_distance(10u32);
+        let tablet_europe_4 = Tablet::default()
+            .set_tablet_uid(302u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_location("europe-west4")
+            .set_role(Role::ReadOnly)
+            .set_distance(20u32);
+        let tablet_us_central = Tablet::default()
+            .set_tablet_uid(303u64)
+            .set_server_address("10.0.0.3:15000")
+            .set_location("us-central1")
+            .set_role(Role::ReadOnly)
+            .set_distance(1u32);
+
+        let group = Group::new().set_group_uid(400u64).set_tablets(vec![
+            tablet_europe_1,
+            tablet_europe_4,
+            tablet_us_central,
+        ]);
+        let range = Range::new()
+            .set_group_uid(400u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(3u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("initialize europe-west1 connection");
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.2:15000", &ClientConfig::default())
+            .await
+            .expect("initialize europe-west4 connection");
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.3:15000", &ClientConfig::default())
+            .await
+            .expect("initialize us-central1 connection");
+
+        let directed_read_options = DirectedReadOptions {
+            replicas: Some(Replicas::IncludeReplicas(Box::new(IncludeReplicas {
+                replica_selections: vec![
+                    ReplicaSelection {
+                        location: "europe-west1".to_string(),
+                        ..Default::default()
+                    },
+                    ReplicaSelection {
+                        location: "europe-west4".to_string(),
+                        ..Default::default()
+                    },
+                ],
+                ..Default::default()
+            }))),
+            ..Default::default()
+        };
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        let route = router.resolve_route(&context, Some(&directed_read_options), 3, None, 30, None);
+        assert_eq!(
+            route.connection.address(),
+            "10.0.0.1:15000",
+            "directed read must pick europe-west1 (distance 10) over europe-west4 (distance 20)"
+        );
+        let hint = route
+            .routing_hint
+            .expect("routing hint must be generated on cache hit");
+        assert_eq!(
+            hint.tablet_uid, 301,
+            "routing hint must record the closest matched tablet UID"
+        );
+    }
+
+    #[tokio::test]
+    async fn location_router_directed_read_selects_leader_when_matching_read_write() {
+        let router = make_test_router();
+
+        let leader_tablet = Tablet::default()
+            .set_tablet_uid(401u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_location("us-central1")
+            .set_role(Role::ReadWrite)
+            .set_distance(1u32);
+        let follower_tablet = Tablet::default()
+            .set_tablet_uid(402u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_location("us-central1")
+            .set_role(Role::ReadOnly)
+            .set_distance(1u32);
+
+        let group = Group::new()
+            .set_group_uid(500u64)
+            .set_leader_index(0)
+            .set_tablets(vec![leader_tablet, follower_tablet]);
+        let range = Range::new()
+            .set_group_uid(500u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(4u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("initialize leader connection");
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.2:15000", &ClientConfig::default())
+            .await
+            .expect("initialize follower connection");
+
+        let directed_read_options = DirectedReadOptions {
+            replicas: Some(Replicas::IncludeReplicas(Box::new(IncludeReplicas {
+                replica_selections: vec![ReplicaSelection {
+                    location: "us-central1".to_string(),
+                    r#type: ReplicaType::ReadWrite,
+                    ..Default::default()
+                }],
+                ..Default::default()
+            }))),
+            ..Default::default()
+        };
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: true,
+            use_transaction_affinity: false,
+        };
+
+        let route = router.resolve_route(&context, Some(&directed_read_options), 4, None, 40, None);
+        assert_eq!(
+            route.connection.address(),
+            "10.0.0.1:15000",
+            "leader must be selected when directed read options specifically request ReadWrite replica"
+        );
+        let hint = route
+            .routing_hint
+            .expect("routing hint must be generated on cache hit");
+        assert_eq!(
+            hint.tablet_uid, 401,
+            "routing hint must record the leader tablet UID"
+        );
+    }
+
+    #[tokio::test]
+    async fn location_router_directed_read_rejects_leader_when_read_only_specified() {
+        let router = make_test_router();
+
+        let leader_tablet = Tablet::default()
+            .set_tablet_uid(501u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_location("us-central1")
+            .set_role(Role::ReadWrite)
+            .set_distance(1u32);
+        let follower_tablet = Tablet::default()
+            .set_tablet_uid(502u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_location("us-central1")
+            .set_role(Role::ReadOnly)
+            .set_distance(1u32);
+
+        let group = Group::new()
+            .set_group_uid(600u64)
+            .set_leader_index(0)
+            .set_tablets(vec![leader_tablet, follower_tablet]);
+        let range = Range::new()
+            .set_group_uid(600u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(5u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("initialize leader connection");
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.2:15000", &ClientConfig::default())
+            .await
+            .expect("initialize follower connection");
+
+        // DirectedReadOptions specifies ReadOnly: leader is ReadWrite, so leader is rejected
+        let directed_read_options = DirectedReadOptions {
+            replicas: Some(Replicas::IncludeReplicas(Box::new(IncludeReplicas {
+                replica_selections: vec![ReplicaSelection {
+                    location: "us-central1".to_string(),
+                    r#type: ReplicaType::ReadOnly,
+                    ..Default::default()
+                }],
+                ..Default::default()
+            }))),
+            ..Default::default()
+        };
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: true,
+            use_transaction_affinity: false,
+        };
+
+        let route = router.resolve_route(&context, Some(&directed_read_options), 5, None, 50, None);
+        assert_eq!(
+            route.connection.address(),
+            "10.0.0.2:15000",
+            "ReadWrite leader must be rejected when options require ReadOnly; must select matching follower"
+        );
+        let hint = route
+            .routing_hint
+            .expect("routing hint must be generated on cache hit");
+        assert_eq!(
+            hint.tablet_uid, 502,
+            "routing hint must record the follower tablet UID"
+        );
+    }
+
+    #[tokio::test]
+    async fn location_router_directed_read_exclude_replicas_applies_locality_rule_for_leader() {
+        let router = make_test_router();
+
+        // Designated leader is in europe-west1 (distance 10, remote)
+        let remote_leader = Tablet::default()
+            .set_tablet_uid(551u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_location("europe-west1")
+            .set_role(Role::ReadWrite)
+            .set_distance(10u32);
+        // Follower is in us-central1 (distance 1, local)
+        let local_follower = Tablet::default()
+            .set_tablet_uid(552u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_location("us-central1")
+            .set_role(Role::ReadOnly)
+            .set_distance(1u32);
+
+        let group = Group::new()
+            .set_group_uid(650u64)
+            .set_leader_index(0)
+            .set_tablets(vec![remote_leader, local_follower]);
+        let range = Range::new()
+            .set_group_uid(650u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(55u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("initialize remote leader connection");
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.2:15000", &ClientConfig::default())
+            .await
+            .expect("initialize local follower connection");
+
+        // ExcludeReplicas excludes us-east1.
+        // Even though remote leader is not excluded, locality rules apply:
+        // remote leader is NOT local, so it must not be selected. Local follower must be selected instead!
+        let directed_read_options = DirectedReadOptions {
+            replicas: Some(Replicas::ExcludeReplicas(Box::new(ExcludeReplicas {
+                replica_selections: vec![ReplicaSelection {
+                    location: "us-east1".to_string(),
+                    ..Default::default()
+                }],
+                ..Default::default()
+            }))),
+            ..Default::default()
+        };
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: true,
+            use_transaction_affinity: false,
+        };
+
+        let route =
+            router.resolve_route(&context, Some(&directed_read_options), 55, None, 55, None);
+        assert_eq!(
+            route.connection.address(),
+            "10.0.0.2:15000",
+            "ExcludeReplicas must preserve locality rules: remote leader must not be selected over local follower"
+        );
+        let hint = route
+            .routing_hint
+            .expect("routing hint must be generated on cache hit");
+        assert_eq!(
+            hint.tablet_uid, 552,
+            "routing hint must record the local follower tablet UID"
+        );
+    }
+
+    #[tokio::test]
+    async fn location_router_directed_read_no_matching_replicas_falls_back_to_gateway() {
+        let router = make_test_router();
+
+        let tablet_central = Tablet::default()
+            .set_tablet_uid(601u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_location("us-central1")
+            .set_role(Role::ReadOnly)
+            .set_distance(1u32);
+
+        let group = Group::new()
+            .set_group_uid(700u64)
+            .set_tablets(vec![tablet_central]);
+        let range = Range::new()
+            .set_group_uid(700u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(6u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("initialize central connection");
+
+        // Requested location asia-east1 does not exist in the cached group
+        let directed_read_options = DirectedReadOptions {
+            replicas: Some(Replicas::IncludeReplicas(Box::new(IncludeReplicas {
+                replica_selections: vec![ReplicaSelection {
+                    location: "asia-east1".to_string(),
+                    ..Default::default()
+                }],
+                ..Default::default()
+            }))),
+            ..Default::default()
+        };
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        let route = router.resolve_route(&context, Some(&directed_read_options), 6, None, 60, None);
+        assert_eq!(
+            route.connection.address(),
+            "spanner.googleapis.com:443",
+            "must fall back to default gateway when no replicas match directed read options"
+        );
+        let hint = route
+            .routing_hint
+            .expect("routing hint must be generated on cache hit");
+        assert_eq!(
+            hint.tablet_uid, 0,
+            "tablet_uid must be 0 when falling back to gateway"
+        );
+    }
+
+    #[tokio::test]
+    async fn location_router_directed_read_cooling_down_replica_fails_over_to_next_tier() {
+        let router = make_test_router();
+
+        let tablet_europe_1 = Tablet::default()
+            .set_tablet_uid(701u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_location("europe-west1")
+            .set_role(Role::ReadOnly)
+            .set_distance(10u32);
+        let tablet_europe_4 = Tablet::default()
+            .set_tablet_uid(702u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_location("europe-west4")
+            .set_role(Role::ReadOnly)
+            .set_distance(20u32);
+
+        let group = Group::new()
+            .set_group_uid(800u64)
+            .set_tablets(vec![tablet_europe_1, tablet_europe_4]);
+        let range = Range::new()
+            .set_group_uid(800u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(7u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("initialize europe-west1 connection");
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.2:15000", &ClientConfig::default())
+            .await
+            .expect("initialize europe-west4 connection");
+
+        let directed_read_options = DirectedReadOptions {
+            replicas: Some(Replicas::IncludeReplicas(Box::new(IncludeReplicas {
+                replica_selections: vec![
+                    ReplicaSelection {
+                        location: "europe-west1".to_string(),
+                        ..Default::default()
+                    },
+                    ReplicaSelection {
+                        location: "europe-west4".to_string(),
+                        ..Default::default()
+                    },
+                ],
+                ..Default::default()
+            }))),
+            ..Default::default()
+        };
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        // Place europe-west1 on cooldown
+        router.record_failure("10.0.0.1:15000");
+
+        let route = router.resolve_route(&context, Some(&directed_read_options), 7, None, 70, None);
+        assert_eq!(
+            route.connection.address(),
+            "10.0.0.2:15000",
+            "must fail over to europe-west4 (distance 20) when europe-west1 (distance 10) is cooling down"
+        );
+        let hint = route
+            .routing_hint
+            .expect("routing hint must be generated on cache hit");
+        assert_eq!(
+            hint.tablet_uid, 702,
+            "routing hint must record the failover tablet UID"
+        );
+        assert!(
+            hint.skipped_tablet_uid
+                .iter()
+                .any(|skipped| skipped.tablet_uid == 701),
+            "cooling down tablet 701 must be recorded in skipped_tablet_uid"
+        );
+
+        // Place europe-west4 on cooldown as well
+        router.record_failure("10.0.0.2:15000");
+
+        let route_fallback =
+            router.resolve_route(&context, Some(&directed_read_options), 7, None, 71, None);
+        assert_eq!(
+            route_fallback.connection.address(),
+            "spanner.googleapis.com:443",
+            "must fall back to default gateway when all matching replicas are on cooldown"
+        );
+    }
+
+    #[tokio::test]
+    async fn location_router_directed_read_prioritizes_prewarmed_connection() {
+        let router = make_test_router();
+
+        let tablet_warmed = Tablet::default()
+            .set_tablet_uid(801u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_location("us-east1")
+            .set_role(Role::ReadOnly)
+            .set_distance(1u32);
+        let tablet_unwarmed = Tablet::default()
+            .set_tablet_uid(802u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_location("us-east1")
+            .set_role(Role::ReadOnly)
+            .set_distance(1u32);
+
+        let group = Group::new()
+            .set_group_uid(900u64)
+            .set_tablets(vec![tablet_warmed, tablet_unwarmed]);
+        let range = Range::new()
+            .set_group_uid(900u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(8u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        // Only pre-warm tablet 801
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("initialize warmed connection");
+
+        let directed_read_options = DirectedReadOptions {
+            replicas: Some(Replicas::IncludeReplicas(Box::new(IncludeReplicas {
+                replica_selections: vec![ReplicaSelection {
+                    location: "us-east1".to_string(),
+                    ..Default::default()
+                }],
+                ..Default::default()
+            }))),
+            ..Default::default()
+        };
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        for _ in 0..10 {
+            let route =
+                router.resolve_route(&context, Some(&directed_read_options), 8, None, 80, None);
+            assert_eq!(
+                route.connection.address(),
+                "10.0.0.1:15000",
+                "must prioritize the pre-warmed matching replica"
+            );
+            assert_eq!(
+                route.routing_hint.as_ref().map(|hint| hint.tablet_uid),
+                Some(801),
+                "routing hint must record the pre-warmed tablet UID"
+            );
+        }
+    }
+
+    #[tokio::test]
+    async fn location_router_directed_read_does_not_prefer_leader_over_matching_followers() {
+        let router = make_test_router();
+
+        // Designated leader is in us-central1 (distance 10, ReadWrite)
+        let remote_leader = Tablet::default()
+            .set_tablet_uid(1001u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_location("us-central1")
+            .set_role(Role::ReadWrite)
+            .set_distance(10u32);
+        // Follower is in us-east1 (distance 1, ReadOnly)
+        let local_follower = Tablet::default()
+            .set_tablet_uid(1002u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_location("us-east1")
+            .set_role(Role::ReadOnly)
+            .set_distance(1u32);
+
+        let group = Group::new()
+            .set_group_uid(1100u64)
+            .set_leader_index(0)
+            .set_tablets(vec![remote_leader, local_follower]);
+        let range = Range::new()
+            .set_group_uid(1100u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(10u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("initialize remote leader connection");
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.2:15000", &ClientConfig::default())
+            .await
+            .expect("initialize local follower connection");
+
+        // Directed read includes both us-central1 and us-east1 without specifying replica type.
+        // Even with prefer_leader: true, leader preference is disabled when directed read options are present.
+        // The router must select the closer us-east1 replica (distance 1) rather than the leader (distance 10).
+        let directed_read_options = DirectedReadOptions {
+            replicas: Some(Replicas::IncludeReplicas(Box::new(IncludeReplicas {
+                replica_selections: vec![
+                    ReplicaSelection {
+                        location: "us-central1".to_string(),
+                        ..Default::default()
+                    },
+                    ReplicaSelection {
+                        location: "us-east1".to_string(),
+                        ..Default::default()
+                    },
+                ],
+                ..Default::default()
+            }))),
+            ..Default::default()
+        };
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: true,
+            use_transaction_affinity: false,
+        };
+
+        let route =
+            router.resolve_route(&context, Some(&directed_read_options), 10, None, 100, None);
+        assert_eq!(
+            route.connection.address(),
+            "10.0.0.2:15000",
+            "directed read must disable leader preference and pick closest replica matching options"
+        );
+        let hint = route
+            .routing_hint
+            .expect("routing hint must be generated on cache hit");
+        assert_eq!(
+            hint.tablet_uid, 1002,
+            "routing hint must record the local follower tablet UID"
+        );
+    }
+
+    #[tokio::test]
+    async fn location_router_directed_read_skipped_tablets_only_includes_matching() {
+        let router = make_test_router();
+
+        // Tablet in us-east1 (healthy)
+        let tablet_east_healthy = Tablet::default()
+            .set_tablet_uid(1101u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_location("us-east1")
+            .set_role(Role::ReadOnly)
+            .set_distance(1u32);
+        // Tablet in us-east1 (on cooldown)
+        let tablet_east_cooling = Tablet::default()
+            .set_tablet_uid(1102u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_location("us-east1")
+            .set_role(Role::ReadOnly)
+            .set_distance(1u32);
+        // Tablet in europe-west1 (on cooldown, does NOT match directed read)
+        let tablet_europe_cooling = Tablet::default()
+            .set_tablet_uid(1103u64)
+            .set_server_address("10.0.0.3:15000")
+            .set_location("europe-west1")
+            .set_role(Role::ReadOnly)
+            .set_distance(10u32);
+
+        let group = Group::new().set_group_uid(1200u64).set_tablets(vec![
+            tablet_east_healthy,
+            tablet_east_cooling,
+            tablet_europe_cooling,
+        ]);
+        let range = Range::new()
+            .set_group_uid(1200u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(11u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("initialize east healthy connection");
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.2:15000", &ClientConfig::default())
+            .await
+            .expect("initialize east cooling connection");
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.3:15000", &ClientConfig::default())
+            .await
+            .expect("initialize europe cooling connection");
+
+        // Mark both 10.0.0.2 and 10.0.0.3 as cooling down
+        router.record_failure("10.0.0.2:15000");
+        router.record_failure("10.0.0.3:15000");
+
+        let directed_read_options = DirectedReadOptions {
+            replicas: Some(Replicas::IncludeReplicas(Box::new(IncludeReplicas {
+                replica_selections: vec![ReplicaSelection {
+                    location: "us-east1".to_string(),
+                    ..Default::default()
+                }],
+                ..Default::default()
+            }))),
+            ..Default::default()
+        };
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        let route =
+            router.resolve_route(&context, Some(&directed_read_options), 11, None, 110, None);
+        assert_eq!(
+            route.connection.address(),
+            "10.0.0.1:15000",
+            "must route to healthy us-east1 replica"
+        );
+        let hint = route
+            .routing_hint
+            .expect("routing hint must be generated on cache hit");
+        assert_eq!(
+            hint.tablet_uid, 1101,
+            "routing hint must record healthy tablet UID"
+        );
+
+        // Skipped tablets must ONLY include matching tablet 1102, and MUST NOT include 1103 (europe-west1)
+        let skipped_uids: Vec<u64> = hint
+            .skipped_tablet_uid
+            .iter()
+            .map(|skipped_tablet| skipped_tablet.tablet_uid)
+            .collect();
+        assert!(
+            skipped_uids.contains(&1102),
+            "matching cooling-down tablet 1102 must be in skipped_tablet_uid"
+        );
+        assert!(
+            !skipped_uids.contains(&1103),
+            "non-matching cooling-down tablet 1103 must NOT be in skipped_tablet_uid"
+        );
+    }
+
+    #[tokio::test]
+    async fn location_router_directed_read_clears_stale_buffer_on_lower_distance() {
+        let router = make_test_router();
+
+        // Farther replica first in group (distance 20)
+        let tablet_farther = Tablet::default()
+            .set_tablet_uid(1201u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_location("us-east1")
+            .set_role(Role::ReadOnly)
+            .set_distance(20u32);
+        // Closer replica second in group (distance 1)
+        let tablet_closer = Tablet::default()
+            .set_tablet_uid(1202u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_location("us-east1")
+            .set_role(Role::ReadOnly)
+            .set_distance(1u32);
+
+        let group = Group::new()
+            .set_group_uid(1300u64)
+            .set_tablets(vec![tablet_farther, tablet_closer]);
+        let range = Range::new()
+            .set_group_uid(1300u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(12u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("initialize farther connection");
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.2:15000", &ClientConfig::default())
+            .await
+            .expect("initialize closer connection");
+
+        let directed_read_options = DirectedReadOptions {
+            replicas: Some(Replicas::IncludeReplicas(Box::new(IncludeReplicas {
+                replica_selections: vec![ReplicaSelection {
+                    location: "us-east1".to_string(),
+                    ..Default::default()
+                }],
+                ..Default::default()
+            }))),
+            ..Default::default()
+        };
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        let route =
+            router.resolve_route(&context, Some(&directed_read_options), 12, None, 120, None);
+        assert_eq!(
+            route.connection.address(),
+            "10.0.0.2:15000",
+            "must discard farther candidate and select closer candidate"
+        );
+        let hint = route
+            .routing_hint
+            .expect("routing hint must be generated on cache hit");
+        assert_eq!(
+            hint.tablet_uid, 1202,
+            "routing hint must record the closer tablet UID"
+        );
+    }
+
+    #[tokio::test]
+    async fn location_router_directed_read_empty_include_replicas_falls_back_to_gateway() {
+        let router = make_test_router();
+
+        let tablet = Tablet::default()
+            .set_tablet_uid(1301u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_location("us-central1")
+            .set_role(Role::ReadOnly)
+            .set_distance(1u32);
+
+        let group = Group::new()
+            .set_group_uid(1400u64)
+            .set_tablets(vec![tablet]);
+        let range = Range::new()
+            .set_group_uid(1400u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(13u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        // IncludeReplicas with empty selections matches no replicas
+        let directed_read_options = DirectedReadOptions {
+            replicas: Some(Replicas::IncludeReplicas(Box::new(IncludeReplicas {
+                replica_selections: vec![],
+                ..Default::default()
+            }))),
+            ..Default::default()
+        };
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        let route =
+            router.resolve_route(&context, Some(&directed_read_options), 13, None, 130, None);
+        assert_eq!(
+            route.connection.address(),
+            "spanner.googleapis.com:443",
+            "empty IncludeReplicas must fall back to default gateway"
+        );
+    }
+
+    #[tokio::test]
+    async fn location_router_directed_read_empty_exclude_replicas_all_eligible() {
+        let router = make_test_router();
+
+        let tablet_closer = Tablet::default()
+            .set_tablet_uid(1401u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_location("us-central1")
+            .set_role(Role::ReadOnly)
+            .set_distance(1u32);
+        let tablet_farther = Tablet::default()
+            .set_tablet_uid(1402u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_location("europe-west1")
+            .set_role(Role::ReadOnly)
+            .set_distance(10u32);
+
+        let group = Group::new()
+            .set_group_uid(1500u64)
+            .set_tablets(vec![tablet_closer, tablet_farther]);
+        let range = Range::new()
+            .set_group_uid(1500u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(14u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("initialize closer connection");
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.2:15000", &ClientConfig::default())
+            .await
+            .expect("initialize farther connection");
+
+        // ExcludeReplicas with empty selections excludes nothing: all replicas remain eligible
+        let directed_read_options = DirectedReadOptions {
+            replicas: Some(Replicas::ExcludeReplicas(Box::new(ExcludeReplicas {
+                replica_selections: vec![],
+                ..Default::default()
+            }))),
+            ..Default::default()
+        };
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        let route =
+            router.resolve_route(&context, Some(&directed_read_options), 14, None, 140, None);
+        assert_eq!(
+            route.connection.address(),
+            "10.0.0.1:15000",
+            "empty ExcludeReplicas must leave all replicas eligible and select lowest distance"
+        );
+        let hint = route
+            .routing_hint
+            .expect("routing hint must be generated on cache hit");
+        assert_eq!(
+            hint.tablet_uid, 1401,
+            "routing hint must record the closest tablet UID"
+        );
+    }
+
+    #[tokio::test]
+    async fn location_router_directed_read_none_replicas_falls_back_to_default() {
+        let router = make_test_router();
+
+        let leader_tablet = Tablet::default()
+            .set_tablet_uid(1501u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_location("us-central1")
+            .set_role(Role::ReadWrite)
+            .set_distance(1u32);
+        let follower_tablet = Tablet::default()
+            .set_tablet_uid(1502u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_location("us-central1")
+            .set_role(Role::ReadOnly)
+            .set_distance(1u32);
+
+        let group = Group::new()
+            .set_group_uid(1600u64)
+            .set_leader_index(0)
+            .set_tablets(vec![leader_tablet, follower_tablet]);
+        let range = Range::new()
+            .set_group_uid(1600u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(15u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("initialize leader connection");
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.2:15000", &ClientConfig::default())
+            .await
+            .expect("initialize follower connection");
+
+        // DirectedReadOptions with replicas: None must fall back to standard routing behavior
+        let directed_read_options = DirectedReadOptions {
+            replicas: None,
+            ..Default::default()
+        };
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: true,
+            use_transaction_affinity: false,
+        };
+
+        let route =
+            router.resolve_route(&context, Some(&directed_read_options), 15, None, 150, None);
+        assert_eq!(
+            route.connection.address(),
+            "10.0.0.1:15000",
+            "DirectedReadOptions with replicas: None must fall back to standard routing and prefer local leader"
+        );
+        let hint = route
+            .routing_hint
+            .expect("routing hint must be generated on cache hit");
+        assert_eq!(
+            hint.tablet_uid, 1501,
+            "routing hint must record the leader tablet UID"
+        );
+    }
+
+    #[tokio::test]
+    async fn location_router_regular_read_includes_remote_skipped_tablets() {
+        let router = make_test_router();
+
+        // Local healthy replica (distance 1)
+        let tablet_local = Tablet::default()
+            .set_tablet_uid(1601u64)
+            .set_server_address("10.0.0.1:15000")
+            .set_location("us-central1")
+            .set_role(Role::ReadOnly)
+            .set_distance(1u32);
+        // Remote cooling-down replica (distance 10 > MAX_LOCAL_REPLICA_DISTANCE)
+        let tablet_remote_cooling_down = Tablet::default()
+            .set_tablet_uid(1602u64)
+            .set_server_address("10.0.0.2:15000")
+            .set_location("europe-west1")
+            .set_role(Role::ReadOnly)
+            .set_distance(10u32);
+
+        let group = Group::new()
+            .set_group_uid(1600u64)
+            .set_tablets(vec![tablet_local, tablet_remote_cooling_down]);
+        let range = Range::new()
+            .set_group_uid(1600u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09]);
+        let update = CacheUpdate::new()
+            .set_database_id(16u64)
+            .set_group(vec![group])
+            .set_range(vec![range]);
+
+        router.key_range_cache().add_ranges(&update);
+
+        let _ = router
+            .connection_cache()
+            .get("10.0.0.1:15000", &ClientConfig::default())
+            .await
+            .expect("initialize local connection");
+
+        // Place remote tablet on cooldown
+        router.record_failure("10.0.0.2:15000");
+
+        let key = vec![0x05];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        // Normal read without directed_read_options
+        let route = router.resolve_route(&context, None, 16, None, 160, None);
+        assert_eq!(
+            route.connection.address(),
+            "10.0.0.1:15000",
+            "regular read must route to healthy local replica"
+        );
+        let hint = route
+            .routing_hint
+            .expect("routing hint must be generated on cache hit");
+        assert_eq!(
+            hint.tablet_uid, 1601,
+            "routing hint must record healthy local tablet UID"
+        );
+
+        // Remote cooling-down tablet (distance 10) must be recorded in skipped_tablet_uid
+        let skipped_uids: Vec<u64> = hint
+            .skipped_tablet_uid
+            .iter()
+            .map(|skipped_tablet| skipped_tablet.tablet_uid)
+            .collect();
+        assert!(
+            skipped_uids.contains(&1602),
+            "remote cooling-down tablet 1602 (distance 10) must be included in skipped_tablet_uid for regular reads"
+        );
+
+        // Also verify when DirectedReadOptions is present but has replicas: None
+        let empty_options = DirectedReadOptions::default();
+        let route_empty = router.resolve_route(&context, Some(&empty_options), 16, None, 161, None);
+        let hint_empty = route_empty
+            .routing_hint
+            .expect("routing hint must be generated on cache hit");
+        let skipped_empty_uids: Vec<u64> = hint_empty
+            .skipped_tablet_uid
+            .iter()
+            .map(|skipped_tablet| skipped_tablet.tablet_uid)
+            .collect();
+        assert!(
+            skipped_empty_uids.contains(&1602),
+            "remote cooling-down tablet 1602 must be included when DirectedReadOptions has no replicas set"
+        );
+    }
+
+    #[tokio::test]
     async fn location_router_records_real_traffic_on_routed_connection() {
         let router = make_test_router();
         populate_test_routing_table(&router, "10.0.0.1:15000", vec![0x01], vec![0x09]).await;
@@ -2125,7 +3560,7 @@ mod tests {
             use_transaction_affinity: false,
         };
 
-        let route = router.resolve_route(&context, 100, None, 1, None);
+        let route = router.resolve_route(&context, None, 100, None, 1, None);
         assert_eq!(
             route.connection.address(),
             "spanner.googleapis.com:443",
@@ -2193,7 +3628,7 @@ mod tests {
             use_transaction_affinity: false,
         };
 
-        let _ = router.resolve_route(&context, 100, None, 1, None);
+        let _ = router.resolve_route(&context, None, 100, None, 1, None);
 
         assert!(
             router
@@ -2305,7 +3740,7 @@ mod tests {
             use_transaction_affinity: false,
         };
 
-        let route = router.resolve_route(&context, 100, None, 1, None);
+        let route = router.resolve_route(&context, None, 100, None, 1, None);
         assert_eq!(
             route.connection.address(),
             "10.0.0.2:15000",
@@ -2376,7 +3811,7 @@ mod tests {
         };
 
         // When leader is unhealthy (classified as unwarmed), route must fall back to healthy follower
-        let route = router.resolve_route(&context_prefer_leader, 100, None, 1, None);
+        let route = router.resolve_route(&context_prefer_leader, None, 100, None, 1, None);
         assert_eq!(
             route.connection.address(),
             "10.0.0.2:15000",
