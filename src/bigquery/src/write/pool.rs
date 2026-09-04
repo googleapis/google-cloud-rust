@@ -278,11 +278,7 @@ pub(crate) mod tests {
         let pool = StreamPool::new(transport, 10);
 
         // Manually seed the pool
-        for load in [8, 2, 2, 3, 1, 9] {
-            let s = pool.new_stream_entry();
-            s.outstanding_requests.store(load, Ordering::Relaxed);
-            pool.streams.lock().unwrap().push(s);
-        }
+        pool.seed([8, 2, 2, 3, 1, 9]);
 
         let s = pool.get();
         assert_eq!(s.id, 5);
@@ -353,17 +349,13 @@ pub(crate) mod tests {
 
         // Manually seed the pool to its limit (`max_streams`). Note that all
         // streams are already at load.
-        for load in [8, 5, 3, 8, 9, 11] {
-            let s = pool.new_stream_entry();
-            s.outstanding_requests.store(load, Ordering::Relaxed);
-            pool.streams.lock().unwrap().push(s);
-        }
-        assert_eq!(pool.streams.lock().unwrap().len(), 6);
+        pool.seed([8, 5, 3, 8, 9, 11]);
+        assert_eq!(pool.stream_ids().len(), 6);
 
         // We should return the least loaded stream without growing the pool.
         let s = pool.get();
         assert_eq!(s.id, 3);
-        assert_eq!(pool.streams.lock().unwrap().len(), 6);
+        assert_eq!(pool.stream_ids().len(), 6);
 
         Ok(())
     }
@@ -374,11 +366,7 @@ pub(crate) mod tests {
         let pool = StreamPool::new(transport, 10);
 
         // Manually seed the pool
-        for load in [1, 2, 3, 4, 5, 6] {
-            let s = pool.new_stream_entry();
-            s.outstanding_requests.store(load, Ordering::Relaxed);
-            pool.streams.lock().unwrap().push(s);
-        }
+        pool.seed([1, 2, 3, 4, 5, 6]);
         assert_eq!(pool.stream_ids(), [1, 2, 3, 4, 5, 6]);
 
         let s = pool.evict_and_replace(3);
@@ -400,9 +388,7 @@ pub(crate) mod tests {
         let pool = Arc::new(StreamPool::new(transport, 10));
 
         // Manually seed the pool
-        let s = pool.new_stream_entry();
-        s.outstanding_requests.store(1, Ordering::Relaxed);
-        pool.streams.lock().unwrap().push(s);
+        pool.seed([1]);
 
         let mut streams = JoinSet::new();
         for _ in 0..1000 {
@@ -419,8 +405,16 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    // Returns the stream IDs in the pool, in order.
     impl StreamPool {
+        fn seed(&self, loads: impl IntoIterator<Item = u64>) {
+            for load in loads.into_iter() {
+                let s = self.new_stream_entry();
+                s.outstanding_requests.store(load, Ordering::Relaxed);
+                self.streams.lock().unwrap().push(s);
+            }
+        }
+
+        // Returns the stream IDs in the pool, in order.
         fn stream_ids(&self) -> Vec<u64> {
             let mut ids: Vec<_> = self.streams.lock().unwrap().iter().map(|s| s.id).collect();
             ids.sort();
