@@ -19,7 +19,7 @@ rustup component add clippy
 cargo version
 rustup show active-toolchain -v
 
-set -e
+set +v
 echo "==== cargo doc ===="
 cargo doc --all-features -p google-cloud-compute-v1
 
