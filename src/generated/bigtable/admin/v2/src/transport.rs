@@ -51,7 +51,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::CreateInstanceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -98,16 +98,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_instance(
@@ -115,7 +111,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::GetInstanceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Instance>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -170,16 +166,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_instances(
@@ -187,7 +179,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::ListInstancesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListInstancesResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -233,16 +225,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_instance(
@@ -250,7 +238,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::Instance,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Instance>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -305,16 +293,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn partial_update_instance(
@@ -322,7 +306,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::PartialUpdateInstanceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -395,16 +379,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.instance, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_instance(
@@ -412,7 +392,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::DeleteInstanceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -467,15 +447,13 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
+            .execute(builder, body, options)
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -488,7 +466,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::CreateClusterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -544,16 +522,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.cluster, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_cluster(
@@ -561,7 +535,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::GetClusterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Cluster>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -620,16 +594,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_clusters(
@@ -637,7 +607,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::ListClustersRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListClustersResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -693,16 +663,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_cluster(
@@ -710,7 +676,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::Cluster,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -769,16 +735,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn partial_update_cluster(
@@ -786,7 +748,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::PartialUpdateClusterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -863,16 +825,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.cluster, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_cluster(
@@ -880,7 +838,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::DeleteClusterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -939,15 +897,13 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
+            .execute(builder, body, options)
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -960,7 +916,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::CreateAppProfileRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AppProfile>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1019,16 +975,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.app_profile, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_app_profile(
@@ -1036,7 +988,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::GetAppProfileRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AppProfile>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1095,16 +1047,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_app_profiles(
@@ -1112,7 +1060,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::ListAppProfilesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListAppProfilesResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1171,16 +1119,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_app_profile(
@@ -1188,7 +1132,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::UpdateAppProfileRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1266,16 +1210,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.app_profile, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_app_profile(
@@ -1283,7 +1223,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::DeleteAppProfileRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1345,15 +1285,13 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
+            .execute(builder, body, options)
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -1366,7 +1304,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1499,16 +1437,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn set_iam_policy(
@@ -1516,7 +1450,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1649,16 +1583,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn test_iam_permissions(
@@ -1666,7 +1596,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1801,16 +1731,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_hot_tablets(
@@ -1818,7 +1744,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::ListHotTabletsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListHotTabletsResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1901,16 +1827,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_logical_view(
@@ -1918,7 +1840,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::CreateLogicalViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1976,16 +1898,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.logical_view, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_logical_view(
@@ -1993,7 +1911,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::GetLogicalViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::LogicalView>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2052,16 +1970,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_logical_views(
@@ -2069,7 +1983,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::ListLogicalViewsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListLogicalViewsResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2128,16 +2042,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_logical_view(
@@ -2145,7 +2055,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::UpdateLogicalViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2222,16 +2132,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.logical_view, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_logical_view(
@@ -2239,7 +2145,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::DeleteLogicalViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2301,15 +2207,13 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
+            .execute(builder, body, options)
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -2322,7 +2226,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::CreateMaterializedViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2380,16 +2284,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.materialized_view, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_materialized_view(
@@ -2397,7 +2297,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::GetMaterializedViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::MaterializedView>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2458,16 +2358,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_materialized_views(
@@ -2475,7 +2371,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::ListMaterializedViewsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListMaterializedViewsResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2534,16 +2430,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_materialized_view(
@@ -2551,7 +2443,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::UpdateMaterializedViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2628,16 +2520,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.materialized_view, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_materialized_view(
@@ -2645,7 +2533,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: crate::model::DeleteMaterializedViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2707,15 +2595,13 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
+            .execute(builder, body, options)
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -2728,7 +2614,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2782,16 +2668,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_operation(
@@ -2799,7 +2681,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2848,16 +2730,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_operation(
@@ -2865,7 +2743,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2914,15 +2792,13 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
+            .execute(builder, body, options)
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -2935,7 +2811,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         req: google_cloud_longrunning::model::CancelOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2984,15 +2860,13 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
+            .execute(builder, body, options)
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -3048,7 +2922,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::CreateTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Table>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3105,16 +2979,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_table_from_snapshot(
@@ -3122,7 +2992,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::CreateTableFromSnapshotRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3181,16 +3051,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_tables(
@@ -3198,7 +3064,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::ListTablesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListTablesResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3256,16 +3122,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_table(
@@ -3273,7 +3135,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::GetTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Table>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3333,16 +3195,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_table(
@@ -3350,7 +3208,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::UpdateTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3426,16 +3284,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.table, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_table(
@@ -3443,7 +3297,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::DeleteTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3502,15 +3356,13 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
+            .execute(builder, body, options)
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -3523,7 +3375,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::UndeleteTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3584,16 +3436,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_authorized_view(
@@ -3601,7 +3449,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::CreateAuthorizedViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3663,16 +3511,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.authorized_view, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_authorized_views(
@@ -3680,7 +3524,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::ListAuthorizedViewsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListAuthorizedViewsResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3744,16 +3588,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_authorized_view(
@@ -3761,7 +3601,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::GetAuthorizedViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AuthorizedView>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3825,16 +3665,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_authorized_view(
@@ -3842,7 +3678,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::UpdateAuthorizedViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -3924,16 +3760,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.authorized_view, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_authorized_view(
@@ -3941,7 +3773,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::DeleteAuthorizedViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4007,15 +3839,13 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
+            .execute(builder, body, options)
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -4028,7 +3858,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::ModifyColumnFamiliesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Table>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4091,16 +3921,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn drop_row_range(
@@ -4108,7 +3934,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::DropRowRangeRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4169,15 +3995,13 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
+            .execute(builder, body, options)
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -4190,7 +4014,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::GenerateConsistencyTokenRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::GenerateConsistencyTokenResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4253,16 +4077,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn check_consistency(
@@ -4270,7 +4090,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::CheckConsistencyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CheckConsistencyResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4331,16 +4151,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn snapshot_table(
@@ -4348,7 +4164,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::SnapshotTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4409,16 +4225,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_snapshot(
@@ -4426,7 +4238,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::GetSnapshotRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Snapshot>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4489,16 +4301,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_snapshots(
@@ -4506,7 +4314,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::ListSnapshotsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListSnapshotsResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4567,16 +4375,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_snapshot(
@@ -4584,7 +4388,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::DeleteSnapshotRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4647,15 +4451,13 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
+            .execute(builder, body, options)
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -4668,7 +4470,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::CreateBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4728,16 +4530,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.backup, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_backup(
@@ -4745,7 +4543,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::GetBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Backup>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4808,16 +4606,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_backup(
@@ -4825,7 +4619,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::UpdateBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Backup>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4904,16 +4698,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.backup, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_backup(
@@ -4921,7 +4711,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::DeleteBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -4984,15 +4774,13 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
+            .execute(builder, body, options)
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -5005,7 +4793,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::ListBackupsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListBackupsResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5068,16 +4856,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn restore_table(
@@ -5085,7 +4869,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::RestoreTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5142,16 +4926,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn copy_backup(
@@ -5159,7 +4939,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::CopyBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5220,16 +5000,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_iam_policy(
@@ -5237,7 +5013,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5424,16 +5200,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn set_iam_policy(
@@ -5441,7 +5213,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5628,16 +5400,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn test_iam_permissions(
@@ -5645,7 +5413,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5834,16 +5602,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_schema_bundle(
@@ -5851,7 +5615,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::CreateSchemaBundleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -5913,16 +5677,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.schema_bundle, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_schema_bundle(
@@ -5930,7 +5690,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::UpdateSchemaBundleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6012,16 +5772,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.schema_bundle, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_schema_bundle(
@@ -6029,7 +5785,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::GetSchemaBundleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SchemaBundle>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6092,16 +5848,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_schema_bundles(
@@ -6109,7 +5861,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::ListSchemaBundlesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListSchemaBundlesResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6170,16 +5922,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_schema_bundle(
@@ -6187,7 +5935,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: crate::model::DeleteSchemaBundleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6253,15 +6001,13 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
+            .execute(builder, body, options)
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -6274,7 +6020,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6328,16 +6074,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_operation(
@@ -6345,7 +6087,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6394,16 +6136,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_operation(
@@ -6411,7 +6149,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6460,15 +6198,13 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
+            .execute(builder, body, options)
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -6481,7 +6217,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         req: google_cloud_longrunning::model::CancelOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -6530,15 +6266,13 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
+            .execute(builder, body, options)
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();

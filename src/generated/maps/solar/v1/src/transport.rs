@@ -49,7 +49,7 @@ impl super::stub::Solar for Solar {
         req: crate::model::FindClosestBuildingInsightsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::BuildingInsights>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
@@ -99,16 +99,12 @@ impl super::stub::Solar for Solar {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_data_layers(
@@ -116,7 +112,7 @@ impl super::stub::Solar for Solar {
         req: crate::model::GetDataLayersRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::DataLayers>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
@@ -169,16 +165,12 @@ impl super::stub::Solar for Solar {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_geo_tiff(
@@ -186,7 +178,7 @@ impl super::stub::Solar for Solar {
         req: crate::model::GetGeoTiffRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
@@ -218,15 +210,11 @@ impl super::stub::Solar for Solar {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 }

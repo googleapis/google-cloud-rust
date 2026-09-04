@@ -51,7 +51,7 @@ impl super::stub::MapsPlatformDatasets for MapsPlatformDatasets {
         req: crate::model::CreateDatasetRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Dataset>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -99,16 +99,12 @@ impl super::stub::MapsPlatformDatasets for MapsPlatformDatasets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.dataset, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_dataset_metadata(
@@ -116,7 +112,7 @@ impl super::stub::MapsPlatformDatasets for MapsPlatformDatasets {
         req: crate::model::UpdateDatasetMetadataRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Dataset>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -187,16 +183,12 @@ impl super::stub::MapsPlatformDatasets for MapsPlatformDatasets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.dataset, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_dataset(
@@ -204,7 +196,7 @@ impl super::stub::MapsPlatformDatasets for MapsPlatformDatasets {
         req: crate::model::GetDatasetRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Dataset>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -261,16 +253,12 @@ impl super::stub::MapsPlatformDatasets for MapsPlatformDatasets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn fetch_dataset_errors(
@@ -278,7 +266,7 @@ impl super::stub::MapsPlatformDatasets for MapsPlatformDatasets {
         req: crate::model::FetchDatasetErrorsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FetchDatasetErrorsResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -336,16 +324,12 @@ impl super::stub::MapsPlatformDatasets for MapsPlatformDatasets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_datasets(
@@ -353,7 +337,7 @@ impl super::stub::MapsPlatformDatasets for MapsPlatformDatasets {
         req: crate::model::ListDatasetsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListDatasetsResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -404,16 +388,12 @@ impl super::stub::MapsPlatformDatasets for MapsPlatformDatasets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_dataset(
@@ -421,7 +401,7 @@ impl super::stub::MapsPlatformDatasets for MapsPlatformDatasets {
         req: crate::model::DeleteDatasetRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -478,15 +458,13 @@ impl super::stub::MapsPlatformDatasets for MapsPlatformDatasets {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
+            .execute(builder, body, options)
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();

@@ -51,7 +51,7 @@ impl super::stub::CloudQuotas for CloudQuotas {
         req: crate::model::ListQuotaInfosRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListQuotaInfosResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -190,16 +190,12 @@ impl super::stub::CloudQuotas for CloudQuotas {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_quota_info(
@@ -207,7 +203,7 @@ impl super::stub::CloudQuotas for CloudQuotas {
         req: crate::model::GetQuotaInfoRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QuotaInfo>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -352,16 +348,12 @@ impl super::stub::CloudQuotas for CloudQuotas {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_quota_preferences(
@@ -369,7 +361,7 @@ impl super::stub::CloudQuotas for CloudQuotas {
         req: crate::model::ListQuotaPreferencesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListQuotaPreferencesResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -502,16 +494,12 @@ impl super::stub::CloudQuotas for CloudQuotas {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_quota_preference(
@@ -519,7 +507,7 @@ impl super::stub::CloudQuotas for CloudQuotas {
         req: crate::model::GetQuotaPreferenceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QuotaPreference>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -652,16 +640,12 @@ impl super::stub::CloudQuotas for CloudQuotas {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_quota_preference(
@@ -669,7 +653,7 @@ impl super::stub::CloudQuotas for CloudQuotas {
         req: crate::model::CreateQuotaPreferenceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QuotaPreference>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -802,16 +786,12 @@ impl super::stub::CloudQuotas for CloudQuotas {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.quota_preference, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_quota_preference(
@@ -819,7 +799,7 @@ impl super::stub::CloudQuotas for CloudQuotas {
         req: crate::model::UpdateQuotaPreferenceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QuotaPreference>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1017,16 +997,12 @@ impl super::stub::CloudQuotas for CloudQuotas {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.quota_preference, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 }
 
@@ -1063,7 +1039,7 @@ impl super::stub::QuotaAdjusterSettingsManager for QuotaAdjusterSettingsManager 
         req: crate::model::UpdateQuotaAdjusterSettingsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QuotaAdjusterSettings>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1243,16 +1219,12 @@ impl super::stub::QuotaAdjusterSettingsManager for QuotaAdjusterSettingsManager 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.quota_adjuster_settings, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_quota_adjuster_settings(
@@ -1260,7 +1232,7 @@ impl super::stub::QuotaAdjusterSettingsManager for QuotaAdjusterSettingsManager 
         req: crate::model::GetQuotaAdjusterSettingsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QuotaAdjusterSettings>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1387,15 +1359,11 @@ impl super::stub::QuotaAdjusterSettingsManager for QuotaAdjusterSettingsManager 
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 }

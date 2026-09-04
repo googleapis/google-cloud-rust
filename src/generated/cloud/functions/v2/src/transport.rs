@@ -51,7 +51,7 @@ impl super::stub::FunctionService for FunctionService {
         req: crate::model::GetFunctionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Function>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -111,16 +111,12 @@ impl super::stub::FunctionService for FunctionService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_functions(
@@ -128,7 +124,7 @@ impl super::stub::FunctionService for FunctionService {
         req: crate::model::ListFunctionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListFunctionsResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -187,16 +183,12 @@ impl super::stub::FunctionService for FunctionService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn create_function(
@@ -204,7 +196,7 @@ impl super::stub::FunctionService for FunctionService {
         req: crate::model::CreateFunctionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -260,16 +252,12 @@ impl super::stub::FunctionService for FunctionService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.function, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn update_function(
@@ -277,7 +265,7 @@ impl super::stub::FunctionService for FunctionService {
         req: crate::model::UpdateFunctionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -352,16 +340,12 @@ impl super::stub::FunctionService for FunctionService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(req.function, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn delete_function(
@@ -369,7 +353,7 @@ impl super::stub::FunctionService for FunctionService {
         req: crate::model::DeleteFunctionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -428,16 +412,12 @@ impl super::stub::FunctionService for FunctionService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn generate_upload_url(
@@ -445,7 +425,7 @@ impl super::stub::FunctionService for FunctionService {
         req: crate::model::GenerateUploadUrlRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::GenerateUploadUrlResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -502,16 +482,12 @@ impl super::stub::FunctionService for FunctionService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn generate_download_url(
@@ -519,7 +495,7 @@ impl super::stub::FunctionService for FunctionService {
         req: crate::model::GenerateDownloadUrlRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::GenerateDownloadUrlResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -580,16 +556,12 @@ impl super::stub::FunctionService for FunctionService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_runtimes(
@@ -597,7 +569,7 @@ impl super::stub::FunctionService for FunctionService {
         req: crate::model::ListRuntimesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListRuntimesResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -653,16 +625,12 @@ impl super::stub::FunctionService for FunctionService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_locations(
@@ -670,7 +638,7 @@ impl super::stub::FunctionService for FunctionService {
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -716,16 +684,12 @@ impl super::stub::FunctionService for FunctionService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn set_iam_policy(
@@ -733,7 +697,7 @@ impl super::stub::FunctionService for FunctionService {
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -794,16 +758,12 @@ impl super::stub::FunctionService for FunctionService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_iam_policy(
@@ -811,7 +771,7 @@ impl super::stub::FunctionService for FunctionService {
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -882,16 +842,12 @@ impl super::stub::FunctionService for FunctionService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn test_iam_permissions(
@@ -899,7 +855,7 @@ impl super::stub::FunctionService for FunctionService {
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -960,16 +916,12 @@ impl super::stub::FunctionService for FunctionService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn list_operations(
@@ -977,7 +929,7 @@ impl super::stub::FunctionService for FunctionService {
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1035,16 +987,12 @@ impl super::stub::FunctionService for FunctionService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_operation(
@@ -1052,7 +1000,7 @@ impl super::stub::FunctionService for FunctionService {
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::Method;
+        use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1109,16 +1057,12 @@ impl super::stub::FunctionService for FunctionService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner
-            .execute(
-                builder,
-                body,
-                options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
-            )
-            .await
+        self.inner.execute(builder, body, options).await
     }
 
     fn get_polling_error_policy(

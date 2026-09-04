@@ -67,7 +67,7 @@ mod tests {
         options = with_custom_header(options, "x-foo", "bar");
 
         let response: serde_json::Value = client
-            .execute(builder, Some(json!({})), options, "unused")
+            .execute(builder, Some(json!({})), options)
             .await?
             .into_body();
 
@@ -142,7 +142,7 @@ mod tests {
         options.set_quota_project("real-project");
 
         let response: serde_json::Value = client
-            .execute(builder, Some(json!({})), options, "unused")
+            .execute(builder, Some(json!({})), options)
             .await?
             .into_body();
 
@@ -204,7 +204,7 @@ mod tests {
         options = with_custom_header(options, "x-goog-api-key", "fake-api-key");
 
         let response: serde_json::Value = client
-            .execute(builder, Some(json!({})), options, "unused")
+            .execute(builder, Some(json!({})), options)
             .await?
             .into_body();
 
@@ -228,6 +228,31 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn api_client_header_default_builder_header_preserved() -> anyhow::Result<()> {
+        let (endpoint, _server) = echo_server::start().await?;
+
+        let client = echo_server::builder(endpoint)
+            .with_credentials(Credentials::from(mock_credentials()))
+            .build()
+            .await?;
+
+        let builder = client
+            .builder(reqwest::Method::GET, "/echo".into())
+            .header("x-goog-api-client", "gapic/1.2.3");
+        let options = RequestOptions::default();
+
+        let response: serde_json::Value = client
+            .execute(builder, Some(json!({})), options)
+            .await?
+            .into_body();
+
+        let val = get_header_value(&response, "x-goog-api-client").expect("header present");
+        assert_eq!(val, "gapic/1.2.3");
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn api_client_header_client_extension() -> anyhow::Result<()> {
         let (endpoint, _server) = echo_server::start().await?;
 
@@ -241,11 +266,13 @@ mod tests {
             .build()
             .await?;
 
-        let builder = client.builder(reqwest::Method::GET, "/echo".into());
+        let builder = client
+            .builder(reqwest::Method::GET, "/echo".into())
+            .header("x-goog-api-client", "gapic/0.0.0 rest/1.2.3");
         let options = RequestOptions::default();
 
         let response: serde_json::Value = client
-            .execute(builder, Some(json!({})), options, "gapic/0.0.0 rest/1.2.3")
+            .execute(builder, Some(json!({})), options)
             .await?
             .into_body();
 
@@ -271,12 +298,14 @@ mod tests {
             .build()
             .await?;
 
-        let builder = client.builder(reqwest::Method::GET, "/echo".into());
+        let builder = client
+            .builder(reqwest::Method::GET, "/echo".into())
+            .header("x-goog-api-client", "gapic/0.0.0 rest/1.2.3");
         let mut options = RequestOptions::default();
         options = with_custom_header(options, "x-goog-api-client", "malicious-header");
 
         let response: serde_json::Value = client
-            .execute(builder, Some(json!({})), options, "gapic/0.0.0 rest/1.2.3")
+            .execute(builder, Some(json!({})), options)
             .await?
             .into_body();
 

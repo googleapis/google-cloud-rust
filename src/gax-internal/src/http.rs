@@ -271,15 +271,10 @@ impl ReqwestClient {
         mut builder: reqwest::RequestBuilder,
         body: Option<I>,
         options: RequestOptions,
-        api_client_header: &'static str,
     ) -> Result<Response<O>> {
         if let Some(body) = body {
             builder = builder.json(&body);
         }
-        let api_client_header =
-            crate::api_header::resolve_rest_header_value(&self.extensions, api_client_header)?;
-
-        let builder = builder.header(X_GOOG_API_CLIENT, api_client_header);
         self.retry_loop::<O>(builder, options).await
     }
 
@@ -460,7 +455,15 @@ impl ReqwestClient {
 
         builder = builder.headers(headers);
 
-        builder.build().map_err(map_send_error)
+        let mut request = builder.build().map_err(map_send_error)?;
+        if let Some(h) = self.extensions.get::<crate::api_header::XGoogApiClient>() {
+            request.headers_mut().insert(
+                X_GOOG_API_CLIENT,
+                http::header::HeaderValue::from_str(&h.rest_header_value()).map_err(Error::ser)?,
+            );
+        }
+
+        Ok(request)
     }
 
     async fn request_attempt(
