@@ -20,9 +20,9 @@ use crate::model::transaction_options::read_only::TimestampBound;
 use crate::model::transaction_selector::Selector;
 use crate::model::{
     BatchWriteRequest, BeginTransactionRequest, CacheUpdate, CommitRequest, CommitResponse,
-    ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest, PartitionQueryRequest,
-    PartitionReadRequest, PartitionResponse, ReadRequest, ResultSet, RollbackRequest, RoutingHint,
-    Transaction, TransactionOptions, TransactionSelector,
+    DirectedReadOptions, ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest,
+    PartitionQueryRequest, PartitionReadRequest, PartitionResponse, ReadRequest, ResultSet,
+    RollbackRequest, RoutingHint, Transaction, TransactionOptions, TransactionSelector,
 };
 use crate::observability::Observability;
 use crate::omni::{InstanceType, format_database_name};
@@ -149,6 +149,7 @@ macro_rules! define_db_streaming_rpc {
             // Step 2: Resolve the optimal server connection and attach the routing hint (or bootstrap hint).
             let connection = self.route_and_attach_hint(
                 request.transaction.as_ref(),
+                request.directed_read_options.as_ref(),
                 operation_uid,
                 routing_key.as_deref(),
                 &mut request.routing_hint,
@@ -581,6 +582,7 @@ impl DatabaseClient {
     fn resolve_request_route(
         &self,
         transaction: Option<&TransactionSelector>,
+        directed_read_options: Option<&DirectedReadOptions>,
         operation_uid: u64,
         routing_key: Option<&[u8]>,
     ) -> (Option<ServerConnection>, Option<RoutingHint>) {
@@ -588,6 +590,8 @@ impl DatabaseClient {
             return (None, None);
         };
         let context = routing_context_from_selector(transaction, routing_key);
+        // Fast path: if neither transaction affinity, a routing key, nor a prepared operation UID
+        // is available, fall back to the default channel pool.
         if context.transaction_id.is_none()
             && context.routing_key.is_none()
             && operation_uid == UNASSIGNED_OPERATION_UID
@@ -598,6 +602,7 @@ impl DatabaseClient {
         let schema_generation = routing.key_recipe_cache.schema_generation();
         let resolved = routing.location_router.resolve_route(
             &context,
+            directed_read_options,
             database_id,
             schema_generation,
             operation_uid,
@@ -616,12 +621,17 @@ impl DatabaseClient {
     fn route_and_attach_hint(
         &self,
         transaction: Option<&TransactionSelector>,
+        directed_read_options: Option<&DirectedReadOptions>,
         operation_uid: u64,
         routing_key: Option<&[u8]>,
         routing_hint: &mut Option<RoutingHint>,
     ) -> Option<ServerConnection> {
-        let (connection, resolved_hint) =
-            self.resolve_request_route(transaction, operation_uid, routing_key);
+        let (connection, resolved_hint) = self.resolve_request_route(
+            transaction,
+            directed_read_options,
+            operation_uid,
+            routing_key,
+        );
 
         if let Some(hint) = resolved_hint {
             *routing_hint = Some(hint);
@@ -771,6 +781,7 @@ impl DatabaseClient {
         };
         let connection = self.route_and_attach_hint(
             request.transaction.as_ref(),
+            request.directed_read_options.as_ref(),
             operation_uid,
             routing_key.as_deref(),
             &mut request.routing_hint,
