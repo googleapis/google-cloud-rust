@@ -16,6 +16,7 @@
 
 #[allow(unused_imports)]
 use crate::Error;
+#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements [TextToSpeech](super::stub::TextToSpeech) using a [gaxi::http::ReqwestClient].
@@ -169,7 +170,7 @@ impl super::stub::TextToSpeech for TextToSpeech {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::StreamingSynthesizeRequest,
                 crate::model::StreamingSynthesizeResponse,
                 crate::prost::google::cloud::texttospeech::v1::StreamingSynthesizeRequest,
@@ -178,7 +179,7 @@ impl super::stub::TextToSpeech for TextToSpeech {
                 extensions,
                 path,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 x_goog_request_params,
             )
     }

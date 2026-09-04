@@ -35,25 +35,34 @@
 //! async fn interact_with_bidi_stream(
 //!     sender: RequestSender<String>,
 //!     mut stream: ResponseStream<String>,
-//! ) {
+//! ) -> anyhow::Result<()> {
 //!     // Send request messages to the server:
-//!     if let Err(err) = sender.send("hello".to_string()).await {
-//!         println!("Failed to send message: {err}");
-//!     }
+//!     sender.send("hello".to_string()).await?;
 //!
 //!     // Close the outbound request stream when done sending:
 //!     drop(sender);
 //!
 //!     // Receive response messages from the server:
 //!     while let Some(response) = stream.next().await {
-//!         match response {
-//!             Ok(item) => println!("Received response: {item}"),
-//!             Err(err) => {
-//!                 println!("Received error: {err}");
-//!                 break;
-//!             }
-//!         }
+//!         let response = response?;
+//!         println!("Received response: {response:?}");
 //!     }
+//!     Ok(())
+//! }
+//! ```
+//!
+//! Receiving response messages in a server-streaming RPC:
+//!
+//! ```
+//! # use google_cloud_gax::streaming::ResponseStream;
+//! # use google_cloud_gax::Result;
+//! async fn interact_with_server_stream(mut stream: ResponseStream<String>) -> Result<()> {
+//!     // Receive response messages from the server:
+//!     while let Some(response) = stream.next().await {
+//!         let response = response?;
+//!         println!("Received response: {response:?}");
+//!     }
+//!     Ok(())
 //! }
 //! ```
 
@@ -77,7 +86,7 @@ type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
 ///             println!("Stream closed; check ResponseStream for server status");
 ///         }
 ///         SendError::Serialization(e) => {
-///             println!("Failed to serialize request: {e}");
+///             println!("Failed to serialize request: {e:?}");
 ///         }
 ///         _ => println!("Other send error"),
 ///     }
@@ -88,8 +97,8 @@ type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
 pub enum SendError {
     /// The stream was closed by the server or receiver.
     ///
-    /// The underlying server status error (e.g., `InvalidArgument`, `PermissionDenied`)
-    /// is returned by [`ResponseStream::next`].
+    /// In bidirectional streaming, the underlying server status error (e.g., `InvalidArgument`,
+    /// `PermissionDenied`) is returned by [`ResponseStream::next`].
     #[error("cannot send request: stream is closed; inspect ResponseStream for details")]
     StreamClosed,
 

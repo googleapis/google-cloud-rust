@@ -51,7 +51,7 @@
 //!     .read();
 //!
 //! while let Some(row) = rows.next().await.transpose()? {
-//!     let greeting: String = row.get("greeting");
+//!     let greeting: String = row.get("greeting")?;
 //!     println!("Greeting: {greeting}");
 //! }
 //! # Ok(())

@@ -48,9 +48,9 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
         .read();
 
     while let Some(row) = rows.next().await.transpose()? {
-        let date_col: String = row.get("date_col");
-        let num_col: String = row.get("num_col");
-        let bool_col: bool = row.get("bool_col");
+        let date_col: String = row.get("date_col")?;
+        let num_col: String = row.get("num_col")?;
+        let bool_col: bool = row.get("bool_col")?;
         println!("Date: {date_col}, Numeric: {num_col}, Bool: {bool_col}");
     }
     Ok(())

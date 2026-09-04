@@ -39,6 +39,7 @@ use crate::Error;
     feature = "user-event-service",
     feature = "user-license-service",
 ))]
+#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements [AssistantService](super::stub::AssistantService) using a [gaxi::http::ReqwestClient].
@@ -112,7 +113,7 @@ impl super::stub::AssistantService for AssistantService {
         );
 
         self.grpc_inner
-            .execute_server_streaming_tmp::<
+            .execute_server_streaming::<
                 crate::model::StreamAssistRequest,
                 crate::model::StreamAssistResponse,
                 crate::prost::google::cloud::discoveryengine::v1::StreamAssistRequest,
@@ -122,7 +123,7 @@ impl super::stub::AssistantService for AssistantService {
                 path,
                 req,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 &x_goog_request_params,
             )
             .await
@@ -7450,7 +7451,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
 
         self.grpc_inner
-            .execute_server_streaming_tmp::<
+            .execute_server_streaming::<
                 crate::model::AnswerQueryRequest,
                 crate::model::AnswerQueryResponse,
                 crate::prost::google::cloud::discoveryengine::v1::AnswerQueryRequest,
@@ -7460,7 +7461,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 path,
                 req,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 &x_goog_request_params,
             )
             .await
@@ -14909,7 +14910,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::GenerateGroundedContentRequest,
                 crate::model::GenerateGroundedContentResponse,
                 crate::prost::google::cloud::discoveryengine::v1::GenerateGroundedContentRequest,
@@ -14918,7 +14919,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 extensions,
                 path,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 x_goog_request_params,
             )
     }

@@ -48,6 +48,7 @@ use http::HeaderMap;
 use std::sync::Arc;
 use std::time::Duration;
 use std::time::Instant;
+use tracing::Instrument as _;
 use transport_policies::TransportPolicies;
 
 // A tonic::transport::Channel always has a Buffer layer.
@@ -208,6 +209,7 @@ impl Client {
         )?;
         let mut headers = add_auth_headers(headers, &self.credentials).await?;
         self.intercept(&mut headers, 1);
+        crate::observability::propagation::inject_context(&tracing::Span::current(), &mut headers);
         let metadata = tonic::MetadataMap::from_headers(headers);
         let request = ::tonic::Request::from_parts(metadata, extensions, request);
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
@@ -262,40 +264,6 @@ impl Client {
         )
     }
 
-    /// Opens a bidirectional stream with automatic model <-> proto conversion and channel management.
-    pub fn execute_bidi_streaming_tmp<DomainReq, DomainResp, ProstReq, ProstResp>(
-        &self,
-        extensions: tonic::Extensions,
-        path: http::uri::PathAndQuery,
-        options: RequestOptions,
-        api_client_header: &'static str,
-        request_params: &str,
-    ) -> (
-        google_cloud_gax::streaming::RequestSender<DomainReq>,
-        google_cloud_gax::streaming::ResponseStream<DomainResp>,
-    )
-    where
-        DomainReq: crate::prost::ToProto<ProstReq, Output = ProstReq> + Send + 'static,
-        DomainResp: Send + 'static,
-        ProstReq: prost::Message + Send + 'static,
-        ProstResp: prost::Message + Default + crate::prost::FromProto<DomainResp> + 'static,
-    {
-        let (req_tx, req_stream) = streaming::create_request_channel(&options);
-        let resp_rx = self.spawn_bidi_stream::<ProstReq, ProstResp>(
-            extensions,
-            path,
-            req_stream,
-            options,
-            api_client_header,
-            request_params,
-        );
-
-        (
-            streaming::create_request_sender(req_tx),
-            streaming::create_response_stream(resp_rx),
-        )
-    }
-
     fn spawn_bidi_stream<ProstReq, ProstResp>(
         &self,
         extensions: tonic::Extensions,
@@ -312,25 +280,37 @@ impl Client {
         let (mut resp_tx, resp_rx) = tokio::sync::oneshot::channel();
         let client = self.clone();
         let request_params = request_params.to_string();
-        // TODO(#2318): Propagate tracing Span and RequestRecorder task-local context into the spawned task.
-        tokio::spawn(async move {
-            tokio::select! {
-                result = client.bidi_stream::<ProstReq, ProstResp>(
-                    extensions,
-                    path,
-                    req_stream,
-                    options,
-                    api_client_header,
-                    &request_params,
-                ) => {
-                    let _ = resp_tx.send(result);
-                }
-                _ = resp_tx.closed() => {
-                    // ResponseStream was dropped before the stream was established;
-                    // abort the connection attempt immediately.
+        let span = tracing::Span::current();
+        let recorder = crate::observability::RequestRecorder::current();
+        tokio::spawn(
+            async move {
+                let stream_fut = async move {
+                    tokio::select! {
+                        result = client.bidi_stream::<ProstReq, ProstResp>(
+                            extensions,
+                            path,
+                            req_stream,
+                            options,
+                            api_client_header,
+                            &request_params,
+                        ) => {
+                            let _ = resp_tx.send(result);
+                        }
+                        _ = resp_tx.closed() => {
+                            // ResponseStream was dropped before the stream was established;
+                            // abort the connection attempt immediately.
+                        }
+                    }
+                    Ok::<(), Error>(())
+                };
+                if let Some(recorder) = recorder {
+                    let _ = recorder.scope(stream_fut).await;
+                } else {
+                    let _ = stream_fut.await;
                 }
             }
-        });
+            .instrument(span),
+        );
         resp_rx
     }
 
@@ -384,6 +364,7 @@ impl Client {
         )?;
         let mut headers = add_auth_headers(headers, &self.credentials).await?;
         self.intercept(&mut headers, 1);
+        crate::observability::propagation::inject_context(&tracing::Span::current(), &mut headers);
         let metadata = tonic::MetadataMap::from_headers(headers);
         let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
         if let Some(timeout) = crate::options::resolve_effective_timeout(
@@ -413,45 +394,6 @@ impl Client {
 
     /// Opens a server stream with automatic model <-> proto conversion and stream mapping.
     pub async fn execute_server_streaming<DomainReq, DomainResp, ProstReq, ProstResp>(
-        &self,
-        extensions: tonic::Extensions,
-        path: http::uri::PathAndQuery,
-        request: DomainReq,
-        options: RequestOptions,
-        api_client_header: &'static str,
-        request_params: &str,
-    ) -> Result<google_cloud_gax::streaming::ResponseStream<DomainResp>>
-    where
-        DomainReq: crate::prost::ToProto<ProstReq, Output = ProstReq>,
-        DomainResp: Send + 'static,
-        ProstReq: prost::Message + Clone + 'static,
-        ProstResp: prost::Message + Default + crate::prost::FromProto<DomainResp> + 'static,
-    {
-        let req = request
-            .to_proto()
-            .map_err(google_cloud_gax::error::Error::ser)?;
-
-        let result = self
-            .server_streaming_with_status::<ProstReq, ProstResp>(
-                extensions,
-                path,
-                req,
-                options,
-                api_client_header,
-                request_params,
-            )
-            .await?
-            .map_err(to_gax_error)?;
-
-        let response_stream = google_cloud_gax::streaming::ResponseStream::from_stream(
-            streaming::decode_response_stream(result.into_inner()),
-        );
-
-        Ok(response_stream)
-    }
-
-    /// Opens a server stream with automatic model <-> proto conversion and stream mapping.
-    pub async fn execute_server_streaming_tmp<DomainReq, DomainResp, ProstReq, ProstResp>(
         &self,
         extensions: tonic::Extensions,
         path: http::uri::PathAndQuery,

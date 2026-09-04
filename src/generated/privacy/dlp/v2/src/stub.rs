@@ -611,4 +611,57 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
     {
         gaxi::unimplemented::unimplemented_stub()
     }
+
+    /// Implements [super::client::DlpService::create_content_policy].
+    fn create_content_policy(
+        &self,
+        _req: crate::model::CreateContentPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ContentPolicy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DlpService::update_content_policy].
+    fn update_content_policy(
+        &self,
+        _req: crate::model::UpdateContentPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ContentPolicy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DlpService::get_content_policy].
+    fn get_content_policy(
+        &self,
+        _req: crate::model::GetContentPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ContentPolicy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DlpService::list_content_policies].
+    fn list_content_policies(
+        &self,
+        _req: crate::model::ListContentPoliciesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListContentPoliciesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DlpService::delete_content_policy].
+    fn delete_content_policy(
+        &self,
+        _req: crate::model::DeleteContentPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
 }

@@ -38,7 +38,7 @@ LIMIT 10
         .read();
 
     while let Some(row) = rows.next().await.transpose()? {
-        let name: String = row.get("name");
+        let name: String = row.get("name")?;
         println!("Name: {name}");
     }
     Ok(())

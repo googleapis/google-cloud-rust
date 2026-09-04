@@ -35,7 +35,7 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
         .read();
 
     if let Some(row) = rows.next().await.transpose()? {
-        let next_hour: String = row.get("next_hour");
+        let next_hour: String = row.get("next_hour")?;
         println!("Next hour: {next_hour}");
     }
     Ok(())

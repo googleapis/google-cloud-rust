@@ -78,6 +78,19 @@ pub trait Firestore: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Firestore::batch_get_documents].
+    fn batch_get_documents(
+        &self,
+        _req: crate::model::BatchGetDocumentsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::BatchGetDocumentsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
+    }
+
     /// Implements [super::client::Firestore::begin_transaction].
     fn begin_transaction(
         &self,
@@ -109,6 +122,32 @@ pub trait Firestore: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Firestore::run_query].
+    fn run_query(
+        &self,
+        _req: crate::model::RunQueryRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::RunQueryResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
+    }
+
+    /// Implements [super::client::Firestore::run_aggregation_query].
+    fn run_aggregation_query(
+        &self,
+        _req: crate::model::RunAggregationQueryRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::RunAggregationQueryResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
+    }
+
     /// Implements [super::client::Firestore::partition_query].
     fn partition_query(
         &self,
@@ -118,6 +157,28 @@ pub trait Firestore: std::fmt::Debug + Send + Sync {
         Output = crate::Result<crate::Response<crate::model::PartitionQueryResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Firestore::write].
+    fn write(
+        &self,
+        _options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::WriteRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::WriteResponse>,
+    ) {
+        gaxi::unimplemented::unimplemented_bidi_stub()
+    }
+
+    /// Implements [super::client::Firestore::listen].
+    fn listen(
+        &self,
+        _options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::ListenRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ListenResponse>,
+    ) {
+        gaxi::unimplemented::unimplemented_bidi_stub()
     }
 
     /// Implements [super::client::Firestore::list_collection_ids].

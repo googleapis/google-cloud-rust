@@ -36,10 +36,9 @@ pub(crate) const BIGQUERY_DATETIME_SUBSEC_FORMAT: &[time::format_description::Fo
 /// A trait for converting BigQuery [`wkt::Value`] representations into Rust
 /// types.
 ///
-/// [`Row::get()`](crate::query::Row::get) and
-/// [`Row::try_get()`](crate::query::Row::try_get) use this trait to convert cell
-/// values, and the [`FromRow`](crate::query::FromRow) derive macro uses it for field
-/// deserialization.
+/// [`Row::get()`](crate::query::Row::get) or [`Row::take()`](crate::query::Row::take)
+/// use this trait to convert cell values, and the [`FromRow`](crate::query::FromRow)
+/// derive macro uses it for field deserialization.
 ///
 /// # Supported Types
 ///
@@ -63,8 +62,8 @@ pub(crate) const BIGQUERY_DATETIME_SUBSEC_FORMAT: &[time::format_description::Fo
 ///     .read();
 ///
 /// while let Some(row) = rows.next().await.transpose()? {
-///     let num: i64 = row.get("integer_col");
-///     let txt: String = row.get("string_col");
+///     let num: i64 = row.get("integer_col")?;
+///     let txt: String = row.get("string_col")?;
 ///     println!("{txt}: {num}");
 /// }
 /// # Ok(())

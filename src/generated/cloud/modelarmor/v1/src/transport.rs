@@ -16,6 +16,7 @@
 
 #[allow(unused_imports)]
 use crate::Error;
+#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements [ModelArmor](super::stub::ModelArmor) using a [gaxi::http::ReqwestClient].
@@ -940,7 +941,7 @@ impl super::stub::ModelArmor for ModelArmor {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::SanitizeUserPromptRequest,
                 crate::model::SanitizeUserPromptResponse,
                 crate::prost::google::cloud::modelarmor::v1::SanitizeUserPromptRequest,
@@ -949,7 +950,7 @@ impl super::stub::ModelArmor for ModelArmor {
                 extensions,
                 path,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 x_goog_request_params,
             )
     }
@@ -976,7 +977,7 @@ impl super::stub::ModelArmor for ModelArmor {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::SanitizeModelResponseRequest,
                 crate::model::SanitizeModelResponseResponse,
                 crate::prost::google::cloud::modelarmor::v1::SanitizeModelResponseRequest,
@@ -985,7 +986,7 @@ impl super::stub::ModelArmor for ModelArmor {
                 extensions,
                 path,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 x_goog_request_params,
             )
     }

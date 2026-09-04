@@ -16,6 +16,7 @@
 
 #[allow(unused_imports)]
 use crate::Error;
+#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements [Compliance](super::stub::Compliance) using a [gaxi::http::ReqwestClient].
@@ -1807,7 +1808,7 @@ impl super::stub::Echo for Echo {
         let path = http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Echo/Expand");
 
         self.grpc_inner
-            .execute_server_streaming_tmp::<
+            .execute_server_streaming::<
                 crate::model::ExpandRequest,
                 crate::model::EchoResponse,
                 crate::prost::google::showcase::v1beta1::ExpandRequest,
@@ -1817,7 +1818,7 @@ impl super::stub::Echo for Echo {
                 path,
                 req,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 &x_goog_request_params,
             )
             .await
@@ -1843,7 +1844,7 @@ impl super::stub::Echo for Echo {
         let path = http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Echo/Chat");
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::EchoRequest,
                 crate::model::EchoResponse,
                 crate::prost::google::showcase::v1beta1::EchoRequest,
@@ -1852,7 +1853,7 @@ impl super::stub::Echo for Echo {
                 extensions,
                 path,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 x_goog_request_params,
             )
     }
@@ -5080,7 +5081,7 @@ impl super::stub::Messaging for Messaging {
             http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Messaging/StreamBlurbs");
 
         self.grpc_inner
-            .execute_server_streaming_tmp::<
+            .execute_server_streaming::<
                 crate::model::StreamBlurbsRequest,
                 crate::model::StreamBlurbsResponse,
                 crate::prost::google::showcase::v1beta1::StreamBlurbsRequest,
@@ -5090,7 +5091,7 @@ impl super::stub::Messaging for Messaging {
                 path,
                 req,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 &x_goog_request_params,
             )
             .await
@@ -5117,7 +5118,7 @@ impl super::stub::Messaging for Messaging {
             http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Messaging/Connect");
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::ConnectRequest,
                 crate::model::StreamBlurbsResponse,
                 crate::prost::google::showcase::v1beta1::ConnectRequest,
@@ -5126,7 +5127,7 @@ impl super::stub::Messaging for Messaging {
                 extensions,
                 path,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 x_goog_request_params,
             )
     }
@@ -6346,7 +6347,7 @@ impl super::stub::SequenceService for SequenceService {
         );
 
         self.grpc_inner
-            .execute_server_streaming_tmp::<
+            .execute_server_streaming::<
                 crate::model::AttemptStreamingSequenceRequest,
                 crate::model::AttemptStreamingSequenceResponse,
                 crate::prost::google::showcase::v1beta1::AttemptStreamingSequenceRequest,
@@ -6356,7 +6357,7 @@ impl super::stub::SequenceService for SequenceService {
                 path,
                 req,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 &x_goog_request_params,
             )
             .await

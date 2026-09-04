@@ -125,7 +125,7 @@ impl super::stub::Routes for Routes {
         );
 
         self.grpc_inner
-            .execute_server_streaming_tmp::<
+            .execute_server_streaming::<
                 crate::model::ComputeRouteMatrixRequest,
                 crate::model::RouteMatrixElement,
                 crate::prost::google::maps::routing::v2::ComputeRouteMatrixRequest,
@@ -135,7 +135,7 @@ impl super::stub::Routes for Routes {
                 path,
                 req,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 &x_goog_request_params,
             )
             .await

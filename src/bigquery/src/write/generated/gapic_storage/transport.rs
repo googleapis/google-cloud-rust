@@ -16,6 +16,7 @@
 
 #[allow(unused_imports)]
 use crate::Error;
+#[allow(unused_imports)]
 use crate::Result;
 
 const DEFAULT_HOST: &str = "https://bigquerystorage.googleapis.com";
@@ -126,6 +127,46 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
                     TR,
                     crate::write::generated::gapic_storage::model::WriteStream,
                 >,
+            )
+    }
+
+    fn append_rows(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<
+            crate::write::generated::gapic_storage::model::AppendRowsRequest,
+        >,
+        google_cloud_gax::streaming::ResponseStream<
+            crate::write::generated::gapic_storage::model::AppendRowsResponse,
+        >,
+    ) {
+        let x_goog_request_params = "";
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.cloud.bigquery.storage.v1.BigQueryWrite",
+                "AppendRows",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.cloud.bigquery.storage.v1.BigQueryWrite/AppendRows",
+        );
+
+        self.inner
+            .execute_bidi_streaming::<
+                crate::write::generated::gapic_storage::model::AppendRowsRequest,
+                crate::write::generated::gapic_storage::model::AppendRowsResponse,
+                crate::google::cloud::bigquery::storage::v1::AppendRowsRequest,
+                crate::google::cloud::bigquery::storage::v1::AppendRowsResponse,
+            >(
+                extensions,
+                path,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                x_goog_request_params,
             )
     }
 

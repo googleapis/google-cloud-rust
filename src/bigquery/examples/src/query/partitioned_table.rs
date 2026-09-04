@@ -32,7 +32,7 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
         .read();
 
     while let Some(row) = rows.next().await.transpose()? {
-        let block_num: i64 = row.get("block_number");
+        let block_num: i64 = row.get("block_number")?;
         println!("Block number: {block_num}");
     }
     Ok(())

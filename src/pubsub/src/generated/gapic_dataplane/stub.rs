@@ -79,4 +79,15 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
+
+    /// Implements [super::client::Subscriber::streaming_pull].
+    fn streaming_pull(
+        &self,
+        _options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingPullRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPullResponse>,
+    ) {
+        gaxi::unimplemented::unimplemented_bidi_stub()
+    }
 }

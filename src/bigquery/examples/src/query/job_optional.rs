@@ -54,9 +54,9 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
     let mut rows = query.until_done().await?.read();
 
     while let Some(row) = rows.next().await.transpose()? {
-        let name: String = row.get("name");
-        let gender: String = row.get("gender");
-        let total: i64 = row.get("total");
+        let name: String = row.get("name")?;
+        let gender: String = row.get("gender")?;
+        let total: i64 = row.get("total")?;
         println!("Name: {name}, Gender: {gender}, Total: {total}");
     }
     Ok(())

@@ -44,7 +44,7 @@
 /// inspection, classification, and de-identification platform that works
 /// on text, images, and Google Cloud storage repositories.
 /// To learn more about concepts and find how-to guides see
-/// <https://cloud.google.com/sensitive-data-protection/docs/>.
+/// <https://docs.cloud.google.com/sensitive-data-protection/docs/>.
 ///
 /// # Configuration
 ///
@@ -139,9 +139,9 @@ impl DlpService {
     /// be all types, but may change over time as detectors are updated.
     ///
     /// For how to guides, see
-    /// <https://cloud.google.com/sensitive-data-protection/docs/inspecting-images>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/inspecting-images>
     /// and
-    /// <https://cloud.google.com/sensitive-data-protection/docs/inspecting-text>,
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/inspecting-text>,
     ///
     /// # Example
     /// ```
@@ -164,7 +164,7 @@ impl DlpService {
     /// Redacts potentially sensitive info from an image.
     /// This method has limits on input size, processing time, and output size.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/redacting-sensitive-data-images>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/redacting-sensitive-data-images>
     /// to learn more.
     ///
     /// When no InfoTypes or CustomInfoTypes are specified in this request, the
@@ -195,7 +195,7 @@ impl DlpService {
     /// De-identifies potentially sensitive info from a ContentItem.
     /// This method has limits on input size and output size.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/deidentify-sensitive-data>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/deidentify-sensitive-data>
     /// to learn more.
     ///
     /// When no InfoTypes or CustomInfoTypes are specified in this request, the
@@ -222,7 +222,7 @@ impl DlpService {
 
     /// Re-identifies content that has been de-identified.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/pseudonymization#re-identification_in_free_text_code_example>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/pseudonymization#re-identification_in_free_text_code_example>
     /// to learn more.
     ///
     /// # Example
@@ -245,7 +245,7 @@ impl DlpService {
 
     /// Returns a list of the sensitive information types that the DLP API
     /// supports. See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/infotypes-reference>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/infotypes-reference>
     /// to learn more.
     ///
     /// # Example
@@ -269,7 +269,7 @@ impl DlpService {
     /// Creates an InspectTemplate for reusing frequently used configuration
     /// for inspecting content, images, and storage.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/creating-templates>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-templates>
     /// to learn more.
     ///
     /// # Example
@@ -292,7 +292,7 @@ impl DlpService {
 
     /// Updates the InspectTemplate.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/creating-templates>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-templates>
     /// to learn more.
     ///
     /// # Example
@@ -315,7 +315,7 @@ impl DlpService {
 
     /// Gets an InspectTemplate.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/creating-templates>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-templates>
     /// to learn more.
     ///
     /// # Example
@@ -338,7 +338,7 @@ impl DlpService {
 
     /// Lists InspectTemplates.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/creating-templates>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-templates>
     /// to learn more.
     ///
     /// # Example
@@ -364,7 +364,7 @@ impl DlpService {
 
     /// Deletes an InspectTemplate.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/creating-templates>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-templates>
     /// to learn more.
     ///
     /// # Example
@@ -387,7 +387,7 @@ impl DlpService {
     /// Creates a DeidentifyTemplate for reusing frequently used configuration
     /// for de-identifying content, images, and storage.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/creating-templates-deid>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-templates-deid>
     /// to learn more.
     ///
     /// # Example
@@ -412,7 +412,7 @@ impl DlpService {
 
     /// Updates the DeidentifyTemplate.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/creating-templates-deid>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-templates-deid>
     /// to learn more.
     ///
     /// # Example
@@ -437,7 +437,7 @@ impl DlpService {
 
     /// Gets a DeidentifyTemplate.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/creating-templates-deid>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-templates-deid>
     /// to learn more.
     ///
     /// # Example
@@ -460,7 +460,7 @@ impl DlpService {
 
     /// Lists DeidentifyTemplates.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/creating-templates-deid>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-templates-deid>
     /// to learn more.
     ///
     /// # Example
@@ -488,7 +488,7 @@ impl DlpService {
 
     /// Deletes a DeidentifyTemplate.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/creating-templates-deid>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-templates-deid>
     /// to learn more.
     ///
     /// # Example
@@ -513,7 +513,7 @@ impl DlpService {
     /// Creates a job trigger to run DLP actions such as scanning storage for
     /// sensitive information on a set schedule.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/creating-job-triggers>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-job-triggers>
     /// to learn more.
     ///
     /// # Example
@@ -536,7 +536,7 @@ impl DlpService {
 
     /// Updates a job trigger.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/creating-job-triggers>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-job-triggers>
     /// to learn more.
     ///
     /// # Example
@@ -583,7 +583,7 @@ impl DlpService {
 
     /// Gets a job trigger.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/creating-job-triggers>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-job-triggers>
     /// to learn more.
     ///
     /// # Example
@@ -606,7 +606,7 @@ impl DlpService {
 
     /// Lists job triggers.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/creating-job-triggers>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-job-triggers>
     /// to learn more.
     ///
     /// # Example
@@ -632,7 +632,7 @@ impl DlpService {
 
     /// Deletes a job trigger.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/creating-job-triggers>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-job-triggers>
     /// to learn more.
     ///
     /// # Example
@@ -777,9 +777,9 @@ impl DlpService {
 
     /// Creates a new job to inspect storage or calculate risk metrics.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/inspecting-storage>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/inspecting-storage>
     /// and
-    /// <https://cloud.google.com/sensitive-data-protection/docs/compute-risk-analysis>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/compute-risk-analysis>
     /// to learn more.
     ///
     /// When no InfoTypes or CustomInfoTypes are specified in inspect jobs, the
@@ -806,9 +806,9 @@ impl DlpService {
 
     /// Lists DlpJobs that match the specified filter in the request.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/inspecting-storage>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/inspecting-storage>
     /// and
-    /// <https://cloud.google.com/sensitive-data-protection/docs/compute-risk-analysis>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/compute-risk-analysis>
     /// to learn more.
     ///
     /// # Example
@@ -834,9 +834,9 @@ impl DlpService {
 
     /// Gets the latest state of a long-running DlpJob.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/inspecting-storage>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/inspecting-storage>
     /// and
-    /// <https://cloud.google.com/sensitive-data-protection/docs/compute-risk-analysis>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/compute-risk-analysis>
     /// to learn more.
     ///
     /// # Example
@@ -861,9 +861,9 @@ impl DlpService {
     /// no longer interested in the DlpJob result. The job will be canceled if
     /// possible.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/inspecting-storage>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/inspecting-storage>
     /// and
-    /// <https://cloud.google.com/sensitive-data-protection/docs/compute-risk-analysis>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/compute-risk-analysis>
     /// to learn more.
     ///
     /// # Example
@@ -887,9 +887,9 @@ impl DlpService {
     /// makes a best effort to cancel the DlpJob, but success is not
     /// guaranteed.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/inspecting-storage>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/inspecting-storage>
     /// and
-    /// <https://cloud.google.com/sensitive-data-protection/docs/compute-risk-analysis>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/compute-risk-analysis>
     /// to learn more.
     ///
     /// # Example
@@ -911,7 +911,7 @@ impl DlpService {
 
     /// Creates a pre-built stored infoType to be used for inspection.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/creating-stored-infotypes>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-stored-infotypes>
     /// to learn more.
     ///
     /// # Example
@@ -935,7 +935,7 @@ impl DlpService {
     /// Updates the stored infoType by creating a new version. The existing version
     /// will continue to be used until the new version is ready.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/creating-stored-infotypes>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-stored-infotypes>
     /// to learn more.
     ///
     /// # Example
@@ -958,7 +958,7 @@ impl DlpService {
 
     /// Gets a stored infoType.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/creating-stored-infotypes>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-stored-infotypes>
     /// to learn more.
     ///
     /// # Example
@@ -981,7 +981,7 @@ impl DlpService {
 
     /// Lists stored infoTypes.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/creating-stored-infotypes>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-stored-infotypes>
     /// to learn more.
     ///
     /// # Example
@@ -1007,7 +1007,7 @@ impl DlpService {
 
     /// Deletes a stored infoType.
     /// See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/creating-stored-infotypes>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-stored-infotypes>
     /// to learn more.
     ///
     /// # Example
@@ -1423,5 +1423,107 @@ impl DlpService {
     /// ```
     pub fn update_connection(&self) -> super::builder::dlp_service::UpdateConnection {
         super::builder::dlp_service::UpdateConnection::new(self.inner.clone())
+    }
+
+    /// Create a ContentPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// use google_cloud_privacy_dlp_v2::Result;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> Result<()> {
+    ///     let response = client.create_content_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_content_policy(&self) -> super::builder::dlp_service::CreateContentPolicy {
+        super::builder::dlp_service::CreateContentPolicy::new(self.inner.clone())
+    }
+
+    /// Update a ContentPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// use google_cloud_privacy_dlp_v2::Result;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> Result<()> {
+    ///     let response = client.update_content_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_content_policy(&self) -> super::builder::dlp_service::UpdateContentPolicy {
+        super::builder::dlp_service::UpdateContentPolicy::new(self.inner.clone())
+    }
+
+    /// Get a ContentPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// use google_cloud_privacy_dlp_v2::Result;
+    /// async fn sample(
+    ///    client: &DlpService, project_id: &str, location_id: &str, content_policy_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_content_policy()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/contentPolicies/{content_policy_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_content_policy(&self) -> super::builder::dlp_service::GetContentPolicy {
+        super::builder::dlp_service::GetContentPolicy::new(self.inner.clone())
+    }
+
+    /// Lists ContentPolicies in a parent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_privacy_dlp_v2::Result;
+    /// async fn sample(
+    ///    client: &DlpService, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_content_policies()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_content_policies(&self) -> super::builder::dlp_service::ListContentPolicies {
+        super::builder::dlp_service::ListContentPolicies::new(self.inner.clone())
+    }
+
+    /// Delete a ContentPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// use google_cloud_privacy_dlp_v2::Result;
+    /// async fn sample(
+    ///    client: &DlpService, project_id: &str, location_id: &str, content_policy_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_content_policy()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/contentPolicies/{content_policy_id}"))
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_content_policy(&self) -> super::builder::dlp_service::DeleteContentPolicy {
+        super::builder::dlp_service::DeleteContentPolicy::new(self.inner.clone())
     }
 }

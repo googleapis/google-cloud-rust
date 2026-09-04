@@ -93,6 +93,17 @@ pub trait LoggingServiceV2: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::LoggingServiceV2::tail_log_entries].
+    fn tail_log_entries(
+        &self,
+        _options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::TailLogEntriesRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::TailLogEntriesResponse>,
+    ) {
+        gaxi::unimplemented::unimplemented_bidi_stub()
+    }
+
     /// Implements [super::client::LoggingServiceV2::list_operations].
     fn list_operations(
         &self,

@@ -16,6 +16,7 @@
 
 #[allow(unused_imports)]
 use crate::Error;
+#[allow(unused_imports)]
 use crate::Result;
 
 const DEFAULT_HOST: &str = "https://firestore.googleapis.com";
@@ -260,6 +261,48 @@ impl super::stub::Firestore for Firestore {
             .and_then(gaxi::grpc::to_gax_response::<TR, ()>)
     }
 
+    async fn batch_get_documents(
+        &self,
+        req: crate::model::BatchGetDocumentsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::BatchGetDocumentsResponse>>
+    {
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.firestore.v1.Firestore",
+                "BatchGetDocuments",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.firestore.v1.Firestore/BatchGetDocuments",
+        );
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.database)
+            .map(|s| s.as_str())
+            .map(|v| format!("database={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        self.inner
+            .execute_server_streaming::<
+                crate::model::BatchGetDocumentsRequest,
+                crate::model::BatchGetDocumentsResponse,
+                crate::google::firestore::v1::BatchGetDocumentsRequest,
+                crate::google::firestore::v1::BatchGetDocumentsResponse,
+            >(
+                extensions,
+                path,
+                req,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+    }
+
     async fn begin_transaction(
         &self,
         req: crate::model::BeginTransactionRequest,
@@ -393,6 +436,88 @@ impl super::stub::Firestore for Firestore {
             .and_then(gaxi::grpc::to_gax_response::<TR, ()>)
     }
 
+    async fn run_query(
+        &self,
+        req: crate::model::RunQueryRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::RunQueryResponse>> {
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.firestore.v1.Firestore",
+                "RunQuery",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/RunQuery");
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.parent)
+            .map(|s| s.as_str())
+            .map(|v| format!("parent={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        self.inner
+            .execute_server_streaming::<
+                crate::model::RunQueryRequest,
+                crate::model::RunQueryResponse,
+                crate::google::firestore::v1::RunQueryRequest,
+                crate::google::firestore::v1::RunQueryResponse,
+            >(
+                extensions,
+                path,
+                req,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+    }
+
+    async fn run_aggregation_query(
+        &self,
+        req: crate::model::RunAggregationQueryRequest,
+        options: crate::RequestOptions,
+    ) -> Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::RunAggregationQueryResponse>,
+    > {
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.firestore.v1.Firestore",
+                "RunAggregationQuery",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.firestore.v1.Firestore/RunAggregationQuery",
+        );
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.parent)
+            .map(|s| s.as_str())
+            .map(|v| format!("parent={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        self.inner
+            .execute_server_streaming::<
+                crate::model::RunAggregationQueryRequest,
+                crate::model::RunAggregationQueryResponse,
+                crate::google::firestore::v1::RunAggregationQueryRequest,
+                crate::google::firestore::v1::RunAggregationQueryResponse,
+            >(
+                extensions,
+                path,
+                req,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+    }
+
     async fn partition_query(
         &self,
         req: crate::model::PartitionQueryRequest,
@@ -438,6 +563,74 @@ impl super::stub::Firestore for Firestore {
             )
             .await
             .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::PartitionQueryResponse>)
+    }
+
+    fn write(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::WriteRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::WriteResponse>,
+    ) {
+        let x_goog_request_params = "";
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.firestore.v1.Firestore",
+                "Write",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/Write");
+
+        self.inner
+            .execute_bidi_streaming::<
+                crate::model::WriteRequest,
+                crate::model::WriteResponse,
+                crate::google::firestore::v1::WriteRequest,
+                crate::google::firestore::v1::WriteResponse,
+            >(
+                extensions,
+                path,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                x_goog_request_params,
+            )
+    }
+
+    fn listen(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::ListenRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ListenResponse>,
+    ) {
+        let x_goog_request_params = "";
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.firestore.v1.Firestore",
+                "Listen",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/Listen");
+
+        self.inner
+            .execute_bidi_streaming::<
+                crate::model::ListenRequest,
+                crate::model::ListenResponse,
+                crate::google::firestore::v1::ListenRequest,
+                crate::google::firestore::v1::ListenResponse,
+            >(
+                extensions,
+                path,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                x_goog_request_params,
+            )
     }
 
     async fn list_collection_ids(
