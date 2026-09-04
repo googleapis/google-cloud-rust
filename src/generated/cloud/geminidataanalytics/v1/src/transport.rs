@@ -1340,7 +1340,7 @@ impl super::stub::DataAgentService for DataAgentService {
     }
 }
 
-/// Implements [DataChatService](super::stub::DataChatService) using a [gaxi::http::ReqwestClient].
+/// Implements [DataChatService](super::stub::DataChatService) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
 #[derive(Clone)]
 pub struct DataChatService {
     inner: gaxi::http::ReqwestClient,
@@ -1349,10 +1349,10 @@ pub struct DataChatService {
 
 impl std::fmt::Debug for DataChatService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        let mut builder = f.debug_struct("DataChatService");
-        builder.field("inner", &self.inner);
-        builder.field("grpc_inner", &self.grpc_inner);
-        builder.finish()
+        f.debug_struct("DataChatService")
+            .field("inner", &self.inner)
+            .field("grpc_inner", &self.grpc_inner)
+            .finish()
     }
 }
 

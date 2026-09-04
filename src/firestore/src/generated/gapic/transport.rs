@@ -16,7 +16,6 @@
 
 #[allow(unused_imports)]
 use crate::Error;
-#[allow(unused_imports)]
 use crate::Result;
 
 const DEFAULT_HOST: &str = "https://firestore.googleapis.com";
@@ -35,7 +34,7 @@ mod info {
         });
 }
 
-/// Implements [Firestore](super::stub::Firestore) using a Tonic-generated client.
+/// Implements [Firestore](super::stub::Firestore) using a gRPC client.
 #[derive(Clone)]
 pub struct Firestore {
     inner: gaxi::grpc::Client,

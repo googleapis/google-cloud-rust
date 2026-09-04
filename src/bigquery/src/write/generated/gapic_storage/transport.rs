@@ -16,7 +16,6 @@
 
 #[allow(unused_imports)]
 use crate::Error;
-#[allow(unused_imports)]
 use crate::Result;
 
 const DEFAULT_HOST: &str = "https://bigquerystorage.googleapis.com";
@@ -35,7 +34,7 @@ mod info {
         });
 }
 
-/// Implements [BigQueryWrite](super::stub::BigQueryWrite) using a Tonic-generated client.
+/// Implements [BigQueryWrite](super::stub::BigQueryWrite) using a gRPC client.
 #[derive(Clone)]
 pub struct BigQueryWrite {
     pub(crate) inner: gaxi::grpc::Client,

@@ -16,10 +16,9 @@
 
 #[allow(unused_imports)]
 use crate::Error;
-#[allow(unused_imports)]
 use crate::Result;
 
-/// Implements [LoggingServiceV2](super::stub::LoggingServiceV2) using a [gaxi::http::ReqwestClient].
+/// Implements [LoggingServiceV2](super::stub::LoggingServiceV2) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
 #[derive(Clone)]
 pub struct LoggingServiceV2 {
     inner: gaxi::http::ReqwestClient,
@@ -28,10 +27,10 @@ pub struct LoggingServiceV2 {
 
 impl std::fmt::Debug for LoggingServiceV2 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        let mut builder = f.debug_struct("LoggingServiceV2");
-        builder.field("inner", &self.inner);
-        builder.field("grpc_inner", &self.grpc_inner);
-        builder.finish()
+        f.debug_struct("LoggingServiceV2")
+            .field("inner", &self.inner)
+            .field("grpc_inner", &self.grpc_inner)
+            .finish()
     }
 }
 
