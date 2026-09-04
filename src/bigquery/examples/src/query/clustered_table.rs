@@ -32,8 +32,8 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
         .read();
 
     while let Some(row) = rows.next().await.transpose()? {
-        let title: String = row.get("title");
-        let views: i64 = row.get("views");
+        let title: String = row.get("title")?;
+        let views: i64 = row.get("views")?;
         println!("Title: {title}, Views: {views}");
     }
     Ok(())

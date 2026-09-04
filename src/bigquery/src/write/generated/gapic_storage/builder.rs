@@ -41,6 +41,24 @@ pub mod big_query_write {
         }
     }
 
+    /// Common implementation for [crate::client::BigQueryWrite] bidi stream builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct BidiStreamBuilder {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::BigQueryWrite>,
+        options: crate::RequestOptions,
+    }
+
+    impl BidiStreamBuilder {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigQueryWrite>,
+        ) -> Self {
+            Self {
+                stub,
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
     /// The request builder for [BigQueryWrite::create_write_stream][crate::client::BigQueryWrite::create_write_stream] calls.
     #[derive(Clone, Debug)]
     pub(crate) struct CreateWriteStream(
@@ -114,6 +132,45 @@ pub mod big_query_write {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for CreateWriteStream {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BigQueryWrite::append_rows][crate::client::BigQueryWrite::append_rows] calls.
+    #[derive(Clone, Debug)]
+    pub(crate) struct AppendRows(BidiStreamBuilder);
+
+    impl AppendRows {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigQueryWrite>,
+        ) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<
+                crate::write::generated::gapic_storage::model::AppendRowsRequest,
+            >,
+            google_cloud_gax::streaming::ResponseStream<
+                crate::write::generated::gapic_storage::model::AppendRowsResponse,
+            >,
+        ) {
+            (*self.0.stub).append_rows(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for AppendRows {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

@@ -20,9 +20,9 @@ use crate::model::transaction_options::read_only::TimestampBound;
 use crate::model::transaction_selector::Selector;
 use crate::model::{
     BatchWriteRequest, BeginTransactionRequest, CacheUpdate, CommitRequest, CommitResponse,
-    ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest, PartitionQueryRequest,
-    PartitionReadRequest, PartitionResponse, ReadRequest, ResultSet, RollbackRequest, RoutingHint,
-    Transaction, TransactionOptions, TransactionSelector,
+    DirectedReadOptions, ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest,
+    PartitionQueryRequest, PartitionReadRequest, PartitionResponse, ReadRequest, ResultSet,
+    RollbackRequest, RoutingHint, Transaction, TransactionOptions, TransactionSelector,
 };
 use crate::observability::Observability;
 use crate::omni::{InstanceType, format_database_name};
@@ -34,9 +34,11 @@ use crate::routing::cache_subscriber::CacheSubscriber;
 use crate::routing::cache_updater::CacheUpdater;
 use crate::routing::connection_cache::ConnectionCache;
 use crate::routing::endpoint_cooldown::EndpointCooldownTracker;
+use crate::routing::endpoint_lifecycle::EndpointLifecycleManager;
 use crate::routing::key_extractor::{
-    extract_mutation_routing_key, extract_mutations_routing_key,
-    extract_proto_partition_read_request_routing_key, extract_proto_read_request_routing_key,
+    extract_execute_sql_request_routing, extract_mutation_routing_key,
+    extract_mutations_routing_key, extract_proto_partition_read_request_routing_key,
+    extract_proto_read_request_routing,
 };
 use crate::routing::key_range_cache::KeyRangeCache;
 use crate::routing::key_recipe_cache::KeyRecipeCache;
@@ -97,11 +99,11 @@ macro_rules! define_db_rpc {
     ) => {
         pub(crate) async fn $method(
             &self,
-            request: $request_type,
+            mut request: $request_type,
             options: RequestOptions,
             channel_hint: usize,
         ) -> Result<$response_type> {
-            let (connection, routing_context) = $pre_route(self, &request);
+            let (connection, routing_context) = $pre_route(self, &mut request);
             let channel = match &connection {
                 Some(connection) => connection.channel(),
                 None => self.spanner.get_channel(channel_hint),
@@ -139,20 +141,20 @@ macro_rules! define_db_streaming_rpc {
         ) -> $builder_type {
             // Step 1: When location-aware routing is disabled (standard Cloud Spanner),
             // `self.location_routing` is `None` so `$extract_key` is skipped immediately.
-            // When enabled (Spanner Omni), extract the binary routing key from the request if present.
-            let routing_key = self
-                .location_routing
-                .as_ref()
-                .and_then(|routing| $extract_key(routing, &request));
+            // When enabled (Spanner Omni), extract the operation UID and binary routing key.
+            let (operation_uid, routing_key) = match &self.location_routing {
+                Some(routing) => $extract_key(routing, &request),
+                None => (UNASSIGNED_OPERATION_UID, None),
+            };
 
-            // Step 2: Resolve the optimal server connection and routing hint in a single atomic pass.
-            let (connection, routing_hint) =
-                self.resolve_streaming_route(request.transaction.as_ref(), routing_key.as_deref());
-
-            // Step 3: Attach the routing hint if present.
-            if let Some(hint) = routing_hint {
-                request.routing_hint = Some(hint);
-            }
+            // Step 2: Resolve the optimal server connection and attach the routing hint (or bootstrap hint).
+            let connection = self.route_and_attach_hint(
+                request.transaction.as_ref(),
+                request.directed_read_options.as_ref(),
+                operation_uid,
+                routing_key.as_deref(),
+                &mut request.routing_hint,
+            );
 
             // Step 4: Select the gRPC channel:
             // - If location-aware routing resolved a direct node connection (`Some(connection)`), use `connection.channel()`.
@@ -236,7 +238,9 @@ macro_rules! for_all_streaming_db_rpcs {
             expect_execute_streaming_sql,
             ExecuteSqlRequest,
             ExecuteStreamingSql,
-            |_routing, _request| None::<Vec<u8>>
+            |routing: &LocationRoutingState, request: &ExecuteSqlRequest| {
+                extract_execute_sql_request_routing(&routing.key_recipe_cache, request)
+            }
         );
         $macro!(
             streaming_read,
@@ -244,7 +248,7 @@ macro_rules! for_all_streaming_db_rpcs {
             ReadRequest,
             StreamingRead,
             |routing: &LocationRoutingState, request: &ReadRequest| {
-                extract_proto_read_request_routing_key(&routing.key_recipe_cache, request)
+                extract_proto_read_request_routing(&routing.key_recipe_cache, request)
             }
         );
         $macro!(
@@ -575,29 +579,94 @@ impl DatabaseClient {
             .as_ref()
             .map(|routing| &routing.cache_subscriber)
     }
-    /// Resolves the optimal [`ServerConnection`] and [`RoutingHint`] in a single pass for a streaming request.
-    fn resolve_streaming_route(
+    /// Returns a reference to the [`EndpointLifecycleManager`] if location-aware routing is enabled.
+    #[allow(dead_code)] // TODO: Used for lifecycle inspection in subsequent PRs
+    pub(crate) fn endpoint_lifecycle_manager(&self) -> Option<&EndpointLifecycleManager> {
+        self.location_routing
+            .as_ref()
+            .map(|routing| &*routing.endpoint_lifecycle_manager)
+    }
+
+    /// Resolves the optimal [`ServerConnection`] and [`RoutingHint`] in a single pass for a request.
+    fn resolve_request_route(
         &self,
         transaction: Option<&TransactionSelector>,
+        directed_read_options: Option<&DirectedReadOptions>,
+        operation_uid: u64,
         routing_key: Option<&[u8]>,
     ) -> (Option<ServerConnection>, Option<RoutingHint>) {
         let Some(routing) = &self.location_routing else {
             return (None, None);
         };
         let context = routing_context_from_selector(transaction, routing_key);
-        if context.transaction_id.is_none() && context.routing_key.is_none() {
+        // Fast path: if neither transaction affinity, a routing key, nor a prepared operation UID
+        // is available, fall back to the default channel pool.
+        if context.transaction_id.is_none()
+            && context.routing_key.is_none()
+            && operation_uid == UNASSIGNED_OPERATION_UID
+        {
             return (None, None);
         }
         let database_id = routing.cache_updater.database_id();
         let schema_generation = routing.key_recipe_cache.schema_generation();
         let resolved = routing.location_router.resolve_route(
             &context,
+            directed_read_options,
             database_id,
             schema_generation,
-            0,
+            operation_uid,
             None,
         );
-        (Some(resolved.connection), resolved.routing_hint)
+        let connection = if context.transaction_id.is_some() || context.routing_key.is_some() {
+            Some(resolved.connection)
+        } else {
+            None
+        };
+        (connection, resolved.routing_hint)
+    }
+
+    /// Resolves the optimal route and attaches either the tablet-routed [`RoutingHint`] or the cold-start
+    /// bootstrap [`RoutingHint`] to the request's `routing_hint` field.
+    fn route_and_attach_hint(
+        &self,
+        transaction: Option<&TransactionSelector>,
+        directed_read_options: Option<&DirectedReadOptions>,
+        operation_uid: u64,
+        routing_key: Option<&[u8]>,
+        routing_hint: &mut Option<RoutingHint>,
+    ) -> Option<ServerConnection> {
+        let (connection, resolved_hint) = self.resolve_request_route(
+            transaction,
+            directed_read_options,
+            operation_uid,
+            routing_key,
+        );
+
+        if let Some(hint) = resolved_hint {
+            *routing_hint = Some(hint);
+        } else if operation_uid > UNASSIGNED_OPERATION_UID
+            && let Some(routing) = &self.location_routing
+        {
+            // Cold-start query recipe discovery:
+            // When executing a query shape for the first time, no matching `KeyRecipe` is cached yet,
+            // so no routing key can be extracted and `routing_hint` is `None`.
+            //
+            // We attach a bootstrap `RoutingHint` containing `operation_uid` (plus `database_id` and
+            // `schema_generation` if known). The Spanner server includes the query `KeyRecipe` in the
+            // stream response (`PartialResultSet.cache_update`), allowing subsequent executions of this
+            // query shape to resolve routing keys and route directly to tablet replicas.
+            let database_id = routing.cache_updater.database_id();
+            let mut hint = RoutingHint::new().set_operation_uid(operation_uid);
+            if database_id != 0 {
+                hint = hint.set_database_id(database_id);
+            }
+            if let Some(schema_generation) = routing.key_recipe_cache.schema_generation() {
+                hint = hint.set_schema_generation(schema_generation);
+            }
+            *routing_hint = Some(hint);
+        }
+
+        connection
     }
 
     /// Observes an incoming [`CacheUpdate`], updating routing ranges, pre-warming connections, and caching key recipes.
@@ -610,7 +679,7 @@ impl DatabaseClient {
 
     fn pre_route_begin_transaction(
         &self,
-        request: &BeginTransactionRequest,
+        request: &mut BeginTransactionRequest,
     ) -> (Option<ServerConnection>, bool) {
         let Some(routing) = &self.location_routing else {
             return (None, false);
@@ -647,7 +716,7 @@ impl DatabaseClient {
 
     fn pre_route_commit(
         &self,
-        request: &CommitRequest,
+        request: &mut CommitRequest,
     ) -> (Option<ServerConnection>, Option<Bytes>) {
         let Some(routing) = &self.location_routing else {
             return (None, None);
@@ -682,7 +751,7 @@ impl DatabaseClient {
 
     fn pre_route_execute_batch_dml(
         &self,
-        request: &ExecuteBatchDmlRequest,
+        request: &mut ExecuteBatchDmlRequest,
     ) -> (Option<ServerConnection>, bool) {
         self.pre_route_transaction_selector(request.transaction.as_ref())
     }
@@ -703,11 +772,30 @@ impl DatabaseClient {
         self.record_transaction_affinity_routing(is_read_write_begin, transaction_id, connection);
     }
 
+    /// Intercepts unary [`ExecuteSqlRequest`] calls to resolve node routing before dispatch.
+    ///
+    /// Prepares the query in [`KeyRecipeCache`] to assign or retrieve an operation UID and extract
+    /// any cached routing key, then delegates to [`DatabaseClient::route_and_attach_hint`] to resolve
+    /// an existing transaction affinity or direct replica connection and attach the [`RoutingHint`].
     fn pre_route_execute_sql(
         &self,
-        request: &ExecuteSqlRequest,
+        request: &mut ExecuteSqlRequest,
     ) -> (Option<ServerConnection>, bool) {
-        self.pre_route_transaction_selector(request.transaction.as_ref())
+        let is_read_write_begin = is_read_write_begin(request.transaction.as_ref());
+        let (operation_uid, routing_key) = match &self.location_routing {
+            Some(routing) => {
+                extract_execute_sql_request_routing(&routing.key_recipe_cache, request)
+            }
+            None => (UNASSIGNED_OPERATION_UID, None),
+        };
+        let connection = self.route_and_attach_hint(
+            request.transaction.as_ref(),
+            request.directed_read_options.as_ref(),
+            operation_uid,
+            routing_key.as_deref(),
+            &mut request.routing_hint,
+        );
+        (connection, is_read_write_begin)
     }
 
     fn post_route_execute_sql(
@@ -727,7 +815,7 @@ impl DatabaseClient {
 
     fn pre_route_rollback(
         &self,
-        request: &RollbackRequest,
+        request: &mut RollbackRequest,
     ) -> (Option<ServerConnection>, Option<Bytes>) {
         let Some(_routing) = &self.location_routing else {
             return (None, None);
@@ -755,7 +843,7 @@ impl DatabaseClient {
 
     fn pre_route_partition_query(
         &self,
-        request: &PartitionQueryRequest,
+        request: &mut PartitionQueryRequest,
     ) -> (Option<ServerConnection>, ()) {
         (
             self.pre_route_transaction_selector(request.transaction.as_ref())
@@ -766,7 +854,7 @@ impl DatabaseClient {
 
     fn pre_route_partition_read(
         &self,
-        request: &PartitionReadRequest,
+        request: &mut PartitionReadRequest,
     ) -> (Option<ServerConnection>, ()) {
         let Some(routing) = &self.location_routing else {
             return (None, ());
@@ -1068,9 +1156,12 @@ pub(crate) struct LocationRoutingState {
     pub(crate) cache_updater: Arc<CacheUpdater>,
     pub(crate) key_recipe_cache: Arc<KeyRecipeCache>,
     pub(crate) cache_subscriber: CacheSubscriber,
+    pub(crate) endpoint_lifecycle_manager: Arc<EndpointLifecycleManager>,
 }
 
 const DEFAULT_ENDPOINT: &str = "spanner.googleapis.com:443";
+/// Sentinel value representing an unassigned or absent operation UID.
+const UNASSIGNED_OPERATION_UID: u64 = 0;
 
 impl LocationRoutingState {
     fn new(database_name: String, spanner: &Spanner) -> Self {
@@ -1089,6 +1180,10 @@ impl LocationRoutingState {
 
         let default_connection = ServerConnection::new(default_endpoint, default_channel);
         let connection_cache = Arc::new(ConnectionCache::new(default_connection));
+        let endpoint_lifecycle_manager = Arc::new(EndpointLifecycleManager::with_client_config(
+            Arc::clone(&connection_cache),
+            spanner.config.clone(),
+        ));
         let key_range_cache = Arc::new(KeyRangeCache::new());
         let key_recipe_cache = Arc::new(KeyRecipeCache::new());
         let cooldown_tracker = Arc::new(EndpointCooldownTracker::new());
@@ -1097,23 +1192,28 @@ impl LocationRoutingState {
             database_name.clone(),
             Arc::clone(&key_range_cache),
             Arc::clone(&connection_cache),
+            Arc::clone(&endpoint_lifecycle_manager),
             cooldown_tracker,
             latency_registry,
         ));
         let cache_updater = Arc::new(CacheUpdater::new(
+            database_name.clone(),
             key_range_cache,
             Arc::clone(&key_recipe_cache),
             connection_cache,
+            Arc::clone(&endpoint_lifecycle_manager),
             spanner.config.clone(),
         ));
         let cache_subscriber =
             CacheSubscriber::start(database_name, spanner.clone(), Arc::clone(&cache_updater));
+        endpoint_lifecycle_manager.start_maintenance();
 
         Self {
             location_router,
             cache_updater,
             key_recipe_cache,
             cache_subscriber,
+            endpoint_lifecycle_manager,
         }
     }
 }
@@ -1121,6 +1221,7 @@ impl LocationRoutingState {
 impl Drop for LocationRoutingState {
     fn drop(&mut self) {
         self.cache_subscriber.stop();
+        self.endpoint_lifecycle_manager.stop_maintenance();
     }
 }
 
@@ -1168,13 +1269,17 @@ mod tests {
     use crate::client::SpannerBuilderExt;
     use crate::model::key_recipe::Part;
     use crate::model::key_recipe::part::{NullOrder, Order};
+    use crate::model::tablet::Role;
     use crate::model::transaction_options::{PartitionedDml, ReadOnly, ReadWrite};
     use crate::model::{
         CacheUpdate, CommitResponse, Group, KeyRecipe, KeySet, Range, RecipeList, Tablet,
         TransactionOptions, Type, TypeCode,
     };
     use crate::result_set::tests::adapt;
+    use crate::routing::key_extractor::extract_proto_read_request_routing_key;
     use crate::routing::key_range_cache::RangeMode;
+    use crate::statement::Statement;
+    use bytes::Bytes;
     use gaxi::grpc::tonic::Response;
     use gaxi::options::ClientConfig;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
@@ -2706,6 +2811,353 @@ mod tests {
     }
 
     #[tokio_test_no_panics]
+    async fn execute_streaming_sql_attaches_operation_uid_on_cold_start_and_routes_to_tablet_on_cache_hit()
+     {
+        use std::sync::Mutex;
+
+        let captured_gateway_requests = Arc::new(Mutex::new(Vec::new()));
+        let mut mock_gateway = create_test_mock();
+
+        let captured_gateway = Arc::clone(&captured_gateway_requests);
+        mock_gateway
+            .expect_execute_streaming_sql()
+            .returning(move |request| {
+                captured_gateway
+                    .lock()
+                    .expect("lock captured gateway requests")
+                    .push(request.into_inner());
+                Ok(Response::from(adapt([])))
+            });
+
+        let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway)
+            .await
+            .expect("start mock gateway");
+
+        let captured_tablet_requests = Arc::new(Mutex::new(Vec::new()));
+        let mut mock_tablet = create_test_mock();
+        let captured_tablet = Arc::clone(&captured_tablet_requests);
+        mock_tablet
+            .expect_execute_streaming_sql()
+            .returning(move |request| {
+                captured_tablet
+                    .lock()
+                    .expect("lock captured tablet requests")
+                    .push(request.into_inner());
+                Ok(Response::from(adapt([])))
+            });
+
+        let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet)
+            .await
+            .expect("start mock tablet");
+
+        let spanner = Spanner::builder()
+            .with_endpoint(gateway_address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("build spanner client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build database client");
+
+        let statement = Statement::builder("SELECT * FROM Accounts WHERE account_id = @id")
+            .add_param("id", 12345i64)
+            .build();
+        let request = statement.clone().into_request();
+
+        // 1. Cold start: routes to gateway, attaches discovery routing hint with operation_uid
+        let _ = database_client
+            .execute_streaming_sql(request.clone(), RequestOptions::default(), 0)
+            .send()
+            .await;
+
+        let gateway_requests = captured_gateway_requests
+            .lock()
+            .expect("lock gateway requests")
+            .clone();
+        assert_eq!(
+            gateway_requests.len(),
+            1,
+            "cold-start query must be dispatched to the gateway"
+        );
+        let cold_request = &gateway_requests[0];
+        let cold_hint = cold_request
+            .routing_hint
+            .as_ref()
+            .expect("cold-start query must attach bootstrap routing hint");
+        assert_ne!(
+            cold_hint.operation_uid, 0,
+            "bootstrap hint must contain assigned operation UID"
+        );
+        let allocated_operation_uid = cold_hint.operation_uid;
+
+        // 2. Pre-warm tablet connection in connection cache
+        let router = database_client
+            .location_router()
+            .expect("location router present");
+        let client_config = database_client
+            .cache_updater()
+            .expect("cache updater present")
+            .client_config();
+        let _ = router
+            .connection_cache()
+            .get(&tablet_address, client_config)
+            .await
+            .expect("pre-warm tablet connection");
+
+        // 3. Ingest CacheUpdate with recipe for allocated_operation_uid and range mapping to tablet
+        let cache_update = CacheUpdate::new()
+            .set_database_id(8888u64)
+            .set_key_recipes(
+                RecipeList::new()
+                    .set_schema_generation(Bytes::from_static(b"v1"))
+                    .set_recipe(vec![
+                        KeyRecipe::new()
+                            .set_operation_uid(allocated_operation_uid)
+                            .set_part(vec![
+                                Part::new().set_tag(10u32),
+                                Part::new()
+                                    .set_identifier("id")
+                                    .set_order(Order::Ascending)
+                                    .set_null_order(NullOrder::NullsFirst)
+                                    .set_type(Type::default().set_code(TypeCode::Int64)),
+                            ]),
+                    ]),
+            )
+            .set_group(vec![Group::new().set_group_uid(7001u64).set_tablets(vec![
+                        Tablet::new()
+                            .set_tablet_uid(7001u64)
+                            .set_server_address(tablet_address)
+                            .set_role(Role::ReadOnly)
+                            .set_distance(0u32),
+                    ])])
+            .set_range(vec![
+                Range::new()
+                    .set_group_uid(7001u64)
+                    .set_start_key(vec![0x01])
+                    .set_limit_key(vec![0xff, 0xff]),
+            ]);
+
+        database_client.observe_cache_update(Some(cache_update));
+
+        // 4. Cache hit: routes directly to tablet mock with full routing hint
+        let _ = database_client
+            .execute_streaming_sql(request, RequestOptions::default(), 0)
+            .send()
+            .await;
+
+        let tablet_requests = captured_tablet_requests
+            .lock()
+            .expect("lock tablet requests")
+            .clone();
+        assert_eq!(
+            tablet_requests.len(),
+            1,
+            "keyed query after recipe and range caching must route directly to tablet"
+        );
+        let tablet_request = &tablet_requests[0];
+        let tablet_hint = tablet_request
+            .routing_hint
+            .as_ref()
+            .expect("tablet-routed query must attach routing hint");
+        assert_eq!(
+            tablet_hint.operation_uid, allocated_operation_uid,
+            "tablet hint operation UID must match assigned UID"
+        );
+        assert_eq!(
+            tablet_hint.tablet_uid, 7001,
+            "tablet hint tablet UID must match target tablet"
+        );
+        assert_eq!(
+            tablet_hint.database_id, 8888,
+            "tablet hint database ID must match updated database ID"
+        );
+        assert!(
+            !tablet_hint.key.is_empty(),
+            "tablet hint must contain encoded routing key"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn streaming_read_routes_to_gateway_on_cold_start_and_tablet_on_cache_hit() {
+        use std::sync::Mutex;
+
+        let captured_gateway_requests = Arc::new(Mutex::new(Vec::new()));
+        let mut mock_gateway = create_test_mock();
+
+        let captured_gateway = Arc::clone(&captured_gateway_requests);
+        mock_gateway
+            .expect_streaming_read()
+            .returning(move |request| {
+                captured_gateway
+                    .lock()
+                    .expect("lock captured gateway requests")
+                    .push(request.into_inner());
+                Ok(Response::from(adapt([])))
+            });
+
+        let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway)
+            .await
+            .expect("start mock gateway");
+
+        let captured_tablet_requests = Arc::new(Mutex::new(Vec::new()));
+        let mut mock_tablet = create_test_mock();
+        let captured_tablet = Arc::clone(&captured_tablet_requests);
+        mock_tablet
+            .expect_streaming_read()
+            .returning(move |request| {
+                captured_tablet
+                    .lock()
+                    .expect("lock captured tablet requests")
+                    .push(request.into_inner());
+                Ok(Response::from(adapt([])))
+            });
+
+        let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet)
+            .await
+            .expect("start mock tablet");
+
+        let spanner = Spanner::builder()
+            .with_endpoint(gateway_address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("build spanner client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build database client");
+
+        let mut key_set = KeySet::new();
+        key_set
+            .keys
+            .push(vec![serde_json::Value::String("user123".to_string())]);
+        let read_request = ReadRequest::new()
+            .set_table("Users")
+            .set_columns(vec!["name".to_string()])
+            .set_key_set(key_set);
+
+        // 1. Cold start: without cached recipe or range, routes to gateway and attaches bootstrap routing hint
+        let _ = database_client
+            .streaming_read(read_request.clone(), RequestOptions::default(), 0)
+            .send()
+            .await;
+
+        let gateway_requests = captured_gateway_requests
+            .lock()
+            .expect("lock gateway requests")
+            .clone();
+        assert_eq!(
+            gateway_requests.len(),
+            1,
+            "cold-start table read must be dispatched to the gateway"
+        );
+        let cold_request = &gateway_requests[0];
+        let cold_hint = cold_request
+            .routing_hint
+            .as_ref()
+            .expect("cold-start read must attach RoutingHint with assigned operation_uid");
+        assert_ne!(
+            cold_hint.operation_uid, UNASSIGNED_OPERATION_UID,
+            "cold-start read must assign dynamic operation UID"
+        );
+
+        // 2. Pre-warm tablet connection in connection cache
+        let router = database_client
+            .location_router()
+            .expect("location router present");
+        let client_config = database_client
+            .cache_updater()
+            .expect("cache updater present")
+            .client_config();
+        let _ = router
+            .connection_cache()
+            .get(&tablet_address, client_config)
+            .await
+            .expect("pre-warm tablet connection");
+
+        // 3. Ingest CacheUpdate with table recipe and covering range pointing to tablet
+        let cache_update = CacheUpdate::new()
+            .set_database_id(9999u64)
+            .set_key_recipes(
+                RecipeList::new()
+                    .set_schema_generation(Bytes::from_static(b"v1"))
+                    .set_recipe(vec![KeyRecipe::new().set_table_name("Users").set_part(
+                        vec![
+                                Part::new().set_tag(50020u32),
+                                Part::new()
+                                    .set_tag(1u32)
+                                    .set_identifier("id")
+                                    .set_type(Type::new().set_code(TypeCode::String))
+                                    .set_order(Order::Ascending)
+                                    .set_null_order(NullOrder::NotNull),
+                            ],
+                    )]),
+            )
+            .set_group(vec![Group::new().set_group_uid(8001u64).set_tablets(vec![
+                Tablet::new()
+                    .set_tablet_uid(8001u64)
+                    .set_server_address(tablet_address)
+                    .set_role(Role::ReadOnly)
+                    .set_distance(0u32),
+            ])])
+            .set_range(vec![
+                Range::new()
+                    .set_group_uid(8001u64)
+                    .set_start_key(vec![0x00])
+                    .set_limit_key(vec![0xff]),
+            ]);
+
+        database_client.observe_cache_update(Some(cache_update));
+
+        // 4. Cache hit: routes directly to tablet mock with full routing hint
+        let _ = database_client
+            .streaming_read(read_request, RequestOptions::default(), 0)
+            .send()
+            .await;
+
+        let tablet_requests = captured_tablet_requests
+            .lock()
+            .expect("lock tablet requests")
+            .clone();
+        assert_eq!(
+            tablet_requests.len(),
+            1,
+            "keyed table read after recipe and range caching must route directly to tablet"
+        );
+        let tablet_request = &tablet_requests[0];
+        let tablet_hint = tablet_request
+            .routing_hint
+            .as_ref()
+            .expect("tablet-routed read must attach routing hint");
+        assert_eq!(
+            tablet_hint.operation_uid, cold_hint.operation_uid,
+            "tablet hint operation UID must match assigned UID"
+        );
+        assert_eq!(
+            tablet_hint.tablet_uid, 8001,
+            "tablet hint tablet UID must match target tablet"
+        );
+        assert_eq!(
+            tablet_hint.database_id, 9999,
+            "tablet hint database ID must match updated database ID"
+        );
+        assert!(
+            !tablet_hint.key.is_empty(),
+            "tablet hint must contain encoded routing key"
+        );
+    }
+
+    #[tokio_test_no_panics]
     async fn database_client_latency_recording_and_error_tracking() {
         let mock = create_test_mock();
 
@@ -2804,6 +3256,10 @@ mod tests {
             database_client.cache_subscriber().is_none(),
             "cache subscriber should not be initialized when location-aware routing is disabled"
         );
+        assert!(
+            database_client.endpoint_lifecycle_manager().is_none(),
+            "endpoint lifecycle manager should not be initialized when location-aware routing is disabled"
+        );
     }
 
     #[tokio_test_no_panics]
@@ -2873,6 +3329,22 @@ mod tests {
             database_client.cache_subscriber().is_some(),
             "cache subscriber must be initialized when location-aware routing is enabled"
         );
+        assert!(
+            database_client.endpoint_lifecycle_manager().is_some(),
+            "endpoint lifecycle manager must be initialized when location-aware routing is enabled"
+        );
+        assert!(
+            database_client
+                .endpoint_lifecycle_manager()
+                .expect("lifecycle manager must exist")
+                .is_maintenance_active(),
+            "maintenance task must be active while client is alive"
+        );
+        let lifecycle_manager = database_client
+            .location_routing
+            .as_ref()
+            .map(|routing| Arc::clone(&routing.endpoint_lifecycle_manager))
+            .expect("lifecycle manager must exist");
 
         // Deterministically wait for the initial connection and subsequent reconnection attempt,
         // which guarantees that the first stream's CacheUpdate was completely ingested into KeyRangeCache.
@@ -2903,6 +3375,10 @@ mod tests {
         );
 
         drop(database_client);
+        assert!(
+            !lifecycle_manager.is_maintenance_active(),
+            "maintenance task must be stopped when client is dropped"
+        );
     }
 
     #[tokio_test_no_panics]
@@ -2961,9 +3437,12 @@ mod tests {
             1,
             "exactly one initial request must be captured"
         );
-        assert!(
-            hints[0].is_none(),
-            "cold cache without database_id must not attach RoutingHint"
+        let cold_hint = hints[0]
+            .as_ref()
+            .expect("cold-start read must attach RoutingHint with operation_uid");
+        assert_eq!(
+            cold_hint.operation_uid, 1,
+            "cold-start read must assign operation UID 1"
         );
 
         // 2. Ingest CacheUpdate with database_id, recipe list, and key range
@@ -3022,8 +3501,8 @@ mod tests {
             "database_id must match active database"
         );
         assert_eq!(
-            hint.operation_uid, 0,
-            "operation_uid is 0 for unshaped read"
+            hint.operation_uid, 1,
+            "operation_uid matches prepared read UID"
         );
         assert_eq!(hint.database_id, 999, "database_id must match CacheUpdate");
         assert_eq!(

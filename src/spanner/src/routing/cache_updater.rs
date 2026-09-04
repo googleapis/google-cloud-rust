@@ -19,27 +19,26 @@
 //! them to the in-memory routing table ([`KeyRangeCache`]) and server connection pool
 //! ([`ConnectionCache`]).
 
-// TODO(#6236): Remove dead_code allowance once CacheUpdater is integrated into LocationRouter and DatabaseClient.
-#![allow(dead_code)]
-
 use crate::model::CacheUpdate;
 use crate::routing::connection_cache::ConnectionCache;
+use crate::routing::endpoint_lifecycle::EndpointLifecycleManager;
 use crate::routing::key_range_cache::KeyRangeCache;
 use crate::routing::key_recipe_cache::KeyRecipeCache;
 use gaxi::options::ClientConfig;
 use std::fmt::{self, Debug, Formatter};
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, RwLock};
-use tokio::runtime::Handle;
 
 /// Orchestrates updates to the location-aware routing caches.
 ///
 /// `CacheUpdater` coordinates between wire-format [`CacheUpdate`] protobuf payloads and the
-/// client's in-memory [`KeyRangeCache`], [`KeyRecipeCache`], and [`ConnectionCache`].
+/// client's in-memory [`KeyRangeCache`], [`KeyRecipeCache`], [`ConnectionCache`], and [`EndpointLifecycleManager`].
 pub(crate) struct CacheUpdater {
+    database_scope: String,
     key_range_cache: Arc<KeyRangeCache>,
     key_recipe_cache: Arc<KeyRecipeCache>,
     connection_cache: Arc<ConnectionCache>,
+    endpoint_lifecycle_manager: Arc<EndpointLifecycleManager>,
     client_config: Arc<ClientConfig>,
     database_id: AtomicU64,
     update_lock: RwLock<()>,
@@ -48,7 +47,12 @@ pub(crate) struct CacheUpdater {
 impl Debug for CacheUpdater {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         f.debug_struct("CacheUpdater")
+            .field("database_scope", &self.database_scope)
             .field("connection_cache", &self.connection_cache)
+            .field(
+                "endpoint_lifecycle_manager",
+                &self.endpoint_lifecycle_manager,
+            )
             .field("client_config", &self.client_config)
             .field("database_id", &self.database_id.load(Ordering::Acquire))
             .finish_non_exhaustive()
@@ -56,46 +60,30 @@ impl Debug for CacheUpdater {
 }
 
 impl CacheUpdater {
-    /// Creates a new `CacheUpdater` wrapping the provided caches and client configuration.
+    /// Creates a new `CacheUpdater` wrapping the provided caches, lifecycle manager, and client configuration.
     pub(crate) fn new(
+        database_scope: impl Into<String>,
         key_range_cache: Arc<KeyRangeCache>,
         key_recipe_cache: Arc<KeyRecipeCache>,
         connection_cache: Arc<ConnectionCache>,
+        endpoint_lifecycle_manager: Arc<EndpointLifecycleManager>,
         client_config: ClientConfig,
     ) -> Self {
         Self {
+            database_scope: database_scope.into(),
             key_range_cache,
             key_recipe_cache,
             connection_cache,
+            endpoint_lifecycle_manager,
             client_config: Arc::new(client_config),
             database_id: AtomicU64::new(0),
             update_lock: RwLock::new(()),
         }
     }
 
-    /// Returns a reference to the underlying [`KeyRangeCache`].
-    pub(crate) fn key_range_cache(&self) -> &Arc<KeyRangeCache> {
-        &self.key_range_cache
-    }
-
-    /// Returns a reference to the underlying [`KeyRecipeCache`].
-    pub(crate) fn key_recipe_cache(&self) -> &Arc<KeyRecipeCache> {
-        &self.key_recipe_cache
-    }
-
     /// Returns the current active database ID recorded by the cache updater.
     pub(crate) fn database_id(&self) -> u64 {
         self.database_id.load(Ordering::Acquire)
-    }
-
-    /// Returns a reference to the underlying [`ConnectionCache`].
-    pub(crate) fn connection_cache(&self) -> &Arc<ConnectionCache> {
-        &self.connection_cache
-    }
-
-    /// Returns a reference to the underlying [`ClientConfig`].
-    pub(crate) fn client_config(&self) -> &ClientConfig {
-        &self.client_config
     }
 
     /// Ingests a [`CacheUpdate`] payload, updating the routing table, key recipe cache,
@@ -122,6 +110,8 @@ impl CacheUpdater {
                     if current_id != 0 {
                         self.key_range_cache.clear();
                         self.key_recipe_cache.clear();
+                        self.endpoint_lifecycle_manager
+                            .unregister_source(&self.database_scope);
                     }
                     self.database_id
                         .store(update_database_id, Ordering::Release);
@@ -150,57 +140,50 @@ impl CacheUpdater {
         }
 
         if !cache_update.group.is_empty() || !cache_update.range.is_empty() {
-            // Apply tablet ranges and group metadata to the key range cache.
             self.key_range_cache.add_ranges(&cache_update);
         }
 
-        // Pre-warm server connections for any newly discovered tablet addresses.
-        self.prewarm_server_connections(&cache_update);
+        if !cache_update.group.is_empty() {
+            let active_addresses = self.key_range_cache.active_addresses();
+            let newly_registered = self
+                .endpoint_lifecycle_manager
+                .update_active_addresses(&self.database_scope, active_addresses);
+            self.endpoint_lifecycle_manager
+                .prewarm_endpoints(&newly_registered);
+        }
+    }
+}
+
+#[cfg(test)]
+impl CacheUpdater {
+    /// Returns the database scope configured for this cache updater.
+    pub(crate) fn database_scope(&self) -> &str {
+        &self.database_scope
     }
 
-    /// Identifies new server addresses in `cache_update` and spawns asynchronous background tasks
-    /// to establish connections in the connection cache without blocking foreground RPCs.
-    fn prewarm_server_connections(&self, cache_update: &CacheUpdate) {
-        // In production, the Spanner client always runs inside a Tokio async runtime. We check
-        // `Handle::try_current()` first to prevent any work in synchronous unit tests where no
-        // runtime is active; in production, `handle.spawn` always executes.
-        let Ok(handle) = Handle::try_current() else {
-            return;
-        };
+    /// Returns a reference to the underlying [`KeyRangeCache`].
+    pub(crate) fn key_range_cache(&self) -> &Arc<KeyRangeCache> {
+        &self.key_range_cache
+    }
 
-        // A single Spanner paxos group typically advertises 3-4 replica server addresses
-        // (1 leader + read-only/read-write replicas). Pre-allocating capacity 4 avoids heap
-        // reallocations for the vast majority of CacheUpdate payloads.
-        let mut new_addresses: Vec<&str> = Vec::with_capacity(4);
-        for group in &cache_update.group {
-            for tablet in &group.tablets {
-                let address = tablet.server_address.as_str();
-                if !address.is_empty()
-                    && !new_addresses.contains(&address)
-                    && self.connection_cache.get_if_present(address).is_none()
-                {
-                    new_addresses.push(address);
-                }
-            }
-        }
+    /// Returns a reference to the underlying [`KeyRecipeCache`].
+    pub(crate) fn key_recipe_cache(&self) -> &Arc<KeyRecipeCache> {
+        &self.key_recipe_cache
+    }
 
-        for address in new_addresses {
-            let connection_cache = Arc::clone(&self.connection_cache);
-            let config = Arc::clone(&self.client_config);
-            let address_string = address.to_string();
-            handle.spawn(async move {
-                // Calling `get` asynchronously initializes the server connection in the cache
-                // if it does not already exist, ensuring foreground RPCs don't incur connection
-                // handshake latency.
-                if let Err(err) = connection_cache.get(&address_string, &config).await {
-                    tracing::warn!(
-                        ?err,
-                        address = %address_string,
-                        "Failed to pre-warm connection to Spanner server"
-                    );
-                }
-            });
-        }
+    /// Returns a reference to the underlying [`EndpointLifecycleManager`].
+    pub(crate) fn endpoint_lifecycle_manager(&self) -> &EndpointLifecycleManager {
+        &self.endpoint_lifecycle_manager
+    }
+
+    /// Returns a reference to the underlying [`ConnectionCache`].
+    pub(crate) fn connection_cache(&self) -> &Arc<ConnectionCache> {
+        &self.connection_cache
+    }
+
+    /// Returns a reference to the underlying [`ClientConfig`].
+    pub(crate) fn client_config(&self) -> &ClientConfig {
+        &self.client_config
     }
 }
 
@@ -211,6 +194,7 @@ mod tests {
     use crate::model::key_recipe::Part;
     use crate::model::{Group, KeyRecipe, Range, RecipeList, Tablet};
     use crate::routing::server_connection::ServerConnection;
+    use gaxi::options::ClientConfig;
     use std::time::{Duration, Instant};
 
     #[test]
@@ -233,10 +217,16 @@ mod tests {
         let key_range_cache = Arc::new(KeyRangeCache::new());
         let key_recipe_cache = Arc::new(KeyRecipeCache::new());
         let client_config = ClientConfig::default();
+        let endpoint_lifecycle_manager = Arc::new(EndpointLifecycleManager::with_client_config(
+            Arc::clone(&connection_cache),
+            client_config.clone(),
+        ));
         CacheUpdater::new(
+            "projects/test-project/instances/test-instance/databases/test-database",
             key_range_cache,
             key_recipe_cache,
             connection_cache,
+            endpoint_lifecycle_manager,
             client_config,
         )
     }
@@ -263,15 +253,46 @@ mod tests {
     #[test]
     fn cache_updater_new_and_accessors() {
         let updater = make_test_updater();
-        assert!(updater.key_range_cache().is_empty());
-        assert_eq!(updater.connection_cache().len(), 1);
+        assert!(
+            updater.key_range_cache().is_empty(),
+            "key range cache should initially be empty"
+        );
+        assert_eq!(
+            updater.connection_cache().len(),
+            1,
+            "connection cache should have default connection"
+        );
+        assert_eq!(
+            updater.database_scope(),
+            "projects/test-project/instances/test-instance/databases/test-database",
+            "database scope must match configured database"
+        );
+        assert_eq!(
+            updater.endpoint_lifecycle_manager().len(),
+            0,
+            "lifecycle manager should have no tracked endpoints"
+        );
+        assert!(
+            updater.client_config().endpoint.is_none(),
+            "client config endpoint should be none"
+        );
     }
 
     #[test]
-    fn cache_updater_key_range_cache_and_config_accessors() {
+    fn cache_updater_key_range_cache_and_lifecycle_manager_accessors() {
         let updater = make_test_updater();
-        assert_eq!(updater.key_range_cache().len(), 0);
-        assert!(updater.client_config().endpoint.is_none());
+        assert_eq!(
+            updater.key_range_cache().len(),
+            0,
+            "key range cache should be empty"
+        );
+        assert!(
+            updater
+                .endpoint_lifecycle_manager()
+                .client_config()
+                .is_some(),
+            "endpoint lifecycle manager should have client config"
+        );
     }
 
     #[test]
@@ -279,17 +300,37 @@ mod tests {
         let updater = make_test_updater();
         let update = CacheUpdate::default();
         updater.process_cache_update(update);
-        assert!(updater.key_range_cache().is_empty());
-        assert_eq!(updater.connection_cache().len(), 1);
+        assert!(
+            updater.key_range_cache().is_empty(),
+            "key range cache should remain empty"
+        );
+        assert_eq!(
+            updater.connection_cache().len(),
+            1,
+            "connection cache should have 1 connection"
+        );
     }
 
     #[test]
     fn cache_updater_debug_formatting() {
         let updater = make_test_updater();
         let debug_str = format!("{:?}", updater);
-        assert!(debug_str.contains("CacheUpdater"));
-        assert!(debug_str.contains("connection_cache"));
-        assert!(debug_str.contains("client_config"));
+        assert!(
+            debug_str.contains("CacheUpdater"),
+            "debug string should contain CacheUpdater"
+        );
+        assert!(
+            debug_str.contains("connection_cache"),
+            "debug string should contain connection_cache"
+        );
+        assert!(
+            debug_str.contains("endpoint_lifecycle_manager"),
+            "debug string should contain endpoint_lifecycle_manager"
+        );
+        assert!(
+            debug_str.contains("client_config"),
+            "debug string should contain client_config"
+        );
     }
 
     #[test]
@@ -310,8 +351,15 @@ mod tests {
             .set_range(vec![range]);
 
         updater.process_cache_update(update);
-        assert_eq!(updater.key_range_cache().len(), 1);
-        assert!(updater.key_range_cache().get_group(100).is_some());
+        assert_eq!(
+            updater.key_range_cache().len(),
+            1,
+            "key range cache should have 1 group"
+        );
+        assert!(
+            updater.key_range_cache().get_group(100).is_some(),
+            "group 100 should exist in key range cache"
+        );
     }
 
     #[test]
@@ -332,7 +380,11 @@ mod tests {
             .set_range(vec![range]);
 
         updater.process_cache_update(update);
-        assert_eq!(updater.connection_cache().len(), 1);
+        assert_eq!(
+            updater.connection_cache().len(),
+            1,
+            "empty server address should not create connection"
+        );
     }
 
     #[test]
@@ -349,8 +401,16 @@ mod tests {
             .set_range(vec![range]);
 
         updater.process_cache_update(update);
-        assert_eq!(updater.key_range_cache().len(), 1);
-        assert_eq!(updater.connection_cache().len(), 1);
+        assert_eq!(
+            updater.key_range_cache().len(),
+            1,
+            "key range cache should have 1 range"
+        );
+        assert_eq!(
+            updater.connection_cache().len(),
+            1,
+            "connection cache should have 1 connection"
+        );
     }
 
     #[tokio::test]
@@ -360,7 +420,8 @@ mod tests {
             updater
                 .connection_cache()
                 .get_if_present("10.0.0.1:15000")
-                .is_none()
+                .is_none(),
+            "endpoint should not be cached initially"
         );
 
         let group = Group::new().set_group_uid(100u64).set_tablets(vec![
@@ -385,7 +446,8 @@ mod tests {
             updater
                 .connection_cache()
                 .get_if_present("10.0.0.1:15000")
-                .is_some()
+                .is_some(),
+            "endpoint should be cached after prewarming"
         );
     }
 
@@ -415,7 +477,11 @@ mod tests {
 
         wait_for_connections(&updater, 2).await;
 
-        assert_eq!(updater.connection_cache().len(), 2);
+        assert_eq!(
+            updater.connection_cache().len(),
+            2,
+            "connection cache should have 2 connections"
+        );
     }
 
     #[tokio::test]
@@ -423,11 +489,15 @@ mod tests {
         let updater = make_test_updater();
         let _ = updater
             .connection_cache()
-            .get("10.0.0.1:15000", updater.client_config())
+            .get("10.0.0.1:15000", &ClientConfig::default())
             .await
             .expect("should initialize connection");
 
-        assert_eq!(updater.connection_cache().len(), 2);
+        assert_eq!(
+            updater.connection_cache().len(),
+            2,
+            "connection cache should have 2 connections"
+        );
 
         let group = Group::new().set_group_uid(100u64).set_tablets(vec![
             Tablet::default()
@@ -451,8 +521,16 @@ mod tests {
             .connection_cache()
             .get_if_present("10.0.0.1:15000")
             .expect("connection should remain");
-        assert_eq!(connection_after.address(), "10.0.0.1:15000");
-        assert_eq!(updater.connection_cache().len(), 2);
+        assert_eq!(
+            connection_after.address(),
+            "10.0.0.1:15000",
+            "connection address should match"
+        );
+        assert_eq!(
+            updater.connection_cache().len(),
+            2,
+            "connection cache should have 2 connections"
+        );
     }
 
     #[tokio::test]
@@ -481,18 +559,24 @@ mod tests {
 
         wait_for_connections(&updater, 3).await;
 
-        assert_eq!(updater.connection_cache().len(), 3);
+        assert_eq!(
+            updater.connection_cache().len(),
+            3,
+            "connection cache should have 3 connections"
+        );
         assert!(
             updater
                 .connection_cache()
                 .get_if_present("10.0.0.1:15000")
-                .is_some()
+                .is_some(),
+            "10.0.0.1:15000 should be prewarmed"
         );
         assert!(
             updater
                 .connection_cache()
                 .get_if_present("10.0.0.2:15000")
-                .is_some()
+                .is_some(),
+            "10.0.0.2:15000 should be prewarmed"
         );
     }
 
@@ -501,11 +585,15 @@ mod tests {
         let updater = make_test_updater();
         let _ = updater
             .connection_cache()
-            .get("10.0.0.1:15000", updater.client_config())
+            .get("10.0.0.1:15000", &ClientConfig::default())
             .await
             .expect("should initialize connection");
 
-        assert_eq!(updater.connection_cache().len(), 2);
+        assert_eq!(
+            updater.connection_cache().len(),
+            2,
+            "connection cache should have 2 connections"
+        );
 
         let tablet_a = Tablet::default()
             .set_tablet_uid(10u64)
@@ -529,18 +617,24 @@ mod tests {
 
         wait_for_connections(&updater, 3).await;
 
-        assert_eq!(updater.connection_cache().len(), 3);
+        assert_eq!(
+            updater.connection_cache().len(),
+            3,
+            "connection cache should have 3 connections"
+        );
         assert!(
             updater
                 .connection_cache()
                 .get_if_present("10.0.0.1:15000")
-                .is_some()
+                .is_some(),
+            "10.0.0.1:15000 should remain in cache"
         );
         assert!(
             updater
                 .connection_cache()
                 .get_if_present("10.0.0.2:15000")
-                .is_some()
+                .is_some(),
+            "10.0.0.2:15000 should be prewarmed"
         );
     }
 
@@ -571,7 +665,8 @@ mod tests {
                 .get_group(100)
                 .expect("should exist")
                 .generation,
-            vec![0x01]
+            vec![0x01],
+            "initial group generation should be 0x01"
         );
 
         let group_new = Group::new()
@@ -594,7 +689,8 @@ mod tests {
                 .get_group(100)
                 .expect("should exist")
                 .generation,
-            vec![0x02]
+            vec![0x02],
+            "newer group generation should replace older"
         );
     }
 
@@ -606,7 +702,14 @@ mod tests {
         let initial_recipe = KeyRecipe::new()
             .set_table_name("Users")
             .set_part(vec![Part::new().set_tag(1u32)]);
-        let initial_group = Group::new().set_group_uid(10u64).set_generation(vec![0x01]);
+        let initial_group = Group::new()
+            .set_group_uid(10u64)
+            .set_generation(vec![0x01])
+            .set_tablets(vec![
+                Tablet::default()
+                    .set_tablet_uid(10u64)
+                    .set_server_address("10.0.0.1:15000"),
+            ]);
         let initial_range = Range::new()
             .set_group_uid(10u64)
             .set_start_key(vec![0x01])
@@ -619,15 +722,31 @@ mod tests {
             .set_range(vec![initial_range]);
 
         updater.process_cache_update(initial_update);
-        assert_eq!(updater.database_id(), 100);
-        assert_eq!(updater.key_range_cache().len(), 1);
-        assert!(recipe_cache.get_table_recipe("Users").is_some());
+        assert_eq!(updater.database_id(), 100, "database ID should be 100");
+        assert_eq!(
+            updater.key_range_cache().len(),
+            1,
+            "key range cache should have 1 group"
+        );
+        assert!(
+            recipe_cache.get_table_recipe("Users").is_some(),
+            "Users table recipe should exist"
+        );
+        assert_eq!(
+            updater.endpoint_lifecycle_manager().len(),
+            1,
+            "endpoint must be tracked in lifecycle manager after initial update"
+        );
 
         // Ingest an update with a different database_id (e.g. database dropped and recreated)
         let new_update = CacheUpdate::new().set_database_id(200u64);
         updater.process_cache_update(new_update);
 
-        assert_eq!(updater.database_id(), 200);
+        assert_eq!(
+            updater.database_id(),
+            200,
+            "database ID should be 200 after update"
+        );
         assert_eq!(
             updater.key_range_cache().len(),
             0,
@@ -636,6 +755,11 @@ mod tests {
         assert!(
             recipe_cache.get_table_recipe("Users").is_none(),
             "key recipe cache must be cleared when database_id changes"
+        );
+        assert_eq!(
+            updater.endpoint_lifecycle_manager().len(),
+            0,
+            "lifecycle manager endpoints must be unregistered when database_id changes"
         );
     }
 
@@ -650,14 +774,21 @@ mod tests {
             .set_part(vec![Part::new().set_tag(2u32)]);
         recipe_cache.insert(pre_recipe);
 
-        assert_eq!(updater.database_id(), 0);
-        assert!(recipe_cache.get_table_recipe("PrePopulated").is_some());
+        assert_eq!(updater.database_id(), 0, "initial database ID should be 0");
+        assert!(
+            recipe_cache.get_table_recipe("PrePopulated").is_some(),
+            "PrePopulated recipe should exist"
+        );
 
         // First update establishing initial database_id must not wipe the pre-populated entries
         let first_update = CacheUpdate::new().set_database_id(100u64);
         updater.process_cache_update(first_update);
 
-        assert_eq!(updater.database_id(), 100);
+        assert_eq!(
+            updater.database_id(),
+            100,
+            "database ID should be 100 after first update"
+        );
         assert!(
             recipe_cache.get_table_recipe("PrePopulated").is_some(),
             "initial transition from database_id 0 to 100 must preserve existing cache entries"
@@ -703,9 +834,20 @@ mod tests {
             .set_range(vec![range_200]);
 
         updater.process_cache_update(update_200);
-        assert_eq!(updater.database_id(), 200);
-        assert_eq!(updater.key_range_cache().len(), 1);
-        assert!(recipe_cache.get_table_recipe("ActiveTable").is_some());
+        assert_eq!(
+            updater.database_id(),
+            200,
+            "active database ID should be 200"
+        );
+        assert_eq!(
+            updater.key_range_cache().len(),
+            1,
+            "key range cache should have 1 group"
+        );
+        assert!(
+            recipe_cache.get_table_recipe("ActiveTable").is_some(),
+            "ActiveTable recipe should exist"
+        );
 
         // Step 2: Attempt to ingest a stale update with an older database ID 100
         let stale_recipe = KeyRecipe::new()
@@ -756,8 +898,12 @@ mod tests {
                 .set_limit_key(vec![0x10]),
         ]);
         updater.process_cache_update(initial_update);
-        assert_eq!(updater.database_id(), 300);
-        assert_eq!(updater.key_range_cache().len(), 1);
+        assert_eq!(updater.database_id(), 300, "database ID should be 300");
+        assert_eq!(
+            updater.key_range_cache().len(),
+            1,
+            "key range cache should have 1 group"
+        );
 
         // Incremental update 1 with same database ID 300
         let incremental_1 = CacheUpdate::new().set_database_id(300u64).set_range(vec![
@@ -767,7 +913,11 @@ mod tests {
                 .set_limit_key(vec![0x20]),
         ]);
         updater.process_cache_update(incremental_1);
-        assert_eq!(updater.key_range_cache().len(), 2);
+        assert_eq!(
+            updater.key_range_cache().len(),
+            2,
+            "key range cache should have 2 groups"
+        );
 
         // Incremental update 2 with database ID 0 (unspecified)
         let incremental_2 =
@@ -776,7 +926,7 @@ mod tests {
                 .set_part(vec![Part::new().set_tag(5u32)])]));
         updater.process_cache_update(incremental_2);
 
-        assert_eq!(updater.database_id(), 300);
+        assert_eq!(updater.database_id(), 300, "database ID should remain 300");
         assert_eq!(
             updater.key_range_cache().len(),
             2,

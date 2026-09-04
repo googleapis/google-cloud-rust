@@ -15379,6 +15379,114 @@ pub mod featurestore_online_serving_service {
         }
     }
 
+    /// The request builder for [FeaturestoreOnlineServingService::streaming_read_feature_values][crate::client::FeaturestoreOnlineServingService::streaming_read_feature_values] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::StreamingReadFeatureValues;
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StreamingReadFeatureValues {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StreamingReadFeatureValues(
+        RequestBuilder<crate::model::StreamingReadFeatureValuesRequest>,
+    );
+
+    impl StreamingReadFeatureValues {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FeaturestoreOnlineServingService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::StreamingReadFeatureValuesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::ReadFeatureValuesResponse>,
+        > {
+            (*self.0.stub)
+                .streaming_read_feature_values(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [entity_type][crate::model::StreamingReadFeatureValuesRequest::entity_type].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_entity_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.entity_type = v.into();
+            self
+        }
+
+        /// Sets the value of [entity_ids][crate::model::StreamingReadFeatureValuesRequest::entity_ids].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_entity_ids<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.entity_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [feature_selector][crate::model::StreamingReadFeatureValuesRequest::feature_selector].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_feature_selector<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureSelector>,
+        {
+            self.0.request.feature_selector = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [feature_selector][crate::model::StreamingReadFeatureValuesRequest::feature_selector].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_feature_selector<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FeatureSelector>,
+        {
+            self.0.request.feature_selector = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamingReadFeatureValues {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [FeaturestoreOnlineServingService::write_feature_values][crate::client::FeaturestoreOnlineServingService::write_feature_values] calls.
     ///
     /// # Example
@@ -49100,6 +49208,94 @@ pub mod prediction_service {
         }
     }
 
+    /// The request builder for [PredictionService::stream_raw_predict][crate::client::PredictionService::stream_raw_predict] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::StreamRawPredict;
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StreamRawPredict {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StreamRawPredict(RequestBuilder<crate::model::StreamRawPredictRequest>);
+
+    impl StreamRawPredict {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PredictionService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::StreamRawPredictRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<google_cloud_api::model::HttpBody>>
+        {
+            (*self.0.stub)
+                .stream_raw_predict(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [endpoint][crate::model::StreamRawPredictRequest::endpoint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_endpoint<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.endpoint = v.into();
+            self
+        }
+
+        /// Sets the value of [http_body][crate::model::StreamRawPredictRequest::http_body].
+        pub fn set_http_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_api::model::HttpBody>,
+        {
+            self.0.request.http_body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [http_body][crate::model::StreamRawPredictRequest::http_body].
+        pub fn set_or_clear_http_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_api::model::HttpBody>,
+        {
+            self.0.request.http_body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamRawPredict {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [PredictionService::direct_predict][crate::client::PredictionService::direct_predict] calls.
     ///
     /// # Example
@@ -49439,6 +49635,106 @@ pub mod prediction_service {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for StreamingPredict {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [PredictionService::server_streaming_predict][crate::client::PredictionService::server_streaming_predict] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::ServerStreamingPredict;
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ServerStreamingPredict {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ServerStreamingPredict(RequestBuilder<crate::model::StreamingPredictRequest>);
+
+    impl ServerStreamingPredict {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PredictionService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::StreamingPredictRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPredictResponse>,
+        > {
+            (*self.0.stub)
+                .server_streaming_predict(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [endpoint][crate::model::StreamingPredictRequest::endpoint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_endpoint<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.endpoint = v.into();
+            self
+        }
+
+        /// Sets the value of [inputs][crate::model::StreamingPredictRequest::inputs].
+        pub fn set_inputs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Tensor>,
+        {
+            use std::iter::Iterator;
+            self.0.request.inputs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [parameters][crate::model::StreamingPredictRequest::parameters].
+        pub fn set_parameters<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Tensor>,
+        {
+            self.0.request.parameters = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [parameters][crate::model::StreamingPredictRequest::parameters].
+        pub fn set_or_clear_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Tensor>,
+        {
+            self.0.request.parameters = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ServerStreamingPredict {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
@@ -49803,6 +50099,198 @@ pub mod prediction_service {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for GenerateContent {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [PredictionService::stream_generate_content][crate::client::PredictionService::stream_generate_content] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::StreamGenerateContent;
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StreamGenerateContent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StreamGenerateContent(RequestBuilder<crate::model::GenerateContentRequest>);
+
+    impl StreamGenerateContent {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PredictionService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GenerateContentRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::GenerateContentResponse>,
+        > {
+            (*self.0.stub)
+                .stream_generate_content(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [model][crate::model::GenerateContentRequest::model].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_model<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.model = v.into();
+            self
+        }
+
+        /// Sets the value of [contents][crate::model::GenerateContentRequest::contents].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_contents<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Content>,
+        {
+            use std::iter::Iterator;
+            self.0.request.contents = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [system_instruction][crate::model::GenerateContentRequest::system_instruction].
+        pub fn set_system_instruction<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Content>,
+        {
+            self.0.request.system_instruction = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [system_instruction][crate::model::GenerateContentRequest::system_instruction].
+        pub fn set_or_clear_system_instruction<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Content>,
+        {
+            self.0.request.system_instruction = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [cached_content][crate::model::GenerateContentRequest::cached_content].
+        pub fn set_cached_content<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.cached_content = v.into();
+            self
+        }
+
+        /// Sets the value of [tools][crate::model::GenerateContentRequest::tools].
+        pub fn set_tools<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Tool>,
+        {
+            use std::iter::Iterator;
+            self.0.request.tools = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [tool_config][crate::model::GenerateContentRequest::tool_config].
+        pub fn set_tool_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ToolConfig>,
+        {
+            self.0.request.tool_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tool_config][crate::model::GenerateContentRequest::tool_config].
+        pub fn set_or_clear_tool_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ToolConfig>,
+        {
+            self.0.request.tool_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [labels][crate::model::GenerateContentRequest::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [safety_settings][crate::model::GenerateContentRequest::safety_settings].
+        pub fn set_safety_settings<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::SafetySetting>,
+        {
+            use std::iter::Iterator;
+            self.0.request.safety_settings = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [model_armor_config][crate::model::GenerateContentRequest::model_armor_config].
+        pub fn set_model_armor_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ModelArmorConfig>,
+        {
+            self.0.request.model_armor_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [model_armor_config][crate::model::GenerateContentRequest::model_armor_config].
+        pub fn set_or_clear_model_armor_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ModelArmorConfig>,
+        {
+            self.0.request.model_armor_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [generation_config][crate::model::GenerateContentRequest::generation_config].
+        pub fn set_generation_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GenerationConfig>,
+        {
+            self.0.request.generation_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [generation_config][crate::model::GenerateContentRequest::generation_config].
+        pub fn set_or_clear_generation_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GenerationConfig>,
+        {
+            self.0.request.generation_config = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamGenerateContent {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
@@ -50979,6 +51467,102 @@ pub mod reasoning_engine_execution_service {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for QueryReasoningEngine {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [ReasoningEngineExecutionService::stream_query_reasoning_engine][crate::client::ReasoningEngineExecutionService::stream_query_reasoning_engine] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::StreamQueryReasoningEngine;
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StreamQueryReasoningEngine {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StreamQueryReasoningEngine(
+        RequestBuilder<crate::model::StreamQueryReasoningEngineRequest>,
+    );
+
+    impl StreamQueryReasoningEngine {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReasoningEngineExecutionService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::StreamQueryReasoningEngineRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<google_cloud_api::model::HttpBody>>
+        {
+            (*self.0.stub)
+                .stream_query_reasoning_engine(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [name][crate::model::StreamQueryReasoningEngineRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [input][crate::model::StreamQueryReasoningEngineRequest::input].
+        pub fn set_input<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.0.request.input = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [input][crate::model::StreamQueryReasoningEngineRequest::input].
+        pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.0.request.input = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [class_method][crate::model::StreamQueryReasoningEngineRequest::class_method].
+        pub fn set_class_method<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.class_method = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamQueryReasoningEngine {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
@@ -60895,6 +61479,92 @@ pub mod tensorboard_service {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for ReadTensorboardTimeSeriesData {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [TensorboardService::read_tensorboard_blob_data][crate::client::TensorboardService::read_tensorboard_blob_data] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ReadTensorboardBlobData;
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ReadTensorboardBlobData {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ReadTensorboardBlobData(
+        RequestBuilder<crate::model::ReadTensorboardBlobDataRequest>,
+    );
+
+    impl ReadTensorboardBlobData {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TensorboardService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ReadTensorboardBlobDataRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<
+            google_cloud_gax::streaming::ResponseStream<
+                crate::model::ReadTensorboardBlobDataResponse,
+            >,
+        > {
+            (*self.0.stub)
+                .read_tensorboard_blob_data(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [time_series][crate::model::ReadTensorboardBlobDataRequest::time_series].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_time_series<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.time_series = v.into();
+            self
+        }
+
+        /// Sets the value of [blob_ids][crate::model::ReadTensorboardBlobDataRequest::blob_ids].
+        pub fn set_blob_ids<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.blob_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ReadTensorboardBlobData {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

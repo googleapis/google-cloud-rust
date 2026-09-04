@@ -49,3 +49,27 @@ pub trait ConnectionService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
+
+/// Defines the trait used to implement [super::client::Tether].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::Tether`.  In other use-cases, application developers only
+/// use `client::Tether` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait Tether: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::Tether::egress].
+    fn egress(
+        &self,
+        _options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::EgressResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::EgressRequest>,
+    ) {
+        gaxi::unimplemented::unimplemented_bidi_stub()
+    }
+}

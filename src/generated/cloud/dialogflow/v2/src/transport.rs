@@ -40,6 +40,7 @@ use crate::Error;
     feature = "tools",
     feature = "versions",
 ))]
+#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements [Agents](super::stub::Agents) using a [gaxi::http::ReqwestClient].
@@ -19647,7 +19648,7 @@ impl super::stub::Participants for Participants {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::StreamingAnalyzeContentRequest,
                 crate::model::StreamingAnalyzeContentResponse,
                 crate::prost::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest,
@@ -19656,7 +19657,7 @@ impl super::stub::Participants for Participants {
                 extensions,
                 path,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 x_goog_request_params,
             )
     }
@@ -20823,7 +20824,7 @@ impl super::stub::Sessions for Sessions {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::StreamingDetectIntentRequest,
                 crate::model::StreamingDetectIntentResponse,
                 crate::prost::google::cloud::dialogflow::v2::StreamingDetectIntentRequest,
@@ -20832,7 +20833,7 @@ impl super::stub::Sessions for Sessions {
                 extensions,
                 path,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 x_goog_request_params,
             )
     }

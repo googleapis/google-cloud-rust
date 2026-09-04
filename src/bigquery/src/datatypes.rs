@@ -19,7 +19,6 @@
 
 use crate::error::ConvertError;
 use crate::query::FromSql;
-use crate::query::from_sql::parse_time;
 
 /// Represents a BigQuery time [INTERVAL] value.
 ///
@@ -43,7 +42,7 @@ use crate::query::from_sql::parse_time;
 ///     .read();
 ///
 /// if let Some(row) = rows.next().await.transpose()? {
-///     let interval: Interval = row.get("duration");
+///     let interval: Interval = row.get("duration")?;
 ///     println!("{} years, {} months, {} days", interval.years, interval.months, interval.days);
 /// }
 /// # Ok(())
@@ -117,15 +116,42 @@ impl FromSql for Interval {
                     .parse::<i32>()
                     .map_err(|e| ConvertError::Convert(Box::new(e)))?;
 
-                // Parse H:M:S.F
+                // Parse H:M:S.F. Hours are unbounded: BigQuery never spills
+                // hours into days, so a timestamp difference of a month is
+                // `0-0 0 744:0:0`.
                 let time_neg = time_str.starts_with('-');
                 let time_content = if time_neg { &time_str[1..] } else { time_str };
-                let t = parse_time(time_content)?;
+                let (hms, frac) = time_content.split_once('.').unwrap_or((time_content, "0"));
+                let mut hms_parts = hms.split(':');
+                let (h_str, m_str, s_str) = match (
+                    hms_parts.next(),
+                    hms_parts.next(),
+                    hms_parts.next(),
+                    hms_parts.next(),
+                ) {
+                    (Some(h), Some(m), Some(s), None) => (h, m, s),
+                    _ => {
+                        return Err(ConvertError::Convert("invalid interval time format".into()));
+                    }
+                };
                 let time_sign = if time_neg { -1 } else { 1 };
-                let hours = t.hour() as i32 * time_sign;
-                let minutes = t.minute() as i32 * time_sign;
-                let seconds = t.second() as i32 * time_sign;
-                let nanos = t.nanosecond() as i32 * time_sign;
+                let hours = h_str
+                    .parse::<i32>()
+                    .map_err(|e| ConvertError::Convert(Box::new(e)))?
+                    * time_sign;
+                let minutes = m_str
+                    .parse::<i32>()
+                    .map_err(|e| ConvertError::Convert(Box::new(e)))?
+                    * time_sign;
+                let seconds = s_str
+                    .parse::<i32>()
+                    .map_err(|e| ConvertError::Convert(Box::new(e)))?
+                    * time_sign;
+                // The fraction has any number of digits; nanoseconds need exactly nine.
+                let nanos = format!("{frac:0<9.9}")
+                    .parse::<i32>()
+                    .map_err(|e| ConvertError::Convert(Box::new(e)))?
+                    * time_sign;
 
                 Ok(Interval {
                     years,
@@ -169,7 +195,7 @@ impl FromSql for Interval {
 ///     .read();
 ///
 /// if let Some(row) = rows.next().await.transpose()? {
-///     let date_range: Range<Date> = row.get("date_range");
+///     let date_range: Range<Date> = row.get("date_range")?;
 ///     println!("Start: {:?}, End: {:?}", date_range.start, date_range.end);
 /// }
 /// # Ok(())
@@ -273,7 +299,12 @@ mod tests {
     #[test_case(wkt::Value::String("".to_string()) => Err(TestConvertError::Convert("invalid interval format: expected 3 parts, got ``".to_string())) ; "empty interval string")]
     #[test_case(wkt::Value::String("1-2 3".to_string()) => Err(TestConvertError::Convert("invalid interval format: expected 3 parts, got `1-2 3`".to_string())) ; "invalid interval parts count")]
     #[test_case(wkt::Value::String("1 3 4:05:06".to_string()) => Err(TestConvertError::Convert("invalid interval year-month format".to_string())) ; "invalid year-month format")]
-    #[test_case(wkt::Value::String("1-2 3 4:05".to_string()) => Err(TestConvertError::Convert("a character literal was not valid".to_string())) ; "invalid time format")]
+    #[test_case(wkt::Value::String("0-0 0 744:0:0".to_string()) => Ok(Interval { years: 0, months: 0, days: 0, hours: 744, minutes: 0, seconds: 0, nanos: 0 }) ; "hours beyond a day")]
+    #[test_case(wkt::Value::String("0-0 0 25:0:0".to_string()) => Ok(Interval { years: 0, months: 0, days: 0, hours: 25, minutes: 0, seconds: 0, nanos: 0 }) ; "interval 25 hour")]
+    #[test_case(wkt::Value::String("0-0 0 -744:0:0".to_string()) => Ok(Interval { years: 0, months: 0, days: 0, hours: -744, minutes: 0, seconds: 0, nanos: 0 }) ; "negative hours beyond a day")]
+    #[test_case(wkt::Value::String("1-2 3 4:05".to_string()) => Err(TestConvertError::Convert("invalid interval time format".to_string())) ; "invalid time format")]
+    #[test_case(wkt::Value::String("1-2 3 4:05:06:07".to_string()) => Err(TestConvertError::Convert("invalid interval time format".to_string())) ; "too many time parts")]
+    #[test_case(wkt::Value::String("1-2 3 4:05:06.x".to_string()) => Err(TestConvertError::Convert("invalid digit found in string".to_string())) ; "invalid subsecond")]
     fn test_from_sql_interval(value: wkt::Value) -> Result<Interval, TestConvertError> {
         FromSql::from_sql(value).map_err(TestConvertError::from)
     }

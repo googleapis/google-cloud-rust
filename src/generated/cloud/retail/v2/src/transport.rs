@@ -3028,7 +3028,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         );
 
         self.grpc_inner
-            .execute_server_streaming_tmp::<
+            .execute_server_streaming::<
                 crate::model::ConversationalSearchRequest,
                 crate::model::ConversationalSearchResponse,
                 crate::prost::google::cloud::retail::v2::ConversationalSearchRequest,
@@ -3038,7 +3038,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 path,
                 req,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 &x_goog_request_params,
             )
             .await

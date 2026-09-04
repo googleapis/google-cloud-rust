@@ -16,6 +16,7 @@
 
 #[allow(unused_imports)]
 use crate::Error;
+#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements [DirectAccessService](super::stub::DirectAccessService) using a [gaxi::http::ReqwestClient].
@@ -438,7 +439,7 @@ impl super::stub::DirectAccessService for DirectAccessService {
         );
 
         self.grpc_inner
-            .execute_bidi_streaming_tmp::<
+            .execute_bidi_streaming::<
                 crate::model::AdbMessage,
                 crate::model::DeviceMessage,
                 crate::prost::google::cloud::devicestreaming::v1::AdbMessage,
@@ -447,7 +448,7 @@ impl super::stub::DirectAccessService for DirectAccessService {
                 extensions,
                 path,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 x_goog_request_params,
             )
     }

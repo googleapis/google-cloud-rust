@@ -1395,7 +1395,7 @@ impl super::stub::Lineage for Lineage {
         );
 
         self.grpc_inner
-            .execute_server_streaming_tmp::<
+            .execute_server_streaming::<
                 crate::model::SearchLineageStreamingRequest,
                 crate::model::SearchLineageStreamingResponse,
                 crate::prost::google::cloud::datacatalog::lineage::v1::SearchLineageStreamingRequest,
@@ -1405,7 +1405,7 @@ impl super::stub::Lineage for Lineage {
                 path,
                 req,
                 options,
-                &crate::info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 &x_goog_request_params,
             )
             .await

@@ -12,18 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.39.1-0.20260829003228-d503f745af63
+version: v0.40.1-0.20260901220007-4f82678cd687
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: d8cacf6980e983c7c3e3a39d2d4b43f33bbfe1bb
-    sha256: 1ee4d01ab951cbad692693c88454bf3b12ccf40cd1e0d90421ad5e40292e9d2e
+    commit: 5f95d26414a7f693c9a41e4cd081a6c49f1f6e91
+    sha256: 06a28bd5782981ca78c62f77f79dff2029ec0f9e60af9c31d7c9038b5fe747e8
   googleapis:
-    commit: 63425cf2c0ad42419f704d89ea3477e0ef0b548f
-    sha256: 1f2c2d14c6ea0647991226b1fcdbcf85e80914168548630d0e21b2d4a761854a
+    commit: 00ff8fcb95cafbac573cc449b0d1a039244f1b4b
+    sha256: 4adc70162aadcea34de8e9ec269851bca7486fa8dca31d70dc43cdeb1e7a2617
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -221,7 +221,8 @@ libraries:
     version: 1.16.0
     copyright_year: "2025"
     rust:
-      include_server_streaming_methods: false
+      allow_streaming_any_types:
+        - .google.api.HttpBody.extensions
       per_service_features: true
       default_features:
         - data-foundry-service
@@ -347,8 +348,6 @@ libraries:
   - name: google-cloud-apigeeconnect-v1
     version: 1.11.0
     copyright_year: "2025"
-    rust:
-      include_bidi_streaming_methods: false
   - name: google-cloud-apihub-v1
     version: 1.14.0
     copyright_year: "2025"
@@ -511,8 +510,6 @@ libraries:
     copyright_year: "2026"
     output: src/bigquery
     rust:
-      include_bidi_streaming_methods: false
-      include_server_streaming_methods: false
       modules:
         - module_path: crate::write::generated::gapic_storage::model
           output: src/bigquery/src/write/generated/convert/storage
@@ -665,8 +662,8 @@ libraries:
     version: 1.5.0
     copyright_year: "2026"
     rust:
-      include_bidi_streaming_methods: false
-      include_server_streaming_methods: false
+      allow_streaming_any_types:
+        - .google.cloud.ces.v1.SessionOutput.context
   - name: google-cloud-chronicle-v1
     version: 1.14.0
     copyright_year: "2025"
@@ -922,8 +919,6 @@ libraries:
     output: src/firestore
     skip_release: true
     rust:
-      include_bidi_streaming_methods: false
-      include_server_streaming_methods: false
       modules:
         - module_path: crate::generated::gapic::model
           output: src/firestore/src/generated/convert/firestore
@@ -966,12 +961,10 @@ libraries:
     version: 1.15.0
     copyright_year: "2025"
     output: src/gax
-    skip_release: true
   - name: google-cloud-gax-internal
     version: 0.7.19
     copyright_year: "2025"
     output: src/gax-internal
-    skip_release: true
     rust:
       modules:
         - module_path: google_cloud_rpc::model
@@ -1154,7 +1147,8 @@ libraries:
     copyright_year: "2025"
     rust:
       generate_rpc_samples: "false"
-      include_bidi_streaming_methods: false
+      allow_streaming_any_types:
+        - .google.logging.v2.LogEntry.proto_payload
   - name: google-cloud-longrunning
     version: 1.13.0
     apis:
@@ -1319,8 +1313,6 @@ libraries:
     copyright_year: "2025"
     output: src/pubsub
     rust:
-      include_bidi_streaming_methods: false
-      include_server_streaming_methods: false
       modules:
         - included_ids:
             - .google.pubsub.v1.Publisher.Publish
@@ -1576,8 +1568,6 @@ libraries:
     output: src/storage
     rust:
       resource_name_heuristic: true
-      include_bidi_streaming_methods: false
-      include_server_streaming_methods: false
       modules:
         - module_path: crate::generated::gapic_control::model
           name_overrides: .google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_buckets=CloudStorageBucketsOneOf,.google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_locations=CloudStorageLocationsOneOf
@@ -1918,6 +1908,9 @@ libraries:
     version: 1.0.0
     copyright_year: "2026"
   - name: google-shopping-merchant-lfp-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-loyaltycustomers-v1
     version: 1.0.0
     copyright_year: "2026"
   - name: google-shopping-merchant-notifications-v1
