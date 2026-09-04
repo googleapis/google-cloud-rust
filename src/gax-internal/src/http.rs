@@ -28,7 +28,6 @@ use crate::as_inner::as_inner;
 use crate::attempt_info::AttemptInfo;
 use crate::headers::{X_GOOG_API_CLIENT, X_GOOG_USER_PROJECT, sanitize_custom_headers};
 use crate::observability::{HttpResultExt, RequestRecorder, create_http_attempt_span};
-use crate::options::Extensions;
 use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
 use ::reqwest::Url;
 use google_cloud_auth::credentials::{
@@ -74,7 +73,7 @@ pub struct ReqwestClient {
     _tracing_enabled: bool,
     universe_domain: String,
     transport_metric: Option<crate::observability::TransportMetric>,
-    extensions: Extensions,
+    extensions: crate::options::Extensions,
 }
 
 impl ReqwestClient {
