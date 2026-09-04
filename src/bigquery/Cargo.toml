@@ -52,6 +52,8 @@ rust_decimal.workspace       = true
 uuid.workspace               = true
 
 [dev-dependencies]
+scoped-env.workspace = true
+serial_test.workspace = true
 anyhow.workspace            = true
 mockall.workspace           = true
 test-case.workspace         = true
@@ -71,3 +73,4 @@ default-rustls-provider = ["gaxi/_default-rustls-provider"]
 
 [lints]
 workspace = true
+
