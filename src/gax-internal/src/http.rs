@@ -26,6 +26,7 @@ pub mod reqwest;
 
 use crate::as_inner::as_inner;
 use crate::attempt_info::AttemptInfo;
+use crate::headers::{X_GOOG_API_CLIENT, X_GOOG_USER_PROJECT, sanitize_custom_headers};
 use crate::observability::{HttpResultExt, RequestRecorder, create_http_attempt_span};
 use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
 use ::reqwest::Url;
@@ -56,8 +57,6 @@ use std::sync::Arc;
 use std::time::Duration;
 use tracing::Instrument;
 
-use crate::headers::{X_GOOG_USER_PROJECT, sanitize_custom_headers};
-
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {
     inner: ::reqwest::Client,
@@ -74,6 +73,7 @@ pub struct ReqwestClient {
     _tracing_enabled: bool,
     universe_domain: String,
     transport_metric: Option<crate::observability::TransportMetric>,
+    extensions: crate::options::Extensions,
 }
 
 impl ReqwestClient {
@@ -138,6 +138,7 @@ impl ReqwestClient {
             universe_domain,
             attempt_timeout: config.attempt_timeout,
             transport_metric: None,
+            extensions: config.extensions,
         })
     }
 
@@ -454,7 +455,15 @@ impl ReqwestClient {
 
         builder = builder.headers(headers);
 
-        builder.build().map_err(map_send_error)
+        let mut request = builder.build().map_err(map_send_error)?;
+        if let Some(h) = self.extensions.get::<crate::api_header::XGoogApiClient>() {
+            request.headers_mut().insert(
+                X_GOOG_API_CLIENT,
+                http::header::HeaderValue::from_str(&h.rest_header_value()).map_err(Error::ser)?,
+            );
+        }
+
+        Ok(request)
     }
 
     async fn request_attempt(

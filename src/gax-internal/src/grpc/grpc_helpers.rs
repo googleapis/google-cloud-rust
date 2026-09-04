@@ -108,7 +108,7 @@ pub(crate) fn make_headers(
 
     headers.insert(
         X_GOOG_API_CLIENT,
-        http::header::HeaderValue::from_static(api_client_header),
+        crate::api_header::resolve_grpc_header_value(extensions, api_client_header)?,
     );
 
     if !request_params.is_empty() {
@@ -615,6 +615,25 @@ mod tests {
             ),
         ]);
         assert_eq!(headers, expected);
+
+        Ok(())
+    }
+
+    #[test]
+    fn make_headers_with_client_x_goog_api_client() -> TestResult {
+        let options = RequestOptions::default();
+        let mut extensions = crate::options::Extensions::new();
+        extensions.insert(crate::api_header::XGoogApiClient {
+            name: "spanner",
+            library_type: crate::api_header::GCCL,
+            version: "1.2.3",
+        });
+
+        let headers = make_headers(&extensions, API_CLIENT_HEADER, "", &options)?;
+        let val = headers.get(X_GOOG_API_CLIENT).unwrap().to_str().unwrap();
+        assert!(val.contains("gccl/1.2.3"), "{val}");
+        assert!(val.contains("grpc/"), "{val}");
+        assert!(!val.contains("gapic/"), "{val}");
 
         Ok(())
     }
