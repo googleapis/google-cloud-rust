@@ -16,6 +16,7 @@
 
 #[allow(unused_imports)]
 use crate::Error;
+#[allow(unused_imports)]
 use crate::Result;
 
 const DEFAULT_HOST: &str = "https://pubsub.googleapis.com";

@@ -16,9 +16,10 @@
 
 #[allow(unused_imports)]
 use crate::Error;
+#[allow(unused_imports)]
 use crate::Result;
 
-/// Implements [Speech](super::stub::Speech) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
+/// Implements [Speech](super::stub::Speech) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Speech {
     inner: gaxi::http::ReqwestClient,
@@ -27,10 +28,10 @@ pub struct Speech {
 
 impl std::fmt::Debug for Speech {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("Speech")
-            .field("inner", &self.inner)
-            .field("grpc_inner", &self.grpc_inner)
-            .finish()
+        let mut builder = f.debug_struct("Speech");
+        builder.field("inner", &self.inner);
+        builder.field("grpc_inner", &self.grpc_inner);
+        builder.finish()
     }
 }
 

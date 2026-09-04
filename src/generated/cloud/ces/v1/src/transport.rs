@@ -16,6 +16,7 @@
 
 #[allow(unused_imports)]
 use crate::Error;
+#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements [AgentService](super::stub::AgentService) using a [gaxi::http::ReqwestClient].
@@ -4254,7 +4255,7 @@ impl super::stub::AgentService for AgentService {
     }
 }
 
-/// Implements [SessionService](super::stub::SessionService) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
+/// Implements [SessionService](super::stub::SessionService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct SessionService {
     inner: gaxi::http::ReqwestClient,
@@ -4263,10 +4264,10 @@ pub struct SessionService {
 
 impl std::fmt::Debug for SessionService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("SessionService")
-            .field("inner", &self.inner)
-            .field("grpc_inner", &self.grpc_inner)
-            .finish()
+        let mut builder = f.debug_struct("SessionService");
+        builder.field("inner", &self.inner);
+        builder.field("grpc_inner", &self.grpc_inner);
+        builder.finish()
     }
 }
 

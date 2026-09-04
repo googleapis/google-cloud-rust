@@ -52,7 +52,7 @@ impl gaxi::prost::ToProto<HarmCategory> for crate::model::HarmCategory {
     }
 }
 
-#[cfg(any ( feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<Modality> for crate::model::Modality {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -60,7 +60,7 @@ impl gaxi::prost::ToProto<Modality> for crate::model::Modality {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<Type> for crate::model::Type {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -68,7 +68,7 @@ impl gaxi::prost::ToProto<Type> for crate::model::Type {
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<Content> for crate::model::Content {
     type Output = Content;
     fn to_proto(self) -> std::result::Result<Content, gaxi::prost::ConvertError> {
@@ -82,7 +82,7 @@ impl gaxi::prost::ToProto<Content> for crate::model::Content {
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::Content> for Content {
     fn cnv(self) -> std::result::Result<crate::model::Content, gaxi::prost::ConvertError> {
         Ok(
@@ -94,7 +94,7 @@ impl gaxi::prost::FromProto<crate::model::Content> for Content {
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<part::media_resolution::Level> for crate::model::part::media_resolution::Level {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -102,7 +102,7 @@ impl gaxi::prost::ToProto<part::media_resolution::Level> for crate::model::part:
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<part::media_resolution::Value> for crate::model::part::media_resolution::Value {
     type Output = part::media_resolution::Value;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -112,7 +112,7 @@ impl gaxi::prost::ToProto<part::media_resolution::Value> for crate::model::part:
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::part::media_resolution::Value> for part::media_resolution::Value {
     fn cnv(self) -> std::result::Result<crate::model::part::media_resolution::Value, gaxi::prost::ConvertError> {
         use crate::model::part::media_resolution::Value as T;
@@ -122,7 +122,7 @@ impl gaxi::prost::FromProto<crate::model::part::media_resolution::Value> for par
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<part::MediaResolution> for crate::model::part::MediaResolution {
     type Output = part::MediaResolution;
     fn to_proto(self) -> std::result::Result<part::MediaResolution, gaxi::prost::ConvertError> {
@@ -132,7 +132,7 @@ impl gaxi::prost::ToProto<part::MediaResolution> for crate::model::part::MediaRe
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::part::MediaResolution> for part::MediaResolution {
     fn cnv(self) -> std::result::Result<crate::model::part::MediaResolution, gaxi::prost::ConvertError> {
         Ok(
@@ -142,7 +142,7 @@ impl gaxi::prost::FromProto<crate::model::part::MediaResolution> for part::Media
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<part::Data> for crate::model::part::Data {
     type Output = part::Data;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -158,7 +158,7 @@ impl gaxi::prost::ToProto<part::Data> for crate::model::part::Data {
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::part::Data> for part::Data {
     fn cnv(self) -> std::result::Result<crate::model::part::Data, gaxi::prost::ConvertError> {
         use crate::model::part::Data as T;
@@ -174,7 +174,7 @@ impl gaxi::prost::FromProto<crate::model::part::Data> for part::Data {
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<part::Metadata> for crate::model::part::Metadata {
     type Output = part::Metadata;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -184,7 +184,7 @@ impl gaxi::prost::ToProto<part::Metadata> for crate::model::part::Metadata {
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::part::Metadata> for part::Metadata {
     fn cnv(self) -> std::result::Result<crate::model::part::Metadata, gaxi::prost::ConvertError> {
         use crate::model::part::Metadata as T;
@@ -194,7 +194,7 @@ impl gaxi::prost::FromProto<crate::model::part::Metadata> for part::Metadata {
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<Part> for crate::model::Part {
     type Output = Part;
     fn to_proto(self) -> std::result::Result<Part, gaxi::prost::ConvertError> {
@@ -208,7 +208,7 @@ impl gaxi::prost::ToProto<Part> for crate::model::Part {
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::Part> for Part {
     fn cnv(self) -> std::result::Result<crate::model::Part, gaxi::prost::ConvertError> {
         Ok(
@@ -222,7 +222,7 @@ impl gaxi::prost::FromProto<crate::model::Part> for Part {
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<Blob> for crate::model::Blob {
     type Output = Blob;
     fn to_proto(self) -> std::result::Result<Blob, gaxi::prost::ConvertError> {
@@ -233,7 +233,7 @@ impl gaxi::prost::ToProto<Blob> for crate::model::Blob {
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::Blob> for Blob {
     fn cnv(self) -> std::result::Result<crate::model::Blob, gaxi::prost::ConvertError> {
         Ok(
@@ -244,7 +244,7 @@ impl gaxi::prost::FromProto<crate::model::Blob> for Blob {
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<FileData> for crate::model::FileData {
     type Output = FileData;
     fn to_proto(self) -> std::result::Result<FileData, gaxi::prost::ConvertError> {
@@ -255,7 +255,7 @@ impl gaxi::prost::ToProto<FileData> for crate::model::FileData {
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::FileData> for FileData {
     fn cnv(self) -> std::result::Result<crate::model::FileData, gaxi::prost::ConvertError> {
         Ok(
@@ -266,7 +266,7 @@ impl gaxi::prost::FromProto<crate::model::FileData> for FileData {
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<VideoMetadata> for crate::model::VideoMetadata {
     type Output = VideoMetadata;
     fn to_proto(self) -> std::result::Result<VideoMetadata, gaxi::prost::ConvertError> {
@@ -278,7 +278,7 @@ impl gaxi::prost::ToProto<VideoMetadata> for crate::model::VideoMetadata {
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::VideoMetadata> for VideoMetadata {
     fn cnv(self) -> std::result::Result<crate::model::VideoMetadata, gaxi::prost::ConvertError> {
         Ok(
@@ -290,7 +290,7 @@ impl gaxi::prost::FromProto<crate::model::VideoMetadata> for VideoMetadata {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<PrebuiltVoiceConfig> for crate::model::PrebuiltVoiceConfig {
     type Output = PrebuiltVoiceConfig;
     fn to_proto(self) -> std::result::Result<PrebuiltVoiceConfig, gaxi::prost::ConvertError> {
@@ -300,7 +300,7 @@ impl gaxi::prost::ToProto<PrebuiltVoiceConfig> for crate::model::PrebuiltVoiceCo
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::PrebuiltVoiceConfig> for PrebuiltVoiceConfig {
     fn cnv(self) -> std::result::Result<crate::model::PrebuiltVoiceConfig, gaxi::prost::ConvertError> {
         Ok(
@@ -310,7 +310,7 @@ impl gaxi::prost::FromProto<crate::model::PrebuiltVoiceConfig> for PrebuiltVoice
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<ReplicatedVoiceConfig> for crate::model::ReplicatedVoiceConfig {
     type Output = ReplicatedVoiceConfig;
     fn to_proto(self) -> std::result::Result<ReplicatedVoiceConfig, gaxi::prost::ConvertError> {
@@ -321,7 +321,7 @@ impl gaxi::prost::ToProto<ReplicatedVoiceConfig> for crate::model::ReplicatedVoi
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::ReplicatedVoiceConfig> for ReplicatedVoiceConfig {
     fn cnv(self) -> std::result::Result<crate::model::ReplicatedVoiceConfig, gaxi::prost::ConvertError> {
         Ok(
@@ -332,7 +332,7 @@ impl gaxi::prost::FromProto<crate::model::ReplicatedVoiceConfig> for ReplicatedV
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<voice_config::VoiceConfig> for crate::model::voice_config::VoiceConfig {
     type Output = voice_config::VoiceConfig;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -343,7 +343,7 @@ impl gaxi::prost::ToProto<voice_config::VoiceConfig> for crate::model::voice_con
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::voice_config::VoiceConfig> for voice_config::VoiceConfig {
     fn cnv(self) -> std::result::Result<crate::model::voice_config::VoiceConfig, gaxi::prost::ConvertError> {
         use crate::model::voice_config::VoiceConfig as T;
@@ -354,7 +354,7 @@ impl gaxi::prost::FromProto<crate::model::voice_config::VoiceConfig> for voice_c
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<VoiceConfig> for crate::model::VoiceConfig {
     type Output = VoiceConfig;
     fn to_proto(self) -> std::result::Result<VoiceConfig, gaxi::prost::ConvertError> {
@@ -364,7 +364,7 @@ impl gaxi::prost::ToProto<VoiceConfig> for crate::model::VoiceConfig {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::VoiceConfig> for VoiceConfig {
     fn cnv(self) -> std::result::Result<crate::model::VoiceConfig, gaxi::prost::ConvertError> {
         Ok(
@@ -374,7 +374,7 @@ impl gaxi::prost::FromProto<crate::model::VoiceConfig> for VoiceConfig {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<SpeakerVoiceConfig> for crate::model::SpeakerVoiceConfig {
     type Output = SpeakerVoiceConfig;
     fn to_proto(self) -> std::result::Result<SpeakerVoiceConfig, gaxi::prost::ConvertError> {
@@ -385,7 +385,7 @@ impl gaxi::prost::ToProto<SpeakerVoiceConfig> for crate::model::SpeakerVoiceConf
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::SpeakerVoiceConfig> for SpeakerVoiceConfig {
     fn cnv(self) -> std::result::Result<crate::model::SpeakerVoiceConfig, gaxi::prost::ConvertError> {
         Ok(
@@ -396,7 +396,7 @@ impl gaxi::prost::FromProto<crate::model::SpeakerVoiceConfig> for SpeakerVoiceCo
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<MultiSpeakerVoiceConfig> for crate::model::MultiSpeakerVoiceConfig {
     type Output = MultiSpeakerVoiceConfig;
     fn to_proto(self) -> std::result::Result<MultiSpeakerVoiceConfig, gaxi::prost::ConvertError> {
@@ -409,7 +409,7 @@ impl gaxi::prost::ToProto<MultiSpeakerVoiceConfig> for crate::model::MultiSpeake
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::MultiSpeakerVoiceConfig> for MultiSpeakerVoiceConfig {
     fn cnv(self) -> std::result::Result<crate::model::MultiSpeakerVoiceConfig, gaxi::prost::ConvertError> {
         Ok(
@@ -420,7 +420,7 @@ impl gaxi::prost::FromProto<crate::model::MultiSpeakerVoiceConfig> for MultiSpea
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<SpeechConfig> for crate::model::SpeechConfig {
     type Output = SpeechConfig;
     fn to_proto(self) -> std::result::Result<SpeechConfig, gaxi::prost::ConvertError> {
@@ -432,7 +432,7 @@ impl gaxi::prost::ToProto<SpeechConfig> for crate::model::SpeechConfig {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::SpeechConfig> for SpeechConfig {
     fn cnv(self) -> std::result::Result<crate::model::SpeechConfig, gaxi::prost::ConvertError> {
         Ok(
@@ -444,7 +444,7 @@ impl gaxi::prost::FromProto<crate::model::SpeechConfig> for SpeechConfig {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<image_config::ImageOutputOptions> for crate::model::image_config::ImageOutputOptions {
     type Output = image_config::ImageOutputOptions;
     fn to_proto(self) -> std::result::Result<image_config::ImageOutputOptions, gaxi::prost::ConvertError> {
@@ -455,7 +455,7 @@ impl gaxi::prost::ToProto<image_config::ImageOutputOptions> for crate::model::im
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::image_config::ImageOutputOptions> for image_config::ImageOutputOptions {
     fn cnv(self) -> std::result::Result<crate::model::image_config::ImageOutputOptions, gaxi::prost::ConvertError> {
         Ok(
@@ -466,7 +466,7 @@ impl gaxi::prost::FromProto<crate::model::image_config::ImageOutputOptions> for 
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<image_config::PersonGeneration> for crate::model::image_config::PersonGeneration {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -474,7 +474,7 @@ impl gaxi::prost::ToProto<image_config::PersonGeneration> for crate::model::imag
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<ImageConfig> for crate::model::ImageConfig {
     type Output = ImageConfig;
     fn to_proto(self) -> std::result::Result<ImageConfig, gaxi::prost::ConvertError> {
@@ -487,7 +487,7 @@ impl gaxi::prost::ToProto<ImageConfig> for crate::model::ImageConfig {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::ImageConfig> for ImageConfig {
     fn cnv(self) -> std::result::Result<crate::model::ImageConfig, gaxi::prost::ConvertError> {
         Ok(
@@ -500,7 +500,7 @@ impl gaxi::prost::FromProto<crate::model::ImageConfig> for ImageConfig {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<generation_config::routing_config::auto_routing_mode::ModelRoutingPreference> for crate::model::generation_config::routing_config::auto_routing_mode::ModelRoutingPreference {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -508,7 +508,7 @@ impl gaxi::prost::ToProto<generation_config::routing_config::auto_routing_mode::
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<generation_config::routing_config::AutoRoutingMode> for crate::model::generation_config::routing_config::AutoRoutingMode {
     type Output = generation_config::routing_config::AutoRoutingMode;
     fn to_proto(self) -> std::result::Result<generation_config::routing_config::AutoRoutingMode, gaxi::prost::ConvertError> {
@@ -518,7 +518,7 @@ impl gaxi::prost::ToProto<generation_config::routing_config::AutoRoutingMode> fo
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::generation_config::routing_config::AutoRoutingMode> for generation_config::routing_config::AutoRoutingMode {
     fn cnv(self) -> std::result::Result<crate::model::generation_config::routing_config::AutoRoutingMode, gaxi::prost::ConvertError> {
         Ok(
@@ -528,7 +528,7 @@ impl gaxi::prost::FromProto<crate::model::generation_config::routing_config::Aut
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<generation_config::routing_config::ManualRoutingMode> for crate::model::generation_config::routing_config::ManualRoutingMode {
     type Output = generation_config::routing_config::ManualRoutingMode;
     fn to_proto(self) -> std::result::Result<generation_config::routing_config::ManualRoutingMode, gaxi::prost::ConvertError> {
@@ -538,7 +538,7 @@ impl gaxi::prost::ToProto<generation_config::routing_config::ManualRoutingMode> 
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::generation_config::routing_config::ManualRoutingMode> for generation_config::routing_config::ManualRoutingMode {
     fn cnv(self) -> std::result::Result<crate::model::generation_config::routing_config::ManualRoutingMode, gaxi::prost::ConvertError> {
         Ok(
@@ -548,7 +548,7 @@ impl gaxi::prost::FromProto<crate::model::generation_config::routing_config::Man
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<generation_config::routing_config::RoutingConfig> for crate::model::generation_config::routing_config::RoutingConfig {
     type Output = generation_config::routing_config::RoutingConfig;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -559,7 +559,7 @@ impl gaxi::prost::ToProto<generation_config::routing_config::RoutingConfig> for 
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::generation_config::routing_config::RoutingConfig> for generation_config::routing_config::RoutingConfig {
     fn cnv(self) -> std::result::Result<crate::model::generation_config::routing_config::RoutingConfig, gaxi::prost::ConvertError> {
         use crate::model::generation_config::routing_config::RoutingConfig as T;
@@ -570,7 +570,7 @@ impl gaxi::prost::FromProto<crate::model::generation_config::routing_config::Rou
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<generation_config::RoutingConfig> for crate::model::generation_config::RoutingConfig {
     type Output = generation_config::RoutingConfig;
     fn to_proto(self) -> std::result::Result<generation_config::RoutingConfig, gaxi::prost::ConvertError> {
@@ -580,7 +580,7 @@ impl gaxi::prost::ToProto<generation_config::RoutingConfig> for crate::model::ge
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::generation_config::RoutingConfig> for generation_config::RoutingConfig {
     fn cnv(self) -> std::result::Result<crate::model::generation_config::RoutingConfig, gaxi::prost::ConvertError> {
         Ok(
@@ -590,7 +590,7 @@ impl gaxi::prost::FromProto<crate::model::generation_config::RoutingConfig> for 
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<generation_config::thinking_config::ThinkingLevel> for crate::model::generation_config::thinking_config::ThinkingLevel {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -598,7 +598,7 @@ impl gaxi::prost::ToProto<generation_config::thinking_config::ThinkingLevel> for
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<generation_config::ThinkingConfig> for crate::model::generation_config::ThinkingConfig {
     type Output = generation_config::ThinkingConfig;
     fn to_proto(self) -> std::result::Result<generation_config::ThinkingConfig, gaxi::prost::ConvertError> {
@@ -610,7 +610,7 @@ impl gaxi::prost::ToProto<generation_config::ThinkingConfig> for crate::model::g
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::generation_config::ThinkingConfig> for generation_config::ThinkingConfig {
     fn cnv(self) -> std::result::Result<crate::model::generation_config::ThinkingConfig, gaxi::prost::ConvertError> {
         Ok(
@@ -622,7 +622,7 @@ impl gaxi::prost::FromProto<crate::model::generation_config::ThinkingConfig> for
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<generation_config::Modality> for crate::model::generation_config::Modality {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -630,7 +630,7 @@ impl gaxi::prost::ToProto<generation_config::Modality> for crate::model::generat
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<generation_config::MediaResolution> for crate::model::generation_config::MediaResolution {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -638,7 +638,7 @@ impl gaxi::prost::ToProto<generation_config::MediaResolution> for crate::model::
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<GenerationConfig> for crate::model::GenerationConfig {
     type Output = GenerationConfig;
     fn to_proto(self) -> std::result::Result<GenerationConfig, gaxi::prost::ConvertError> {
@@ -674,7 +674,7 @@ impl gaxi::prost::ToProto<GenerationConfig> for crate::model::GenerationConfig {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::GenerationConfig> for GenerationConfig {
     fn cnv(self) -> std::result::Result<crate::model::GenerationConfig, gaxi::prost::ConvertError> {
         Ok(
@@ -1029,7 +1029,7 @@ impl gaxi::prost::FromProto<crate::model::LogprobsResult> for LogprobsResult {
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<Segment> for crate::model::Segment {
     type Output = Segment;
     fn to_proto(self) -> std::result::Result<Segment, gaxi::prost::ConvertError> {
@@ -1042,7 +1042,7 @@ impl gaxi::prost::ToProto<Segment> for crate::model::Segment {
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::Segment> for Segment {
     fn cnv(self) -> std::result::Result<crate::model::Segment, gaxi::prost::ConvertError> {
         Ok(
@@ -1055,7 +1055,7 @@ impl gaxi::prost::FromProto<crate::model::Segment> for Segment {
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<grounding_chunk::Web> for crate::model::grounding_chunk::Web {
     type Output = grounding_chunk::Web;
     fn to_proto(self) -> std::result::Result<grounding_chunk::Web, gaxi::prost::ConvertError> {
@@ -1066,7 +1066,7 @@ impl gaxi::prost::ToProto<grounding_chunk::Web> for crate::model::grounding_chun
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::grounding_chunk::Web> for grounding_chunk::Web {
     fn cnv(self) -> std::result::Result<crate::model::grounding_chunk::Web, gaxi::prost::ConvertError> {
         Ok(
@@ -1077,7 +1077,7 @@ impl gaxi::prost::FromProto<crate::model::grounding_chunk::Web> for grounding_ch
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<grounding_chunk::retrieved_context::ContextDetails> for crate::model::grounding_chunk::retrieved_context::ContextDetails {
     type Output = grounding_chunk::retrieved_context::ContextDetails;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -1087,7 +1087,7 @@ impl gaxi::prost::ToProto<grounding_chunk::retrieved_context::ContextDetails> fo
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::grounding_chunk::retrieved_context::ContextDetails> for grounding_chunk::retrieved_context::ContextDetails {
     fn cnv(self) -> std::result::Result<crate::model::grounding_chunk::retrieved_context::ContextDetails, gaxi::prost::ConvertError> {
         use crate::model::grounding_chunk::retrieved_context::ContextDetails as T;
@@ -1097,7 +1097,7 @@ impl gaxi::prost::FromProto<crate::model::grounding_chunk::retrieved_context::Co
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<grounding_chunk::RetrievedContext> for crate::model::grounding_chunk::RetrievedContext {
     type Output = grounding_chunk::RetrievedContext;
     fn to_proto(self) -> std::result::Result<grounding_chunk::RetrievedContext, gaxi::prost::ConvertError> {
@@ -1111,7 +1111,7 @@ impl gaxi::prost::ToProto<grounding_chunk::RetrievedContext> for crate::model::g
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::grounding_chunk::RetrievedContext> for grounding_chunk::RetrievedContext {
     fn cnv(self) -> std::result::Result<crate::model::grounding_chunk::RetrievedContext, gaxi::prost::ConvertError> {
         Ok(
@@ -1125,7 +1125,7 @@ impl gaxi::prost::FromProto<crate::model::grounding_chunk::RetrievedContext> for
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<grounding_chunk::maps::place_answer_sources::ReviewSnippet> for crate::model::grounding_chunk::maps::place_answer_sources::ReviewSnippet {
     type Output = grounding_chunk::maps::place_answer_sources::ReviewSnippet;
     fn to_proto(self) -> std::result::Result<grounding_chunk::maps::place_answer_sources::ReviewSnippet, gaxi::prost::ConvertError> {
@@ -1137,7 +1137,7 @@ impl gaxi::prost::ToProto<grounding_chunk::maps::place_answer_sources::ReviewSni
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::grounding_chunk::maps::place_answer_sources::ReviewSnippet> for grounding_chunk::maps::place_answer_sources::ReviewSnippet {
     fn cnv(self) -> std::result::Result<crate::model::grounding_chunk::maps::place_answer_sources::ReviewSnippet, gaxi::prost::ConvertError> {
         Ok(
@@ -1149,7 +1149,7 @@ impl gaxi::prost::FromProto<crate::model::grounding_chunk::maps::place_answer_so
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<grounding_chunk::maps::PlaceAnswerSources> for crate::model::grounding_chunk::maps::PlaceAnswerSources {
     type Output = grounding_chunk::maps::PlaceAnswerSources;
     fn to_proto(self) -> std::result::Result<grounding_chunk::maps::PlaceAnswerSources, gaxi::prost::ConvertError> {
@@ -1162,7 +1162,7 @@ impl gaxi::prost::ToProto<grounding_chunk::maps::PlaceAnswerSources> for crate::
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::grounding_chunk::maps::PlaceAnswerSources> for grounding_chunk::maps::PlaceAnswerSources {
     fn cnv(self) -> std::result::Result<crate::model::grounding_chunk::maps::PlaceAnswerSources, gaxi::prost::ConvertError> {
         Ok(
@@ -1173,7 +1173,7 @@ impl gaxi::prost::FromProto<crate::model::grounding_chunk::maps::PlaceAnswerSour
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<grounding_chunk::maps::Route> for crate::model::grounding_chunk::maps::Route {
     type Output = grounding_chunk::maps::Route;
     fn to_proto(self) -> std::result::Result<grounding_chunk::maps::Route, gaxi::prost::ConvertError> {
@@ -1185,7 +1185,7 @@ impl gaxi::prost::ToProto<grounding_chunk::maps::Route> for crate::model::ground
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::grounding_chunk::maps::Route> for grounding_chunk::maps::Route {
     fn cnv(self) -> std::result::Result<crate::model::grounding_chunk::maps::Route, gaxi::prost::ConvertError> {
         Ok(
@@ -1197,7 +1197,7 @@ impl gaxi::prost::FromProto<crate::model::grounding_chunk::maps::Route> for grou
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<grounding_chunk::Maps> for crate::model::grounding_chunk::Maps {
     type Output = grounding_chunk::Maps;
     fn to_proto(self) -> std::result::Result<grounding_chunk::Maps, gaxi::prost::ConvertError> {
@@ -1212,7 +1212,7 @@ impl gaxi::prost::ToProto<grounding_chunk::Maps> for crate::model::grounding_chu
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::grounding_chunk::Maps> for grounding_chunk::Maps {
     fn cnv(self) -> std::result::Result<crate::model::grounding_chunk::Maps, gaxi::prost::ConvertError> {
         Ok(
@@ -1227,7 +1227,7 @@ impl gaxi::prost::FromProto<crate::model::grounding_chunk::Maps> for grounding_c
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<grounding_chunk::ChunkType> for crate::model::grounding_chunk::ChunkType {
     type Output = grounding_chunk::ChunkType;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -1239,7 +1239,7 @@ impl gaxi::prost::ToProto<grounding_chunk::ChunkType> for crate::model::groundin
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::grounding_chunk::ChunkType> for grounding_chunk::ChunkType {
     fn cnv(self) -> std::result::Result<crate::model::grounding_chunk::ChunkType, gaxi::prost::ConvertError> {
         use crate::model::grounding_chunk::ChunkType as T;
@@ -1251,7 +1251,7 @@ impl gaxi::prost::FromProto<crate::model::grounding_chunk::ChunkType> for ground
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<GroundingChunk> for crate::model::GroundingChunk {
     type Output = GroundingChunk;
     fn to_proto(self) -> std::result::Result<GroundingChunk, gaxi::prost::ConvertError> {
@@ -1261,7 +1261,7 @@ impl gaxi::prost::ToProto<GroundingChunk> for crate::model::GroundingChunk {
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::GroundingChunk> for GroundingChunk {
     fn cnv(self) -> std::result::Result<crate::model::GroundingChunk, gaxi::prost::ConvertError> {
         Ok(
@@ -1271,7 +1271,7 @@ impl gaxi::prost::FromProto<crate::model::GroundingChunk> for GroundingChunk {
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<GroundingSupport> for crate::model::GroundingSupport {
     type Output = GroundingSupport;
     fn to_proto(self) -> std::result::Result<GroundingSupport, gaxi::prost::ConvertError> {
@@ -1289,7 +1289,7 @@ impl gaxi::prost::ToProto<GroundingSupport> for crate::model::GroundingSupport {
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::GroundingSupport> for GroundingSupport {
     fn cnv(self) -> std::result::Result<crate::model::GroundingSupport, gaxi::prost::ConvertError> {
         Ok(
@@ -1303,7 +1303,7 @@ impl gaxi::prost::FromProto<crate::model::GroundingSupport> for GroundingSupport
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<grounding_metadata::SourceFlaggingUri> for crate::model::grounding_metadata::SourceFlaggingUri {
     type Output = grounding_metadata::SourceFlaggingUri;
     fn to_proto(self) -> std::result::Result<grounding_metadata::SourceFlaggingUri, gaxi::prost::ConvertError> {
@@ -1314,7 +1314,7 @@ impl gaxi::prost::ToProto<grounding_metadata::SourceFlaggingUri> for crate::mode
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::grounding_metadata::SourceFlaggingUri> for grounding_metadata::SourceFlaggingUri {
     fn cnv(self) -> std::result::Result<crate::model::grounding_metadata::SourceFlaggingUri, gaxi::prost::ConvertError> {
         Ok(
@@ -1325,7 +1325,7 @@ impl gaxi::prost::FromProto<crate::model::grounding_metadata::SourceFlaggingUri>
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<GroundingMetadata> for crate::model::GroundingMetadata {
     type Output = GroundingMetadata;
     fn to_proto(self) -> std::result::Result<GroundingMetadata, gaxi::prost::ConvertError> {
@@ -1357,7 +1357,7 @@ impl gaxi::prost::ToProto<GroundingMetadata> for crate::model::GroundingMetadata
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::GroundingMetadata> for GroundingMetadata {
     fn cnv(self) -> std::result::Result<crate::model::GroundingMetadata, gaxi::prost::ConvertError> {
         Ok(
@@ -1379,7 +1379,7 @@ impl gaxi::prost::FromProto<crate::model::GroundingMetadata> for GroundingMetada
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<SearchEntryPoint> for crate::model::SearchEntryPoint {
     type Output = SearchEntryPoint;
     fn to_proto(self) -> std::result::Result<SearchEntryPoint, gaxi::prost::ConvertError> {
@@ -1390,7 +1390,7 @@ impl gaxi::prost::ToProto<SearchEntryPoint> for crate::model::SearchEntryPoint {
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::SearchEntryPoint> for SearchEntryPoint {
     fn cnv(self) -> std::result::Result<crate::model::SearchEntryPoint, gaxi::prost::ConvertError> {
         Ok(
@@ -1401,7 +1401,7 @@ impl gaxi::prost::FromProto<crate::model::SearchEntryPoint> for SearchEntryPoint
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<RetrievalMetadata> for crate::model::RetrievalMetadata {
     type Output = RetrievalMetadata;
     fn to_proto(self) -> std::result::Result<RetrievalMetadata, gaxi::prost::ConvertError> {
@@ -1411,7 +1411,7 @@ impl gaxi::prost::ToProto<RetrievalMetadata> for crate::model::RetrievalMetadata
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::RetrievalMetadata> for RetrievalMetadata {
     fn cnv(self) -> std::result::Result<crate::model::RetrievalMetadata, gaxi::prost::ConvertError> {
         Ok(
@@ -1443,7 +1443,7 @@ impl gaxi::prost::FromProto<crate::model::ModelArmorConfig> for ModelArmorConfig
     }
 }
 
-#[cfg(any ( feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<ModalityTokenCount> for crate::model::ModalityTokenCount {
     type Output = ModalityTokenCount;
     fn to_proto(self) -> std::result::Result<ModalityTokenCount, gaxi::prost::ConvertError> {
@@ -1454,7 +1454,7 @@ impl gaxi::prost::ToProto<ModalityTokenCount> for crate::model::ModalityTokenCou
     }
 }
 
-#[cfg(any ( feature = "llm-utility-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::ModalityTokenCount> for ModalityTokenCount {
     fn cnv(self) -> std::result::Result<crate::model::ModalityTokenCount, gaxi::prost::ConvertError> {
         Ok(
@@ -1673,7 +1673,7 @@ impl gaxi::prost::FromProto<crate::model::FeatureViewDirectWriteResponse> for Fe
     }
 }
 
-#[cfg(any ( feature = "featurestore-online-serving-service",feature = "featurestore-service", ) )]
+#[cfg(feature = "featurestore-online-serving-service" )]
 impl gaxi::prost::ToProto<IdMatcher> for crate::model::IdMatcher {
     type Output = IdMatcher;
     fn to_proto(self) -> std::result::Result<IdMatcher, gaxi::prost::ConvertError> {
@@ -1686,7 +1686,7 @@ impl gaxi::prost::ToProto<IdMatcher> for crate::model::IdMatcher {
     }
 }
 
-#[cfg(any ( feature = "featurestore-online-serving-service",feature = "featurestore-service", ) )]
+#[cfg(feature = "featurestore-online-serving-service" )]
 impl gaxi::prost::FromProto<crate::model::IdMatcher> for IdMatcher {
     fn cnv(self) -> std::result::Result<crate::model::IdMatcher, gaxi::prost::ConvertError> {
         Ok(
@@ -1697,7 +1697,7 @@ impl gaxi::prost::FromProto<crate::model::IdMatcher> for IdMatcher {
     }
 }
 
-#[cfg(any ( feature = "featurestore-online-serving-service",feature = "featurestore-service", ) )]
+#[cfg(feature = "featurestore-online-serving-service" )]
 impl gaxi::prost::ToProto<FeatureSelector> for crate::model::FeatureSelector {
     type Output = FeatureSelector;
     fn to_proto(self) -> std::result::Result<FeatureSelector, gaxi::prost::ConvertError> {
@@ -1707,7 +1707,7 @@ impl gaxi::prost::ToProto<FeatureSelector> for crate::model::FeatureSelector {
     }
 }
 
-#[cfg(any ( feature = "featurestore-online-serving-service",feature = "featurestore-service", ) )]
+#[cfg(feature = "featurestore-online-serving-service" )]
 impl gaxi::prost::FromProto<crate::model::FeatureSelector> for FeatureSelector {
     fn cnv(self) -> std::result::Result<crate::model::FeatureSelector, gaxi::prost::ConvertError> {
         Ok(
@@ -2031,7 +2031,7 @@ impl gaxi::prost::FromProto<crate::model::FeatureValueList> for FeatureValueList
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<Schema> for crate::model::Schema {
     type Output = Schema;
     fn to_proto(self) -> std::result::Result<Schema, gaxi::prost::ConvertError> {
@@ -2085,7 +2085,7 @@ impl gaxi::prost::ToProto<Schema> for crate::model::Schema {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::Schema> for Schema {
     fn cnv(self) -> std::result::Result<crate::model::Schema, gaxi::prost::ConvertError> {
         Ok(
@@ -2632,7 +2632,7 @@ impl gaxi::prost::FromProto<crate::model::ReadTensorboardBlobDataResponse> for R
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<tool::GoogleSearch> for crate::model::tool::GoogleSearch {
     type Output = tool::GoogleSearch;
     fn to_proto(self) -> std::result::Result<tool::GoogleSearch, gaxi::prost::ConvertError> {
@@ -2646,7 +2646,7 @@ impl gaxi::prost::ToProto<tool::GoogleSearch> for crate::model::tool::GoogleSear
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::tool::GoogleSearch> for tool::GoogleSearch {
     fn cnv(self) -> std::result::Result<crate::model::tool::GoogleSearch, gaxi::prost::ConvertError> {
         Ok(
@@ -2658,7 +2658,7 @@ impl gaxi::prost::FromProto<crate::model::tool::GoogleSearch> for tool::GoogleSe
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<tool::ParallelAiSearch> for crate::model::tool::ParallelAiSearch {
     type Output = tool::ParallelAiSearch;
     fn to_proto(self) -> std::result::Result<tool::ParallelAiSearch, gaxi::prost::ConvertError> {
@@ -2670,7 +2670,7 @@ impl gaxi::prost::ToProto<tool::ParallelAiSearch> for crate::model::tool::Parall
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::tool::ParallelAiSearch> for tool::ParallelAiSearch {
     fn cnv(self) -> std::result::Result<crate::model::tool::ParallelAiSearch, gaxi::prost::ConvertError> {
         Ok(
@@ -2682,7 +2682,7 @@ impl gaxi::prost::FromProto<crate::model::tool::ParallelAiSearch> for tool::Para
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<tool::ExaAiSearch> for crate::model::tool::ExaAiSearch {
     type Output = tool::ExaAiSearch;
     fn to_proto(self) -> std::result::Result<tool::ExaAiSearch, gaxi::prost::ConvertError> {
@@ -2693,7 +2693,7 @@ impl gaxi::prost::ToProto<tool::ExaAiSearch> for crate::model::tool::ExaAiSearch
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::tool::ExaAiSearch> for tool::ExaAiSearch {
     fn cnv(self) -> std::result::Result<crate::model::tool::ExaAiSearch, gaxi::prost::ConvertError> {
         Ok(
@@ -2704,7 +2704,7 @@ impl gaxi::prost::FromProto<crate::model::tool::ExaAiSearch> for tool::ExaAiSear
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<tool::CodeExecution> for crate::model::tool::CodeExecution {
     type Output = tool::CodeExecution;
     fn to_proto(self) -> std::result::Result<tool::CodeExecution, gaxi::prost::ConvertError> {
@@ -2713,7 +2713,7 @@ impl gaxi::prost::ToProto<tool::CodeExecution> for crate::model::tool::CodeExecu
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::tool::CodeExecution> for tool::CodeExecution {
     fn cnv(self) -> std::result::Result<crate::model::tool::CodeExecution, gaxi::prost::ConvertError> {
         Ok(
@@ -2722,7 +2722,7 @@ impl gaxi::prost::FromProto<crate::model::tool::CodeExecution> for tool::CodeExe
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<tool::computer_use::Environment> for crate::model::tool::computer_use::Environment {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -2730,7 +2730,7 @@ impl gaxi::prost::ToProto<tool::computer_use::Environment> for crate::model::too
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<tool::ComputerUse> for crate::model::tool::ComputerUse {
     type Output = tool::ComputerUse;
     fn to_proto(self) -> std::result::Result<tool::ComputerUse, gaxi::prost::ConvertError> {
@@ -2744,7 +2744,7 @@ impl gaxi::prost::ToProto<tool::ComputerUse> for crate::model::tool::ComputerUse
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::tool::ComputerUse> for tool::ComputerUse {
     fn cnv(self) -> std::result::Result<crate::model::tool::ComputerUse, gaxi::prost::ConvertError> {
         Ok(
@@ -2756,7 +2756,7 @@ impl gaxi::prost::FromProto<crate::model::tool::ComputerUse> for tool::ComputerU
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<tool::PhishBlockThreshold> for crate::model::tool::PhishBlockThreshold {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -2764,7 +2764,7 @@ impl gaxi::prost::ToProto<tool::PhishBlockThreshold> for crate::model::tool::Phi
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<Tool> for crate::model::Tool {
     type Output = Tool;
     fn to_proto(self) -> std::result::Result<Tool, gaxi::prost::ConvertError> {
@@ -2787,7 +2787,7 @@ impl gaxi::prost::ToProto<Tool> for crate::model::Tool {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::Tool> for Tool {
     fn cnv(self) -> std::result::Result<crate::model::Tool, gaxi::prost::ConvertError> {
         Ok(
@@ -2808,7 +2808,7 @@ impl gaxi::prost::FromProto<crate::model::Tool> for Tool {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<UrlContext> for crate::model::UrlContext {
     type Output = UrlContext;
     fn to_proto(self) -> std::result::Result<UrlContext, gaxi::prost::ConvertError> {
@@ -2817,7 +2817,7 @@ impl gaxi::prost::ToProto<UrlContext> for crate::model::UrlContext {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::UrlContext> for UrlContext {
     fn cnv(self) -> std::result::Result<crate::model::UrlContext, gaxi::prost::ConvertError> {
         Ok(
@@ -2826,7 +2826,7 @@ impl gaxi::prost::FromProto<crate::model::UrlContext> for UrlContext {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<FunctionDeclaration> for crate::model::FunctionDeclaration {
     type Output = FunctionDeclaration;
     fn to_proto(self) -> std::result::Result<FunctionDeclaration, gaxi::prost::ConvertError> {
@@ -2841,7 +2841,7 @@ impl gaxi::prost::ToProto<FunctionDeclaration> for crate::model::FunctionDeclara
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::FunctionDeclaration> for FunctionDeclaration {
     fn cnv(self) -> std::result::Result<crate::model::FunctionDeclaration, gaxi::prost::ConvertError> {
         Ok(
@@ -2856,7 +2856,7 @@ impl gaxi::prost::FromProto<crate::model::FunctionDeclaration> for FunctionDecla
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<FunctionCall> for crate::model::FunctionCall {
     type Output = FunctionCall;
     fn to_proto(self) -> std::result::Result<FunctionCall, gaxi::prost::ConvertError> {
@@ -2872,7 +2872,7 @@ impl gaxi::prost::ToProto<FunctionCall> for crate::model::FunctionCall {
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::FunctionCall> for FunctionCall {
     fn cnv(self) -> std::result::Result<crate::model::FunctionCall, gaxi::prost::ConvertError> {
         Ok(
@@ -2886,7 +2886,7 @@ impl gaxi::prost::FromProto<crate::model::FunctionCall> for FunctionCall {
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<partial_arg::Delta> for crate::model::partial_arg::Delta {
     type Output = partial_arg::Delta;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -2899,7 +2899,7 @@ impl gaxi::prost::ToProto<partial_arg::Delta> for crate::model::partial_arg::Del
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::partial_arg::Delta> for partial_arg::Delta {
     fn cnv(self) -> std::result::Result<crate::model::partial_arg::Delta, gaxi::prost::ConvertError> {
         use crate::model::partial_arg::Delta as T;
@@ -2912,7 +2912,7 @@ impl gaxi::prost::FromProto<crate::model::partial_arg::Delta> for partial_arg::D
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<PartialArg> for crate::model::PartialArg {
     type Output = PartialArg;
     fn to_proto(self) -> std::result::Result<PartialArg, gaxi::prost::ConvertError> {
@@ -2924,7 +2924,7 @@ impl gaxi::prost::ToProto<PartialArg> for crate::model::PartialArg {
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::PartialArg> for PartialArg {
     fn cnv(self) -> std::result::Result<crate::model::PartialArg, gaxi::prost::ConvertError> {
         Ok(
@@ -2936,7 +2936,7 @@ impl gaxi::prost::FromProto<crate::model::PartialArg> for PartialArg {
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<function_response_part::Data> for crate::model::function_response_part::Data {
     type Output = function_response_part::Data;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -2947,7 +2947,7 @@ impl gaxi::prost::ToProto<function_response_part::Data> for crate::model::functi
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::function_response_part::Data> for function_response_part::Data {
     fn cnv(self) -> std::result::Result<crate::model::function_response_part::Data, gaxi::prost::ConvertError> {
         use crate::model::function_response_part::Data as T;
@@ -2958,7 +2958,7 @@ impl gaxi::prost::FromProto<crate::model::function_response_part::Data> for func
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<FunctionResponsePart> for crate::model::FunctionResponsePart {
     type Output = FunctionResponsePart;
     fn to_proto(self) -> std::result::Result<FunctionResponsePart, gaxi::prost::ConvertError> {
@@ -2968,7 +2968,7 @@ impl gaxi::prost::ToProto<FunctionResponsePart> for crate::model::FunctionRespon
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::FunctionResponsePart> for FunctionResponsePart {
     fn cnv(self) -> std::result::Result<crate::model::FunctionResponsePart, gaxi::prost::ConvertError> {
         Ok(
@@ -2978,7 +2978,7 @@ impl gaxi::prost::FromProto<crate::model::FunctionResponsePart> for FunctionResp
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<FunctionResponseBlob> for crate::model::FunctionResponseBlob {
     type Output = FunctionResponseBlob;
     fn to_proto(self) -> std::result::Result<FunctionResponseBlob, gaxi::prost::ConvertError> {
@@ -2990,7 +2990,7 @@ impl gaxi::prost::ToProto<FunctionResponseBlob> for crate::model::FunctionRespon
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::FunctionResponseBlob> for FunctionResponseBlob {
     fn cnv(self) -> std::result::Result<crate::model::FunctionResponseBlob, gaxi::prost::ConvertError> {
         Ok(
@@ -3002,7 +3002,7 @@ impl gaxi::prost::FromProto<crate::model::FunctionResponseBlob> for FunctionResp
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<FunctionResponseFileData> for crate::model::FunctionResponseFileData {
     type Output = FunctionResponseFileData;
     fn to_proto(self) -> std::result::Result<FunctionResponseFileData, gaxi::prost::ConvertError> {
@@ -3014,7 +3014,7 @@ impl gaxi::prost::ToProto<FunctionResponseFileData> for crate::model::FunctionRe
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::FunctionResponseFileData> for FunctionResponseFileData {
     fn cnv(self) -> std::result::Result<crate::model::FunctionResponseFileData, gaxi::prost::ConvertError> {
         Ok(
@@ -3026,7 +3026,7 @@ impl gaxi::prost::FromProto<crate::model::FunctionResponseFileData> for Function
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<FunctionResponse> for crate::model::FunctionResponse {
     type Output = FunctionResponse;
     fn to_proto(self) -> std::result::Result<FunctionResponse, gaxi::prost::ConvertError> {
@@ -3041,7 +3041,7 @@ impl gaxi::prost::ToProto<FunctionResponse> for crate::model::FunctionResponse {
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::FunctionResponse> for FunctionResponse {
     fn cnv(self) -> std::result::Result<crate::model::FunctionResponse, gaxi::prost::ConvertError> {
         Ok(
@@ -3054,7 +3054,7 @@ impl gaxi::prost::FromProto<crate::model::FunctionResponse> for FunctionResponse
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<executable_code::Language> for crate::model::executable_code::Language {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -3062,7 +3062,7 @@ impl gaxi::prost::ToProto<executable_code::Language> for crate::model::executabl
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<ExecutableCode> for crate::model::ExecutableCode {
     type Output = ExecutableCode;
     fn to_proto(self) -> std::result::Result<ExecutableCode, gaxi::prost::ConvertError> {
@@ -3073,7 +3073,7 @@ impl gaxi::prost::ToProto<ExecutableCode> for crate::model::ExecutableCode {
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::ExecutableCode> for ExecutableCode {
     fn cnv(self) -> std::result::Result<crate::model::ExecutableCode, gaxi::prost::ConvertError> {
         Ok(
@@ -3084,7 +3084,7 @@ impl gaxi::prost::FromProto<crate::model::ExecutableCode> for ExecutableCode {
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<code_execution_result::Outcome> for crate::model::code_execution_result::Outcome {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -3092,7 +3092,7 @@ impl gaxi::prost::ToProto<code_execution_result::Outcome> for crate::model::code
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<CodeExecutionResult> for crate::model::CodeExecutionResult {
     type Output = CodeExecutionResult;
     fn to_proto(self) -> std::result::Result<CodeExecutionResult, gaxi::prost::ConvertError> {
@@ -3103,7 +3103,7 @@ impl gaxi::prost::ToProto<CodeExecutionResult> for crate::model::CodeExecutionRe
     }
 }
 
-#[cfg(any ( feature = "data-foundry-service",feature = "evaluation-service",feature = "gen-ai-cache-service",feature = "gen-ai-tuning-service",feature = "llm-utility-service",feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::CodeExecutionResult> for CodeExecutionResult {
     fn cnv(self) -> std::result::Result<crate::model::CodeExecutionResult, gaxi::prost::ConvertError> {
         Ok(
@@ -3114,7 +3114,7 @@ impl gaxi::prost::FromProto<crate::model::CodeExecutionResult> for CodeExecution
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<retrieval::Source> for crate::model::retrieval::Source {
     type Output = retrieval::Source;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -3125,7 +3125,7 @@ impl gaxi::prost::ToProto<retrieval::Source> for crate::model::retrieval::Source
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::retrieval::Source> for retrieval::Source {
     fn cnv(self) -> std::result::Result<crate::model::retrieval::Source, gaxi::prost::ConvertError> {
         use crate::model::retrieval::Source as T;
@@ -3136,7 +3136,7 @@ impl gaxi::prost::FromProto<crate::model::retrieval::Source> for retrieval::Sour
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<Retrieval> for crate::model::Retrieval {
     type Output = Retrieval;
     fn to_proto(self) -> std::result::Result<Retrieval, gaxi::prost::ConvertError> {
@@ -3147,7 +3147,7 @@ impl gaxi::prost::ToProto<Retrieval> for crate::model::Retrieval {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::Retrieval> for Retrieval {
     fn cnv(self) -> std::result::Result<crate::model::Retrieval, gaxi::prost::ConvertError> {
         Ok(
@@ -3158,7 +3158,7 @@ impl gaxi::prost::FromProto<crate::model::Retrieval> for Retrieval {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<vertex_rag_store::RagResource> for crate::model::vertex_rag_store::RagResource {
     type Output = vertex_rag_store::RagResource;
     fn to_proto(self) -> std::result::Result<vertex_rag_store::RagResource, gaxi::prost::ConvertError> {
@@ -3172,7 +3172,7 @@ impl gaxi::prost::ToProto<vertex_rag_store::RagResource> for crate::model::verte
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::vertex_rag_store::RagResource> for vertex_rag_store::RagResource {
     fn cnv(self) -> std::result::Result<crate::model::vertex_rag_store::RagResource, gaxi::prost::ConvertError> {
         Ok(
@@ -3184,7 +3184,7 @@ impl gaxi::prost::FromProto<crate::model::vertex_rag_store::RagResource> for ver
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<VertexRagStore> for crate::model::VertexRagStore {
     type Output = VertexRagStore;
     fn to_proto(self) -> std::result::Result<VertexRagStore, gaxi::prost::ConvertError> {
@@ -3200,7 +3200,7 @@ impl gaxi::prost::ToProto<VertexRagStore> for crate::model::VertexRagStore {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::VertexRagStore> for VertexRagStore {
     fn cnv(self) -> std::result::Result<crate::model::VertexRagStore, gaxi::prost::ConvertError> {
         Ok(
@@ -3214,7 +3214,7 @@ impl gaxi::prost::FromProto<crate::model::VertexRagStore> for VertexRagStore {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<vertex_ai_search::DataStoreSpec> for crate::model::vertex_ai_search::DataStoreSpec {
     type Output = vertex_ai_search::DataStoreSpec;
     fn to_proto(self) -> std::result::Result<vertex_ai_search::DataStoreSpec, gaxi::prost::ConvertError> {
@@ -3225,7 +3225,7 @@ impl gaxi::prost::ToProto<vertex_ai_search::DataStoreSpec> for crate::model::ver
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::vertex_ai_search::DataStoreSpec> for vertex_ai_search::DataStoreSpec {
     fn cnv(self) -> std::result::Result<crate::model::vertex_ai_search::DataStoreSpec, gaxi::prost::ConvertError> {
         Ok(
@@ -3236,7 +3236,7 @@ impl gaxi::prost::FromProto<crate::model::vertex_ai_search::DataStoreSpec> for v
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<VertexAiSearch> for crate::model::VertexAISearch {
     type Output = VertexAiSearch;
     fn to_proto(self) -> std::result::Result<VertexAiSearch, gaxi::prost::ConvertError> {
@@ -3253,7 +3253,7 @@ impl gaxi::prost::ToProto<VertexAiSearch> for crate::model::VertexAISearch {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::VertexAISearch> for VertexAiSearch {
     fn cnv(self) -> std::result::Result<crate::model::VertexAISearch, gaxi::prost::ConvertError> {
         Ok(
@@ -3268,7 +3268,7 @@ impl gaxi::prost::FromProto<crate::model::VertexAISearch> for VertexAiSearch {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<GoogleSearchRetrieval> for crate::model::GoogleSearchRetrieval {
     type Output = GoogleSearchRetrieval;
     fn to_proto(self) -> std::result::Result<GoogleSearchRetrieval, gaxi::prost::ConvertError> {
@@ -3278,7 +3278,7 @@ impl gaxi::prost::ToProto<GoogleSearchRetrieval> for crate::model::GoogleSearchR
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::GoogleSearchRetrieval> for GoogleSearchRetrieval {
     fn cnv(self) -> std::result::Result<crate::model::GoogleSearchRetrieval, gaxi::prost::ConvertError> {
         Ok(
@@ -3288,7 +3288,7 @@ impl gaxi::prost::FromProto<crate::model::GoogleSearchRetrieval> for GoogleSearc
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<GoogleMaps> for crate::model::GoogleMaps {
     type Output = GoogleMaps;
     fn to_proto(self) -> std::result::Result<GoogleMaps, gaxi::prost::ConvertError> {
@@ -3298,7 +3298,7 @@ impl gaxi::prost::ToProto<GoogleMaps> for crate::model::GoogleMaps {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::GoogleMaps> for GoogleMaps {
     fn cnv(self) -> std::result::Result<crate::model::GoogleMaps, gaxi::prost::ConvertError> {
         Ok(
@@ -3308,7 +3308,7 @@ impl gaxi::prost::FromProto<crate::model::GoogleMaps> for GoogleMaps {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<EnterpriseWebSearch> for crate::model::EnterpriseWebSearch {
     type Output = EnterpriseWebSearch;
     fn to_proto(self) -> std::result::Result<EnterpriseWebSearch, gaxi::prost::ConvertError> {
@@ -3322,7 +3322,7 @@ impl gaxi::prost::ToProto<EnterpriseWebSearch> for crate::model::EnterpriseWebSe
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::EnterpriseWebSearch> for EnterpriseWebSearch {
     fn cnv(self) -> std::result::Result<crate::model::EnterpriseWebSearch, gaxi::prost::ConvertError> {
         Ok(
@@ -3334,7 +3334,7 @@ impl gaxi::prost::FromProto<crate::model::EnterpriseWebSearch> for EnterpriseWeb
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<dynamic_retrieval_config::Mode> for crate::model::dynamic_retrieval_config::Mode {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -3342,7 +3342,7 @@ impl gaxi::prost::ToProto<dynamic_retrieval_config::Mode> for crate::model::dyna
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<DynamicRetrievalConfig> for crate::model::DynamicRetrievalConfig {
     type Output = DynamicRetrievalConfig;
     fn to_proto(self) -> std::result::Result<DynamicRetrievalConfig, gaxi::prost::ConvertError> {
@@ -3353,7 +3353,7 @@ impl gaxi::prost::ToProto<DynamicRetrievalConfig> for crate::model::DynamicRetri
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::DynamicRetrievalConfig> for DynamicRetrievalConfig {
     fn cnv(self) -> std::result::Result<crate::model::DynamicRetrievalConfig, gaxi::prost::ConvertError> {
         Ok(
@@ -3364,7 +3364,7 @@ impl gaxi::prost::FromProto<crate::model::DynamicRetrievalConfig> for DynamicRet
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<ToolConfig> for crate::model::ToolConfig {
     type Output = ToolConfig;
     fn to_proto(self) -> std::result::Result<ToolConfig, gaxi::prost::ConvertError> {
@@ -3375,7 +3375,7 @@ impl gaxi::prost::ToProto<ToolConfig> for crate::model::ToolConfig {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::ToolConfig> for ToolConfig {
     fn cnv(self) -> std::result::Result<crate::model::ToolConfig, gaxi::prost::ConvertError> {
         Ok(
@@ -3386,7 +3386,7 @@ impl gaxi::prost::FromProto<crate::model::ToolConfig> for ToolConfig {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<function_calling_config::Mode> for crate::model::function_calling_config::Mode {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -3394,7 +3394,7 @@ impl gaxi::prost::ToProto<function_calling_config::Mode> for crate::model::funct
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<FunctionCallingConfig> for crate::model::FunctionCallingConfig {
     type Output = FunctionCallingConfig;
     fn to_proto(self) -> std::result::Result<FunctionCallingConfig, gaxi::prost::ConvertError> {
@@ -3409,7 +3409,7 @@ impl gaxi::prost::ToProto<FunctionCallingConfig> for crate::model::FunctionCalli
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::FunctionCallingConfig> for FunctionCallingConfig {
     fn cnv(self) -> std::result::Result<crate::model::FunctionCallingConfig, gaxi::prost::ConvertError> {
         Ok(
@@ -3422,7 +3422,7 @@ impl gaxi::prost::FromProto<crate::model::FunctionCallingConfig> for FunctionCal
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<RetrievalConfig> for crate::model::RetrievalConfig {
     type Output = RetrievalConfig;
     fn to_proto(self) -> std::result::Result<RetrievalConfig, gaxi::prost::ConvertError> {
@@ -3433,7 +3433,7 @@ impl gaxi::prost::ToProto<RetrievalConfig> for crate::model::RetrievalConfig {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::RetrievalConfig> for RetrievalConfig {
     fn cnv(self) -> std::result::Result<crate::model::RetrievalConfig, gaxi::prost::ConvertError> {
         Ok(
@@ -3444,7 +3444,7 @@ impl gaxi::prost::FromProto<crate::model::RetrievalConfig> for RetrievalConfig {
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<rag_retrieval_config::filter::VectorDbThreshold> for crate::model::rag_retrieval_config::filter::VectorDbThreshold {
     type Output = rag_retrieval_config::filter::VectorDbThreshold;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -3455,7 +3455,7 @@ impl gaxi::prost::ToProto<rag_retrieval_config::filter::VectorDbThreshold> for c
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::filter::VectorDbThreshold> for rag_retrieval_config::filter::VectorDbThreshold {
     fn cnv(self) -> std::result::Result<crate::model::rag_retrieval_config::filter::VectorDbThreshold, gaxi::prost::ConvertError> {
         use crate::model::rag_retrieval_config::filter::VectorDbThreshold as T;
@@ -3466,7 +3466,7 @@ impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::filter::VectorDb
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<rag_retrieval_config::Filter> for crate::model::rag_retrieval_config::Filter {
     type Output = rag_retrieval_config::Filter;
     fn to_proto(self) -> std::result::Result<rag_retrieval_config::Filter, gaxi::prost::ConvertError> {
@@ -3477,7 +3477,7 @@ impl gaxi::prost::ToProto<rag_retrieval_config::Filter> for crate::model::rag_re
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::Filter> for rag_retrieval_config::Filter {
     fn cnv(self) -> std::result::Result<crate::model::rag_retrieval_config::Filter, gaxi::prost::ConvertError> {
         Ok(
@@ -3488,7 +3488,7 @@ impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::Filter> for rag_
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<rag_retrieval_config::ranking::RankService> for crate::model::rag_retrieval_config::ranking::RankService {
     type Output = rag_retrieval_config::ranking::RankService;
     fn to_proto(self) -> std::result::Result<rag_retrieval_config::ranking::RankService, gaxi::prost::ConvertError> {
@@ -3498,7 +3498,7 @@ impl gaxi::prost::ToProto<rag_retrieval_config::ranking::RankService> for crate:
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::ranking::RankService> for rag_retrieval_config::ranking::RankService {
     fn cnv(self) -> std::result::Result<crate::model::rag_retrieval_config::ranking::RankService, gaxi::prost::ConvertError> {
         Ok(
@@ -3508,7 +3508,7 @@ impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::ranking::RankSer
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<rag_retrieval_config::ranking::LlmRanker> for crate::model::rag_retrieval_config::ranking::LlmRanker {
     type Output = rag_retrieval_config::ranking::LlmRanker;
     fn to_proto(self) -> std::result::Result<rag_retrieval_config::ranking::LlmRanker, gaxi::prost::ConvertError> {
@@ -3518,7 +3518,7 @@ impl gaxi::prost::ToProto<rag_retrieval_config::ranking::LlmRanker> for crate::m
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::ranking::LlmRanker> for rag_retrieval_config::ranking::LlmRanker {
     fn cnv(self) -> std::result::Result<crate::model::rag_retrieval_config::ranking::LlmRanker, gaxi::prost::ConvertError> {
         Ok(
@@ -3528,7 +3528,7 @@ impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::ranking::LlmRank
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<rag_retrieval_config::ranking::RankingConfig> for crate::model::rag_retrieval_config::ranking::RankingConfig {
     type Output = rag_retrieval_config::ranking::RankingConfig;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -3539,7 +3539,7 @@ impl gaxi::prost::ToProto<rag_retrieval_config::ranking::RankingConfig> for crat
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::ranking::RankingConfig> for rag_retrieval_config::ranking::RankingConfig {
     fn cnv(self) -> std::result::Result<crate::model::rag_retrieval_config::ranking::RankingConfig, gaxi::prost::ConvertError> {
         use crate::model::rag_retrieval_config::ranking::RankingConfig as T;
@@ -3550,7 +3550,7 @@ impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::ranking::Ranking
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<rag_retrieval_config::Ranking> for crate::model::rag_retrieval_config::Ranking {
     type Output = rag_retrieval_config::Ranking;
     fn to_proto(self) -> std::result::Result<rag_retrieval_config::Ranking, gaxi::prost::ConvertError> {
@@ -3560,7 +3560,7 @@ impl gaxi::prost::ToProto<rag_retrieval_config::Ranking> for crate::model::rag_r
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::Ranking> for rag_retrieval_config::Ranking {
     fn cnv(self) -> std::result::Result<crate::model::rag_retrieval_config::Ranking, gaxi::prost::ConvertError> {
         Ok(
@@ -3570,7 +3570,7 @@ impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::Ranking> for rag
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<RagRetrievalConfig> for crate::model::RagRetrievalConfig {
     type Output = RagRetrievalConfig;
     fn to_proto(self) -> std::result::Result<RagRetrievalConfig, gaxi::prost::ConvertError> {
@@ -3582,7 +3582,7 @@ impl gaxi::prost::ToProto<RagRetrievalConfig> for crate::model::RagRetrievalConf
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "llm-utility-service",feature = "prediction-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::RagRetrievalConfig> for RagRetrievalConfig {
     fn cnv(self) -> std::result::Result<crate::model::RagRetrievalConfig, gaxi::prost::ConvertError> {
         Ok(
@@ -3795,7 +3795,7 @@ impl gaxi::prost::FromProto<crate::model::Tensor> for Tensor {
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<rag_chunk::PageSpan> for crate::model::rag_chunk::PageSpan {
     type Output = rag_chunk::PageSpan;
     fn to_proto(self) -> std::result::Result<rag_chunk::PageSpan, gaxi::prost::ConvertError> {
@@ -3806,7 +3806,7 @@ impl gaxi::prost::ToProto<rag_chunk::PageSpan> for crate::model::rag_chunk::Page
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::rag_chunk::PageSpan> for rag_chunk::PageSpan {
     fn cnv(self) -> std::result::Result<crate::model::rag_chunk::PageSpan, gaxi::prost::ConvertError> {
         Ok(
@@ -3817,7 +3817,7 @@ impl gaxi::prost::FromProto<crate::model::rag_chunk::PageSpan> for rag_chunk::Pa
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<RagChunk> for crate::model::RagChunk {
     type Output = RagChunk;
     fn to_proto(self) -> std::result::Result<RagChunk, gaxi::prost::ConvertError> {
@@ -3828,7 +3828,7 @@ impl gaxi::prost::ToProto<RagChunk> for crate::model::RagChunk {
     }
 }
 
-#[cfg(any ( feature = "prediction-service",feature = "session-service",feature = "vertex-rag-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<crate::model::RagChunk> for RagChunk {
     fn cnv(self) -> std::result::Result<crate::model::RagChunk, gaxi::prost::ConvertError> {
         Ok(
@@ -3886,7 +3886,7 @@ impl gaxi::prost::FromProto<google_cloud_type::model::Date> for crate::prost::go
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::ToProto<crate::prost::google::r#type::LatLng> for google_cloud_type::model::LatLng {
     type Output = crate::prost::google::r#type::LatLng;
     fn to_proto(self) -> std::result::Result<crate::prost::google::r#type::LatLng, gaxi::prost::ConvertError> {
@@ -3897,7 +3897,7 @@ impl gaxi::prost::ToProto<crate::prost::google::r#type::LatLng> for google_cloud
     }
 }
 
-#[cfg(any ( feature = "gen-ai-cache-service",feature = "prediction-service", ) )]
+#[cfg(feature = "prediction-service" )]
 impl gaxi::prost::FromProto<google_cloud_type::model::LatLng> for crate::prost::google::r#type::LatLng {
     fn cnv(self) -> std::result::Result<google_cloud_type::model::LatLng, gaxi::prost::ConvertError> {
         Ok(

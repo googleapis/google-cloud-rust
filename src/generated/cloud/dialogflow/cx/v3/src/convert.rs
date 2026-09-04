@@ -44,7 +44,7 @@ impl gaxi::prost::FromProto<google_cloud_rpc::model::Status> for crate::prost::g
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<AudioEncoding> for crate::model::AudioEncoding {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -52,7 +52,7 @@ impl gaxi::prost::ToProto<AudioEncoding> for crate::model::AudioEncoding {
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<SpeechModelVariant> for crate::model::SpeechModelVariant {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -60,7 +60,7 @@ impl gaxi::prost::ToProto<SpeechModelVariant> for crate::model::SpeechModelVaria
     }
 }
 
-#[cfg(any ( feature = "agents",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<SsmlVoiceGender> for crate::model::SsmlVoiceGender {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -76,7 +76,7 @@ impl gaxi::prost::ToProto<OutputAudioEncoding> for crate::model::OutputAudioEnco
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "sessions",feature = "test-cases",feature = "tools", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<DataStoreType> for crate::model::DataStoreType {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -84,7 +84,7 @@ impl gaxi::prost::ToProto<DataStoreType> for crate::model::DataStoreType {
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "sessions",feature = "test-cases",feature = "tools", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<DocumentProcessingMode> for crate::model::DocumentProcessingMode {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -92,7 +92,7 @@ impl gaxi::prost::ToProto<DocumentProcessingMode> for crate::model::DocumentProc
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "playbooks",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<DataType> for crate::model::DataType {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -108,7 +108,7 @@ impl gaxi::prost::ToProto<DetectIntentResponseView> for crate::model::DetectInte
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<OutputState> for crate::model::OutputState {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -116,7 +116,7 @@ impl gaxi::prost::ToProto<OutputState> for crate::model::OutputState {
     }
 }
 
-#[cfg(any ( feature = "agents",feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<advanced_settings::SpeechSettings> for crate::model::advanced_settings::SpeechSettings {
     type Output = advanced_settings::SpeechSettings;
     fn to_proto(self) -> std::result::Result<advanced_settings::SpeechSettings, gaxi::prost::ConvertError> {
@@ -133,7 +133,7 @@ impl gaxi::prost::ToProto<advanced_settings::SpeechSettings> for crate::model::a
     }
 }
 
-#[cfg(any ( feature = "agents",feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::advanced_settings::SpeechSettings> for advanced_settings::SpeechSettings {
     fn cnv(self) -> std::result::Result<crate::model::advanced_settings::SpeechSettings, gaxi::prost::ConvertError> {
         Ok(
@@ -149,7 +149,7 @@ impl gaxi::prost::FromProto<crate::model::advanced_settings::SpeechSettings> for
     }
 }
 
-#[cfg(any ( feature = "agents",feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<advanced_settings::DtmfSettings> for crate::model::advanced_settings::DtmfSettings {
     type Output = advanced_settings::DtmfSettings;
     fn to_proto(self) -> std::result::Result<advanced_settings::DtmfSettings, gaxi::prost::ConvertError> {
@@ -163,7 +163,7 @@ impl gaxi::prost::ToProto<advanced_settings::DtmfSettings> for crate::model::adv
     }
 }
 
-#[cfg(any ( feature = "agents",feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::advanced_settings::DtmfSettings> for advanced_settings::DtmfSettings {
     fn cnv(self) -> std::result::Result<crate::model::advanced_settings::DtmfSettings, gaxi::prost::ConvertError> {
         Ok(
@@ -177,7 +177,7 @@ impl gaxi::prost::FromProto<crate::model::advanced_settings::DtmfSettings> for a
     }
 }
 
-#[cfg(any ( feature = "agents",feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<advanced_settings::LoggingSettings> for crate::model::advanced_settings::LoggingSettings {
     type Output = advanced_settings::LoggingSettings;
     fn to_proto(self) -> std::result::Result<advanced_settings::LoggingSettings, gaxi::prost::ConvertError> {
@@ -189,7 +189,7 @@ impl gaxi::prost::ToProto<advanced_settings::LoggingSettings> for crate::model::
     }
 }
 
-#[cfg(any ( feature = "agents",feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::advanced_settings::LoggingSettings> for advanced_settings::LoggingSettings {
     fn cnv(self) -> std::result::Result<crate::model::advanced_settings::LoggingSettings, gaxi::prost::ConvertError> {
         Ok(
@@ -201,7 +201,7 @@ impl gaxi::prost::FromProto<crate::model::advanced_settings::LoggingSettings> fo
     }
 }
 
-#[cfg(any ( feature = "agents",feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<AdvancedSettings> for crate::model::AdvancedSettings {
     type Output = AdvancedSettings;
     fn to_proto(self) -> std::result::Result<AdvancedSettings, gaxi::prost::ConvertError> {
@@ -214,7 +214,7 @@ impl gaxi::prost::ToProto<AdvancedSettings> for crate::model::AdvancedSettings {
     }
 }
 
-#[cfg(any ( feature = "agents",feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::AdvancedSettings> for AdvancedSettings {
     fn cnv(self) -> std::result::Result<crate::model::AdvancedSettings, gaxi::prost::ConvertError> {
         Ok(
@@ -253,7 +253,7 @@ impl gaxi::prost::FromProto<crate::model::SpeechWordInfo> for SpeechWordInfo {
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<BargeInConfig> for crate::model::BargeInConfig {
     type Output = BargeInConfig;
     fn to_proto(self) -> std::result::Result<BargeInConfig, gaxi::prost::ConvertError> {
@@ -264,7 +264,7 @@ impl gaxi::prost::ToProto<BargeInConfig> for crate::model::BargeInConfig {
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::BargeInConfig> for BargeInConfig {
     fn cnv(self) -> std::result::Result<crate::model::BargeInConfig, gaxi::prost::ConvertError> {
         Ok(
@@ -275,7 +275,7 @@ impl gaxi::prost::FromProto<crate::model::BargeInConfig> for BargeInConfig {
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<InputAudioConfig> for crate::model::InputAudioConfig {
     type Output = InputAudioConfig;
     fn to_proto(self) -> std::result::Result<InputAudioConfig, gaxi::prost::ConvertError> {
@@ -296,7 +296,7 @@ impl gaxi::prost::ToProto<InputAudioConfig> for crate::model::InputAudioConfig {
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::InputAudioConfig> for InputAudioConfig {
     fn cnv(self) -> std::result::Result<crate::model::InputAudioConfig, gaxi::prost::ConvertError> {
         Ok(
@@ -315,7 +315,7 @@ impl gaxi::prost::FromProto<crate::model::InputAudioConfig> for InputAudioConfig
     }
 }
 
-#[cfg(any ( feature = "agents",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<VoiceSelectionParams> for crate::model::VoiceSelectionParams {
     type Output = VoiceSelectionParams;
     fn to_proto(self) -> std::result::Result<VoiceSelectionParams, gaxi::prost::ConvertError> {
@@ -326,7 +326,7 @@ impl gaxi::prost::ToProto<VoiceSelectionParams> for crate::model::VoiceSelection
     }
 }
 
-#[cfg(any ( feature = "agents",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::VoiceSelectionParams> for VoiceSelectionParams {
     fn cnv(self) -> std::result::Result<crate::model::VoiceSelectionParams, gaxi::prost::ConvertError> {
         Ok(
@@ -337,7 +337,7 @@ impl gaxi::prost::FromProto<crate::model::VoiceSelectionParams> for VoiceSelecti
     }
 }
 
-#[cfg(any ( feature = "agents",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<SynthesizeSpeechConfig> for crate::model::SynthesizeSpeechConfig {
     type Output = SynthesizeSpeechConfig;
     fn to_proto(self) -> std::result::Result<SynthesizeSpeechConfig, gaxi::prost::ConvertError> {
@@ -354,7 +354,7 @@ impl gaxi::prost::ToProto<SynthesizeSpeechConfig> for crate::model::SynthesizeSp
     }
 }
 
-#[cfg(any ( feature = "agents",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::SynthesizeSpeechConfig> for SynthesizeSpeechConfig {
     fn cnv(self) -> std::result::Result<crate::model::SynthesizeSpeechConfig, gaxi::prost::ConvertError> {
         Ok(
@@ -393,7 +393,7 @@ impl gaxi::prost::FromProto<crate::model::OutputAudioConfig> for OutputAudioConf
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "sessions",feature = "test-cases",feature = "tools", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<DataStoreConnection> for crate::model::DataStoreConnection {
     type Output = DataStoreConnection;
     fn to_proto(self) -> std::result::Result<DataStoreConnection, gaxi::prost::ConvertError> {
@@ -405,7 +405,7 @@ impl gaxi::prost::ToProto<DataStoreConnection> for crate::model::DataStoreConnec
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "sessions",feature = "test-cases",feature = "tools", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::DataStoreConnection> for DataStoreConnection {
     fn cnv(self) -> std::result::Result<crate::model::DataStoreConnection, gaxi::prost::ConvertError> {
         Ok(
@@ -665,7 +665,7 @@ impl gaxi::prost::FromProto<crate::model::DataStoreConnectionSignals> for DataSt
     }
 }
 
-#[cfg(any ( feature = "entity-types",feature = "session-entity-types",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<entity_type::Entity> for crate::model::entity_type::Entity {
     type Output = entity_type::Entity;
     fn to_proto(self) -> std::result::Result<entity_type::Entity, gaxi::prost::ConvertError> {
@@ -679,7 +679,7 @@ impl gaxi::prost::ToProto<entity_type::Entity> for crate::model::entity_type::En
     }
 }
 
-#[cfg(any ( feature = "entity-types",feature = "session-entity-types",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::entity_type::Entity> for entity_type::Entity {
     fn cnv(self) -> std::result::Result<crate::model::entity_type::Entity, gaxi::prost::ConvertError> {
         Ok(
@@ -691,7 +691,7 @@ impl gaxi::prost::FromProto<crate::model::entity_type::Entity> for entity_type::
     }
 }
 
-#[cfg(any ( feature = "entity-types",feature = "session-entity-types",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<entity_type::ExcludedPhrase> for crate::model::entity_type::ExcludedPhrase {
     type Output = entity_type::ExcludedPhrase;
     fn to_proto(self) -> std::result::Result<entity_type::ExcludedPhrase, gaxi::prost::ConvertError> {
@@ -701,7 +701,7 @@ impl gaxi::prost::ToProto<entity_type::ExcludedPhrase> for crate::model::entity_
     }
 }
 
-#[cfg(any ( feature = "entity-types",feature = "session-entity-types",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::entity_type::ExcludedPhrase> for entity_type::ExcludedPhrase {
     fn cnv(self) -> std::result::Result<crate::model::entity_type::ExcludedPhrase, gaxi::prost::ConvertError> {
         Ok(
@@ -711,7 +711,7 @@ impl gaxi::prost::FromProto<crate::model::entity_type::ExcludedPhrase> for entit
     }
 }
 
-#[cfg(any ( feature = "entity-types",feature = "session-entity-types",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<entity_type::Kind> for crate::model::entity_type::Kind {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -719,7 +719,7 @@ impl gaxi::prost::ToProto<entity_type::Kind> for crate::model::entity_type::Kind
     }
 }
 
-#[cfg(any ( feature = "entity-types",feature = "session-entity-types",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<entity_type::AutoExpansionMode> for crate::model::entity_type::AutoExpansionMode {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -727,7 +727,7 @@ impl gaxi::prost::ToProto<entity_type::AutoExpansionMode> for crate::model::enti
     }
 }
 
-#[cfg(any ( feature = "entity-types",feature = "session-entity-types",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<EntityType> for crate::model::EntityType {
     type Output = EntityType;
     fn to_proto(self) -> std::result::Result<EntityType, gaxi::prost::ConvertError> {
@@ -750,7 +750,7 @@ impl gaxi::prost::ToProto<EntityType> for crate::model::EntityType {
     }
 }
 
-#[cfg(any ( feature = "entity-types",feature = "session-entity-types",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::EntityType> for EntityType {
     fn cnv(self) -> std::result::Result<crate::model::EntityType, gaxi::prost::ConvertError> {
         Ok(
@@ -769,7 +769,7 @@ impl gaxi::prost::FromProto<crate::model::EntityType> for EntityType {
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "sessions",feature = "test-cases",feature = "versions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<nlu_settings::ModelType> for crate::model::nlu_settings::ModelType {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -777,7 +777,7 @@ impl gaxi::prost::ToProto<nlu_settings::ModelType> for crate::model::nlu_setting
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "sessions",feature = "test-cases",feature = "versions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<nlu_settings::ModelTrainingMode> for crate::model::nlu_settings::ModelTrainingMode {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -785,7 +785,7 @@ impl gaxi::prost::ToProto<nlu_settings::ModelTrainingMode> for crate::model::nlu
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "sessions",feature = "test-cases",feature = "versions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<NluSettings> for crate::model::NluSettings {
     type Output = NluSettings;
     fn to_proto(self) -> std::result::Result<NluSettings, gaxi::prost::ConvertError> {
@@ -797,7 +797,7 @@ impl gaxi::prost::ToProto<NluSettings> for crate::model::NluSettings {
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "sessions",feature = "test-cases",feature = "versions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::NluSettings> for NluSettings {
     fn cnv(self) -> std::result::Result<crate::model::NluSettings, gaxi::prost::ConvertError> {
         Ok(
@@ -809,7 +809,7 @@ impl gaxi::prost::FromProto<crate::model::NluSettings> for NluSettings {
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<flow::MultiLanguageSettings> for crate::model::flow::MultiLanguageSettings {
     type Output = flow::MultiLanguageSettings;
     fn to_proto(self) -> std::result::Result<flow::MultiLanguageSettings, gaxi::prost::ConvertError> {
@@ -823,7 +823,7 @@ impl gaxi::prost::ToProto<flow::MultiLanguageSettings> for crate::model::flow::M
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::flow::MultiLanguageSettings> for flow::MultiLanguageSettings {
     fn cnv(self) -> std::result::Result<crate::model::flow::MultiLanguageSettings, gaxi::prost::ConvertError> {
         Ok(
@@ -835,7 +835,7 @@ impl gaxi::prost::FromProto<crate::model::flow::MultiLanguageSettings> for flow:
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<Flow> for crate::model::Flow {
     type Output = Flow;
     fn to_proto(self) -> std::result::Result<Flow, gaxi::prost::ConvertError> {
@@ -872,7 +872,7 @@ impl gaxi::prost::ToProto<Flow> for crate::model::Flow {
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::Flow> for Flow {
     fn cnv(self) -> std::result::Result<crate::model::Flow, gaxi::prost::ConvertError> {
         Ok(
@@ -899,7 +899,7 @@ impl gaxi::prost::FromProto<crate::model::Flow> for Flow {
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<fulfillment::SetParameterAction> for crate::model::fulfillment::SetParameterAction {
     type Output = fulfillment::SetParameterAction;
     fn to_proto(self) -> std::result::Result<fulfillment::SetParameterAction, gaxi::prost::ConvertError> {
@@ -910,7 +910,7 @@ impl gaxi::prost::ToProto<fulfillment::SetParameterAction> for crate::model::ful
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::fulfillment::SetParameterAction> for fulfillment::SetParameterAction {
     fn cnv(self) -> std::result::Result<crate::model::fulfillment::SetParameterAction, gaxi::prost::ConvertError> {
         Ok(
@@ -921,7 +921,7 @@ impl gaxi::prost::FromProto<crate::model::fulfillment::SetParameterAction> for f
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<fulfillment::conditional_cases::case::case_content::CasesOrMessage> for crate::model::fulfillment::conditional_cases::case::case_content::CasesOrMessage {
     type Output = fulfillment::conditional_cases::case::case_content::CasesOrMessage;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -932,7 +932,7 @@ impl gaxi::prost::ToProto<fulfillment::conditional_cases::case::case_content::Ca
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::fulfillment::conditional_cases::case::case_content::CasesOrMessage> for fulfillment::conditional_cases::case::case_content::CasesOrMessage {
     fn cnv(self) -> std::result::Result<crate::model::fulfillment::conditional_cases::case::case_content::CasesOrMessage, gaxi::prost::ConvertError> {
         use crate::model::fulfillment::conditional_cases::case::case_content::CasesOrMessage as T;
@@ -943,7 +943,7 @@ impl gaxi::prost::FromProto<crate::model::fulfillment::conditional_cases::case::
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<fulfillment::conditional_cases::case::CaseContent> for crate::model::fulfillment::conditional_cases::case::CaseContent {
     type Output = fulfillment::conditional_cases::case::CaseContent;
     fn to_proto(self) -> std::result::Result<fulfillment::conditional_cases::case::CaseContent, gaxi::prost::ConvertError> {
@@ -953,7 +953,7 @@ impl gaxi::prost::ToProto<fulfillment::conditional_cases::case::CaseContent> for
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::fulfillment::conditional_cases::case::CaseContent> for fulfillment::conditional_cases::case::CaseContent {
     fn cnv(self) -> std::result::Result<crate::model::fulfillment::conditional_cases::case::CaseContent, gaxi::prost::ConvertError> {
         Ok(
@@ -963,7 +963,7 @@ impl gaxi::prost::FromProto<crate::model::fulfillment::conditional_cases::case::
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<fulfillment::conditional_cases::Case> for crate::model::fulfillment::conditional_cases::Case {
     type Output = fulfillment::conditional_cases::Case;
     fn to_proto(self) -> std::result::Result<fulfillment::conditional_cases::Case, gaxi::prost::ConvertError> {
@@ -977,7 +977,7 @@ impl gaxi::prost::ToProto<fulfillment::conditional_cases::Case> for crate::model
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::fulfillment::conditional_cases::Case> for fulfillment::conditional_cases::Case {
     fn cnv(self) -> std::result::Result<crate::model::fulfillment::conditional_cases::Case, gaxi::prost::ConvertError> {
         Ok(
@@ -989,7 +989,7 @@ impl gaxi::prost::FromProto<crate::model::fulfillment::conditional_cases::Case> 
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<fulfillment::ConditionalCases> for crate::model::fulfillment::ConditionalCases {
     type Output = fulfillment::ConditionalCases;
     fn to_proto(self) -> std::result::Result<fulfillment::ConditionalCases, gaxi::prost::ConvertError> {
@@ -1002,7 +1002,7 @@ impl gaxi::prost::ToProto<fulfillment::ConditionalCases> for crate::model::fulfi
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::fulfillment::ConditionalCases> for fulfillment::ConditionalCases {
     fn cnv(self) -> std::result::Result<crate::model::fulfillment::ConditionalCases, gaxi::prost::ConvertError> {
         Ok(
@@ -1013,7 +1013,7 @@ impl gaxi::prost::FromProto<crate::model::fulfillment::ConditionalCases> for ful
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<fulfillment::GeneratorSettings> for crate::model::fulfillment::GeneratorSettings {
     type Output = fulfillment::GeneratorSettings;
     fn to_proto(self) -> std::result::Result<fulfillment::GeneratorSettings, gaxi::prost::ConvertError> {
@@ -1029,7 +1029,7 @@ impl gaxi::prost::ToProto<fulfillment::GeneratorSettings> for crate::model::fulf
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::fulfillment::GeneratorSettings> for fulfillment::GeneratorSettings {
     fn cnv(self) -> std::result::Result<crate::model::fulfillment::GeneratorSettings, gaxi::prost::ConvertError> {
         Ok(
@@ -1044,7 +1044,7 @@ impl gaxi::prost::FromProto<crate::model::fulfillment::GeneratorSettings> for fu
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<Fulfillment> for crate::model::Fulfillment {
     type Output = Fulfillment;
     fn to_proto(self) -> std::result::Result<Fulfillment, gaxi::prost::ConvertError> {
@@ -1074,7 +1074,7 @@ impl gaxi::prost::ToProto<Fulfillment> for crate::model::Fulfillment {
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::Fulfillment> for Fulfillment {
     fn cnv(self) -> std::result::Result<crate::model::Fulfillment, gaxi::prost::ConvertError> {
         Ok(
@@ -1096,7 +1096,7 @@ impl gaxi::prost::FromProto<crate::model::Fulfillment> for Fulfillment {
     }
 }
 
-#[cfg(any ( feature = "agents",feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<GcsDestination> for crate::model::GcsDestination {
     type Output = GcsDestination;
     fn to_proto(self) -> std::result::Result<GcsDestination, gaxi::prost::ConvertError> {
@@ -1106,7 +1106,7 @@ impl gaxi::prost::ToProto<GcsDestination> for crate::model::GcsDestination {
     }
 }
 
-#[cfg(any ( feature = "agents",feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::GcsDestination> for GcsDestination {
     fn cnv(self) -> std::result::Result<crate::model::GcsDestination, gaxi::prost::ConvertError> {
         Ok(
@@ -1116,7 +1116,7 @@ impl gaxi::prost::FromProto<crate::model::GcsDestination> for GcsDestination {
     }
 }
 
-#[cfg(any ( feature = "agents",feature = "generators",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<LlmModelSettings> for crate::model::LlmModelSettings {
     type Output = LlmModelSettings;
     fn to_proto(self) -> std::result::Result<LlmModelSettings, gaxi::prost::ConvertError> {
@@ -1127,7 +1127,7 @@ impl gaxi::prost::ToProto<LlmModelSettings> for crate::model::LlmModelSettings {
     }
 }
 
-#[cfg(any ( feature = "agents",feature = "generators",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::LlmModelSettings> for LlmModelSettings {
     fn cnv(self) -> std::result::Result<crate::model::LlmModelSettings, gaxi::prost::ConvertError> {
         Ok(
@@ -1138,7 +1138,7 @@ impl gaxi::prost::FromProto<crate::model::LlmModelSettings> for LlmModelSettings
     }
 }
 
-#[cfg(any ( feature = "intents",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<intent::training_phrase::Part> for crate::model::intent::training_phrase::Part {
     type Output = intent::training_phrase::Part;
     fn to_proto(self) -> std::result::Result<intent::training_phrase::Part, gaxi::prost::ConvertError> {
@@ -1149,7 +1149,7 @@ impl gaxi::prost::ToProto<intent::training_phrase::Part> for crate::model::inten
     }
 }
 
-#[cfg(any ( feature = "intents",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::intent::training_phrase::Part> for intent::training_phrase::Part {
     fn cnv(self) -> std::result::Result<crate::model::intent::training_phrase::Part, gaxi::prost::ConvertError> {
         Ok(
@@ -1160,7 +1160,7 @@ impl gaxi::prost::FromProto<crate::model::intent::training_phrase::Part> for int
     }
 }
 
-#[cfg(any ( feature = "intents",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<intent::TrainingPhrase> for crate::model::intent::TrainingPhrase {
     type Output = intent::TrainingPhrase;
     fn to_proto(self) -> std::result::Result<intent::TrainingPhrase, gaxi::prost::ConvertError> {
@@ -1175,7 +1175,7 @@ impl gaxi::prost::ToProto<intent::TrainingPhrase> for crate::model::intent::Trai
     }
 }
 
-#[cfg(any ( feature = "intents",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::intent::TrainingPhrase> for intent::TrainingPhrase {
     fn cnv(self) -> std::result::Result<crate::model::intent::TrainingPhrase, gaxi::prost::ConvertError> {
         Ok(
@@ -1188,7 +1188,7 @@ impl gaxi::prost::FromProto<crate::model::intent::TrainingPhrase> for intent::Tr
     }
 }
 
-#[cfg(any ( feature = "intents",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<intent::Parameter> for crate::model::intent::Parameter {
     type Output = intent::Parameter;
     fn to_proto(self) -> std::result::Result<intent::Parameter, gaxi::prost::ConvertError> {
@@ -1201,7 +1201,7 @@ impl gaxi::prost::ToProto<intent::Parameter> for crate::model::intent::Parameter
     }
 }
 
-#[cfg(any ( feature = "intents",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::intent::Parameter> for intent::Parameter {
     fn cnv(self) -> std::result::Result<crate::model::intent::Parameter, gaxi::prost::ConvertError> {
         Ok(
@@ -1214,7 +1214,7 @@ impl gaxi::prost::FromProto<crate::model::intent::Parameter> for intent::Paramet
     }
 }
 
-#[cfg(any ( feature = "intents",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<Intent> for crate::model::Intent {
     type Output = Intent;
     fn to_proto(self) -> std::result::Result<Intent, gaxi::prost::ConvertError> {
@@ -1242,7 +1242,7 @@ impl gaxi::prost::ToProto<Intent> for crate::model::Intent {
     }
 }
 
-#[cfg(any ( feature = "intents",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::Intent> for Intent {
     fn cnv(self) -> std::result::Result<crate::model::Intent, gaxi::prost::ConvertError> {
         Ok(
@@ -1265,7 +1265,7 @@ impl gaxi::prost::FromProto<crate::model::Intent> for Intent {
     }
 }
 
-#[cfg(any ( feature = "pages",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<Page> for crate::model::Page {
     type Output = Page;
     fn to_proto(self) -> std::result::Result<Page, gaxi::prost::ConvertError> {
@@ -1293,7 +1293,7 @@ impl gaxi::prost::ToProto<Page> for crate::model::Page {
     }
 }
 
-#[cfg(any ( feature = "pages",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::Page> for Page {
     fn cnv(self) -> std::result::Result<crate::model::Page, gaxi::prost::ConvertError> {
         Ok(
@@ -1315,7 +1315,7 @@ impl gaxi::prost::FromProto<crate::model::Page> for Page {
     }
 }
 
-#[cfg(any ( feature = "pages",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<form::parameter::FillBehavior> for crate::model::form::parameter::FillBehavior {
     type Output = form::parameter::FillBehavior;
     fn to_proto(self) -> std::result::Result<form::parameter::FillBehavior, gaxi::prost::ConvertError> {
@@ -1329,7 +1329,7 @@ impl gaxi::prost::ToProto<form::parameter::FillBehavior> for crate::model::form:
     }
 }
 
-#[cfg(any ( feature = "pages",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::form::parameter::FillBehavior> for form::parameter::FillBehavior {
     fn cnv(self) -> std::result::Result<crate::model::form::parameter::FillBehavior, gaxi::prost::ConvertError> {
         Ok(
@@ -1341,7 +1341,7 @@ impl gaxi::prost::FromProto<crate::model::form::parameter::FillBehavior> for for
     }
 }
 
-#[cfg(any ( feature = "pages",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<form::Parameter> for crate::model::form::Parameter {
     type Output = form::Parameter;
     fn to_proto(self) -> std::result::Result<form::Parameter, gaxi::prost::ConvertError> {
@@ -1358,7 +1358,7 @@ impl gaxi::prost::ToProto<form::Parameter> for crate::model::form::Parameter {
     }
 }
 
-#[cfg(any ( feature = "pages",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::form::Parameter> for form::Parameter {
     fn cnv(self) -> std::result::Result<crate::model::form::Parameter, gaxi::prost::ConvertError> {
         Ok(
@@ -1375,7 +1375,7 @@ impl gaxi::prost::FromProto<crate::model::form::Parameter> for form::Parameter {
     }
 }
 
-#[cfg(any ( feature = "pages",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<Form> for crate::model::Form {
     type Output = Form;
     fn to_proto(self) -> std::result::Result<Form, gaxi::prost::ConvertError> {
@@ -1388,7 +1388,7 @@ impl gaxi::prost::ToProto<Form> for crate::model::Form {
     }
 }
 
-#[cfg(any ( feature = "pages",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::Form> for Form {
     fn cnv(self) -> std::result::Result<crate::model::Form, gaxi::prost::ConvertError> {
         Ok(
@@ -1399,7 +1399,7 @@ impl gaxi::prost::FromProto<crate::model::Form> for Form {
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<event_handler::Target> for crate::model::event_handler::Target {
     type Output = event_handler::Target;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -1411,7 +1411,7 @@ impl gaxi::prost::ToProto<event_handler::Target> for crate::model::event_handler
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::event_handler::Target> for event_handler::Target {
     fn cnv(self) -> std::result::Result<crate::model::event_handler::Target, gaxi::prost::ConvertError> {
         use crate::model::event_handler::Target as T;
@@ -1423,7 +1423,7 @@ impl gaxi::prost::FromProto<crate::model::event_handler::Target> for event_handl
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<EventHandler> for crate::model::EventHandler {
     type Output = EventHandler;
     fn to_proto(self) -> std::result::Result<EventHandler, gaxi::prost::ConvertError> {
@@ -1436,7 +1436,7 @@ impl gaxi::prost::ToProto<EventHandler> for crate::model::EventHandler {
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::EventHandler> for EventHandler {
     fn cnv(self) -> std::result::Result<crate::model::EventHandler, gaxi::prost::ConvertError> {
         Ok(
@@ -1449,7 +1449,7 @@ impl gaxi::prost::FromProto<crate::model::EventHandler> for EventHandler {
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<transition_route::Target> for crate::model::transition_route::Target {
     type Output = transition_route::Target;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -1460,7 +1460,7 @@ impl gaxi::prost::ToProto<transition_route::Target> for crate::model::transition
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::transition_route::Target> for transition_route::Target {
     fn cnv(self) -> std::result::Result<crate::model::transition_route::Target, gaxi::prost::ConvertError> {
         use crate::model::transition_route::Target as T;
@@ -1471,7 +1471,7 @@ impl gaxi::prost::FromProto<crate::model::transition_route::Target> for transiti
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<TransitionRoute> for crate::model::TransitionRoute {
     type Output = TransitionRoute;
     fn to_proto(self) -> std::result::Result<TransitionRoute, gaxi::prost::ConvertError> {
@@ -1486,7 +1486,7 @@ impl gaxi::prost::ToProto<TransitionRoute> for crate::model::TransitionRoute {
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::TransitionRoute> for TransitionRoute {
     fn cnv(self) -> std::result::Result<crate::model::TransitionRoute, gaxi::prost::ConvertError> {
         Ok(
@@ -1501,7 +1501,7 @@ impl gaxi::prost::FromProto<crate::model::TransitionRoute> for TransitionRoute {
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<knowledge_connector_settings::Target> for crate::model::knowledge_connector_settings::Target {
     type Output = knowledge_connector_settings::Target;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -1512,7 +1512,7 @@ impl gaxi::prost::ToProto<knowledge_connector_settings::Target> for crate::model
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::knowledge_connector_settings::Target> for knowledge_connector_settings::Target {
     fn cnv(self) -> std::result::Result<crate::model::knowledge_connector_settings::Target, gaxi::prost::ConvertError> {
         use crate::model::knowledge_connector_settings::Target as T;
@@ -1523,7 +1523,7 @@ impl gaxi::prost::FromProto<crate::model::knowledge_connector_settings::Target> 
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<KnowledgeConnectorSettings> for crate::model::KnowledgeConnectorSettings {
     type Output = KnowledgeConnectorSettings;
     fn to_proto(self) -> std::result::Result<KnowledgeConnectorSettings, gaxi::prost::ConvertError> {
@@ -1539,7 +1539,7 @@ impl gaxi::prost::ToProto<KnowledgeConnectorSettings> for crate::model::Knowledg
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::KnowledgeConnectorSettings> for KnowledgeConnectorSettings {
     fn cnv(self) -> std::result::Result<crate::model::KnowledgeConnectorSettings, gaxi::prost::ConvertError> {
         Ok(
@@ -1553,7 +1553,7 @@ impl gaxi::prost::FromProto<crate::model::KnowledgeConnectorSettings> for Knowle
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "playbooks",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<parameter_definition::ParameterType> for crate::model::parameter_definition::ParameterType {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -1561,7 +1561,7 @@ impl gaxi::prost::ToProto<parameter_definition::ParameterType> for crate::model:
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "playbooks",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<ParameterDefinition> for crate::model::ParameterDefinition {
     type Output = ParameterDefinition;
     fn to_proto(self) -> std::result::Result<ParameterDefinition, gaxi::prost::ConvertError> {
@@ -1574,7 +1574,7 @@ impl gaxi::prost::ToProto<ParameterDefinition> for crate::model::ParameterDefini
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "playbooks",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::ParameterDefinition> for ParameterDefinition {
     fn cnv(self) -> std::result::Result<crate::model::ParameterDefinition, gaxi::prost::ConvertError> {
         Ok(
@@ -1587,7 +1587,7 @@ impl gaxi::prost::FromProto<crate::model::ParameterDefinition> for ParameterDefi
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "playbooks",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<type_schema::SchemaReference> for crate::model::type_schema::SchemaReference {
     type Output = type_schema::SchemaReference;
     fn to_proto(self) -> std::result::Result<type_schema::SchemaReference, gaxi::prost::ConvertError> {
@@ -1598,7 +1598,7 @@ impl gaxi::prost::ToProto<type_schema::SchemaReference> for crate::model::type_s
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "playbooks",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::type_schema::SchemaReference> for type_schema::SchemaReference {
     fn cnv(self) -> std::result::Result<crate::model::type_schema::SchemaReference, gaxi::prost::ConvertError> {
         Ok(
@@ -1609,7 +1609,7 @@ impl gaxi::prost::FromProto<crate::model::type_schema::SchemaReference> for type
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "playbooks",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<type_schema::Schema> for crate::model::type_schema::Schema {
     type Output = type_schema::Schema;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -1620,7 +1620,7 @@ impl gaxi::prost::ToProto<type_schema::Schema> for crate::model::type_schema::Sc
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "playbooks",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::type_schema::Schema> for type_schema::Schema {
     fn cnv(self) -> std::result::Result<crate::model::type_schema::Schema, gaxi::prost::ConvertError> {
         use crate::model::type_schema::Schema as T;
@@ -1631,7 +1631,7 @@ impl gaxi::prost::FromProto<crate::model::type_schema::Schema> for type_schema::
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "playbooks",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<TypeSchema> for crate::model::TypeSchema {
     type Output = TypeSchema;
     fn to_proto(self) -> std::result::Result<TypeSchema, gaxi::prost::ConvertError> {
@@ -1641,7 +1641,7 @@ impl gaxi::prost::ToProto<TypeSchema> for crate::model::TypeSchema {
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "playbooks",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::TypeSchema> for TypeSchema {
     fn cnv(self) -> std::result::Result<crate::model::TypeSchema, gaxi::prost::ConvertError> {
         Ok(
@@ -1651,7 +1651,7 @@ impl gaxi::prost::FromProto<crate::model::TypeSchema> for TypeSchema {
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "playbooks",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<InlineSchema> for crate::model::InlineSchema {
     type Output = InlineSchema;
     fn to_proto(self) -> std::result::Result<InlineSchema, gaxi::prost::ConvertError> {
@@ -1662,7 +1662,7 @@ impl gaxi::prost::ToProto<InlineSchema> for crate::model::InlineSchema {
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "playbooks",feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::InlineSchema> for InlineSchema {
     fn cnv(self) -> std::result::Result<crate::model::InlineSchema, gaxi::prost::ConvertError> {
         Ok(
@@ -1673,7 +1673,7 @@ impl gaxi::prost::FromProto<crate::model::InlineSchema> for InlineSchema {
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<response_message::Text> for crate::model::response_message::Text {
     type Output = response_message::Text;
     fn to_proto(self) -> std::result::Result<response_message::Text, gaxi::prost::ConvertError> {
@@ -1687,7 +1687,7 @@ impl gaxi::prost::ToProto<response_message::Text> for crate::model::response_mes
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::response_message::Text> for response_message::Text {
     fn cnv(self) -> std::result::Result<crate::model::response_message::Text, gaxi::prost::ConvertError> {
         Ok(
@@ -1699,7 +1699,7 @@ impl gaxi::prost::FromProto<crate::model::response_message::Text> for response_m
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<response_message::LiveAgentHandoff> for crate::model::response_message::LiveAgentHandoff {
     type Output = response_message::LiveAgentHandoff;
     fn to_proto(self) -> std::result::Result<response_message::LiveAgentHandoff, gaxi::prost::ConvertError> {
@@ -1709,7 +1709,7 @@ impl gaxi::prost::ToProto<response_message::LiveAgentHandoff> for crate::model::
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::response_message::LiveAgentHandoff> for response_message::LiveAgentHandoff {
     fn cnv(self) -> std::result::Result<crate::model::response_message::LiveAgentHandoff, gaxi::prost::ConvertError> {
         Ok(
@@ -1719,7 +1719,7 @@ impl gaxi::prost::FromProto<crate::model::response_message::LiveAgentHandoff> fo
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<response_message::ConversationSuccess> for crate::model::response_message::ConversationSuccess {
     type Output = response_message::ConversationSuccess;
     fn to_proto(self) -> std::result::Result<response_message::ConversationSuccess, gaxi::prost::ConvertError> {
@@ -1729,7 +1729,7 @@ impl gaxi::prost::ToProto<response_message::ConversationSuccess> for crate::mode
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::response_message::ConversationSuccess> for response_message::ConversationSuccess {
     fn cnv(self) -> std::result::Result<crate::model::response_message::ConversationSuccess, gaxi::prost::ConvertError> {
         Ok(
@@ -1739,7 +1739,7 @@ impl gaxi::prost::FromProto<crate::model::response_message::ConversationSuccess>
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<response_message::output_audio_text::Source> for crate::model::response_message::output_audio_text::Source {
     type Output = response_message::output_audio_text::Source;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -1750,7 +1750,7 @@ impl gaxi::prost::ToProto<response_message::output_audio_text::Source> for crate
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::response_message::output_audio_text::Source> for response_message::output_audio_text::Source {
     fn cnv(self) -> std::result::Result<crate::model::response_message::output_audio_text::Source, gaxi::prost::ConvertError> {
         use crate::model::response_message::output_audio_text::Source as T;
@@ -1761,7 +1761,7 @@ impl gaxi::prost::FromProto<crate::model::response_message::output_audio_text::S
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<response_message::OutputAudioText> for crate::model::response_message::OutputAudioText {
     type Output = response_message::OutputAudioText;
     fn to_proto(self) -> std::result::Result<response_message::OutputAudioText, gaxi::prost::ConvertError> {
@@ -1772,7 +1772,7 @@ impl gaxi::prost::ToProto<response_message::OutputAudioText> for crate::model::r
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::response_message::OutputAudioText> for response_message::OutputAudioText {
     fn cnv(self) -> std::result::Result<crate::model::response_message::OutputAudioText, gaxi::prost::ConvertError> {
         Ok(
@@ -1783,7 +1783,7 @@ impl gaxi::prost::FromProto<crate::model::response_message::OutputAudioText> for
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<response_message::EndInteraction> for crate::model::response_message::EndInteraction {
     type Output = response_message::EndInteraction;
     fn to_proto(self) -> std::result::Result<response_message::EndInteraction, gaxi::prost::ConvertError> {
@@ -1792,7 +1792,7 @@ impl gaxi::prost::ToProto<response_message::EndInteraction> for crate::model::re
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::response_message::EndInteraction> for response_message::EndInteraction {
     fn cnv(self) -> std::result::Result<crate::model::response_message::EndInteraction, gaxi::prost::ConvertError> {
         Ok(
@@ -1801,7 +1801,7 @@ impl gaxi::prost::FromProto<crate::model::response_message::EndInteraction> for 
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<response_message::PlayAudio> for crate::model::response_message::PlayAudio {
     type Output = response_message::PlayAudio;
     fn to_proto(self) -> std::result::Result<response_message::PlayAudio, gaxi::prost::ConvertError> {
@@ -1812,7 +1812,7 @@ impl gaxi::prost::ToProto<response_message::PlayAudio> for crate::model::respons
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::response_message::PlayAudio> for response_message::PlayAudio {
     fn cnv(self) -> std::result::Result<crate::model::response_message::PlayAudio, gaxi::prost::ConvertError> {
         Ok(
@@ -1823,7 +1823,7 @@ impl gaxi::prost::FromProto<crate::model::response_message::PlayAudio> for respo
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<response_message::mixed_audio::segment::Content> for crate::model::response_message::mixed_audio::segment::Content {
     type Output = response_message::mixed_audio::segment::Content;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -1834,7 +1834,7 @@ impl gaxi::prost::ToProto<response_message::mixed_audio::segment::Content> for c
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::response_message::mixed_audio::segment::Content> for response_message::mixed_audio::segment::Content {
     fn cnv(self) -> std::result::Result<crate::model::response_message::mixed_audio::segment::Content, gaxi::prost::ConvertError> {
         use crate::model::response_message::mixed_audio::segment::Content as T;
@@ -1845,7 +1845,7 @@ impl gaxi::prost::FromProto<crate::model::response_message::mixed_audio::segment
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<response_message::mixed_audio::Segment> for crate::model::response_message::mixed_audio::Segment {
     type Output = response_message::mixed_audio::Segment;
     fn to_proto(self) -> std::result::Result<response_message::mixed_audio::Segment, gaxi::prost::ConvertError> {
@@ -1856,7 +1856,7 @@ impl gaxi::prost::ToProto<response_message::mixed_audio::Segment> for crate::mod
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::response_message::mixed_audio::Segment> for response_message::mixed_audio::Segment {
     fn cnv(self) -> std::result::Result<crate::model::response_message::mixed_audio::Segment, gaxi::prost::ConvertError> {
         Ok(
@@ -1867,7 +1867,7 @@ impl gaxi::prost::FromProto<crate::model::response_message::mixed_audio::Segment
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<response_message::MixedAudio> for crate::model::response_message::MixedAudio {
     type Output = response_message::MixedAudio;
     fn to_proto(self) -> std::result::Result<response_message::MixedAudio, gaxi::prost::ConvertError> {
@@ -1880,7 +1880,7 @@ impl gaxi::prost::ToProto<response_message::MixedAudio> for crate::model::respon
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::response_message::MixedAudio> for response_message::MixedAudio {
     fn cnv(self) -> std::result::Result<crate::model::response_message::MixedAudio, gaxi::prost::ConvertError> {
         Ok(
@@ -1891,7 +1891,7 @@ impl gaxi::prost::FromProto<crate::model::response_message::MixedAudio> for resp
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<response_message::telephony_transfer_call::Endpoint> for crate::model::response_message::telephony_transfer_call::Endpoint {
     type Output = response_message::telephony_transfer_call::Endpoint;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -1901,7 +1901,7 @@ impl gaxi::prost::ToProto<response_message::telephony_transfer_call::Endpoint> f
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::response_message::telephony_transfer_call::Endpoint> for response_message::telephony_transfer_call::Endpoint {
     fn cnv(self) -> std::result::Result<crate::model::response_message::telephony_transfer_call::Endpoint, gaxi::prost::ConvertError> {
         use crate::model::response_message::telephony_transfer_call::Endpoint as T;
@@ -1911,7 +1911,7 @@ impl gaxi::prost::FromProto<crate::model::response_message::telephony_transfer_c
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<response_message::TelephonyTransferCall> for crate::model::response_message::TelephonyTransferCall {
     type Output = response_message::TelephonyTransferCall;
     fn to_proto(self) -> std::result::Result<response_message::TelephonyTransferCall, gaxi::prost::ConvertError> {
@@ -1921,7 +1921,7 @@ impl gaxi::prost::ToProto<response_message::TelephonyTransferCall> for crate::mo
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::response_message::TelephonyTransferCall> for response_message::TelephonyTransferCall {
     fn cnv(self) -> std::result::Result<crate::model::response_message::TelephonyTransferCall, gaxi::prost::ConvertError> {
         Ok(
@@ -1931,7 +1931,7 @@ impl gaxi::prost::FromProto<crate::model::response_message::TelephonyTransferCal
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<response_message::KnowledgeInfoCard> for crate::model::response_message::KnowledgeInfoCard {
     type Output = response_message::KnowledgeInfoCard;
     fn to_proto(self) -> std::result::Result<response_message::KnowledgeInfoCard, gaxi::prost::ConvertError> {
@@ -1940,7 +1940,7 @@ impl gaxi::prost::ToProto<response_message::KnowledgeInfoCard> for crate::model:
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::response_message::KnowledgeInfoCard> for response_message::KnowledgeInfoCard {
     fn cnv(self) -> std::result::Result<crate::model::response_message::KnowledgeInfoCard, gaxi::prost::ConvertError> {
         Ok(
@@ -1949,7 +1949,7 @@ impl gaxi::prost::FromProto<crate::model::response_message::KnowledgeInfoCard> f
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<response_message::ResponseType> for crate::model::response_message::ResponseType {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -1957,7 +1957,7 @@ impl gaxi::prost::ToProto<response_message::ResponseType> for crate::model::resp
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<response_message::Message> for crate::model::response_message::Message {
     type Output = response_message::Message;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -1977,7 +1977,7 @@ impl gaxi::prost::ToProto<response_message::Message> for crate::model::response_
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::response_message::Message> for response_message::Message {
     fn cnv(self) -> std::result::Result<crate::model::response_message::Message, gaxi::prost::ConvertError> {
         use crate::model::response_message::Message as T;
@@ -1997,7 +1997,7 @@ impl gaxi::prost::FromProto<crate::model::response_message::Message> for respons
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<ResponseMessage> for crate::model::ResponseMessage {
     type Output = ResponseMessage;
     fn to_proto(self) -> std::result::Result<ResponseMessage, gaxi::prost::ConvertError> {
@@ -2009,7 +2009,7 @@ impl gaxi::prost::ToProto<ResponseMessage> for crate::model::ResponseMessage {
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::ResponseMessage> for ResponseMessage {
     fn cnv(self) -> std::result::Result<crate::model::ResponseMessage, gaxi::prost::ConvertError> {
         Ok(
@@ -2550,7 +2550,7 @@ impl gaxi::prost::FromProto<crate::model::FilterSpecs> for FilterSpecs {
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<query_input::Input> for crate::model::query_input::Input {
     type Output = query_input::Input;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -2565,7 +2565,7 @@ impl gaxi::prost::ToProto<query_input::Input> for crate::model::query_input::Inp
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::query_input::Input> for query_input::Input {
     fn cnv(self) -> std::result::Result<crate::model::query_input::Input, gaxi::prost::ConvertError> {
         use crate::model::query_input::Input as T;
@@ -2580,7 +2580,7 @@ impl gaxi::prost::FromProto<crate::model::query_input::Input> for query_input::I
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<QueryInput> for crate::model::QueryInput {
     type Output = QueryInput;
     fn to_proto(self) -> std::result::Result<QueryInput, gaxi::prost::ConvertError> {
@@ -2591,7 +2591,7 @@ impl gaxi::prost::ToProto<QueryInput> for crate::model::QueryInput {
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::QueryInput> for QueryInput {
     fn cnv(self) -> std::result::Result<crate::model::QueryInput, gaxi::prost::ConvertError> {
         Ok(
@@ -2698,7 +2698,7 @@ impl gaxi::prost::FromProto<crate::model::QueryResult> for QueryResult {
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<TextInput> for crate::model::TextInput {
     type Output = TextInput;
     fn to_proto(self) -> std::result::Result<TextInput, gaxi::prost::ConvertError> {
@@ -2708,7 +2708,7 @@ impl gaxi::prost::ToProto<TextInput> for crate::model::TextInput {
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::TextInput> for TextInput {
     fn cnv(self) -> std::result::Result<crate::model::TextInput, gaxi::prost::ConvertError> {
         Ok(
@@ -2718,7 +2718,7 @@ impl gaxi::prost::FromProto<crate::model::TextInput> for TextInput {
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<IntentInput> for crate::model::IntentInput {
     type Output = IntentInput;
     fn to_proto(self) -> std::result::Result<IntentInput, gaxi::prost::ConvertError> {
@@ -2728,7 +2728,7 @@ impl gaxi::prost::ToProto<IntentInput> for crate::model::IntentInput {
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::IntentInput> for IntentInput {
     fn cnv(self) -> std::result::Result<crate::model::IntentInput, gaxi::prost::ConvertError> {
         Ok(
@@ -2738,7 +2738,7 @@ impl gaxi::prost::FromProto<crate::model::IntentInput> for IntentInput {
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<AudioInput> for crate::model::AudioInput {
     type Output = AudioInput;
     fn to_proto(self) -> std::result::Result<AudioInput, gaxi::prost::ConvertError> {
@@ -2749,7 +2749,7 @@ impl gaxi::prost::ToProto<AudioInput> for crate::model::AudioInput {
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::AudioInput> for AudioInput {
     fn cnv(self) -> std::result::Result<crate::model::AudioInput, gaxi::prost::ConvertError> {
         Ok(
@@ -2760,7 +2760,7 @@ impl gaxi::prost::FromProto<crate::model::AudioInput> for AudioInput {
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<EventInput> for crate::model::EventInput {
     type Output = EventInput;
     fn to_proto(self) -> std::result::Result<EventInput, gaxi::prost::ConvertError> {
@@ -2770,7 +2770,7 @@ impl gaxi::prost::ToProto<EventInput> for crate::model::EventInput {
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::EventInput> for EventInput {
     fn cnv(self) -> std::result::Result<crate::model::EventInput, gaxi::prost::ConvertError> {
         Ok(
@@ -2780,7 +2780,7 @@ impl gaxi::prost::FromProto<crate::model::EventInput> for EventInput {
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<DtmfInput> for crate::model::DtmfInput {
     type Output = DtmfInput;
     fn to_proto(self) -> std::result::Result<DtmfInput, gaxi::prost::ConvertError> {
@@ -2791,7 +2791,7 @@ impl gaxi::prost::ToProto<DtmfInput> for crate::model::DtmfInput {
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::DtmfInput> for DtmfInput {
     fn cnv(self) -> std::result::Result<crate::model::DtmfInput, gaxi::prost::ConvertError> {
         Ok(
@@ -2862,7 +2862,7 @@ impl gaxi::prost::FromProto<crate::model::SentimentAnalysisResult> for Sentiment
     }
 }
 
-#[cfg(any ( feature = "session-entity-types",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<session_entity_type::EntityOverrideMode> for crate::model::session_entity_type::EntityOverrideMode {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -2870,7 +2870,7 @@ impl gaxi::prost::ToProto<session_entity_type::EntityOverrideMode> for crate::mo
     }
 }
 
-#[cfg(any ( feature = "session-entity-types",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<SessionEntityType> for crate::model::SessionEntityType {
     type Output = SessionEntityType;
     fn to_proto(self) -> std::result::Result<SessionEntityType, gaxi::prost::ConvertError> {
@@ -2885,7 +2885,7 @@ impl gaxi::prost::ToProto<SessionEntityType> for crate::model::SessionEntityType
     }
 }
 
-#[cfg(any ( feature = "session-entity-types",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::SessionEntityType> for SessionEntityType {
     fn cnv(self) -> std::result::Result<crate::model::SessionEntityType, gaxi::prost::ConvertError> {
         Ok(
@@ -2898,7 +2898,7 @@ impl gaxi::prost::FromProto<crate::model::SessionEntityType> for SessionEntityTy
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<ToolCall> for crate::model::ToolCall {
     type Output = ToolCall;
     fn to_proto(self) -> std::result::Result<ToolCall, gaxi::prost::ConvertError> {
@@ -2910,7 +2910,7 @@ impl gaxi::prost::ToProto<ToolCall> for crate::model::ToolCall {
     }
 }
 
-#[cfg(any ( feature = "flows",feature = "pages",feature = "playbooks",feature = "sessions",feature = "test-cases",feature = "transition-route-groups", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::ToolCall> for ToolCall {
     fn cnv(self) -> std::result::Result<crate::model::ToolCall, gaxi::prost::ConvertError> {
         Ok(
@@ -2922,7 +2922,7 @@ impl gaxi::prost::FromProto<crate::model::ToolCall> for ToolCall {
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<tool_call_result::Error> for crate::model::tool_call_result::Error {
     type Output = tool_call_result::Error;
     fn to_proto(self) -> std::result::Result<tool_call_result::Error, gaxi::prost::ConvertError> {
@@ -2932,7 +2932,7 @@ impl gaxi::prost::ToProto<tool_call_result::Error> for crate::model::tool_call_r
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::tool_call_result::Error> for tool_call_result::Error {
     fn cnv(self) -> std::result::Result<crate::model::tool_call_result::Error, gaxi::prost::ConvertError> {
         Ok(
@@ -2942,7 +2942,7 @@ impl gaxi::prost::FromProto<crate::model::tool_call_result::Error> for tool_call
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<tool_call_result::Result> for crate::model::tool_call_result::Result {
     type Output = tool_call_result::Result;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -2953,7 +2953,7 @@ impl gaxi::prost::ToProto<tool_call_result::Result> for crate::model::tool_call_
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::tool_call_result::Result> for tool_call_result::Result {
     fn cnv(self) -> std::result::Result<crate::model::tool_call_result::Result, gaxi::prost::ConvertError> {
         use crate::model::tool_call_result::Result as T;
@@ -2964,7 +2964,7 @@ impl gaxi::prost::FromProto<crate::model::tool_call_result::Result> for tool_cal
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<ToolCallResult> for crate::model::ToolCallResult {
     type Output = ToolCallResult;
     fn to_proto(self) -> std::result::Result<ToolCallResult, gaxi::prost::ConvertError> {
@@ -2976,7 +2976,7 @@ impl gaxi::prost::ToProto<ToolCallResult> for crate::model::ToolCallResult {
     }
 }
 
-#[cfg(any ( feature = "sessions",feature = "test-cases", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::ToolCallResult> for ToolCallResult {
     fn cnv(self) -> std::result::Result<crate::model::ToolCallResult, gaxi::prost::ConvertError> {
         Ok(
@@ -3112,7 +3112,7 @@ impl gaxi::prost::FromProto<crate::model::FlowTraceMetadata> for FlowTraceMetada
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<PlaybookInput> for crate::model::PlaybookInput {
     type Output = PlaybookInput;
     fn to_proto(self) -> std::result::Result<PlaybookInput, gaxi::prost::ConvertError> {
@@ -3122,7 +3122,7 @@ impl gaxi::prost::ToProto<PlaybookInput> for crate::model::PlaybookInput {
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::PlaybookInput> for PlaybookInput {
     fn cnv(self) -> std::result::Result<crate::model::PlaybookInput, gaxi::prost::ConvertError> {
         Ok(
@@ -3132,7 +3132,7 @@ impl gaxi::prost::FromProto<crate::model::PlaybookInput> for PlaybookInput {
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<PlaybookOutput> for crate::model::PlaybookOutput {
     type Output = PlaybookOutput;
     fn to_proto(self) -> std::result::Result<PlaybookOutput, gaxi::prost::ConvertError> {
@@ -3142,7 +3142,7 @@ impl gaxi::prost::ToProto<PlaybookOutput> for crate::model::PlaybookOutput {
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::PlaybookOutput> for PlaybookOutput {
     fn cnv(self) -> std::result::Result<crate::model::PlaybookOutput, gaxi::prost::ConvertError> {
         Ok(
@@ -3152,7 +3152,7 @@ impl gaxi::prost::FromProto<crate::model::PlaybookOutput> for PlaybookOutput {
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<action::Action> for crate::model::action::Action {
     type Output = action::Action;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -3168,7 +3168,7 @@ impl gaxi::prost::ToProto<action::Action> for crate::model::action::Action {
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::action::Action> for action::Action {
     fn cnv(self) -> std::result::Result<crate::model::action::Action, gaxi::prost::ConvertError> {
         use crate::model::action::Action as T;
@@ -3184,7 +3184,7 @@ impl gaxi::prost::FromProto<crate::model::action::Action> for action::Action {
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<Action> for crate::model::Action {
     type Output = Action;
     fn to_proto(self) -> std::result::Result<Action, gaxi::prost::ConvertError> {
@@ -3194,7 +3194,7 @@ impl gaxi::prost::ToProto<Action> for crate::model::Action {
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::Action> for Action {
     fn cnv(self) -> std::result::Result<crate::model::Action, gaxi::prost::ConvertError> {
         Ok(
@@ -3204,7 +3204,7 @@ impl gaxi::prost::FromProto<crate::model::Action> for Action {
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<UserUtterance> for crate::model::UserUtterance {
     type Output = UserUtterance;
     fn to_proto(self) -> std::result::Result<UserUtterance, gaxi::prost::ConvertError> {
@@ -3214,7 +3214,7 @@ impl gaxi::prost::ToProto<UserUtterance> for crate::model::UserUtterance {
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::UserUtterance> for UserUtterance {
     fn cnv(self) -> std::result::Result<crate::model::UserUtterance, gaxi::prost::ConvertError> {
         Ok(
@@ -3224,7 +3224,7 @@ impl gaxi::prost::FromProto<crate::model::UserUtterance> for UserUtterance {
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<AgentUtterance> for crate::model::AgentUtterance {
     type Output = AgentUtterance;
     fn to_proto(self) -> std::result::Result<AgentUtterance, gaxi::prost::ConvertError> {
@@ -3234,7 +3234,7 @@ impl gaxi::prost::ToProto<AgentUtterance> for crate::model::AgentUtterance {
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::AgentUtterance> for AgentUtterance {
     fn cnv(self) -> std::result::Result<crate::model::AgentUtterance, gaxi::prost::ConvertError> {
         Ok(
@@ -3244,7 +3244,7 @@ impl gaxi::prost::FromProto<crate::model::AgentUtterance> for AgentUtterance {
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<ToolUse> for crate::model::ToolUse {
     type Output = ToolUse;
     fn to_proto(self) -> std::result::Result<ToolUse, gaxi::prost::ConvertError> {
@@ -3258,7 +3258,7 @@ impl gaxi::prost::ToProto<ToolUse> for crate::model::ToolUse {
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::ToolUse> for ToolUse {
     fn cnv(self) -> std::result::Result<crate::model::ToolUse, gaxi::prost::ConvertError> {
         Ok(
@@ -3272,7 +3272,7 @@ impl gaxi::prost::FromProto<crate::model::ToolUse> for ToolUse {
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<PlaybookInvocation> for crate::model::PlaybookInvocation {
     type Output = PlaybookInvocation;
     fn to_proto(self) -> std::result::Result<PlaybookInvocation, gaxi::prost::ConvertError> {
@@ -3286,7 +3286,7 @@ impl gaxi::prost::ToProto<PlaybookInvocation> for crate::model::PlaybookInvocati
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::PlaybookInvocation> for PlaybookInvocation {
     fn cnv(self) -> std::result::Result<crate::model::PlaybookInvocation, gaxi::prost::ConvertError> {
         Ok(
@@ -3300,7 +3300,7 @@ impl gaxi::prost::FromProto<crate::model::PlaybookInvocation> for PlaybookInvoca
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<FlowInvocation> for crate::model::FlowInvocation {
     type Output = FlowInvocation;
     fn to_proto(self) -> std::result::Result<FlowInvocation, gaxi::prost::ConvertError> {
@@ -3312,7 +3312,7 @@ impl gaxi::prost::ToProto<FlowInvocation> for crate::model::FlowInvocation {
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::FlowInvocation> for FlowInvocation {
     fn cnv(self) -> std::result::Result<crate::model::FlowInvocation, gaxi::prost::ConvertError> {
         Ok(
@@ -3324,7 +3324,7 @@ impl gaxi::prost::FromProto<crate::model::FlowInvocation> for FlowInvocation {
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<PlaybookTransition> for crate::model::PlaybookTransition {
     type Output = PlaybookTransition;
     fn to_proto(self) -> std::result::Result<PlaybookTransition, gaxi::prost::ConvertError> {
@@ -3335,7 +3335,7 @@ impl gaxi::prost::ToProto<PlaybookTransition> for crate::model::PlaybookTransiti
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::PlaybookTransition> for PlaybookTransition {
     fn cnv(self) -> std::result::Result<crate::model::PlaybookTransition, gaxi::prost::ConvertError> {
         Ok(
@@ -3346,7 +3346,7 @@ impl gaxi::prost::FromProto<crate::model::PlaybookTransition> for PlaybookTransi
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::ToProto<FlowTransition> for crate::model::FlowTransition {
     type Output = FlowTransition;
     fn to_proto(self) -> std::result::Result<FlowTransition, gaxi::prost::ConvertError> {
@@ -3357,7 +3357,7 @@ impl gaxi::prost::ToProto<FlowTransition> for crate::model::FlowTransition {
     }
 }
 
-#[cfg(any ( feature = "examples",feature = "playbooks",feature = "sessions", ) )]
+#[cfg(feature = "sessions" )]
 impl gaxi::prost::FromProto<crate::model::FlowTransition> for FlowTransition {
     fn cnv(self) -> std::result::Result<crate::model::FlowTransition, gaxi::prost::ConvertError> {
         Ok(

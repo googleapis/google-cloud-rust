@@ -16,9 +16,10 @@
 
 #[allow(unused_imports)]
 use crate::Error;
+#[allow(unused_imports)]
 use crate::Result;
 
-/// Implements [DirectAccessService](super::stub::DirectAccessService) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
+/// Implements [DirectAccessService](super::stub::DirectAccessService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct DirectAccessService {
     inner: gaxi::http::ReqwestClient,
@@ -27,10 +28,10 @@ pub struct DirectAccessService {
 
 impl std::fmt::Debug for DirectAccessService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("DirectAccessService")
-            .field("inner", &self.inner)
-            .field("grpc_inner", &self.grpc_inner)
-            .finish()
+        let mut builder = f.debug_struct("DirectAccessService");
+        builder.field("inner", &self.inner);
+        builder.field("grpc_inner", &self.grpc_inner);
+        builder.finish()
     }
 }
 

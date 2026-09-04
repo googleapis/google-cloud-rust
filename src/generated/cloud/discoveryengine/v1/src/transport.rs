@@ -39,9 +39,10 @@ use crate::Error;
     feature = "user-event-service",
     feature = "user-license-service",
 ))]
+#[allow(unused_imports)]
 use crate::Result;
 
-/// Implements [AssistantService](super::stub::AssistantService) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
+/// Implements [AssistantService](super::stub::AssistantService) using a [gaxi::http::ReqwestClient].
 #[cfg(feature = "assistant-service")]
 #[derive(Clone)]
 pub struct AssistantService {
@@ -52,10 +53,10 @@ pub struct AssistantService {
 #[cfg(feature = "assistant-service")]
 impl std::fmt::Debug for AssistantService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("AssistantService")
-            .field("inner", &self.inner)
-            .field("grpc_inner", &self.grpc_inner)
-            .finish()
+        let mut builder = f.debug_struct("AssistantService");
+        builder.field("inner", &self.inner);
+        builder.field("grpc_inner", &self.grpc_inner);
+        builder.finish()
     }
 }
 
@@ -6160,7 +6161,7 @@ impl super::stub::ControlService for ControlService {
     }
 }
 
-/// Implements [ConversationalSearchService](super::stub::ConversationalSearchService) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
+/// Implements [ConversationalSearchService](super::stub::ConversationalSearchService) using a [gaxi::http::ReqwestClient].
 #[cfg(feature = "conversational-search-service")]
 #[derive(Clone)]
 pub struct ConversationalSearchService {
@@ -6171,10 +6172,10 @@ pub struct ConversationalSearchService {
 #[cfg(feature = "conversational-search-service")]
 impl std::fmt::Debug for ConversationalSearchService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("ConversationalSearchService")
-            .field("inner", &self.inner)
-            .field("grpc_inner", &self.grpc_inner)
-            .finish()
+        let mut builder = f.debug_struct("ConversationalSearchService");
+        builder.field("inner", &self.inner);
+        builder.field("grpc_inner", &self.grpc_inner);
+        builder.finish()
     }
 }
 
@@ -14843,7 +14844,7 @@ impl super::stub::EngineService for EngineService {
     }
 }
 
-/// Implements [GroundedGenerationService](super::stub::GroundedGenerationService) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
+/// Implements [GroundedGenerationService](super::stub::GroundedGenerationService) using a [gaxi::http::ReqwestClient].
 #[cfg(feature = "grounded-generation-service")]
 #[derive(Clone)]
 pub struct GroundedGenerationService {
@@ -14854,10 +14855,10 @@ pub struct GroundedGenerationService {
 #[cfg(feature = "grounded-generation-service")]
 impl std::fmt::Debug for GroundedGenerationService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("GroundedGenerationService")
-            .field("inner", &self.inner)
-            .field("grpc_inner", &self.grpc_inner)
-            .finish()
+        let mut builder = f.debug_struct("GroundedGenerationService");
+        builder.field("inner", &self.inner);
+        builder.field("grpc_inner", &self.grpc_inner);
+        builder.finish()
     }
 }
 

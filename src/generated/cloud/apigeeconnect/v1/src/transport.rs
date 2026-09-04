@@ -16,6 +16,7 @@
 
 #[allow(unused_imports)]
 use crate::Error;
+#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements [ConnectionService](super::stub::ConnectionService) using a [gaxi::http::ReqwestClient].
@@ -119,23 +120,31 @@ impl super::stub::ConnectionService for ConnectionService {
     }
 }
 
-/// Implements [Tether](super::stub::Tether) using a [gaxi::grpc::Client].
+/// Implements [Tether](super::stub::Tether) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Tether {
+    inner: gaxi::http::ReqwestClient,
     grpc_inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for Tether {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("Tether")
-            .field("grpc_inner", &self.grpc_inner)
-            .finish()
+        let mut builder = f.debug_struct("Tether");
+        builder.field("inner", &self.inner);
+        builder.field("grpc_inner", &self.grpc_inner);
+        builder.finish()
     }
 }
 
 impl Tether {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
+        let inner = gaxi::http::ReqwestClient::new(config.clone(), crate::DEFAULT_HOST).await?;
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         let grpc_inner = if tracing_is_enabled {
             gaxi::grpc::Client::new_with_instrumentation(
                 config,
@@ -146,7 +155,7 @@ impl Tether {
         } else {
             gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
         };
-        Ok(Self { grpc_inner })
+        Ok(Self { inner, grpc_inner })
     }
 }
 

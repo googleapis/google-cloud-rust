@@ -16,6 +16,7 @@
 
 #[allow(unused_imports)]
 use crate::Error;
+#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements [HealthCheckService](super::stub::HealthCheckService) using a [gaxi::http::ReqwestClient].
@@ -5705,7 +5706,7 @@ impl super::stub::AppPlatform for AppPlatform {
     }
 }
 
-/// Implements [StreamingService](super::stub::StreamingService) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
+/// Implements [StreamingService](super::stub::StreamingService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct StreamingService {
     inner: gaxi::http::ReqwestClient,
@@ -5714,10 +5715,10 @@ pub struct StreamingService {
 
 impl std::fmt::Debug for StreamingService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("StreamingService")
-            .field("inner", &self.inner)
-            .field("grpc_inner", &self.grpc_inner)
-            .finish()
+        let mut builder = f.debug_struct("StreamingService");
+        builder.field("inner", &self.inner);
+        builder.field("grpc_inner", &self.grpc_inner);
+        builder.finish()
     }
 }
 
@@ -9341,7 +9342,7 @@ impl super::stub::StreamsService for StreamsService {
     }
 }
 
-/// Implements [Warehouse](super::stub::Warehouse) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
+/// Implements [Warehouse](super::stub::Warehouse) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Warehouse {
     inner: gaxi::http::ReqwestClient,
@@ -9350,10 +9351,10 @@ pub struct Warehouse {
 
 impl std::fmt::Debug for Warehouse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("Warehouse")
-            .field("inner", &self.inner)
-            .field("grpc_inner", &self.grpc_inner)
-            .finish()
+        let mut builder = f.debug_struct("Warehouse");
+        builder.field("inner", &self.inner);
+        builder.field("grpc_inner", &self.grpc_inner);
+        builder.finish()
     }
 }
 

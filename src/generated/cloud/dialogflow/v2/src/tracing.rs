@@ -37,6 +37,7 @@
     feature = "tools",
     feature = "versions",
 ))]
+#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements a [Agents](super::stub::Agents) decorator for logging and tracing.

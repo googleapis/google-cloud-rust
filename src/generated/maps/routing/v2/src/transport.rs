@@ -18,7 +18,7 @@
 use crate::Error;
 use crate::Result;
 
-/// Implements [Routes](super::stub::Routes) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
+/// Implements [Routes](super::stub::Routes) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct Routes {
     inner: gaxi::http::ReqwestClient,
@@ -27,10 +27,10 @@ pub struct Routes {
 
 impl std::fmt::Debug for Routes {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("Routes")
-            .field("inner", &self.inner)
-            .field("grpc_inner", &self.grpc_inner)
-            .finish()
+        let mut builder = f.debug_struct("Routes");
+        builder.field("inner", &self.inner);
+        builder.field("grpc_inner", &self.grpc_inner);
+        builder.finish()
     }
 }
 
