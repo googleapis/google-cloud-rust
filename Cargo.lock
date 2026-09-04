@@ -2528,16 +2528,13 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery-read"
-version = "0.0.0"
+version = "0.1.0"
 dependencies = [
  "anyhow",
  "async-trait",
  "bytes",
- "google-cloud-auth",
- "google-cloud-bigquery-read",
  "google-cloud-gax",
  "google-cloud-gax-internal",
- "google-cloud-rpc",
  "google-cloud-wkt",
  "http",
  "prost",
@@ -2545,10 +2542,6 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
- "test-case",
- "thiserror",
- "tokio",
- "tokio-stream",
  "tracing",
 ]
 
