@@ -118,6 +118,8 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             .and_then(|s| s.parse::<usize>().ok())
             .unwrap_or(4);
 
+        // TODO(channel-pool): Dial initial channels concurrently via JoinSet during client builder
+        // construction once ChannelPool is integrated into the Spanner client.
         let mut channels = Vec::with_capacity(num_channels);
         for index in 0..num_channels {
             channels.push(Channel::create(&config, index + 1).await?);
