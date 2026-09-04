@@ -205,11 +205,11 @@ pub(crate) mod tests {
 
         let s1 = pool.get();
         assert_eq!(s1.id, 1);
-        assert_eq!(pool.streams.lock().unwrap().len(), 1);
+        assert_eq!(pool.stream_ids(), [1]);
 
         let s2 = pool.get();
         assert_eq!(s2.id, 1);
-        assert_eq!(pool.streams.lock().unwrap().len(), 1);
+        assert_eq!(pool.stream_ids(), [1]);
 
         // Use the stream handles to send requests on the same underlying gRPC
         // stream.
@@ -267,7 +267,7 @@ pub(crate) mod tests {
             assert_eq!(s?.id, 1);
         }
         // Verify only one stream is created total.
-        assert_eq!(pool.streams.lock().unwrap().len(), 1);
+        assert_eq!(pool.stream_ids(), [1]);
 
         Ok(())
     }
@@ -305,35 +305,35 @@ pub(crate) mod tests {
 
         let s = pool.get();
         assert_eq!(s.id, 1);
-        assert_eq!(pool.streams.lock().unwrap().len(), 1);
+        assert_eq!(pool.stream_ids(), [1]);
 
         // Simulate an in-flight request on the stream. It should not be loaded
         // yet.
         s.outstanding_requests.fetch_add(1, Ordering::Relaxed);
         let s = pool.get();
         assert_eq!(s.id, 1);
-        assert_eq!(pool.streams.lock().unwrap().len(), 1);
+        assert_eq!(pool.stream_ids(), [1]);
 
         // Simulate another in-flight request on the stream. Now it should be at
         // load. We should grow the pool.
         s.outstanding_requests.fetch_add(1, Ordering::Relaxed);
         let s = pool.get();
         assert_eq!(s.id, 2);
-        assert_eq!(pool.streams.lock().unwrap().len(), 2);
+        assert_eq!(pool.stream_ids(), [1, 2]);
 
         // Simulate an in-flight request on the second stream. It should not be
         // loaded yet.
         s.outstanding_requests.fetch_add(1, Ordering::Relaxed);
         let s = pool.get();
         assert_eq!(s.id, 2);
-        assert_eq!(pool.streams.lock().unwrap().len(), 2);
+        assert_eq!(pool.stream_ids(), [1, 2]);
 
         // Simulate another in-flight request on the second stream. Now it should be at
         // load. We should grow the pool again.
         s.outstanding_requests.fetch_add(1, Ordering::Relaxed);
         let s = pool.get();
         assert_eq!(s.id, 3);
-        assert_eq!(pool.streams.lock().unwrap().len(), 3);
+        assert_eq!(pool.stream_ids(), [1, 2, 3]);
 
         Ok(())
     }
@@ -358,6 +358,7 @@ pub(crate) mod tests {
             s.outstanding_requests.store(load, Ordering::Relaxed);
             pool.streams.lock().unwrap().push(s);
         }
+        assert_eq!(pool.streams.lock().unwrap().len(), 6);
 
         // We should return the least loaded stream without growing the pool.
         let s = pool.get();
@@ -413,7 +414,7 @@ pub(crate) mod tests {
             assert_eq!(s?.id, 2);
         }
         // Verify the pool stays at one stream total.
-        assert_eq!(pool.streams.lock().unwrap().len(), 1);
+        assert_eq!(pool.stream_ids(), [2]);
 
         Ok(())
     }
