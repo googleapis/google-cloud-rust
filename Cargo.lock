@@ -5363,6 +5363,7 @@ dependencies = [
  "prost-types",
  "rand 0.10.2",
  "rust_decimal",
+ "rustls",
  "scoped-env",
  "serde",
  "serde_json",
