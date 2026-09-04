@@ -4737,6 +4737,7 @@ const SAMPLE_KEY_PEM: &[u8] = include_bytes!("../../../../testdata/tls/server_ke
 async fn start_mock_with_mtls(
     service: MockSpanner,
 ) -> anyhow::Result<(String, tokio::task::JoinHandle<()>)> {
+    let _ = rustls::crypto::aws_lc_rs::default_provider().install_default();
     let incoming = TcpIncoming::bind("127.0.0.1:0".parse()?)?;
     let address = incoming.local_addr()?;
 

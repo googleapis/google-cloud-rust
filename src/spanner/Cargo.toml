@@ -85,6 +85,7 @@ scoped-env.workspace               = true
 serial_test.workspace              = true
 spanner-grpc-mock                  = { path = "grpc-mock" }
 static_assertions.workspace        = true
+rustls                             = { workspace = true, features = ["aws_lc_rs", "std"] }
 tokio                              = { workspace = true, features = ["test-util"] }
 
 [lints]
