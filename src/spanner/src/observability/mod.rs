@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "builtin-metrics")]
 pub(crate) mod exporter;
 pub(crate) mod metrics;
-#[cfg(all(test, feature = "_experimental-builtin-metrics"))]
+#[cfg(all(test, feature = "builtin-metrics"))]
 mod mock_tests;
-
 pub(crate) use metrics::Observability;
+#[cfg(feature = "metrics")]
+pub(crate) use metrics::SharedMeterProvider;

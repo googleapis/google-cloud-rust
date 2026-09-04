@@ -990,6 +990,7 @@ fn is_read_write_begin(selector: Option<&TransactionSelector>) -> bool {
         _ => false,
     }
 }
+
 /// A builder for [DatabaseClient].
 pub struct DatabaseClientBuilder {
     spanner: Spanner,
@@ -1105,6 +1106,20 @@ impl DatabaseClientBuilder {
             self.database_name
         };
 
+        #[cfg(feature = "metrics")]
+        let o11y = Arc::new(
+            Observability::init(
+                &self.spanner.config,
+                self.spanner.instance_type(),
+                &database_name,
+                self.spanner.is_emulator(),
+                self.spanner.export_builtin_metrics_to_cloud_monitoring(),
+                self.spanner.export_builtin_metrics_to_custom_provider(),
+                self.spanner.meter_provider(),
+            )
+            .await,
+        );
+        #[cfg(not(feature = "metrics"))]
         let o11y = Arc::new(
             Observability::init(
                 &self.spanner.config,
@@ -1286,6 +1301,7 @@ mod tests {
     use google_cloud_test_macros::tokio_test_no_panics;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use spanner_grpc_mock::{MockSpanner, start};
+    use std::fmt;
     use tokio::sync::mpsc;
 
     fn create_test_mock() -> MockSpanner {
@@ -1307,9 +1323,9 @@ mod tests {
     }
 
     #[test]
-    fn test_auto_traits() {
+    fn auto_traits() {
         use static_assertions::assert_impl_all;
-        assert_impl_all!(DatabaseClient: Send, Sync, Clone, std::fmt::Debug);
+        assert_impl_all!(DatabaseClient: Send, Sync, Clone, fmt::Debug);
     }
 
     #[tokio_test_no_panics]

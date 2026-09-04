@@ -392,7 +392,7 @@ fn convert_f64_point(
     )
 }
 
-#[cfg(all(test, feature = "_experimental-builtin-metrics"))]
+#[cfg(all(test, feature = "builtin-metrics"))]
 mod tests {
     use super::*;
     use opentelemetry::metrics::{Counter, Histogram, MeterProvider as _};
