@@ -20,9 +20,9 @@ use crate::model::transaction_options::read_only::TimestampBound;
 use crate::model::transaction_selector::Selector;
 use crate::model::{
     BatchWriteRequest, BeginTransactionRequest, CacheUpdate, CommitRequest, CommitResponse,
-    ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest, PartitionQueryRequest,
-    PartitionReadRequest, PartitionResponse, ReadRequest, ResultSet, RollbackRequest, RoutingHint,
-    Transaction, TransactionOptions, TransactionSelector,
+    DirectedReadOptions, ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest,
+    PartitionQueryRequest, PartitionReadRequest, PartitionResponse, ReadRequest, ResultSet,
+    RollbackRequest, RoutingHint, Transaction, TransactionOptions, TransactionSelector,
 };
 use crate::observability::Observability;
 use crate::omni::{InstanceType, format_database_name};
@@ -34,6 +34,7 @@ use crate::routing::cache_subscriber::CacheSubscriber;
 use crate::routing::cache_updater::CacheUpdater;
 use crate::routing::connection_cache::ConnectionCache;
 use crate::routing::endpoint_cooldown::EndpointCooldownTracker;
+use crate::routing::endpoint_lifecycle::EndpointLifecycleManager;
 use crate::routing::key_extractor::{
     extract_execute_sql_request_routing, extract_mutation_routing_key,
     extract_mutations_routing_key, extract_proto_partition_read_request_routing_key,
@@ -149,6 +150,7 @@ macro_rules! define_db_streaming_rpc {
             // Step 2: Resolve the optimal server connection and attach the routing hint (or bootstrap hint).
             let connection = self.route_and_attach_hint(
                 request.transaction.as_ref(),
+                request.directed_read_options.as_ref(),
                 operation_uid,
                 routing_key.as_deref(),
                 &mut request.routing_hint,
@@ -577,10 +579,19 @@ impl DatabaseClient {
             .as_ref()
             .map(|routing| &routing.cache_subscriber)
     }
+    /// Returns a reference to the [`EndpointLifecycleManager`] if location-aware routing is enabled.
+    #[allow(dead_code)] // TODO: Used for lifecycle inspection in subsequent PRs
+    pub(crate) fn endpoint_lifecycle_manager(&self) -> Option<&EndpointLifecycleManager> {
+        self.location_routing
+            .as_ref()
+            .map(|routing| &*routing.endpoint_lifecycle_manager)
+    }
+
     /// Resolves the optimal [`ServerConnection`] and [`RoutingHint`] in a single pass for a request.
     fn resolve_request_route(
         &self,
         transaction: Option<&TransactionSelector>,
+        directed_read_options: Option<&DirectedReadOptions>,
         operation_uid: u64,
         routing_key: Option<&[u8]>,
     ) -> (Option<ServerConnection>, Option<RoutingHint>) {
@@ -588,6 +599,8 @@ impl DatabaseClient {
             return (None, None);
         };
         let context = routing_context_from_selector(transaction, routing_key);
+        // Fast path: if neither transaction affinity, a routing key, nor a prepared operation UID
+        // is available, fall back to the default channel pool.
         if context.transaction_id.is_none()
             && context.routing_key.is_none()
             && operation_uid == UNASSIGNED_OPERATION_UID
@@ -598,6 +611,7 @@ impl DatabaseClient {
         let schema_generation = routing.key_recipe_cache.schema_generation();
         let resolved = routing.location_router.resolve_route(
             &context,
+            directed_read_options,
             database_id,
             schema_generation,
             operation_uid,
@@ -616,12 +630,17 @@ impl DatabaseClient {
     fn route_and_attach_hint(
         &self,
         transaction: Option<&TransactionSelector>,
+        directed_read_options: Option<&DirectedReadOptions>,
         operation_uid: u64,
         routing_key: Option<&[u8]>,
         routing_hint: &mut Option<RoutingHint>,
     ) -> Option<ServerConnection> {
-        let (connection, resolved_hint) =
-            self.resolve_request_route(transaction, operation_uid, routing_key);
+        let (connection, resolved_hint) = self.resolve_request_route(
+            transaction,
+            directed_read_options,
+            operation_uid,
+            routing_key,
+        );
 
         if let Some(hint) = resolved_hint {
             *routing_hint = Some(hint);
@@ -771,6 +790,7 @@ impl DatabaseClient {
         };
         let connection = self.route_and_attach_hint(
             request.transaction.as_ref(),
+            request.directed_read_options.as_ref(),
             operation_uid,
             routing_key.as_deref(),
             &mut request.routing_hint,
@@ -1136,6 +1156,7 @@ pub(crate) struct LocationRoutingState {
     pub(crate) cache_updater: Arc<CacheUpdater>,
     pub(crate) key_recipe_cache: Arc<KeyRecipeCache>,
     pub(crate) cache_subscriber: CacheSubscriber,
+    pub(crate) endpoint_lifecycle_manager: Arc<EndpointLifecycleManager>,
 }
 
 const DEFAULT_ENDPOINT: &str = "spanner.googleapis.com:443";
@@ -1159,6 +1180,10 @@ impl LocationRoutingState {
 
         let default_connection = ServerConnection::new(default_endpoint, default_channel);
         let connection_cache = Arc::new(ConnectionCache::new(default_connection));
+        let endpoint_lifecycle_manager = Arc::new(EndpointLifecycleManager::with_client_config(
+            Arc::clone(&connection_cache),
+            spanner.config.clone(),
+        ));
         let key_range_cache = Arc::new(KeyRangeCache::new());
         let key_recipe_cache = Arc::new(KeyRecipeCache::new());
         let cooldown_tracker = Arc::new(EndpointCooldownTracker::new());
@@ -1167,23 +1192,28 @@ impl LocationRoutingState {
             database_name.clone(),
             Arc::clone(&key_range_cache),
             Arc::clone(&connection_cache),
+            Arc::clone(&endpoint_lifecycle_manager),
             cooldown_tracker,
             latency_registry,
         ));
         let cache_updater = Arc::new(CacheUpdater::new(
+            database_name.clone(),
             key_range_cache,
             Arc::clone(&key_recipe_cache),
             connection_cache,
+            Arc::clone(&endpoint_lifecycle_manager),
             spanner.config.clone(),
         ));
         let cache_subscriber =
             CacheSubscriber::start(database_name, spanner.clone(), Arc::clone(&cache_updater));
+        endpoint_lifecycle_manager.start_maintenance();
 
         Self {
             location_router,
             cache_updater,
             key_recipe_cache,
             cache_subscriber,
+            endpoint_lifecycle_manager,
         }
     }
 }
@@ -1191,6 +1221,7 @@ impl LocationRoutingState {
 impl Drop for LocationRoutingState {
     fn drop(&mut self) {
         self.cache_subscriber.stop();
+        self.endpoint_lifecycle_manager.stop_maintenance();
     }
 }
 
@@ -3225,6 +3256,10 @@ mod tests {
             database_client.cache_subscriber().is_none(),
             "cache subscriber should not be initialized when location-aware routing is disabled"
         );
+        assert!(
+            database_client.endpoint_lifecycle_manager().is_none(),
+            "endpoint lifecycle manager should not be initialized when location-aware routing is disabled"
+        );
     }
 
     #[tokio_test_no_panics]
@@ -3294,6 +3329,22 @@ mod tests {
             database_client.cache_subscriber().is_some(),
             "cache subscriber must be initialized when location-aware routing is enabled"
         );
+        assert!(
+            database_client.endpoint_lifecycle_manager().is_some(),
+            "endpoint lifecycle manager must be initialized when location-aware routing is enabled"
+        );
+        assert!(
+            database_client
+                .endpoint_lifecycle_manager()
+                .expect("lifecycle manager must exist")
+                .is_maintenance_active(),
+            "maintenance task must be active while client is alive"
+        );
+        let lifecycle_manager = database_client
+            .location_routing
+            .as_ref()
+            .map(|routing| Arc::clone(&routing.endpoint_lifecycle_manager))
+            .expect("lifecycle manager must exist");
 
         // Deterministically wait for the initial connection and subsequent reconnection attempt,
         // which guarantees that the first stream's CacheUpdate was completely ingested into KeyRangeCache.
@@ -3324,6 +3375,10 @@ mod tests {
         );
 
         drop(database_client);
+        assert!(
+            !lifecycle_manager.is_maintenance_active(),
+            "maintenance task must be stopped when client is dropped"
+        );
     }
 
     #[tokio_test_no_panics]

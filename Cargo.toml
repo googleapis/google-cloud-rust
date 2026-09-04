@@ -330,6 +330,7 @@ members = [
   "src/generated/shopping/merchant/inventories/v1",
   "src/generated/shopping/merchant/issueresolution/v1",
   "src/generated/shopping/merchant/lfp/v1",
+  "src/generated/shopping/merchant/loyaltycustomers/v1",
   "src/generated/shopping/merchant/notifications/v1",
   "src/generated/shopping/merchant/ordertracking/v1",
   "src/generated/shopping/merchant/products/v1",
