@@ -22,7 +22,7 @@ rustup show active-toolchain -v
 set +v
 
 echo "==== cargo clippy ===="
-cargo clippy --all-features --all-targets --profile=test --workspace --exclude google-cloud-compute-v1 --exclude google-cloud-compute-aiplatform-v1 -- --deny warnings 
+cargo clippy --all-features --all-targets --profile=test --workspace --exclude google-cloud-compute-v1 --exclude google-cloud-aiplatform-v1 -- --deny warnings 
 
 echo "==== cargo clippy (large crates) ===="
 cargo clippy --all-features --all-targets --profile=test -p google-cloud-compute-v1 -- --deny warnings 
