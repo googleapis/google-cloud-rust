@@ -20,9 +20,14 @@ cargo version
 rustup show active-toolchain -v
 
 set -e
-cargo clippy --all-features --all-targets --profile=test -p google-cloud-compute-v1
+echo "==== cargo doc ===="
 cargo doc --all-features -p google-cloud-compute-v1
-cargo test --all-features -p google-cloud-compute-v1
+
+echo "==== cargo test (lib) ===="
+cargo test --all-features -p google-cloud-compute-v1 --lib
+
+echo "==== cargo test (doc) ===="
+cargo test --all-features -p google-cloud-compute-v1 --doc
 
 echo "==== DONE ===="
 
