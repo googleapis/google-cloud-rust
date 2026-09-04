@@ -73,7 +73,9 @@ mod tests {
         let client = StorageControl::builder().build().await?;
 
         let mut buckets = Vec::new();
-        let result = run_object_examples(&mut buckets).await.inspect_err(anydump);
+        let result = Box::pin(run_object_examples(&mut buckets))
+            .await
+            .inspect_err(anydump);
         cleanup_all_buckets(client, buckets).await;
         result
     }
