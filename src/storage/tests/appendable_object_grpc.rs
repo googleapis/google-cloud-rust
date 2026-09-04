@@ -149,7 +149,7 @@ async fn append_preserves_chunks_offsets_and_checksums() -> Result<()> {
 
     // Act
     let mut writer = client.open_appendable_object(BUCKET, OBJECT).send().await?;
-    writer.append(payload).await?;
+    writer.append(payload.clone()).await?;
     let flushed_size = writer.flush().await?;
     let object = writer.finalize().await?;
 
@@ -170,17 +170,17 @@ async fn append_preserves_chunks_offsets_and_checksums() -> Result<()> {
             WriteEvent::Chunk {
                 write_offset: 0,
                 size: 2 * MIB,
-                crc32c: Some(crc32c::crc32c(&vec![0x42; 2 * MIB])),
+                crc32c: Some(crc32c::crc32c(&payload[0..2 * MIB])),
             },
             WriteEvent::Chunk {
                 write_offset: (2 * MIB) as i64,
                 size: 2 * MIB,
-                crc32c: Some(crc32c::crc32c(&vec![0x42; 2 * MIB])),
+                crc32c: Some(crc32c::crc32c(&payload[0..2 * MIB])),
             },
             WriteEvent::Chunk {
                 write_offset: (4 * MIB) as i64,
                 size: MIB,
-                crc32c: Some(crc32c::crc32c(&vec![0x42; MIB])),
+                crc32c: Some(crc32c::crc32c(&payload[0..MIB])),
             },
             WriteEvent::Flush {
                 write_offset: (5 * MIB) as i64,
