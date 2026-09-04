@@ -53,6 +53,12 @@ pub trait Spanner: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ResultSet>>;
 
+    async fn execute_streaming_sql(
+        &self,
+        req: crate::model::ExecuteSqlRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::PartialResultSet>>;
+
     async fn execute_batch_dml(
         &self,
         req: crate::model::ExecuteBatchDmlRequest,
@@ -64,6 +70,12 @@ pub trait Spanner: std::fmt::Debug + Send + Sync {
         req: crate::model::ReadRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ResultSet>>;
+
+    async fn streaming_read(
+        &self,
+        req: crate::model::ReadRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::PartialResultSet>>;
 
     async fn begin_transaction(
         &self,
@@ -94,6 +106,18 @@ pub trait Spanner: std::fmt::Debug + Send + Sync {
         req: crate::model::PartitionReadRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::PartitionResponse>>;
+
+    async fn batch_write(
+        &self,
+        req: crate::model::BatchWriteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::BatchWriteResponse>>;
+
+    async fn fetch_cache_update(
+        &self,
+        req: crate::model::FetchCacheUpdateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::CacheUpdate>>;
 }
 
 /// All implementations of [super::Spanner] also implement [Spanner].
@@ -154,6 +178,16 @@ impl<T: super::Spanner> Spanner for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn execute_streaming_sql(
+        &self,
+        req: crate::model::ExecuteSqlRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::PartialResultSet>>
+    {
+        T::execute_streaming_sql(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn execute_batch_dml(
         &self,
         req: crate::model::ExecuteBatchDmlRequest,
@@ -169,6 +203,16 @@ impl<T: super::Spanner> Spanner for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ResultSet>> {
         T::read(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn streaming_read(
+        &self,
+        req: crate::model::ReadRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::PartialResultSet>>
+    {
+        T::streaming_read(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -214,5 +258,24 @@ impl<T: super::Spanner> Spanner for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::PartitionResponse>> {
         T::partition_read(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn batch_write(
+        &self,
+        req: crate::model::BatchWriteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::BatchWriteResponse>>
+    {
+        T::batch_write(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn fetch_cache_update(
+        &self,
+        req: crate::model::FetchCacheUpdateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::CacheUpdate>> {
+        T::fetch_cache_update(self, req, options).await
     }
 }
