@@ -51,7 +51,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::CreateReservationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Reservation>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -109,12 +109,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(req.reservation, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn list_reservations(
@@ -122,7 +126,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::ListReservationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListReservationsResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -181,12 +185,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn get_reservation(
@@ -194,7 +202,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::GetReservationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Reservation>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -255,12 +263,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn delete_reservation(
@@ -268,7 +280,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::DeleteReservationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -329,13 +341,15 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
-            .execute(builder, body, options)
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -348,7 +362,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::UpdateReservationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Reservation>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -425,12 +439,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(req.reservation, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn failover_reservation(
@@ -438,7 +456,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::FailoverReservationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Reservation>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -499,12 +517,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn create_capacity_commitment(
@@ -512,7 +534,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::CreateCapacityCommitmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CapacityCommitment>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -573,12 +595,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(req.capacity_commitment, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn list_capacity_commitments(
@@ -586,7 +612,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::ListCapacityCommitmentsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListCapacityCommitmentsResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -643,12 +669,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn get_capacity_commitment(
@@ -656,7 +686,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::GetCapacityCommitmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CapacityCommitment>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -715,12 +745,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn delete_capacity_commitment(
@@ -728,7 +762,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::DeleteCapacityCommitmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -788,13 +822,15 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
-            .execute(builder, body, options)
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -807,7 +843,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::UpdateCapacityCommitmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CapacityCommitment>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -882,12 +918,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(req.capacity_commitment, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn split_capacity_commitment(
@@ -895,7 +935,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::SplitCapacityCommitmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SplitCapacityCommitmentResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -956,12 +996,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn merge_capacity_commitments(
@@ -969,7 +1013,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::MergeCapacityCommitmentsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CapacityCommitment>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1026,12 +1070,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn create_assignment(
@@ -1039,7 +1087,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::CreateAssignmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Assignment>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1101,12 +1149,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(req.assignment, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn list_assignments(
@@ -1114,7 +1166,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::ListAssignmentsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListAssignmentsResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1177,12 +1229,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn delete_assignment(
@@ -1190,7 +1246,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::DeleteAssignmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1255,13 +1311,15 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
-            .execute(builder, body, options)
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -1274,7 +1332,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::SearchAssignmentsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SearchAssignmentsResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1334,12 +1392,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn search_all_assignments(
@@ -1347,7 +1409,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::SearchAllAssignmentsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SearchAllAssignmentsResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1405,12 +1467,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn move_assignment(
@@ -1418,7 +1484,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::MoveAssignmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Assignment>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1485,12 +1551,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn update_assignment(
@@ -1498,7 +1568,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::UpdateAssignmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Assignment>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1579,12 +1649,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(req.assignment, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn get_bi_reservation(
@@ -1592,7 +1666,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::GetBiReservationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::BiReservation>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1651,12 +1725,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn update_bi_reservation(
@@ -1664,7 +1742,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::UpdateBiReservationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::BiReservation>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1737,12 +1815,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(req.bi_reservation, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn get_iam_policy(
@@ -1750,7 +1832,7 @@ impl super::stub::ReservationService for ReservationService {
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1878,12 +1960,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn set_iam_policy(
@@ -1891,7 +1977,7 @@ impl super::stub::ReservationService for ReservationService {
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1998,12 +2084,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn test_iam_permissions(
@@ -2011,7 +2101,7 @@ impl super::stub::ReservationService for ReservationService {
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2116,12 +2206,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn create_reservation_group(
@@ -2129,7 +2223,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::CreateReservationGroupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ReservationGroup>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2185,12 +2279,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(req.reservation_group, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn get_reservation_group(
@@ -2198,7 +2296,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::GetReservationGroupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ReservationGroup>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2257,12 +2355,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn delete_reservation_group(
@@ -2270,7 +2372,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::DeleteReservationGroupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2329,13 +2431,15 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
-            .execute(builder, body, options)
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -2348,7 +2452,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::ListReservationGroupsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListReservationGroupsResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2405,12 +2509,16 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn update_reservation_group(
@@ -2418,7 +2526,7 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::UpdateReservationGroupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ReservationGroup>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2493,11 +2601,15 @@ impl super::stub::ReservationService for ReservationService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(req.reservation_group, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 }

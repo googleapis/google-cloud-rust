@@ -51,7 +51,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         req: crate::model::CreateCollectorRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -109,12 +109,16 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(req.collector, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn create_annotation(
@@ -122,7 +126,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         req: crate::model::CreateAnnotationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -179,12 +183,16 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(req.annotation, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn get_annotation(
@@ -192,7 +200,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         req: crate::model::GetAnnotationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Annotation>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -252,12 +260,16 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn list_collectors(
@@ -265,7 +277,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         req: crate::model::ListCollectorsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListCollectorsResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -325,12 +337,16 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn get_collector(
@@ -338,7 +354,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         req: crate::model::GetCollectorRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Collector>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -398,12 +414,16 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn update_collector(
@@ -411,7 +431,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         req: crate::model::UpdateCollectorRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -487,12 +507,16 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(req.collector, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn delete_collector(
@@ -500,7 +524,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         req: crate::model::DeleteCollectorRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -561,12 +585,16 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn resume_collector(
@@ -574,7 +602,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         req: crate::model::ResumeCollectorRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -636,12 +664,16 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn register_collector(
@@ -649,7 +681,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         req: crate::model::RegisterCollectorRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -711,12 +743,16 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn pause_collector(
@@ -724,7 +760,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         req: crate::model::PauseCollectorRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -786,12 +822,16 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn list_locations(
@@ -799,7 +839,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -845,12 +885,16 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn get_location(
@@ -858,7 +902,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -911,12 +955,16 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn list_operations(
@@ -924,7 +972,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -982,12 +1030,16 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn get_operation(
@@ -995,7 +1047,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1052,12 +1104,16 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn delete_operation(
@@ -1065,7 +1121,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1122,13 +1178,15 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
         self.inner
-            .execute(builder, body, options)
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -1141,7 +1199,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         req: google_cloud_longrunning::model::CancelOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1200,13 +1258,15 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner
-            .execute(builder, body, options)
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
             .await
             .map(|r: crate::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();

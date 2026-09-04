@@ -51,7 +51,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListLocationsResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -108,12 +108,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn get_location(
@@ -121,7 +125,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Location>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -176,12 +180,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn list_secrets(
@@ -189,7 +197,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::ListSecretsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListSecretsResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -246,12 +254,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn create_secret(
@@ -259,7 +271,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::CreateSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Secret>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -305,12 +317,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(req.body, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn list_secrets_by_project_and_location(
@@ -318,7 +334,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListSecretsResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -386,12 +402,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn create_secret_by_project_and_location(
@@ -399,7 +419,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::CreateSecretByProjectAndLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Secret>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -456,12 +476,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(req.body, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn add_secret_version(
@@ -469,7 +493,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::AddSecretVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecretVersion>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -527,12 +551,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(req.body, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn add_secret_version_by_project_and_location_and_secret(
@@ -540,7 +568,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecretVersion>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -607,12 +635,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(req.body, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn get_secret(
@@ -620,7 +652,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::GetSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Secret>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -673,12 +705,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn delete_secret(
@@ -686,7 +722,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::DeleteSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Empty>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -745,12 +781,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn update_secret(
@@ -758,7 +798,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::UpdateSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Secret>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -821,12 +861,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(req.body, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn get_secret_by_project_and_location_and_secret(
@@ -834,7 +878,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::GetSecretByProjectAndLocationAndSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Secret>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -900,12 +944,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn delete_secret_by_project_and_location_and_secret(
@@ -913,7 +961,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Empty>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -983,12 +1031,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn update_secret_by_project_and_location_and_secret(
@@ -996,7 +1048,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Secret>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1070,12 +1122,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(req.body, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn list_secret_versions(
@@ -1083,7 +1139,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::ListSecretVersionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListSecretVersionsResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1153,12 +1209,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn list_secret_versions_by_project_and_location_and_secret(
@@ -1166,7 +1226,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListSecretVersionsResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1245,12 +1305,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn get_secret_version(
@@ -1258,7 +1322,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::GetSecretVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecretVersion>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1326,12 +1390,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn get_secret_version_by_project_and_location_and_secret_and_version(
@@ -1339,7 +1407,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecretVersion>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1402,12 +1470,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn access_secret_version(
@@ -1415,7 +1487,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::AccessSecretVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AccessSecretVersionResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1484,12 +1556,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn access_secret_version_by_project_and_location_and_secret_and_version(
@@ -1497,7 +1573,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AccessSecretVersionResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1560,12 +1636,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn disable_secret_version(
@@ -1573,7 +1653,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::DisableSecretVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecretVersion>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1642,12 +1722,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(req.body, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn disable_secret_version_by_project_and_location_and_secret_and_version(
@@ -1655,7 +1739,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecretVersion>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1718,12 +1802,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(req.body, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn enable_secret_version(
@@ -1731,7 +1819,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::EnableSecretVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecretVersion>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1800,12 +1888,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(req.body, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn enable_secret_version_by_project_and_location_and_secret_and_version(
@@ -1813,7 +1905,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecretVersion>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1876,12 +1968,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(req.body, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn destroy_secret_version(
@@ -1889,7 +1985,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::DestroySecretVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecretVersion>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -1958,12 +2054,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(req.body, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn destroy_secret_version_by_project_and_location_and_secret_and_version(
@@ -1971,7 +2071,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecretVersion>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2034,12 +2134,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(req.body, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn set_iam_policy(
@@ -2047,7 +2151,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Policy>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2105,12 +2209,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(req.body, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn set_iam_policy_by_project_and_location_and_secret(
@@ -2118,7 +2226,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Policy>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2185,12 +2293,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(req.body, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn get_iam_policy(
@@ -2198,7 +2310,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Policy>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2262,12 +2374,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn get_iam_policy_by_project_and_location_and_secret(
@@ -2275,7 +2391,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Policy>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2348,12 +2464,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn test_iam_permissions(
@@ -2361,7 +2481,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::TestIamPermissionsResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2419,12 +2539,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(req.body, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn test_iam_permissions_by_project_and_location_and_secret(
@@ -2432,7 +2556,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         req: crate::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::TestIamPermissionsResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
@@ -2488,11 +2612,15 @@ impl super::stub::SecretManagerService for SecretManagerService {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json")]);
         let body = gaxi::http::handle_empty(req.body, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 }

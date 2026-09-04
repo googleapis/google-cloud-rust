@@ -49,7 +49,6 @@
     feature = "vertex-rag-service",
     feature = "vizier-service",
 ))]
-#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements a [DataFoundryService](super::stub::DataFoundryService) decorator for logging and tracing.

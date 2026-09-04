@@ -18,7 +18,7 @@
 use crate::Error;
 use crate::Result;
 
-/// Implements [RoutesPreferred](super::stub::RoutesPreferred) using a [gaxi::http::ReqwestClient].
+/// Implements [RoutesPreferred](super::stub::RoutesPreferred) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
 #[derive(Clone)]
 pub struct RoutesPreferred {
     inner: gaxi::http::ReqwestClient,
@@ -27,10 +27,10 @@ pub struct RoutesPreferred {
 
 impl std::fmt::Debug for RoutesPreferred {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        let mut builder = f.debug_struct("RoutesPreferred");
-        builder.field("inner", &self.inner);
-        builder.field("grpc_inner", &self.grpc_inner);
-        builder.finish()
+        f.debug_struct("RoutesPreferred")
+            .field("inner", &self.inner)
+            .field("grpc_inner", &self.grpc_inner)
+            .finish()
     }
 }
 
@@ -63,7 +63,7 @@ impl super::stub::RoutesPreferred for RoutesPreferred {
         req: crate::model::ComputeRoutesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ComputeRoutesResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
@@ -94,12 +94,16 @@ impl super::stub::RoutesPreferred for RoutesPreferred {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn compute_route_matrix(
@@ -146,7 +150,7 @@ impl super::stub::RoutesPreferred for RoutesPreferred {
         req: crate::model::ComputeCustomRoutesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ComputeCustomRoutesResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
@@ -177,11 +181,15 @@ impl super::stub::RoutesPreferred for RoutesPreferred {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 }

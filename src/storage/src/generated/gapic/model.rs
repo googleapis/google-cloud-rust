@@ -1961,8 +1961,6 @@ impl wkt::message::Message for RestoreObjectRequest {
 }
 
 /// Request message for [ReadObject][google.storage.v2.Storage.ReadObject].
-///
-/// [google.storage.v2.Storage.ReadObject]: crate::client::StorageControl::read_object
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReadObjectRequest {

@@ -18,7 +18,7 @@
 use crate::Error;
 use crate::Result;
 
-/// Implements [Routes](super::stub::Routes) using a [gaxi::http::ReqwestClient].
+/// Implements [Routes](super::stub::Routes) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
 #[derive(Clone)]
 pub struct Routes {
     inner: gaxi::http::ReqwestClient,
@@ -27,10 +27,10 @@ pub struct Routes {
 
 impl std::fmt::Debug for Routes {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        let mut builder = f.debug_struct("Routes");
-        builder.field("inner", &self.inner);
-        builder.field("grpc_inner", &self.grpc_inner);
-        builder.finish()
+        f.debug_struct("Routes")
+            .field("inner", &self.inner)
+            .field("grpc_inner", &self.grpc_inner)
+            .finish()
     }
 }
 
@@ -63,7 +63,7 @@ impl super::stub::Routes for Routes {
         req: crate::model::ComputeRoutesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ComputeRoutesResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::http::reqwest::Method;
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
@@ -94,12 +94,16 @@ impl super::stub::Routes for Routes {
             options,
             gaxi::http::default_idempotency(&method),
         );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]);
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(
+                builder,
+                body,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_HEADER,
+            )
+            .await
     }
 
     async fn compute_route_matrix(
