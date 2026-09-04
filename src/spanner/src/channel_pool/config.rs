@@ -124,8 +124,6 @@ pub(crate) struct DynamicChannelPoolConfig {
     pub(crate) error_penalty_step: u32,
     /// Sliding window duration for active error penalties (default: 5 seconds).
     pub(crate) error_penalty_duration: Duration,
-    /// Maximum penalty load that can accumulate on a single channel (default: 25).
-    pub(crate) error_penalty_max: u32,
     /// Interval between periodic scale-down evaluations (default: 3 minutes).
     pub(crate) scale_down_check_interval: Duration,
     /// Cooldown period between consecutive scale-up bursts (default: 10 seconds).
@@ -136,7 +134,7 @@ pub(crate) struct DynamicChannelPoolConfig {
     pub(crate) max_scale_up_percent: u32,
     /// Maximum number of channels marked draining per scale-down cycle (default: 2).
     pub(crate) max_remove_channels: usize,
-    /// Idle grace duration a draining channel is kept alive after load drops to 0 (default: 5 seconds).
+    /// Idle grace duration a draining channel is kept alive after load drops to 0 (default: 1 minute).
     pub(crate) drain_idle_grace: Duration,
     /// Timeout for executing SELECT 1 priming on a new scaled-up channel (default: 10 seconds).
     pub(crate) prime_timeout: Duration,
@@ -156,13 +154,12 @@ impl Default for DynamicChannelPoolConfig {
             max_rpc_per_channel: 25.0,
             error_penalty_step: 5,
             error_penalty_duration: Duration::from_secs(5),
-            error_penalty_max: 25,
             scale_down_check_interval: Duration::from_secs(180),
             scale_up_cooldown: Duration::from_secs(10),
             consecutive_low_load_checks: 3,
             max_scale_up_percent: 30,
             max_remove_channels: 2,
-            drain_idle_grace: Duration::from_secs(5),
+            drain_idle_grace: Duration::from_secs(60),
             prime_timeout: Duration::from_secs(10),
             prime_max_attempts: 3,
             selection_strategy: ChannelSelectionStrategy::PowerOfTwoLeastBusy,
@@ -227,7 +224,18 @@ impl DynamicChannelPoolConfig {
         if self.prime_max_attempts == 0 {
             return Err(GaxError::binding("prime_max_attempts must be at least 1"));
         }
+        if self.error_penalty_step > self.error_penalty_max() {
+            return Err(GaxError::binding(
+                "error_penalty_step cannot exceed ceil(max_rpc_per_channel)",
+            ));
+        }
         Ok(())
+    }
+
+    /// Returns the maximum penalty load that can accumulate on a single channel,
+    /// dynamically derived from `ceil(max_rpc_per_channel)`.
+    pub(crate) fn error_penalty_max(&self) -> u32 {
+        self.max_rpc_per_channel.ceil() as u32
     }
 
     /// Computes the midpoint target RPC capacity per channel (e.g. (15 + 25) / 2 = 20).
@@ -332,7 +340,8 @@ mod tests {
             "DynamicChannelPoolConfig default error_penalty_duration must be 5s"
         );
         assert_eq!(
-            dynamic_config.error_penalty_max, 25,
+            dynamic_config.error_penalty_max(),
+            25,
             "DynamicChannelPoolConfig default error_penalty_max must be 25"
         );
         assert_eq!(
@@ -342,6 +351,11 @@ mod tests {
         assert_eq!(
             dynamic_config.max_remove_channels, 2,
             "DynamicChannelPoolConfig default max_remove_channels must be 2"
+        );
+        assert_eq!(
+            dynamic_config.drain_idle_grace,
+            Duration::from_secs(60),
+            "DynamicChannelPoolConfig default drain_idle_grace must be 60s"
         );
         assert!(
             dynamic_config.validate().is_ok(),
@@ -576,6 +590,16 @@ mod tests {
             "prime_max_attempts == 0 must fail validation"
         );
 
+        let invalid_error_penalty_step = DynamicChannelPoolConfig {
+            error_penalty_step: 30,
+            max_rpc_per_channel: 25.0,
+            ..Default::default()
+        };
+        assert!(
+            invalid_error_penalty_step.validate().is_err(),
+            "error_penalty_step > ceil(max_rpc_per_channel) must fail validation"
+        );
+
         let static_exceeds_max = StaticChannelPoolConfig {
             num_channels: MAX_SUPPORTED_CHANNELS + 1,
         };
@@ -689,6 +713,29 @@ mod tests {
             low_config.target_rpc_per_channel(),
             1,
             "Target RPC per channel must clamp to minimum 1"
+        );
+    }
+
+    #[test]
+    fn error_penalty_max_derived_from_max_rpc_per_channel() {
+        let config = DynamicChannelPoolConfig {
+            max_rpc_per_channel: 25.0,
+            ..Default::default()
+        };
+        assert_eq!(
+            config.error_penalty_max(),
+            25,
+            "error_penalty_max must equal ceil(25.0)"
+        );
+
+        let config_fractional = DynamicChannelPoolConfig {
+            max_rpc_per_channel: 25.2,
+            ..Default::default()
+        };
+        assert_eq!(
+            config_fractional.error_penalty_max(),
+            26,
+            "error_penalty_max must equal ceil(25.2) -> 26"
         );
     }
 }

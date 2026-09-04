@@ -326,7 +326,7 @@ impl ChannelPoolInner {
             ChannelPoolConfig::Dynamic(dynamic_config) => (
                 dynamic_config.error_penalty_step,
                 dynamic_config.error_penalty_duration,
-                dynamic_config.error_penalty_max,
+                dynamic_config.error_penalty_max(),
             ),
             ChannelPoolConfig::Static(_) => (0, Duration::ZERO, 0),
         };
@@ -813,7 +813,7 @@ mod tests {
             config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig {
                 error_penalty_step: 7,
                 error_penalty_duration: Duration::from_secs(10),
-                error_penalty_max: 30,
+                max_rpc_per_channel: 30.0,
                 ..Default::default()
             }),
             client_config: ClientConfig::default(),
