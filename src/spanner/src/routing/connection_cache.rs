@@ -412,6 +412,14 @@ mod tests {
             "spanner.googleapis.com:443",
             "default connection address should match"
         );
+        assert!(
+            cache.is_default_address("spanner.googleapis.com:443"),
+            "must return true for default address"
+        );
+        assert!(
+            !cache.is_default_address("10.0.0.1:15000"),
+            "must return false for non-default address"
+        );
 
         let cached_default = cache
             .get_if_present("spanner.googleapis.com:443")
