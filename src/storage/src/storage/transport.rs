@@ -1234,17 +1234,25 @@ mod tests {
         const OBJECT_NAME: &str = "test-object";
         const BIND_ADDRESS: &str = "0.0.0.0:0";
 
+        // Arrange.
         let guard = TestLayer::initialize();
 
         let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(10);
+
+        // The first response is the initial handshake/metadata response expected by
+        // `connector.rs` immediately upon opening the stream, before any data is sent.
         let response = BidiWriteObjectResponse {
             write_status: Some(WriteStatus::PersistedSize(100)),
             ..BidiWriteObjectResponse::default()
         };
-
-        // The first response is the initial handshake/metadata response expected by
-        // `connector.rs` immediately upon opening the stream, before any data is sent.
         tx.send(Ok(response.clone())).await?;
+
+        // The flush response must confirm persistence at or past the flush request's target
+        // offset (100 initial + 5 appended = 105) for the worker to satisfy the pending flush.
+        let flush_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(105)),
+            ..BidiWriteObjectResponse::default()
+        };
 
         let finalize_response = BidiWriteObjectResponse {
             write_status: Some(WriteStatus::Resource(
@@ -1261,12 +1269,12 @@ mod tests {
             let mut stream = req.into_inner();
             tokio::spawn(async move {
                 while let Some(Ok(msg)) = stream.recv().await {
+                    // The second response is sent ONLY when the client explicitly requests a flush
+                    // or finalize. `writer.append()` does not wait for a response.
                     if msg.finish_write {
                         let _ = tx.send(Ok(finalize_response.clone())).await;
                     } else if msg.flush {
-                        // The second response is sent ONLY when the client explicitly requests a flush.
-                        // `writer.append()` does not wait for a response, but `writer.flush()` does.
-                        let _ = tx.send(Ok(response.clone())).await;
+                        let _ = tx.send(Ok(flush_response.clone())).await;
                     }
                 }
             });
@@ -1280,6 +1288,8 @@ mod tests {
             .with_tracing()
             .build()
             .await?;
+
+        // Act.
         let mut writer = client
             .reopen_appendable_object(BUCKET_NAME, OBJECT_NAME, 12345)
             .send()
@@ -1288,6 +1298,8 @@ mod tests {
         writer.append(Bytes::from_static(b"hello")).await?;
         writer.flush().await?;
         let obj = writer.finalize().await?;
+
+        // Assert.
         assert_eq!(obj.size, 105);
 
         let captured = TestLayer::capture(&guard);
@@ -1297,7 +1309,7 @@ mod tests {
             .unwrap_or_else(|| panic!("missing `client_request` span in capture: {captured:#?}"));
 
         check_bidi_write_span_attributes(&captured, "append", 12345, Some(5));
-        check_bidi_write_span_attributes(&captured, "flush", 12345, Some(100));
+        check_bidi_write_span_attributes(&captured, "flush", 12345, Some(105));
         check_bidi_write_span_attributes(&captured, "finalize", 12345, Some(105));
 
         Ok(())
