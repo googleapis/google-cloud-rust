@@ -84,6 +84,29 @@ impl BigQuery {
         ClientBuilder::new()
     }
 
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::BigQuery;
+    /// # use google_cloud_bigquery::stub::JobService;
+    /// # fn sample(stub: impl JobService + 'static) {
+    /// let client = BigQuery::from_stub(stub);
+    /// # }
+    /// ```
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: crate::stub::JobService + 'static,
+    {
+        Self {
+            job_service: Arc::new(JobService::from_stub(stub)),
+            project_id: None,
+        }
+    }
+
     pub(crate) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
         let mut job_service_builder = JobService::builder();
         if let Some(creds) = builder.config.cred {
@@ -236,22 +259,36 @@ impl BigQuery {
 mod tests {
     use super::BigQuery;
     use crate::error::QueryError;
-    use crate::query::tests::{MockJobService, create_job_service};
+    use crate::query::tests::MockJobService;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
-    use google_cloud_bigquery_v2::client::JobService;
     use google_cloud_bigquery_v2::model::{
         Job, JobConfiguration, JobConfigurationQuery, JobReference,
     };
     use google_cloud_gax::response::Response;
     use std::sync::Arc;
 
-    impl BigQuery {
-        fn from_job_service(job_service: Arc<JobService>, project_id: Option<String>) -> Self {
-            Self {
-                job_service,
-                project_id,
-            }
-        }
+    #[test]
+    fn test_bigquery_from_stub_accepts_raw_and_arc() {
+        let mock = MockJobService::new();
+        let _client = BigQuery::from_stub(mock);
+
+        let mock_arc = Arc::new(MockJobService::new());
+        let _client_arc = BigQuery::from_stub::<MockJobService>(mock_arc);
+    }
+
+    #[test]
+    fn test_bigquery_from_stub_allows_sharing_stub() {
+        let mock_arc = Arc::new(MockJobService::new());
+
+        let _client1 = BigQuery::from_stub::<MockJobService>(mock_arc.clone());
+        let _client2 = BigQuery::from_stub::<MockJobService>(mock_arc);
+    }
+
+    #[test]
+    fn test_bigquery_from_stub_sets_none_project_id() {
+        let mock = MockJobService::new();
+        let client = BigQuery::from_stub(mock);
+        assert!(client.project_id.is_none());
     }
 
     #[tokio::test]
@@ -316,7 +353,7 @@ mod tests {
                 );
             Ok(Response::from(job))
         });
-        let client = BigQuery::from_job_service(create_job_service(mock), None);
+        let client = BigQuery::from_stub(mock);
         let job_ref = JobReference::new()
             .set_project_id("test-proj")
             .set_job_id("job_123");
@@ -349,8 +386,8 @@ mod tests {
                 );
             Ok(Response::from(job))
         });
-        let client =
-            BigQuery::from_job_service(create_job_service(mock), Some("client-proj".to_string()));
+        let mut client = BigQuery::from_stub(mock);
+        client.project_id = Some("client-proj".to_string());
         let job_ref = JobReference::new().set_job_id("job_456");
         let query = client.attach_job(job_ref).await?;
         let job_ref = query
@@ -407,8 +444,8 @@ mod tests {
             let job = Job::new().set_configuration(JobConfiguration::new());
             Ok(Response::from(job))
         });
-        let client =
-            BigQuery::from_job_service(create_job_service(mock), Some("client-proj".to_string()));
+        let mut client = BigQuery::from_stub(mock);
+        client.project_id = Some("client-proj".to_string());
         let job_ref = JobReference::new().set_job_id("job_extract");
         let err = client
             .attach_job(job_ref)

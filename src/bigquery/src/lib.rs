@@ -170,6 +170,11 @@ pub mod write;
 
 pub mod datatypes;
 
+/// Traits to mock the clients in this library.
+pub mod stub {
+    pub use google_cloud_bigquery_v2::stub::*;
+}
+
 pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
 pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
