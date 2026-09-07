@@ -26,7 +26,10 @@
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
 ///     let client = Read::builder().build().await?;
-///     // use `client` to make requests to the BigQuery Storage API.
+///     let response = client.create_read_session()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 ///     Ok(())
 /// }
 /// ```
@@ -141,6 +144,21 @@ impl Read {
     ///
     /// Read sessions automatically expire 6 hours after they are created and do
     /// not require manual clean-up by the caller.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_read::client::Read;
+    /// use google_cloud_bigquery_read::Result;
+    /// async fn sample(
+    ///    client: &Read
+    /// ) -> Result<()> {
+    ///     let response = client.create_read_session()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_read_session(&self) -> super::builder::read::CreateReadSession {
         super::builder::read::CreateReadSession::new(self.inner.clone())
     }
@@ -152,6 +170,24 @@ impl Read {
     ///
     /// Each request also returns a set of stream statistics reflecting the current
     /// state of the stream.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_read::client::Read;
+    /// use google_cloud_bigquery_read::Result;
+    /// async fn sample(
+    ///    client: &Read
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.read_rows()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn read_rows(&self) -> super::builder::read::ReadRows {
         super::builder::read::ReadRows::new(self.inner.clone())
     }
@@ -168,6 +204,21 @@ impl Read {
     /// original, primary, and residual, that original[0-j] = primary[0-j] and
     /// original[j-n] = residual[0-m] once the streams have been read to
     /// completion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_read::client::Read;
+    /// use google_cloud_bigquery_read::Result;
+    /// async fn sample(
+    ///    client: &Read
+    /// ) -> Result<()> {
+    ///     let response = client.split_read_stream()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn split_read_stream(&self) -> super::builder::read::SplitReadStream {
         super::builder::read::SplitReadStream::new(self.inner.clone())
     }

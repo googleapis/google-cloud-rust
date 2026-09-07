@@ -18,6 +18,20 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 #![allow(rustdoc::invalid_html_tags)]
 #![allow(rustdoc::redundant_explicit_links)]
+#![no_implicit_prelude]
+extern crate async_trait;
+extern crate bytes;
+extern crate gaxi;
+extern crate google_cloud_gax;
+extern crate http;
+extern crate prost;
+extern crate prost_types;
+extern crate serde;
+extern crate serde_json;
+extern crate serde_with;
+extern crate std;
+extern crate tracing;
+extern crate wkt;
 
 mod debug;
 mod deserialize;
@@ -45,6 +59,12 @@ impl ArrowSchema {
     }
 
     /// Sets the value of [serialized_schema][crate::model::ArrowSchema::serialized_schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ArrowSchema;
+    /// let x = ArrowSchema::new().set_serialized_schema(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_serialized_schema<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.serialized_schema = v.into();
         self
@@ -79,6 +99,12 @@ impl ArrowRecordBatch {
     }
 
     /// Sets the value of [serialized_record_batch][crate::model::ArrowRecordBatch::serialized_record_batch].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ArrowRecordBatch;
+    /// let x = ArrowRecordBatch::new().set_serialized_record_batch(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_serialized_record_batch<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
@@ -88,6 +114,12 @@ impl ArrowRecordBatch {
     }
 
     /// Sets the value of [row_count][crate::model::ArrowRecordBatch::row_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ArrowRecordBatch;
+    /// let x = ArrowRecordBatch::new().set_row_count(42);
+    /// ```
     #[deprecated]
     pub fn set_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.row_count = v.into();
@@ -124,6 +156,14 @@ impl ArrowSerializationOptions {
     }
 
     /// Sets the value of [buffer_compression][crate::model::ArrowSerializationOptions::buffer_compression].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ArrowSerializationOptions;
+    /// use google_cloud_bigquery_read::model::arrow_serialization_options::CompressionCodec;
+    /// let x0 = ArrowSerializationOptions::new().set_buffer_compression(CompressionCodec::Lz4Frame);
+    /// let x1 = ArrowSerializationOptions::new().set_buffer_compression(CompressionCodec::Zstd);
+    /// ```
     pub fn set_buffer_compression<
         T: std::convert::Into<crate::model::arrow_serialization_options::CompressionCodec>,
     >(
@@ -135,6 +175,15 @@ impl ArrowSerializationOptions {
     }
 
     /// Sets the value of [picos_timestamp_precision][crate::model::ArrowSerializationOptions::picos_timestamp_precision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ArrowSerializationOptions;
+    /// use google_cloud_bigquery_read::model::arrow_serialization_options::PicosTimestampPrecision;
+    /// let x0 = ArrowSerializationOptions::new().set_picos_timestamp_precision(PicosTimestampPrecision::TimestampPrecisionMicros);
+    /// let x1 = ArrowSerializationOptions::new().set_picos_timestamp_precision(PicosTimestampPrecision::TimestampPrecisionNanos);
+    /// let x2 = ArrowSerializationOptions::new().set_picos_timestamp_precision(PicosTimestampPrecision::TimestampPrecisionPicos);
+    /// ```
     pub fn set_picos_timestamp_precision<
         T: std::convert::Into<crate::model::arrow_serialization_options::PicosTimestampPrecision>,
     >(
@@ -462,6 +511,12 @@ impl AvroSchema {
     }
 
     /// Sets the value of [schema][crate::model::AvroSchema::schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::AvroSchema;
+    /// let x = AvroSchema::new().set_schema("example");
+    /// ```
     pub fn set_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schema = v.into();
         self
@@ -496,6 +551,12 @@ impl AvroRows {
     }
 
     /// Sets the value of [serialized_binary_rows][crate::model::AvroRows::serialized_binary_rows].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::AvroRows;
+    /// let x = AvroRows::new().set_serialized_binary_rows(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_serialized_binary_rows<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
@@ -505,6 +566,12 @@ impl AvroRows {
     }
 
     /// Sets the value of [row_count][crate::model::AvroRows::row_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::AvroRows;
+    /// let x = AvroRows::new().set_row_count(42);
+    /// ```
     #[deprecated]
     pub fn set_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.row_count = v.into();
@@ -549,12 +616,27 @@ impl AvroSerializationOptions {
     }
 
     /// Sets the value of [enable_display_name_attribute][crate::model::AvroSerializationOptions::enable_display_name_attribute].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::AvroSerializationOptions;
+    /// let x = AvroSerializationOptions::new().set_enable_display_name_attribute(true);
+    /// ```
     pub fn set_enable_display_name_attribute<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_display_name_attribute = v.into();
         self
     }
 
     /// Sets the value of [picos_timestamp_precision][crate::model::AvroSerializationOptions::picos_timestamp_precision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::AvroSerializationOptions;
+    /// use google_cloud_bigquery_read::model::avro_serialization_options::PicosTimestampPrecision;
+    /// let x0 = AvroSerializationOptions::new().set_picos_timestamp_precision(PicosTimestampPrecision::TimestampPrecisionMicros);
+    /// let x1 = AvroSerializationOptions::new().set_picos_timestamp_precision(PicosTimestampPrecision::TimestampPrecisionNanos);
+    /// let x2 = AvroSerializationOptions::new().set_picos_timestamp_precision(PicosTimestampPrecision::TimestampPrecisionPicos);
+    /// ```
     pub fn set_picos_timestamp_precision<
         T: std::convert::Into<crate::model::avro_serialization_options::PicosTimestampPrecision>,
     >(
@@ -773,12 +855,25 @@ impl CreateReadSessionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateReadSessionRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::CreateReadSessionRequest;
+    /// let x = CreateReadSessionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [read_session][crate::model::CreateReadSessionRequest::read_session].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::CreateReadSessionRequest;
+    /// use google_cloud_bigquery_read::model::ReadSession;
+    /// let x = CreateReadSessionRequest::new().set_read_session(ReadSession::default()/* use setters */);
+    /// ```
     pub fn set_read_session<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReadSession>,
@@ -788,6 +883,14 @@ impl CreateReadSessionRequest {
     }
 
     /// Sets or clears the value of [read_session][crate::model::CreateReadSessionRequest::read_session].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::CreateReadSessionRequest;
+    /// use google_cloud_bigquery_read::model::ReadSession;
+    /// let x = CreateReadSessionRequest::new().set_or_clear_read_session(Some(ReadSession::default()/* use setters */));
+    /// let x = CreateReadSessionRequest::new().set_or_clear_read_session(None::<ReadSession>);
+    /// ```
     pub fn set_or_clear_read_session<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReadSession>,
@@ -797,12 +900,24 @@ impl CreateReadSessionRequest {
     }
 
     /// Sets the value of [max_stream_count][crate::model::CreateReadSessionRequest::max_stream_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::CreateReadSessionRequest;
+    /// let x = CreateReadSessionRequest::new().set_max_stream_count(42);
+    /// ```
     pub fn set_max_stream_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_stream_count = v.into();
         self
     }
 
     /// Sets the value of [preferred_min_stream_count][crate::model::CreateReadSessionRequest::preferred_min_stream_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::CreateReadSessionRequest;
+    /// let x = CreateReadSessionRequest::new().set_preferred_min_stream_count(42);
+    /// ```
     pub fn set_preferred_min_stream_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.preferred_min_stream_count = v.into();
         self
@@ -844,12 +959,28 @@ impl ReadRowsRequest {
     }
 
     /// Sets the value of [read_stream][crate::model::ReadRowsRequest::read_stream].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadRowsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let session_id = "session_id";
+    /// # let stream_id = "stream_id";
+    /// let x = ReadRowsRequest::new().set_read_stream(format!("projects/{project_id}/locations/{location_id}/sessions/{session_id}/streams/{stream_id}"));
+    /// ```
     pub fn set_read_stream<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.read_stream = v.into();
         self
     }
 
     /// Sets the value of [offset][crate::model::ReadRowsRequest::offset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadRowsRequest;
+    /// let x = ReadRowsRequest::new().set_offset(42);
+    /// ```
     pub fn set_offset<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.offset = v.into();
         self
@@ -859,6 +990,14 @@ impl ReadRowsRequest {
     ///
     /// Note that all the setters affecting `output_format_serialization_options` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadRowsRequest;
+    /// use google_cloud_bigquery_read::model::ArrowSerializationOptions;
+    /// let x = ReadRowsRequest::new().set_output_format_serialization_options(Some(
+    ///     google_cloud_bigquery_read::model::read_rows_request::OutputFormatSerializationOptions::ArrowSerializationOptions(ArrowSerializationOptions::default().into())));
+    /// ```
     pub fn set_output_format_serialization_options<
         T: std::convert::Into<
                 std::option::Option<
@@ -891,6 +1030,14 @@ impl ReadRowsRequest {
     ///
     /// Note that all the setters affecting `output_format_serialization_options` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadRowsRequest;
+    /// use google_cloud_bigquery_read::model::ArrowSerializationOptions;
+    /// let x = ReadRowsRequest::new().set_arrow_serialization_options(ArrowSerializationOptions::default()/* use setters */);
+    /// assert!(x.arrow_serialization_options().is_some());
+    /// ```
     pub fn set_arrow_serialization_options<
         T: std::convert::Into<std::boxed::Box<crate::model::ArrowSerializationOptions>>,
     >(
@@ -929,15 +1076,6 @@ pub mod read_rows_request {
         /// This feature is not yet available.
         ArrowSerializationOptions(std::boxed::Box<crate::model::ArrowSerializationOptions>),
     }
-
-    impl OutputFormatSerializationOptions {
-        /// Initializes the enum to the [ArrowSerializationOptions](Self::ArrowSerializationOptions) branch.
-        pub fn from_arrow_serialization_options(
-            value: impl std::convert::Into<std::boxed::Box<crate::model::ArrowSerializationOptions>>,
-        ) -> Self {
-            Self::ArrowSerializationOptions(value.into())
-        }
-    }
 }
 
 /// Information on if the current connection is being throttled.
@@ -958,6 +1096,12 @@ impl ThrottleState {
     }
 
     /// Sets the value of [throttle_percent][crate::model::ThrottleState::throttle_percent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ThrottleState;
+    /// let x = ThrottleState::new().set_throttle_percent(42);
+    /// ```
     pub fn set_throttle_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.throttle_percent = v.into();
         self
@@ -987,6 +1131,13 @@ impl StreamStats {
     }
 
     /// Sets the value of [progress][crate::model::StreamStats::progress].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::StreamStats;
+    /// use google_cloud_bigquery_read::model::stream_stats::Progress;
+    /// let x = StreamStats::new().set_progress(Progress::default()/* use setters */);
+    /// ```
     pub fn set_progress<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::stream_stats::Progress>,
@@ -996,6 +1147,14 @@ impl StreamStats {
     }
 
     /// Sets or clears the value of [progress][crate::model::StreamStats::progress].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::StreamStats;
+    /// use google_cloud_bigquery_read::model::stream_stats::Progress;
+    /// let x = StreamStats::new().set_or_clear_progress(Some(Progress::default()/* use setters */));
+    /// let x = StreamStats::new().set_or_clear_progress(None::<Progress>);
+    /// ```
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::stream_stats::Progress>,
@@ -1048,12 +1207,24 @@ pub mod stream_stats {
         }
 
         /// Sets the value of [at_response_start][crate::model::stream_stats::Progress::at_response_start].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_read::model::stream_stats::Progress;
+        /// let x = Progress::new().set_at_response_start(42.0);
+        /// ```
         pub fn set_at_response_start<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.at_response_start = v.into();
             self
         }
 
         /// Sets the value of [at_response_end][crate::model::stream_stats::Progress::at_response_end].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_read::model::stream_stats::Progress;
+        /// let x = Progress::new().set_at_response_end(42.0);
+        /// ```
         pub fn set_at_response_end<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.at_response_end = v.into();
             self
@@ -1124,12 +1295,25 @@ impl ReadRowsResponse {
     }
 
     /// Sets the value of [row_count][crate::model::ReadRowsResponse::row_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadRowsResponse;
+    /// let x = ReadRowsResponse::new().set_row_count(42);
+    /// ```
     pub fn set_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.row_count = v.into();
         self
     }
 
     /// Sets the value of [stats][crate::model::ReadRowsResponse::stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadRowsResponse;
+    /// use google_cloud_bigquery_read::model::StreamStats;
+    /// let x = ReadRowsResponse::new().set_stats(StreamStats::default()/* use setters */);
+    /// ```
     pub fn set_stats<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StreamStats>,
@@ -1139,6 +1323,14 @@ impl ReadRowsResponse {
     }
 
     /// Sets or clears the value of [stats][crate::model::ReadRowsResponse::stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadRowsResponse;
+    /// use google_cloud_bigquery_read::model::StreamStats;
+    /// let x = ReadRowsResponse::new().set_or_clear_stats(Some(StreamStats::default()/* use setters */));
+    /// let x = ReadRowsResponse::new().set_or_clear_stats(None::<StreamStats>);
+    /// ```
     pub fn set_or_clear_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StreamStats>,
@@ -1148,6 +1340,13 @@ impl ReadRowsResponse {
     }
 
     /// Sets the value of [throttle_state][crate::model::ReadRowsResponse::throttle_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadRowsResponse;
+    /// use google_cloud_bigquery_read::model::ThrottleState;
+    /// let x = ReadRowsResponse::new().set_throttle_state(ThrottleState::default()/* use setters */);
+    /// ```
     pub fn set_throttle_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ThrottleState>,
@@ -1157,6 +1356,14 @@ impl ReadRowsResponse {
     }
 
     /// Sets or clears the value of [throttle_state][crate::model::ReadRowsResponse::throttle_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadRowsResponse;
+    /// use google_cloud_bigquery_read::model::ThrottleState;
+    /// let x = ReadRowsResponse::new().set_or_clear_throttle_state(Some(ThrottleState::default()/* use setters */));
+    /// let x = ReadRowsResponse::new().set_or_clear_throttle_state(None::<ThrottleState>);
+    /// ```
     pub fn set_or_clear_throttle_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ThrottleState>,
@@ -1166,6 +1373,12 @@ impl ReadRowsResponse {
     }
 
     /// Sets the value of [uncompressed_byte_size][crate::model::ReadRowsResponse::uncompressed_byte_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadRowsResponse;
+    /// let x = ReadRowsResponse::new().set_uncompressed_byte_size(42);
+    /// ```
     pub fn set_uncompressed_byte_size<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1175,6 +1388,13 @@ impl ReadRowsResponse {
     }
 
     /// Sets or clears the value of [uncompressed_byte_size][crate::model::ReadRowsResponse::uncompressed_byte_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadRowsResponse;
+    /// let x = ReadRowsResponse::new().set_or_clear_uncompressed_byte_size(Some(42));
+    /// let x = ReadRowsResponse::new().set_or_clear_uncompressed_byte_size(None::<i32>);
+    /// ```
     pub fn set_or_clear_uncompressed_byte_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1184,6 +1404,12 @@ impl ReadRowsResponse {
     }
 
     /// Sets the value of [total_estimated_row_count][crate::model::ReadRowsResponse::total_estimated_row_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadRowsResponse;
+    /// let x = ReadRowsResponse::new().set_total_estimated_row_count(42);
+    /// ```
     pub fn set_total_estimated_row_count<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1193,6 +1419,13 @@ impl ReadRowsResponse {
     }
 
     /// Sets or clears the value of [total_estimated_row_count][crate::model::ReadRowsResponse::total_estimated_row_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadRowsResponse;
+    /// let x = ReadRowsResponse::new().set_or_clear_total_estimated_row_count(Some(42));
+    /// let x = ReadRowsResponse::new().set_or_clear_total_estimated_row_count(None::<i32>);
+    /// ```
     pub fn set_or_clear_total_estimated_row_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1205,6 +1438,14 @@ impl ReadRowsResponse {
     ///
     /// Note that all the setters affecting `rows` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadRowsResponse;
+    /// use google_cloud_bigquery_read::model::AvroRows;
+    /// let x = ReadRowsResponse::new().set_rows(Some(
+    ///     google_cloud_bigquery_read::model::read_rows_response::Rows::AvroRows(AvroRows::default().into())));
+    /// ```
     pub fn set_rows<
         T: std::convert::Into<std::option::Option<crate::model::read_rows_response::Rows>>,
     >(
@@ -1231,6 +1472,15 @@ impl ReadRowsResponse {
     ///
     /// Note that all the setters affecting `rows` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadRowsResponse;
+    /// use google_cloud_bigquery_read::model::AvroRows;
+    /// let x = ReadRowsResponse::new().set_avro_rows(AvroRows::default()/* use setters */);
+    /// assert!(x.avro_rows().is_some());
+    /// assert!(x.arrow_record_batch().is_none());
+    /// ```
     pub fn set_avro_rows<T: std::convert::Into<std::boxed::Box<crate::model::AvroRows>>>(
         mut self,
         v: T,
@@ -1260,6 +1510,15 @@ impl ReadRowsResponse {
     ///
     /// Note that all the setters affecting `rows` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadRowsResponse;
+    /// use google_cloud_bigquery_read::model::ArrowRecordBatch;
+    /// let x = ReadRowsResponse::new().set_arrow_record_batch(ArrowRecordBatch::default()/* use setters */);
+    /// assert!(x.arrow_record_batch().is_some());
+    /// assert!(x.avro_rows().is_none());
+    /// ```
     pub fn set_arrow_record_batch<
         T: std::convert::Into<std::boxed::Box<crate::model::ArrowRecordBatch>>,
     >(
@@ -1276,6 +1535,14 @@ impl ReadRowsResponse {
     ///
     /// Note that all the setters affecting `schema` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadRowsResponse;
+    /// use google_cloud_bigquery_read::model::AvroSchema;
+    /// let x = ReadRowsResponse::new().set_schema(Some(
+    ///     google_cloud_bigquery_read::model::read_rows_response::Schema::AvroSchema(AvroSchema::default().into())));
+    /// ```
     pub fn set_schema<
         T: std::convert::Into<std::option::Option<crate::model::read_rows_response::Schema>>,
     >(
@@ -1302,6 +1569,15 @@ impl ReadRowsResponse {
     ///
     /// Note that all the setters affecting `schema` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadRowsResponse;
+    /// use google_cloud_bigquery_read::model::AvroSchema;
+    /// let x = ReadRowsResponse::new().set_avro_schema(AvroSchema::default()/* use setters */);
+    /// assert!(x.avro_schema().is_some());
+    /// assert!(x.arrow_schema().is_none());
+    /// ```
     pub fn set_avro_schema<T: std::convert::Into<std::boxed::Box<crate::model::AvroSchema>>>(
         mut self,
         v: T,
@@ -1330,6 +1606,15 @@ impl ReadRowsResponse {
     ///
     /// Note that all the setters affecting `schema` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadRowsResponse;
+    /// use google_cloud_bigquery_read::model::ArrowSchema;
+    /// let x = ReadRowsResponse::new().set_arrow_schema(ArrowSchema::default()/* use setters */);
+    /// assert!(x.arrow_schema().is_some());
+    /// assert!(x.avro_schema().is_none());
+    /// ```
     pub fn set_arrow_schema<T: std::convert::Into<std::boxed::Box<crate::model::ArrowSchema>>>(
         mut self,
         v: T,
@@ -1362,21 +1647,6 @@ pub mod read_rows_response {
         ArrowRecordBatch(std::boxed::Box<crate::model::ArrowRecordBatch>),
     }
 
-    impl Rows {
-        /// Initializes the enum to the [AvroRows](Self::AvroRows) branch.
-        pub fn from_avro_rows(
-            value: impl std::convert::Into<std::boxed::Box<crate::model::AvroRows>>,
-        ) -> Self {
-            Self::AvroRows(value.into())
-        }
-        /// Initializes the enum to the [ArrowRecordBatch](Self::ArrowRecordBatch) branch.
-        pub fn from_arrow_record_batch(
-            value: impl std::convert::Into<std::boxed::Box<crate::model::ArrowRecordBatch>>,
-        ) -> Self {
-            Self::ArrowRecordBatch(value.into())
-        }
-    }
-
     /// The schema for the read. If read_options.selected_fields is set, the
     /// schema may be different from the table schema as it will only contain
     /// the selected fields. This schema is equivalent to the one returned by
@@ -1389,21 +1659,6 @@ pub mod read_rows_response {
         AvroSchema(std::boxed::Box<crate::model::AvroSchema>),
         /// Output only. Arrow schema.
         ArrowSchema(std::boxed::Box<crate::model::ArrowSchema>),
-    }
-
-    impl Schema {
-        /// Initializes the enum to the [AvroSchema](Self::AvroSchema) branch.
-        pub fn from_avro_schema(
-            value: impl std::convert::Into<std::boxed::Box<crate::model::AvroSchema>>,
-        ) -> Self {
-            Self::AvroSchema(value.into())
-        }
-        /// Initializes the enum to the [ArrowSchema](Self::ArrowSchema) branch.
-        pub fn from_arrow_schema(
-            value: impl std::convert::Into<std::boxed::Box<crate::model::ArrowSchema>>,
-        ) -> Self {
-            Self::ArrowSchema(value.into())
-        }
     }
 }
 
@@ -1433,12 +1688,28 @@ impl SplitReadStreamRequest {
     }
 
     /// Sets the value of [name][crate::model::SplitReadStreamRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::SplitReadStreamRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let session_id = "session_id";
+    /// # let stream_id = "stream_id";
+    /// let x = SplitReadStreamRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/sessions/{session_id}/streams/{stream_id}"));
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [fraction][crate::model::SplitReadStreamRequest::fraction].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::SplitReadStreamRequest;
+    /// let x = SplitReadStreamRequest::new().set_fraction(42.0);
+    /// ```
     pub fn set_fraction<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.fraction = v.into();
         self
@@ -1474,6 +1745,13 @@ impl SplitReadStreamResponse {
     }
 
     /// Sets the value of [primary_stream][crate::model::SplitReadStreamResponse::primary_stream].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::SplitReadStreamResponse;
+    /// use google_cloud_bigquery_read::model::ReadStream;
+    /// let x = SplitReadStreamResponse::new().set_primary_stream(ReadStream::default()/* use setters */);
+    /// ```
     pub fn set_primary_stream<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReadStream>,
@@ -1483,6 +1761,14 @@ impl SplitReadStreamResponse {
     }
 
     /// Sets or clears the value of [primary_stream][crate::model::SplitReadStreamResponse::primary_stream].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::SplitReadStreamResponse;
+    /// use google_cloud_bigquery_read::model::ReadStream;
+    /// let x = SplitReadStreamResponse::new().set_or_clear_primary_stream(Some(ReadStream::default()/* use setters */));
+    /// let x = SplitReadStreamResponse::new().set_or_clear_primary_stream(None::<ReadStream>);
+    /// ```
     pub fn set_or_clear_primary_stream<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReadStream>,
@@ -1492,6 +1778,13 @@ impl SplitReadStreamResponse {
     }
 
     /// Sets the value of [remainder_stream][crate::model::SplitReadStreamResponse::remainder_stream].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::SplitReadStreamResponse;
+    /// use google_cloud_bigquery_read::model::ReadStream;
+    /// let x = SplitReadStreamResponse::new().set_remainder_stream(ReadStream::default()/* use setters */);
+    /// ```
     pub fn set_remainder_stream<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReadStream>,
@@ -1501,6 +1794,14 @@ impl SplitReadStreamResponse {
     }
 
     /// Sets or clears the value of [remainder_stream][crate::model::SplitReadStreamResponse::remainder_stream].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::SplitReadStreamResponse;
+    /// use google_cloud_bigquery_read::model::ReadStream;
+    /// let x = SplitReadStreamResponse::new().set_or_clear_remainder_stream(Some(ReadStream::default()/* use setters */));
+    /// let x = SplitReadStreamResponse::new().set_or_clear_remainder_stream(None::<ReadStream>);
+    /// ```
     pub fn set_or_clear_remainder_stream<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReadStream>,
@@ -1593,12 +1894,28 @@ impl ReadSession {
     }
 
     /// Sets the value of [name][crate::model::ReadSession::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadSession;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let session_id = "session_id";
+    /// let x = ReadSession::new().set_name(format!("projects/{project_id}/locations/{location_id}/sessions/{session_id}"));
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [expire_time][crate::model::ReadSession::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadSession;
+    /// use wkt::Timestamp;
+    /// let x = ReadSession::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1608,6 +1925,14 @@ impl ReadSession {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::ReadSession::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadSession;
+    /// use wkt::Timestamp;
+    /// let x = ReadSession::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ReadSession::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1617,6 +1942,14 @@ impl ReadSession {
     }
 
     /// Sets the value of [data_format][crate::model::ReadSession::data_format].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadSession;
+    /// use google_cloud_bigquery_read::model::DataFormat;
+    /// let x0 = ReadSession::new().set_data_format(DataFormat::Avro);
+    /// let x1 = ReadSession::new().set_data_format(DataFormat::Arrow);
+    /// ```
     pub fn set_data_format<T: std::convert::Into<crate::model::DataFormat>>(
         mut self,
         v: T,
@@ -1626,12 +1959,25 @@ impl ReadSession {
     }
 
     /// Sets the value of [table][crate::model::ReadSession::table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadSession;
+    /// let x = ReadSession::new().set_table("example");
+    /// ```
     pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table = v.into();
         self
     }
 
     /// Sets the value of [table_modifiers][crate::model::ReadSession::table_modifiers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadSession;
+    /// use google_cloud_bigquery_read::model::read_session::TableModifiers;
+    /// let x = ReadSession::new().set_table_modifiers(TableModifiers::default()/* use setters */);
+    /// ```
     pub fn set_table_modifiers<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::read_session::TableModifiers>,
@@ -1641,6 +1987,14 @@ impl ReadSession {
     }
 
     /// Sets or clears the value of [table_modifiers][crate::model::ReadSession::table_modifiers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadSession;
+    /// use google_cloud_bigquery_read::model::read_session::TableModifiers;
+    /// let x = ReadSession::new().set_or_clear_table_modifiers(Some(TableModifiers::default()/* use setters */));
+    /// let x = ReadSession::new().set_or_clear_table_modifiers(None::<TableModifiers>);
+    /// ```
     pub fn set_or_clear_table_modifiers<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::read_session::TableModifiers>,
@@ -1650,6 +2004,13 @@ impl ReadSession {
     }
 
     /// Sets the value of [read_options][crate::model::ReadSession::read_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadSession;
+    /// use google_cloud_bigquery_read::model::read_session::TableReadOptions;
+    /// let x = ReadSession::new().set_read_options(TableReadOptions::default()/* use setters */);
+    /// ```
     pub fn set_read_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::read_session::TableReadOptions>,
@@ -1659,6 +2020,14 @@ impl ReadSession {
     }
 
     /// Sets or clears the value of [read_options][crate::model::ReadSession::read_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadSession;
+    /// use google_cloud_bigquery_read::model::read_session::TableReadOptions;
+    /// let x = ReadSession::new().set_or_clear_read_options(Some(TableReadOptions::default()/* use setters */));
+    /// let x = ReadSession::new().set_or_clear_read_options(None::<TableReadOptions>);
+    /// ```
     pub fn set_or_clear_read_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::read_session::TableReadOptions>,
@@ -1668,6 +2037,17 @@ impl ReadSession {
     }
 
     /// Sets the value of [streams][crate::model::ReadSession::streams].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadSession;
+    /// use google_cloud_bigquery_read::model::ReadStream;
+    /// let x = ReadSession::new()
+    ///     .set_streams([
+    ///         ReadStream::default()/* use setters */,
+    ///         ReadStream::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1679,12 +2059,24 @@ impl ReadSession {
     }
 
     /// Sets the value of [estimated_total_bytes_scanned][crate::model::ReadSession::estimated_total_bytes_scanned].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadSession;
+    /// let x = ReadSession::new().set_estimated_total_bytes_scanned(42);
+    /// ```
     pub fn set_estimated_total_bytes_scanned<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.estimated_total_bytes_scanned = v.into();
         self
     }
 
     /// Sets the value of [estimated_total_physical_file_size][crate::model::ReadSession::estimated_total_physical_file_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadSession;
+    /// let x = ReadSession::new().set_estimated_total_physical_file_size(42);
+    /// ```
     pub fn set_estimated_total_physical_file_size<T: std::convert::Into<i64>>(
         mut self,
         v: T,
@@ -1694,12 +2086,24 @@ impl ReadSession {
     }
 
     /// Sets the value of [estimated_row_count][crate::model::ReadSession::estimated_row_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadSession;
+    /// let x = ReadSession::new().set_estimated_row_count(42);
+    /// ```
     pub fn set_estimated_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.estimated_row_count = v.into();
         self
     }
 
     /// Sets the value of [trace_id][crate::model::ReadSession::trace_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadSession;
+    /// let x = ReadSession::new().set_trace_id("example");
+    /// ```
     pub fn set_trace_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.trace_id = v.into();
         self
@@ -1709,6 +2113,14 @@ impl ReadSession {
     ///
     /// Note that all the setters affecting `schema` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadSession;
+    /// use google_cloud_bigquery_read::model::AvroSchema;
+    /// let x = ReadSession::new().set_schema(Some(
+    ///     google_cloud_bigquery_read::model::read_session::Schema::AvroSchema(AvroSchema::default().into())));
+    /// ```
     pub fn set_schema<
         T: std::convert::Into<std::option::Option<crate::model::read_session::Schema>>,
     >(
@@ -1735,6 +2147,15 @@ impl ReadSession {
     ///
     /// Note that all the setters affecting `schema` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadSession;
+    /// use google_cloud_bigquery_read::model::AvroSchema;
+    /// let x = ReadSession::new().set_avro_schema(AvroSchema::default()/* use setters */);
+    /// assert!(x.avro_schema().is_some());
+    /// assert!(x.arrow_schema().is_none());
+    /// ```
     pub fn set_avro_schema<T: std::convert::Into<std::boxed::Box<crate::model::AvroSchema>>>(
         mut self,
         v: T,
@@ -1760,6 +2181,15 @@ impl ReadSession {
     ///
     /// Note that all the setters affecting `schema` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadSession;
+    /// use google_cloud_bigquery_read::model::ArrowSchema;
+    /// let x = ReadSession::new().set_arrow_schema(ArrowSchema::default()/* use setters */);
+    /// assert!(x.arrow_schema().is_some());
+    /// assert!(x.avro_schema().is_none());
+    /// ```
     pub fn set_arrow_schema<T: std::convert::Into<std::boxed::Box<crate::model::ArrowSchema>>>(
         mut self,
         v: T,
@@ -1798,6 +2228,13 @@ pub mod read_session {
         }
 
         /// Sets the value of [snapshot_time][crate::model::read_session::TableModifiers::snapshot_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_read::model::read_session::TableModifiers;
+        /// use wkt::Timestamp;
+        /// let x = TableModifiers::new().set_snapshot_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_snapshot_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1807,6 +2244,14 @@ pub mod read_session {
         }
 
         /// Sets or clears the value of [snapshot_time][crate::model::read_session::TableModifiers::snapshot_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_read::model::read_session::TableModifiers;
+        /// use wkt::Timestamp;
+        /// let x = TableModifiers::new().set_or_clear_snapshot_time(Some(Timestamp::default()/* use setters */));
+        /// let x = TableModifiers::new().set_or_clear_snapshot_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_snapshot_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1916,6 +2361,12 @@ pub mod read_session {
         }
 
         /// Sets the value of [selected_fields][crate::model::read_session::TableReadOptions::selected_fields].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_read::model::read_session::TableReadOptions;
+        /// let x = TableReadOptions::new().set_selected_fields(["a", "b", "c"]);
+        /// ```
         pub fn set_selected_fields<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1927,6 +2378,12 @@ pub mod read_session {
         }
 
         /// Sets the value of [row_restriction][crate::model::read_session::TableReadOptions::row_restriction].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_read::model::read_session::TableReadOptions;
+        /// let x = TableReadOptions::new().set_row_restriction("example");
+        /// ```
         pub fn set_row_restriction<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1936,6 +2393,12 @@ pub mod read_session {
         }
 
         /// Sets the value of [sample_percentage][crate::model::read_session::TableReadOptions::sample_percentage].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_read::model::read_session::TableReadOptions;
+        /// let x = TableReadOptions::new().set_sample_percentage(42.0);
+        /// ```
         pub fn set_sample_percentage<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<f64>,
@@ -1945,6 +2408,13 @@ pub mod read_session {
         }
 
         /// Sets or clears the value of [sample_percentage][crate::model::read_session::TableReadOptions::sample_percentage].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_read::model::read_session::TableReadOptions;
+        /// let x = TableReadOptions::new().set_or_clear_sample_percentage(Some(42.0));
+        /// let x = TableReadOptions::new().set_or_clear_sample_percentage(None::<f32>);
+        /// ```
         pub fn set_or_clear_sample_percentage<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f64>,
@@ -1954,6 +2424,13 @@ pub mod read_session {
         }
 
         /// Sets the value of [response_compression_codec][crate::model::read_session::TableReadOptions::response_compression_codec].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_read::model::read_session::TableReadOptions;
+        /// use google_cloud_bigquery_read::model::read_session::table_read_options::ResponseCompressionCodec;
+        /// let x0 = TableReadOptions::new().set_response_compression_codec(ResponseCompressionCodec::Lz4);
+        /// ```
         pub fn set_response_compression_codec<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -1965,6 +2442,14 @@ pub mod read_session {
         }
 
         /// Sets or clears the value of [response_compression_codec][crate::model::read_session::TableReadOptions::response_compression_codec].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_read::model::read_session::TableReadOptions;
+        /// use google_cloud_bigquery_read::model::read_session::table_read_options::ResponseCompressionCodec;
+        /// let x0 = TableReadOptions::new().set_or_clear_response_compression_codec(Some(ResponseCompressionCodec::Lz4));
+        /// let x_none = TableReadOptions::new().set_or_clear_response_compression_codec(None::<ResponseCompressionCodec>);
+        /// ```
         pub fn set_or_clear_response_compression_codec<T>(
             mut self,
             v: std::option::Option<T>,
@@ -1982,6 +2467,14 @@ pub mod read_session {
         ///
         /// Note that all the setters affecting `output_format_serialization_options` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_read::model::read_session::TableReadOptions;
+        /// use google_cloud_bigquery_read::model::ArrowSerializationOptions;
+        /// let x = TableReadOptions::new().set_output_format_serialization_options(Some(
+        ///     google_cloud_bigquery_read::model::read_session::table_read_options::OutputFormatSerializationOptions::ArrowSerializationOptions(ArrowSerializationOptions::default().into())));
+        /// ```
         pub fn set_output_format_serialization_options<T: std::convert::Into<std::option::Option<crate::model::read_session::table_read_options::OutputFormatSerializationOptions>>>(mut self, v: T) -> Self
         {
             self.output_format_serialization_options = v.into();
@@ -2007,6 +2500,15 @@ pub mod read_session {
         ///
         /// Note that all the setters affecting `output_format_serialization_options` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_read::model::read_session::TableReadOptions;
+        /// use google_cloud_bigquery_read::model::ArrowSerializationOptions;
+        /// let x = TableReadOptions::new().set_arrow_serialization_options(ArrowSerializationOptions::default()/* use setters */);
+        /// assert!(x.arrow_serialization_options().is_some());
+        /// assert!(x.avro_serialization_options().is_none());
+        /// ```
         pub fn set_arrow_serialization_options<
             T: std::convert::Into<std::boxed::Box<crate::model::ArrowSerializationOptions>>,
         >(
@@ -2039,6 +2541,15 @@ pub mod read_session {
         ///
         /// Note that all the setters affecting `output_format_serialization_options` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_read::model::read_session::TableReadOptions;
+        /// use google_cloud_bigquery_read::model::AvroSerializationOptions;
+        /// let x = TableReadOptions::new().set_avro_serialization_options(AvroSerializationOptions::default()/* use setters */);
+        /// assert!(x.avro_serialization_options().is_some());
+        /// assert!(x.arrow_serialization_options().is_none());
+        /// ```
         pub fn set_avro_serialization_options<
             T: std::convert::Into<std::boxed::Box<crate::model::AvroSerializationOptions>>,
         >(
@@ -2209,21 +2720,6 @@ pub mod read_session {
             /// Optional. Options specific to the Apache Avro output format
             AvroSerializationOptions(std::boxed::Box<crate::model::AvroSerializationOptions>),
         }
-
-        impl OutputFormatSerializationOptions {
-            /// Initializes the enum to the [ArrowSerializationOptions](Self::ArrowSerializationOptions) branch.
-            pub fn from_arrow_serialization_options(
-                value: impl std::convert::Into<std::boxed::Box<crate::model::ArrowSerializationOptions>>,
-            ) -> Self {
-                Self::ArrowSerializationOptions(value.into())
-            }
-            /// Initializes the enum to the [AvroSerializationOptions](Self::AvroSerializationOptions) branch.
-            pub fn from_avro_serialization_options(
-                value: impl std::convert::Into<std::boxed::Box<crate::model::AvroSerializationOptions>>,
-            ) -> Self {
-                Self::AvroSerializationOptions(value.into())
-            }
-        }
     }
 
     /// The schema for the read. If read_options.selected_fields is set, the
@@ -2236,21 +2732,6 @@ pub mod read_session {
         AvroSchema(std::boxed::Box<crate::model::AvroSchema>),
         /// Output only. Arrow schema.
         ArrowSchema(std::boxed::Box<crate::model::ArrowSchema>),
-    }
-
-    impl Schema {
-        /// Initializes the enum to the [AvroSchema](Self::AvroSchema) branch.
-        pub fn from_avro_schema(
-            value: impl std::convert::Into<std::boxed::Box<crate::model::AvroSchema>>,
-        ) -> Self {
-            Self::AvroSchema(value.into())
-        }
-        /// Initializes the enum to the [ArrowSchema](Self::ArrowSchema) branch.
-        pub fn from_arrow_schema(
-            value: impl std::convert::Into<std::boxed::Box<crate::model::ArrowSchema>>,
-        ) -> Self {
-            Self::ArrowSchema(value.into())
-        }
     }
 }
 
@@ -2274,6 +2755,16 @@ impl ReadStream {
     }
 
     /// Sets the value of [name][crate::model::ReadStream::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_read::model::ReadStream;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let session_id = "session_id";
+    /// # let stream_id = "stream_id";
+    /// let x = ReadStream::new().set_name(format!("projects/{project_id}/locations/{location_id}/sessions/{session_id}/streams/{stream_id}"));
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self

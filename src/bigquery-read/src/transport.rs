@@ -18,47 +18,34 @@
 use crate::Error;
 use crate::Result;
 
-const DEFAULT_HOST: &str = "https://bigquerystorage.googleapis.com";
-
-mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    pub(crate) static X_GOOG_API_CLIENT_HEADER: std::sync::LazyLock<String> =
-        std::sync::LazyLock::new(|| {
-            let ac = gaxi::api_header::XGoogApiClient {
-                name: NAME,
-                version: VERSION,
-                library_type: gaxi::api_header::GAPIC,
-            };
-            ac.grpc_header_value()
-        });
-}
-
-/// Implements [Read](super::stub::Read) using a Tonic-generated client.
+/// Implements [Read](super::stub::Read) using a [gaxi::grpc::Client].
 #[derive(Clone)]
 pub struct Read {
-    pub(crate) inner: gaxi::grpc::Client,
+    grpc_inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for Read {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("Read").field("inner", &self.inner).finish()
+        f.debug_struct("Read")
+            .field("grpc_inner", &self.grpc_inner)
+            .finish()
     }
 }
 
 impl Read {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        let inner = if gaxi::options::tracing_enabled(&config) {
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
+        let grpc_inner = if tracing_is_enabled {
             gaxi::grpc::Client::new_with_instrumentation(
                 config,
-                DEFAULT_HOST,
+                crate::DEFAULT_HOST,
                 &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
             )
             .await?
         } else {
-            gaxi::grpc::Client::new(config, DEFAULT_HOST).await?
+            gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
         };
-        Ok(Self { inner })
+        Ok(Self { grpc_inner })
     }
 }
 
@@ -93,7 +80,7 @@ impl super::stub::Read for Read {
         .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
-        type TR = crate::google::cloud::bigquery::storage::v1::ReadSession;
+        type TR = crate::prost::google::cloud::bigquery::storage::v1::ReadSession;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.cloud.bigquery.storage.v1.BigQueryRead/CreateReadSession");
@@ -113,13 +100,13 @@ impl super::stub::Read for Read {
             };
             recorder.on_client_request(attributes);
         }
-        self.inner
+        self.grpc_inner
             .execute(
                 extensions,
                 path,
                 req.to_proto().map_err(Error::deser)?,
                 options,
-                &info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 &x_goog_request_params,
             )
             .await
@@ -131,6 +118,14 @@ impl super::stub::Read for Read {
         req: crate::model::ReadRowsRequest,
         options: crate::RequestOptions,
     ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::ReadRowsResponse>> {
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.read_stream)
+            .map(|s| s.as_str())
+            .map(|v| format!("read_stream={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
         let extensions = {
             let mut e = gaxi::grpc::tonic::Extensions::new();
             e.insert(gaxi::grpc::tonic::GrpcMethod::new(
@@ -142,26 +137,19 @@ impl super::stub::Read for Read {
         let path = http::uri::PathAndQuery::from_static(
             "/google.cloud.bigquery.storage.v1.BigQueryRead/ReadRows",
         );
-        let x_goog_request_params = [Some(&req)
-            .map(|m| &m.read_stream)
-            .map(|s| s.as_str())
-            .map(|v| format!("read_stream={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
 
-        self.inner
+        self.grpc_inner
             .execute_server_streaming::<
                 crate::model::ReadRowsRequest,
                 crate::model::ReadRowsResponse,
-                crate::google::cloud::bigquery::storage::v1::ReadRowsRequest,
-                crate::google::cloud::bigquery::storage::v1::ReadRowsResponse,
+                crate::prost::google::cloud::bigquery::storage::v1::ReadRowsRequest,
+                crate::prost::google::cloud::bigquery::storage::v1::ReadRowsResponse,
             >(
                 extensions,
                 path,
                 req,
                 options,
-                &info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 &x_goog_request_params,
             )
             .await
@@ -196,7 +184,7 @@ impl super::stub::Read for Read {
         .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
-        type TR = crate::google::cloud::bigquery::storage::v1::SplitReadStreamResponse;
+        type TR = crate::prost::google::cloud::bigquery::storage::v1::SplitReadStreamResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.cloud.bigquery.storage.v1.BigQueryRead/SplitReadStream");
@@ -213,13 +201,13 @@ impl super::stub::Read for Read {
             };
             recorder.on_client_request(attributes);
         }
-        self.inner
+        self.grpc_inner
             .execute(
                 extensions,
                 path,
                 req.to_proto().map_err(Error::deser)?,
                 options,
-                &info::X_GOOG_API_CLIENT_HEADER,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
                 &x_goog_request_params,
             )
             .await
