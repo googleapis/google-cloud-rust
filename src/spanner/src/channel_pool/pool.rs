@@ -26,14 +26,13 @@ use crate::channel_pool::scaler::{scale_down_monitor_loop, scale_up_worker_loop}
 use crate::client::Channel;
 use crate::routing::power_of_two_selector::PowerOfTwoSelector;
 use gaxi::options::ClientConfig;
+use std::fmt::{Debug, Formatter, Result as FmtResult};
 use std::sync::atomic::{AtomicU64, AtomicUsize};
 use std::sync::{Arc, Mutex, RwLock};
 use std::time::{Duration, Instant};
 use tokio::spawn;
 use tokio::sync::Notify;
-use tokio::sync::watch::{
-    Receiver as WatchReceiver, Sender as WatchSender, channel as watch_channel,
-};
+use tokio::sync::watch::{Sender as WatchSender, channel as watch_channel};
 
 /// Unified channel pool managing gRPC channels for the Spanner client.
 ///
@@ -41,6 +40,17 @@ use tokio::sync::watch::{
 #[derive(Clone)]
 pub(crate) struct ChannelPool {
     pub(crate) inner: Arc<ChannelPoolInner>,
+}
+
+impl Debug for ChannelPool {
+    fn fmt(&self, formatter: &mut Formatter<'_>) -> FmtResult {
+        formatter
+            .debug_struct("ChannelPool")
+            .field("config", &self.inner.config)
+            .field("active_channels", &self.active_channel_count())
+            .field("draining_channels", &self.draining_channel_count())
+            .finish()
+    }
 }
 
 impl ChannelPool {
@@ -181,7 +191,11 @@ impl ChannelPool {
                 .iter()
                 .find(|entry| entry.id == id && entry.is_active())
             {
-                return Some(self.make_lease(Arc::clone(entry)));
+                let lease = self.make_lease(Arc::clone(entry));
+                if affinity.is_read_write() {
+                    affinity.ensure_rw_guard(&lease);
+                }
+                return Some(lease);
             }
 
             // 2. Draining-path: Only Read/Write transactions (hard stickiness) preserve draining affinity.
@@ -192,7 +206,9 @@ impl ChannelPool {
                     .iter()
                     .find(|entry| entry.id == id && !entry.is_closed())
                 {
-                    return Some(self.make_lease(Arc::clone(entry)));
+                    let lease = self.make_lease(Arc::clone(entry));
+                    affinity.ensure_rw_guard(&lease);
+                    return Some(lease);
                 }
             }
         }
@@ -203,25 +219,55 @@ impl ChannelPool {
 
         // Atomically attempt to pin this channel. If another concurrent thread pinned first,
         // use the winning channel to ensure all concurrent statements route to the same SpanFE.
-        match affinity.compare_and_set_entry_id(expected_id, lease.entry_id()) {
-            Ok(()) => Some(lease),
-            Err(winner_id) => {
-                if let Some(winner_entry) = active_guard
+        let final_lease = match affinity.compare_and_set_entry_id(expected_id, lease.entry_id()) {
+            Ok(()) => lease,
+            Err(winner_id) => self.resolve_cas_conflict(affinity, lease, &active_guard, winner_id),
+        };
+
+        if affinity.is_read_write() {
+            affinity.ensure_rw_guard(&final_lease);
+        }
+
+        Some(final_lease)
+    }
+
+    pub(crate) fn resolve_cas_conflict(
+        &self,
+        affinity: &TransactionAffinity,
+        lease: ChannelLease,
+        active_candidates: &[Arc<ChannelEntry>],
+        mut winner_id: u64,
+    ) -> ChannelLease {
+        loop {
+            if let Some(winner_entry) = active_candidates
+                .iter()
+                .find(|entry| entry.id == winner_id && entry.is_active())
+            {
+                return self.make_lease(Arc::clone(winner_entry));
+            }
+            if affinity.is_read_write() {
+                let draining_guard = self.inner.draining_entries.read().expect("lock poisoned");
+                if let Some(entry) = draining_guard
                     .iter()
-                    .find(|entry| entry.id == winner_id && entry.is_active())
+                    .find(|entry| entry.id == winner_id && !entry.is_closed())
                 {
-                    return Some(self.make_lease(Arc::clone(winner_entry)));
+                    return self.make_lease(Arc::clone(entry));
                 }
-                if affinity.is_read_write() {
-                    let draining_guard = self.inner.draining_entries.read().expect("lock poisoned");
-                    if let Some(entry) = draining_guard
-                        .iter()
-                        .find(|entry| entry.id == winner_id && !entry.is_closed())
-                    {
-                        return Some(self.make_lease(Arc::clone(entry)));
+                // Winner channel is closed/dead. Re-pin affinity to our active lease channel.
+                match affinity.compare_and_set_entry_id(winner_id, lease.entry_id()) {
+                    Ok(()) => return lease,
+                    Err(new_winner_id) => {
+                        winner_id = new_winner_id;
+                        continue;
                     }
                 }
-                Some(lease)
+            }
+            // Soft stickiness: winner is not active, re-pin affinity to our active lease channel.
+            match affinity.compare_and_set_entry_id(winner_id, lease.entry_id()) {
+                Ok(()) => return lease,
+                Err(new_winner_id) => {
+                    winner_id = new_winner_id;
+                }
             }
         }
     }
@@ -257,21 +303,6 @@ impl ChannelPool {
         self.inner.scale_up_notify.notify_one();
     }
 
-    /// Clears the cached prime session name.
-    pub(crate) fn clear_prime_session(&self) {
-        let mut prime = self.inner.prime_session.write().expect("lock poisoned");
-        *prime = None;
-    }
-
-    /// Checks if a valid multiplexed session name is currently registered.
-    pub(crate) fn has_prime_session(&self) -> bool {
-        self.inner
-            .prime_session
-            .read()
-            .expect("lock poisoned")
-            .is_some()
-    }
-
     /// Returns the total number of active channels in the pool.
     pub(crate) fn active_channel_count(&self) -> usize {
         self.inner
@@ -290,10 +321,10 @@ impl ChannelPool {
             .len()
     }
 
-    /// Returns the total count of in-flight RPCs across all active channels.
-    pub(crate) fn total_in_flight_rpcs(&self) -> u32 {
+    /// Returns a clone of the first active channel in the pool, if present.
+    pub(crate) fn default_channel(&self) -> Option<Channel> {
         let active_guard = self.inner.active_entries.read().expect("lock poisoned");
-        active_guard.iter().map(|entry| entry.in_flight()).sum()
+        active_guard.first().map(|entry| entry.channel.clone())
     }
 }
 
@@ -305,6 +336,8 @@ pub(crate) struct ChannelPoolInner {
     pub(crate) draining_entries: RwLock<Vec<Arc<ChannelEntry>>>,
     pub(crate) next_entry_id: AtomicU64,
     pub(crate) scale_up_notify: Arc<Notify>,
+    #[allow(dead_code)]
+    // Retained for RAII drop signaling; read in scaler unit tests via subscribe()
     pub(crate) shutdown_sender: WatchSender<()>,
     pub(crate) last_scale_up_time: Mutex<Option<Instant>>,
     pub(crate) consecutive_low_load_checks: AtomicUsize,
@@ -345,6 +378,29 @@ impl ChannelPoolInner {
 }
 
 #[cfg(test)]
+impl ChannelPool {
+    pub(crate) fn config(&self) -> &ChannelPoolConfig {
+        &self.inner.config
+    }
+
+    pub(crate) fn has_prime_session(&self) -> bool {
+        self.inner
+            .prime_session
+            .read()
+            .expect("lock poisoned")
+            .is_some()
+    }
+
+    pub(crate) fn active_entries(&self) -> Vec<Arc<ChannelEntry>> {
+        self.inner
+            .active_entries
+            .read()
+            .expect("lock poisoned")
+            .clone()
+    }
+}
+
+#[cfg(test)]
 mod tests {
     use super::*;
     use crate::Response;
@@ -380,8 +436,19 @@ mod tests {
 
     #[test]
     fn traits() {
-        static_assertions::assert_impl_all!(ChannelPool: Clone, Send, Sync);
+        static_assertions::assert_impl_all!(ChannelPool: Clone, Debug, Send, Sync);
         static_assertions::assert_impl_all!(ChannelPoolInner: Send, Sync);
+    }
+
+    impl ChannelPool {
+        fn total_in_flight_rpcs(&self) -> u32 {
+            let active_guard = self.inner.active_entries.read().expect("lock poisoned");
+            active_guard.iter().map(|entry| entry.in_flight()).sum()
+        }
+
+        fn clear_prime_session(&self) {
+            *self.inner.prime_session.write().expect("lock poisoned") = None;
+        }
     }
 
     #[test]
@@ -400,7 +467,7 @@ mod tests {
 
         let lease1 = pool.pick_channel().expect("channel pick should succeed");
         assert!(
-            (1..=3).contains(&lease1.logical_channel_id()),
+            (1..=3).contains(&lease1.channel_id),
             "logical channel ID must be in range 1..=3"
         );
 
@@ -504,7 +571,9 @@ mod tests {
 
         // Read/Write transaction requires hard stickiness
         let affinity = TransactionAffinity::new_read_write();
-        affinity.set_entry_id(2); // Pinned to channel 2 (which is draining)
+        affinity
+            .compare_and_set_entry_id(0, 2)
+            .expect("pin affinity"); // Pinned to channel 2 (which is draining)
 
         let lease = pool
             .resolve_affinity(&affinity)
@@ -513,6 +582,27 @@ mod tests {
             lease.entry_id(),
             2,
             "Must preserve affinity to draining channel for Read/Write transactions"
+        );
+        assert_eq!(
+            channel_2.active_rw_count(),
+            1,
+            "Draining channel must have active_rw_count = 1 while Read/Write affinity holds guard"
+        );
+        assert!(
+            affinity.has_rw_guard(),
+            "Read/Write affinity must hold rw_guard"
+        );
+
+        // Reset clears the guard and decrements the active_rw_count
+        affinity.reset();
+        assert_eq!(
+            channel_2.active_rw_count(),
+            0,
+            "active_rw_count must decrement to 0 after affinity is reset"
+        );
+        assert!(
+            !affinity.has_rw_guard(),
+            "affinity must not hold rw_guard after reset"
         );
     }
 
@@ -535,7 +625,9 @@ mod tests {
 
         // Read-Only transaction uses soft stickiness
         let read_only_affinity = TransactionAffinity::new_read_only();
-        read_only_affinity.set_entry_id(2); // Was pinned to channel 2 (now draining)
+        read_only_affinity
+            .compare_and_set_entry_id(0, 2)
+            .expect("pin affinity"); // Was pinned to channel 2 (now draining)
 
         let lease = pool
             .resolve_affinity(&read_only_affinity)
@@ -623,7 +715,7 @@ mod tests {
         pool.clear_prime_session();
         assert!(
             !pool.has_prime_session(),
-            "Prime session must be None after clear_prime_session"
+            "Prime session must be None after clearing"
         );
     }
 
@@ -751,7 +843,9 @@ mod tests {
 
         // 1. ReadWrite affinity pinned to a Closed draining channel -> must fallback to active channel
         let rw_affinity = TransactionAffinity::new_read_write();
-        rw_affinity.set_entry_id(2); // Channel 2 is closed
+        rw_affinity
+            .compare_and_set_entry_id(0, 2)
+            .expect("pin affinity"); // Channel 2 is closed
         let lease = pool
             .resolve_affinity(&rw_affinity)
             .expect("must fallback to active channel when draining channel is closed");
@@ -764,7 +858,9 @@ mod tests {
 
         // 2. Affinity pinned to a non-existent channel ID -> must fallback to active channel
         let non_existent_affinity = TransactionAffinity::new_read_write();
-        non_existent_affinity.set_entry_id(999);
+        non_existent_affinity
+            .compare_and_set_entry_id(0, 999)
+            .expect("pin affinity");
         let lease_fallback = pool
             .resolve_affinity(&non_existent_affinity)
             .expect("must fallback to active channel for unknown channel ID");
@@ -777,6 +873,170 @@ mod tests {
             non_existent_affinity.pinned_entry_id(),
             Some(1),
             "affinity pin must update to active channel 1"
+        );
+    }
+
+    #[test]
+    fn resolve_cas_conflict_winner_in_active_candidates() {
+        let client_config = ClientConfig::default();
+        let channel_1 = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
+        let channel_2 = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
+
+        let pool = ChannelPool::new_static(
+            vec![create_mock_channel(), create_mock_channel()],
+            StaticChannelPoolConfig { num_channels: 2 },
+            client_config,
+        );
+        let active = vec![Arc::clone(&channel_1), Arc::clone(&channel_2)];
+        *pool.inner.active_entries.write().expect("lock") = active.clone();
+
+        let affinity = TransactionAffinity::new_read_write();
+        let my_lease = pool.make_lease(Arc::clone(&channel_1));
+
+        let resolved_lease = pool.resolve_cas_conflict(&affinity, my_lease, &active, 2);
+        assert_eq!(
+            resolved_lease.entry_id(),
+            2,
+            "Resolved lease must match winner channel entry ID 2"
+        );
+    }
+
+    #[test]
+    fn resolve_cas_conflict_read_write_winner_in_draining_entries() {
+        let client_config = ClientConfig::default();
+        let channel_1 = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
+        let channel_2 = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
+        channel_2.set_state(ChannelState::Draining);
+
+        let pool = ChannelPool::new_static(
+            vec![create_mock_channel()],
+            StaticChannelPoolConfig { num_channels: 1 },
+            client_config,
+        );
+        let active = vec![Arc::clone(&channel_1)];
+        *pool.inner.active_entries.write().expect("lock") = active.clone();
+        *pool.inner.draining_entries.write().expect("lock") = vec![Arc::clone(&channel_2)];
+
+        let affinity = TransactionAffinity::new_read_write();
+        let my_lease = pool.make_lease(Arc::clone(&channel_1));
+
+        let resolved_lease = pool.resolve_cas_conflict(&affinity, my_lease, &active, 2);
+        assert_eq!(
+            resolved_lease.entry_id(),
+            2,
+            "ReadWrite affinity must return lease for draining winner channel 2"
+        );
+    }
+
+    #[test]
+    fn resolve_cas_conflict_read_write_winner_closed_or_unknown() {
+        let client_config = ClientConfig::default();
+        let channel_1 = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
+        let channel_2 = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
+        channel_2.set_state(ChannelState::Closed);
+
+        let pool = ChannelPool::new_static(
+            vec![create_mock_channel()],
+            StaticChannelPoolConfig { num_channels: 1 },
+            client_config,
+        );
+        let active = vec![Arc::clone(&channel_1)];
+        *pool.inner.active_entries.write().expect("lock") = active.clone();
+        *pool.inner.draining_entries.write().expect("lock") = vec![Arc::clone(&channel_2)];
+
+        let affinity = TransactionAffinity::new_read_write();
+        affinity
+            .compare_and_set_entry_id(0, 2)
+            .expect("pin affinity to 2");
+
+        let my_lease = pool.make_lease(Arc::clone(&channel_1));
+
+        let resolved_lease = pool.resolve_cas_conflict(&affinity, my_lease, &active, 2);
+        assert_eq!(
+            resolved_lease.entry_id(),
+            1,
+            "Must fallback to active lease 1 when winner channel is closed"
+        );
+        assert_eq!(
+            affinity.pinned_entry_id(),
+            Some(1),
+            "Affinity must be re-pinned to active channel 1"
+        );
+    }
+
+    #[test]
+    fn resolve_cas_conflict_read_only_winner_not_active() {
+        let client_config = ClientConfig::default();
+        let channel_1 = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
+        let channel_2 = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
+        channel_2.set_state(ChannelState::Draining);
+
+        let pool = ChannelPool::new_static(
+            vec![create_mock_channel()],
+            StaticChannelPoolConfig { num_channels: 1 },
+            client_config,
+        );
+        let active = vec![Arc::clone(&channel_1)];
+        *pool.inner.active_entries.write().expect("lock") = active.clone();
+        *pool.inner.draining_entries.write().expect("lock") = vec![Arc::clone(&channel_2)];
+
+        let affinity = TransactionAffinity::new_read_only();
+        affinity
+            .compare_and_set_entry_id(0, 2)
+            .expect("pin affinity to 2");
+
+        let my_lease = pool.make_lease(Arc::clone(&channel_1));
+
+        let resolved_lease = pool.resolve_cas_conflict(&affinity, my_lease, &active, 2);
+        assert_eq!(
+            resolved_lease.entry_id(),
+            1,
+            "ReadOnly affinity must fallback to active lease 1 when winner is not active"
+        );
+        assert_eq!(
+            affinity.pinned_entry_id(),
+            Some(1),
+            "Affinity must be re-pinned to active channel 1"
+        );
+    }
+
+    #[test]
+    fn resolve_cas_conflict_cas_failure_loops_and_resolves_with_new_winner() {
+        let client_config = ClientConfig::default();
+        let channel_1 = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
+        let channel_2 = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
+        channel_2.set_state(ChannelState::Closed);
+        let channel_3 = Arc::new(ChannelEntry::new(3, 3, create_mock_channel()));
+
+        let pool = ChannelPool::new_static(
+            vec![create_mock_channel(), create_mock_channel()],
+            StaticChannelPoolConfig { num_channels: 2 },
+            client_config,
+        );
+        let active = vec![Arc::clone(&channel_1), Arc::clone(&channel_3)];
+        *pool.inner.active_entries.write().expect("lock") = active.clone();
+        *pool.inner.draining_entries.write().expect("lock") = vec![Arc::clone(&channel_2)];
+
+        let affinity = TransactionAffinity::new_read_write();
+        // Another thread already updated affinity from 2 to 3
+        affinity
+            .compare_and_set_entry_id(0, 3)
+            .expect("pin affinity to 3");
+
+        let my_lease = pool.make_lease(Arc::clone(&channel_1));
+
+        // When this thread tries to resolve conflict with winner_id 2 (which is closed),
+        // CAS to re-pin to 1 fails because affinity is 3. The method must loop and resolve with 3!
+        let resolved_lease = pool.resolve_cas_conflict(&affinity, my_lease, &active, 2);
+        assert_eq!(
+            resolved_lease.entry_id(),
+            3,
+            "Must loop and adopt winning channel 3 when CAS fails during re-pinning"
+        );
+        assert_eq!(
+            affinity.pinned_entry_id(),
+            Some(3),
+            "Affinity must remain pinned to channel 3"
         );
     }
 
@@ -835,5 +1095,57 @@ mod tests {
             "Dynamic pool guard must accumulate configured error penalty step of 7"
         );
         drop(dynamic_guard);
+    }
+
+    #[test]
+    fn channel_pool_helpers() {
+        let channels = vec![
+            create_mock_channel(),
+            create_mock_channel(),
+            create_mock_channel(),
+        ];
+        let pool = ChannelPool::new_static(
+            channels,
+            StaticChannelPoolConfig { num_channels: 3 },
+            ClientConfig::default(),
+        );
+
+        assert_eq!(
+            pool.active_channel_count(),
+            3,
+            "active_channel_count must match 3"
+        );
+        assert!(
+            pool.default_channel().is_some(),
+            "default_channel must return the first channel"
+        );
+    }
+
+    #[test]
+    fn channel_pool_debug_formatting() {
+        let channels = vec![create_mock_channel(), create_mock_channel()];
+        let pool = ChannelPool::new_static(
+            channels,
+            StaticChannelPoolConfig { num_channels: 2 },
+            ClientConfig::default(),
+        );
+
+        let debug_output = format!("{pool:?}");
+        assert!(
+            debug_output.contains("ChannelPool"),
+            "debug output should contain struct name: {debug_output}"
+        );
+        assert!(
+            debug_output.contains("active_channels: 2"),
+            "debug output should contain active channel count: {debug_output}"
+        );
+        assert!(
+            debug_output.contains("draining_channels: 0"),
+            "debug output should contain draining channel count: {debug_output}"
+        );
+        assert!(
+            debug_output.contains("Static"),
+            "debug output should contain config details: {debug_output}"
+        );
     }
 }

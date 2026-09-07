@@ -171,7 +171,7 @@ impl ReadWriteTransactionBuilder {
     async fn begin(
         &self,
         session_name: String,
-        channel_hint: usize,
+        affinity: Option<&TransactionAffinity>,
         request_options: crate::RequestOptions,
     ) -> crate::Result<ReadContextTransactionSelector> {
         let response = crate::read_only_transaction::execute_begin_transaction(
@@ -179,7 +179,7 @@ impl ReadWriteTransactionBuilder {
             session_name,
             self.options.clone(),
             self.transaction_tag.clone(),
-            channel_hint,
+            affinity,
             request_options,
             None,
         )
@@ -192,10 +192,10 @@ impl ReadWriteTransactionBuilder {
     }
 
     pub(crate) async fn build(
-        self,
+        mut self,
         deadline: Option<Instant>,
     ) -> crate::Result<ReadWriteTransaction> {
-        let channel_hint = self.client.next_channel_hint();
+        let affinity = TransactionAffinity::default_read_write(self.affinity.take());
         let transaction_selector = match self.begin_transaction_option {
             BeginTransactionOption::ExplicitBegin => {
                 let mut options = self.begin_gax_options.clone().unwrap_or_default();
@@ -205,18 +205,13 @@ impl ReadWriteTransactionBuilder {
                     &mut options,
                 );
 
-                self.begin(self.session_name.clone(), channel_hint, options)
+                self.begin(self.session_name.clone(), Some(&affinity), options)
                     .await?
             }
             BeginTransactionOption::InlineBegin => ReadContextTransactionSelector::Lazy(Arc::new(
                 Mutex::new(TransactionState::NotStarted(self.options)),
             )),
         };
-
-        let affinity = Some(
-            self.affinity
-                .unwrap_or_else(|| Arc::new(TransactionAffinity::new_read_write())),
-        );
 
         Ok(ReadWriteTransaction {
             context: ReadContext {
@@ -225,9 +220,8 @@ impl ReadWriteTransactionBuilder {
                 transaction_selector,
                 precommit_token_tracker: PrecommitTokenTracker::new(),
                 transaction_tag: self.transaction_tag,
-                channel_hint,
                 begin_transaction_request_options: None,
-                affinity,
+                affinity: Some(affinity),
             },
             seqno: Arc::new(AtomicI64::new(1)),
             max_commit_delay: self.max_commit_delay,
@@ -240,7 +234,6 @@ impl ReadWriteTransactionBuilder {
         })
     }
 
-    #[allow(dead_code)]
     pub(crate) fn with_affinity(mut self, affinity: Arc<TransactionAffinity>) -> Self {
         self.affinity = Some(affinity);
         self
@@ -334,7 +327,7 @@ macro_rules! execute_with_retry {
             .$rpc_method(
                 $request.clone(),
                 $gax_options.clone(),
-                $self.context.channel_hint,
+                $self.context.affinity(),
             )
             .await;
 
@@ -665,7 +658,7 @@ impl ReadWriteTransaction {
         let response = self
             .context
             .client
-            .commit(request, gax_options, self.context.channel_hint)
+            .commit(request, gax_options, self.context.affinity())
             .await?;
 
         let response =
@@ -681,7 +674,7 @@ impl ReadWriteTransaction {
 
                 self.context
                     .client
-                    .commit(retry_commit_req, gax_options, self.context.channel_hint)
+                    .commit(retry_commit_req, gax_options, self.context.affinity())
                     .await?
             } else {
                 response
@@ -705,7 +698,7 @@ impl ReadWriteTransaction {
 
         self.context
             .client
-            .rollback(request, gax_options, self.context.channel_hint)
+            .rollback(request, gax_options, self.context.affinity())
             .await?;
 
         Ok(())
@@ -720,7 +713,7 @@ impl ReadWriteTransaction {
     }
 
     /// Returns a reference to the transaction channel affinity handle, if set.
-    #[allow(dead_code)]
+    #[allow(dead_code)] // Accessor for transaction channel affinity; used in tests and routing
     pub(crate) fn affinity(&self) -> Option<&TransactionAffinity> {
         self.context.affinity()
     }
@@ -4304,10 +4297,11 @@ mod tests {
         transaction
             .affinity()
             .expect("affinity present")
-            .set_entry_id(101);
+            .compare_and_set_entry_id(0, 1)
+            .expect("pin entry");
         assert_eq!(
             affinity.pinned_entry_id(),
-            Some(101),
+            Some(1),
             "Affinity handle passed to builder must observe the pinned channel ID"
         );
 
@@ -4316,7 +4310,7 @@ mod tests {
             .await?;
         assert_eq!(
             result_set.affinity().pinned_entry_id(),
-            Some(101),
+            Some(1),
             "ResultSet generated from ReadWrite transaction must share the same pinned affinity"
         );
 

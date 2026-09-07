@@ -65,6 +65,9 @@ impl ManagedSessionMaintainer {
     ) -> Result<Arc<Self>> {
         let session =
             Self::create_session(&spanner, &database_name, &database_role, &options, &o11y).await?;
+        spanner
+            .channel_pool()
+            .set_prime_session(session.name.clone());
 
         let maintainer = Arc::new(ManagedSessionMaintainer {
             spanner,
@@ -113,6 +116,10 @@ impl ManagedSessionMaintainer {
         )
         .await?;
 
+        self.spanner
+            .channel_pool()
+            .set_prime_session(new_session.name.clone());
+
         let mut guard = self.session.write().expect("failed to write session");
         *guard = ManagedSession {
             session: Arc::new(new_session),
@@ -142,7 +149,7 @@ impl ManagedSessionMaintainer {
 
         let channel = spanner.next_channel();
         spanner
-            .create_session(request, options.clone(), channel, o11y)
+            .create_session(request, options.clone(), &channel, o11y)
             .await
     }
 
@@ -241,6 +248,10 @@ mod tests {
                 session.name,
                 "projects/test-project/instances/test-instance/databases/test-db/sessions/1"
             );
+            assert!(
+                maintainer.spanner.channel_pool().has_prime_session(),
+                "maintainer should register prime session with channel pool"
+            );
         }
 
         // Modify created_at to be in the past (older than 7 days)
@@ -265,6 +276,10 @@ mod tests {
             assert_eq!(
                 session.name,
                 "projects/test-project/instances/test-instance/databases/test-db/sessions/2"
+            );
+            assert!(
+                maintainer.spanner.channel_pool().has_prime_session(),
+                "maintainer should preserve prime session in channel pool after replacement"
             );
         }
     }

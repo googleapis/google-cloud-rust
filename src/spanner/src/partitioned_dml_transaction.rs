@@ -27,7 +27,6 @@ use crate::transaction_retry_policy::{
 };
 use gaxi::prost::FromProto;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
-use std::sync::Arc;
 
 /// A builder for [PartitionedDmlTransaction].
 ///
@@ -181,7 +180,6 @@ impl PartitionedDmlTransaction {
             ..Default::default()
         };
         let base_request = statement.into_request();
-        let channel_hint = self.client.next_channel_hint();
         let client = self.client;
         let is_emulator = client.is_emulator();
 
@@ -193,9 +191,9 @@ impl PartitionedDmlTransaction {
             let client = client.clone();
 
             async move {
-                let _affinity = Arc::new(TransactionAffinity::new_read_write());
+                let affinity = TransactionAffinity::new_read_write();
                 let transaction = client
-                    .begin_transaction(begin_request, gax_options.clone(), channel_hint)
+                    .begin_transaction(begin_request, gax_options.clone(), Some(&affinity))
                     .await?;
 
                 let execute_request =
@@ -209,7 +207,7 @@ impl PartitionedDmlTransaction {
                         });
 
                 let stream_builder =
-                    client.execute_streaming_sql(execute_request, gax_options, channel_hint);
+                    client.execute_streaming_sql(execute_request, gax_options, Some(&affinity));
                 let stream = stream_builder.send().await?;
 
                 extract_lower_bound_update_count_from_stream(stream, &client).await

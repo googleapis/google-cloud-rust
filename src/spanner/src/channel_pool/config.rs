@@ -21,8 +21,17 @@ use std::time::Duration;
 pub(crate) const MAX_SUPPORTED_CHANNELS: usize = 256;
 
 /// Strategy used to select channels from the active pool.
-// TODO: Make public when dynamic channel pooling feature is ready for release.
+///
+/// # Example
+/// ```ignore
+/// use google_cloud_spanner::channel_pool::ChannelSelectionStrategy;
+///
+/// let strategy = ChannelSelectionStrategy::PowerOfTwoLeastBusy;
+/// assert_eq!(strategy, ChannelSelectionStrategy::default());
+/// ```
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+#[non_exhaustive]
+#[allow(dead_code)]
 pub(crate) enum ChannelSelectionStrategy {
     /// Power of Two Least Busy (samples 2 candidates, picks lower effective load, breaks ties with warmer channel).
     #[default]
@@ -30,8 +39,17 @@ pub(crate) enum ChannelSelectionStrategy {
 }
 
 /// Configuration for the Spanner client channel pool.
-// TODO: Make public when dynamic channel pooling feature is ready for release.
+///
+/// # Example
+/// ```ignore
+/// use google_cloud_spanner::channel_pool::{ChannelPoolConfig, StaticChannelPoolConfig};
+///
+/// let config = ChannelPoolConfig::from(StaticChannelPoolConfig::new(8));
+/// ```
+///
+/// Supports either static fixed-size channel pooling or autonomous dynamic load-based channel scaling.
 #[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
 pub(crate) enum ChannelPoolConfig {
     /// Fixed-size static channel pool (default: 4 channels).
     Static(StaticChannelPoolConfig),
@@ -61,19 +79,19 @@ impl ChannelPoolConfig {
             Self::Static(_) => None,
         }
     }
-
-    /// Returns a reference to the `StaticChannelPoolConfig` if static.
-    pub(crate) fn static_config(&self) -> Option<&StaticChannelPoolConfig> {
-        match self {
-            Self::Static(config) => Some(config),
-            Self::Dynamic(_) => None,
-        }
-    }
 }
 
 /// Configuration for a static (fixed-size) channel pool.
-// TODO: Make public when dynamic channel pooling feature is ready for release.
+///
+/// # Example
+/// ```ignore
+/// use google_cloud_spanner::channel_pool::StaticChannelPoolConfig;
+///
+/// let config = StaticChannelPoolConfig::new(8);
+/// assert_eq!(config.num_channels, 8);
+/// ```
 #[derive(Clone, Debug, PartialEq, Eq)]
+#[non_exhaustive]
 pub(crate) struct StaticChannelPoolConfig {
     /// Number of channels in the static pool (default: 4).
     pub(crate) num_channels: usize,
@@ -85,7 +103,21 @@ impl Default for StaticChannelPoolConfig {
     }
 }
 
+#[allow(dead_code)]
 impl StaticChannelPoolConfig {
+    /// Creates a new static channel pool configuration with the specified number of channels.
+    ///
+    /// # Example
+    /// ```ignore
+    /// use google_cloud_spanner::channel_pool::StaticChannelPoolConfig;
+    ///
+    /// let config = StaticChannelPoolConfig::new(4);
+    /// assert_eq!(config.num_channels, 4);
+    /// ```
+    pub(crate) fn new(num_channels: usize) -> Self {
+        Self { num_channels }
+    }
+
     /// Validates the static pool configuration.
     pub(crate) fn validate(&self) -> Result<(), GaxError> {
         if self.num_channels == 0 {
@@ -107,8 +139,22 @@ impl From<StaticChannelPoolConfig> for ChannelPoolConfig {
 }
 
 /// Configuration for a dynamically scaling channel pool.
-// TODO: Make public when dynamic channel pooling feature is ready for release.
+///
+/// # Example
+/// ```ignore
+/// use google_cloud_spanner::channel_pool::DynamicChannelPoolConfig;
+///
+/// let config = DynamicChannelPoolConfig::new()
+///     .with_initial_channels(4)
+///     .with_min_channels(2)
+///     .with_max_channels(16);
+/// assert_eq!(config.initial_channels, 4);
+/// assert_eq!(config.max_channels, 16);
+/// ```
+///
+/// Manages autonomous elastic scaling of gRPC channels based on in-flight RPC load and error feedback.
 #[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
 pub(crate) struct DynamicChannelPoolConfig {
     /// Number of channels created eagerly at startup (default: 4).
     pub(crate) initial_channels: usize,
@@ -167,7 +213,259 @@ impl Default for DynamicChannelPoolConfig {
     }
 }
 
+#[allow(dead_code)]
 impl DynamicChannelPoolConfig {
+    /// Creates a new default dynamic channel pool configuration.
+    ///
+    /// # Example
+    /// ```ignore
+    /// use google_cloud_spanner::channel_pool::DynamicChannelPoolConfig;
+    ///
+    /// let config = DynamicChannelPoolConfig::new();
+    /// assert_eq!(config.initial_channels, 4);
+    /// ```
+    pub(crate) fn new() -> Self {
+        Self::default()
+    }
+
+    /// Sets the number of channels created eagerly at startup.
+    ///
+    /// # Example
+    /// ```ignore
+    /// use google_cloud_spanner::channel_pool::DynamicChannelPoolConfig;
+    ///
+    /// let config = DynamicChannelPoolConfig::new().with_initial_channels(6);
+    /// assert_eq!(config.initial_channels, 6);
+    /// ```
+    pub(crate) fn with_initial_channels(mut self, channels: usize) -> Self {
+        self.initial_channels = channels;
+        self
+    }
+
+    /// Sets the minimum number of channels retained during scale-down.
+    ///
+    /// # Example
+    /// ```ignore
+    /// use google_cloud_spanner::channel_pool::DynamicChannelPoolConfig;
+    ///
+    /// let config = DynamicChannelPoolConfig::new().with_min_channels(2);
+    /// assert_eq!(config.min_channels, 2);
+    /// ```
+    pub(crate) fn with_min_channels(mut self, channels: usize) -> Self {
+        self.min_channels = channels;
+        self
+    }
+
+    /// Sets the maximum number of channels allowed during scale-up.
+    ///
+    /// # Example
+    /// ```ignore
+    /// use google_cloud_spanner::channel_pool::DynamicChannelPoolConfig;
+    ///
+    /// let config = DynamicChannelPoolConfig::new().with_max_channels(16);
+    /// assert_eq!(config.max_channels, 16);
+    /// ```
+    pub(crate) fn with_max_channels(mut self, channels: usize) -> Self {
+        self.max_channels = channels;
+        self
+    }
+
+    /// Sets the low-load threshold (per channel) triggering scale-down evaluation.
+    ///
+    /// # Example
+    /// ```ignore
+    /// use google_cloud_spanner::channel_pool::DynamicChannelPoolConfig;
+    ///
+    /// let config = DynamicChannelPoolConfig::new().with_min_rpc_per_channel(10.0);
+    /// assert_eq!(config.min_rpc_per_channel, 10.0);
+    /// ```
+    pub(crate) fn with_min_rpc_per_channel(mut self, min_rpc: f64) -> Self {
+        self.min_rpc_per_channel = min_rpc;
+        self
+    }
+
+    /// Sets the high-load threshold (per channel) triggering scale-up.
+    ///
+    /// # Example
+    /// ```ignore
+    /// use google_cloud_spanner::channel_pool::DynamicChannelPoolConfig;
+    ///
+    /// let config = DynamicChannelPoolConfig::new().with_max_rpc_per_channel(30.0);
+    /// assert_eq!(config.max_rpc_per_channel, 30.0);
+    /// ```
+    pub(crate) fn with_max_rpc_per_channel(mut self, max_rpc: f64) -> Self {
+        self.max_rpc_per_channel = max_rpc;
+        self
+    }
+
+    /// Sets the synthetic picker load added per qualifying transport error.
+    ///
+    /// # Example
+    /// ```ignore
+    /// use google_cloud_spanner::channel_pool::DynamicChannelPoolConfig;
+    ///
+    /// let config = DynamicChannelPoolConfig::new().with_error_penalty_step(10);
+    /// assert_eq!(config.error_penalty_step, 10);
+    /// ```
+    pub(crate) fn with_error_penalty_step(mut self, step: u32) -> Self {
+        self.error_penalty_step = step;
+        self
+    }
+
+    /// Sets the sliding window duration for active error penalties.
+    ///
+    /// # Example
+    /// ```ignore
+    /// use google_cloud_spanner::channel_pool::DynamicChannelPoolConfig;
+    /// use std::time::Duration;
+    ///
+    /// let config = DynamicChannelPoolConfig::new()
+    ///     .with_error_penalty_duration(Duration::from_secs(10));
+    /// assert_eq!(config.error_penalty_duration, Duration::from_secs(10));
+    /// ```
+    pub(crate) fn with_error_penalty_duration(mut self, duration: Duration) -> Self {
+        self.error_penalty_duration = duration;
+        self
+    }
+
+    /// Sets the interval between periodic scale-down evaluations.
+    ///
+    /// # Example
+    /// ```ignore
+    /// use google_cloud_spanner::channel_pool::DynamicChannelPoolConfig;
+    /// use std::time::Duration;
+    ///
+    /// let config = DynamicChannelPoolConfig::new()
+    ///     .with_scale_down_check_interval(Duration::from_secs(120));
+    /// assert_eq!(config.scale_down_check_interval, Duration::from_secs(120));
+    /// ```
+    pub(crate) fn with_scale_down_check_interval(mut self, interval: Duration) -> Self {
+        self.scale_down_check_interval = interval;
+        self
+    }
+
+    /// Sets the cooldown period between consecutive scale-up bursts.
+    ///
+    /// # Example
+    /// ```ignore
+    /// use google_cloud_spanner::channel_pool::DynamicChannelPoolConfig;
+    /// use std::time::Duration;
+    ///
+    /// let config = DynamicChannelPoolConfig::new()
+    ///     .with_scale_up_cooldown(Duration::from_secs(15));
+    /// assert_eq!(config.scale_up_cooldown, Duration::from_secs(15));
+    /// ```
+    pub(crate) fn with_scale_up_cooldown(mut self, cooldown: Duration) -> Self {
+        self.scale_up_cooldown = cooldown;
+        self
+    }
+
+    /// Sets the number of consecutive low-load checks required before scale-down.
+    ///
+    /// # Example
+    /// ```ignore
+    /// use google_cloud_spanner::channel_pool::DynamicChannelPoolConfig;
+    ///
+    /// let config = DynamicChannelPoolConfig::new().with_consecutive_low_load_checks(5);
+    /// assert_eq!(config.consecutive_low_load_checks, 5);
+    /// ```
+    pub(crate) fn with_consecutive_low_load_checks(mut self, checks: usize) -> Self {
+        self.consecutive_low_load_checks = checks;
+        self
+    }
+
+    /// Sets the maximum percentage of current pool size added per scale-up event.
+    ///
+    /// # Example
+    /// ```ignore
+    /// use google_cloud_spanner::channel_pool::DynamicChannelPoolConfig;
+    ///
+    /// let config = DynamicChannelPoolConfig::new().with_max_scale_up_percent(50);
+    /// assert_eq!(config.max_scale_up_percent, 50);
+    /// ```
+    pub(crate) fn with_max_scale_up_percent(mut self, percent: u32) -> Self {
+        self.max_scale_up_percent = percent;
+        self
+    }
+
+    /// Sets the maximum number of channels marked draining per scale-down cycle.
+    ///
+    /// # Example
+    /// ```ignore
+    /// use google_cloud_spanner::channel_pool::DynamicChannelPoolConfig;
+    ///
+    /// let config = DynamicChannelPoolConfig::new().with_max_remove_channels(4);
+    /// assert_eq!(config.max_remove_channels, 4);
+    /// ```
+    pub(crate) fn with_max_remove_channels(mut self, max_channels: usize) -> Self {
+        self.max_remove_channels = max_channels;
+        self
+    }
+
+    /// Sets the idle grace duration a draining channel is kept alive after load drops to zero.
+    ///
+    /// # Example
+    /// ```ignore
+    /// use google_cloud_spanner::channel_pool::DynamicChannelPoolConfig;
+    /// use std::time::Duration;
+    ///
+    /// let config = DynamicChannelPoolConfig::new()
+    ///     .with_drain_idle_grace(Duration::from_secs(30));
+    /// assert_eq!(config.drain_idle_grace, Duration::from_secs(30));
+    /// ```
+    pub(crate) fn with_drain_idle_grace(mut self, grace: Duration) -> Self {
+        self.drain_idle_grace = grace;
+        self
+    }
+
+    /// Sets the timeout for executing `SELECT 1` priming on a new scaled-up channel.
+    ///
+    /// # Example
+    /// ```ignore
+    /// use google_cloud_spanner::channel_pool::DynamicChannelPoolConfig;
+    /// use std::time::Duration;
+    ///
+    /// let config = DynamicChannelPoolConfig::new()
+    ///     .with_prime_timeout(Duration::from_secs(5));
+    /// assert_eq!(config.prime_timeout, Duration::from_secs(5));
+    /// ```
+    pub(crate) fn with_prime_timeout(mut self, timeout: Duration) -> Self {
+        self.prime_timeout = timeout;
+        self
+    }
+
+    /// Sets the maximum retry attempts for `SELECT 1` priming.
+    ///
+    /// # Example
+    /// ```ignore
+    /// use google_cloud_spanner::channel_pool::DynamicChannelPoolConfig;
+    ///
+    /// let config = DynamicChannelPoolConfig::new().with_prime_max_attempts(5);
+    /// assert_eq!(config.prime_max_attempts, 5);
+    /// ```
+    pub(crate) fn with_prime_max_attempts(mut self, attempts: usize) -> Self {
+        self.prime_max_attempts = attempts;
+        self
+    }
+
+    /// Sets the channel selection strategy.
+    ///
+    /// # Example
+    /// ```ignore
+    /// use google_cloud_spanner::channel_pool::{ChannelSelectionStrategy, DynamicChannelPoolConfig};
+    ///
+    /// let config = DynamicChannelPoolConfig::new()
+    ///     .with_selection_strategy(ChannelSelectionStrategy::PowerOfTwoLeastBusy);
+    /// assert_eq!(
+    ///     config.selection_strategy,
+    ///     ChannelSelectionStrategy::PowerOfTwoLeastBusy
+    /// );
+    /// ```
+    pub(crate) fn with_selection_strategy(mut self, strategy: ChannelSelectionStrategy) -> Self {
+        self.selection_strategy = strategy;
+        self
+    }
+
     /// Validates dynamic channel pool configuration boundaries and invariant relationships.
     pub(crate) fn validate(&self) -> Result<(), GaxError> {
         if self.min_channels == 0 {
@@ -295,6 +593,15 @@ mod tests {
             Send,
             Sync
         );
+    }
+
+    impl ChannelPoolConfig {
+        fn static_config(&self) -> Option<&StaticChannelPoolConfig> {
+            match self {
+                Self::Static(config) => Some(config),
+                Self::Dynamic(_) => None,
+            }
+        }
     }
 
     #[test]
@@ -737,5 +1044,96 @@ mod tests {
             26,
             "error_penalty_max must equal ceil(25.2) -> 26"
         );
+    }
+
+    #[test]
+    fn static_channel_pool_config_new() {
+        let config = StaticChannelPoolConfig::new(8);
+        assert_eq!(config.num_channels, 8, "num_channels must be 8");
+        assert!(config.validate().is_ok(), "validation must succeed");
+    }
+
+    #[test]
+    fn dynamic_channel_pool_config_builder() {
+        let config = DynamicChannelPoolConfig::new()
+            .with_initial_channels(5)
+            .with_min_channels(3)
+            .with_max_channels(12)
+            .with_min_rpc_per_channel(10.0)
+            .with_max_rpc_per_channel(20.0)
+            .with_error_penalty_step(8)
+            .with_error_penalty_duration(Duration::from_secs(15))
+            .with_scale_down_check_interval(Duration::from_secs(120))
+            .with_scale_up_cooldown(Duration::from_secs(30))
+            .with_consecutive_low_load_checks(5)
+            .with_max_scale_up_percent(50)
+            .with_max_remove_channels(3)
+            .with_drain_idle_grace(Duration::from_secs(90))
+            .with_prime_timeout(Duration::from_secs(20))
+            .with_prime_max_attempts(5)
+            .with_selection_strategy(ChannelSelectionStrategy::PowerOfTwoLeastBusy);
+
+        assert_eq!(config.initial_channels, 5, "initial_channels must match");
+        assert_eq!(config.min_channels, 3, "min_channels must match");
+        assert_eq!(config.max_channels, 12, "max_channels must match");
+        assert_eq!(
+            config.min_rpc_per_channel, 10.0,
+            "min_rpc_per_channel must match"
+        );
+        assert_eq!(
+            config.max_rpc_per_channel, 20.0,
+            "max_rpc_per_channel must match"
+        );
+        assert_eq!(
+            config.error_penalty_step, 8,
+            "error_penalty_step must match"
+        );
+        assert_eq!(
+            config.error_penalty_duration,
+            Duration::from_secs(15),
+            "error_penalty_duration must match"
+        );
+        assert_eq!(
+            config.scale_down_check_interval,
+            Duration::from_secs(120),
+            "scale_down_check_interval must match"
+        );
+        assert_eq!(
+            config.scale_up_cooldown,
+            Duration::from_secs(30),
+            "scale_up_cooldown must match"
+        );
+        assert_eq!(
+            config.consecutive_low_load_checks, 5,
+            "consecutive_low_load_checks must match"
+        );
+        assert_eq!(
+            config.max_scale_up_percent, 50,
+            "max_scale_up_percent must match"
+        );
+        assert_eq!(
+            config.max_remove_channels, 3,
+            "max_remove_channels must match"
+        );
+        assert_eq!(
+            config.drain_idle_grace,
+            Duration::from_secs(90),
+            "drain_idle_grace must match"
+        );
+        assert_eq!(
+            config.prime_timeout,
+            Duration::from_secs(20),
+            "prime_timeout must match"
+        );
+        assert_eq!(
+            config.prime_max_attempts, 5,
+            "prime_max_attempts must match"
+        );
+        assert_eq!(
+            config.selection_strategy,
+            ChannelSelectionStrategy::PowerOfTwoLeastBusy,
+            "selection_strategy must match"
+        );
+        assert!(config.validate().is_ok(), "validation must succeed");
     }
 }

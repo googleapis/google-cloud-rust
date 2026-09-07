@@ -2822,7 +2822,7 @@ async fn unary_commit_routes_to_affinity_address_and_clears_affinity() -> anyhow
         .set_transaction_id(Bytes::copy_from_slice(transaction_id));
 
     let response = database_client
-        .commit(commit_request, RequestOptions::default(), 0)
+        .commit(commit_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -2901,7 +2901,7 @@ async fn unary_rollback_routes_to_affinity_address_and_clears_affinity() -> anyh
         .set_transaction_id(Bytes::copy_from_slice(transaction_id));
 
     database_client
-        .rollback(rollback_request, RequestOptions::default(), 0)
+        .rollback(rollback_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -2997,7 +2997,7 @@ async fn unary_single_use_commit_routes_to_leader_tablet_replica() -> anyhow::Re
         .set_mutations(vec![mutation.build_proto()]);
 
     let response = database_client
-        .commit(commit_request, RequestOptions::default(), 0)
+        .commit(commit_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -3095,7 +3095,7 @@ async fn unary_begin_transaction_with_mutation_key_routes_to_leader_and_records_
         .set_mutation_key(mutation.build_proto());
 
     let response = database_client
-        .begin_transaction(begin_request, RequestOptions::default(), 0)
+        .begin_transaction(begin_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -3195,7 +3195,7 @@ async fn unary_begin_transaction_with_read_only_options_does_not_record_affinity
         .set_mutation_key(mutation.build_proto());
 
     let response = database_client
-        .begin_transaction(begin_request, RequestOptions::default(), 0)
+        .begin_transaction(begin_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -3268,7 +3268,7 @@ async fn unary_execute_sql_routes_to_affinity_address() -> anyhow::Result<()> {
         );
 
     let _ = database_client
-        .execute_sql(execute_sql_request, RequestOptions::default(), 0)
+        .execute_sql(execute_sql_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -3327,7 +3327,7 @@ async fn unary_execute_sql_with_inline_begin_rw_records_affinity() -> anyhow::Re
         );
 
     let _ = database_client
-        .execute_sql(execute_sql_request, RequestOptions::default(), 0)
+        .execute_sql(execute_sql_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -3398,7 +3398,7 @@ async fn unary_execute_batch_dml_routes_to_affinity_address() -> anyhow::Result<
         .set_seqno(1);
 
     let _ = database_client
-        .execute_batch_dml(batch_dml_request, RequestOptions::default(), 0)
+        .execute_batch_dml(batch_dml_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -3463,7 +3463,7 @@ async fn unary_execute_batch_dml_with_inline_begin_rw_records_affinity() -> anyh
         .set_seqno(1);
 
     let _ = database_client
-        .execute_batch_dml(batch_dml_request, RequestOptions::default(), 0)
+        .execute_batch_dml(batch_dml_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -3538,7 +3538,7 @@ async fn unary_partition_read_routes_to_tablet_node() -> anyhow::Result<()> {
         .set_key_set(key_set.into_proto());
 
     let _ = database_client
-        .partition_read(partition_read_request, RequestOptions::default(), 0)
+        .partition_read(partition_read_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -3602,7 +3602,7 @@ async fn unary_partition_query_with_transaction_id_routes_to_affinity_address() 
         );
 
     let _ = database_client
-        .partition_query(partition_query_request, RequestOptions::default(), 0)
+        .partition_query(partition_query_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -4127,7 +4127,7 @@ async fn end_to_end_unary_execute_sql_with_key_recipe_routes_to_tablet_replica()
     let request1 = statement.clone().into_request();
 
     let _ = database_client
-        .execute_sql(request1, RequestOptions::default(), 0)
+        .execute_sql(request1, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -4163,7 +4163,7 @@ async fn end_to_end_unary_execute_sql_with_key_recipe_routes_to_tablet_replica()
     // 4. Second execution (cache hit): routes directly to tablet mock with attached routing hint
     let request2 = statement.into_request();
     let _ = database_client
-        .execute_sql(request2, RequestOptions::default(), 0)
+        .execute_sql(request2, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -4519,7 +4519,7 @@ async fn unary_execute_sql_with_directed_read_options_and_key_recipe_routes_to_d
 
     let request1 = statement.clone().into_request();
     let _ = database_client
-        .execute_sql(request1, RequestOptions::default(), 0)
+        .execute_sql(request1, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -4567,7 +4567,7 @@ async fn unary_execute_sql_with_directed_read_options_and_key_recipe_routes_to_d
     // Cache hit: routes directly to mock_east replica matching directed read options
     let request2 = statement.into_request();
     let _ = database_client
-        .execute_sql(request2, RequestOptions::default(), 0)
+        .execute_sql(request2, RequestOptions::default(), None)
         .await?;
 
     assert!(
