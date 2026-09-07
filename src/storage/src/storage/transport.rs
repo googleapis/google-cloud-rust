@@ -744,7 +744,7 @@ mod tests {
 
         let client = crate::client::Storage::builder()
             .with_credentials(Anonymous::new().build())
-            .with_endpoint(endpoint.clone())
+            .with_endpoint(endpoint)
             .with_tracing()
             .build()
             .await?;
