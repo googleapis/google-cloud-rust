@@ -605,14 +605,10 @@ where
 
     fn on_throttle(&self, state: &RetryState, error: Error) -> ThrottleResult {
         match self.inner.on_throttle(state, error) {
-            ThrottleResult::Exhausted(e) => ThrottleResult::Exhausted(e),
-            ThrottleResult::Continue(e) => {
-                if state.attempt_count >= self.maximum_attempts {
-                    ThrottleResult::Exhausted(e)
-                } else {
-                    ThrottleResult::Continue(e)
-                }
+            ThrottleResult::Continue(e) if state.attempt_count >= self.maximum_attempts => {
+                ThrottleResult::Exhausted(e)
             }
+            res => res,
         }
     }
 
