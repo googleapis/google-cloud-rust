@@ -309,13 +309,15 @@ impl TryFrom<&str> for Duration {
                         format!("nanos are not a number [{s}]").into(),
                     ));
                 }
-                let pad = "000000000";
-                let nanos = if s.len() > 9 {
-                    s[..9].parse::<i32>()
-                } else {
-                    format!("{s}{}", &pad[s.len()..]).parse::<i32>()
-                };
-                nanos.map_err(|e| DurationError::Deserialize(e.into()))
+                let len = s.len();
+                let (digits, power) = if len > 9 { (&s[..9], 0) } else { (s, 9 - len) };
+                let mut val = digits
+                    .parse::<i32>()
+                    .map_err(|e| DurationError::Deserialize(e.into()))?;
+                if power > 0 {
+                    val *= 10_i32.pow(power as u32)
+                }
+                Ok(val)
             })
             .transpose()?
             .unwrap_or(0);
