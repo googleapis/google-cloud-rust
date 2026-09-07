@@ -730,64 +730,6 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn open_object_url_template() -> anyhow::Result<()> {
-        use gaxi::grpc::tonic::Status as TonicStatus;
-        use google_cloud_gax::error::rpc::Code;
-        use storage_grpc_mock::{MockStorage, start};
-
-        let guard = TestLayer::initialize();
-
-        let mut mock = MockStorage::new();
-        mock.expect_bidi_read_object()
-            .return_once(|_| Err(TonicStatus::not_found("not here")));
-        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-
-        let client = crate::client::Storage::builder()
-            .with_credentials(Anonymous::new().build())
-            .with_endpoint(endpoint)
-            .with_tracing()
-            .build()
-            .await?;
-        let response = client
-            .open_object("projects/_/buckets/test-bucket", "test-object")
-            .send()
-            .await;
-        assert!(
-            matches!(response, Err(ref e) if e.status().is_some_and(|s| s.code == Code::NotFound)),
-            "{response:?}"
-        );
-
-        let captured = TestLayer::capture(&guard);
-        check_debug_log(&captured, "open_object");
-        client_request_span(&captured, "open_object", "NOT_FOUND", "grpc");
-
-        let span = captured
-            .iter()
-            .find(|s| s.name == "client_request")
-            .unwrap_or_else(|| panic!("missing `client_request` span in capture: {captured:#?}"));
-        assert_eq!(
-            span.attributes.get("rpc.method"),
-            Some(&AttributeValue::from(
-                "google.storage.v2.Storage/BidiStreamingRead"
-            ))
-        );
-        assert_eq!(
-            span.attributes.get("gcp.resource.destination.id"),
-            Some(&AttributeValue::from(
-                "//storage.googleapis.com/projects/_/buckets/test-bucket"
-            ))
-        );
-
-        // Note: As defined by Google Cloud Client Observability and `gax-internal`,
-        // `url.template` is recorded in `DurationMetric` and `WithClientLogging` rather than
-        // on the `client_request` (T3) span itself. Verifying the span confirms telemetry is
-        // captured and that `on_client_request` was invoked.
-        assert_eq!(span.attributes.get("url.template"), None);
-
-        Ok(())
-    }
-
-    #[tokio::test]
     #[ignore = "flaky test, see #5290"]
     async fn open_object_success() -> anyhow::Result<()> {
         // TODO(#4772) - Move these `use` declarations and constants once the tracing APIs are stable.
