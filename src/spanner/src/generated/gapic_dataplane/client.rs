@@ -133,9 +133,24 @@ impl Spanner {
     /// The query string can be SQL or [Graph Query Language
     /// (GQL)](https://cloud.google.com/spanner/docs/reference/standard-sql/graph-intro).
     ///
+    /// [google.spanner.v1.Spanner.ExecuteStreamingSql]: crate::client::Spanner::execute_streaming_sql
     /// [google.spanner.v1.Transaction]: crate::model::Transaction
     pub(crate) fn execute_sql(&self) -> super::builder::spanner::ExecuteSql {
         super::builder::spanner::ExecuteSql::new(self.inner.clone())
+    }
+
+    /// Like [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql], except returns the
+    /// result set as a stream. Unlike
+    /// [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql], there is no limit on
+    /// the size of the returned result set. However, no individual row in the
+    /// result set can exceed 100 MiB, and no column value can exceed 10 MiB.
+    ///
+    /// The query string can be SQL or [Graph Query Language
+    /// (GQL)](https://cloud.google.com/spanner/docs/reference/standard-sql/graph-intro).
+    ///
+    /// [google.spanner.v1.Spanner.ExecuteSql]: crate::client::Spanner::execute_sql
+    pub(crate) fn execute_streaming_sql(&self) -> super::builder::spanner::ExecuteStreamingSql {
+        super::builder::spanner::ExecuteStreamingSql::new(self.inner.clone())
     }
 
     /// Executes a batch of SQL DML statements. This method allows many statements
@@ -173,9 +188,21 @@ impl Spanner {
     /// [StreamingRead][google.spanner.v1.Spanner.StreamingRead] instead.
     ///
     /// [google.spanner.v1.Spanner.ExecuteSql]: crate::client::Spanner::execute_sql
+    /// [google.spanner.v1.Spanner.StreamingRead]: crate::client::Spanner::streaming_read
     /// [google.spanner.v1.Transaction]: crate::model::Transaction
     pub(crate) fn read(&self) -> super::builder::spanner::Read {
         super::builder::spanner::Read::new(self.inner.clone())
+    }
+
+    /// Like [Read][google.spanner.v1.Spanner.Read], except returns the result set
+    /// as a stream. Unlike [Read][google.spanner.v1.Spanner.Read], there is no
+    /// limit on the size of the returned result set. However, no individual row in
+    /// the result set can exceed 100 MiB, and no column value can exceed
+    /// 10 MiB.
+    ///
+    /// [google.spanner.v1.Spanner.Read]: crate::client::Spanner::read
+    pub(crate) fn streaming_read(&self) -> super::builder::spanner::StreamingRead {
+        super::builder::spanner::StreamingRead::new(self.inner.clone())
     }
 
     /// Begins a new transaction. This step can often be skipped:
@@ -237,6 +264,8 @@ impl Spanner {
     /// is deleted, is idle for too long, begins a new transaction, or becomes too
     /// old. When any of these happen, it isn't possible to resume the query, and
     /// the whole operation must be restarted from the beginning.
+    ///
+    /// [google.spanner.v1.Spanner.ExecuteStreamingSql]: crate::client::Spanner::execute_streaming_sql
     pub(crate) fn partition_query(&self) -> super::builder::spanner::PartitionQuery {
         super::builder::spanner::PartitionQuery::new(self.inner.clone())
     }
@@ -255,7 +284,41 @@ impl Spanner {
     /// is deleted, is idle for too long, begins a new transaction, or becomes too
     /// old. When any of these happen, it isn't possible to resume the read, and
     /// the whole operation must be restarted from the beginning.
+    ///
+    /// [google.spanner.v1.Spanner.StreamingRead]: crate::client::Spanner::streaming_read
     pub(crate) fn partition_read(&self) -> super::builder::spanner::PartitionRead {
         super::builder::spanner::PartitionRead::new(self.inner.clone())
+    }
+
+    /// Batches the supplied mutation groups in a collection of efficient
+    /// transactions. All mutations in a group are committed atomically. However,
+    /// mutations across groups can be committed non-atomically in an unspecified
+    /// order and thus, they must be independent of each other. Partial failure is
+    /// possible, that is, some groups might have been committed successfully,
+    /// while some might have failed. The results of individual batches are
+    /// streamed into the response as the batches are applied.
+    ///
+    /// `BatchWrite` requests are not replay protected, meaning that each mutation
+    /// group can be applied more than once. Replays of non-idempotent mutations
+    /// can have undesirable effects. For example, replays of an insert mutation
+    /// can produce an already exists error or if you use generated or commit
+    /// timestamp-based keys, it can result in additional rows being added to the
+    /// mutation's table. We recommend structuring your mutation groups to be
+    /// idempotent to avoid this issue.
+    pub(crate) fn batch_write(&self) -> super::builder::spanner::BatchWrite {
+        super::builder::spanner::BatchWrite::new(self.inner.clone())
+    }
+
+    /// Retrieves a cache update for a given database.
+    ///
+    /// This RPC can be used to warm up the client cache by fetching key recipes
+    /// and server information for a given database. It is recommended to call
+    /// this RPC at the beginning of the client's lifecycle, prior to any other
+    /// data plane operations.
+    ///
+    /// The cache update is returned as a stream because the response can be too
+    /// large to fit into a single `CacheUpdate` message.
+    pub(crate) fn fetch_cache_update(&self) -> super::builder::spanner::FetchCacheUpdate {
+        super::builder::spanner::FetchCacheUpdate::new(self.inner.clone())
     }
 }

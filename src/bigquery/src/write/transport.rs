@@ -77,10 +77,10 @@ pub(super) mod tests {
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 
-    pub(crate) async fn test_transport(endpoint: String) -> anyhow::Result<Transport> {
+    pub(crate) async fn test_transport<T: Into<String>>(endpoint: T) -> anyhow::Result<Transport> {
         let mut config = gaxi::options::ClientConfig::default();
         config.cred = Some(Anonymous::new().build());
-        config.endpoint = Some(endpoint);
+        config.endpoint = Some(endpoint.into());
         Ok(Transport::new(config).await?)
     }
 
