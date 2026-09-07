@@ -6743,6 +6743,7 @@ pub mod directed_read_options {
 /// [ExecuteStreamingSql][google.spanner.v1.Spanner.ExecuteStreamingSql].
 ///
 /// [google.spanner.v1.Spanner.ExecuteSql]: crate::client::Spanner::execute_sql
+/// [google.spanner.v1.Spanner.ExecuteStreamingSql]: crate::client::Spanner::execute_streaming_sql
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExecuteSqlRequest {
@@ -7728,6 +7729,8 @@ pub struct PartitionQueryRequest {
     /// [`ExecuteStreamingSql`][google.spanner.v1.Spanner.ExecuteStreamingSql] with
     /// a `PartitionedDml` transaction for large, partition-friendly DML
     /// operations.
+    ///
+    /// [google.spanner.v1.Spanner.ExecuteStreamingSql]: crate::client::Spanner::execute_streaming_sql
     pub sql: std::string::String,
 
     /// Optional. Parameter names and values that bind to placeholders in the SQL
@@ -8102,6 +8105,7 @@ impl wkt::message::Message for PartitionResponse {
 /// [StreamingRead][google.spanner.v1.Spanner.StreamingRead].
 ///
 /// [google.spanner.v1.Spanner.Read]: crate::client::Spanner::read
+/// [google.spanner.v1.Spanner.StreamingRead]: crate::client::Spanner::streaming_read
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReadRequest {
@@ -9138,6 +9142,8 @@ impl wkt::message::Message for RollbackRequest {
 }
 
 /// The request for [BatchWrite][google.spanner.v1.Spanner.BatchWrite].
+///
+/// [google.spanner.v1.Spanner.BatchWrite]: crate::client::Spanner::batch_write
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchWriteRequest {
@@ -9342,6 +9348,8 @@ impl wkt::message::Message for BatchWriteResponse {
 
 /// The request for
 /// [FetchCacheUpdate][google.spanner.v1.Spanner.FetchCacheUpdate].
+///
+/// [google.spanner.v1.Spanner.FetchCacheUpdate]: crate::client::Spanner::fetch_cache_update
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchCacheUpdateRequest {
