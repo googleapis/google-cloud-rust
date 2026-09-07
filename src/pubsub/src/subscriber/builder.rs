@@ -19,8 +19,8 @@ use std::sync::Arc;
 use std::time::Duration;
 
 const MIB: i64 = 1024 * 1024;
-// Clamp the max lease to 1000 years to avoid overflow errors.
-const MAX_LEASE: Duration = Duration::from_secs(1000 * 365 * 24 * 60 * 60);
+// Clamp the max lease to 100 years to avoid overflow errors.
+const MAX_LEASE: Duration = Duration::from_secs(100 * 365 * 24 * 60 * 60);
 
 pub use super::client_builder::ClientBuilder;
 
