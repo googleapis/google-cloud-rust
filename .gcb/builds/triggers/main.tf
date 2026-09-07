@@ -112,8 +112,9 @@ locals {
     }
     lint-unstable = {
       config = "complex.yaml"
+      pool   = "rust-sdk-pool-large"
       flags  = local.unstable_flags
-      script = "lint-unstable"
+      script = "lint"
     }
     minimal-versions = {
       config = "complex.yaml"

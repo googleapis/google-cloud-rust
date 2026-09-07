@@ -1487,8 +1487,6 @@ libraries:
     copyright_year: "2026"
     output: src/spanner
     rust:
-      include_bidi_streaming_methods: false
-      include_server_streaming_methods: false
       modules:
         - module_path: crate::generated::gapic_dataplane::model
           output: src/spanner/src/generated/convert/spanner
