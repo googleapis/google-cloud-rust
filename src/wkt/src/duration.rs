@@ -304,12 +304,20 @@ impl TryFrom<&str> for Duration {
             .unwrap_or(0);
         let nanos = nanos
             .map(|s| {
+                if s.is_empty() || !s.chars().all(|c| c.is_ascii_digit()) {
+                    return Err(DurationError::Deserialize(
+                        format!("nanos are not a number [{s}]").into(),
+                    ));
+                }
                 let pad = "000000000";
-                format!("{s}{}", &pad[s.len()..])
+                let nanos = if s.len() > 9 {
+                    s[..9].parse::<i32>()
+                } else {
+                    format!("{s}{}", &pad[s.len()..]).parse::<i32>()
+                };
+                nanos.map_err(|e| DurationError::Deserialize(e.into()))
             })
-            .map(|s| s.parse::<i32>())
-            .transpose()
-            .map_err(|e| DurationError::Deserialize(e.into()))?
+            .transpose()?
             .unwrap_or(0);
 
         Duration::new(sign * seconds, sign as i32 * nanos)
@@ -678,6 +686,8 @@ mod tests {
     #[test_case("1a.0s" ; "seconds are not a number [1a]")]
     #[test_case("1.aaas" ; "nanos are not a number [aaa]")]
     #[test_case("1.0as" ; "nanos are not a number [0a]")]
+    #[test_case("1.1234567890as" ; "nanos with trailing chars [1234567890a]")]
+    #[test_case("1.s" ; "empty nanos")]
     fn parse_detect_bad_input(input: &str) -> Result {
         let got = Duration::try_from(input);
         assert!(got.is_err(), "{got:?}");
@@ -686,6 +696,28 @@ mod tests {
             matches!(err, DurationError::Deserialize(_)),
             "unexpected error {err:?}"
         );
+        Ok(())
+    }
+
+    #[test]
+    fn fractional_seconds_exceed_9_digits() -> Result {
+        let d = Duration::try_from("1.1234567890s")?;
+        assert_eq!(d, Duration::new(1, 123_456_789)?);
+
+        let d = Duration::try_from("1.123456789012s")?;
+        assert_eq!(d, Duration::new(1, 123_456_789)?);
+
+        let d: Duration = serde_json::from_str(r#""1.1234567890s""#)?;
+        assert_eq!(d, Duration::new(1, 123_456_789)?);
+
+        let d: Duration = serde_json::from_str(r#""1.123456789012s""#)?;
+        assert_eq!(d, Duration::new(1, 123_456_789)?);
+
+        let d = Duration::try_from("-1.1234567890s")?;
+        assert_eq!(d, Duration::new(-1, -123_456_789)?);
+
+        let d: Duration = serde_json::from_str(r#""-1.123456789012s""#)?;
+        assert_eq!(d, Duration::new(-1, -123_456_789)?);
         Ok(())
     }
 
