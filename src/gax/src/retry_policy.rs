@@ -604,10 +604,16 @@ where
     }
 
     fn on_throttle(&self, state: &RetryState, error: Error) -> ThrottleResult {
-        // The retry loop only calls `on_throttle()` if the policy has not
-        // been exhausted.
-        assert!(state.attempt_count < self.maximum_attempts);
-        self.inner.on_throttle(state, error)
+        match self.inner.on_throttle(state, error) {
+            ThrottleResult::Exhausted(e) => ThrottleResult::Exhausted(e),
+            ThrottleResult::Continue(e) => {
+                if state.attempt_count >= self.maximum_attempts {
+                    ThrottleResult::Exhausted(e)
+                } else {
+                    ThrottleResult::Continue(e)
+                }
+            }
+        }
     }
 
     fn remaining_time(&self, state: &RetryState) -> Option<Duration> {
@@ -1143,6 +1149,35 @@ pub(crate) mod tests {
         let policy = LimitedAttemptCount::custom(mock, 3);
         assert!(matches!(
             policy.on_throttle(&idempotent_state(now), unavailable()),
+            ThrottleResult::Exhausted(_)
+        ));
+    }
+
+    #[test]
+    fn test_limited_attempt_count_on_throttle_exhausted() {
+        let mut mock = MockPolicy::new();
+        mock.expect_on_throttle()
+            .times(1..)
+            .returning(|_, e| ThrottleResult::Continue(e));
+
+        let now = Instant::now();
+        let policy = LimitedAttemptCount::custom(mock, 3);
+        assert!(matches!(
+            policy.on_throttle(
+                &idempotent_state(now).set_attempt_count(3_u32),
+                unavailable()
+            ),
+            ThrottleResult::Exhausted(_)
+        ));
+
+        let mut mock_zero = MockPolicy::new();
+        mock_zero
+            .expect_on_throttle()
+            .times(1..)
+            .returning(|_, e| ThrottleResult::Continue(e));
+        let policy_zero = LimitedAttemptCount::custom(mock_zero, 0);
+        assert!(matches!(
+            policy_zero.on_throttle(&idempotent_state(now), unavailable()),
             ThrottleResult::Exhausted(_)
         ));
     }
