@@ -19,12 +19,10 @@
 
 use crate::ClientBuilderResult;
 use crate::client::Channel;
-use crate::omni::{InstanceType, TlsConfig};
+use crate::omni::TlsConfig;
 use crate::routing::server_connection::ServerConnection;
 use gaxi::grpc::tonic::transport::ClientTlsConfig;
 use gaxi::options::ClientConfig;
-use google_cloud_gax::client_builder::Extensions;
-use http::HeaderMap;
 use http::uri::Scheme;
 use std::collections::HashMap;
 use std::net::IpAddr;
@@ -331,16 +329,8 @@ pub(crate) fn prepare_routed_endpoint_config(
     if is_plaintext {
         // Strip any TLS configuration when dialing a plaintext endpoint to prevent GAX from
         // rejecting the connection with "cannot configure TLS on non-HTTPS endpoint".
-        // Note: Extensions does not expose a remove::<T>() method, so non-TLS extensions
-        // used by the Spanner client (InstanceType and HeaderMap) are selectively retained.
-        let mut extensions = Extensions::new();
-        if let Some(instance_type) = config.extensions.get::<InstanceType>() {
-            extensions.insert(*instance_type);
-        }
-        if let Some(headers) = config.extensions.get::<HeaderMap>() {
-            extensions.insert(headers.clone());
-        }
-        endpoint_config.extensions = extensions;
+        endpoint_config.extensions.remove::<TlsConfig>();
+        endpoint_config.extensions.remove::<ClientTlsConfig>();
         return endpoint_config;
     }
 
@@ -378,6 +368,8 @@ pub(crate) fn prepare_routed_endpoint_config(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::omni::InstanceType;
+    use http::HeaderMap;
     use http::header::{AUTHORIZATION, HeaderValue};
     use std::sync::Barrier;
     use std::thread;
@@ -1114,8 +1106,12 @@ mod tests {
 
     #[test]
     fn prepare_routed_endpoint_config_plaintext_preserves_non_tls_extensions() {
+        #[derive(Debug, PartialEq, Eq)]
+        struct CustomExtension(u64);
+
         let mut config = ClientConfig::default();
         config.extensions.insert(InstanceType::Omni);
+        config.extensions.insert(CustomExtension(42));
         let mut headers = HeaderMap::new();
         headers.insert(AUTHORIZATION, HeaderValue::from_static("Bearer test-token"));
         config.extensions.insert(headers);
@@ -1141,6 +1137,11 @@ mod tests {
             endpoint_config.extensions.get::<InstanceType>(),
             Some(&InstanceType::Omni),
             "InstanceType extension must be preserved when dialing plaintext"
+        );
+        assert_eq!(
+            endpoint_config.extensions.get::<CustomExtension>(),
+            Some(&CustomExtension(42)),
+            "arbitrary non-TLS extensions must be preserved when dialing plaintext"
         );
         assert!(
             endpoint_config.extensions.get::<HeaderMap>().is_some(),
