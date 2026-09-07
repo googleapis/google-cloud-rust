@@ -291,6 +291,8 @@ impl DatabaseClient {
     ///     returns `None` early to allow standard round-robin channel pooling across channels 1..=4.
     ///   - If a routing key or transaction affinity matches an active endpoint in cache, returns `Some(connection)`
     ///     pointing directly to the target node.
+    ///   - If route resolution falls back to the default gateway connection, returns `None` so the
+    ///     request is dispatched over the client's channel pool using the transaction's assigned channel affinity.
     #[allow(dead_code)] // TODO(#6236): Used by request routing in subsequent PRs
     pub(crate) fn resolve_routing_connection(
         &self,
@@ -300,7 +302,8 @@ impl DatabaseClient {
         if context.transaction_id.is_none() && context.routing_key.is_none() {
             return None;
         }
-        Some(routing.location_router.resolve_connection(context))
+        let connection = routing.location_router.resolve_connection(context);
+        (!connection.is_default()).then_some(connection)
     }
 
     for_all_streaming_db_rpcs!(define_db_streaming_rpc);
@@ -617,11 +620,15 @@ impl DatabaseClient {
             operation_uid,
             None,
         );
-        let connection = if context.transaction_id.is_some() || context.routing_key.is_some() {
-            Some(resolved.connection)
-        } else {
-            None
-        };
+        // When route resolution resolves a direct tablet replica, return `Some(connection)` to dispatch
+        // directly to that tablet.
+        //
+        // If route resolution falls back to the default gateway connection (either because key lookup
+        // missed/cooled down or because transaction affinity is pinned to the gateway), we return `None`.
+        // This preserves the transaction's assigned channel affinity on the gateway pool across all statements
+        // and balances gateway traffic evenly across the pool, rather than funneling all gateway-routed requests
+        // into Channel 0 (the single channel wrapped by default_connection).
+        let connection = (!resolved.connection.is_default()).then_some(resolved.connection);
         (connection, resolved.routing_hint)
     }
 
@@ -1178,7 +1185,7 @@ impl LocationRoutingState {
             .cloned()
             .expect("Spanner client must have at least one channel");
 
-        let default_connection = ServerConnection::new(default_endpoint, default_channel);
+        let default_connection = ServerConnection::new_default(default_endpoint, default_channel);
         let connection_cache = Arc::new(ConnectionCache::new(default_connection));
         let endpoint_lifecycle_manager = Arc::new(EndpointLifecycleManager::with_client_config(
             Arc::clone(&connection_cache),
@@ -1280,7 +1287,7 @@ mod tests {
     use crate::routing::key_range_cache::RangeMode;
     use crate::statement::Statement;
     use bytes::Bytes;
-    use gaxi::grpc::tonic::Response;
+    use gaxi::grpc::tonic::{MetadataMap, Response};
     use gaxi::options::ClientConfig;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_test_macros::tokio_test_no_panics;
@@ -2190,12 +2197,14 @@ mod tests {
             .expect("hit connection present");
         assert_eq!(hit_connection.address(), node_address);
 
-        // 4. Mark node on cooldown: falls back to default connection
+        // 4. Mark node on cooldown: falls back to default gateway (resolves to None so the
+        //    request dispatches over the client's channel pool via channel_hint)
         router.cooldown_tracker().record_failure(node_address);
-        let fallback_connection = db_client
-            .resolve_routing_connection(&hit_context)
-            .expect("fallback connection present");
-        assert_ne!(fallback_connection.address(), node_address);
+        let fallback_connection = db_client.resolve_routing_connection(&hit_context);
+        assert!(
+            fallback_connection.is_none(),
+            "When direct node is on cooldown, resolve_routing_connection must fall back to None"
+        );
     }
 
     #[test]
@@ -2498,7 +2507,18 @@ mod tests {
             "Query with active transaction_id must prioritize affinity node over key"
         );
 
-        // 6. Explicitly clear affinity (simulating Commit or Rollback).
+        // 6. Mid-transaction direct tablet failover to gateway on cooldown:
+        //    When the affinity node cools down mid-transaction, unkeyed requests must
+        //    fall back to the default gateway (resolves to None connection to use channel pool).
+        router.cooldown_tracker().record_failure(node_address);
+        let mid_txn_cooldown_conn = db_client.resolve_routing_connection(&unkeyed_context);
+        assert!(
+            mid_txn_cooldown_conn.is_none(),
+            "When affinity node is on cooldown, unkeyed request must fall back to gateway pool (None)"
+        );
+        router.cooldown_tracker().clear();
+
+        // 7. Explicitly clear affinity (simulating Commit or Rollback).
         router.clear_transaction_affinity(transaction_id);
         assert_eq!(
             router.get_transaction_affinity(transaction_id),
@@ -2506,15 +2526,12 @@ mod tests {
             "Affinity must be cleared"
         );
 
-        // 7. Request with transaction_id after affinity is cleared and with no routing_key:
-        //    Must resolve to fallback connection.
-        let post_cleanup_connection = db_client
-            .resolve_routing_connection(&unkeyed_context)
-            .expect("post-cleanup resolution fallback");
-        assert_ne!(
-            post_cleanup_connection.address(),
-            node_address,
-            "After affinity is cleared, request with no routing key must fall back"
+        // 8. Request with transaction_id after affinity is cleared and with no routing_key:
+        //    Must fall back to default gateway (resolves to None so it uses the channel pool).
+        let post_cleanup_connection = db_client.resolve_routing_connection(&unkeyed_context);
+        assert!(
+            post_cleanup_connection.is_none(),
+            "After affinity is cleared, unkeyed request must fall back to default channel pool (None)"
         );
     }
 
@@ -2591,6 +2608,322 @@ mod tests {
             0,
             "Must not record transaction affinity for single_use transaction"
         );
+    }
+
+    #[tokio_test_no_panics]
+    async fn resolve_request_route_omni_gateway_fallback_returns_none_connection() {
+        let mock = create_test_mock();
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        let node_address = "node-1.spanner.internal:15000";
+        let cache_update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![
+                Group::new()
+                    .set_group_uid(100u64)
+                    .set_leader_index(0)
+                    .set_tablets(vec![Tablet::new().set_server_address(node_address)]),
+            ])
+            .set_range(vec![
+                Range::new()
+                    .set_group_uid(100u64)
+                    .set_start_key(b"".to_vec())
+                    .set_limit_key(b"\xff".to_vec()),
+            ]);
+        database_client.observe_cache_update(Some(cache_update));
+
+        let router = database_client.location_router().expect("router present");
+        let _ = router
+            .connection_cache()
+            .get(node_address, &ClientConfig::default())
+            .await
+            .expect("should initialize connection");
+
+        let routing_key = b"Users.id=10";
+
+        // 1. Standalone keyed request without transaction selector routes directly to node-1.
+        let (standalone_connection, _hint) = database_client.resolve_request_route(
+            None,
+            None,
+            UNASSIGNED_OPERATION_UID,
+            Some(routing_key.as_slice()),
+        );
+        let standalone_connection =
+            standalone_connection.expect("standalone keyed request resolves to node-1");
+        assert_eq!(standalone_connection.address(), node_address);
+
+        // 2. BeginTransaction without mutation key: pre_route_begin_transaction falls back to None connection
+        //    (default gateway) rather than returning Some(default_connection).
+        let mut begin_request = BeginTransactionRequest::default()
+            .set_options(TransactionOptions::default().set_read_write(ReadWrite::default()));
+        let (begin_connection, is_read_write) =
+            database_client.pre_route_begin_transaction(&mut begin_request);
+        assert!(
+            begin_connection.is_none(),
+            "pre_route_begin_transaction without mutation key must return None connection"
+        );
+        assert!(
+            is_read_write,
+            "is_read_write must be true for ReadWrite options"
+        );
+
+        // 3. Post begin_transaction: records transaction affinity to the default gateway address.
+        let transaction_id = b"tx-gw-affinity-1";
+        let begin_result = Ok(Transaction::new().set_id(Bytes::from_static(transaction_id)));
+        database_client.post_route_begin_transaction(
+            is_read_write,
+            begin_connection.as_ref(),
+            &begin_result,
+        );
+
+        let default_address = router.connection_cache().default_connection().address();
+        assert_eq!(
+            router.get_transaction_affinity(transaction_id).as_deref(),
+            Some(default_address),
+            "Read-write transaction starting on gateway must pin affinity to default gateway address"
+        );
+
+        // 4. Subsequent keyed statement within this transaction:
+        //    Even though routing_key matches node-1 in KeyRangeCache, the transaction is pinned to the gateway.
+        //    resolve_request_route must resolve default_connection AND return connection = None so it dispatches
+        //    over the channel pool using the transaction's assigned channel affinity.
+        let selector = TransactionSelector::new().set_id(Bytes::from_static(transaction_id));
+        let (statement_connection, _hint) = database_client.resolve_request_route(
+            Some(&selector),
+            None,
+            UNASSIGNED_OPERATION_UID,
+            Some(routing_key.as_slice()),
+        );
+        assert!(
+            statement_connection.is_none(),
+            "Keyed statement in gateway-pinned transaction must return None connection (stay on gateway pool)"
+        );
+
+        // Also verify resolve_routing_connection returns None for this context.
+        let statement_context =
+            routing_context_from_selector(Some(&selector), Some(routing_key.as_slice()));
+        assert!(
+            database_client
+                .resolve_routing_connection(&statement_context)
+                .is_none(),
+            "resolve_routing_connection must return None for gateway-pinned transaction"
+        );
+
+        // 5. Pre-route commit: must also resolve None connection (stay on gateway pool).
+        let mut commit_request =
+            CommitRequest::default().set_transaction_id(Bytes::from_static(transaction_id));
+        let (commit_connection, resolved_transaction_id) =
+            database_client.pre_route_commit(&mut commit_request);
+        assert!(
+            commit_connection.is_none(),
+            "pre_route_commit for gateway-pinned transaction must return None connection"
+        );
+        assert_eq!(
+            resolved_transaction_id.as_deref(),
+            Some(transaction_id.as_slice()),
+            "commit request transaction_id should be extracted"
+        );
+
+        // 6. Post-route commit: clears transaction affinity.
+        let commit_result = Ok(CommitResponse::default());
+        database_client.post_route_commit(
+            resolved_transaction_id,
+            commit_connection.as_ref(),
+            &commit_result,
+        );
+        assert_eq!(
+            router.get_transaction_affinity(transaction_id),
+            None,
+            "Affinity must be cleared after commit"
+        );
+
+        // 7. Pre-route and post-route rollback: also resolves None connection and clears affinity.
+        let rollback_tx = b"tx-gw-rollback";
+        router.record_transaction_affinity(rollback_tx, default_address);
+        let mut rollback_request =
+            RollbackRequest::default().set_transaction_id(Bytes::from_static(rollback_tx));
+        let (rollback_connection, rollback_transaction_id) =
+            database_client.pre_route_rollback(&mut rollback_request);
+        assert!(
+            rollback_connection.is_none(),
+            "pre_route_rollback for gateway-pinned transaction must return None connection"
+        );
+        database_client.post_route_rollback(
+            rollback_transaction_id,
+            rollback_connection.as_ref(),
+            &Ok(()),
+        );
+        assert_eq!(
+            router.get_transaction_affinity(rollback_tx),
+            None,
+            "Affinity must be cleared after rollback"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_affinity_gateway_fallback_preserves_channel_hint_across_statements() {
+        use std::sync::Mutex;
+
+        let captured_requests = Arc::new(Mutex::new(Vec::new()));
+        let mut mock = create_test_mock();
+
+        fn extract_request_id(metadata: &MetadataMap) -> String {
+            metadata
+                .get("x-goog-spanner-request-id")
+                .and_then(|id| id.to_str().ok())
+                .unwrap_or_default()
+                .to_string()
+        }
+
+        let captured_clone = Arc::clone(&captured_requests);
+        mock.expect_begin_transaction().returning(move |request| {
+            let request_id = extract_request_id(request.metadata());
+            captured_clone
+                .lock()
+                .expect("lock should succeed")
+                .push(("begin_transaction", request_id));
+
+            Ok(Response::new(mock_v1::Transaction {
+                id: b"tx-gw-session-1".to_vec(),
+                ..Default::default()
+            }))
+        });
+
+        let captured_clone = Arc::clone(&captured_requests);
+        mock.expect_execute_sql().returning(move |request| {
+            let request_id = extract_request_id(request.metadata());
+            captured_clone
+                .lock()
+                .expect("lock should succeed")
+                .push(("execute_sql", request_id));
+
+            Ok(Response::new(mock_v1::ResultSet::default()))
+        });
+
+        let captured_clone = Arc::clone(&captured_requests);
+        mock.expect_execute_streaming_sql()
+            .returning(move |request| {
+                let request_id = extract_request_id(request.metadata());
+                captured_clone
+                    .lock()
+                    .expect("lock should succeed")
+                    .push(("execute_streaming_sql", request_id));
+
+                Ok(Response::from(adapt([])))
+            });
+
+        let captured_clone = Arc::clone(&captured_requests);
+        mock.expect_commit().returning(move |request| {
+            let request_id = extract_request_id(request.metadata());
+            captured_clone
+                .lock()
+                .expect("lock should succeed")
+                .push(("commit", request_id));
+
+            Ok(Response::new(mock_v1::CommitResponse::default()))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        assert!(database_client.is_location_aware_routing_enabled());
+
+        // Verify across multiple channel affinities (channel_hint 2 -> slot .3., channel_hint 1 -> slot .2.):
+        // 1. Statements within a transaction remain pinned to the same channel slot.
+        // 2. Different transactions distribute across distinct channel slots rather than
+        //    collapsing onto Channel 0 (slot .1.).
+        for channel_hint in [2usize, 1usize] {
+            let expected_channel_id = format!(".{}.", channel_hint + 1);
+
+            // 1. BeginTransaction (unkeyed read-write options)
+            let begin_request = BeginTransactionRequest::default()
+                .set_options(TransactionOptions::default().set_read_write(ReadWrite::default()));
+            let transaction = database_client
+                .begin_transaction(begin_request, RequestOptions::default(), channel_hint)
+                .await
+                .expect("begin_transaction should succeed");
+
+            let transaction_id = transaction.id;
+            assert!(
+                !transaction_id.is_empty(),
+                "transaction ID must not be empty"
+            );
+
+            // 2. ExecuteSql with the returned transaction ID
+            let selector = TransactionSelector::new().set_id(transaction_id.clone());
+            let sql_request = ExecuteSqlRequest::default().set_transaction(selector.clone());
+            database_client
+                .execute_sql(sql_request, RequestOptions::default(), channel_hint)
+                .await
+                .expect("execute_sql should succeed");
+
+            // 3. ExecuteStreamingSql with the returned transaction ID
+            let streaming_request = ExecuteSqlRequest::default().set_transaction(selector);
+            let _ = database_client
+                .execute_streaming_sql(streaming_request, RequestOptions::default(), channel_hint)
+                .send()
+                .await;
+
+            // 4. Commit with the transaction ID
+            let commit_request = CommitRequest::default().set_transaction_id(transaction_id);
+            database_client
+                .commit(commit_request, RequestOptions::default(), channel_hint)
+                .await
+                .expect("commit should succeed");
+
+            let calls = captured_requests
+                .lock()
+                .expect("lock should succeed")
+                .clone();
+            captured_requests
+                .lock()
+                .expect("lock should succeed")
+                .clear();
+
+            assert_eq!(
+                calls.len(),
+                4,
+                "expected 4 calls: begin_transaction, execute_sql, execute_streaming_sql, commit"
+            );
+            for (rpc_name, request_id) in calls {
+                assert!(
+                    request_id.contains(&expected_channel_id),
+                    "RPC {rpc_name} for transaction with channel_hint {channel_hint} must route via channel {expected_channel_id}, got {request_id}"
+                );
+            }
+        }
     }
 
     #[tokio_test_no_panics]

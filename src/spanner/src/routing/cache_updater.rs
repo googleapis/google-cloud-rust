@@ -206,13 +206,13 @@ mod tests {
     struct DummyStub;
     impl crate::generated::gapic_dataplane::stub::Spanner for DummyStub {}
 
-    fn create_test_connection(address: &str) -> ServerConnection {
+    fn create_default_test_connection(address: &str) -> ServerConnection {
         let channel = Channel::new_for_test(DummyStub);
-        ServerConnection::new(address.to_string(), channel)
+        ServerConnection::new_default(address.to_string(), channel)
     }
 
     fn make_test_updater() -> CacheUpdater {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let connection_cache = Arc::new(ConnectionCache::new(default_connection));
         let key_range_cache = Arc::new(KeyRangeCache::new());
         let key_recipe_cache = Arc::new(KeyRecipeCache::new());

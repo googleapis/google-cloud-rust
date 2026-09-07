@@ -40,6 +40,10 @@ pub(crate) struct ConnectionCache {
 impl ConnectionCache {
     /// Creates a new `ConnectionCache` with the specified default fallback connection.
     pub(crate) fn new(default_connection: ServerConnection) -> Self {
+        debug_assert!(
+            default_connection.is_default(),
+            "default connection provided to ConnectionCache must have is_default == true"
+        );
         let default_cell = Arc::new(tokio::sync::OnceCell::from(default_connection.clone()));
         let mut map = HashMap::new();
         map.insert(default_connection.address().to_string(), default_cell);
@@ -171,9 +175,14 @@ mod tests {
         ServerConnection::new(address.to_string(), channel)
     }
 
+    fn create_default_test_connection(address: &str) -> ServerConnection {
+        let channel = Channel::new_for_test(DummyStub);
+        ServerConnection::new_default(address.to_string(), channel)
+    }
+
     #[test]
     fn test_connection_cache_default_connection_and_get_if_present() {
-        let default_conn = create_test_connection("spanner.googleapis.com:443");
+        let default_conn = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_conn.clone());
 
         assert_eq!(cache.len(), 1);
@@ -201,7 +210,7 @@ mod tests {
 
     #[test]
     fn test_connection_cache_eviction_and_protection_of_default() {
-        let default_conn = create_test_connection("spanner.googleapis.com:443");
+        let default_conn = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_conn);
 
         // Manually insert a tablet connection into the cache for testing eviction.
@@ -226,7 +235,7 @@ mod tests {
 
     #[test]
     fn test_connection_cache_clear_preserves_default() {
-        let default_conn = create_test_connection("spanner.googleapis.com:443");
+        let default_conn = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_conn);
 
         {
@@ -254,7 +263,7 @@ mod tests {
 
     #[test]
     fn test_connection_cache_concurrent_access() {
-        let default_conn = create_test_connection("spanner.googleapis.com:443");
+        let default_conn = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_conn);
         let worker_count = 10;
         let iterations = 100;
@@ -277,7 +286,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_connection_cache_get_cached() {
-        let default_conn = create_test_connection("spanner.googleapis.com:443");
+        let default_conn = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_conn);
         let config = ClientConfig::default();
 
@@ -291,7 +300,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_connection_cache_concurrent_get_stampede_prevention() {
-        let default_conn = create_test_connection("spanner.googleapis.com:443");
+        let default_conn = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_conn));
         let config = ClientConfig::default();
 
@@ -320,7 +329,7 @@ mod tests {
 
     #[test]
     fn test_connection_cache_uninitialized_cell_not_counted_in_len() {
-        let default_conn = create_test_connection("spanner.googleapis.com:443");
+        let default_conn = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_conn);
         assert_eq!(cache.len(), 1);
         assert!(!cache.is_empty());
@@ -340,7 +349,7 @@ mod tests {
 
     #[test]
     fn test_connection_cache_evict_uninitialized_cell() {
-        let default_conn = create_test_connection("spanner.googleapis.com:443");
+        let default_conn = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_conn);
 
         {
