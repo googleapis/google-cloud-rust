@@ -12,33 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Types to write data in [Arrow] format
-///
-/// [arrow]: https://arrow.apache.org/
-pub mod arrow;
+mod append;
+mod append_with_offset;
 
-pub use append_future::AppendFuture;
-
-pub(super) mod append_future;
-pub(super) mod append_response;
-pub(super) mod builder;
-pub(super) mod client;
-pub(super) mod client_builder;
-#[cfg_attr(not(test), expect(dead_code))]
-mod entry;
-pub(super) mod error;
-#[cfg_attr(not(test), expect(dead_code))]
-mod pool;
-mod proto_schema;
-mod runner;
-mod stream;
-mod transport;
-
-// TODO(#4832) - remove handwritten code.
-mod status;
-
-#[allow(dead_code)]
-pub(crate) mod generated;
-
-#[cfg(test)]
-mod test;
+pub use append::Append;
+pub use append_with_offset::AppendWithOffset;

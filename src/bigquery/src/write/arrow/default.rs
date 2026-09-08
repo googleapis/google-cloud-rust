@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::super::append_builder::Append;
+use super::super::builder::Append;
 use super::super::runner::Runner;
 use super::super::transport::Transport;
 use crate::model::append_rows_request::ArrowData;
@@ -56,17 +56,16 @@ impl DefaultWriter {
 
 #[cfg(test)]
 mod tests {
-    use super::super::super::runner::tests::*;
-    use super::super::super::transport::tests::*;
     use super::*;
     use crate::error::AppendError;
+    use crate::write::test::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
     use tokio::sync::mpsc;
 
     #[tokio::test]
     async fn request_fields() -> anyhow::Result<()> {
-        let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
+        let transport = Arc::new(test_transport("http://ignored:1").await?);
         let writer = DefaultWriter::new(transport, write_stream(), schema());
 
         let b = writer.append(rows(1));
@@ -117,14 +116,6 @@ mod tests {
         assert!(matches!(err, AppendError::UnexpectedEndOfStream));
 
         Ok(())
-    }
-
-    fn write_stream() -> String {
-        "projects/p/datasets/d/tables/t/streams/_default".to_string()
-    }
-
-    fn schema() -> ArrowSchema {
-        ArrowSchema::new().set_serialized_schema("test")
     }
 
     fn rows(id: i64) -> ArrowRecordBatch {
