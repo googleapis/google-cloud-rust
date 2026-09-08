@@ -47,11 +47,9 @@ impl StreamEntry {
             .send(write)
             .map_err(|_| AppendError::UnexpectedEndOfStream)?;
 
-        match resp_rx.await {
-            Ok(Ok(resp)) => Ok(resp),
-            Ok(Err(err)) => Err(err),
-            Err(_) => Err(AppendError::UnexpectedEndOfStream),
-        }
+        resp_rx
+            .await
+            .map_err(|_| AppendError::UnexpectedEndOfStream)?
     }
 }
 
