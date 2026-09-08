@@ -34,7 +34,7 @@ mod info {
         });
 }
 
-/// Implements [Spanner](super::stub::Spanner) using a Tonic-generated client.
+/// Implements [Spanner](super::stub::Spanner) using a gRPC client.
 #[derive(Clone)]
 pub struct Spanner {
     pub(crate) inner: gaxi::grpc::Client,

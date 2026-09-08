@@ -24,6 +24,7 @@ use crate::model::{
     PartitionQueryRequest, PartitionReadRequest, PartitionResponse, ReadRequest, ResultSet,
     RollbackRequest, RoutingHint, Transaction, TransactionOptions, TransactionSelector,
 };
+use crate::mutation::Mutation;
 use crate::observability::Observability;
 use crate::omni::{InstanceType, format_database_name};
 use crate::partitioned_dml_transaction::PartitionedDmlTransactionBuilder;
@@ -37,8 +38,7 @@ use crate::routing::endpoint_cooldown::EndpointCooldownTracker;
 use crate::routing::endpoint_lifecycle::EndpointLifecycleManager;
 use crate::routing::key_extractor::{
     extract_execute_sql_request_routing, extract_mutation_routing_key,
-    extract_mutations_routing_key, extract_proto_partition_read_request_routing_key,
-    extract_proto_read_request_routing,
+    extract_proto_partition_read_request_routing_key, extract_proto_read_request_routing,
 };
 use crate::routing::key_range_cache::KeyRangeCache;
 use crate::routing::key_recipe_cache::KeyRecipeCache;
@@ -291,6 +291,8 @@ impl DatabaseClient {
     ///     returns `None` early to allow standard round-robin channel pooling across channels 1..=4.
     ///   - If a routing key or transaction affinity matches an active endpoint in cache, returns `Some(connection)`
     ///     pointing directly to the target node.
+    ///   - If route resolution falls back to the default gateway connection, returns `None` so the
+    ///     request is dispatched over the client's channel pool using the transaction's assigned channel affinity.
     #[allow(dead_code)] // TODO(#6236): Used by request routing in subsequent PRs
     pub(crate) fn resolve_routing_connection(
         &self,
@@ -300,7 +302,8 @@ impl DatabaseClient {
         if context.transaction_id.is_none() && context.routing_key.is_none() {
             return None;
         }
-        Some(routing.location_router.resolve_connection(context))
+        let connection = routing.location_router.resolve_connection(context);
+        (!connection.is_default()).then_some(connection)
     }
 
     for_all_streaming_db_rpcs!(define_db_streaming_rpc);
@@ -617,11 +620,15 @@ impl DatabaseClient {
             operation_uid,
             None,
         );
-        let connection = if context.transaction_id.is_some() || context.routing_key.is_some() {
-            Some(resolved.connection)
-        } else {
-            None
-        };
+        // When route resolution resolves a direct tablet replica, return `Some(connection)` to dispatch
+        // directly to that tablet.
+        //
+        // If route resolution falls back to the default gateway connection (either because key lookup
+        // missed/cooled down or because transaction affinity is pinned to the gateway), we return `None`.
+        // This preserves the transaction's assigned channel affinity on the gateway pool across all statements
+        // and balances gateway traffic evenly across the pool, rather than funneling all gateway-routed requests
+        // into Channel 0 (the single channel wrapped by default_connection).
+        let connection = (!resolved.connection.is_default()).then_some(resolved.connection);
         (connection, resolved.routing_hint)
     }
 
@@ -677,6 +684,15 @@ impl DatabaseClient {
         routing.cache_updater.process_cache_update(cache_update);
     }
 
+    /// Intercepts unary [`BeginTransactionRequest`] calls to resolve leader routing and attach [`RoutingHint`].
+    ///
+    /// When location-aware routing is active and the request carries a `mutation_key`, extracts the routing
+    /// key from [`KeyRecipeCache`] and resolves the target connection and covering [`RoutingHint`] in a single
+    /// pass. Attaches the resolved [`RoutingHint`] to `request.routing_hint`.
+    ///
+    /// When `request.mutation_key` is omitted or unresolvable, returns `(None, is_read_write)` so that
+    /// [`Self::post_route_begin_transaction`] binds transaction affinity to the default gateway connection
+    /// for read-write transactions.
     fn pre_route_begin_transaction(
         &self,
         request: &mut BeginTransactionRequest,
@@ -684,17 +700,34 @@ impl DatabaseClient {
         let Some(routing) = &self.location_routing else {
             return (None, false);
         };
+        let options = request.options.as_ref();
+        let is_read_write = is_read_write_options(options);
         let routing_key = request.mutation_key.as_ref().and_then(|mutation_key| {
             extract_mutation_routing_key(&routing.key_recipe_cache, mutation_key)
         });
-        let prefer_leader = prefer_leader_from_options(request.options.as_ref());
+        let Some(routing_key) = routing_key else {
+            return (None, is_read_write);
+        };
+        let prefer_leader = prefer_leader_from_options(options);
         let context = RoutingContext {
-            routing_key: routing_key.as_deref(),
+            routing_key: Some(&routing_key),
             prefer_leader,
             ..Default::default()
         };
-        let connection = self.resolve_routing_connection(&context);
-        let is_read_write = is_read_write_options(request.options.as_ref());
+        let database_id = routing.cache_updater.database_id();
+        let schema_generation = routing.key_recipe_cache.schema_generation();
+        let resolved = routing.location_router.resolve_route(
+            &context,
+            None,
+            database_id,
+            schema_generation,
+            UNASSIGNED_OPERATION_UID,
+            None,
+        );
+        if let Some(hint) = resolved.routing_hint {
+            request.routing_hint = Some(hint);
+        }
+        let connection = (!resolved.connection.is_default()).then_some(resolved.connection);
         (connection, is_read_write)
     }
 
@@ -714,6 +747,13 @@ impl DatabaseClient {
         );
     }
 
+    /// Intercepts unary [`CommitRequest`] calls to resolve leader or affinity routing and attach [`RoutingHint`].
+    ///
+    /// When location-aware routing is active, selects candidate mutation key from `request.mutations` via
+    /// [`Mutation::select_mutation_key_ref`] and resolves route and covering [`RoutingHint`]. If `request.transaction_id`
+    /// has active transaction affinity, routes to the affinity connection while attaching the mutation [`RoutingHint`]
+    /// to `request.routing_hint`. If neither affinity nor a routing key is present, returns `None` connection so
+    /// that the request falls back to round-robin over the client's channel pool.
     fn pre_route_commit(
         &self,
         request: &mut CommitRequest,
@@ -725,18 +765,39 @@ impl DatabaseClient {
             .transaction_id()
             .filter(|id| !id.is_empty())
             .cloned();
-        let routing_key = if transaction_id.is_none() && !request.mutations.is_empty() {
-            extract_mutations_routing_key(&routing.key_recipe_cache, &request.mutations)
-        } else {
-            None
-        };
+        let routing_key = Mutation::select_mutation_key_ref(&request.mutations)
+            .and_then(|mutation| extract_mutation_routing_key(&routing.key_recipe_cache, mutation));
+
+        let has_affinity = transaction_id
+            .as_deref()
+            .and_then(|id| routing.location_router.get_transaction_affinity(id))
+            .is_some();
+
+        // If neither active affinity nor a routing key exists, fall back immediately to channel pool round-robin.
+        if !has_affinity && routing_key.is_none() {
+            return (None, transaction_id);
+        }
+
         let context = RoutingContext {
             transaction_id: transaction_id.as_deref(),
             routing_key: routing_key.as_deref(),
             prefer_leader: true,
-            use_transaction_affinity: transaction_id.is_some(),
+            use_transaction_affinity: has_affinity,
         };
-        let connection = self.resolve_routing_connection(&context);
+        let database_id = routing.cache_updater.database_id();
+        let schema_generation = routing.key_recipe_cache.schema_generation();
+        let resolved = routing.location_router.resolve_route(
+            &context,
+            None,
+            database_id,
+            schema_generation,
+            UNASSIGNED_OPERATION_UID,
+            None,
+        );
+        if let Some(hint) = resolved.routing_hint {
+            request.routing_hint = Some(hint);
+        }
+        let connection = (!resolved.connection.is_default()).then_some(resolved.connection);
         (connection, transaction_id)
     }
 
@@ -1193,7 +1254,7 @@ impl LocationRoutingState {
             .cloned()
             .expect("Spanner client must have at least one channel");
 
-        let default_connection = ServerConnection::new(default_endpoint, default_channel);
+        let default_connection = ServerConnection::new_default(default_endpoint, default_channel);
         let connection_cache = Arc::new(ConnectionCache::new(default_connection));
         let endpoint_lifecycle_manager = Arc::new(EndpointLifecycleManager::with_client_config(
             Arc::clone(&connection_cache),
@@ -1282,26 +1343,31 @@ impl ObserveResponse for PartitionResponse {
 mod tests {
     use super::*;
     use crate::client::SpannerBuilderExt;
+    use crate::error::internal_error;
     use crate::model::key_recipe::Part;
     use crate::model::key_recipe::part::{NullOrder, Order};
+    use crate::model::mutation::Operation;
     use crate::model::tablet::Role;
     use crate::model::transaction_options::{PartitionedDml, ReadOnly, ReadWrite};
     use crate::model::{
         CacheUpdate, CommitResponse, Group, KeyRecipe, KeySet, Range, RecipeList, Tablet,
         TransactionOptions, Type, TypeCode,
     };
+    use crate::mutation::Mutation;
     use crate::result_set::tests::adapt;
     use crate::routing::key_extractor::extract_proto_read_request_routing_key;
     use crate::routing::key_range_cache::RangeMode;
     use crate::statement::Statement;
     use bytes::Bytes;
-    use gaxi::grpc::tonic::Response;
+    use gaxi::grpc::tonic::{MetadataMap, Response};
     use gaxi::options::ClientConfig;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_test_macros::tokio_test_no_panics;
+    use mockall::Sequence;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use spanner_grpc_mock::{MockSpanner, start};
     use std::fmt;
+    use std::sync::Mutex;
     use tokio::sync::mpsc;
 
     fn create_test_mock() -> MockSpanner {
@@ -1382,7 +1448,7 @@ mod tests {
     #[tokio_test_no_panics]
     async fn test_database_client_builder_with_options() {
         let mut mock = MockSpanner::new();
-        let mut seq = mockall::Sequence::new();
+        let mut seq = Sequence::new();
         mock.expect_create_session()
             .once()
             .in_sequence(&mut seq)
@@ -2206,12 +2272,14 @@ mod tests {
             .expect("hit connection present");
         assert_eq!(hit_connection.address(), node_address);
 
-        // 4. Mark node on cooldown: falls back to default connection
+        // 4. Mark node on cooldown: falls back to default gateway (resolves to None so the
+        //    request dispatches over the client's channel pool via channel_hint)
         router.cooldown_tracker().record_failure(node_address);
-        let fallback_connection = db_client
-            .resolve_routing_connection(&hit_context)
-            .expect("fallback connection present");
-        assert_ne!(fallback_connection.address(), node_address);
+        let fallback_connection = db_client.resolve_routing_connection(&hit_context);
+        assert!(
+            fallback_connection.is_none(),
+            "When direct node is on cooldown, resolve_routing_connection must fall back to None"
+        );
     }
 
     #[test]
@@ -2514,7 +2582,18 @@ mod tests {
             "Query with active transaction_id must prioritize affinity node over key"
         );
 
-        // 6. Explicitly clear affinity (simulating Commit or Rollback).
+        // 6. Mid-transaction direct tablet failover to gateway on cooldown:
+        //    When the affinity node cools down mid-transaction, unkeyed requests must
+        //    fall back to the default gateway (resolves to None connection to use channel pool).
+        router.cooldown_tracker().record_failure(node_address);
+        let mid_txn_cooldown_conn = db_client.resolve_routing_connection(&unkeyed_context);
+        assert!(
+            mid_txn_cooldown_conn.is_none(),
+            "When affinity node is on cooldown, unkeyed request must fall back to gateway pool (None)"
+        );
+        router.cooldown_tracker().clear();
+
+        // 7. Explicitly clear affinity (simulating Commit or Rollback).
         router.clear_transaction_affinity(transaction_id);
         assert_eq!(
             router.get_transaction_affinity(transaction_id),
@@ -2522,15 +2601,12 @@ mod tests {
             "Affinity must be cleared"
         );
 
-        // 7. Request with transaction_id after affinity is cleared and with no routing_key:
-        //    Must resolve to fallback connection.
-        let post_cleanup_connection = db_client
-            .resolve_routing_connection(&unkeyed_context)
-            .expect("post-cleanup resolution fallback");
-        assert_ne!(
-            post_cleanup_connection.address(),
-            node_address,
-            "After affinity is cleared, request with no routing key must fall back"
+        // 8. Request with transaction_id after affinity is cleared and with no routing_key:
+        //    Must fall back to default gateway (resolves to None so it uses the channel pool).
+        let post_cleanup_connection = db_client.resolve_routing_connection(&unkeyed_context);
+        assert!(
+            post_cleanup_connection.is_none(),
+            "After affinity is cleared, unkeyed request must fall back to default channel pool (None)"
         );
     }
 
@@ -2607,6 +2683,322 @@ mod tests {
             0,
             "Must not record transaction affinity for single_use transaction"
         );
+    }
+
+    #[tokio_test_no_panics]
+    async fn resolve_request_route_omni_gateway_fallback_returns_none_connection() {
+        let mock = create_test_mock();
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        let node_address = "node-1.spanner.internal:15000";
+        let cache_update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![
+                Group::new()
+                    .set_group_uid(100u64)
+                    .set_leader_index(0)
+                    .set_tablets(vec![Tablet::new().set_server_address(node_address)]),
+            ])
+            .set_range(vec![
+                Range::new()
+                    .set_group_uid(100u64)
+                    .set_start_key(b"".to_vec())
+                    .set_limit_key(b"\xff".to_vec()),
+            ]);
+        database_client.observe_cache_update(Some(cache_update));
+
+        let router = database_client.location_router().expect("router present");
+        let _ = router
+            .connection_cache()
+            .get(node_address, &ClientConfig::default())
+            .await
+            .expect("should initialize connection");
+
+        let routing_key = b"Users.id=10";
+
+        // 1. Standalone keyed request without transaction selector routes directly to node-1.
+        let (standalone_connection, _hint) = database_client.resolve_request_route(
+            None,
+            None,
+            UNASSIGNED_OPERATION_UID,
+            Some(routing_key.as_slice()),
+        );
+        let standalone_connection =
+            standalone_connection.expect("standalone keyed request resolves to node-1");
+        assert_eq!(standalone_connection.address(), node_address);
+
+        // 2. BeginTransaction without mutation key: pre_route_begin_transaction falls back to None connection
+        //    (default gateway) rather than returning Some(default_connection).
+        let mut begin_request = BeginTransactionRequest::default()
+            .set_options(TransactionOptions::default().set_read_write(ReadWrite::default()));
+        let (begin_connection, is_read_write) =
+            database_client.pre_route_begin_transaction(&mut begin_request);
+        assert!(
+            begin_connection.is_none(),
+            "pre_route_begin_transaction without mutation key must return None connection"
+        );
+        assert!(
+            is_read_write,
+            "is_read_write must be true for ReadWrite options"
+        );
+
+        // 3. Post begin_transaction: records transaction affinity to the default gateway address.
+        let transaction_id = b"tx-gw-affinity-1";
+        let begin_result = Ok(Transaction::new().set_id(Bytes::from_static(transaction_id)));
+        database_client.post_route_begin_transaction(
+            is_read_write,
+            begin_connection.as_ref(),
+            &begin_result,
+        );
+
+        let default_address = router.connection_cache().default_connection().address();
+        assert_eq!(
+            router.get_transaction_affinity(transaction_id).as_deref(),
+            Some(default_address),
+            "Read-write transaction starting on gateway must pin affinity to default gateway address"
+        );
+
+        // 4. Subsequent keyed statement within this transaction:
+        //    Even though routing_key matches node-1 in KeyRangeCache, the transaction is pinned to the gateway.
+        //    resolve_request_route must resolve default_connection AND return connection = None so it dispatches
+        //    over the channel pool using the transaction's assigned channel affinity.
+        let selector = TransactionSelector::new().set_id(Bytes::from_static(transaction_id));
+        let (statement_connection, _hint) = database_client.resolve_request_route(
+            Some(&selector),
+            None,
+            UNASSIGNED_OPERATION_UID,
+            Some(routing_key.as_slice()),
+        );
+        assert!(
+            statement_connection.is_none(),
+            "Keyed statement in gateway-pinned transaction must return None connection (stay on gateway pool)"
+        );
+
+        // Also verify resolve_routing_connection returns None for this context.
+        let statement_context =
+            routing_context_from_selector(Some(&selector), Some(routing_key.as_slice()));
+        assert!(
+            database_client
+                .resolve_routing_connection(&statement_context)
+                .is_none(),
+            "resolve_routing_connection must return None for gateway-pinned transaction"
+        );
+
+        // 5. Pre-route commit: must also resolve None connection (stay on gateway pool).
+        let mut commit_request =
+            CommitRequest::default().set_transaction_id(Bytes::from_static(transaction_id));
+        let (commit_connection, resolved_transaction_id) =
+            database_client.pre_route_commit(&mut commit_request);
+        assert!(
+            commit_connection.is_none(),
+            "pre_route_commit for gateway-pinned transaction must return None connection"
+        );
+        assert_eq!(
+            resolved_transaction_id.as_deref(),
+            Some(transaction_id.as_slice()),
+            "commit request transaction_id should be extracted"
+        );
+
+        // 6. Post-route commit: clears transaction affinity.
+        let commit_result = Ok(CommitResponse::default());
+        database_client.post_route_commit(
+            resolved_transaction_id,
+            commit_connection.as_ref(),
+            &commit_result,
+        );
+        assert_eq!(
+            router.get_transaction_affinity(transaction_id),
+            None,
+            "Affinity must be cleared after commit"
+        );
+
+        // 7. Pre-route and post-route rollback: also resolves None connection and clears affinity.
+        let rollback_tx = b"tx-gw-rollback";
+        router.record_transaction_affinity(rollback_tx, default_address);
+        let mut rollback_request =
+            RollbackRequest::default().set_transaction_id(Bytes::from_static(rollback_tx));
+        let (rollback_connection, rollback_transaction_id) =
+            database_client.pre_route_rollback(&mut rollback_request);
+        assert!(
+            rollback_connection.is_none(),
+            "pre_route_rollback for gateway-pinned transaction must return None connection"
+        );
+        database_client.post_route_rollback(
+            rollback_transaction_id,
+            rollback_connection.as_ref(),
+            &Ok(()),
+        );
+        assert_eq!(
+            router.get_transaction_affinity(rollback_tx),
+            None,
+            "Affinity must be cleared after rollback"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_affinity_gateway_fallback_preserves_channel_hint_across_statements() {
+        use std::sync::Mutex;
+
+        let captured_requests = Arc::new(Mutex::new(Vec::new()));
+        let mut mock = create_test_mock();
+
+        fn extract_request_id(metadata: &MetadataMap) -> String {
+            metadata
+                .get("x-goog-spanner-request-id")
+                .and_then(|id| id.to_str().ok())
+                .unwrap_or_default()
+                .to_string()
+        }
+
+        let captured_clone = Arc::clone(&captured_requests);
+        mock.expect_begin_transaction().returning(move |request| {
+            let request_id = extract_request_id(request.metadata());
+            captured_clone
+                .lock()
+                .expect("lock should succeed")
+                .push(("begin_transaction", request_id));
+
+            Ok(Response::new(mock_v1::Transaction {
+                id: b"tx-gw-session-1".to_vec(),
+                ..Default::default()
+            }))
+        });
+
+        let captured_clone = Arc::clone(&captured_requests);
+        mock.expect_execute_sql().returning(move |request| {
+            let request_id = extract_request_id(request.metadata());
+            captured_clone
+                .lock()
+                .expect("lock should succeed")
+                .push(("execute_sql", request_id));
+
+            Ok(Response::new(mock_v1::ResultSet::default()))
+        });
+
+        let captured_clone = Arc::clone(&captured_requests);
+        mock.expect_execute_streaming_sql()
+            .returning(move |request| {
+                let request_id = extract_request_id(request.metadata());
+                captured_clone
+                    .lock()
+                    .expect("lock should succeed")
+                    .push(("execute_streaming_sql", request_id));
+
+                Ok(Response::from(adapt([])))
+            });
+
+        let captured_clone = Arc::clone(&captured_requests);
+        mock.expect_commit().returning(move |request| {
+            let request_id = extract_request_id(request.metadata());
+            captured_clone
+                .lock()
+                .expect("lock should succeed")
+                .push(("commit", request_id));
+
+            Ok(Response::new(mock_v1::CommitResponse::default()))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        assert!(database_client.is_location_aware_routing_enabled());
+
+        // Verify across multiple channel affinities (channel_hint 2 -> slot .3., channel_hint 1 -> slot .2.):
+        // 1. Statements within a transaction remain pinned to the same channel slot.
+        // 2. Different transactions distribute across distinct channel slots rather than
+        //    collapsing onto Channel 0 (slot .1.).
+        for channel_hint in [2usize, 1usize] {
+            let expected_channel_id = format!(".{}.", channel_hint + 1);
+
+            // 1. BeginTransaction (unkeyed read-write options)
+            let begin_request = BeginTransactionRequest::default()
+                .set_options(TransactionOptions::default().set_read_write(ReadWrite::default()));
+            let transaction = database_client
+                .begin_transaction(begin_request, RequestOptions::default(), channel_hint)
+                .await
+                .expect("begin_transaction should succeed");
+
+            let transaction_id = transaction.id;
+            assert!(
+                !transaction_id.is_empty(),
+                "transaction ID must not be empty"
+            );
+
+            // 2. ExecuteSql with the returned transaction ID
+            let selector = TransactionSelector::new().set_id(transaction_id.clone());
+            let sql_request = ExecuteSqlRequest::default().set_transaction(selector.clone());
+            database_client
+                .execute_sql(sql_request, RequestOptions::default(), channel_hint)
+                .await
+                .expect("execute_sql should succeed");
+
+            // 3. ExecuteStreamingSql with the returned transaction ID
+            let streaming_request = ExecuteSqlRequest::default().set_transaction(selector);
+            let _ = database_client
+                .execute_streaming_sql(streaming_request, RequestOptions::default(), channel_hint)
+                .send()
+                .await;
+
+            // 4. Commit with the transaction ID
+            let commit_request = CommitRequest::default().set_transaction_id(transaction_id);
+            database_client
+                .commit(commit_request, RequestOptions::default(), channel_hint)
+                .await
+                .expect("commit should succeed");
+
+            let calls = captured_requests
+                .lock()
+                .expect("lock should succeed")
+                .clone();
+            captured_requests
+                .lock()
+                .expect("lock should succeed")
+                .clear();
+
+            assert_eq!(
+                calls.len(),
+                4,
+                "expected 4 calls: begin_transaction, execute_sql, execute_streaming_sql, commit"
+            );
+            for (rpc_name, request_id) in calls {
+                assert!(
+                    request_id.contains(&expected_channel_id),
+                    "RPC {rpc_name} for transaction with channel_hint {channel_hint} must route via channel {expected_channel_id}, got {request_id}"
+                );
+            }
+        }
     }
 
     #[tokio_test_no_panics]
@@ -3665,5 +4057,1302 @@ mod tests {
             !context_min_ts.prefer_leader,
             "MinReadTimestamp read must route to follower"
         );
+    }
+
+    #[tokio_test_no_panics]
+    async fn pre_route_begin_transaction_attaches_routing_hint_when_location_routing_active() {
+        let mock = create_test_mock();
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        let node_address = "node-1.spanner.internal:15000";
+        let follower_address = "node-follower.spanner.internal:15000";
+        let recipe = KeyRecipe::new().set_table_name("Users").set_part(vec![
+            Part::new().set_tag(50020u32),
+            Part::new()
+                .set_tag(1u32)
+                .set_identifier("id")
+                .set_type(Type::new().set_code(TypeCode::String))
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull),
+        ]);
+        let cache_update = CacheUpdate::new()
+            .set_database_id(42u64)
+            .set_key_recipes(
+                RecipeList::new()
+                    .set_schema_generation(Bytes::from_static(b"schema-v1"))
+                    .set_recipe(vec![recipe.clone()]),
+            )
+            .set_group(vec![
+                Group::new()
+                    .set_group_uid(100u64)
+                    .set_leader_index(0)
+                    .set_tablets(vec![
+                        Tablet::new()
+                            .set_tablet_uid(1001u64)
+                            .set_server_address(node_address)
+                            .set_distance(1u32)
+                            .set_role(Role::ReadWrite),
+                        Tablet::new()
+                            .set_tablet_uid(1002u64)
+                            .set_server_address(follower_address)
+                            .set_distance(0u32)
+                            .set_role(Role::ReadOnly),
+                    ]),
+            ])
+            .set_range(vec![
+                Range::new()
+                    .set_group_uid(100u64)
+                    .set_split_id(500u64)
+                    .set_start_key(b"".to_vec())
+                    .set_limit_key(b"\xff".to_vec()),
+            ]);
+        database_client.observe_cache_update(Some(cache_update));
+
+        let router = database_client
+            .location_router()
+            .expect("router must be present");
+        let client_config = database_client
+            .cache_updater()
+            .expect("cache updater must be present")
+            .client_config();
+        let _ = router
+            .connection_cache()
+            .get(node_address, client_config)
+            .await
+            .expect("should initialize connection for leader");
+        let _ = router
+            .connection_cache()
+            .get(follower_address, client_config)
+            .await
+            .expect("should initialize connection for follower");
+
+        let user_mutation = Mutation::new_insert_builder("Users")
+            .set("id")
+            .to("user123")
+            .build();
+
+        // 1. Keyed begin transaction with read-write options: resolves leader connection and attaches RoutingHint
+        let mut read_write_begin_request = BeginTransactionRequest::new()
+            .set_options(TransactionOptions::new().set_read_write(ReadWrite::new()))
+            .set_mutation_key(user_mutation.clone().build_proto());
+        let (resolved_connection, is_read_write) =
+            database_client.pre_route_begin_transaction(&mut read_write_begin_request);
+        assert!(
+            is_read_write,
+            "read-write options must result in is_read_write = true"
+        );
+        let connection = resolved_connection.expect("connection must be resolved for keyed begin");
+        assert_eq!(
+            connection.address(),
+            node_address,
+            "connection must point to the leader tablet"
+        );
+        let routing_hint = read_write_begin_request
+            .routing_hint
+            .expect("routing_hint must be attached to begin transaction request");
+        assert_eq!(
+            routing_hint.database_id, 42,
+            "routing_hint database_id must match cache"
+        );
+        assert_eq!(
+            routing_hint.schema_generation.as_ref(),
+            b"schema-v1",
+            "routing_hint schema_generation must match cache"
+        );
+        assert_eq!(
+            routing_hint.tablet_uid, 1001,
+            "routing_hint tablet_uid must match leader tablet"
+        );
+        assert_eq!(
+            routing_hint.group_uid, 100,
+            "routing_hint group_uid must match group"
+        );
+        assert_eq!(
+            routing_hint.split_id, 500,
+            "routing_hint split_id must match split"
+        );
+        assert_eq!(
+            routing_hint.key.as_ref(),
+            b"",
+            "routing_hint key must match range start"
+        );
+        assert_eq!(
+            routing_hint.limit_key.as_ref(),
+            b"\xff",
+            "routing_hint limit_key must match range limit"
+        );
+
+        // 2a. Keyed begin transaction with strong read-only options: prefers leader and attaches RoutingHint
+        let mut strong_read_only_begin_request = BeginTransactionRequest::new()
+            .set_options(TransactionOptions::new().set_read_only(ReadOnly::new().set_strong(true)))
+            .set_mutation_key(user_mutation.clone().build_proto());
+        let (strong_connection, strong_is_read_write) =
+            database_client.pre_route_begin_transaction(&mut strong_read_only_begin_request);
+        assert!(
+            !strong_is_read_write,
+            "strong read-only options must result in is_read_write = false"
+        );
+        let connection =
+            strong_connection.expect("strong read-only keyed begin must resolve connection");
+        assert_eq!(
+            connection.address(),
+            node_address,
+            "strong read-only keyed begin must route to leader tablet"
+        );
+        let strong_hint = strong_read_only_begin_request
+            .routing_hint
+            .expect("strong read-only keyed begin must attach routing hint");
+        assert_eq!(
+            strong_hint.tablet_uid, 1001,
+            "strong read-only routing hint must target leader tablet"
+        );
+
+        // 2b. Keyed begin transaction with stale read-only options (prefer_leader = false): routes to follower replica
+        let mut stale_read_only_begin_request =
+            BeginTransactionRequest::new()
+                .set_options(TransactionOptions::new().set_read_only(
+                    ReadOnly::new().set_exact_staleness(wkt::Duration::clamp(10, 0)),
+                ))
+                .set_mutation_key(user_mutation.clone().build_proto());
+        let (stale_connection, stale_is_read_write) =
+            database_client.pre_route_begin_transaction(&mut stale_read_only_begin_request);
+        assert!(
+            !stale_is_read_write,
+            "stale read-only options must result in is_read_write = false"
+        );
+        let connection =
+            stale_connection.expect("stale read-only keyed begin must resolve connection");
+        assert_eq!(
+            connection.address(),
+            follower_address,
+            "stale read-only keyed begin must route to follower replica"
+        );
+        let stale_hint = stale_read_only_begin_request
+            .routing_hint
+            .expect("stale read-only keyed begin must attach routing hint");
+        assert_eq!(
+            stale_hint.tablet_uid, 1002,
+            "stale read-only routing hint must target follower tablet"
+        );
+
+        // 3. Unkeyed begin transaction (mutation_key is None): returns None connection, leaves hint None,
+        // and returns is_read_write = true so affinity is recorded to the default gateway connection.
+        let mut unkeyed_begin_request = BeginTransactionRequest::new()
+            .set_options(TransactionOptions::new().set_read_write(ReadWrite::new()));
+        let (unkeyed_connection, unkeyed_is_read_write) =
+            database_client.pre_route_begin_transaction(&mut unkeyed_begin_request);
+        assert!(
+            unkeyed_is_read_write,
+            "unkeyed read-write begin must return is_read_write = true to preserve affinity"
+        );
+        assert!(
+            unkeyed_connection.is_none(),
+            "unkeyed begin must return None connection"
+        );
+        assert!(
+            unkeyed_begin_request.routing_hint.is_none(),
+            "unkeyed begin must not attach routing hint"
+        );
+
+        // 4. Keyed begin transaction with uncached table: returns None connection, leaves hint None,
+        // and returns is_read_write = true so affinity is recorded to the default gateway connection.
+        let unknown_mutation = Mutation::new_insert_builder("UnknownTable")
+            .set("id")
+            .to("unknown_key")
+            .build();
+        let mut unknown_begin_request = BeginTransactionRequest::new()
+            .set_options(TransactionOptions::new().set_read_write(ReadWrite::new()))
+            .set_mutation_key(unknown_mutation.build_proto());
+        let (unknown_connection, unknown_is_read_write) =
+            database_client.pre_route_begin_transaction(&mut unknown_begin_request);
+        assert!(
+            unknown_is_read_write,
+            "uncached table read-write begin must return is_read_write = true to preserve affinity"
+        );
+        assert!(
+            unknown_connection.is_none(),
+            "uncached table begin must return None connection"
+        );
+        assert!(
+            unknown_begin_request.routing_hint.is_none(),
+            "uncached table begin must not attach routing hint"
+        );
+
+        // 5. Unkeyed read-only begin transaction: returns None connection, leaves hint None,
+        // and returns is_read_write = false as read-only transactions do not use affinity.
+        let mut unkeyed_read_only_begin_request = BeginTransactionRequest::new()
+            .set_options(TransactionOptions::new().set_read_only(ReadOnly::new().set_strong(true)));
+        let (unkeyed_read_only_connection, unkeyed_read_only_is_read_write) =
+            database_client.pre_route_begin_transaction(&mut unkeyed_read_only_begin_request);
+        assert!(
+            !unkeyed_read_only_is_read_write,
+            "unkeyed read-only begin must return is_read_write = false"
+        );
+        assert!(
+            unkeyed_read_only_connection.is_none(),
+            "unkeyed read-only begin must return None connection"
+        );
+        assert!(
+            unkeyed_read_only_begin_request.routing_hint.is_none(),
+            "unkeyed read-only begin must not attach routing hint"
+        );
+
+        // 6. Begin transaction with mutation_key but omitted options: defaults to prefer_leader = true and is_read_write = false
+        let mut omitted_options_begin_request =
+            BeginTransactionRequest::new().set_mutation_key(user_mutation.clone().build_proto());
+        let (omitted_options_connection, omitted_options_is_read_write) =
+            database_client.pre_route_begin_transaction(&mut omitted_options_begin_request);
+        assert!(
+            !omitted_options_is_read_write,
+            "omitted options begin must return is_read_write = false"
+        );
+        let connection = omitted_options_connection
+            .expect("leader connection must be resolved when options are omitted");
+        assert_eq!(
+            connection.address(),
+            node_address,
+            "omitted options begin must route to leader tablet"
+        );
+        let omitted_options_hint = omitted_options_begin_request
+            .routing_hint
+            .expect("routing_hint must be attached when options are omitted");
+        assert_eq!(
+            omitted_options_hint.tablet_uid, 1001,
+            "routing_hint must match leader tablet"
+        );
+
+        // 7. Keyed begin transaction when database_id == 0: resolves connection but leaves routing_hint None
+        let zero_database_id_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+        let zero_database_id_cache_update = CacheUpdate::new()
+            .set_database_id(0u64)
+            .set_key_recipes(
+                RecipeList::new()
+                    .set_schema_generation(Bytes::from_static(b"schema-v1"))
+                    .set_recipe(vec![recipe]),
+            )
+            .set_group(vec![
+                Group::new()
+                    .set_group_uid(100u64)
+                    .set_leader_index(0)
+                    .set_tablets(vec![
+                        Tablet::new()
+                            .set_tablet_uid(1001u64)
+                            .set_server_address(node_address)
+                            .set_role(Role::ReadWrite),
+                    ]),
+            ])
+            .set_range(vec![
+                Range::new()
+                    .set_group_uid(100u64)
+                    .set_split_id(500u64)
+                    .set_start_key(b"".to_vec())
+                    .set_limit_key(b"\xff".to_vec()),
+            ]);
+        zero_database_id_client.observe_cache_update(Some(zero_database_id_cache_update));
+        let router_zero = zero_database_id_client
+            .location_router()
+            .expect("router must be present");
+        let client_config_zero = zero_database_id_client
+            .cache_updater()
+            .expect("cache updater must be present")
+            .client_config();
+        let _ = router_zero
+            .connection_cache()
+            .get(node_address, client_config_zero)
+            .await
+            .expect("should initialize connection");
+        let mut zero_database_id_begin_request = BeginTransactionRequest::new()
+            .set_options(TransactionOptions::new().set_read_write(ReadWrite::new()))
+            .set_mutation_key(user_mutation.clone().build_proto());
+        let (zero_database_id_connection, zero_database_id_is_read_write) = zero_database_id_client
+            .pre_route_begin_transaction(&mut zero_database_id_begin_request);
+        assert!(
+            zero_database_id_is_read_write,
+            "read-write options must result in is_read_write = true even when database_id is 0"
+        );
+        let connection = zero_database_id_connection
+            .expect("connection must still be resolved to leader tablet when database_id is 0");
+        assert_eq!(
+            connection.address(),
+            node_address,
+            "zero database_id begin must route to leader tablet"
+        );
+        assert!(
+            zero_database_id_begin_request.routing_hint.is_none(),
+            "routing_hint must NOT be attached when database_id is 0"
+        );
+
+        // 8. Begin transaction with location-aware routing disabled: returns None connection and leaves hint None
+        let disabled_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(false)
+            .build()
+            .await
+            .expect("build should succeed");
+        let mut disabled_begin_request = BeginTransactionRequest::new()
+            .set_options(TransactionOptions::new().set_read_write(ReadWrite::new()))
+            .set_mutation_key(user_mutation.build_proto());
+        let (disabled_connection, disabled_is_read_write) =
+            disabled_client.pre_route_begin_transaction(&mut disabled_begin_request);
+        assert!(
+            !disabled_is_read_write,
+            "disabled location routing must return is_read_write = false"
+        );
+        assert!(
+            disabled_connection.is_none(),
+            "disabled location routing must return None connection"
+        );
+        assert!(
+            disabled_begin_request.routing_hint.is_none(),
+            "disabled location routing must not attach routing hint"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn pre_route_commit_attaches_routing_hint_when_location_routing_active() {
+        let mock = create_test_mock();
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        let node_address = "node-1.spanner.internal:15000";
+        let node_address_2 = "node-2.spanner.internal:15000";
+        let recipe = KeyRecipe::new().set_table_name("Users").set_part(vec![
+            Part::new().set_tag(5u32),
+            Part::new()
+                .set_tag(1u32)
+                .set_identifier("id")
+                .set_type(Type::new().set_code(TypeCode::String))
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull),
+        ]);
+        let recipe_accounts = KeyRecipe::new().set_table_name("Accounts").set_part(vec![
+            Part::new().set_tag(10u32),
+            Part::new()
+                .set_tag(1u32)
+                .set_identifier("account_id")
+                .set_type(Type::new().set_code(TypeCode::String))
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull),
+        ]);
+        let cache_update = CacheUpdate::new()
+            .set_database_id(42u64)
+            .set_key_recipes(
+                RecipeList::new()
+                    .set_schema_generation(Bytes::from_static(b"schema-v1"))
+                    .set_recipe(vec![recipe.clone(), recipe_accounts]),
+            )
+            .set_group(vec![
+                Group::new()
+                    .set_group_uid(100u64)
+                    .set_leader_index(0)
+                    .set_tablets(vec![
+                        Tablet::new()
+                            .set_tablet_uid(1001u64)
+                            .set_server_address(node_address)
+                            .set_role(Role::ReadWrite),
+                    ]),
+                Group::new()
+                    .set_group_uid(200u64)
+                    .set_leader_index(0)
+                    .set_tablets(vec![
+                        Tablet::new()
+                            .set_tablet_uid(2001u64)
+                            .set_server_address(node_address_2)
+                            .set_role(Role::ReadWrite),
+                    ]),
+            ])
+            .set_range(vec![
+                Range::new()
+                    .set_group_uid(100u64)
+                    .set_split_id(500u64)
+                    .set_start_key(vec![0x00])
+                    .set_limit_key(vec![0x10]),
+                Range::new()
+                    .set_group_uid(200u64)
+                    .set_split_id(600u64)
+                    .set_start_key(vec![0x10])
+                    .set_limit_key(vec![0x30]),
+            ]);
+        database_client.observe_cache_update(Some(cache_update));
+
+        let router = database_client
+            .location_router()
+            .expect("router must be present");
+        let client_config = database_client
+            .cache_updater()
+            .expect("cache updater must be present")
+            .client_config();
+        let _ = router
+            .connection_cache()
+            .get(node_address, client_config)
+            .await
+            .expect("should initialize connection for node 1");
+        let _ = router
+            .connection_cache()
+            .get(node_address_2, client_config)
+            .await
+            .expect("should initialize connection for node 2");
+
+        let user_mutation = Mutation::new_insert_builder("Users")
+            .set("id")
+            .to("user123")
+            .build();
+
+        // 1. Single-use commit with mutations: resolves leader connection and attaches RoutingHint
+        let mut single_use_commit_request = CommitRequest::new()
+            .set_single_use_transaction(TransactionOptions::new().set_read_write(ReadWrite::new()))
+            .set_mutations(vec![user_mutation.clone().build_proto()]);
+        let (single_use_connection, single_use_transaction_id) =
+            database_client.pre_route_commit(&mut single_use_commit_request);
+        assert!(
+            single_use_transaction_id.is_none(),
+            "single-use commit must have no transaction ID"
+        );
+        let connection =
+            single_use_connection.expect("connection must be resolved for single-use commit");
+        assert_eq!(
+            connection.address(),
+            node_address,
+            "single-use commit connection must point to the leader tablet"
+        );
+        let routing_hint = single_use_commit_request
+            .routing_hint
+            .expect("routing_hint must be attached to single-use commit request");
+        assert_eq!(
+            routing_hint.database_id, 42,
+            "routing_hint database_id must match cache"
+        );
+        assert_eq!(
+            routing_hint.schema_generation.as_ref(),
+            b"schema-v1",
+            "routing_hint schema_generation must match cache"
+        );
+        assert_eq!(
+            routing_hint.tablet_uid, 1001,
+            "routing_hint tablet_uid must match leader tablet"
+        );
+
+        // 2. Read-write commit with transaction affinity AND mutations:
+        //    Routes to affinity connection AND attaches RoutingHint derived from mutations.
+        let active_transaction_id = Bytes::from_static(b"rw-tx-42");
+        router.record_transaction_affinity(&active_transaction_id, node_address);
+
+        let mut read_write_commit_request = CommitRequest::new()
+            .set_transaction_id(active_transaction_id.clone())
+            .set_mutations(vec![user_mutation.clone().build_proto()]);
+        let (read_write_connection, read_write_transaction_id) =
+            database_client.pre_route_commit(&mut read_write_commit_request);
+        assert_eq!(
+            read_write_transaction_id,
+            Some(active_transaction_id),
+            "read-write commit must return transaction ID"
+        );
+        let connection = read_write_connection
+            .expect("affinity connection must be resolved for read-write commit");
+        assert_eq!(
+            connection.address(),
+            node_address,
+            "read-write commit must route to affinity address"
+        );
+        let read_write_routing_hint = read_write_commit_request
+            .routing_hint
+            .expect("routing_hint must be attached to commit request with mutations");
+        assert_eq!(
+            read_write_routing_hint.database_id, 42,
+            "routing_hint database_id must match cache"
+        );
+        assert_eq!(
+            read_write_routing_hint.tablet_uid, 1001,
+            "routing_hint tablet_uid must match leader tablet"
+        );
+
+        // 3. Read-write commit with transaction affinity and NO mutations (DML-only transaction):
+        //    Routes to affinity connection and does NOT attach RoutingHint.
+        let dml_transaction_id = Bytes::from_static(b"dml-tx-99");
+        router.record_transaction_affinity(&dml_transaction_id, node_address);
+
+        let mut dml_commit_request =
+            CommitRequest::new().set_transaction_id(dml_transaction_id.clone());
+        let (dml_connection, dml_transaction_id_result) =
+            database_client.pre_route_commit(&mut dml_commit_request);
+        assert_eq!(
+            dml_transaction_id_result,
+            Some(dml_transaction_id),
+            "dml-only commit must return transaction ID"
+        );
+        let connection =
+            dml_connection.expect("affinity connection must be resolved for dml commit");
+        assert_eq!(
+            connection.address(),
+            node_address,
+            "dml commit must route to affinity address"
+        );
+        assert!(
+            dml_commit_request.routing_hint.is_none(),
+            "dml-only commit without mutations must not attach routing hint"
+        );
+
+        // 4. Multi-mutation commit (mix of Insert and Update):
+        //    select_mutation_key prefers non-insert Update, routing to Accounts leader on node 2.
+        let account_update = Mutation::new_update_builder("Accounts")
+            .set("account_id")
+            .to("acc123")
+            .build();
+        let mut mixed_commit_request = CommitRequest::new().set_mutations(vec![
+            user_mutation.clone().build_proto(),
+            account_update.clone().build_proto(),
+        ]);
+        let (mixed_connection, mixed_transaction_id) =
+            database_client.pre_route_commit(&mut mixed_commit_request);
+        assert!(
+            mixed_transaction_id.is_none(),
+            "single-use mixed commit must have no transaction ID"
+        );
+        let connection = mixed_connection.expect("connection must be resolved for mixed commit");
+        assert_eq!(
+            connection.address(),
+            node_address_2,
+            "mixed commit must prefer non-insert Update and route to Accounts leader"
+        );
+        let mixed_hint = mixed_commit_request
+            .routing_hint
+            .expect("routing_hint must be attached to mixed commit request");
+        assert_eq!(
+            mixed_hint.tablet_uid, 2001,
+            "routing_hint must be derived from preferred Update mutation"
+        );
+
+        // 5. Multi-mutation commit (only Inserts with different row counts):
+        //    select_mutation_key prefers largest insert (Accounts with 2 rows over Users with 1 row).
+        let mut multi_row_insert = Mutation::new_insert_builder("Accounts")
+            .set("account_id")
+            .to("acc456")
+            .build()
+            .build_proto();
+        if let Some(Operation::Insert(ref mut write)) = multi_row_insert.operation {
+            let first_row = write.values[0].clone();
+            write.values.push(first_row);
+        }
+        let mut multi_insert_commit_request = CommitRequest::new()
+            .set_mutations(vec![user_mutation.clone().build_proto(), multi_row_insert]);
+        let (multi_insert_connection, multi_insert_transaction_id) =
+            database_client.pre_route_commit(&mut multi_insert_commit_request);
+        assert!(
+            multi_insert_transaction_id.is_none(),
+            "multi-insert commit must have no transaction ID"
+        );
+        let connection =
+            multi_insert_connection.expect("connection must be resolved for multi-insert commit");
+        assert_eq!(
+            connection.address(),
+            node_address_2,
+            "multi-insert commit must prefer largest insert and route to Accounts leader"
+        );
+        let multi_insert_hint = multi_insert_commit_request
+            .routing_hint
+            .expect("routing_hint must be attached to multi-insert commit request");
+        assert_eq!(
+            multi_insert_hint.tablet_uid, 2001,
+            "routing_hint must be derived from largest insert mutation"
+        );
+
+        // 6. Single-use commit with uncached table: returns None connection and leaves hint None
+        let unknown_mutation = Mutation::new_insert_builder("UnknownTable")
+            .set("id")
+            .to("unknown_key")
+            .build();
+        let mut unknown_commit_request =
+            CommitRequest::new().set_mutations(vec![unknown_mutation.build_proto()]);
+        let (unknown_connection, unknown_transaction_id) =
+            database_client.pre_route_commit(&mut unknown_commit_request);
+        assert!(
+            unknown_connection.is_none(),
+            "uncached table commit must return None connection"
+        );
+        assert!(
+            unknown_transaction_id.is_none(),
+            "uncached table commit must have no transaction ID"
+        );
+        assert!(
+            unknown_commit_request.routing_hint.is_none(),
+            "uncached table commit must not attach routing hint"
+        );
+
+        // 7. Empty commit (no mutations, no transaction_id): returns None connection and leaves hint None
+        let mut empty_commit_request = CommitRequest::new();
+        let (empty_connection, empty_transaction_id) =
+            database_client.pre_route_commit(&mut empty_commit_request);
+        assert!(
+            empty_connection.is_none(),
+            "empty commit must return None connection"
+        );
+        assert!(
+            empty_transaction_id.is_none(),
+            "empty commit must have no transaction ID"
+        );
+        assert!(
+            empty_commit_request.routing_hint.is_none(),
+            "empty commit must not attach routing hint"
+        );
+
+        // 8. Commit affinity precedence: transaction affinity overrides mutation target connection,
+        //    while routing_hint is derived from the mutation key.
+        let affinity_precedence_transaction_id = Bytes::from_static(b"affinity-precedence-tx");
+        router.record_transaction_affinity(&affinity_precedence_transaction_id, node_address);
+        let mut precedence_commit_request = CommitRequest::new()
+            .set_transaction_id(affinity_precedence_transaction_id.clone())
+            .set_mutations(vec![account_update.clone().build_proto()]);
+        let (precedence_connection, precedence_transaction_id) =
+            database_client.pre_route_commit(&mut precedence_commit_request);
+        assert_eq!(
+            precedence_transaction_id,
+            Some(affinity_precedence_transaction_id),
+            "commit must return transaction ID"
+        );
+        let connection = precedence_connection.expect("affinity connection must be resolved");
+        assert_eq!(
+            connection.address(),
+            node_address,
+            "commit connection must route to affinity address (node 1), overriding mutation target (node 2)"
+        );
+        let precedence_hint = precedence_commit_request
+            .routing_hint
+            .expect("routing_hint must be attached based on mutation");
+        assert_eq!(
+            precedence_hint.tablet_uid, 2001,
+            "routing_hint must still target mutation leader tablet (Accounts on node 2)"
+        );
+
+        // 9. Commit with transaction_id but without affinity: routes to mutation leader and attaches routing hint.
+        let unbound_transaction_id = Bytes::from_static(b"unbound-tx-with-mutations");
+        let mut unbound_commit_request = CommitRequest::new()
+            .set_transaction_id(unbound_transaction_id.clone())
+            .set_mutations(vec![account_update.build_proto()]);
+        let (unbound_connection, unbound_transaction_id_result) =
+            database_client.pre_route_commit(&mut unbound_commit_request);
+        assert_eq!(
+            unbound_transaction_id_result,
+            Some(unbound_transaction_id),
+            "commit must return transaction ID for cleanup"
+        );
+        let connection = unbound_connection
+            .expect("mutation leader connection must be resolved when no affinity is present");
+        assert_eq!(
+            connection.address(),
+            node_address_2,
+            "commit without affinity must route to mutation leader tablet (node 2)"
+        );
+        let unbound_hint = unbound_commit_request
+            .routing_hint
+            .expect("routing_hint must be attached based on mutation");
+        assert_eq!(
+            unbound_hint.tablet_uid, 2001,
+            "routing_hint must target mutation leader tablet"
+        );
+
+        // 10. Commit with transaction_id without affinity and without mutations (e.g. DML-only transaction with expired affinity):
+        //     returns None connection to fall back to round-robin over the channel pool.
+        let unbound_empty_transaction_id = Bytes::from_static(b"unbound-tx-no-mutations");
+        let mut unbound_empty_commit_request =
+            CommitRequest::new().set_transaction_id(unbound_empty_transaction_id.clone());
+        let (unbound_empty_connection, unbound_empty_transaction_id_result) =
+            database_client.pre_route_commit(&mut unbound_empty_commit_request);
+        assert_eq!(
+            unbound_empty_transaction_id_result,
+            Some(unbound_empty_transaction_id),
+            "commit must return transaction ID for cleanup"
+        );
+        assert!(
+            unbound_empty_connection.is_none(),
+            "commit without affinity and without mutations must return None connection to fall back to channel pool round-robin"
+        );
+        assert!(
+            unbound_empty_commit_request.routing_hint.is_none(),
+            "commit without affinity and without mutations must not attach routing hint"
+        );
+
+        // 11. Commit with mutations when database_id == 0: resolves connection but leaves routing_hint None
+        let zero_database_id_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+        let zero_database_id_cache_update = CacheUpdate::new()
+            .set_database_id(0u64)
+            .set_key_recipes(
+                RecipeList::new()
+                    .set_schema_generation(Bytes::from_static(b"schema-v1"))
+                    .set_recipe(vec![recipe]),
+            )
+            .set_group(vec![
+                Group::new()
+                    .set_group_uid(100u64)
+                    .set_leader_index(0)
+                    .set_tablets(vec![
+                        Tablet::new()
+                            .set_tablet_uid(1001u64)
+                            .set_server_address(node_address)
+                            .set_role(Role::ReadWrite),
+                    ]),
+            ])
+            .set_range(vec![
+                Range::new()
+                    .set_group_uid(100u64)
+                    .set_split_id(500u64)
+                    .set_start_key(vec![0x00])
+                    .set_limit_key(vec![0x10]),
+            ]);
+        zero_database_id_client.observe_cache_update(Some(zero_database_id_cache_update));
+        let router_zero = zero_database_id_client
+            .location_router()
+            .expect("router must be present");
+        let client_config_zero = zero_database_id_client
+            .cache_updater()
+            .expect("cache updater must be present")
+            .client_config();
+        let _ = router_zero
+            .connection_cache()
+            .get(node_address, client_config_zero)
+            .await
+            .expect("should initialize connection");
+        let mut zero_database_id_commit_request =
+            CommitRequest::new().set_mutations(vec![user_mutation.clone().build_proto()]);
+        let (zero_database_id_connection, zero_database_id_transaction_id) =
+            zero_database_id_client.pre_route_commit(&mut zero_database_id_commit_request);
+        assert!(
+            zero_database_id_transaction_id.is_none(),
+            "single-use commit must have no transaction ID"
+        );
+        let connection = zero_database_id_connection
+            .expect("connection must still be resolved to leader tablet when database_id is 0");
+        assert_eq!(
+            connection.address(),
+            node_address,
+            "zero database_id commit must route to leader tablet"
+        );
+        assert!(
+            zero_database_id_commit_request.routing_hint.is_none(),
+            "routing_hint must NOT be attached when database_id is 0"
+        );
+
+        // 12. Commit with empty Bytes transaction_id (treated as unbound commit with mutations):
+        //     filters out empty transaction_id, resolves connection to mutation leader, and attaches RoutingHint.
+        let mut empty_bytes_commit_request = CommitRequest::new()
+            .set_transaction_id(Bytes::new())
+            .set_mutations(vec![user_mutation.clone().build_proto()]);
+        let (empty_bytes_connection, empty_bytes_transaction_id) =
+            database_client.pre_route_commit(&mut empty_bytes_commit_request);
+        assert!(
+            empty_bytes_transaction_id.is_none(),
+            "empty transaction ID must be filtered out to None"
+        );
+        let connection = empty_bytes_connection
+            .expect("leader connection must be resolved for empty transaction_id commit");
+        assert_eq!(
+            connection.address(),
+            node_address,
+            "empty transaction_id commit must route to mutation leader tablet"
+        );
+        let empty_bytes_hint = empty_bytes_commit_request
+            .routing_hint
+            .expect("routing_hint must be attached based on mutation");
+        assert_eq!(
+            empty_bytes_hint.tablet_uid, 1001,
+            "routing_hint must match leader tablet"
+        );
+
+        // 13. Commit with location-aware routing disabled: returns None connection and leaves hint None
+        let disabled_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(false)
+            .build()
+            .await
+            .expect("build should succeed");
+        let mut disabled_commit_request =
+            CommitRequest::new().set_mutations(vec![user_mutation.build_proto()]);
+        let (disabled_connection, disabled_transaction_id) =
+            disabled_client.pre_route_commit(&mut disabled_commit_request);
+        assert!(
+            disabled_connection.is_none(),
+            "disabled location routing must return None connection"
+        );
+        assert!(
+            disabled_transaction_id.is_none(),
+            "disabled location routing must have no transaction ID"
+        );
+        assert!(
+            disabled_commit_request.routing_hint.is_none(),
+            "disabled location routing must not attach routing hint"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn begin_transaction_and_commit_unary_rpcs_attach_routing_hint_end_to_end() {
+        let captured_begin_hints = Arc::new(Mutex::new(Vec::new()));
+        let captured_commit_hints = Arc::new(Mutex::new(Vec::new()));
+
+        let mut mock = create_test_mock();
+
+        let mut sequence = Sequence::new();
+        let captured_begin_first = Arc::clone(&captured_begin_hints);
+        let captured_begin_second = Arc::clone(&captured_begin_hints);
+        mock.expect_begin_transaction()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(move |request| {
+                let request = request.into_inner();
+                captured_begin_first
+                    .lock()
+                    .expect("lock captured begin hints")
+                    .push(request.routing_hint);
+                Ok(Response::new(mock_v1::Transaction {
+                    id: b"tx-e2e-1".to_vec(),
+                    ..Default::default()
+                }))
+            });
+        mock.expect_begin_transaction()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(move |request| {
+                let request = request.into_inner();
+                captured_begin_second
+                    .lock()
+                    .expect("lock captured begin hints")
+                    .push(request.routing_hint);
+                Ok(Response::new(mock_v1::Transaction {
+                    id: b"tx-e2e-2".to_vec(),
+                    ..Default::default()
+                }))
+            });
+
+        let captured_commit = Arc::clone(&captured_commit_hints);
+        mock.expect_commit().returning(move |request| {
+            let request = request.into_inner();
+            captured_commit
+                .lock()
+                .expect("lock captured commit hints")
+                .push(request.routing_hint);
+            Ok(Response::new(mock_v1::CommitResponse::default()))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address.clone())
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        // Ingest CacheUpdate pointing to the mock server address
+        let recipe = KeyRecipe::new().set_table_name("Users").set_part(vec![
+            Part::new().set_tag(50020u32),
+            Part::new()
+                .set_tag(1u32)
+                .set_identifier("id")
+                .set_type(Type::new().set_code(TypeCode::String))
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull),
+        ]);
+        let cache_update = CacheUpdate::new()
+            .set_database_id(42u64)
+            .set_key_recipes(
+                RecipeList::new()
+                    .set_schema_generation(Bytes::from_static(b"schema-v1"))
+                    .set_recipe(vec![recipe]),
+            )
+            .set_group(vec![
+                Group::new()
+                    .set_group_uid(100u64)
+                    .set_leader_index(0)
+                    .set_tablets(vec![
+                        Tablet::new()
+                            .set_tablet_uid(1001u64)
+                            .set_server_address(address.clone())
+                            .set_role(Role::ReadWrite),
+                    ]),
+            ])
+            .set_range(vec![
+                Range::new()
+                    .set_group_uid(100u64)
+                    .set_split_id(500u64)
+                    .set_start_key(b"".to_vec())
+                    .set_limit_key(b"\xff".to_vec()),
+            ]);
+        database_client.observe_cache_update(Some(cache_update));
+
+        let router = database_client
+            .location_router()
+            .expect("router must be present");
+        let client_config = database_client
+            .cache_updater()
+            .expect("cache updater must be present")
+            .client_config();
+        let _ = router
+            .connection_cache()
+            .get(&address, client_config)
+            .await
+            .expect("should initialize connection");
+
+        let user_mutation = Mutation::new_insert_builder("Users")
+            .set("id")
+            .to("user123")
+            .build();
+
+        // 1. Call begin_transaction: verify RoutingHint is attached in dispatched RPC
+        let begin_request = BeginTransactionRequest::new()
+            .set_session("projects/p/instances/i/databases/d/sessions/s1")
+            .set_options(TransactionOptions::new().set_read_write(ReadWrite::new()))
+            .set_mutation_key(user_mutation.clone().build_proto());
+        let _ = database_client
+            .begin_transaction(begin_request, RequestOptions::default(), 0)
+            .await
+            .expect("begin_transaction must succeed");
+
+        let begin_hints = captured_begin_hints
+            .lock()
+            .expect("lock captured begin hints")
+            .clone();
+        assert_eq!(
+            begin_hints.len(),
+            1,
+            "exactly one begin_transaction call must be captured"
+        );
+        let begin_hint = begin_hints[0]
+            .as_ref()
+            .expect("dispatched BeginTransactionRequest must have routing_hint populated");
+        assert_eq!(
+            begin_hint.database_id, 42,
+            "dispatched begin hint database_id must match cache"
+        );
+        assert_eq!(
+            begin_hint.tablet_uid, 1001,
+            "dispatched begin hint tablet_uid must match leader tablet"
+        );
+        assert_eq!(
+            router.get_transaction_affinity(b"tx-e2e-1").as_deref(),
+            Some(address.as_str()),
+            "transaction affinity must be recorded to the leader address after begin_transaction"
+        );
+
+        // 2. Call commit: verify RoutingHint is attached in dispatched RPC
+        let commit_request = CommitRequest::new()
+            .set_session("projects/p/instances/i/databases/d/sessions/s1")
+            .set_transaction_id(Bytes::from_static(b"tx-e2e-1"))
+            .set_mutations(vec![user_mutation.clone().build_proto()]);
+        let _ = database_client
+            .commit(commit_request, RequestOptions::default(), 0)
+            .await
+            .expect("commit must succeed");
+
+        let commit_hints = captured_commit_hints
+            .lock()
+            .expect("lock captured commit hints")
+            .clone();
+        assert_eq!(
+            commit_hints.len(),
+            1,
+            "exactly one commit call must be captured"
+        );
+        let commit_hint = commit_hints[0]
+            .as_ref()
+            .expect("dispatched CommitRequest must have routing_hint populated");
+        assert_eq!(
+            commit_hint.database_id, 42,
+            "dispatched commit hint database_id must match cache"
+        );
+        assert_eq!(
+            commit_hint.tablet_uid, 1001,
+            "dispatched commit hint tablet_uid must match leader tablet"
+        );
+        assert!(
+            router.get_transaction_affinity(b"tx-e2e-1").is_none(),
+            "transaction affinity must be cleared after commit"
+        );
+
+        // 3. Call single-use commit: verify RoutingHint is attached in dispatched RPC
+        let single_use_commit_request = CommitRequest::new()
+            .set_session("projects/p/instances/i/databases/d/sessions/s1")
+            .set_single_use_transaction(TransactionOptions::new().set_read_write(ReadWrite::new()))
+            .set_mutations(vec![user_mutation.clone().build_proto()]);
+        let _ = database_client
+            .commit(single_use_commit_request, RequestOptions::default(), 0)
+            .await
+            .expect("single-use commit must succeed");
+
+        let commit_hints_after_single_use = captured_commit_hints
+            .lock()
+            .expect("lock captured commit hints")
+            .clone();
+        assert_eq!(
+            commit_hints_after_single_use.len(),
+            2,
+            "exactly two commit calls must be captured"
+        );
+        let single_use_hint = commit_hints_after_single_use[1]
+            .as_ref()
+            .expect("dispatched single-use CommitRequest must have routing_hint populated");
+        assert_eq!(
+            single_use_hint.database_id, 42,
+            "dispatched single-use commit hint database_id must match cache"
+        );
+        assert_eq!(
+            single_use_hint.tablet_uid, 1001,
+            "dispatched single-use commit hint tablet_uid must match leader tablet"
+        );
+
+        // 4. Call unkeyed begin_transaction: verify no RoutingHint is attached, and affinity is recorded to default connection
+        let unkeyed_begin_request = BeginTransactionRequest::new()
+            .set_session("projects/p/instances/i/databases/d/sessions/s1")
+            .set_options(TransactionOptions::new().set_read_write(ReadWrite::new()));
+        let unkeyed_response = database_client
+            .begin_transaction(unkeyed_begin_request, RequestOptions::default(), 0)
+            .await
+            .expect("unkeyed begin_transaction must succeed");
+
+        let begin_hints_after_unkeyed = captured_begin_hints
+            .lock()
+            .expect("lock captured begin hints")
+            .clone();
+        assert_eq!(
+            begin_hints_after_unkeyed.len(),
+            2,
+            "exactly two begin_transaction calls must be captured"
+        );
+        assert!(
+            begin_hints_after_unkeyed[1].is_none(),
+            "unkeyed BeginTransactionRequest must not have routing_hint populated"
+        );
+        let default_address = router
+            .connection_cache()
+            .default_connection()
+            .address()
+            .to_string();
+        assert_eq!(
+            router
+                .get_transaction_affinity(&unkeyed_response.id)
+                .as_deref(),
+            Some(default_address.as_str()),
+            "unkeyed read-write begin must record affinity to default gateway connection"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn post_route_begin_transaction_records_affinity() {
+        let mock = create_test_mock();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        let router = database_client
+            .location_router()
+            .expect("router must be present");
+        let client_config = database_client
+            .cache_updater()
+            .expect("cache updater must be present")
+            .client_config();
+        let explicit_connection = router
+            .connection_cache()
+            .get("explicit.node:15000", client_config)
+            .await
+            .expect("should initialize connection");
+
+        // 1. Read-write transaction with explicit connection: records affinity to explicit connection address
+        let success_read_write =
+            Ok(Transaction::new().set_id(Bytes::from_static(b"tx-rw-explicit")));
+        database_client.post_route_begin_transaction(
+            true,
+            Some(&explicit_connection),
+            &success_read_write,
+        );
+        assert_eq!(
+            router
+                .get_transaction_affinity(b"tx-rw-explicit")
+                .as_deref(),
+            Some("explicit.node:15000"),
+            "affinity must be recorded to explicit connection address"
+        );
+
+        // 2. Read-write transaction with None connection: records affinity to default connection address
+        let default_address = router
+            .connection_cache()
+            .default_connection()
+            .address()
+            .to_string();
+        let success_read_write_default =
+            Ok(Transaction::new().set_id(Bytes::from_static(b"tx-rw-default")));
+        database_client.post_route_begin_transaction(true, None, &success_read_write_default);
+        assert_eq!(
+            router.get_transaction_affinity(b"tx-rw-default").as_deref(),
+            Some(default_address.as_str()),
+            "affinity must be recorded to default connection address when connection is None"
+        );
+
+        // 3. Read-only transaction (is_read_write = false): does NOT record affinity
+        let success_read_only = Ok(Transaction::new().set_id(Bytes::from_static(b"tx-ro")));
+        database_client.post_route_begin_transaction(
+            false,
+            Some(&explicit_connection),
+            &success_read_only,
+        );
+        assert!(
+            router.get_transaction_affinity(b"tx-ro").is_none(),
+            "read-only transactions must not record affinity"
+        );
+
+        // 4. Failed read-write transaction (Err): does NOT record affinity
+        let failed_read_write: Result<Transaction> = Err(internal_error("RPC error"));
+        database_client.post_route_begin_transaction(
+            true,
+            Some(&explicit_connection),
+            &failed_read_write,
+        );
+        assert!(
+            router.get_transaction_affinity(b"tx-rw-failed").is_none(),
+            "failed transactions must not record affinity"
+        );
+
+        // 5. Read-write transaction with empty ID: does NOT record affinity
+        let empty_id_read_write = Ok(Transaction::new().set_id(Bytes::new()));
+        database_client.post_route_begin_transaction(
+            true,
+            Some(&explicit_connection),
+            &empty_id_read_write,
+        );
+        assert!(
+            router.get_transaction_affinity(b"").is_none(),
+            "empty transaction ID must not record affinity"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn post_route_commit_clears_affinity() {
+        let mock = create_test_mock();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        let router = database_client
+            .location_router()
+            .expect("router must be present");
+
+        // 1. Clear active affinity on commit success
+        let active_transaction_id = Bytes::from_static(b"committed-tx-1");
+        router.record_transaction_affinity(&active_transaction_id, "some-node:15000");
+        assert!(
+            router
+                .get_transaction_affinity(&active_transaction_id)
+                .is_some(),
+            "affinity must be pre-recorded"
+        );
+
+        let success_commit = Ok(CommitResponse::new());
+        database_client.post_route_commit(
+            Some(active_transaction_id.clone()),
+            None,
+            &success_commit,
+        );
+        assert!(
+            router
+                .get_transaction_affinity(&active_transaction_id)
+                .is_none(),
+            "affinity must be cleared after successful commit"
+        );
+
+        // 2. Clear active affinity even on commit error
+        let failed_commit_transaction_id = Bytes::from_static(b"committed-tx-2");
+        router.record_transaction_affinity(&failed_commit_transaction_id, "some-node:15000");
+        let error_commit: Result<CommitResponse> = Err(internal_error("commit aborted"));
+        database_client.post_route_commit(
+            Some(failed_commit_transaction_id.clone()),
+            None,
+            &error_commit,
+        );
+        assert!(
+            router
+                .get_transaction_affinity(&failed_commit_transaction_id)
+                .is_none(),
+            "affinity must be cleared even after commit failure"
+        );
+
+        // 3. No-op when transaction ID is None or empty
+        database_client.post_route_commit(None, None, &success_commit);
+        database_client.post_route_commit(Some(Bytes::new()), None, &success_commit);
     }
 }
