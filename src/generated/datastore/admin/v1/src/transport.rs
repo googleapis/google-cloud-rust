@@ -56,6 +56,7 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project_id = try_match(
@@ -65,6 +66,7 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
                 let path = format!("/v1/projects/{}:export", var_project_id,);
                 let path_template = "/v1/projects/{project_id}:export";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -112,6 +114,7 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project_id = try_match(
@@ -121,6 +124,7 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
                 let path = format!("/v1/projects/{}:import", var_project_id,);
                 let path_template = "/v1/projects/{project_id}:import";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

@@ -56,10 +56,7 @@ use std::sync::Arc;
 use std::time::Duration;
 use tracing::Instrument;
 
-const X_GOOG_USER_PROJECT: http::header::HeaderName =
-    http::header::HeaderName::from_static("x-goog-user-project");
-const X_GOOG_API_KEY: http::header::HeaderName =
-    http::header::HeaderName::from_static("x-goog-api-key");
+use crate::headers::{X_GOOG_USER_PROJECT, sanitize_custom_headers};
 
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {
@@ -94,6 +91,12 @@ impl ReqwestClient {
         }
         if config.disable_follow_redirects {
             builder = builder.redirect(::reqwest::redirect::Policy::none());
+        }
+
+        if let Some(custom_headers) = config.extensions.get::<http::HeaderMap>() {
+            let mut sanitized = custom_headers.clone();
+            sanitize_custom_headers(&mut sanitized);
+            builder = builder.default_headers(sanitized);
         }
         let inner = builder.build().map_err(BuilderError::transport)?;
         let universe_domain =
@@ -426,14 +429,7 @@ impl ReqwestClient {
             .unwrap_or_default();
 
         // Sanitize user custom headers by stripping away any keys conflicting with system headers or authentication headers.
-        for key in [
-            http::header::USER_AGENT,
-            http::header::AUTHORIZATION,
-            X_GOOG_API_KEY,
-            X_GOOG_USER_PROJECT,
-        ] {
-            headers.remove(key);
-        }
+        sanitize_custom_headers(&mut headers);
 
         let cred_headers = match self.cred.headers(Extensions::new()).await {
             Err(e) => return Err(Error::authentication(e)),

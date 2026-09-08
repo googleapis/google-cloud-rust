@@ -7061,9 +7061,14 @@ pub struct Message {
     /// Optional. An array of
     /// [cards](https://developers.google.com/workspace/chat/api/reference/rest/v1/cards).
     ///
-    /// Only Chat apps can create cards. If your Chat app [authenticates as a
+    /// Chat apps can create cards with [app
+    /// authentication](https://developers.google.com/workspace/chat/authenticate-authorize-chat-app).
+    /// As part of the [Developer Preview
+    /// Program](https://developers.google.com/workspace/preview), if your Chat app
+    /// [authenticates as a
     /// user](https://developers.google.com/workspace/chat/authenticate-authorize-chat-user),
-    /// the messages can't contain cards.
+    /// it can create card messages. If your Chat app is not part of Developer
+    /// Preview Program, it can't create cards with user authentication.
     ///
     /// To learn how to create a message that contains cards, see [Send a
     /// message](https://developers.google.com/workspace/chat/create-messages).
@@ -7177,6 +7182,10 @@ pub struct Message {
     /// authentication]
     /// (<https://developers.google.com/workspace/chat/authenticate-authorize-chat-app>).
     pub accessory_widgets: std::vec::Vec<crate::model::AccessoryWidget>,
+
+    /// Optional. Specifies how the server interprets the message `text` field
+    /// content.
+    pub markup_syntax: crate::model::MarkupSyntax,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7836,6 +7845,23 @@ impl Message {
     {
         use std::iter::Iterator;
         self.accessory_widgets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [markup_syntax][crate::model::Message::markup_syntax].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::Message;
+    /// use google_chat_v1::model::MarkupSyntax;
+    /// let x0 = Message::new().set_markup_syntax(MarkupSyntax::Chat);
+    /// let x1 = Message::new().set_markup_syntax(MarkupSyntax::Markdown);
+    /// ```
+    pub fn set_markup_syntax<T: std::convert::Into<crate::model::MarkupSyntax>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.markup_syntax = v.into();
         self
     }
 }
@@ -9045,6 +9071,10 @@ pub struct GetMessageRequest {
     /// (<https://developers.google.com/workspace/chat/create-messages#name_a_created_message>).
     pub name: std::string::String,
 
+    /// Optional. Specifies the desired output syntax for the Chat message
+    /// `formatted_text` field.
+    pub markup_syntax: crate::model::MarkupSyntax,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -9065,6 +9095,23 @@ impl GetMessageRequest {
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [markup_syntax][crate::model::GetMessageRequest::markup_syntax].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::GetMessageRequest;
+    /// use google_chat_v1::model::MarkupSyntax;
+    /// let x0 = GetMessageRequest::new().set_markup_syntax(MarkupSyntax::Chat);
+    /// let x1 = GetMessageRequest::new().set_markup_syntax(MarkupSyntax::Markdown);
+    /// ```
+    pub fn set_markup_syntax<T: std::convert::Into<crate::model::MarkupSyntax>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.markup_syntax = v.into();
         self
     }
 }
@@ -9921,6 +9968,10 @@ pub struct ListMessagesRequest {
     /// unavailable.
     pub show_deleted: bool,
 
+    /// Optional. Specifies the desired output syntax for the Chat message
+    /// `formatted_text` field.
+    pub markup_syntax: crate::model::MarkupSyntax,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -10000,6 +10051,23 @@ impl ListMessagesRequest {
     /// ```
     pub fn set_show_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.show_deleted = v.into();
+        self
+    }
+
+    /// Sets the value of [markup_syntax][crate::model::ListMessagesRequest::markup_syntax].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::ListMessagesRequest;
+    /// use google_chat_v1::model::MarkupSyntax;
+    /// let x0 = ListMessagesRequest::new().set_markup_syntax(MarkupSyntax::Chat);
+    /// let x1 = ListMessagesRequest::new().set_markup_syntax(MarkupSyntax::Markdown);
+    /// ```
+    pub fn set_markup_syntax<T: std::convert::Into<crate::model::MarkupSyntax>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.markup_syntax = v.into();
         self
     }
 }
@@ -10282,9 +10350,17 @@ impl wkt::message::Message for Dialog {
 /// [card](https://developers.google.com/workspace/chat/api/reference/rest/v1/cards)
 /// in a Google Chat message.
 ///
-/// Only Chat apps can create cards. If your Chat app [authenticates as a
+/// Chat apps can create cards with [app
+/// authentication](https://developers.google.com/workspace/chat/authenticate-authorize-chat-app).
+/// As part of the [Developer Preview
+/// Program](https://developers.google.com/workspace/preview), if your Chat app
+/// [authenticates as a
 /// user](https://developers.google.com/workspace/chat/authenticate-authorize-chat-user),
-/// the message can't contain cards.
+/// it can create card messages. If your Chat app is not part of Developer
+/// Preview Program, it can't create cards with user authentication.
+///
+/// To learn how to create a message that contains cards, see [Send a
+/// message](https://developers.google.com/workspace/chat/create-messages).
 ///
 /// [Card builder](https://addons.gsuite.google.com/uikit/builder)
 #[derive(Clone, Default, PartialEq)]
@@ -10528,6 +10604,10 @@ pub struct SearchMessagesRequest {
     /// is supported, and it must be specified after the order attribute.
     pub order_by: std::string::String,
 
+    /// Optional. Specifies the desired output syntax for the Chat message
+    /// `formatted_text` field.
+    pub markup_syntax: crate::model::MarkupSyntax,
+
     /// Optional. Specifies what kind of search results view to return. The default
     /// is `SEARCH_MESSAGES_VIEW_BASIC`.
     pub view: crate::model::search_messages_request::SearchMessagesView,
@@ -10599,6 +10679,23 @@ impl SearchMessagesRequest {
     /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
+        self
+    }
+
+    /// Sets the value of [markup_syntax][crate::model::SearchMessagesRequest::markup_syntax].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::SearchMessagesRequest;
+    /// use google_chat_v1::model::MarkupSyntax;
+    /// let x0 = SearchMessagesRequest::new().set_markup_syntax(MarkupSyntax::Chat);
+    /// let x1 = SearchMessagesRequest::new().set_markup_syntax(MarkupSyntax::Markdown);
+    /// ```
+    pub fn set_markup_syntax<T: std::convert::Into<crate::model::MarkupSyntax>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.markup_syntax = v.into();
         self
     }
 
@@ -16796,6 +16893,7 @@ pub struct SearchSpacesRequest {
     ///
     /// - `create_time DESC`
     /// - `relevance DESC`
+    ///   [Developer Preview](https://developers.google.com/workspace/preview).
     pub order_by: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -22104,6 +22202,147 @@ impl<'de> serde::de::Deserialize<'de> for HistoryState {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<HistoryState>::new(
             ".google.chat.v1.HistoryState",
+        ))
+    }
+}
+
+/// Specifies the markup syntax used to format the Chat message text.
+/// Applies to the `text` field of the `Message` resource.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum MarkupSyntax {
+    /// Represents the unspecified value.
+    Unspecified,
+    /// Uses Google Chat's markup syntax.
+    /// See
+    /// <https://developers.google.com/workspace/chat/format-messages#format-texts>
+    /// for more information.
+    Chat,
+    /// Uses Markdown syntax. This syntax is based on the
+    /// [CommonMark](https://commonmark.org/help/) specification, with additional
+    /// extensions.
+    /// See
+    /// <https://developers.google.com/workspace/chat/format-messages#format-texts>
+    /// for more information.
+    Markdown,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [MarkupSyntax::value] or
+    /// [MarkupSyntax::name].
+    UnknownValue(markup_syntax::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod markup_syntax {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl MarkupSyntax {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Chat => std::option::Option::Some(1),
+            Self::Markdown => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("MARKUP_SYNTAX_UNSPECIFIED"),
+            Self::Chat => std::option::Option::Some("MARKUP_SYNTAX_CHAT"),
+            Self::Markdown => std::option::Option::Some("MARKUP_SYNTAX_MARKDOWN"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for MarkupSyntax {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for MarkupSyntax {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for MarkupSyntax {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Chat,
+            2 => Self::Markdown,
+            _ => Self::UnknownValue(markup_syntax::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for MarkupSyntax {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "MARKUP_SYNTAX_UNSPECIFIED" => Self::Unspecified,
+            "MARKUP_SYNTAX_CHAT" => Self::Chat,
+            "MARKUP_SYNTAX_MARKDOWN" => Self::Markdown,
+            _ => Self::UnknownValue(markup_syntax::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for MarkupSyntax {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Chat => serializer.serialize_i32(1),
+            Self::Markdown => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for MarkupSyntax {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<MarkupSyntax>::new(
+            ".google.chat.v1.MarkupSyntax",
         ))
     }
 }

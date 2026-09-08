@@ -2105,6 +2105,7 @@ where
     T: super::stub::FeatureOnlineStoreService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -2152,6 +2153,16 @@ where
             method: "client::FeatureOnlineStoreService::search_nearest_entities",
             self.inner.search_nearest_entities(req, options));
         pending.await
+    }
+
+    fn feature_view_direct_write(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::FeatureViewDirectWriteRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::FeatureViewDirectWriteResponse>,
+    ) {
+        self.inner.feature_view_direct_write(options)
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -2746,6 +2757,7 @@ where
     T: super::stub::FeaturestoreOnlineServingService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -2779,6 +2791,15 @@ where
             method: "client::FeaturestoreOnlineServingService::read_feature_values",
             self.inner.read_feature_values(req, options));
         pending.await
+    }
+
+    async fn streaming_read_feature_values(
+        &self,
+        req: crate::model::StreamingReadFeatureValuesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::ReadFeatureValuesResponse>>
+    {
+        self.inner.streaming_read_feature_values(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -8871,6 +8892,7 @@ where
     T: super::stub::PredictionService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -8920,6 +8942,15 @@ where
         pending.await
     }
 
+    async fn stream_raw_predict(
+        &self,
+        req: crate::model::StreamRawPredictRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<google_cloud_api::model::HttpBody>>
+    {
+        self.inner.stream_raw_predict(req, options).await
+    }
+
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn direct_predict(
         &self,
@@ -8948,6 +8979,55 @@ where
         pending.await
     }
 
+    fn stream_direct_predict(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectPredictRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamDirectPredictResponse>,
+    ) {
+        self.inner.stream_direct_predict(options)
+    }
+
+    fn stream_direct_raw_predict(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectRawPredictRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamDirectRawPredictResponse>,
+    ) {
+        self.inner.stream_direct_raw_predict(options)
+    }
+
+    fn streaming_predict(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingPredictRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPredictResponse>,
+    ) {
+        self.inner.streaming_predict(options)
+    }
+
+    async fn server_streaming_predict(
+        &self,
+        req: crate::model::StreamingPredictRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPredictResponse>>
+    {
+        self.inner.server_streaming_predict(req, options).await
+    }
+
+    fn streaming_raw_predict(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingRawPredictRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingRawPredictResponse>,
+    ) {
+        self.inner.streaming_raw_predict(options)
+    }
+
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn explain(
         &self,
@@ -8974,6 +9054,15 @@ where
             method: "client::PredictionService::generate_content",
             self.inner.generate_content(req, options));
         pending.await
+    }
+
+    async fn stream_generate_content(
+        &self,
+        req: crate::model::GenerateContentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::GenerateContentResponse>>
+    {
+        self.inner.stream_generate_content(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -9179,6 +9268,7 @@ where
     T: super::stub::ReasoningEngineExecutionService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -9212,6 +9302,15 @@ where
             method: "client::ReasoningEngineExecutionService::query_reasoning_engine",
             self.inner.query_reasoning_engine(req, options));
         pending.await
+    }
+
+    async fn stream_query_reasoning_engine(
+        &self,
+        req: crate::model::StreamQueryReasoningEngineRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<google_cloud_api::model::HttpBody>>
+    {
+        self.inner.stream_query_reasoning_engine(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -10732,6 +10831,7 @@ where
     T: super::stub::TensorboardService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -11115,6 +11215,16 @@ where
             method: "client::TensorboardService::read_tensorboard_time_series_data",
             self.inner.read_tensorboard_time_series_data(req, options));
         pending.await
+    }
+
+    async fn read_tensorboard_blob_data(
+        &self,
+        req: crate::model::ReadTensorboardBlobDataRequest,
+        options: crate::RequestOptions,
+    ) -> Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::ReadTensorboardBlobDataResponse>,
+    > {
+        self.inner.read_tensorboard_blob_data(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]

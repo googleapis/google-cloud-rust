@@ -1061,6 +1061,30 @@ impl<T: super::AppPlatform> AppPlatform for T {
 /// A dyn-compatible, crate-private version of [super::StreamingService].
 #[async_trait::async_trait]
 pub trait StreamingService: std::fmt::Debug + Send + Sync {
+    fn send_packets(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::SendPacketsRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SendPacketsResponse>,
+    );
+
+    fn receive_packets(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::ReceivePacketsRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ReceivePacketsResponse>,
+    );
+
+    fn receive_events(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::ReceiveEventsRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ReceiveEventsResponse>,
+    );
+
     async fn acquire_lease(
         &self,
         req: crate::model::AcquireLeaseRequest,
@@ -1119,6 +1143,39 @@ pub trait StreamingService: std::fmt::Debug + Send + Sync {
 /// All implementations of [super::StreamingService] also implement [StreamingService].
 #[async_trait::async_trait]
 impl<T: super::StreamingService> StreamingService for T {
+    /// Forwards the call to the implementation provided by `T`.
+    fn send_packets(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::SendPacketsRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SendPacketsResponse>,
+    ) {
+        T::send_packets(self, options)
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    fn receive_packets(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::ReceivePacketsRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ReceivePacketsResponse>,
+    ) {
+        T::receive_packets(self, options)
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    fn receive_events(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::ReceiveEventsRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ReceiveEventsResponse>,
+    ) {
+        T::receive_events(self, options)
+    }
+
     /// Forwards the call to the implementation provided by `T`.
     async fn acquire_lease(
         &self,
@@ -1877,6 +1934,14 @@ pub trait Warehouse: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
 
+    fn ingest_asset(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::IngestAssetRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::IngestAssetResponse>,
+    );
+
     async fn clip_asset(
         &self,
         req: crate::model::ClipAssetRequest,
@@ -2398,6 +2463,17 @@ impl<T: super::Warehouse> Warehouse for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>> {
         T::delete_annotation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    fn ingest_asset(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::IngestAssetRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::IngestAssetResponse>,
+    ) {
+        T::ingest_asset(self, options)
     }
 
     /// Forwards the call to the implementation provided by `T`.

@@ -22,6 +22,7 @@ where
     T: super::stub::TextToSpeech + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -67,6 +68,16 @@ where
             method: "client::TextToSpeech::synthesize_speech",
             self.inner.synthesize_speech(req, options));
         pending.await
+    }
+
+    fn streaming_synthesize(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingSynthesizeRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingSynthesizeResponse>,
+    ) {
+        self.inner.streaming_synthesize(options)
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]

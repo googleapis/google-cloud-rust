@@ -182,6 +182,7 @@ impl super::stub::Iam for Iam {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -192,6 +193,7 @@ impl super::stub::Iam for Iam {
                 let path_template = "/v1/{name}/serviceAccounts";
 
                 let resource_name = format!("//iam.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -240,6 +242,7 @@ impl super::stub::Iam for Iam {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -254,6 +257,7 @@ impl super::stub::Iam for Iam {
                 let path = format!("/v1/{}", var_name,);
                 let path_template = "/v1/{name}";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PUT, path_template)))
@@ -306,6 +310,7 @@ impl super::stub::Iam for Iam {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_service_account_name = try_match(
@@ -323,6 +328,9 @@ impl super::stub::Iam for Iam {
                 let path = format!("/v1/{}", var_service_account_name,);
                 let path_template = "/v1/{service_account.name}";
 
+                let _ = Some(&mut req)
+                    .and_then(|m| m.service_account.as_mut())
+                    .map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template)))
@@ -452,6 +460,7 @@ impl super::stub::Iam for Iam {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -466,6 +475,7 @@ impl super::stub::Iam for Iam {
                 let path = format!("/v1/{}:undelete", var_name,);
                 let path_template = "/v1/{name}:undelete";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -518,6 +528,7 @@ impl super::stub::Iam for Iam {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -532,6 +543,7 @@ impl super::stub::Iam for Iam {
                 let path = format!("/v1/{}:enable", var_name,);
                 let path_template = "/v1/{name}:enable";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -590,6 +602,7 @@ impl super::stub::Iam for Iam {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -604,6 +617,7 @@ impl super::stub::Iam for Iam {
                 let path = format!("/v1/{}:disable", var_name,);
                 let path_template = "/v1/{name}:disable";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -807,6 +821,7 @@ impl super::stub::Iam for Iam {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -822,6 +837,7 @@ impl super::stub::Iam for Iam {
                 let path_template = "/v1/{name}/keys";
 
                 let resource_name = format!("//iam.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -875,6 +891,7 @@ impl super::stub::Iam for Iam {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -889,6 +906,7 @@ impl super::stub::Iam for Iam {
                 let path = format!("/v1/{}/keys:upload", var_name,);
                 let path_template = "/v1/{name}/keys:upload";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1019,6 +1037,7 @@ impl super::stub::Iam for Iam {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1036,6 +1055,7 @@ impl super::stub::Iam for Iam {
                 let path_template = "/v1/{name}:disable";
 
                 let resource_name = format!("//iam.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1097,6 +1117,7 @@ impl super::stub::Iam for Iam {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1114,6 +1135,7 @@ impl super::stub::Iam for Iam {
                 let path_template = "/v1/{name}:enable";
 
                 let resource_name = format!("//iam.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1175,6 +1197,7 @@ impl super::stub::Iam for Iam {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1190,6 +1213,7 @@ impl super::stub::Iam for Iam {
                 let path_template = "/v1/{name}:signBlob";
 
                 let resource_name = format!("//iam.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1243,6 +1267,7 @@ impl super::stub::Iam for Iam {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1258,6 +1283,7 @@ impl super::stub::Iam for Iam {
                 let path_template = "/v1/{name}:signJwt";
 
                 let resource_name = format!("//iam.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1391,6 +1417,7 @@ impl super::stub::Iam for Iam {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -1406,6 +1433,7 @@ impl super::stub::Iam for Iam {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//iam.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1459,6 +1487,7 @@ impl super::stub::Iam for Iam {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -1474,6 +1503,7 @@ impl super::stub::Iam for Iam {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//iam.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1802,6 +1832,7 @@ impl super::stub::Iam for Iam {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -1812,6 +1843,7 @@ impl super::stub::Iam for Iam {
                 let path_template = "/v1/{parent}/roles";
 
                 let resource_name = format!("//iam.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1825,6 +1857,7 @@ impl super::stub::Iam for Iam {
                 let path_template = "/v1/{parent}/roles";
 
                 let resource_name = format!("//iam.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2111,6 +2144,7 @@ impl super::stub::Iam for Iam {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2126,6 +2160,7 @@ impl super::stub::Iam for Iam {
                 let path_template = "/v1/{name}:undelete";
 
                 let resource_name = format!("//iam.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2144,6 +2179,7 @@ impl super::stub::Iam for Iam {
                 let path_template = "/v1/{name}:undelete";
 
                 let resource_name = format!("//iam.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))

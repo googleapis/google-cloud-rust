@@ -56,6 +56,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -73,6 +74,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 let path_template = "/v1/{name}:process";
 
                 let resource_name = format!("//documentai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -95,6 +97,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 let path_template = "/v1/{name}:process";
 
                 let resource_name = format!("//documentai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -171,6 +174,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -188,6 +192,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 let path_template = "/v1/{name}:batchProcess";
 
                 let resource_name = format!("//documentai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -210,6 +215,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 let path_template = "/v1/{name}:batchProcess";
 
                 let resource_name = format!("//documentai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -648,6 +654,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -665,6 +672,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 let path_template = "/v1/{parent}/processorVersions:train";
 
                 let resource_name = format!("//documentai.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -952,6 +960,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -971,6 +980,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 let path_template = "/v1/{name}:deploy";
 
                 let resource_name = format!("//documentai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1028,6 +1038,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1047,6 +1058,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 let path_template = "/v1/{name}:undeploy";
 
                 let resource_name = format!("//documentai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1248,6 +1260,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1265,6 +1278,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 let path_template = "/v1/{name}:enable";
 
                 let resource_name = format!("//documentai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1322,6 +1336,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1339,6 +1354,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 let path_template = "/v1/{name}:disable";
 
                 let resource_name = format!("//documentai.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1396,6 +1412,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_processor = try_match(
@@ -1413,6 +1430,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 let path_template = "/v1/{processor}:setDefaultProcessorVersion";
 
                 let resource_name = format!("//documentai.googleapis.com/{}", var_processor,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.processor));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1468,6 +1486,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_human_review_config = try_match(
@@ -1489,6 +1508,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
 
                 let resource_name =
                     format!("//documentai.googleapis.com/{}", var_human_review_config,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.human_review_config));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1549,6 +1569,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_processor_version = try_match(
@@ -1569,6 +1590,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
 
                 let resource_name =
                     format!("//documentai.googleapis.com/{}", var_processor_version,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.processor_version));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))

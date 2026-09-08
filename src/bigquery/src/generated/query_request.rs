@@ -32,10 +32,10 @@ pub struct QueryRequest {
     pub allow_large_results: std::option::Option<wkt::BoolValue>,
 
     /// Clustering specification for the destination table.
-    pub clustering: std::option::Option<crate::model::Clustering>,
+    pub clustering: std::option::Option<google_cloud_bigquery_v2::model::Clustering>,
 
     /// Optional. Connection properties which can modify the query behavior.
-    pub connection_properties: std::vec::Vec<crate::model::ConnectionProperty>,
+    pub connection_properties: std::vec::Vec<google_cloud_bigquery_v2::model::ConnectionProperty>,
 
     /// Optional. Specifies whether the job is allowed to create new tables.
     /// The following values are supported:
@@ -61,17 +61,17 @@ pub struct QueryRequest {
     /// Optional. Specifies the default datasetId and projectId to assume for any
     /// unqualified table names in the query. If not set, all table names in the
     /// query string must be qualified in the format 'datasetId.tableId'.
-    pub default_dataset: std::option::Option<crate::model::DatasetReference>,
+    pub default_dataset: std::option::Option<google_cloud_bigquery_v2::model::DatasetReference>,
 
     /// Optional. Custom encryption configuration (e.g., Cloud KMS keys)
     pub destination_encryption_configuration:
-        std::option::Option<crate::model::EncryptionConfiguration>,
+        std::option::Option<google_cloud_bigquery_v2::model::EncryptionConfiguration>,
 
     /// Optional. Describes the table where the query results should be stored.
     /// This property must be set for large results that exceed the maximum
     /// response size.  For queries that produce anonymous (cached) results, this
     /// field will be populated by BigQuery.
-    pub destination_table: std::option::Option<crate::model::TableReference>,
+    pub destination_table: std::option::Option<google_cloud_bigquery_v2::model::TableReference>,
 
     /// Optional. If set to true, BigQuery doesn't run the job. Instead, if the
     /// query is valid, BigQuery returns statistics about the job such as how many
@@ -83,8 +83,10 @@ pub struct QueryRequest {
     /// ephemeral tables that can be queried.  These definitions are configured
     /// using a JSON map, where the string key represents the table identifier, and
     /// the value is the corresponding external data configuration object.
-    pub external_table_definitions:
-        std::collections::HashMap<std::string::String, crate::model::ExternalDataConfiguration>,
+    pub external_table_definitions: std::collections::HashMap<
+        std::string::String,
+        google_cloud_bigquery_v2::model::ExternalDataConfiguration,
+    >,
 
     /// Optional. If true and query uses legacy SQL dialect, flattens all nested
     /// and repeated fields in the query results.
@@ -97,7 +99,7 @@ pub struct QueryRequest {
     ///
     /// If set, the query request will follow the behavior described
     /// JobCreationMode.
-    pub job_creation_mode: crate::model::query_request::JobCreationMode,
+    pub job_creation_mode: google_cloud_bigquery_v2::model::query_request::JobCreationMode,
 
     /// Optional. Job timeout in milliseconds. If this time limit is exceeded,
     /// BigQuery will attempt to stop a longer job, but may not always succeed in
@@ -156,15 +158,18 @@ pub struct QueryRequest {
     pub query: std::string::String,
 
     /// Query parameters for GoogleSQL queries.
-    pub query_parameters: std::vec::Vec<crate::model::QueryParameter>,
+    pub query_parameters: std::vec::Vec<google_cloud_bigquery_v2::model::QueryParameter>,
 
     /// Range partitioning specification for the destination table.
     /// Only one of timePartitioning and rangePartitioning should be specified.
-    pub range_partitioning: std::option::Option<crate::model::RangePartitioning>,
+    pub range_partitioning: std::option::Option<google_cloud_bigquery_v2::model::RangePartitioning>,
 
     /// Optional. The reservation that jobs.query request would use. User can
     /// specify a reservation to execute the job.query. The expected format is
     /// `projects/{project}/locations/{location}/reservations/{reservation}`.
+    /// Forces the query to use on-demand billing when set to `none`.
+    /// This requires the project or organization to have
+    /// `reservation_override_mode` set to `ALLOW_ANY_OVERRIDE`.
     pub reservation: std::option::Option<std::string::String>,
 
     /// Allows the schema of the destination table to be updated as a side effect
@@ -182,11 +187,11 @@ pub struct QueryRequest {
     pub schema_update_options: std::vec::Vec<std::string::String>,
 
     /// Options controlling the execution of scripts.
-    pub script_options: std::option::Option<crate::model::ScriptOptions>,
+    pub script_options: std::option::Option<google_cloud_bigquery_v2::model::ScriptOptions>,
 
     /// Time-based partitioning specification for the destination table. Only one
     /// of timePartitioning and rangePartitioning should be specified.
-    pub time_partitioning: std::option::Option<crate::model::TimePartitioning>,
+    pub time_partitioning: std::option::Option<google_cloud_bigquery_v2::model::TimePartitioning>,
 
     /// Optional. Optional: Specifies the maximum amount of time, in milliseconds,
     /// that the client is willing to wait for the query to complete. By default,
@@ -217,7 +222,8 @@ pub struct QueryRequest {
     pub use_query_cache: std::option::Option<wkt::BoolValue>,
 
     /// Describes user-defined function resources used in the query.
-    pub user_defined_function_resources: std::vec::Vec<crate::model::UserDefinedFunctionResource>,
+    pub user_defined_function_resources:
+        std::vec::Vec<google_cloud_bigquery_v2::model::UserDefinedFunctionResource>,
 
     /// Optional. Specifies the action that occurs if the destination table
     /// already exists. The following values are supported:
@@ -245,7 +251,7 @@ impl QueryRequest {
         std::default::Default::default()
     }
 
-    /// Sets the value of [allow_large_results][crate::model::QueryRequest::allow_large_results].
+    /// Sets the value of [allow_large_results][crate::model_ext::QueryRequest::allow_large_results].
     pub fn set_allow_large_results<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -254,7 +260,7 @@ impl QueryRequest {
         self
     }
 
-    /// Sets or clears the value of [allow_large_results][crate::model::QueryRequest::allow_large_results].
+    /// Sets or clears the value of [allow_large_results][crate::model_ext::QueryRequest::allow_large_results].
     pub fn set_or_clear_allow_large_results<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -263,36 +269,36 @@ impl QueryRequest {
         self
     }
 
-    /// Sets the value of [clustering][crate::model::QueryRequest::clustering].
+    /// Sets the value of [clustering][crate::model_ext::QueryRequest::clustering].
     pub fn set_clustering<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::Clustering>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::Clustering>,
     {
         self.clustering = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [clustering][crate::model::QueryRequest::clustering].
+    /// Sets or clears the value of [clustering][crate::model_ext::QueryRequest::clustering].
     pub fn set_or_clear_clustering<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::Clustering>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::Clustering>,
     {
         self.clustering = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [connection_properties][crate::model::QueryRequest::connection_properties].
+    /// Sets the value of [connection_properties][crate::model_ext::QueryRequest::connection_properties].
     pub fn set_connection_properties<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConnectionProperty>,
+        V: std::convert::Into<google_cloud_bigquery_v2::model::ConnectionProperty>,
     {
         use std::iter::Iterator;
         self.connection_properties = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of [create_disposition][crate::model::QueryRequest::create_disposition].
+    /// Sets the value of [create_disposition][crate::model_ext::QueryRequest::create_disposition].
     pub fn set_create_disposition<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -301,7 +307,7 @@ impl QueryRequest {
         self
     }
 
-    /// Sets the value of [create_session][crate::model::QueryRequest::create_session].
+    /// Sets the value of [create_session][crate::model_ext::QueryRequest::create_session].
     pub fn set_create_session<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -310,7 +316,7 @@ impl QueryRequest {
         self
     }
 
-    /// Sets or clears the value of [create_session][crate::model::QueryRequest::create_session].
+    /// Sets or clears the value of [create_session][crate::model_ext::QueryRequest::create_session].
     pub fn set_or_clear_create_session<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -319,75 +325,75 @@ impl QueryRequest {
         self
     }
 
-    /// Sets the value of [default_dataset][crate::model::QueryRequest::default_dataset].
+    /// Sets the value of [default_dataset][crate::model_ext::QueryRequest::default_dataset].
     pub fn set_default_dataset<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::DatasetReference>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::DatasetReference>,
     {
         self.default_dataset = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [default_dataset][crate::model::QueryRequest::default_dataset].
+    /// Sets or clears the value of [default_dataset][crate::model_ext::QueryRequest::default_dataset].
     pub fn set_or_clear_default_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::DatasetReference>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::DatasetReference>,
     {
         self.default_dataset = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [destination_encryption_configuration][crate::model::QueryRequest::destination_encryption_configuration].
+    /// Sets the value of [destination_encryption_configuration][crate::model_ext::QueryRequest::destination_encryption_configuration].
     pub fn set_destination_encryption_configuration<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::EncryptionConfiguration>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::EncryptionConfiguration>,
     {
         self.destination_encryption_configuration = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [destination_encryption_configuration][crate::model::QueryRequest::destination_encryption_configuration].
+    /// Sets or clears the value of [destination_encryption_configuration][crate::model_ext::QueryRequest::destination_encryption_configuration].
     pub fn set_or_clear_destination_encryption_configuration<T>(
         mut self,
         v: std::option::Option<T>,
     ) -> Self
     where
-        T: std::convert::Into<crate::model::EncryptionConfiguration>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::EncryptionConfiguration>,
     {
         self.destination_encryption_configuration = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [destination_table][crate::model::QueryRequest::destination_table].
+    /// Sets the value of [destination_table][crate::model_ext::QueryRequest::destination_table].
     pub fn set_destination_table<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::TableReference>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::TableReference>,
     {
         self.destination_table = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [destination_table][crate::model::QueryRequest::destination_table].
+    /// Sets or clears the value of [destination_table][crate::model_ext::QueryRequest::destination_table].
     pub fn set_or_clear_destination_table<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::TableReference>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::TableReference>,
     {
         self.destination_table = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [dry_run][crate::model::QueryRequest::dry_run].
+    /// Sets the value of [dry_run][crate::model_ext::QueryRequest::dry_run].
     pub fn set_dry_run<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.dry_run = v.into();
         self
     }
 
-    /// Sets the value of [external_table_definitions][crate::model::QueryRequest::external_table_definitions].
+    /// Sets the value of [external_table_definitions][crate::model_ext::QueryRequest::external_table_definitions].
     pub fn set_external_table_definitions<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
         K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::ExternalDataConfiguration>,
+        V: std::convert::Into<google_cloud_bigquery_v2::model::ExternalDataConfiguration>,
     {
         use std::iter::Iterator;
         self.external_table_definitions =
@@ -395,7 +401,7 @@ impl QueryRequest {
         self
     }
 
-    /// Sets the value of [flatten_results][crate::model::QueryRequest::flatten_results].
+    /// Sets the value of [flatten_results][crate::model_ext::QueryRequest::flatten_results].
     pub fn set_flatten_results<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -404,7 +410,7 @@ impl QueryRequest {
         self
     }
 
-    /// Sets or clears the value of [flatten_results][crate::model::QueryRequest::flatten_results].
+    /// Sets or clears the value of [flatten_results][crate::model_ext::QueryRequest::flatten_results].
     pub fn set_or_clear_flatten_results<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -413,9 +419,9 @@ impl QueryRequest {
         self
     }
 
-    /// Sets the value of [job_creation_mode][crate::model::QueryRequest::job_creation_mode].
+    /// Sets the value of [job_creation_mode][crate::model_ext::QueryRequest::job_creation_mode].
     pub fn set_job_creation_mode<
-        T: std::convert::Into<crate::model::query_request::JobCreationMode>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::query_request::JobCreationMode>,
     >(
         mut self,
         v: T,
@@ -424,7 +430,7 @@ impl QueryRequest {
         self
     }
 
-    /// Sets the value of [job_timeout_ms][crate::model::QueryRequest::job_timeout_ms].
+    /// Sets the value of [job_timeout_ms][crate::model_ext::QueryRequest::job_timeout_ms].
     pub fn set_job_timeout_ms<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -433,7 +439,7 @@ impl QueryRequest {
         self
     }
 
-    /// Sets or clears the value of [job_timeout_ms][crate::model::QueryRequest::job_timeout_ms].
+    /// Sets or clears the value of [job_timeout_ms][crate::model_ext::QueryRequest::job_timeout_ms].
     pub fn set_or_clear_job_timeout_ms<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -442,7 +448,7 @@ impl QueryRequest {
         self
     }
 
-    /// Sets the value of [labels][crate::model::QueryRequest::labels].
+    /// Sets the value of [labels][crate::model_ext::QueryRequest::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -454,13 +460,13 @@ impl QueryRequest {
         self
     }
 
-    /// Sets the value of [location][crate::model::QueryRequest::location].
+    /// Sets the value of [location][crate::model_ext::QueryRequest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
-    /// Sets the value of [max_results][crate::model::QueryRequest::max_results].
+    /// Sets the value of [max_results][crate::model_ext::QueryRequest::max_results].
     pub fn set_max_results<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::UInt32Value>,
@@ -469,7 +475,7 @@ impl QueryRequest {
         self
     }
 
-    /// Sets or clears the value of [max_results][crate::model::QueryRequest::max_results].
+    /// Sets or clears the value of [max_results][crate::model_ext::QueryRequest::max_results].
     pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::UInt32Value>,
@@ -478,7 +484,7 @@ impl QueryRequest {
         self
     }
 
-    /// Sets the value of [max_slots][crate::model::QueryRequest::max_slots].
+    /// Sets the value of [max_slots][crate::model_ext::QueryRequest::max_slots].
     pub fn set_max_slots<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -487,7 +493,7 @@ impl QueryRequest {
         self
     }
 
-    /// Sets or clears the value of [max_slots][crate::model::QueryRequest::max_slots].
+    /// Sets or clears the value of [max_slots][crate::model_ext::QueryRequest::max_slots].
     pub fn set_or_clear_max_slots<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -496,7 +502,7 @@ impl QueryRequest {
         self
     }
 
-    /// Sets the value of [maximum_bytes_billed][crate::model::QueryRequest::maximum_bytes_billed].
+    /// Sets the value of [maximum_bytes_billed][crate::model_ext::QueryRequest::maximum_bytes_billed].
     pub fn set_maximum_bytes_billed<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -505,7 +511,7 @@ impl QueryRequest {
         self
     }
 
-    /// Sets or clears the value of [maximum_bytes_billed][crate::model::QueryRequest::maximum_bytes_billed].
+    /// Sets or clears the value of [maximum_bytes_billed][crate::model_ext::QueryRequest::maximum_bytes_billed].
     pub fn set_or_clear_maximum_bytes_billed<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -514,54 +520,54 @@ impl QueryRequest {
         self
     }
 
-    /// Sets the value of [parameter_mode][crate::model::QueryRequest::parameter_mode].
+    /// Sets the value of [parameter_mode][crate::model_ext::QueryRequest::parameter_mode].
     pub fn set_parameter_mode<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parameter_mode = v.into();
         self
     }
 
-    /// Sets the value of [priority][crate::model::QueryRequest::priority].
+    /// Sets the value of [priority][crate::model_ext::QueryRequest::priority].
     pub fn set_priority<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.priority = v.into();
         self
     }
 
-    /// Sets the value of [query][crate::model::QueryRequest::query].
+    /// Sets the value of [query][crate::model_ext::QueryRequest::query].
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
-    /// Sets the value of [query_parameters][crate::model::QueryRequest::query_parameters].
+    /// Sets the value of [query_parameters][crate::model_ext::QueryRequest::query_parameters].
     pub fn set_query_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::QueryParameter>,
+        V: std::convert::Into<google_cloud_bigquery_v2::model::QueryParameter>,
     {
         use std::iter::Iterator;
         self.query_parameters = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of [range_partitioning][crate::model::QueryRequest::range_partitioning].
+    /// Sets the value of [range_partitioning][crate::model_ext::QueryRequest::range_partitioning].
     pub fn set_range_partitioning<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::RangePartitioning>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::RangePartitioning>,
     {
         self.range_partitioning = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [range_partitioning][crate::model::QueryRequest::range_partitioning].
+    /// Sets or clears the value of [range_partitioning][crate::model_ext::QueryRequest::range_partitioning].
     pub fn set_or_clear_range_partitioning<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::RangePartitioning>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::RangePartitioning>,
     {
         self.range_partitioning = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [reservation][crate::model::QueryRequest::reservation].
+    /// Sets the value of [reservation][crate::model_ext::QueryRequest::reservation].
     pub fn set_reservation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -570,7 +576,7 @@ impl QueryRequest {
         self
     }
 
-    /// Sets or clears the value of [reservation][crate::model::QueryRequest::reservation].
+    /// Sets or clears the value of [reservation][crate::model_ext::QueryRequest::reservation].
     pub fn set_or_clear_reservation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -579,7 +585,7 @@ impl QueryRequest {
         self
     }
 
-    /// Sets the value of [schema_update_options][crate::model::QueryRequest::schema_update_options].
+    /// Sets the value of [schema_update_options][crate::model_ext::QueryRequest::schema_update_options].
     pub fn set_schema_update_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -590,43 +596,43 @@ impl QueryRequest {
         self
     }
 
-    /// Sets the value of [script_options][crate::model::QueryRequest::script_options].
+    /// Sets the value of [script_options][crate::model_ext::QueryRequest::script_options].
     pub fn set_script_options<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::ScriptOptions>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::ScriptOptions>,
     {
         self.script_options = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [script_options][crate::model::QueryRequest::script_options].
+    /// Sets or clears the value of [script_options][crate::model_ext::QueryRequest::script_options].
     pub fn set_or_clear_script_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::ScriptOptions>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::ScriptOptions>,
     {
         self.script_options = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [time_partitioning][crate::model::QueryRequest::time_partitioning].
+    /// Sets the value of [time_partitioning][crate::model_ext::QueryRequest::time_partitioning].
     pub fn set_time_partitioning<T>(mut self, v: T) -> Self
     where
-        T: std::convert::Into<crate::model::TimePartitioning>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::TimePartitioning>,
     {
         self.time_partitioning = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [time_partitioning][crate::model::QueryRequest::time_partitioning].
+    /// Sets or clears the value of [time_partitioning][crate::model_ext::QueryRequest::time_partitioning].
     pub fn set_or_clear_time_partitioning<T>(mut self, v: std::option::Option<T>) -> Self
     where
-        T: std::convert::Into<crate::model::TimePartitioning>,
+        T: std::convert::Into<google_cloud_bigquery_v2::model::TimePartitioning>,
     {
         self.time_partitioning = v.map(|x| x.into());
         self
     }
 
-    /// Sets the value of [timeout_ms][crate::model::QueryRequest::timeout_ms].
+    /// Sets the value of [timeout_ms][crate::model_ext::QueryRequest::timeout_ms].
     pub fn set_timeout_ms<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::UInt32Value>,
@@ -635,7 +641,7 @@ impl QueryRequest {
         self
     }
 
-    /// Sets or clears the value of [timeout_ms][crate::model::QueryRequest::timeout_ms].
+    /// Sets or clears the value of [timeout_ms][crate::model_ext::QueryRequest::timeout_ms].
     pub fn set_or_clear_timeout_ms<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::UInt32Value>,
@@ -644,7 +650,7 @@ impl QueryRequest {
         self
     }
 
-    /// Sets the value of [use_legacy_sql][crate::model::QueryRequest::use_legacy_sql].
+    /// Sets the value of [use_legacy_sql][crate::model_ext::QueryRequest::use_legacy_sql].
     pub fn set_use_legacy_sql<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -653,7 +659,7 @@ impl QueryRequest {
         self
     }
 
-    /// Sets or clears the value of [use_legacy_sql][crate::model::QueryRequest::use_legacy_sql].
+    /// Sets or clears the value of [use_legacy_sql][crate::model_ext::QueryRequest::use_legacy_sql].
     pub fn set_or_clear_use_legacy_sql<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -662,7 +668,7 @@ impl QueryRequest {
         self
     }
 
-    /// Sets the value of [use_query_cache][crate::model::QueryRequest::use_query_cache].
+    /// Sets the value of [use_query_cache][crate::model_ext::QueryRequest::use_query_cache].
     pub fn set_use_query_cache<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -671,7 +677,7 @@ impl QueryRequest {
         self
     }
 
-    /// Sets or clears the value of [use_query_cache][crate::model::QueryRequest::use_query_cache].
+    /// Sets or clears the value of [use_query_cache][crate::model_ext::QueryRequest::use_query_cache].
     pub fn set_or_clear_use_query_cache<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -680,18 +686,18 @@ impl QueryRequest {
         self
     }
 
-    /// Sets the value of [user_defined_function_resources][crate::model::QueryRequest::user_defined_function_resources].
+    /// Sets the value of [user_defined_function_resources][crate::model_ext::QueryRequest::user_defined_function_resources].
     pub fn set_user_defined_function_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UserDefinedFunctionResource>,
+        V: std::convert::Into<google_cloud_bigquery_v2::model::UserDefinedFunctionResource>,
     {
         use std::iter::Iterator;
         self.user_defined_function_resources = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of [write_disposition][crate::model::QueryRequest::write_disposition].
+    /// Sets the value of [write_disposition][crate::model_ext::QueryRequest::write_disposition].
     pub fn set_write_disposition<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,

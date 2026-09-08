@@ -5158,7 +5158,12 @@ pub struct Exercise {
     /// Optional. Additional exercise metadata.
     pub exercise_metadata: std::option::Option<crate::model::exercise::ExerciseMetadata>,
 
-    /// Required. Exercise display name.
+    /// Required. The localized, human-readable name of the exercise.
+    /// For all exercise types other than `OTHER`, the system ignores client
+    /// input and overrides this field with a generated name based on
+    /// `exercise_type` (e.g., "Walking" for `WALKING`). If `exercise_type` is
+    /// `OTHER`, this field can contain the user's custom, free-form display
+    /// name.
     pub display_name: std::string::String,
 
     /// Optional. Duration excluding pauses.
@@ -5221,9 +5226,9 @@ impl Exercise {
     /// ```ignore,no_run
     /// # use google_devicesandservices_health_v4::model::Exercise;
     /// use google_devicesandservices_health_v4::model::exercise::ExerciseType;
-    /// let x0 = Exercise::new().set_exercise_type(ExerciseType::Running);
-    /// let x1 = Exercise::new().set_exercise_type(ExerciseType::Walking);
-    /// let x2 = Exercise::new().set_exercise_type(ExerciseType::Biking);
+    /// let x0 = Exercise::new().set_exercise_type(ExerciseType::AerobicWorkout);
+    /// let x1 = Exercise::new().set_exercise_type(ExerciseType::Archery);
+    /// let x2 = Exercise::new().set_exercise_type(ExerciseType::AssaultBike);
     /// ```
     pub fn set_exercise_type<T: std::convert::Into<crate::model::exercise::ExerciseType>>(
         mut self,
@@ -6276,6 +6281,7 @@ pub mod exercise {
     }
 
     /// The type of activity performed during an exercise.
+    /// May receive new values in the future.
     ///
     /// # Working with unknown values
     ///
@@ -6295,30 +6301,368 @@ pub mod exercise {
     pub enum ExerciseType {
         /// Exercise type is unspecified.
         Unspecified,
-        /// Running type.
-        Running,
-        /// Walking type.
-        Walking,
+        /// Aerobic workout type.
+        AerobicWorkout,
+        /// Archery type.
+        Archery,
+        /// Assault bike type.
+        AssaultBike,
+        /// Backpacking type.
+        Backpacking,
+        /// Badminton type.
+        Badminton,
+        /// Ballet type.
+        Ballet,
+        /// Ballroom dance type.
+        BallroomDance,
+        /// Barre class type.
+        BarreClass,
+        /// Baseball type.
+        Baseball,
+        /// Basketball type.
+        Basketball,
         /// Biking type.
         Biking,
-        /// Swimming type.
-        Swimming,
+        /// Billiards type.
+        Billiards,
+        /// Body weight type.
+        BodyWeight,
+        /// Bootcamp type.
+        Bootcamp,
+        /// Bowling type.
+        Bowling,
+        /// Boxing type.
+        Boxing,
+        /// Breakdancing type.
+        Breakdancing,
+        /// Calisthenics type.
+        Calisthenics,
+        /// Canoeing type.
+        Canoeing,
+        /// Cardio sculpt type.
+        CardioSculpt,
+        /// Cardio workout type.
+        CardioWorkout,
+        /// Carpentry type.
+        Carpentry,
+        /// Cheerleading type.
+        Cheerleading,
+        /// Circuit training type.
+        CircuitTraining,
+        /// Cleaning type.
+        Cleaning,
+        /// Climbing type.
+        Climbing,
+        /// Core training type.
+        CoreTraining,
+        /// Cricket type.
+        Cricket,
+        /// Croquet type.
+        Croquet,
+        /// Cross country ski type.
+        CrossCountrySki,
+        /// Cross training type.
+        CrossTraining,
+        /// Crossfit type.
+        Crossfit,
+        /// Curling type.
+        Curling,
+        /// Dancing type.
+        Dancing,
+        /// Diving type.
+        Diving,
+        /// Electric bike type.
+        ElectricBike,
+        /// Electric scooter type.
+        ElectricScooter,
+        /// Elliptical type.
+        Elliptical,
+        /// Equestrian sports type.
+        EquestrianSports,
+        /// Exercise class type.
+        ExerciseClass,
+        /// Fencing type.
+        Fencing,
+        /// Field hockey type.
+        FieldHockey,
+        /// Fishing type.
+        Fishing,
+        /// Fitness gaming type.
+        FitnessGaming,
+        /// Foiling type.
+        Foiling,
+        /// Football american type.
+        FootballAmerican,
+        /// Football australian type.
+        FootballAustralian,
+        /// Free weights type.
+        FreeWeights,
+        /// Frisbee playing general type.
+        FrisbeePlayingGeneral,
+        /// Functional strength training type.
+        FunctionalStrengthTraining,
+        /// Gardening type.
+        Gardening,
+        /// Golf type.
+        Golf,
+        /// Gymnastics type.
+        Gymnastics,
+        /// Handball type.
+        Handball,
+        /// Hand cycling type.
+        HandCycling,
+        /// Hiit type.
+        Hiit,
         /// Hiking type.
         Hiking,
-        /// Yoga type.
-        Yoga,
-        /// Pilates type.
-        Pilates,
-        /// Workout type.
-        Workout,
-        /// HIIT type.
-        Hiit,
-        /// Weightlifting type.
-        Weightlifting,
-        /// Strength training type.
-        StrengthTraining,
+        /// Hip hop type.
+        HipHop,
+        /// Hockey type.
+        Hockey,
+        /// Hoeing type.
+        Hoeing,
+        /// Household chores type.
+        HouseholdChores,
+        /// Hunting type.
+        Hunting,
+        /// Ice skating type.
+        IceSkating,
+        /// Incline run type.
+        InclineRun,
+        /// Incline walk type.
+        InclineWalk,
+        /// Indoor climbing type.
+        IndoorClimbing,
+        /// Interval workout type.
+        IntervalWorkout,
+        /// Jazz dance type.
+        JazzDance,
+        /// Jiu jitsu type.
+        JiuJitsu,
+        /// Jumping rope type.
+        JumpingRope,
+        /// Karate type.
+        Karate,
+        /// Kayaking type.
+        Kayaking,
+        /// Kickboxing type.
+        Kickboxing,
+        /// Kitesurfing type.
+        Kitesurfing,
+        /// Lacrosse type.
+        Lacrosse,
+        /// Martial arts type.
+        MartialArts,
+        /// Meditate type.
+        Meditate,
+        /// Modern dance type.
+        ModernDance,
+        /// Motocross type.
+        Motocross,
+        /// Motorcycle type.
+        Motorcycle,
+        /// Mountain bike type.
+        MountainBike,
+        /// Mowing lawn type.
+        MowingLawn,
+        /// Muay thai type.
+        MuayThai,
+        /// Multisport type.
+        Multisport,
+        /// Musical performance type.
+        MusicalPerformance,
+        /// Nordic walking type.
+        NordicWalking,
+        /// Orienteering type.
+        Orienteering,
         /// Other type.
         Other,
+        /// Outdoor bike type.
+        OutdoorBike,
+        /// Outdoor workout type.
+        OutdoorWorkout,
+        /// Paddleboarding type.
+        Paddleboarding,
+        /// Padel type.
+        Padel,
+        /// Painting type.
+        Painting,
+        /// Paragliding type.
+        Paragliding,
+        /// Parkour type.
+        Parkour,
+        /// Pickelball type.
+        Pickelball,
+        /// Pilates type.
+        Pilates,
+        /// Polo type.
+        Polo,
+        /// Powerlifting type.
+        Powerlifting,
+        /// Power walking type.
+        PowerWalking,
+        /// Racket sports type.
+        RacketSports,
+        /// Racquetball type.
+        Racquetball,
+        /// Resistance bands type.
+        ResistanceBands,
+        /// Rock climbing type.
+        RockClimbing,
+        /// Rollerblading type.
+        Rollerblading,
+        /// Roller skating type.
+        RollerSkating,
+        /// Rowing type.
+        Rowing,
+        /// Rowing machine type.
+        RowingMachine,
+        /// Rucking type.
+        Rucking,
+        /// Rugby type.
+        Rugby,
+        /// Running type.
+        Running,
+        /// Sailing type.
+        Sailing,
+        /// Scootering type.
+        Scootering,
+        /// Scuba diving type.
+        ScubaDiving,
+        /// Shooting type.
+        Shooting,
+        /// Shoveling type.
+        Shoveling,
+        /// Skateboarding type.
+        Skateboarding,
+        /// Skating type.
+        Skating,
+        /// Skiing type.
+        Skiing,
+        /// Skydiving type.
+        Skydiving,
+        /// Snorkeling type.
+        Snorkeling,
+        /// Snowboarding type.
+        Snowboarding,
+        /// Snowmobiling type.
+        Snowmobiling,
+        /// Snowshoeing type.
+        Snowshoeing,
+        /// Snow sport type.
+        SnowSport,
+        /// Soccer type.
+        Soccer,
+        /// Softball type.
+        Softball,
+        /// Speed skating type.
+        SpeedSkating,
+        /// Spinning type.
+        Spinning,
+        /// Sport type.
+        Sport,
+        /// Squash type.
+        Squash,
+        /// Stairclimber type.
+        Stairclimber,
+        /// Stationary bike type.
+        StationaryBike,
+        /// Step training type.
+        StepTraining,
+        /// Strength training type.
+        StrengthTraining,
+        /// Stretching type.
+        Stretching,
+        /// Stroller walk type.
+        StrollerWalk,
+        /// Surfing type.
+        Surfing,
+        /// Swimming type.
+        Swimming,
+        /// Swimming open water type.
+        SwimmingOpenWater,
+        /// Swimming pool type.
+        SwimmingPool,
+        /// Synchronized swimming type.
+        SynchronizedSwimming,
+        /// Tabata workout type.
+        TabataWorkout,
+        /// Table tennis type.
+        TableTennis,
+        /// Taekwondo type.
+        Taekwondo,
+        /// Tai chi type.
+        TaiChi,
+        /// Tango type.
+        Tango,
+        /// Tennis type.
+        Tennis,
+        /// Track and field type.
+        TrackAndField,
+        /// Trail run type.
+        TrailRun,
+        /// Trampoline type.
+        Trampoline,
+        /// Treadmill type.
+        Treadmill,
+        /// Treadmill walk type.
+        TreadmillWalk,
+        /// Trx type.
+        Trx,
+        /// Ultimate frisbee type.
+        UltimateFrisbee,
+        /// Unicycling type.
+        Unicycling,
+        /// Volleyball type.
+        Volleyball,
+        /// Volleyball beach type.
+        VolleyballBeach,
+        /// Wakeboarding type.
+        Wakeboarding,
+        /// Walking type.
+        Walking,
+        /// Walk with weights type.
+        WalkWithWeights,
+        /// Water aerobics type.
+        WaterAerobics,
+        /// Water jogging type.
+        WaterJogging,
+        /// Water polo type.
+        WaterPolo,
+        /// Water skiing type.
+        WaterSkiing,
+        /// Water sport type.
+        WaterSport,
+        /// Water volleyball type.
+        WaterVolleyball,
+        /// Weeding type.
+        Weeding,
+        /// Weightlifting type.
+        Weightlifting,
+        /// Weight machines type.
+        WeightMachines,
+        /// Weights type.
+        Weights,
+        /// Wheelchair type.
+        Wheelchair,
+        /// Windsurfing type.
+        Windsurfing,
+        /// Workout type.
+        Workout,
+        /// Wrestling type.
+        Wrestling,
+        /// Yoga type.
+        Yoga,
+        /// Yoga bikram type.
+        YogaBikram,
+        /// Yoga hatha type.
+        YogaHatha,
+        /// Yoga power type.
+        YogaPower,
+        /// Yoga vinyasa type.
+        YogaVinyasa,
+        /// Zumba type.
+        Zumba,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [ExerciseType::value] or
@@ -6342,18 +6686,187 @@ pub mod exercise {
         pub fn value(&self) -> std::option::Option<i32> {
             match self {
                 Self::Unspecified => std::option::Option::Some(0),
-                Self::Running => std::option::Option::Some(1),
-                Self::Walking => std::option::Option::Some(2),
+                Self::AerobicWorkout => std::option::Option::Some(13),
+                Self::Archery => std::option::Option::Some(47),
+                Self::AssaultBike => std::option::Option::Some(164),
+                Self::Backpacking => std::option::Option::Some(181),
+                Self::Badminton => std::option::Option::Some(48),
+                Self::Ballet => std::option::Option::Some(103),
+                Self::BallroomDance => std::option::Option::Some(156),
+                Self::BarreClass => std::option::Option::Some(49),
+                Self::Baseball => std::option::Option::Some(50),
+                Self::Basketball => std::option::Option::Some(51),
                 Self::Biking => std::option::Option::Some(3),
-                Self::Swimming => std::option::Option::Some(4),
-                Self::Hiking => std::option::Option::Some(5),
-                Self::Yoga => std::option::Option::Some(6),
-                Self::Pilates => std::option::Option::Some(7),
-                Self::Workout => std::option::Option::Some(8),
+                Self::Billiards => std::option::Option::Some(180),
+                Self::BodyWeight => std::option::Option::Some(149),
+                Self::Bootcamp => std::option::Option::Some(14),
+                Self::Bowling => std::option::Option::Some(52),
+                Self::Boxing => std::option::Option::Some(53),
+                Self::Breakdancing => std::option::Option::Some(157),
+                Self::Calisthenics => std::option::Option::Some(54),
+                Self::Canoeing => std::option::Option::Some(15),
+                Self::CardioSculpt => std::option::Option::Some(129),
+                Self::CardioWorkout => std::option::Option::Some(140),
+                Self::Carpentry => std::option::Option::Some(108),
+                Self::Cheerleading => std::option::Option::Some(165),
+                Self::CircuitTraining => std::option::Option::Some(16),
+                Self::Cleaning => std::option::Option::Some(105),
+                Self::Climbing => std::option::Option::Some(55),
+                Self::CoreTraining => std::option::Option::Some(17),
+                Self::Cricket => std::option::Option::Some(56),
+                Self::Croquet => std::option::Option::Some(111),
+                Self::CrossCountrySki => std::option::Option::Some(18),
+                Self::CrossTraining => std::option::Option::Some(57),
+                Self::Crossfit => std::option::Option::Some(19),
+                Self::Curling => std::option::Option::Some(58),
+                Self::Dancing => std::option::Option::Some(20),
+                Self::Diving => std::option::Option::Some(59),
+                Self::ElectricBike => std::option::Option::Some(152),
+                Self::ElectricScooter => std::option::Option::Some(168),
+                Self::Elliptical => std::option::Option::Some(21),
+                Self::EquestrianSports => std::option::Option::Some(60),
+                Self::ExerciseClass => std::option::Option::Some(61),
+                Self::Fencing => std::option::Option::Some(62),
+                Self::FieldHockey => std::option::Option::Some(113),
+                Self::Fishing => std::option::Option::Some(63),
+                Self::FitnessGaming => std::option::Option::Some(64),
+                Self::Foiling => std::option::Option::Some(175),
+                Self::FootballAmerican => std::option::Option::Some(65),
+                Self::FootballAustralian => std::option::Option::Some(66),
+                Self::FreeWeights => std::option::Option::Some(148),
+                Self::FrisbeePlayingGeneral => std::option::Option::Some(67),
+                Self::FunctionalStrengthTraining => std::option::Option::Some(68),
+                Self::Gardening => std::option::Option::Some(107),
+                Self::Golf => std::option::Option::Some(22),
+                Self::Gymnastics => std::option::Option::Some(69),
+                Self::Handball => std::option::Option::Some(70),
+                Self::HandCycling => std::option::Option::Some(71),
                 Self::Hiit => std::option::Option::Some(9),
-                Self::Weightlifting => std::option::Option::Some(10),
-                Self::StrengthTraining => std::option::Option::Some(11),
+                Self::Hiking => std::option::Option::Some(5),
+                Self::HipHop => std::option::Option::Some(158),
+                Self::Hockey => std::option::Option::Some(72),
+                Self::Hoeing => std::option::Option::Some(109),
+                Self::HouseholdChores => std::option::Option::Some(137),
+                Self::Hunting => std::option::Option::Some(73),
+                Self::IceSkating => std::option::Option::Some(127),
+                Self::InclineRun => std::option::Option::Some(142),
+                Self::InclineWalk => std::option::Option::Some(146),
+                Self::IndoorClimbing => std::option::Option::Some(23),
+                Self::IntervalWorkout => std::option::Option::Some(24),
+                Self::JazzDance => std::option::Option::Some(154),
+                Self::JiuJitsu => std::option::Option::Some(160),
+                Self::JumpingRope => std::option::Option::Some(74),
+                Self::Karate => std::option::Option::Some(159),
+                Self::Kayaking => std::option::Option::Some(25),
+                Self::Kickboxing => std::option::Option::Some(26),
+                Self::Kitesurfing => std::option::Option::Some(172),
+                Self::Lacrosse => std::option::Option::Some(75),
+                Self::MartialArts => std::option::Option::Some(27),
+                Self::Meditate => std::option::Option::Some(28),
+                Self::ModernDance => std::option::Option::Some(153),
+                Self::Motocross => std::option::Option::Some(114),
+                Self::Motorcycle => std::option::Option::Some(121),
+                Self::MountainBike => std::option::Option::Some(128),
+                Self::MowingLawn => std::option::Option::Some(106),
+                Self::MuayThai => std::option::Option::Some(162),
+                Self::Multisport => std::option::Option::Some(76),
+                Self::MusicalPerformance => std::option::Option::Some(163),
+                Self::NordicWalking => std::option::Option::Some(145),
+                Self::Orienteering => std::option::Option::Some(115),
                 Self::Other => std::option::Option::Some(12),
+                Self::OutdoorBike => std::option::Option::Some(29),
+                Self::OutdoorWorkout => std::option::Option::Some(30),
+                Self::Paddleboarding => std::option::Option::Some(31),
+                Self::Padel => std::option::Option::Some(176),
+                Self::Painting => std::option::Option::Some(170),
+                Self::Paragliding => std::option::Option::Some(78),
+                Self::Parkour => std::option::Option::Some(166),
+                Self::Pickelball => std::option::Option::Some(79),
+                Self::Pilates => std::option::Option::Some(7),
+                Self::Polo => std::option::Option::Some(116),
+                Self::Powerlifting => std::option::Option::Some(32),
+                Self::PowerWalking => std::option::Option::Some(143),
+                Self::RacketSports => std::option::Option::Some(169),
+                Self::Racquetball => std::option::Option::Some(80),
+                Self::ResistanceBands => std::option::Option::Some(151),
+                Self::RockClimbing => std::option::Option::Some(123),
+                Self::Rollerblading => std::option::Option::Some(33),
+                Self::RollerSkating => std::option::Option::Some(118),
+                Self::Rowing => std::option::Option::Some(81),
+                Self::RowingMachine => std::option::Option::Some(34),
+                Self::Rucking => std::option::Option::Some(144),
+                Self::Rugby => std::option::Option::Some(82),
+                Self::Running => std::option::Option::Some(1),
+                Self::Sailing => std::option::Option::Some(83),
+                Self::Scootering => std::option::Option::Some(167),
+                Self::ScubaDiving => std::option::Option::Some(84),
+                Self::Shooting => std::option::Option::Some(104),
+                Self::Shoveling => std::option::Option::Some(171),
+                Self::Skateboarding => std::option::Option::Some(117),
+                Self::Skating => std::option::Option::Some(35),
+                Self::Skiing => std::option::Option::Some(36),
+                Self::Skydiving => std::option::Option::Some(182),
+                Self::Snorkeling => std::option::Option::Some(37),
+                Self::Snowboarding => std::option::Option::Some(38),
+                Self::Snowmobiling => std::option::Option::Some(179),
+                Self::Snowshoeing => std::option::Option::Some(85),
+                Self::SnowSport => std::option::Option::Some(86),
+                Self::Soccer => std::option::Option::Some(87),
+                Self::Softball => std::option::Option::Some(88),
+                Self::SpeedSkating => std::option::Option::Some(178),
+                Self::Spinning => std::option::Option::Some(39),
+                Self::Sport => std::option::Option::Some(40),
+                Self::Squash => std::option::Option::Some(89),
+                Self::Stairclimber => std::option::Option::Some(41),
+                Self::StationaryBike => std::option::Option::Some(139),
+                Self::StepTraining => std::option::Option::Some(90),
+                Self::StrengthTraining => std::option::Option::Some(11),
+                Self::Stretching => std::option::Option::Some(42),
+                Self::StrollerWalk => std::option::Option::Some(122),
+                Self::Surfing => std::option::Option::Some(43),
+                Self::Swimming => std::option::Option::Some(4),
+                Self::SwimmingOpenWater => std::option::Option::Some(91),
+                Self::SwimmingPool => std::option::Option::Some(101),
+                Self::SynchronizedSwimming => std::option::Option::Some(177),
+                Self::TabataWorkout => std::option::Option::Some(130),
+                Self::TableTennis => std::option::Option::Some(92),
+                Self::Taekwondo => std::option::Option::Some(161),
+                Self::TaiChi => std::option::Option::Some(93),
+                Self::Tango => std::option::Option::Some(155),
+                Self::Tennis => std::option::Option::Some(44),
+                Self::TrackAndField => std::option::Option::Some(94),
+                Self::TrailRun => std::option::Option::Some(141),
+                Self::Trampoline => std::option::Option::Some(119),
+                Self::Treadmill => std::option::Option::Some(45),
+                Self::TreadmillWalk => std::option::Option::Some(138),
+                Self::Trx => std::option::Option::Some(131),
+                Self::UltimateFrisbee => std::option::Option::Some(112),
+                Self::Unicycling => std::option::Option::Some(102),
+                Self::Volleyball => std::option::Option::Some(95),
+                Self::VolleyballBeach => std::option::Option::Some(120),
+                Self::Wakeboarding => std::option::Option::Some(173),
+                Self::Walking => std::option::Option::Some(2),
+                Self::WalkWithWeights => std::option::Option::Some(147),
+                Self::WaterAerobics => std::option::Option::Some(96),
+                Self::WaterJogging => std::option::Option::Some(126),
+                Self::WaterPolo => std::option::Option::Some(97),
+                Self::WaterSkiing => std::option::Option::Some(124),
+                Self::WaterSport => std::option::Option::Some(98),
+                Self::WaterVolleyball => std::option::Option::Some(125),
+                Self::Weeding => std::option::Option::Some(110),
+                Self::Weightlifting => std::option::Option::Some(10),
+                Self::WeightMachines => std::option::Option::Some(150),
+                Self::Weights => std::option::Option::Some(46),
+                Self::Wheelchair => std::option::Option::Some(99),
+                Self::Windsurfing => std::option::Option::Some(174),
+                Self::Workout => std::option::Option::Some(8),
+                Self::Wrestling => std::option::Option::Some(100),
+                Self::Yoga => std::option::Option::Some(6),
+                Self::YogaBikram => std::option::Option::Some(132),
+                Self::YogaHatha => std::option::Option::Some(133),
+                Self::YogaPower => std::option::Option::Some(134),
+                Self::YogaVinyasa => std::option::Option::Some(135),
+                Self::Zumba => std::option::Option::Some(136),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -6365,18 +6878,189 @@ pub mod exercise {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("EXERCISE_TYPE_UNSPECIFIED"),
-                Self::Running => std::option::Option::Some("RUNNING"),
-                Self::Walking => std::option::Option::Some("WALKING"),
+                Self::AerobicWorkout => std::option::Option::Some("AEROBIC_WORKOUT"),
+                Self::Archery => std::option::Option::Some("ARCHERY"),
+                Self::AssaultBike => std::option::Option::Some("ASSAULT_BIKE"),
+                Self::Backpacking => std::option::Option::Some("BACKPACKING"),
+                Self::Badminton => std::option::Option::Some("BADMINTON"),
+                Self::Ballet => std::option::Option::Some("BALLET"),
+                Self::BallroomDance => std::option::Option::Some("BALLROOM_DANCE"),
+                Self::BarreClass => std::option::Option::Some("BARRE_CLASS"),
+                Self::Baseball => std::option::Option::Some("BASEBALL"),
+                Self::Basketball => std::option::Option::Some("BASKETBALL"),
                 Self::Biking => std::option::Option::Some("BIKING"),
-                Self::Swimming => std::option::Option::Some("SWIMMING"),
-                Self::Hiking => std::option::Option::Some("HIKING"),
-                Self::Yoga => std::option::Option::Some("YOGA"),
-                Self::Pilates => std::option::Option::Some("PILATES"),
-                Self::Workout => std::option::Option::Some("WORKOUT"),
+                Self::Billiards => std::option::Option::Some("BILLIARDS"),
+                Self::BodyWeight => std::option::Option::Some("BODY_WEIGHT"),
+                Self::Bootcamp => std::option::Option::Some("BOOTCAMP"),
+                Self::Bowling => std::option::Option::Some("BOWLING"),
+                Self::Boxing => std::option::Option::Some("BOXING"),
+                Self::Breakdancing => std::option::Option::Some("BREAKDANCING"),
+                Self::Calisthenics => std::option::Option::Some("CALISTHENICS"),
+                Self::Canoeing => std::option::Option::Some("CANOEING"),
+                Self::CardioSculpt => std::option::Option::Some("CARDIO_SCULPT"),
+                Self::CardioWorkout => std::option::Option::Some("CARDIO_WORKOUT"),
+                Self::Carpentry => std::option::Option::Some("CARPENTRY"),
+                Self::Cheerleading => std::option::Option::Some("CHEERLEADING"),
+                Self::CircuitTraining => std::option::Option::Some("CIRCUIT_TRAINING"),
+                Self::Cleaning => std::option::Option::Some("CLEANING"),
+                Self::Climbing => std::option::Option::Some("CLIMBING"),
+                Self::CoreTraining => std::option::Option::Some("CORE_TRAINING"),
+                Self::Cricket => std::option::Option::Some("CRICKET"),
+                Self::Croquet => std::option::Option::Some("CROQUET"),
+                Self::CrossCountrySki => std::option::Option::Some("CROSS_COUNTRY_SKI"),
+                Self::CrossTraining => std::option::Option::Some("CROSS_TRAINING"),
+                Self::Crossfit => std::option::Option::Some("CROSSFIT"),
+                Self::Curling => std::option::Option::Some("CURLING"),
+                Self::Dancing => std::option::Option::Some("DANCING"),
+                Self::Diving => std::option::Option::Some("DIVING"),
+                Self::ElectricBike => std::option::Option::Some("ELECTRIC_BIKE"),
+                Self::ElectricScooter => std::option::Option::Some("ELECTRIC_SCOOTER"),
+                Self::Elliptical => std::option::Option::Some("ELLIPTICAL"),
+                Self::EquestrianSports => std::option::Option::Some("EQUESTRIAN_SPORTS"),
+                Self::ExerciseClass => std::option::Option::Some("EXERCISE_CLASS"),
+                Self::Fencing => std::option::Option::Some("FENCING"),
+                Self::FieldHockey => std::option::Option::Some("FIELD_HOCKEY"),
+                Self::Fishing => std::option::Option::Some("FISHING"),
+                Self::FitnessGaming => std::option::Option::Some("FITNESS_GAMING"),
+                Self::Foiling => std::option::Option::Some("FOILING"),
+                Self::FootballAmerican => std::option::Option::Some("FOOTBALL_AMERICAN"),
+                Self::FootballAustralian => std::option::Option::Some("FOOTBALL_AUSTRALIAN"),
+                Self::FreeWeights => std::option::Option::Some("FREE_WEIGHTS"),
+                Self::FrisbeePlayingGeneral => std::option::Option::Some("FRISBEE_PLAYING_GENERAL"),
+                Self::FunctionalStrengthTraining => {
+                    std::option::Option::Some("FUNCTIONAL_STRENGTH_TRAINING")
+                }
+                Self::Gardening => std::option::Option::Some("GARDENING"),
+                Self::Golf => std::option::Option::Some("GOLF"),
+                Self::Gymnastics => std::option::Option::Some("GYMNASTICS"),
+                Self::Handball => std::option::Option::Some("HANDBALL"),
+                Self::HandCycling => std::option::Option::Some("HAND_CYCLING"),
                 Self::Hiit => std::option::Option::Some("HIIT"),
-                Self::Weightlifting => std::option::Option::Some("WEIGHTLIFTING"),
-                Self::StrengthTraining => std::option::Option::Some("STRENGTH_TRAINING"),
+                Self::Hiking => std::option::Option::Some("HIKING"),
+                Self::HipHop => std::option::Option::Some("HIP_HOP"),
+                Self::Hockey => std::option::Option::Some("HOCKEY"),
+                Self::Hoeing => std::option::Option::Some("HOEING"),
+                Self::HouseholdChores => std::option::Option::Some("HOUSEHOLD_CHORES"),
+                Self::Hunting => std::option::Option::Some("HUNTING"),
+                Self::IceSkating => std::option::Option::Some("ICE_SKATING"),
+                Self::InclineRun => std::option::Option::Some("INCLINE_RUN"),
+                Self::InclineWalk => std::option::Option::Some("INCLINE_WALK"),
+                Self::IndoorClimbing => std::option::Option::Some("INDOOR_CLIMBING"),
+                Self::IntervalWorkout => std::option::Option::Some("INTERVAL_WORKOUT"),
+                Self::JazzDance => std::option::Option::Some("JAZZ_DANCE"),
+                Self::JiuJitsu => std::option::Option::Some("JIU_JITSU"),
+                Self::JumpingRope => std::option::Option::Some("JUMPING_ROPE"),
+                Self::Karate => std::option::Option::Some("KARATE"),
+                Self::Kayaking => std::option::Option::Some("KAYAKING"),
+                Self::Kickboxing => std::option::Option::Some("KICKBOXING"),
+                Self::Kitesurfing => std::option::Option::Some("KITESURFING"),
+                Self::Lacrosse => std::option::Option::Some("LACROSSE"),
+                Self::MartialArts => std::option::Option::Some("MARTIAL_ARTS"),
+                Self::Meditate => std::option::Option::Some("MEDITATE"),
+                Self::ModernDance => std::option::Option::Some("MODERN_DANCE"),
+                Self::Motocross => std::option::Option::Some("MOTOCROSS"),
+                Self::Motorcycle => std::option::Option::Some("MOTORCYCLE"),
+                Self::MountainBike => std::option::Option::Some("MOUNTAIN_BIKE"),
+                Self::MowingLawn => std::option::Option::Some("MOWING_LAWN"),
+                Self::MuayThai => std::option::Option::Some("MUAY_THAI"),
+                Self::Multisport => std::option::Option::Some("MULTISPORT"),
+                Self::MusicalPerformance => std::option::Option::Some("MUSICAL_PERFORMANCE"),
+                Self::NordicWalking => std::option::Option::Some("NORDIC_WALKING"),
+                Self::Orienteering => std::option::Option::Some("ORIENTEERING"),
                 Self::Other => std::option::Option::Some("OTHER"),
+                Self::OutdoorBike => std::option::Option::Some("OUTDOOR_BIKE"),
+                Self::OutdoorWorkout => std::option::Option::Some("OUTDOOR_WORKOUT"),
+                Self::Paddleboarding => std::option::Option::Some("PADDLEBOARDING"),
+                Self::Padel => std::option::Option::Some("PADEL"),
+                Self::Painting => std::option::Option::Some("PAINTING"),
+                Self::Paragliding => std::option::Option::Some("PARAGLIDING"),
+                Self::Parkour => std::option::Option::Some("PARKOUR"),
+                Self::Pickelball => std::option::Option::Some("PICKELBALL"),
+                Self::Pilates => std::option::Option::Some("PILATES"),
+                Self::Polo => std::option::Option::Some("POLO"),
+                Self::Powerlifting => std::option::Option::Some("POWERLIFTING"),
+                Self::PowerWalking => std::option::Option::Some("POWER_WALKING"),
+                Self::RacketSports => std::option::Option::Some("RACKET_SPORTS"),
+                Self::Racquetball => std::option::Option::Some("RACQUETBALL"),
+                Self::ResistanceBands => std::option::Option::Some("RESISTANCE_BANDS"),
+                Self::RockClimbing => std::option::Option::Some("ROCK_CLIMBING"),
+                Self::Rollerblading => std::option::Option::Some("ROLLERBLADING"),
+                Self::RollerSkating => std::option::Option::Some("ROLLER_SKATING"),
+                Self::Rowing => std::option::Option::Some("ROWING"),
+                Self::RowingMachine => std::option::Option::Some("ROWING_MACHINE"),
+                Self::Rucking => std::option::Option::Some("RUCKING"),
+                Self::Rugby => std::option::Option::Some("RUGBY"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Sailing => std::option::Option::Some("SAILING"),
+                Self::Scootering => std::option::Option::Some("SCOOTERING"),
+                Self::ScubaDiving => std::option::Option::Some("SCUBA_DIVING"),
+                Self::Shooting => std::option::Option::Some("SHOOTING"),
+                Self::Shoveling => std::option::Option::Some("SHOVELING"),
+                Self::Skateboarding => std::option::Option::Some("SKATEBOARDING"),
+                Self::Skating => std::option::Option::Some("SKATING"),
+                Self::Skiing => std::option::Option::Some("SKIING"),
+                Self::Skydiving => std::option::Option::Some("SKYDIVING"),
+                Self::Snorkeling => std::option::Option::Some("SNORKELING"),
+                Self::Snowboarding => std::option::Option::Some("SNOWBOARDING"),
+                Self::Snowmobiling => std::option::Option::Some("SNOWMOBILING"),
+                Self::Snowshoeing => std::option::Option::Some("SNOWSHOEING"),
+                Self::SnowSport => std::option::Option::Some("SNOW_SPORT"),
+                Self::Soccer => std::option::Option::Some("SOCCER"),
+                Self::Softball => std::option::Option::Some("SOFTBALL"),
+                Self::SpeedSkating => std::option::Option::Some("SPEED_SKATING"),
+                Self::Spinning => std::option::Option::Some("SPINNING"),
+                Self::Sport => std::option::Option::Some("SPORT"),
+                Self::Squash => std::option::Option::Some("SQUASH"),
+                Self::Stairclimber => std::option::Option::Some("STAIRCLIMBER"),
+                Self::StationaryBike => std::option::Option::Some("STATIONARY_BIKE"),
+                Self::StepTraining => std::option::Option::Some("STEP_TRAINING"),
+                Self::StrengthTraining => std::option::Option::Some("STRENGTH_TRAINING"),
+                Self::Stretching => std::option::Option::Some("STRETCHING"),
+                Self::StrollerWalk => std::option::Option::Some("STROLLER_WALK"),
+                Self::Surfing => std::option::Option::Some("SURFING"),
+                Self::Swimming => std::option::Option::Some("SWIMMING"),
+                Self::SwimmingOpenWater => std::option::Option::Some("SWIMMING_OPEN_WATER"),
+                Self::SwimmingPool => std::option::Option::Some("SWIMMING_POOL"),
+                Self::SynchronizedSwimming => std::option::Option::Some("SYNCHRONIZED_SWIMMING"),
+                Self::TabataWorkout => std::option::Option::Some("TABATA_WORKOUT"),
+                Self::TableTennis => std::option::Option::Some("TABLE_TENNIS"),
+                Self::Taekwondo => std::option::Option::Some("TAEKWONDO"),
+                Self::TaiChi => std::option::Option::Some("TAI_CHI"),
+                Self::Tango => std::option::Option::Some("TANGO"),
+                Self::Tennis => std::option::Option::Some("TENNIS"),
+                Self::TrackAndField => std::option::Option::Some("TRACK_AND_FIELD"),
+                Self::TrailRun => std::option::Option::Some("TRAIL_RUN"),
+                Self::Trampoline => std::option::Option::Some("TRAMPOLINE"),
+                Self::Treadmill => std::option::Option::Some("TREADMILL"),
+                Self::TreadmillWalk => std::option::Option::Some("TREADMILL_WALK"),
+                Self::Trx => std::option::Option::Some("TRX"),
+                Self::UltimateFrisbee => std::option::Option::Some("ULTIMATE_FRISBEE"),
+                Self::Unicycling => std::option::Option::Some("UNICYCLING"),
+                Self::Volleyball => std::option::Option::Some("VOLLEYBALL"),
+                Self::VolleyballBeach => std::option::Option::Some("VOLLEYBALL_BEACH"),
+                Self::Wakeboarding => std::option::Option::Some("WAKEBOARDING"),
+                Self::Walking => std::option::Option::Some("WALKING"),
+                Self::WalkWithWeights => std::option::Option::Some("WALK_WITH_WEIGHTS"),
+                Self::WaterAerobics => std::option::Option::Some("WATER_AEROBICS"),
+                Self::WaterJogging => std::option::Option::Some("WATER_JOGGING"),
+                Self::WaterPolo => std::option::Option::Some("WATER_POLO"),
+                Self::WaterSkiing => std::option::Option::Some("WATER_SKIING"),
+                Self::WaterSport => std::option::Option::Some("WATER_SPORT"),
+                Self::WaterVolleyball => std::option::Option::Some("WATER_VOLLEYBALL"),
+                Self::Weeding => std::option::Option::Some("WEEDING"),
+                Self::Weightlifting => std::option::Option::Some("WEIGHTLIFTING"),
+                Self::WeightMachines => std::option::Option::Some("WEIGHT_MACHINES"),
+                Self::Weights => std::option::Option::Some("WEIGHTS"),
+                Self::Wheelchair => std::option::Option::Some("WHEELCHAIR"),
+                Self::Windsurfing => std::option::Option::Some("WINDSURFING"),
+                Self::Workout => std::option::Option::Some("WORKOUT"),
+                Self::Wrestling => std::option::Option::Some("WRESTLING"),
+                Self::Yoga => std::option::Option::Some("YOGA"),
+                Self::YogaBikram => std::option::Option::Some("YOGA_BIKRAM"),
+                Self::YogaHatha => std::option::Option::Some("YOGA_HATHA"),
+                Self::YogaPower => std::option::Option::Some("YOGA_POWER"),
+                Self::YogaVinyasa => std::option::Option::Some("YOGA_VINYASA"),
+                Self::Zumba => std::option::Option::Some("ZUMBA"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -6411,6 +7095,175 @@ pub mod exercise {
                 10 => Self::Weightlifting,
                 11 => Self::StrengthTraining,
                 12 => Self::Other,
+                13 => Self::AerobicWorkout,
+                14 => Self::Bootcamp,
+                15 => Self::Canoeing,
+                16 => Self::CircuitTraining,
+                17 => Self::CoreTraining,
+                18 => Self::CrossCountrySki,
+                19 => Self::Crossfit,
+                20 => Self::Dancing,
+                21 => Self::Elliptical,
+                22 => Self::Golf,
+                23 => Self::IndoorClimbing,
+                24 => Self::IntervalWorkout,
+                25 => Self::Kayaking,
+                26 => Self::Kickboxing,
+                27 => Self::MartialArts,
+                28 => Self::Meditate,
+                29 => Self::OutdoorBike,
+                30 => Self::OutdoorWorkout,
+                31 => Self::Paddleboarding,
+                32 => Self::Powerlifting,
+                33 => Self::Rollerblading,
+                34 => Self::RowingMachine,
+                35 => Self::Skating,
+                36 => Self::Skiing,
+                37 => Self::Snorkeling,
+                38 => Self::Snowboarding,
+                39 => Self::Spinning,
+                40 => Self::Sport,
+                41 => Self::Stairclimber,
+                42 => Self::Stretching,
+                43 => Self::Surfing,
+                44 => Self::Tennis,
+                45 => Self::Treadmill,
+                46 => Self::Weights,
+                47 => Self::Archery,
+                48 => Self::Badminton,
+                49 => Self::BarreClass,
+                50 => Self::Baseball,
+                51 => Self::Basketball,
+                52 => Self::Bowling,
+                53 => Self::Boxing,
+                54 => Self::Calisthenics,
+                55 => Self::Climbing,
+                56 => Self::Cricket,
+                57 => Self::CrossTraining,
+                58 => Self::Curling,
+                59 => Self::Diving,
+                60 => Self::EquestrianSports,
+                61 => Self::ExerciseClass,
+                62 => Self::Fencing,
+                63 => Self::Fishing,
+                64 => Self::FitnessGaming,
+                65 => Self::FootballAmerican,
+                66 => Self::FootballAustralian,
+                67 => Self::FrisbeePlayingGeneral,
+                68 => Self::FunctionalStrengthTraining,
+                69 => Self::Gymnastics,
+                70 => Self::Handball,
+                71 => Self::HandCycling,
+                72 => Self::Hockey,
+                73 => Self::Hunting,
+                74 => Self::JumpingRope,
+                75 => Self::Lacrosse,
+                76 => Self::Multisport,
+                78 => Self::Paragliding,
+                79 => Self::Pickelball,
+                80 => Self::Racquetball,
+                81 => Self::Rowing,
+                82 => Self::Rugby,
+                83 => Self::Sailing,
+                84 => Self::ScubaDiving,
+                85 => Self::Snowshoeing,
+                86 => Self::SnowSport,
+                87 => Self::Soccer,
+                88 => Self::Softball,
+                89 => Self::Squash,
+                90 => Self::StepTraining,
+                91 => Self::SwimmingOpenWater,
+                92 => Self::TableTennis,
+                93 => Self::TaiChi,
+                94 => Self::TrackAndField,
+                95 => Self::Volleyball,
+                96 => Self::WaterAerobics,
+                97 => Self::WaterPolo,
+                98 => Self::WaterSport,
+                99 => Self::Wheelchair,
+                100 => Self::Wrestling,
+                101 => Self::SwimmingPool,
+                102 => Self::Unicycling,
+                103 => Self::Ballet,
+                104 => Self::Shooting,
+                105 => Self::Cleaning,
+                106 => Self::MowingLawn,
+                107 => Self::Gardening,
+                108 => Self::Carpentry,
+                109 => Self::Hoeing,
+                110 => Self::Weeding,
+                111 => Self::Croquet,
+                112 => Self::UltimateFrisbee,
+                113 => Self::FieldHockey,
+                114 => Self::Motocross,
+                115 => Self::Orienteering,
+                116 => Self::Polo,
+                117 => Self::Skateboarding,
+                118 => Self::RollerSkating,
+                119 => Self::Trampoline,
+                120 => Self::VolleyballBeach,
+                121 => Self::Motorcycle,
+                122 => Self::StrollerWalk,
+                123 => Self::RockClimbing,
+                124 => Self::WaterSkiing,
+                125 => Self::WaterVolleyball,
+                126 => Self::WaterJogging,
+                127 => Self::IceSkating,
+                128 => Self::MountainBike,
+                129 => Self::CardioSculpt,
+                130 => Self::TabataWorkout,
+                131 => Self::Trx,
+                132 => Self::YogaBikram,
+                133 => Self::YogaHatha,
+                134 => Self::YogaPower,
+                135 => Self::YogaVinyasa,
+                136 => Self::Zumba,
+                137 => Self::HouseholdChores,
+                138 => Self::TreadmillWalk,
+                139 => Self::StationaryBike,
+                140 => Self::CardioWorkout,
+                141 => Self::TrailRun,
+                142 => Self::InclineRun,
+                143 => Self::PowerWalking,
+                144 => Self::Rucking,
+                145 => Self::NordicWalking,
+                146 => Self::InclineWalk,
+                147 => Self::WalkWithWeights,
+                148 => Self::FreeWeights,
+                149 => Self::BodyWeight,
+                150 => Self::WeightMachines,
+                151 => Self::ResistanceBands,
+                152 => Self::ElectricBike,
+                153 => Self::ModernDance,
+                154 => Self::JazzDance,
+                155 => Self::Tango,
+                156 => Self::BallroomDance,
+                157 => Self::Breakdancing,
+                158 => Self::HipHop,
+                159 => Self::Karate,
+                160 => Self::JiuJitsu,
+                161 => Self::Taekwondo,
+                162 => Self::MuayThai,
+                163 => Self::MusicalPerformance,
+                164 => Self::AssaultBike,
+                165 => Self::Cheerleading,
+                166 => Self::Parkour,
+                167 => Self::Scootering,
+                168 => Self::ElectricScooter,
+                169 => Self::RacketSports,
+                170 => Self::Painting,
+                171 => Self::Shoveling,
+                172 => Self::Kitesurfing,
+                173 => Self::Wakeboarding,
+                174 => Self::Windsurfing,
+                175 => Self::Foiling,
+                176 => Self::Padel,
+                177 => Self::SynchronizedSwimming,
+                178 => Self::SpeedSkating,
+                179 => Self::Snowmobiling,
+                180 => Self::Billiards,
+                181 => Self::Backpacking,
+                182 => Self::Skydiving,
                 _ => Self::UnknownValue(exercise_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -6423,18 +7276,187 @@ pub mod exercise {
             use std::string::ToString;
             match value {
                 "EXERCISE_TYPE_UNSPECIFIED" => Self::Unspecified,
-                "RUNNING" => Self::Running,
-                "WALKING" => Self::Walking,
+                "AEROBIC_WORKOUT" => Self::AerobicWorkout,
+                "ARCHERY" => Self::Archery,
+                "ASSAULT_BIKE" => Self::AssaultBike,
+                "BACKPACKING" => Self::Backpacking,
+                "BADMINTON" => Self::Badminton,
+                "BALLET" => Self::Ballet,
+                "BALLROOM_DANCE" => Self::BallroomDance,
+                "BARRE_CLASS" => Self::BarreClass,
+                "BASEBALL" => Self::Baseball,
+                "BASKETBALL" => Self::Basketball,
                 "BIKING" => Self::Biking,
-                "SWIMMING" => Self::Swimming,
-                "HIKING" => Self::Hiking,
-                "YOGA" => Self::Yoga,
-                "PILATES" => Self::Pilates,
-                "WORKOUT" => Self::Workout,
+                "BILLIARDS" => Self::Billiards,
+                "BODY_WEIGHT" => Self::BodyWeight,
+                "BOOTCAMP" => Self::Bootcamp,
+                "BOWLING" => Self::Bowling,
+                "BOXING" => Self::Boxing,
+                "BREAKDANCING" => Self::Breakdancing,
+                "CALISTHENICS" => Self::Calisthenics,
+                "CANOEING" => Self::Canoeing,
+                "CARDIO_SCULPT" => Self::CardioSculpt,
+                "CARDIO_WORKOUT" => Self::CardioWorkout,
+                "CARPENTRY" => Self::Carpentry,
+                "CHEERLEADING" => Self::Cheerleading,
+                "CIRCUIT_TRAINING" => Self::CircuitTraining,
+                "CLEANING" => Self::Cleaning,
+                "CLIMBING" => Self::Climbing,
+                "CORE_TRAINING" => Self::CoreTraining,
+                "CRICKET" => Self::Cricket,
+                "CROQUET" => Self::Croquet,
+                "CROSS_COUNTRY_SKI" => Self::CrossCountrySki,
+                "CROSS_TRAINING" => Self::CrossTraining,
+                "CROSSFIT" => Self::Crossfit,
+                "CURLING" => Self::Curling,
+                "DANCING" => Self::Dancing,
+                "DIVING" => Self::Diving,
+                "ELECTRIC_BIKE" => Self::ElectricBike,
+                "ELECTRIC_SCOOTER" => Self::ElectricScooter,
+                "ELLIPTICAL" => Self::Elliptical,
+                "EQUESTRIAN_SPORTS" => Self::EquestrianSports,
+                "EXERCISE_CLASS" => Self::ExerciseClass,
+                "FENCING" => Self::Fencing,
+                "FIELD_HOCKEY" => Self::FieldHockey,
+                "FISHING" => Self::Fishing,
+                "FITNESS_GAMING" => Self::FitnessGaming,
+                "FOILING" => Self::Foiling,
+                "FOOTBALL_AMERICAN" => Self::FootballAmerican,
+                "FOOTBALL_AUSTRALIAN" => Self::FootballAustralian,
+                "FREE_WEIGHTS" => Self::FreeWeights,
+                "FRISBEE_PLAYING_GENERAL" => Self::FrisbeePlayingGeneral,
+                "FUNCTIONAL_STRENGTH_TRAINING" => Self::FunctionalStrengthTraining,
+                "GARDENING" => Self::Gardening,
+                "GOLF" => Self::Golf,
+                "GYMNASTICS" => Self::Gymnastics,
+                "HANDBALL" => Self::Handball,
+                "HAND_CYCLING" => Self::HandCycling,
                 "HIIT" => Self::Hiit,
-                "WEIGHTLIFTING" => Self::Weightlifting,
-                "STRENGTH_TRAINING" => Self::StrengthTraining,
+                "HIKING" => Self::Hiking,
+                "HIP_HOP" => Self::HipHop,
+                "HOCKEY" => Self::Hockey,
+                "HOEING" => Self::Hoeing,
+                "HOUSEHOLD_CHORES" => Self::HouseholdChores,
+                "HUNTING" => Self::Hunting,
+                "ICE_SKATING" => Self::IceSkating,
+                "INCLINE_RUN" => Self::InclineRun,
+                "INCLINE_WALK" => Self::InclineWalk,
+                "INDOOR_CLIMBING" => Self::IndoorClimbing,
+                "INTERVAL_WORKOUT" => Self::IntervalWorkout,
+                "JAZZ_DANCE" => Self::JazzDance,
+                "JIU_JITSU" => Self::JiuJitsu,
+                "JUMPING_ROPE" => Self::JumpingRope,
+                "KARATE" => Self::Karate,
+                "KAYAKING" => Self::Kayaking,
+                "KICKBOXING" => Self::Kickboxing,
+                "KITESURFING" => Self::Kitesurfing,
+                "LACROSSE" => Self::Lacrosse,
+                "MARTIAL_ARTS" => Self::MartialArts,
+                "MEDITATE" => Self::Meditate,
+                "MODERN_DANCE" => Self::ModernDance,
+                "MOTOCROSS" => Self::Motocross,
+                "MOTORCYCLE" => Self::Motorcycle,
+                "MOUNTAIN_BIKE" => Self::MountainBike,
+                "MOWING_LAWN" => Self::MowingLawn,
+                "MUAY_THAI" => Self::MuayThai,
+                "MULTISPORT" => Self::Multisport,
+                "MUSICAL_PERFORMANCE" => Self::MusicalPerformance,
+                "NORDIC_WALKING" => Self::NordicWalking,
+                "ORIENTEERING" => Self::Orienteering,
                 "OTHER" => Self::Other,
+                "OUTDOOR_BIKE" => Self::OutdoorBike,
+                "OUTDOOR_WORKOUT" => Self::OutdoorWorkout,
+                "PADDLEBOARDING" => Self::Paddleboarding,
+                "PADEL" => Self::Padel,
+                "PAINTING" => Self::Painting,
+                "PARAGLIDING" => Self::Paragliding,
+                "PARKOUR" => Self::Parkour,
+                "PICKELBALL" => Self::Pickelball,
+                "PILATES" => Self::Pilates,
+                "POLO" => Self::Polo,
+                "POWERLIFTING" => Self::Powerlifting,
+                "POWER_WALKING" => Self::PowerWalking,
+                "RACKET_SPORTS" => Self::RacketSports,
+                "RACQUETBALL" => Self::Racquetball,
+                "RESISTANCE_BANDS" => Self::ResistanceBands,
+                "ROCK_CLIMBING" => Self::RockClimbing,
+                "ROLLERBLADING" => Self::Rollerblading,
+                "ROLLER_SKATING" => Self::RollerSkating,
+                "ROWING" => Self::Rowing,
+                "ROWING_MACHINE" => Self::RowingMachine,
+                "RUCKING" => Self::Rucking,
+                "RUGBY" => Self::Rugby,
+                "RUNNING" => Self::Running,
+                "SAILING" => Self::Sailing,
+                "SCOOTERING" => Self::Scootering,
+                "SCUBA_DIVING" => Self::ScubaDiving,
+                "SHOOTING" => Self::Shooting,
+                "SHOVELING" => Self::Shoveling,
+                "SKATEBOARDING" => Self::Skateboarding,
+                "SKATING" => Self::Skating,
+                "SKIING" => Self::Skiing,
+                "SKYDIVING" => Self::Skydiving,
+                "SNORKELING" => Self::Snorkeling,
+                "SNOWBOARDING" => Self::Snowboarding,
+                "SNOWMOBILING" => Self::Snowmobiling,
+                "SNOWSHOEING" => Self::Snowshoeing,
+                "SNOW_SPORT" => Self::SnowSport,
+                "SOCCER" => Self::Soccer,
+                "SOFTBALL" => Self::Softball,
+                "SPEED_SKATING" => Self::SpeedSkating,
+                "SPINNING" => Self::Spinning,
+                "SPORT" => Self::Sport,
+                "SQUASH" => Self::Squash,
+                "STAIRCLIMBER" => Self::Stairclimber,
+                "STATIONARY_BIKE" => Self::StationaryBike,
+                "STEP_TRAINING" => Self::StepTraining,
+                "STRENGTH_TRAINING" => Self::StrengthTraining,
+                "STRETCHING" => Self::Stretching,
+                "STROLLER_WALK" => Self::StrollerWalk,
+                "SURFING" => Self::Surfing,
+                "SWIMMING" => Self::Swimming,
+                "SWIMMING_OPEN_WATER" => Self::SwimmingOpenWater,
+                "SWIMMING_POOL" => Self::SwimmingPool,
+                "SYNCHRONIZED_SWIMMING" => Self::SynchronizedSwimming,
+                "TABATA_WORKOUT" => Self::TabataWorkout,
+                "TABLE_TENNIS" => Self::TableTennis,
+                "TAEKWONDO" => Self::Taekwondo,
+                "TAI_CHI" => Self::TaiChi,
+                "TANGO" => Self::Tango,
+                "TENNIS" => Self::Tennis,
+                "TRACK_AND_FIELD" => Self::TrackAndField,
+                "TRAIL_RUN" => Self::TrailRun,
+                "TRAMPOLINE" => Self::Trampoline,
+                "TREADMILL" => Self::Treadmill,
+                "TREADMILL_WALK" => Self::TreadmillWalk,
+                "TRX" => Self::Trx,
+                "ULTIMATE_FRISBEE" => Self::UltimateFrisbee,
+                "UNICYCLING" => Self::Unicycling,
+                "VOLLEYBALL" => Self::Volleyball,
+                "VOLLEYBALL_BEACH" => Self::VolleyballBeach,
+                "WAKEBOARDING" => Self::Wakeboarding,
+                "WALKING" => Self::Walking,
+                "WALK_WITH_WEIGHTS" => Self::WalkWithWeights,
+                "WATER_AEROBICS" => Self::WaterAerobics,
+                "WATER_JOGGING" => Self::WaterJogging,
+                "WATER_POLO" => Self::WaterPolo,
+                "WATER_SKIING" => Self::WaterSkiing,
+                "WATER_SPORT" => Self::WaterSport,
+                "WATER_VOLLEYBALL" => Self::WaterVolleyball,
+                "WEEDING" => Self::Weeding,
+                "WEIGHTLIFTING" => Self::Weightlifting,
+                "WEIGHT_MACHINES" => Self::WeightMachines,
+                "WEIGHTS" => Self::Weights,
+                "WHEELCHAIR" => Self::Wheelchair,
+                "WINDSURFING" => Self::Windsurfing,
+                "WORKOUT" => Self::Workout,
+                "WRESTLING" => Self::Wrestling,
+                "YOGA" => Self::Yoga,
+                "YOGA_BIKRAM" => Self::YogaBikram,
+                "YOGA_HATHA" => Self::YogaHatha,
+                "YOGA_POWER" => Self::YogaPower,
+                "YOGA_VINYASA" => Self::YogaVinyasa,
+                "ZUMBA" => Self::Zumba,
                 _ => Self::UnknownValue(exercise_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -6449,18 +7471,187 @@ pub mod exercise {
         {
             match self {
                 Self::Unspecified => serializer.serialize_i32(0),
-                Self::Running => serializer.serialize_i32(1),
-                Self::Walking => serializer.serialize_i32(2),
+                Self::AerobicWorkout => serializer.serialize_i32(13),
+                Self::Archery => serializer.serialize_i32(47),
+                Self::AssaultBike => serializer.serialize_i32(164),
+                Self::Backpacking => serializer.serialize_i32(181),
+                Self::Badminton => serializer.serialize_i32(48),
+                Self::Ballet => serializer.serialize_i32(103),
+                Self::BallroomDance => serializer.serialize_i32(156),
+                Self::BarreClass => serializer.serialize_i32(49),
+                Self::Baseball => serializer.serialize_i32(50),
+                Self::Basketball => serializer.serialize_i32(51),
                 Self::Biking => serializer.serialize_i32(3),
-                Self::Swimming => serializer.serialize_i32(4),
-                Self::Hiking => serializer.serialize_i32(5),
-                Self::Yoga => serializer.serialize_i32(6),
-                Self::Pilates => serializer.serialize_i32(7),
-                Self::Workout => serializer.serialize_i32(8),
+                Self::Billiards => serializer.serialize_i32(180),
+                Self::BodyWeight => serializer.serialize_i32(149),
+                Self::Bootcamp => serializer.serialize_i32(14),
+                Self::Bowling => serializer.serialize_i32(52),
+                Self::Boxing => serializer.serialize_i32(53),
+                Self::Breakdancing => serializer.serialize_i32(157),
+                Self::Calisthenics => serializer.serialize_i32(54),
+                Self::Canoeing => serializer.serialize_i32(15),
+                Self::CardioSculpt => serializer.serialize_i32(129),
+                Self::CardioWorkout => serializer.serialize_i32(140),
+                Self::Carpentry => serializer.serialize_i32(108),
+                Self::Cheerleading => serializer.serialize_i32(165),
+                Self::CircuitTraining => serializer.serialize_i32(16),
+                Self::Cleaning => serializer.serialize_i32(105),
+                Self::Climbing => serializer.serialize_i32(55),
+                Self::CoreTraining => serializer.serialize_i32(17),
+                Self::Cricket => serializer.serialize_i32(56),
+                Self::Croquet => serializer.serialize_i32(111),
+                Self::CrossCountrySki => serializer.serialize_i32(18),
+                Self::CrossTraining => serializer.serialize_i32(57),
+                Self::Crossfit => serializer.serialize_i32(19),
+                Self::Curling => serializer.serialize_i32(58),
+                Self::Dancing => serializer.serialize_i32(20),
+                Self::Diving => serializer.serialize_i32(59),
+                Self::ElectricBike => serializer.serialize_i32(152),
+                Self::ElectricScooter => serializer.serialize_i32(168),
+                Self::Elliptical => serializer.serialize_i32(21),
+                Self::EquestrianSports => serializer.serialize_i32(60),
+                Self::ExerciseClass => serializer.serialize_i32(61),
+                Self::Fencing => serializer.serialize_i32(62),
+                Self::FieldHockey => serializer.serialize_i32(113),
+                Self::Fishing => serializer.serialize_i32(63),
+                Self::FitnessGaming => serializer.serialize_i32(64),
+                Self::Foiling => serializer.serialize_i32(175),
+                Self::FootballAmerican => serializer.serialize_i32(65),
+                Self::FootballAustralian => serializer.serialize_i32(66),
+                Self::FreeWeights => serializer.serialize_i32(148),
+                Self::FrisbeePlayingGeneral => serializer.serialize_i32(67),
+                Self::FunctionalStrengthTraining => serializer.serialize_i32(68),
+                Self::Gardening => serializer.serialize_i32(107),
+                Self::Golf => serializer.serialize_i32(22),
+                Self::Gymnastics => serializer.serialize_i32(69),
+                Self::Handball => serializer.serialize_i32(70),
+                Self::HandCycling => serializer.serialize_i32(71),
                 Self::Hiit => serializer.serialize_i32(9),
-                Self::Weightlifting => serializer.serialize_i32(10),
-                Self::StrengthTraining => serializer.serialize_i32(11),
+                Self::Hiking => serializer.serialize_i32(5),
+                Self::HipHop => serializer.serialize_i32(158),
+                Self::Hockey => serializer.serialize_i32(72),
+                Self::Hoeing => serializer.serialize_i32(109),
+                Self::HouseholdChores => serializer.serialize_i32(137),
+                Self::Hunting => serializer.serialize_i32(73),
+                Self::IceSkating => serializer.serialize_i32(127),
+                Self::InclineRun => serializer.serialize_i32(142),
+                Self::InclineWalk => serializer.serialize_i32(146),
+                Self::IndoorClimbing => serializer.serialize_i32(23),
+                Self::IntervalWorkout => serializer.serialize_i32(24),
+                Self::JazzDance => serializer.serialize_i32(154),
+                Self::JiuJitsu => serializer.serialize_i32(160),
+                Self::JumpingRope => serializer.serialize_i32(74),
+                Self::Karate => serializer.serialize_i32(159),
+                Self::Kayaking => serializer.serialize_i32(25),
+                Self::Kickboxing => serializer.serialize_i32(26),
+                Self::Kitesurfing => serializer.serialize_i32(172),
+                Self::Lacrosse => serializer.serialize_i32(75),
+                Self::MartialArts => serializer.serialize_i32(27),
+                Self::Meditate => serializer.serialize_i32(28),
+                Self::ModernDance => serializer.serialize_i32(153),
+                Self::Motocross => serializer.serialize_i32(114),
+                Self::Motorcycle => serializer.serialize_i32(121),
+                Self::MountainBike => serializer.serialize_i32(128),
+                Self::MowingLawn => serializer.serialize_i32(106),
+                Self::MuayThai => serializer.serialize_i32(162),
+                Self::Multisport => serializer.serialize_i32(76),
+                Self::MusicalPerformance => serializer.serialize_i32(163),
+                Self::NordicWalking => serializer.serialize_i32(145),
+                Self::Orienteering => serializer.serialize_i32(115),
                 Self::Other => serializer.serialize_i32(12),
+                Self::OutdoorBike => serializer.serialize_i32(29),
+                Self::OutdoorWorkout => serializer.serialize_i32(30),
+                Self::Paddleboarding => serializer.serialize_i32(31),
+                Self::Padel => serializer.serialize_i32(176),
+                Self::Painting => serializer.serialize_i32(170),
+                Self::Paragliding => serializer.serialize_i32(78),
+                Self::Parkour => serializer.serialize_i32(166),
+                Self::Pickelball => serializer.serialize_i32(79),
+                Self::Pilates => serializer.serialize_i32(7),
+                Self::Polo => serializer.serialize_i32(116),
+                Self::Powerlifting => serializer.serialize_i32(32),
+                Self::PowerWalking => serializer.serialize_i32(143),
+                Self::RacketSports => serializer.serialize_i32(169),
+                Self::Racquetball => serializer.serialize_i32(80),
+                Self::ResistanceBands => serializer.serialize_i32(151),
+                Self::RockClimbing => serializer.serialize_i32(123),
+                Self::Rollerblading => serializer.serialize_i32(33),
+                Self::RollerSkating => serializer.serialize_i32(118),
+                Self::Rowing => serializer.serialize_i32(81),
+                Self::RowingMachine => serializer.serialize_i32(34),
+                Self::Rucking => serializer.serialize_i32(144),
+                Self::Rugby => serializer.serialize_i32(82),
+                Self::Running => serializer.serialize_i32(1),
+                Self::Sailing => serializer.serialize_i32(83),
+                Self::Scootering => serializer.serialize_i32(167),
+                Self::ScubaDiving => serializer.serialize_i32(84),
+                Self::Shooting => serializer.serialize_i32(104),
+                Self::Shoveling => serializer.serialize_i32(171),
+                Self::Skateboarding => serializer.serialize_i32(117),
+                Self::Skating => serializer.serialize_i32(35),
+                Self::Skiing => serializer.serialize_i32(36),
+                Self::Skydiving => serializer.serialize_i32(182),
+                Self::Snorkeling => serializer.serialize_i32(37),
+                Self::Snowboarding => serializer.serialize_i32(38),
+                Self::Snowmobiling => serializer.serialize_i32(179),
+                Self::Snowshoeing => serializer.serialize_i32(85),
+                Self::SnowSport => serializer.serialize_i32(86),
+                Self::Soccer => serializer.serialize_i32(87),
+                Self::Softball => serializer.serialize_i32(88),
+                Self::SpeedSkating => serializer.serialize_i32(178),
+                Self::Spinning => serializer.serialize_i32(39),
+                Self::Sport => serializer.serialize_i32(40),
+                Self::Squash => serializer.serialize_i32(89),
+                Self::Stairclimber => serializer.serialize_i32(41),
+                Self::StationaryBike => serializer.serialize_i32(139),
+                Self::StepTraining => serializer.serialize_i32(90),
+                Self::StrengthTraining => serializer.serialize_i32(11),
+                Self::Stretching => serializer.serialize_i32(42),
+                Self::StrollerWalk => serializer.serialize_i32(122),
+                Self::Surfing => serializer.serialize_i32(43),
+                Self::Swimming => serializer.serialize_i32(4),
+                Self::SwimmingOpenWater => serializer.serialize_i32(91),
+                Self::SwimmingPool => serializer.serialize_i32(101),
+                Self::SynchronizedSwimming => serializer.serialize_i32(177),
+                Self::TabataWorkout => serializer.serialize_i32(130),
+                Self::TableTennis => serializer.serialize_i32(92),
+                Self::Taekwondo => serializer.serialize_i32(161),
+                Self::TaiChi => serializer.serialize_i32(93),
+                Self::Tango => serializer.serialize_i32(155),
+                Self::Tennis => serializer.serialize_i32(44),
+                Self::TrackAndField => serializer.serialize_i32(94),
+                Self::TrailRun => serializer.serialize_i32(141),
+                Self::Trampoline => serializer.serialize_i32(119),
+                Self::Treadmill => serializer.serialize_i32(45),
+                Self::TreadmillWalk => serializer.serialize_i32(138),
+                Self::Trx => serializer.serialize_i32(131),
+                Self::UltimateFrisbee => serializer.serialize_i32(112),
+                Self::Unicycling => serializer.serialize_i32(102),
+                Self::Volleyball => serializer.serialize_i32(95),
+                Self::VolleyballBeach => serializer.serialize_i32(120),
+                Self::Wakeboarding => serializer.serialize_i32(173),
+                Self::Walking => serializer.serialize_i32(2),
+                Self::WalkWithWeights => serializer.serialize_i32(147),
+                Self::WaterAerobics => serializer.serialize_i32(96),
+                Self::WaterJogging => serializer.serialize_i32(126),
+                Self::WaterPolo => serializer.serialize_i32(97),
+                Self::WaterSkiing => serializer.serialize_i32(124),
+                Self::WaterSport => serializer.serialize_i32(98),
+                Self::WaterVolleyball => serializer.serialize_i32(125),
+                Self::Weeding => serializer.serialize_i32(110),
+                Self::Weightlifting => serializer.serialize_i32(10),
+                Self::WeightMachines => serializer.serialize_i32(150),
+                Self::Weights => serializer.serialize_i32(46),
+                Self::Wheelchair => serializer.serialize_i32(99),
+                Self::Windsurfing => serializer.serialize_i32(174),
+                Self::Workout => serializer.serialize_i32(8),
+                Self::Wrestling => serializer.serialize_i32(100),
+                Self::Yoga => serializer.serialize_i32(6),
+                Self::YogaBikram => serializer.serialize_i32(132),
+                Self::YogaHatha => serializer.serialize_i32(133),
+                Self::YogaPower => serializer.serialize_i32(134),
+                Self::YogaVinyasa => serializer.serialize_i32(135),
+                Self::Zumba => serializer.serialize_i32(136),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -9559,7 +10750,7 @@ pub mod metrics_summary {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WeightQuantity {
-    /// Required. Value representing the weight in grams.
+    /// Required. The weight value in grams.
     pub grams: std::option::Option<f64>,
 
     /// Optional. Value representing the user provided unit.
@@ -9634,7 +10825,7 @@ impl wkt::message::Message for WeightQuantity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnergyQuantity {
-    /// Required. Value representing the energy in kilocalories.
+    /// Required. The energy value in kilocalories.
     pub kcal: std::option::Option<f64>,
 
     /// Optional. Value representing the user provided unit.
@@ -9709,10 +10900,10 @@ impl wkt::message::Message for EnergyQuantity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NutrientQuantity {
-    /// Required. Value representing the quantity of the nutrient.
+    /// Required. The quantity of the nutrient, measured in grams.
     pub quantity: std::option::Option<crate::model::WeightQuantity>,
 
-    /// Required. Value representing the nutrient.
+    /// Required. The nutrient type.
     pub nutrient: crate::model::Nutrient,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -9779,7 +10970,7 @@ impl wkt::message::Message for NutrientQuantity {
     }
 }
 
-/// Holds information about a user logged food.
+/// Holds information about food logged by a user.
 ///
 /// There are two ways of creating a nutrition log based on the food type:
 ///
@@ -9792,53 +10983,42 @@ impl wkt::message::Message for NutrientQuantity {
 ///    `total_fat` fields manually.
 ///
 /// The identified food is preferred over the anonymous food.
-/// Nutrition logs created from anonymous food are not be editable.
+/// Nutrition logs created from anonymous food are not editable.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NutritionLog {
-    /// Required. Observed interval.
+    /// Required. The time window when the food was logged.
     pub interval: std::option::Option<crate::model::SessionTimeInterval>,
 
-    /// Optional. Value representing the nutrients of the nutrition log.
+    /// Optional. An array of individual nutrient values for the nutrition log.
     pub nutrients: std::vec::Vec<crate::model::NutrientQuantity>,
 
-    /// Optional. Value representing the energy of the nutrition log.
-    /// For nutrition logs created from an identified food, this field will be
-    /// populated based on the referenced food. For anonymous food, this field will
-    /// be populated manually.
+    /// Optional. The total energy of the food, measured in kilocalories (`kcal`).
     pub energy: std::option::Option<crate::model::EnergyQuantity>,
 
-    /// Optional. Value representing the energy from fat of the nutrition log.
-    /// For nutrition logs created from an identified food, this field will be
-    /// populated based on the referenced food. For anonymous food, this field will
-    /// be populated manually.
+    /// Optional. The energy from fat, measured in kilocalories (`kcal`).
     pub energy_from_fat: std::option::Option<crate::model::EnergyQuantity>,
 
-    /// Optional. Value representing the total carbohydrate of the nutrition log.
-    /// For nutrition logs created from an identified food, this field will be
-    /// populated based on the referenced food. For anonymous food, this field will
-    /// be populated manually.
+    /// Optional. The total carbohydrate content, measured in grams.
     pub total_carbohydrate: std::option::Option<crate::model::WeightQuantity>,
 
-    /// Optional. Value representing the total fat of the nutrition log.
-    /// For nutrition logs created from an identified food, this field will be
-    /// populated based on the referenced food. For anonymous food, this field will
-    /// be populated manually.
+    /// Optional. The total fat content, measured in grams.
     pub total_fat: std::option::Option<crate::model::WeightQuantity>,
 
-    /// Optional. Value representing the meal type of the nutrition log.
+    /// Optional. The meal category. One of `BREAKFAST`, `LUNCH`, `DINNER`, or
+    /// `SNACK`.
     pub meal_type: crate::model::MealType,
 
-    /// Optional. Value representing the nutrition log serving.
+    /// Optional. The serving information for the logged food.
     pub serving: std::option::Option<crate::model::nutrition_log::Serving>,
 
-    /// Required. Represents the food ID.
+    /// Optional. The resource name of the Food item. Required when creating a
+    /// nutrition log from an identified food. For anonymous food logs, use the
+    /// `food_display_name` field instead.
     pub food: std::string::String,
 
-    /// Value representing the display name of the food.
-    /// For nutrition logs created from an identified food, this field will be
-    /// populated based on the referenced food. For anonymous food, this field will
-    /// be populated manually.
+    /// The display name of the food. For identified food logs, this is populated
+    /// automatically from the referenced food.
     pub food_display_name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -10132,7 +11312,7 @@ pub mod nutrition_log {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Serving {
-        /// Optional. Amount of food consumed, fractional values are supported.
+        /// Optional. The number of servings.
         pub amount: std::option::Option<f64>,
 
         /// Required. Food measurement unit
@@ -11824,7 +13004,8 @@ pub struct Sleep {
     /// “Out of bed” segments that can overlap with sleep stages.
     pub out_of_bed_segments: std::vec::Vec<crate::model::sleep::OutOfBedSegment>,
 
-    /// Optional. Sleep metadata: processing, main, manually edited, stages status.
+    /// Optional. Sleep metadata: `processed`, `main_sleep`, `manually_edited`, and
+    /// `stages_status`.
     pub metadata: std::option::Option<crate::model::sleep::SleepMetadata>,
 
     /// Output only. Sleep summary: metrics and stages summary.
@@ -11835,6 +13016,10 @@ pub struct Sleep {
 
     /// Output only. Last update time of this sleep observation.
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. List of short awake segments (under a set threshold) that are
+    /// part of the sleep session. These can overlap with sleep stages.
+    pub short_awakenings: std::vec::Vec<crate::model::sleep::SleepStage>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -12065,6 +13250,28 @@ impl Sleep {
         T: std::convert::Into<wkt::Timestamp>,
     {
         self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [short_awakenings][crate::model::Sleep::short_awakenings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_devicesandservices_health_v4::model::Sleep;
+    /// use google_devicesandservices_health_v4::model::sleep::SleepStage;
+    /// let x = Sleep::new()
+    ///     .set_short_awakenings([
+    ///         SleepStage::default()/* use setters */,
+    ///         SleepStage::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_short_awakenings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::sleep::SleepStage>,
+    {
+        use std::iter::Iterator;
+        self.short_awakenings = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -12513,6 +13720,10 @@ pub mod sleep {
         pub stages_status: crate::model::sleep::sleep_metadata::StagesState,
 
         /// Output only. Sleep and sleep stages algorithms finished processing.
+        /// A `true` value indicates whether all data processing for the session is
+        /// complete.
+        /// A `false` value means sleep period is detected but sleep stages is still
+        /// processing.
         pub processed: bool,
 
         /// Output only. Naps are sleeps without stages and relatively short
@@ -12525,6 +13736,12 @@ pub mod sleep {
 
         /// Optional. Sleep identifier relevant in the context of the data source.
         pub external_id: std::string::String,
+
+        /// Output only. `main_sleep`: the longest sleep session with stages within
+        /// one day. If no sleep session has stages, then the longest sleep is the
+        /// `main_sleep`.  If there are multiple days of sleep in the response, there
+        /// is one `main_sleep` per day.
+        pub main_sleep: bool,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -12600,6 +13817,18 @@ pub mod sleep {
         /// ```
         pub fn set_external_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.external_id = v.into();
+            self
+        }
+
+        /// Sets the value of [main_sleep][crate::model::sleep::SleepMetadata::main_sleep].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_devicesandservices_health_v4::model::sleep::SleepMetadata;
+        /// let x = SleepMetadata::new().set_main_sleep(true);
+        /// ```
+        pub fn set_main_sleep<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.main_sleep = v.into();
             self
         }
     }
@@ -14113,6 +15342,17 @@ pub mod time_in_heart_rate_zone_rollup_value {
 }
 
 /// Represents the result of the rollup of the user's total calories.
+///
+/// Note: Queries for the `total-calories` data type must include a time
+/// interval filter (such as
+/// [`total_calories.interval.start_time`][google.devicesandservices.health.v4main.ObservationTimeInterval.start_time]
+/// or
+/// [`total_calories.interval.civil_start_time`][google.devicesandservices.health.v4main.ObservationTimeInterval.civil_start_time]).
+/// The maximum range is 14 days.
+///
+/// Example filter query:
+/// `total_calories.interval.start_time >= "2026-04-20T00:00:00Z" AND
+/// total_calories.interval.start_time < "2026-04-21T00:00:00Z"`
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TotalCaloriesRollupValue {
@@ -15779,6 +17019,1575 @@ impl wkt::message::Message for ActiveEnergyBurnedRollupValue {
     }
 }
 
+/// Menstrual period record.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MenstrualPeriod {
+    /// Required. Observed interval.
+    pub interval: std::option::Option<crate::model::ObservationTimeInterval>,
+
+    /// Optional. Standard free-form notes captured at manual logging.
+    pub notes: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MenstrualPeriod {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [interval][crate::model::MenstrualPeriod::interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_devicesandservices_health_v4::model::MenstrualPeriod;
+    /// use google_devicesandservices_health_v4::model::ObservationTimeInterval;
+    /// let x = MenstrualPeriod::new().set_interval(ObservationTimeInterval::default()/* use setters */);
+    /// ```
+    pub fn set_interval<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ObservationTimeInterval>,
+    {
+        self.interval = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [interval][crate::model::MenstrualPeriod::interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_devicesandservices_health_v4::model::MenstrualPeriod;
+    /// use google_devicesandservices_health_v4::model::ObservationTimeInterval;
+    /// let x = MenstrualPeriod::new().set_or_clear_interval(Some(ObservationTimeInterval::default()/* use setters */));
+    /// let x = MenstrualPeriod::new().set_or_clear_interval(None::<ObservationTimeInterval>);
+    /// ```
+    pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ObservationTimeInterval>,
+    {
+        self.interval = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [notes][crate::model::MenstrualPeriod::notes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_devicesandservices_health_v4::model::MenstrualPeriod;
+    /// let x = MenstrualPeriod::new().set_notes("example");
+    /// ```
+    pub fn set_notes<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.notes = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MenstrualPeriod {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.devicesandservices.health.v4.MenstrualPeriod"
+    }
+}
+
+/// Ovulation test record.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct OvulationTest {
+    /// Required. The time at which ovulation test was measured.
+    pub sample_time: std::option::Option<crate::model::ObservationSampleTime>,
+
+    /// Required. The result of the ovulation test.
+    pub result: crate::model::OvulationTestResult,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl OvulationTest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [sample_time][crate::model::OvulationTest::sample_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_devicesandservices_health_v4::model::OvulationTest;
+    /// use google_devicesandservices_health_v4::model::ObservationSampleTime;
+    /// let x = OvulationTest::new().set_sample_time(ObservationSampleTime::default()/* use setters */);
+    /// ```
+    pub fn set_sample_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ObservationSampleTime>,
+    {
+        self.sample_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sample_time][crate::model::OvulationTest::sample_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_devicesandservices_health_v4::model::OvulationTest;
+    /// use google_devicesandservices_health_v4::model::ObservationSampleTime;
+    /// let x = OvulationTest::new().set_or_clear_sample_time(Some(ObservationSampleTime::default()/* use setters */));
+    /// let x = OvulationTest::new().set_or_clear_sample_time(None::<ObservationSampleTime>);
+    /// ```
+    pub fn set_or_clear_sample_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ObservationSampleTime>,
+    {
+        self.sample_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [result][crate::model::OvulationTest::result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_devicesandservices_health_v4::model::OvulationTest;
+    /// use google_devicesandservices_health_v4::model::OvulationTestResult;
+    /// let x0 = OvulationTest::new().set_result(OvulationTestResult::Negative);
+    /// let x1 = OvulationTest::new().set_result(OvulationTestResult::LuteinizingHormoneSurge);
+    /// let x2 = OvulationTest::new().set_result(OvulationTestResult::EstrogenSurge);
+    /// ```
+    pub fn set_result<T: std::convert::Into<crate::model::OvulationTestResult>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for OvulationTest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.devicesandservices.health.v4.OvulationTest"
+    }
+}
+
+/// Symptoms logged by the user.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Symptoms {
+    /// Required. Time when the symptoms were logged.
+    pub sample_time: std::option::Option<crate::model::ObservationSampleTime>,
+
+    /// Required. List of symptoms experienced.
+    pub symptoms: std::vec::Vec<crate::model::symptoms::SymptomValue>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Symptoms {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [sample_time][crate::model::Symptoms::sample_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_devicesandservices_health_v4::model::Symptoms;
+    /// use google_devicesandservices_health_v4::model::ObservationSampleTime;
+    /// let x = Symptoms::new().set_sample_time(ObservationSampleTime::default()/* use setters */);
+    /// ```
+    pub fn set_sample_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ObservationSampleTime>,
+    {
+        self.sample_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sample_time][crate::model::Symptoms::sample_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_devicesandservices_health_v4::model::Symptoms;
+    /// use google_devicesandservices_health_v4::model::ObservationSampleTime;
+    /// let x = Symptoms::new().set_or_clear_sample_time(Some(ObservationSampleTime::default()/* use setters */));
+    /// let x = Symptoms::new().set_or_clear_sample_time(None::<ObservationSampleTime>);
+    /// ```
+    pub fn set_or_clear_sample_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ObservationSampleTime>,
+    {
+        self.sample_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [symptoms][crate::model::Symptoms::symptoms].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_devicesandservices_health_v4::model::Symptoms;
+    /// use google_devicesandservices_health_v4::model::symptoms::SymptomValue;
+    /// let x = Symptoms::new().set_symptoms([
+    ///     SymptomValue::Cramps,
+    ///     SymptomValue::Headache,
+    ///     SymptomValue::TenderBreasts,
+    /// ]);
+    /// ```
+    pub fn set_symptoms<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::symptoms::SymptomValue>,
+    {
+        use std::iter::Iterator;
+        self.symptoms = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Symptoms {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.devicesandservices.health.v4.Symptoms"
+    }
+}
+
+/// Defines additional types related to [Symptoms].
+pub mod symptoms {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Enum representing possible symptom values.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SymptomValue {
+        /// Unspecified symptom value.
+        Unspecified,
+        /// Abdominal cramps.
+        Cramps,
+        /// Headache.
+        Headache,
+        /// Tender breasts.
+        TenderBreasts,
+        /// Acne.
+        Acne,
+        /// Feeling sick or unwell.
+        Sick,
+        /// Bloating or abdominal swelling.
+        Bloated,
+        /// Hot flashes.
+        HotFlashes,
+        /// Premenstrual syndrome symptoms.
+        Pms,
+        /// Coughing.
+        Cough,
+        /// Fever or elevated body temperature.
+        Fever,
+        /// Difficulty breathing or shortness of breath.
+        DifficultyBreathing,
+        /// Back pain.
+        BackPain,
+        /// Shakiness or tremors.
+        Shakiness,
+        /// Excessive hunger.
+        Hunger,
+        /// Excessive sweating.
+        Sweating,
+        /// Anxiety or nervousness.
+        Anxiety,
+        /// Excessive thirst.
+        Thirst,
+        /// Frequent urination.
+        FrequentUrination,
+        /// Blurred vision.
+        BlurredVision,
+        /// Other symptoms.
+        Other,
+        /// High sex drive.
+        SexDriveHigh,
+        /// Medium sex drive.
+        SexDriveMedium,
+        /// Low sex drive.
+        SexDriveLow,
+        /// Heart palpitations or racing heart.
+        HeartPalpitations,
+        /// Fainting or loss of consciousness.
+        Fainting,
+        /// Chest pain or discomfort.
+        ChestPain,
+        /// Fatigue or extreme tiredness.
+        Fatigue,
+        /// Confusion or mental fogginess.
+        Confusion,
+        /// Dizziness or lightheadedness.
+        Dizziness,
+        /// Abdominal pain.
+        AbdominalPain,
+        /// Bladder leaks.
+        BladderLeaks,
+        /// Bleeding gums.
+        BleedingGums,
+        /// Brain fog.
+        BrainFog,
+        /// Burning mouth.
+        BurningMouth,
+        /// Constipation.
+        Constipation,
+        /// Food cravings.
+        Cravings,
+        /// Decreased appetite.
+        DecreasedAppetite,
+        /// Diarrhea.
+        Diarrhea,
+        /// Drawing pain.
+        DrawingPain,
+        /// Dry eyes.
+        DryEyes,
+        /// Dry hair.
+        DryHair,
+        /// Dry skin.
+        DrySkin,
+        /// Exhaustion.
+        Exhaustion,
+        /// Feeling good or well.
+        FeelGood,
+        /// Food aversions.
+        FoodAversions,
+        /// Hair loss.
+        HairLoss,
+        /// Heartburn.
+        Heartburn,
+        /// Hyperpigmentation.
+        Hyperpigmentation,
+        /// Increased appetite.
+        IncreasedAppetite,
+        /// Increased appetite V2.
+        IncreasedAppetiteV2,
+        /// Insomnia or difficulty sleeping.
+        Insomnia,
+        /// Joint pain.
+        JointPain,
+        /// Leg cramps.
+        LegCramps,
+        /// Milky nipple discharge.
+        MilkyNippleDischarge,
+        /// Nausea.
+        Nausea,
+        /// Night sweats.
+        NightSweats,
+        /// Normal digestion.
+        NormalDigestion,
+        /// Normal stool.
+        NormalStool,
+        /// Perineum pain.
+        PerineumPain,
+        /// Sleepiness or drowsiness.
+        Sleepiness,
+        /// Stretch marks.
+        StretchMarks,
+        /// Swelling.
+        Swelling,
+        /// Vaginal dryness.
+        VaginalDryness,
+        /// Vaginal itching.
+        VaginalItching,
+        /// Vomiting.
+        Vomiting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SymptomValue::value] or
+        /// [SymptomValue::name].
+        UnknownValue(symptom_value::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod symptom_value {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl SymptomValue {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Cramps => std::option::Option::Some(1),
+                Self::Headache => std::option::Option::Some(2),
+                Self::TenderBreasts => std::option::Option::Some(3),
+                Self::Acne => std::option::Option::Some(4),
+                Self::Sick => std::option::Option::Some(5),
+                Self::Bloated => std::option::Option::Some(6),
+                Self::HotFlashes => std::option::Option::Some(7),
+                Self::Pms => std::option::Option::Some(8),
+                Self::Cough => std::option::Option::Some(9),
+                Self::Fever => std::option::Option::Some(10),
+                Self::DifficultyBreathing => std::option::Option::Some(11),
+                Self::BackPain => std::option::Option::Some(12),
+                Self::Shakiness => std::option::Option::Some(13),
+                Self::Hunger => std::option::Option::Some(14),
+                Self::Sweating => std::option::Option::Some(15),
+                Self::Anxiety => std::option::Option::Some(16),
+                Self::Thirst => std::option::Option::Some(17),
+                Self::FrequentUrination => std::option::Option::Some(18),
+                Self::BlurredVision => std::option::Option::Some(19),
+                Self::Other => std::option::Option::Some(20),
+                Self::SexDriveHigh => std::option::Option::Some(21),
+                Self::SexDriveMedium => std::option::Option::Some(22),
+                Self::SexDriveLow => std::option::Option::Some(23),
+                Self::HeartPalpitations => std::option::Option::Some(24),
+                Self::Fainting => std::option::Option::Some(25),
+                Self::ChestPain => std::option::Option::Some(26),
+                Self::Fatigue => std::option::Option::Some(27),
+                Self::Confusion => std::option::Option::Some(28),
+                Self::Dizziness => std::option::Option::Some(29),
+                Self::AbdominalPain => std::option::Option::Some(30),
+                Self::BladderLeaks => std::option::Option::Some(31),
+                Self::BleedingGums => std::option::Option::Some(32),
+                Self::BrainFog => std::option::Option::Some(33),
+                Self::BurningMouth => std::option::Option::Some(34),
+                Self::Constipation => std::option::Option::Some(35),
+                Self::Cravings => std::option::Option::Some(36),
+                Self::DecreasedAppetite => std::option::Option::Some(37),
+                Self::Diarrhea => std::option::Option::Some(38),
+                Self::DrawingPain => std::option::Option::Some(39),
+                Self::DryEyes => std::option::Option::Some(40),
+                Self::DryHair => std::option::Option::Some(41),
+                Self::DrySkin => std::option::Option::Some(42),
+                Self::Exhaustion => std::option::Option::Some(43),
+                Self::FeelGood => std::option::Option::Some(44),
+                Self::FoodAversions => std::option::Option::Some(45),
+                Self::HairLoss => std::option::Option::Some(46),
+                Self::Heartburn => std::option::Option::Some(47),
+                Self::Hyperpigmentation => std::option::Option::Some(48),
+                Self::IncreasedAppetite => std::option::Option::Some(49),
+                Self::IncreasedAppetiteV2 => std::option::Option::Some(50),
+                Self::Insomnia => std::option::Option::Some(51),
+                Self::JointPain => std::option::Option::Some(52),
+                Self::LegCramps => std::option::Option::Some(53),
+                Self::MilkyNippleDischarge => std::option::Option::Some(54),
+                Self::Nausea => std::option::Option::Some(55),
+                Self::NightSweats => std::option::Option::Some(56),
+                Self::NormalDigestion => std::option::Option::Some(57),
+                Self::NormalStool => std::option::Option::Some(58),
+                Self::PerineumPain => std::option::Option::Some(59),
+                Self::Sleepiness => std::option::Option::Some(60),
+                Self::StretchMarks => std::option::Option::Some(61),
+                Self::Swelling => std::option::Option::Some(62),
+                Self::VaginalDryness => std::option::Option::Some(63),
+                Self::VaginalItching => std::option::Option::Some(64),
+                Self::Vomiting => std::option::Option::Some(65),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SYMPTOM_VALUE_UNSPECIFIED"),
+                Self::Cramps => std::option::Option::Some("CRAMPS"),
+                Self::Headache => std::option::Option::Some("HEADACHE"),
+                Self::TenderBreasts => std::option::Option::Some("TENDER_BREASTS"),
+                Self::Acne => std::option::Option::Some("ACNE"),
+                Self::Sick => std::option::Option::Some("SICK"),
+                Self::Bloated => std::option::Option::Some("BLOATED"),
+                Self::HotFlashes => std::option::Option::Some("HOT_FLASHES"),
+                Self::Pms => std::option::Option::Some("PMS"),
+                Self::Cough => std::option::Option::Some("COUGH"),
+                Self::Fever => std::option::Option::Some("FEVER"),
+                Self::DifficultyBreathing => std::option::Option::Some("DIFFICULTY_BREATHING"),
+                Self::BackPain => std::option::Option::Some("BACK_PAIN"),
+                Self::Shakiness => std::option::Option::Some("SHAKINESS"),
+                Self::Hunger => std::option::Option::Some("HUNGER"),
+                Self::Sweating => std::option::Option::Some("SWEATING"),
+                Self::Anxiety => std::option::Option::Some("ANXIETY"),
+                Self::Thirst => std::option::Option::Some("THIRST"),
+                Self::FrequentUrination => std::option::Option::Some("FREQUENT_URINATION"),
+                Self::BlurredVision => std::option::Option::Some("BLURRED_VISION"),
+                Self::Other => std::option::Option::Some("OTHER"),
+                Self::SexDriveHigh => std::option::Option::Some("SEX_DRIVE_HIGH"),
+                Self::SexDriveMedium => std::option::Option::Some("SEX_DRIVE_MEDIUM"),
+                Self::SexDriveLow => std::option::Option::Some("SEX_DRIVE_LOW"),
+                Self::HeartPalpitations => std::option::Option::Some("HEART_PALPITATIONS"),
+                Self::Fainting => std::option::Option::Some("FAINTING"),
+                Self::ChestPain => std::option::Option::Some("CHEST_PAIN"),
+                Self::Fatigue => std::option::Option::Some("FATIGUE"),
+                Self::Confusion => std::option::Option::Some("CONFUSION"),
+                Self::Dizziness => std::option::Option::Some("DIZZINESS"),
+                Self::AbdominalPain => std::option::Option::Some("ABDOMINAL_PAIN"),
+                Self::BladderLeaks => std::option::Option::Some("BLADDER_LEAKS"),
+                Self::BleedingGums => std::option::Option::Some("BLEEDING_GUMS"),
+                Self::BrainFog => std::option::Option::Some("BRAIN_FOG"),
+                Self::BurningMouth => std::option::Option::Some("BURNING_MOUTH"),
+                Self::Constipation => std::option::Option::Some("CONSTIPATION"),
+                Self::Cravings => std::option::Option::Some("CRAVINGS"),
+                Self::DecreasedAppetite => std::option::Option::Some("DECREASED_APPETITE"),
+                Self::Diarrhea => std::option::Option::Some("DIARRHEA"),
+                Self::DrawingPain => std::option::Option::Some("DRAWING_PAIN"),
+                Self::DryEyes => std::option::Option::Some("DRY_EYES"),
+                Self::DryHair => std::option::Option::Some("DRY_HAIR"),
+                Self::DrySkin => std::option::Option::Some("DRY_SKIN"),
+                Self::Exhaustion => std::option::Option::Some("EXHAUSTION"),
+                Self::FeelGood => std::option::Option::Some("FEEL_GOOD"),
+                Self::FoodAversions => std::option::Option::Some("FOOD_AVERSIONS"),
+                Self::HairLoss => std::option::Option::Some("HAIR_LOSS"),
+                Self::Heartburn => std::option::Option::Some("HEARTBURN"),
+                Self::Hyperpigmentation => std::option::Option::Some("HYPERPIGMENTATION"),
+                Self::IncreasedAppetite => std::option::Option::Some("INCREASED_APPETITE"),
+                Self::IncreasedAppetiteV2 => std::option::Option::Some("INCREASED_APPETITE_V2"),
+                Self::Insomnia => std::option::Option::Some("INSOMNIA"),
+                Self::JointPain => std::option::Option::Some("JOINT_PAIN"),
+                Self::LegCramps => std::option::Option::Some("LEG_CRAMPS"),
+                Self::MilkyNippleDischarge => std::option::Option::Some("MILKY_NIPPLE_DISCHARGE"),
+                Self::Nausea => std::option::Option::Some("NAUSEA"),
+                Self::NightSweats => std::option::Option::Some("NIGHT_SWEATS"),
+                Self::NormalDigestion => std::option::Option::Some("NORMAL_DIGESTION"),
+                Self::NormalStool => std::option::Option::Some("NORMAL_STOOL"),
+                Self::PerineumPain => std::option::Option::Some("PERINEUM_PAIN"),
+                Self::Sleepiness => std::option::Option::Some("SLEEPINESS"),
+                Self::StretchMarks => std::option::Option::Some("STRETCH_MARKS"),
+                Self::Swelling => std::option::Option::Some("SWELLING"),
+                Self::VaginalDryness => std::option::Option::Some("VAGINAL_DRYNESS"),
+                Self::VaginalItching => std::option::Option::Some("VAGINAL_ITCHING"),
+                Self::Vomiting => std::option::Option::Some("VOMITING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for SymptomValue {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SymptomValue {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SymptomValue {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Cramps,
+                2 => Self::Headache,
+                3 => Self::TenderBreasts,
+                4 => Self::Acne,
+                5 => Self::Sick,
+                6 => Self::Bloated,
+                7 => Self::HotFlashes,
+                8 => Self::Pms,
+                9 => Self::Cough,
+                10 => Self::Fever,
+                11 => Self::DifficultyBreathing,
+                12 => Self::BackPain,
+                13 => Self::Shakiness,
+                14 => Self::Hunger,
+                15 => Self::Sweating,
+                16 => Self::Anxiety,
+                17 => Self::Thirst,
+                18 => Self::FrequentUrination,
+                19 => Self::BlurredVision,
+                20 => Self::Other,
+                21 => Self::SexDriveHigh,
+                22 => Self::SexDriveMedium,
+                23 => Self::SexDriveLow,
+                24 => Self::HeartPalpitations,
+                25 => Self::Fainting,
+                26 => Self::ChestPain,
+                27 => Self::Fatigue,
+                28 => Self::Confusion,
+                29 => Self::Dizziness,
+                30 => Self::AbdominalPain,
+                31 => Self::BladderLeaks,
+                32 => Self::BleedingGums,
+                33 => Self::BrainFog,
+                34 => Self::BurningMouth,
+                35 => Self::Constipation,
+                36 => Self::Cravings,
+                37 => Self::DecreasedAppetite,
+                38 => Self::Diarrhea,
+                39 => Self::DrawingPain,
+                40 => Self::DryEyes,
+                41 => Self::DryHair,
+                42 => Self::DrySkin,
+                43 => Self::Exhaustion,
+                44 => Self::FeelGood,
+                45 => Self::FoodAversions,
+                46 => Self::HairLoss,
+                47 => Self::Heartburn,
+                48 => Self::Hyperpigmentation,
+                49 => Self::IncreasedAppetite,
+                50 => Self::IncreasedAppetiteV2,
+                51 => Self::Insomnia,
+                52 => Self::JointPain,
+                53 => Self::LegCramps,
+                54 => Self::MilkyNippleDischarge,
+                55 => Self::Nausea,
+                56 => Self::NightSweats,
+                57 => Self::NormalDigestion,
+                58 => Self::NormalStool,
+                59 => Self::PerineumPain,
+                60 => Self::Sleepiness,
+                61 => Self::StretchMarks,
+                62 => Self::Swelling,
+                63 => Self::VaginalDryness,
+                64 => Self::VaginalItching,
+                65 => Self::Vomiting,
+                _ => Self::UnknownValue(symptom_value::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SymptomValue {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SYMPTOM_VALUE_UNSPECIFIED" => Self::Unspecified,
+                "CRAMPS" => Self::Cramps,
+                "HEADACHE" => Self::Headache,
+                "TENDER_BREASTS" => Self::TenderBreasts,
+                "ACNE" => Self::Acne,
+                "SICK" => Self::Sick,
+                "BLOATED" => Self::Bloated,
+                "HOT_FLASHES" => Self::HotFlashes,
+                "PMS" => Self::Pms,
+                "COUGH" => Self::Cough,
+                "FEVER" => Self::Fever,
+                "DIFFICULTY_BREATHING" => Self::DifficultyBreathing,
+                "BACK_PAIN" => Self::BackPain,
+                "SHAKINESS" => Self::Shakiness,
+                "HUNGER" => Self::Hunger,
+                "SWEATING" => Self::Sweating,
+                "ANXIETY" => Self::Anxiety,
+                "THIRST" => Self::Thirst,
+                "FREQUENT_URINATION" => Self::FrequentUrination,
+                "BLURRED_VISION" => Self::BlurredVision,
+                "OTHER" => Self::Other,
+                "SEX_DRIVE_HIGH" => Self::SexDriveHigh,
+                "SEX_DRIVE_MEDIUM" => Self::SexDriveMedium,
+                "SEX_DRIVE_LOW" => Self::SexDriveLow,
+                "HEART_PALPITATIONS" => Self::HeartPalpitations,
+                "FAINTING" => Self::Fainting,
+                "CHEST_PAIN" => Self::ChestPain,
+                "FATIGUE" => Self::Fatigue,
+                "CONFUSION" => Self::Confusion,
+                "DIZZINESS" => Self::Dizziness,
+                "ABDOMINAL_PAIN" => Self::AbdominalPain,
+                "BLADDER_LEAKS" => Self::BladderLeaks,
+                "BLEEDING_GUMS" => Self::BleedingGums,
+                "BRAIN_FOG" => Self::BrainFog,
+                "BURNING_MOUTH" => Self::BurningMouth,
+                "CONSTIPATION" => Self::Constipation,
+                "CRAVINGS" => Self::Cravings,
+                "DECREASED_APPETITE" => Self::DecreasedAppetite,
+                "DIARRHEA" => Self::Diarrhea,
+                "DRAWING_PAIN" => Self::DrawingPain,
+                "DRY_EYES" => Self::DryEyes,
+                "DRY_HAIR" => Self::DryHair,
+                "DRY_SKIN" => Self::DrySkin,
+                "EXHAUSTION" => Self::Exhaustion,
+                "FEEL_GOOD" => Self::FeelGood,
+                "FOOD_AVERSIONS" => Self::FoodAversions,
+                "HAIR_LOSS" => Self::HairLoss,
+                "HEARTBURN" => Self::Heartburn,
+                "HYPERPIGMENTATION" => Self::Hyperpigmentation,
+                "INCREASED_APPETITE" => Self::IncreasedAppetite,
+                "INCREASED_APPETITE_V2" => Self::IncreasedAppetiteV2,
+                "INSOMNIA" => Self::Insomnia,
+                "JOINT_PAIN" => Self::JointPain,
+                "LEG_CRAMPS" => Self::LegCramps,
+                "MILKY_NIPPLE_DISCHARGE" => Self::MilkyNippleDischarge,
+                "NAUSEA" => Self::Nausea,
+                "NIGHT_SWEATS" => Self::NightSweats,
+                "NORMAL_DIGESTION" => Self::NormalDigestion,
+                "NORMAL_STOOL" => Self::NormalStool,
+                "PERINEUM_PAIN" => Self::PerineumPain,
+                "SLEEPINESS" => Self::Sleepiness,
+                "STRETCH_MARKS" => Self::StretchMarks,
+                "SWELLING" => Self::Swelling,
+                "VAGINAL_DRYNESS" => Self::VaginalDryness,
+                "VAGINAL_ITCHING" => Self::VaginalItching,
+                "VOMITING" => Self::Vomiting,
+                _ => Self::UnknownValue(symptom_value::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SymptomValue {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Cramps => serializer.serialize_i32(1),
+                Self::Headache => serializer.serialize_i32(2),
+                Self::TenderBreasts => serializer.serialize_i32(3),
+                Self::Acne => serializer.serialize_i32(4),
+                Self::Sick => serializer.serialize_i32(5),
+                Self::Bloated => serializer.serialize_i32(6),
+                Self::HotFlashes => serializer.serialize_i32(7),
+                Self::Pms => serializer.serialize_i32(8),
+                Self::Cough => serializer.serialize_i32(9),
+                Self::Fever => serializer.serialize_i32(10),
+                Self::DifficultyBreathing => serializer.serialize_i32(11),
+                Self::BackPain => serializer.serialize_i32(12),
+                Self::Shakiness => serializer.serialize_i32(13),
+                Self::Hunger => serializer.serialize_i32(14),
+                Self::Sweating => serializer.serialize_i32(15),
+                Self::Anxiety => serializer.serialize_i32(16),
+                Self::Thirst => serializer.serialize_i32(17),
+                Self::FrequentUrination => serializer.serialize_i32(18),
+                Self::BlurredVision => serializer.serialize_i32(19),
+                Self::Other => serializer.serialize_i32(20),
+                Self::SexDriveHigh => serializer.serialize_i32(21),
+                Self::SexDriveMedium => serializer.serialize_i32(22),
+                Self::SexDriveLow => serializer.serialize_i32(23),
+                Self::HeartPalpitations => serializer.serialize_i32(24),
+                Self::Fainting => serializer.serialize_i32(25),
+                Self::ChestPain => serializer.serialize_i32(26),
+                Self::Fatigue => serializer.serialize_i32(27),
+                Self::Confusion => serializer.serialize_i32(28),
+                Self::Dizziness => serializer.serialize_i32(29),
+                Self::AbdominalPain => serializer.serialize_i32(30),
+                Self::BladderLeaks => serializer.serialize_i32(31),
+                Self::BleedingGums => serializer.serialize_i32(32),
+                Self::BrainFog => serializer.serialize_i32(33),
+                Self::BurningMouth => serializer.serialize_i32(34),
+                Self::Constipation => serializer.serialize_i32(35),
+                Self::Cravings => serializer.serialize_i32(36),
+                Self::DecreasedAppetite => serializer.serialize_i32(37),
+                Self::Diarrhea => serializer.serialize_i32(38),
+                Self::DrawingPain => serializer.serialize_i32(39),
+                Self::DryEyes => serializer.serialize_i32(40),
+                Self::DryHair => serializer.serialize_i32(41),
+                Self::DrySkin => serializer.serialize_i32(42),
+                Self::Exhaustion => serializer.serialize_i32(43),
+                Self::FeelGood => serializer.serialize_i32(44),
+                Self::FoodAversions => serializer.serialize_i32(45),
+                Self::HairLoss => serializer.serialize_i32(46),
+                Self::Heartburn => serializer.serialize_i32(47),
+                Self::Hyperpigmentation => serializer.serialize_i32(48),
+                Self::IncreasedAppetite => serializer.serialize_i32(49),
+                Self::IncreasedAppetiteV2 => serializer.serialize_i32(50),
+                Self::Insomnia => serializer.serialize_i32(51),
+                Self::JointPain => serializer.serialize_i32(52),
+                Self::LegCramps => serializer.serialize_i32(53),
+                Self::MilkyNippleDischarge => serializer.serialize_i32(54),
+                Self::Nausea => serializer.serialize_i32(55),
+                Self::NightSweats => serializer.serialize_i32(56),
+                Self::NormalDigestion => serializer.serialize_i32(57),
+                Self::NormalStool => serializer.serialize_i32(58),
+                Self::PerineumPain => serializer.serialize_i32(59),
+                Self::Sleepiness => serializer.serialize_i32(60),
+                Self::StretchMarks => serializer.serialize_i32(61),
+                Self::Swelling => serializer.serialize_i32(62),
+                Self::VaginalDryness => serializer.serialize_i32(63),
+                Self::VaginalItching => serializer.serialize_i32(64),
+                Self::Vomiting => serializer.serialize_i32(65),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SymptomValue {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SymptomValue>::new(
+                ".google.devicesandservices.health.v4.Symptoms.SymptomValue",
+            ))
+        }
+    }
+}
+
+/// Moods record.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Moods {
+    /// Required. The time at which moods were measured.
+    pub sample_time: std::option::Option<crate::model::ObservationSampleTime>,
+
+    /// Required. The moods logged.
+    pub moods: std::vec::Vec<crate::model::moods::Mood>,
+
+    /// Optional. The valences.
+    pub valences: std::vec::Vec<crate::model::moods::Valence>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Moods {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [sample_time][crate::model::Moods::sample_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_devicesandservices_health_v4::model::Moods;
+    /// use google_devicesandservices_health_v4::model::ObservationSampleTime;
+    /// let x = Moods::new().set_sample_time(ObservationSampleTime::default()/* use setters */);
+    /// ```
+    pub fn set_sample_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ObservationSampleTime>,
+    {
+        self.sample_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sample_time][crate::model::Moods::sample_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_devicesandservices_health_v4::model::Moods;
+    /// use google_devicesandservices_health_v4::model::ObservationSampleTime;
+    /// let x = Moods::new().set_or_clear_sample_time(Some(ObservationSampleTime::default()/* use setters */));
+    /// let x = Moods::new().set_or_clear_sample_time(None::<ObservationSampleTime>);
+    /// ```
+    pub fn set_or_clear_sample_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ObservationSampleTime>,
+    {
+        self.sample_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [moods][crate::model::Moods::moods].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_devicesandservices_health_v4::model::Moods;
+    /// use google_devicesandservices_health_v4::model::moods::Mood;
+    /// let x = Moods::new().set_moods([
+    ///     Mood::Amazed,
+    ///     Mood::Amused,
+    ///     Mood::Angry,
+    /// ]);
+    /// ```
+    pub fn set_moods<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::moods::Mood>,
+    {
+        use std::iter::Iterator;
+        self.moods = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [valences][crate::model::Moods::valences].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_devicesandservices_health_v4::model::Moods;
+    /// use google_devicesandservices_health_v4::model::moods::Valence;
+    /// let x = Moods::new().set_valences([
+    ///     Valence::Unpleasant,
+    ///     Valence::Baseline,
+    ///     Valence::Pleasant,
+    /// ]);
+    /// ```
+    pub fn set_valences<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::moods::Valence>,
+    {
+        use std::iter::Iterator;
+        self.valences = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Moods {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.devicesandservices.health.v4.Moods"
+    }
+}
+
+/// Defines additional types related to [Moods].
+pub mod moods {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The mood.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Mood {
+        /// Unspecified mood.
+        Unspecified,
+        /// Amazed.
+        Amazed,
+        /// Amused.
+        Amused,
+        /// Angry.
+        Angry,
+        /// Annoyed.
+        Annoyed,
+        /// Anxious.
+        Anxious,
+        /// Happy.
+        Happy,
+        /// Content.
+        Content,
+        /// Sad.
+        Sad,
+        /// Worried.
+        Worried,
+        /// Frustrated.
+        Frustrated,
+        /// Excited.
+        Excited,
+        /// Calm.
+        Calm,
+        /// Stressed.
+        Stressed,
+        /// Ashamed.
+        Ashamed,
+        /// Brave.
+        Brave,
+        /// Confident.
+        Confident,
+        /// Disappointed.
+        Disappointed,
+        /// Discouraged.
+        Discouraged,
+        /// Disgusted.
+        Disgusted,
+        /// Drained.
+        Drained,
+        /// Embarrassed.
+        Embarrassed,
+        /// Grateful.
+        Grateful,
+        /// Guilty.
+        Guilty,
+        /// Hopeful.
+        Hopeful,
+        /// Hopeless.
+        Hopeless,
+        /// Indifferent.
+        Indifferent,
+        /// Irritated.
+        Irritated,
+        /// Jealous.
+        Jealous,
+        /// Joyful.
+        Joyful,
+        /// Lonely.
+        Lonely,
+        /// Overwhelmed.
+        Overwhelmed,
+        /// Passionate.
+        Passionate,
+        /// Peaceful.
+        Peaceful,
+        /// Proud.
+        Proud,
+        /// Relieved.
+        Relieved,
+        /// Satisfied.
+        Satisfied,
+        /// Scared.
+        Scared,
+        /// Surprised.
+        Surprised,
+        /// Energized.
+        Energized,
+        /// Fatigued.
+        Fatigued,
+        /// Very calm.
+        VeryCalm,
+        /// Very stressed.
+        VeryStressed,
+        /// Neutral.
+        Neutral,
+        /// Afraid.
+        Afraid,
+        /// Hurting.
+        Hurting,
+        /// Bored.
+        Bored,
+        /// Bitter.
+        Bitter,
+        /// Envious.
+        Envious,
+        /// Confused.
+        Confused,
+        /// Curious.
+        Curious,
+        /// Awestruck.
+        Awestruck,
+        /// Inspired.
+        Inspired,
+        /// Longing.
+        Longing,
+        /// Accomplished.
+        Accomplished,
+        /// Loving.
+        Loving,
+        /// Compassionate.
+        Compassionate,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Mood::value] or
+        /// [Mood::name].
+        UnknownValue(mood::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod mood {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Mood {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Amazed => std::option::Option::Some(1),
+                Self::Amused => std::option::Option::Some(2),
+                Self::Angry => std::option::Option::Some(3),
+                Self::Annoyed => std::option::Option::Some(4),
+                Self::Anxious => std::option::Option::Some(5),
+                Self::Happy => std::option::Option::Some(6),
+                Self::Content => std::option::Option::Some(7),
+                Self::Sad => std::option::Option::Some(8),
+                Self::Worried => std::option::Option::Some(9),
+                Self::Frustrated => std::option::Option::Some(10),
+                Self::Excited => std::option::Option::Some(11),
+                Self::Calm => std::option::Option::Some(12),
+                Self::Stressed => std::option::Option::Some(13),
+                Self::Ashamed => std::option::Option::Some(14),
+                Self::Brave => std::option::Option::Some(15),
+                Self::Confident => std::option::Option::Some(16),
+                Self::Disappointed => std::option::Option::Some(17),
+                Self::Discouraged => std::option::Option::Some(18),
+                Self::Disgusted => std::option::Option::Some(19),
+                Self::Drained => std::option::Option::Some(20),
+                Self::Embarrassed => std::option::Option::Some(21),
+                Self::Grateful => std::option::Option::Some(22),
+                Self::Guilty => std::option::Option::Some(23),
+                Self::Hopeful => std::option::Option::Some(24),
+                Self::Hopeless => std::option::Option::Some(25),
+                Self::Indifferent => std::option::Option::Some(26),
+                Self::Irritated => std::option::Option::Some(27),
+                Self::Jealous => std::option::Option::Some(28),
+                Self::Joyful => std::option::Option::Some(29),
+                Self::Lonely => std::option::Option::Some(30),
+                Self::Overwhelmed => std::option::Option::Some(31),
+                Self::Passionate => std::option::Option::Some(32),
+                Self::Peaceful => std::option::Option::Some(33),
+                Self::Proud => std::option::Option::Some(34),
+                Self::Relieved => std::option::Option::Some(35),
+                Self::Satisfied => std::option::Option::Some(36),
+                Self::Scared => std::option::Option::Some(37),
+                Self::Surprised => std::option::Option::Some(38),
+                Self::Energized => std::option::Option::Some(39),
+                Self::Fatigued => std::option::Option::Some(40),
+                Self::VeryCalm => std::option::Option::Some(41),
+                Self::VeryStressed => std::option::Option::Some(42),
+                Self::Neutral => std::option::Option::Some(43),
+                Self::Afraid => std::option::Option::Some(44),
+                Self::Hurting => std::option::Option::Some(45),
+                Self::Bored => std::option::Option::Some(46),
+                Self::Bitter => std::option::Option::Some(47),
+                Self::Envious => std::option::Option::Some(48),
+                Self::Confused => std::option::Option::Some(49),
+                Self::Curious => std::option::Option::Some(50),
+                Self::Awestruck => std::option::Option::Some(51),
+                Self::Inspired => std::option::Option::Some(52),
+                Self::Longing => std::option::Option::Some(53),
+                Self::Accomplished => std::option::Option::Some(54),
+                Self::Loving => std::option::Option::Some(55),
+                Self::Compassionate => std::option::Option::Some(56),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MOOD_UNSPECIFIED"),
+                Self::Amazed => std::option::Option::Some("AMAZED"),
+                Self::Amused => std::option::Option::Some("AMUSED"),
+                Self::Angry => std::option::Option::Some("ANGRY"),
+                Self::Annoyed => std::option::Option::Some("ANNOYED"),
+                Self::Anxious => std::option::Option::Some("ANXIOUS"),
+                Self::Happy => std::option::Option::Some("HAPPY"),
+                Self::Content => std::option::Option::Some("CONTENT"),
+                Self::Sad => std::option::Option::Some("SAD"),
+                Self::Worried => std::option::Option::Some("WORRIED"),
+                Self::Frustrated => std::option::Option::Some("FRUSTRATED"),
+                Self::Excited => std::option::Option::Some("EXCITED"),
+                Self::Calm => std::option::Option::Some("CALM"),
+                Self::Stressed => std::option::Option::Some("STRESSED"),
+                Self::Ashamed => std::option::Option::Some("ASHAMED"),
+                Self::Brave => std::option::Option::Some("BRAVE"),
+                Self::Confident => std::option::Option::Some("CONFIDENT"),
+                Self::Disappointed => std::option::Option::Some("DISAPPOINTED"),
+                Self::Discouraged => std::option::Option::Some("DISCOURAGED"),
+                Self::Disgusted => std::option::Option::Some("DISGUSTED"),
+                Self::Drained => std::option::Option::Some("DRAINED"),
+                Self::Embarrassed => std::option::Option::Some("EMBARRASSED"),
+                Self::Grateful => std::option::Option::Some("GRATEFUL"),
+                Self::Guilty => std::option::Option::Some("GUILTY"),
+                Self::Hopeful => std::option::Option::Some("HOPEFUL"),
+                Self::Hopeless => std::option::Option::Some("HOPELESS"),
+                Self::Indifferent => std::option::Option::Some("INDIFFERENT"),
+                Self::Irritated => std::option::Option::Some("IRRITATED"),
+                Self::Jealous => std::option::Option::Some("JEALOUS"),
+                Self::Joyful => std::option::Option::Some("JOYFUL"),
+                Self::Lonely => std::option::Option::Some("LONELY"),
+                Self::Overwhelmed => std::option::Option::Some("OVERWHELMED"),
+                Self::Passionate => std::option::Option::Some("PASSIONATE"),
+                Self::Peaceful => std::option::Option::Some("PEACEFUL"),
+                Self::Proud => std::option::Option::Some("PROUD"),
+                Self::Relieved => std::option::Option::Some("RELIEVED"),
+                Self::Satisfied => std::option::Option::Some("SATISFIED"),
+                Self::Scared => std::option::Option::Some("SCARED"),
+                Self::Surprised => std::option::Option::Some("SURPRISED"),
+                Self::Energized => std::option::Option::Some("ENERGIZED"),
+                Self::Fatigued => std::option::Option::Some("FATIGUED"),
+                Self::VeryCalm => std::option::Option::Some("VERY_CALM"),
+                Self::VeryStressed => std::option::Option::Some("VERY_STRESSED"),
+                Self::Neutral => std::option::Option::Some("NEUTRAL"),
+                Self::Afraid => std::option::Option::Some("AFRAID"),
+                Self::Hurting => std::option::Option::Some("HURTING"),
+                Self::Bored => std::option::Option::Some("BORED"),
+                Self::Bitter => std::option::Option::Some("BITTER"),
+                Self::Envious => std::option::Option::Some("ENVIOUS"),
+                Self::Confused => std::option::Option::Some("CONFUSED"),
+                Self::Curious => std::option::Option::Some("CURIOUS"),
+                Self::Awestruck => std::option::Option::Some("AWESTRUCK"),
+                Self::Inspired => std::option::Option::Some("INSPIRED"),
+                Self::Longing => std::option::Option::Some("LONGING"),
+                Self::Accomplished => std::option::Option::Some("ACCOMPLISHED"),
+                Self::Loving => std::option::Option::Some("LOVING"),
+                Self::Compassionate => std::option::Option::Some("COMPASSIONATE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Mood {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Mood {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Mood {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Amazed,
+                2 => Self::Amused,
+                3 => Self::Angry,
+                4 => Self::Annoyed,
+                5 => Self::Anxious,
+                6 => Self::Happy,
+                7 => Self::Content,
+                8 => Self::Sad,
+                9 => Self::Worried,
+                10 => Self::Frustrated,
+                11 => Self::Excited,
+                12 => Self::Calm,
+                13 => Self::Stressed,
+                14 => Self::Ashamed,
+                15 => Self::Brave,
+                16 => Self::Confident,
+                17 => Self::Disappointed,
+                18 => Self::Discouraged,
+                19 => Self::Disgusted,
+                20 => Self::Drained,
+                21 => Self::Embarrassed,
+                22 => Self::Grateful,
+                23 => Self::Guilty,
+                24 => Self::Hopeful,
+                25 => Self::Hopeless,
+                26 => Self::Indifferent,
+                27 => Self::Irritated,
+                28 => Self::Jealous,
+                29 => Self::Joyful,
+                30 => Self::Lonely,
+                31 => Self::Overwhelmed,
+                32 => Self::Passionate,
+                33 => Self::Peaceful,
+                34 => Self::Proud,
+                35 => Self::Relieved,
+                36 => Self::Satisfied,
+                37 => Self::Scared,
+                38 => Self::Surprised,
+                39 => Self::Energized,
+                40 => Self::Fatigued,
+                41 => Self::VeryCalm,
+                42 => Self::VeryStressed,
+                43 => Self::Neutral,
+                44 => Self::Afraid,
+                45 => Self::Hurting,
+                46 => Self::Bored,
+                47 => Self::Bitter,
+                48 => Self::Envious,
+                49 => Self::Confused,
+                50 => Self::Curious,
+                51 => Self::Awestruck,
+                52 => Self::Inspired,
+                53 => Self::Longing,
+                54 => Self::Accomplished,
+                55 => Self::Loving,
+                56 => Self::Compassionate,
+                _ => Self::UnknownValue(mood::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Mood {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MOOD_UNSPECIFIED" => Self::Unspecified,
+                "AMAZED" => Self::Amazed,
+                "AMUSED" => Self::Amused,
+                "ANGRY" => Self::Angry,
+                "ANNOYED" => Self::Annoyed,
+                "ANXIOUS" => Self::Anxious,
+                "HAPPY" => Self::Happy,
+                "CONTENT" => Self::Content,
+                "SAD" => Self::Sad,
+                "WORRIED" => Self::Worried,
+                "FRUSTRATED" => Self::Frustrated,
+                "EXCITED" => Self::Excited,
+                "CALM" => Self::Calm,
+                "STRESSED" => Self::Stressed,
+                "ASHAMED" => Self::Ashamed,
+                "BRAVE" => Self::Brave,
+                "CONFIDENT" => Self::Confident,
+                "DISAPPOINTED" => Self::Disappointed,
+                "DISCOURAGED" => Self::Discouraged,
+                "DISGUSTED" => Self::Disgusted,
+                "DRAINED" => Self::Drained,
+                "EMBARRASSED" => Self::Embarrassed,
+                "GRATEFUL" => Self::Grateful,
+                "GUILTY" => Self::Guilty,
+                "HOPEFUL" => Self::Hopeful,
+                "HOPELESS" => Self::Hopeless,
+                "INDIFFERENT" => Self::Indifferent,
+                "IRRITATED" => Self::Irritated,
+                "JEALOUS" => Self::Jealous,
+                "JOYFUL" => Self::Joyful,
+                "LONELY" => Self::Lonely,
+                "OVERWHELMED" => Self::Overwhelmed,
+                "PASSIONATE" => Self::Passionate,
+                "PEACEFUL" => Self::Peaceful,
+                "PROUD" => Self::Proud,
+                "RELIEVED" => Self::Relieved,
+                "SATISFIED" => Self::Satisfied,
+                "SCARED" => Self::Scared,
+                "SURPRISED" => Self::Surprised,
+                "ENERGIZED" => Self::Energized,
+                "FATIGUED" => Self::Fatigued,
+                "VERY_CALM" => Self::VeryCalm,
+                "VERY_STRESSED" => Self::VeryStressed,
+                "NEUTRAL" => Self::Neutral,
+                "AFRAID" => Self::Afraid,
+                "HURTING" => Self::Hurting,
+                "BORED" => Self::Bored,
+                "BITTER" => Self::Bitter,
+                "ENVIOUS" => Self::Envious,
+                "CONFUSED" => Self::Confused,
+                "CURIOUS" => Self::Curious,
+                "AWESTRUCK" => Self::Awestruck,
+                "INSPIRED" => Self::Inspired,
+                "LONGING" => Self::Longing,
+                "ACCOMPLISHED" => Self::Accomplished,
+                "LOVING" => Self::Loving,
+                "COMPASSIONATE" => Self::Compassionate,
+                _ => Self::UnknownValue(mood::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Mood {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Amazed => serializer.serialize_i32(1),
+                Self::Amused => serializer.serialize_i32(2),
+                Self::Angry => serializer.serialize_i32(3),
+                Self::Annoyed => serializer.serialize_i32(4),
+                Self::Anxious => serializer.serialize_i32(5),
+                Self::Happy => serializer.serialize_i32(6),
+                Self::Content => serializer.serialize_i32(7),
+                Self::Sad => serializer.serialize_i32(8),
+                Self::Worried => serializer.serialize_i32(9),
+                Self::Frustrated => serializer.serialize_i32(10),
+                Self::Excited => serializer.serialize_i32(11),
+                Self::Calm => serializer.serialize_i32(12),
+                Self::Stressed => serializer.serialize_i32(13),
+                Self::Ashamed => serializer.serialize_i32(14),
+                Self::Brave => serializer.serialize_i32(15),
+                Self::Confident => serializer.serialize_i32(16),
+                Self::Disappointed => serializer.serialize_i32(17),
+                Self::Discouraged => serializer.serialize_i32(18),
+                Self::Disgusted => serializer.serialize_i32(19),
+                Self::Drained => serializer.serialize_i32(20),
+                Self::Embarrassed => serializer.serialize_i32(21),
+                Self::Grateful => serializer.serialize_i32(22),
+                Self::Guilty => serializer.serialize_i32(23),
+                Self::Hopeful => serializer.serialize_i32(24),
+                Self::Hopeless => serializer.serialize_i32(25),
+                Self::Indifferent => serializer.serialize_i32(26),
+                Self::Irritated => serializer.serialize_i32(27),
+                Self::Jealous => serializer.serialize_i32(28),
+                Self::Joyful => serializer.serialize_i32(29),
+                Self::Lonely => serializer.serialize_i32(30),
+                Self::Overwhelmed => serializer.serialize_i32(31),
+                Self::Passionate => serializer.serialize_i32(32),
+                Self::Peaceful => serializer.serialize_i32(33),
+                Self::Proud => serializer.serialize_i32(34),
+                Self::Relieved => serializer.serialize_i32(35),
+                Self::Satisfied => serializer.serialize_i32(36),
+                Self::Scared => serializer.serialize_i32(37),
+                Self::Surprised => serializer.serialize_i32(38),
+                Self::Energized => serializer.serialize_i32(39),
+                Self::Fatigued => serializer.serialize_i32(40),
+                Self::VeryCalm => serializer.serialize_i32(41),
+                Self::VeryStressed => serializer.serialize_i32(42),
+                Self::Neutral => serializer.serialize_i32(43),
+                Self::Afraid => serializer.serialize_i32(44),
+                Self::Hurting => serializer.serialize_i32(45),
+                Self::Bored => serializer.serialize_i32(46),
+                Self::Bitter => serializer.serialize_i32(47),
+                Self::Envious => serializer.serialize_i32(48),
+                Self::Confused => serializer.serialize_i32(49),
+                Self::Curious => serializer.serialize_i32(50),
+                Self::Awestruck => serializer.serialize_i32(51),
+                Self::Inspired => serializer.serialize_i32(52),
+                Self::Longing => serializer.serialize_i32(53),
+                Self::Accomplished => serializer.serialize_i32(54),
+                Self::Loving => serializer.serialize_i32(55),
+                Self::Compassionate => serializer.serialize_i32(56),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Mood {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mood>::new(
+                ".google.devicesandservices.health.v4.Moods.Mood",
+            ))
+        }
+    }
+
+    /// The valence.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Valence {
+        /// Unspecified valence.
+        Unspecified,
+        /// Unpleasant.
+        Unpleasant,
+        /// Baseline.
+        Baseline,
+        /// Pleasant.
+        Pleasant,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Valence::value] or
+        /// [Valence::name].
+        UnknownValue(valence::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod valence {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Valence {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Unpleasant => std::option::Option::Some(1),
+                Self::Baseline => std::option::Option::Some(2),
+                Self::Pleasant => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("VALENCE_UNSPECIFIED"),
+                Self::Unpleasant => std::option::Option::Some("UNPLEASANT"),
+                Self::Baseline => std::option::Option::Some("BASELINE"),
+                Self::Pleasant => std::option::Option::Some("PLEASANT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Valence {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Valence {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Valence {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Unpleasant,
+                2 => Self::Baseline,
+                3 => Self::Pleasant,
+                _ => Self::UnknownValue(valence::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Valence {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "VALENCE_UNSPECIFIED" => Self::Unspecified,
+                "UNPLEASANT" => Self::Unpleasant,
+                "BASELINE" => Self::Baseline,
+                "PLEASANT" => Self::Pleasant,
+                _ => Self::UnknownValue(valence::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Valence {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Unpleasant => serializer.serialize_i32(1),
+                Self::Baseline => serializer.serialize_i32(2),
+                Self::Pleasant => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Valence {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Valence>::new(
+                ".google.devicesandservices.health.v4.Moods.Valence",
+            ))
+        }
+    }
+}
+
 /// A computed or recorded metric.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -15798,7 +18607,7 @@ pub struct DataPoint {
     /// The `{data_type}` ID corresponds to the kebab-case version of the field
     /// names in the [DataPoint
     /// data][google.devicesandservices.health.v4.DataPoint] union
-    /// field, e.g. `total-calories` for the `total_calories` field.
+    /// field, e.g. `heart-rate` for the `heart_rate` field.
     ///
     /// The `{data_point}` ID can be client-provided or system-generated.
     /// If client-provided, it must be a string of 4-63 characters,
@@ -15958,6 +18767,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_steps<T: std::convert::Into<std::boxed::Box<crate::model::Steps>>>(
         mut self,
@@ -16027,6 +18840,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_floors<T: std::convert::Into<std::boxed::Box<crate::model::Floors>>>(
         mut self,
@@ -16096,6 +18913,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_heart_rate<T: std::convert::Into<std::boxed::Box<crate::model::HeartRate>>>(
         mut self,
@@ -16165,6 +18986,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_sleep<T: std::convert::Into<std::boxed::Box<crate::model::Sleep>>>(
         mut self,
@@ -16238,6 +19063,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_daily_resting_heart_rate<
         T: std::convert::Into<std::boxed::Box<crate::model::DailyRestingHeartRate>>,
@@ -16315,6 +19144,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_daily_heart_rate_variability<
         T: std::convert::Into<std::boxed::Box<crate::model::DailyHeartRateVariability>>,
@@ -16388,6 +19221,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_exercise<T: std::convert::Into<std::boxed::Box<crate::model::Exercise>>>(
         mut self,
@@ -16457,6 +19294,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_weight<T: std::convert::Into<std::boxed::Box<crate::model::Weight>>>(
         mut self,
@@ -16526,6 +19367,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_altitude<T: std::convert::Into<std::boxed::Box<crate::model::Altitude>>>(
         mut self,
@@ -16595,6 +19440,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_distance<T: std::convert::Into<std::boxed::Box<crate::model::Distance>>>(
         mut self,
@@ -16664,6 +19513,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_body_fat<T: std::convert::Into<std::boxed::Box<crate::model::BodyFat>>>(
         mut self,
@@ -16735,6 +19588,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_active_zone_minutes<
         T: std::convert::Into<std::boxed::Box<crate::model::ActiveZoneMinutes>>,
@@ -16809,6 +19666,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_heart_rate_variability<
         T: std::convert::Into<std::boxed::Box<crate::model::HeartRateVariability>>,
@@ -16886,6 +19747,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_daily_sleep_temperature_derivations<
         T: std::convert::Into<std::boxed::Box<crate::model::DailySleepTemperatureDerivations>>,
@@ -16961,6 +19826,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_sedentary_period<
         T: std::convert::Into<std::boxed::Box<crate::model::SedentaryPeriod>>,
@@ -17033,6 +19902,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_run_vo2_max<T: std::convert::Into<std::boxed::Box<crate::model::RunVO2Max>>>(
         mut self,
@@ -17104,6 +19977,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_oxygen_saturation<
         T: std::convert::Into<std::boxed::Box<crate::model::OxygenSaturation>>,
@@ -17180,6 +20057,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_daily_oxygen_saturation<
         T: std::convert::Into<std::boxed::Box<crate::model::DailyOxygenSaturation>>,
@@ -17255,6 +20136,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_activity_level<
         T: std::convert::Into<std::boxed::Box<crate::model::ActivityLevel>>,
@@ -17327,6 +20212,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_vo2_max<T: std::convert::Into<std::boxed::Box<crate::model::VO2Max>>>(
         mut self,
@@ -17398,6 +20287,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_daily_vo2_max<T: std::convert::Into<std::boxed::Box<crate::model::DailyVO2Max>>>(
         mut self,
@@ -17470,6 +20363,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_nutrition_log<T: std::convert::Into<std::boxed::Box<crate::model::NutritionLog>>>(
         mut self,
@@ -17544,6 +20441,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_irregular_rhythm_notification<
         T: std::convert::Into<std::boxed::Box<crate::model::IrregularRhythmNotification>>,
@@ -17619,6 +20520,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_electrocardiogram<
         T: std::convert::Into<std::boxed::Box<crate::model::Electrocardiogram>>,
@@ -17693,6 +20598,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_daily_heart_rate_zones<
         T: std::convert::Into<std::boxed::Box<crate::model::DailyHeartRateZones>>,
@@ -17768,6 +20677,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_hydration_log<T: std::convert::Into<std::boxed::Box<crate::model::HydrationLog>>>(
         mut self,
@@ -17838,6 +20751,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_food<T: std::convert::Into<std::boxed::Box<crate::model::Food>>>(
         mut self,
@@ -17909,6 +20826,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_time_in_heart_rate_zone<
         T: std::convert::Into<std::boxed::Box<crate::model::TimeInHeartRateZone>>,
@@ -17984,6 +20905,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_active_minutes<
         T: std::convert::Into<std::boxed::Box<crate::model::ActiveMinutes>>,
@@ -18060,6 +20985,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_respiratory_rate_sleep_summary<
         T: std::convert::Into<std::boxed::Box<crate::model::RespiratoryRateSleepSummary>>,
@@ -18135,6 +21064,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_daily_respiratory_rate<
         T: std::convert::Into<std::boxed::Box<crate::model::DailyRespiratoryRate>>,
@@ -18210,6 +21143,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_swim_lengths_data<
         T: std::convert::Into<std::boxed::Box<crate::model::SwimLengthsData>>,
@@ -18282,6 +21219,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_height<T: std::convert::Into<std::boxed::Box<crate::model::Height>>>(
         mut self,
@@ -18353,6 +21294,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_basal_energy_burned<
         T: std::convert::Into<std::boxed::Box<crate::model::BasalEnergyBurned>>,
@@ -18427,6 +21372,10 @@ impl DataPoint {
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_core_body_temperature<
         T: std::convert::Into<std::boxed::Box<crate::model::CoreBodyTemperature>>,
@@ -18502,6 +21451,10 @@ impl DataPoint {
     /// assert!(x.core_body_temperature().is_none());
     /// assert!(x.food_measurement_unit().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_active_energy_burned<
         T: std::convert::Into<std::boxed::Box<crate::model::ActiveEnergyBurned>>,
@@ -18576,6 +21529,10 @@ impl DataPoint {
     /// assert!(x.core_body_temperature().is_none());
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_food_measurement_unit<
         T: std::convert::Into<std::boxed::Box<crate::model::FoodMeasurementUnit>>,
@@ -18651,6 +21608,10 @@ impl DataPoint {
     /// assert!(x.core_body_temperature().is_none());
     /// assert!(x.active_energy_burned().is_none());
     /// assert!(x.food_measurement_unit().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
     /// ```
     pub fn set_blood_glucose<T: std::convert::Into<std::boxed::Box<crate::model::BloodGlucose>>>(
         mut self,
@@ -18658,6 +21619,308 @@ impl DataPoint {
     ) -> Self {
         self.data =
             std::option::Option::Some(crate::model::data_point::Data::BloodGlucose(v.into()));
+        self
+    }
+
+    /// The value of [data][crate::model::DataPoint::data]
+    /// if it holds a `MenstrualPeriod`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn menstrual_period(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MenstrualPeriod>> {
+        #[allow(unreachable_patterns)]
+        self.data.as_ref().and_then(|v| match v {
+            crate::model::data_point::Data::MenstrualPeriod(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [data][crate::model::DataPoint::data]
+    /// to hold a `MenstrualPeriod`.
+    ///
+    /// Note that all the setters affecting `data` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_devicesandservices_health_v4::model::DataPoint;
+    /// use google_devicesandservices_health_v4::model::MenstrualPeriod;
+    /// let x = DataPoint::new().set_menstrual_period(MenstrualPeriod::default()/* use setters */);
+    /// assert!(x.menstrual_period().is_some());
+    /// assert!(x.steps().is_none());
+    /// assert!(x.floors().is_none());
+    /// assert!(x.heart_rate().is_none());
+    /// assert!(x.sleep().is_none());
+    /// assert!(x.daily_resting_heart_rate().is_none());
+    /// assert!(x.daily_heart_rate_variability().is_none());
+    /// assert!(x.exercise().is_none());
+    /// assert!(x.weight().is_none());
+    /// assert!(x.altitude().is_none());
+    /// assert!(x.distance().is_none());
+    /// assert!(x.body_fat().is_none());
+    /// assert!(x.active_zone_minutes().is_none());
+    /// assert!(x.heart_rate_variability().is_none());
+    /// assert!(x.daily_sleep_temperature_derivations().is_none());
+    /// assert!(x.sedentary_period().is_none());
+    /// assert!(x.run_vo2_max().is_none());
+    /// assert!(x.oxygen_saturation().is_none());
+    /// assert!(x.daily_oxygen_saturation().is_none());
+    /// assert!(x.activity_level().is_none());
+    /// assert!(x.vo2_max().is_none());
+    /// assert!(x.daily_vo2_max().is_none());
+    /// assert!(x.nutrition_log().is_none());
+    /// assert!(x.irregular_rhythm_notification().is_none());
+    /// assert!(x.electrocardiogram().is_none());
+    /// assert!(x.daily_heart_rate_zones().is_none());
+    /// assert!(x.hydration_log().is_none());
+    /// assert!(x.food().is_none());
+    /// assert!(x.time_in_heart_rate_zone().is_none());
+    /// assert!(x.active_minutes().is_none());
+    /// assert!(x.respiratory_rate_sleep_summary().is_none());
+    /// assert!(x.daily_respiratory_rate().is_none());
+    /// assert!(x.swim_lengths_data().is_none());
+    /// assert!(x.height().is_none());
+    /// assert!(x.basal_energy_burned().is_none());
+    /// assert!(x.core_body_temperature().is_none());
+    /// assert!(x.active_energy_burned().is_none());
+    /// assert!(x.food_measurement_unit().is_none());
+    /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
+    /// ```
+    pub fn set_menstrual_period<
+        T: std::convert::Into<std::boxed::Box<crate::model::MenstrualPeriod>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data =
+            std::option::Option::Some(crate::model::data_point::Data::MenstrualPeriod(v.into()));
+        self
+    }
+
+    /// The value of [data][crate::model::DataPoint::data]
+    /// if it holds a `OvulationTest`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn ovulation_test(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::OvulationTest>> {
+        #[allow(unreachable_patterns)]
+        self.data.as_ref().and_then(|v| match v {
+            crate::model::data_point::Data::OvulationTest(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [data][crate::model::DataPoint::data]
+    /// to hold a `OvulationTest`.
+    ///
+    /// Note that all the setters affecting `data` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_devicesandservices_health_v4::model::DataPoint;
+    /// use google_devicesandservices_health_v4::model::OvulationTest;
+    /// let x = DataPoint::new().set_ovulation_test(OvulationTest::default()/* use setters */);
+    /// assert!(x.ovulation_test().is_some());
+    /// assert!(x.steps().is_none());
+    /// assert!(x.floors().is_none());
+    /// assert!(x.heart_rate().is_none());
+    /// assert!(x.sleep().is_none());
+    /// assert!(x.daily_resting_heart_rate().is_none());
+    /// assert!(x.daily_heart_rate_variability().is_none());
+    /// assert!(x.exercise().is_none());
+    /// assert!(x.weight().is_none());
+    /// assert!(x.altitude().is_none());
+    /// assert!(x.distance().is_none());
+    /// assert!(x.body_fat().is_none());
+    /// assert!(x.active_zone_minutes().is_none());
+    /// assert!(x.heart_rate_variability().is_none());
+    /// assert!(x.daily_sleep_temperature_derivations().is_none());
+    /// assert!(x.sedentary_period().is_none());
+    /// assert!(x.run_vo2_max().is_none());
+    /// assert!(x.oxygen_saturation().is_none());
+    /// assert!(x.daily_oxygen_saturation().is_none());
+    /// assert!(x.activity_level().is_none());
+    /// assert!(x.vo2_max().is_none());
+    /// assert!(x.daily_vo2_max().is_none());
+    /// assert!(x.nutrition_log().is_none());
+    /// assert!(x.irregular_rhythm_notification().is_none());
+    /// assert!(x.electrocardiogram().is_none());
+    /// assert!(x.daily_heart_rate_zones().is_none());
+    /// assert!(x.hydration_log().is_none());
+    /// assert!(x.food().is_none());
+    /// assert!(x.time_in_heart_rate_zone().is_none());
+    /// assert!(x.active_minutes().is_none());
+    /// assert!(x.respiratory_rate_sleep_summary().is_none());
+    /// assert!(x.daily_respiratory_rate().is_none());
+    /// assert!(x.swim_lengths_data().is_none());
+    /// assert!(x.height().is_none());
+    /// assert!(x.basal_energy_burned().is_none());
+    /// assert!(x.core_body_temperature().is_none());
+    /// assert!(x.active_energy_burned().is_none());
+    /// assert!(x.food_measurement_unit().is_none());
+    /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// assert!(x.moods().is_none());
+    /// ```
+    pub fn set_ovulation_test<
+        T: std::convert::Into<std::boxed::Box<crate::model::OvulationTest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data =
+            std::option::Option::Some(crate::model::data_point::Data::OvulationTest(v.into()));
+        self
+    }
+
+    /// The value of [data][crate::model::DataPoint::data]
+    /// if it holds a `Symptoms`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn symptoms(&self) -> std::option::Option<&std::boxed::Box<crate::model::Symptoms>> {
+        #[allow(unreachable_patterns)]
+        self.data.as_ref().and_then(|v| match v {
+            crate::model::data_point::Data::Symptoms(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [data][crate::model::DataPoint::data]
+    /// to hold a `Symptoms`.
+    ///
+    /// Note that all the setters affecting `data` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_devicesandservices_health_v4::model::DataPoint;
+    /// use google_devicesandservices_health_v4::model::Symptoms;
+    /// let x = DataPoint::new().set_symptoms(Symptoms::default()/* use setters */);
+    /// assert!(x.symptoms().is_some());
+    /// assert!(x.steps().is_none());
+    /// assert!(x.floors().is_none());
+    /// assert!(x.heart_rate().is_none());
+    /// assert!(x.sleep().is_none());
+    /// assert!(x.daily_resting_heart_rate().is_none());
+    /// assert!(x.daily_heart_rate_variability().is_none());
+    /// assert!(x.exercise().is_none());
+    /// assert!(x.weight().is_none());
+    /// assert!(x.altitude().is_none());
+    /// assert!(x.distance().is_none());
+    /// assert!(x.body_fat().is_none());
+    /// assert!(x.active_zone_minutes().is_none());
+    /// assert!(x.heart_rate_variability().is_none());
+    /// assert!(x.daily_sleep_temperature_derivations().is_none());
+    /// assert!(x.sedentary_period().is_none());
+    /// assert!(x.run_vo2_max().is_none());
+    /// assert!(x.oxygen_saturation().is_none());
+    /// assert!(x.daily_oxygen_saturation().is_none());
+    /// assert!(x.activity_level().is_none());
+    /// assert!(x.vo2_max().is_none());
+    /// assert!(x.daily_vo2_max().is_none());
+    /// assert!(x.nutrition_log().is_none());
+    /// assert!(x.irregular_rhythm_notification().is_none());
+    /// assert!(x.electrocardiogram().is_none());
+    /// assert!(x.daily_heart_rate_zones().is_none());
+    /// assert!(x.hydration_log().is_none());
+    /// assert!(x.food().is_none());
+    /// assert!(x.time_in_heart_rate_zone().is_none());
+    /// assert!(x.active_minutes().is_none());
+    /// assert!(x.respiratory_rate_sleep_summary().is_none());
+    /// assert!(x.daily_respiratory_rate().is_none());
+    /// assert!(x.swim_lengths_data().is_none());
+    /// assert!(x.height().is_none());
+    /// assert!(x.basal_energy_burned().is_none());
+    /// assert!(x.core_body_temperature().is_none());
+    /// assert!(x.active_energy_burned().is_none());
+    /// assert!(x.food_measurement_unit().is_none());
+    /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.moods().is_none());
+    /// ```
+    pub fn set_symptoms<T: std::convert::Into<std::boxed::Box<crate::model::Symptoms>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data = std::option::Option::Some(crate::model::data_point::Data::Symptoms(v.into()));
+        self
+    }
+
+    /// The value of [data][crate::model::DataPoint::data]
+    /// if it holds a `Moods`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn moods(&self) -> std::option::Option<&std::boxed::Box<crate::model::Moods>> {
+        #[allow(unreachable_patterns)]
+        self.data.as_ref().and_then(|v| match v {
+            crate::model::data_point::Data::Moods(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [data][crate::model::DataPoint::data]
+    /// to hold a `Moods`.
+    ///
+    /// Note that all the setters affecting `data` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_devicesandservices_health_v4::model::DataPoint;
+    /// use google_devicesandservices_health_v4::model::Moods;
+    /// let x = DataPoint::new().set_moods(Moods::default()/* use setters */);
+    /// assert!(x.moods().is_some());
+    /// assert!(x.steps().is_none());
+    /// assert!(x.floors().is_none());
+    /// assert!(x.heart_rate().is_none());
+    /// assert!(x.sleep().is_none());
+    /// assert!(x.daily_resting_heart_rate().is_none());
+    /// assert!(x.daily_heart_rate_variability().is_none());
+    /// assert!(x.exercise().is_none());
+    /// assert!(x.weight().is_none());
+    /// assert!(x.altitude().is_none());
+    /// assert!(x.distance().is_none());
+    /// assert!(x.body_fat().is_none());
+    /// assert!(x.active_zone_minutes().is_none());
+    /// assert!(x.heart_rate_variability().is_none());
+    /// assert!(x.daily_sleep_temperature_derivations().is_none());
+    /// assert!(x.sedentary_period().is_none());
+    /// assert!(x.run_vo2_max().is_none());
+    /// assert!(x.oxygen_saturation().is_none());
+    /// assert!(x.daily_oxygen_saturation().is_none());
+    /// assert!(x.activity_level().is_none());
+    /// assert!(x.vo2_max().is_none());
+    /// assert!(x.daily_vo2_max().is_none());
+    /// assert!(x.nutrition_log().is_none());
+    /// assert!(x.irregular_rhythm_notification().is_none());
+    /// assert!(x.electrocardiogram().is_none());
+    /// assert!(x.daily_heart_rate_zones().is_none());
+    /// assert!(x.hydration_log().is_none());
+    /// assert!(x.food().is_none());
+    /// assert!(x.time_in_heart_rate_zone().is_none());
+    /// assert!(x.active_minutes().is_none());
+    /// assert!(x.respiratory_rate_sleep_summary().is_none());
+    /// assert!(x.daily_respiratory_rate().is_none());
+    /// assert!(x.swim_lengths_data().is_none());
+    /// assert!(x.height().is_none());
+    /// assert!(x.basal_energy_burned().is_none());
+    /// assert!(x.core_body_temperature().is_none());
+    /// assert!(x.active_energy_burned().is_none());
+    /// assert!(x.food_measurement_unit().is_none());
+    /// assert!(x.blood_glucose().is_none());
+    /// assert!(x.menstrual_period().is_none());
+    /// assert!(x.ovulation_test().is_none());
+    /// assert!(x.symptoms().is_none());
+    /// ```
+    pub fn set_moods<T: std::convert::Into<std::boxed::Box<crate::model::Moods>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data = std::option::Option::Some(crate::model::data_point::Data::Moods(v.into()));
         self
     }
 }
@@ -18790,6 +22053,17 @@ pub mod data_point {
         /// Optional. Data for points in the `blood-glucose` sample data type
         /// collection.
         BloodGlucose(std::boxed::Box<crate::model::BloodGlucose>),
+        /// Optional. Data for points in the `menstrual-period` interval data type
+        /// collection.
+        MenstrualPeriod(std::boxed::Box<crate::model::MenstrualPeriod>),
+        /// Optional. Data for points in the `ovulation-test` sample data type
+        /// collection.
+        OvulationTest(std::boxed::Box<crate::model::OvulationTest>),
+        /// Optional. Data for points in the `symptoms` sample data type
+        /// collection.
+        Symptoms(std::boxed::Box<crate::model::Symptoms>),
+        /// Optional. Data for points in the `moods` sample data type collection.
+        Moods(std::boxed::Box<crate::model::Moods>),
     }
 }
 
@@ -18812,7 +22086,7 @@ pub struct ReconciledDataPoint {
     /// The `{data_type}` ID corresponds to the kebab-case version of the field
     /// names in the [DataPoint
     /// data][google.devicesandservices.health.v4.DataPoint] union
-    /// field, e.g. `total-calories` for the `total_calories` field.
+    /// field, e.g. `heart-rate` for the `heart_rate` field.
     ///
     /// The `{data_point}` ID can be client-provided or system-generated.
     /// If client-provided, it must be a string of 4-63 characters,
@@ -25224,12 +28498,14 @@ pub struct ReconcileDataPointsRequest {
     ///
     /// Format: `users/me/dataSourceFamilies/{data_source_family}`
     ///
-    /// The supported values are:
-    ///
-    /// - `users/me/dataSourceFamilies/all-sources` - default value
-    /// - `users/me/dataSourceFamilies/google-wearables` - tracker devices
-    /// - `users/me/dataSourceFamilies/google-sources` - Google first party
-    ///   sources
+    /// - `users/me/dataSourceFamilies/all-sources` - Default value. Includes data
+    ///   from all available data sources.
+    /// - `users/me/dataSourceFamilies/google-wearables` - Includes data from
+    ///   Google and Fitbit tracker devices (such as Fitbit trackers and Pixel
+    ///   Watch). Excludes manually logged data.
+    /// - `users/me/dataSourceFamilies/google-sources` - Includes first-party
+    ///   Google data, such as data from tracker devices, manually logged data, and
+    ///   Health Connect.
     pub data_source_family: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -25410,7 +28686,7 @@ pub struct RollUpDataPointsRequest {
     pub range: std::option::Option<google_cloud_type::model::Interval>,
 
     /// Required. The size of the time window to group data points into before
-    /// applying the aggregation functions.
+    /// applying the aggregation functions. Must be at least 1 second.
     pub window_size: std::option::Option<wkt::Duration>,
 
     /// Optional. The maximum number of data points to return.
@@ -25432,10 +28708,14 @@ pub struct RollUpDataPointsRequest {
     ///
     /// The supported values are:
     ///
-    /// - `users/me/dataSourceFamilies/all-sources` - default value
-    /// - `users/me/dataSourceFamilies/google-wearables` - tracker devices
-    /// - `users/me/dataSourceFamilies/google-sources` - Google first party
-    ///   sources
+    /// - `users/me/dataSourceFamilies/all-sources` - Default value. Includes data
+    ///   from all available data sources.
+    /// - `users/me/dataSourceFamilies/google-wearables` - Includes data from
+    ///   Google and Fitbit tracker devices (such as Fitbit trackers and Pixel
+    ///   Watch). Excludes manually logged data.
+    /// - `users/me/dataSourceFamilies/google-sources` - Includes first-party
+    ///   Google data, such as data from tracker devices, manually logged data, and
+    ///   Health Connect.
     pub data_source_family: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -25695,10 +28975,14 @@ pub struct DailyRollUpDataPointsRequest {
     ///
     /// The supported values are:
     ///
-    /// - `users/me/dataSourceFamilies/all-sources` - default value
-    /// - `users/me/dataSourceFamilies/google-wearables` - tracker devices
-    /// - `users/me/dataSourceFamilies/google-sources` - Google first party
-    ///   sources
+    /// - `users/me/dataSourceFamilies/all-sources` - Default value. Includes data
+    ///   from all available data sources.
+    /// - `users/me/dataSourceFamilies/google-wearables` - Includes data from
+    ///   Google and Fitbit tracker devices (such as Fitbit trackers and Pixel
+    ///   Watch). Excludes manually logged data.
+    /// - `users/me/dataSourceFamilies/google-sources` - Includes first-party
+    ///   Google data, such as data from tracker devices, manually logged data, and
+    ///   Health Connect.
     pub data_source_family: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -26858,8 +30142,8 @@ pub mod data_source {
 #[non_exhaustive]
 pub struct CreateSubscriberRequest {
     /// Required. The parent resource where this subscriber will be created.
-    /// Format: projects/{project}
-    /// Example: projects/my-project-123
+    /// Format: projects/{project_number}
+    /// Example: projects/1234567890
     pub parent: std::string::String,
 
     /// Required. The subscriber to create.
@@ -27384,7 +30668,7 @@ pub struct ListSubscriptionsRequest {
     /// - `data_type`
     ///
     /// The `user` identifier (e.g., `user1` in `users/user1`) refers to the public
-    /// `healthUserId`
+    /// `health_user_id`
     ///
     /// Example: user = "users/user1"
     /// Example: user = "users/user1" OR user = "users/user2"
@@ -28078,8 +31362,9 @@ pub struct Subscription {
     /// A subscriber will only receive notifications for data types that are
     /// declared here.
     /// A subscription can only subscribe to the data types of the subscriber.
-    /// Supported data types are: "altitude", "distance", "floors", "sleep",
-    /// "steps", "weight".
+    /// The values should be in the format
+    /// "users/{health_user_id}/dataTypes/{data_type}" where `{data_type}` is one
+    /// of "altitude", "distance", "floors", "sleep", "steps", "weight".
     pub data_types: std::vec::Vec<std::string::String>,
 
     /// Immutable. The resource name of the user for whom this subscription is
@@ -29548,8 +32833,6 @@ pub struct Settings {
     pub auto_stride_enabled: bool,
 
     /// Optional. The measurement unit defined in the user's account settings.
-    ///
-    /// Updates to this field are currently not supported.
     pub distance_unit: crate::model::settings::DistanceUnit,
 
     /// Optional. The measurement unit defined in the user's account settings.
@@ -33080,6 +36363,159 @@ impl<'de> serde::de::Deserialize<'de> for VolumeUnit {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<VolumeUnit>::new(
             ".google.devicesandservices.health.v4.VolumeUnit",
+        ))
+    }
+}
+
+/// Ovulation test result.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum OvulationTestResult {
+    /// Unspecified result.
+    Unspecified,
+    /// Negative result.
+    Negative,
+    /// Luteinizing hormone surge.
+    LuteinizingHormoneSurge,
+    /// Estrogen surge.
+    EstrogenSurge,
+    /// Positive result.
+    Positive,
+    /// Indeterminate result.
+    Indeterminate,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [OvulationTestResult::value] or
+    /// [OvulationTestResult::name].
+    UnknownValue(ovulation_test_result::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod ovulation_test_result {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl OvulationTestResult {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Negative => std::option::Option::Some(1),
+            Self::LuteinizingHormoneSurge => std::option::Option::Some(2),
+            Self::EstrogenSurge => std::option::Option::Some(3),
+            Self::Positive => std::option::Option::Some(4),
+            Self::Indeterminate => std::option::Option::Some(5),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("OVULATION_TEST_RESULT_UNSPECIFIED"),
+            Self::Negative => std::option::Option::Some("NEGATIVE"),
+            Self::LuteinizingHormoneSurge => std::option::Option::Some("LUTEINIZING_HORMONE_SURGE"),
+            Self::EstrogenSurge => std::option::Option::Some("ESTROGEN_SURGE"),
+            Self::Positive => std::option::Option::Some("POSITIVE"),
+            Self::Indeterminate => std::option::Option::Some("INDETERMINATE"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for OvulationTestResult {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for OvulationTestResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for OvulationTestResult {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Negative,
+            2 => Self::LuteinizingHormoneSurge,
+            3 => Self::EstrogenSurge,
+            4 => Self::Positive,
+            5 => Self::Indeterminate,
+            _ => Self::UnknownValue(ovulation_test_result::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for OvulationTestResult {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "OVULATION_TEST_RESULT_UNSPECIFIED" => Self::Unspecified,
+            "NEGATIVE" => Self::Negative,
+            "LUTEINIZING_HORMONE_SURGE" => Self::LuteinizingHormoneSurge,
+            "ESTROGEN_SURGE" => Self::EstrogenSurge,
+            "POSITIVE" => Self::Positive,
+            "INDETERMINATE" => Self::Indeterminate,
+            _ => Self::UnknownValue(ovulation_test_result::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for OvulationTestResult {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Negative => serializer.serialize_i32(1),
+            Self::LuteinizingHormoneSurge => serializer.serialize_i32(2),
+            Self::EstrogenSurge => serializer.serialize_i32(3),
+            Self::Positive => serializer.serialize_i32(4),
+            Self::Indeterminate => serializer.serialize_i32(5),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for OvulationTestResult {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<OvulationTestResult>::new(
+            ".google.devicesandservices.health.v4.OvulationTestResult",
         ))
     }
 }

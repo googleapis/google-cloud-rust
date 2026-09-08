@@ -39,6 +39,454 @@ mod debug;
 mod deserialize;
 mod serialize;
 
+/// Arrow schema as specified
+/// in <https://arrow.apache.org/docs/python/api/datatypes.html> and serialized to
+/// bytes using IPC:
+/// <https://arrow.apache.org/docs/format/Columnar.html#serialization-and-interprocess-communication-ipc>
+///
+/// See code samples on how this message can be deserialized.
+///
+/// This feature is not yet available.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ArrowSchema {
+    /// IPC serialized Arrow schema.
+    pub serialized_schema: ::bytes::Bytes,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ArrowSchema {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [serialized_schema][crate::model::ArrowSchema::serialized_schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::ArrowSchema;
+    /// let x = ArrowSchema::new().set_serialized_schema(bytes::Bytes::from_static(b"example"));
+    /// ```
+    pub fn set_serialized_schema<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.serialized_schema = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ArrowSchema {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.ArrowSchema"
+    }
+}
+
+/// Arrow RecordBatch.
+///
+/// This feature is not yet available.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ArrowRecordBatch {
+    /// IPC-serialized Arrow RecordBatch.
+    pub serialized_record_batch: ::bytes::Bytes,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ArrowRecordBatch {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [serialized_record_batch][crate::model::ArrowRecordBatch::serialized_record_batch].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::ArrowRecordBatch;
+    /// let x = ArrowRecordBatch::new().set_serialized_record_batch(bytes::Bytes::from_static(b"example"));
+    /// ```
+    pub fn set_serialized_record_batch<T: std::convert::Into<::bytes::Bytes>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.serialized_record_batch = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ArrowRecordBatch {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.ArrowRecordBatch"
+    }
+}
+
+/// Contains options specific to Arrow Serialization.
+///
+/// This feature is not yet available.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ArrowSerializationOptions {
+    /// The compression codec to use for Arrow buffers in serialized record
+    /// batches.
+    pub buffer_compression: crate::model::arrow_serialization_options::CompressionCodec,
+
+    /// Optional. Set timestamp precision option. If not set, the default precision
+    /// is microseconds.
+    pub picos_timestamp_precision:
+        crate::model::arrow_serialization_options::PicosTimestampPrecision,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ArrowSerializationOptions {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [buffer_compression][crate::model::ArrowSerializationOptions::buffer_compression].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::ArrowSerializationOptions;
+    /// use google_cloud_bigquery_v2::model::arrow_serialization_options::CompressionCodec;
+    /// let x0 = ArrowSerializationOptions::new().set_buffer_compression(CompressionCodec::Lz4Frame);
+    /// let x1 = ArrowSerializationOptions::new().set_buffer_compression(CompressionCodec::Zstd);
+    /// ```
+    pub fn set_buffer_compression<
+        T: std::convert::Into<crate::model::arrow_serialization_options::CompressionCodec>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.buffer_compression = v.into();
+        self
+    }
+
+    /// Sets the value of [picos_timestamp_precision][crate::model::ArrowSerializationOptions::picos_timestamp_precision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::ArrowSerializationOptions;
+    /// use google_cloud_bigquery_v2::model::arrow_serialization_options::PicosTimestampPrecision;
+    /// let x0 = ArrowSerializationOptions::new().set_picos_timestamp_precision(PicosTimestampPrecision::TimestampPrecisionMicros);
+    /// let x1 = ArrowSerializationOptions::new().set_picos_timestamp_precision(PicosTimestampPrecision::TimestampPrecisionNanos);
+    /// let x2 = ArrowSerializationOptions::new().set_picos_timestamp_precision(PicosTimestampPrecision::TimestampPrecisionPicos);
+    /// ```
+    pub fn set_picos_timestamp_precision<
+        T: std::convert::Into<crate::model::arrow_serialization_options::PicosTimestampPrecision>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.picos_timestamp_precision = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ArrowSerializationOptions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.ArrowSerializationOptions"
+    }
+}
+
+/// Defines additional types related to [ArrowSerializationOptions].
+pub mod arrow_serialization_options {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Compression codec's supported by Arrow.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CompressionCodec {
+        /// If unspecified no compression will be used.
+        CompressionUnspecified,
+        /// LZ4 Frame (<https://github.com/lz4/lz4/blob/dev/doc/lz4_Frame_format.md>)
+        Lz4Frame,
+        /// Zstandard compression.
+        Zstd,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CompressionCodec::value] or
+        /// [CompressionCodec::name].
+        UnknownValue(compression_codec::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod compression_codec {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl CompressionCodec {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::CompressionUnspecified => std::option::Option::Some(0),
+                Self::Lz4Frame => std::option::Option::Some(1),
+                Self::Zstd => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::CompressionUnspecified => {
+                    std::option::Option::Some("COMPRESSION_UNSPECIFIED")
+                }
+                Self::Lz4Frame => std::option::Option::Some("LZ4_FRAME"),
+                Self::Zstd => std::option::Option::Some("ZSTD"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for CompressionCodec {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CompressionCodec {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CompressionCodec {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::CompressionUnspecified,
+                1 => Self::Lz4Frame,
+                2 => Self::Zstd,
+                _ => Self::UnknownValue(compression_codec::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CompressionCodec {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "COMPRESSION_UNSPECIFIED" => Self::CompressionUnspecified,
+                "LZ4_FRAME" => Self::Lz4Frame,
+                "ZSTD" => Self::Zstd,
+                _ => Self::UnknownValue(compression_codec::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CompressionCodec {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::CompressionUnspecified => serializer.serialize_i32(0),
+                Self::Lz4Frame => serializer.serialize_i32(1),
+                Self::Zstd => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CompressionCodec {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CompressionCodec>::new(
+                ".google.cloud.bigquery.v2.ArrowSerializationOptions.CompressionCodec",
+            ))
+        }
+    }
+
+    /// The precision of the timestamp value in the Avro message. This precision
+    /// will **only** be applied to the column(s) with the `TIMESTAMP_PICOS` type.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PicosTimestampPrecision {
+        /// Unspecified timestamp precision. The default precision is microseconds.
+        Unspecified,
+        /// Timestamp values returned in the results will be truncated to microsecond
+        /// level precision. The value will be encoded as Arrow TIMESTAMP type in a
+        /// 64 bit integer.
+        TimestampPrecisionMicros,
+        /// Timestamp values returned in the results will be truncated to nanosecond
+        /// level precision. The value will be encoded as Arrow TIMESTAMP type in a
+        /// 64 bit integer.
+        TimestampPrecisionNanos,
+        /// Timestamp values returned in the results will contain full precision
+        /// picosecond value. The value will be encoded as a string which conforms to
+        /// ISO 8601 format.
+        TimestampPrecisionPicos,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [PicosTimestampPrecision::value] or
+        /// [PicosTimestampPrecision::name].
+        UnknownValue(picos_timestamp_precision::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod picos_timestamp_precision {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl PicosTimestampPrecision {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::TimestampPrecisionMicros => std::option::Option::Some(1),
+                Self::TimestampPrecisionNanos => std::option::Option::Some(2),
+                Self::TimestampPrecisionPicos => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("PICOS_TIMESTAMP_PRECISION_UNSPECIFIED")
+                }
+                Self::TimestampPrecisionMicros => {
+                    std::option::Option::Some("TIMESTAMP_PRECISION_MICROS")
+                }
+                Self::TimestampPrecisionNanos => {
+                    std::option::Option::Some("TIMESTAMP_PRECISION_NANOS")
+                }
+                Self::TimestampPrecisionPicos => {
+                    std::option::Option::Some("TIMESTAMP_PRECISION_PICOS")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for PicosTimestampPrecision {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for PicosTimestampPrecision {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for PicosTimestampPrecision {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::TimestampPrecisionMicros,
+                2 => Self::TimestampPrecisionNanos,
+                3 => Self::TimestampPrecisionPicos,
+                _ => Self::UnknownValue(picos_timestamp_precision::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for PicosTimestampPrecision {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PICOS_TIMESTAMP_PRECISION_UNSPECIFIED" => Self::Unspecified,
+                "TIMESTAMP_PRECISION_MICROS" => Self::TimestampPrecisionMicros,
+                "TIMESTAMP_PRECISION_NANOS" => Self::TimestampPrecisionNanos,
+                "TIMESTAMP_PRECISION_PICOS" => Self::TimestampPrecisionPicos,
+                _ => Self::UnknownValue(picos_timestamp_precision::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for PicosTimestampPrecision {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::TimestampPrecisionMicros => serializer.serialize_i32(1),
+                Self::TimestampPrecisionNanos => serializer.serialize_i32(2),
+                Self::TimestampPrecisionPicos => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PicosTimestampPrecision {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<PicosTimestampPrecision>::new(
+                    ".google.cloud.bigquery.v2.ArrowSerializationOptions.PicosTimestampPrecision",
+                ),
+            )
+        }
+    }
+}
+
 /// Configuration for BigQuery tables for Apache Iceberg (formerly BigLake
 /// managed tables.)
 #[derive(Clone, Default, PartialEq)]
@@ -7585,8 +8033,9 @@ pub struct GenAiStats {
     /// Job level error stats across all GenAi functions
     pub error_stats: std::option::Option<crate::model::GenAiErrorStats>,
 
-    /// Function level stats for GenAi Functions.
-    /// See <https://docs.cloud.google.com/bigquery/docs/generative-ai-overview>
+    /// Function level stats for GenAI Functions. For more information, see
+    /// [Generative AI
+    /// overview](https://docs.cloud.google.com/bigquery/docs/generative-ai-overview).
     pub function_stats: std::vec::Vec<crate::model::GenAiFunctionStats>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -10237,6 +10686,9 @@ pub struct QueryRequest {
     /// Optional. The reservation that jobs.query request would use. User can
     /// specify a reservation to execute the job.query. The expected format is
     /// `projects/{project}/locations/{location}/reservations/{reservation}`.
+    /// Forces the query to use on-demand billing when set to `none`.
+    /// This requires the project or organization to have
+    /// `reservation_override_mode` set to `ALLOW_ANY_OVERRIDE`.
     pub reservation: std::option::Option<std::string::String>,
 
     /// Optional. This is only supported for SELECT query. If set, the query is
@@ -10244,6 +10696,27 @@ pub struct QueryRequest {
     /// may incur a performance penalty. This option cannot be used with Legacy
     /// SQL. This feature is not yet available.
     pub write_incremental_results: bool,
+
+    /// Optional. The query results format.
+    /// If the value is anything other than `STRUCT_ENCODING` or unspecified:
+    ///
+    /// * The schema of the results will be provided in
+    ///   `QueryResponse.results_schema` field.
+    /// * The results of the first page will be provided in
+    ///   `QueryResponse.results` field.
+    /// * The `QueryResponse.rows` will not be populated.
+    /// * The `QueryResponse.schema` for `QueryResponse.rows` will also not be
+    ///   populated since it is the schema of the `QueryResponse.rows`.
+    ///
+    /// This feature is not yet available.
+    pub query_results_format: crate::model::query_request::QueryResultsFormat,
+
+    /// Results serialization options for `query_results_format` other than
+    /// `STRUCT_ENCODING`.
+    ///
+    /// This feature is not yet available.
+    pub results_format_serialization_options:
+        std::option::Option<crate::model::query_request::ResultsFormatSerializationOptions>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -10814,6 +11287,89 @@ impl QueryRequest {
         self.write_incremental_results = v.into();
         self
     }
+
+    /// Sets the value of [query_results_format][crate::model::QueryRequest::query_results_format].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::QueryRequest;
+    /// use google_cloud_bigquery_v2::model::query_request::QueryResultsFormat;
+    /// let x0 = QueryRequest::new().set_query_results_format(QueryResultsFormat::StructEncoding);
+    /// let x1 = QueryRequest::new().set_query_results_format(QueryResultsFormat::Arrow);
+    /// ```
+    pub fn set_query_results_format<
+        T: std::convert::Into<crate::model::query_request::QueryResultsFormat>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.query_results_format = v.into();
+        self
+    }
+
+    /// Sets the value of [results_format_serialization_options][crate::model::QueryRequest::results_format_serialization_options].
+    ///
+    /// Note that all the setters affecting `results_format_serialization_options` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::QueryRequest;
+    /// use google_cloud_bigquery_v2::model::ArrowSerializationOptions;
+    /// let x = QueryRequest::new().set_results_format_serialization_options(Some(
+    ///     google_cloud_bigquery_v2::model::query_request::ResultsFormatSerializationOptions::ArrowSerializationOptions(ArrowSerializationOptions::default().into())));
+    /// ```
+    pub fn set_results_format_serialization_options<
+        T: std::convert::Into<
+                std::option::Option<crate::model::query_request::ResultsFormatSerializationOptions>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.results_format_serialization_options = v.into();
+        self
+    }
+
+    /// The value of [results_format_serialization_options][crate::model::QueryRequest::results_format_serialization_options]
+    /// if it holds a `ArrowSerializationOptions`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn arrow_serialization_options(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ArrowSerializationOptions>> {
+        #[allow(unreachable_patterns)]
+        self.results_format_serialization_options.as_ref().and_then(|v| match v {
+            crate::model::query_request::ResultsFormatSerializationOptions::ArrowSerializationOptions(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [results_format_serialization_options][crate::model::QueryRequest::results_format_serialization_options]
+    /// to hold a `ArrowSerializationOptions`.
+    ///
+    /// Note that all the setters affecting `results_format_serialization_options` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::QueryRequest;
+    /// use google_cloud_bigquery_v2::model::ArrowSerializationOptions;
+    /// let x = QueryRequest::new().set_arrow_serialization_options(ArrowSerializationOptions::default()/* use setters */);
+    /// assert!(x.arrow_serialization_options().is_some());
+    /// ```
+    pub fn set_arrow_serialization_options<
+        T: std::convert::Into<std::boxed::Box<crate::model::ArrowSerializationOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.results_format_serialization_options = std::option::Option::Some(
+            crate::model::query_request::ResultsFormatSerializationOptions::ArrowSerializationOptions(
+                v.into()
+            )
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for QueryRequest {
@@ -10962,6 +11518,153 @@ pub mod query_request {
             ))
         }
     }
+
+    /// The format of the query results.
+    ///
+    /// This feature is not yet available.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum QueryResultsFormat {
+        /// If unspecified it will default to struct `QueryResponse.rows`
+        /// (`STRUCT_ENCODING`)
+        Unspecified,
+        /// Default encoding of results as struct in `QueryResponse.rows`
+        StructEncoding,
+        /// Arrow is a standard open source column-based message format.
+        /// See <https://arrow.apache.org/> for more details.
+        Arrow,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [QueryResultsFormat::value] or
+        /// [QueryResultsFormat::name].
+        UnknownValue(query_results_format::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod query_results_format {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl QueryResultsFormat {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::StructEncoding => std::option::Option::Some(1),
+                Self::Arrow => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("QUERY_RESULTS_FORMAT_UNSPECIFIED"),
+                Self::StructEncoding => std::option::Option::Some("STRUCT_ENCODING"),
+                Self::Arrow => std::option::Option::Some("ARROW"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for QueryResultsFormat {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for QueryResultsFormat {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for QueryResultsFormat {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::StructEncoding,
+                2 => Self::Arrow,
+                _ => Self::UnknownValue(query_results_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for QueryResultsFormat {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "QUERY_RESULTS_FORMAT_UNSPECIFIED" => Self::Unspecified,
+                "STRUCT_ENCODING" => Self::StructEncoding,
+                "ARROW" => Self::Arrow,
+                _ => Self::UnknownValue(query_results_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for QueryResultsFormat {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::StructEncoding => serializer.serialize_i32(1),
+                Self::Arrow => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for QueryResultsFormat {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<QueryResultsFormat>::new(
+                ".google.cloud.bigquery.v2.QueryRequest.QueryResultsFormat",
+            ))
+        }
+    }
+
+    /// Results serialization options for `query_results_format` other than
+    /// `STRUCT_ENCODING`.
+    ///
+    /// This feature is not yet available.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ResultsFormatSerializationOptions {
+        /// Optional. Options specific to the Apache Arrow output format.
+        ArrowSerializationOptions(std::boxed::Box<crate::model::ArrowSerializationOptions>),
+    }
 }
 
 #[allow(missing_docs)]
@@ -11070,6 +11773,151 @@ pub struct QueryResponse {
     /// Output only. End time of this query, in milliseconds since the epoch. This
     /// field will be present whenever a query job is in the DONE state.
     pub end_time: std::option::Option<i64>,
+
+    /// Output only. The number of rows out of `total_rows` returned in this
+    /// response.
+    ///
+    /// This feature is not yet available.
+    pub page_row_count: i64,
+
+    /// Output only. The type of query statement, if valid.
+    /// Possible values:
+    ///
+    /// * `SELECT`:
+    ///   [`SELECT`](https://cloud.google.com/bigquery/docs/reference/standard-sql/query-syntax#select_list)
+    ///   statement.
+    /// * `ASSERT`:
+    ///   [`ASSERT`](https://cloud.google.com/bigquery/docs/reference/standard-sql/debugging-statements#assert)
+    ///   statement.
+    /// * `INSERT`:
+    ///   [`INSERT`](https://cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax#insert_statement)
+    ///   statement.
+    /// * `UPDATE`:
+    ///   [`UPDATE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax#update_statement)
+    ///   statement.
+    /// * `DELETE`:
+    ///   [`DELETE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-manipulation-language)
+    ///   statement.
+    /// * `MERGE`:
+    ///   [`MERGE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-manipulation-language)
+    ///   statement.
+    /// * `CREATE_TABLE`: [`CREATE
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_table_statement)
+    ///   statement, without `AS SELECT`.
+    /// * `CREATE_TABLE_AS_SELECT`: [`CREATE TABLE AS
+    ///   SELECT`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_table_statement)
+    ///   statement.
+    /// * `CREATE_VIEW`: [`CREATE
+    ///   VIEW`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_view_statement)
+    ///   statement.
+    /// * `CREATE_MODEL`: [`CREATE
+    ///   MODEL`](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-create#create_model_statement)
+    ///   statement.
+    /// * `CREATE_MATERIALIZED_VIEW`: [`CREATE MATERIALIZED
+    ///   VIEW`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_materialized_view_statement)
+    ///   statement.
+    /// * `CREATE_FUNCTION`: [`CREATE
+    ///   FUNCTION`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_function_statement)
+    ///   statement.
+    /// * `CREATE_TABLE_FUNCTION`: [`CREATE TABLE
+    ///   FUNCTION`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_table_function_statement)
+    ///   statement.
+    /// * `CREATE_PROCEDURE`: [`CREATE
+    ///   PROCEDURE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_procedure)
+    ///   statement.
+    /// * `CREATE_ROW_ACCESS_POLICY`: [`CREATE ROW ACCESS
+    ///   POLICY`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_row_access_policy_statement)
+    ///   statement.
+    /// * `CREATE_SCHEMA`: [`CREATE
+    ///   SCHEMA`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_schema_statement)
+    ///   statement.
+    /// * `CREATE_SNAPSHOT_TABLE`: [`CREATE SNAPSHOT
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_snapshot_table_statement)
+    ///   statement.
+    /// * `CREATE_SEARCH_INDEX`: [`CREATE SEARCH
+    ///   INDEX`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_search_index_statement)
+    ///   statement.
+    /// * `DROP_TABLE`: [`DROP
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_table_statement)
+    ///   statement.
+    /// * `DROP_EXTERNAL_TABLE`: [`DROP EXTERNAL
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_external_table_statement)
+    ///   statement.
+    /// * `DROP_VIEW`: [`DROP
+    ///   VIEW`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_view_statement)
+    ///   statement.
+    /// * `DROP_MODEL`: [`DROP
+    ///   MODEL`](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-drop-model)
+    ///   statement.
+    /// * `DROP_MATERIALIZED_VIEW`: [`DROP MATERIALIZED
+    ///   VIEW`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_materialized_view_statement)
+    ///   statement.
+    /// * `DROP_FUNCTION` : [`DROP
+    ///   FUNCTION`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_function_statement)
+    ///   statement.
+    /// * `DROP_TABLE_FUNCTION` : [`DROP TABLE
+    ///   FUNCTION`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_table_function)
+    ///   statement.
+    /// * `DROP_PROCEDURE`: [`DROP
+    ///   PROCEDURE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_procedure_statement)
+    ///   statement.
+    /// * `DROP_SEARCH_INDEX`: [`DROP SEARCH
+    ///   INDEX`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_search_index)
+    ///   statement.
+    /// * `DROP_SCHEMA`: [`DROP
+    ///   SCHEMA`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_schema_statement)
+    ///   statement.
+    /// * `DROP_SNAPSHOT_TABLE`: [`DROP SNAPSHOT
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_snapshot_table_statement)
+    ///   statement.
+    /// * `DROP_ROW_ACCESS_POLICY`: [`DROP [ALL] ROW ACCESS
+    ///   POLICY|POLICIES`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#drop_row_access_policy_statement)
+    ///   statement.
+    /// * `ALTER_TABLE`: [`ALTER
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#alter_table_set_options_statement)
+    ///   statement.
+    /// * `ALTER_VIEW`: [`ALTER
+    ///   VIEW`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#alter_view_set_options_statement)
+    ///   statement.
+    /// * `ALTER_MATERIALIZED_VIEW`: [`ALTER MATERIALIZED
+    ///   VIEW`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#alter_materialized_view_set_options_statement)
+    ///   statement.
+    /// * `ALTER_SCHEMA`: [`ALTER
+    ///   SCHEMA`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#alter_schema_set_options_statement)
+    ///   statement.
+    /// * `SCRIPT`:
+    ///   [`SCRIPT`](https://cloud.google.com/bigquery/docs/reference/standard-sql/procedural-language).
+    /// * `TRUNCATE_TABLE`: [`TRUNCATE
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax#truncate_table_statement)
+    ///   statement.
+    /// * `CREATE_EXTERNAL_TABLE`: [`CREATE EXTERNAL
+    ///   TABLE`](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_external_table_statement)
+    ///   statement.
+    /// * `EXPORT_DATA`: [`EXPORT
+    ///   DATA`](https://cloud.google.com/bigquery/docs/reference/standard-sql/other-statements#export_data_statement)
+    ///   statement.
+    /// * `EXPORT_MODEL`: [`EXPORT
+    ///   MODEL`](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-export-model)
+    ///   statement.
+    /// * `LOAD_DATA`: [`LOAD
+    ///   DATA`](https://cloud.google.com/bigquery/docs/reference/standard-sql/other-statements#load_data_statement)
+    ///   statement.
+    /// * `CALL`:
+    ///   [`CALL`](https://cloud.google.com/bigquery/docs/reference/standard-sql/procedural-language#call)
+    ///   statement.
+    pub statement_type: std::string::String,
+
+    /// The schema if `query_results_format` has been specified with value other
+    /// than default `STRUCT_ENCODING`.
+    ///
+    /// This feature is not yet available.
+    pub results_schema: std::option::Option<crate::model::query_response::ResultsSchema>,
+
+    /// Row data is returned in format when `query_results_format` has been
+    /// specified with value other than default `STRUCT_ENCODING`.
+    ///
+    /// This feature is not yet available.
+    pub results: std::option::Option<crate::model::query_response::Results>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -11656,11 +12504,183 @@ impl QueryResponse {
         self.end_time = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [page_row_count][crate::model::QueryResponse::page_row_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::QueryResponse;
+    /// let x = QueryResponse::new().set_page_row_count(42);
+    /// ```
+    pub fn set_page_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.page_row_count = v.into();
+        self
+    }
+
+    /// Sets the value of [statement_type][crate::model::QueryResponse::statement_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::QueryResponse;
+    /// let x = QueryResponse::new().set_statement_type("example");
+    /// ```
+    pub fn set_statement_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.statement_type = v.into();
+        self
+    }
+
+    /// Sets the value of [results_schema][crate::model::QueryResponse::results_schema].
+    ///
+    /// Note that all the setters affecting `results_schema` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::QueryResponse;
+    /// use google_cloud_bigquery_v2::model::ArrowSchema;
+    /// let x = QueryResponse::new().set_results_schema(Some(
+    ///     google_cloud_bigquery_v2::model::query_response::ResultsSchema::ArrowSchema(ArrowSchema::default().into())));
+    /// ```
+    pub fn set_results_schema<
+        T: std::convert::Into<std::option::Option<crate::model::query_response::ResultsSchema>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.results_schema = v.into();
+        self
+    }
+
+    /// The value of [results_schema][crate::model::QueryResponse::results_schema]
+    /// if it holds a `ArrowSchema`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn arrow_schema(&self) -> std::option::Option<&std::boxed::Box<crate::model::ArrowSchema>> {
+        #[allow(unreachable_patterns)]
+        self.results_schema.as_ref().and_then(|v| match v {
+            crate::model::query_response::ResultsSchema::ArrowSchema(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [results_schema][crate::model::QueryResponse::results_schema]
+    /// to hold a `ArrowSchema`.
+    ///
+    /// Note that all the setters affecting `results_schema` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::QueryResponse;
+    /// use google_cloud_bigquery_v2::model::ArrowSchema;
+    /// let x = QueryResponse::new().set_arrow_schema(ArrowSchema::default()/* use setters */);
+    /// assert!(x.arrow_schema().is_some());
+    /// ```
+    pub fn set_arrow_schema<T: std::convert::Into<std::boxed::Box<crate::model::ArrowSchema>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.results_schema = std::option::Option::Some(
+            crate::model::query_response::ResultsSchema::ArrowSchema(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [results][crate::model::QueryResponse::results].
+    ///
+    /// Note that all the setters affecting `results` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::QueryResponse;
+    /// use google_cloud_bigquery_v2::model::ArrowRecordBatch;
+    /// let x = QueryResponse::new().set_results(Some(
+    ///     google_cloud_bigquery_v2::model::query_response::Results::ArrowRecordBatch(ArrowRecordBatch::default().into())));
+    /// ```
+    pub fn set_results<
+        T: std::convert::Into<std::option::Option<crate::model::query_response::Results>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.results = v.into();
+        self
+    }
+
+    /// The value of [results][crate::model::QueryResponse::results]
+    /// if it holds a `ArrowRecordBatch`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn arrow_record_batch(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ArrowRecordBatch>> {
+        #[allow(unreachable_patterns)]
+        self.results.as_ref().and_then(|v| match v {
+            crate::model::query_response::Results::ArrowRecordBatch(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [results][crate::model::QueryResponse::results]
+    /// to hold a `ArrowRecordBatch`.
+    ///
+    /// Note that all the setters affecting `results` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::QueryResponse;
+    /// use google_cloud_bigquery_v2::model::ArrowRecordBatch;
+    /// let x = QueryResponse::new().set_arrow_record_batch(ArrowRecordBatch::default()/* use setters */);
+    /// assert!(x.arrow_record_batch().is_some());
+    /// ```
+    pub fn set_arrow_record_batch<
+        T: std::convert::Into<std::boxed::Box<crate::model::ArrowRecordBatch>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.results = std::option::Option::Some(
+            crate::model::query_response::Results::ArrowRecordBatch(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for QueryResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.bigquery.v2.QueryResponse"
+    }
+}
+
+/// Defines additional types related to [QueryResponse].
+pub mod query_response {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The schema if `query_results_format` has been specified with value other
+    /// than default `STRUCT_ENCODING`.
+    ///
+    /// This feature is not yet available.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ResultsSchema {
+        /// Output only. Arrow schema
+        ArrowSchema(std::boxed::Box<crate::model::ArrowSchema>),
+    }
+
+    /// Row data is returned in format when `query_results_format` has been
+    /// specified with value other than default `STRUCT_ENCODING`.
+    ///
+    /// This feature is not yet available.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Results {
+        /// Output only. Serialized row data in Arrow RecordBatch format.
+        ArrowRecordBatch(std::boxed::Box<crate::model::ArrowRecordBatch>),
     }
 }
 
@@ -15702,6 +16722,9 @@ pub struct JobConfiguration {
     /// determined based on the rules defined by the reservation assignments. The
     /// expected format is
     /// `projects/{project}/locations/{location}/reservations/{reservation}`.
+    /// Forces the query to use on-demand billing when set to `none`, which
+    /// requires the project or organization to have
+    /// `reservation_override_mode` set to `ALLOW_ANY_OVERRIDE`.
     pub reservation: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -19870,7 +20893,10 @@ pub mod search_statistics {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Indicates the type of search index usage in the entire search query.
+    /// Indicates the type of search index usage in the entire search query. In
+    /// this context, "usage" means that an index lookup is attempted to prune
+    /// base table data, with effectiveness depending on the selectivity of the
+    /// search term.
     ///
     /// # Working with unknown values
     ///
@@ -21189,8 +22215,11 @@ pub struct JobStatistics2 {
     /// Output only. Statistics of a Spark procedure job.
     pub spark_statistics: std::option::Option<crate::model::SparkStatistics>,
 
-    /// Output only. Total bytes transferred for cross-cloud queries such as Cross
-    /// Cloud Transfer and CREATE TABLE AS SELECT (CTAS).
+    /// Output only. Total bytes transferred for BigQuery Omni queries from the
+    /// remote cloud back to Google Cloud. This tracks data movement over
+    /// Google-managed connections (like query results). It doesn't include input
+    /// data read from the external data lake (for example, S3) because that data
+    /// stays within the remote cloud.
     pub transferred_bytes: std::option::Option<wkt::Int64Value>,
 
     /// Output only. Statistics of materialized views of a query job.
@@ -21206,6 +22235,10 @@ pub struct JobStatistics2 {
 
     /// Output only. Statistics related to GenAI usage in the query.
     pub gen_ai_stats: std::option::Option<crate::model::GenAiStats>,
+
+    /// Output only. Storage and caching statistics per cloud provider for queries
+    /// over object storage.
+    pub object_storage_stats: std::vec::Vec<crate::model::ObjectStorageStats>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -22534,11 +23567,307 @@ impl JobStatistics2 {
         self.gen_ai_stats = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [object_storage_stats][crate::model::JobStatistics2::object_storage_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::JobStatistics2;
+    /// use google_cloud_bigquery_v2::model::ObjectStorageStats;
+    /// let x = JobStatistics2::new()
+    ///     .set_object_storage_stats([
+    ///         ObjectStorageStats::default()/* use setters */,
+    ///         ObjectStorageStats::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_object_storage_stats<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ObjectStorageStats>,
+    {
+        use std::iter::Iterator;
+        self.object_storage_stats = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for JobStatistics2 {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.bigquery.v2.JobStatistics2"
+    }
+}
+
+/// Storage and caching statistics for object storage.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ObjectStorageStats {
+    /// The cloud provider for this block of statistics.
+    pub cloud_provider: std::option::Option<crate::model::object_storage_stats::CloudProvider>,
+
+    /// Total bytes read directly from the cloud provider's storage.
+    pub object_storage_bytes_read: std::option::Option<i64>,
+
+    /// Total bytes read from the GCP Lakehouse-internal cache, avoiding an
+    /// object storage read.
+    pub cache_bytes_read: std::option::Option<i64>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ObjectStorageStats {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cloud_provider][crate::model::ObjectStorageStats::cloud_provider].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::ObjectStorageStats;
+    /// use google_cloud_bigquery_v2::model::object_storage_stats::CloudProvider;
+    /// let x0 = ObjectStorageStats::new().set_cloud_provider(CloudProvider::Gcp);
+    /// let x1 = ObjectStorageStats::new().set_cloud_provider(CloudProvider::Aws);
+    /// let x2 = ObjectStorageStats::new().set_cloud_provider(CloudProvider::Azure);
+    /// ```
+    pub fn set_cloud_provider<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::object_storage_stats::CloudProvider>,
+    {
+        self.cloud_provider = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cloud_provider][crate::model::ObjectStorageStats::cloud_provider].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::ObjectStorageStats;
+    /// use google_cloud_bigquery_v2::model::object_storage_stats::CloudProvider;
+    /// let x0 = ObjectStorageStats::new().set_or_clear_cloud_provider(Some(CloudProvider::Gcp));
+    /// let x1 = ObjectStorageStats::new().set_or_clear_cloud_provider(Some(CloudProvider::Aws));
+    /// let x2 = ObjectStorageStats::new().set_or_clear_cloud_provider(Some(CloudProvider::Azure));
+    /// let x_none = ObjectStorageStats::new().set_or_clear_cloud_provider(None::<CloudProvider>);
+    /// ```
+    pub fn set_or_clear_cloud_provider<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::object_storage_stats::CloudProvider>,
+    {
+        self.cloud_provider = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [object_storage_bytes_read][crate::model::ObjectStorageStats::object_storage_bytes_read].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::ObjectStorageStats;
+    /// let x = ObjectStorageStats::new().set_object_storage_bytes_read(42);
+    /// ```
+    pub fn set_object_storage_bytes_read<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.object_storage_bytes_read = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [object_storage_bytes_read][crate::model::ObjectStorageStats::object_storage_bytes_read].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::ObjectStorageStats;
+    /// let x = ObjectStorageStats::new().set_or_clear_object_storage_bytes_read(Some(42));
+    /// let x = ObjectStorageStats::new().set_or_clear_object_storage_bytes_read(None::<i32>);
+    /// ```
+    pub fn set_or_clear_object_storage_bytes_read<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.object_storage_bytes_read = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cache_bytes_read][crate::model::ObjectStorageStats::cache_bytes_read].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::ObjectStorageStats;
+    /// let x = ObjectStorageStats::new().set_cache_bytes_read(42);
+    /// ```
+    pub fn set_cache_bytes_read<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.cache_bytes_read = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cache_bytes_read][crate::model::ObjectStorageStats::cache_bytes_read].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::ObjectStorageStats;
+    /// let x = ObjectStorageStats::new().set_or_clear_cache_bytes_read(Some(42));
+    /// let x = ObjectStorageStats::new().set_or_clear_cache_bytes_read(None::<i32>);
+    /// ```
+    pub fn set_or_clear_cache_bytes_read<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.cache_bytes_read = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ObjectStorageStats {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.ObjectStorageStats"
+    }
+}
+
+/// Defines additional types related to [ObjectStorageStats].
+pub mod object_storage_stats {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The cloud provider hosting the object storage.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CloudProvider {
+        /// Unspecified cloud provider.
+        Unspecified,
+        /// Google Cloud Platform.
+        Gcp,
+        /// Amazon Web Services.
+        Aws,
+        /// Microsoft Azure.
+        Azure,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CloudProvider::value] or
+        /// [CloudProvider::name].
+        UnknownValue(cloud_provider::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod cloud_provider {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl CloudProvider {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Gcp => std::option::Option::Some(1),
+                Self::Aws => std::option::Option::Some(2),
+                Self::Azure => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CLOUD_PROVIDER_UNSPECIFIED"),
+                Self::Gcp => std::option::Option::Some("GCP"),
+                Self::Aws => std::option::Option::Some("AWS"),
+                Self::Azure => std::option::Option::Some("AZURE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for CloudProvider {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CloudProvider {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CloudProvider {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Gcp,
+                2 => Self::Aws,
+                3 => Self::Azure,
+                _ => Self::UnknownValue(cloud_provider::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CloudProvider {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CLOUD_PROVIDER_UNSPECIFIED" => Self::Unspecified,
+                "GCP" => Self::Gcp,
+                "AWS" => Self::Aws,
+                "AZURE" => Self::Azure,
+                _ => Self::UnknownValue(cloud_provider::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CloudProvider {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Gcp => serializer.serialize_i32(1),
+                Self::Aws => serializer.serialize_i32(2),
+                Self::Azure => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CloudProvider {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CloudProvider>::new(
+                ".google.cloud.bigquery.v2.ObjectStorageStats.CloudProvider",
+            ))
+        }
     }
 }
 
@@ -22889,6 +24218,10 @@ pub struct CopyJobStatistics {
     /// Output only. Number of logical bytes copied to the destination table.
     pub copied_logical_bytes: std::option::Option<wkt::Int64Value>,
 
+    /// Output only. Destination region for a cross-region copy job. Not set for
+    /// in-region copy jobs.
+    pub remote_destination_region: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -22961,6 +24294,21 @@ impl CopyJobStatistics {
         T: std::convert::Into<wkt::Int64Value>,
     {
         self.copied_logical_bytes = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [remote_destination_region][crate::model::CopyJobStatistics::remote_destination_region].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::CopyJobStatistics;
+    /// let x = CopyJobStatistics::new().set_remote_destination_region("example");
+    /// ```
+    pub fn set_remote_destination_region<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.remote_destination_region = v.into();
         self
     }
 }
@@ -23740,6 +25088,12 @@ pub struct JobStatistics {
     /// the leaf or lowest level reservation group.
     pub reservation_group_path: std::vec::Vec<std::string::String>,
 
+    /// Output only. Regions where the global query accesses data.
+    pub global_query_remote_regions: std::vec::Vec<std::string::String>,
+
+    /// Output only. The global query that created this job.
+    pub parent_global_query_job: std::option::Option<crate::model::JobReference>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -24281,6 +25635,56 @@ impl JobStatistics {
     {
         use std::iter::Iterator;
         self.reservation_group_path = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [global_query_remote_regions][crate::model::JobStatistics::global_query_remote_regions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::JobStatistics;
+    /// let x = JobStatistics::new().set_global_query_remote_regions(["a", "b", "c"]);
+    /// ```
+    pub fn set_global_query_remote_regions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.global_query_remote_regions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [parent_global_query_job][crate::model::JobStatistics::parent_global_query_job].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::JobStatistics;
+    /// use google_cloud_bigquery_v2::model::JobReference;
+    /// let x = JobStatistics::new().set_parent_global_query_job(JobReference::default()/* use setters */);
+    /// ```
+    pub fn set_parent_global_query_job<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::JobReference>,
+    {
+        self.parent_global_query_job = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [parent_global_query_job][crate::model::JobStatistics::parent_global_query_job].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::JobStatistics;
+    /// use google_cloud_bigquery_v2::model::JobReference;
+    /// let x = JobStatistics::new().set_or_clear_parent_global_query_job(Some(JobReference::default()/* use setters */));
+    /// let x = JobStatistics::new().set_or_clear_parent_global_query_job(None::<JobReference>);
+    /// ```
+    pub fn set_or_clear_parent_global_query_job<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::JobReference>,
+    {
+        self.parent_global_query_job = v.map(|x| x.into());
         self
     }
 }
@@ -25347,6 +26751,16 @@ pub mod partition_skew {
         /// Output only. Stage id of the skew source stage.
         pub stage_id: i64,
 
+        /// Output only. Median partition output size (in bytes) for this stage.
+        pub output_bytes_median: i64,
+
+        /// Output only. 95-th percentile of partition output size (in bytes) for
+        /// this stage.
+        pub output_bytes_p95: i64,
+
+        /// Output only. Max partition output size (in bytes) for this stage.
+        pub output_bytes_max: i64,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -25365,6 +26779,42 @@ pub mod partition_skew {
         /// ```
         pub fn set_stage_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.stage_id = v.into();
+            self
+        }
+
+        /// Sets the value of [output_bytes_median][crate::model::partition_skew::SkewSource::output_bytes_median].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_v2::model::partition_skew::SkewSource;
+        /// let x = SkewSource::new().set_output_bytes_median(42);
+        /// ```
+        pub fn set_output_bytes_median<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.output_bytes_median = v.into();
+            self
+        }
+
+        /// Sets the value of [output_bytes_p95][crate::model::partition_skew::SkewSource::output_bytes_p95].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_v2::model::partition_skew::SkewSource;
+        /// let x = SkewSource::new().set_output_bytes_p95(42);
+        /// ```
+        pub fn set_output_bytes_p95<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.output_bytes_p95 = v.into();
+            self
+        }
+
+        /// Sets the value of [output_bytes_max][crate::model::partition_skew::SkewSource::output_bytes_max].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_v2::model::partition_skew::SkewSource;
+        /// let x = SkewSource::new().set_output_bytes_max(42);
+        /// ```
+        pub fn set_output_bytes_max<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.output_bytes_max = v.into();
             self
         }
     }
@@ -44442,6 +45892,9 @@ pub mod routine {
         /// Set if argument_kind == FIXED_TYPE.
         pub data_type: std::option::Option<crate::model::StandardSqlDataType>,
 
+        /// Optional. Set if argument_kind == FIXED_TABLE.
+        pub table_type: std::option::Option<crate::model::StandardSqlTableType>,
+
         /// Optional. Whether the argument is an aggregate function parameter.
         /// Must be Unset for routine types other than AGGREGATE_FUNCTION.
         /// For AGGREGATE_FUNCTION, if set to false, it is equivalent to adding "NOT
@@ -44478,6 +45931,7 @@ pub mod routine {
         /// use google_cloud_bigquery_v2::model::routine::argument::ArgumentKind;
         /// let x0 = Argument::new().set_argument_kind(ArgumentKind::FixedType);
         /// let x1 = Argument::new().set_argument_kind(ArgumentKind::AnyType);
+        /// let x2 = Argument::new().set_argument_kind(ArgumentKind::FixedTable);
         /// ```
         pub fn set_argument_kind<
             T: std::convert::Into<crate::model::routine::argument::ArgumentKind>,
@@ -44537,6 +45991,39 @@ pub mod routine {
             T: std::convert::Into<crate::model::StandardSqlDataType>,
         {
             self.data_type = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [table_type][crate::model::routine::Argument::table_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_v2::model::routine::Argument;
+        /// use google_cloud_bigquery_v2::model::StandardSqlTableType;
+        /// let x = Argument::new().set_table_type(StandardSqlTableType::default()/* use setters */);
+        /// ```
+        pub fn set_table_type<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::StandardSqlTableType>,
+        {
+            self.table_type = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [table_type][crate::model::routine::Argument::table_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_v2::model::routine::Argument;
+        /// use google_cloud_bigquery_v2::model::StandardSqlTableType;
+        /// let x = Argument::new().set_or_clear_table_type(Some(StandardSqlTableType::default()/* use setters */));
+        /// let x = Argument::new().set_or_clear_table_type(None::<StandardSqlTableType>);
+        /// ```
+        pub fn set_or_clear_table_type<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::StandardSqlTableType>,
+        {
+            self.table_type = v.map(|x| x.into());
             self
         }
 
@@ -44610,6 +46097,10 @@ pub mod routine {
             FixedType,
             /// The argument is any type, including struct or array, but not a table.
             AnyType,
+            /// The argument is a table with fully specified column names and types.
+            FixedTable,
+            /// The argument is any table type.
+            AnyTable,
             /// If set, the enum was initialized with an unknown value.
             ///
             /// Applications can examine the value using [ArgumentKind::value] or
@@ -44635,6 +46126,8 @@ pub mod routine {
                     Self::Unspecified => std::option::Option::Some(0),
                     Self::FixedType => std::option::Option::Some(1),
                     Self::AnyType => std::option::Option::Some(2),
+                    Self::FixedTable => std::option::Option::Some(3),
+                    Self::AnyTable => std::option::Option::Some(4),
                     Self::UnknownValue(u) => u.0.value(),
                 }
             }
@@ -44648,6 +46141,8 @@ pub mod routine {
                     Self::Unspecified => std::option::Option::Some("ARGUMENT_KIND_UNSPECIFIED"),
                     Self::FixedType => std::option::Option::Some("FIXED_TYPE"),
                     Self::AnyType => std::option::Option::Some("ANY_TYPE"),
+                    Self::FixedTable => std::option::Option::Some("FIXED_TABLE"),
+                    Self::AnyTable => std::option::Option::Some("ANY_TABLE"),
                     Self::UnknownValue(u) => u.0.name(),
                 }
             }
@@ -44675,6 +46170,8 @@ pub mod routine {
                     0 => Self::Unspecified,
                     1 => Self::FixedType,
                     2 => Self::AnyType,
+                    3 => Self::FixedTable,
+                    4 => Self::AnyTable,
                     _ => Self::UnknownValue(argument_kind::UnknownValue(
                         wkt::internal::UnknownEnumValue::Integer(value),
                     )),
@@ -44689,6 +46186,8 @@ pub mod routine {
                     "ARGUMENT_KIND_UNSPECIFIED" => Self::Unspecified,
                     "FIXED_TYPE" => Self::FixedType,
                     "ANY_TYPE" => Self::AnyType,
+                    "FIXED_TABLE" => Self::FixedTable,
+                    "ANY_TABLE" => Self::AnyTable,
                     _ => Self::UnknownValue(argument_kind::UnknownValue(
                         wkt::internal::UnknownEnumValue::String(value.to_string()),
                     )),
@@ -44705,6 +46204,8 @@ pub mod routine {
                     Self::Unspecified => serializer.serialize_i32(0),
                     Self::FixedType => serializer.serialize_i32(1),
                     Self::AnyType => serializer.serialize_i32(2),
+                    Self::FixedTable => serializer.serialize_i32(3),
+                    Self::AnyTable => serializer.serialize_i32(4),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
@@ -45755,8 +47256,10 @@ pub struct ExternalRuntimeOptions {
     /// Optional. Language runtime version. Example: `python-3.11`.
     pub runtime_version: std::string::String,
 
-    /// Optional. Maximum number of requests that a Cloud Run instance can handle
-    /// concurrently. If absent or if `0`, a default concurrency is used.
+    /// Optional. Maximum number of requests that a Python UDF instance can handle
+    /// concurrently. If absent or if `0`, the default concurrency value is used.
+    /// For more information, see [Configure container limits for Python
+    /// UDFs](https://cloud.google.com/bigquery/docs/user-defined-functions-python#configure-container-limits).
     pub container_request_concurrency: i64,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -48925,7 +50428,7 @@ pub mod table_replication_info {
         SourceDeleted,
         /// Source revoked replication permissions.
         PermissionDenied,
-        /// Source configuration doesn’t allow replication.
+        /// Source configuration doesn't allow replication.
         UnsupportedConfiguration,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -53488,21 +54991,19 @@ pub struct TableFieldSchema {
     /// Optional. Specifies the data governance tags on this field. This field
     /// works with other column-level security fields as follows:
     ///
-    /// - Precedence: If a data governance tag is attached to a column, it takes
-    ///   precedence over the policy tag attached to the column.
-    ///   However, if a data policy is attached to a column, it takes precedence
-    ///   over the data governance tag.
-    ///
-    /// - Patching behavior (how this field behaves during a `Table.patch` schema
-    ///   update):
-    ///
-    ///   - Unset: If the `data_governance_tags_info` field is omitted
-    ///     from the update request, the existing tags on the column are preserved.
-    ///   - Empty Field: To clear data governance tags from a column, send the
-    ///     `data_governance_tags_info` field as an empty object. This will remove
-    ///     all tags from the column.
-    ///   - Updating tags: To replace existing tag, send the field with the
-    ///     new tag.
+    /// * **Precedence**: If a data governance tag is attached to a column, it
+    ///   takes precedence over the policy tag attached to the column. However,
+    ///   if a data policy is attached to a column, it takes precedence over the
+    ///   data governance tag.
+    /// * **Patching behavior**: Describes how this field behaves during a
+    ///   `Table.patch` schema update:
+    ///   * **Unset**: If the `data_governance_tags_info` field is omitted from
+    ///     the update request, the existing tags on the column are preserved.
+    ///   * **Empty Field**: To clear data governance tags from a column, send
+    ///     the `data_governance_tags_info` field as an empty object. This
+    ///     removes all tags from the column.
+    ///   * **Updating tags**: To replace an existing tag, send the field with
+    ///     the new tag.
     pub data_governance_tags_info:
         std::option::Option<crate::model::table_field_schema::DataGovernanceTagsInfo>,
 
@@ -54125,13 +55626,13 @@ pub mod table_field_schema {
         /// Optional. The data governance tags added to this field are used for
         /// field-level access control. Only one data governance tag is currently
         /// supported on a field. Tag keys are globally unique. Tag key is expected
-        /// to be in the namespaced format, for example "123456789012/pii" where
-        /// 123456789012 is the ID of the parent organization or project resource for
+        /// to be in the namespaced format, for example "parent-id/pii" where
+        /// parent-id is the ID of the parent organization or project resource for
         /// this tag key. Tag value is expected to be the short name, for example
         /// "sensitive". See [Tag
         /// definitions](https://cloud.google.com/iam/docs/tags-access-control#definitions)
         /// for more details. For example:
-        /// "123456789012/pii": "sensitive",
+        /// "parent-id/pii": "sensitive",
         /// "myProject/cost_center": "sales"
         pub data_governance_tags:
             std::collections::HashMap<std::string::String, std::string::String>,
@@ -54215,8 +55716,8 @@ pub mod table_field_schema {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GeneratedExpressionInfo {
-        /// Optional. The generation expression (e.g. AI.EMBED(...)) used to
-        /// generated the field.
+        /// Optional. The generation expression (e.g. AI.EMBED(...)) used to generate
+        /// the field.
         pub generation_expression: std::option::Option<std::string::String>,
 
         /// Optional. Whether the column generation is done asynchronously.
@@ -54344,8 +55845,7 @@ pub mod table_field_schema {
         pub generated_mode:
             std::option::Option<crate::model::table_field_schema::generated_column::GeneratedMode>,
 
-        /// Captures the metadata for the generated column. Could be either an
-        /// identity column or a generated column.
+        /// Captures the metadata for the generated column.
         pub definition:
             std::option::Option<crate::model::table_field_schema::generated_column::Definition>,
 
@@ -54616,8 +56116,7 @@ pub mod table_field_schema {
             }
         }
 
-        /// Captures the metadata for the generated column. Could be either an
-        /// identity column or a generated column.
+        /// Captures the metadata for the generated column.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Definition {

@@ -190,6 +190,12 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         req: crate::model::ListReservationGroupsRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListReservationGroupsResponse>>;
+
+    async fn update_reservation_group(
+        &self,
+        req: crate::model::UpdateReservationGroupRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ReservationGroup>>;
 }
 
 /// All implementations of [super::ReservationService] also implement [ReservationService].
@@ -455,5 +461,14 @@ impl<T: super::ReservationService> ReservationService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListReservationGroupsResponse>> {
         T::list_reservation_groups(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_reservation_group(
+        &self,
+        req: crate::model::UpdateReservationGroupRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ReservationGroup>> {
+        T::update_reservation_group(self, req, options).await
     }
 }

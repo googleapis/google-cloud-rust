@@ -40,7 +40,6 @@ locals {
     "--cfg google_cloud_unstable_grpc_server_streaming",
     "--cfg google_cloud_unstable_tracing",
     "--cfg google_cloud_unstable_grpc_rust",
-    "--cfg google_cloud_unstable_gapic_streaming",
   ])
 
   tokio_unstable_flags = "--cfg tokio_unstable"
@@ -113,8 +112,9 @@ locals {
     }
     lint-unstable = {
       config = "complex.yaml"
+      pool   = "rust-sdk-pool-large"
       flags  = local.unstable_flags
-      script = "lint-unstable"
+      script = "lint"
     }
     minimal-versions = {
       config = "complex.yaml"

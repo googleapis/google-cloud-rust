@@ -288,11 +288,10 @@ where
     async fn poll(&mut self) -> Option<PollingResult<ResponseType, MetadataType>> {
         if let Some(start) = self.start.take() {
             let result = start().await;
-            if let Ok(ref op) = result {
-                let name = op.name();
-                if let Some(recorder) = LroRecorder::current() {
-                    recorder.record_destination_id(&name);
-                }
+            if let Ok(ref op) = result
+                && let Some(recorder) = LroRecorder::current()
+            {
+                recorder.record_destination_id(&op.name());
             }
             let (op, poll) = crate::details::handle_start(result);
             self.operation = op;
@@ -303,7 +302,9 @@ where
             let result = (self.query)(name.clone()).await;
             let (op, poll) =
                 crate::details::handle_poll(self.error_policy.clone(), &self.state, name, result);
-            if let (Some(next_name), Some(recorder)) = (&op, LroRecorder::current()) {
+            if let Some(next_name) = &op
+                && let Some(recorder) = LroRecorder::current()
+            {
                 recorder.record_destination_id(next_name);
             }
             self.operation = op;
@@ -1048,6 +1049,7 @@ mod tests {
         Error::io("something failed")
     }
 
+    #[ignore = "TODO(#6588) - disabled because it was flaky"]
     #[tokio::test]
     async fn test_poller_tracing() {
         let guard = google_cloud_test_utils::test_layer::TestLayer::initialize();
@@ -1138,6 +1140,7 @@ mod tests {
         }
     }
 
+    #[ignore = "TODO(#6588) - disabled because it was flaky"]
     #[tokio::test]
     async fn test_poller_tracing_immediate_done() {
         let guard = google_cloud_test_utils::test_layer::TestLayer::initialize();

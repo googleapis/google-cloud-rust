@@ -18,6 +18,96 @@
 use super::*;
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::ArrowSchema {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.serialized_schema.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("serializedSchema", &__With(&self.serialized_schema))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ArrowRecordBatch {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.serialized_record_batch.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "serializedRecordBatch",
+                &__With(&self.serialized_record_batch),
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ArrowSerializationOptions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.buffer_compression) {
+            state.serialize_entry("bufferCompression", &self.buffer_compression)?;
+        }
+        if !wkt::internal::is_default(&self.picos_timestamp_precision) {
+            state.serialize_entry("picosTimestampPrecision", &self.picos_timestamp_precision)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::BigLakeConfiguration {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -2282,6 +2372,12 @@ impl serde::ser::Serialize for super::QueryRequest {
         if !wkt::internal::is_default(&self.write_incremental_results) {
             state.serialize_entry("writeIncrementalResults", &self.write_incremental_results)?;
         }
+        if !wkt::internal::is_default(&self.query_results_format) {
+            state.serialize_entry("queryResultsFormat", &self.query_results_format)?;
+        }
+        if let Some(value) = self.arrow_serialization_options() {
+            state.serialize_entry("arrowSerializationOptions", value)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2451,6 +2547,27 @@ impl serde::ser::Serialize for super::QueryResponse {
                 }
             }
             state.serialize_entry("endTime", &__With(&self.end_time))?;
+        }
+        if let Some(value) = self.arrow_schema() {
+            state.serialize_entry("arrowSchema", value)?;
+        }
+        if let Some(value) = self.arrow_record_batch() {
+            state.serialize_entry("arrowRecordBatch", value)?;
+        }
+        if !wkt::internal::is_default(&self.page_row_count) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageRowCount", &__With(&self.page_row_count))?;
+        }
+        if !self.statement_type.is_empty() {
+            state.serialize_entry("statementType", &self.statement_type)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4504,6 +4621,62 @@ impl serde::ser::Serialize for super::JobStatistics2 {
         if self.gen_ai_stats.is_some() {
             state.serialize_entry("genAiStats", &self.gen_ai_stats)?;
         }
+        if !self.object_storage_stats.is_empty() {
+            state.serialize_entry("objectStorageStats", &self.object_storage_stats)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ObjectStorageStats {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.cloud_provider.is_some() {
+            state.serialize_entry("cloudProvider", &self.cloud_provider)?;
+        }
+        if self.object_storage_bytes_read.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "objectStorageBytesRead",
+                &__With(&self.object_storage_bytes_read),
+            )?;
+        }
+        if self.cache_bytes_read.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("cacheBytesRead", &__With(&self.cache_bytes_read))?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -4695,6 +4868,9 @@ impl serde::ser::Serialize for super::CopyJobStatistics {
                 }
             }
             state.serialize_entry("copiedLogicalBytes", &__With(&self.copied_logical_bytes))?;
+        }
+        if !self.remote_destination_region.is_empty() {
+            state.serialize_entry("remoteDestinationRegion", &self.remote_destination_region)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -5049,6 +5225,15 @@ impl serde::ser::Serialize for super::JobStatistics {
         }
         if !self.reservation_group_path.is_empty() {
             state.serialize_entry("reservationGroupPath", &self.reservation_group_path)?;
+        }
+        if !self.global_query_remote_regions.is_empty() {
+            state.serialize_entry(
+                "globalQueryRemoteRegions",
+                &self.global_query_remote_regions,
+            )?;
+        }
+        if self.parent_global_query_job.is_some() {
+            state.serialize_entry("parentGlobalQueryJob", &self.parent_global_query_job)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -5424,6 +5609,42 @@ impl serde::ser::Serialize for super::partition_skew::SkewSource {
                 }
             }
             state.serialize_entry("stageId", &__With(&self.stage_id))?;
+        }
+        if !wkt::internal::is_default(&self.output_bytes_median) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("outputBytesMedian", &__With(&self.output_bytes_median))?;
+        }
+        if !wkt::internal::is_default(&self.output_bytes_p95) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("outputBytesP95", &__With(&self.output_bytes_p95))?;
+        }
+        if !wkt::internal::is_default(&self.output_bytes_max) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("outputBytesMax", &__With(&self.output_bytes_max))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -9862,6 +10083,9 @@ impl serde::ser::Serialize for super::routine::Argument {
         }
         if self.data_type.is_some() {
             state.serialize_entry("dataType", &self.data_type)?;
+        }
+        if self.table_type.is_some() {
+            state.serialize_entry("tableType", &self.table_type)?;
         }
         if self.is_aggregate.is_some() {
             state.serialize_entry("isAggregate", &self.is_aggregate)?;

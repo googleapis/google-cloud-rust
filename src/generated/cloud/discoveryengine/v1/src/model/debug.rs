@@ -561,8 +561,33 @@ impl std::fmt::Debug for super::StreamAssistRequest {
         debug_struct.field("query", &self.query);
         debug_struct.field("session", &self.session);
         debug_struct.field("user_metadata", &self.user_metadata);
+        debug_struct.field("agents_spec", &self.agents_spec);
         debug_struct.field("tools_spec", &self.tools_spec);
         debug_struct.field("generation_spec", &self.generation_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "assistant-service")]
+impl std::fmt::Debug for super::stream_assist_request::AgentsSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AgentsSpec");
+        debug_struct.field("agent_specs", &self.agent_specs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "assistant-service")]
+impl std::fmt::Debug for super::stream_assist_request::agents_spec::AgentSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AgentSpec");
+        debug_struct.field("agent_id", &self.agent_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

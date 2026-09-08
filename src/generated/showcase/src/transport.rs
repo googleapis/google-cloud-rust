@@ -896,6 +896,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -906,6 +907,7 @@ impl super::stub::Compliance for Compliance {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -919,6 +921,7 @@ impl super::stub::Compliance for Compliance {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -937,6 +940,7 @@ impl super::stub::Compliance for Compliance {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -950,6 +954,7 @@ impl super::stub::Compliance for Compliance {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1218,6 +1223,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -1228,6 +1234,7 @@ impl super::stub::Compliance for Compliance {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1241,6 +1248,7 @@ impl super::stub::Compliance for Compliance {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1259,6 +1267,7 @@ impl super::stub::Compliance for Compliance {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1272,6 +1281,7 @@ impl super::stub::Compliance for Compliance {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1594,21 +1604,19 @@ impl super::stub::Compliance for Compliance {
     }
 }
 
-/// Implements [Echo](super::stub::Echo) using a [gaxi::http::ReqwestClient].
+/// Implements [Echo](super::stub::Echo) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
 #[derive(Clone)]
 pub struct Echo {
     inner: gaxi::http::ReqwestClient,
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     grpc_inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for Echo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        let mut builder = f.debug_struct("Echo");
-        builder.field("inner", &self.inner);
-        #[cfg(google_cloud_unstable_gapic_streaming)]
-        builder.field("grpc_inner", &self.grpc_inner);
-        builder.finish()
+        f.debug_struct("Echo")
+            .field("inner", &self.inner)
+            .field("grpc_inner", &self.grpc_inner)
+            .finish()
     }
 }
 
@@ -1621,7 +1629,6 @@ impl Echo {
         } else {
             inner
         };
-        #[cfg(google_cloud_unstable_gapic_streaming)]
         let grpc_inner = if tracing_is_enabled {
             gaxi::grpc::Client::new_with_instrumentation(
                 config,
@@ -1632,11 +1639,7 @@ impl Echo {
         } else {
             gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
         };
-        Ok(Self {
-            inner,
-            #[cfg(google_cloud_unstable_gapic_streaming)]
-            grpc_inner,
-        })
+        Ok(Self { inner, grpc_inner })
     }
 }
 
@@ -1783,26 +1786,51 @@ impl super::stub::Echo for Echo {
         self.inner.execute(builder, body, options).await
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
+    async fn expand(
+        &self,
+        req: crate::model::ExpandRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>> {
+        let x_goog_request_params = [None::<String>; 0]
+            .into_iter()
+            .flatten()
+            .fold(String::new(), |b, p| b + "&" + &p);
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.showcase.v1beta1.Echo",
+                "Expand",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Echo/Expand");
+
+        self.grpc_inner
+            .execute_server_streaming::<
+                crate::model::ExpandRequest,
+                crate::model::EchoResponse,
+                crate::prost::google::showcase::v1beta1::ExpandRequest,
+                crate::prost::google::showcase::v1beta1::EchoResponse,
+            >(
+                extensions,
+                path,
+                req,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+    }
+
     fn chat(
         &self,
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>,
     ) {
-        use futures::FutureExt as _;
-        use futures::stream::StreamExt as _;
-        use gaxi::prost::{FromProto, ToProto};
-
         let x_goog_request_params = "";
-
-        let (req_tx, req_rx) = tokio::sync::mpsc::channel(
-            options
-                .request_stream_channel_capacity()
-                .unwrap_or(google_cloud_gax::options::internal::DEFAULT_REQUEST_CHANNEL_CAPACITY),
-        );
-        let req_stream = tokio_stream::wrappers::ReceiverStream::new(req_rx);
 
         let extensions = {
             let mut e = gaxi::grpc::tonic::Extensions::new();
@@ -1814,54 +1842,19 @@ impl super::stub::Echo for Echo {
         };
         let path = http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Echo/Chat");
 
-        let (resp_tx, resp_rx) = tokio::sync::oneshot::channel();
-
-        let grpc_inner = self.grpc_inner.clone();
-        tokio::spawn(async move {
-            let result = grpc_inner
-                .bidi_stream::<
-                    crate::prost::google::showcase::v1beta1::EchoRequest,
-                    crate::prost::google::showcase::v1beta1::EchoResponse,
-                >(
-                    extensions,
-                    path,
-                    req_stream,
-                    options,
-                    &crate::info::X_GOOG_API_CLIENT_HEADER,
-                    x_goog_request_params,
-                )
-                .await;
-            let _ = resp_tx.send(result);
-        });
-
-        let request_sender = google_cloud_gax::streaming::RequestSender::from_fn(
-            move |item: crate::model::EchoRequest| {
-                let req_tx = req_tx.clone();
-                async move {
-                    let prost_item = item
-                        .to_proto()
-                        .map_err(google_cloud_gax::error::Error::ser)?;
-                    req_tx
-                        .send(prost_item)
-                        .await
-                        .map_err(|_| google_cloud_gax::streaming::SendError::StreamClosed)
-                }
-            },
-        );
-        let future = resp_rx.map(|res| match res {
-            Ok(Ok(response)) => Ok(response.into_inner().map(|res| {
-                res.map_err(gaxi::grpc::from_status::to_gax_error)
-                    .and_then(|m| m.cnv().map_err(google_cloud_gax::error::Error::deser))
-            })),
-            Ok(Err(err)) => Err(err),
-            Err(_) => Err(google_cloud_gax::error::Error::io(std::io::Error::new(
-                std::io::ErrorKind::BrokenPipe,
-                "stream initialization task cancelled",
-            ))),
-        });
-        let response_receiver = google_cloud_gax::streaming::ResponseReceiver::from_future(future);
-
-        (request_sender, response_receiver)
+        self.grpc_inner
+            .execute_bidi_streaming::<
+                crate::model::EchoRequest,
+                crate::model::EchoResponse,
+                crate::prost::google::showcase::v1beta1::EchoRequest,
+                crate::prost::google::showcase::v1beta1::EchoResponse,
+            >(
+                extensions,
+                path,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
+                x_goog_request_params,
+            )
     }
 
     async fn paged_expand(
@@ -2234,6 +2227,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -2244,6 +2238,7 @@ impl super::stub::Echo for Echo {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2257,6 +2252,7 @@ impl super::stub::Echo for Echo {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2275,6 +2271,7 @@ impl super::stub::Echo for Echo {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2288,6 +2285,7 @@ impl super::stub::Echo for Echo {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2556,6 +2554,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -2566,6 +2565,7 @@ impl super::stub::Echo for Echo {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2579,6 +2579,7 @@ impl super::stub::Echo for Echo {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2597,6 +2598,7 @@ impl super::stub::Echo for Echo {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2610,6 +2612,7 @@ impl super::stub::Echo for Echo {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3395,6 +3398,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -3405,6 +3409,7 @@ impl super::stub::Identity for Identity {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3418,6 +3423,7 @@ impl super::stub::Identity for Identity {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3436,6 +3442,7 @@ impl super::stub::Identity for Identity {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3449,6 +3456,7 @@ impl super::stub::Identity for Identity {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3717,6 +3725,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -3727,6 +3736,7 @@ impl super::stub::Identity for Identity {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3740,6 +3750,7 @@ impl super::stub::Identity for Identity {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3758,6 +3769,7 @@ impl super::stub::Identity for Identity {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3771,6 +3783,7 @@ impl super::stub::Identity for Identity {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4093,21 +4106,19 @@ impl super::stub::Identity for Identity {
     }
 }
 
-/// Implements [Messaging](super::stub::Messaging) using a [gaxi::http::ReqwestClient].
+/// Implements [Messaging](super::stub::Messaging) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
 #[derive(Clone)]
 pub struct Messaging {
     inner: gaxi::http::ReqwestClient,
-    #[cfg(google_cloud_unstable_gapic_streaming)]
     grpc_inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for Messaging {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        let mut builder = f.debug_struct("Messaging");
-        builder.field("inner", &self.inner);
-        #[cfg(google_cloud_unstable_gapic_streaming)]
-        builder.field("grpc_inner", &self.grpc_inner);
-        builder.finish()
+        f.debug_struct("Messaging")
+            .field("inner", &self.inner)
+            .field("grpc_inner", &self.grpc_inner)
+            .finish()
     }
 }
 
@@ -4120,7 +4131,6 @@ impl Messaging {
         } else {
             inner
         };
-        #[cfg(google_cloud_unstable_gapic_streaming)]
         let grpc_inner = if tracing_is_enabled {
             gaxi::grpc::Client::new_with_instrumentation(
                 config,
@@ -4131,11 +4141,7 @@ impl Messaging {
         } else {
             gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
         };
-        Ok(Self {
-            inner,
-            #[cfg(google_cloud_unstable_gapic_streaming)]
-            grpc_inner,
-        })
+        Ok(Self { inner, grpc_inner })
     }
 }
 
@@ -4436,6 +4442,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -4446,6 +4453,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{parent}/blurbs";
 
                 let resource_name = format!("//localhost:7469/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4463,6 +4471,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{parent}/blurbs";
 
                 let resource_name = format!("//localhost:7469/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4960,6 +4969,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -4970,6 +4980,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{parent}/blurbs:search";
 
                 let resource_name = format!("//localhost:7469/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4987,6 +4998,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{parent}/blurbs:search";
 
                 let resource_name = format!("//localhost:7469/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("query", &req.query)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -5042,26 +5054,56 @@ impl super::stub::Messaging for Messaging {
         self.inner.execute(builder, body, options).await
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
+    async fn stream_blurbs(
+        &self,
+        req: crate::model::StreamBlurbsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>>
+    {
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.name)
+            .map(|s| s.as_str())
+            .map(|v| format!("name={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.showcase.v1beta1.Messaging",
+                "StreamBlurbs",
+            ));
+            e
+        };
+        let path =
+            http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Messaging/StreamBlurbs");
+
+        self.grpc_inner
+            .execute_server_streaming::<
+                crate::model::StreamBlurbsRequest,
+                crate::model::StreamBlurbsResponse,
+                crate::prost::google::showcase::v1beta1::StreamBlurbsRequest,
+                crate::prost::google::showcase::v1beta1::StreamBlurbsResponse,
+            >(
+                extensions,
+                path,
+                req,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+    }
+
     fn connect(
         &self,
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>,
     ) {
-        use futures::FutureExt as _;
-        use futures::stream::StreamExt as _;
-        use gaxi::prost::{FromProto, ToProto};
-
         let x_goog_request_params = "";
-
-        let (req_tx, req_rx) = tokio::sync::mpsc::channel(
-            options
-                .request_stream_channel_capacity()
-                .unwrap_or(google_cloud_gax::options::internal::DEFAULT_REQUEST_CHANNEL_CAPACITY),
-        );
-        let req_stream = tokio_stream::wrappers::ReceiverStream::new(req_rx);
 
         let extensions = {
             let mut e = gaxi::grpc::tonic::Extensions::new();
@@ -5074,54 +5116,19 @@ impl super::stub::Messaging for Messaging {
         let path =
             http::uri::PathAndQuery::from_static("/google.showcase.v1beta1.Messaging/Connect");
 
-        let (resp_tx, resp_rx) = tokio::sync::oneshot::channel();
-
-        let grpc_inner = self.grpc_inner.clone();
-        tokio::spawn(async move {
-            let result = grpc_inner
-                .bidi_stream::<
-                    crate::prost::google::showcase::v1beta1::ConnectRequest,
-                    crate::prost::google::showcase::v1beta1::StreamBlurbsResponse,
-                >(
-                    extensions,
-                    path,
-                    req_stream,
-                    options,
-                    &crate::info::X_GOOG_API_CLIENT_HEADER,
-                    x_goog_request_params,
-                )
-                .await;
-            let _ = resp_tx.send(result);
-        });
-
-        let request_sender = google_cloud_gax::streaming::RequestSender::from_fn(
-            move |item: crate::model::ConnectRequest| {
-                let req_tx = req_tx.clone();
-                async move {
-                    let prost_item = item
-                        .to_proto()
-                        .map_err(google_cloud_gax::error::Error::ser)?;
-                    req_tx
-                        .send(prost_item)
-                        .await
-                        .map_err(|_| google_cloud_gax::streaming::SendError::StreamClosed)
-                }
-            },
-        );
-        let future = resp_rx.map(|res| match res {
-            Ok(Ok(response)) => Ok(response.into_inner().map(|res| {
-                res.map_err(gaxi::grpc::from_status::to_gax_error)
-                    .and_then(|m| m.cnv().map_err(google_cloud_gax::error::Error::deser))
-            })),
-            Ok(Err(err)) => Err(err),
-            Err(_) => Err(google_cloud_gax::error::Error::io(std::io::Error::new(
-                std::io::ErrorKind::BrokenPipe,
-                "stream initialization task cancelled",
-            ))),
-        });
-        let response_receiver = google_cloud_gax::streaming::ResponseReceiver::from_future(future);
-
-        (request_sender, response_receiver)
+        self.grpc_inner
+            .execute_bidi_streaming::<
+                crate::model::ConnectRequest,
+                crate::model::StreamBlurbsResponse,
+                crate::prost::google::showcase::v1beta1::ConnectRequest,
+                crate::prost::google::showcase::v1beta1::StreamBlurbsResponse,
+            >(
+                extensions,
+                path,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
+                x_goog_request_params,
+            )
     }
 
     async fn list_locations(
@@ -5259,6 +5266,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -5269,6 +5277,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5282,6 +5291,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5300,6 +5310,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5313,6 +5324,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5581,6 +5593,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -5591,6 +5604,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5604,6 +5618,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5622,6 +5637,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5635,6 +5651,7 @@ impl super::stub::Messaging for Messaging {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5971,16 +5988,18 @@ impl super::stub::Messaging for Messaging {
     }
 }
 
-/// Implements [SequenceService](super::stub::SequenceService) using a [gaxi::http::ReqwestClient].
+/// Implements [SequenceService](super::stub::SequenceService) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
 #[derive(Clone)]
 pub struct SequenceService {
     inner: gaxi::http::ReqwestClient,
+    grpc_inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for SequenceService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("SequenceService")
             .field("inner", &self.inner)
+            .field("grpc_inner", &self.grpc_inner)
             .finish()
     }
 }
@@ -5988,13 +6007,23 @@ impl std::fmt::Debug for SequenceService {
 impl SequenceService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
-        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config.clone(), crate::DEFAULT_HOST).await?;
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
             inner
         };
-        Ok(Self { inner })
+        let grpc_inner = if tracing_is_enabled {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                crate::DEFAULT_HOST,
+                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
+        };
+        Ok(Self { inner, grpc_inner })
     }
 }
 
@@ -6233,6 +6262,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -6243,6 +6273,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path_template = "/v1beta1/{name}";
 
                 let resource_name = format!("//localhost:7469/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6285,6 +6316,50 @@ impl super::stub::SequenceService for SequenceService {
                 let (parts, _) = r.into_parts();
                 crate::Response::from_parts(parts, ())
             })
+    }
+
+    async fn attempt_streaming_sequence(
+        &self,
+        req: crate::model::AttemptStreamingSequenceRequest,
+        options: crate::RequestOptions,
+    ) -> Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::AttemptStreamingSequenceResponse>,
+    > {
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.name)
+            .map(|s| s.as_str())
+            .map(|v| format!("name={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.showcase.v1beta1.SequenceService",
+                "AttemptStreamingSequence",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.showcase.v1beta1.SequenceService/AttemptStreamingSequence",
+        );
+
+        self.grpc_inner
+            .execute_server_streaming::<
+                crate::model::AttemptStreamingSequenceRequest,
+                crate::model::AttemptStreamingSequenceResponse,
+                crate::prost::google::showcase::v1beta1::AttemptStreamingSequenceRequest,
+                crate::prost::google::showcase::v1beta1::AttemptStreamingSequenceResponse,
+            >(
+                extensions,
+                path,
+                req,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
+                &x_goog_request_params,
+            )
+            .await
     }
 
     async fn list_locations(
@@ -6422,6 +6497,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -6432,6 +6508,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6445,6 +6522,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6463,6 +6541,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6476,6 +6555,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6744,6 +6824,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -6754,6 +6835,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6767,6 +6849,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6785,6 +6868,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6798,6 +6882,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7760,6 +7845,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -7770,6 +7856,7 @@ impl super::stub::Testing for Testing {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7783,6 +7870,7 @@ impl super::stub::Testing for Testing {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7801,6 +7889,7 @@ impl super::stub::Testing for Testing {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7814,6 +7903,7 @@ impl super::stub::Testing for Testing {
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8082,6 +8172,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -8092,6 +8183,7 @@ impl super::stub::Testing for Testing {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8105,6 +8197,7 @@ impl super::stub::Testing for Testing {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8123,6 +8216,7 @@ impl super::stub::Testing for Testing {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8136,6 +8230,7 @@ impl super::stub::Testing for Testing {
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))

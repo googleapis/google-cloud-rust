@@ -16413,6 +16413,12 @@ pub trait ReservationSlots: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ReservationSlotsGetResponse>>;
 
+    async fn get_health(
+        &self,
+        req: crate::model::reservation_slots::GetHealthRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
     async fn get_version(
         &self,
         req: crate::model::reservation_slots::GetVersionRequest,
@@ -16464,6 +16470,15 @@ impl<T: super::ReservationSlots> ReservationSlots for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ReservationSlotsGetResponse>> {
         T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_health(
+        &self,
+        req: crate::model::reservation_slots::GetHealthRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::get_health(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

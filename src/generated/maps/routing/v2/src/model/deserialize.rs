@@ -762,8 +762,11 @@ impl<'de> serde::de::Deserialize<'de> for super::PolylineDetails {
         #[doc(hidden)]
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
+            __tunnel_info,
             __flyover_info,
             __narrow_road_info,
+            __bridge_info,
+            __skyway_info,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -784,10 +787,16 @@ impl<'de> serde::de::Deserialize<'de> for super::PolylineDetails {
                         use std::result::Result::Ok;
                         use std::string::ToString;
                         match value {
+                            "tunnelInfo" => Ok(__FieldTag::__tunnel_info),
+                            "tunnel_info" => Ok(__FieldTag::__tunnel_info),
                             "flyoverInfo" => Ok(__FieldTag::__flyover_info),
                             "flyover_info" => Ok(__FieldTag::__flyover_info),
                             "narrowRoadInfo" => Ok(__FieldTag::__narrow_road_info),
                             "narrow_road_info" => Ok(__FieldTag::__narrow_road_info),
+                            "bridgeInfo" => Ok(__FieldTag::__bridge_info),
+                            "bridge_info" => Ok(__FieldTag::__bridge_info),
+                            "skywayInfo" => Ok(__FieldTag::__skyway_info),
+                            "skyway_info" => Ok(__FieldTag::__skyway_info),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -813,6 +822,18 @@ impl<'de> serde::de::Deserialize<'de> for super::PolylineDetails {
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
+                        __FieldTag::__tunnel_info => {
+                            if !fields.insert(__FieldTag::__tunnel_info) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tunnel_info",
+                                ));
+                            }
+                            result.tunnel_info = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::polyline_details::TunnelInfo>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::__flyover_info => {
                             if !fields.insert(__FieldTag::__flyover_info) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -834,6 +855,30 @@ impl<'de> serde::de::Deserialize<'de> for super::PolylineDetails {
                             result.narrow_road_info = map
                                 .next_value::<std::option::Option<
                                     std::vec::Vec<crate::model::polyline_details::NarrowRoadInfo>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__bridge_info => {
+                            if !fields.insert(__FieldTag::__bridge_info) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for bridge_info",
+                                ));
+                            }
+                            result.bridge_info = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::polyline_details::BridgeInfo>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__skyway_info => {
+                            if !fields.insert(__FieldTag::__skyway_info) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for skyway_info",
+                                ));
+                            }
+                            result.skyway_info = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::polyline_details::SkywayInfo>,
                                 >>()?
                                 .unwrap_or_default();
                         }
@@ -948,6 +993,294 @@ impl<'de> serde::de::Deserialize<'de> for super::polyline_details::PolylinePoint
                                 }
                             }
                             result.end_index = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::polyline_details::TunnelInfo {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __tunnel_presence,
+            __polyline_point_index,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for TunnelInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "tunnelPresence" => Ok(__FieldTag::__tunnel_presence),
+                            "tunnel_presence" => Ok(__FieldTag::__tunnel_presence),
+                            "polylinePointIndex" => Ok(__FieldTag::__polyline_point_index),
+                            "polyline_point_index" => Ok(__FieldTag::__polyline_point_index),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::polyline_details::TunnelInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct TunnelInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__tunnel_presence => {
+                            if !fields.insert(__FieldTag::__tunnel_presence) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tunnel_presence",
+                                ));
+                            }
+                            result.tunnel_presence = map
+                                .next_value::<std::option::Option<
+                                    crate::model::polyline_details::RoadFeatureState,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__polyline_point_index => {
+                            if !fields.insert(__FieldTag::__polyline_point_index) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for polyline_point_index",
+                                ));
+                            }
+                            result.polyline_point_index = map.next_value::<std::option::Option<
+                                crate::model::polyline_details::PolylinePointIndex,
+                            >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::polyline_details::BridgeInfo {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __bridge_presence,
+            __polyline_point_index,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BridgeInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "bridgePresence" => Ok(__FieldTag::__bridge_presence),
+                            "bridge_presence" => Ok(__FieldTag::__bridge_presence),
+                            "polylinePointIndex" => Ok(__FieldTag::__polyline_point_index),
+                            "polyline_point_index" => Ok(__FieldTag::__polyline_point_index),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::polyline_details::BridgeInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BridgeInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__bridge_presence => {
+                            if !fields.insert(__FieldTag::__bridge_presence) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for bridge_presence",
+                                ));
+                            }
+                            result.bridge_presence = map
+                                .next_value::<std::option::Option<
+                                    crate::model::polyline_details::RoadFeatureState,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__polyline_point_index => {
+                            if !fields.insert(__FieldTag::__polyline_point_index) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for polyline_point_index",
+                                ));
+                            }
+                            result.polyline_point_index = map.next_value::<std::option::Option<
+                                crate::model::polyline_details::PolylinePointIndex,
+                            >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::polyline_details::SkywayInfo {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __skyway_presence,
+            __polyline_point_index,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SkywayInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "skywayPresence" => Ok(__FieldTag::__skyway_presence),
+                            "skyway_presence" => Ok(__FieldTag::__skyway_presence),
+                            "polylinePointIndex" => Ok(__FieldTag::__polyline_point_index),
+                            "polyline_point_index" => Ok(__FieldTag::__polyline_point_index),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::polyline_details::SkywayInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SkywayInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__skyway_presence => {
+                            if !fields.insert(__FieldTag::__skyway_presence) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for skyway_presence",
+                                ));
+                            }
+                            result.skyway_presence = map
+                                .next_value::<std::option::Option<
+                                    crate::model::polyline_details::RoadFeatureState,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__polyline_point_index => {
+                            if !fields.insert(__FieldTag::__polyline_point_index) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for polyline_point_index",
+                                ));
+                            }
+                            result.polyline_point_index = map.next_value::<std::option::Option<
+                                crate::model::polyline_details::PolylinePointIndex,
+                            >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3059,6 +3392,7 @@ impl<'de> serde::de::Deserialize<'de> for super::RouteModifiers {
             __avoid_indoor,
             __vehicle_info,
             __toll_passes,
+            __avoid_tunnels,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3091,6 +3425,8 @@ impl<'de> serde::de::Deserialize<'de> for super::RouteModifiers {
                             "vehicle_info" => Ok(__FieldTag::__vehicle_info),
                             "tollPasses" => Ok(__FieldTag::__toll_passes),
                             "toll_passes" => Ok(__FieldTag::__toll_passes),
+                            "avoidTunnels" => Ok(__FieldTag::__avoid_tunnels),
+                            "avoid_tunnels" => Ok(__FieldTag::__avoid_tunnels),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3172,6 +3508,16 @@ impl<'de> serde::de::Deserialize<'de> for super::RouteModifiers {
                                 ));
                             }
                             result.toll_passes = map.next_value::<std::option::Option<std::vec::Vec<crate::model::TollPass>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__avoid_tunnels => {
+                            if !fields.insert(__FieldTag::__avoid_tunnels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for avoid_tunnels",
+                                ));
+                            }
+                            result.avoid_tunnels = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

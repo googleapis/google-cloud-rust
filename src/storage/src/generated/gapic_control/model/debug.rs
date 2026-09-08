@@ -458,6 +458,20 @@ impl std::fmt::Debug for super::UpdateRapidCacheMetadata {
     }
 }
 
+impl std::fmt::Debug for super::DisableRapidCacheMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DisableRapidCacheMetadata");
+        debug_struct.field("common_metadata", &self.common_metadata);
+        debug_struct.field("rapid_cache_id", &self.rapid_cache_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("cache_type", &self.cache_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::AnywhereCache {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnywhereCache");
@@ -614,6 +628,18 @@ impl std::fmt::Debug for super::UpdateRapidCacheRequest {
         let mut debug_struct = f.debug_struct("UpdateRapidCacheRequest");
         debug_struct.field("rapid_cache", &self.rapid_cache);
         debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DisableRapidCacheRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DisableRapidCacheRequest");
+        debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

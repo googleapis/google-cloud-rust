@@ -71289,6 +71289,89 @@ impl super::stub::ReservationSlots for ReservationSlots {
         self.inner.execute(builder, body, options).await
     }
 
+    async fn get_health(
+        &self,
+        req: crate::model::reservation_slots::GetHealthRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_zone = try_match(Some(&req).map(|m| &m.zone).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_parent_name = try_match(Some(&req).map(|m| &m.parent_name).map(|s| s.as_str()), &[Segment::MultiWildcard])?;
+            let var_reservation_slot = try_match(Some(&req).map(|m| &m.reservation_slot).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/compute/v1/projects/{}/zones/{}/{}/reservationSlots/{}/getHealth",
+                var_project,
+                var_zone,
+                var_parent_name,
+                var_reservation_slot,
+            );
+            let path_template = "/compute/v1/projects/{project}/zones/{zone}/{parent_name}/reservationSlots/{reservation_slot}/getHealth";
+
+            let resource_name = format!(
+                "//compute.googleapis.com/projects/{}/zones/{}",
+                var_project,
+                var_zone,
+            );
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "zone",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.parent_name).map(|s| s.as_str()),
+                    &[Segment::MultiWildcard],
+                    "parent_name",
+                    "**");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.reservation_slot).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "reservation_slot",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.reservationSlots/getHealth")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
     async fn get_version(
         &self,
         req: crate::model::reservation_slots::GetVersionRequest,

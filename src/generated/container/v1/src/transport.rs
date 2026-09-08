@@ -279,6 +279,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -293,6 +294,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path = format!("/v1/{}/clusters", var_parent,);
                 let path_template = "/v1/{parent}/clusters";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -312,6 +314,8 @@ impl super::stub::ClusterManager for ClusterManager {
                 );
                 let path_template = "/v1/projects/{project_id}/zones/{zone}/clusters";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -380,6 +384,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -396,6 +401,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path = format!("/v1/{}", var_name,);
                 let path_template = "/v1/{name}";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PUT, path_template)))
@@ -419,6 +425,9 @@ impl super::stub::ClusterManager for ClusterManager {
                 );
                 let path_template = "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PUT, path_template)))
@@ -495,6 +504,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard])?;
@@ -504,6 +514,7 @@ impl super::stub::ClusterManager for ClusterManager {
             );
             let path_template = "/v1/{name}";
 
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
             let builder = self.inner.builder(Method::PUT, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::PUT, path_template)))
@@ -522,6 +533,10 @@ impl super::stub::ClusterManager for ClusterManager {
             );
             let path_template = "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/nodePools/{node_pool_id}/update";
 
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.node_pool_id));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -592,6 +607,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard])?;
@@ -601,6 +617,7 @@ impl super::stub::ClusterManager for ClusterManager {
             );
             let path_template = "/v1/{name}:setAutoscaling";
 
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -619,6 +636,10 @@ impl super::stub::ClusterManager for ClusterManager {
             );
             let path_template = "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/nodePools/{node_pool_id}/autoscaling";
 
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.node_pool_id));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -689,6 +710,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -705,6 +727,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path = format!("/v1/{}:setLogging", var_name,);
                 let path_template = "/v1/{name}:setLogging";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -729,6 +752,9 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path_template =
                     "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/logging";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -805,6 +831,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -821,6 +848,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path = format!("/v1/{}:setMonitoring", var_name,);
                 let path_template = "/v1/{name}:setMonitoring";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -845,6 +873,9 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path_template =
                     "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/monitoring";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -921,6 +952,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -937,6 +969,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path = format!("/v1/{}:setAddons", var_name,);
                 let path_template = "/v1/{name}:setAddons";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -961,6 +994,9 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path_template =
                     "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/addons";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1037,6 +1073,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1053,6 +1090,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path = format!("/v1/{}:setLocations", var_name,);
                 let path_template = "/v1/{name}:setLocations";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1077,6 +1115,9 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path_template =
                     "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/locations";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1153,6 +1194,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1169,6 +1211,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path = format!("/v1/{}:updateMaster", var_name,);
                 let path_template = "/v1/{name}:updateMaster";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1193,6 +1236,9 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path_template =
                     "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/master";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1269,6 +1315,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1285,6 +1332,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path = format!("/v1/{}:setMasterAuth", var_name,);
                 let path_template = "/v1/{name}:setMasterAuth";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1309,6 +1357,9 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path_template =
                     "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}:setMasterAuth";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1728,6 +1779,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1744,6 +1796,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1768,6 +1821,9 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path_template =
                     "/v1/projects/{project_id}/zones/{zone}/operations/{operation_id}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.operation_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -2246,6 +2302,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -2262,6 +2319,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path = format!("/v1/{}/nodePools", var_parent,);
                 let path_template = "/v1/{parent}/nodePools";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -2286,6 +2344,9 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path_template =
                     "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/nodePools";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -2464,6 +2525,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2482,6 +2544,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path = format!("/v1/{}:completeUpgrade", var_name,);
                 let path_template = "/v1/{name}:completeUpgrade";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -2544,6 +2607,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard])?;
@@ -2553,6 +2617,7 @@ impl super::stub::ClusterManager for ClusterManager {
             );
             let path_template = "/v1/{name}:rollback";
 
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -2571,6 +2636,10 @@ impl super::stub::ClusterManager for ClusterManager {
             );
             let path_template = "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/nodePools/{node_pool_id}:rollback";
 
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.node_pool_id));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -2641,6 +2710,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard])?;
@@ -2650,6 +2720,7 @@ impl super::stub::ClusterManager for ClusterManager {
             );
             let path_template = "/v1/{name}:setManagement";
 
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -2668,6 +2739,10 @@ impl super::stub::ClusterManager for ClusterManager {
             );
             let path_template = "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/nodePools/{node_pool_id}/setManagement";
 
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.node_pool_id));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -2738,6 +2813,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2754,6 +2830,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path = format!("/v1/{}:setResourceLabels", var_name,);
                 let path_template = "/v1/{name}:setResourceLabels";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -2778,6 +2855,9 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path_template =
                     "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/resourceLabels";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -2854,6 +2934,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2870,6 +2951,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path = format!("/v1/{}:setLegacyAbac", var_name,);
                 let path_template = "/v1/{name}:setLegacyAbac";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -2894,6 +2976,9 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path_template =
                     "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/legacyAbac";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -2970,6 +3055,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2986,6 +3072,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path = format!("/v1/{}:startIpRotation", var_name,);
                 let path_template = "/v1/{name}:startIpRotation";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -3010,6 +3097,9 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path_template =
                     "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}:startIpRotation";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -3086,6 +3176,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard])?;
@@ -3095,6 +3186,7 @@ impl super::stub::ClusterManager for ClusterManager {
             );
             let path_template = "/v1/{name}:completeIpRotation";
 
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -3111,6 +3203,9 @@ impl super::stub::ClusterManager for ClusterManager {
             );
             let path_template = "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}:completeIpRotation";
 
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -3176,6 +3271,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard])?;
@@ -3185,6 +3281,7 @@ impl super::stub::ClusterManager for ClusterManager {
             );
             let path_template = "/v1/{name}:setSize";
 
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -3203,6 +3300,10 @@ impl super::stub::ClusterManager for ClusterManager {
             );
             let path_template = "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/nodePools/{node_pool_id}/setSize";
 
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.node_pool_id));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -3273,6 +3374,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -3289,6 +3391,7 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path = format!("/v1/{}:setNetworkPolicy", var_name,);
                 let path_template = "/v1/{name}:setNetworkPolicy";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -3313,6 +3416,9 @@ impl super::stub::ClusterManager for ClusterManager {
                 let path_template =
                     "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}:setNetworkPolicy";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -3389,6 +3495,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard])?;
@@ -3398,6 +3505,7 @@ impl super::stub::ClusterManager for ClusterManager {
             );
             let path_template = "/v1/{name}:setMaintenancePolicy";
 
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -3414,6 +3522,9 @@ impl super::stub::ClusterManager for ClusterManager {
             );
             let path_template = "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}:setMaintenancePolicy";
 
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.zone));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.cluster_id));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -3821,6 +3932,117 @@ impl super::stub::ClusterManager for ClusterManager {
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn complete_control_plane_upgrade(
+        &self,
+        req: crate::model::CompleteControlPlaneUpgradeRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/clusters/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:completeControlPlaneUpgrade", var_name,);
+                let path_template = "/v1/{name}:completeControlPlaneUpgrade";
+
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/zones/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/clusters/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:completeControlPlaneUpgrade", var_name,);
+                let path_template = "/v1/{name}:completeControlPlaneUpgrade";
+
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/clusters/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/clusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/zones/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/clusters/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/zones/*/clusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.container.v1.ClusterManager/CompleteControlPlaneUpgrade",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
     }
 }

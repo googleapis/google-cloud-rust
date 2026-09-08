@@ -127,7 +127,7 @@ pub(crate) mod tests {
     use httptest::responders::json_encoded;
     use httptest::{Expectation, Server};
     use jsonwebtoken::Algorithm;
-    use p256::elliptic_curve::sec1::ToEncodedPoint;
+    use p256::elliptic_curve::sec1::ToSec1Point;
     use rsa::traits::PublicKeyParts;
     use serial_test::parallel;
 
@@ -162,7 +162,7 @@ pub(crate) mod tests {
 
     pub(crate) fn create_es256_jwk_set_response() -> serde_json::Value {
         let pk = crate::credentials::tests::ES256_PRIVATE_KEY.public_key();
-        let encoded_point = pk.to_encoded_point(false);
+        let encoded_point = pk.to_sec1_point(false);
         serde_json::json!({
             "keys": [
                 {

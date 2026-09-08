@@ -18,16 +18,18 @@
 use crate::Error;
 use crate::Result;
 
-/// Implements [TextToSpeech](super::stub::TextToSpeech) using a [gaxi::http::ReqwestClient].
+/// Implements [TextToSpeech](super::stub::TextToSpeech) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
 #[derive(Clone)]
 pub struct TextToSpeech {
     inner: gaxi::http::ReqwestClient,
+    grpc_inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for TextToSpeech {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("TextToSpeech")
             .field("inner", &self.inner)
+            .field("grpc_inner", &self.grpc_inner)
             .finish()
     }
 }
@@ -35,13 +37,23 @@ impl std::fmt::Debug for TextToSpeech {
 impl TextToSpeech {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
-        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config.clone(), crate::DEFAULT_HOST).await?;
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
             inner
         };
-        Ok(Self { inner })
+        let grpc_inner = if tracing_is_enabled {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                crate::DEFAULT_HOST,
+                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
+        };
+        Ok(Self { inner, grpc_inner })
     }
 }
 
@@ -133,6 +145,42 @@ impl super::stub::TextToSpeech for TextToSpeech {
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
+    }
+
+    fn streaming_synthesize(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingSynthesizeRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingSynthesizeResponse>,
+    ) {
+        let x_goog_request_params = "";
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.cloud.texttospeech.v1.TextToSpeech",
+                "StreamingSynthesize",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.cloud.texttospeech.v1.TextToSpeech/StreamingSynthesize",
+        );
+
+        self.grpc_inner
+            .execute_bidi_streaming::<
+                crate::model::StreamingSynthesizeRequest,
+                crate::model::StreamingSynthesizeResponse,
+                crate::prost::google::cloud::texttospeech::v1::StreamingSynthesizeRequest,
+                crate::prost::google::cloud::texttospeech::v1::StreamingSynthesizeResponse,
+            >(
+                extensions,
+                path,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
+                x_goog_request_params,
+            )
     }
 
     async fn list_operations(
@@ -315,6 +363,7 @@ impl super::stub::TextToSpeechLongAudioSynthesize for TextToSpeechLongAudioSynth
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -329,6 +378,7 @@ impl super::stub::TextToSpeechLongAudioSynthesize for TextToSpeechLongAudioSynth
                 let path = format!("/v1/{}:synthesizeLongAudio", var_parent,);
                 let path_template = "/v1/{parent}:synthesizeLongAudio";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

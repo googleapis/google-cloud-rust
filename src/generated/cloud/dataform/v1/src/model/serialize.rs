@@ -2498,6 +2498,9 @@ impl serde::ser::Serialize for super::CodeCompilationConfig {
         if self.pipeline_config.is_some() {
             state.serialize_entry("pipelineConfig", &self.pipeline_config)?;
         }
+        if self.lineage_enabled.is_some() {
+            state.serialize_entry("lineageEnabled", &self.lineage_enabled)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

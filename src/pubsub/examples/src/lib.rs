@@ -153,7 +153,7 @@ pub async fn create_test_topic() -> anyhow::Result<(TopicAdmin, Topic)> {
     let _ = cleanup_stale_topics(&client, &project_id).await;
 
     let topic_id = random_topic_id();
-    let now = chrono::Utc::now().timestamp().to_string();
+    let now = jiff::Timestamp::now().as_second().to_string();
 
     let topic = client
         .create_topic()
@@ -167,7 +167,7 @@ pub async fn create_test_topic() -> anyhow::Result<(TopicAdmin, Topic)> {
 }
 
 pub async fn cleanup_stale_topics(client: &TopicAdmin, project_id: &str) -> anyhow::Result<()> {
-    let stale_deadline = chrono::Utc::now() - chrono::Duration::hours(48);
+    let stale_deadline = jiff::Timestamp::now() - jiff::SignedDuration::from_hours(48);
 
     let mut topics = client
         .list_topics()
@@ -184,7 +184,7 @@ pub async fn cleanup_stale_topics(client: &TopicAdmin, project_id: &str) -> anyh
                 .labels
                 .get("create-time")
                 .and_then(|v| v.parse::<i64>().ok())
-                .and_then(|s| chrono::DateTime::from_timestamp(s, 0))
+                .and_then(|s| jiff::Timestamp::from_second(s).ok())
                 .is_some_and(|create_time| create_time < stale_deadline)
         {
             let client = client.clone();
@@ -272,7 +272,7 @@ async fn create_test_subscription_with_request(
     let _ = cleanup_stale_subscriptions(&client, &project_id).await;
 
     let subscription_id = random_subscription_id();
-    let now = chrono::Utc::now().timestamp().to_string();
+    let now = jiff::Timestamp::now().as_second().to_string();
 
     let request = request
         .set_name(format!(
@@ -294,7 +294,7 @@ pub async fn cleanup_stale_subscriptions(
     client: &SubscriptionAdmin,
     project_id: &str,
 ) -> anyhow::Result<()> {
-    let stale_deadline = chrono::Utc::now() - chrono::Duration::hours(48);
+    let stale_deadline = jiff::Timestamp::now() - jiff::SignedDuration::from_hours(48);
 
     let mut subscriptions = client
         .list_subscriptions()
@@ -311,7 +311,7 @@ pub async fn cleanup_stale_subscriptions(
                 .labels
                 .get("create-time")
                 .and_then(|v| v.parse::<i64>().ok())
-                .and_then(|s| chrono::DateTime::from_timestamp(s, 0))
+                .and_then(|s| jiff::Timestamp::from_second(s).ok())
                 .is_some_and(|create_time| create_time < stale_deadline)
         {
             let client = client.clone();

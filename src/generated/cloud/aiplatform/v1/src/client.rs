@@ -3640,6 +3640,38 @@ impl FeatureOnlineStoreService {
         super::builder::feature_online_store_service::SearchNearestEntities::new(self.inner.clone())
     }
 
+    /// Bidirectional streaming RPC to directly write to feature values in a
+    /// feature view. Requests may not have a one-to-one mapping to responses and
+    /// responses may be returned out-of-order to reduce latency.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// # use google_cloud_aiplatform_v1::model::FeatureViewDirectWriteRequest;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.feature_view_direct_write()
+    ///         .build();
+    ///
+    ///     sender.send(FeatureViewDirectWriteRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn feature_view_direct_write(
+        &self,
+    ) -> super::builder::feature_online_store_service::FeatureViewDirectWrite {
+        super::builder::feature_online_store_service::FeatureViewDirectWrite::new(
+            self.inner.clone(),
+        )
+    }
+
     /// RPC to generate an access token for the given feature view. FeatureViews
     /// under the same FeatureOnlineStore share the same access token.
     ///
@@ -4706,6 +4738,35 @@ impl FeaturestoreOnlineServingService {
         &self,
     ) -> super::builder::featurestore_online_serving_service::ReadFeatureValues {
         super::builder::featurestore_online_serving_service::ReadFeatureValues::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Reads Feature values for multiple entities. Depending on their size, data
+    /// for different entities may be broken
+    /// up across multiple responses.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.streaming_read_feature_values()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn streaming_read_feature_values(
+        &self,
+    ) -> super::builder::featurestore_online_serving_service::StreamingReadFeatureValues {
+        super::builder::featurestore_online_serving_service::StreamingReadFeatureValues::new(
             self.inner.clone(),
         )
     }
@@ -15003,6 +15064,29 @@ impl PredictionService {
         super::builder::prediction_service::RawPredict::new(self.inner.clone())
     }
 
+    /// Perform a streaming online prediction with an arbitrary HTTP payload.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.stream_raw_predict()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn stream_raw_predict(&self) -> super::builder::prediction_service::StreamRawPredict {
+        super::builder::prediction_service::StreamRawPredict::new(self.inner.clone())
+    }
+
     /// Perform an unary online prediction request to a gRPC model server for
     /// Vertex first-party products and frameworks.
     ///
@@ -15043,6 +15127,141 @@ impl PredictionService {
     /// ```
     pub fn direct_raw_predict(&self) -> super::builder::prediction_service::DirectRawPredict {
         super::builder::prediction_service::DirectRawPredict::new(self.inner.clone())
+    }
+
+    /// Perform a streaming online prediction request to a gRPC model server for
+    /// Vertex first-party products and frameworks.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// # use google_cloud_aiplatform_v1::model::StreamDirectPredictRequest;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.stream_direct_predict()
+    ///         .build();
+    ///
+    ///     sender.send(StreamDirectPredictRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn stream_direct_predict(&self) -> super::builder::prediction_service::StreamDirectPredict {
+        super::builder::prediction_service::StreamDirectPredict::new(self.inner.clone())
+    }
+
+    /// Perform a streaming online prediction request to a gRPC model server for
+    /// custom containers.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// # use google_cloud_aiplatform_v1::model::StreamDirectRawPredictRequest;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.stream_direct_raw_predict()
+    ///         .build();
+    ///
+    ///     sender.send(StreamDirectRawPredictRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn stream_direct_raw_predict(
+        &self,
+    ) -> super::builder::prediction_service::StreamDirectRawPredict {
+        super::builder::prediction_service::StreamDirectRawPredict::new(self.inner.clone())
+    }
+
+    /// Perform a streaming online prediction request for Vertex first-party
+    /// products and frameworks.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// # use google_cloud_aiplatform_v1::model::StreamingPredictRequest;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.streaming_predict()
+    ///         .build();
+    ///
+    ///     sender.send(StreamingPredictRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn streaming_predict(&self) -> super::builder::prediction_service::StreamingPredict {
+        super::builder::prediction_service::StreamingPredict::new(self.inner.clone())
+    }
+
+    /// Perform a server-side streaming online prediction request for Vertex
+    /// LLM streaming.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.server_streaming_predict()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn server_streaming_predict(
+        &self,
+    ) -> super::builder::prediction_service::ServerStreamingPredict {
+        super::builder::prediction_service::ServerStreamingPredict::new(self.inner.clone())
+    }
+
+    /// Perform a streaming online prediction request through gRPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// # use google_cloud_aiplatform_v1::model::StreamingRawPredictRequest;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.streaming_raw_predict()
+    ///         .build();
+    ///
+    ///     sender.send(StreamingRawPredictRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn streaming_raw_predict(&self) -> super::builder::prediction_service::StreamingRawPredict {
+        super::builder::prediction_service::StreamingRawPredict::new(self.inner.clone())
     }
 
     /// Perform an online explanation.
@@ -15096,6 +15315,31 @@ impl PredictionService {
     /// ```
     pub fn generate_content(&self) -> super::builder::prediction_service::GenerateContent {
         super::builder::prediction_service::GenerateContent::new(self.inner.clone())
+    }
+
+    /// Generate content with multimodal inputs with streaming support.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.stream_generate_content()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn stream_generate_content(
+        &self,
+    ) -> super::builder::prediction_service::StreamGenerateContent {
+        super::builder::prediction_service::StreamGenerateContent::new(self.inner.clone())
     }
 
     /// Embed content with multimodal inputs.
@@ -15476,6 +15720,33 @@ impl ReasoningEngineExecutionService {
         &self,
     ) -> super::builder::reasoning_engine_execution_service::QueryReasoningEngine {
         super::builder::reasoning_engine_execution_service::QueryReasoningEngine::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Streams queries using a reasoning engine.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.stream_query_reasoning_engine()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn stream_query_reasoning_engine(
+        &self,
+    ) -> super::builder::reasoning_engine_execution_service::StreamQueryReasoningEngine {
+        super::builder::reasoning_engine_execution_service::StreamQueryReasoningEngine::new(
             self.inner.clone(),
         )
     }
@@ -18634,6 +18905,34 @@ impl TensorboardService {
         &self,
     ) -> super::builder::tensorboard_service::ReadTensorboardTimeSeriesData {
         super::builder::tensorboard_service::ReadTensorboardTimeSeriesData::new(self.inner.clone())
+    }
+
+    /// Gets bytes of TensorboardBlobs.
+    /// This is to allow reading blob data stored in consumer project's Cloud
+    /// Storage bucket without users having to obtain Cloud Storage access
+    /// permission.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.read_tensorboard_blob_data()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn read_tensorboard_blob_data(
+        &self,
+    ) -> super::builder::tensorboard_service::ReadTensorboardBlobData {
+        super::builder::tensorboard_service::ReadTensorboardBlobData::new(self.inner.clone())
     }
 
     /// Write time series data points of multiple TensorboardTimeSeries in multiple

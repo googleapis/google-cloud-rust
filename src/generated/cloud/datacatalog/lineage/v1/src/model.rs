@@ -26,6 +26,9 @@ extern crate google_cloud_gax;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate google_cloud_type;
+extern crate http;
+extern crate prost;
+extern crate prost_types;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -4379,6 +4382,8 @@ pub mod lineage_link {
 
 /// Request message for
 /// [SearchLineageStreaming][google.cloud.datacatalog.lineage.v1.Lineage.SearchLineageStreaming].
+///
+/// [google.cloud.datacatalog.lineage.v1.Lineage.SearchLineageStreaming]: crate::client::Lineage::search_lineage_streaming
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchLineageStreamingRequest {
@@ -5114,6 +5119,8 @@ pub mod search_lineage_streaming_request {
 
 /// Response message for
 /// [SearchLineageStreaming][google.cloud.datacatalog.lineage.v1.Lineage.SearchLineageStreaming].
+///
+/// [google.cloud.datacatalog.lineage.v1.Lineage.SearchLineageStreaming]: crate::client::Lineage::search_lineage_streaming
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchLineageStreamingResponse {

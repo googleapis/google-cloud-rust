@@ -43,6 +43,8 @@ pub mod value;
 
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
+#[cfg(feature = "metrics")]
+pub use opentelemetry;
 pub use rust_decimal::Decimal;
 
 pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
@@ -79,6 +81,7 @@ pub mod stub {
 pub(crate) mod batch_dml;
 pub(crate) mod batch_read_only_transaction;
 pub(crate) mod batch_write_transaction;
+pub(crate) mod channel_pool;
 pub(crate) mod database_client;
 pub(crate) mod from_value;
 pub(crate) mod observability;
@@ -90,6 +93,7 @@ pub(crate) mod request_id;
 pub(crate) mod request_id_interceptor;
 pub(crate) mod result_set;
 pub(crate) mod result_set_metadata;
+pub(crate) mod retry_delay;
 pub(crate) mod routing;
 pub(crate) mod row;
 pub(crate) mod server_streaming;

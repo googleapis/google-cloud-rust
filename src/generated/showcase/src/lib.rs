@@ -92,7 +92,6 @@ pub(crate) mod tracing;
 #[doc(hidden)]
 pub(crate) mod transport;
 
-#[cfg(google_cloud_unstable_gapic_streaming)]
 #[doc(hidden)]
 #[allow(clippy::all)]
 #[allow(unused_imports)]
@@ -116,6 +115,15 @@ pub(crate) mod info {
                 library_type: gaxi::api_header::GAPIC,
             };
             ac.rest_header_value()
+        });
+    pub(crate) static X_GOOG_API_CLIENT_GRPC_HEADER: std::sync::LazyLock<String> =
+        std::sync::LazyLock::new(|| {
+            let ac = gaxi::api_header::XGoogApiClient {
+                name: NAME,
+                version: VERSION,
+                library_type: gaxi::api_header::GAPIC,
+            };
+            ac.grpc_header_value()
         });
 }
 

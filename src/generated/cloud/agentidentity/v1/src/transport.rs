@@ -449,6 +449,7 @@ impl super::stub::AuthProviderService for AuthProviderService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -466,6 +467,7 @@ impl super::stub::AuthProviderService for AuthProviderService {
                 let path_template = "/v1/{name}:undelete";
 
                 let resource_name = format!("//agentidentity.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1061,6 +1063,7 @@ impl super::stub::AuthProviderService for AuthProviderService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1078,6 +1081,7 @@ impl super::stub::AuthProviderService for AuthProviderService {
                 let path_template = "/v1/{name}:revokeAuthorization";
 
                 let resource_name = format!("//agentidentity.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1135,6 +1139,7 @@ impl super::stub::AuthProviderService for AuthProviderService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1152,6 +1157,7 @@ impl super::stub::AuthProviderService for AuthProviderService {
                 let path_template = "/v1/{name}:enable";
 
                 let resource_name = format!("//agentidentity.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1209,6 +1215,7 @@ impl super::stub::AuthProviderService for AuthProviderService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1226,6 +1233,7 @@ impl super::stub::AuthProviderService for AuthProviderService {
                 let path_template = "/v1/{name}:disable";
 
                 let resource_name = format!("//agentidentity.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1408,6 +1416,7 @@ impl super::stub::AuthProviderService for AuthProviderService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -1425,6 +1434,7 @@ impl super::stub::AuthProviderService for AuthProviderService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//agentidentity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1564,6 +1574,7 @@ impl super::stub::AuthProviderService for AuthProviderService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -1581,6 +1592,7 @@ impl super::stub::AuthProviderService for AuthProviderService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//agentidentity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))

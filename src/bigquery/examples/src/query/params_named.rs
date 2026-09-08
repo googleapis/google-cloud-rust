@@ -14,7 +14,7 @@
 
 // [START bigquery_query_params_named]
 use google_cloud_bigquery::client::BigQuery;
-use google_cloud_bigquery::model::{QueryParameter, QueryParameterType, QueryParameterValue};
+use google_cloud_bigquery_v2::model::{QueryParameter, QueryParameterType, QueryParameterValue};
 
 pub async fn sample(project_id: &str) -> anyhow::Result<()> {
     let client = BigQuery::builder().build().await?;
@@ -40,7 +40,7 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
         .read();
 
     while let Some(row) = rows.next().await.transpose()? {
-        let name: String = row.get("name");
+        let name: String = row.get("name")?;
         println!("Name: {name}");
     }
     Ok(())

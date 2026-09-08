@@ -430,6 +430,7 @@ impl super::stub::AgentService for AgentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -447,6 +448,7 @@ impl super::stub::AgentService for AgentService {
                 let path_template = "/v1/{name}:exportApp";
 
                 let resource_name = format!("//ces.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -502,6 +504,7 @@ impl super::stub::AgentService for AgentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -517,6 +520,7 @@ impl super::stub::AgentService for AgentService {
                 let path_template = "/v1/{parent}/apps:importApp";
 
                 let resource_name = format!("//ces.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1763,6 +1767,7 @@ impl super::stub::AgentService for AgentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -1780,6 +1785,7 @@ impl super::stub::AgentService for AgentService {
                 let path_template = "/v1/{parent}/conversations:batchDelete";
 
                 let resource_name = format!("//ces.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3593,6 +3599,7 @@ impl super::stub::AgentService for AgentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -3612,6 +3619,7 @@ impl super::stub::AgentService for AgentService {
                 let path_template = "/v1/{name}:restore";
 
                 let resource_name = format!("//ces.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4163,6 +4171,7 @@ impl super::stub::AgentService for AgentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4179,6 +4188,7 @@ impl super::stub::AgentService for AgentService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -4244,16 +4254,18 @@ impl super::stub::AgentService for AgentService {
     }
 }
 
-/// Implements [SessionService](super::stub::SessionService) using a [gaxi::http::ReqwestClient].
+/// Implements [SessionService](super::stub::SessionService) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
 #[derive(Clone)]
 pub struct SessionService {
     inner: gaxi::http::ReqwestClient,
+    grpc_inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for SessionService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("SessionService")
             .field("inner", &self.inner)
+            .field("grpc_inner", &self.grpc_inner)
             .finish()
     }
 }
@@ -4261,13 +4273,23 @@ impl std::fmt::Debug for SessionService {
 impl SessionService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
-        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config.clone(), crate::DEFAULT_HOST).await?;
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
             inner
         };
-        Ok(Self { inner })
+        let grpc_inner = if tracing_is_enabled {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                crate::DEFAULT_HOST,
+                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
+        };
+        Ok(Self { inner, grpc_inner })
     }
 }
 
@@ -4282,6 +4304,7 @@ impl super::stub::SessionService for SessionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_config_session = try_match(
@@ -4304,6 +4327,9 @@ impl super::stub::SessionService for SessionService {
                 let path_template = "/v1/{config.session}:runSession";
 
                 let resource_name = format!("//ces.googleapis.com/{}", var_config_session,);
+                let _ = Some(&mut req)
+                    .and_then(|m| m.config.as_mut())
+                    .map(|m| std::mem::take(&mut m.session));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4352,6 +4378,85 @@ impl super::stub::SessionService for SessionService {
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
+    }
+
+    async fn stream_run_session(
+        &self,
+        req: crate::model::RunSessionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::RunSessionResponse>> {
+        let x_goog_request_params = [Some(&req)
+            .and_then(|m| m.config.as_ref())
+            .map(|m| &m.session)
+            .map(|s| s.as_str())
+            .map(|v| format!("config.session={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.cloud.ces.v1.SessionService",
+                "StreamRunSession",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.cloud.ces.v1.SessionService/StreamRunSession",
+        );
+
+        self.grpc_inner
+            .execute_server_streaming::<
+                crate::model::RunSessionRequest,
+                crate::model::RunSessionResponse,
+                crate::prost::google::cloud::ces::v1::RunSessionRequest,
+                crate::prost::google::cloud::ces::v1::RunSessionResponse,
+            >(
+                extensions,
+                path,
+                req,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+    }
+
+    fn bidi_run_session(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::BidiSessionClientMessage>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::BidiSessionServerMessage>,
+    ) {
+        let x_goog_request_params = "";
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.cloud.ces.v1.SessionService",
+                "BidiRunSession",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.cloud.ces.v1.SessionService/BidiRunSession",
+        );
+
+        self.grpc_inner
+            .execute_bidi_streaming::<
+                crate::model::BidiSessionClientMessage,
+                crate::model::BidiSessionServerMessage,
+                crate::prost::google::cloud::ces::v1::BidiSessionClientMessage,
+                crate::prost::google::cloud::ces::v1::BidiSessionServerMessage,
+            >(
+                extensions,
+                path,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
+                x_goog_request_params,
+            )
     }
 
     async fn list_locations(
@@ -4706,6 +4811,7 @@ impl super::stub::SessionService for SessionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4722,6 +4828,7 @@ impl super::stub::SessionService for SessionService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -4811,6 +4918,7 @@ impl super::stub::ToolService for ToolService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -4828,6 +4936,7 @@ impl super::stub::ToolService for ToolService {
                 let path_template = "/v1/{parent}:executeTool";
 
                 let resource_name = format!("//ces.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4883,6 +4992,7 @@ impl super::stub::ToolService for ToolService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -4900,6 +5010,7 @@ impl super::stub::ToolService for ToolService {
                 let path_template = "/v1/{parent}:retrieveToolSchema";
 
                 let resource_name = format!("//ces.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4955,6 +5066,7 @@ impl super::stub::ToolService for ToolService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_toolset = try_match(
@@ -4974,6 +5086,7 @@ impl super::stub::ToolService for ToolService {
                 let path_template = "/v1/{toolset}:retrieveTools";
 
                 let resource_name = format!("//ces.googleapis.com/{}", var_toolset,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.toolset));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5373,6 +5486,7 @@ impl super::stub::ToolService for ToolService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -5389,6 +5503,7 @@ impl super::stub::ToolService for ToolService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -5478,6 +5593,7 @@ impl super::stub::WidgetService for WidgetService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -5497,6 +5613,7 @@ impl super::stub::WidgetService for WidgetService {
                 let path_template = "/v1/{name}:generateChatToken";
 
                 let resource_name = format!("//ces.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5896,6 +6013,7 @@ impl super::stub::WidgetService for WidgetService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -5912,6 +6030,7 @@ impl super::stub::WidgetService for WidgetService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

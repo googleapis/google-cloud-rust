@@ -1204,6 +1204,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_datacenter_connector = try_match(
@@ -1226,6 +1227,7 @@ impl super::stub::VmMigration for VmMigration {
 
                 let resource_name =
                     format!("//vmmigration.googleapis.com/{}", var_datacenter_connector,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.datacenter_connector));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1682,6 +1684,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_migrating_vm = try_match(
@@ -1701,6 +1704,7 @@ impl super::stub::VmMigration for VmMigration {
                 let path_template = "/v1/{migrating_vm}:startMigration";
 
                 let resource_name = format!("//vmmigration.googleapis.com/{}", var_migrating_vm,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.migrating_vm));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1758,6 +1762,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_migrating_vm = try_match(
@@ -1777,6 +1782,7 @@ impl super::stub::VmMigration for VmMigration {
                 let path_template = "/v1/{migrating_vm}:resumeMigration";
 
                 let resource_name = format!("//vmmigration.googleapis.com/{}", var_migrating_vm,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.migrating_vm));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1834,6 +1840,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_migrating_vm = try_match(
@@ -1853,6 +1860,7 @@ impl super::stub::VmMigration for VmMigration {
                 let path_template = "/v1/{migrating_vm}:pauseMigration";
 
                 let resource_name = format!("//vmmigration.googleapis.com/{}", var_migrating_vm,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.migrating_vm));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1910,6 +1918,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_migrating_vm = try_match(
@@ -1929,6 +1938,7 @@ impl super::stub::VmMigration for VmMigration {
                 let path_template = "/v1/{migrating_vm}:finalizeMigration";
 
                 let resource_name = format!("//vmmigration.googleapis.com/{}", var_migrating_vm,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.migrating_vm));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1986,6 +1996,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_migrating_vm = try_match(
@@ -2005,6 +2016,7 @@ impl super::stub::VmMigration for VmMigration {
                 let path_template = "/v1/{migrating_vm}:extendMigration";
 
                 let resource_name = format!("//vmmigration.googleapis.com/{}", var_migrating_vm,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.migrating_vm));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2140,6 +2152,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2161,6 +2174,7 @@ impl super::stub::VmMigration for VmMigration {
                 let path_template = "/v1/{name}:cancel";
 
                 let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2458,6 +2472,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2479,6 +2494,7 @@ impl super::stub::VmMigration for VmMigration {
                 let path_template = "/v1/{name}:cancel";
 
                 let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3074,6 +3090,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_group = try_match(
@@ -3091,6 +3108,7 @@ impl super::stub::VmMigration for VmMigration {
                 let path_template = "/v1/{group}:addGroupMigration";
 
                 let resource_name = format!("//vmmigration.googleapis.com/{}", var_group,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.group));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3146,6 +3164,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_group = try_match(
@@ -3163,6 +3182,7 @@ impl super::stub::VmMigration for VmMigration {
                 let path_template = "/v1/{group}:removeGroupMigration";
 
                 let resource_name = format!("//vmmigration.googleapis.com/{}", var_group,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.group));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4193,6 +4213,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4212,6 +4233,7 @@ impl super::stub::VmMigration for VmMigration {
                 let path_template = "/v1/{name}:cancel";
 
                 let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4670,6 +4692,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4689,6 +4712,7 @@ impl super::stub::VmMigration for VmMigration {
                 let path_template = "/v1/{name}:run";
 
                 let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4746,6 +4770,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4765,6 +4790,7 @@ impl super::stub::VmMigration for VmMigration {
                 let path_template = "/v1/{name}:cancel";
 
                 let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5166,6 +5192,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -5182,6 +5209,7 @@ impl super::stub::VmMigration for VmMigration {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

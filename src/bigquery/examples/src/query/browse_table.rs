@@ -34,9 +34,9 @@ LIMIT 10
         .read();
 
     while let Some(row) = rows.next().await.transpose()? {
-        let name: String = row.get("name");
-        let gender: String = row.get("gender");
-        let number: i64 = row.get("number");
+        let name: String = row.get("name")?;
+        let gender: String = row.get("gender")?;
+        let number: i64 = row.get("number")?;
         println!("Name: {name}, Gender: {gender}, Number: {number}");
     }
     Ok(())

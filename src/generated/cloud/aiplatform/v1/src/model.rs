@@ -30,6 +30,9 @@ extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate google_cloud_rpc;
 extern crate google_cloud_type;
+extern crate http;
+extern crate prost;
+extern crate prost_types;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -55414,6 +55417,8 @@ impl wkt::message::Message for SearchNearestEntitiesResponse {
 
 /// Request message for
 /// [FeatureOnlineStoreService.FeatureViewDirectWrite][google.cloud.aiplatform.v1.FeatureOnlineStoreService.FeatureViewDirectWrite].
+///
+/// [google.cloud.aiplatform.v1.FeatureOnlineStoreService.FeatureViewDirectWrite]: crate::client::FeatureOnlineStoreService::feature_view_direct_write
 #[cfg(feature = "feature-online-store-service")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -55701,6 +55706,8 @@ pub mod feature_view_direct_write_request {
 
 /// Response message for
 /// [FeatureOnlineStoreService.FeatureViewDirectWrite][google.cloud.aiplatform.v1.FeatureOnlineStoreService.FeatureViewDirectWrite].
+///
+/// [google.cloud.aiplatform.v1.FeatureOnlineStoreService.FeatureViewDirectWrite]: crate::client::FeatureOnlineStoreService::feature_view_direct_write
 #[cfg(feature = "feature-online-store-service")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -61218,6 +61225,8 @@ pub mod read_feature_values_response {
 
 /// Request message for
 /// [FeaturestoreOnlineServingService.StreamingReadFeatureValues][google.cloud.aiplatform.v1.FeaturestoreOnlineServingService.StreamingReadFeatureValues].
+///
+/// [google.cloud.aiplatform.v1.FeaturestoreOnlineServingService.StreamingReadFeatureValues]: crate::client::FeaturestoreOnlineServingService::streaming_read_feature_values
 #[cfg(feature = "featurestore-online-serving-service")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -116415,6 +116424,8 @@ impl wkt::message::Message for RawPredictRequest {
 
 /// Request message for
 /// [PredictionService.StreamRawPredict][google.cloud.aiplatform.v1.PredictionService.StreamRawPredict].
+///
+/// [google.cloud.aiplatform.v1.PredictionService.StreamRawPredict]: crate::client::PredictionService::stream_raw_predict
 #[cfg(feature = "prediction-service")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -116818,6 +116829,7 @@ impl wkt::message::Message for DirectRawPredictResponse {
 /// field and optionally [input][]. The subsequent messages must contain
 /// [input][].
 ///
+/// [google.cloud.aiplatform.v1.PredictionService.StreamDirectPredict]: crate::client::PredictionService::stream_direct_predict
 /// [google.cloud.aiplatform.v1.StreamDirectPredictRequest.endpoint]: crate::model::StreamDirectPredictRequest::endpoint
 #[cfg(feature = "prediction-service")]
 #[derive(Clone, Default, PartialEq)]
@@ -116924,6 +116936,8 @@ impl wkt::message::Message for StreamDirectPredictRequest {
 
 /// Response message for
 /// [PredictionService.StreamDirectPredict][google.cloud.aiplatform.v1.PredictionService.StreamDirectPredict].
+///
+/// [google.cloud.aiplatform.v1.PredictionService.StreamDirectPredict]: crate::client::PredictionService::stream_direct_predict
 #[cfg(feature = "prediction-service")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -117021,6 +117035,7 @@ impl wkt::message::Message for StreamDirectPredictResponse {
 /// [method_name][google.cloud.aiplatform.v1.StreamDirectRawPredictRequest.method_name]
 /// in the subsequent messages have no effect.
 ///
+/// [google.cloud.aiplatform.v1.PredictionService.StreamDirectRawPredict]: crate::client::PredictionService::stream_direct_raw_predict
 /// [google.cloud.aiplatform.v1.StreamDirectRawPredictRequest.endpoint]: crate::model::StreamDirectRawPredictRequest::endpoint
 /// [google.cloud.aiplatform.v1.StreamDirectRawPredictRequest.input]: crate::model::StreamDirectRawPredictRequest::input
 /// [google.cloud.aiplatform.v1.StreamDirectRawPredictRequest.method_name]: crate::model::StreamDirectRawPredictRequest::method_name
@@ -117104,6 +117119,8 @@ impl wkt::message::Message for StreamDirectRawPredictRequest {
 
 /// Response message for
 /// [PredictionService.StreamDirectRawPredict][google.cloud.aiplatform.v1.PredictionService.StreamDirectRawPredict].
+///
+/// [google.cloud.aiplatform.v1.PredictionService.StreamDirectRawPredict]: crate::client::PredictionService::stream_direct_raw_predict
 #[cfg(feature = "prediction-service")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -117148,6 +117165,7 @@ impl wkt::message::Message for StreamDirectRawPredictResponse {
 /// [endpoint][google.cloud.aiplatform.v1.StreamingPredictRequest.endpoint] field
 /// and optionally [input][]. The subsequent messages must contain [input][].
 ///
+/// [google.cloud.aiplatform.v1.PredictionService.StreamingPredict]: crate::client::PredictionService::streaming_predict
 /// [google.cloud.aiplatform.v1.StreamingPredictRequest.endpoint]: crate::model::StreamingPredictRequest::endpoint
 #[cfg(feature = "prediction-service")]
 #[derive(Clone, Default, PartialEq)]
@@ -117254,6 +117272,8 @@ impl wkt::message::Message for StreamingPredictRequest {
 
 /// Response message for
 /// [PredictionService.StreamingPredict][google.cloud.aiplatform.v1.PredictionService.StreamingPredict].
+///
+/// [google.cloud.aiplatform.v1.PredictionService.StreamingPredict]: crate::client::PredictionService::streaming_predict
 #[cfg(feature = "prediction-service")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -117351,6 +117371,7 @@ impl wkt::message::Message for StreamingPredictResponse {
 /// [method_name][google.cloud.aiplatform.v1.StreamingRawPredictRequest.method_name]
 /// in the subsequent messages have no effect.
 ///
+/// [google.cloud.aiplatform.v1.PredictionService.StreamingRawPredict]: crate::client::PredictionService::streaming_raw_predict
 /// [google.cloud.aiplatform.v1.StreamingRawPredictRequest.endpoint]: crate::model::StreamingRawPredictRequest::endpoint
 /// [google.cloud.aiplatform.v1.StreamingRawPredictRequest.input]: crate::model::StreamingRawPredictRequest::input
 /// [google.cloud.aiplatform.v1.StreamingRawPredictRequest.method_name]: crate::model::StreamingRawPredictRequest::method_name
@@ -117434,6 +117455,8 @@ impl wkt::message::Message for StreamingRawPredictRequest {
 
 /// Response message for
 /// [PredictionService.StreamingRawPredict][google.cloud.aiplatform.v1.PredictionService.StreamingRawPredict].
+///
+/// [google.cloud.aiplatform.v1.PredictionService.StreamingRawPredict]: crate::client::PredictionService::streaming_raw_predict
 #[cfg(feature = "prediction-service")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -138140,6 +138163,8 @@ impl wkt::message::Message for GetTensorboardRunRequest {
 
 /// Request message for
 /// [TensorboardService.ReadTensorboardBlobData][google.cloud.aiplatform.v1.TensorboardService.ReadTensorboardBlobData].
+///
+/// [google.cloud.aiplatform.v1.TensorboardService.ReadTensorboardBlobData]: crate::client::TensorboardService::read_tensorboard_blob_data
 #[cfg(feature = "tensorboard-service")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -138207,6 +138232,8 @@ impl wkt::message::Message for ReadTensorboardBlobDataRequest {
 
 /// Response message for
 /// [TensorboardService.ReadTensorboardBlobData][google.cloud.aiplatform.v1.TensorboardService.ReadTensorboardBlobData].
+///
+/// [google.cloud.aiplatform.v1.TensorboardService.ReadTensorboardBlobData]: crate::client::TensorboardService::read_tensorboard_blob_data
 #[cfg(feature = "tensorboard-service")]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -141222,6 +141249,13 @@ pub mod tool {
         /// See <https://docs.parallel.ai/search/search-quickstart> for more details.
         pub api_key: std::string::String,
 
+        /// Optional. Instructs Vertex Grounding to use Parallel's Zero Data
+        /// Retention Marketplace product. If this value is "false" or omitted, the
+        /// Parallel Web Search for Grounding standard subscription will be used. If
+        /// this value is "true", the Parallel Web Search for Grounding - ZDR
+        /// subscription will be used.
+        pub enable_zero_data_retention: bool,
+
         /// Optional. Custom configs for ParallelAiSearch.
         /// This field can be used to pass any parameter from the Parallel.ai
         /// Search API.
@@ -141265,6 +141299,18 @@ pub mod tool {
         /// ```
         pub fn set_api_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.api_key = v.into();
+            self
+        }
+
+        /// Sets the value of [enable_zero_data_retention][crate::model::tool::ParallelAiSearch::enable_zero_data_retention].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1::model::tool::ParallelAiSearch;
+        /// let x = ParallelAiSearch::new().set_enable_zero_data_retention(true);
+        /// ```
+        pub fn set_enable_zero_data_retention<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.enable_zero_data_retention = v.into();
             self
         }
 

@@ -16027,6 +16027,11 @@ impl ReservationSlots {
         super::builder::reservation_slots::Get::new(self.inner.clone())
     }
 
+    /// Get health info on a reservation slot.
+    pub fn get_health(&self) -> super::builder::reservation_slots::GetHealth {
+        super::builder::reservation_slots::GetHealth::new(self.inner.clone())
+    }
+
     /// Allows customers to get SBOM versions of a reservation slot.
     pub fn get_version(&self) -> super::builder::reservation_slots::GetVersion {
         super::builder::reservation_slots::GetVersion::new(self.inner.clone())

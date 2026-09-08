@@ -90,7 +90,7 @@ impl Batch {
     ) {
         let batch_to_send = Self {
             initial_size: self.initial_size,
-            messages: self.messages.drain(..).collect(),
+            messages: std::mem::take(&mut self.messages),
             messages_byte_size: self.messages_byte_size,
             batching_options: self.batching_options.clone(),
         };

@@ -217,6 +217,21 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Lineage::search_lineage_streaming].
+    fn search_lineage_streaming(
+        &self,
+        _req: crate::model::SearchLineageStreamingRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseStream<
+                crate::model::SearchLineageStreamingResponse,
+            >,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
+    }
+
     /// Implements [super::client::Lineage::list_operations].
     fn list_operations(
         &self,

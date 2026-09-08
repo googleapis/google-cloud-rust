@@ -317,6 +317,12 @@ impl<T: super::DataAgentService> DataAgentService for T {
 /// A dyn-compatible, crate-private version of [super::DataChatService].
 #[async_trait::async_trait]
 pub trait DataChatService: std::fmt::Debug + Send + Sync {
+    async fn chat(
+        &self,
+        req: crate::model::ChatRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::Message>>;
+
     async fn create_conversation(
         &self,
         req: crate::model::CreateConversationRequest,
@@ -387,6 +393,15 @@ pub trait DataChatService: std::fmt::Debug + Send + Sync {
 /// All implementations of [super::DataChatService] also implement [DataChatService].
 #[async_trait::async_trait]
 impl<T: super::DataChatService> DataChatService for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn chat(
+        &self,
+        req: crate::model::ChatRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::Message>> {
+        T::chat(self, req, options).await
+    }
+
     /// Forwards the call to the implementation provided by `T`.
     async fn create_conversation(
         &self,

@@ -362,6 +362,7 @@ impl super::stub::Dataform for Dataform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -379,6 +380,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{name}:deleteTree";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -888,6 +890,7 @@ impl super::stub::Dataform for Dataform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -905,6 +908,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{name}:deleteTree";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1108,6 +1112,7 @@ impl super::stub::Dataform for Dataform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1125,6 +1130,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{name}:move";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1560,6 +1566,7 @@ impl super::stub::Dataform for Dataform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1577,6 +1584,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{name}:move";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1632,6 +1640,7 @@ impl super::stub::Dataform for Dataform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1649,6 +1658,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{name}:commit";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2383,6 +2393,7 @@ impl super::stub::Dataform for Dataform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_workspace = try_match(
@@ -2402,6 +2413,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{workspace}:installNpmPackages";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_workspace,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.workspace));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2459,6 +2471,7 @@ impl super::stub::Dataform for Dataform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2478,6 +2491,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{name}:pull";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2535,6 +2549,7 @@ impl super::stub::Dataform for Dataform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2554,6 +2569,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{name}:push";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2764,6 +2780,7 @@ impl super::stub::Dataform for Dataform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2783,6 +2800,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{name}:commit";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2840,6 +2858,7 @@ impl super::stub::Dataform for Dataform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2859,6 +2878,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{name}:reset";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3152,6 +3172,7 @@ impl super::stub::Dataform for Dataform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_workspace = try_match(
@@ -3171,6 +3192,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{workspace}:makeDirectory";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_workspace,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.workspace));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3228,6 +3250,7 @@ impl super::stub::Dataform for Dataform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_workspace = try_match(
@@ -3247,6 +3270,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{workspace}:removeDirectory";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_workspace,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.workspace));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3304,6 +3328,7 @@ impl super::stub::Dataform for Dataform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_workspace = try_match(
@@ -3323,6 +3348,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{workspace}:moveDirectory";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_workspace,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.workspace));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3458,6 +3484,7 @@ impl super::stub::Dataform for Dataform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_workspace = try_match(
@@ -3477,6 +3504,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{workspace}:removeFile";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_workspace,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.workspace));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3534,6 +3562,7 @@ impl super::stub::Dataform for Dataform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_workspace = try_match(
@@ -3553,6 +3582,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{workspace}:moveFile";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_workspace,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.workspace));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3610,6 +3640,7 @@ impl super::stub::Dataform for Dataform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_workspace = try_match(
@@ -3629,6 +3660,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{workspace}:writeFile";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_workspace,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.workspace));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5091,6 +5123,7 @@ impl super::stub::Dataform for Dataform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -5110,6 +5143,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{name}:cancel";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5638,6 +5672,7 @@ impl super::stub::Dataform for Dataform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -5655,6 +5690,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5677,6 +5713,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5697,6 +5734,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5717,6 +5755,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5825,6 +5864,7 @@ impl super::stub::Dataform for Dataform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -5842,6 +5882,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5864,6 +5905,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5884,6 +5926,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5904,6 +5947,7 @@ impl super::stub::Dataform for Dataform {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//dataform.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6354,6 +6398,7 @@ impl super::stub::Dataform for Dataform {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -6370,6 +6415,7 @@ impl super::stub::Dataform for Dataform {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

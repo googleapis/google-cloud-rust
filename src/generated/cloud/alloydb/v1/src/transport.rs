@@ -56,6 +56,7 @@ impl super::stub::AlloyDBCSQLAdmin for AlloyDBCSQLAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -71,6 +72,7 @@ impl super::stub::AlloyDBCSQLAdmin for AlloyDBCSQLAdmin {
                 let path_template = "/v1/{parent}/clusters:restoreFromCloudSQL";
 
                 let resource_name = format!("//alloydb.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -466,6 +468,7 @@ impl super::stub::AlloyDBCSQLAdmin for AlloyDBCSQLAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -482,6 +485,7 @@ impl super::stub::AlloyDBCSQLAdmin for AlloyDBCSQLAdmin {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -892,6 +896,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -909,6 +914,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
                 let path_template = "/v1/{name}:export";
 
                 let resource_name = format!("//alloydb.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -964,6 +970,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -981,6 +988,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
                 let path_template = "/v1/{name}:import";
 
                 let resource_name = format!("//alloydb.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1036,6 +1044,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1053,6 +1062,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
                 let path_template = "/v1/{name}:upgrade";
 
                 let resource_name = format!("//alloydb.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
@@ -1184,6 +1194,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1201,6 +1212,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
                 let path_template = "/v1/{name}:promote";
 
                 let resource_name = format!("//alloydb.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1256,6 +1268,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1273,6 +1286,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
                 let path_template = "/v1/{name}:switchover";
 
                 let resource_name = format!("//alloydb.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1328,6 +1342,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -1343,6 +1358,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
                 let path_template = "/v1/{parent}/clusters:restore";
 
                 let resource_name = format!("//alloydb.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2017,6 +2033,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2036,6 +2053,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
                 let path_template = "/v1/{name}:failover";
 
                 let resource_name = format!("//alloydb.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2093,6 +2111,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2112,6 +2131,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
                 let path_template = "/v1/{name}:injectFault";
 
                 let resource_name = format!("//alloydb.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2169,6 +2189,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2188,6 +2209,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
                 let path_template = "/v1/{name}:restart";
 
                 let resource_name = format!("//alloydb.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2245,6 +2267,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_instance = try_match(
@@ -2264,6 +2287,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
                 let path_template = "/v1/{instance}:executeSql";
 
                 let resource_name = format!("//alloydb.googleapis.com/{}", var_instance,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.instance));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2775,6 +2799,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -2792,6 +2817,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
                 let path_template = "/v1/{parent}:generateClientCertificate";
 
                 let resource_name = format!("//alloydb.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3749,6 +3775,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -3765,6 +3792,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

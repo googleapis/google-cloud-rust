@@ -183,8 +183,8 @@ pub struct ClientAuthentication {
 impl ClientAuthentication {
     /// Add authentication to a Secure Token Service exchange request.
     fn inject_auth(&self, headers: &mut http::HeaderMap) -> Result<()> {
-        if let (Some(client_id), Some(client_secret)) =
-            (self.client_id.clone(), self.client_secret.clone())
+        if let Some(client_id) = &self.client_id
+            && let Some(client_secret) = &self.client_secret
         {
             let plain_header = format!("{client_id}:{client_secret}");
             let encoded = base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(plain_header);

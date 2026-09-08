@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use anyhow::Result;
+use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_gax::paginator::Paginator;
 use google_cloud_test_utils::resource_names::random_secret_id;
 use google_cloud_test_utils::runtime_config::{project_id, test_service_account};
@@ -42,6 +43,7 @@ pub async fn run() -> Result<()> {
                 .set_replication(Replication::new().set_automatic(Automatic::new()))
                 .set_labels([("integration-test", "true")]),
         )
+        .with_idempotency(true)
         .send()
         .await?;
     println!("CREATE = {create:?}");
@@ -57,6 +59,7 @@ pub async fn run() -> Result<()> {
         .get_secret()
         .set_project(&project_id)
         .set_secret(&secret_id)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("GET = {get:?}");
@@ -74,6 +77,7 @@ pub async fn run() -> Result<()> {
         .set_secret(&secret_id)
         .set_update_mask(FieldMask::default().set_paths(["labels"]))
         .set_body(Secret::new().set_labels(new_labels))
+        .with_idempotency(true)
         .send()
         .await?;
     println!("UPDATE = {update:?}");
@@ -94,6 +98,7 @@ pub async fn run() -> Result<()> {
         .delete_secret()
         .set_project(&project_id)
         .set_secret(&secret_id)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("DELETE = {response:?}");
@@ -105,6 +110,7 @@ async fn run_locations(client: &SecretManagerService, project_id: &str) -> Resul
     let locations = client
         .list_locations()
         .set_project(project_id)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("LOCATIONS = {locations:?}");
@@ -124,6 +130,7 @@ async fn run_locations(client: &SecretManagerService, project_id: &str) -> Resul
         .get_location()
         .set_project(project_id)
         .set_location(first.location_id.clone().unwrap())
+        .with_idempotency(true)
         .send()
         .await?;
     println!("GET = {get:?}");
@@ -141,6 +148,7 @@ async fn run_iam(client: &SecretManagerService, project_id: &str, secret_id: &st
         .get_iam_policy()
         .set_project(project_id)
         .set_secret(secret_id)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("POLICY = {policy:?}");
@@ -153,6 +161,7 @@ async fn run_iam(client: &SecretManagerService, project_id: &str, secret_id: &st
         .set_body(
             TestIamPermissionsRequest::new().set_permissions(["secretmanager.versions.access"]),
         )
+        .with_idempotency(true)
         .send()
         .await?;
     println!("RESPONSE = {response:?}");
@@ -187,6 +196,7 @@ async fn run_iam(client: &SecretManagerService, project_id: &str, secret_id: &st
                 .set_update_mask(FieldMask::default().set_paths(["bindings"]))
                 .set_policy(new_policy),
         )
+        .with_idempotency(true)
         .send()
         .await?;
     println!("RESPONSE = {response:?}");
@@ -213,6 +223,7 @@ async fn run_secret_versions(
                     .set_data_crc_32_c(checksum as i64),
             ),
         )
+        .with_idempotency(true)
         .send()
         .await?;
     println!("CREATE_SECRET_VERSION = {create:?}");
@@ -237,6 +248,7 @@ async fn run_secret_versions(
         .set_project(project_id)
         .set_secret(secret_id)
         .set_version(version_id)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("GET_SECRET_VERSION = {get:?}");
@@ -258,6 +270,7 @@ async fn run_secret_versions(
         .set_project(project_id)
         .set_secret(secret_id)
         .set_version(version_id)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("ACCESS_SECRET_VERSION = {access_secret_version:?}");
@@ -272,6 +285,7 @@ async fn run_secret_versions(
         .set_project(project_id)
         .set_secret(secret_id)
         .set_version(version_id)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("DISABLE_SECRET_VERSION = {disable:?}");
@@ -282,6 +296,7 @@ async fn run_secret_versions(
         .set_project(project_id)
         .set_secret(secret_id)
         .set_version(version_id)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("ENABLE_SECRET_VERSION = {enable:?}");
@@ -292,6 +307,7 @@ async fn run_secret_versions(
         .set_project(project_id)
         .set_secret(secret_id)
         .set_version(version_id)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("RESPONSE = {delete:?}");
@@ -312,6 +328,7 @@ async fn get_all_secret_version_names(
             .set_project(project_id)
             .set_secret(secret_id)
             .set_or_clear_page_token(page_token)
+            .with_idempotency(true)
             .send()
             .await?;
         response

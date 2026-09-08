@@ -23,7 +23,23 @@ mod requests {
 
     #[tokio::test(flavor = "multi_thread")]
     async fn post_with_empty_body() -> anyhow::Result<()> {
-        let server = start();
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("POST"),
+                request::path(matches("^/ui/")),
+            ])
+            .times(0) // should not be called
+            .respond_with(json_encoded(json! {"missing content-length"})),
+        );
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("POST"),
+                request::path(matches("^/ui/")),
+                request::headers(contains(key("content-length"))),
+            ])
+            .respond_with(json_encoded(json!({}))),
+        );
         let endpoint = server.url_str("/ui");
 
         let client = PredictionService::builder()
@@ -40,27 +56,48 @@ mod requests {
         Ok(())
     }
 
-    fn start() -> Server {
+    // This is a regression test for [#6515]
+    //
+    // The EmbedContent RPC is defined as follows:
+    //
+    // ```
+    // rpc EmbedContent(EmbedContentRequest) returns (EmbedContentResponse) {
+    //   option (google.api.http) = {
+    //     post: "/v1/{model=projects/*/locations/*/publishers/*/models/*}:embedContent"
+    //     body: "*"
+    //   };
+    //   option (google.api.method_signature) = "model,content";
+    // }
+    // ```
+    //
+    // We want to ensure that the `model` field in the path is not also
+    // serialized in the request body.
+    //
+    // [#6515]: https://github.com/googleapis/google-cloud-rust/issues/6515
+    #[tokio::test(flavor = "multi_thread")]
+    async fn path_variables_not_in_full_body() -> anyhow::Result<()> {
         let server = Server::run();
-
         server.expect(
             Expectation::matching(all_of![
                 request::method("POST"),
                 request::path(matches("^/ui/")),
-            ])
-            .times(0) // should not be called
-            .respond_with(json_encoded(json! {"missing content-length"})),
-        );
-
-        server.expect(
-            Expectation::matching(all_of![
-                request::method("POST"),
-                request::path(matches("^/ui/")),
-                request::headers(contains(key("content-length"))),
+                request::body(json_decoded(eq(json!({})))),
             ])
             .respond_with(json_encoded(json!({}))),
         );
+        let endpoint = server.url_str("/ui");
 
-        server
+        let client = PredictionService::builder()
+            .with_endpoint(&endpoint)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        client
+            .embed_content()
+            .set_model("projects/test-project/locations/global/publishers/google/models/gemini-embedding-2")
+            .send()
+            .await?;
+        Ok(())
     }
 }

@@ -339,6 +339,33 @@ impl Speech {
         super::builder::speech::Recognize::new(self.inner.clone())
     }
 
+    /// Performs bidirectional streaming speech recognition: receive results while
+    /// sending audio. This method is only available via the gRPC API (not REST).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// # use google_cloud_speech_v2::model::StreamingRecognizeRequest;
+    /// async fn sample(
+    ///    client: &Speech
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.streaming_recognize()
+    ///         .build();
+    ///
+    ///     sender.send(StreamingRecognizeRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn streaming_recognize(&self) -> super::builder::speech::StreamingRecognize {
+        super::builder::speech::StreamingRecognize::new(self.inner.clone())
+    }
+
     /// Performs batch asynchronous speech recognition: send a request with N
     /// audio files and receive a long running operation that can be polled to see
     /// when the transcriptions are finished.

@@ -177,3 +177,109 @@ pub mod connection_service {
         }
     }
 }
+
+/// Request and client builders for [Tether][crate::client::Tether].
+pub mod tether {
+
+    /// A builder for [Tether][crate::client::Tether].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_apigeeconnect_v1::*;
+    /// # use builder::tether::ClientBuilder;
+    /// # use client::Tether;
+    /// let builder : ClientBuilder = Tether::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://apigeeconnect.googleapis.com")
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Tether;
+        pub struct Factory;
+        impl crate::ClientFactory for Factory {
+            type Client = Tether;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> crate::ClientBuilderResult<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::Tether] bidi stream builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct BidiStreamBuilder {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Tether>,
+        options: crate::RequestOptions,
+    }
+
+    impl BidiStreamBuilder {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tether>) -> Self {
+            Self {
+                stub,
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [Tether::egress][crate::client::Tether::egress] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apigeeconnect_v1::builder::tether::Egress;
+    /// # use google_cloud_apigeeconnect_v1::model::EgressResponse;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(EgressResponse::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> Egress {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Egress(BidiStreamBuilder);
+
+    impl Egress {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tether>) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::EgressResponse>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::EgressRequest>,
+        ) {
+            (*self.0.stub).egress(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for Egress {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}

@@ -40,6 +40,19 @@ pub(crate) mod dynamic;
 #[cfg(feature = "assistant-service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "assistant-service")))]
 pub trait AssistantService: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::AssistantService::stream_assist].
+    fn stream_assist(
+        &self,
+        _req: crate::model::StreamAssistRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::StreamAssistResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
+    }
+
     /// Implements [super::client::AssistantService::list_operations].
     fn list_operations(
         &self,
@@ -521,6 +534,19 @@ pub trait ConversationalSearchService: std::fmt::Debug + Send + Sync {
         Output = crate::Result<crate::Response<crate::model::AnswerQueryResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ConversationalSearchService::stream_answer_query].
+    fn stream_answer_query(
+        &self,
+        _req: crate::model::AnswerQueryRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::AnswerQueryResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
     }
 
     /// Implements [super::client::ConversationalSearchService::get_answer].
@@ -1066,6 +1092,17 @@ pub trait EngineService: std::fmt::Debug + Send + Sync {
 #[cfg(feature = "grounded-generation-service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "grounded-generation-service")))]
 pub trait GroundedGenerationService: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::GroundedGenerationService::stream_generate_grounded_content].
+    fn stream_generate_grounded_content(
+        &self,
+        _options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::GenerateGroundedContentRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::GenerateGroundedContentResponse>,
+    ) {
+        gaxi::unimplemented::unimplemented_bidi_stub()
+    }
+
     /// Implements [super::client::GroundedGenerationService::generate_grounded_content].
     fn generate_grounded_content(
         &self,

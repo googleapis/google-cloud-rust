@@ -455,6 +455,19 @@ pub trait ControlService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ConversationalSearchService: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::ConversationalSearchService::conversational_search].
+    fn conversational_search(
+        &self,
+        _req: crate::model::ConversationalSearchRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::ConversationalSearchResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
+    }
+
     /// Implements [super::client::ConversationalSearchService::list_operations].
     fn list_operations(
         &self,

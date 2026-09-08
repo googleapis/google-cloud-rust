@@ -56,6 +56,44 @@ where
     }
 }
 
+/// Implements a [Tether](super::stub::Tether) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct Tether<T>
+where
+    T: super::stub::Tether + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+    #[allow(dead_code)]
+    duration: gaxi::observability::DurationMetric,
+}
+
+impl<T> Tether<T>
+where
+    T: super::stub::Tether + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self {
+            inner,
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
+    }
+}
+
+impl<T> super::stub::Tether for Tether<T>
+where
+    T: super::stub::Tether + std::fmt::Debug + Send + Sync,
+{
+    fn egress(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::EgressResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::EgressRequest>,
+    ) {
+        self.inner.egress(options)
+    }
+}
+
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");

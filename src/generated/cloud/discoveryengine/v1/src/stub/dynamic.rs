@@ -18,6 +18,14 @@
 #[cfg(feature = "assistant-service")]
 #[async_trait::async_trait]
 pub trait AssistantService: std::fmt::Debug + Send + Sync {
+    async fn stream_assist(
+        &self,
+        req: crate::model::StreamAssistRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamAssistResponse>,
+    >;
+
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
@@ -41,6 +49,17 @@ pub trait AssistantService: std::fmt::Debug + Send + Sync {
 #[cfg(feature = "assistant-service")]
 #[async_trait::async_trait]
 impl<T: super::AssistantService> AssistantService for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn stream_assist(
+        &self,
+        req: crate::model::StreamAssistRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamAssistResponse>,
+    > {
+        T::stream_assist(self, req, options).await
+    }
+
     /// Forwards the call to the implementation provided by `T`.
     async fn list_operations(
         &self,
@@ -566,6 +585,12 @@ pub trait ConversationalSearchService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::AnswerQueryResponse>>;
 
+    async fn stream_answer_query(
+        &self,
+        req: crate::model::AnswerQueryRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::AnswerQueryResponse>>;
+
     async fn get_answer(
         &self,
         req: crate::model::GetAnswerRequest,
@@ -686,6 +711,16 @@ impl<T: super::ConversationalSearchService> ConversationalSearchService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::AnswerQueryResponse>> {
         T::answer_query(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn stream_answer_query(
+        &self,
+        req: crate::model::AnswerQueryRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::AnswerQueryResponse>>
+    {
+        T::stream_answer_query(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -1321,6 +1356,14 @@ impl<T: super::EngineService> EngineService for T {
 #[cfg(feature = "grounded-generation-service")]
 #[async_trait::async_trait]
 pub trait GroundedGenerationService: std::fmt::Debug + Send + Sync {
+    fn stream_generate_grounded_content(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::GenerateGroundedContentRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::GenerateGroundedContentResponse>,
+    );
+
     async fn generate_grounded_content(
         &self,
         req: crate::model::GenerateGroundedContentRequest,
@@ -1356,6 +1399,17 @@ pub trait GroundedGenerationService: std::fmt::Debug + Send + Sync {
 #[cfg(feature = "grounded-generation-service")]
 #[async_trait::async_trait]
 impl<T: super::GroundedGenerationService> GroundedGenerationService for T {
+    /// Forwards the call to the implementation provided by `T`.
+    fn stream_generate_grounded_content(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::GenerateGroundedContentRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::GenerateGroundedContentResponse>,
+    ) {
+        T::stream_generate_grounded_content(self, options)
+    }
+
     /// Forwards the call to the implementation provided by `T`.
     async fn generate_grounded_content(
         &self,

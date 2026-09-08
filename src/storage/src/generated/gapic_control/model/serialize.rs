@@ -1189,6 +1189,37 @@ impl serde::ser::Serialize for super::UpdateRapidCacheMetadata {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::DisableRapidCacheMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.common_metadata.is_some() {
+            state.serialize_entry("commonMetadata", &self.common_metadata)?;
+        }
+        if self.rapid_cache_id.is_some() {
+            state.serialize_entry("rapidCacheId", &self.rapid_cache_id)?;
+        }
+        if self.zone.is_some() {
+            state.serialize_entry("zone", &self.zone)?;
+        }
+        if self.cache_type.is_some() {
+            state.serialize_entry("cacheType", &self.cache_type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::AnywhereCache {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1544,6 +1575,31 @@ impl serde::ser::Serialize for super::UpdateRapidCacheRequest {
         }
         if self.update_mask.is_some() {
             state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !self.request_id.is_empty() {
+            state.serialize_entry("requestId", &self.request_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DisableRapidCacheRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
         }
         if !self.request_id.is_empty() {
             state.serialize_entry("requestId", &self.request_id)?;

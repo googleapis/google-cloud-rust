@@ -3308,6 +3308,7 @@ impl<'de> serde::de::Deserialize<'de> for super::dependency::GitSourceDependency
             __recurse_submodules,
             __depth,
             __dest_path,
+            __fetch_tags,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3335,6 +3336,8 @@ impl<'de> serde::de::Deserialize<'de> for super::dependency::GitSourceDependency
                             "depth" => Ok(__FieldTag::__depth),
                             "destPath" => Ok(__FieldTag::__dest_path),
                             "dest_path" => Ok(__FieldTag::__dest_path),
+                            "fetchTags" => Ok(__FieldTag::__fetch_tags),
+                            "fetch_tags" => Ok(__FieldTag::__fetch_tags),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3417,6 +3420,16 @@ impl<'de> serde::de::Deserialize<'de> for super::dependency::GitSourceDependency
                             }
                             result.dest_path = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__fetch_tags => {
+                            if !fields.insert(__FieldTag::__fetch_tags) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for fetch_tags",
+                                ));
+                            }
+                            result.fetch_tags = map
+                                .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

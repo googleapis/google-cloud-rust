@@ -15,7 +15,7 @@
 //! Key recipe evaluation engine for Spanner location-aware routing.
 //!
 //! Evaluates a [`KeyRecipe`] against SQL query parameter values or primary key tuples and encodes
-//! them into a lexicographical binary storage specification key (`Vec<u8>`) using [`ssformat`](crate::routing::ssformat).
+//! them into a lexicographical binary storage specification key (`Vec<u8>`) using [`ssformat`].
 
 // TODO(#6236): Remove dead_code allowance once KeyRecipe and KeyRecipeCache are integrated into DatabaseClient.
 #![allow(dead_code)]
@@ -29,6 +29,8 @@ use crate::routing::{ssformat, temporal, uuid};
 use crate::value::{Kind, Value};
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
+use serde_json::Map;
+use serde_json::Value as JsonValue;
 use std::collections::BTreeMap;
 
 /// Encodes a Spanner routing key (`Vec<u8>`) from a [`KeyRecipe`] and a slice of column [`Value`]s.
@@ -70,7 +72,7 @@ impl RecipeValue for Value {
     }
 }
 
-impl RecipeValue for serde_json::Value {
+impl RecipeValue for JsonValue {
     fn resolve_field(&self, struct_identifiers: &[i32]) -> Result<&Self> {
         resolve_struct_field_json(self, struct_identifiers)
     }
@@ -104,6 +106,61 @@ fn encode_recipe_part_preamble(part: &Part, buffer: &mut Vec<u8>) -> Result<Prea
     Ok(PreambleResult::ValuePart)
 }
 
+/// Validates that a [`KeyRecipe`] is structurally non-empty and starts with a table or index tag.
+fn validate_recipe_structure(recipe: &KeyRecipe) -> Result<()> {
+    if recipe.part.is_empty() {
+        return Err(internal_error(
+            "Invalid KeyRecipe: must have at least one part",
+        ));
+    }
+    if recipe.part[0].tag == 0 {
+        return Err(internal_error(
+            "Invalid KeyRecipe: must start with a table or index tag",
+        ));
+    }
+    Ok(())
+}
+
+/// Generic core loop that evaluates recipe parts, handles preambles, and rolls back the buffer on error.
+fn encode_key_from_parts_internal<'a, V: RecipeValue + 'a, F>(
+    recipe: &KeyRecipe,
+    mut resolve_value: F,
+    buffer: &mut Vec<u8>,
+) -> Result<()>
+where
+    F: FnMut(&Part) -> Result<&'a V>,
+{
+    validate_recipe_structure(recipe)?;
+
+    let initial_len = buffer.len();
+
+    for part in &recipe.part {
+        match encode_recipe_part_preamble(part, buffer) {
+            Ok(PreambleResult::Handled) => continue,
+            Ok(PreambleResult::ValuePart) => {}
+            Err(error) => {
+                buffer.truncate(initial_len);
+                return Err(error);
+            }
+        }
+
+        let value = match resolve_value(part) {
+            Ok(value) => value,
+            Err(error) => {
+                buffer.truncate(initial_len);
+                return Err(error);
+            }
+        };
+
+        if let Err(error) = value.encode_into(buffer, part) {
+            buffer.truncate(initial_len);
+            return Err(error);
+        }
+    }
+
+    Ok(())
+}
+
 /// Generic encoder from a positional slice of values into `buffer`.
 ///
 /// Iterates sequentially through each part of the recipe:
@@ -116,51 +173,18 @@ fn encode_key_from_slice_into<V: RecipeValue>(
     values: &[V],
     buffer: &mut Vec<u8>,
 ) -> Result<()> {
-    // 1. Validate recipe structure.
-    if recipe.part.is_empty() {
-        return Err(internal_error(
-            "Invalid KeyRecipe: must have at least one part",
-        ));
-    }
-    if recipe.part[0].tag == 0 {
-        return Err(internal_error(
-            "Invalid KeyRecipe: must start with a table or index tag",
-        ));
-    }
-
-    let initial_len = buffer.len();
     let mut values_iter = values.iter();
-
-    for part in &recipe.part {
-        // 2. Handle composite tags, random sharding tags, or constant JSON literals.
-        match encode_recipe_part_preamble(part, buffer) {
-            Ok(PreambleResult::Handled) => continue,
-            Ok(PreambleResult::ValuePart) => {}
-            Err(error) => {
-                buffer.truncate(initial_len);
-                return Err(error);
-            }
-        }
-
-        // 3. Take the next value positionally for this column part.
-        let value = match values_iter.next() {
-            Some(value) => value,
-            None => {
-                buffer.truncate(initial_len);
-                return Err(internal_error(
+    encode_key_from_parts_internal(
+        recipe,
+        |_part| {
+            values_iter.next().ok_or_else(|| {
+                internal_error(
                     "Not enough column values to encode key recipe: more values required",
-                ));
-            }
-        };
-
-        // 4. Encode the value according to the part's type, sort order, and null ordering.
-        if let Err(error) = value.encode_into(buffer, part) {
-            buffer.truncate(initial_len);
-            return Err(error);
-        }
-    }
-
-    Ok(())
+                )
+            })
+        },
+        buffer,
+    )
 }
 
 /// Encodes a Spanner routing key from a [`KeyRecipe`] and key values directly into an existing output buffer.
@@ -220,36 +244,73 @@ pub(crate) fn encode_key_from_query_params_into(
     params: &BTreeMap<String, Value>,
     buffer: &mut Vec<u8>,
 ) -> Result<()> {
-    if recipe.part.is_empty() {
-        return Err(internal_error(
-            "Invalid KeyRecipe: must have at least one part",
-        ));
-    }
-    if recipe.part[0].tag == 0 {
-        return Err(internal_error(
-            "Invalid KeyRecipe: must start with a table or index tag",
-        ));
-    }
+    encode_key_from_query_params_internal(recipe, |id| lookup_query_param(params, id), buffer)
+}
 
-    let initial_len = buffer.len();
+/// Encodes a Spanner routing key (`Vec<u8>`) from a SQL [`KeyRecipe`] and JSON query parameters.
+///
+/// Evaluates each part of the recipe in order against `params` (represented as a JSON map):
+/// - If `part.tag != 0`, the tag number is appended to the binary key.
+/// - If `part.tag == 0`:
+///   - If `part.random()` is `Some(&true)`, generates a pseudo-random positive 63-bit integer and encodes it.
+///   - If `part.value()` is present, encodes the constant literal value directly.
+///   - If `part.identifier()` is present, resolves the parameter by name (case-insensitively).
+///     If `part.struct_identifiers` is present, traverses nested struct JSON array elements.
+///
+/// # Caller Fallback Contract
+/// If encoding returns an error (for example, due to a missing parameter or unsupported type),
+/// callers (`LocationRouter` / `DatabaseClient`) MUST catch the error and silently fall back to
+/// default routing rather than failing the user's RPC.
+pub(crate) fn encode_key_from_json_query_params(
+    recipe: &KeyRecipe,
+    params: &Map<String, JsonValue>,
+) -> Result<Vec<u8>> {
+    let mut buffer = Vec::with_capacity(recipe.part.len().saturating_mul(16));
+    encode_key_from_json_query_params_into(recipe, params, &mut buffer)?;
+    Ok(buffer)
+}
 
-    for part in &recipe.part {
-        match encode_recipe_part_preamble(part, buffer) {
-            Ok(PreambleResult::Handled) => continue,
-            Ok(PreambleResult::ValuePart) => {}
-            Err(error) => {
-                buffer.truncate(initial_len);
-                return Err(error);
-            }
-        }
+/// Encodes a Spanner routing key from a SQL [`KeyRecipe`] and JSON query parameters directly into
+/// an existing output buffer.
+///
+/// This avoids new heap allocations when callers reuse a scratch buffer across RPCs on hot paths.
+///
+/// # Caller Fallback Contract
+/// If encoding returns an error (for example, due to a missing parameter or unsupported type),
+/// callers (`LocationRouter` / `DatabaseClient`) MUST catch the error and silently fall back to
+/// default routing rather than failing the user's RPC.
+pub(crate) fn encode_key_from_json_query_params_into(
+    recipe: &KeyRecipe,
+    params: &Map<String, JsonValue>,
+    buffer: &mut Vec<u8>,
+) -> Result<()> {
+    encode_key_from_query_params_internal(recipe, |id| lookup_json_query_param(params, id), buffer)
+}
 
-        if let Err(error) = encode_query_part(buffer, part, params) {
-            buffer.truncate(initial_len);
-            return Err(error);
-        }
-    }
-
-    Ok(())
+/// Helper evaluating query parameters generically across typed [`Value`] and [`JsonValue`].
+fn encode_key_from_query_params_internal<'a, V: RecipeValue + 'a, F>(
+    recipe: &KeyRecipe,
+    lookup: F,
+    buffer: &mut Vec<u8>,
+) -> Result<()>
+where
+    F: Fn(&str) -> Option<&'a V>,
+{
+    encode_key_from_parts_internal(
+        recipe,
+        |part| {
+            let identifier = part.identifier().ok_or_else(|| {
+                internal_error("Invalid KeyRecipe part: missing parameter identifier")
+            })?;
+            let param_value = lookup(identifier).ok_or_else(|| {
+                internal_error(format!(
+                    "Missing query parameter '{identifier}' required by key recipe"
+                ))
+            })?;
+            param_value.resolve_field(&part.struct_identifiers)
+        },
+        buffer,
+    )
 }
 
 /// Generic encoder matching key column identifiers against column names and encoding values into `buffer`.
@@ -268,84 +329,29 @@ fn encode_key_from_column_values_into<V: RecipeValue>(
     values: &[V],
     buffer: &mut Vec<u8>,
 ) -> Result<()> {
-    // 1. Validate recipe structure.
-    if recipe.part.is_empty() {
-        return Err(internal_error(
-            "Invalid KeyRecipe: must have at least one part",
-        ));
-    }
-    if recipe.part[0].tag == 0 {
-        return Err(internal_error(
-            "Invalid KeyRecipe: must start with a table or index tag",
-        ));
-    }
-
-    let initial_len = buffer.len();
-
-    for part in &recipe.part {
-        // 2. Handle composite tags, random sharding tags, or constant JSON literals.
-        match encode_recipe_part_preamble(part, buffer) {
-            Ok(PreambleResult::Handled) => continue,
-            Ok(PreambleResult::ValuePart) => {}
-            Err(error) => {
-                buffer.truncate(initial_len);
-                return Err(error);
-            }
-        }
-
-        // 3. Extract the column identifier specified by this key recipe part.
-        let identifier = match part.identifier() {
-            Some(id) => id,
-            None => {
-                buffer.truncate(initial_len);
-                return Err(internal_error(
-                    "Invalid KeyRecipe part: missing column identifier",
-                ));
-            }
-        };
-
-        // 4. Find the column position in the mutation columns (case-insensitive matching).
-        let column_index = match columns
-            .iter()
-            .position(|column| column.as_ref().eq_ignore_ascii_case(identifier))
-        {
-            Some(index) => index,
-            None => {
-                buffer.truncate(initial_len);
-                return Err(internal_error(format!(
-                    "Missing key column '{identifier}' in mutation columns"
-                )));
-            }
-        };
-
-        // 5. Retrieve the value corresponding to the matched column.
-        let column_value = match values.get(column_index) {
-            Some(value) => value,
-            None => {
-                buffer.truncate(initial_len);
-                return Err(internal_error(format!(
+    encode_key_from_parts_internal(
+        recipe,
+        |part| {
+            let identifier = part.identifier().ok_or_else(|| {
+                internal_error("Invalid KeyRecipe part: missing column identifier")
+            })?;
+            let column_index = columns
+                .iter()
+                .position(|column| column.as_ref().eq_ignore_ascii_case(identifier))
+                .ok_or_else(|| {
+                    internal_error(format!(
+                        "Missing key column '{identifier}' in mutation columns"
+                    ))
+                })?;
+            let column_value = values.get(column_index).ok_or_else(|| {
+                internal_error(format!(
                     "Missing value at column index {column_index} for key column '{identifier}'"
-                )));
-            }
-        };
-
-        // 6. Traverse into nested struct fields if struct_identifiers path is specified.
-        let resolved_value = match column_value.resolve_field(&part.struct_identifiers) {
-            Ok(value) => value,
-            Err(error) => {
-                buffer.truncate(initial_len);
-                return Err(error);
-            }
-        };
-
-        // 7. Encode the resolved value into the buffer according to type, order, and null ordering.
-        if let Err(error) = resolved_value.encode_into(buffer, part) {
-            buffer.truncate(initial_len);
-            return Err(error);
-        }
-    }
-
-    Ok(())
+                ))
+            })?;
+            column_value.resolve_field(&part.struct_identifiers)
+        },
+        buffer,
+    )
 }
 
 /// Encodes a Spanner routing key from a [`KeyRecipe`], a column name slice, and row [`Value`]s.
@@ -361,50 +367,26 @@ pub(crate) fn encode_key_from_columns_and_values_into(
     encode_key_from_column_values_into(recipe, columns, values, buffer)
 }
 
-/// Encodes a Spanner routing key from a [`KeyRecipe`], a column name slice, and row [`serde_json::Value`]s.
+/// Encodes a Spanner routing key from a [`KeyRecipe`], a column name slice, and row [`JsonValue`]s.
 pub(crate) fn encode_key_from_json_columns_and_values_into(
     recipe: &KeyRecipe,
     columns: &[impl AsRef<str>],
-    values: &[serde_json::Value],
+    values: &[JsonValue],
     buffer: &mut Vec<u8>,
 ) -> Result<()> {
     encode_key_from_column_values_into(recipe, columns, values, buffer)
 }
 
-/// Encodes a Spanner routing key from a [`KeyRecipe`] and a slice of raw [`serde_json::Value`]s.
+/// Encodes a Spanner routing key from a [`KeyRecipe`] and a slice of raw [`JsonValue`]s.
 pub(crate) fn encode_key_from_json_recipe_into(
     recipe: &KeyRecipe,
-    values: &[serde_json::Value],
+    values: &[JsonValue],
     buffer: &mut Vec<u8>,
 ) -> Result<()> {
     encode_key_from_slice_into(recipe, values, buffer)
 }
 
-/// Evaluates a single query recipe part against query parameters and appends it to `buffer`.
-fn encode_query_part(
-    buffer: &mut Vec<u8>,
-    part: &Part,
-    params: &BTreeMap<String, Value>,
-) -> Result<()> {
-    // 1. Resolve root parameter by identifier (case-insensitive lookup matching Spanner SQL semantics):
-    let identifier = part
-        .identifier()
-        .ok_or_else(|| internal_error("Invalid KeyRecipe part: missing parameter identifier"))?;
-
-    let param_value = lookup_query_param(params, identifier).ok_or_else(|| {
-        internal_error(format!(
-            "Missing query parameter '{identifier}' required by key recipe"
-        ))
-    })?;
-
-    // 2. Drill down into nested struct fields if struct_identifiers is present:
-    let resolved_value = resolve_struct_field(param_value, &part.struct_identifiers)?;
-
-    // 3. Encode the resolved column value (handling sort order, null ordering, and type serialization):
-    encode_part(buffer, part, resolved_value)
-}
-
-/// Drills down into nested struct fields within a constant JSON value without cloning.
+/// Drills down into nested struct fields within a JSON value (query parameter, mutation value, or constant literal) without cloning.
 ///
 /// In Cloud Spanner:
 /// - When a query recipe part targets a field inside a struct (e.g. `WHERE (id, role) = (1, 'ADMIN')`),
@@ -415,9 +397,9 @@ fn encode_query_part(
 ///
 /// If `struct_identifiers` is empty, `param_value` is returned unchanged.
 fn resolve_struct_field_json<'a>(
-    param_value: &'a serde_json::Value,
+    param_value: &'a JsonValue,
     struct_identifiers: &[i32],
-) -> Result<&'a serde_json::Value> {
+) -> Result<&'a JsonValue> {
     let mut current = param_value;
     for &struct_index in struct_identifiers {
         if struct_index < 0 {
@@ -451,7 +433,7 @@ fn encode_random_part(buffer: &mut Vec<u8>, part: &Part, decreasing: bool) -> Re
 }
 
 /// Evaluates a constant JSON value directly against the recipe part without heap allocations.
-fn encode_json_part(buffer: &mut Vec<u8>, part: &Part, value: &serde_json::Value) -> Result<()> {
+fn encode_json_part(buffer: &mut Vec<u8>, part: &Part, value: &JsonValue) -> Result<()> {
     let type_code = check_supported_key_type(part)?;
     let decreasing = matches!(part.order, Order::Descending);
 
@@ -476,9 +458,9 @@ fn encode_json_part(buffer: &mut Vec<u8>, part: &Part, value: &serde_json::Value
     }
 }
 
-/// Helper to extract a string value from a [`serde_json::Value`] and parse it.
+/// Helper to extract a string value from a [`JsonValue`] and parse it.
 fn encode_json_parsed_string<T>(
-    value: &serde_json::Value,
+    value: &JsonValue,
     type_name: &str,
     parse: impl FnOnce(&str) -> Result<T>,
 ) -> Result<T> {
@@ -491,11 +473,7 @@ fn encode_json_parsed_string<T>(
 }
 
 /// Evaluates a date constant JSON value (`DATE`).
-fn encode_json_date_part(
-    buffer: &mut Vec<u8>,
-    value: &serde_json::Value,
-    decreasing: bool,
-) -> Result<()> {
+fn encode_json_date_part(buffer: &mut Vec<u8>, value: &JsonValue, decreasing: bool) -> Result<()> {
     let days_since_epoch = encode_json_parsed_string(value, "DATE", temporal::parse_date_days)?;
     append_int64_ordered(buffer, days_since_epoch, decreasing)
 }
@@ -503,7 +481,7 @@ fn encode_json_date_part(
 /// Evaluates a timestamp constant JSON value (`TIMESTAMP`).
 fn encode_json_timestamp_part(
     buffer: &mut Vec<u8>,
-    value: &serde_json::Value,
+    value: &JsonValue,
     decreasing: bool,
 ) -> Result<()> {
     let timestamp_bytes =
@@ -512,21 +490,13 @@ fn encode_json_timestamp_part(
 }
 
 /// Evaluates a UUID constant JSON value (`UUID`).
-fn encode_json_uuid_part(
-    buffer: &mut Vec<u8>,
-    value: &serde_json::Value,
-    decreasing: bool,
-) -> Result<()> {
+fn encode_json_uuid_part(buffer: &mut Vec<u8>, value: &JsonValue, decreasing: bool) -> Result<()> {
     let uuid_bytes = encode_json_parsed_string(value, "UUID", uuid::parse_uuid_bytes)?;
     append_bytes_ordered(buffer, &uuid_bytes, decreasing)
 }
 
 /// Evaluates a boolean constant JSON value (`BOOL`).
-fn encode_json_bool_part(
-    buffer: &mut Vec<u8>,
-    value: &serde_json::Value,
-    decreasing: bool,
-) -> Result<()> {
+fn encode_json_bool_part(buffer: &mut Vec<u8>, value: &JsonValue, decreasing: bool) -> Result<()> {
     let boolean_value = value
         .as_bool()
         .ok_or_else(|| internal_error("Type mismatch: expected Bool value for BOOL column"))?;
@@ -534,11 +504,7 @@ fn encode_json_bool_part(
 }
 
 /// Evaluates an integer constant JSON value (`INT64`).
-fn encode_json_int64_part(
-    buffer: &mut Vec<u8>,
-    value: &serde_json::Value,
-    decreasing: bool,
-) -> Result<()> {
+fn encode_json_int64_part(buffer: &mut Vec<u8>, value: &JsonValue, decreasing: bool) -> Result<()> {
     let integer_value = if let Some(string_value) = value.as_str() {
         string_value.parse::<i64>().map_err(|error| {
             internal_error(format!(
@@ -558,7 +524,7 @@ fn encode_json_int64_part(
 /// Evaluates a floating-point constant JSON value (`FLOAT64`).
 fn encode_json_float64_part(
     buffer: &mut Vec<u8>,
-    value: &serde_json::Value,
+    value: &JsonValue,
     decreasing: bool,
 ) -> Result<()> {
     let float_value = if let Some(string_value) = value.as_str() {
@@ -585,7 +551,7 @@ fn encode_json_float64_part(
 /// Evaluates a string constant JSON value (`STRING`).
 fn encode_json_string_part(
     buffer: &mut Vec<u8>,
-    value: &serde_json::Value,
+    value: &JsonValue,
     decreasing: bool,
 ) -> Result<()> {
     let string_value = value
@@ -595,11 +561,7 @@ fn encode_json_string_part(
 }
 
 /// Evaluates a byte array constant JSON value (`BYTES`).
-fn encode_json_bytes_part(
-    buffer: &mut Vec<u8>,
-    value: &serde_json::Value,
-    decreasing: bool,
-) -> Result<()> {
+fn encode_json_bytes_part(buffer: &mut Vec<u8>, value: &JsonValue, decreasing: bool) -> Result<()> {
     let string_value = value.as_str().ok_or_else(|| {
         internal_error("Type mismatch: expected base64 String value for BYTES column")
     })?;
@@ -654,6 +616,19 @@ fn lookup_query_param<'a>(
     params: &'a BTreeMap<String, Value>,
     identifier: &str,
 ) -> Option<&'a Value> {
+    params.get(identifier).or_else(|| {
+        params
+            .iter()
+            .find(|(key, _)| key.eq_ignore_ascii_case(identifier))
+            .map(|(_, value)| value)
+    })
+}
+
+/// Looks up a query parameter by name in a JSON map, supporting case-insensitive lookup.
+fn lookup_json_query_param<'a>(
+    params: &'a Map<String, JsonValue>,
+    identifier: &str,
+) -> Option<&'a JsonValue> {
     params.get(identifier).or_else(|| {
         params
             .iter()
@@ -2899,5 +2874,267 @@ mod tests {
             &mut buffer,
         );
         assert_eq!(buffer.len(), initial_len);
+    }
+
+    #[test]
+    fn encode_key_from_json_query_params_simple_parameters() {
+        let recipe = sample_recipe(vec![
+            Part::new()
+                .set_identifier("user_id")
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
+                .set_type(Type::default().set_code(TypeCode::Int64)),
+            Part::new()
+                .set_identifier("user_name")
+                .set_order(Order::Descending)
+                .set_null_order(NullOrder::NullsFirst)
+                .set_type(Type::default().set_code(TypeCode::String)),
+        ]);
+
+        let mut params = Map::new();
+        params.insert("user_id".to_string(), serde_json::json!("42"));
+        params.insert("user_name".to_string(), serde_json::json!("alice"));
+
+        let encoded = encode_key_from_json_query_params(&recipe, &params)
+            .expect("json query params should encode successfully");
+
+        let direct_values = vec![42_i64.to_value(), "alice".to_value()];
+        let direct_encoded = encode_key_from_recipe(&recipe, &direct_values)
+            .expect("direct values should encode successfully");
+
+        assert_eq!(encoded, direct_encoded);
+    }
+
+    #[test]
+    fn encode_key_from_json_query_params_case_insensitive() {
+        let recipe = sample_recipe(vec![
+            Part::new()
+                .set_identifier("USER_ID")
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
+                .set_type(Type::default().set_code(TypeCode::Int64)),
+        ]);
+
+        let mut params = Map::new();
+        params.insert("user_id".to_string(), serde_json::json!("100"));
+
+        let encoded = encode_key_from_json_query_params(&recipe, &params)
+            .expect("case-insensitive json query param should succeed");
+        let direct_encoded = encode_key_from_recipe(&recipe, &[100_i64.to_value()])
+            .expect("direct encoding should succeed");
+
+        assert_eq!(encoded, direct_encoded);
+    }
+
+    #[test]
+    fn encode_key_from_json_query_params_nested_struct_traversal() {
+        let recipe = sample_recipe(vec![
+            Part::new()
+                .set_identifier("user_data")
+                .set_struct_identifiers(vec![0])
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
+                .set_type(Type::default().set_code(TypeCode::Int64)),
+            Part::new()
+                .set_identifier("user_data")
+                .set_struct_identifiers(vec![1, 0])
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
+                .set_type(Type::default().set_code(TypeCode::String)),
+        ]);
+
+        let mut params = Map::new();
+        params.insert(
+            "user_data".to_string(),
+            serde_json::json!(["10", ["nested_str", "extra"]]),
+        );
+
+        let encoded = encode_key_from_json_query_params(&recipe, &params)
+            .expect("nested struct json traversal should succeed");
+        let direct_encoded =
+            encode_key_from_recipe(&recipe, &[10_i64.to_value(), "nested_str".to_value()])
+                .expect("direct encoding should succeed");
+
+        assert_eq!(encoded, direct_encoded);
+    }
+
+    #[test]
+    fn encode_key_from_json_query_params_missing_param_returns_err() {
+        let recipe = sample_recipe(vec![
+            Part::new()
+                .set_identifier("missing_key")
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
+                .set_type(Type::default().set_code(TypeCode::String)),
+        ]);
+
+        let params = Map::new();
+        let error = encode_key_from_json_query_params(&recipe, &params)
+            .expect_err("missing json query param should return error");
+
+        assert!(
+            error.to_string().contains("Missing query parameter"),
+            "unexpected error message: {error}"
+        );
+    }
+
+    #[test]
+    fn encode_key_from_json_query_params_into_scratch_buffer() {
+        let recipe = sample_recipe(vec![
+            Part::new()
+                .set_identifier("id")
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
+                .set_type(Type::default().set_code(TypeCode::Int64)),
+        ]);
+
+        let mut params = Map::new();
+        params.insert("id".to_string(), serde_json::json!("777"));
+
+        let mut buffer = Vec::new();
+        encode_key_from_json_query_params_into(&recipe, &params, &mut buffer)
+            .expect("encode into buffer should succeed");
+
+        let direct_encoded = encode_key_from_recipe(&recipe, &[777_i64.to_value()])
+            .expect("direct encoding should succeed");
+
+        assert_eq!(buffer, direct_encoded);
+    }
+
+    #[test]
+    fn encode_key_from_json_query_params_into_truncates_buffer_on_error() {
+        let recipe = sample_recipe(vec![
+            Part::new()
+                .set_identifier("missing_key")
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
+                .set_type(Type::default().set_code(TypeCode::Int64)),
+        ]);
+
+        let params = Map::new();
+        let mut buffer = vec![1, 2, 3, 4];
+        let error = encode_key_from_json_query_params_into(&recipe, &params, &mut buffer)
+            .expect_err("should return error for missing parameter");
+
+        assert!(error.to_string().contains("Missing query parameter"));
+        assert_eq!(
+            buffer,
+            vec![1, 2, 3, 4],
+            "buffer should be restored to initial state"
+        );
+    }
+
+    #[test]
+    fn encode_key_from_json_query_params_constant_and_random_parts() {
+        let recipe = sample_recipe(vec![
+            Part::new()
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
+                .set_random(true)
+                .set_type(Type::default().set_code(TypeCode::Int64)),
+            Part::new()
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
+                .set_value(Box::new(serde_json::json!("const_prefix")))
+                .set_type(Type::default().set_code(TypeCode::String)),
+            Part::new()
+                .set_identifier("id")
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
+                .set_type(Type::default().set_code(TypeCode::Int64)),
+        ]);
+
+        let mut params = Map::new();
+        params.insert("id".to_string(), serde_json::json!("123"));
+
+        let encoded = encode_key_from_json_query_params(&recipe, &params)
+            .expect("random + constant + json param recipe should encode successfully");
+        assert!(
+            encoded.len() > 10,
+            "encoded key must contain random tag, constant string, and parameter value"
+        );
+    }
+
+    #[test]
+    fn encode_key_from_json_query_params_struct_errors() {
+        let recipe_negative_index = sample_recipe(vec![
+            Part::new()
+                .set_identifier("user")
+                .set_struct_identifiers(vec![-1])
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
+                .set_type(Type::default().set_code(TypeCode::String)),
+        ]);
+
+        let mut params = Map::new();
+        params.insert("user".to_string(), serde_json::json!(["alice"]));
+
+        let error_negative = encode_key_from_json_query_params(&recipe_negative_index, &params)
+            .expect_err("negative struct index should fail");
+        assert!(
+            error_negative
+                .to_string()
+                .contains("Invalid negative struct index"),
+            "expected negative index error, got: {error_negative}"
+        );
+
+        let recipe_out_of_bounds = sample_recipe(vec![
+            Part::new()
+                .set_identifier("user")
+                .set_struct_identifiers(vec![5])
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
+                .set_type(Type::default().set_code(TypeCode::String)),
+        ]);
+
+        let error_out_of_bounds = encode_key_from_json_query_params(&recipe_out_of_bounds, &params)
+            .expect_err("out of bounds struct index should fail");
+        assert!(
+            error_out_of_bounds.to_string().contains("out of bounds"),
+            "expected out of bounds error, got: {error_out_of_bounds}"
+        );
+
+        let mut non_array_params = Map::new();
+        non_array_params.insert("user".to_string(), serde_json::json!("not_an_array"));
+
+        let error_non_array =
+            encode_key_from_json_query_params(&recipe_out_of_bounds, &non_array_params)
+                .expect_err("scalar value where struct array is expected should fail");
+        assert!(
+            error_non_array
+                .to_string()
+                .contains("Expected Struct array"),
+            "expected struct array error, got: {error_non_array}"
+        );
+    }
+
+    #[test]
+    fn encode_key_from_json_query_params_invalid_recipe_structure() {
+        let empty_recipe = KeyRecipe::default();
+        let params = Map::new();
+        let error_empty = encode_key_from_json_query_params(&empty_recipe, &params)
+            .expect_err("empty recipe must return error");
+        assert!(
+            error_empty
+                .to_string()
+                .contains("must have at least one part"),
+            "expected at least one part error, got: {error_empty}"
+        );
+
+        let no_tag_recipe = KeyRecipe::default().set_part(vec![
+            Part::new()
+                .set_identifier("id")
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull)
+                .set_type(Type::default().set_code(TypeCode::Int64)),
+        ]);
+        let error_no_tag = encode_key_from_json_query_params(&no_tag_recipe, &params)
+            .expect_err("recipe not starting with tag must return error");
+        assert!(
+            error_no_tag
+                .to_string()
+                .contains("must start with a table or index tag"),
+            "expected start with tag error, got: {error_no_tag}"
+        );
     }
 }

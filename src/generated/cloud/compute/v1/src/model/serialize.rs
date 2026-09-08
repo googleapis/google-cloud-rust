@@ -4851,6 +4851,9 @@ impl serde::ser::Serialize for super::BackendServiceTlsSettings {
         if self.authentication_config.is_some() {
             state.serialize_entry("authenticationConfig", &self.authentication_config)?;
         }
+        if self.identity.is_some() {
+            state.serialize_entry("identity", &self.identity)?;
+        }
         if self.sni.is_some() {
             state.serialize_entry("sni", &self.sni)?;
         }
@@ -11520,6 +11523,9 @@ impl serde::ser::Serialize for super::FutureReservation {
         if self.resource_metadata.is_some() {
             state.serialize_entry("resourceMetadata", &self.resource_metadata)?;
         }
+        if self.resource_name.is_some() {
+            state.serialize_entry("resourceName", &self.resource_name)?;
+        }
         if self.scheduling_type.is_some() {
             state.serialize_entry("schedulingType", &self.scheduling_type)?;
         }
@@ -11543,6 +11549,9 @@ impl serde::ser::Serialize for super::FutureReservation {
         }
         if self.status.is_some() {
             state.serialize_entry("status", &self.status)?;
+        }
+        if self.storage_pool_properties.is_some() {
+            state.serialize_entry("storagePoolProperties", &self.storage_pool_properties)?;
         }
         if self.time_window.is_some() {
             state.serialize_entry("timeWindow", &self.time_window)?;
@@ -11668,6 +11677,12 @@ impl serde::ser::Serialize for super::FutureReservationStatus {
         if !self.auto_created_reservations.is_empty() {
             state.serialize_entry("autoCreatedReservations", &self.auto_created_reservations)?;
         }
+        if self.exapool_provisioned_capacity_gb.is_some() {
+            state.serialize_entry(
+                "exapoolProvisionedCapacityGb",
+                &self.exapool_provisioned_capacity_gb,
+            )?;
+        }
         if self.existing_matching_usage_info.is_some() {
             state.serialize_entry(
                 "existingMatchingUsageInfo",
@@ -11699,6 +11714,12 @@ impl serde::ser::Serialize for super::FutureReservationStatus {
         }
         if self.specific_sku_properties.is_some() {
             state.serialize_entry("specificSkuProperties", &self.specific_sku_properties)?;
+        }
+        if self.storage_pool_provisioned_capacity.is_some() {
+            state.serialize_entry(
+                "storagePoolProvisionedCapacity",
+                &self.storage_pool_provisioned_capacity,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -11833,6 +11854,109 @@ impl serde::ser::Serialize for super::FutureReservationStatusSpecificSKUProperti
             state.serialize_entry(
                 "sourceInstanceTemplateId",
                 &self.source_instance_template_id,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "future-reservations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FutureReservationStoragePoolProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.requested_exapool_provisioned_capacity_gb.is_some() {
+            state.serialize_entry(
+                "requestedExapoolProvisionedCapacityGb",
+                &self.requested_exapool_provisioned_capacity_gb,
+            )?;
+        }
+        if self.requested_storage_pool_provisioned_capacity.is_some() {
+            state.serialize_entry(
+                "requestedStoragePoolProvisionedCapacity",
+                &self.requested_storage_pool_provisioned_capacity,
+            )?;
+        }
+        if self.storage_pool_type.is_some() {
+            state.serialize_entry("storagePoolType", &self.storage_pool_type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "future-reservations")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FutureReservationStoragePoolProvisionedCapacity {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.pool_provisioned_capacity_gb.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "poolProvisionedCapacityGb",
+                &__With(&self.pool_provisioned_capacity_gb),
+            )?;
+        }
+        if self.pool_provisioned_iops.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("poolProvisionedIops", &__With(&self.pool_provisioned_iops))?;
+        }
+        if self.pool_provisioned_throughput.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "poolProvisionedThroughput",
+                &__With(&self.pool_provisioned_throughput),
             )?;
         }
         if !self._unknown_fields.is_empty() {
@@ -12510,6 +12634,288 @@ impl serde::ser::Serialize for super::GRPCTLSHealthCheck {
         }
         if self.port_specification.is_some() {
             state.serialize_entry("portSpecification", &self.port_specification)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "addresses",
+    feature = "autoscalers",
+    feature = "backend-buckets",
+    feature = "backend-services",
+    feature = "cross-site-networks",
+    feature = "disks",
+    feature = "external-vpn-gateways",
+    feature = "firewall-policies",
+    feature = "firewalls",
+    feature = "forwarding-rules",
+    feature = "future-reservations",
+    feature = "global-addresses",
+    feature = "global-forwarding-rules",
+    feature = "global-network-endpoint-groups",
+    feature = "global-operations",
+    feature = "global-organization-operations",
+    feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
+    feature = "health-checks",
+    feature = "hosts",
+    feature = "http-health-checks",
+    feature = "https-health-checks",
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instance-settings",
+    feature = "instance-templates",
+    feature = "instances",
+    feature = "instant-snapshot-groups",
+    feature = "instant-snapshots",
+    feature = "interconnect-attachment-groups",
+    feature = "interconnect-attachments",
+    feature = "interconnect-groups",
+    feature = "interconnects",
+    feature = "licenses",
+    feature = "machine-images",
+    feature = "network-attachments",
+    feature = "network-edge-security-services",
+    feature = "network-endpoint-groups",
+    feature = "network-firewall-policies",
+    feature = "networks",
+    feature = "node-groups",
+    feature = "node-templates",
+    feature = "organization-security-policies",
+    feature = "packet-mirrorings",
+    feature = "preview-features",
+    feature = "projects",
+    feature = "public-advertised-prefixes",
+    feature = "public-delegated-prefixes",
+    feature = "region-autoscalers",
+    feature = "region-backend-buckets",
+    feature = "region-backend-services",
+    feature = "region-commitments",
+    feature = "region-composite-health-checks",
+    feature = "region-disks",
+    feature = "region-health-aggregation-policies",
+    feature = "region-health-check-services",
+    feature = "region-health-checks",
+    feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
+    feature = "region-instant-snapshots",
+    feature = "region-network-endpoint-groups",
+    feature = "region-network-firewall-policies",
+    feature = "region-notification-endpoints",
+    feature = "region-operations",
+    feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
+    feature = "region-ssl-certificates",
+    feature = "region-ssl-policies",
+    feature = "region-target-http-proxies",
+    feature = "region-target-https-proxies",
+    feature = "region-target-tcp-proxies",
+    feature = "region-url-maps",
+    feature = "reservation-blocks",
+    feature = "reservation-slots",
+    feature = "reservation-sub-blocks",
+    feature = "reservations",
+    feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
+    feature = "routers",
+    feature = "routes",
+    feature = "security-policies",
+    feature = "service-attachments",
+    feature = "snapshot-settings",
+    feature = "snapshots",
+    feature = "ssl-certificates",
+    feature = "ssl-policies",
+    feature = "storage-pools",
+    feature = "subnetworks",
+    feature = "target-grpc-proxies",
+    feature = "target-http-proxies",
+    feature = "target-https-proxies",
+    feature = "target-instances",
+    feature = "target-pools",
+    feature = "target-ssl-proxies",
+    feature = "target-tcp-proxies",
+    feature = "target-vpn-gateways",
+    feature = "url-maps",
+    feature = "vpn-gateways",
+    feature = "vpn-tunnels",
+    feature = "wire-groups",
+    feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetHealthOperationMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.health_info.is_some() {
+            state.serialize_entry("healthInfo", &self.health_info)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "addresses",
+    feature = "autoscalers",
+    feature = "backend-buckets",
+    feature = "backend-services",
+    feature = "cross-site-networks",
+    feature = "disks",
+    feature = "external-vpn-gateways",
+    feature = "firewall-policies",
+    feature = "firewalls",
+    feature = "forwarding-rules",
+    feature = "future-reservations",
+    feature = "global-addresses",
+    feature = "global-forwarding-rules",
+    feature = "global-network-endpoint-groups",
+    feature = "global-operations",
+    feature = "global-organization-operations",
+    feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
+    feature = "health-checks",
+    feature = "hosts",
+    feature = "http-health-checks",
+    feature = "https-health-checks",
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instance-settings",
+    feature = "instance-templates",
+    feature = "instances",
+    feature = "instant-snapshot-groups",
+    feature = "instant-snapshots",
+    feature = "interconnect-attachment-groups",
+    feature = "interconnect-attachments",
+    feature = "interconnect-groups",
+    feature = "interconnects",
+    feature = "licenses",
+    feature = "machine-images",
+    feature = "network-attachments",
+    feature = "network-edge-security-services",
+    feature = "network-endpoint-groups",
+    feature = "network-firewall-policies",
+    feature = "networks",
+    feature = "node-groups",
+    feature = "node-templates",
+    feature = "organization-security-policies",
+    feature = "packet-mirrorings",
+    feature = "preview-features",
+    feature = "projects",
+    feature = "public-advertised-prefixes",
+    feature = "public-delegated-prefixes",
+    feature = "region-autoscalers",
+    feature = "region-backend-buckets",
+    feature = "region-backend-services",
+    feature = "region-commitments",
+    feature = "region-composite-health-checks",
+    feature = "region-disks",
+    feature = "region-health-aggregation-policies",
+    feature = "region-health-check-services",
+    feature = "region-health-checks",
+    feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
+    feature = "region-instant-snapshots",
+    feature = "region-network-endpoint-groups",
+    feature = "region-network-firewall-policies",
+    feature = "region-notification-endpoints",
+    feature = "region-operations",
+    feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
+    feature = "region-ssl-certificates",
+    feature = "region-ssl-policies",
+    feature = "region-target-http-proxies",
+    feature = "region-target-https-proxies",
+    feature = "region-target-tcp-proxies",
+    feature = "region-url-maps",
+    feature = "reservation-blocks",
+    feature = "reservation-slots",
+    feature = "reservation-sub-blocks",
+    feature = "reservations",
+    feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
+    feature = "routers",
+    feature = "routes",
+    feature = "security-policies",
+    feature = "service-attachments",
+    feature = "snapshot-settings",
+    feature = "snapshots",
+    feature = "ssl-certificates",
+    feature = "ssl-policies",
+    feature = "storage-pools",
+    feature = "subnetworks",
+    feature = "target-grpc-proxies",
+    feature = "target-http-proxies",
+    feature = "target-https-proxies",
+    feature = "target-instances",
+    feature = "target-pools",
+    feature = "target-ssl-proxies",
+    feature = "target-tcp-proxies",
+    feature = "target-vpn-gateways",
+    feature = "url-maps",
+    feature = "vpn-gateways",
+    feature = "vpn-tunnels",
+    feature = "wire-groups",
+    feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetHealthOperationMetadataHealthInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.availability_slo_status.is_some() {
+            state.serialize_entry("availabilitySloStatus", &self.availability_slo_status)?;
+        }
+        if self.health_status.is_some() {
+            state.serialize_entry("healthStatus", &self.health_status)?;
+        }
+        if self.repair_category.is_some() {
+            state.serialize_entry("repairCategory", &self.repair_category)?;
+        }
+        if self.unhealthy_reason.is_some() {
+            state.serialize_entry("unhealthyReason", &self.unhealthy_reason)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -17911,6 +18317,9 @@ impl serde::ser::Serialize for super::InstanceFlexibilityPolicyInstanceSelection
         }
         if !self.machine_types.is_empty() {
             state.serialize_entry("machineTypes", &self.machine_types)?;
+        }
+        if self.min_cpu_platform.is_some() {
+            state.serialize_entry("minCpuPlatform", &self.min_cpu_platform)?;
         }
         if self.rank.is_some() {
             struct __With<'a>(&'a std::option::Option<i64>);
@@ -23489,6 +23898,9 @@ impl serde::ser::Serialize for super::Interconnect {
         if self.self_link.is_some() {
             state.serialize_entry("selfLink", &self.self_link)?;
         }
+        if self.self_link_with_id.is_some() {
+            state.serialize_entry("selfLinkWithId", &self.self_link_with_id)?;
+        }
         if self.state.is_some() {
             state.serialize_entry("state", &self.state)?;
         }
@@ -26035,6 +26447,40 @@ impl serde::ser::Serialize for super::InterconnectLocationCrossSiteInterconnectI
         if self.city.is_some() {
             state.serialize_entry("city", &self.city)?;
         }
+        if self.max_dynamic_path_bandwidth_gbps.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "maxDynamicPathBandwidthGbps",
+                &__With(&self.max_dynamic_path_bandwidth_gbps),
+            )?;
+        }
+        if self.max_fixed_path_bandwidth_gbps.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "maxFixedPathBandwidthGbps",
+                &__With(&self.max_fixed_path_bandwidth_gbps),
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -28357,6 +28803,9 @@ impl serde::ser::Serialize for super::ManagedInstance {
         }
         if self.shutdown_details.is_some() {
             state.serialize_entry("shutdownDetails", &self.shutdown_details)?;
+        }
+        if self.target_status.is_some() {
+            state.serialize_entry("targetStatus", &self.target_status)?;
         }
         if self.version.is_some() {
             state.serialize_entry("version", &self.version)?;
@@ -33753,6 +34202,12 @@ impl serde::ser::Serialize for super::Operation {
         if self.error.is_some() {
             state.serialize_entry("error", &self.error)?;
         }
+        if self.get_health_operation_metadata.is_some() {
+            state.serialize_entry(
+                "getHealthOperationMetadata",
+                &self.get_health_operation_metadata,
+            )?;
+        }
         if self.get_version_operation_metadata.is_some() {
             state.serialize_entry(
                 "getVersionOperationMetadata",
@@ -37503,6 +37958,32 @@ impl serde::ser::Serialize for super::Reference {
         }
         if self.target.is_some() {
             state.serialize_entry("target", &self.target)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::RegexRewrite {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.path_pattern.is_some() {
+            state.serialize_entry("pathPattern", &self.path_pattern)?;
+        }
+        if self.path_substitution.is_some() {
+            state.serialize_entry("pathSubstitution", &self.path_substitution)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -50869,7 +51350,7 @@ impl serde::ser::Serialize for super::StoragePoolDisk {
     }
 }
 
-#[cfg(feature = "storage-pools")]
+#[cfg(any(feature = "future-reservations", feature = "storage-pools",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::StoragePoolExapoolProvisionedCapacityGb {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -56563,6 +57044,9 @@ impl serde::ser::Serialize for super::UrlRewrite {
         }
         if self.path_template_rewrite.is_some() {
             state.serialize_entry("pathTemplateRewrite", &self.path_template_rewrite)?;
+        }
+        if self.regex_rewrite.is_some() {
+            state.serialize_entry("regexRewrite", &self.regex_rewrite)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

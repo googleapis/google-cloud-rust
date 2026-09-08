@@ -18,7 +18,7 @@ mod pagination;
 use anyhow::Result;
 use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_gax::paginator::{ItemPaginator, Paginator};
-use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicy, RetryPolicyExt};
+use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicy, RetryPolicyExt};
 use google_cloud_iam_v1::model::Binding;
 use google_cloud_secretmanager_v1::builder::secret_manager_service::ClientBuilder;
 use google_cloud_secretmanager_v1::client::SecretManagerService;
@@ -48,6 +48,7 @@ pub async fn run(builder: ClientBuilder) -> Result<()> {
                 .set_replication(Replication::new().set_automatic(Automatic::new()))
                 .set_labels([("integration-test", "true")]),
         )
+        .with_idempotency(true)
         .send()
         .await?;
     println!("CREATE = {create:?}");
@@ -58,7 +59,12 @@ pub async fn run(builder: ClientBuilder) -> Result<()> {
     assert!(project_name.is_some(), "{create:?}");
 
     println!("\nTesting get_secret()");
-    let get = client.get_secret().set_name(&create.name).send().await?;
+    let get = client
+        .get_secret()
+        .set_name(&create.name)
+        .with_idempotency(true)
+        .send()
+        .await?;
     println!("GET = {get:?}");
     assert_eq!(get, create);
 
@@ -73,6 +79,7 @@ pub async fn run(builder: ClientBuilder) -> Result<()> {
                 .set_data(bytes::Bytes::from(data))
                 .set_data_crc32c(checksum as i64),
         )
+        .with_idempotency(true)
         .send()
         .await?;
 
@@ -103,7 +110,8 @@ pub async fn run(builder: ClientBuilder) -> Result<()> {
             "version_aliases",
         ]))
         // Avoid flakes, safe to retry because of the etag.
-        .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
+        .with_retry_policy(Aip194Strict.with_attempt_limit(3))
+        .with_idempotency(true)
         .send()
         .await?;
     println!("UPDATE = {update:?}");
@@ -129,7 +137,8 @@ pub async fn run(builder: ClientBuilder) -> Result<()> {
         )
         .set_update_mask(FieldMask::default().set_paths(["annotations"]))
         // Avoid flakes, safe to retry because of the etag.
-        .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
+        .with_retry_policy(Aip194Strict.with_attempt_limit(3))
+        .with_idempotency(true)
         .send()
         .await?;
     println!("UPDATE = {update:?}");
@@ -157,16 +166,21 @@ pub async fn run(builder: ClientBuilder) -> Result<()> {
     run_locations(&client, &project_id).await?;
 
     println!("\nTesting delete_secret()");
-    client.delete_secret().set_name(get.name).send().await?;
+    client
+        .delete_secret()
+        .set_name(get.name)
+        .with_idempotency(true)
+        .send()
+        .await?;
     println!("DELETE finished");
 
     Ok(())
 }
 
 pub fn retry_policy() -> impl RetryPolicy {
-    AlwaysRetry
-        .with_time_limit(Duration::from_secs(15))
-        .with_attempt_limit(5)
+    Aip194Strict
+        .with_time_limit(Duration::from_secs(60))
+        .with_attempt_limit(10)
 }
 
 async fn run_locations(client: &SecretManagerService, project_id: &str) -> Result<()> {
@@ -174,6 +188,7 @@ async fn run_locations(client: &SecretManagerService, project_id: &str) -> Resul
     let locations = client
         .list_locations()
         .set_name(format!("projects/{project_id}"))
+        .with_idempotency(true)
         .send()
         .await?;
     println!("LOCATIONS = {locations:?}");
@@ -195,6 +210,7 @@ async fn run_locations(client: &SecretManagerService, project_id: &str) -> Resul
             "projects/{project_id}/locations/{}",
             first.location_id
         ))
+        .with_idempotency(true)
         .send()
         .await?;
     println!("GET = {get:?}");
@@ -211,6 +227,7 @@ async fn run_iam(client: &SecretManagerService, secret_name: &str) -> Result<()>
     let policy = client
         .get_iam_policy()
         .set_resource(secret_name)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("POLICY = {policy:?}");
@@ -220,6 +237,7 @@ async fn run_iam(client: &SecretManagerService, secret_name: &str) -> Result<()>
         .test_iam_permissions()
         .set_resource(secret_name)
         .set_permissions(["secretmanager.versions.access"])
+        .with_idempotency(true)
         .send()
         .await?;
     println!("RESPONSE = {response:?}");
@@ -250,6 +268,7 @@ async fn run_iam(client: &SecretManagerService, secret_name: &str) -> Result<()>
         .set_resource(secret_name)
         .set_update_mask(FieldMask::default().set_paths(["bindings"]))
         .set_policy(new_policy)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("RESPONSE = {response:?}");
@@ -269,6 +288,7 @@ async fn run_secret_versions(client: &SecretManagerService, secret_name: &str) -
                 .set_data(bytes::Bytes::from(data))
                 .set_data_crc32c(checksum as i64),
         )
+        .with_idempotency(true)
         .send()
         .await?;
     println!("CREATE_SECRET_VERSION = {create_secret_version:?}");
@@ -277,6 +297,7 @@ async fn run_secret_versions(client: &SecretManagerService, secret_name: &str) -
     let get_secret_version = client
         .get_secret_version()
         .set_name(&create_secret_version.name)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("GET_SECRET_VERSION = {create_secret_version:?}");
@@ -296,6 +317,7 @@ async fn run_secret_versions(client: &SecretManagerService, secret_name: &str) -
     let access_secret_version = client
         .access_secret_version()
         .set_name(&create_secret_version.name)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("ACCESS_SECRET_VERSION = {access_secret_version:?}");
@@ -308,6 +330,7 @@ async fn run_secret_versions(client: &SecretManagerService, secret_name: &str) -
     let disable = client
         .disable_secret_version()
         .set_name(&create_secret_version.name)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("DISABLE_SECRET_VERSION = {disable:?}");
@@ -316,6 +339,7 @@ async fn run_secret_versions(client: &SecretManagerService, secret_name: &str) -
     let enable = client
         .enable_secret_version()
         .set_name(&create_secret_version.name)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("ENABLE_SECRET_VERSION = {enable:?}");
@@ -324,6 +348,7 @@ async fn run_secret_versions(client: &SecretManagerService, secret_name: &str) -
     let delete = client
         .destroy_secret_version()
         .set_name(&get_secret_version.name)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("RESPONSE = {delete:?}");
@@ -348,6 +373,7 @@ async fn run_many_secret_versions(client: &SecretManagerService, secret_name: &s
                     .set_data(bytes::Bytes::from(data))
                     .set_data_crc32c(checksum as i64),
             )
+            .with_idempotency(true)
             .send()
             .await?;
         want.insert(create_secret_version.name);
@@ -374,7 +400,13 @@ async fn run_many_secret_versions(client: &SecretManagerService, secret_name: &s
 
     let pending: Vec<_> = want
         .iter()
-        .map(|name| client.destroy_secret_version().set_name(name).send())
+        .map(|name| {
+            client
+                .destroy_secret_version()
+                .set_name(name)
+                .with_idempotency(true)
+                .send()
+        })
         .collect();
     // Print the errors, but otherwise ignore them.
     futures::future::join_all(pending)
@@ -397,6 +429,7 @@ async fn get_all_secret_version_names(
             .list_secret_versions()
             .set_parent(secret_name)
             .set_page_token(&page_token)
+            .with_idempotency(true)
             .send()
             .await?;
         response
@@ -465,7 +498,13 @@ async fn cleanup_stale_secrets(
 
     let pending = stale_secrets
         .iter()
-        .map(|v| client.delete_secret().set_name(v).send())
+        .map(|v| {
+            client
+                .delete_secret()
+                .set_name(v)
+                .with_idempotency(true)
+                .send()
+        })
         .collect::<Vec<_>>();
 
     // Print the errors, but otherwise ignore them.

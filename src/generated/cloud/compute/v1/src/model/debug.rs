@@ -2008,6 +2008,7 @@ impl std::fmt::Debug for super::BackendServiceTlsSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BackendServiceTlsSettings");
         debug_struct.field("authentication_config", &self.authentication_config);
+        debug_struct.field("identity", &self.identity);
         debug_struct.field("sni", &self.sni);
         debug_struct.field("subject_alt_names", &self.subject_alt_names);
         if !self._unknown_fields.is_empty() {
@@ -4933,6 +4934,7 @@ impl std::fmt::Debug for super::FutureReservation {
         debug_struct.field("reservation_mode", &self.reservation_mode);
         debug_struct.field("reservation_name", &self.reservation_name);
         debug_struct.field("resource_metadata", &self.resource_metadata);
+        debug_struct.field("resource_name", &self.resource_name);
         debug_struct.field("scheduling_type", &self.scheduling_type);
         debug_struct.field("self_link", &self.self_link);
         debug_struct.field("self_link_with_id", &self.self_link_with_id);
@@ -4943,6 +4945,7 @@ impl std::fmt::Debug for super::FutureReservation {
         );
         debug_struct.field("specific_sku_properties", &self.specific_sku_properties);
         debug_struct.field("status", &self.status);
+        debug_struct.field("storage_pool_properties", &self.storage_pool_properties);
         debug_struct.field("time_window", &self.time_window);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
@@ -4999,6 +5002,10 @@ impl std::fmt::Debug for super::FutureReservationStatus {
         debug_struct.field("amendment_status", &self.amendment_status);
         debug_struct.field("auto_created_reservations", &self.auto_created_reservations);
         debug_struct.field(
+            "exapool_provisioned_capacity_gb",
+            &self.exapool_provisioned_capacity_gb,
+        );
+        debug_struct.field(
             "existing_matching_usage_info",
             &self.existing_matching_usage_info,
         );
@@ -5007,6 +5014,10 @@ impl std::fmt::Debug for super::FutureReservationStatus {
         debug_struct.field("lock_time", &self.lock_time);
         debug_struct.field("procurement_status", &self.procurement_status);
         debug_struct.field("specific_sku_properties", &self.specific_sku_properties);
+        debug_struct.field(
+            "storage_pool_provisioned_capacity",
+            &self.storage_pool_provisioned_capacity,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5069,6 +5080,46 @@ impl std::fmt::Debug for super::FutureReservationStatusSpecificSKUProperties {
         debug_struct.field(
             "source_instance_template_id",
             &self.source_instance_template_id,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "future-reservations")]
+impl std::fmt::Debug for super::FutureReservationStoragePoolProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FutureReservationStoragePoolProperties");
+        debug_struct.field(
+            "requested_exapool_provisioned_capacity_gb",
+            &self.requested_exapool_provisioned_capacity_gb,
+        );
+        debug_struct.field(
+            "requested_storage_pool_provisioned_capacity",
+            &self.requested_storage_pool_provisioned_capacity,
+        );
+        debug_struct.field("storage_pool_type", &self.storage_pool_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "future-reservations")]
+impl std::fmt::Debug for super::FutureReservationStoragePoolProvisionedCapacity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FutureReservationStoragePoolProvisionedCapacity");
+        debug_struct.field(
+            "pool_provisioned_capacity_gb",
+            &self.pool_provisioned_capacity_gb,
+        );
+        debug_struct.field("pool_provisioned_iops", &self.pool_provisioned_iops);
+        debug_struct.field(
+            "pool_provisioned_throughput",
+            &self.pool_provisioned_throughput,
         );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -5368,6 +5419,258 @@ impl std::fmt::Debug for super::GRPCTLSHealthCheck {
         debug_struct.field("grpc_service_name", &self.grpc_service_name);
         debug_struct.field("port", &self.port);
         debug_struct.field("port_specification", &self.port_specification);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "addresses",
+    feature = "autoscalers",
+    feature = "backend-buckets",
+    feature = "backend-services",
+    feature = "cross-site-networks",
+    feature = "disks",
+    feature = "external-vpn-gateways",
+    feature = "firewall-policies",
+    feature = "firewalls",
+    feature = "forwarding-rules",
+    feature = "future-reservations",
+    feature = "global-addresses",
+    feature = "global-forwarding-rules",
+    feature = "global-network-endpoint-groups",
+    feature = "global-operations",
+    feature = "global-organization-operations",
+    feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
+    feature = "health-checks",
+    feature = "hosts",
+    feature = "http-health-checks",
+    feature = "https-health-checks",
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instance-settings",
+    feature = "instance-templates",
+    feature = "instances",
+    feature = "instant-snapshot-groups",
+    feature = "instant-snapshots",
+    feature = "interconnect-attachment-groups",
+    feature = "interconnect-attachments",
+    feature = "interconnect-groups",
+    feature = "interconnects",
+    feature = "licenses",
+    feature = "machine-images",
+    feature = "network-attachments",
+    feature = "network-edge-security-services",
+    feature = "network-endpoint-groups",
+    feature = "network-firewall-policies",
+    feature = "networks",
+    feature = "node-groups",
+    feature = "node-templates",
+    feature = "organization-security-policies",
+    feature = "packet-mirrorings",
+    feature = "preview-features",
+    feature = "projects",
+    feature = "public-advertised-prefixes",
+    feature = "public-delegated-prefixes",
+    feature = "region-autoscalers",
+    feature = "region-backend-buckets",
+    feature = "region-backend-services",
+    feature = "region-commitments",
+    feature = "region-composite-health-checks",
+    feature = "region-disks",
+    feature = "region-health-aggregation-policies",
+    feature = "region-health-check-services",
+    feature = "region-health-checks",
+    feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
+    feature = "region-instant-snapshots",
+    feature = "region-network-endpoint-groups",
+    feature = "region-network-firewall-policies",
+    feature = "region-notification-endpoints",
+    feature = "region-operations",
+    feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
+    feature = "region-ssl-certificates",
+    feature = "region-ssl-policies",
+    feature = "region-target-http-proxies",
+    feature = "region-target-https-proxies",
+    feature = "region-target-tcp-proxies",
+    feature = "region-url-maps",
+    feature = "reservation-blocks",
+    feature = "reservation-slots",
+    feature = "reservation-sub-blocks",
+    feature = "reservations",
+    feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
+    feature = "routers",
+    feature = "routes",
+    feature = "security-policies",
+    feature = "service-attachments",
+    feature = "snapshot-settings",
+    feature = "snapshots",
+    feature = "ssl-certificates",
+    feature = "ssl-policies",
+    feature = "storage-pools",
+    feature = "subnetworks",
+    feature = "target-grpc-proxies",
+    feature = "target-http-proxies",
+    feature = "target-https-proxies",
+    feature = "target-instances",
+    feature = "target-pools",
+    feature = "target-ssl-proxies",
+    feature = "target-tcp-proxies",
+    feature = "target-vpn-gateways",
+    feature = "url-maps",
+    feature = "vpn-gateways",
+    feature = "vpn-tunnels",
+    feature = "wire-groups",
+    feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
+))]
+impl std::fmt::Debug for super::GetHealthOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetHealthOperationMetadata");
+        debug_struct.field("health_info", &self.health_info);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "addresses",
+    feature = "autoscalers",
+    feature = "backend-buckets",
+    feature = "backend-services",
+    feature = "cross-site-networks",
+    feature = "disks",
+    feature = "external-vpn-gateways",
+    feature = "firewall-policies",
+    feature = "firewalls",
+    feature = "forwarding-rules",
+    feature = "future-reservations",
+    feature = "global-addresses",
+    feature = "global-forwarding-rules",
+    feature = "global-network-endpoint-groups",
+    feature = "global-operations",
+    feature = "global-organization-operations",
+    feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
+    feature = "health-checks",
+    feature = "hosts",
+    feature = "http-health-checks",
+    feature = "https-health-checks",
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instance-settings",
+    feature = "instance-templates",
+    feature = "instances",
+    feature = "instant-snapshot-groups",
+    feature = "instant-snapshots",
+    feature = "interconnect-attachment-groups",
+    feature = "interconnect-attachments",
+    feature = "interconnect-groups",
+    feature = "interconnects",
+    feature = "licenses",
+    feature = "machine-images",
+    feature = "network-attachments",
+    feature = "network-edge-security-services",
+    feature = "network-endpoint-groups",
+    feature = "network-firewall-policies",
+    feature = "networks",
+    feature = "node-groups",
+    feature = "node-templates",
+    feature = "organization-security-policies",
+    feature = "packet-mirrorings",
+    feature = "preview-features",
+    feature = "projects",
+    feature = "public-advertised-prefixes",
+    feature = "public-delegated-prefixes",
+    feature = "region-autoscalers",
+    feature = "region-backend-buckets",
+    feature = "region-backend-services",
+    feature = "region-commitments",
+    feature = "region-composite-health-checks",
+    feature = "region-disks",
+    feature = "region-health-aggregation-policies",
+    feature = "region-health-check-services",
+    feature = "region-health-checks",
+    feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
+    feature = "region-instant-snapshots",
+    feature = "region-network-endpoint-groups",
+    feature = "region-network-firewall-policies",
+    feature = "region-notification-endpoints",
+    feature = "region-operations",
+    feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
+    feature = "region-ssl-certificates",
+    feature = "region-ssl-policies",
+    feature = "region-target-http-proxies",
+    feature = "region-target-https-proxies",
+    feature = "region-target-tcp-proxies",
+    feature = "region-url-maps",
+    feature = "reservation-blocks",
+    feature = "reservation-slots",
+    feature = "reservation-sub-blocks",
+    feature = "reservations",
+    feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
+    feature = "routers",
+    feature = "routes",
+    feature = "security-policies",
+    feature = "service-attachments",
+    feature = "snapshot-settings",
+    feature = "snapshots",
+    feature = "ssl-certificates",
+    feature = "ssl-policies",
+    feature = "storage-pools",
+    feature = "subnetworks",
+    feature = "target-grpc-proxies",
+    feature = "target-http-proxies",
+    feature = "target-https-proxies",
+    feature = "target-instances",
+    feature = "target-pools",
+    feature = "target-ssl-proxies",
+    feature = "target-tcp-proxies",
+    feature = "target-vpn-gateways",
+    feature = "url-maps",
+    feature = "vpn-gateways",
+    feature = "vpn-tunnels",
+    feature = "wire-groups",
+    feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
+))]
+impl std::fmt::Debug for super::GetHealthOperationMetadataHealthInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetHealthOperationMetadataHealthInfo");
+        debug_struct.field("availability_slo_status", &self.availability_slo_status);
+        debug_struct.field("health_status", &self.health_status);
+        debug_struct.field("repair_category", &self.repair_category);
+        debug_struct.field("unhealthy_reason", &self.unhealthy_reason);
+        debug_struct.field("update_time", &self.update_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7862,6 +8165,7 @@ impl std::fmt::Debug for super::InstanceFlexibilityPolicyInstanceSelection {
         let mut debug_struct = f.debug_struct("InstanceFlexibilityPolicyInstanceSelection");
         debug_struct.field("disks", &self.disks);
         debug_struct.field("machine_types", &self.machine_types);
+        debug_struct.field("min_cpu_platform", &self.min_cpu_platform);
         debug_struct.field("rank", &self.rank);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -10368,6 +10672,7 @@ impl std::fmt::Debug for super::Interconnect {
         debug_struct.field("requested_link_count", &self.requested_link_count);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
         debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("self_link_with_id", &self.self_link_with_id);
         debug_struct.field("state", &self.state);
         debug_struct.field("subzone", &self.subzone);
         debug_struct.field("wire_groups", &self.wire_groups);
@@ -11526,6 +11831,14 @@ impl std::fmt::Debug for super::InterconnectLocationCrossSiteInterconnectInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InterconnectLocationCrossSiteInterconnectInfo");
         debug_struct.field("city", &self.city);
+        debug_struct.field(
+            "max_dynamic_path_bandwidth_gbps",
+            &self.max_dynamic_path_bandwidth_gbps,
+        );
+        debug_struct.field(
+            "max_fixed_path_bandwidth_gbps",
+            &self.max_fixed_path_bandwidth_gbps,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12536,6 +12849,7 @@ impl std::fmt::Debug for super::ManagedInstance {
         );
         debug_struct.field("scheduling", &self.scheduling);
         debug_struct.field("shutdown_details", &self.shutdown_details);
+        debug_struct.field("target_status", &self.target_status);
         debug_struct.field("version", &self.version);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -15009,6 +15323,10 @@ impl std::fmt::Debug for super::Operation {
         debug_struct.field("end_time", &self.end_time);
         debug_struct.field("error", &self.error);
         debug_struct.field(
+            "get_health_operation_metadata",
+            &self.get_health_operation_metadata,
+        );
+        debug_struct.field(
             "get_version_operation_metadata",
             &self.get_version_operation_metadata,
         );
@@ -16996,6 +17314,19 @@ impl std::fmt::Debug for super::Reference {
         debug_struct.field("reference_type", &self.reference_type);
         debug_struct.field("referrer", &self.referrer);
         debug_struct.field("target", &self.target);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+impl std::fmt::Debug for super::RegexRewrite {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegexRewrite");
+        debug_struct.field("path_pattern", &self.path_pattern);
+        debug_struct.field("path_substitution", &self.path_substitution);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -23022,7 +23353,7 @@ impl std::fmt::Debug for super::StoragePoolDisk {
     }
 }
 
-#[cfg(feature = "storage-pools")]
+#[cfg(any(feature = "future-reservations", feature = "storage-pools",))]
 impl std::fmt::Debug for super::StoragePoolExapoolProvisionedCapacityGb {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StoragePoolExapoolProvisionedCapacityGb");
@@ -25535,6 +25866,7 @@ impl std::fmt::Debug for super::UrlRewrite {
         debug_struct.field("host_rewrite", &self.host_rewrite);
         debug_struct.field("path_prefix_rewrite", &self.path_prefix_rewrite);
         debug_struct.field("path_template_rewrite", &self.path_template_rewrite);
+        debug_struct.field("regex_rewrite", &self.regex_rewrite);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -38830,6 +39162,22 @@ impl std::fmt::Debug for super::reservation_slots::GetRequest {
         let mut debug_struct = f.debug_struct("GetRequest");
         debug_struct.field("parent_name", &self.parent_name);
         debug_struct.field("project", &self.project);
+        debug_struct.field("reservation_slot", &self.reservation_slot);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reservation-slots")]
+impl std::fmt::Debug for super::reservation_slots::GetHealthRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetHealthRequest");
+        debug_struct.field("parent_name", &self.parent_name);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
         debug_struct.field("reservation_slot", &self.reservation_slot);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {

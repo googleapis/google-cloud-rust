@@ -1500,6 +1500,7 @@ impl super::stub::MetricService for MetricService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1510,6 +1511,7 @@ impl super::stub::MetricService for MetricService {
                 let path_template = "/v3/{name}/timeSeries";
 
                 let resource_name = format!("//monitoring.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1564,6 +1566,7 @@ impl super::stub::MetricService for MetricService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1574,6 +1577,7 @@ impl super::stub::MetricService for MetricService {
                 let path_template = "/v3/{name}/timeSeries:createService";
 
                 let resource_name = format!("//monitoring.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2142,6 +2146,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2157,6 +2162,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                 let path_template = "/v3/{name}:sendVerificationCode";
 
                 let resource_name = format!("//monitoring.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2216,6 +2222,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2231,6 +2238,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                 let path_template = "/v3/{name}:getVerificationCode";
 
                 let resource_name = format!("//monitoring.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2284,6 +2292,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2299,6 +2308,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                 let path_template = "/v3/{name}:verify";
 
                 let resource_name = format!("//monitoring.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2383,6 +2393,7 @@ impl super::stub::QueryService for QueryService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2392,6 +2403,7 @@ impl super::stub::QueryService for QueryService {
                 let path = format!("/v3/{}/timeSeries:query", var_name,);
                 let path_template = "/v3/{name}/timeSeries:query";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

@@ -38,6 +38,8 @@ impl std::fmt::Debug for super::LinuxNodeConfig {
             &self.node_kernel_module_loading,
         );
         debug_struct.field("accurate_time_config", &self.accurate_time_config);
+        debug_struct.field("node_vfio_config", &self.node_vfio_config);
+        debug_struct.field("disk_io_scheduler", &self.disk_io_scheduler);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -157,6 +159,17 @@ impl std::fmt::Debug for super::linux_node_config::AccurateTimeConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccurateTimeConfig");
         debug_struct.field("enable_ptp_kvm_time_sync", &self.enable_ptp_kvm_time_sync);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::linux_node_config::NodeVfioConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NodeVfioConfig");
+        debug_struct.field("dma_entry_limit", &self.dma_entry_limit);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1317,6 +1330,8 @@ impl std::fmt::Debug for super::Cluster {
         debug_struct.field("endpoint", &self.endpoint);
         debug_struct.field("initial_cluster_version", &self.initial_cluster_version);
         debug_struct.field("current_master_version", &self.current_master_version);
+        debug_struct.field("current_emulated_version", &self.current_emulated_version);
+        debug_struct.field("rollback_safe_upgrade", &self.rollback_safe_upgrade);
         debug_struct.field("current_node_version", &self.current_node_version);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("status", &self.status);
@@ -1774,6 +1789,10 @@ impl std::fmt::Debug for super::ClusterUpdate {
             &self.desired_control_plane_egress,
         );
         debug_struct.field(
+            "desired_rollback_safe_upgrade",
+            &self.desired_rollback_safe_upgrade,
+        );
+        debug_struct.field(
             "desired_managed_opentelemetry_config",
             &self.desired_managed_opentelemetry_config,
         );
@@ -1789,6 +1808,7 @@ impl std::fmt::Debug for super::ClusterUpdate {
             "desired_node_creation_config",
             &self.desired_node_creation_config,
         );
+        debug_struct.field("desired_emulated_version", &self.desired_emulated_version);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2006,6 +2026,7 @@ impl std::fmt::Debug for super::UpdateNodePoolRequest {
         debug_struct.field("node_drain_config", &self.node_drain_config);
         debug_struct.field("consolidation_delay", &self.consolidation_delay);
         debug_struct.field("taint_config", &self.taint_config);
+        debug_struct.field("maintenance_policy", &self.maintenance_policy);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2375,6 +2396,7 @@ impl std::fmt::Debug for super::NodePool {
         debug_struct.field("best_effort_provisioning", &self.best_effort_provisioning);
         debug_struct.field("node_drain_config", &self.node_drain_config);
         debug_struct.field("maintenance_policy", &self.maintenance_policy);
+        debug_struct.field("kubelet_cert_info", &self.kubelet_cert_info);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2487,6 +2509,24 @@ impl std::fmt::Debug for super::node_pool::NodePoolMaintenancePolicy {
         debug_struct.field(
             "exclusion_until_end_of_support",
             &self.exclusion_until_end_of_support,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::node_pool::KubeletCertInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("KubeletCertInfo");
+        debug_struct.field(
+            "tpm_bootstrap_cert_expire_time",
+            &self.tpm_bootstrap_cert_expire_time,
+        );
+        debug_struct.field(
+            "non_tpm_bootstrap_cert_expire_time",
+            &self.non_tpm_bootstrap_cert_expire_time,
         );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -3519,6 +3559,8 @@ impl std::fmt::Debug for super::UpgradeEvent {
         debug_struct.field("operation_start_time", &self.operation_start_time);
         debug_struct.field("current_version", &self.current_version);
         debug_struct.field("target_version", &self.target_version);
+        debug_struct.field("current_emulated_version", &self.current_emulated_version);
+        debug_struct.field("target_emulated_version", &self.target_emulated_version);
         debug_struct.field("resource", &self.resource);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -3536,6 +3578,8 @@ impl std::fmt::Debug for super::UpgradeInfoEvent {
         debug_struct.field("end_time", &self.end_time);
         debug_struct.field("current_version", &self.current_version);
         debug_struct.field("target_version", &self.target_version);
+        debug_struct.field("current_emulated_version", &self.current_emulated_version);
+        debug_struct.field("target_emulated_version", &self.target_emulated_version);
         debug_struct.field("resource", &self.resource);
         debug_struct.field("state", &self.state);
         debug_struct.field("standard_support_end_time", &self.standard_support_end_time);
@@ -3893,6 +3937,21 @@ impl std::fmt::Debug for super::LocalNvmeSsdBlockConfig {
     }
 }
 
+impl std::fmt::Debug for super::DiskIoScheduler {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DiskIoScheduler");
+        debug_struct.field("node_system_io_scheduler", &self.node_system_io_scheduler);
+        debug_struct.field(
+            "node_attached_disk_io_scheduler",
+            &self.node_attached_disk_io_scheduler,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::EphemeralStorageLocalSsdConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EphemeralStorageLocalSsdConfig");
@@ -3988,6 +4047,20 @@ impl std::fmt::Debug for super::SecondaryBootDiskUpdateStrategy {
     }
 }
 
+impl std::fmt::Debug for super::RollbackSafeUpgrade {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RollbackSafeUpgrade");
+        debug_struct.field(
+            "control_plane_soak_duration",
+            &self.control_plane_soak_duration,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::FetchClusterUpgradeInfoRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FetchClusterUpgradeInfoRequest");
@@ -4016,6 +4089,26 @@ impl std::fmt::Debug for super::ClusterUpgradeInfo {
             "end_of_extended_support_timestamp",
             &self.end_of_extended_support_timestamp,
         );
+        debug_struct.field(
+            "rollback_safe_upgrade_status",
+            &self.rollback_safe_upgrade_status,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RollbackSafeUpgradeStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RollbackSafeUpgradeStatus");
+        debug_struct.field("mode", &self.mode);
+        debug_struct.field(
+            "control_plane_upgrade_rollback_end_time",
+            &self.control_plane_upgrade_rollback_end_time,
+        );
+        debug_struct.field("previous_version", &self.previous_version);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4032,6 +4125,8 @@ impl std::fmt::Debug for super::UpgradeDetails {
         debug_struct.field("initial_version", &self.initial_version);
         debug_struct.field("target_version", &self.target_version);
         debug_struct.field("start_type", &self.start_type);
+        debug_struct.field("initial_emulated_version", &self.initial_emulated_version);
+        debug_struct.field("target_emulated_version", &self.target_emulated_version);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4067,6 +4162,30 @@ impl std::fmt::Debug for super::NodePoolUpgradeInfo {
             "end_of_extended_support_timestamp",
             &self.end_of_extended_support_timestamp,
         );
+        debug_struct.field("custom_image_info", &self.custom_image_info);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CustomImageInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomImageInfo");
+        debug_struct.field("upgrade_message", &self.upgrade_message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CompleteControlPlaneUpgradeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CompleteControlPlaneUpgradeRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("version", &self.version);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

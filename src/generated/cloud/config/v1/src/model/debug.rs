@@ -369,6 +369,7 @@ impl std::fmt::Debug for super::DeploymentOperationMetadata {
         debug_struct.field("apply_results", &self.apply_results);
         debug_struct.field("build", &self.build);
         debug_struct.field("logs", &self.logs);
+        debug_struct.field("apply_results_available", &self.apply_results_available);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

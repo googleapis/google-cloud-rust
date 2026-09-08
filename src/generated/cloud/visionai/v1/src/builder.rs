@@ -7179,6 +7179,198 @@ pub mod streaming_service {
         }
     }
 
+    /// Common implementation for [crate::client::StreamingService] bidi stream builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct BidiStreamBuilder {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::StreamingService>,
+        options: crate::RequestOptions,
+    }
+
+    impl BidiStreamBuilder {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StreamingService>,
+        ) -> Self {
+            Self {
+                stub,
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [StreamingService::send_packets][crate::client::StreamingService::send_packets] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_visionai_v1::builder::streaming_service::SendPackets;
+    /// # use google_cloud_visionai_v1::model::SendPacketsRequest;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(SendPacketsRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> SendPackets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SendPackets(BidiStreamBuilder);
+
+    impl SendPackets {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StreamingService>,
+        ) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::SendPacketsRequest>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::SendPacketsResponse>,
+        ) {
+            (*self.0.stub).send_packets(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for SendPackets {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [StreamingService::receive_packets][crate::client::StreamingService::receive_packets] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_visionai_v1::builder::streaming_service::ReceivePackets;
+    /// # use google_cloud_visionai_v1::model::ReceivePacketsRequest;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(ReceivePacketsRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ReceivePackets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ReceivePackets(BidiStreamBuilder);
+
+    impl ReceivePackets {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StreamingService>,
+        ) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::ReceivePacketsRequest>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::ReceivePacketsResponse>,
+        ) {
+            (*self.0.stub).receive_packets(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ReceivePackets {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [StreamingService::receive_events][crate::client::StreamingService::receive_events] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_visionai_v1::builder::streaming_service::ReceiveEvents;
+    /// # use google_cloud_visionai_v1::model::ReceiveEventsRequest;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(ReceiveEventsRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ReceiveEvents {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ReceiveEvents(BidiStreamBuilder);
+
+    impl ReceiveEvents {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StreamingService>,
+        ) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::ReceiveEventsRequest>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::ReceiveEventsResponse>,
+        ) {
+            (*self.0.stub).receive_events(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ReceiveEvents {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [StreamingService::acquire_lease][crate::client::StreamingService::acquire_lease] calls.
     ///
     /// # Example
@@ -11334,6 +11526,24 @@ pub mod warehouse {
         }
     }
 
+    /// Common implementation for [crate::client::Warehouse] bidi stream builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct BidiStreamBuilder {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Warehouse>,
+        options: crate::RequestOptions,
+    }
+
+    impl BidiStreamBuilder {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Warehouse>,
+        ) -> Self {
+            Self {
+                stub,
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
     /// The request builder for [Warehouse::create_asset][crate::client::Warehouse::create_asset] calls.
     ///
     /// # Example
@@ -14534,6 +14744,64 @@ pub mod warehouse {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for DeleteAnnotation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Warehouse::ingest_asset][crate::client::Warehouse::ingest_asset] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_visionai_v1::builder::warehouse::IngestAsset;
+    /// # use google_cloud_visionai_v1::model::IngestAssetRequest;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(IngestAssetRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> IngestAsset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct IngestAsset(BidiStreamBuilder);
+
+    impl IngestAsset {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Warehouse>,
+        ) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::IngestAssetRequest>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::IngestAssetResponse>,
+        ) {
+            (*self.0.stub).ingest_asset(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for IngestAsset {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

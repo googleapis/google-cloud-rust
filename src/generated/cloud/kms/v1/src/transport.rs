@@ -393,6 +393,7 @@ impl super::stub::Autokey for Autokey {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -410,6 +411,7 @@ impl super::stub::Autokey for Autokey {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -432,6 +434,7 @@ impl super::stub::Autokey for Autokey {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -454,6 +457,7 @@ impl super::stub::Autokey for Autokey {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -473,6 +477,7 @@ impl super::stub::Autokey for Autokey {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -493,6 +498,7 @@ impl super::stub::Autokey for Autokey {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -905,6 +911,7 @@ impl super::stub::Autokey for Autokey {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -922,6 +929,7 @@ impl super::stub::Autokey for Autokey {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -944,6 +952,7 @@ impl super::stub::Autokey for Autokey {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -966,6 +975,7 @@ impl super::stub::Autokey for Autokey {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -985,6 +995,7 @@ impl super::stub::Autokey for Autokey {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1005,6 +1016,7 @@ impl super::stub::Autokey for Autokey {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1654,6 +1666,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -1671,6 +1684,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1693,6 +1707,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1715,6 +1730,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1734,6 +1750,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1754,6 +1771,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2166,6 +2184,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -2183,6 +2202,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2205,6 +2225,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2227,6 +2248,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2246,6 +2268,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2266,6 +2289,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3145,6 +3169,7 @@ impl super::stub::EkmService for EkmService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -3162,6 +3187,7 @@ impl super::stub::EkmService for EkmService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3184,6 +3210,7 @@ impl super::stub::EkmService for EkmService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3206,6 +3233,7 @@ impl super::stub::EkmService for EkmService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3225,6 +3253,7 @@ impl super::stub::EkmService for EkmService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3245,6 +3274,7 @@ impl super::stub::EkmService for EkmService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3657,6 +3687,7 @@ impl super::stub::EkmService for EkmService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -3674,6 +3705,7 @@ impl super::stub::EkmService for EkmService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3696,6 +3728,7 @@ impl super::stub::EkmService for EkmService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3718,6 +3751,7 @@ impl super::stub::EkmService for EkmService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3737,6 +3771,7 @@ impl super::stub::EkmService for EkmService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3757,6 +3792,7 @@ impl super::stub::EkmService for EkmService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4281,6 +4317,7 @@ impl super::stub::HsmManagement for HsmManagement {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4300,6 +4337,7 @@ impl super::stub::HsmManagement for HsmManagement {
                 let path_template = "/v1/{name}:approve";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4359,6 +4397,7 @@ impl super::stub::HsmManagement for HsmManagement {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4378,6 +4417,7 @@ impl super::stub::HsmManagement for HsmManagement {
                 let path_template = "/v1/{name}:execute";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4803,6 +4843,7 @@ impl super::stub::HsmManagement for HsmManagement {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -4820,6 +4861,7 @@ impl super::stub::HsmManagement for HsmManagement {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4842,6 +4884,7 @@ impl super::stub::HsmManagement for HsmManagement {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4864,6 +4907,7 @@ impl super::stub::HsmManagement for HsmManagement {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4883,6 +4927,7 @@ impl super::stub::HsmManagement for HsmManagement {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4903,6 +4948,7 @@ impl super::stub::HsmManagement for HsmManagement {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5315,6 +5361,7 @@ impl super::stub::HsmManagement for HsmManagement {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -5332,6 +5379,7 @@ impl super::stub::HsmManagement for HsmManagement {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5354,6 +5402,7 @@ impl super::stub::HsmManagement for HsmManagement {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5376,6 +5425,7 @@ impl super::stub::HsmManagement for HsmManagement {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5395,6 +5445,7 @@ impl super::stub::HsmManagement for HsmManagement {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5415,6 +5466,7 @@ impl super::stub::HsmManagement for HsmManagement {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6874,6 +6926,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -6893,6 +6946,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template = "/v1/{parent}/cryptoKeyVersions:import";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -6952,6 +7006,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -6974,6 +7029,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template =
                     "/v1/{parent}/cryptoKeyVersions:importTrustedKeyWrappedCryptoKeyVersion";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -7375,6 +7431,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -7394,6 +7451,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template = "/v1/{name}:updatePrimaryVersion";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7453,6 +7511,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -7474,6 +7533,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template = "/v1/{name}:destroy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7535,6 +7595,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -7556,6 +7617,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template = "/v1/{name}:restore";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7617,6 +7679,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -7636,6 +7699,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template = "/v1/{name}:encrypt";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7693,6 +7757,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -7712,6 +7777,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template = "/v1/{name}:decrypt";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7769,6 +7835,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -7789,6 +7856,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path = format!("/v1/{}:rawEncrypt", var_name,);
                 let path_template = "/v1/{name}:rawEncrypt";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -7847,6 +7915,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -7867,6 +7936,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path = format!("/v1/{}:rawDecrypt", var_name,);
                 let path_template = "/v1/{name}:rawDecrypt";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -7925,6 +7995,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -7946,6 +8017,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template = "/v1/{name}:asymmetricSign";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8005,6 +8077,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -8026,6 +8099,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template = "/v1/{name}:asymmetricDecrypt";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8085,6 +8159,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -8106,6 +8181,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template = "/v1/{name}:macSign";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8165,6 +8241,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -8186,6 +8263,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template = "/v1/{name}:macVerify";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8245,6 +8323,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -8266,6 +8345,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template = "/v1/{name}:decapsulate";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8325,6 +8405,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_location = try_match(
@@ -8339,6 +8420,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path = format!("/v1/{}:generateRandomBytes", var_location,);
                 let path_template = "/v1/{location}:generateRandomBytes";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.location));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -8516,6 +8598,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -8533,6 +8616,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8555,6 +8639,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8577,6 +8662,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8596,6 +8682,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8616,6 +8703,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9028,6 +9116,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -9045,6 +9134,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9067,6 +9157,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9089,6 +9180,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9108,6 +9200,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -9128,6 +9221,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))

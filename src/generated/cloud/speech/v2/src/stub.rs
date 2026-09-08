@@ -114,6 +114,17 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Speech::streaming_recognize].
+    fn streaming_recognize(
+        &self,
+        _options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingRecognizeRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingRecognizeResponse>,
+    ) {
+        gaxi::unimplemented::unimplemented_bidi_stub()
+    }
+
     /// Implements [super::client::Speech::batch_recognize].
     fn batch_recognize(
         &self,

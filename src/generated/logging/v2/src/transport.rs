@@ -18,16 +18,18 @@
 use crate::Error;
 use crate::Result;
 
-/// Implements [LoggingServiceV2](super::stub::LoggingServiceV2) using a [gaxi::http::ReqwestClient].
+/// Implements [LoggingServiceV2](super::stub::LoggingServiceV2) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
 #[derive(Clone)]
 pub struct LoggingServiceV2 {
     inner: gaxi::http::ReqwestClient,
+    grpc_inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for LoggingServiceV2 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("LoggingServiceV2")
             .field("inner", &self.inner)
+            .field("grpc_inner", &self.grpc_inner)
             .finish()
     }
 }
@@ -35,13 +37,23 @@ impl std::fmt::Debug for LoggingServiceV2 {
 impl LoggingServiceV2 {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
-        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = gaxi::http::ReqwestClient::new(config.clone(), crate::DEFAULT_HOST).await?;
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
             inner
         };
-        Ok(Self { inner })
+        let grpc_inner = if tracing_is_enabled {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                crate::DEFAULT_HOST,
+                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, crate::DEFAULT_HOST).await?
+        };
+        Ok(Self { inner, grpc_inner })
     }
 }
 
@@ -772,6 +784,42 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         self.inner.execute(builder, body, options).await
     }
 
+    fn tail_log_entries(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::TailLogEntriesRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::TailLogEntriesResponse>,
+    ) {
+        let x_goog_request_params = "";
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.logging.v2.LoggingServiceV2",
+                "TailLogEntries",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.logging.v2.LoggingServiceV2/TailLogEntries",
+        );
+
+        self.grpc_inner
+            .execute_bidi_streaming::<
+                crate::model::TailLogEntriesRequest,
+                crate::model::TailLogEntriesResponse,
+                crate::prost::google::logging::v2::TailLogEntriesRequest,
+                crate::prost::google::logging::v2::TailLogEntriesResponse,
+            >(
+                extensions,
+                path,
+                options,
+                &crate::info::X_GOOG_API_CLIENT_GRPC_HEADER,
+                x_goog_request_params,
+            )
+    }
+
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
@@ -1219,6 +1267,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1236,6 +1285,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 let path = format!("/v2/{}:cancel", var_name,);
                 let path_template = "/v2/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1255,6 +1305,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 let path = format!("/v2/{}:cancel", var_name,);
                 let path_template = "/v2/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1274,6 +1325,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 let path = format!("/v2/{}:cancel", var_name,);
                 let path_template = "/v2/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1293,6 +1345,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 let path = format!("/v2/{}:cancel", var_name,);
                 let path_template = "/v2/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1312,6 +1365,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 let path = format!("/v2/{}:cancel", var_name,);
                 let path_template = "/v2/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -3110,6 +3164,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -3128,6 +3183,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 let path_template = "/v2/{name}:undelete";
 
                 let resource_name = format!("//logging.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3148,6 +3204,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 let path_template = "/v2/{name}:undelete";
 
                 let resource_name = format!("//logging.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3168,6 +3225,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 let path_template = "/v2/{name}:undelete";
 
                 let resource_name = format!("//logging.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3188,6 +3246,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 let path_template = "/v2/{name}:undelete";
 
                 let resource_name = format!("//logging.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3208,6 +3267,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 let path_template = "/v2/{name}:undelete";
 
                 let resource_name = format!("//logging.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8805,6 +8865,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -8822,6 +8883,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 let path = format!("/v2/{}:cancel", var_name,);
                 let path_template = "/v2/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -8841,6 +8903,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 let path = format!("/v2/{}:cancel", var_name,);
                 let path_template = "/v2/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -8860,6 +8923,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 let path = format!("/v2/{}:cancel", var_name,);
                 let path_template = "/v2/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -8879,6 +8943,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 let path = format!("/v2/{}:cancel", var_name,);
                 let path_template = "/v2/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -8898,6 +8963,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 let path = format!("/v2/{}:cancel", var_name,);
                 let path_template = "/v2/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -9835,6 +9901,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -9852,6 +9919,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 let path = format!("/v2/{}:cancel", var_name,);
                 let path_template = "/v2/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -9871,6 +9939,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 let path = format!("/v2/{}:cancel", var_name,);
                 let path_template = "/v2/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -9890,6 +9959,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 let path = format!("/v2/{}:cancel", var_name,);
                 let path_template = "/v2/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -9909,6 +9979,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 let path = format!("/v2/{}:cancel", var_name,);
                 let path_template = "/v2/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -9928,6 +9999,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 let path = format!("/v2/{}:cancel", var_name,);
                 let path_template = "/v2/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

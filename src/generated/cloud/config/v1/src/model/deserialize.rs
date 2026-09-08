@@ -3166,6 +3166,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DeploymentOperationMetadata {
             __apply_results,
             __build,
             __logs,
+            __apply_results_available,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3191,6 +3192,8 @@ impl<'de> serde::de::Deserialize<'de> for super::DeploymentOperationMetadata {
                             "apply_results" => Ok(__FieldTag::__apply_results),
                             "build" => Ok(__FieldTag::__build),
                             "logs" => Ok(__FieldTag::__logs),
+                            "applyResultsAvailable" => Ok(__FieldTag::__apply_results_available),
+                            "apply_results_available" => Ok(__FieldTag::__apply_results_available),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3255,6 +3258,16 @@ impl<'de> serde::de::Deserialize<'de> for super::DeploymentOperationMetadata {
                             }
                             result.logs = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__apply_results_available => {
+                            if !fields.insert(__FieldTag::__apply_results_available) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for apply_results_available",
+                                ));
+                            }
+                            result.apply_results_available = map
+                                .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

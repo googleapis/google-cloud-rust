@@ -17,6 +17,40 @@
 #[allow(unused_imports)]
 use super::*;
 
+impl std::fmt::Debug for super::ArrowSchema {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ArrowSchema");
+        debug_struct.field("serialized_schema", &self.serialized_schema);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ArrowRecordBatch {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ArrowRecordBatch");
+        debug_struct.field("serialized_record_batch", &self.serialized_record_batch);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ArrowSerializationOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ArrowSerializationOptions");
+        debug_struct.field("buffer_compression", &self.buffer_compression);
+        debug_struct.field("picos_timestamp_precision", &self.picos_timestamp_precision);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::BigLakeConfiguration {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BigLakeConfiguration");
@@ -882,6 +916,11 @@ impl std::fmt::Debug for super::QueryRequest {
         debug_struct.field("job_creation_mode", &self.job_creation_mode);
         debug_struct.field("reservation", &self.reservation);
         debug_struct.field("write_incremental_results", &self.write_incremental_results);
+        debug_struct.field("query_results_format", &self.query_results_format);
+        debug_struct.field(
+            "results_format_serialization_options",
+            &self.results_format_serialization_options,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -913,6 +952,10 @@ impl std::fmt::Debug for super::QueryResponse {
         debug_struct.field("creation_time", &self.creation_time);
         debug_struct.field("start_time", &self.start_time);
         debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("page_row_count", &self.page_row_count);
+        debug_struct.field("statement_type", &self.statement_type);
+        debug_struct.field("results_schema", &self.results_schema);
+        debug_struct.field("results", &self.results);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1503,6 +1546,20 @@ impl std::fmt::Debug for super::JobStatistics2 {
         debug_struct.field("metadata_cache_statistics", &self.metadata_cache_statistics);
         debug_struct.field("incremental_result_stats", &self.incremental_result_stats);
         debug_struct.field("gen_ai_stats", &self.gen_ai_stats);
+        debug_struct.field("object_storage_stats", &self.object_storage_stats);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ObjectStorageStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ObjectStorageStats");
+        debug_struct.field("cloud_provider", &self.cloud_provider);
+        debug_struct.field("object_storage_bytes_read", &self.object_storage_bytes_read);
+        debug_struct.field("cache_bytes_read", &self.cache_bytes_read);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1547,6 +1604,7 @@ impl std::fmt::Debug for super::CopyJobStatistics {
         let mut debug_struct = f.debug_struct("CopyJobStatistics");
         debug_struct.field("copied_rows", &self.copied_rows);
         debug_struct.field("copied_logical_bytes", &self.copied_logical_bytes);
+        debug_struct.field("remote_destination_region", &self.remote_destination_region);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1653,6 +1711,11 @@ impl std::fmt::Debug for super::JobStatistics {
         );
         debug_struct.field("edition", &self.edition);
         debug_struct.field("reservation_group_path", &self.reservation_group_path);
+        debug_struct.field(
+            "global_query_remote_regions",
+            &self.global_query_remote_regions,
+        );
+        debug_struct.field("parent_global_query_job", &self.parent_global_query_job);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1783,6 +1846,9 @@ impl std::fmt::Debug for super::partition_skew::SkewSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SkewSource");
         debug_struct.field("stage_id", &self.stage_id);
+        debug_struct.field("output_bytes_median", &self.output_bytes_median);
+        debug_struct.field("output_bytes_p95", &self.output_bytes_p95);
+        debug_struct.field("output_bytes_max", &self.output_bytes_max);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3171,6 +3237,7 @@ impl std::fmt::Debug for super::routine::Argument {
         debug_struct.field("argument_kind", &self.argument_kind);
         debug_struct.field("mode", &self.mode);
         debug_struct.field("data_type", &self.data_type);
+        debug_struct.field("table_type", &self.table_type);
         debug_struct.field("is_aggregate", &self.is_aggregate);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

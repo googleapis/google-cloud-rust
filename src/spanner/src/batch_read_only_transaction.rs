@@ -433,6 +433,7 @@ impl Partition {
             method_name: "ExecuteStreamingSql",
             attempt_start_time: Some(attempt_start_time),
             operation_start_time: Some(attempt_start_time),
+            affinity: None,
         })
         .await
     }
@@ -470,6 +471,7 @@ impl Partition {
             method_name: "StreamingRead",
             attempt_start_time: Some(attempt_start_time),
             operation_start_time: Some(attempt_start_time),
+            affinity: None,
         })
         .await
     }

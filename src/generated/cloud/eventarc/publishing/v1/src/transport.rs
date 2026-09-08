@@ -56,6 +56,7 @@ impl super::stub::Publisher for Publisher {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_channel_connection = try_match(
@@ -74,6 +75,7 @@ impl super::stub::Publisher for Publisher {
                 let path = format!("/v1/{}:publishEvents", var_channel_connection,);
                 let path_template = "/v1/{channel_connection}:publishEvents";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.channel_connection));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -130,6 +132,7 @@ impl super::stub::Publisher for Publisher {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_channel = try_match(
@@ -146,6 +149,7 @@ impl super::stub::Publisher for Publisher {
                 let path = format!("/v1/{}:publishEvents", var_channel,);
                 let path_template = "/v1/{channel}:publishEvents";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.channel));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -200,6 +204,7 @@ impl super::stub::Publisher for Publisher {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_message_bus = try_match(
@@ -216,6 +221,7 @@ impl super::stub::Publisher for Publisher {
                 let path = format!("/v1/{}:publish", var_message_bus,);
                 let path_template = "/v1/{message_bus}:publish";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.message_bus));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

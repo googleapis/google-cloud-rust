@@ -28,6 +28,9 @@ extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate google_cloud_rpc;
 extern crate google_cloud_type;
+extern crate http;
+extern crate prost;
+extern crate prost_types;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -8088,6 +8091,8 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListControlsRes
 /// Request message for
 /// [ConversationalSearchService.ConversationalSearch][google.cloud.retail.v2.ConversationalSearchService.ConversationalSearch]
 /// method.
+///
+/// [google.cloud.retail.v2.ConversationalSearchService.ConversationalSearch]: crate::client::ConversationalSearchService::conversational_search
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConversationalSearchRequest {
@@ -9041,6 +9046,8 @@ pub mod conversational_search_request {
 /// Response message for
 /// [ConversationalSearchService.ConversationalSearch][google.cloud.retail.v2.ConversationalSearchService.ConversationalSearch]
 /// method.
+///
+/// [google.cloud.retail.v2.ConversationalSearchService.ConversationalSearch]: crate::client::ConversationalSearchService::conversational_search
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConversationalSearchResponse {

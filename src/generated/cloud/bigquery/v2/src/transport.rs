@@ -473,6 +473,7 @@ impl super::stub::DatasetService for DatasetService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project_id = try_match(
@@ -490,6 +491,8 @@ impl super::stub::DatasetService for DatasetService {
                 let path_template =
                     "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}:undelete";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.dataset_id));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -2353,6 +2356,7 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
         .or_else(|| {
             let var_project_id = try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
@@ -2366,6 +2370,9 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
             );
             let path_template = "/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/tables/{table_id}/rowAccessPolicies:batchDelete";
 
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project_id));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.dataset_id));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.table_id));
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST, path_template)))

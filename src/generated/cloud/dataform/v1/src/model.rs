@@ -7459,6 +7459,11 @@ pub struct CodeCompilationConfig {
     /// within the Git repository.
     pub pipeline_config: std::option::Option<crate::model::PipelineConfig>,
 
+    /// Output only. Whether OpenLineage events are emitted for actions in this
+    /// workflow. Reflects the `lineage.enabled` setting from
+    /// `workflow_settings.yaml`.
+    pub lineage_enabled: std::option::Option<bool>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -7663,6 +7668,37 @@ impl CodeCompilationConfig {
         T: std::convert::Into<crate::model::PipelineConfig>,
     {
         self.pipeline_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [lineage_enabled][crate::model::CodeCompilationConfig::lineage_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::CodeCompilationConfig;
+    /// let x = CodeCompilationConfig::new().set_lineage_enabled(true);
+    /// ```
+    pub fn set_lineage_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.lineage_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [lineage_enabled][crate::model::CodeCompilationConfig::lineage_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::CodeCompilationConfig;
+    /// let x = CodeCompilationConfig::new().set_or_clear_lineage_enabled(Some(false));
+    /// let x = CodeCompilationConfig::new().set_or_clear_lineage_enabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_lineage_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.lineage_enabled = v.map(|x| x.into());
         self
     }
 }

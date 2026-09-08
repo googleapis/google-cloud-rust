@@ -22,6 +22,7 @@ where
     T: super::stub::RoutesPreferred + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -53,6 +54,14 @@ where
             method: "client::RoutesPreferred::compute_routes",
             self.inner.compute_routes(req, options));
         pending.await
+    }
+
+    async fn compute_route_matrix(
+        &self,
+        req: crate::model::ComputeRouteMatrixRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::RouteMatrixElement>> {
+        self.inner.compute_route_matrix(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]

@@ -1,0 +1,146 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Rust Toolchain Check
+on:
+  schedule:
+    - cron: '0 12 * * 1' # Run every Monday at 12:00 UTC (4:00 AM PDT)
+  workflow_dispatch: # Allows manual triggering from the UI
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check-version:
+    if: github.repository == 'googleapis/google-cloud-rust'
+    runs-on: ubuntu-24.04
+    env:
+      CURRENT_RUST_VERSION: '1.98'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check for new stable Rust compiler release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          LATEST_MINOR=$(curl -sSL https://raw.githubusercontent.com/rust-lang/rust/master/RELEASES.md | grep -oP '(?<=Version 1\.)[0-9]+' | head -n 1)
+          LATEST_VERSION="1.${LATEST_MINOR}"
+
+          echo "Current configured version: ${{ env.CURRENT_RUST_VERSION }}"
+          echo "Latest stable release:      ${LATEST_VERSION}"
+
+          if [ "${{ env.CURRENT_RUST_VERSION }}" != "${LATEST_VERSION}" ]; then
+            ISSUE_TITLE="Upgrade Rust toolchain to ${LATEST_VERSION}"
+
+            cat << EOF > /tmp/issue_body.md
+          A new stable Rust minor version (${LATEST_VERSION}) has been released. The repository is currently pinned to ${{ env.CURRENT_RUST_VERSION }}.
+
+          ### Steps to update:
+          1. Update your local toolchain:
+             \`\`\`bash
+             rustup update stable
+             \`\`\`
+          2. Check for and fix any new clippy warnings:
+             \`\`\`bash
+             cargo clippy --all-features --all-targets --profile=test --workspace -- --deny warnings
+             \`\`\`
+             *(Rarely, this will introduce new warnings in the generated code. In that case, update the generator first).*
+          3. Send a PR with all the fixes.
+          4. After that is merged, send a PR to update CI configurations to the new version:
+             - Search for the current version across the repository (e.g. \`git grep "${{ env.CURRENT_RUST_VERSION }}"\`) or search for keywords:
+               - \`_RUST_VERSION\` across \`.gcb/\` and \`src/**/.gcb/\`
+               - \`GHA_RUST_VERSIONS\` in \`.github/workflows/sdk.yaml\`
+               - \`CURRENT_RUST_VERSION\` in \`.github/workflows/rust-toolchain-check.yaml\`
+             - *Note: Do NOT update MSRV configurations (\`.gcb/msrv.yaml\` or \`Cargo.toml\` \`rust-version\`), which are managed independently under the 1-year MSRV policy.*
+
+          cc @googleapis/cloud-sdk-rust-team
+          EOF
+            sed -i 's/^          //' /tmp/issue_body.md
+
+            # Check for an existing open issue with the same title to avoid duplicates
+            EXISTING_ISSUE=$(gh issue list --repo $GH_REPO --search "$ISSUE_TITLE in:title" --state open --json number --jq '.[0].number')
+
+            if [[ -n "$EXISTING_ISSUE" && "$EXISTING_ISSUE" != "null" ]]; then
+              echo "Found existing open issue #$EXISTING_ISSUE. Skipping to avoid noise."
+            else
+              echo "Creating new issue."
+              gh issue create --title "$ISSUE_TITLE" --body-file /tmp/issue_body.md --label "type: process" -R $GH_REPO
+            fi
+          else
+            echo "Rust toolchain is up to date (${{ env.CURRENT_RUST_VERSION }})."
+          fi
+
+      - name: Check for eligible MSRV bump
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          CURRENT_MSRV=$(grep -oP '(?<=rust-version = ")[0-9.]+' Cargo.toml)
+          CURRENT_MINOR=$(echo "${CURRENT_MSRV}" | cut -d. -f2)
+
+          ELIGIBLE_LINE=$(curl -sSL https://raw.githubusercontent.com/rust-lang/rust/master/RELEASES.md | \
+            grep -E 'Version 1\.[0-9]+\.[0-9]+ \([0-9]{4}-[0-9]{2}-[0-9]{2}\)' | \
+            awk -v cutoff="$(date -d '1 year ago' +%F)" '
+              match($0, /[0-9]{4}-[0-9]{2}-[0-9]{2}/) {
+                d = substr($0, RSTART, RLENGTH)
+                if (d >= cutoff) {
+                  last = $0
+                } else {
+                  print last
+                  found = 1
+                  exit
+                }
+              }
+              END {
+                if (!found && last) print last
+              }
+            ')
+          ELIGIBLE_MSRV=$(echo "${ELIGIBLE_LINE}" | grep -oP '(?<=Version )[0-9]+\.[0-9]+(\.[0-9]+)?')
+          ELIGIBLE_MINOR=$(echo "${ELIGIBLE_MSRV}" | cut -d. -f2)
+          ELIGIBLE_MAJOR_MINOR="1.${ELIGIBLE_MINOR}"
+
+          echo "Current configured MSRV: ${CURRENT_MSRV}"
+          echo "Eligible 1-year MSRV:    ${ELIGIBLE_MSRV}"
+
+          if [ "${ELIGIBLE_MINOR}" -gt "${CURRENT_MINOR}" ]; then
+            ISSUE_TITLE="Upgrade MSRV to ${ELIGIBLE_MSRV}"
+
+            cat << EOF > /tmp/msrv_issue_body.md
+          Rust ${ELIGIBLE_MSRV} is now eligible to become the new Minimum Supported Rust Version (MSRV) under the 1-year policy.
+
+          The current MSRV is configured in [Cargo.toml](https://github.com/googleapis/google-cloud-rust/blob/main/Cargo.toml) (${CURRENT_MSRV}).
+          There are other places in the repo that will also need to be updated. Searching for the number that is specified in \`rust-version\` should help you find them all (e.g. \`git grep "${CURRENT_MSRV}"\` or \`git grep "1.${CURRENT_MINOR}"\`).
+
+          Make any corresponding cleanups and submit a PR with the update.
+
+          cc @googleapis/cloud-sdk-rust-team
+          EOF
+            sed -i 's/^          //' /tmp/msrv_issue_body.md
+
+            # Check for an existing open issue with the same title to avoid duplicates
+            EXISTING_ISSUE=$(gh issue list --repo $GH_REPO --search "$ISSUE_TITLE in:title" --state open --json number --jq '.[0].number')
+
+            if [[ -n "$EXISTING_ISSUE" && "$EXISTING_ISSUE" != "null" ]]; then
+              echo "Found existing open issue #$EXISTING_ISSUE. Skipping to avoid noise."
+            else
+              echo "Creating new issue."
+              gh issue create --title "$ISSUE_TITLE" --body-file /tmp/msrv_issue_body.md --label "type: process" -R $GH_REPO
+            fi
+          else
+            echo "MSRV is up to date (${CURRENT_MSRV})."
+          fi

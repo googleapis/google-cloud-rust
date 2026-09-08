@@ -123642,6 +123642,7 @@ impl<'de> serde::de::Deserialize<'de> for super::tool::ParallelAiSearch {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __api_key,
+            __enable_zero_data_retention,
             __custom_configs,
             Unknown(std::string::String),
         }
@@ -123665,6 +123666,12 @@ impl<'de> serde::de::Deserialize<'de> for super::tool::ParallelAiSearch {
                         match value {
                             "apiKey" => Ok(__FieldTag::__api_key),
                             "api_key" => Ok(__FieldTag::__api_key),
+                            "enableZeroDataRetention" => {
+                                Ok(__FieldTag::__enable_zero_data_retention)
+                            }
+                            "enable_zero_data_retention" => {
+                                Ok(__FieldTag::__enable_zero_data_retention)
+                            }
                             "customConfigs" => Ok(__FieldTag::__custom_configs),
                             "custom_configs" => Ok(__FieldTag::__custom_configs),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -123700,6 +123707,16 @@ impl<'de> serde::de::Deserialize<'de> for super::tool::ParallelAiSearch {
                             }
                             result.api_key = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__enable_zero_data_retention => {
+                            if !fields.insert(__FieldTag::__enable_zero_data_retention) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enable_zero_data_retention",
+                                ));
+                            }
+                            result.enable_zero_data_retention = map
+                                .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::__custom_configs => {

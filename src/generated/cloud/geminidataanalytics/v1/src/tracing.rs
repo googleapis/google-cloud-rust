@@ -352,6 +352,7 @@ where
     T: super::stub::DataChatService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -371,6 +372,14 @@ impl<T> super::stub::DataChatService for DataChatService<T>
 where
     T: super::stub::DataChatService + std::fmt::Debug + Send + Sync,
 {
+    async fn chat(
+        &self,
+        req: crate::model::ChatRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::Message>> {
+        self.inner.chat(req, options).await
+    }
+
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_conversation(
         &self,

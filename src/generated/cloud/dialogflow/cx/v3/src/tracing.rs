@@ -3233,6 +3233,7 @@ where
     T: super::stub::Sessions + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -3266,6 +3267,27 @@ where
             method: "client::Sessions::detect_intent",
             self.inner.detect_intent(req, options));
         pending.await
+    }
+
+    async fn server_streaming_detect_intent(
+        &self,
+        req: crate::model::DetectIntentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::DetectIntentResponse>>
+    {
+        self.inner
+            .server_streaming_detect_intent(req, options)
+            .await
+    }
+
+    fn streaming_detect_intent(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingDetectIntentRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingDetectIntentResponse>,
+    ) {
+        self.inner.streaming_detect_intent(options)
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]

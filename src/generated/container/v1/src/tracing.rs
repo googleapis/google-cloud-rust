@@ -544,6 +544,20 @@ where
             self.inner.fetch_node_pool_upgrade_info(req, options));
         pending.await
     }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn complete_control_plane_upgrade(
+        &self,
+        req: crate::model::CompleteControlPlaneUpgradeRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ClusterManager::complete_control_plane_upgrade",
+            self.inner.complete_control_plane_upgrade(req, options));
+        pending.await
+    }
 }
 
 pub(crate) mod info {

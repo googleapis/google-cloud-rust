@@ -23,14 +23,24 @@
 use crate::Result;
 use crate::key::{Endpoint, KeySet};
 use crate::model::mutation::Operation as ProtoOperation;
-use crate::model::{KeyRecipe, KeySet as ProtoKeySet, Mutation as ProtoMutation};
+use crate::model::{
+    ExecuteSqlRequest, KeyRecipe, KeySet as ProtoKeySet, Mutation as ProtoMutation,
+    PartitionReadRequest, ReadRequest as ProtoReadRequest,
+};
 use crate::mutation::{InternalMutation, Mutation};
 use crate::read::ReadRequest;
 use crate::routing::key_recipe::{
     encode_key_from_columns_and_values_into, encode_key_from_json_columns_and_values_into,
-    encode_key_from_json_recipe_into, encode_key_from_recipe_into,
+    encode_key_from_json_query_params, encode_key_from_json_query_params_into,
+    encode_key_from_json_recipe_into, encode_key_from_query_params,
+    encode_key_from_query_params_into, encode_key_from_recipe_into,
 };
 use crate::routing::key_recipe_cache::KeyRecipeCache;
+use crate::statement::Statement;
+use crate::value::Value;
+use serde_json::{Map, Value as JsonValue};
+use std::collections::BTreeMap;
+use tracing::warn;
 
 /// Extracts and encodes a binary routing key (`Vec<u8>`) from a [`KeyRecipe`] and [`KeySet`].
 ///
@@ -317,7 +327,13 @@ pub(crate) fn extract_mutation_routing_key<M: ExtractableMutation>(
 ) -> Option<Vec<u8>> {
     let table = mutation.table_name()?;
     let recipe = key_recipe_cache.get_table_recipe(table)?;
-    mutation.extract_key(&recipe).ok().flatten()
+    match mutation.extract_key(&recipe) {
+        Ok(key) => key,
+        Err(err) => {
+            warn!(error = %err, table, "Failed to extract routing key from mutation");
+            None
+        }
+    }
 }
 
 /// Iterates through a slice of mutations and extracts the routing key from the first
@@ -353,6 +369,7 @@ pub(crate) fn extract_read_routing_key(
     index: Option<&str>,
     key_set: &KeySet,
 ) -> Option<Vec<u8>> {
+    // Fast path: bypass KeyRecipeCache lock and recipe lookup for full table scans or empty key sets.
     if key_set.all || (key_set.keys.is_empty() && key_set.ranges.is_empty()) {
         return None;
     }
@@ -360,7 +377,18 @@ pub(crate) fn extract_read_routing_key(
         Some(index_name) => key_recipe_cache.get_index_recipe(index_name)?,
         None => key_recipe_cache.get_table_recipe(table)?,
     };
-    extract_key_from_key_set(&recipe, key_set).ok().flatten()
+    match extract_key_from_key_set(&recipe, key_set) {
+        Ok(key) => key,
+        Err(err) => {
+            warn!(
+                error = %err,
+                table,
+                index = index.unwrap_or(""),
+                "Failed to extract routing key from read request"
+            );
+            None
+        }
+    }
 }
 
 /// Resolves the recipe from [`KeyRecipeCache`] and encodes the routing key for a [`ReadRequest`].
@@ -374,6 +402,277 @@ pub(crate) fn extract_read_request_routing_key(
         request.index.as_deref(),
         &request.keys,
     )
+}
+
+/// Extracts and encodes a binary routing key (`Vec<u8>`) from a [`KeyRecipe`] and protobuf [`ProtoKeySet`].
+pub(crate) fn extract_key_from_proto_key_set(
+    recipe: &KeyRecipe,
+    key_set: &ProtoKeySet,
+) -> Result<Option<Vec<u8>>> {
+    if key_set.all || (key_set.keys.is_empty() && key_set.ranges.is_empty()) {
+        return Ok(None);
+    }
+    let mut buffer = Vec::with_capacity(recipe.part.len().saturating_mul(16));
+    if !extract_key_from_proto_key_set_into(recipe, key_set, &mut buffer)? {
+        return Ok(None);
+    }
+    Ok(Some(buffer))
+}
+
+/// Resolves the table or index [`KeyRecipe`] from [`KeyRecipeCache`] and encodes the routing key for read request parameters.
+pub(crate) fn extract_proto_read_key_set_routing_key(
+    key_recipe_cache: &KeyRecipeCache,
+    table: &str,
+    index: &str,
+    key_set: Option<&ProtoKeySet>,
+) -> Option<Vec<u8>> {
+    let key_set = key_set?;
+    // Fast path: bypass KeyRecipeCache lock and recipe lookup for full table scans or empty key sets.
+    if key_set.all || (key_set.keys.is_empty() && key_set.ranges.is_empty()) {
+        return None;
+    }
+    let recipe = if !index.is_empty() {
+        key_recipe_cache.get_index_recipe(index)?
+    } else {
+        key_recipe_cache.get_table_recipe(table)?
+    };
+    match extract_key_from_proto_key_set(&recipe, key_set) {
+        Ok(key) => key,
+        Err(err) => {
+            warn!(
+                error = %err,
+                table = table,
+                index = index,
+                "Failed to extract routing key from proto read request"
+            );
+            None
+        }
+    }
+}
+
+/// Resolves the table or index [`KeyRecipe`] from [`KeyRecipeCache`] and encodes the routing key for a protobuf [`ProtoReadRequest`].
+pub(crate) fn extract_proto_read_request_routing_key(
+    key_recipe_cache: &KeyRecipeCache,
+    request: &ProtoReadRequest,
+) -> Option<Vec<u8>> {
+    extract_proto_read_key_set_routing_key(
+        key_recipe_cache,
+        &request.table,
+        &request.index,
+        request.key_set.as_ref(),
+    )
+}
+
+/// Resolves the table or index [`KeyRecipe`] from [`KeyRecipeCache`] and encodes the routing key for a protobuf [`PartitionReadRequest`].
+pub(crate) fn extract_proto_partition_read_request_routing_key(
+    key_recipe_cache: &KeyRecipeCache,
+    request: &PartitionReadRequest,
+) -> Option<Vec<u8>> {
+    extract_proto_read_key_set_routing_key(
+        key_recipe_cache,
+        &request.table,
+        &request.index,
+        request.key_set.as_ref(),
+    )
+}
+
+/// Extracts and encodes a binary routing key (`Vec<u8>`) from a SQL [`KeyRecipe`] and JSON query parameters.
+///
+/// Evaluates the recipe against `parameters`:
+/// - If `part.tag != 0`, the tag number is encoded into the key.
+/// - If `part.tag == 0`, the column name is looked up case-insensitively in `parameters`.
+///
+/// Returns:
+/// - `Ok(Some(routing_key))` if parameter evaluation and encoding succeeded.
+/// - `Err(error)` if encoding failed (e.g. missing parameter, type mismatch, or structural error).
+///
+/// # Caller Fallback Contract
+/// If encoding returns an error, callers (`LocationRouter` / `DatabaseClient`) MUST
+/// catch the error and gracefully fall back to default routing rather than failing the user's RPC.
+pub(crate) fn extract_key_from_json_query_params(
+    recipe: &KeyRecipe,
+    parameters: &Map<String, JsonValue>,
+) -> Result<Option<Vec<u8>>> {
+    encode_key_from_json_query_params(recipe, parameters).map(Some)
+}
+
+/// Extracts and encodes a binary routing key from a SQL [`KeyRecipe`] and JSON query parameters
+/// directly into an existing output buffer.
+///
+/// Returns:
+/// - `Ok(true)` if a routing key was successfully extracted and written to `buffer`.
+/// - `Err(error)` if encoding failed, in which case `buffer` is truncated back to its initial length.
+pub(crate) fn extract_key_from_json_query_params_into(
+    recipe: &KeyRecipe,
+    parameters: &Map<String, JsonValue>,
+    buffer: &mut Vec<u8>,
+) -> Result<bool> {
+    encode_key_from_json_query_params_into(recipe, parameters, buffer)?;
+    Ok(true)
+}
+
+/// Extracts and encodes a binary routing key (`Vec<u8>`) from a SQL [`KeyRecipe`] and typed [`Value`] query parameters.
+///
+/// Returns:
+/// - `Ok(Some(routing_key))` if parameter evaluation and encoding succeeded.
+/// - `Err(error)` if encoding failed (e.g. missing parameter, type mismatch, or structural error).
+pub(crate) fn extract_key_from_statement_params(
+    recipe: &KeyRecipe,
+    parameters: &BTreeMap<String, Value>,
+) -> Result<Option<Vec<u8>>> {
+    encode_key_from_query_params(recipe, parameters).map(Some)
+}
+
+/// Extracts and encodes a binary routing key from a SQL [`KeyRecipe`] and typed [`Value`] query parameters
+/// directly into an existing output buffer.
+///
+/// Returns:
+/// - `Ok(true)` if a routing key was successfully extracted and written to `buffer`.
+/// - `Err(error)` if encoding failed, in which case `buffer` is truncated back to its initial length.
+pub(crate) fn extract_key_from_statement_params_into(
+    recipe: &KeyRecipe,
+    parameters: &BTreeMap<String, Value>,
+    buffer: &mut Vec<u8>,
+) -> Result<bool> {
+    encode_key_from_query_params_into(recipe, parameters, buffer)?;
+    Ok(true)
+}
+
+/// Internal helper resolving the query [`KeyRecipe`] from [`KeyRecipeCache`] and extracting a routing
+/// key via `extractor`. Catches encoding errors, logs a warning, and returns `None` per Spanner
+/// graceful fallback requirements.
+fn extract_query_routing_key_internal(
+    key_recipe_cache: &KeyRecipeCache,
+    operation_uid: u64,
+    target_name: &'static str,
+    extractor: impl FnOnce(&KeyRecipe) -> Result<Option<Vec<u8>>>,
+) -> Option<Vec<u8>> {
+    // Fast path: early return if operation UID is unassigned (0), bypassing cache lock.
+    if operation_uid == 0 {
+        return None;
+    }
+    let recipe = key_recipe_cache.get_query_recipe(operation_uid)?;
+    match extractor(&recipe) {
+        Ok(routing_key) => routing_key,
+        Err(error) => {
+            warn!(
+                %error,
+                operation_uid,
+                "Failed to extract routing key from {target_name}"
+            );
+            None
+        }
+    }
+}
+
+/// Resolves the query [`KeyRecipe`] from [`KeyRecipeCache`] for the given operation UID and encodes
+/// the routing key using the query's JSON parameter values.
+///
+/// If `parameters` is `None`, an empty parameter map is evaluated to support tag-only and constant recipes.
+///
+/// Returns `None` if:
+/// - `operation_uid` is 0 (unassigned).
+/// - No query recipe is present in [`KeyRecipeCache`] for `operation_uid`.
+/// - Key encoding returned an error (e.g. missing parameter or type mismatch), logging a warning.
+pub(crate) fn extract_json_query_routing_key(
+    key_recipe_cache: &KeyRecipeCache,
+    operation_uid: u64,
+    parameters: Option<&Map<String, JsonValue>>,
+) -> Option<Vec<u8>> {
+    let empty_parameters;
+    let parameters_map = match parameters {
+        Some(parameters) => parameters,
+        None => {
+            empty_parameters = Map::new();
+            &empty_parameters
+        }
+    };
+    extract_query_routing_key_internal(
+        key_recipe_cache,
+        operation_uid,
+        "query parameters",
+        |recipe| extract_key_from_json_query_params(recipe, parameters_map),
+    )
+}
+
+/// Resolves the query [`KeyRecipe`] from [`KeyRecipeCache`] for the given operation UID and encodes
+/// the routing key using the parameters from an [`ExecuteSqlRequest`].
+pub(crate) fn extract_execute_sql_request_routing_key(
+    key_recipe_cache: &KeyRecipeCache,
+    operation_uid: u64,
+    request: &ExecuteSqlRequest,
+) -> Option<Vec<u8>> {
+    // Fast path: early return if operation UID is unassigned (0) or partitioned query token is present.
+    if operation_uid == 0 || !request.partition_token.is_empty() {
+        return None;
+    }
+    extract_json_query_routing_key(key_recipe_cache, operation_uid, request.params.as_ref())
+}
+
+/// Resolves the query [`KeyRecipe`] from [`KeyRecipeCache`] for the given operation UID and encodes
+/// the routing key using typed statement parameters.
+pub(crate) fn extract_statement_params_routing_key(
+    key_recipe_cache: &KeyRecipeCache,
+    operation_uid: u64,
+    parameters: &BTreeMap<String, Value>,
+) -> Option<Vec<u8>> {
+    extract_query_routing_key_internal(
+        key_recipe_cache,
+        operation_uid,
+        "statement parameters",
+        |recipe| extract_key_from_statement_params(recipe, parameters),
+    )
+}
+
+/// Resolves the query [`KeyRecipe`] from [`KeyRecipeCache`] for the given operation UID and encodes
+/// the routing key using the statement's parameter bindings.
+pub(crate) fn extract_statement_routing_key(
+    key_recipe_cache: &KeyRecipeCache,
+    operation_uid: u64,
+    statement: &Statement,
+) -> Option<Vec<u8>> {
+    // Fast path: early return if operation UID is unassigned (0).
+    if operation_uid == 0 {
+        return None;
+    }
+    extract_statement_params_routing_key(key_recipe_cache, operation_uid, &statement.params)
+}
+
+/// Prepares or resolves the operation UID for an [`ExecuteSqlRequest`] and extracts the binary
+/// routing key from query parameters if a matching query [`KeyRecipe`] is already cached.
+///
+/// Returns `(operation_uid, maybe_routing_key)`:
+/// - On cold start (recipe not yet cached): returns `(operation_uid, None)`.
+/// - On cache hit: returns `(operation_uid, Some(routing_key))`.
+/// - If unkeyed / partitioned / invalid: returns `(0, None)`.
+pub(crate) fn extract_execute_sql_request_routing(
+    key_recipe_cache: &KeyRecipeCache,
+    request: &ExecuteSqlRequest,
+) -> (u64, Option<Vec<u8>>) {
+    let Some(operation_uid) = key_recipe_cache.get_or_prepare_query(request) else {
+        return (0, None);
+    };
+    let routing_key =
+        extract_execute_sql_request_routing_key(key_recipe_cache, operation_uid, request);
+    (operation_uid, routing_key)
+}
+
+/// Prepares or resolves the operation UID for a protobuf [`ProtoReadRequest`] and extracts the binary
+/// routing key from request keys if a matching table or index [`KeyRecipe`] is already cached.
+///
+/// Returns `(operation_uid, maybe_routing_key)`:
+/// - On cold start (recipe not yet cached): returns `(operation_uid, None)`.
+/// - On cache hit: returns `(operation_uid, Some(routing_key))`.
+/// - If unkeyed / partitioned / invalid: returns `(0, None)`.
+pub(crate) fn extract_proto_read_request_routing(
+    key_recipe_cache: &KeyRecipeCache,
+    request: &ProtoReadRequest,
+) -> (u64, Option<Vec<u8>>) {
+    let Some(operation_uid) = key_recipe_cache.get_or_prepare_read(request) else {
+        return (0, None);
+    };
+    let routing_key = extract_proto_read_request_routing_key(key_recipe_cache, request);
+    (operation_uid, routing_key)
 }
 
 #[cfg(test)]
@@ -406,6 +705,19 @@ mod tests {
         KeyRecipe::new()
             .set_index_name(index_name.to_string())
             .set_part(all_parts)
+    }
+
+    fn sample_query_recipe(operation_uid: u64, identifier: &str) -> KeyRecipe {
+        KeyRecipe::new()
+            .set_operation_uid(operation_uid)
+            .set_part(vec![
+                Part::new().set_tag(10_u32),
+                Part::new()
+                    .set_identifier(identifier)
+                    .set_order(Order::Ascending)
+                    .set_null_order(NullOrder::NullsFirst)
+                    .set_type(Type::default().set_code(TypeCode::Int64)),
+            ])
     }
 
     fn int64_part(order: Order) -> Part {
@@ -744,6 +1056,19 @@ mod tests {
         }
         KeyRecipe::new()
             .set_table_name(table_name.to_string())
+            .set_part(all_parts)
+    }
+
+    fn sample_index_recipe_with_identifiers(
+        index_name: &str,
+        parts: Vec<(Part, &str)>,
+    ) -> KeyRecipe {
+        let mut all_parts = vec![Part::new().set_tag(50020_u32), Part::new().set_tag(1_u32)];
+        for (part, identifier) in parts {
+            all_parts.push(part.set_identifier(identifier.to_string()));
+        }
+        KeyRecipe::new()
+            .set_index_name(index_name.to_string())
             .set_part(all_parts)
     }
 
@@ -1254,5 +1579,575 @@ mod tests {
             .to(1)
             .build();
         assert_eq!(extract_mutation_routing_key(&cache, &user_mutation), None);
+    }
+
+    #[test]
+    fn extract_proto_read_request_routing_key_all_cases() {
+        let cache = KeyRecipeCache::new();
+        let recipe = sample_table_recipe_with_identifiers(
+            "Users",
+            vec![(
+                Part::new()
+                    .set_order(Order::Ascending)
+                    .set_null_order(NullOrder::NotNull)
+                    .set_type(Type::default().set_code(TypeCode::Int64)),
+                "id",
+            )],
+        );
+        cache.insert(recipe);
+
+        let index_recipe = sample_index_recipe_with_identifiers(
+            "UsersByEmail",
+            vec![(
+                Part::new()
+                    .set_order(Order::Ascending)
+                    .set_null_order(NullOrder::NotNull)
+                    .set_type(Type::default().set_code(TypeCode::String)),
+                "email",
+            )],
+        );
+        cache.insert(index_recipe);
+
+        // Missing key_set returns None
+        let request_no_key_set = ProtoReadRequest::new().set_table("Users");
+        assert_eq!(
+            extract_proto_read_request_routing_key(&cache, &request_no_key_set),
+            None
+        );
+
+        // KeySet::all returns None
+        let mut key_set_all = ProtoKeySet::new();
+        key_set_all.all = true;
+        let request_all = ProtoReadRequest::new()
+            .set_table("Users")
+            .set_key_set(key_set_all);
+        assert_eq!(
+            extract_proto_read_request_routing_key(&cache, &request_all),
+            None
+        );
+
+        // Table read with valid point key
+        let mut key_set_point = ProtoKeySet::new();
+        key_set_point
+            .keys
+            .push(vec![serde_json::Value::String("42".to_string())]);
+        let request_point = ProtoReadRequest::new()
+            .set_table("Users")
+            .set_key_set(key_set_point);
+        let routing_key = extract_proto_read_request_routing_key(&cache, &request_point);
+        assert!(routing_key.is_some());
+
+        // Index read with valid point key
+        let mut key_set_index = ProtoKeySet::new();
+        key_set_index.keys.push(vec![serde_json::Value::String(
+            "alice@example.com".to_string(),
+        )]);
+        let request_index = ProtoReadRequest::new()
+            .set_table("Users")
+            .set_index("UsersByEmail")
+            .set_key_set(key_set_index);
+        let index_routing_key = extract_proto_read_request_routing_key(&cache, &request_index);
+        assert!(index_routing_key.is_some());
+
+        // Table read with start_closed range
+        let mut key_set_closed_range = ProtoKeySet::new();
+        let range_closed = ProtoKeyRange::new()
+            .set_start_closed(vec![serde_json::Value::String("100".to_string())])
+            .set_end_open(vec![serde_json::Value::String("200".to_string())]);
+        key_set_closed_range.ranges.push(range_closed);
+        let request_closed_range = ProtoReadRequest::new()
+            .set_table("Users")
+            .set_key_set(key_set_closed_range);
+        let closed_range_key =
+            extract_proto_read_request_routing_key(&cache, &request_closed_range);
+        assert!(closed_range_key.is_some());
+
+        // Table read with start_open range
+        let mut key_set_open_range = ProtoKeySet::new();
+        let range_open = ProtoKeyRange::new()
+            .set_start_open(vec![serde_json::Value::String("300".to_string())])
+            .set_end_closed(vec![serde_json::Value::String("400".to_string())]);
+        key_set_open_range.ranges.push(range_open);
+        let request_open_range = ProtoReadRequest::new()
+            .set_table("Users")
+            .set_key_set(key_set_open_range);
+        let open_range_key = extract_proto_read_request_routing_key(&cache, &request_open_range);
+        assert!(open_range_key.is_some());
+
+        // Table read with empty start range (unbounded start) returns None
+        let mut key_set_empty_start_range = ProtoKeySet::new();
+        let range_empty_start =
+            ProtoKeyRange::new().set_end_closed(vec![serde_json::Value::String("500".to_string())]);
+        key_set_empty_start_range.ranges.push(range_empty_start);
+        let request_empty_start_range = ProtoReadRequest::new()
+            .set_table("Users")
+            .set_key_set(key_set_empty_start_range);
+        assert_eq!(
+            extract_proto_read_request_routing_key(&cache, &request_empty_start_range),
+            None
+        );
+
+        // Uncached table returns None
+        let mut key_set_uncached = ProtoKeySet::new();
+        key_set_uncached
+            .keys
+            .push(vec![serde_json::Value::String("1".to_string())]);
+        let request_uncached = ProtoReadRequest::new()
+            .set_table("NonExistent")
+            .set_key_set(key_set_uncached);
+        assert_eq!(
+            extract_proto_read_request_routing_key(&cache, &request_uncached),
+            None
+        );
+    }
+
+    #[test]
+    fn extract_proto_read_request_routing_key_encoding_error_logs_and_returns_none() {
+        let cache = KeyRecipeCache::new();
+        let recipe = KeyRecipe::new().set_table_name("Events").set_part(vec![
+            Part::new().set_tag(50020u32),
+            Part::new()
+                .set_tag(0u32)
+                .set_identifier("event_date")
+                .set_type(Type::new().set_code(TypeCode::Date))
+                .set_order(Order::Ascending),
+        ]);
+        cache.insert(recipe);
+
+        let mut key_set = ProtoKeySet::new();
+        key_set.keys.push(vec![serde_json::Value::String(
+            "not-a-valid-date".to_string(),
+        )]);
+        let request = ProtoReadRequest::new()
+            .set_table("Events")
+            .set_key_set(key_set);
+
+        assert_eq!(
+            extract_proto_read_request_routing_key(&cache, &request),
+            None,
+            "Invalid date key value must fail encoding, log warning, and return None"
+        );
+    }
+
+    #[test]
+    fn extract_proto_partition_read_request_routing_key_all_cases() {
+        let cache = KeyRecipeCache::new();
+        let recipe = sample_table_recipe_with_identifiers(
+            "Users",
+            vec![(
+                Part::new()
+                    .set_order(Order::Ascending)
+                    .set_null_order(NullOrder::NotNull)
+                    .set_type(Type::default().set_code(TypeCode::Int64)),
+                "id",
+            )],
+        );
+        cache.insert(recipe);
+
+        let index_recipe = sample_index_recipe_with_identifiers(
+            "UsersByEmail",
+            vec![(
+                Part::new()
+                    .set_order(Order::Ascending)
+                    .set_null_order(NullOrder::NotNull)
+                    .set_type(Type::default().set_code(TypeCode::String)),
+                "email",
+            )],
+        );
+        cache.insert(index_recipe);
+
+        // Missing key_set returns None
+        let request_no_key_set = PartitionReadRequest::new().set_table("Users");
+        assert_eq!(
+            extract_proto_partition_read_request_routing_key(&cache, &request_no_key_set),
+            None
+        );
+
+        // KeySet::all returns None
+        let mut key_set_all = ProtoKeySet::new();
+        key_set_all.all = true;
+        let request_all = PartitionReadRequest::new()
+            .set_table("Users")
+            .set_key_set(key_set_all);
+        assert_eq!(
+            extract_proto_partition_read_request_routing_key(&cache, &request_all),
+            None
+        );
+
+        // Table partition read with valid point key
+        let mut key_set_point = ProtoKeySet::new();
+        key_set_point
+            .keys
+            .push(vec![serde_json::Value::String("42".to_string())]);
+        let request_point = PartitionReadRequest::new()
+            .set_table("Users")
+            .set_key_set(key_set_point);
+        let routing_key = extract_proto_partition_read_request_routing_key(&cache, &request_point);
+        assert!(
+            routing_key.is_some(),
+            "Point key in PartitionReadRequest must encode routing key"
+        );
+
+        // Index partition read with valid point key
+        let mut key_set_index = ProtoKeySet::new();
+        key_set_index.keys.push(vec![serde_json::Value::String(
+            "alice@example.com".to_string(),
+        )]);
+        let request_index = PartitionReadRequest::new()
+            .set_table("Users")
+            .set_index("UsersByEmail")
+            .set_key_set(key_set_index);
+        let index_routing_key =
+            extract_proto_partition_read_request_routing_key(&cache, &request_index);
+        assert!(
+            index_routing_key.is_some(),
+            "Index point key in PartitionReadRequest must encode routing key"
+        );
+
+        // Table partition read with closed range
+        let mut key_set_closed_range = ProtoKeySet::new();
+        let range_closed = ProtoKeyRange::new()
+            .set_start_closed(vec![serde_json::Value::String("100".to_string())])
+            .set_end_open(vec![serde_json::Value::String("200".to_string())]);
+        key_set_closed_range.ranges.push(range_closed);
+        let request_closed_range = PartitionReadRequest::new()
+            .set_table("Users")
+            .set_key_set(key_set_closed_range);
+        let closed_range_key =
+            extract_proto_partition_read_request_routing_key(&cache, &request_closed_range);
+        assert!(
+            closed_range_key.is_some(),
+            "Range start in PartitionReadRequest must encode routing key"
+        );
+
+        // Uncached table returns None
+        let mut key_set_uncached = ProtoKeySet::new();
+        key_set_uncached
+            .keys
+            .push(vec![serde_json::Value::String("1".to_string())]);
+        let request_uncached = PartitionReadRequest::new()
+            .set_table("NonExistent")
+            .set_key_set(key_set_uncached);
+        assert_eq!(
+            extract_proto_partition_read_request_routing_key(&cache, &request_uncached),
+            None,
+            "Uncached table in PartitionReadRequest must return None"
+        );
+    }
+
+    #[test]
+    fn extract_key_from_json_query_params_success_and_case_insensitivity() {
+        let recipe = sample_query_recipe(100, "singer_id");
+
+        let mut parameters = Map::new();
+        parameters.insert("Singer_Id".to_string(), JsonValue::from(42));
+
+        let routing_key = extract_key_from_json_query_params(&recipe, &parameters)
+            .expect("key extraction should succeed");
+        assert!(
+            routing_key.is_some(),
+            "routing key must be Some for valid query parameters"
+        );
+        let extracted_bytes = routing_key.expect("routing key must be present");
+        assert!(
+            !extracted_bytes.is_empty(),
+            "extracted routing key must not be empty"
+        );
+    }
+
+    #[test]
+    fn extract_key_from_json_query_params_missing_parameter_returns_error() {
+        let recipe = sample_query_recipe(100, "album_id");
+
+        let mut parameters = Map::new();
+        parameters.insert("other_param".to_string(), JsonValue::from(1));
+
+        let result = extract_key_from_json_query_params(&recipe, &parameters);
+        assert!(
+            result.is_err(),
+            "missing parameter must return an encoding error"
+        );
+    }
+
+    #[test]
+    fn extract_key_from_json_query_params_into_preserves_buffer_on_error() {
+        let recipe = sample_query_recipe(100, "missing_column");
+
+        let parameters = Map::new();
+        let mut buffer = vec![0xaa, 0xbb];
+
+        let result = extract_key_from_json_query_params_into(&recipe, &parameters, &mut buffer);
+        assert!(result.is_err(), "missing parameter must return an error");
+        assert_eq!(
+            buffer,
+            vec![0xaa, 0xbb],
+            "buffer must be restored to initial contents on error"
+        );
+    }
+
+    #[test]
+    fn extract_key_from_statement_params_success() {
+        let recipe = sample_query_recipe(100, "user_id");
+
+        let mut statement_parameters = BTreeMap::new();
+        statement_parameters.insert("user_id".to_string(), 42_i64.to_value());
+
+        let routing_key = extract_key_from_statement_params(&recipe, &statement_parameters)
+            .expect("extraction should succeed");
+        assert!(routing_key.is_some(), "statement routing key must be Some");
+
+        let mut buffer = vec![0x11];
+        let success =
+            extract_key_from_statement_params_into(&recipe, &statement_parameters, &mut buffer)
+                .expect("extraction into buffer should succeed");
+        assert!(
+            success,
+            "extract_key_from_statement_params_into must return true"
+        );
+        assert!(
+            buffer.len() > 1,
+            "buffer must contain encoded key bytes appended to initial byte"
+        );
+    }
+
+    #[test]
+    fn extract_key_from_statement_params_missing_parameter_returns_error() {
+        let recipe = sample_query_recipe(100, "album_id");
+
+        let mut statement_parameters = BTreeMap::new();
+        statement_parameters.insert("other_param".to_string(), 1_i64.to_value());
+
+        let result = extract_key_from_statement_params(&recipe, &statement_parameters);
+        assert!(
+            result.is_err(),
+            "missing parameter in statement params must return an encoding error"
+        );
+    }
+
+    #[test]
+    fn extract_key_from_statement_params_into_preserves_buffer_on_error() {
+        let recipe = sample_query_recipe(100, "missing_column");
+
+        let statement_parameters = BTreeMap::new();
+        let mut buffer = vec![0xcc, 0xdd];
+
+        let result =
+            extract_key_from_statement_params_into(&recipe, &statement_parameters, &mut buffer);
+        assert!(
+            result.is_err(),
+            "missing parameter in statement params must return an error"
+        );
+        assert_eq!(
+            buffer,
+            vec![0xcc, 0xdd],
+            "buffer must be restored to initial contents on error"
+        );
+    }
+
+    #[test]
+    fn extract_execute_sql_request_routing_key_all_cases() {
+        let cache = KeyRecipeCache::new();
+        let operation_uid = 42_u64;
+
+        let recipe = sample_query_recipe(operation_uid, "account_id");
+        cache.insert(recipe);
+
+        // 1. Valid parameters match cached recipe
+        let mut parameters = Map::new();
+        parameters.insert("Account_Id".to_string(), JsonValue::from(1001));
+        let mut request = ExecuteSqlRequest::new();
+        request.params = Some(parameters.clone());
+
+        let routing_key = extract_execute_sql_request_routing_key(&cache, operation_uid, &request);
+        assert!(
+            routing_key.is_some(),
+            "valid parameters in ExecuteSqlRequest must produce a routing key"
+        );
+
+        // 2. Statement routing key with typed parameters
+        let mut statement_parameters = BTreeMap::new();
+        statement_parameters.insert("account_id".to_string(), 1001_i64.to_value());
+        let statement_params_key =
+            extract_statement_params_routing_key(&cache, operation_uid, &statement_parameters);
+        assert_eq!(
+            routing_key, statement_params_key,
+            "json params and statement params must encode the exact same routing key"
+        );
+
+        // 3. High-level Statement struct overload
+        let statement = Statement::builder("SELECT * FROM accounts WHERE account_id = @account_id")
+            .add_param("account_id", 1001_i64)
+            .build();
+        let statement_key = extract_statement_routing_key(&cache, operation_uid, &statement);
+        assert_eq!(
+            routing_key, statement_key,
+            "Statement struct routing key must match execute sql request key"
+        );
+
+        // 4. Missing parameter in request returns None (graceful fallback)
+        let request_missing = ExecuteSqlRequest::new();
+        assert_eq!(
+            extract_execute_sql_request_routing_key(&cache, operation_uid, &request_missing),
+            None,
+            "missing parameters when recipe requires them must return None"
+        );
+
+        // 5. Missing parameter in statement returns None (graceful fallback)
+        let statement_missing = Statement::builder("SELECT 1").build();
+        assert_eq!(
+            extract_statement_routing_key(&cache, operation_uid, &statement_missing),
+            None,
+            "missing parameters in Statement must return None"
+        );
+        let empty_params = BTreeMap::new();
+        assert_eq!(
+            extract_statement_params_routing_key(&cache, operation_uid, &empty_params),
+            None,
+            "empty parameters in extract_statement_params_routing_key must return None"
+        );
+
+        // 6. Uncached operation UID returns None
+        assert_eq!(
+            extract_execute_sql_request_routing_key(&cache, 9999, &request),
+            None,
+            "uncached operation UID must return None"
+        );
+        assert_eq!(
+            extract_statement_params_routing_key(&cache, 9999, &statement_parameters),
+            None,
+            "uncached operation UID in extract_statement_params_routing_key must return None"
+        );
+        assert_eq!(
+            extract_statement_routing_key(&cache, 9999, &statement),
+            None,
+            "uncached operation UID in extract_statement_routing_key must return None"
+        );
+
+        // 7. Early return fast paths: operation_uid == 0
+        assert_eq!(
+            extract_execute_sql_request_routing_key(&cache, 0, &request),
+            None,
+            "operation_uid == 0 in extract_execute_sql_request_routing_key must return None"
+        );
+        assert_eq!(
+            extract_statement_params_routing_key(&cache, 0, &statement_parameters),
+            None,
+            "operation_uid == 0 in extract_statement_params_routing_key must return None"
+        );
+        assert_eq!(
+            extract_statement_routing_key(&cache, 0, &statement),
+            None,
+            "operation_uid == 0 in extract_statement_routing_key must return None"
+        );
+
+        // 8. Early return fast paths: partitioned query with partition_token
+        let mut request_partitioned = request.clone();
+        request_partitioned.partition_token = ::bytes::Bytes::from_static(b"partition-token-xyz");
+        assert_eq!(
+            extract_execute_sql_request_routing_key(&cache, operation_uid, &request_partitioned),
+            None,
+            "request with partition_token must immediately return None"
+        );
+    }
+
+    #[test]
+    fn extract_execute_sql_request_routing_key_tag_only_recipe_succeeds_without_params() {
+        let cache = KeyRecipeCache::new();
+        let operation_uid = 99_u64;
+
+        let recipe = KeyRecipe::new()
+            .set_operation_uid(operation_uid)
+            .set_part(vec![Part::new().set_tag(10_u32)]);
+        cache.insert(recipe);
+
+        let request_no_params = ExecuteSqlRequest::new();
+        assert!(
+            request_no_params.params.is_none(),
+            "request without parameters must have params == None"
+        );
+
+        let routing_key =
+            extract_execute_sql_request_routing_key(&cache, operation_uid, &request_no_params);
+        assert!(
+            routing_key.is_some(),
+            "tag-only recipe must succeed and encode routing key even when request.params is None"
+        );
+
+        let empty_statement_params = BTreeMap::new();
+        let statement_key =
+            extract_statement_params_routing_key(&cache, operation_uid, &empty_statement_params);
+        assert_eq!(
+            routing_key, statement_key,
+            "json params None and empty statement params must produce the identical tag-only routing key"
+        );
+    }
+
+    #[test]
+    fn extract_execute_sql_request_routing_cold_start_and_cache_hit() {
+        let cache = KeyRecipeCache::new();
+
+        let statement = Statement::builder("SELECT * FROM Users WHERE account_id = @account_id")
+            .add_param("account_id", 42i64)
+            .build();
+        let request = statement.clone().into_request();
+
+        // 1. Cold start: prepares query and allocates operation UID, but recipe is not yet cached
+        let (operation_uid, routing_key) = extract_execute_sql_request_routing(&cache, &request);
+        assert_ne!(operation_uid, 0, "operation UID must be assigned");
+        assert!(
+            routing_key.is_none(),
+            "routing key must be None on cold start"
+        );
+
+        // 2. Cache recipe under the allocated operation UID
+        let recipe = sample_query_recipe(operation_uid, "account_id");
+        cache.insert(recipe);
+
+        // 3. Cache hit: returns assigned operation UID and encoded routing key
+        let (hit_operation_uid, hit_routing_key) =
+            extract_execute_sql_request_routing(&cache, &request);
+        assert_eq!(
+            hit_operation_uid, operation_uid,
+            "operation UID must be preserved"
+        );
+        assert!(
+            hit_routing_key.is_some(),
+            "routing key must be resolved after recipe insertion"
+        );
+    }
+
+    #[test]
+    fn extract_proto_read_request_routing_cold_start_and_cache_hit() {
+        let cache = KeyRecipeCache::new();
+
+        let read_request = ReadRequest::builder("Accounts", vec!["Balance"])
+            .with_keys(key!["acc_999"])
+            .build();
+        let proto_request = read_request.into_request();
+
+        // 1. Cold start: prepares read and allocates operation UID, but recipe is not yet cached
+        let (operation_uid, routing_key) =
+            extract_proto_read_request_routing(&cache, &proto_request);
+        assert_ne!(operation_uid, 0, "operation UID must be assigned");
+        assert!(
+            routing_key.is_none(),
+            "routing key must be None on cold start"
+        );
+
+        // 2. Cache recipe for table "Accounts"
+        let recipe = sample_table_recipe("Accounts", vec![string_part(Order::Ascending)]);
+        cache.insert(recipe);
+
+        // 3. Cache hit: returns assigned operation UID and encoded routing key
+        let (hit_operation_uid, hit_routing_key) =
+            extract_proto_read_request_routing(&cache, &proto_request);
+        assert_eq!(
+            hit_operation_uid, operation_uid,
+            "operation UID must be preserved"
+        );
+        assert!(
+            hit_routing_key.is_some(),
+            "routing key must be resolved after recipe insertion"
+        );
     }
 }

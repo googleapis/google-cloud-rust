@@ -1155,6 +1155,7 @@ where
     T: super::stub::StreamingService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -1174,6 +1175,36 @@ impl<T> super::stub::StreamingService for StreamingService<T>
 where
     T: super::stub::StreamingService + std::fmt::Debug + Send + Sync,
 {
+    fn send_packets(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::SendPacketsRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SendPacketsResponse>,
+    ) {
+        self.inner.send_packets(options)
+    }
+
+    fn receive_packets(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::ReceivePacketsRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ReceivePacketsResponse>,
+    ) {
+        self.inner.receive_packets(options)
+    }
+
+    fn receive_events(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::ReceiveEventsRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ReceiveEventsResponse>,
+    ) {
+        self.inner.receive_events(options)
+    }
+
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn acquire_lease(
         &self,
@@ -1846,6 +1877,7 @@ where
     T: super::stub::Warehouse + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -2311,6 +2343,16 @@ where
             method: "client::Warehouse::delete_annotation",
             self.inner.delete_annotation(req, options));
         pending.await
+    }
+
+    fn ingest_asset(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::IngestAssetRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::IngestAssetResponse>,
+    ) {
+        self.inner.ingest_asset(options)
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]

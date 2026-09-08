@@ -1118,6 +1118,7 @@ impl std::fmt::Debug for super::Sleep {
         debug_struct.field("summary", &self.summary);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("short_awakenings", &self.short_awakenings);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1164,6 +1165,7 @@ impl std::fmt::Debug for super::sleep::SleepMetadata {
         debug_struct.field("nap", &self.nap);
         debug_struct.field("manually_edited", &self.manually_edited);
         debug_struct.field("external_id", &self.external_id);
+        debug_struct.field("main_sleep", &self.main_sleep);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1402,6 +1404,55 @@ impl std::fmt::Debug for super::ActiveEnergyBurnedRollupValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ActiveEnergyBurnedRollupValue");
         debug_struct.field("kcal_sum", &self.kcal_sum);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::MenstrualPeriod {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MenstrualPeriod");
+        debug_struct.field("interval", &self.interval);
+        debug_struct.field("notes", &self.notes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::OvulationTest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OvulationTest");
+        debug_struct.field("sample_time", &self.sample_time);
+        debug_struct.field("result", &self.result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Symptoms {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Symptoms");
+        debug_struct.field("sample_time", &self.sample_time);
+        debug_struct.field("symptoms", &self.symptoms);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Moods {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Moods");
+        debug_struct.field("sample_time", &self.sample_time);
+        debug_struct.field("moods", &self.moods);
+        debug_struct.field("valences", &self.valences);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

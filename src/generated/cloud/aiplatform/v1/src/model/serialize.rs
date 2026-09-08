@@ -36339,6 +36339,9 @@ impl serde::ser::Serialize for super::tool::ParallelAiSearch {
         if !self.api_key.is_empty() {
             state.serialize_entry("apiKey", &self.api_key)?;
         }
+        if !wkt::internal::is_default(&self.enable_zero_data_retention) {
+            state.serialize_entry("enableZeroDataRetention", &self.enable_zero_data_retention)?;
+        }
         if self.custom_configs.is_some() {
             state.serialize_entry("customConfigs", &self.custom_configs)?;
         }

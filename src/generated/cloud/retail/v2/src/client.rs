@@ -1332,6 +1332,34 @@ impl ConversationalSearchService {
             .map(super::tracing::ConversationalSearchService::new)
     }
 
+    /// Performs a conversational search.
+    ///
+    /// This feature is only available for users who have Conversational Search
+    /// enabled.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ConversationalSearchService;
+    /// use google_cloud_retail_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationalSearchService
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.conversational_search()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn conversational_search(
+        &self,
+    ) -> super::builder::conversational_search_service::ConversationalSearch {
+        super::builder::conversational_search_service::ConversationalSearch::new(self.inner.clone())
+    }
+
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations

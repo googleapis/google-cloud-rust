@@ -143,6 +143,12 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn disable_rapid_cache(
+        &self,
+        req: crate::model::DisableRapidCacheRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn get_rapid_cache(
         &self,
         req: crate::model::GetRapidCacheRequest,
@@ -457,6 +463,15 @@ impl<T: super::StorageControl> StorageControl for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_rapid_cache(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn disable_rapid_cache(
+        &self,
+        req: crate::model::DisableRapidCacheRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::disable_rapid_cache(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

@@ -51,6 +51,14 @@ pub trait Subscriber: std::fmt::Debug + Send + Sync {
         req: crate::model::AcknowledgeRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
+
+    fn streaming_pull(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingPullRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPullResponse>,
+    );
 }
 
 /// All implementations of [super::Subscriber] also implement [Subscriber].
@@ -72,5 +80,16 @@ impl<T: super::Subscriber> Subscriber for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>> {
         T::acknowledge(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    fn streaming_pull(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingPullRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPullResponse>,
+    ) {
+        T::streaming_pull(self, options)
     }
 }

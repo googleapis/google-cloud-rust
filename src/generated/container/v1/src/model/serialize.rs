@@ -60,6 +60,12 @@ impl serde::ser::Serialize for super::LinuxNodeConfig {
         if self.accurate_time_config.is_some() {
             state.serialize_entry("accurateTimeConfig", &self.accurate_time_config)?;
         }
+        if self.node_vfio_config.is_some() {
+            state.serialize_entry("nodeVfioConfig", &self.node_vfio_config)?;
+        }
+        if self.disk_io_scheduler.is_some() {
+            state.serialize_entry("diskIoScheduler", &self.disk_io_scheduler)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -388,6 +394,39 @@ impl serde::ser::Serialize for super::linux_node_config::AccurateTimeConfig {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.enable_ptp_kvm_time_sync.is_some() {
             state.serialize_entry("enablePtpKvmTimeSync", &self.enable_ptp_kvm_time_sync)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::linux_node_config::NodeVfioConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.dma_entry_limit.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("dmaEntryLimit", &__With(&self.dma_entry_limit))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2929,6 +2968,12 @@ impl serde::ser::Serialize for super::Cluster {
         if !self.current_master_version.is_empty() {
             state.serialize_entry("currentMasterVersion", &self.current_master_version)?;
         }
+        if !self.current_emulated_version.is_empty() {
+            state.serialize_entry("currentEmulatedVersion", &self.current_emulated_version)?;
+        }
+        if self.rollback_safe_upgrade.is_some() {
+            state.serialize_entry("rollbackSafeUpgrade", &self.rollback_safe_upgrade)?;
+        }
         if !self.current_node_version.is_empty() {
             state.serialize_entry("currentNodeVersion", &self.current_node_version)?;
         }
@@ -3815,6 +3860,12 @@ impl serde::ser::Serialize for super::ClusterUpdate {
                 &self.desired_control_plane_egress,
             )?;
         }
+        if self.desired_rollback_safe_upgrade.is_some() {
+            state.serialize_entry(
+                "desiredRollbackSafeUpgrade",
+                &self.desired_rollback_safe_upgrade,
+            )?;
+        }
         if self.desired_managed_opentelemetry_config.is_some() {
             state.serialize_entry(
                 "desiredManagedOpentelemetryConfig",
@@ -3841,6 +3892,9 @@ impl serde::ser::Serialize for super::ClusterUpdate {
                 "desiredNodeCreationConfig",
                 &self.desired_node_creation_config,
             )?;
+        }
+        if self.desired_emulated_version.is_some() {
+            state.serialize_entry("desiredEmulatedVersion", &self.desired_emulated_version)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4385,6 +4439,9 @@ impl serde::ser::Serialize for super::UpdateNodePoolRequest {
         }
         if self.taint_config.is_some() {
             state.serialize_entry("taintConfig", &self.taint_config)?;
+        }
+        if self.maintenance_policy.is_some() {
+            state.serialize_entry("maintenancePolicy", &self.maintenance_policy)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -5260,6 +5317,9 @@ impl serde::ser::Serialize for super::NodePool {
         if self.maintenance_policy.is_some() {
             state.serialize_entry("maintenancePolicy", &self.maintenance_policy)?;
         }
+        if self.kubelet_cert_info.is_some() {
+            state.serialize_entry("kubeletCertInfo", &self.kubelet_cert_info)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -5500,6 +5560,37 @@ impl serde::ser::Serialize for super::node_pool::NodePoolMaintenancePolicy {
             state.serialize_entry(
                 "exclusionUntilEndOfSupport",
                 &self.exclusion_until_end_of_support,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::node_pool::KubeletCertInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.tpm_bootstrap_cert_expire_time.is_some() {
+            state.serialize_entry(
+                "tpmBootstrapCertExpireTime",
+                &self.tpm_bootstrap_cert_expire_time,
+            )?;
+        }
+        if self.non_tpm_bootstrap_cert_expire_time.is_some() {
+            state.serialize_entry(
+                "nonTpmBootstrapCertExpireTime",
+                &self.non_tpm_bootstrap_cert_expire_time,
             )?;
         }
         if !self._unknown_fields.is_empty() {
@@ -7753,6 +7844,12 @@ impl serde::ser::Serialize for super::UpgradeEvent {
         if !self.target_version.is_empty() {
             state.serialize_entry("targetVersion", &self.target_version)?;
         }
+        if !self.current_emulated_version.is_empty() {
+            state.serialize_entry("currentEmulatedVersion", &self.current_emulated_version)?;
+        }
+        if !self.target_emulated_version.is_empty() {
+            state.serialize_entry("targetEmulatedVersion", &self.target_emulated_version)?;
+        }
         if !self.resource.is_empty() {
             state.serialize_entry("resource", &self.resource)?;
         }
@@ -7792,6 +7889,12 @@ impl serde::ser::Serialize for super::UpgradeInfoEvent {
         }
         if !self.target_version.is_empty() {
             state.serialize_entry("targetVersion", &self.target_version)?;
+        }
+        if !self.current_emulated_version.is_empty() {
+            state.serialize_entry("currentEmulatedVersion", &self.current_emulated_version)?;
+        }
+        if !self.target_emulated_version.is_empty() {
+            state.serialize_entry("targetEmulatedVersion", &self.target_emulated_version)?;
         }
         if !self.resource.is_empty() {
             state.serialize_entry("resource", &self.resource)?;
@@ -8543,6 +8646,34 @@ impl serde::ser::Serialize for super::LocalNvmeSsdBlockConfig {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::DiskIoScheduler {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.node_system_io_scheduler.is_empty() {
+            state.serialize_entry("nodeSystemIoScheduler", &self.node_system_io_scheduler)?;
+        }
+        if !self.node_attached_disk_io_scheduler.is_empty() {
+            state.serialize_entry(
+                "nodeAttachedDiskIoScheduler",
+                &self.node_attached_disk_io_scheduler,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::EphemeralStorageLocalSsdConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -8788,6 +8919,31 @@ impl serde::ser::Serialize for super::SecondaryBootDiskUpdateStrategy {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::RollbackSafeUpgrade {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.control_plane_soak_duration.is_some() {
+            state.serialize_entry(
+                "controlPlaneSoakDuration",
+                &self.control_plane_soak_duration,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::FetchClusterUpgradeInfoRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -8849,6 +9005,43 @@ impl serde::ser::Serialize for super::ClusterUpgradeInfo {
                 &self.end_of_extended_support_timestamp,
             )?;
         }
+        if self.rollback_safe_upgrade_status.is_some() {
+            state.serialize_entry(
+                "rollbackSafeUpgradeStatus",
+                &self.rollback_safe_upgrade_status,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::RollbackSafeUpgradeStatus {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.mode) {
+            state.serialize_entry("mode", &self.mode)?;
+        }
+        if self.control_plane_upgrade_rollback_end_time.is_some() {
+            state.serialize_entry(
+                "controlPlaneUpgradeRollbackEndTime",
+                &self.control_plane_upgrade_rollback_end_time,
+            )?;
+        }
+        if !self.previous_version.is_empty() {
+            state.serialize_entry("previousVersion", &self.previous_version)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -8885,6 +9078,12 @@ impl serde::ser::Serialize for super::UpgradeDetails {
         }
         if !wkt::internal::is_default(&self.start_type) {
             state.serialize_entry("startType", &self.start_type)?;
+        }
+        if !self.initial_emulated_version.is_empty() {
+            state.serialize_entry("initialEmulatedVersion", &self.initial_emulated_version)?;
+        }
+        if !self.target_emulated_version.is_empty() {
+            state.serialize_entry("targetEmulatedVersion", &self.target_emulated_version)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -8956,6 +9155,56 @@ impl serde::ser::Serialize for super::NodePoolUpgradeInfo {
                 "endOfExtendedSupportTimestamp",
                 &self.end_of_extended_support_timestamp,
             )?;
+        }
+        if self.custom_image_info.is_some() {
+            state.serialize_entry("customImageInfo", &self.custom_image_info)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CustomImageInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.upgrade_message.is_empty() {
+            state.serialize_entry("upgradeMessage", &self.upgrade_message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CompleteControlPlaneUpgradeRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.version.is_empty() {
+            state.serialize_entry("version", &self.version)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

@@ -675,6 +675,11 @@ pub mod ingestion_data_source_settings {
             StreamNotFound,
             /// The Kinesis consumer does not exist.
             ConsumerNotFound,
+            /// Indicates an error state where the ingestion source cannot be
+            /// processed because the selected ingestion region is not permitted
+            /// by the Regional Access Boundary (RAB) restrictions on the project's
+            /// service account.
+            ConflictingRegionConstraints,
             /// If set, the enum was initialized with an unknown value.
             ///
             /// Applications can examine the value using [State::value] or
@@ -703,6 +708,7 @@ pub mod ingestion_data_source_settings {
                     Self::PublishPermissionDenied => std::option::Option::Some(3),
                     Self::StreamNotFound => std::option::Option::Some(4),
                     Self::ConsumerNotFound => std::option::Option::Some(5),
+                    Self::ConflictingRegionConstraints => std::option::Option::Some(6),
                     Self::UnknownValue(u) => u.0.value(),
                 }
             }
@@ -723,6 +729,9 @@ pub mod ingestion_data_source_settings {
                     }
                     Self::StreamNotFound => std::option::Option::Some("STREAM_NOT_FOUND"),
                     Self::ConsumerNotFound => std::option::Option::Some("CONSUMER_NOT_FOUND"),
+                    Self::ConflictingRegionConstraints => {
+                        std::option::Option::Some("CONFLICTING_REGION_CONSTRAINTS")
+                    }
                     Self::UnknownValue(u) => u.0.name(),
                 }
             }
@@ -753,6 +762,7 @@ pub mod ingestion_data_source_settings {
                     3 => Self::PublishPermissionDenied,
                     4 => Self::StreamNotFound,
                     5 => Self::ConsumerNotFound,
+                    6 => Self::ConflictingRegionConstraints,
                     _ => Self::UnknownValue(state::UnknownValue(
                         wkt::internal::UnknownEnumValue::Integer(value),
                     )),
@@ -770,6 +780,7 @@ pub mod ingestion_data_source_settings {
                     "PUBLISH_PERMISSION_DENIED" => Self::PublishPermissionDenied,
                     "STREAM_NOT_FOUND" => Self::StreamNotFound,
                     "CONSUMER_NOT_FOUND" => Self::ConsumerNotFound,
+                    "CONFLICTING_REGION_CONSTRAINTS" => Self::ConflictingRegionConstraints,
                     _ => Self::UnknownValue(state::UnknownValue(
                         wkt::internal::UnknownEnumValue::String(value.to_string()),
                     )),
@@ -789,6 +800,7 @@ pub mod ingestion_data_source_settings {
                     Self::PublishPermissionDenied => serializer.serialize_i32(3),
                     Self::StreamNotFound => serializer.serialize_i32(4),
                     Self::ConsumerNotFound => serializer.serialize_i32(5),
+                    Self::ConflictingRegionConstraints => serializer.serialize_i32(6),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
@@ -1242,6 +1254,11 @@ pub mod ingestion_data_source_settings {
             /// The Cloud Storage bucket has too many objects, ingestion will be
             /// paused.
             TooManyObjects,
+            /// Indicates an error state where the ingestion source cannot be
+            /// processed because the selected ingestion region is not permitted
+            /// by the Regional Access Boundary (RAB) restrictions on the project's
+            /// service account.
+            ConflictingRegionConstraints,
             /// If set, the enum was initialized with an unknown value.
             ///
             /// Applications can examine the value using [State::value] or
@@ -1270,6 +1287,7 @@ pub mod ingestion_data_source_settings {
                     Self::PublishPermissionDenied => std::option::Option::Some(3),
                     Self::BucketNotFound => std::option::Option::Some(4),
                     Self::TooManyObjects => std::option::Option::Some(5),
+                    Self::ConflictingRegionConstraints => std::option::Option::Some(8),
                     Self::UnknownValue(u) => u.0.value(),
                 }
             }
@@ -1290,6 +1308,9 @@ pub mod ingestion_data_source_settings {
                     }
                     Self::BucketNotFound => std::option::Option::Some("BUCKET_NOT_FOUND"),
                     Self::TooManyObjects => std::option::Option::Some("TOO_MANY_OBJECTS"),
+                    Self::ConflictingRegionConstraints => {
+                        std::option::Option::Some("CONFLICTING_REGION_CONSTRAINTS")
+                    }
                     Self::UnknownValue(u) => u.0.name(),
                 }
             }
@@ -1320,6 +1341,7 @@ pub mod ingestion_data_source_settings {
                     3 => Self::PublishPermissionDenied,
                     4 => Self::BucketNotFound,
                     5 => Self::TooManyObjects,
+                    8 => Self::ConflictingRegionConstraints,
                     _ => Self::UnknownValue(state::UnknownValue(
                         wkt::internal::UnknownEnumValue::Integer(value),
                     )),
@@ -1337,6 +1359,7 @@ pub mod ingestion_data_source_settings {
                     "PUBLISH_PERMISSION_DENIED" => Self::PublishPermissionDenied,
                     "BUCKET_NOT_FOUND" => Self::BucketNotFound,
                     "TOO_MANY_OBJECTS" => Self::TooManyObjects,
+                    "CONFLICTING_REGION_CONSTRAINTS" => Self::ConflictingRegionConstraints,
                     _ => Self::UnknownValue(state::UnknownValue(
                         wkt::internal::UnknownEnumValue::String(value.to_string()),
                     )),
@@ -1356,6 +1379,7 @@ pub mod ingestion_data_source_settings {
                     Self::PublishPermissionDenied => serializer.serialize_i32(3),
                     Self::BucketNotFound => serializer.serialize_i32(4),
                     Self::TooManyObjects => serializer.serialize_i32(5),
+                    Self::ConflictingRegionConstraints => serializer.serialize_i32(8),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
@@ -1603,6 +1627,11 @@ pub mod ingestion_data_source_settings {
             SubscriptionNotFound,
             /// The provided Event Hubs resource group couldn't be found.
             ResourceGroupNotFound,
+            /// Indicates an error state where the ingestion source cannot be
+            /// processed because the selected ingestion region is not permitted
+            /// by the Regional Access Boundary (RAB) restrictions on the project's
+            /// service account.
+            ConflictingRegionConstraints,
             /// If set, the enum was initialized with an unknown value.
             ///
             /// Applications can examine the value using [State::value] or
@@ -1633,6 +1662,7 @@ pub mod ingestion_data_source_settings {
                     Self::EventHubNotFound => std::option::Option::Some(5),
                     Self::SubscriptionNotFound => std::option::Option::Some(6),
                     Self::ResourceGroupNotFound => std::option::Option::Some(7),
+                    Self::ConflictingRegionConstraints => std::option::Option::Some(8),
                     Self::UnknownValue(u) => u.0.value(),
                 }
             }
@@ -1658,6 +1688,9 @@ pub mod ingestion_data_source_settings {
                     }
                     Self::ResourceGroupNotFound => {
                         std::option::Option::Some("RESOURCE_GROUP_NOT_FOUND")
+                    }
+                    Self::ConflictingRegionConstraints => {
+                        std::option::Option::Some("CONFLICTING_REGION_CONSTRAINTS")
                     }
                     Self::UnknownValue(u) => u.0.name(),
                 }
@@ -1691,6 +1724,7 @@ pub mod ingestion_data_source_settings {
                     5 => Self::EventHubNotFound,
                     6 => Self::SubscriptionNotFound,
                     7 => Self::ResourceGroupNotFound,
+                    8 => Self::ConflictingRegionConstraints,
                     _ => Self::UnknownValue(state::UnknownValue(
                         wkt::internal::UnknownEnumValue::Integer(value),
                     )),
@@ -1710,6 +1744,7 @@ pub mod ingestion_data_source_settings {
                     "EVENT_HUB_NOT_FOUND" => Self::EventHubNotFound,
                     "SUBSCRIPTION_NOT_FOUND" => Self::SubscriptionNotFound,
                     "RESOURCE_GROUP_NOT_FOUND" => Self::ResourceGroupNotFound,
+                    "CONFLICTING_REGION_CONSTRAINTS" => Self::ConflictingRegionConstraints,
                     _ => Self::UnknownValue(state::UnknownValue(
                         wkt::internal::UnknownEnumValue::String(value.to_string()),
                     )),
@@ -1731,6 +1766,7 @@ pub mod ingestion_data_source_settings {
                     Self::EventHubNotFound => serializer.serialize_i32(5),
                     Self::SubscriptionNotFound => serializer.serialize_i32(6),
                     Self::ResourceGroupNotFound => serializer.serialize_i32(7),
+                    Self::ConflictingRegionConstraints => serializer.serialize_i32(8),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
@@ -1902,6 +1938,11 @@ pub mod ingestion_data_source_settings {
             ClusterNotFound,
             /// The provided topic wasn't found.
             TopicNotFound,
+            /// Indicates an error state where the ingestion source cannot be
+            /// processed because the selected ingestion region is not permitted
+            /// by the Regional Access Boundary (RAB) restrictions on the project's
+            /// service account.
+            ConflictingRegionConstraints,
             /// If set, the enum was initialized with an unknown value.
             ///
             /// Applications can examine the value using [State::value] or
@@ -1930,6 +1971,7 @@ pub mod ingestion_data_source_settings {
                     Self::PublishPermissionDenied => std::option::Option::Some(3),
                     Self::ClusterNotFound => std::option::Option::Some(4),
                     Self::TopicNotFound => std::option::Option::Some(5),
+                    Self::ConflictingRegionConstraints => std::option::Option::Some(6),
                     Self::UnknownValue(u) => u.0.value(),
                 }
             }
@@ -1948,6 +1990,9 @@ pub mod ingestion_data_source_settings {
                     }
                     Self::ClusterNotFound => std::option::Option::Some("CLUSTER_NOT_FOUND"),
                     Self::TopicNotFound => std::option::Option::Some("TOPIC_NOT_FOUND"),
+                    Self::ConflictingRegionConstraints => {
+                        std::option::Option::Some("CONFLICTING_REGION_CONSTRAINTS")
+                    }
                     Self::UnknownValue(u) => u.0.name(),
                 }
             }
@@ -1978,6 +2023,7 @@ pub mod ingestion_data_source_settings {
                     3 => Self::PublishPermissionDenied,
                     4 => Self::ClusterNotFound,
                     5 => Self::TopicNotFound,
+                    6 => Self::ConflictingRegionConstraints,
                     _ => Self::UnknownValue(state::UnknownValue(
                         wkt::internal::UnknownEnumValue::Integer(value),
                     )),
@@ -1995,6 +2041,7 @@ pub mod ingestion_data_source_settings {
                     "PUBLISH_PERMISSION_DENIED" => Self::PublishPermissionDenied,
                     "CLUSTER_NOT_FOUND" => Self::ClusterNotFound,
                     "TOPIC_NOT_FOUND" => Self::TopicNotFound,
+                    "CONFLICTING_REGION_CONSTRAINTS" => Self::ConflictingRegionConstraints,
                     _ => Self::UnknownValue(state::UnknownValue(
                         wkt::internal::UnknownEnumValue::String(value.to_string()),
                     )),
@@ -2014,6 +2061,7 @@ pub mod ingestion_data_source_settings {
                     Self::PublishPermissionDenied => serializer.serialize_i32(3),
                     Self::ClusterNotFound => serializer.serialize_i32(4),
                     Self::TopicNotFound => serializer.serialize_i32(5),
+                    Self::ConflictingRegionConstraints => serializer.serialize_i32(6),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
@@ -2203,6 +2251,11 @@ pub mod ingestion_data_source_settings {
             ClusterNotFound,
             /// The provided topic wasn't found.
             TopicNotFound,
+            /// Indicates an error state where the ingestion source cannot be
+            /// processed because the selected ingestion region is not permitted
+            /// by the Regional Access Boundary (RAB) restrictions on the project's
+            /// service account.
+            ConflictingRegionConstraints,
             /// If set, the enum was initialized with an unknown value.
             ///
             /// Applications can examine the value using [State::value] or
@@ -2232,6 +2285,7 @@ pub mod ingestion_data_source_settings {
                     Self::UnreachableBootstrapServer => std::option::Option::Some(4),
                     Self::ClusterNotFound => std::option::Option::Some(5),
                     Self::TopicNotFound => std::option::Option::Some(6),
+                    Self::ConflictingRegionConstraints => std::option::Option::Some(7),
                     Self::UnknownValue(u) => u.0.value(),
                 }
             }
@@ -2255,6 +2309,9 @@ pub mod ingestion_data_source_settings {
                     }
                     Self::ClusterNotFound => std::option::Option::Some("CLUSTER_NOT_FOUND"),
                     Self::TopicNotFound => std::option::Option::Some("TOPIC_NOT_FOUND"),
+                    Self::ConflictingRegionConstraints => {
+                        std::option::Option::Some("CONFLICTING_REGION_CONSTRAINTS")
+                    }
                     Self::UnknownValue(u) => u.0.name(),
                 }
             }
@@ -2286,6 +2343,7 @@ pub mod ingestion_data_source_settings {
                     4 => Self::UnreachableBootstrapServer,
                     5 => Self::ClusterNotFound,
                     6 => Self::TopicNotFound,
+                    7 => Self::ConflictingRegionConstraints,
                     _ => Self::UnknownValue(state::UnknownValue(
                         wkt::internal::UnknownEnumValue::Integer(value),
                     )),
@@ -2304,6 +2362,7 @@ pub mod ingestion_data_source_settings {
                     "UNREACHABLE_BOOTSTRAP_SERVER" => Self::UnreachableBootstrapServer,
                     "CLUSTER_NOT_FOUND" => Self::ClusterNotFound,
                     "TOPIC_NOT_FOUND" => Self::TopicNotFound,
+                    "CONFLICTING_REGION_CONSTRAINTS" => Self::ConflictingRegionConstraints,
                     _ => Self::UnknownValue(state::UnknownValue(
                         wkt::internal::UnknownEnumValue::String(value.to_string()),
                     )),
@@ -2324,6 +2383,7 @@ pub mod ingestion_data_source_settings {
                     Self::UnreachableBootstrapServer => serializer.serialize_i32(4),
                     Self::ClusterNotFound => serializer.serialize_i32(5),
                     Self::TopicNotFound => serializer.serialize_i32(6),
+                    Self::ConflictingRegionConstraints => serializer.serialize_i32(7),
                     Self::UnknownValue(u) => u.0.serialize(serializer),
                 }
             }
@@ -2643,6 +2703,333 @@ impl wkt::message::Message for JavaScriptUDF {
     }
 }
 
+/// Configuration for compressing/decompressing message data using a
+/// user-specified compression algorithm.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Compression {
+    /// Required. Specifies the compression algorithm to use.
+    pub compression_algorithm: crate::model::compression::CompressionAlgorithm,
+
+    /// Required. Specifies whether to compress or decompress the message.
+    pub compression_mode: crate::model::compression::CompressionMode,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Compression {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [compression_algorithm][crate::model::Compression::compression_algorithm].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Compression;
+    /// use google_cloud_pubsub::model::compression::CompressionAlgorithm;
+    /// let x0 = Compression::new().set_compression_algorithm(CompressionAlgorithm::Zlib);
+    /// ```
+    pub fn set_compression_algorithm<
+        T: std::convert::Into<crate::model::compression::CompressionAlgorithm>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.compression_algorithm = v.into();
+        self
+    }
+
+    /// Sets the value of [compression_mode][crate::model::Compression::compression_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Compression;
+    /// use google_cloud_pubsub::model::compression::CompressionMode;
+    /// let x0 = Compression::new().set_compression_mode(CompressionMode::Compress);
+    /// let x1 = Compression::new().set_compression_mode(CompressionMode::Decompress);
+    /// ```
+    pub fn set_compression_mode<
+        T: std::convert::Into<crate::model::compression::CompressionMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.compression_mode = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Compression {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.pubsub.v1.Compression"
+    }
+}
+
+/// Defines additional types related to [Compression].
+pub mod compression {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The compression algorithm to use.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CompressionAlgorithm {
+        /// Unspecified algorithm.
+        Unspecified,
+        /// ZLIB compression.
+        Zlib,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CompressionAlgorithm::value] or
+        /// [CompressionAlgorithm::name].
+        UnknownValue(compression_algorithm::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod compression_algorithm {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl CompressionAlgorithm {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Zlib => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("COMPRESSION_ALGORITHM_UNSPECIFIED"),
+                Self::Zlib => std::option::Option::Some("ZLIB"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for CompressionAlgorithm {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CompressionAlgorithm {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CompressionAlgorithm {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Zlib,
+                _ => Self::UnknownValue(compression_algorithm::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CompressionAlgorithm {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "COMPRESSION_ALGORITHM_UNSPECIFIED" => Self::Unspecified,
+                "ZLIB" => Self::Zlib,
+                _ => Self::UnknownValue(compression_algorithm::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CompressionAlgorithm {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Zlib => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CompressionAlgorithm {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CompressionAlgorithm>::new(
+                ".google.pubsub.v1.Compression.CompressionAlgorithm",
+            ))
+        }
+    }
+
+    /// The mode of the compression SMT.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CompressionMode {
+        /// Unspecified mode.
+        Unspecified,
+        /// Compress.
+        Compress,
+        /// Decompress.
+        Decompress,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CompressionMode::value] or
+        /// [CompressionMode::name].
+        UnknownValue(compression_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod compression_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl CompressionMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Compress => std::option::Option::Some(1),
+                Self::Decompress => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("COMPRESSION_MODE_UNSPECIFIED"),
+                Self::Compress => std::option::Option::Some("COMPRESS"),
+                Self::Decompress => std::option::Option::Some("DECOMPRESS"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for CompressionMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CompressionMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CompressionMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Compress,
+                2 => Self::Decompress,
+                _ => Self::UnknownValue(compression_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CompressionMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "COMPRESSION_MODE_UNSPECIFIED" => Self::Unspecified,
+                "COMPRESS" => Self::Compress,
+                "DECOMPRESS" => Self::Decompress,
+                _ => Self::UnknownValue(compression_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CompressionMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Compress => serializer.serialize_i32(1),
+                Self::Decompress => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CompressionMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CompressionMode>::new(
+                ".google.pubsub.v1.Compression.CompressionMode",
+            ))
+        }
+    }
+}
+
 /// Configuration for making inference requests against Vertex AI models.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -2941,6 +3328,7 @@ impl MessageTransform {
     /// use google_cloud_pubsub::model::JavaScriptUDF;
     /// let x = MessageTransform::new().set_javascript_udf(JavaScriptUDF::default()/* use setters */);
     /// assert!(x.javascript_udf().is_some());
+    /// assert!(x.compression().is_none());
     /// assert!(x.ai_inference().is_none());
     /// ```
     pub fn set_javascript_udf<
@@ -2951,6 +3339,44 @@ impl MessageTransform {
     ) -> Self {
         self.transform = std::option::Option::Some(
             crate::model::message_transform::Transform::JavascriptUdf(v.into()),
+        );
+        self
+    }
+
+    /// The value of [transform][crate::model::MessageTransform::transform]
+    /// if it holds a `Compression`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn compression(&self) -> std::option::Option<&std::boxed::Box<crate::model::Compression>> {
+        #[allow(unreachable_patterns)]
+        self.transform.as_ref().and_then(|v| match v {
+            crate::model::message_transform::Transform::Compression(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [transform][crate::model::MessageTransform::transform]
+    /// to hold a `Compression`.
+    ///
+    /// Note that all the setters affecting `transform` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::MessageTransform;
+    /// use google_cloud_pubsub::model::Compression;
+    /// let x = MessageTransform::new().set_compression(Compression::default()/* use setters */);
+    /// assert!(x.compression().is_some());
+    /// assert!(x.javascript_udf().is_none());
+    /// assert!(x.ai_inference().is_none());
+    /// ```
+    pub fn set_compression<T: std::convert::Into<std::boxed::Box<crate::model::Compression>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.transform = std::option::Option::Some(
+            crate::model::message_transform::Transform::Compression(v.into()),
         );
         self
     }
@@ -2981,6 +3407,7 @@ impl MessageTransform {
     /// let x = MessageTransform::new().set_ai_inference(AIInference::default()/* use setters */);
     /// assert!(x.ai_inference().is_some());
     /// assert!(x.javascript_udf().is_none());
+    /// assert!(x.compression().is_none());
     /// ```
     pub fn set_ai_inference<T: std::convert::Into<std::boxed::Box<crate::model::AIInference>>>(
         mut self,
@@ -3011,6 +3438,8 @@ pub mod message_transform {
         /// Optional. JavaScript User Defined Function. If multiple JavaScriptUDF's
         /// are specified on a resource, each must have a unique `function_name`.
         JavascriptUdf(std::boxed::Box<crate::model::JavaScriptUDF>),
+        /// Optional. Compression/Decompression.
+        Compression(std::boxed::Box<crate::model::Compression>),
         /// Optional. AI Inference. Specifies the Vertex AI endpoint that inference
         /// requests built from the Pub/Sub message data and provided parameters will
         /// be sent to.
@@ -3078,8 +3507,9 @@ pub struct Topic {
     /// resource. For example:
     /// "123/environment": "production",
     /// "123/costCenter": "marketing"
-    /// See <https://docs.cloud.google.com/pubsub/docs/tags> for more information on
-    /// using tags with Pub/Sub resources.
+    /// See
+    /// https://{$universe.dns_names.final_documentation_domain}/pubsub/docs/tags
+    /// for more information on using tags with Pub/Sub resources.
     pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4134,9 +4564,10 @@ impl wkt::message::Message for DetachSubscriptionResponse {
     }
 }
 
-/// A subscription resource. If none of `push_config`, `bigquery_config`, or
-/// `cloud_storage_config` is set, then the subscriber will pull and ack messages
-/// using API methods. At most one of these fields may be set.
+/// A subscription resource. If none of `push_config`, `bigquery_config`,
+/// `cloud_storage_config`, or `bigtable_config` is set, then the subscriber will
+/// pull and ack messages using API methods. At most one of these fields may be
+/// set.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Subscription {
@@ -4297,8 +4728,9 @@ pub struct Subscription {
     /// resource. For example:
     /// "123/environment": "production",
     /// "123/costCenter": "marketing"
-    /// See <https://docs.cloud.google.com/pubsub/docs/tags> for more information on
-    /// using tags with Pub/Sub resources.
+    /// See
+    /// https://{$universe.dns_names.final_documentation_domain}/pubsub/docs/tags
+    /// for more information on using tags with Pub/Sub resources.
     pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5706,11 +6138,13 @@ pub struct BigQueryConfig {
     /// a JSON object in the attributes column.
     pub write_metadata: bool,
 
-    /// Optional. When true and use_topic_schema is true, any fields that are a
-    /// part of the topic schema that are not part of the BigQuery table schema are
-    /// dropped when writing to BigQuery. Otherwise, the schemas must be kept in
-    /// sync and any messages with extra fields are not written and remain in the
-    /// subscription's backlog.
+    /// Optional. If true and `use_topic_schema` is true, drops any fields that are
+    /// part of the topic schema that are not part of the BigQuery table schema
+    /// when writing to BigQuery. Otherwise, the schemas must be kept in sync and
+    /// any messages with extra fields are not written and remain in the
+    /// subscription's backlog. If true and `use_table_schema` is true, drops any
+    /// fields in the message that are not part of the BigQuery table schema when
+    /// writing to BigQuery. Otherwise, the write to BigQuery will fail.
     pub drop_unknown_fields: bool,
 
     /// Output only. An output-only field that indicates whether or not the
@@ -6021,8 +6455,9 @@ pub mod big_query_config {
 /// Configuration for a Bigtable subscription. The Pub/Sub message will be
 /// written to a Bigtable row as follows:
 ///
-/// - row key: subscription name and message ID delimited by #.
-/// - columns: message bytes written to a single column family "data" with an
+/// - row key: subscription name, message ID hash, and message ID delimited by
+///   `#`.
+/// - columns: message bytes written to a single column family `data` with an
 ///   empty-string column qualifier.
 /// - cell timestamp: the message publish timestamp.
 #[derive(Clone, Default, PartialEq)]
@@ -6172,23 +6607,23 @@ pub mod bigtable_config {
         Unspecified,
         /// The subscription can actively send messages to Bigtable.
         Active,
-        /// Cannot write to Bigtable because the instance, table, or app profile
-        /// does not exist.
+        /// Unused in the current implementation. Placeholder for future use.
         NotFound,
-        /// Cannot write to Bigtable because the app profile is not configured for
-        /// single-cluster routing.
+        /// Unused in the current implementation. Placeholder for future use.
         AppProfileMisconfigured,
         /// Cannot write to Bigtable because of permission denied errors.
         /// This can happen if:
         ///
+        /// - The Bigtable instance, table, or app profile does not exist.
         /// - The Pub/Sub service agent has not been granted the
         ///   [appropriate Bigtable IAM permission
         ///   bigtable.tables.mutateRows]({$universe.dns_names.final_documentation_domain}/bigtable/docs/access-control#permissions)
         /// - The bigtable.googleapis.com API is not enabled for the project
         ///   ([instructions]({$universe.dns_names.final_documentation_domain}/service-usage/docs/enable-disable))
         PermissionDenied,
-        /// Cannot write to Bigtable because of a missing column family ("data") or
-        /// if there is no structured row key for the subscription name + message ID.
+        /// Cannot write to Bigtable because of a missing column family (`data`), or
+        /// if there is no structured row key for the subscription name + message ID,
+        /// if because the app profile is not configured for single-cluster routing.
         SchemaMismatch,
         /// Cannot write to the destination because enforce_in_transit is set to true
         /// and the destination locations are not in the allowed regions.
@@ -7339,8 +7774,9 @@ pub struct CreateSnapshotRequest {
     /// resource. For example:
     /// "123/environment": "production",
     /// "123/costCenter": "marketing"
-    /// See <https://docs.cloud.google.com/pubsub/docs/tags> for more information on
-    /// using tags with Pub/Sub resources.
+    /// See
+    /// https://{$universe.dns_names.final_documentation_domain}/pubsub/docs/tags
+    /// for more information on using tags with Pub/Sub resources.
     pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8067,6 +8503,12 @@ pub struct Schema {
     /// Output only. The timestamp that the revision was created.
     pub revision_create_time: std::option::Option<wkt::Timestamp>,
 
+    /// The configuration of the schema.
+    /// This field is mutually exclusive with the `definition` field above, meaning
+    /// either `definition` or one of the fields below can be set in a valid Schema
+    /// object.
+    pub configuration: std::option::Option<crate::model::schema::Configuration>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -8158,6 +8600,68 @@ impl Schema {
         T: std::convert::Into<wkt::Timestamp>,
     {
         self.revision_create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [configuration][crate::model::Schema::configuration].
+    ///
+    /// Note that all the setters affecting `configuration` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Schema;
+    /// use google_cloud_pubsub::model::CompiledProtoSchema;
+    /// let x = Schema::new().set_configuration(Some(
+    ///     google_cloud_pubsub::model::schema::Configuration::CompiledProtoSchema(CompiledProtoSchema::default().into())));
+    /// ```
+    pub fn set_configuration<
+        T: std::convert::Into<std::option::Option<crate::model::schema::Configuration>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.configuration = v.into();
+        self
+    }
+
+    /// The value of [configuration][crate::model::Schema::configuration]
+    /// if it holds a `CompiledProtoSchema`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn compiled_proto_schema(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CompiledProtoSchema>> {
+        #[allow(unreachable_patterns)]
+        self.configuration.as_ref().and_then(|v| match v {
+            crate::model::schema::Configuration::CompiledProtoSchema(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [configuration][crate::model::Schema::configuration]
+    /// to hold a `CompiledProtoSchema`.
+    ///
+    /// Note that all the setters affecting `configuration` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Schema;
+    /// use google_cloud_pubsub::model::CompiledProtoSchema;
+    /// let x = Schema::new().set_compiled_proto_schema(CompiledProtoSchema::default()/* use setters */);
+    /// assert!(x.compiled_proto_schema().is_some());
+    /// ```
+    pub fn set_compiled_proto_schema<
+        T: std::convert::Into<std::boxed::Box<crate::model::CompiledProtoSchema>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.configuration = std::option::Option::Some(
+            crate::model::schema::Configuration::CompiledProtoSchema(v.into()),
+        );
         self
     }
 }
@@ -8303,6 +8807,19 @@ pub mod schema {
                 ".google.pubsub.v1.Schema.Type",
             ))
         }
+    }
+
+    /// The configuration of the schema.
+    /// This field is mutually exclusive with the `definition` field above, meaning
+    /// either `definition` or one of the fields below can be set in a valid Schema
+    /// object.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Configuration {
+        /// Optional. Configuration for a schema provided as a pre-compiled Protocol
+        /// Buffer FileDescriptorSet. The `type` field above must be set to
+        /// PROTOCOL_BUFFER.
+        CompiledProtoSchema(std::boxed::Box<crate::model::CompiledProtoSchema>),
     }
 }
 
@@ -9301,6 +9818,56 @@ impl ValidateMessageResponse {
 impl wkt::message::Message for ValidateMessageResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.pubsub.v1.ValidateMessageResponse"
+    }
+}
+
+/// Configuration specific to compiled Protocol Buffer schemas.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CompiledProtoSchema {
+    /// Required. The name of the root message type in the schema.
+    pub root_message: std::string::String,
+
+    /// Required. The compiled FileDescriptorSet binary.
+    pub compiled_bytes: ::bytes::Bytes,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CompiledProtoSchema {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [root_message][crate::model::CompiledProtoSchema::root_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CompiledProtoSchema;
+    /// let x = CompiledProtoSchema::new().set_root_message("example");
+    /// ```
+    pub fn set_root_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.root_message = v.into();
+        self
+    }
+
+    /// Sets the value of [compiled_bytes][crate::model::CompiledProtoSchema::compiled_bytes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CompiledProtoSchema;
+    /// let x = CompiledProtoSchema::new().set_compiled_bytes(bytes::Bytes::from_static(b"example"));
+    /// ```
+    pub fn set_compiled_bytes<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.compiled_bytes = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CompiledProtoSchema {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.pubsub.v1.CompiledProtoSchema"
     }
 }
 

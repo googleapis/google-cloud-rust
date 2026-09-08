@@ -1494,6 +1494,17 @@ pub trait FeatureOnlineStoreService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::FeatureOnlineStoreService::feature_view_direct_write].
+    fn feature_view_direct_write(
+        &self,
+        _options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::FeatureViewDirectWriteRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::FeatureViewDirectWriteResponse>,
+    ) {
+        gaxi::unimplemented::unimplemented_bidi_stub()
+    }
+
     /// Implements [super::client::FeatureOnlineStoreService::generate_fetch_access_token].
     fn generate_fetch_access_token(
         &self,
@@ -1922,6 +1933,19 @@ pub trait FeaturestoreOnlineServingService: std::fmt::Debug + Send + Sync {
         Output = crate::Result<crate::Response<crate::model::ReadFeatureValuesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::FeaturestoreOnlineServingService::streaming_read_feature_values].
+    fn streaming_read_feature_values(
+        &self,
+        _req: crate::model::StreamingReadFeatureValuesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::ReadFeatureValuesResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
     }
 
     /// Implements [super::client::FeaturestoreOnlineServingService::write_feature_values].
@@ -6274,6 +6298,19 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::PredictionService::stream_raw_predict].
+    fn stream_raw_predict(
+        &self,
+        _req: crate::model::StreamRawPredictRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseStream<google_cloud_api::model::HttpBody>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
+    }
+
     /// Implements [super::client::PredictionService::direct_predict].
     fn direct_predict(
         &self,
@@ -6296,6 +6333,63 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::PredictionService::stream_direct_predict].
+    fn stream_direct_predict(
+        &self,
+        _options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectPredictRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamDirectPredictResponse>,
+    ) {
+        gaxi::unimplemented::unimplemented_bidi_stub()
+    }
+
+    /// Implements [super::client::PredictionService::stream_direct_raw_predict].
+    fn stream_direct_raw_predict(
+        &self,
+        _options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamDirectRawPredictRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamDirectRawPredictResponse>,
+    ) {
+        gaxi::unimplemented::unimplemented_bidi_stub()
+    }
+
+    /// Implements [super::client::PredictionService::streaming_predict].
+    fn streaming_predict(
+        &self,
+        _options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingPredictRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPredictResponse>,
+    ) {
+        gaxi::unimplemented::unimplemented_bidi_stub()
+    }
+
+    /// Implements [super::client::PredictionService::server_streaming_predict].
+    fn server_streaming_predict(
+        &self,
+        _req: crate::model::StreamingPredictRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPredictResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
+    }
+
+    /// Implements [super::client::PredictionService::streaming_raw_predict].
+    fn streaming_raw_predict(
+        &self,
+        _options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingRawPredictRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingRawPredictResponse>,
+    ) {
+        gaxi::unimplemented::unimplemented_bidi_stub()
+    }
+
     /// Implements [super::client::PredictionService::explain].
     fn explain(
         &self,
@@ -6316,6 +6410,19 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         Output = crate::Result<crate::Response<crate::model::GenerateContentResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::PredictionService::stream_generate_content].
+    fn stream_generate_content(
+        &self,
+        _req: crate::model::GenerateContentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::GenerateContentResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
     }
 
     /// Implements [super::client::PredictionService::embed_content].
@@ -6465,6 +6572,19 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
         Output = crate::Result<crate::Response<crate::model::QueryReasoningEngineResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ReasoningEngineExecutionService::stream_query_reasoning_engine].
+    fn stream_query_reasoning_engine(
+        &self,
+        _req: crate::model::StreamQueryReasoningEngineRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseStream<google_cloud_api::model::HttpBody>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
     }
 
     /// Implements [super::client::ReasoningEngineExecutionService::async_query_reasoning_engine].
@@ -7840,6 +7960,21 @@ pub trait TensorboardService: std::fmt::Debug + Send + Sync {
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::TensorboardService::read_tensorboard_blob_data].
+    fn read_tensorboard_blob_data(
+        &self,
+        _req: crate::model::ReadTensorboardBlobDataRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseStream<
+                crate::model::ReadTensorboardBlobDataResponse,
+            >,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
     }
 
     /// Implements [super::client::TensorboardService::write_tensorboard_experiment_data].

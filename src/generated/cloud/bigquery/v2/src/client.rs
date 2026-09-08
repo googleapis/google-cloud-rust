@@ -125,6 +125,10 @@ impl DatasetService {
 
     /// Returns the dataset specified by datasetID.
     ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.datasets.get` permission on the dataset.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::client::DatasetService;
@@ -144,6 +148,10 @@ impl DatasetService {
     }
 
     /// Creates a new empty dataset.
+    ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.datasets.create` permission on the project.
     ///
     /// # Example
     /// ```
@@ -168,6 +176,13 @@ impl DatasetService {
     /// are provided in the submitted dataset resource.
     /// This method supports RFC5789 patch semantics.
     ///
+    /// # IAM Permissions
+    ///
+    /// Requires the following IAM permission(s) to use this method:
+    ///
+    /// - `bigquery.datasets.update` on the dataset.
+    /// - `bigquery.datasets.get` on the dataset.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::client::DatasetService;
@@ -189,6 +204,10 @@ impl DatasetService {
     /// Updates information in an existing dataset. The update method replaces the
     /// entire dataset resource, whereas the patch method only replaces fields that
     /// are provided in the submitted dataset resource.
+    ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.datasets.update` permission on the dataset.
     ///
     /// # Example
     /// ```
@@ -213,6 +232,10 @@ impl DatasetService {
     /// deleteContents. Immediately after deletion, you can create another dataset
     /// with the same name.
     ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.datasets.delete` permission on the dataset.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::client::DatasetService;
@@ -232,6 +255,12 @@ impl DatasetService {
 
     /// Lists all datasets in the specified project to which the user has been
     /// granted the READER dataset role.
+    ///
+    /// # IAM Permissions
+    ///
+    /// Requires no specific IAM permission(s) to use this method.
+    /// Results are filtered to only include datasets on which the caller has the
+    /// `bigquery.datasets.get` permission.
     ///
     /// # Example
     /// ```
@@ -257,6 +286,13 @@ impl DatasetService {
     /// Undeletes a dataset which is within time travel window based on datasetId.
     /// If a time is specified, the dataset version deleted at that time is
     /// undeleted, else the last live version is undeleted.
+    ///
+    /// # IAM Permissions
+    ///
+    /// Requires the following IAM permission(s) to use this method:
+    ///
+    /// - `bigquery.datasets.create` on the project.
+    /// - `bigquery.datasets.get` on the dataset.
     ///
     /// # Example
     /// ```
@@ -385,6 +421,12 @@ impl JobService {
     /// the client will need to poll for the job status to see if the cancel
     /// completed successfully. Cancelled jobs may still incur costs.
     ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.jobs.update` permission on the job resource.
+    /// If the user matches the creator of the job, the `bigquery.jobs.create`
+    /// permission on the project is required instead.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::client::JobService;
@@ -406,6 +448,12 @@ impl JobService {
     /// Returns information about a specific job. Job information is available for
     /// a six month period after creation. Requires that you're the person who ran
     /// the job, or have the Is Owner project role.
+    ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.jobs.get` permission on the job resource.
+    /// If the user matches the creator of the job, the `bigquery.jobs.create`
+    /// permission on the project is required instead.
     ///
     /// # Example
     /// ```
@@ -437,6 +485,19 @@ impl JobService {
     ///   accepts the job configuration and the data as two distinct multipart MIME
     ///   parts.
     ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.jobs.create` permission on the project resource.
+    ///
+    /// Additional permissions are required depending on the job type:
+    ///
+    /// - **Load, Export, and Copy jobs**: Generally require data-level
+    ///   permissions such as `bigquery.tables.export` or access to external
+    ///   storage.
+    /// - **Query jobs**: Permissions are dependent on the SQL statement.
+    ///   Complex queries (DDL, DCL) may require additional permissions to
+    ///   create reservations, modify IAM policies, or update project settings.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::client::JobService;
@@ -457,6 +518,10 @@ impl JobService {
 
     /// Requests the deletion of the metadata of a job. This call returns when the
     /// job's metadata is deleted.
+    ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.jobs.delete` permission on the job resource.
     ///
     /// # Example
     /// ```
@@ -481,6 +546,18 @@ impl JobService {
     /// project role, or the Is Owner project role if you set the allUsers
     /// property.
     ///
+    /// # IAM Permissions
+    ///
+    /// Requires no specific IAM permission(s) to use this method. Users are able
+    /// to list the jobs they created.
+    ///
+    /// Additional access is granted based on the following permissions:
+    ///
+    /// - Users with the `bigquery.jobs.listAll` permission can list all jobs with
+    ///   all metadata.
+    /// - Users with the `bigquery.jobs.list` permission can list all jobs, but
+    ///   with redacted information for jobs they did not create.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::client::JobService;
@@ -504,6 +581,19 @@ impl JobService {
 
     /// RPC to get the results of a query job.
     ///
+    /// # IAM Permissions
+    ///
+    /// Requires the following IAM permission(s) to use this method:
+    ///
+    /// - `bigquery.jobs.get` on the job.
+    /// - `bigquery.tables.getData` on the destination table.
+    ///
+    /// If the user matches the creator of the job, the following IAM permission(s)
+    /// are required instead:
+    ///
+    /// - `bigquery.jobs.create` on the project.
+    /// - `bigquery.tables.getData` on the destination table.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::client::JobService;
@@ -524,6 +614,15 @@ impl JobService {
 
     /// Runs a BigQuery SQL query synchronously and returns query results if the
     /// query completes within a specified timeout.
+    ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.jobs.create` permission on the project resource.
+    ///
+    /// Data-level permissions are highly dependent on the SQL statement being
+    /// executed. While standard queries require data access (such as
+    /// `bigquery.tables.getData`), complex operations like DDL or DCL may require
+    /// permissions to manage reservations, IAM policies, or project settings.
     ///
     /// # Example
     /// ```
@@ -651,6 +750,10 @@ impl ModelService {
 
     /// Gets the specified model resource by model ID.
     ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.models.getMetadata` permission on the model.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::client::ModelService;
@@ -672,6 +775,10 @@ impl ModelService {
     /// Lists all models in the specified dataset. Requires the READER dataset
     /// role. After retrieving the list of models, you can get information about a
     /// particular model by calling the models.get method.
+    ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.models.list` permission on the dataset.
     ///
     /// # Example
     /// ```
@@ -696,6 +803,10 @@ impl ModelService {
 
     /// Patch specific fields in the specified model.
     ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.models.updateMetadata` permission on the model.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::client::ModelService;
@@ -715,6 +826,10 @@ impl ModelService {
     }
 
     /// Deletes the model specified by modelId from the dataset.
+    ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.models.delete` permission on the model.
     ///
     /// # Example
     /// ```
@@ -840,7 +955,10 @@ impl ProjectService {
     }
 
     /// RPC to get the service account for a project used for interactions with
-    /// Google Cloud KMS
+    /// Google Cloud KMS. Requires the `bigquery.jobs.create` permission on the
+    /// project resource. This permission is required to authorize the retrieval
+    /// of the project's service identity for technical management tasks like
+    /// encryption configuration.
     ///
     /// # Example
     /// ```
@@ -968,6 +1086,10 @@ impl RoutineService {
 
     /// Gets the specified routine resource by routine ID.
     ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.routines.get` permission on the routine.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::client::RoutineService;
@@ -987,6 +1109,10 @@ impl RoutineService {
     }
 
     /// Creates a new routine in the dataset.
+    ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.routines.create` permission on the dataset.
     ///
     /// # Example
     /// ```
@@ -1009,6 +1135,10 @@ impl RoutineService {
     /// Updates information in an existing routine. The update method replaces the
     /// entire Routine resource.
     ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.routines.update` permission on the routine.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::client::RoutineService;
@@ -1029,6 +1159,10 @@ impl RoutineService {
 
     /// Deletes the routine specified by routineId from the dataset.
     ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.routines.delete` permission on the routine.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::client::RoutineService;
@@ -1048,6 +1182,10 @@ impl RoutineService {
 
     /// Lists all routines in the specified dataset. Requires the READER dataset
     /// role.
+    ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.routines.list` permission on the dataset.
     ///
     /// # Example
     /// ```
@@ -1179,6 +1317,10 @@ impl RowAccessPolicyService {
 
     /// Lists all row access policies on the specified table.
     ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.rowAccessPolicies.list` permission on the table.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
@@ -1204,6 +1346,10 @@ impl RowAccessPolicyService {
 
     /// Gets the specified row access policy by policy ID.
     ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.rowAccessPolicies.get` permission on the table.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
@@ -1225,6 +1371,14 @@ impl RowAccessPolicyService {
     }
 
     /// Creates a row access policy.
+    ///
+    /// # IAM Permissions
+    ///
+    /// Requires the following IAM permission(s) on the table:
+    ///
+    /// - `bigquery.rowAccessPolicies.create`
+    /// - `bigquery.rowAccessPolicies.setIamPolicy`
+    /// - `bigquery.tables.getData`
     ///
     /// # Example
     /// ```
@@ -1248,6 +1402,14 @@ impl RowAccessPolicyService {
 
     /// Updates a row access policy.
     ///
+    /// # IAM Permissions
+    ///
+    /// Requires the following IAM permission(s) on the table:
+    ///
+    /// - `bigquery.rowAccessPolicies.update`
+    /// - `bigquery.rowAccessPolicies.setIamPolicy`
+    /// - `bigquery.tables.getData`
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
@@ -1270,6 +1432,13 @@ impl RowAccessPolicyService {
 
     /// Deletes a row access policy.
     ///
+    /// # IAM Permissions
+    ///
+    /// Requires the following IAM permission(s) on the table:
+    ///
+    /// - `bigquery.rowAccessPolicies.delete`
+    /// - `bigquery.rowAccessPolicies.setIamPolicy`
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
@@ -1290,6 +1459,13 @@ impl RowAccessPolicyService {
     }
 
     /// Deletes provided row access policies.
+    ///
+    /// # IAM Permissions
+    ///
+    /// Requires the following IAM permission(s) on the table:
+    ///
+    /// - `bigquery.rowAccessPolicies.delete`
+    /// - `bigquery.rowAccessPolicies.setIamPolicy`
     ///
     /// # Example
     /// ```
@@ -1423,6 +1599,10 @@ impl TableService {
     /// This method does not return the data in the table, it only returns the
     /// table resource, which describes the structure of this table.
     ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.tables.get` permission on the table.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::client::TableService;
@@ -1442,6 +1622,10 @@ impl TableService {
     }
 
     /// Creates a new, empty table in the dataset.
+    ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.tables.create` permission on the dataset.
     ///
     /// # Example
     /// ```
@@ -1466,6 +1650,13 @@ impl TableService {
     /// are provided in the submitted table resource.
     /// This method supports RFC5789 patch semantics.
     ///
+    /// # IAM Permissions
+    ///
+    /// Requires the following IAM permission(s) on the table:
+    ///
+    /// - `bigquery.tables.update`
+    /// - `bigquery.tables.get`
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::client::TableService;
@@ -1488,6 +1679,10 @@ impl TableService {
     /// entire Table resource, whereas the patch method only replaces fields that
     /// are provided in the submitted Table resource.
     ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.tables.update` permission on the table.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::client::TableService;
@@ -1509,6 +1704,10 @@ impl TableService {
     /// Deletes the table specified by tableId from the dataset.
     /// If the table contains data, all the data will be deleted.
     ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.tables.delete` permission on the table.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery_v2::client::TableService;
@@ -1528,6 +1727,10 @@ impl TableService {
 
     /// Lists all tables in the specified dataset. Requires the READER dataset
     /// role.
+    ///
+    /// # IAM Permissions
+    ///
+    /// Requires the `bigquery.tables.list` permission on the dataset.
     ///
     /// # Example
     /// ```

@@ -71,6 +71,24 @@ pub mod logging_service_v_2 {
         }
     }
 
+    /// Common implementation for [crate::client::LoggingServiceV2] bidi stream builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct BidiStreamBuilder {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::LoggingServiceV2>,
+        options: crate::RequestOptions,
+    }
+
+    impl BidiStreamBuilder {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LoggingServiceV2>,
+        ) -> Self {
+            Self {
+                stub,
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
     /// The request builder for [LoggingServiceV2::delete_log][crate::client::LoggingServiceV2::delete_log] calls.
     ///
     /// # Example
@@ -553,6 +571,64 @@ pub mod logging_service_v_2 {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for ListLogs {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [LoggingServiceV2::tail_log_entries][crate::client::LoggingServiceV2::tail_log_entries] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_logging_v2::builder::logging_service_v_2::TailLogEntries;
+    /// # use google_cloud_logging_v2::model::TailLogEntriesRequest;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(TailLogEntriesRequest::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> TailLogEntries {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct TailLogEntries(BidiStreamBuilder);
+
+    impl TailLogEntries {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LoggingServiceV2>,
+        ) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::TailLogEntriesRequest>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::TailLogEntriesResponse>,
+        ) {
+            (*self.0.stub).tail_log_entries(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for TailLogEntries {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

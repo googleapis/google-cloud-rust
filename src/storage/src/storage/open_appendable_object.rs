@@ -68,6 +68,29 @@ where
             .open_appendable_object(self.request, self.options)
             .await
     }
+
+    /// Sends the request and an initial chunk of data in the opening stream request,
+    /// returning an appendable object writer.
+    ///
+    /// Example:
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let mut writer = client
+    ///     .open_appendable_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .send_and_append(bytes::Bytes::from("hello world"))
+    ///     .await?;
+    /// writer.finalize().await?;
+    /// # Ok(()) }
+    /// ```
+    pub async fn send_and_append(
+        self,
+        chunk: impl Into<bytes::Bytes>,
+    ) -> Result<AppendableObjectWriter> {
+        self.stub
+            .open_appendable_object_and_append(self.request, chunk.into(), self.options)
+            .await
+    }
 }
 
 impl<S> OpenAppendableObject<S> {
@@ -601,22 +624,35 @@ mod tests {
 
     #[tokio::test]
     async fn traits() -> Result<()> {
-        assert_impl_all!(OpenAppendableObject: Clone, std::fmt::Debug, Send, Sync);
+        // Arrange.
         let client = Storage::builder()
             .with_credentials(Anonymous::new().build())
             .build()
             .await?;
 
-        fn need_send<T: Send>(_val: &T) {}
-        fn need_static<T: 'static>(_val: &T) {}
+        fn assert_send<T: Send>(_val: &T) {}
+        fn assert_static<T: 'static>(_val: &T) {}
 
-        let open = client.open_appendable_object(BUCKET_NAME, OBJECT_NAME);
-        need_static(&open);
-        let fut = client
+        // Act & Assert.
+        // 1. Verify that the builder struct implements Clone, Debug, Send, Sync, and 'static.
+        assert_impl_all!(OpenAppendableObject: Clone, std::fmt::Debug, Send, Sync);
+        let builder = client.open_appendable_object(BUCKET_NAME, OBJECT_NAME);
+        assert_static(&builder);
+
+        // 2. Verify that the future returned by `.send()` is Send and 'static.
+        let send_fut = client
             .open_appendable_object(BUCKET_NAME, OBJECT_NAME)
             .send();
-        need_send(&fut);
-        need_static(&fut);
+        assert_send(&send_fut);
+        assert_static(&send_fut);
+
+        // 3. Verify that the future returned by `.send_and_append()` with initial data is Send and 'static.
+        let send_and_append_fut = client
+            .open_appendable_object(BUCKET_NAME, OBJECT_NAME)
+            .send_and_append(bytes::Bytes::from("test"));
+        assert_send(&send_and_append_fut);
+        assert_static(&send_and_append_fut);
+
         Ok(())
     }
 

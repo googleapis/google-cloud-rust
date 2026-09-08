@@ -49,6 +49,19 @@ pub trait RoutesPreferred: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::RoutesPreferred::compute_route_matrix].
+    fn compute_route_matrix(
+        &self,
+        _req: crate::model::ComputeRouteMatrixRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseStream<crate::model::RouteMatrixElement>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
+    }
+
     /// Implements [super::client::RoutesPreferred::compute_custom_routes].
     fn compute_custom_routes(
         &self,

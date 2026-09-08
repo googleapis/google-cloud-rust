@@ -373,6 +373,7 @@ impl std::fmt::Debug for super::dependency::GitSourceDependency {
         debug_struct.field("recurse_submodules", &self.recurse_submodules);
         debug_struct.field("depth", &self.depth);
         debug_struct.field("dest_path", &self.dest_path);
+        debug_struct.field("fetch_tags", &self.fetch_tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -258,4 +258,103 @@ mod tests {
             )
             .await
     }
+
+    #[derive(Clone, Debug, PartialEq)]
+    struct DomainEchoRequest {
+        message: String,
+    }
+
+    impl google_cloud_gax_internal::prost::ToProto<EchoRequest> for DomainEchoRequest {
+        type Output = EchoRequest;
+        fn to_proto(
+            self,
+        ) -> std::result::Result<EchoRequest, google_cloud_gax_internal::prost::ConvertError>
+        {
+            Ok(EchoRequest {
+                message: self.message,
+                ..Default::default()
+            })
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq)]
+    struct DomainEchoResponse {
+        message: String,
+    }
+
+    impl google_cloud_gax_internal::prost::FromProto<DomainEchoResponse> for EchoResponse {
+        fn cnv(
+            self,
+        ) -> std::result::Result<DomainEchoResponse, google_cloud_gax_internal::prost::ConvertError>
+        {
+            Ok(DomainEchoResponse {
+                message: self.message,
+            })
+        }
+    }
+
+    #[tokio::test]
+    async fn execute_bidi_streaming_basic() -> anyhow::Result<()> {
+        let (endpoint, _server) = start_echo_server().await?;
+        let client = builder(endpoint)
+            .with_credentials(test_credentials())
+            .build()
+            .await?;
+
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.test.v1.EchoServices",
+                "Chat",
+            ));
+            e
+        };
+        let request_options = {
+            let mut o = RequestOptions::default();
+            o.set_retry_policy(NeverRetry);
+            o
+        };
+
+        let (sender, mut resp_stream) = client
+            .execute_bidi_streaming::<DomainEchoRequest, DomainEchoResponse, EchoRequest, EchoResponse>(
+                extensions,
+                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
+                request_options,
+                "test-only-api-client/1.0",
+                "resource=test",
+            );
+
+        sender
+            .send(DomainEchoRequest {
+                message: "msg0".to_string(),
+            })
+            .await?;
+
+        let r = resp_stream.next().await;
+        assert_eq!(
+            r.transpose()?,
+            Some(DomainEchoResponse {
+                message: "msg0".to_string()
+            })
+        );
+
+        sender
+            .send(DomainEchoRequest {
+                message: "msg1".to_string(),
+            })
+            .await?;
+        let r = resp_stream.next().await;
+        assert_eq!(
+            r.transpose()?,
+            Some(DomainEchoResponse {
+                message: "msg1".to_string()
+            })
+        );
+
+        drop(sender);
+        let r = resp_stream.next().await;
+        assert!(r.is_none());
+
+        Ok(())
+    }
 }

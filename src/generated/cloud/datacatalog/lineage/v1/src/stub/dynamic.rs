@@ -119,6 +119,14 @@ pub trait Lineage: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::BatchSearchLinkProcessesResponse>>;
 
+    async fn search_lineage_streaming(
+        &self,
+        req: crate::model::SearchLineageStreamingRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::SearchLineageStreamingResponse>,
+    >;
+
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
@@ -313,6 +321,17 @@ impl<T: super::Lineage> Lineage for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::BatchSearchLinkProcessesResponse>> {
         T::batch_search_link_processes(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn search_lineage_streaming(
+        &self,
+        req: crate::model::SearchLineageStreamingRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::SearchLineageStreamingResponse>,
+    > {
+        T::search_lineage_streaming(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

@@ -3168,6 +3168,7 @@ impl<'de> serde::de::Deserialize<'de> for super::VerifyConfidentialGkeRequest {
             __tpm_attestation,
             __challenge,
             __options,
+            __platform_type,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3192,6 +3193,8 @@ impl<'de> serde::de::Deserialize<'de> for super::VerifyConfidentialGkeRequest {
                             "tpm_attestation" => Ok(__FieldTag::__tpm_attestation),
                             "challenge" => Ok(__FieldTag::__challenge),
                             "options" => Ok(__FieldTag::__options),
+                            "platformType" => Ok(__FieldTag::__platform_type),
+                            "platform_type" => Ok(__FieldTag::__platform_type),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3252,6 +3255,18 @@ impl<'de> serde::de::Deserialize<'de> for super::VerifyConfidentialGkeRequest {
                             }
                             result.options = map.next_value::<std::option::Option<crate::model::verify_confidential_gke_request::ConfidentialGkeOptions>>()?
                                 ;
+                        }
+                        __FieldTag::__platform_type => {
+                            if !fields.insert(__FieldTag::__platform_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for platform_type",
+                                ));
+                            }
+                            result.platform_type = map
+                                .next_value::<std::option::Option<
+                                    crate::model::verify_confidential_gke_request::PlatformType,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

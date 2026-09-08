@@ -4004,6 +4004,166 @@ impl wkt::message::Message for UpdateRapidCacheMetadata {
     }
 }
 
+/// Message returned in the metadata field of the Operation resource for
+/// DeleteRapidCache operation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DisableRapidCacheMetadata {
+    /// Generic metadata for the long running operation.
+    pub common_metadata: std::option::Option<crate::model::CommonLongRunningOperationMetadata>,
+
+    /// Rapid Cache ID.
+    pub rapid_cache_id: std::option::Option<std::string::String>,
+
+    /// The zone in which the cache instance is running. For example,
+    /// us-central1-a.
+    pub zone: std::option::Option<std::string::String>,
+
+    /// Optional. The type of cache. Either rapid cache or rapid cache ultra.
+    pub cache_type: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DisableRapidCacheMetadata {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [common_metadata][crate::model::DisableRapidCacheMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::DisableRapidCacheMetadata;
+    /// use google_cloud_storage::model::CommonLongRunningOperationMetadata;
+    /// let x = DisableRapidCacheMetadata::new().set_common_metadata(CommonLongRunningOperationMetadata::default()/* use setters */);
+    /// ```
+    pub fn set_common_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
+    {
+        self.common_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [common_metadata][crate::model::DisableRapidCacheMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::DisableRapidCacheMetadata;
+    /// use google_cloud_storage::model::CommonLongRunningOperationMetadata;
+    /// let x = DisableRapidCacheMetadata::new().set_or_clear_common_metadata(Some(CommonLongRunningOperationMetadata::default()/* use setters */));
+    /// let x = DisableRapidCacheMetadata::new().set_or_clear_common_metadata(None::<CommonLongRunningOperationMetadata>);
+    /// ```
+    pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
+    {
+        self.common_metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [rapid_cache_id][crate::model::DisableRapidCacheMetadata::rapid_cache_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::DisableRapidCacheMetadata;
+    /// let x = DisableRapidCacheMetadata::new().set_rapid_cache_id("example");
+    /// ```
+    pub fn set_rapid_cache_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.rapid_cache_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rapid_cache_id][crate::model::DisableRapidCacheMetadata::rapid_cache_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::DisableRapidCacheMetadata;
+    /// let x = DisableRapidCacheMetadata::new().set_or_clear_rapid_cache_id(Some("example"));
+    /// let x = DisableRapidCacheMetadata::new().set_or_clear_rapid_cache_id(None::<String>);
+    /// ```
+    pub fn set_or_clear_rapid_cache_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.rapid_cache_id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [zone][crate::model::DisableRapidCacheMetadata::zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::DisableRapidCacheMetadata;
+    /// let x = DisableRapidCacheMetadata::new().set_zone("example");
+    /// ```
+    pub fn set_zone<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.zone = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [zone][crate::model::DisableRapidCacheMetadata::zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::DisableRapidCacheMetadata;
+    /// let x = DisableRapidCacheMetadata::new().set_or_clear_zone(Some("example"));
+    /// let x = DisableRapidCacheMetadata::new().set_or_clear_zone(None::<String>);
+    /// ```
+    pub fn set_or_clear_zone<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.zone = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cache_type][crate::model::DisableRapidCacheMetadata::cache_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::DisableRapidCacheMetadata;
+    /// let x = DisableRapidCacheMetadata::new().set_cache_type("example");
+    /// ```
+    pub fn set_cache_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.cache_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cache_type][crate::model::DisableRapidCacheMetadata::cache_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::DisableRapidCacheMetadata;
+    /// let x = DisableRapidCacheMetadata::new().set_or_clear_cache_type(Some("example"));
+    /// let x = DisableRapidCacheMetadata::new().set_or_clear_cache_type(None::<String>);
+    /// ```
+    pub fn set_or_clear_cache_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.cache_type = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DisableRapidCacheMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.DisableRapidCacheMetadata"
+    }
+}
+
 /// An Anywhere Cache Instance.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -5298,6 +5458,62 @@ impl UpdateRapidCacheRequest {
 impl wkt::message::Message for UpdateRapidCacheRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.storage.control.v2.UpdateRapidCacheRequest"
+    }
+}
+
+/// Request message for DisableRapidCache.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DisableRapidCacheRequest {
+    /// Required. The name field in the request should be:
+    /// `projects/{project}/buckets/{bucket}/rapidCaches/{rapid_cache}`
+    pub name: std::string::String,
+
+    /// Optional. A unique identifier for this request. UUID is the recommended
+    /// format, but other formats are still accepted. This request is only
+    /// idempotent if a `request_id` is provided.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DisableRapidCacheRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DisableRapidCacheRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::DisableRapidCacheRequest;
+    /// # let project_id = "project_id";
+    /// # let bucket_id = "bucket_id";
+    /// # let rapid_cache_id = "rapid_cache_id";
+    /// let x = DisableRapidCacheRequest::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}/rapidCaches/{rapid_cache_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DisableRapidCacheRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::DisableRapidCacheRequest;
+    /// let x = DisableRapidCacheRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DisableRapidCacheRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.DisableRapidCacheRequest"
     }
 }
 

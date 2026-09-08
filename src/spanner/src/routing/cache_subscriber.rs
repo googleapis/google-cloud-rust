@@ -24,9 +24,6 @@
 //! reconnects using configured [`RetryPolicy`] and [`BackoffPolicy`] implementations. Permanent or
 //! exhausted errors terminate the subscriber task cleanly.
 
-// TODO(#6236): Remove dead_code allowance once CacheSubscriber is integrated into DatabaseClient lifecycle.
-#![allow(dead_code)]
-
 use crate::RequestOptions;
 use crate::client::Spanner;
 use crate::google::spanner::v1::CacheUpdate as ProtoCacheUpdate;
@@ -81,11 +78,13 @@ impl CacheSubscriber {
     }
 
     /// Requests the background subscriber task to shut down.
+    #[allow(dead_code)] // Used in tests and lifecycle shutdown
     pub(crate) fn stop(&self) {
         let _ = self.shutdown_sender.send(true);
     }
 
     /// Returns `true` if the background subscriber task has finished executing.
+    #[allow(dead_code)] // Used for lifecycle monitoring and tests
     pub(crate) fn is_finished(&self) -> bool {
         self.task_handle
             .as_ref()
@@ -94,6 +93,7 @@ impl CacheSubscriber {
     }
 
     /// Signals the background subscriber task to shut down and waits for it to complete.
+    #[allow(dead_code)] // Used for lifecycle shutdown and tests
     pub(crate) async fn wait_for_shutdown(mut self) {
         self.stop();
         if let Some(handle) = self.task_handle.take() {
@@ -142,24 +142,28 @@ impl CacheSubscriberBuilder {
     }
 
     /// Sets the retry policy applied to determine if a stream disconnect or error is retryable.
+    #[allow(dead_code)] // Used for custom retry configuration and tests
     pub(crate) fn with_retry_policy(mut self, policy: impl Into<RetryPolicyArg>) -> Self {
         self.retry_policy = policy.into().into();
         self
     }
 
     /// Sets the backoff policy applied between stream reconnection attempts.
+    #[allow(dead_code)] // Used for custom backoff configuration and tests
     pub(crate) fn with_backoff_policy(mut self, policy: impl Into<BackoffPolicyArg>) -> Self {
         self.backoff_policy = policy.into().into();
         self
     }
 
     /// Sets the maximum number of key recipes requested in each cache update.
+    #[allow(dead_code)] // Used for tuning update batch limits and tests
     pub(crate) fn with_max_recipe_count(mut self, max_recipe_count: i32) -> Self {
         self.max_recipe_count = Some(max_recipe_count);
         self
     }
 
     /// Sets the maximum number of key ranges requested in each cache update.
+    #[allow(dead_code)] // Used for tuning update batch limits and tests
     pub(crate) fn with_max_range_count(mut self, max_range_count: i32) -> Self {
         self.max_range_count = Some(max_range_count);
         self
@@ -279,7 +283,7 @@ fn build_fetch_request(
 fn handle_stream_message(proto_cache_update: ProtoCacheUpdate, cache_updater: &CacheUpdater) {
     match proto_cache_update.cnv() {
         Ok(cache_update) => {
-            cache_updater.process_cache_update(&cache_update);
+            cache_updater.process_cache_update(cache_update);
         }
         Err(conversion_error) => {
             warn!(
@@ -383,12 +387,12 @@ async fn execute_subscriber_iteration(
         config.max_recipe_count,
         config.max_range_count,
     );
-    let channel_hint = config.spanner.next_channel_hint();
+    let channel = config.spanner.next_channel();
 
     debug!(database = %config.database, "Connecting to FetchCacheUpdate stream");
     let connect_future = config
         .spanner
-        .fetch_cache_update(request, RequestOptions::default(), channel_hint)
+        .fetch_cache_update(request, RequestOptions::default(), channel)
         .send();
     tokio::pin!(connect_future);
 
@@ -501,7 +505,9 @@ async fn run_subscriber_loop(
 mod tests {
     use super::*;
     use crate::client::Channel;
+    use crate::model::{CacheUpdate, Range};
     use crate::routing::connection_cache::ConnectionCache;
+    use crate::routing::endpoint_lifecycle::EndpointLifecycleManager;
     use crate::routing::key_range_cache::{KeyRangeCache, RangeMode};
     use crate::routing::key_recipe_cache::KeyRecipeCache;
     use crate::routing::server_connection::ServerConnection;
@@ -582,15 +588,21 @@ mod tests {
 
     fn sample_cache_updater() -> Arc<CacheUpdater> {
         let channel = Channel::new_for_test(DummyStub);
-        let default_connection =
-            ServerConnection::new("default.spanner.googleapis.com:443".to_string(), channel);
+        let default_connection = ServerConnection::new_default(
+            "default.spanner.googleapis.com:443".to_string(),
+            channel,
+        );
         let connection_cache = Arc::new(ConnectionCache::new(default_connection));
         let key_range_cache = Arc::new(KeyRangeCache::new());
         let key_recipe_cache = Arc::new(KeyRecipeCache::new());
+        let endpoint_lifecycle_manager =
+            Arc::new(EndpointLifecycleManager::new(Arc::clone(&connection_cache)));
         Arc::new(CacheUpdater::new(
+            "projects/test-project/instances/test-instance/databases/test-database",
             key_range_cache,
             key_recipe_cache,
             connection_cache,
+            endpoint_lifecycle_manager,
             ClientConfig::default(),
         ))
     }
@@ -1099,6 +1111,74 @@ mod tests {
             }
             tokio::task::yield_now().await;
         }
+
+        subscriber.wait_for_shutdown().await;
+    }
+
+    #[tokio_test_no_panics]
+    async fn subscriber_updates_database_id_and_invalidates_caches_on_database_switch() {
+        let cache_updater = sample_cache_updater();
+        let (attempt_sender, mut attempt_receiver) = mpsc::channel(4);
+
+        // Pre-populate with database ID 1
+        let pre_update = CacheUpdate::new().set_database_id(1u64).set_range(vec![
+            Range::new()
+                .set_group_uid(1u64)
+                .set_start_key(vec![b'a'])
+                .set_limit_key(vec![b'm']),
+        ]);
+        cache_updater.process_cache_update(pre_update);
+        assert_eq!(cache_updater.database_id(), 1);
+        assert_eq!(cache_updater.key_range_cache().len(), 1);
+
+        let mut mock = MockSpanner::new();
+        mock.expect_fetch_cache_update().returning(move |_req| {
+            let _ = attempt_sender.try_send(());
+            let (stream_sender, stream_receiver) = mpsc::channel(4);
+            let mut new_db_update =
+                sample_proto_cache_update(b"m", b"z", "new-node.spanner.internal:1000");
+            new_db_update.database_id = 999;
+            tokio::spawn(async move {
+                let _ = stream_sender.send(Ok(new_db_update)).await;
+            });
+            Ok(Response::new(stream_receiver))
+        });
+
+        let (spanner, _server) = setup_spanner(mock).await;
+        let subscriber = CacheSubscriber::start(
+            "projects/p/instances/i/databases/d".to_string(),
+            spanner,
+            Arc::clone(&cache_updater),
+        );
+
+        attempt_receiver
+            .recv()
+            .await
+            .expect("initial connection attempt should arrive");
+
+        loop {
+            if cache_updater.database_id() == 999 {
+                break;
+            }
+            tokio::task::yield_now().await;
+        }
+
+        // Cache must have been invalidated on DB switch from 1 to 999, so only the new range (m..z) exists
+        assert_eq!(cache_updater.database_id(), 999);
+        assert!(
+            cache_updater
+                .key_range_cache()
+                .find_range(b"b", &[], RangeMode::CoveringSplit)
+                .is_none(),
+            "old database range must be cleared on database ID switch"
+        );
+        assert!(
+            cache_updater
+                .key_range_cache()
+                .find_range(b"p", &[], RangeMode::CoveringSplit)
+                .is_some(),
+            "new database range must be present"
+        );
 
         subscriber.wait_for_shutdown().await;
     }

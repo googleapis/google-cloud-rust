@@ -658,6 +658,17 @@ pub mod confidential_computing {
             self
         }
 
+        /// Sets the value of [platform_type][crate::model::VerifyConfidentialGkeRequest::platform_type].
+        pub fn set_platform_type<
+            T: Into<crate::model::verify_confidential_gke_request::PlatformType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.platform_type = v.into();
+            self
+        }
+
         /// Sets the value of [tee_attestation][crate::model::VerifyConfidentialGkeRequest::tee_attestation].
         ///
         /// Note that all the setters affecting `tee_attestation` are

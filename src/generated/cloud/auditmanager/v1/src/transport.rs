@@ -56,6 +56,7 @@ impl super::stub::AuditManager for AuditManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_scope = try_match(
@@ -70,6 +71,7 @@ impl super::stub::AuditManager for AuditManager {
                 let path = format!("/v1/{}:enrollResource", var_scope,);
                 let path_template = "/v1/{scope}:enrollResource";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.scope));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -87,6 +89,7 @@ impl super::stub::AuditManager for AuditManager {
                 let path = format!("/v1/{}:enrollResource", var_scope,);
                 let path_template = "/v1/{scope}:enrollResource";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.scope));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -104,6 +107,7 @@ impl super::stub::AuditManager for AuditManager {
                 let path = format!("/v1/{}:enrollResource", var_scope,);
                 let path_template = "/v1/{scope}:enrollResource";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.scope));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -186,6 +190,7 @@ impl super::stub::AuditManager for AuditManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_scope = try_match(
@@ -200,6 +205,7 @@ impl super::stub::AuditManager for AuditManager {
                 let path = format!("/v1/{}/auditScopeReports:generate", var_scope,);
                 let path_template = "/v1/{scope}/auditScopeReports:generate";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.scope));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -217,6 +223,7 @@ impl super::stub::AuditManager for AuditManager {
                 let path = format!("/v1/{}/auditScopeReports:generate", var_scope,);
                 let path_template = "/v1/{scope}/auditScopeReports:generate";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.scope));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -234,6 +241,7 @@ impl super::stub::AuditManager for AuditManager {
                 let path = format!("/v1/{}/auditScopeReports:generate", var_scope,);
                 let path_template = "/v1/{scope}/auditScopeReports:generate";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.scope));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -318,6 +326,7 @@ impl super::stub::AuditManager for AuditManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_scope = try_match(
@@ -332,6 +341,7 @@ impl super::stub::AuditManager for AuditManager {
                 let path = format!("/v1/{}/auditReports:generate", var_scope,);
                 let path_template = "/v1/{scope}/auditReports:generate";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.scope));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -349,6 +359,7 @@ impl super::stub::AuditManager for AuditManager {
                 let path = format!("/v1/{}/auditReports:generate", var_scope,);
                 let path_template = "/v1/{scope}/auditReports:generate";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.scope));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -366,6 +377,7 @@ impl super::stub::AuditManager for AuditManager {
                 let path = format!("/v1/{}/auditReports:generate", var_scope,);
                 let path_template = "/v1/{scope}/auditReports:generate";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.scope));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1592,6 +1604,7 @@ impl super::stub::AuditManager for AuditManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1608,6 +1621,7 @@ impl super::stub::AuditManager for AuditManager {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -1627,6 +1641,7 @@ impl super::stub::AuditManager for AuditManager {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

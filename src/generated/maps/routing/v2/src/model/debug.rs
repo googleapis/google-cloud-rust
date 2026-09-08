@@ -110,8 +110,11 @@ impl std::fmt::Debug for super::Polyline {
 impl std::fmt::Debug for super::PolylineDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PolylineDetails");
+        debug_struct.field("tunnel_info", &self.tunnel_info);
         debug_struct.field("flyover_info", &self.flyover_info);
         debug_struct.field("narrow_road_info", &self.narrow_road_info);
+        debug_struct.field("bridge_info", &self.bridge_info);
+        debug_struct.field("skyway_info", &self.skyway_info);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -124,6 +127,42 @@ impl std::fmt::Debug for super::polyline_details::PolylinePointIndex {
         let mut debug_struct = f.debug_struct("PolylinePointIndex");
         debug_struct.field("start_index", &self.start_index);
         debug_struct.field("end_index", &self.end_index);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::polyline_details::TunnelInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TunnelInfo");
+        debug_struct.field("tunnel_presence", &self.tunnel_presence);
+        debug_struct.field("polyline_point_index", &self.polyline_point_index);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::polyline_details::BridgeInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BridgeInfo");
+        debug_struct.field("bridge_presence", &self.bridge_presence);
+        debug_struct.field("polyline_point_index", &self.polyline_point_index);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::polyline_details::SkywayInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SkywayInfo");
+        debug_struct.field("skyway_presence", &self.skyway_presence);
+        debug_struct.field("polyline_point_index", &self.polyline_point_index);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -382,6 +421,7 @@ impl std::fmt::Debug for super::RouteModifiers {
         debug_struct.field("avoid_indoor", &self.avoid_indoor);
         debug_struct.field("vehicle_info", &self.vehicle_info);
         debug_struct.field("toll_passes", &self.toll_passes);
+        debug_struct.field("avoid_tunnels", &self.avoid_tunnels);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -140,8 +140,9 @@ impl ManagedSessionMaintainer {
                     .set_creator_role(database_role),
             );
 
+        let channel = spanner.next_channel();
         spanner
-            .create_session(request, options.clone(), spanner.next_channel_hint(), o11y)
+            .create_session(request, options.clone(), channel, o11y)
             .await
     }
 

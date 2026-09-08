@@ -4425,6 +4425,12 @@ pub mod dependency {
         /// Required. Where should the files be placed on the worker.
         pub dest_path: std::string::String,
 
+        /// Optional. True if remote tags should be fetched too (default false).
+        /// Note: when depth is 1 (default), git fetch only retrieves tags pointing
+        /// to commits within the shallow boundary. Set depth to -1 to fetch all
+        /// historical tags.
+        pub fetch_tags: bool,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -4512,6 +4518,18 @@ pub mod dependency {
         /// ```
         pub fn set_dest_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.dest_path = v.into();
+            self
+        }
+
+        /// Sets the value of [fetch_tags][crate::model::dependency::GitSourceDependency::fetch_tags].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_build_v1::model::dependency::GitSourceDependency;
+        /// let x = GitSourceDependency::new().set_fetch_tags(true);
+        /// ```
+        pub fn set_fetch_tags<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.fetch_tags = v.into();
             self
         }
     }

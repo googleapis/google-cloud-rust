@@ -878,6 +878,20 @@ pub trait SessionService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::RunSessionResponse>>;
 
+    async fn stream_run_session(
+        &self,
+        req: crate::model::RunSessionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::RunSessionResponse>>;
+
+    fn bidi_run_session(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::BidiSessionClientMessage>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::BidiSessionServerMessage>,
+    );
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -925,6 +939,27 @@ impl<T: super::SessionService> SessionService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::RunSessionResponse>> {
         T::run_session(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn stream_run_session(
+        &self,
+        req: crate::model::RunSessionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::RunSessionResponse>>
+    {
+        T::stream_run_session(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    fn bidi_run_session(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::BidiSessionClientMessage>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::BidiSessionServerMessage>,
+    ) {
+        T::bidi_run_session(self, options)
     }
 
     /// Forwards the call to the implementation provided by `T`.

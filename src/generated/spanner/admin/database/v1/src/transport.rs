@@ -126,6 +126,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -141,6 +142,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 let path_template = "/v1/{parent}/databases";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -354,6 +356,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_database = try_match(
@@ -371,6 +374,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 let path_template = "/v1/{database}/ddl";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_database,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.database));
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
@@ -578,6 +582,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -595,6 +600,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -615,6 +621,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -637,6 +644,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -728,6 +736,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -745,6 +754,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 let path_template = "/v1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -765,6 +775,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 let path_template = "/v1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -787,6 +798,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 let path_template = "/v1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -878,6 +890,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -895,6 +908,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -915,6 +929,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -937,6 +952,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -959,6 +975,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1152,6 +1169,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -1167,6 +1185,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 let path_template = "/v1/{parent}/backups:copy";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1529,6 +1548,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -1544,6 +1564,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 let path_template = "/v1/{parent}/databases:restore";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1821,6 +1842,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_database = try_match(
@@ -1838,6 +1860,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 let path_template = "/v1/{database}:addSplitPoints";
 
                 let resource_name = format!("//spanner.googleapis.com/{}", var_database,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.database));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))

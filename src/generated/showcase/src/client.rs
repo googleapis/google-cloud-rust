@@ -730,7 +730,30 @@ impl Echo {
         super::builder::echo::FailEchoWithDetails::new(self.inner.clone())
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
+    /// This method splits the given content into words and will pass each word back
+    /// through the stream. This method showcases server-side streaming RPCs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Echo;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Echo
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.expand()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn expand(&self) -> super::builder::echo::Expand {
+        super::builder::echo::Expand::new(self.inner.clone())
+    }
+
     /// This method, upon receiving a request on the stream, will pass the same
     /// content back on the stream. This method showcases bidirectional
     /// streaming RPCs.
@@ -739,17 +762,16 @@ impl Echo {
     /// ```
     /// # use google_cloud_showcase_v1beta1::client::Echo;
     /// # use google_cloud_showcase_v1beta1::model::EchoRequest;
-    /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
     ///    client: &Echo
-    /// ) -> Result<()> {
-    ///     let (sender, mut receiver) = client.chat()
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.chat()
     ///         .build();
     ///
     ///     sender.send(EchoRequest::default()).await?;
     ///     drop(sender); // Half-close the stream
     ///
-    ///     while let Some(response) = receiver.recv().await {
+    ///     while let Some(response) = resp_stream.next().await {
     ///         let response = response?;
     ///         println!("response {:?}", response);
     ///     }
@@ -1878,7 +1900,30 @@ impl Messaging {
         super::builder::messaging::SearchBlurbs::new(self.inner.clone())
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
+    /// This returns a stream that emits the blurbs that are created for a
+    /// particular chat room or user profile.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.stream_blurbs()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn stream_blurbs(&self) -> super::builder::messaging::StreamBlurbs {
+        super::builder::messaging::StreamBlurbs::new(self.inner.clone())
+    }
+
     /// This method starts a bidirectional stream that receives all blurbs that
     /// are being created after the stream has started and sends requests to create
     /// blurbs. If an invalid blurb is requested to be created, the stream will
@@ -1888,17 +1933,16 @@ impl Messaging {
     /// ```
     /// # use google_cloud_showcase_v1beta1::client::Messaging;
     /// # use google_cloud_showcase_v1beta1::model::ConnectRequest;
-    /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
     ///    client: &Messaging
-    /// ) -> Result<()> {
-    ///     let (sender, mut receiver) = client.connect()
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.connect()
     ///         .build();
     ///
     ///     sender.send(ConnectRequest::default()).await?;
     ///     drop(sender); // Half-close the stream
     ///
-    ///     while let Some(response) = receiver.recv().await {
+    ///     while let Some(response) = resp_stream.next().await {
     ///         let response = response?;
     ///         println!("response {:?}", response);
     ///     }
@@ -2322,6 +2366,34 @@ impl SequenceService {
     /// ```
     pub fn attempt_sequence(&self) -> super::builder::sequence_service::AttemptSequence {
         super::builder::sequence_service::AttemptSequence::new(self.inner.clone())
+    }
+
+    /// Attempts a server streaming call with a sequence of responses
+    /// Can be used to test retries and stream resumption logic
+    /// May not function as expected in HTTP mode due to when http statuses are sent
+    /// See <https://github.com/googleapis/gapic-showcase/issues/1377> for more details
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::SequenceService;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &SequenceService
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.attempt_streaming_sequence()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn attempt_streaming_sequence(
+        &self,
+    ) -> super::builder::sequence_service::AttemptStreamingSequence {
+        super::builder::sequence_service::AttemptStreamingSequence::new(self.inner.clone())
     }
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.

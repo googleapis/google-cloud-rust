@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::channel_pool::TransactionAffinity;
 use crate::client::amend_request_options_for_lar;
 use crate::database_client::DatabaseClient;
 use crate::google::spanner::v1::result_set_stats::RowCount::RowCountLowerBound;
@@ -26,6 +27,7 @@ use crate::transaction_retry_policy::{
 };
 use gaxi::prost::FromProto;
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
+use std::sync::Arc;
 
 /// A builder for [PartitionedDmlTransaction].
 ///
@@ -191,6 +193,7 @@ impl PartitionedDmlTransaction {
             let client = client.clone();
 
             async move {
+                let _affinity = Arc::new(TransactionAffinity::new_read_write());
                 let transaction = client
                     .begin_transaction(begin_request, gax_options.clone(), channel_hint)
                     .await?;
@@ -516,6 +519,10 @@ mod tests {
         use spanner_grpc_mock::start;
 
         let mut mock = MockSpanner::new();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
         mock.expect_create_session().returning(|_| {
             Ok(tonic::Response::new(v1::Session {
                 name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
@@ -568,7 +575,11 @@ mod tests {
             .build()
             .await?;
 
-        let db_client = client.database_client("db").build().await?;
+        let db_client = client
+            .database_client("db")
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
         let transaction = db_client.partitioned_dml_transaction().build().await?;
         let statement = Statement::builder("UPDATE Users SET active = true").build();
         let rows = transaction.execute_update(statement).await?;

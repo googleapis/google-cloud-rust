@@ -1559,6 +1559,100 @@ impl<'de> serde::de::Deserialize<'de> for super::JavaScriptUDF {
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::Compression {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __compression_algorithm,
+            __compression_mode,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Compression")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "compressionAlgorithm" => Ok(__FieldTag::__compression_algorithm),
+                            "compression_algorithm" => Ok(__FieldTag::__compression_algorithm),
+                            "compressionMode" => Ok(__FieldTag::__compression_mode),
+                            "compression_mode" => Ok(__FieldTag::__compression_mode),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::Compression;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Compression")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__compression_algorithm => {
+                            if !fields.insert(__FieldTag::__compression_algorithm) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for compression_algorithm",
+                                ));
+                            }
+                            result.compression_algorithm = map
+                                .next_value::<std::option::Option<
+                                    crate::model::compression::CompressionAlgorithm,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__compression_mode => {
+                            if !fields.insert(__FieldTag::__compression_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for compression_mode",
+                                ));
+                            }
+                            result.compression_mode = map.next_value::<std::option::Option<crate::model::compression::CompressionMode>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::AIInference {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -1766,6 +1860,7 @@ impl<'de> serde::de::Deserialize<'de> for super::MessageTransform {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __javascript_udf,
+            __compression,
             __ai_inference,
             __enabled,
             __disabled,
@@ -1791,6 +1886,7 @@ impl<'de> serde::de::Deserialize<'de> for super::MessageTransform {
                         match value {
                             "javascriptUdf" => Ok(__FieldTag::__javascript_udf),
                             "javascript_udf" => Ok(__FieldTag::__javascript_udf),
+                            "compression" => Ok(__FieldTag::__compression),
                             "aiInference" => Ok(__FieldTag::__ai_inference),
                             "ai_inference" => Ok(__FieldTag::__ai_inference),
                             "enabled" => Ok(__FieldTag::__enabled),
@@ -1835,6 +1931,26 @@ impl<'de> serde::de::Deserialize<'de> for super::MessageTransform {
                                 crate::model::message_transform::Transform::JavascriptUdf(
                                     map.next_value::<std::option::Option<
                                         std::boxed::Box<crate::model::JavaScriptUDF>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__compression => {
+                            if !fields.insert(__FieldTag::__compression) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for compression",
+                                ));
+                            }
+                            if result.transform.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `transform`, a oneof with full ID .google.pubsub.v1.MessageTransform.compression, latest field was compression",
+                                ));
+                            }
+                            result.transform = std::option::Option::Some(
+                                crate::model::message_transform::Transform::Compression(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::Compression>,
                                     >>()?
                                     .unwrap_or_default(),
                                 ),
@@ -6425,6 +6541,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Schema {
             __name,
             __type,
             __definition,
+            __compiled_proto_schema,
             __revision_id,
             __revision_create_time,
             Unknown(std::string::String),
@@ -6450,6 +6567,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Schema {
                             "name" => Ok(__FieldTag::__name),
                             "type" => Ok(__FieldTag::__type),
                             "definition" => Ok(__FieldTag::__definition),
+                            "compiledProtoSchema" => Ok(__FieldTag::__compiled_proto_schema),
+                            "compiled_proto_schema" => Ok(__FieldTag::__compiled_proto_schema),
                             "revisionId" => Ok(__FieldTag::__revision_id),
                             "revision_id" => Ok(__FieldTag::__revision_id),
                             "revisionCreateTime" => Ok(__FieldTag::__revision_create_time),
@@ -6508,6 +6627,26 @@ impl<'de> serde::de::Deserialize<'de> for super::Schema {
                             result.definition = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__compiled_proto_schema => {
+                            if !fields.insert(__FieldTag::__compiled_proto_schema) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for compiled_proto_schema",
+                                ));
+                            }
+                            if result.configuration.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `configuration`, a oneof with full ID .google.pubsub.v1.Schema.compiled_proto_schema, latest field was compiledProtoSchema",
+                                ));
+                            }
+                            result.configuration = std::option::Option::Some(
+                                crate::model::schema::Configuration::CompiledProtoSchema(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::CompiledProtoSchema>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
                         }
                         __FieldTag::__revision_id => {
                             if !fields.insert(__FieldTag::__revision_id) {
@@ -7894,6 +8033,110 @@ impl<'de> serde::de::Deserialize<'de> for super::ValidateMessageResponse {
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::CompiledProtoSchema {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __root_message,
+            __compiled_bytes,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CompiledProtoSchema")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "rootMessage" => Ok(__FieldTag::__root_message),
+                            "root_message" => Ok(__FieldTag::__root_message),
+                            "compiledBytes" => Ok(__FieldTag::__compiled_bytes),
+                            "compiled_bytes" => Ok(__FieldTag::__compiled_bytes),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::CompiledProtoSchema;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CompiledProtoSchema")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__root_message => {
+                            if !fields.insert(__FieldTag::__root_message) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for root_message",
+                                ));
+                            }
+                            result.root_message = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__compiled_bytes => {
+                            if !fields.insert(__FieldTag::__compiled_bytes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for compiled_bytes",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.compiled_bytes =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);

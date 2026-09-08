@@ -188,7 +188,7 @@ async fn seek_error() -> Result {
 
 async fn parse_multipart_body(
     mut request: Request,
-) -> anyhow::Result<(bytes::Bytes, bytes::Bytes)> {
+) -> anyhow::Result<(bytes::Bytes, bytes::Bytes, Option<bytes::Bytes>)> {
     let boundary = request
         .headers()
         .get("content-type")
@@ -212,12 +212,18 @@ async fn parse_multipart_body(
     };
     let payload = p.bytes().await?;
 
+    let checksums = if let Some(c) = multipart.next_field().await? {
+        Some(c.bytes().await?)
+    } else {
+        None
+    };
+
     assert!(
         multipart.next_field().await?.is_none(),
         "unexpected extra fields"
     );
 
-    Ok((metadata, payload))
+    Ok((metadata, payload, checksums))
 }
 
 fn response_body() -> Value {
@@ -254,7 +260,7 @@ async fn upload_object_bytes() -> Result {
         request.url().as_str(),
         "http://private.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=multipart&name=object"
     );
-    let (_metadata, contents) = parse_multipart_body(request).await?;
+    let (_metadata, contents, _checksums) = parse_multipart_body(request).await?;
     assert_eq!(contents, "hello");
     Ok(())
 }
@@ -283,7 +289,7 @@ async fn upload_object_metadata() -> Result {
         request.url().as_str(),
         "http://private.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=multipart&name=object"
     );
-    let (metadata, contents) = parse_multipart_body(request).await?;
+    let (metadata, contents, _checksums) = parse_multipart_body(request).await?;
     assert_eq!(contents, "hello");
     let object = serde_json::from_slice::<Value>(&metadata)?;
     assert_eq!(object, json!({"metadata": {"k0": "v0", "k1": "v1"}}));
@@ -313,7 +319,7 @@ async fn upload_object_stream() -> Result {
         request.url().as_str(),
         "http://private.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=multipart&name=object"
     );
-    let (_metadata, contents) = parse_multipart_body(request).await?;
+    let (_metadata, contents, _checksums) = parse_multipart_body(request).await?;
     assert_eq!(contents, "the quick brown fox jumps over the lazy dog");
     Ok(())
 }
@@ -611,4 +617,208 @@ async fn retry_transient_failures_exhausted() -> Result {
     assert_eq!(err.http_status_code(), Some(503), "{err:?}");
 
     Ok(())
+}
+
+mod trailing_checksums {
+    use super::*;
+
+    const VEXING: &str = "how vexingly quick daft zebras jump";
+
+    #[tokio::test]
+    async fn default_expecting_trailing_crc32c() -> Result {
+        let inner = test_inner_client(test_builder()).await;
+        let options = inner.options.clone();
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
+        let builder = WriteObject::new(
+            stub,
+            "projects/_/buckets/test-bucket",
+            "test-object",
+            VEXING,
+            options,
+        );
+        let request = perform_upload(inner, builder)
+            .single_shot_builder(SizeHint::with_exact(VEXING.len() as u64))
+            .await?
+            .build_for_tests()
+            .await?;
+
+        let (metadata, contents, checksums) = parse_multipart_body(request).await?;
+        assert_eq!(contents, VEXING);
+        let metadata_json = serde_json::from_slice::<Value>(&metadata)?;
+        assert!(metadata_json.get("crc32c").is_none());
+        assert!(metadata_json.get("md5Hash").is_none());
+
+        let checksums_bytes = checksums.expect("Part 3 trailing checksums should be present");
+        let checksums_json = serde_json::from_slice::<Value>(&checksums_bytes)?;
+        assert_eq!(checksums_json, json!({"crc32c": "9esWHQ=="}));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn compute_md5_expecting_trailing_both() -> Result {
+        let inner = test_inner_client(test_builder()).await;
+        let options = inner.options.clone();
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
+        let builder = WriteObject::new(
+            stub,
+            "projects/_/buckets/test-bucket",
+            "test-object",
+            VEXING,
+            options,
+        )
+        .compute_md5();
+        let request = perform_upload(inner, builder)
+            .single_shot_builder(SizeHint::with_exact(VEXING.len() as u64))
+            .await?
+            .build_for_tests()
+            .await?;
+
+        let (metadata, contents, checksums) = parse_multipart_body(request).await?;
+        assert_eq!(contents, VEXING);
+        let metadata_json = serde_json::from_slice::<Value>(&metadata)?;
+        assert!(metadata_json.get("crc32c").is_none());
+        assert!(metadata_json.get("md5Hash").is_none());
+
+        let checksums_bytes = checksums.expect("Part 3 trailing checksums should be present");
+        let checksums_json = serde_json::from_slice::<Value>(&checksums_bytes)?;
+        assert_eq!(
+            checksums_json,
+            json!({
+                "crc32c": "9esWHQ==",
+                "md5Hash": "XsWNN3ATlnzCdna3JNYDJw=="
+            })
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn known_crc32c_expecting_no_trailing() -> Result {
+        let inner = test_inner_client(test_builder()).await;
+        let options = inner.options.clone();
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
+        let builder = WriteObject::new(
+            stub,
+            "projects/_/buckets/test-bucket",
+            "test-object",
+            VEXING,
+            options,
+        )
+        .with_known_crc32c(crc32c::crc32c(VEXING.as_bytes()));
+        let request = perform_upload(inner, builder)
+            .single_shot_builder(SizeHint::with_exact(VEXING.len() as u64))
+            .await?
+            .build_for_tests()
+            .await?;
+
+        let (metadata, contents, checksums) = parse_multipart_body(request).await?;
+        assert_eq!(contents, VEXING);
+        let metadata_json = serde_json::from_slice::<Value>(&metadata)?;
+        assert_eq!(metadata_json.get("crc32c"), Some(&json!("9esWHQ==")));
+        assert!(
+            checksums.is_none(),
+            "Part 3 should not be generated when known crc32c is provided"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn known_both_expecting_no_trailing() -> Result {
+        let inner = test_inner_client(test_builder()).await;
+        let options = inner.options.clone();
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
+        let builder = WriteObject::new(
+            stub,
+            "projects/_/buckets/test-bucket",
+            "test-object",
+            VEXING,
+            options,
+        )
+        .with_known_crc32c(crc32c::crc32c(VEXING.as_bytes()))
+        .with_known_md5_hash(md5::compute(VEXING.as_bytes()).0);
+        let request = perform_upload(inner, builder)
+            .single_shot_builder(SizeHint::with_exact(VEXING.len() as u64))
+            .await?
+            .build_for_tests()
+            .await?;
+
+        let (metadata, contents, checksums) = parse_multipart_body(request).await?;
+        assert_eq!(contents, VEXING);
+        let metadata_json = serde_json::from_slice::<Value>(&metadata)?;
+        assert_eq!(metadata_json.get("crc32c"), Some(&json!("9esWHQ==")));
+        assert_eq!(
+            metadata_json.get("md5Hash"),
+            Some(&json!("XsWNN3ATlnzCdna3JNYDJw=="))
+        );
+        assert!(
+            checksums.is_none(),
+            "Part 3 should not be generated when both known checksums are provided"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn known_md5_expecting_trailing_crc32c() -> Result {
+        let inner = test_inner_client(test_builder()).await;
+        let options = inner.options.clone();
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
+        let builder = WriteObject::new(
+            stub,
+            "projects/_/buckets/test-bucket",
+            "test-object",
+            VEXING,
+            options,
+        )
+        .with_known_md5_hash(md5::compute(VEXING.as_bytes()).0);
+        let request = perform_upload(inner, builder)
+            .single_shot_builder(SizeHint::with_exact(VEXING.len() as u64))
+            .await?
+            .build_for_tests()
+            .await?;
+
+        let (metadata, contents, checksums) = parse_multipart_body(request).await?;
+        assert_eq!(contents, VEXING);
+        let metadata_json = serde_json::from_slice::<Value>(&metadata)?;
+        assert_eq!(
+            metadata_json.get("md5Hash"),
+            Some(&json!("XsWNN3ATlnzCdna3JNYDJw=="))
+        );
+        assert!(metadata_json.get("crc32c").is_none());
+
+        let checksums_bytes =
+            checksums.expect("Part 3 should still be present for default on-the-fly crc32c");
+        let checksums_json = serde_json::from_slice::<Value>(&checksums_bytes)?;
+        assert_eq!(checksums_json, json!({"crc32c": "9esWHQ=="}));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn precompute_expecting_no_trailing() -> Result {
+        let inner = test_inner_client(test_builder()).await;
+        let options = inner.options.clone();
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
+        let builder = WriteObject::new(
+            stub,
+            "projects/_/buckets/test-bucket",
+            "test-object",
+            VEXING,
+            options,
+        )
+        .precompute_checksums()
+        .await?;
+        let request = perform_upload(inner, builder)
+            .single_shot_builder(SizeHint::with_exact(VEXING.len() as u64))
+            .await?
+            .build_for_tests()
+            .await?;
+
+        let (metadata, contents, checksums) = parse_multipart_body(request).await?;
+        assert_eq!(contents, VEXING);
+        let metadata_json = serde_json::from_slice::<Value>(&metadata)?;
+        assert_eq!(metadata_json.get("crc32c"), Some(&json!("9esWHQ==")));
+        assert!(
+            checksums.is_none(),
+            "Part 3 should not be generated when checksums are precomputed"
+        );
+        Ok(())
+    }
 }

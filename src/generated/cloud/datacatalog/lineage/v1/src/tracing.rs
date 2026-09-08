@@ -22,6 +22,7 @@ where
     T: super::stub::Lineage + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -277,6 +278,16 @@ where
             method: "client::Lineage::batch_search_link_processes",
             self.inner.batch_search_link_processes(req, options));
         pending.await
+    }
+
+    async fn search_lineage_streaming(
+        &self,
+        req: crate::model::SearchLineageStreamingRequest,
+        options: crate::RequestOptions,
+    ) -> Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::SearchLineageStreamingResponse>,
+    > {
+        self.inner.search_lineage_streaming(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]

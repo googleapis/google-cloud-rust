@@ -367,6 +367,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
@@ -385,6 +386,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
 
                 let resource_name =
                     format!("//networksecurity.googleapis.com/{}", var_address_group,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.address_group));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -442,6 +444,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
@@ -460,6 +463,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
 
                 let resource_name =
                     format!("//networksecurity.googleapis.com/{}", var_address_group,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.address_group));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -515,6 +519,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
@@ -533,6 +538,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
 
                 let resource_name =
                     format!("//networksecurity.googleapis.com/{}", var_address_group,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.address_group));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -920,6 +926,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -937,6 +944,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -957,6 +965,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -977,6 +986,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -997,6 +1007,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1017,6 +1028,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1420,6 +1432,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -1437,6 +1450,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1457,6 +1471,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1477,6 +1492,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1497,6 +1513,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1517,6 +1534,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1537,6 +1555,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2003,6 +2022,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -2019,6 +2039,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -2038,6 +2059,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -2461,6 +2483,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
@@ -2479,6 +2502,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
 
                 let resource_name =
                     format!("//networksecurity.googleapis.com/{}", var_address_group,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.address_group));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2534,6 +2558,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
@@ -2552,6 +2577,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
 
                 let resource_name =
                     format!("//networksecurity.googleapis.com/{}", var_address_group,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.address_group));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -2607,6 +2633,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
@@ -2625,6 +2652,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
 
                 let resource_name =
                     format!("//networksecurity.googleapis.com/{}", var_address_group,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.address_group));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3010,6 +3038,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -3027,6 +3056,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3047,6 +3077,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3067,6 +3098,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3087,6 +3119,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3107,6 +3140,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3510,6 +3544,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -3527,6 +3562,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3547,6 +3583,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3567,6 +3604,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3587,6 +3625,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3607,6 +3646,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3627,6 +3667,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4093,6 +4134,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4109,6 +4151,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -4128,6 +4171,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -4808,6 +4852,7 @@ impl super::stub::DnsThreatDetectorService for DnsThreatDetectorService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -4825,6 +4870,7 @@ impl super::stub::DnsThreatDetectorService for DnsThreatDetectorService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4845,6 +4891,7 @@ impl super::stub::DnsThreatDetectorService for DnsThreatDetectorService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4865,6 +4912,7 @@ impl super::stub::DnsThreatDetectorService for DnsThreatDetectorService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4885,6 +4933,7 @@ impl super::stub::DnsThreatDetectorService for DnsThreatDetectorService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4905,6 +4954,7 @@ impl super::stub::DnsThreatDetectorService for DnsThreatDetectorService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5308,6 +5358,7 @@ impl super::stub::DnsThreatDetectorService for DnsThreatDetectorService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -5325,6 +5376,7 @@ impl super::stub::DnsThreatDetectorService for DnsThreatDetectorService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5345,6 +5397,7 @@ impl super::stub::DnsThreatDetectorService for DnsThreatDetectorService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5365,6 +5418,7 @@ impl super::stub::DnsThreatDetectorService for DnsThreatDetectorService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5385,6 +5439,7 @@ impl super::stub::DnsThreatDetectorService for DnsThreatDetectorService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5405,6 +5460,7 @@ impl super::stub::DnsThreatDetectorService for DnsThreatDetectorService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5425,6 +5481,7 @@ impl super::stub::DnsThreatDetectorService for DnsThreatDetectorService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5891,6 +5948,7 @@ impl super::stub::DnsThreatDetectorService for DnsThreatDetectorService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -5907,6 +5965,7 @@ impl super::stub::DnsThreatDetectorService for DnsThreatDetectorService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -5926,6 +5985,7 @@ impl super::stub::DnsThreatDetectorService for DnsThreatDetectorService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -7355,6 +7415,7 @@ impl super::stub::FirewallActivation for FirewallActivation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -7372,6 +7433,7 @@ impl super::stub::FirewallActivation for FirewallActivation {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7392,6 +7454,7 @@ impl super::stub::FirewallActivation for FirewallActivation {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7412,6 +7475,7 @@ impl super::stub::FirewallActivation for FirewallActivation {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7432,6 +7496,7 @@ impl super::stub::FirewallActivation for FirewallActivation {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7452,6 +7517,7 @@ impl super::stub::FirewallActivation for FirewallActivation {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7855,6 +7921,7 @@ impl super::stub::FirewallActivation for FirewallActivation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -7872,6 +7939,7 @@ impl super::stub::FirewallActivation for FirewallActivation {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7892,6 +7960,7 @@ impl super::stub::FirewallActivation for FirewallActivation {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7912,6 +7981,7 @@ impl super::stub::FirewallActivation for FirewallActivation {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7932,6 +8002,7 @@ impl super::stub::FirewallActivation for FirewallActivation {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7952,6 +8023,7 @@ impl super::stub::FirewallActivation for FirewallActivation {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -7972,6 +8044,7 @@ impl super::stub::FirewallActivation for FirewallActivation {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -8438,6 +8511,7 @@ impl super::stub::FirewallActivation for FirewallActivation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -8454,6 +8528,7 @@ impl super::stub::FirewallActivation for FirewallActivation {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -8473,6 +8548,7 @@ impl super::stub::FirewallActivation for FirewallActivation {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -10317,6 +10393,7 @@ impl super::stub::Intercept for Intercept {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -10334,6 +10411,7 @@ impl super::stub::Intercept for Intercept {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -10354,6 +10432,7 @@ impl super::stub::Intercept for Intercept {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -10374,6 +10453,7 @@ impl super::stub::Intercept for Intercept {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -10394,6 +10474,7 @@ impl super::stub::Intercept for Intercept {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -10414,6 +10495,7 @@ impl super::stub::Intercept for Intercept {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -10817,6 +10899,7 @@ impl super::stub::Intercept for Intercept {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -10834,6 +10917,7 @@ impl super::stub::Intercept for Intercept {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -10854,6 +10938,7 @@ impl super::stub::Intercept for Intercept {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -10874,6 +10959,7 @@ impl super::stub::Intercept for Intercept {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -10894,6 +10980,7 @@ impl super::stub::Intercept for Intercept {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -10914,6 +11001,7 @@ impl super::stub::Intercept for Intercept {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -10934,6 +11022,7 @@ impl super::stub::Intercept for Intercept {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -11400,6 +11489,7 @@ impl super::stub::Intercept for Intercept {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -11416,6 +11506,7 @@ impl super::stub::Intercept for Intercept {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -11435,6 +11526,7 @@ impl super::stub::Intercept for Intercept {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -13279,6 +13371,7 @@ impl super::stub::Mirroring for Mirroring {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -13296,6 +13389,7 @@ impl super::stub::Mirroring for Mirroring {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13316,6 +13410,7 @@ impl super::stub::Mirroring for Mirroring {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13336,6 +13431,7 @@ impl super::stub::Mirroring for Mirroring {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13356,6 +13452,7 @@ impl super::stub::Mirroring for Mirroring {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13376,6 +13473,7 @@ impl super::stub::Mirroring for Mirroring {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13779,6 +13877,7 @@ impl super::stub::Mirroring for Mirroring {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -13796,6 +13895,7 @@ impl super::stub::Mirroring for Mirroring {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13816,6 +13916,7 @@ impl super::stub::Mirroring for Mirroring {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13836,6 +13937,7 @@ impl super::stub::Mirroring for Mirroring {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13856,6 +13958,7 @@ impl super::stub::Mirroring for Mirroring {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13876,6 +13979,7 @@ impl super::stub::Mirroring for Mirroring {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -13896,6 +14000,7 @@ impl super::stub::Mirroring for Mirroring {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -14362,6 +14467,7 @@ impl super::stub::Mirroring for Mirroring {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -14378,6 +14484,7 @@ impl super::stub::Mirroring for Mirroring {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -14397,6 +14504,7 @@ impl super::stub::Mirroring for Mirroring {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -18128,6 +18236,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -18145,6 +18254,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18165,6 +18275,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18185,6 +18296,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18205,6 +18317,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18225,6 +18338,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18628,6 +18742,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -18645,6 +18760,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18665,6 +18781,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18685,6 +18802,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18705,6 +18823,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18725,6 +18844,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -18745,6 +18865,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -19211,6 +19332,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -19227,6 +19349,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -19246,6 +19369,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -20293,6 +20417,7 @@ impl super::stub::SecurityProfileGroupService for SecurityProfileGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -20310,6 +20435,7 @@ impl super::stub::SecurityProfileGroupService for SecurityProfileGroupService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20330,6 +20456,7 @@ impl super::stub::SecurityProfileGroupService for SecurityProfileGroupService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20350,6 +20477,7 @@ impl super::stub::SecurityProfileGroupService for SecurityProfileGroupService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20370,6 +20498,7 @@ impl super::stub::SecurityProfileGroupService for SecurityProfileGroupService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20390,6 +20519,7 @@ impl super::stub::SecurityProfileGroupService for SecurityProfileGroupService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20793,6 +20923,7 @@ impl super::stub::SecurityProfileGroupService for SecurityProfileGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -20810,6 +20941,7 @@ impl super::stub::SecurityProfileGroupService for SecurityProfileGroupService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20830,6 +20962,7 @@ impl super::stub::SecurityProfileGroupService for SecurityProfileGroupService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20850,6 +20983,7 @@ impl super::stub::SecurityProfileGroupService for SecurityProfileGroupService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20870,6 +21004,7 @@ impl super::stub::SecurityProfileGroupService for SecurityProfileGroupService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20890,6 +21025,7 @@ impl super::stub::SecurityProfileGroupService for SecurityProfileGroupService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -20910,6 +21046,7 @@ impl super::stub::SecurityProfileGroupService for SecurityProfileGroupService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -21376,6 +21513,7 @@ impl super::stub::SecurityProfileGroupService for SecurityProfileGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -21392,6 +21530,7 @@ impl super::stub::SecurityProfileGroupService for SecurityProfileGroupService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -21411,6 +21550,7 @@ impl super::stub::SecurityProfileGroupService for SecurityProfileGroupService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -22460,6 +22600,7 @@ impl super::stub::OrganizationSecurityProfileGroupService
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -22477,6 +22618,7 @@ impl super::stub::OrganizationSecurityProfileGroupService
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -22497,6 +22639,7 @@ impl super::stub::OrganizationSecurityProfileGroupService
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -22517,6 +22660,7 @@ impl super::stub::OrganizationSecurityProfileGroupService
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -22537,6 +22681,7 @@ impl super::stub::OrganizationSecurityProfileGroupService
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -22557,6 +22702,7 @@ impl super::stub::OrganizationSecurityProfileGroupService
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -22960,6 +23106,7 @@ impl super::stub::OrganizationSecurityProfileGroupService
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -22977,6 +23124,7 @@ impl super::stub::OrganizationSecurityProfileGroupService
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -22997,6 +23145,7 @@ impl super::stub::OrganizationSecurityProfileGroupService
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23017,6 +23166,7 @@ impl super::stub::OrganizationSecurityProfileGroupService
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23037,6 +23187,7 @@ impl super::stub::OrganizationSecurityProfileGroupService
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23057,6 +23208,7 @@ impl super::stub::OrganizationSecurityProfileGroupService
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23077,6 +23229,7 @@ impl super::stub::OrganizationSecurityProfileGroupService
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -23543,6 +23696,7 @@ impl super::stub::OrganizationSecurityProfileGroupService
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -23559,6 +23713,7 @@ impl super::stub::OrganizationSecurityProfileGroupService
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -23578,6 +23733,7 @@ impl super::stub::OrganizationSecurityProfileGroupService
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -24466,6 +24622,7 @@ impl super::stub::SSERealmService for SSERealmService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -24483,6 +24640,7 @@ impl super::stub::SSERealmService for SSERealmService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -24503,6 +24661,7 @@ impl super::stub::SSERealmService for SSERealmService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -24523,6 +24682,7 @@ impl super::stub::SSERealmService for SSERealmService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -24543,6 +24703,7 @@ impl super::stub::SSERealmService for SSERealmService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -24563,6 +24724,7 @@ impl super::stub::SSERealmService for SSERealmService {
                 let path_template = "/v1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -24966,6 +25128,7 @@ impl super::stub::SSERealmService for SSERealmService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
@@ -24983,6 +25146,7 @@ impl super::stub::SSERealmService for SSERealmService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -25003,6 +25167,7 @@ impl super::stub::SSERealmService for SSERealmService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -25023,6 +25188,7 @@ impl super::stub::SSERealmService for SSERealmService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -25043,6 +25209,7 @@ impl super::stub::SSERealmService for SSERealmService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -25063,6 +25230,7 @@ impl super::stub::SSERealmService for SSERealmService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -25083,6 +25251,7 @@ impl super::stub::SSERealmService for SSERealmService {
                 let path_template = "/v1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.resource));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -25549,6 +25718,7 @@ impl super::stub::SSERealmService for SSERealmService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -25565,6 +25735,7 @@ impl super::stub::SSERealmService for SSERealmService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -25584,6 +25755,7 @@ impl super::stub::SSERealmService for SSERealmService {
                 let path = format!("/v1/{}:cancel", var_name,);
                 let path_template = "/v1/{name}:cancel";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

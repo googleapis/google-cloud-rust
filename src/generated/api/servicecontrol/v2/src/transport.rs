@@ -56,6 +56,7 @@ impl super::stub::ServiceController for ServiceController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_service_name = try_match(
@@ -65,6 +66,7 @@ impl super::stub::ServiceController for ServiceController {
                 let path = format!("/v2/services/{}:check", var_service_name,);
                 let path_template = "/v2/services/{service_name}:check";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.service_name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -112,6 +114,7 @@ impl super::stub::ServiceController for ServiceController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_service_name = try_match(
@@ -121,6 +124,7 @@ impl super::stub::ServiceController for ServiceController {
                 let path = format!("/v2/services/{}:report", var_service_name,);
                 let path_template = "/v2/services/{service_name}:report";
 
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.service_name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))

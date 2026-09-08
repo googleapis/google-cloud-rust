@@ -22,6 +22,7 @@ where
     T: super::stub::DirectAccessService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -109,6 +110,16 @@ where
             method: "client::DirectAccessService::update_device_session",
             self.inner.update_device_session(req, options));
         pending.await
+    }
+
+    fn adb_connect(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::AdbMessage>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::DeviceMessage>,
+    ) {
+        self.inner.adb_connect(options)
     }
 }
 

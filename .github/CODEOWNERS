@@ -13,6 +13,8 @@
 # limitations under the License.
 
 *           @googleapis/cloud-sdk-rust-team
+# Root /Cargo.lock changes do not require a review from a dedicated team
+/Cargo.lock
 /librarian.yaml @googleapis/cloud-sdk-rust-team @googleapis/cloud-sdk-librarian-team
 /src/auth/  @googleapis/cloud-sdk-rust-team @googleapis/cloud-sdk-auth-team
 

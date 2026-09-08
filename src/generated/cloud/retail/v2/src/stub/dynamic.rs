@@ -530,6 +530,14 @@ impl<T: super::ControlService> ControlService for T {
 /// A dyn-compatible, crate-private version of [super::ConversationalSearchService].
 #[async_trait::async_trait]
 pub trait ConversationalSearchService: std::fmt::Debug + Send + Sync {
+    async fn conversational_search(
+        &self,
+        req: crate::model::ConversationalSearchRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::ConversationalSearchResponse>,
+    >;
+
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
@@ -546,6 +554,17 @@ pub trait ConversationalSearchService: std::fmt::Debug + Send + Sync {
 /// All implementations of [super::ConversationalSearchService] also implement [ConversationalSearchService].
 #[async_trait::async_trait]
 impl<T: super::ConversationalSearchService> ConversationalSearchService for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn conversational_search(
+        &self,
+        req: crate::model::ConversationalSearchRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::ConversationalSearchResponse>,
+    > {
+        T::conversational_search(self, req, options).await
+    }
+
     /// Forwards the call to the implementation provided by `T`.
     async fn list_operations(
         &self,

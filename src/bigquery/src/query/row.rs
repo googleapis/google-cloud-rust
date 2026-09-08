@@ -14,6 +14,7 @@
 
 use crate::error::{ConvertError, RowError};
 use crate::query::{FromSql, Schema};
+use google_cloud_bigquery_v2::model::TableFieldSchema;
 use std::sync::Arc;
 use wkt::{ListValue, Struct, Value};
 
@@ -21,7 +22,7 @@ pub type Result<T> = std::result::Result<T, RowError>;
 
 /// A container for a single row within a query result set.
 ///
-/// [`RowIterator::next()`](crate::RowIterator::next) yields a `Row`.
+/// [`RowIterator::next()`](crate::query::RowIterator::next) yields a `Row`.
 ///
 /// Each `Row` contains parsed cell values and a reference to the table schema.
 ///
@@ -31,8 +32,7 @@ pub type Result<T> = std::result::Result<T, RowError>;
 /// your domain types using `TryFrom<Row>` without unnecessary allocations:
 ///
 /// ```
-/// # use google_cloud_bigquery::FromRow;
-/// # use google_cloud_bigquery::Row;
+/// # use google_cloud_bigquery::query::{Row, FromRow};
 /// #[derive(FromRow, Debug)]
 /// struct UserStats {
 ///     name: String,
@@ -49,15 +49,15 @@ pub type Result<T> = std::result::Result<T, RowError>;
 /// # Field Extraction by Name or Index
 ///
 /// Retrieve individual cell values by column name (`&str`) or index (`usize`)
-/// using [`get()`](Row::get), [`try_get()`](Row::try_get), or
-/// [`take()`](Row::take):
+/// using [`get()`](Row::get) or [`take()`](Row::take):
 ///
 /// ```
-/// # use google_cloud_bigquery::Row;
-/// # fn sample(row: Row) {
-/// let name: String = row.get("name");
-/// let age: i64 = row.get(1);
+/// # use google_cloud_bigquery::query::Row;
+/// # fn sample(row: Row) -> anyhow::Result<()> {
+/// let name: String = row.get("name")?;
+/// let age: i64 = row.get(1)?;
 /// println!("{name} is {age} years old");
+/// # Ok(())
 /// # }
 /// ```
 #[derive(Clone, Debug)]
@@ -102,30 +102,7 @@ impl ColumnIndex for String {
 
 impl Row {
     pub(crate) fn try_new(row: Struct, schema: &Arc<Schema>) -> Result<Self> {
-        let field_list = get_field_list(row)?;
-
-        if field_list.len() != schema.len() {
-            return Err(RowError::InvalidRowFormat(format!(
-                "schema and row cell mismatch (expected {}, got {})",
-                schema.len(),
-                field_list.len()
-            )));
-        }
-
-        let mut values = ListValue::new();
-        for (i, cell) in field_list.into_iter().enumerate() {
-            let value = get_field_value(cell)?;
-            match schema.get_field_by_index(i) {
-                Some(f) => {
-                    let field_name = &f.name;
-                    let field_type = &f.r#type;
-                    let schema = Arc::new(Schema::new_from_field(f.clone()));
-                    let value = convert_value(value, field_name, field_type, &schema)?;
-                    values.push(value);
-                }
-                None => continue,
-            }
-        }
+        let values = convert_row(row, schema.fields())?;
 
         Ok(Self {
             values: Value::Array(values),
@@ -152,31 +129,25 @@ impl Row {
         })
     }
 
-    /// Attempts to retrieve a value from the row by column name or zero-based
-    /// index.
+    /// Retrieves a value from the row by column name or zero-based index.
     ///
-    /// The return type must implement [`FromSql`](crate::FromSql).
+    /// The return type must implement [`FromSql`](crate::query::FromSql).
     ///
-    /// # Errors
-    ///
-    /// Returns [`RowError::ColumnNotFound`](crate::error::RowError::ColumnNotFound)
-    /// if the column does not exist,
-    /// [`RowError::IndexOutOfRange`](crate::error::RowError::IndexOutOfRange) if
-    /// the index exceeds schema bounds, or
-    /// [`RowError::TypeConversion`](crate::error::RowError::TypeConversion) if
-    /// the value cannot be converted to `T`.
+    /// The cell value is cloned from the row data without modifying `self`. If
+    /// you want to take ownership and avoid cloning large values, see
+    /// [`take()`](Row::take).
     ///
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_bigquery::Row;
+    /// # use google_cloud_bigquery::query::Row;
     /// # fn sample(row: Row) -> anyhow::Result<()> {
-    /// let msg: String = row.try_get("msg")?;
+    /// let msg: String = row.get("msg")?;
     /// println!("Value: {msg}");
     /// # Ok(())
     /// # }
     /// ```
-    pub fn try_get<T: FromSql, I: ColumnIndex>(&self, index: I) -> Result<T> {
+    pub fn get<T: FromSql, I: ColumnIndex>(&self, index: I) -> Result<T> {
         let idx = self.resolve_index(&index)?;
         let val = self
             .values
@@ -192,21 +163,38 @@ impl Row {
     /// Takes ownership of a value from the row by column name or zero-based
     /// index.
     ///
-    /// This replaces the cell value in the row with `Value::Null` in-place to
-    /// avoid cloning. Attempting to read the column again after calling `take()`
-    /// yields `Value::Null`.
+    /// This method mutates `self` by extracting the cell value in-place to
+    /// avoid cloning. The extracted cell in the row is replaced with `NULL`.
+    /// Subsequent attempts to read or take the column will treat it as `NULL`
+    /// (returning `Ok(None)` when reading into `Option<T>`, or returning a
+    /// type conversion error for non-nullable types).
     ///
-    /// # Errors
+    /// <div class="warning">
     ///
-    /// Returns the same errors as [`try_get()`](Row::try_get).
+    /// `take()` removes the value from `self` before converting it to `T`. If
+    /// type conversion fails and returns an error, the original value has
+    /// already been consumed and cannot be recovered from the row.
+    ///
+    /// </div>
+    ///
+    /// If you are not sure of the column's type or need to read the value
+    /// multiple times, use [`get()`](Row::get) instead of `take()`. Use `take()`
+    /// when you are confident of the type and want to avoid cloning large values
+    /// (such as strings, byte buffers, or nested records).
     ///
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_bigquery::Row;
+    /// # use google_cloud_bigquery::query::Row;
     /// # fn sample(mut row: Row) -> anyhow::Result<()> {
     /// let text: String = row.take("big_text")?;
     /// println!("Length: {}", text.len());
+    ///
+    /// // Subsequent reads treat the column as NULL:
+    /// assert_eq!(row.get::<Option<String>, _>("big_text")?, None);
+    ///
+    /// // Attempting to read or take again as a non-nullable type fails:
+    /// assert!(row.take::<String, _>("big_text").is_err());
     /// # Ok(())
     /// # }
     /// ```
@@ -225,26 +213,23 @@ impl Row {
         let owned_val = std::mem::replace(val, Value::Null);
         self.convert_value_at(idx, owned_val)
     }
+}
 
-    /// Retrieves a value from the row by column name or zero-based index.
-    ///
-    /// # Panics
-    ///
-    /// Panics if the column does not exist or if the value cannot be converted
-    /// to type `T`.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// # use google_cloud_bigquery::Row;
-    /// # fn sample(row: Row) {
-    /// let count: i64 = row.get("count");
-    /// println!("Count: {count}");
-    /// # }
-    /// ```
-    pub fn get<T: FromSql, I: ColumnIndex>(&self, index: I) -> T {
-        self.try_get(index).unwrap()
+fn convert_row(row: Struct, fields: &[TableFieldSchema]) -> Result<ListValue> {
+    let mut field_list = get_field_list(row)?;
+
+    if field_list.len() != fields.len() {
+        return Err(RowError::InvalidRowFormat(format!(
+            "schema and row cell mismatch (expected {}, got {})",
+            fields.len(),
+            field_list.len()
+        )));
     }
+
+    for (cell, field) in field_list.iter_mut().zip(fields) {
+        *cell = convert_value(get_field_value(cell.take())?, field)?;
+    }
+    Ok(field_list)
 }
 
 fn get_field_list(mut row: Struct) -> Result<Vec<Value>> {
@@ -265,50 +250,35 @@ fn get_field_value(value: Value) -> Result<Value> {
     }
 }
 
-fn convert_value(
-    value: Value,
-    field_name: &str,
-    field_type: &str,
-    schema: &Arc<Schema>,
-) -> Result<Value> {
+fn convert_value(value: Value, field: &TableFieldSchema) -> Result<Value> {
     match value {
         Value::Null => Ok(Value::Null),
-        Value::String(v) => convert_basic_type(v, field_name, field_type),
-        Value::Object(v) => convert_nested(v, schema),
-        Value::Array(v) => convert_repeated(v, field_name, field_type, schema),
+        Value::String(v) => convert_basic_type(v, &field.name, &field.r#type),
+        Value::Object(v) => convert_nested(v, &field.fields),
+        Value::Array(v) => convert_repeated(v, field),
         _ => Err(RowError::InvalidRowFormat(format!(
             "cell value is not an object: value={:?}, field_type={:?}",
-            value, field_type
+            value, field.r#type
         ))),
     }
 }
 
-fn convert_repeated(
-    value: ListValue,
-    field_name: &str,
-    field_type: &str,
-    schema: &Arc<Schema>,
-) -> Result<Value> {
-    let mut values = ListValue::new();
-    for cell in value {
+fn convert_repeated(mut value: ListValue, field: &TableFieldSchema) -> Result<Value> {
+    for cell in &mut value {
         // each cell contains a single entry, keyed by "v"
-        let val = get_field_value(cell)?;
-        let v = convert_value(val, field_name, field_type, schema)?;
-        values.push(v);
+        let val = get_field_value(cell.take())?;
+        *cell = convert_value(val, field)?;
     }
-    Ok(Value::Array(values))
+    Ok(Value::Array(value))
 }
 
-fn convert_nested(value: Struct, schema: &Arc<Schema>) -> Result<Value> {
-    let row = Row::try_new(value, schema)?;
-    let mut obj = Struct::new();
-    if let Value::Array(list) = row.values {
-        for (i, val) in list.into_iter().enumerate() {
-            if let Some(field) = schema.get_field_by_index(i) {
-                obj.insert(field.name.clone(), val);
-            }
-        }
-    }
+fn convert_nested(value: Struct, fields: &[TableFieldSchema]) -> Result<Value> {
+    let values = convert_row(value, fields)?;
+    let obj: Struct = fields
+        .iter()
+        .zip(values)
+        .map(|(field, value)| (field.name.clone(), value))
+        .collect();
     Ok(Value::Object(obj))
 }
 
@@ -336,13 +306,18 @@ fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Resu
             }
         }
         "BOOLEAN" | "BOOL" => {
-            let b = value
-                .to_lowercase()
-                .parse::<bool>()
-                .map_err(|e| RowError::TypeConversion {
+            let b = if value.eq_ignore_ascii_case("true") {
+                true
+            } else if value.eq_ignore_ascii_case("false") {
+                false
+            } else {
+                return Err(RowError::TypeConversion {
                     column: field_name.to_string(),
-                    source: ConvertError::Convert(Box::new(e)),
-                })?;
+                    source: ConvertError::Convert(
+                        "provided string was not `true` or `false`".into(),
+                    ),
+                });
+            };
             Ok(Value::Bool(b))
         }
         _ => Err(RowError::InvalidRowFormat(format!(
@@ -356,7 +331,7 @@ fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Resu
 mod tests {
     use super::*;
     use crate as google_cloud_bigquery;
-    use crate::FromRow;
+    use crate::query::FromRow;
     use google_cloud_bigquery_v2::model::{TableFieldSchema, TableSchema};
     use google_cloud_type::model::Decimal;
     use rust_decimal::Decimal as RustDecimal;
@@ -402,39 +377,39 @@ mod tests {
         let schema = Arc::new(Schema::new(schema));
         let mut row = Row::try_new(raw_row, &schema)?;
 
-        assert_eq!(row.get::<String, _>(0), "James");
-        assert_eq!(row.get::<String, _>("name"), "James");
+        assert_eq!(row.get::<String, _>(0)?, "James");
+        assert_eq!(row.get::<String, _>("name")?, "James");
 
-        assert_eq!(row.get::<i32, _>(1), 272793);
-        assert_eq!(row.get::<i32, _>("some_int"), 272793);
-        assert_eq!(row.get::<i64, _>(1), 272793);
-        assert_eq!(row.get::<i64, _>("some_int"), 272793);
+        assert_eq!(row.get::<i32, _>(1)?, 272793);
+        assert_eq!(row.get::<i32, _>("some_int")?, 272793);
+        assert_eq!(row.get::<i64, _>(1)?, 272793);
+        assert_eq!(row.get::<i64, _>("some_int")?, 272793);
 
-        assert!(row.get::<bool, _>(2));
-        assert!(row.get::<bool, _>("some_bool"));
+        assert!(row.get::<bool, _>(2)?);
+        assert!(row.get::<bool, _>("some_bool")?);
 
-        assert_eq!(row.get::<Option<i64>, _>(3), None);
-        assert_eq!(row.get::<Option<i64>, _>("some_null"), None);
+        assert_eq!(row.get::<Option<i64>, _>(3)?, None);
+        assert_eq!(row.get::<Option<i64>, _>("some_null")?, None);
 
-        assert_eq!(row.get::<f32, _>(4), 64.0);
-        assert_eq!(row.get::<f32, _>("some_float"), 64.0);
-        assert_eq!(row.get::<f64, _>(4), 64.0);
-        assert_eq!(row.get::<f64, _>("some_float"), 64.0);
+        assert_eq!(row.get::<f32, _>(4)?, 64.0);
+        assert_eq!(row.get::<f32, _>("some_float")?, 64.0);
+        assert_eq!(row.get::<f64, _>(4)?, 64.0);
+        assert_eq!(row.get::<f64, _>("some_float")?, 64.0);
 
         assert_eq!(row.take::<String, _>(0)?, "James");
-        assert_eq!(row.try_get::<Option<String>, _>(0)?, None);
+        assert_eq!(row.get::<Option<String>, _>(0)?, None);
 
         assert_eq!(row.take::<i32, _>(1)?, 272793);
-        assert_eq!(row.try_get::<Option<i32>, _>(1)?, None);
+        assert_eq!(row.get::<Option<i32>, _>(1)?, None);
 
         assert!(row.take::<bool, _>(2)?);
-        assert_eq!(row.try_get::<Option<bool>, _>(2)?, None);
+        assert_eq!(row.get::<Option<bool>, _>(2)?, None);
 
         assert_eq!(row.take::<Option<i64>, _>(3)?, None);
-        assert_eq!(row.try_get::<Option<i64>, _>(3)?, None);
+        assert_eq!(row.get::<Option<i64>, _>(3)?, None);
 
         assert_eq!(row.take::<f32, _>(4)?, 64.0);
-        assert_eq!(row.try_get::<Option<f32>, _>(4)?, None);
+        assert_eq!(row.get::<Option<f32>, _>(4)?, None);
 
         Ok(())
     }
@@ -467,59 +442,59 @@ mod tests {
         let mut row = Row::try_new(raw_row, &schema)?;
 
         assert_eq!(
-            row.get::<Decimal, _>(0),
+            row.get::<Decimal, _>(0)?,
             Decimal::new().set_value("123.456")
         );
         assert_eq!(
-            row.get::<Decimal, _>("price"),
+            row.get::<Decimal, _>("price")?,
             Decimal::new().set_value("123.456")
         );
 
         assert_eq!(
-            row.get::<Decimal, _>(1),
+            row.get::<Decimal, _>(1)?,
             Decimal::new().set_value("99999999999999999999.123456789")
         );
         assert_eq!(
-            row.get::<Decimal, _>("big_amount"),
+            row.get::<Decimal, _>("big_amount")?,
             Decimal::new().set_value("99999999999999999999.123456789")
         );
 
         assert_eq!(
-            row.get::<RustDecimal, _>(0),
+            row.get::<RustDecimal, _>(0)?,
             "123.456".parse().expect("valid decimal")
         );
         assert_eq!(
-            row.get::<RustDecimal, _>("price"),
+            row.get::<RustDecimal, _>("price")?,
             "123.456".parse().expect("valid decimal")
         );
 
         assert_eq!(
-            row.get::<RustDecimal, _>(1),
+            row.get::<RustDecimal, _>(1)?,
             "99999999999999999999.123456789"
                 .parse()
                 .expect("valid decimal")
         );
         assert_eq!(
-            row.get::<RustDecimal, _>("big_amount"),
+            row.get::<RustDecimal, _>("big_amount")?,
             "99999999999999999999.123456789"
                 .parse()
                 .expect("valid decimal")
         );
 
-        assert!(row.try_get::<RustDecimal, _>(2).is_err());
-        assert!(row.try_get::<RustDecimal, _>("overflow_amount").is_err());
+        assert!(row.get::<RustDecimal, _>(2).is_err());
+        assert!(row.get::<RustDecimal, _>("overflow_amount").is_err());
 
         assert_eq!(
             row.take::<Decimal, _>(0)?,
             Decimal::new().set_value("123.456")
         );
-        assert_eq!(row.try_get::<Option<Decimal>, _>(0)?, None);
+        assert_eq!(row.get::<Option<Decimal>, _>(0)?, None);
 
         assert_eq!(
             row.take::<RustDecimal, _>(1)?,
             "99999999999999999999.123456789".parse()?
         );
-        assert_eq!(row.try_get::<Option<RustDecimal>, _>(1)?, None);
+        assert_eq!(row.get::<Option<RustDecimal>, _>(1)?, None);
 
         Ok(())
     }
@@ -551,29 +526,29 @@ mod tests {
         let schema = Arc::new(Schema::new(schema));
         let mut row = Row::try_new(raw_row, &schema)?;
 
-        assert_eq!(row.get::<Vec<u8>, _>(0), vec![1, 2, 3, 4]);
-        assert_eq!(row.get::<Vec<u8>, _>("payload_vec"), vec![1, 2, 3, 4]);
+        assert_eq!(row.get::<Vec<u8>, _>(0)?, vec![1, 2, 3, 4]);
+        assert_eq!(row.get::<Vec<u8>, _>("payload_vec")?, vec![1, 2, 3, 4]);
 
         assert_eq!(
-            row.get::<bytes::Bytes, _>(1),
+            row.get::<bytes::Bytes, _>(1)?,
             bytes::Bytes::from_static(b"Hello")
         );
         assert_eq!(
-            row.get::<bytes::Bytes, _>("payload_bytes"),
+            row.get::<bytes::Bytes, _>("payload_bytes")?,
             bytes::Bytes::from_static(b"Hello")
         );
 
-        assert_eq!(row.get::<Option<Vec<u8>>, _>(2), None);
-        assert_eq!(row.get::<Option<bytes::Bytes>, _>("null_bytes"), None);
+        assert_eq!(row.get::<Option<Vec<u8>>, _>(2)?, None);
+        assert_eq!(row.get::<Option<bytes::Bytes>, _>("null_bytes")?, None);
 
         assert_eq!(row.take::<Vec<u8>, _>(0)?, vec![1, 2, 3, 4]);
-        assert_eq!(row.try_get::<Option<Vec<u8>>, _>(0)?, None);
+        assert_eq!(row.get::<Option<Vec<u8>>, _>(0)?, None);
 
         assert_eq!(
             row.take::<bytes::Bytes, _>(1)?,
             bytes::Bytes::from_static(b"Hello")
         );
-        assert_eq!(row.try_get::<Option<bytes::Bytes>, _>(1)?, None);
+        assert_eq!(row.get::<Option<bytes::Bytes>, _>(1)?, None);
 
         Ok(())
     }
@@ -614,10 +589,10 @@ mod tests {
             "name": "Alice",
             "age": 25,
         }))?;
-        assert_eq!(row.get::<Struct, _>(0), expected);
-        assert_eq!(row.get::<Struct, _>("user"), expected);
+        assert_eq!(row.get::<Struct, _>(0)?, expected);
+        assert_eq!(row.get::<Struct, _>("user")?, expected);
         assert_eq!(row.take::<Struct, _>("user")?, expected);
-        assert_eq!(row.try_get::<Option<Struct>, _>("user")?, None);
+        assert_eq!(row.get::<Option<Struct>, _>("user")?, None);
 
         Ok(())
     }
@@ -643,10 +618,10 @@ mod tests {
         let schema = Arc::new(Schema::new(schema));
         let mut row = Row::try_new(raw_row, &schema)?;
 
-        assert_eq!(row.get::<Vec<i64>, _>(0), vec![1, 2, 3]);
-        assert_eq!(row.get::<Vec<i64>, _>("numbers"), vec![1, 2, 3]);
+        assert_eq!(row.get::<Vec<i64>, _>(0)?, vec![1, 2, 3]);
+        assert_eq!(row.get::<Vec<i64>, _>("numbers")?, vec![1, 2, 3]);
         assert_eq!(row.take::<Vec<i64>, _>("numbers")?, vec![1, 2, 3]);
-        assert_eq!(row.try_get::<Option<Vec<i64>>, _>("numbers")?, None);
+        assert_eq!(row.get::<Option<Vec<i64>>, _>("numbers")?, None);
 
         Ok(())
     }
@@ -705,10 +680,10 @@ mod tests {
                 "age": 31,
             },
         ]))?;
-        assert_eq!(row.get::<Vec<Struct>, _>(0), expected);
-        assert_eq!(row.get::<Vec<Struct>, _>("users"), expected);
+        assert_eq!(row.get::<Vec<Struct>, _>(0)?, expected);
+        assert_eq!(row.get::<Vec<Struct>, _>("users")?, expected);
         assert_eq!(row.take::<Vec<Struct>, _>("users")?, expected);
-        assert_eq!(row.try_get::<Option<Vec<Struct>>, _>("users")?, None);
+        assert_eq!(row.get::<Option<Vec<Struct>>, _>("users")?, None);
 
         Ok(())
     }
@@ -742,6 +717,17 @@ mod tests {
     #[test]
     fn convert_basic_type_invalid_row_format() {
         let res = convert_basic_type("value".to_string(), "test_col", "UNKNOWN");
+        let err = res.unwrap_err();
+        assert!(matches!(err, RowError::InvalidRowFormat(_)));
+    }
+
+    #[test]
+    fn convert_value_unsupported_value() {
+        let field = TableFieldSchema::new()
+            .set_name("test_col")
+            .set_type("BOOLEAN")
+            .set_mode("NULLABLE");
+        let res = convert_value(Value::Bool(true), &field);
         let err = res.unwrap_err();
         assert!(matches!(err, RowError::InvalidRowFormat(_)));
     }

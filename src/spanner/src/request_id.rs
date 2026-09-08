@@ -242,7 +242,7 @@ mod tests {
             .create_session(
                 request.clone(),
                 crate::RequestOptions::default(),
-                0,
+                client.get_channel(0),
                 &Observability::disabled_arc(),
             )
             .await
@@ -253,7 +253,7 @@ mod tests {
             .create_session(
                 request,
                 crate::RequestOptions::default(),
-                0,
+                client.get_channel(0),
                 &Observability::disabled_arc(),
             )
             .await

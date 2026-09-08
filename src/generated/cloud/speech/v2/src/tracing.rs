@@ -22,6 +22,7 @@ where
     T: super::stub::Speech + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -137,6 +138,16 @@ where
             method: "client::Speech::recognize",
             self.inner.recognize(req, options));
         pending.await
+    }
+
+    fn streaming_recognize(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingRecognizeRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingRecognizeResponse>,
+    ) {
+        self.inner.streaming_recognize(options)
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]

@@ -355,6 +355,7 @@ where
     T: super::stub::Echo + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -416,13 +417,20 @@ where
         pending.await
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
+    async fn expand(
+        &self,
+        req: crate::model::ExpandRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>> {
+        self.inner.expand(req, options).await
+    }
+
     fn chat(
         &self,
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::EchoRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::EchoResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>,
     ) {
         self.inner.chat(options)
     }
@@ -959,6 +967,7 @@ where
     T: super::stub::Messaging + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -1132,13 +1141,21 @@ where
         pending.await
     }
 
-    #[cfg(google_cloud_unstable_gapic_streaming)]
+    async fn stream_blurbs(
+        &self,
+        req: crate::model::StreamBlurbsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>>
+    {
+        self.inner.stream_blurbs(req, options).await
+    }
+
     fn connect(
         &self,
         options: crate::RequestOptions,
     ) -> (
         google_cloud_gax::streaming::RequestSender<crate::model::ConnectRequest>,
-        google_cloud_gax::streaming::ResponseReceiver<crate::model::StreamBlurbsResponse>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>,
     ) {
         self.inner.connect(options)
     }
@@ -1342,6 +1359,7 @@ where
     T: super::stub::SequenceService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -1429,6 +1447,16 @@ where
             method: "client::SequenceService::attempt_sequence",
             self.inner.attempt_sequence(req, options));
         pending.await
+    }
+
+    async fn attempt_streaming_sequence(
+        &self,
+        req: crate::model::AttemptStreamingSequenceRequest,
+        options: crate::RequestOptions,
+    ) -> Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::AttemptStreamingSequenceResponse>,
+    > {
+        self.inner.attempt_streaming_sequence(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]

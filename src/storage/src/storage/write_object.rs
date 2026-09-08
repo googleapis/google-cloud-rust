@@ -1024,11 +1024,11 @@ where
             .await
     }
 
-    /// Precompute the payload checksums before uploading the data.
+    /// Precomputes the payload checksums before uploading the data.
     ///
     /// If the checksums are known when the upload starts, the client library
-    /// can include the checksums with the upload request, and the service can
-    /// reject the upload if the payload and the checksums do not match.
+    /// includes them with the upload request, allowing the service to reject
+    /// the upload if the payload and the checksums do not match.
     ///
     /// # Example
     /// ```
@@ -1047,15 +1047,13 @@ where
     ///
     /// Precomputing the checksums can be expensive if the data source is slow
     /// to read. Therefore, the client library does not precompute the checksums
-    /// by default. The client library compares the checksums computed by the
-    /// service against its own checksums. If they do not match, the client
-    /// library returns an error. However, the service has already created the
-    /// object with the (likely incorrect) data.
+    /// by default.
     ///
-    /// The client library currently uses the [JSON API], it is not possible to
-    /// send the checksums at the end of the upload with this API.
-    ///
-    /// [JSON API]: https://cloud.google.com/storage/docs/json_api
+    /// For single-shot uploads, checksums are computed on the fly and sent as
+    /// trailing metadata, allowing the service to validate integrity before creating
+    /// the object. For resumable unbuffered uploads, the client library validates
+    /// checksums after the upload completes, so precomputing checksums ensures the
+    /// service validates the data before finalizing the object.
     pub async fn precompute_checksums(mut self) -> Result<Self> {
         let mut offset = 0_u64;
         self.payload.seek(offset).await.map_err(Error::ser)?;

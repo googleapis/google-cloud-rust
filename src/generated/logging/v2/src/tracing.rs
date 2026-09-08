@@ -22,6 +22,7 @@ where
     T: super::stub::LoggingServiceV2 + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -109,6 +110,16 @@ where
             method: "client::LoggingServiceV2::list_logs",
             self.inner.list_logs(req, options));
         pending.await
+    }
+
+    fn tail_log_entries(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::TailLogEntriesRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::TailLogEntriesResponse>,
+    ) {
+        self.inner.tail_log_entries(options)
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]

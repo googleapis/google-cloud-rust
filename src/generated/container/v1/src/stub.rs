@@ -404,4 +404,14 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
+
+    /// Implements [super::client::ClusterManager::complete_control_plane_upgrade].
+    fn complete_control_plane_upgrade(
+        &self,
+        _req: crate::model::CompleteControlPlaneUpgradeRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
 }

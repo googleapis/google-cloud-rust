@@ -576,6 +576,7 @@ impl super::stub::Memorystore for Memorystore {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -593,6 +594,7 @@ impl super::stub::Memorystore for Memorystore {
                 let path_template = "/v1/{name}:rescheduleMaintenance";
 
                 let resource_name = format!("//memorystore.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1017,6 +1019,7 @@ impl super::stub::Memorystore for Memorystore {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1036,6 +1039,7 @@ impl super::stub::Memorystore for Memorystore {
                 let path_template = "/v1/{name}:export";
 
                 let resource_name = format!("//memorystore.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1093,6 +1097,7 @@ impl super::stub::Memorystore for Memorystore {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1110,6 +1115,7 @@ impl super::stub::Memorystore for Memorystore {
                 let path_template = "/v1/{name}:backup";
 
                 let resource_name = format!("//memorystore.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1165,6 +1171,7 @@ impl super::stub::Memorystore for Memorystore {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1182,6 +1189,7 @@ impl super::stub::Memorystore for Memorystore {
                 let path_template = "/v1/{name}:startMigration";
 
                 let resource_name = format!("//memorystore.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1237,6 +1245,7 @@ impl super::stub::Memorystore for Memorystore {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1254,6 +1263,7 @@ impl super::stub::Memorystore for Memorystore {
                 let path_template = "/v1/{name}:finishMigration";
 
                 let resource_name = format!("//memorystore.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1621,6 +1631,7 @@ impl super::stub::Memorystore for Memorystore {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_instance = try_match(
@@ -1638,6 +1649,7 @@ impl super::stub::Memorystore for Memorystore {
                 let path_template = "/v1/{instance}:addTokenAuthUser";
 
                 let resource_name = format!("//memorystore.googleapis.com/{}", var_instance,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.instance));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1771,6 +1783,7 @@ impl super::stub::Memorystore for Memorystore {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_token_auth_user = try_match(
@@ -1791,6 +1804,7 @@ impl super::stub::Memorystore for Memorystore {
 
                 let resource_name =
                     format!("//memorystore.googleapis.com/{}", var_token_auth_user,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.token_auth_user));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))

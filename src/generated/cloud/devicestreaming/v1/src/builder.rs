@@ -71,6 +71,24 @@ pub mod direct_access_service {
         }
     }
 
+    /// Common implementation for [crate::client::DirectAccessService] bidi stream builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct BidiStreamBuilder {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DirectAccessService>,
+        options: crate::RequestOptions,
+    }
+
+    impl BidiStreamBuilder {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DirectAccessService>,
+        ) -> Self {
+            Self {
+                stub,
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
     /// The request builder for [DirectAccessService::create_device_session][crate::client::DirectAccessService::create_device_session] calls.
     ///
     /// # Example
@@ -501,6 +519,64 @@ pub mod direct_access_service {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for UpdateDeviceSession {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DirectAccessService::adb_connect][crate::client::DirectAccessService::adb_connect] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_devicestreaming_v1::builder::direct_access_service::AdbConnect;
+    /// # use google_cloud_devicestreaming_v1::model::AdbMessage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let builder = prepare_request_builder();
+    /// let (sender, mut resp_stream) = builder.build();
+    ///
+    /// sender.send(AdbMessage::default()).await?;
+    /// drop(sender); // Half-close the stream
+    ///
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> AdbConnect {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct AdbConnect(BidiStreamBuilder);
+
+    impl AdbConnect {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DirectAccessService>,
+        ) -> Self {
+            Self(BidiStreamBuilder::new(stub))
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the bidirectional stream.
+        pub fn build(
+            self,
+        ) -> (
+            google_cloud_gax::streaming::RequestSender<crate::model::AdbMessage>,
+            google_cloud_gax::streaming::ResponseStream<crate::model::DeviceMessage>,
+        ) {
+            (*self.0.stub).adb_connect(self.0.options)
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for AdbConnect {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

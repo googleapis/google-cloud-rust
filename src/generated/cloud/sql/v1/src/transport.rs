@@ -926,6 +926,7 @@ impl super::stub::SqlConnectService for SqlConnectService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
@@ -947,6 +948,8 @@ impl super::stub::SqlConnectService for SqlConnectService {
                     "//sqladmin.googleapis.com/projects/{}/instances/{}",
                     var_project, var_instance,
                 );
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.instance));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4015,6 +4018,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
@@ -4036,6 +4040,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "//sqladmin.googleapis.com/projects/{}/instances/{}",
                     var_project, var_instance,
                 );
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.instance));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4092,6 +4098,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
@@ -4112,6 +4119,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "//sqladmin.googleapis.com/projects/{}/instances/{}",
                     var_project, var_instance,
                 );
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.instance));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4315,6 +4324,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
@@ -4335,6 +4345,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     "//sqladmin.googleapis.com/projects/{}/instances/{}",
                     var_project, var_instance,
                 );
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.instance));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))

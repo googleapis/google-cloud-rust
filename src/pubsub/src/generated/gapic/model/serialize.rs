@@ -411,6 +411,31 @@ impl serde::ser::Serialize for super::JavaScriptUDF {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::Compression {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.compression_algorithm) {
+            state.serialize_entry("compressionAlgorithm", &self.compression_algorithm)?;
+        }
+        if !wkt::internal::is_default(&self.compression_mode) {
+            state.serialize_entry("compressionMode", &self.compression_mode)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::AIInference {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -472,6 +497,9 @@ impl serde::ser::Serialize for super::MessageTransform {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.javascript_udf() {
             state.serialize_entry("javascriptUdf", value)?;
+        }
+        if let Some(value) = self.compression() {
+            state.serialize_entry("compression", value)?;
         }
         if let Some(value) = self.ai_inference() {
             state.serialize_entry("aiInference", value)?;
@@ -1754,6 +1782,9 @@ impl serde::ser::Serialize for super::Schema {
         if !self.definition.is_empty() {
             state.serialize_entry("definition", &self.definition)?;
         }
+        if let Some(value) = self.compiled_proto_schema() {
+            state.serialize_entry("compiledProtoSchema", value)?;
+        }
         if !self.revision_id.is_empty() {
             state.serialize_entry("revisionId", &self.revision_id)?;
         }
@@ -2146,6 +2177,40 @@ impl serde::ser::Serialize for super::ValidateMessageResponse {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CompiledProtoSchema {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.root_message.is_empty() {
+            state.serialize_entry("rootMessage", &self.root_message)?;
+        }
+        if !self.compiled_bytes.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("compiledBytes", &__With(&self.compiled_bytes))?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

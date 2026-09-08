@@ -2165,6 +2165,84 @@ impl StreamingService {
             .map(super::tracing::StreamingService::new)
     }
 
+    /// Send packets to the series.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_visionai_v1::client::StreamingService;
+    /// # use google_cloud_visionai_v1::model::SendPacketsRequest;
+    /// async fn sample(
+    ///    client: &StreamingService
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.send_packets()
+    ///         .build();
+    ///
+    ///     sender.send(SendPacketsRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn send_packets(&self) -> super::builder::streaming_service::SendPackets {
+        super::builder::streaming_service::SendPackets::new(self.inner.clone())
+    }
+
+    /// Receive packets from the series.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_visionai_v1::client::StreamingService;
+    /// # use google_cloud_visionai_v1::model::ReceivePacketsRequest;
+    /// async fn sample(
+    ///    client: &StreamingService
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.receive_packets()
+    ///         .build();
+    ///
+    ///     sender.send(ReceivePacketsRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn receive_packets(&self) -> super::builder::streaming_service::ReceivePackets {
+        super::builder::streaming_service::ReceivePackets::new(self.inner.clone())
+    }
+
+    /// Receive events given the stream name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_visionai_v1::client::StreamingService;
+    /// # use google_cloud_visionai_v1::model::ReceiveEventsRequest;
+    /// async fn sample(
+    ///    client: &StreamingService
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.receive_events()
+    ///         .build();
+    ///
+    ///     sender.send(ReceiveEventsRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn receive_events(&self) -> super::builder::streaming_service::ReceiveEvents {
+        super::builder::streaming_service::ReceiveEvents::new(self.inner.clone())
+    }
+
     /// AcquireLease acquires a lease.
     ///
     /// # Example
@@ -4215,6 +4293,35 @@ impl Warehouse {
     /// ```
     pub fn delete_annotation(&self) -> super::builder::warehouse::DeleteAnnotation {
         super::builder::warehouse::DeleteAnnotation::new(self.inner.clone())
+    }
+
+    /// Ingests data for the asset. It is not allowed to ingest a data chunk which
+    /// is already expired according to TTL.
+    /// This method is only available via the gRPC API (not HTTP since
+    /// bi-directional streaming is not supported via HTTP).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_visionai_v1::client::Warehouse;
+    /// # use google_cloud_visionai_v1::model::IngestAssetRequest;
+    /// async fn sample(
+    ///    client: &Warehouse
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.ingest_asset()
+    ///         .build();
+    ///
+    ///     sender.send(IngestAssetRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn ingest_asset(&self) -> super::builder::warehouse::IngestAsset {
+        super::builder::warehouse::IngestAsset::new(self.inner.clone())
     }
 
     /// Supported by STREAM_VIDEO corpus type.

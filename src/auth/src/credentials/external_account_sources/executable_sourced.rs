@@ -100,11 +100,10 @@ impl SubjectTokenProvider for ExecutableSourcedCredentials {
     type Error = CredentialsError;
 
     async fn subject_token(&self) -> Result<SubjectToken> {
-        if let Some(output_file) = self.output_file.clone() {
-            let token = Self::from_output_file(output_file).await;
-            if let Ok(token) = token {
-                return Ok(SubjectTokenBuilder::new(token).build());
-            }
+        if let Some(output_file) = self.output_file.clone()
+            && let Ok(token) = Self::from_output_file(output_file).await
+        {
+            return Ok(SubjectTokenBuilder::new(token).build());
         }
         let token =
             Self::from_command(self.command.clone(), self.args.clone(), self.timeout).await?;

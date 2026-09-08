@@ -126,6 +126,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -142,6 +143,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
 
                 let resource_name =
                     format!("//contactcenterinsights.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -820,6 +822,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -836,6 +839,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
 
                 let resource_name =
                     format!("//contactcenterinsights.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -889,6 +893,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -905,6 +910,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
 
                 let resource_name =
                     format!("//contactcenterinsights.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -958,6 +964,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -974,6 +981,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
 
                 let resource_name =
                     format!("//contactcenterinsights.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1027,6 +1035,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -1043,6 +1052,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
 
                 let resource_name =
                     format!("//contactcenterinsights.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1468,6 +1478,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1485,6 +1496,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 let path_template = "/v1/{name}:deploy";
 
                 let resource_name = format!("//contactcenterinsights.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1540,6 +1552,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1557,6 +1570,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 let path_template = "/v1/{name}:undeploy";
 
                 let resource_name = format!("//contactcenterinsights.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1612,6 +1626,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -1629,6 +1644,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 let path_template = "/v1/{name}:export";
 
                 let resource_name = format!("//contactcenterinsights.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -1684,6 +1700,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -1700,6 +1717,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
 
                 let resource_name =
                     format!("//contactcenterinsights.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3255,6 +3273,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_encryption_spec_name = try_match(
@@ -3273,6 +3292,9 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 let path = format!("/v1/{}:initialize", var_encryption_spec_name,);
                 let path_template = "/v1/{encryption_spec.name}:initialize";
 
+                let _ = Some(&mut req)
+                    .and_then(|m| m.encryption_spec.as_mut())
+                    .map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
@@ -3717,6 +3739,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_location = try_match(
@@ -3733,6 +3756,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
 
                 let resource_name =
                     format!("//contactcenterinsights.googleapis.com/{}", var_location,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.location));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3756,6 +3780,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
 
                 let resource_name =
                     format!("//contactcenterinsights.googleapis.com/{}", var_location,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.location));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4782,6 +4807,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -4802,6 +4828,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
 
                 let resource_name =
                     format!("//contactcenterinsights.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4859,6 +4886,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4878,6 +4906,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 let path_template = "/v1/{name}:deploy";
 
                 let resource_name = format!("//contactcenterinsights.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4935,6 +4964,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
@@ -4954,6 +4984,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 let path_template = "/v1/{name}:undeploy";
 
                 let resource_name = format!("//contactcenterinsights.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5642,6 +5673,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -5658,6 +5690,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
 
                 let resource_name =
                     format!("//contactcenterinsights.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -5711,6 +5744,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
         let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
@@ -5727,6 +5761,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
 
                 let resource_name =
                     format!("//contactcenterinsights.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))

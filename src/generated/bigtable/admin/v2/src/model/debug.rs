@@ -1725,6 +1725,17 @@ impl std::fmt::Debug for super::ProtoSchema {
     }
 }
 
+impl std::fmt::Debug for super::AvroSchema {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AvroSchema");
+        debug_struct.field("json_schemas", &self.json_schemas);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::SchemaBundle {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SchemaBundle");

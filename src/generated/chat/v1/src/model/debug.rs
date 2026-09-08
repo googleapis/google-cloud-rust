@@ -747,6 +747,7 @@ impl std::fmt::Debug for super::Message {
         debug_struct.field("quoted_message_metadata", &self.quoted_message_metadata);
         debug_struct.field("attached_gifs", &self.attached_gifs);
         debug_struct.field("accessory_widgets", &self.accessory_widgets);
+        debug_struct.field("markup_syntax", &self.markup_syntax);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -871,6 +872,7 @@ impl std::fmt::Debug for super::GetMessageRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetMessageRequest");
         debug_struct.field("name", &self.name);
+        debug_struct.field("markup_syntax", &self.markup_syntax);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -943,6 +945,7 @@ impl std::fmt::Debug for super::ListMessagesRequest {
         debug_struct.field("filter", &self.filter);
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("show_deleted", &self.show_deleted);
+        debug_struct.field("markup_syntax", &self.markup_syntax);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1005,6 +1008,7 @@ impl std::fmt::Debug for super::SearchMessagesRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("markup_syntax", &self.markup_syntax);
         debug_struct.field("view", &self.view);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

@@ -32,13 +32,13 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-ads-datamanager-v1/1.0.0)
+- Read the [crate's documentation](https://docs.rs/google-ads-datamanager-v1/1.1.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[IngestionService]: https://docs.rs/google-ads-datamanager-v1/1.0.0/google_ads_datamanager_v1/client/struct.IngestionService.html
-[MarketingDataInsightsService]: https://docs.rs/google-ads-datamanager-v1/1.0.0/google_ads_datamanager_v1/client/struct.MarketingDataInsightsService.html
-[PartnerLinkService]: https://docs.rs/google-ads-datamanager-v1/1.0.0/google_ads_datamanager_v1/client/struct.PartnerLinkService.html
-[UserListDirectLicenseService]: https://docs.rs/google-ads-datamanager-v1/1.0.0/google_ads_datamanager_v1/client/struct.UserListDirectLicenseService.html
-[UserListGlobalLicenseService]: https://docs.rs/google-ads-datamanager-v1/1.0.0/google_ads_datamanager_v1/client/struct.UserListGlobalLicenseService.html
-[UserListService]: https://docs.rs/google-ads-datamanager-v1/1.0.0/google_ads_datamanager_v1/client/struct.UserListService.html
+[IngestionService]: https://docs.rs/google-ads-datamanager-v1/1.1.0/google_ads_datamanager_v1/client/struct.IngestionService.html
+[MarketingDataInsightsService]: https://docs.rs/google-ads-datamanager-v1/1.1.0/google_ads_datamanager_v1/client/struct.MarketingDataInsightsService.html
+[PartnerLinkService]: https://docs.rs/google-ads-datamanager-v1/1.1.0/google_ads_datamanager_v1/client/struct.PartnerLinkService.html
+[UserListDirectLicenseService]: https://docs.rs/google-ads-datamanager-v1/1.1.0/google_ads_datamanager_v1/client/struct.UserListDirectLicenseService.html
+[UserListGlobalLicenseService]: https://docs.rs/google-ads-datamanager-v1/1.1.0/google_ads_datamanager_v1/client/struct.UserListGlobalLicenseService.html
+[UserListService]: https://docs.rs/google-ads-datamanager-v1/1.1.0/google_ads_datamanager_v1/client/struct.UserListService.html

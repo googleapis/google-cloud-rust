@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::channel_pool::TransactionAffinity;
 use crate::database_client::DatabaseClient;
 use crate::model::CommitResponse;
 use crate::model::request_options::Priority;
@@ -24,6 +25,7 @@ use crate::transaction_retry_policy::{
 };
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
+use std::sync::Arc;
 
 use std::time::Duration as StdDuration;
 use tokio::time::Instant;
@@ -553,6 +555,7 @@ impl TransactionRunner {
         let mut attempts: u32 = 0;
         let backoff = crate::transaction_retry_policy::default_retry_backoff();
         let deadline = self.timeout.map(|t| start_time + t);
+        let affinity = Arc::new(TransactionAffinity::new_read_write());
 
         let mut force_explicit_begin = false;
         loop {
@@ -560,7 +563,7 @@ impl TransactionRunner {
 
             let mut current_tx_id = None;
             let attempt_result = async {
-                let mut builder = self.builder.clone();
+                let mut builder = self.builder.clone().with_affinity(Arc::clone(&affinity));
                 if force_explicit_begin {
                     builder = builder
                         .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin);
@@ -2283,6 +2286,84 @@ mod tests {
         );
         assert!(commit_gax.retry_policy().is_some());
         assert!(commit_gax.backoff_policy().is_some());
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_reuses_affinity_across_aborted_retries() -> anyhow::Result<()> {
+        use gaxi::grpc::tonic::Response;
+        use google_cloud_gax::error::rpc::{Code, Status};
+        use std::sync::Mutex;
+        use std::sync::atomic::{AtomicU32, Ordering};
+
+        let mut mock = create_session_mock();
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(Response::new(v1::Transaction {
+                id: vec![77, 88, 99],
+                ..Default::default()
+            }))
+        });
+        mock.expect_commit().once().returning(|_| commit_response());
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let runner = db_client.read_write_transaction().build().await?;
+        let attempt_count = Arc::new(AtomicU32::new(0));
+        let captured_affinity_ids = Arc::new(Mutex::new(Vec::new()));
+
+        let attempt_count_clone = Arc::clone(&attempt_count);
+        let captured_affinity_ids_clone = Arc::clone(&captured_affinity_ids);
+
+        let result = runner
+            .run(|transaction: ReadWriteTransaction| {
+                let attempts = Arc::clone(&attempt_count_clone);
+                let captured_ids = Arc::clone(&captured_affinity_ids_clone);
+                async move {
+                    let current = attempts.fetch_add(1, Ordering::Relaxed);
+                    if current == 0 {
+                        // First attempt: simulate pinning affinity to channel ID 42, then aborting
+                        transaction
+                            .affinity()
+                            .expect("affinity present")
+                            .set_entry_id(42);
+                        captured_ids.lock().expect("mutex lock").push(
+                            transaction
+                                .affinity()
+                                .expect("affinity present")
+                                .pinned_entry_id(),
+                        );
+
+                        let aborted_status = Status::default()
+                            .set_code(Code::Aborted)
+                            .set_message("Transaction aborted");
+                        Err(crate::Error::service(aborted_status))
+                    } else {
+                        // Second attempt: verify that the pinned entry ID 42 was retained!
+                        captured_ids.lock().expect("mutex lock").push(
+                            transaction
+                                .affinity()
+                                .expect("affinity present")
+                                .pinned_entry_id(),
+                        );
+                        Ok(100)
+                    }
+                }
+            })
+            .await;
+
+        assert!(result.is_ok(), "Transaction runner should succeed on retry");
+        assert_eq!(
+            attempt_count.load(Ordering::Relaxed),
+            2,
+            "Runner should have executed 2 attempts"
+        );
+        let captured_ids = captured_affinity_ids.lock().expect("mutex lock");
+        assert_eq!(
+            *captured_ids,
+            vec![Some(42), Some(42)],
+            "Retried attempt must retain the pinned channel affinity"
+        );
 
         Ok(())
     }

@@ -22,37 +22,38 @@
 #![allow(dead_code)]
 
 use crate::model::key_recipe::Target;
-use crate::model::{KeyRecipe, RecipeList};
+use crate::model::{ExecuteSqlRequest, KeyRecipe, ReadRequest, RecipeList};
+use crate::routing::clock_cache::{ClockEntry, ClockStore};
+use crate::routing::prepared_operation::{
+    PreparedQuery, PreparedRead, fingerprint_execute_sql_request, fingerprint_proto_read_request,
+};
+use bytes::Bytes;
 use std::collections::HashMap;
 use std::fmt::{self, Debug, Formatter};
 use std::mem::take;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, RwLock, RwLockReadGuard, RwLockWriteGuard};
 
-/// Internal storage for key recipes, separated by target type to allow zero-allocation
-/// `&str` lookups for tables and indexes.
-#[derive(Default)]
-struct RecipeStore {
-    tables: HashMap<String, Arc<KeyRecipe>>,
-    indexes: HashMap<String, Arc<KeyRecipe>>,
-    // TODO(#6236): When integrating KeyRecipeCache into DatabaseClient, bound `queries`
-    // with LRU/FIFO eviction (e.g., 1,000 to 50,000 entries matching Java/Go reference clients)
-    // to prevent unbounded growth in applications generating many distinct SQL queries.
-    queries: HashMap<u64, Arc<KeyRecipe>>,
-}
-
-impl RecipeStore {
-    fn len(&self) -> usize {
-        self.tables.len() + self.indexes.len() + self.queries.len()
-    }
-}
+/// Default maximum number of SQL query recipes cached simultaneously.
+///
+/// Prevents unbounded memory growth in applications executing many dynamic,
+/// parameter-varying, or ad-hoc SQL queries.
+pub(crate) const DEFAULT_QUERY_RECIPE_CACHE_CAPACITY: usize = 2_000;
 
 /// A concurrent, thread-safe cache for Spanner key recipes.
 ///
 /// Backed by [`RwLock`] around separate hash maps for tables, indexes, and queries, enabling
-/// zero-allocation `&str` lookups and non-blocking concurrent reads across Tokio tasks.
-#[derive(Clone, Default)]
+/// zero-allocation `&str` lookups, non-blocking concurrent reads across Tokio tasks, and
+/// scan-resistant CLOCK (Second-Chance) eviction for query recipes.
 pub(crate) struct KeyRecipeCache {
-    store: Arc<RwLock<RecipeStore>>,
+    store: RwLock<RecipeStore>,
+    next_operation_uid: AtomicU64,
+}
+
+impl Default for KeyRecipeCache {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl Debug for KeyRecipeCache {
@@ -66,11 +67,22 @@ impl Debug for KeyRecipeCache {
 }
 
 impl KeyRecipeCache {
-    /// Creates a new, empty [`KeyRecipeCache`].
+    /// Creates a new, empty [`KeyRecipeCache`] with the default query recipe capacity (`2,000`).
     pub(crate) fn new() -> Self {
+        Self::with_query_capacity(DEFAULT_QUERY_RECIPE_CACHE_CAPACITY)
+    }
+
+    /// Creates a new, empty [`KeyRecipeCache`] with the specified query recipe capacity limit.
+    pub(crate) fn with_query_capacity(query_capacity: usize) -> Self {
         Self {
-            store: Arc::new(RwLock::new(RecipeStore::default())),
+            store: RwLock::new(RecipeStore::with_query_capacity(query_capacity)),
+            next_operation_uid: AtomicU64::new(1),
         }
+    }
+
+    /// Generates and returns a monotonically increasing operation UID for SQL query operations and prepared operations.
+    pub(crate) fn next_operation_uid(&self) -> u64 {
+        self.next_operation_uid.fetch_add(1, Ordering::Relaxed)
     }
 
     fn read_store(&self) -> RwLockReadGuard<'_, RecipeStore> {
@@ -95,7 +107,7 @@ impl KeyRecipeCache {
     /// is a lookup operation, consistent with `HashMap::get`, `ConnectionCache::get_if_present`, and
     /// `KeyRangeCache::get_group`.
     pub(crate) fn get_table_recipe(&self, table_name: &str) -> Option<Arc<KeyRecipe>> {
-        self.read_store().tables.get(table_name).cloned()
+        self.read_store().tables.get(table_name).map(Arc::clone)
     }
 
     /// Returns the cached recipe for a given database index name (`Read` RPC on an index), if present.
@@ -106,16 +118,88 @@ impl KeyRecipeCache {
     /// is a lookup operation, consistent with `HashMap::get`, `ConnectionCache::get_if_present`, and
     /// `KeyRangeCache::get_group`.
     pub(crate) fn get_index_recipe(&self, index_name: &str) -> Option<Arc<KeyRecipe>> {
-        self.read_store().indexes.get(index_name).cloned()
+        self.read_store().indexes.get(index_name).map(Arc::clone)
     }
 
     /// Returns the cached recipe for a given SQL query operation UID, if present.
+    ///
+    /// Marks the entry as recently referenced using a lock-free atomic store (`Ordering::Relaxed`),
+    /// granting it a second chance during CLOCK cache eviction without acquiring an exclusive write lock.
     ///
     /// Note on naming: Intentionally uses the `get_` prefix because fetching an item by key from a cache
     /// is a lookup operation, consistent with `HashMap::get`, `ConnectionCache::get_if_present`, and
     /// `KeyRangeCache::get_group`.
     pub(crate) fn get_query_recipe(&self, operation_uid: u64) -> Option<Arc<KeyRecipe>> {
-        self.read_store().queries.get(&operation_uid).cloned()
+        self.read_store().queries.get(&operation_uid)
+    }
+
+    fn get_or_prepare_operation<T: PreparedOperation>(
+        &self,
+        fingerprint: u64,
+        matches: impl Fn(&T) -> bool,
+        create: impl FnOnce(u64) -> T,
+    ) -> Option<u64> {
+        // Optimistic read path: lookup existing prepared descriptor under read lock.
+        if let Some(prepared) = T::clock_store(&self.read_store()).get_ref(&fingerprint) {
+            if matches(prepared) {
+                return Some(prepared.operation_uid());
+            }
+            return None;
+        }
+
+        // Slow write path: allocate new operation UID and insert descriptor.
+        let operation_uid = self.next_operation_uid();
+        let prepared = create(operation_uid);
+
+        let mut guard = self.write_store();
+        if let Some(existing) = T::clock_store_mut(&mut guard).get_ref(&fingerprint) {
+            if matches(existing) {
+                return Some(existing.operation_uid());
+            }
+            return None;
+        }
+
+        T::clock_store_mut(&mut guard).insert(fingerprint, prepared);
+        Some(operation_uid)
+    }
+
+    /// Returns the cached `operation_uid` for an [`ExecuteSqlRequest`], preparing and caching
+    /// a new [`PreparedQuery`] descriptor if this query shape has not been encountered yet.
+    ///
+    /// Returns `None` if the request has empty SQL, is a partitioned query, or if a fingerprint
+    /// hash collision occurs with an existing query of different shape.
+    pub(crate) fn get_or_prepare_query(&self, request: &ExecuteSqlRequest) -> Option<u64> {
+        // Fast path: partitioned queries and empty queries cannot have prepared operation UIDs.
+        if request.sql.is_empty() || !request.partition_token.is_empty() {
+            return None;
+        }
+
+        let fingerprint = fingerprint_execute_sql_request(request);
+        self.get_or_prepare_operation::<PreparedQuery>(
+            fingerprint,
+            |prepared| prepared.matches(request),
+            |operation_uid| PreparedQuery::new(request, operation_uid),
+        )
+    }
+
+    /// Returns the cached `operation_uid` for a [`ReadRequest`], preparing and caching
+    /// a new [`PreparedRead`] descriptor if this read shape has not been encountered yet.
+    ///
+    /// Returns `None` if the request has an empty table name, is a partitioned read, or if a fingerprint
+    /// hash collision occurs with an existing read of different shape.
+    pub(crate) fn get_or_prepare_read(&self, request: &ReadRequest) -> Option<u64> {
+        // Fast path: partitioned reads and reads missing a target table name cannot have prepared operation UIDs.
+        // In Cloud Spanner, the `table` field is mandatory for all reads, including secondary index reads.
+        if request.table.is_empty() || !request.partition_token.is_empty() {
+            return None;
+        }
+
+        let fingerprint = fingerprint_proto_read_request(request);
+        self.get_or_prepare_operation::<PreparedRead>(
+            fingerprint,
+            |prepared| prepared.matches_proto_read_request(request),
+            |operation_uid| PreparedRead::from_proto_read_request(request, operation_uid),
+        )
     }
 
     /// Inserts a [`KeyRecipe`] into the cache.
@@ -126,8 +210,10 @@ impl KeyRecipeCache {
     /// heap allocations occur outside the critical section, reducing lock hold duration to a pure
     /// $O(1)$ hashmap insertion.
     ///
-    /// The lock guard is explicitly dropped before any displaced previous recipe is deallocated,
-    /// ensuring heap deallocations also occur outside the critical section.
+    /// The lock guard is explicitly dropped before any displaced overwritten recipe is deallocated,
+    /// ensuring heap deallocations for overwritten entries occur outside the critical section.
+    /// (Evicted entries from bounded query store capacity limits are dropped on removal under the write guard,
+    /// which is an $O(1)$ atomic reference counter decrement).
     ///
     /// Returns `true` if the recipe contained a target and was stored in the cache;
     /// returns `false` if `recipe.target` was `None`.
@@ -137,68 +223,157 @@ impl KeyRecipeCache {
         };
         let recipe_arc = Arc::new(recipe);
         let mut guard = self.write_store();
-        let _old = match target {
+        let _previous_recipe = match target {
             Target::TableName(name) => guard.tables.insert(name, recipe_arc),
             Target::IndexName(name) => guard.indexes.insert(name, recipe_arc),
             Target::OperationUid(operation_uid) => guard.queries.insert(operation_uid, recipe_arc),
         };
-        // Explicitly drop the lock guard before `_old` is dropped so that if an existing
+        // Explicitly drop the lock guard before `_previous_recipe` is dropped so that if an existing
         // recipe with reference count 1 was overwritten, its heap deallocation occurs
         // outside the critical section.
         drop(guard);
         true
     }
 
-    /// Ingests a slice of [`KeyRecipe`]s into the cache in a single batch,
+    /// Ingests an iterator of [`KeyRecipe`]s into the cache in a single batch,
     /// acquiring the write lock only once.
-    pub(crate) fn insert_batch(&self, recipes: &[KeyRecipe]) {
-        if recipes.is_empty() {
-            return;
-        }
+    pub(crate) fn insert_batch<I>(&self, recipes: I)
+    where
+        I: IntoIterator<Item = KeyRecipe>,
+    {
+        let iterator = recipes.into_iter();
+        let (lower_bound, _) = iterator.size_hint();
         // Prepare target and Arc outside the write lock to minimize lock hold duration.
-        let mut prepared = Vec::with_capacity(recipes.len());
-        for recipe in recipes {
+        let mut prepared = Vec::with_capacity(lower_bound);
+        for recipe in iterator {
             if let Some(target) = recipe.target.clone() {
-                prepared.push((target, Arc::new(recipe.clone())));
+                prepared.push((target, Arc::new(recipe)));
             }
         }
         if prepared.is_empty() {
             return;
         }
+        let mut displaced_recipes = Vec::new();
         let mut guard = self.write_store();
         for (target, recipe_arc) in prepared {
-            match target {
-                Target::TableName(name) => {
-                    guard.tables.insert(name, recipe_arc);
-                }
-                Target::IndexName(name) => {
-                    guard.indexes.insert(name, recipe_arc);
-                }
+            let previous_recipe = match target {
+                Target::TableName(name) => guard.tables.insert(name, recipe_arc),
+                Target::IndexName(name) => guard.indexes.insert(name, recipe_arc),
                 Target::OperationUid(operation_uid) => {
-                    guard.queries.insert(operation_uid, recipe_arc);
+                    guard.queries.insert(operation_uid, recipe_arc)
                 }
+            };
+            if let Some(displaced) = previous_recipe {
+                displaced_recipes.push(displaced);
             }
         }
+        drop(guard);
+        drop(displaced_recipes);
     }
 
-    /// Ingests all recipes from a [`RecipeList`] returned in [`CacheUpdate`](crate::model::CacheUpdate).
+    /// Ingests all recipes and schema generation from a [`RecipeList`] returned in [`CacheUpdate`](crate::model::CacheUpdate).
+    ///
+    /// # Schema Generation Invalidation & Ordering:
+    /// - If `incoming.schema_generation < current.schema_generation`: drops the stale update immediately.
+    /// - If `incoming.schema_generation > current.schema_generation`: updates schema generation and invalidates
+    ///   all previously cached table, index, and query recipes from the older schema version.
+    /// - If `incoming.schema_generation == current.schema_generation` (or initial generation): merges incoming recipes.
     pub(crate) fn update_from_recipe_list(&self, recipe_list: RecipeList) {
-        self.insert_batch(&recipe_list.recipe);
+        let incoming_generation = recipe_list.schema_generation;
+        if recipe_list.recipe.is_empty() && incoming_generation.is_empty() {
+            return;
+        }
+
+        // Prepare targets and Arcs outside the write lock to minimize lock hold duration.
+        let mut prepared = Vec::with_capacity(recipe_list.recipe.len());
+        for recipe in recipe_list.recipe {
+            if let Some(target) = recipe.target.clone() {
+                prepared.push((target, Arc::new(recipe)));
+            }
+        }
+
+        let mut guard = self.write_store();
+        let _dropped_entries = match (!incoming_generation.is_empty(), &guard.schema_generation) {
+            (true, Some(current_generation)) if incoming_generation < *current_generation => {
+                // Stale update: drop entirely without modifying existing cache state.
+                return;
+            }
+            (true, Some(current_generation)) if incoming_generation > *current_generation => {
+                // Newer generation: invalidate all existing cached recipes and query recipes.
+                Some(guard.invalidate_all(Some(incoming_generation)))
+            }
+            (true, None) => {
+                // First schema generation observed: record it.
+                guard.schema_generation = Some(incoming_generation);
+                None
+            }
+            _ => None,
+        };
+
+        let mut displaced_recipes = Vec::new();
+        for (target, recipe_arc) in prepared {
+            let previous_recipe = match target {
+                Target::TableName(name) => guard.tables.insert(name, recipe_arc),
+                Target::IndexName(name) => guard.indexes.insert(name, recipe_arc),
+                Target::OperationUid(operation_uid) => {
+                    guard.queries.insert(operation_uid, recipe_arc)
+                }
+            };
+            if let Some(displaced) = previous_recipe {
+                displaced_recipes.push(displaced);
+            }
+        }
+
+        // Release write lock before deallocating any old invalidated recipe collections or displaced recipes.
+        drop(guard);
+        drop(_dropped_entries);
+        drop(displaced_recipes);
     }
 
-    /// Clears all entries from the cache.
+    /// Returns the schema generation of the most recently ingested [`RecipeList`], if any.
+    ///
+    /// # Performance
+    /// Cloning the returned [`Bytes`] handle is an $O(1)$ atomic reference counter increment on
+    /// the shared underlying buffer without copying memory, allowing zero-copy sharing across
+    /// the read lock boundary.
+    pub(crate) fn schema_generation(&self) -> Option<Bytes> {
+        self.read_store().schema_generation.clone()
+    }
+
+    /// Clears all entries from the cache while preserving configured capacity limits.
+    ///
+    /// Note: Intentionally retains `next_operation_uid` monotonically increasing to ensure
+    /// operation UIDs remain globally unique across the client lifecycle, preventing collisions
+    /// with in-flight asynchronous queries.
     pub(crate) fn clear(&self) {
-        let old_store = {
+        let (old_entries, old_prepared_queries, old_prepared_reads) = {
             let mut guard = self.write_store();
-            take(&mut *guard)
+            let old_prepared_queries = guard.prepared_queries.take_all();
+            let old_prepared_reads = guard.prepared_reads.take_all();
+            let old_entries = guard.invalidate_all(None);
+            (old_entries, old_prepared_queries, old_prepared_reads)
         };
-        // Drop the old store (and all cached Arc<KeyRecipe> entries) outside the write lock.
-        drop(old_store);
+        // Drop old collections outside the write lock.
+        drop(old_entries);
+        drop(old_prepared_queries);
+        drop(old_prepared_reads);
     }
 
     /// Returns the total number of recipes stored in the cache.
     pub(crate) fn len(&self) -> usize {
         self.read_store().len()
+    }
+
+    /// Returns the number of prepared query descriptors currently stored in the cache.
+    #[allow(dead_code)]
+    pub(crate) fn prepared_queries_len(&self) -> usize {
+        self.read_store().prepared_queries.len()
+    }
+
+    /// Returns the number of prepared read descriptors currently stored in the cache.
+    #[allow(dead_code)]
+    pub(crate) fn prepared_reads_len(&self) -> usize {
+        self.read_store().prepared_reads.len()
     }
 
     /// Returns `true` if the cache is empty.
@@ -207,14 +382,108 @@ impl KeyRecipeCache {
     }
 }
 
+/// Trait abstracting over prepared query and read descriptors to enable unified cache lookup and preparation.
+trait PreparedOperation: Sized {
+    fn operation_uid(&self) -> u64;
+    fn clock_store(store: &RecipeStore) -> &ClockStore<u64, Self>;
+    fn clock_store_mut(store: &mut RecipeStore) -> &mut ClockStore<u64, Self>;
+}
+
+impl PreparedOperation for PreparedQuery {
+    fn operation_uid(&self) -> u64 {
+        self.operation_uid
+    }
+
+    fn clock_store(store: &RecipeStore) -> &ClockStore<u64, Self> {
+        &store.prepared_queries
+    }
+
+    fn clock_store_mut(store: &mut RecipeStore) -> &mut ClockStore<u64, Self> {
+        &mut store.prepared_queries
+    }
+}
+
+impl PreparedOperation for PreparedRead {
+    fn operation_uid(&self) -> u64 {
+        self.operation_uid
+    }
+
+    fn clock_store(store: &RecipeStore) -> &ClockStore<u64, Self> {
+        &store.prepared_reads
+    }
+
+    fn clock_store_mut(store: &mut RecipeStore) -> &mut ClockStore<u64, Self> {
+        &mut store.prepared_reads
+    }
+}
+
+/// Container for invalidated cache collections, returned by [`RecipeStore::invalidate_all`]
+/// to allow dropping memory allocations outside the write lock.
+struct InvalidatedEntries {
+    tables: HashMap<String, Arc<KeyRecipe>>,
+    indexes: HashMap<String, Arc<KeyRecipe>>,
+    queries: HashMap<u64, ClockEntry<Arc<KeyRecipe>>>,
+}
+
+/// Internal storage for key recipes, separated by target type to allow zero-allocation
+/// `&str` lookups for tables and indexes, and bounded CLOCK (Second-Chance) storage for query recipes.
+struct RecipeStore {
+    tables: HashMap<String, Arc<KeyRecipe>>,
+    indexes: HashMap<String, Arc<KeyRecipe>>,
+    queries: ClockStore<u64, Arc<KeyRecipe>>,
+    prepared_queries: ClockStore<u64, PreparedQuery>,
+    prepared_reads: ClockStore<u64, PreparedRead>,
+    schema_generation: Option<Bytes>,
+}
+
+impl RecipeStore {
+    fn with_query_capacity(query_capacity: usize) -> Self {
+        Self {
+            tables: HashMap::new(),
+            indexes: HashMap::new(),
+            queries: ClockStore::with_capacity(query_capacity),
+            prepared_queries: ClockStore::with_capacity(query_capacity),
+            prepared_reads: ClockStore::with_capacity(query_capacity),
+            schema_generation: None,
+        }
+    }
+
+    fn len(&self) -> usize {
+        self.tables.len() + self.indexes.len() + self.queries.len()
+    }
+
+    /// Invalidates all cached tables, indexes, and query recipes, and transitions to the new schema generation.
+    ///
+    /// # Prepared Operations Lifecycle Retention:
+    /// Does not invalidate `prepared_queries` or `prepared_reads`. Schema generation updates
+    /// indicate database DDL changes that invalidate server-compiled key recipes, but the structural
+    /// shape of application queries/reads and their assigned `operation_uid`s remain valid. Retaining
+    /// them allows the client to immediately re-request updated recipes under the new schema generation
+    /// using their existing operation UIDs without thrashing or reallocation.
+    ///
+    /// Returns the previous collections using [`take`] so deallocation can occur outside the write lock.
+    fn invalidate_all(&mut self, new_schema_generation: Option<Bytes>) -> InvalidatedEntries {
+        let tables = take(&mut self.tables);
+        let indexes = take(&mut self.indexes);
+        let queries = self.queries.take_all();
+        self.schema_generation = new_schema_generation;
+        InvalidatedEntries {
+            tables,
+            indexes,
+            queries,
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::model::key_recipe::Part;
     use std::thread;
 
     #[test]
-    fn key_recipe_cache_implements_send_sync_debug_clone() {
-        static_assertions::assert_impl_all!(KeyRecipeCache: Send, Sync, Debug, Clone);
+    fn key_recipe_cache_implements_send_sync_debug() {
+        static_assertions::assert_impl_all!(KeyRecipeCache: Send, Sync, Debug);
     }
 
     #[test]
@@ -308,18 +577,72 @@ mod tests {
         assert!(cache.insert(KeyRecipe::new().set_index_name("IndexA")));
         assert_eq!(cache.len(), 2, "cache length must be 2");
 
+        let request = ExecuteSqlRequest::new().set_sql("SELECT 1");
+        let initial_query_uid = cache.get_or_prepare_query(&request).expect("prepare query");
+        assert_eq!(
+            initial_query_uid, 1,
+            "initial query must allocate operation UID 1"
+        );
+
+        let read_request = ReadRequest::new()
+            .set_table("Users")
+            .set_columns(vec!["Id".to_string()]);
+        let initial_read_uid = cache
+            .get_or_prepare_read(&read_request)
+            .expect("prepare read");
+        assert_eq!(
+            initial_read_uid, 2,
+            "initial read must allocate operation UID 2"
+        );
+        assert_eq!(
+            cache.prepared_queries_len(),
+            1,
+            "prepared queries count must be 1 before clear"
+        );
+        assert_eq!(
+            cache.prepared_reads_len(),
+            1,
+            "prepared reads count must be 1 before clear"
+        );
+
         cache.clear();
         assert!(cache.is_empty(), "cache must be empty after clear");
         assert_eq!(cache.len(), 0, "cache length must be zero after clear");
+        assert_eq!(
+            cache.prepared_queries_len(),
+            0,
+            "prepared queries count must be 0 after clear"
+        );
+        assert_eq!(
+            cache.prepared_reads_len(),
+            0,
+            "prepared reads count must be 0 after clear"
+        );
+
+        // After clear, prepared operations are cleared, so re-preparing allocates new monotonically increasing UIDs
+        let post_clear_query_uid = cache
+            .get_or_prepare_query(&request)
+            .expect("prepare query after clear");
+        assert_eq!(
+            post_clear_query_uid, 3,
+            "prepared queries must be cleared so query is re-prepared with a new UID"
+        );
+        let post_clear_read_uid = cache
+            .get_or_prepare_read(&read_request)
+            .expect("prepare read after clear");
+        assert_eq!(
+            post_clear_read_uid, 4,
+            "prepared reads must be cleared so read is re-prepared with a new UID"
+        );
     }
 
     #[test]
     fn concurrent_read_write_access() {
-        let cache = KeyRecipeCache::new();
+        let cache = Arc::new(KeyRecipeCache::new());
         let mut handles = Vec::new();
 
         for i in 0..10 {
-            let cache_clone = cache.clone();
+            let cache_clone = Arc::clone(&cache);
             handles.push(thread::spawn(move || {
                 let table_name = format!("Table_{i}");
                 cache_clone.insert(KeyRecipe::new().set_table_name(&table_name));
@@ -355,14 +678,14 @@ mod tests {
     #[test]
     fn insert_batch_empty_or_no_targets() {
         let cache = KeyRecipeCache::new();
-        cache.insert_batch(&[]);
+        cache.insert_batch(Vec::new());
         assert!(
             cache.is_empty(),
             "cache must remain empty after empty batch"
         );
 
         let untargeted_recipe = KeyRecipe::new();
-        cache.insert_batch(&[untargeted_recipe]);
+        cache.insert_batch(vec![untargeted_recipe]);
         assert!(
             cache.is_empty(),
             "cache must remain empty when batch contains only untargeted recipes"
@@ -377,7 +700,12 @@ mod tests {
         let query_recipe = KeyRecipe::new().set_operation_uid(42u64);
         let untargeted_recipe = KeyRecipe::new();
 
-        cache.insert_batch(&[table_recipe, index_recipe, query_recipe, untargeted_recipe]);
+        cache.insert_batch(vec![
+            table_recipe,
+            index_recipe,
+            query_recipe,
+            untargeted_recipe,
+        ]);
 
         assert_eq!(
             cache.len(),
@@ -420,6 +748,896 @@ mod tests {
         assert!(
             cache.get_query_recipe(12345u64).is_some(),
             "query recipe must be present"
+        );
+    }
+
+    #[test]
+    fn query_recipe_cache_is_bounded_on_insert() {
+        let cache = KeyRecipeCache::with_query_capacity(3);
+
+        // Insert 5 queries without accessing them (unreferenced)
+        for i in 1..=5 {
+            let recipe = KeyRecipe::new().set_operation_uid(i as u64);
+            assert!(cache.insert(recipe), "insert must succeed");
+        }
+
+        // Must cap at 3 entries
+        assert_eq!(
+            cache.len(),
+            3,
+            "cache length must not exceed configured capacity 3"
+        );
+
+        // Unreferenced oldest entries 1 and 2 must have been evicted
+        assert!(
+            cache.get_query_recipe(1).is_none(),
+            "query 1 must be evicted"
+        );
+        assert!(
+            cache.get_query_recipe(2).is_none(),
+            "query 2 must be evicted"
+        );
+
+        // Latest entries 3, 4, 5 must remain cached
+        assert!(
+            cache.get_query_recipe(3).is_some(),
+            "query 3 must remain cached"
+        );
+        assert!(
+            cache.get_query_recipe(4).is_some(),
+            "query 4 must remain cached"
+        );
+        assert!(
+            cache.get_query_recipe(5).is_some(),
+            "query 5 must remain cached"
+        );
+    }
+
+    #[test]
+    fn query_recipe_cache_is_bounded_on_insert_batch() {
+        let cache = KeyRecipeCache::with_query_capacity(2);
+        let batch = vec![
+            KeyRecipe::new().set_operation_uid(100u64),
+            KeyRecipe::new().set_operation_uid(200u64),
+            KeyRecipe::new().set_operation_uid(300u64),
+            KeyRecipe::new().set_table_name("UnboundedTable"),
+        ];
+
+        cache.insert_batch(batch);
+
+        // Table recipe is stored, but queries are bounded to 2 (100 is evicted, 200 and 300 remain)
+        assert_eq!(
+            cache.len(),
+            3,
+            "cache must have 1 table and 2 query recipes"
+        );
+        assert!(
+            cache.get_table_recipe("UnboundedTable").is_some(),
+            "table recipe must not be subject to query capacity limits"
+        );
+        assert!(
+            cache.get_query_recipe(100).is_none(),
+            "query 100 must be evicted"
+        );
+        assert!(
+            cache.get_query_recipe(200).is_some(),
+            "query 200 must remain cached"
+        );
+        assert!(
+            cache.get_query_recipe(300).is_some(),
+            "query 300 must remain cached"
+        );
+    }
+
+    #[test]
+    fn query_recipe_cache_overwrite_does_not_evict() {
+        let cache = KeyRecipeCache::with_query_capacity(2);
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(1u64)),
+            "insert query 1 must succeed"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(2u64)),
+            "insert query 2 must succeed"
+        );
+        assert_eq!(cache.len(), 2, "length must be 2 after two inserts");
+
+        // Overwrite query 1
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(1u64)),
+            "overwrite query 1 must succeed"
+        );
+        assert_eq!(
+            cache.len(),
+            2,
+            "overwriting existing query must not change count"
+        );
+
+        // Both queries 1 and 2 must still be present
+        assert!(
+            cache.get_query_recipe(1).is_some(),
+            "query 1 must be present"
+        );
+        assert!(
+            cache.get_query_recipe(2).is_some(),
+            "query 2 must be present"
+        );
+    }
+
+    #[test]
+    fn query_recipe_cache_overwrite_marks_referenced_for_second_chance() {
+        let cache = KeyRecipeCache::with_query_capacity(2);
+
+        // Insert query 1 (head of FIFO queue) and query 2 (tail of FIFO queue) without reading them
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(1u64)),
+            "insert query 1 must succeed"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(2u64)),
+            "insert query 2 must succeed"
+        );
+
+        // Overwrite query 1 with an updated recipe (without calling get_query_recipe)
+        let updated_recipe = KeyRecipe::new()
+            .set_operation_uid(1u64)
+            .set_part(vec![Part::new()]);
+        assert!(
+            cache.insert(updated_recipe),
+            "overwrite query 1 must succeed"
+        );
+
+        // Insert query 3 to trigger eviction under capacity limit of 2
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(3u64)),
+            "insert query 3 must succeed"
+        );
+
+        assert_eq!(cache.len(), 2, "cache length must remain at capacity 2");
+
+        // Query 1 was freshly overwritten, so it must have received a second chance and survived
+        let cached_query_1 = cache
+            .get_query_recipe(1)
+            .expect("overwritten query 1 must survive eviction via second chance");
+        assert_eq!(
+            cached_query_1.part.len(),
+            1,
+            "updated parts must be present"
+        );
+
+        // Query 2 was older and unreferenced, so it must have been evicted
+        assert!(
+            cache.get_query_recipe(2).is_none(),
+            "unreferenced query 2 must be evicted"
+        );
+
+        // Query 3 must be cached
+        assert!(
+            cache.get_query_recipe(3).is_some(),
+            "new query 3 must be cached"
+        );
+    }
+
+    #[test]
+    fn query_recipe_cache_zero_capacity() {
+        let cache = KeyRecipeCache::with_query_capacity(0);
+        let query_recipe = KeyRecipe::new().set_operation_uid(1u64);
+        assert!(
+            cache.insert(query_recipe),
+            "insert returns true for valid target"
+        );
+        assert_eq!(
+            cache.len(),
+            0,
+            "cache with zero query capacity must store 0 query recipes"
+        );
+        assert!(
+            cache.get_query_recipe(1).is_none(),
+            "query 1 must not be stored"
+        );
+
+        // Tables and indexes can still be stored
+        assert!(
+            cache.insert(KeyRecipe::new().set_table_name("Users")),
+            "insert table recipe must succeed"
+        );
+        assert_eq!(cache.len(), 1, "table recipe must be stored in cache");
+        assert!(
+            cache.get_table_recipe("Users").is_some(),
+            "table recipe must be retrieved"
+        );
+    }
+
+    #[test]
+    fn clear_preserves_query_capacity() {
+        let cache = KeyRecipeCache::with_query_capacity(2);
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(1u64)),
+            "insert query 1 must succeed"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(2u64)),
+            "insert query 2 must succeed"
+        );
+        assert_eq!(cache.len(), 2, "cache length must be 2");
+
+        cache.clear();
+        assert!(cache.is_empty(), "cache must be empty after clear");
+
+        // Insert 3 new queries, capacity limit of 2 must still be enforced
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(10u64)),
+            "insert query 10 must succeed"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(20u64)),
+            "insert query 20 must succeed"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(30u64)),
+            "insert query 30 must succeed"
+        );
+
+        assert_eq!(
+            cache.len(),
+            2,
+            "capacity limit of 2 must be preserved after clear"
+        );
+        assert!(
+            cache.get_query_recipe(10).is_none(),
+            "query 10 must be evicted"
+        );
+        assert!(
+            cache.get_query_recipe(20).is_some(),
+            "query 20 must be present"
+        );
+        assert!(
+            cache.get_query_recipe(30).is_some(),
+            "query 30 must be present"
+        );
+    }
+
+    #[test]
+    fn query_recipe_cache_clock_second_chance_eviction() {
+        let cache = KeyRecipeCache::with_query_capacity(2);
+
+        // Insert query 1 and query 2
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(1u64)),
+            "insert query 1 must succeed"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(2u64)),
+            "insert query 2 must succeed"
+        );
+
+        // Read query 1 (marks query 1 as referenced)
+        let query_1 = cache.get_query_recipe(1);
+        assert!(query_1.is_some(), "query 1 must be present");
+
+        // Query 2 is NOT accessed (referenced = false)
+
+        // Insert query 3 (triggers eviction)
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(3u64)),
+            "insert query 3 must succeed"
+        );
+
+        // Cache must still hold at most 2 queries
+        assert_eq!(cache.len(), 2, "cache length must remain at capacity 2");
+
+        // Query 1 received a second chance, so it must still be cached
+        assert!(
+            cache.get_query_recipe(1).is_some(),
+            "query 1 received a second chance and must remain cached"
+        );
+
+        // Query 2 was not referenced, so it must have been evicted
+        assert!(
+            cache.get_query_recipe(2).is_none(),
+            "query 2 was not referenced and must be evicted"
+        );
+
+        // Query 3 must be cached
+        assert!(
+            cache.get_query_recipe(3).is_some(),
+            "newly inserted query 3 must be cached"
+        );
+    }
+
+    #[test]
+    fn query_recipe_cache_scan_resistance_against_ad_hoc_burst() {
+        let cache = KeyRecipeCache::with_query_capacity(3);
+
+        // Insert hot queries 1 and 2
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(1u64)),
+            "insert query 1 must succeed"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(2u64)),
+            "insert query 2 must succeed"
+        );
+
+        // Repeatedly hit hot queries 1 and 2
+        assert!(cache.get_query_recipe(1).is_some(), "query 1 must be hit");
+        assert!(cache.get_query_recipe(2).is_some(), "query 2 must be hit");
+
+        // Simulate a burst of 10 ad-hoc / one-off queries (100..110)
+        for i in 100u64..110u64 {
+            assert!(
+                cache.insert(KeyRecipe::new().set_operation_uid(i)),
+                "insert ad-hoc query must succeed"
+            );
+            // Note: Ad-hoc queries are never read, so their referenced bit remains false
+            // Keep refreshing hot queries 1 and 2 during the workload
+            assert!(
+                cache.get_query_recipe(1).is_some(),
+                "query 1 must remain hit"
+            );
+            assert!(
+                cache.get_query_recipe(2).is_some(),
+                "query 2 must remain hit"
+            );
+        }
+
+        // Cache must not exceed capacity 3
+        assert_eq!(cache.len(), 3, "cache must be capped at 3 entries");
+
+        // Hot queries 1 and 2 must survive the ad-hoc scan
+        assert!(
+            cache.get_query_recipe(1).is_some(),
+            "hot query 1 must survive ad-hoc query flood"
+        );
+        assert!(
+            cache.get_query_recipe(2).is_some(),
+            "hot query 2 must survive ad-hoc query flood"
+        );
+
+        // Only the latest ad-hoc query (109) should occupy the remaining slot
+        assert!(
+            cache.get_query_recipe(109).is_some(),
+            "latest ad-hoc query 109 should be present"
+        );
+        assert!(
+            cache.get_query_recipe(100).is_none(),
+            "earlier ad-hoc query 100 must have been evicted"
+        );
+    }
+
+    #[test]
+    fn key_recipe_cache_stores_and_clears_schema_generation() {
+        let cache = KeyRecipeCache::new();
+        assert!(
+            cache.schema_generation().is_none(),
+            "initial schema_generation must be None"
+        );
+
+        let initial_generation = Bytes::from_static(b"gen-12345");
+        let recipe_list = RecipeList::new()
+            .set_schema_generation(initial_generation.clone())
+            .set_recipe(vec![
+                KeyRecipe::new()
+                    .set_table_name("Users")
+                    .set_operation_uid(10u64),
+            ]);
+
+        cache.update_from_recipe_list(recipe_list);
+        assert_eq!(
+            cache.schema_generation(),
+            Some(initial_generation),
+            "schema_generation must match ingested RecipeList"
+        );
+        assert_eq!(cache.len(), 1, "table recipe must be cached");
+
+        cache.clear();
+        assert!(
+            cache.schema_generation().is_none(),
+            "schema_generation must be None after clear()"
+        );
+        assert!(cache.is_empty(), "cache must be empty after clear()");
+    }
+
+    #[test]
+    fn update_from_recipe_list_ignores_stale_schema_generation() {
+        let cache = KeyRecipeCache::new();
+
+        // 1. Initial schema generation v2 with table Users
+        let initial_list = RecipeList::new()
+            .set_schema_generation(Bytes::from_static(b"v2"))
+            .set_recipe(vec![KeyRecipe::new().set_table_name("Users")]);
+        cache.update_from_recipe_list(initial_list);
+
+        assert_eq!(
+            cache.schema_generation(),
+            Some(Bytes::from_static(b"v2")),
+            "schema generation must be v2"
+        );
+        assert!(
+            cache.get_table_recipe("Users").is_some(),
+            "Users table recipe must be present"
+        );
+
+        // 2. Incoming stale schema generation v1 with table OldTable
+        let stale_list = RecipeList::new()
+            .set_schema_generation(Bytes::from_static(b"v1"))
+            .set_recipe(vec![KeyRecipe::new().set_table_name("OldTable")]);
+        cache.update_from_recipe_list(stale_list);
+
+        // Stale update must be ignored: generation stays v2, OldTable is NOT added
+        assert_eq!(
+            cache.schema_generation(),
+            Some(Bytes::from_static(b"v2")),
+            "stale update must not overwrite current schema generation"
+        );
+        assert!(
+            cache.get_table_recipe("Users").is_some(),
+            "Users table recipe must remain present"
+        );
+        assert!(
+            cache.get_table_recipe("OldTable").is_none(),
+            "stale recipes must be dropped"
+        );
+    }
+
+    #[test]
+    fn update_from_recipe_list_invalidates_cache_on_newer_schema_generation() {
+        let cache = KeyRecipeCache::new();
+
+        // 1. Initial schema generation v1 with Users table and a cached query
+        let query_request = ExecuteSqlRequest::new().set_sql("SELECT 1");
+        let query_uid = cache
+            .get_or_prepare_query(&query_request)
+            .expect("prepare query");
+        let read_request = ReadRequest::new()
+            .set_table("Users")
+            .set_columns(vec!["Id".to_string()]);
+        let read_uid = cache
+            .get_or_prepare_read(&read_request)
+            .expect("prepare read");
+
+        let v1_list = RecipeList::new()
+            .set_schema_generation(Bytes::from_static(b"v1"))
+            .set_recipe(vec![
+                KeyRecipe::new().set_table_name("Users"),
+                KeyRecipe::new().set_operation_uid(42u64),
+            ]);
+        cache.update_from_recipe_list(v1_list);
+
+        assert_eq!(cache.len(), 2, "cache must have 2 entries for v1");
+        assert!(
+            cache.get_table_recipe("Users").is_some(),
+            "Users must exist in v1"
+        );
+        assert!(
+            cache.get_query_recipe(42).is_some(),
+            "Query 42 must exist in v1"
+        );
+
+        // 2. Schema bump to v2 with Orders table
+        let v2_list = RecipeList::new()
+            .set_schema_generation(Bytes::from_static(b"v2"))
+            .set_recipe(vec![KeyRecipe::new().set_table_name("Orders")]);
+        cache.update_from_recipe_list(v2_list);
+
+        // Cache must be invalidated: Users and Query 42 are cleared, only Orders remains
+        assert_eq!(
+            cache.schema_generation(),
+            Some(Bytes::from_static(b"v2")),
+            "schema generation must advance to v2"
+        );
+        assert_eq!(cache.len(), 1, "cache must contain only v2 recipes");
+        assert!(
+            cache.get_table_recipe("Orders").is_some(),
+            "Orders must be present in v2"
+        );
+        assert!(
+            cache.get_table_recipe("Users").is_none(),
+            "Users recipe from v1 must be invalidated"
+        );
+        assert!(
+            cache.get_query_recipe(42).is_none(),
+            "Query 42 recipe from v1 must be invalidated"
+        );
+
+        // Prepared queries and reads must be retained across schema generation updates
+        assert_eq!(
+            cache.prepared_queries_len(),
+            1,
+            "prepared queries must be retained across schema updates"
+        );
+        assert_eq!(
+            cache.prepared_reads_len(),
+            1,
+            "prepared reads must be retained across schema updates"
+        );
+        assert_eq!(
+            cache.get_or_prepare_query(&query_request),
+            Some(query_uid),
+            "re-preparing same query after schema bump must reuse existing operation UID"
+        );
+        assert_eq!(
+            cache.get_or_prepare_read(&read_request),
+            Some(read_uid),
+            "re-preparing same read after schema bump must reuse existing operation UID"
+        );
+    }
+
+    #[test]
+    fn update_from_recipe_list_merges_recipes_on_matching_generation() {
+        let cache = KeyRecipeCache::new();
+
+        // 1. Ingest initial recipe for schema generation v1
+        let list1 = RecipeList::new()
+            .set_schema_generation(Bytes::from_static(b"v1"))
+            .set_recipe(vec![KeyRecipe::new().set_table_name("Users")]);
+        cache.update_from_recipe_list(list1);
+
+        // 2. Ingest additional recipe for same schema generation v1
+        let list2 = RecipeList::new()
+            .set_schema_generation(Bytes::from_static(b"v1"))
+            .set_recipe(vec![KeyRecipe::new().set_table_name("Accounts")]);
+        cache.update_from_recipe_list(list2);
+
+        // Both recipes must be present
+        assert_eq!(
+            cache.schema_generation(),
+            Some(Bytes::from_static(b"v1")),
+            "schema generation must remain v1"
+        );
+        assert_eq!(cache.len(), 2, "both recipes must be retained");
+        assert!(
+            cache.get_table_recipe("Users").is_some(),
+            "Users table recipe must be present"
+        );
+        assert!(
+            cache.get_table_recipe("Accounts").is_some(),
+            "Accounts table recipe must be present"
+        );
+    }
+
+    #[test]
+    fn update_from_recipe_list_overwrites_existing_recipes_and_displaces_old_entries() {
+        let cache = KeyRecipeCache::new();
+
+        // 1. Ingest initial recipes for schema generation v1
+        let initial_list = RecipeList::new()
+            .set_schema_generation(Bytes::from_static(b"v1"))
+            .set_recipe(vec![
+                KeyRecipe::new()
+                    .set_table_name("Users")
+                    .set_part(vec![Part::new().set_tag(10u32)]),
+                KeyRecipe::new()
+                    .set_index_name("UsersByEmail")
+                    .set_part(vec![Part::new().set_tag(20u32)]),
+                KeyRecipe::new()
+                    .set_operation_uid(42u64)
+                    .set_part(vec![Part::new().set_tag(30u32)]),
+            ]);
+        cache.update_from_recipe_list(initial_list);
+
+        // Retrieve handles to the original Arc<KeyRecipe> instances
+        let old_table_recipe = cache
+            .get_table_recipe("Users")
+            .expect("initial Users recipe must be present");
+        let old_index_recipe = cache
+            .get_index_recipe("UsersByEmail")
+            .expect("initial UsersByEmail recipe must be present");
+        let old_query_recipe = cache
+            .get_query_recipe(42u64)
+            .expect("initial query 42 recipe must be present");
+
+        assert_eq!(
+            Arc::strong_count(&old_table_recipe),
+            2,
+            "old table recipe strong count must be 2 (local variable + cache storage)"
+        );
+        assert_eq!(
+            Arc::strong_count(&old_index_recipe),
+            2,
+            "old index recipe strong count must be 2 (local variable + cache storage)"
+        );
+        assert_eq!(
+            Arc::strong_count(&old_query_recipe),
+            2,
+            "old query recipe strong count must be 2 (local variable + cache storage)"
+        );
+
+        // 2. Ingest updated recipes for the same schema generation v1
+        let updated_list = RecipeList::new()
+            .set_schema_generation(Bytes::from_static(b"v1"))
+            .set_recipe(vec![
+                KeyRecipe::new()
+                    .set_table_name("Users")
+                    .set_part(vec![Part::new().set_tag(100u32)]),
+                KeyRecipe::new()
+                    .set_index_name("UsersByEmail")
+                    .set_part(vec![Part::new().set_tag(200u32)]),
+                KeyRecipe::new()
+                    .set_operation_uid(42u64)
+                    .set_part(vec![Part::new().set_tag(300u32)]),
+            ]);
+        cache.update_from_recipe_list(updated_list);
+
+        // 3. Verify old Arc handles were displaced and released from cache (strong count drops to 1)
+        assert_eq!(
+            Arc::strong_count(&old_table_recipe),
+            1,
+            "cache must release old table recipe Arc upon overwrite"
+        );
+        assert_eq!(
+            Arc::strong_count(&old_index_recipe),
+            1,
+            "cache must release old index recipe Arc upon overwrite"
+        );
+        assert_eq!(
+            Arc::strong_count(&old_query_recipe),
+            1,
+            "cache must release old query recipe Arc upon overwrite"
+        );
+
+        // 4. Verify cache returns the updated recipes with distinct pointers and new part tags
+        let new_table_recipe = cache
+            .get_table_recipe("Users")
+            .expect("updated Users recipe must be present");
+        let new_index_recipe = cache
+            .get_index_recipe("UsersByEmail")
+            .expect("updated UsersByEmail recipe must be present");
+        let new_query_recipe = cache
+            .get_query_recipe(42u64)
+            .expect("updated query 42 recipe must be present");
+
+        assert!(
+            !Arc::ptr_eq(&old_table_recipe, &new_table_recipe),
+            "new table recipe must be a distinct Arc allocation from the old one"
+        );
+        assert!(
+            !Arc::ptr_eq(&old_index_recipe, &new_index_recipe),
+            "new index recipe must be a distinct Arc allocation from the old one"
+        );
+        assert!(
+            !Arc::ptr_eq(&old_query_recipe, &new_query_recipe),
+            "new query recipe must be a distinct Arc allocation from the old one"
+        );
+
+        assert_eq!(
+            new_table_recipe.part.first().map(|part| part.tag),
+            Some(100),
+            "updated table recipe part tag must match list2"
+        );
+        assert_eq!(
+            new_index_recipe.part.first().map(|part| part.tag),
+            Some(200),
+            "updated index recipe part tag must match list2"
+        );
+        assert_eq!(
+            new_query_recipe.part.first().map(|part| part.tag),
+            Some(300),
+            "updated query recipe part tag must match list2"
+        );
+
+        assert_eq!(cache.len(), 3, "total cached recipe count must remain 3");
+    }
+
+    #[test]
+    fn key_recipe_cache_next_operation_uid_increments_monotonically() {
+        let cache = KeyRecipeCache::new();
+        assert_eq!(cache.next_operation_uid(), 1, "first UID must be 1");
+        assert_eq!(cache.next_operation_uid(), 2, "second UID must be 2");
+        assert_eq!(cache.next_operation_uid(), 3, "third UID must be 3");
+    }
+
+    #[test]
+    fn key_recipe_cache_next_operation_uid_concurrent_access() {
+        let cache = Arc::new(KeyRecipeCache::new());
+        let mut handles = Vec::new();
+        for _ in 0..10 {
+            let cache_clone = Arc::clone(&cache);
+            handles.push(thread::spawn(move || {
+                let mut uids = Vec::with_capacity(100);
+                for _ in 0..100 {
+                    uids.push(cache_clone.next_operation_uid());
+                }
+                uids
+            }));
+        }
+
+        let mut all_uids = Vec::new();
+        for handle in handles {
+            let uids = handle.join().expect("thread should join cleanly");
+            all_uids.extend(uids);
+        }
+
+        assert_eq!(all_uids.len(), 1000, "must collect 1000 total UIDs");
+        all_uids.sort_unstable();
+        all_uids.dedup();
+        assert_eq!(
+            all_uids.len(),
+            1000,
+            "all 1000 generated UIDs must be unique and monotonic"
+        );
+        assert_eq!(all_uids.first(), Some(&1), "first UID generated must be 1");
+        assert_eq!(
+            all_uids.last(),
+            Some(&1000),
+            "last UID generated must be 1000"
+        );
+    }
+
+    #[test]
+    fn key_recipe_cache_default_is_empty() {
+        let cache = KeyRecipeCache::default();
+        assert!(cache.is_empty(), "default cache must be empty");
+        assert_eq!(cache.len(), 0, "default cache length must be zero");
+    }
+
+    #[test]
+    fn update_from_recipe_list_empty_list_noops() {
+        let cache = KeyRecipeCache::new();
+        cache.update_from_recipe_list(RecipeList::new());
+        assert!(
+            cache.is_empty(),
+            "cache must remain empty after empty RecipeList update"
+        );
+        assert!(
+            cache.schema_generation().is_none(),
+            "schema generation must remain None"
+        );
+    }
+
+    #[test]
+    fn update_from_recipe_list_skips_untargeted_recipes() {
+        let cache = KeyRecipeCache::new();
+        let recipe_list = RecipeList::new()
+            .set_schema_generation(Bytes::from_static(b"v1"))
+            .set_recipe(vec![KeyRecipe::new()]);
+        cache.update_from_recipe_list(recipe_list);
+        assert!(
+            cache.is_empty(),
+            "cache must remain empty when RecipeList contains only untargeted recipes"
+        );
+        assert_eq!(
+            cache.schema_generation(),
+            Some(Bytes::from_static(b"v1")),
+            "schema generation must still be recorded"
+        );
+    }
+
+    #[test]
+    fn get_or_prepare_query_caches_and_reuses_operation_uid() {
+        let cache = KeyRecipeCache::new();
+
+        // 1. Empty SQL returns None
+        let empty_request = ExecuteSqlRequest::default();
+        assert_eq!(
+            cache.get_or_prepare_query(&empty_request),
+            None,
+            "empty SQL query must return None"
+        );
+
+        // 2. Partitioned query returns None
+        let partitioned_request = ExecuteSqlRequest::new()
+            .set_sql("SELECT * FROM Singers WHERE SingerId = @id")
+            .set_partition_token(Bytes::from_static(b"token_1"));
+        assert_eq!(
+            cache.get_or_prepare_query(&partitioned_request),
+            None,
+            "partitioned query must return None"
+        );
+
+        // 3. First execution allocates initial operation UID
+        let mut params = serde_json::Map::new();
+        params.insert("id".to_string(), serde_json::Value::from(100));
+        let first_request = ExecuteSqlRequest::new()
+            .set_sql("SELECT * FROM Singers WHERE SingerId = @id")
+            .set_params(params);
+
+        let first_uid = cache
+            .get_or_prepare_query(&first_request)
+            .expect("first query must allocate operation UID");
+        assert_eq!(first_uid, 1, "first operation UID allocated must be 1");
+
+        // 4. Repeated query with different parameter value returns same operation UID
+        let mut second_params = serde_json::Map::new();
+        second_params.insert("id".to_string(), serde_json::Value::from(200));
+        let second_request = ExecuteSqlRequest::new()
+            .set_sql("SELECT * FROM Singers WHERE SingerId = @id")
+            .set_params(second_params);
+
+        let second_uid = cache
+            .get_or_prepare_query(&second_request)
+            .expect("repeated query must resolve cached operation UID");
+        assert_eq!(
+            second_uid, first_uid,
+            "repeated query with identical shape must reuse operation UID"
+        );
+
+        // 5. Structurally distinct query allocates new operation UID
+        let mut distinct_params = serde_json::Map::new();
+        distinct_params.insert("album_id".to_string(), serde_json::Value::from(42));
+        let distinct_request = ExecuteSqlRequest::new()
+            .set_sql("SELECT * FROM Albums WHERE AlbumId = @album_id")
+            .set_params(distinct_params);
+
+        let distinct_uid = cache
+            .get_or_prepare_query(&distinct_request)
+            .expect("distinct query must allocate operation UID");
+        assert_ne!(
+            distinct_uid, first_uid,
+            "distinct query shape must allocate distinct operation UID"
+        );
+    }
+
+    #[test]
+    fn get_or_prepare_read_caches_and_reuses_operation_uid() {
+        let cache = KeyRecipeCache::new();
+
+        // 1. Empty table returns None
+        let empty_request = ReadRequest::default();
+        assert_eq!(
+            cache.get_or_prepare_read(&empty_request),
+            None,
+            "empty table read must return None"
+        );
+
+        // 2. Partitioned read returns None
+        let partitioned_request = ReadRequest::new()
+            .set_table("Singers")
+            .set_columns(vec!["SingerId".to_string()])
+            .set_partition_token(Bytes::from_static(b"token_read_1"));
+        assert_eq!(
+            cache.get_or_prepare_read(&partitioned_request),
+            None,
+            "partitioned read must return None"
+        );
+
+        // 3. First execution allocates initial operation UID
+        let first_request = ReadRequest::new()
+            .set_table("Singers")
+            .set_columns(vec!["SingerId".to_string(), "Name".to_string()]);
+
+        let first_uid = cache
+            .get_or_prepare_read(&first_request)
+            .expect("first read must allocate operation UID");
+        assert_eq!(first_uid, 1, "first operation UID allocated must be 1");
+
+        // 4. Repeated read with identical shape returns same operation UID
+        let second_request = ReadRequest::new()
+            .set_table("Singers")
+            .set_columns(vec!["SingerId".to_string(), "Name".to_string()]);
+
+        let second_uid = cache
+            .get_or_prepare_read(&second_request)
+            .expect("repeated read must resolve cached operation UID");
+        assert_eq!(
+            second_uid, first_uid,
+            "repeated read with identical shape must reuse operation UID"
+        );
+
+        // 5. Structurally distinct read (different table) allocates new operation UID
+        let distinct_table_request = ReadRequest::new()
+            .set_table("Albums")
+            .set_columns(vec!["AlbumId".to_string(), "Title".to_string()]);
+
+        let distinct_table_uid = cache
+            .get_or_prepare_read(&distinct_table_request)
+            .expect("distinct table read must allocate operation UID");
+        assert_ne!(
+            distinct_table_uid, first_uid,
+            "distinct table read must allocate distinct operation UID"
+        );
+
+        // 6. Structurally distinct read (same table, different columns) allocates new operation UID
+        let distinct_columns_request = ReadRequest::new()
+            .set_table("Singers")
+            .set_columns(vec!["SingerId".to_string()]);
+
+        let distinct_columns_uid = cache
+            .get_or_prepare_read(&distinct_columns_request)
+            .expect("distinct columns read must allocate operation UID");
+        assert_ne!(
+            distinct_columns_uid, first_uid,
+            "distinct columns read must allocate distinct operation UID"
         );
     }
 }

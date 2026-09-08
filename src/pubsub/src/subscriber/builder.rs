@@ -19,6 +19,8 @@ use std::sync::Arc;
 use std::time::Duration;
 
 const MIB: i64 = 1024 * 1024;
+// Clamp the max lease to 100 years to avoid overflow errors.
+const MAX_LEASE: Duration = Duration::from_secs(100 * 365 * 24 * 60 * 60);
 
 pub use super::client_builder::ClientBuilder;
 
@@ -97,7 +99,7 @@ impl Subscribe {
     /// The default value is 60 minutes. If it takes your application longer
     /// than 60 minutes to process a message, you should increase this value.
     pub fn set_max_lease<T: Into<Duration>>(mut self, v: T) -> Self {
-        self.max_lease = v.into();
+        self.max_lease = v.into().min(MAX_LEASE);
         self
     }
 
@@ -307,6 +309,20 @@ mod tests {
         )
         .set_max_lease_extension(v);
         assert_eq!(builder.ack_deadline_seconds, want);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn clamp_max_lease() -> anyhow::Result<()> {
+        let builder = Subscribe::new(
+            test_inner().await?,
+            "projects/my-project/subscriptions/my-subscription".to_string(),
+            "client-id".to_string(),
+            1_usize,
+        )
+        .set_max_lease(Duration::MAX);
+        assert_eq!(builder.max_lease, MAX_LEASE);
 
         Ok(())
     }

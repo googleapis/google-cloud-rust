@@ -578,6 +578,37 @@ impl StorageControl {
         super::builder::storage_control::UpdateRapidCache::new(self.inner.clone())
     }
 
+    /// Disables a Rapid Cache instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::StorageControl;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_storage::Result;
+    /// async fn sample(
+    ///    client: &StorageControl
+    /// ) -> Result<()> {
+    ///     let response = client.disable_rapid_cache()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn disable_rapid_cache(&self) -> super::builder::storage_control::DisableRapidCache {
+        super::builder::storage_control::DisableRapidCache::new(self.inner.clone())
+    }
+
     /// Gets a Rapid Cache instance.
     ///
     /// # Example

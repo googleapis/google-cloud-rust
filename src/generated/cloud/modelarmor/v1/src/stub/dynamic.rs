@@ -71,6 +71,22 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::SanitizeModelResponseResponse>>;
 
+    fn stream_sanitize_user_prompt(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::SanitizeUserPromptRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SanitizeUserPromptResponse>,
+    );
+
+    fn stream_sanitize_model_response(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::SanitizeModelResponseRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SanitizeModelResponseResponse>,
+    );
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -166,6 +182,28 @@ impl<T: super::ModelArmor> ModelArmor for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::SanitizeModelResponseResponse>> {
         T::sanitize_model_response(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    fn stream_sanitize_user_prompt(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::SanitizeUserPromptRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SanitizeUserPromptResponse>,
+    ) {
+        T::stream_sanitize_user_prompt(self, options)
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    fn stream_sanitize_model_response(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::SanitizeModelResponseRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SanitizeModelResponseResponse>,
+    ) {
+        T::stream_sanitize_model_response(self, options)
     }
 
     /// Forwards the call to the implementation provided by `T`.

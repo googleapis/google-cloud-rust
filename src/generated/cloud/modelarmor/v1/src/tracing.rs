@@ -22,6 +22,7 @@ where
     T: super::stub::ModelArmor + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -165,6 +166,26 @@ where
             method: "client::ModelArmor::sanitize_model_response",
             self.inner.sanitize_model_response(req, options));
         pending.await
+    }
+
+    fn stream_sanitize_user_prompt(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::SanitizeUserPromptRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SanitizeUserPromptResponse>,
+    ) {
+        self.inner.stream_sanitize_user_prompt(options)
+    }
+
+    fn stream_sanitize_model_response(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::SanitizeModelResponseRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::SanitizeModelResponseResponse>,
+    ) {
+        self.inner.stream_sanitize_model_response(options)
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]

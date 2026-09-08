@@ -18,7 +18,7 @@
 #![allow(rustdoc::invalid_html_tags)]
 #![allow(rustdoc::redundant_explicit_links)]
 
-/// Implements a client for the BeyondCorp API.
+/// Implements a client for the BeyondCorp AppConnections API.
 ///
 /// # Example
 /// ```

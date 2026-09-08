@@ -16030,6 +16030,10 @@ impl std::fmt::Debug for super::tool::ParallelAiSearch {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ParallelAiSearch");
         debug_struct.field("api_key", &self.api_key);
+        debug_struct.field(
+            "enable_zero_data_retention",
+            &self.enable_zero_data_retention,
+        );
         debug_struct.field("custom_configs", &self.custom_configs);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

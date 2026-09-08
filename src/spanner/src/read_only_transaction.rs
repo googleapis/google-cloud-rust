@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::channel_pool::TransactionAffinity;
 use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
 use crate::model::TransactionOptions;
@@ -93,7 +94,7 @@ impl SingleUseReadOnlyTransactionBuilder {
     /// ```
     pub fn build(self) -> SingleUseReadOnlyTransaction {
         let read_only = match self.timestamp_bound {
-            Some(b) => ReadOnly::default().set_timestamp_bound(b.0),
+            Some(bound) => ReadOnly::default().set_timestamp_bound(bound.0),
             None => ReadOnly::default().set_strong(true),
         };
         let transaction_selector = crate::model::TransactionSelector::default()
@@ -113,6 +114,7 @@ impl SingleUseReadOnlyTransactionBuilder {
                 transaction_tag: None,
                 channel_hint,
                 begin_transaction_request_options: None,
+                affinity: None,
             },
         }
     }
@@ -239,6 +241,7 @@ pub struct MultiUseReadOnlyTransactionBuilder {
     timestamp_bound: Option<TimestampBound>,
     begin_transaction_option: BeginTransactionOption,
     begin_gax_options: Option<crate::RequestOptions>,
+    affinity: Option<Arc<TransactionAffinity>>,
 }
 
 impl MultiUseReadOnlyTransactionBuilder {
@@ -248,6 +251,7 @@ impl MultiUseReadOnlyTransactionBuilder {
             timestamp_bound: None,
             begin_transaction_option: BeginTransactionOption::InlineBegin,
             begin_gax_options: None,
+            affinity: None,
         }
     }
 
@@ -376,32 +380,6 @@ impl MultiUseReadOnlyTransactionBuilder {
         self
     }
 
-    async fn begin(
-        &self,
-        session_name: String,
-        options: TransactionOptions,
-        channel_hint: usize,
-        request_options: crate::RequestOptions,
-    ) -> crate::Result<ReadContextTransactionSelector> {
-        let response = execute_begin_transaction(
-            &self.client,
-            session_name,
-            options,
-            None,
-            channel_hint,
-            request_options,
-            None,
-        )
-        .await?;
-
-        let transaction_selector = crate::model::TransactionSelector::default().set_id(response.id);
-
-        Ok(ReadContextTransactionSelector::Fixed(
-            transaction_selector,
-            response.read_timestamp,
-        ))
-    }
-
     /// Builds the [MultiUseReadOnlyTransaction] and starts the transaction
     /// by calling the `BeginTransaction` RPC.
     ///
@@ -416,8 +394,8 @@ impl MultiUseReadOnlyTransactionBuilder {
     /// ```
     pub async fn build(self) -> crate::Result<MultiUseReadOnlyTransaction> {
         let read_only = ReadOnly::default().set_return_read_timestamp(true);
-        let read_only = match self.timestamp_bound.as_ref() {
-            Some(b) => read_only.set_timestamp_bound(b.0.clone()),
+        let read_only = match self.timestamp_bound {
+            Some(bound) => read_only.set_timestamp_bound(bound.0),
             None => read_only.set_strong(true),
         };
         let options = TransactionOptions::default().set_read_only(read_only);
@@ -426,18 +404,31 @@ impl MultiUseReadOnlyTransactionBuilder {
         let channel_hint = self.client.next_channel_hint();
         let selector = match self.begin_transaction_option {
             BeginTransactionOption::ExplicitBegin => {
-                self.begin(
+                let response = execute_begin_transaction(
+                    &self.client,
                     session_name.clone(),
                     options,
+                    None,
                     channel_hint,
                     self.begin_gax_options.clone().unwrap_or_default(),
+                    None,
                 )
-                .await?
+                .await?;
+
+                let transaction_selector =
+                    crate::model::TransactionSelector::default().set_id(response.id);
+
+                ReadContextTransactionSelector::Fixed(transaction_selector, response.read_timestamp)
             }
             BeginTransactionOption::InlineBegin => ReadContextTransactionSelector::Lazy(Arc::new(
                 Mutex::new(TransactionState::NotStarted(options)),
             )),
         };
+
+        let affinity = Some(
+            self.affinity
+                .unwrap_or_else(|| Arc::new(TransactionAffinity::new_read_only())),
+        );
 
         Ok(MultiUseReadOnlyTransaction {
             context: ReadContext {
@@ -447,9 +438,16 @@ impl MultiUseReadOnlyTransactionBuilder {
                 precommit_token_tracker: PrecommitTokenTracker::new_noop(),
                 transaction_tag: None,
                 channel_hint,
-                begin_transaction_request_options: self.begin_gax_options.clone(),
+                begin_transaction_request_options: self.begin_gax_options,
+                affinity,
             },
         })
+    }
+
+    #[allow(dead_code)]
+    pub(crate) fn with_affinity(mut self, affinity: Arc<TransactionAffinity>) -> Self {
+        self.affinity = Some(affinity);
+        self
     }
 }
 
@@ -548,6 +546,12 @@ impl MultiUseReadOnlyTransaction {
         read: T,
     ) -> crate::Result<ResultSet> {
         self.context.execute_read(read).await
+    }
+
+    /// Returns a reference to the transaction channel affinity handle, if set.
+    #[allow(dead_code)]
+    pub(crate) fn affinity(&self) -> Option<&TransactionAffinity> {
+        self.context.affinity()
     }
 }
 
@@ -678,6 +682,8 @@ pub(crate) struct ExplicitBeginParams {
     pub(crate) is_stream_fallback: bool,
     pub(crate) precommit_token_tracker: crate::precommit::PrecommitTokenTracker,
     pub(crate) mutation_key: Option<crate::model::Mutation>,
+    #[allow(dead_code)]
+    pub(crate) affinity: Option<Arc<TransactionAffinity>>,
 }
 
 impl ReadContextTransactionSelector {
@@ -979,6 +985,7 @@ pub(crate) struct ReadContext {
     pub(crate) transaction_tag: Option<String>,
     pub(crate) channel_hint: usize,
     pub(crate) begin_transaction_request_options: Option<crate::RequestOptions>,
+    pub(crate) affinity: Option<Arc<TransactionAffinity>>,
 }
 
 impl ReadContext {
@@ -1032,9 +1039,16 @@ impl ReadContext {
                 is_stream_fallback,
                 precommit_token_tracker: self.precommit_token_tracker.clone(),
                 mutation_key,
+                affinity: self.affinity.as_ref().map(Arc::clone),
             })
             .await?;
         Ok(true)
+    }
+
+    /// Returns a reference to the transaction channel affinity handle, if set.
+    #[allow(dead_code)]
+    pub(crate) fn affinity(&self) -> Option<&TransactionAffinity> {
+        self.affinity.as_deref()
     }
 }
 
@@ -1164,6 +1178,7 @@ macro_rules! execute_stream_with_retry {
             method_name: $method_name,
             attempt_start_time: Some(attempt_start_time),
             operation_start_time: Some(operation_start_time),
+            affinity: $self.affinity.as_ref().map(Arc::clone),
         }))
         .await
     }};
@@ -1262,7 +1277,7 @@ pub(crate) mod tests {
         mock
     }
 
-    fn setup_select1() -> spanner_grpc_mock::google::spanner::v1::PartialResultSet {
+    pub(crate) fn setup_select1() -> spanner_grpc_mock::google::spanner::v1::PartialResultSet {
         spanner_grpc_mock::google::spanner::v1::PartialResultSet {
             metadata: Some(spanner_grpc_mock::google::spanner::v1::ResultSetMetadata {
                 row_type: Some(spanner_grpc_mock::google::spanner::v1::StructType {
@@ -1276,6 +1291,25 @@ pub(crate) mod tests {
             last: true,
             ..Default::default()
         }
+    }
+
+    pub(crate) fn setup_select1_with_transaction_id(
+        transaction_id: Vec<u8>,
+    ) -> spanner_grpc_mock::google::spanner::v1::PartialResultSet {
+        let mut result_set = setup_select1();
+        result_set
+            .metadata
+            .as_mut()
+            .expect("metadata present")
+            .transaction = Some(spanner_grpc_mock::google::spanner::v1::Transaction {
+            id: transaction_id,
+            read_timestamp: Some(prost_types::Timestamp {
+                seconds: 1234567890,
+                nanos: 0,
+            }),
+            ..Default::default()
+        });
+        result_set
     }
 
     pub(crate) async fn setup_db_client(
@@ -3570,6 +3604,7 @@ pub(crate) mod tests {
             transaction_tag: None,
             channel_hint: 0,
             begin_transaction_request_options: None,
+            affinity: None,
         };
 
         // Poison the mutex
@@ -3708,6 +3743,127 @@ pub(crate) mod tests {
         assert!(
             stmt_headers.get("x-goog-spanner-request-id").is_none(),
             "Shared statement must NOT have been contaminated with request ID"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn multi_use_read_only_transaction_affinity_preserved() -> crate::Result<()> {
+        use crate::statement::Statement;
+        use gaxi::grpc::tonic::Response;
+
+        let mut mock = create_session_mock();
+        mock.expect_execute_streaming_sql().once().returning(|_| {
+            Ok(Response::from(adapt([Ok(
+                setup_select1_with_transaction_id(vec![1, 2, 3]),
+            )])))
+        });
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let affinity = Arc::new(TransactionAffinity::new_read_only());
+        let builder = db_client
+            .read_only_transaction()
+            .with_affinity(Arc::clone(&affinity));
+
+        let transaction = builder.build().await?;
+        assert!(
+            transaction
+                .affinity()
+                .expect("affinity present")
+                .is_read_only(),
+            "MultiUseReadOnlyTransaction affinity must be ReadOnly"
+        );
+        assert_eq!(
+            transaction
+                .affinity()
+                .expect("affinity present")
+                .pinned_entry_id(),
+            None,
+            "Initial pinned entry ID should be None"
+        );
+
+        transaction
+            .affinity()
+            .expect("affinity present")
+            .set_entry_id(202);
+        assert_eq!(
+            affinity.pinned_entry_id(),
+            Some(202),
+            "Affinity handle passed to builder must observe the pinned channel ID"
+        );
+
+        let result_set = transaction
+            .execute_query(Statement::builder("SELECT 1").build())
+            .await?;
+        assert_eq!(
+            result_set.affinity().pinned_entry_id(),
+            Some(202),
+            "ResultSet generated from MultiUse transaction must share the same pinned affinity"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn multi_use_read_only_transaction_default_affinity_created() -> crate::Result<()> {
+        let mock = create_session_mock();
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let builder = db_client.read_only_transaction();
+        let transaction = builder.build().await?;
+        assert!(
+            transaction
+                .affinity()
+                .expect("affinity present")
+                .is_read_only(),
+            "Default MultiUseReadOnlyTransaction affinity must be ReadOnly"
+        );
+        assert_eq!(
+            transaction
+                .affinity()
+                .expect("affinity present")
+                .pinned_entry_id(),
+            None,
+            "Default affinity should start unpinned"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn single_use_read_only_transaction_affinity_present() -> crate::Result<()> {
+        use crate::statement::Statement;
+        use gaxi::grpc::tonic::Response;
+
+        let mut mock = create_session_mock();
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(|_| Ok(Response::from(adapt([Ok(setup_select1())]))));
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let transaction = db_client.single_use().build();
+        let result_set = transaction
+            .execute_query(Statement::builder("SELECT 1").build())
+            .await?;
+
+        let affinity = result_set.affinity();
+        assert!(
+            affinity.is_read_only(),
+            "SingleUse query ResultSet affinity must be ReadOnly"
+        );
+        assert_eq!(
+            affinity.pinned_entry_id(),
+            None,
+            "Initial pinned entry ID should be None"
+        );
+
+        affinity.set_entry_id(505);
+        assert_eq!(
+            result_set.affinity().pinned_entry_id(),
+            Some(505),
+            "Pinned channel ID must be retained on the ResultSet for stream resumption"
         );
 
         Ok(())

@@ -44,8 +44,20 @@ mod tests {
     #[tokio::test]
     async fn custom_headers_emit_on_wire() -> anyhow::Result<()> {
         let (endpoint, _server) = echo_server::start().await?;
+
+        let mut global_headers = HeaderMap::new();
+        global_headers.insert(
+            HeaderName::from_static("x-global-only"),
+            HeaderValue::from_static("global-123"),
+        );
+        global_headers.insert(
+            HeaderName::from_static("x-foo"),
+            HeaderValue::from_static("global-foo"),
+        );
+
         let client = echo_server::builder(endpoint)
             .with_credentials(Credentials::from(mock_credentials()))
+            .with_extension(global_headers)
             .build()
             .await?;
 
@@ -59,6 +71,11 @@ mod tests {
             .await?
             .into_body();
 
+        assert_eq!(
+            get_header_value(&response, "x-global-only").as_deref(),
+            Some("global-123"),
+            "{response:?}"
+        );
         assert_eq!(
             get_header_value(&response, "x-client-tracking-id").as_deref(),
             Some("req-12345"),
@@ -90,8 +107,27 @@ mod tests {
         });
         mock.expect_universe_domain().returning(|| None);
 
+        let mut global_headers = HeaderMap::new();
+        global_headers.insert(
+            http::header::AUTHORIZATION,
+            HeaderValue::from_static("Bearer global-fake"),
+        );
+        global_headers.insert(
+            HeaderName::from_static("x-goog-api-key"),
+            HeaderValue::from_static("global-api-key"),
+        );
+        global_headers.insert(
+            http::header::USER_AGENT,
+            HeaderValue::from_static("global-agent"),
+        );
+        global_headers.insert(
+            HeaderName::from_static(X_GOOG_USER_PROJECT),
+            HeaderValue::from_static("global-project"),
+        );
+
         let client = echo_server::builder(endpoint)
             .with_credentials(Credentials::from(mock))
+            .with_extension(global_headers)
             .build()
             .await?;
 
@@ -135,8 +171,28 @@ mod tests {
     #[tokio::test]
     async fn system_headers_unset_strip_custom_headers() -> anyhow::Result<()> {
         let (endpoint, _server) = echo_server::start().await?;
+
+        let mut global_headers = HeaderMap::new();
+        global_headers.insert(
+            http::header::AUTHORIZATION,
+            HeaderValue::from_static("Bearer global-fake"),
+        );
+        global_headers.insert(
+            HeaderName::from_static("x-goog-api-key"),
+            HeaderValue::from_static("global-api-key"),
+        );
+        global_headers.insert(
+            http::header::USER_AGENT,
+            HeaderValue::from_static("global-agent"),
+        );
+        global_headers.insert(
+            HeaderName::from_static(X_GOOG_USER_PROJECT),
+            HeaderValue::from_static("global-project"),
+        );
+
         let client = echo_server::builder(endpoint)
             .with_credentials(Credentials::from(mock_credentials()))
+            .with_extension(global_headers)
             .build()
             .await?;
 

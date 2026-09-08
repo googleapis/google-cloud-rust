@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-visionai-v1"
-version                = "1.4.0"
+version                = "1.5.0"
 description            = "Google Cloud Client Libraries for Rust - Vision AI API"
 edition.workspace      = true
 authors.workspace      = true
@@ -43,13 +43,16 @@ all-features = true
 [dependencies]
 async-trait.workspace              = true
 bytes.workspace                    = true
-gaxi                               = { workspace = true, features = ["_internal-http-client"] }
+gaxi                               = { workspace = true, features = ["_internal-grpc-client", "_internal-http-client"] }
 google-cloud-gax.workspace         = true
 google-cloud-location.workspace    = true
 google-cloud-longrunning.workspace = true
 google-cloud-lro.workspace         = true
 google-cloud-rpc.workspace         = true
 google-cloud-type.workspace        = true
+http.workspace                     = true
+prost-types.workspace              = true
+prost.workspace                    = true
 serde.workspace                    = true
 serde_json.workspace               = true
 serde_with.workspace               = true

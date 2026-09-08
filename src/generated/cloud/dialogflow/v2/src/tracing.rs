@@ -3884,6 +3884,7 @@ where
     T: super::stub::Participants + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -3973,6 +3974,16 @@ where
             method: "client::Participants::analyze_content",
             self.inner.analyze_content(req, options));
         pending.await
+    }
+
+    fn streaming_analyze_content(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingAnalyzeContentRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingAnalyzeContentResponse>,
+    ) {
+        self.inner.streaming_analyze_content(options)
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -4150,6 +4161,7 @@ where
     T: super::stub::Sessions + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -4183,6 +4195,16 @@ where
             method: "client::Sessions::detect_intent",
             self.inner.detect_intent(req, options));
         pending.await
+    }
+
+    fn streaming_detect_intent(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingDetectIntentRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingDetectIntentResponse>,
+    ) {
+        self.inner.streaming_detect_intent(options)
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]

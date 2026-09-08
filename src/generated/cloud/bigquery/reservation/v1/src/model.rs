@@ -201,6 +201,13 @@ pub struct Reservation {
     /// This feature is not yet generally available.
     pub scheduling_policy: std::option::Option<crate::model::SchedulingPolicy>,
 
+    /// Output only. The reservation group path of the reservation from root to
+    /// leaf. The order of elements matters: the first element is the top level
+    /// group and the last element is the direct parent reservation group. For
+    /// example, if a reservation is under group-1 -> group-2 -> group-3, then the
+    /// reservation group path is ["group-1", "group-2", "group-3"].
+    pub reservation_group_path: std::vec::Vec<std::string::String>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -581,6 +588,23 @@ impl Reservation {
         T: std::convert::Into<crate::model::SchedulingPolicy>,
     {
         self.scheduling_policy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [reservation_group_path][crate::model::Reservation::reservation_group_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// let x = Reservation::new().set_reservation_group_path(["a", "b", "c"]);
+    /// ```
+    pub fn set_reservation_group_path<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.reservation_group_path = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1116,6 +1140,21 @@ pub struct ReservationGroup {
     /// dash. Its maximum length is 64 characters.
     pub name: std::string::String,
 
+    /// Optional. The parent reservation group of the reservation group.
+    /// Format: `projects/*/locations/*/reservationGroups/team1-prod` for non-root
+    /// reservation groups, or `projects/*/locations/*` for root reservation
+    /// groups.
+    pub parent_group: std::string::String,
+
+    /// Output only. Creation time of the reservation group.
+    pub creation_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Last update time of the reservation group via a user
+    /// operation. This timestamp is updated only when an update operation
+    /// explicitly targets this reservation group directly. It is not updated when
+    /// parent or child groups are created, updated, or deleted.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1137,6 +1176,86 @@ impl ReservationGroup {
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [parent_group][crate::model::ReservationGroup::parent_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ReservationGroup;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ReservationGroup::new().set_parent_group(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent_group = v.into();
+        self
+    }
+
+    /// Sets the value of [creation_time][crate::model::ReservationGroup::creation_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ReservationGroup;
+    /// use wkt::Timestamp;
+    /// let x = ReservationGroup::new().set_creation_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_creation_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.creation_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [creation_time][crate::model::ReservationGroup::creation_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ReservationGroup;
+    /// use wkt::Timestamp;
+    /// let x = ReservationGroup::new().set_or_clear_creation_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ReservationGroup::new().set_or_clear_creation_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_creation_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.creation_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::ReservationGroup::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ReservationGroup;
+    /// use wkt::Timestamp;
+    /// let x = ReservationGroup::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::ReservationGroup::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ReservationGroup;
+    /// use wkt::Timestamp;
+    /// let x = ReservationGroup::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ReservationGroup::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 }
@@ -1259,9 +1378,9 @@ impl CapacityCommitment {
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
     /// use google_cloud_bigquery_reservation_v1::model::capacity_commitment::CommitmentPlan;
-    /// let x0 = CapacityCommitment::new().set_plan(CommitmentPlan::Flex);
-    /// let x1 = CapacityCommitment::new().set_plan(CommitmentPlan::Monthly);
-    /// let x2 = CapacityCommitment::new().set_plan(CommitmentPlan::Annual);
+    /// let x0 = CapacityCommitment::new().set_plan(CommitmentPlan::Monthly);
+    /// let x1 = CapacityCommitment::new().set_plan(CommitmentPlan::Annual);
+    /// let x2 = CapacityCommitment::new().set_plan(CommitmentPlan::ThreeYear);
     /// ```
     pub fn set_plan<T: std::convert::Into<crate::model::capacity_commitment::CommitmentPlan>>(
         mut self,
@@ -1394,9 +1513,9 @@ impl CapacityCommitment {
     /// ```ignore,no_run
     /// # use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
     /// use google_cloud_bigquery_reservation_v1::model::capacity_commitment::CommitmentPlan;
-    /// let x0 = CapacityCommitment::new().set_renewal_plan(CommitmentPlan::Flex);
-    /// let x1 = CapacityCommitment::new().set_renewal_plan(CommitmentPlan::Monthly);
-    /// let x2 = CapacityCommitment::new().set_renewal_plan(CommitmentPlan::Annual);
+    /// let x0 = CapacityCommitment::new().set_renewal_plan(CommitmentPlan::Monthly);
+    /// let x1 = CapacityCommitment::new().set_renewal_plan(CommitmentPlan::Annual);
+    /// let x2 = CapacityCommitment::new().set_renewal_plan(CommitmentPlan::ThreeYear);
     /// ```
     pub fn set_renewal_plan<
         T: std::convert::Into<crate::model::capacity_commitment::CommitmentPlan>,
@@ -1482,9 +1601,12 @@ pub mod capacity_commitment {
         /// Invalid plan value. Requests with this value will be rejected with
         /// error code `google.rpc.Code.INVALID_ARGUMENT`.
         Unspecified,
+        /// Deprecated: Flex commitments are deprecated. Please use Edition-based
+        /// capacity commitments.
         /// Flex commitments have committed period of 1 minute after becoming ACTIVE.
         /// After that, they are not in a committed period anymore and can be removed
         /// any time.
+        #[deprecated]
         Flex,
         /// Same as FLEX, should only be used if flat-rate commitments are still
         /// available.
@@ -2623,6 +2745,101 @@ impl wkt::message::Message for DeleteReservationGroupRequest {
 }
 
 /// The request for
+/// [ReservationService.UpdateReservationGroup][google.cloud.bigquery.reservation.v1.ReservationService.UpdateReservationGroup].
+///
+/// [google.cloud.bigquery.reservation.v1.ReservationService.UpdateReservationGroup]: crate::client::ReservationService::update_reservation_group
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateReservationGroupRequest {
+    /// Required. Content of the reservation group to update.
+    pub reservation_group: std::option::Option<crate::model::ReservationGroup>,
+
+    /// Optional. Standard field mask for the set of fields to be updated.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateReservationGroupRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [reservation_group][crate::model::UpdateReservationGroupRequest::reservation_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::UpdateReservationGroupRequest;
+    /// use google_cloud_bigquery_reservation_v1::model::ReservationGroup;
+    /// let x = UpdateReservationGroupRequest::new().set_reservation_group(ReservationGroup::default()/* use setters */);
+    /// ```
+    pub fn set_reservation_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ReservationGroup>,
+    {
+        self.reservation_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [reservation_group][crate::model::UpdateReservationGroupRequest::reservation_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::UpdateReservationGroupRequest;
+    /// use google_cloud_bigquery_reservation_v1::model::ReservationGroup;
+    /// let x = UpdateReservationGroupRequest::new().set_or_clear_reservation_group(Some(ReservationGroup::default()/* use setters */));
+    /// let x = UpdateReservationGroupRequest::new().set_or_clear_reservation_group(None::<ReservationGroup>);
+    /// ```
+    pub fn set_or_clear_reservation_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ReservationGroup>,
+    {
+        self.reservation_group = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateReservationGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::UpdateReservationGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateReservationGroupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateReservationGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::UpdateReservationGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateReservationGroupRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateReservationGroupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateReservationGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.reservation.v1.UpdateReservationGroupRequest"
+    }
+}
+
+/// The request for
 /// [ReservationService.CreateCapacityCommitment][google.cloud.bigquery.reservation.v1.ReservationService.CreateCapacityCommitment].
 ///
 /// [google.cloud.bigquery.reservation.v1.ReservationService.CreateCapacityCommitment]: crate::client::ReservationService::create_capacity_commitment
@@ -3361,10 +3578,10 @@ pub struct Assignment {
     pub scheduling_policy: std::option::Option<crate::model::SchedulingPolicy>,
 
     /// Optional. Represents the principal for this assignment. If not empty, jobs
-    /// run by this principal will utilize the associated reservation. Otherwise,
-    /// jobs will fall back to using the reservation assigned to the project,
-    /// folder, or organization (in that order). If no reservation is assigned at
-    /// any of these levels, on-demand capacity will be used.
+    /// run by this principal utilize the associated reservation. Otherwise, jobs
+    /// fall back to using the reservation assigned to the project, folder,
+    /// or organization, in that order. If no reservation is assigned at any of
+    /// these levels, on-demand capacity is used.
     ///
     /// The supported formats are:
     ///
@@ -3374,7 +3591,7 @@ pub struct Assignment {
     /// * `principal://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/subject/SUBJECT_ID`
     ///   for workload identity pool identities.
     /// * The special value `unknown_or_deleted_user` represents principals which
-    ///   cannot be read from the user info service, for example deleted users.
+    ///   cannot be read from the user info service, for example, deleted users.
     pub principal: std::string::String,
 
     /// Optional. Specifies the priority precedence for this assignment. Used to
@@ -3625,6 +3842,10 @@ pub mod assignment {
         /// take priority over a default BACKGROUND reservation assignment (if it
         /// exists).
         BackgroundSearchIndexRefresh,
+        /// Automated materialized view refresh jobs will use the reservation.
+        /// Reservations with this job type will take priority over a default QUERY
+        /// reservation assignment (if it exists).
+        AutomaticMaterializedViewRefresh,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [JobType::value] or
@@ -3656,6 +3877,7 @@ pub mod assignment {
                 Self::BackgroundChangeDataCapture => std::option::Option::Some(7),
                 Self::BackgroundColumnMetadataIndex => std::option::Option::Some(8),
                 Self::BackgroundSearchIndexRefresh => std::option::Option::Some(9),
+                Self::AutomaticMaterializedViewRefresh => std::option::Option::Some(10),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -3680,6 +3902,9 @@ pub mod assignment {
                 }
                 Self::BackgroundSearchIndexRefresh => {
                     std::option::Option::Some("BACKGROUND_SEARCH_INDEX_REFRESH")
+                }
+                Self::AutomaticMaterializedViewRefresh => {
+                    std::option::Option::Some("AUTOMATIC_MATERIALIZED_VIEW_REFRESH")
                 }
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -3711,6 +3936,7 @@ pub mod assignment {
                 7 => Self::BackgroundChangeDataCapture,
                 8 => Self::BackgroundColumnMetadataIndex,
                 9 => Self::BackgroundSearchIndexRefresh,
+                10 => Self::AutomaticMaterializedViewRefresh,
                 _ => Self::UnknownValue(job_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -3731,6 +3957,7 @@ pub mod assignment {
                 "BACKGROUND_CHANGE_DATA_CAPTURE" => Self::BackgroundChangeDataCapture,
                 "BACKGROUND_COLUMN_METADATA_INDEX" => Self::BackgroundColumnMetadataIndex,
                 "BACKGROUND_SEARCH_INDEX_REFRESH" => Self::BackgroundSearchIndexRefresh,
+                "AUTOMATIC_MATERIALIZED_VIEW_REFRESH" => Self::AutomaticMaterializedViewRefresh,
                 _ => Self::UnknownValue(job_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -3753,6 +3980,7 @@ pub mod assignment {
                 Self::BackgroundChangeDataCapture => serializer.serialize_i32(7),
                 Self::BackgroundColumnMetadataIndex => serializer.serialize_i32(8),
                 Self::BackgroundSearchIndexRefresh => serializer.serialize_i32(9),
+                Self::AutomaticMaterializedViewRefresh => serializer.serialize_i32(10),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }

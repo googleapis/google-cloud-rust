@@ -38,7 +38,7 @@ impl Query {
 
     /// Sets the value of [request.clustering][crate::builder::bigquery::QueryRequest::clustering].
     pub fn set_clustering<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::Clustering>
+    where T: std::convert::Into<google_cloud_bigquery_v2::model::Clustering>
     {
         self.request.clustering = std::option::Option::Some(v.into());
         self
@@ -46,7 +46,7 @@ impl Query {
 
     /// Sets or clears the value of [request.clustering][crate::builder::bigquery::QueryRequest::clustering].
     pub fn set_or_clear_clustering<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::Clustering>
+    where T: std::convert::Into<google_cloud_bigquery_v2::model::Clustering>
     {
         self.request.clustering = v.map(|x| x.into());
         self
@@ -56,7 +56,7 @@ impl Query {
     pub fn set_connection_properties<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ConnectionProperty>
+        V: std::convert::Into<google_cloud_bigquery_v2::model::ConnectionProperty>
     {
         use std::iter::Iterator;
         self.request.connection_properties = v.into_iter().map(|i| i.into()).collect();
@@ -87,7 +87,7 @@ impl Query {
 
     /// Sets the value of [request.default_dataset][crate::builder::bigquery::QueryRequest::default_dataset].
     pub fn set_default_dataset<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::DatasetReference>
+    where T: std::convert::Into<google_cloud_bigquery_v2::model::DatasetReference>
     {
         self.request.default_dataset = std::option::Option::Some(v.into());
         self
@@ -95,7 +95,7 @@ impl Query {
 
     /// Sets or clears the value of [request.default_dataset][crate::builder::bigquery::QueryRequest::default_dataset].
     pub fn set_or_clear_default_dataset<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::DatasetReference>
+    where T: std::convert::Into<google_cloud_bigquery_v2::model::DatasetReference>
     {
         self.request.default_dataset = v.map(|x| x.into());
         self
@@ -103,7 +103,7 @@ impl Query {
 
     /// Sets the value of [request.destination_encryption_configuration][crate::builder::bigquery::QueryRequest::destination_encryption_configuration].
     pub fn set_destination_encryption_configuration<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::EncryptionConfiguration>
+    where T: std::convert::Into<google_cloud_bigquery_v2::model::EncryptionConfiguration>
     {
         self.request.destination_encryption_configuration = std::option::Option::Some(v.into());
         self
@@ -111,7 +111,7 @@ impl Query {
 
     /// Sets or clears the value of [request.destination_encryption_configuration][crate::builder::bigquery::QueryRequest::destination_encryption_configuration].
     pub fn set_or_clear_destination_encryption_configuration<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::EncryptionConfiguration>
+    where T: std::convert::Into<google_cloud_bigquery_v2::model::EncryptionConfiguration>
     {
         self.request.destination_encryption_configuration = v.map(|x| x.into());
         self
@@ -119,7 +119,7 @@ impl Query {
 
     /// Sets the value of [request.destination_table][crate::builder::bigquery::QueryRequest::destination_table].
     pub fn set_destination_table<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::TableReference>
+    where T: std::convert::Into<google_cloud_bigquery_v2::model::TableReference>
     {
         self.request.destination_table = std::option::Option::Some(v.into());
         self
@@ -127,7 +127,7 @@ impl Query {
 
     /// Sets or clears the value of [request.destination_table][crate::builder::bigquery::QueryRequest::destination_table].
     pub fn set_or_clear_destination_table<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::TableReference>
+    where T: std::convert::Into<google_cloud_bigquery_v2::model::TableReference>
     {
         self.request.destination_table = v.map(|x| x.into());
         self
@@ -144,7 +144,7 @@ impl Query {
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
         K: std::convert::Into<std::string::String>,
-        V: std::convert::Into<crate::model::ExternalDataConfiguration>,
+        V: std::convert::Into<google_cloud_bigquery_v2::model::ExternalDataConfiguration>,
     {
         use std::iter::Iterator;
         self.request.external_table_definitions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
@@ -168,7 +168,7 @@ impl Query {
     }
 
     /// Sets the value of [request.job_creation_mode][crate::builder::bigquery::QueryRequest::job_creation_mode].
-    pub fn set_job_creation_mode<T: std::convert::Into<crate::model::query_request::JobCreationMode>>(mut self, v: T) -> Self {
+    pub fn set_job_creation_mode<T: std::convert::Into<google_cloud_bigquery_v2::model::query_request::JobCreationMode>>(mut self, v: T) -> Self {
         self.request.job_creation_mode = v.into();
         self
     }
@@ -277,7 +277,7 @@ impl Query {
     pub fn set_query_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::QueryParameter>
+        V: std::convert::Into<google_cloud_bigquery_v2::model::QueryParameter>
     {
         use std::iter::Iterator;
         self.request.query_parameters = v.into_iter().map(|i| i.into()).collect();
@@ -286,7 +286,7 @@ impl Query {
 
     /// Sets the value of [request.range_partitioning][crate::builder::bigquery::QueryRequest::range_partitioning].
     pub fn set_range_partitioning<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::RangePartitioning>
+    where T: std::convert::Into<google_cloud_bigquery_v2::model::RangePartitioning>
     {
         self.request.range_partitioning = std::option::Option::Some(v.into());
         self
@@ -294,7 +294,7 @@ impl Query {
 
     /// Sets or clears the value of [request.range_partitioning][crate::builder::bigquery::QueryRequest::range_partitioning].
     pub fn set_or_clear_range_partitioning<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::RangePartitioning>
+    where T: std::convert::Into<google_cloud_bigquery_v2::model::RangePartitioning>
     {
         self.request.range_partitioning = v.map(|x| x.into());
         self
@@ -329,7 +329,7 @@ impl Query {
 
     /// Sets the value of [request.script_options][crate::builder::bigquery::QueryRequest::script_options].
     pub fn set_script_options<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::ScriptOptions>
+    where T: std::convert::Into<google_cloud_bigquery_v2::model::ScriptOptions>
     {
         self.request.script_options = std::option::Option::Some(v.into());
         self
@@ -337,7 +337,7 @@ impl Query {
 
     /// Sets or clears the value of [request.script_options][crate::builder::bigquery::QueryRequest::script_options].
     pub fn set_or_clear_script_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::ScriptOptions>
+    where T: std::convert::Into<google_cloud_bigquery_v2::model::ScriptOptions>
     {
         self.request.script_options = v.map(|x| x.into());
         self
@@ -345,7 +345,7 @@ impl Query {
 
     /// Sets the value of [request.time_partitioning][crate::builder::bigquery::QueryRequest::time_partitioning].
     pub fn set_time_partitioning<T>(mut self, v: T) -> Self
-    where T: std::convert::Into<crate::model::TimePartitioning>
+    where T: std::convert::Into<google_cloud_bigquery_v2::model::TimePartitioning>
     {
         self.request.time_partitioning = std::option::Option::Some(v.into());
         self
@@ -353,7 +353,7 @@ impl Query {
 
     /// Sets or clears the value of [request.time_partitioning][crate::builder::bigquery::QueryRequest::time_partitioning].
     pub fn set_or_clear_time_partitioning<T>(mut self, v: std::option::Option<T>) -> Self
-    where T: std::convert::Into<crate::model::TimePartitioning>
+    where T: std::convert::Into<google_cloud_bigquery_v2::model::TimePartitioning>
     {
         self.request.time_partitioning = v.map(|x| x.into());
         self
@@ -411,7 +411,7 @@ impl Query {
     pub fn set_user_defined_function_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UserDefinedFunctionResource>
+        V: std::convert::Into<google_cloud_bigquery_v2::model::UserDefinedFunctionResource>
     {
         use std::iter::Iterator;
         self.request.user_defined_function_resources = v.into_iter().map(|i| i.into()).collect();

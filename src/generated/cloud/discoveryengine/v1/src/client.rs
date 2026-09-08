@@ -130,6 +130,29 @@ impl AssistantService {
             .map(super::tracing::AssistantService::new)
     }
 
+    /// Assists the user with a query in a streaming fashion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::AssistantService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AssistantService
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.stream_assist()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn stream_assist(&self) -> super::builder::assistant_service::StreamAssist {
+        super::builder::assistant_service::StreamAssist::new(self.inner.clone())
+    }
+
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
@@ -1456,6 +1479,40 @@ impl ConversationalSearchService {
     /// ```
     pub fn answer_query(&self) -> super::builder::conversational_search_service::AnswerQuery {
         super::builder::conversational_search_service::AnswerQuery::new(self.inner.clone())
+    }
+
+    /// Answer query method (streaming).
+    ///
+    /// It takes one
+    /// [AnswerQueryRequest][google.cloud.discoveryengine.v1.AnswerQueryRequest]
+    /// and returns multiple
+    /// [AnswerQueryResponse][google.cloud.discoveryengine.v1.AnswerQueryResponse]
+    /// messages in a stream.
+    ///
+    /// [google.cloud.discoveryengine.v1.AnswerQueryRequest]: crate::model::AnswerQueryRequest
+    /// [google.cloud.discoveryengine.v1.AnswerQueryResponse]: crate::model::AnswerQueryResponse
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &ConversationalSearchService
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.stream_answer_query()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn stream_answer_query(
+        &self,
+    ) -> super::builder::conversational_search_service::StreamAnswerQuery {
+        super::builder::conversational_search_service::StreamAnswerQuery::new(self.inner.clone())
     }
 
     /// Gets a Answer.
@@ -2879,6 +2936,36 @@ impl GroundedGenerationService {
         Self::build_transport(conf)
             .await
             .map(super::tracing::GroundedGenerationService::new)
+    }
+
+    /// Generates grounded content in a streaming fashion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::GroundedGenerationService;
+    /// # use google_cloud_discoveryengine_v1::model::GenerateGroundedContentRequest;
+    /// async fn sample(
+    ///    client: &GroundedGenerationService
+    /// ) -> anyhow::Result<()> {
+    ///     let (sender, mut resp_stream) = client.stream_generate_grounded_content()
+    ///         .build();
+    ///
+    ///     sender.send(GenerateGroundedContentRequest::default()).await?;
+    ///     drop(sender); // Half-close the stream
+    ///
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn stream_generate_grounded_content(
+        &self,
+    ) -> super::builder::grounded_generation_service::StreamGenerateGroundedContent {
+        super::builder::grounded_generation_service::StreamGenerateGroundedContent::new(
+            self.inner.clone(),
+        )
     }
 
     /// Generates grounded content.
