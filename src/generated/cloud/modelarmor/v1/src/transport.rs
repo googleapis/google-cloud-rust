@@ -16,10 +16,9 @@
 
 #[allow(unused_imports)]
 use crate::Error;
-#[allow(unused_imports)]
 use crate::Result;
 
-/// Implements [ModelArmor](super::stub::ModelArmor) using a [gaxi::http::ReqwestClient].
+/// Implements [ModelArmor](super::stub::ModelArmor) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
 #[derive(Clone)]
 pub struct ModelArmor {
     inner: gaxi::http::ReqwestClient,
@@ -28,10 +27,10 @@ pub struct ModelArmor {
 
 impl std::fmt::Debug for ModelArmor {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        let mut builder = f.debug_struct("ModelArmor");
-        builder.field("inner", &self.inner);
-        builder.field("grpc_inner", &self.grpc_inner);
-        builder.finish()
+        f.debug_struct("ModelArmor")
+            .field("inner", &self.inner)
+            .field("grpc_inner", &self.grpc_inner)
+            .finish()
     }
 }
 
