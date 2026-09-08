@@ -37,3 +37,6 @@ mod status;
 
 #[allow(dead_code)]
 pub(crate) mod generated;
+
+#[cfg(test)]
+mod test;

@@ -55,17 +55,16 @@ impl CommittedWriter {
 
 #[cfg(test)]
 mod tests {
-    use super::super::super::runner::tests::*;
-    use super::super::super::transport::tests::*;
     use super::*;
     use crate::error::AppendError;
+    use crate::write::test::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
     use tokio::sync::mpsc;
 
     #[tokio::test]
     async fn request_fields() -> anyhow::Result<()> {
-        let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
+        let transport = Arc::new(test_transport("http://ignored:1").await?);
         let writer = CommittedWriter::new(transport, write_stream(), schema());
         assert_eq!(writer.write_stream(), write_stream());
 
@@ -128,14 +127,6 @@ mod tests {
         writer.finalize().await?;
 
         Ok(())
-    }
-
-    fn write_stream() -> String {
-        "projects/p/datasets/d/tables/t/streams/s".to_string()
-    }
-
-    fn schema() -> ArrowSchema {
-        ArrowSchema::new().set_serialized_schema("test")
     }
 
     fn rows(id: i64) -> ArrowRecordBatch {
