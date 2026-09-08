@@ -97,7 +97,10 @@ async fn run_stream_task(inner: Arc<Transport>, mut req_rx: mpsc::UnboundedRecei
                         // Forward the request to the stream.
                         let _ = request_tx.send(r.req).await;
                     }
-                    None => break drain_stream(stream, resp_txs).await,
+                    None => {
+                        drop(request_tx);
+                        break drain_stream(stream, resp_txs).await;
+                    }
                 }
             }
             resp = stream.message() => {
@@ -432,6 +435,38 @@ pub(crate) mod tests {
 
         // resp 3 - channel closed error
         let _resp3 = resp_rx3.await.expect_err("channel should be closed");
+        handle.await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn stream_closes_when_client_drops_sender() -> anyhow::Result<()> {
+        let (response_tx, response_rx) = mpsc::channel(10);
+        let mut mock = MockBigQueryWrite::new();
+
+        mock.expect_append_rows().return_once(|request| {
+            let mut request_rx = request.into_inner();
+            tokio::spawn(async move {
+                while request_rx.recv().await.is_some() {}
+                drop(response_tx);
+            });
+            Ok(TonicResponse::from(response_rx))
+        });
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+
+        let Runner { req_tx, handle } = Runner::new(transport);
+
+        let (resp_tx, _resp_rx) = oneshot::channel();
+        let write = WriteRequest {
+            req: test_request(1),
+            resp_tx,
+        };
+        req_tx.send(write)?;
+        drop(req_tx);
+
         handle.await?;
 
         Ok(())

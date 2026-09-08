@@ -16,7 +16,6 @@
 
 #[allow(unused_imports)]
 use crate::Error;
-#[allow(unused_imports)]
 use crate::Result;
 
 const DEFAULT_HOST: &str = "https://pubsub.googleapis.com";
@@ -35,7 +34,7 @@ mod info {
         });
 }
 
-/// Implements [Publisher](super::stub::Publisher) using a Tonic-generated client.
+/// Implements [Publisher](super::stub::Publisher) using a gRPC client.
 #[derive(Clone)]
 pub struct Publisher {
     pub(crate) inner: gaxi::grpc::Client,
@@ -121,7 +120,7 @@ impl super::stub::Publisher for Publisher {
     }
 }
 
-/// Implements [Subscriber](super::stub::Subscriber) using a Tonic-generated client.
+/// Implements [Subscriber](super::stub::Subscriber) using a gRPC client.
 #[derive(Clone)]
 pub struct Subscriber {
     pub(crate) inner: gaxi::grpc::Client,
