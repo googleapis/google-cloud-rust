@@ -67,7 +67,7 @@ impl ReplayChunk {
 #[derive(Debug, Default)]
 pub struct ReplayBuffer {
     queue: VecDeque<ReplayChunk>,
-    current_size: usize,
+    unpersisted_bytes: usize,
 }
 
 impl ReplayBuffer {
@@ -75,13 +75,13 @@ impl ReplayBuffer {
     pub fn new() -> Self {
         Self {
             queue: VecDeque::new(),
-            current_size: 0,
+            unpersisted_bytes: 0,
         }
     }
 
     /// Enqueues an unacknowledged [`ReplayChunk`] to the replay buffer.
     pub fn push(&mut self, chunk: ReplayChunk) {
-        self.current_size += chunk.data.len();
+        self.unpersisted_bytes += chunk.data.len();
         self.queue.push_back(chunk);
     }
 
@@ -89,12 +89,13 @@ impl ReplayBuffer {
     ///
     /// If `persisted_size` lands inside a chunk, that chunk is sliced in-place
     /// and its CRC32C is recomputed for the unpersisted sub-slice only.
-    pub fn acknowledge(&mut self, persisted_size: i64) {
-        while let Some(front) = self.queue.front()
-            && front.end_offset() <= persisted_size
-        {
-            if let Some(chunk) = self.queue.pop_front() {
-                self.current_size -= chunk.data.len();
+    pub fn ack(&mut self, persisted_size: i64) {
+        while let Some(front) = self.queue.front() {
+            if front.end_offset() <= persisted_size {
+                let chunk = self.queue.pop_front().expect("front chunk must exist");
+                self.unpersisted_bytes -= chunk.data.len();
+            } else {
+                break;
             }
         }
 
@@ -106,14 +107,14 @@ impl ReplayBuffer {
             front.data = front.data.slice(trimmed_bytes..);
             front.write_offset = persisted_size;
             front.crc32c = crc32c::crc32c(&front.data);
-            self.current_size -= trimmed_bytes;
+            self.unpersisted_bytes -= trimmed_bytes;
         }
     }
 
     /// Returns `true` if the buffered byte count has reached or exceeded
     /// [`MAX_REPLAY_BUFFER_SIZE`].
     pub fn is_full(&self) -> bool {
-        self.current_size >= MAX_REPLAY_BUFFER_SIZE
+        self.unpersisted_bytes >= MAX_REPLAY_BUFFER_SIZE
     }
 
     /// Returns `true` if the replay buffer contains no chunks.
@@ -122,13 +123,13 @@ impl ReplayBuffer {
     }
 
     /// Returns the number of chunks currently held in the buffer.
-    pub fn len(&self) -> usize {
+    pub fn num_chunks(&self) -> usize {
         self.queue.len()
     }
 
     /// Returns the total unpersisted byte count currently retained in the buffer.
-    pub fn current_size(&self) -> usize {
-        self.current_size
+    pub fn unpersisted_bytes(&self) -> usize {
+        self.unpersisted_bytes
     }
 
     /// Returns an iterator over the unpersisted [`ReplayChunk`]s in FIFO order for replay.
@@ -139,7 +140,7 @@ impl ReplayBuffer {
     /// Clears all chunks from the buffer and resets byte tracking.
     pub fn clear(&mut self) {
         self.queue.clear();
-        self.current_size = 0;
+        self.unpersisted_bytes = 0;
     }
 }
 
@@ -154,19 +155,19 @@ mod tests {
 
         // Assert.
         assert!(buf.is_empty());
-        assert_eq!(buf.len(), 0);
-        assert_eq!(buf.current_size(), 0);
+        assert_eq!(buf.num_chunks(), 0);
+        assert_eq!(buf.unpersisted_bytes(), 0);
         assert!(!buf.is_full());
 
         // Act.
-        buf.acknowledge(100);
+        buf.ack(100);
 
         // Assert.
         assert!(buf.is_empty());
     }
 
     #[test]
-    fn push_and_acknowledge_full_chunks() {
+    fn push_and_ack_full_chunks() {
         // Arrange.
         let mut buf = ReplayBuffer::new();
         let chunk1 = Bytes::from_static(b"hello ");
@@ -177,16 +178,16 @@ mod tests {
         buf.push(ReplayChunk::new(6, chunk2.clone(), crc32c::crc32c(&chunk2)));
 
         // Assert.
-        assert_eq!(buf.len(), 2);
-        assert_eq!(buf.current_size(), 12);
+        assert_eq!(buf.num_chunks(), 2);
+        assert_eq!(buf.unpersisted_bytes(), 12);
 
         // Act.
         // Acknowledge partially up to 4 bytes (within chunk1)
-        buf.acknowledge(4);
+        buf.ack(4);
 
         // Assert.
-        assert_eq!(buf.len(), 2);
-        assert_eq!(buf.current_size(), 8);
+        assert_eq!(buf.num_chunks(), 2);
+        assert_eq!(buf.unpersisted_bytes(), 8);
 
         let chunks: Vec<_> = buf.chunks_to_replay().cloned().collect();
         assert_eq!(chunks[0].write_offset, 4);
@@ -198,11 +199,11 @@ mod tests {
 
         // Act.
         // Acknowledge fully past chunk1 up to 10 (within chunk2)
-        buf.acknowledge(10);
+        buf.ack(10);
 
         // Assert.
-        assert_eq!(buf.len(), 1);
-        assert_eq!(buf.current_size(), 2);
+        assert_eq!(buf.num_chunks(), 1);
+        assert_eq!(buf.unpersisted_bytes(), 2);
 
         let chunks: Vec<_> = buf.chunks_to_replay().cloned().collect();
         assert_eq!(chunks[0].write_offset, 10);
@@ -211,15 +212,15 @@ mod tests {
 
         // Act.
         // Acknowledge all remaining bytes.
-        buf.acknowledge(12);
+        buf.ack(12);
 
         // Assert.
         assert!(buf.is_empty());
-        assert_eq!(buf.current_size(), 0);
+        assert_eq!(buf.unpersisted_bytes(), 0);
     }
 
     #[test]
-    fn acknowledge_duplicate_or_earlier_offset() {
+    fn ack_duplicate_or_earlier_offset() {
         // Arrange.
         let mut buf = ReplayBuffer::new();
         let chunk = Bytes::from_static(b"abcdef");
@@ -227,19 +228,19 @@ mod tests {
 
         // Act.
         // Acknowledge offset earlier than front write_offset.
-        buf.acknowledge(5);
+        buf.ack(5);
 
         // Assert.
-        assert_eq!(buf.len(), 1);
-        assert_eq!(buf.current_size(), 6);
+        assert_eq!(buf.num_chunks(), 1);
+        assert_eq!(buf.unpersisted_bytes(), 6);
 
         // Act.
         // Acknowledge exact write_offset of the front chunk.
-        buf.acknowledge(10);
+        buf.ack(10);
 
         // Assert.
-        assert_eq!(buf.len(), 1);
-        assert_eq!(buf.current_size(), 6);
+        assert_eq!(buf.num_chunks(), 1);
+        assert_eq!(buf.unpersisted_bytes(), 6);
     }
 
     #[test]
@@ -255,7 +256,7 @@ mod tests {
         assert!(buf.is_full());
 
         // Act.
-        buf.acknowledge(1);
+        buf.ack(1);
 
         // Assert.
         assert!(!buf.is_full());
@@ -267,6 +268,9 @@ mod tests {
         let data = Bytes::from_static(b"replay data");
         let crc = crc32c::crc32c(&data);
         let chunk = ReplayChunk::new(42, data.clone(), crc);
+
+        // Assert end_offset calculation.
+        assert_eq!(chunk.end_offset(), 42 + data.len() as i64);
 
         // Act.
         let req = chunk.to_request();
@@ -288,13 +292,13 @@ mod tests {
         let chunk = Bytes::from_static(b"test data");
         buf.push(ReplayChunk::new(0, chunk, 0));
         assert!(!buf.is_empty());
-        assert!(buf.current_size() > 0);
+        assert!(buf.unpersisted_bytes() > 0);
 
         // Act.
         buf.clear();
 
         // Assert.
         assert!(buf.is_empty());
-        assert_eq!(buf.current_size(), 0);
+        assert_eq!(buf.unpersisted_bytes(), 0);
     }
 }
