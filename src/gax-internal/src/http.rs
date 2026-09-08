@@ -453,17 +453,16 @@ impl ReqwestClient {
             );
         }
 
-        builder = builder.headers(headers);
-
-        let mut request = builder.build().map_err(map_send_error)?;
         if let Some(h) = self.extensions.get::<crate::api_header::XGoogApiClient>() {
-            request.headers_mut().insert(
+            headers.insert(
                 X_GOOG_API_CLIENT,
                 http::header::HeaderValue::from_str(&h.rest_header_value()).map_err(Error::ser)?,
             );
         }
 
-        Ok(request)
+        builder = builder.headers(headers);
+
+        builder.build().map_err(map_send_error)
     }
 
     async fn request_attempt(
