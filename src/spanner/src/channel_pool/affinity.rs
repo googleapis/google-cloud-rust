@@ -118,6 +118,10 @@ pub(crate) enum AffinityKind {
 
 #[cfg(test)]
 impl TransactionAffinity {
+    pub(crate) fn set_pinned_entry_id_for_test(&self, id: u64) {
+        self.entry_id.store(id, Ordering::Release);
+    }
+
     pub(crate) fn is_read_only(&self) -> bool {
         self.kind == AffinityKind::ReadOnly
     }

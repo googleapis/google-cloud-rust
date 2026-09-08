@@ -26,7 +26,7 @@ use crate::model::{
     ReadRequest, ResultSet as ModelResultSet, RollbackRequest, Session, Transaction,
 };
 use crate::observability::Observability;
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "metrics")]
 use crate::observability::metrics::SpannerMetricsInterceptor;
 use crate::omni::{InstanceType, TlsConfig, TlsError, is_plaintext_endpoint};
 use crate::request_id::RequestIdCreator;
@@ -52,8 +52,14 @@ use std::sync::Arc;
 use tokio::task::JoinSet;
 
 pub use crate::database_client::DatabaseClient;
+#[cfg(feature = "metrics")]
+use crate::observability::SharedMeterProvider;
+#[cfg(feature = "metrics")]
+use google_cloud_gax::client_builder::Extensions;
 pub use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
 pub use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
+#[cfg(feature = "metrics")]
+use opentelemetry::metrics::MeterProvider;
 
 /// A client for the [Spanner] API.
 ///
@@ -67,6 +73,12 @@ pub struct Spanner {
     pub(crate) is_emulator: bool,
     pub(crate) instance_type: InstanceType,
     pub(crate) request_id_creator: Arc<RequestIdCreator>,
+    #[cfg(feature = "builtin-metrics")]
+    pub(crate) export_builtin_metrics_to_cloud_monitoring: Option<bool>,
+    #[cfg(feature = "metrics")]
+    pub(crate) export_builtin_metrics_to_custom_provider: Option<bool>,
+    #[cfg(feature = "metrics")]
+    pub(crate) meter_provider: Option<SharedMeterProvider>,
 }
 
 /// A factory for constructing `Spanner` clients.
@@ -77,19 +89,7 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
     type Credentials = Credentials;
 
     async fn build(self, mut config: ClientConfig) -> ClientBuilderResult<Self::Client> {
-        let mut is_emulator = false;
-        if let Some(endpoint) = env::var("SPANNER_EMULATOR_HOST")
-            .ok()
-            .filter(|s| !s.is_empty())
-        {
-            is_emulator = true;
-            if config.endpoint.is_none() {
-                config.endpoint = Some(parse_emulator_endpoint(&endpoint));
-            }
-            if config.cred.is_none() {
-                config.cred = Some(anonymous::Builder::new().build());
-            }
-        }
+        let is_emulator = detect_and_configure_emulator(&mut config);
 
         let is_plaintext = config
             .endpoint
@@ -116,8 +116,18 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             config.cred = Some(anonymous::Builder::new().build());
         }
 
-        let pool_config = resolve_pool_config(&mut config, is_emulator)?;
+        let pool_config = resolve_pool_config(&mut config)?;
         let channel_pool = create_channel_pool(&config, pool_config).await?;
+
+        #[cfg(feature = "builtin-metrics")]
+        let export_builtin_metrics_to_cloud_monitoring = config
+            .extensions
+            .get::<ExportBuiltinMetricsToCloudMonitoring>()
+            .map(|config| config.0);
+
+        #[cfg(feature = "metrics")]
+        let (export_builtin_metrics_to_custom_provider, meter_provider) =
+            extract_metrics_config(&config.extensions);
 
         Ok(Spanner {
             channel_pool,
@@ -125,6 +135,12 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             is_emulator,
             instance_type,
             request_id_creator: Arc::new(RequestIdCreator::new()),
+            #[cfg(feature = "builtin-metrics")]
+            export_builtin_metrics_to_cloud_monitoring,
+            #[cfg(feature = "metrics")]
+            export_builtin_metrics_to_custom_provider,
+            #[cfg(feature = "metrics")]
+            meter_provider,
         })
     }
 }
@@ -180,7 +196,136 @@ pub trait SpannerBuilderExt {
     ///
     /// Calling this method automatically configures the client instance type as `InstanceType::Omni`.
     fn with_omni_tls(self, tls_config: TlsConfig) -> Self;
+
+    /// Configures a custom OpenTelemetry [`MeterProvider`] for recording Client metrics.
+    ///
+    /// # Example
+    /// ```
+    /// # use std::sync::Arc;
+    /// # use opentelemetry_sdk::metrics::SdkMeterProvider;
+    /// # use google_cloud_spanner::client::{Spanner, SpannerBuilderExt};
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let provider = Arc::new(SdkMeterProvider::builder().build());
+    /// let spanner = Spanner::builder()
+    ///     .with_meter_provider(provider)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// The caller owns the lifecycle of this provider; Spanner will not shut it down.
+    ///
+    /// # Client Metrics
+    ///
+    /// When configured, Client metrics (such as gRPC channel pool metrics) are recorded
+    /// directly to this provider.
+    ///
+    /// # Built-in Metrics Export (Secondary)
+    ///
+    /// In addition to Client metrics, this provider can optionally receive Spanner
+    /// built-in request and attempt latency metrics:
+    ///
+    /// - **Cloud Spanner**: Built-in metrics are exported directly to Google Cloud
+    ///   Monitoring free of charge and are **not** duplicated to this provider by default
+    ///   to protect users from unexpected third-party monitoring costs. To export built-in
+    ///   metrics to this provider as well, call
+    ///   [`with_export_builtin_metrics_to_custom_provider(true)`](Self::with_export_builtin_metrics_to_custom_provider).
+    ///   Note that this opt-in is required on Cloud Spanner even when the `builtin-metrics`
+    ///   Cargo feature is compiled out.
+    ///
+    /// - **Spanner Omni**: Because Cloud Monitoring is not active for Omni, built-in metrics
+    ///   are exported to this provider by default.
+    #[cfg(feature = "metrics")]
+    fn with_meter_provider(self, provider: Arc<dyn MeterProvider + Send + Sync>) -> Self;
+
+    /// Configures whether built-in request and attempt latency metrics should be
+    /// exported to the custom [`MeterProvider`] configured via
+    /// [`with_meter_provider`](Self::with_meter_provider).
+    ///
+    /// # Example
+    /// ```
+    /// # use std::sync::Arc;
+    /// # use opentelemetry_sdk::metrics::SdkMeterProvider;
+    /// # use google_cloud_spanner::client::{Spanner, SpannerBuilderExt};
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let provider = Arc::new(SdkMeterProvider::builder().build());
+    /// let client = Spanner::builder()
+    ///     .with_meter_provider(provider)
+    ///     .with_export_builtin_metrics_to_custom_provider(true)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// # Background & Cost Considerations
+    ///
+    /// Cloud Spanner collects curated client metrics (such as `operation_latencies`,
+    /// `attempt_latencies`, and `attempt_count`).
+    ///
+    /// - **Cloud Spanner**: Built-in metrics are exported directly to Google Cloud
+    ///   Monitoring (GCM) free of charge under the `spanner.googleapis.com/internal/client/`
+    ///   namespace.
+    ///   If these high-frequency histograms were automatically duplicated to a customer's
+    ///   custom `MeterProvider` (which may export to Datadog, New Relic, Dynatrace, or
+    ///   custom GCM ingestion pipelines), the customer could incur substantial unexpected
+    ///   monitoring and ingestion costs.
+    ///   Therefore, on Cloud Spanner, exporting built-in metrics to the custom `MeterProvider`
+    ///   **defaults to `false`** (even when the `builtin-metrics` Cargo feature is compiled out).
+    ///   Callers must explicitly opt in by calling
+    ///   `with_export_builtin_metrics_to_custom_provider(true)` if they want built-in metrics
+    ///   sent to their custom OpenTelemetry sink.
+    ///
+    /// - **Spanner Omni**: Spanner Omni instances run outside GCP where Cloud Monitoring is
+    ///   not active. Omni customers providing a custom `MeterProvider` rely on it as their
+    ///   primary metrics sink.
+    ///   Therefore, on Spanner Omni, exporting built-in metrics to the custom `MeterProvider`
+    ///   **defaults to `true`**.
+    ///
+    /// - **Emulator**: When connecting to the Spanner emulator, all built-in metrics collection
+    ///   and export are disabled.
+    #[cfg(feature = "metrics")]
+    fn with_export_builtin_metrics_to_custom_provider(self, export: bool) -> Self;
+
+    /// Configures whether built-in request and attempt latency metrics should be
+    /// exported to Google Cloud Monitoring.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Spanner, SpannerBuilderExt};
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Spanner::builder()
+    ///     .with_export_builtin_metrics_to_cloud_monitoring(false)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// # Default & Environment Overrides
+    ///
+    /// - **Cloud Spanner**: Defaults to `true`. Export to Google Cloud Monitoring can also
+    ///   be disabled by setting the environment variable `SPANNER_DISABLE_BUILTIN_METRICS=true`.
+    ///   When explicitly configured via this method, the programmatic setting takes precedence.
+    ///
+    /// - **Spanner Omni & Emulator**: Defaults to `false`. Cloud Monitoring export is never
+    ///   enabled for Spanner Omni instances or when connecting to the Spanner emulator.
+    ///
+    /// # Independence from Custom Provider Export
+    ///
+    /// Disabling Cloud Monitoring export does **not** affect built-in metrics exported to a
+    /// custom [`MeterProvider`] configured via
+    /// [`with_meter_provider`](Self::with_meter_provider) and
+    /// [`with_export_builtin_metrics_to_custom_provider`](Self::with_export_builtin_metrics_to_custom_provider).
+    #[cfg(feature = "builtin-metrics")]
+    fn with_export_builtin_metrics_to_cloud_monitoring(self, export: bool) -> Self;
 }
+
+#[cfg(feature = "builtin-metrics")]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+struct ExportBuiltinMetricsToCloudMonitoring(bool);
+
+#[cfg(feature = "metrics")]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+struct ExportBuiltinMetricsToCustomProvider(bool);
 
 impl SpannerBuilderExt for ClientBuilder {
     fn with_instance_type(self, instance_type: InstanceType) -> Self {
@@ -191,13 +336,25 @@ impl SpannerBuilderExt for ClientBuilder {
         self.with_extension(InstanceType::Omni)
             .with_extension(tls_config)
     }
+
+    #[cfg(feature = "metrics")]
+    fn with_meter_provider(self, provider: Arc<dyn MeterProvider + Send + Sync>) -> Self {
+        self.with_extension(SharedMeterProvider::from(provider))
+    }
+
+    #[cfg(feature = "metrics")]
+    fn with_export_builtin_metrics_to_custom_provider(self, export: bool) -> Self {
+        self.with_extension(ExportBuiltinMetricsToCustomProvider(export))
+    }
+
+    #[cfg(feature = "builtin-metrics")]
+    fn with_export_builtin_metrics_to_cloud_monitoring(self, export: bool) -> Self {
+        self.with_extension(ExportBuiltinMetricsToCloudMonitoring(export))
+    }
 }
 
-fn resolve_pool_config(
-    config: &mut ClientConfig,
-    is_emulator: bool,
-) -> ClientBuilderResult<ChannelPoolConfig> {
-    resolve_pool_config_with(config, is_emulator, || {
+fn resolve_pool_config(config: &mut ClientConfig) -> ClientBuilderResult<ChannelPoolConfig> {
+    resolve_pool_config_with(config, || {
         env::var("SPANNER_NUM_CHANNELS")
             .ok()
             .filter(|string| !string.trim().is_empty())
@@ -206,18 +363,12 @@ fn resolve_pool_config(
 
 fn resolve_pool_config_with(
     config: &mut ClientConfig,
-    is_emulator: bool,
     env_lookup: impl FnOnce() -> Option<String>,
 ) -> ClientBuilderResult<ChannelPoolConfig> {
     if let Some(config_override) = config.extensions.remove::<ChannelPoolConfig>() {
         let pool_config = Arc::try_unwrap(config_override).unwrap_or_else(|arc| (*arc).clone());
         pool_config.validate().map_err(BuilderError::transport)?;
         return Ok(pool_config);
-    }
-    if is_emulator {
-        return Ok(ChannelPoolConfig::Static(StaticChannelPoolConfig {
-            num_channels: 1,
-        }));
     }
     if let Some(num_channels_str) = env_lookup() {
         let trimmed = num_channels_str.trim();
@@ -270,6 +421,62 @@ fn parse_emulator_endpoint(endpoint: &str) -> String {
     }
 }
 
+fn detect_and_configure_emulator(config: &mut ClientConfig) -> bool {
+    let Ok(endpoint) = env::var("SPANNER_EMULATOR_HOST") else {
+        return false;
+    };
+    detect_and_configure_emulator_from_host(config, &endpoint)
+}
+
+fn detect_and_configure_emulator_from_host(config: &mut ClientConfig, emulator_host: &str) -> bool {
+    if emulator_host.is_empty() {
+        return false;
+    }
+
+    let emulator_endpoint = parse_emulator_endpoint(emulator_host);
+    let is_emulator = match config.endpoint.as_deref() {
+        // If no endpoint was explicitly set on the client config, adopt the emulator host.
+        None => {
+            config.endpoint = Some(emulator_endpoint);
+            true
+        }
+        // If an explicit endpoint was specified, only treat the client as connecting to the
+        // emulator if that endpoint actually points to the emulator host (either raw or parsed URL).
+        Some(configured_endpoint)
+            if configured_endpoint == emulator_host || configured_endpoint == emulator_endpoint =>
+        {
+            true
+        }
+        // An explicit endpoint pointing to another host (e.g. a mock server, Omni, or Cloud Spanner)
+        // is not considered an emulator connection.
+        Some(_) => false,
+    };
+
+    // The emulator does not require authentication; default to anonymous credentials
+    // if none were provided.
+    if is_emulator && config.cred.is_none() {
+        config.cred = Some(anonymous::Builder::new().build());
+    }
+
+    is_emulator
+}
+
+#[cfg(feature = "metrics")]
+fn extract_metrics_config(extensions: &Extensions) -> (Option<bool>, Option<SharedMeterProvider>) {
+    let export_builtin_metrics_to_custom_provider = extensions
+        .get::<ExportBuiltinMetricsToCustomProvider>()
+        .map(|config| config.0);
+    let meter_provider = extensions
+        .get::<SharedMeterProvider>()
+        .cloned()
+        .or_else(|| {
+            extensions
+                .get::<Arc<dyn MeterProvider + Send + Sync>>()
+                .map(|provider| SharedMeterProvider::from(Arc::clone(provider)))
+        });
+    (export_builtin_metrics_to_custom_provider, meter_provider)
+}
+
 macro_rules! define_idempotent_rpc {
     ($method:ident, $request_type:ty, $response_type:ty, $canonical_name:expr) => {
         pub(crate) async fn $method(
@@ -280,7 +487,7 @@ macro_rules! define_idempotent_rpc {
             o11y: &Arc<Observability>,
         ) -> Result<$response_type> {
             let options = self.attach_request_id(options, channel.channel_id);
-            #[cfg(feature = "_experimental-builtin-metrics")]
+            #[cfg(feature = "metrics")]
             let options = options.insert_extension(Arc::clone(o11y));
             o11y.trace_operation(
                 $canonical_name,
@@ -455,7 +662,33 @@ impl Spanner {
             is_emulator: false,
             instance_type: InstanceType::Cloud,
             request_id_creator: Arc::new(RequestIdCreator::new()),
+            #[cfg(feature = "builtin-metrics")]
+            export_builtin_metrics_to_cloud_monitoring: None,
+            #[cfg(feature = "metrics")]
+            export_builtin_metrics_to_custom_provider: None,
+            #[cfg(feature = "metrics")]
+            meter_provider: None,
         }
+    }
+
+    #[cfg(feature = "builtin-metrics")]
+    pub(crate) fn export_builtin_metrics_to_cloud_monitoring(&self) -> Option<bool> {
+        self.export_builtin_metrics_to_cloud_monitoring
+    }
+
+    #[cfg(all(feature = "metrics", not(feature = "builtin-metrics")))]
+    pub(crate) fn export_builtin_metrics_to_cloud_monitoring(&self) -> Option<bool> {
+        None
+    }
+
+    #[cfg(feature = "metrics")]
+    pub(crate) fn export_builtin_metrics_to_custom_provider(&self) -> Option<bool> {
+        self.export_builtin_metrics_to_custom_provider
+    }
+
+    #[cfg(feature = "metrics")]
+    pub(crate) fn meter_provider(&self) -> Option<SharedMeterProvider> {
+        self.meter_provider.clone()
     }
 
     pub(crate) fn is_emulator(&self) -> bool {
@@ -466,6 +699,12 @@ impl Spanner {
         self.instance_type
     }
 
+    /// Returns the first active channel in the pool, used strictly for fallback gateway metadata setup.
+    ///
+    /// # Warning
+    ///
+    /// Do **not** use this method for query or RPC dispatch; use [`Self::next_channel`] or
+    /// [`Self::resolve_affinity`] instead to ensure load-balanced distribution.
     pub(crate) fn default_channel(&self) -> Option<Channel> {
         self.channel_pool.default_channel()
     }
@@ -644,13 +883,13 @@ impl Channel {
         let request_id_interceptor: Arc<dyn AttemptInterceptor> =
             Arc::new(SpannerRequestIdInterceptor);
 
-        #[cfg(feature = "_experimental-builtin-metrics")]
+        #[cfg(feature = "metrics")]
         let interceptor: Arc<dyn AttemptInterceptor> = Arc::new(vec![
             request_id_interceptor,
             Arc::new(SpannerMetricsInterceptor),
         ]);
 
-        #[cfg(not(feature = "_experimental-builtin-metrics"))]
+        #[cfg(not(feature = "metrics"))]
         let interceptor: Arc<dyn AttemptInterceptor> = request_id_interceptor;
 
         transport.inner.set_attempt_interceptor(interceptor);
@@ -750,8 +989,11 @@ mod tests {
             .await
             .expect("Failed to build client");
 
-        let expected_channels = if client.is_emulator() { 1 } else { 4 };
-        assert_eq!(client.channel_count(), expected_channels);
+        assert_eq!(
+            client.channel_count(),
+            4,
+            "default static channel pool must have 4 channels"
+        );
     }
 
     #[test]
@@ -2286,7 +2528,7 @@ mod tests {
 
         // Case 1: Default when no env var and no override
         let mut config = ClientConfig::default();
-        let pool_config = resolve_pool_config_with(&mut config, false, || None)
+        let pool_config = resolve_pool_config_with(&mut config, || None)
             .expect("default pool config should resolve");
         assert_eq!(
             pool_config,
@@ -2294,19 +2536,9 @@ mod tests {
             "default static pool has 4 channels"
         );
 
-        // Case 2: Emulator defaults to 1 channel
+        // Case 2: SPANNER_NUM_CHANNELS valid integer
         let mut config = ClientConfig::default();
-        let pool_config = resolve_pool_config_with(&mut config, true, || Some("8".to_string()))
-            .expect("emulator pool config should resolve");
-        assert_eq!(
-            pool_config,
-            ChannelPoolConfig::Static(StaticChannelPoolConfig { num_channels: 1 }),
-            "emulator should configure 1 channel"
-        );
-
-        // Case 3: SPANNER_NUM_CHANNELS valid integer
-        let mut config = ClientConfig::default();
-        let pool_config = resolve_pool_config_with(&mut config, false, || Some("2".to_string()))
+        let pool_config = resolve_pool_config_with(&mut config, || Some("2".to_string()))
             .expect("pool config with SPANNER_NUM_CHANNELS=2 should resolve");
         assert_eq!(
             pool_config,
@@ -2314,9 +2546,9 @@ mod tests {
             "configured static channels should be 2"
         );
 
-        // Case 4: SPANNER_NUM_CHANNELS unparsable integer string
+        // Case 3: SPANNER_NUM_CHANNELS unparsable integer string
         let mut config = ClientConfig::default();
-        let err = resolve_pool_config_with(&mut config, false, || Some("not_a_number".to_string()))
+        let err = resolve_pool_config_with(&mut config, || Some("not_a_number".to_string()))
             .expect_err("should fail when SPANNER_NUM_CHANNELS is not a valid integer");
         let debug_err = format!("{err:?}");
         assert!(
@@ -2324,9 +2556,9 @@ mod tests {
             "error should indicate invalid digit: {debug_err}"
         );
 
-        // Case 5: SPANNER_NUM_CHANNELS zero (validation failure)
+        // Case 4: SPANNER_NUM_CHANNELS zero (validation failure)
         let mut config = ClientConfig::default();
-        let err = resolve_pool_config_with(&mut config, false, || Some("0".to_string()))
+        let err = resolve_pool_config_with(&mut config, || Some("0".to_string()))
             .expect_err("should fail when SPANNER_NUM_CHANNELS is 0");
         let debug_err = format!("{err:?}");
         assert!(
@@ -2334,14 +2566,14 @@ mod tests {
             "error should indicate num_channels must be at least 1: {debug_err}"
         );
 
-        // Case 6: Extension override takes precedence over SPANNER_NUM_CHANNELS
+        // Case 5: Extension override takes precedence over SPANNER_NUM_CHANNELS
         let mut config = ClientConfig::default();
         config
             .extensions
             .insert(ChannelPoolConfig::Static(StaticChannelPoolConfig {
                 num_channels: 10,
             }));
-        let pool_config = resolve_pool_config_with(&mut config, false, || Some("2".to_string()))
+        let pool_config = resolve_pool_config_with(&mut config, || Some("2".to_string()))
             .expect("extension override should resolve");
         assert_eq!(
             pool_config,
@@ -2349,24 +2581,9 @@ mod tests {
             "extension override takes precedence over env var"
         );
 
-        // Case 7: Extension override takes precedence even if emulator is true
+        // Case 6: SPANNER_NUM_CHANNELS empty or whitespace string falls back to default
         let mut config = ClientConfig::default();
-        config
-            .extensions
-            .insert(ChannelPoolConfig::Static(StaticChannelPoolConfig {
-                num_channels: 8,
-            }));
-        let pool_config = resolve_pool_config_with(&mut config, true, || Some("2".to_string()))
-            .expect("extension override should resolve even on emulator");
-        assert_eq!(
-            pool_config,
-            ChannelPoolConfig::Static(StaticChannelPoolConfig { num_channels: 8 }),
-            "extension override takes precedence over emulator default"
-        );
-
-        // Case 8: SPANNER_NUM_CHANNELS empty or whitespace string falls back to default
-        let mut config = ClientConfig::default();
-        let pool_config = resolve_pool_config_with(&mut config, false, || Some("   ".to_string()))
+        let pool_config = resolve_pool_config_with(&mut config, || Some("   ".to_string()))
             .expect("whitespace SPANNER_NUM_CHANNELS should resolve to default");
         assert_eq!(
             pool_config,
@@ -2374,13 +2591,13 @@ mod tests {
             "whitespace SPANNER_NUM_CHANNELS should default to 4 channels"
         );
 
-        // Case 9: Extension override with dynamic channel pool configuration
+        // Case 7: Extension override with dynamic channel pool configuration
         let mut config = ClientConfig::default();
         let dynamic_config = DynamicChannelPoolConfig::default();
         config
             .extensions
             .insert(ChannelPoolConfig::Dynamic(dynamic_config.clone()));
-        let pool_config = resolve_pool_config_with(&mut config, false, || Some("2".to_string()))
+        let pool_config = resolve_pool_config_with(&mut config, || Some("2".to_string()))
             .expect("dynamic extension override should resolve");
         assert_eq!(
             pool_config,
@@ -2427,6 +2644,332 @@ mod tests {
             spanner.channel_pool.active_channel_count(),
             2,
             "Channel pool must have 2 channels from with_channel_pool override"
+        );
+    }
+
+    #[cfg(feature = "builtin-metrics")]
+    #[tokio_test_no_panics]
+    async fn spanner_builder_with_meter_provider_cloud_spanner_default_does_not_export_builtin_metrics()
+     {
+        use opentelemetry::metrics::MeterProvider;
+        use opentelemetry_sdk::metrics::{
+            InMemoryMetricExporter, PeriodicReader, SdkMeterProvider,
+        };
+
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().once().returning(|req| {
+            let req = req.into_inner();
+            let session = req.session.expect("session present in request");
+            assert!(session.multiplexed, "session should be multiplexed");
+
+            Ok(Response::new(Session {
+                name:
+                    "projects/test-project/instances/test-instance/databases/test-db/sessions/123"
+                        .to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(exporter).build();
+        let provider: Arc<dyn MeterProvider + Send + Sync> =
+            Arc::new(SdkMeterProvider::builder().with_reader(reader).build());
+
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .with_meter_provider(Arc::clone(&provider))
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        assert!(
+            spanner.meter_provider().is_some(),
+            "provider should be stored on spanner"
+        );
+        assert_eq!(
+            spanner.export_builtin_metrics_to_custom_provider(),
+            None,
+            "export_builtin_metrics_to_custom_provider should default to None"
+        );
+
+        let db_client = spanner
+            .database_client("projects/test-project/instances/test-instance/databases/test-db")
+            .build()
+            .await
+            .expect("Failed to create DatabaseClient");
+
+        assert!(
+            !db_client.o11y.is_enabled(),
+            "Observability should be disabled for built-in metrics on Cloud Spanner by default"
+        );
+        assert!(
+            db_client.o11y.caller_meter_provider.is_some(),
+            "caller_meter_provider should be preserved on the client"
+        );
+        assert_eq!(
+            db_client.o11y.metrics.len(),
+            0,
+            "Cloud Spanner default does not duplicate built-in metrics to caller provider"
+        );
+    }
+
+    #[cfg(feature = "builtin-metrics")]
+    #[tokio_test_no_panics]
+    async fn spanner_builder_with_export_builtin_metrics_to_custom_provider() {
+        use opentelemetry::metrics::MeterProvider;
+        use opentelemetry_sdk::metrics::{
+            InMemoryMetricExporter, PeriodicReader, SdkMeterProvider,
+        };
+
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().once().returning(|req| {
+            let req = req.into_inner();
+            let session = req.session.expect("session present in request");
+            assert!(session.multiplexed, "session should be multiplexed");
+
+            Ok(Response::new(Session {
+                name:
+                    "projects/test-project/instances/test-instance/databases/test-db/sessions/123"
+                        .to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(exporter).build();
+        let provider: Arc<dyn MeterProvider + Send + Sync> =
+            Arc::new(SdkMeterProvider::builder().with_reader(reader).build());
+
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .with_meter_provider(Arc::clone(&provider))
+            .with_export_builtin_metrics_to_custom_provider(true)
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        assert_eq!(
+            spanner.export_builtin_metrics_to_custom_provider(),
+            Some(true),
+            "export flag should be Some(true)"
+        );
+
+        let db_client = spanner
+            .database_client("projects/test-project/instances/test-instance/databases/test-db")
+            .build()
+            .await
+            .expect("Failed to create DatabaseClient");
+
+        assert!(
+            db_client.o11y.is_enabled(),
+            "Observability should be enabled when opting in to export built-in metrics"
+        );
+        assert_eq!(
+            db_client.o11y.metrics.len(),
+            1,
+            "expected 1 metrics sink for the custom provider"
+        );
+    }
+
+    #[cfg(feature = "builtin-metrics")]
+    #[tokio_test_no_panics]
+    async fn spanner_builder_omni_with_meter_provider_defaults_to_export_builtin_metrics() {
+        use opentelemetry::metrics::MeterProvider;
+        use opentelemetry_sdk::metrics::{
+            InMemoryMetricExporter, PeriodicReader, SdkMeterProvider,
+        };
+
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().once().returning(|req| {
+            let req = req.into_inner();
+            let session = req.session.expect("session present in request");
+            assert!(session.multiplexed, "session should be multiplexed");
+
+            Ok(Response::new(Session {
+                name:
+                    "projects/test-project/instances/test-instance/databases/test-db/sessions/123"
+                        .to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(exporter).build();
+        let provider: Arc<dyn MeterProvider + Send + Sync> =
+            Arc::new(SdkMeterProvider::builder().with_reader(reader).build());
+
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_meter_provider(Arc::clone(&provider))
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        assert_eq!(
+            spanner.export_builtin_metrics_to_custom_provider(),
+            None,
+            "export flag defaults to None"
+        );
+
+        let db_client = spanner
+            .database_client("projects/test-project/instances/test-instance/databases/test-db")
+            .build()
+            .await
+            .expect("Failed to create DatabaseClient");
+
+        assert!(
+            db_client.o11y.is_enabled(),
+            "Observability should be enabled on Omni by default when provider is supplied"
+        );
+        assert_eq!(
+            db_client.o11y.metrics.len(),
+            1,
+            "expected 1 metrics sink for Omni custom provider"
+        );
+    }
+
+    #[cfg(feature = "builtin-metrics")]
+    #[tokio_test_no_panics]
+    async fn spanner_builder_with_export_builtin_metrics_to_cloud_monitoring() {
+        let spanner = Spanner::builder()
+            .with_endpoint("http://127.0.0.1:1")
+            .with_credentials(Anonymous::new().build())
+            .with_export_builtin_metrics_to_cloud_monitoring(false)
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        assert_eq!(
+            spanner.export_builtin_metrics_to_cloud_monitoring(),
+            Some(false),
+            "export_builtin_metrics_to_cloud_monitoring should be Some(false)"
+        );
+
+        let spanner_enabled = Spanner::builder()
+            .with_endpoint("http://127.0.0.1:1")
+            .with_credentials(Anonymous::new().build())
+            .with_export_builtin_metrics_to_cloud_monitoring(true)
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        assert_eq!(
+            spanner_enabled.export_builtin_metrics_to_cloud_monitoring(),
+            Some(true),
+            "export_builtin_metrics_to_cloud_monitoring should be Some(true)"
+        );
+    }
+
+    #[cfg(feature = "builtin-metrics")]
+    #[tokio_test_no_panics]
+    async fn spanner_builder_with_raw_meter_provider_extension() {
+        use opentelemetry::metrics::MeterProvider;
+        use opentelemetry_sdk::metrics::{
+            InMemoryMetricExporter, PeriodicReader, SdkMeterProvider,
+        };
+
+        let exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(exporter).build();
+        let provider: Arc<dyn MeterProvider + Send + Sync> =
+            Arc::new(SdkMeterProvider::builder().with_reader(reader).build());
+
+        let spanner = Spanner::builder()
+            .with_endpoint("http://127.0.0.1:1")
+            .with_credentials(Anonymous::new().build())
+            .with_extension(Arc::clone(&provider))
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        assert!(
+            spanner.meter_provider().is_some(),
+            "raw Arc<dyn MeterProvider> extension should be recognized"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_empty_host() {
+        let mut config = ClientConfig::default();
+        let is_emulator = super::detect_and_configure_emulator_from_host(&mut config, "");
+        assert!(
+            !is_emulator,
+            "empty emulator host should not be detected as emulator"
+        );
+        assert!(config.endpoint.is_none(), "endpoint should remain None");
+        assert!(config.cred.is_none(), "credentials should remain None");
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_default_endpoint_and_credentials() {
+        let mut config = ClientConfig::default();
+        let is_emulator =
+            super::detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        assert!(is_emulator, "emulator host should be detected as emulator");
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("http://localhost:9010"),
+            "endpoint should be populated with emulator URL"
+        );
+        assert!(
+            config.cred.is_some(),
+            "anonymous credentials should be automatically configured"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_distinct_endpoint_not_emulator() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("0.0.0.0:12345".to_string());
+        let is_emulator =
+            super::detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        assert!(
+            !is_emulator,
+            "distinct endpoint should not be marked as emulator"
+        );
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("0.0.0.0:12345"),
+            "distinct endpoint should not be overwritten"
+        );
+        assert!(
+            config.cred.is_none(),
+            "credentials should not be set for non-emulator endpoint"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_matching_explicit_endpoint() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("localhost:9010".to_string());
+        let is_emulator =
+            super::detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        assert!(
+            is_emulator,
+            "matching explicit endpoint should be marked as emulator"
+        );
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("localhost:9010"),
+            "explicit endpoint should be preserved"
+        );
+        assert!(
+            config.cred.is_some(),
+            "anonymous credentials should be configured"
         );
     }
 }

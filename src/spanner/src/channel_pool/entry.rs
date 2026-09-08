@@ -199,7 +199,6 @@ impl ChannelEntry {
     }
 
     /// Checks if the channel entry is currently in the `Draining` state.
-    #[allow(dead_code)] // State query helper for Draining state; used in tests and future scale-down inspection
     pub(crate) fn is_draining(&self) -> bool {
         self.state() == ChannelState::Draining
     }

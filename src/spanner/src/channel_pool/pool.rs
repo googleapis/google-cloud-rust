@@ -200,16 +200,12 @@ impl ChannelPool {
 
             // 2. Draining-path: Only Read/Write transactions (hard stickiness) preserve draining affinity.
             // Read-Only transactions (soft stickiness) bypass draining channels and pick a fresh active channel.
-            if affinity.is_read_write() {
-                let draining_guard = self.inner.draining_entries.read().expect("lock poisoned");
-                if let Some(entry) = draining_guard
-                    .iter()
-                    .find(|entry| entry.id == id && !entry.is_closed())
-                {
-                    let lease = self.make_lease(Arc::clone(entry));
-                    affinity.ensure_rw_guard(&lease);
-                    return Some(lease);
-                }
+            if affinity.is_read_write()
+                && let Some(entry) = self.find_draining_entry(id)
+            {
+                let lease = self.make_lease(entry);
+                affinity.ensure_rw_guard(&lease);
+                return Some(lease);
             }
         }
 
@@ -231,6 +227,31 @@ impl ChannelPool {
         Some(final_lease)
     }
 
+    /// Resolves a compare-and-swap (CAS) conflict when two or more concurrent tasks attempt to
+    /// pin or re-pin channel affinity for the same transaction simultaneously.
+    ///
+    /// # Background and Motivation
+    ///
+    /// When concurrent tasks execute statements within an unpinned transaction, each task independently
+    /// selects an active channel candidate from the pool and attempts to atomically record its choice
+    /// via CAS on the shared [`TransactionAffinity`] handle. The first task to succeed wins and establishes
+    /// the transaction's channel pin.
+    ///
+    /// Any losing task arrives here with the winning channel ID (`winner_id`). To guarantee that all
+    /// statements within the transaction route to the same Spanner frontend (SpanFE) server (preserving
+    /// in-memory lock state and avoiding transaction aborted errors), the losing task discards its
+    /// independently selected lease and adopts the winning channel.
+    ///
+    /// # Handling Stale or Closed Winner Channels
+    ///
+    /// If the winning channel is no longer active in `active_candidates`:
+    /// 1. **Read/Write transactions (hard stickiness)**: Checks if the winning channel transitioned to
+    ///    `Draining`. If so, hard affinity requires following that channel to avoid aborting in-flight work.
+    /// 2. **Unusable winner**: If the winner is closed (or is draining for Read-Only transactions which use
+    ///    soft stickiness), it cannot be used. In this case, this task attempts to re-pin affinity to its
+    ///    own active `lease` via CAS.
+    /// 3. **Retry on contention**: If re-pinning encounters another concurrent CAS race, the loop retries
+    ///    with the new winning entry ID.
     pub(crate) fn resolve_cas_conflict(
         &self,
         affinity: &TransactionAffinity,
@@ -239,37 +260,37 @@ impl ChannelPool {
         mut winner_id: u64,
     ) -> ChannelLease {
         loop {
+            // 1. If the winning channel is still active in the candidate set, adopt it.
             if let Some(winner_entry) = active_candidates
                 .iter()
                 .find(|entry| entry.id == winner_id && entry.is_active())
             {
                 return self.make_lease(Arc::clone(winner_entry));
             }
-            if affinity.is_read_write() {
-                let draining_guard = self.inner.draining_entries.read().expect("lock poisoned");
-                if let Some(entry) = draining_guard
-                    .iter()
-                    .find(|entry| entry.id == winner_id && !entry.is_closed())
-                {
-                    return self.make_lease(Arc::clone(entry));
-                }
-                // Winner channel is closed/dead. Re-pin affinity to our active lease channel.
-                match affinity.compare_and_set_entry_id(winner_id, lease.entry_id()) {
-                    Ok(()) => return lease,
-                    Err(new_winner_id) => {
-                        winner_id = new_winner_id;
-                        continue;
-                    }
-                }
+
+            // 2. Read/Write transactions preserve draining channels under hard stickiness.
+            if affinity.is_read_write()
+                && let Some(entry) = self.find_draining_entry(winner_id)
+            {
+                return self.make_lease(entry);
             }
-            // Soft stickiness: winner is not active, re-pin affinity to our active lease channel.
+
+            // 3. The winner channel is unusable (closed, or draining for Read-Only soft stickiness).
+            // Attempt to re-pin affinity to our active lease.
             match affinity.compare_and_set_entry_id(winner_id, lease.entry_id()) {
                 Ok(()) => return lease,
-                Err(new_winner_id) => {
-                    winner_id = new_winner_id;
-                }
+                Err(new_winner_id) => winner_id = new_winner_id,
             }
         }
+    }
+
+    /// Finds a channel entry in the draining pool by ID, if present and still draining.
+    fn find_draining_entry(&self, entry_id: u64) -> Option<Arc<ChannelEntry>> {
+        let draining_guard = self.inner.draining_entries.read().expect("lock poisoned");
+        draining_guard
+            .iter()
+            .find(|entry| entry.id == entry_id && entry.is_draining())
+            .cloned()
     }
 
     fn pick_from_slice(&self, candidates: &[Arc<ChannelEntry>]) -> Option<ChannelLease> {
@@ -322,6 +343,16 @@ impl ChannelPool {
     }
 
     /// Returns a clone of the first active channel in the pool, if present.
+    ///
+    /// # Warning
+    ///
+    /// This method is intended strictly for internal metadata setup (e.g. configuring
+    /// fallback gateway connection endpoints during client initialization).
+    ///
+    /// **Never** use this method for routing or executing queries or RPCs. Doing so would
+    /// bypass load balancing and cause traffic to herd onto the first channel.
+    /// Use [`ChannelPool::next_channel`] for P2C load-balanced channel selection, or
+    /// [`ChannelPool::resolve_affinity`] for operations requiring transaction affinity.
     pub(crate) fn default_channel(&self) -> Option<Channel> {
         let active_guard = self.inner.active_entries.read().expect("lock poisoned");
         active_guard.first().map(|entry| entry.channel.clone())
@@ -623,11 +654,10 @@ mod tests {
         *pool.inner.active_entries.write().expect("lock") = vec![Arc::clone(&channel_1)];
         *pool.inner.draining_entries.write().expect("lock") = vec![Arc::clone(&channel_2)];
 
-        // Read-Only transaction uses soft stickiness
+        // Simulate a Read-Only transaction that was previously pinned to channel 2,
+        // which has now transitioned to Draining during a scale-down event.
         let read_only_affinity = TransactionAffinity::new_read_only();
-        read_only_affinity
-            .compare_and_set_entry_id(0, 2)
-            .expect("pin affinity"); // Was pinned to channel 2 (now draining)
+        read_only_affinity.set_pinned_entry_id_for_test(2);
 
         let lease = pool
             .resolve_affinity(&read_only_affinity)
@@ -841,11 +871,10 @@ mod tests {
         *pool.inner.active_entries.write().expect("lock") = vec![Arc::clone(&channel_1)];
         *pool.inner.draining_entries.write().expect("lock") = vec![Arc::clone(&channel_2)];
 
-        // 1. ReadWrite affinity pinned to a Closed draining channel -> must fallback to active channel
+        // 1. Simulate a Read/Write transaction previously pinned to channel 2,
+        // which has now transitioned to Closed after an idle timeout.
         let rw_affinity = TransactionAffinity::new_read_write();
-        rw_affinity
-            .compare_and_set_entry_id(0, 2)
-            .expect("pin affinity"); // Channel 2 is closed
+        rw_affinity.set_pinned_entry_id_for_test(2);
         let lease = pool
             .resolve_affinity(&rw_affinity)
             .expect("must fallback to active channel when draining channel is closed");
@@ -856,11 +885,9 @@ mod tests {
             "Affinity pin must be updated to active channel 1"
         );
 
-        // 2. Affinity pinned to a non-existent channel ID -> must fallback to active channel
+        // 2. Simulate affinity pinned to a stale / non-existent channel ID -> must fallback to active channel
         let non_existent_affinity = TransactionAffinity::new_read_write();
-        non_existent_affinity
-            .compare_and_set_entry_id(0, 999)
-            .expect("pin affinity");
+        non_existent_affinity.set_pinned_entry_id_for_test(999);
         let lease_fallback = pool
             .resolve_affinity(&non_existent_affinity)
             .expect("must fallback to active channel for unknown channel ID");
