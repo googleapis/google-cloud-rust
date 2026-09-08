@@ -26,20 +26,35 @@ categories.workspace   = true
 rust-version.workspace = true
 
 [features]
-default = ["default-rustls-provider"]
+default = ["builtin-metrics", "default-rustls-provider"]
 # Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
 # TLS and authentication. Applications with specific requirements for
 # cryptography (such as exclusively using the [ring] crate) should disable this
 # default and call `rustls::CryptoProvider::install_default()`.
 default-rustls-provider = ["gaxi/_default-rustls-provider"]
-unstable-stream = ["dep:futures"]
-_experimental-builtin-metrics = [
+unstable-stream         = ["dep:futures"]
+
+# Enables collecting and recording metrics on a caller-owned OpenTelemetry MeterProvider.
+# Pulls in only the lightweight OpenTelemetry API trait definitions and UUID generator.
+# When enabled without `builtin-metrics`, applications can record both Client metrics and
+# Spanner built-in request/attempt latency metrics to a custom MeterProvider (e.g. exporting
+# to Datadog, Prometheus, or an OpenTelemetry Collector) without compiling Google Cloud
+# Monitoring dependencies.
+metrics = ["dep:opentelemetry", "dep:uuid"]
+
+# Enabled by default. Includes the background Google Cloud Monitoring (GCM) export pipeline
+# that automatically publishes Spanner built-in request and latency metrics to Cloud Monitoring.
+#
+# Applications that run outside GCP (such as Spanner Omni), or that send metrics to third-party
+# monitoring systems instead of Cloud Monitoring, can disable this feature while keeping the
+# `metrics` feature enabled to record built-in metrics directly to their own OpenTelemetry
+# MeterProvider.
+builtin-metrics = [
   "dep:google-cloud-api",
   "dep:google-cloud-monitoring-v3",
-  "dep:opentelemetry",
   "dep:opentelemetry_sdk",
-  "dep:uuid",
   "gaxi/_internal-http-client",
+  "metrics",
 ]
 
 [dependencies]
