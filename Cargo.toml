@@ -424,6 +424,7 @@ inherits    = "dev"
 incremental = false
 
 [workspace.dependencies]
+arc-swap              = { default-features = false, version = "1.9" }
 arrow                 = { default-features = false, version = "59.2" }
 arrow-json            = { default-features = false, version = "59.2" }
 async-trait           = { default-features = false, version = "0.1.85" }

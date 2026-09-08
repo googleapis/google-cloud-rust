@@ -137,6 +137,7 @@ mod tests {
     use crate::write::test::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
+    use std::sync::MutexGuard;
     use test_case::test_case;
     use tokio::sync::{mpsc, oneshot};
     use tokio::task::JoinSet;
@@ -400,10 +401,15 @@ mod tests {
         }
 
         // Returns the stream IDs in the pool, in order.
-        fn stream_ids(&self) -> Vec<u64> {
+        pub(crate) fn stream_ids(&self) -> Vec<u64> {
             let mut ids: Vec<_> = self.streams.lock().unwrap().iter().map(|s| s.id).collect();
             ids.sort();
             ids
+        }
+
+        // Acquire the stream lock
+        pub(crate) fn lock(&self) -> MutexGuard<'_, Vec<StreamEntry>> {
+            self.streams.lock().unwrap()
         }
     }
 }
