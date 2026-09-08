@@ -17,11 +17,18 @@ use crate::google::spanner::v1::CacheUpdate as ProtoCacheUpdate;
 use crate::google::spanner::v1::PartialResultSet;
 use gaxi::grpc::from_status::to_gax_error;
 use gaxi::grpc::tonic::Streaming;
+use google_cloud_gax::error::rpc::Code;
 use http::HeaderMap;
-use std::any::Any;
+use std::fmt::Debug;
+use std::sync::Arc;
 
-/// Type alias for opaque stream lifetime drop guards.
-pub(crate) type StreamLifetimeGuard = Box<dyn Any + Send + Sync>;
+/// Trait for stream lifetime drop guards capable of recording RPC error codes for dynamic channel pooling.
+pub(crate) trait StreamGuard: Debug + Send + Sync + 'static {
+    fn record_error_code(&self, code: Code);
+}
+
+/// Type alias for stream lifetime drop guards.
+pub(crate) type StreamLifetimeGuard = Arc<dyn StreamGuard>;
 
 /// Generic wrapper around gRPC server-streaming responses with lifetime management.
 #[derive(Debug)]
@@ -32,19 +39,16 @@ pub(crate) struct SpannerServerStream<T> {
 }
 
 impl<T> SpannerServerStream<T> {
-    pub(crate) fn new(inner: Streaming<T>, headers: HeaderMap) -> Self {
+    pub(crate) fn new(
+        inner: Streaming<T>,
+        headers: HeaderMap,
+        lifetime_guard: Option<StreamLifetimeGuard>,
+    ) -> Self {
         Self {
             inner,
             headers,
-            lifetime_guard: None,
+            lifetime_guard,
         }
-    }
-
-    /// Attaches an opaque RAII lifetime guard that remains alive for the duration of the stream.
-    #[allow(dead_code)]
-    pub(crate) fn with_lifetime_guard(mut self, guard: StreamLifetimeGuard) -> Self {
-        self.lifetime_guard = Some(guard);
-        self
     }
 
     /// Returns the initial response headers for the stream.
@@ -60,9 +64,17 @@ impl<T> SpannerServerStream<T> {
     pub(crate) async fn next_message(&mut self) -> Option<crate::Result<T>> {
         match self.inner.message().await.map_err(to_gax_error).transpose() {
             Some(Ok(message)) => Some(Ok(message)),
-            other => {
+            Some(Err(err)) => {
+                if let Some(guard) = self.lifetime_guard.take()
+                    && let Some(status) = err.status()
+                {
+                    guard.record_error_code(status.code);
+                }
+                Some(Err(err))
+            }
+            None => {
                 self.lifetime_guard = None;
-                other
+                None
             }
         }
     }
@@ -84,8 +96,10 @@ mod tests {
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_test_macros::tokio_test_no_panics;
     use std::fmt::Debug;
-    use std::sync::Arc;
-    use std::sync::atomic::{AtomicBool, Ordering};
+    use std::sync::{
+        Arc, Mutex,
+        atomic::{AtomicBool, Ordering},
+    };
 
     #[test]
     fn auto_traits() {
@@ -94,8 +108,16 @@ mod tests {
         static_assertions::assert_impl_all!(CacheUpdateStream: Send, Sync, Debug);
     }
 
+    #[derive(Debug)]
     struct TestDropGuard {
         dropped: Arc<AtomicBool>,
+        recorded_code: Arc<Mutex<Option<Code>>>,
+    }
+
+    impl StreamGuard for TestDropGuard {
+        fn record_error_code(&self, code: Code) {
+            *self.recorded_code.lock().expect("lock poisoned") = Some(code);
+        }
     }
 
     impl Drop for TestDropGuard {
@@ -107,8 +129,10 @@ mod tests {
     #[tokio_test_no_panics]
     async fn stream_drop_releases_lifetime_guard() -> anyhow::Result<()> {
         let dropped = Arc::new(AtomicBool::new(false));
-        let guard = Box::new(TestDropGuard {
+        let recorded_code = Arc::new(Mutex::new(None));
+        let guard = Arc::new(TestDropGuard {
             dropped: Arc::clone(&dropped),
+            recorded_code: Arc::clone(&recorded_code),
         });
 
         let mut mock = create_session_mock();
@@ -124,9 +148,9 @@ mod tests {
                 .set_sql("SELECT 1");
             let stream = db_client
                 .execute_streaming_sql(request, RequestOptions::default(), 0)
+                .with_lifetime_guard(guard)
                 .send()
-                .await?
-                .with_lifetime_guard(guard);
+                .await?;
 
             assert!(
                 !dropped.load(Ordering::Relaxed),
@@ -139,14 +163,21 @@ mod tests {
             dropped.load(Ordering::Relaxed),
             "Guard must be dropped when stream is dropped"
         );
+        assert_eq!(
+            *recorded_code.lock().expect("lock poisoned"),
+            None,
+            "No error code should be recorded on normal stream drop"
+        );
         Ok(())
     }
 
     #[tokio_test_no_panics]
     async fn stream_eof_releases_lifetime_guard() -> anyhow::Result<()> {
         let dropped = Arc::new(AtomicBool::new(false));
-        let guard = Box::new(TestDropGuard {
+        let recorded_code = Arc::new(Mutex::new(None));
+        let guard = Arc::new(TestDropGuard {
             dropped: Arc::clone(&dropped),
+            recorded_code: Arc::clone(&recorded_code),
         });
 
         let mut mock = create_session_mock();
@@ -161,9 +192,9 @@ mod tests {
             .set_sql("SELECT 1");
         let mut stream = db_client
             .execute_streaming_sql(request, RequestOptions::default(), 0)
+            .with_lifetime_guard(guard)
             .send()
-            .await?
-            .with_lifetime_guard(guard);
+            .await?;
 
         // Close channel to simulate EOF
         drop(sender);
@@ -179,14 +210,21 @@ mod tests {
             dropped.load(Ordering::Relaxed),
             "Guard must be dropped immediately on EOF"
         );
+        assert_eq!(
+            *recorded_code.lock().expect("lock poisoned"),
+            None,
+            "No error code should be recorded on normal EOF"
+        );
         Ok(())
     }
 
     #[tokio_test_no_panics]
     async fn stream_error_releases_lifetime_guard() -> anyhow::Result<()> {
         let dropped = Arc::new(AtomicBool::new(false));
-        let guard = Box::new(TestDropGuard {
+        let recorded_code = Arc::new(Mutex::new(None));
+        let guard = Arc::new(TestDropGuard {
             dropped: Arc::clone(&dropped),
+            recorded_code: Arc::clone(&recorded_code),
         });
 
         let mut mock = create_session_mock();
@@ -201,9 +239,9 @@ mod tests {
             .set_sql("SELECT 1");
         let mut stream = db_client
             .execute_streaming_sql(request, RequestOptions::default(), 0)
+            .with_lifetime_guard(guard)
             .send()
-            .await?
-            .with_lifetime_guard(guard);
+            .await?;
 
         sender
             .send(Err(Status::unavailable("server unavailable")))
@@ -224,6 +262,42 @@ mod tests {
         assert!(
             dropped.load(Ordering::Relaxed),
             "Guard must be dropped immediately on stream error"
+        );
+        assert_eq!(
+            *recorded_code.lock().expect("lock poisoned"),
+            Some(Code::Unavailable),
+            "Stream error must record Code::Unavailable on guard"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn stream_error_without_guard() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let (sender, receiver) = tokio::sync::mpsc::channel(1);
+        mock.expect_execute_streaming_sql()
+            .return_once(move |_| Ok(Response::from(receiver)));
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let request = crate::model::ExecuteSqlRequest::default()
+            .set_session(db_client.session_name())
+            .set_sql("SELECT 1");
+        let mut stream = db_client
+            .execute_streaming_sql(request, RequestOptions::default(), 0)
+            .send()
+            .await?;
+
+        sender
+            .send(Err(Status::unavailable("server unavailable")))
+            .await
+            .expect("send error");
+
+        let next = stream.next_message().await;
+        assert!(next.is_some(), "Stream should yield Some on error");
+        assert!(
+            next.expect("error message").is_err(),
+            "Stream message should be an error"
         );
         Ok(())
     }

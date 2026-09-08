@@ -23,7 +23,8 @@ use crate::model::ReadRequest;
 use crate::server_streaming::stream::BatchWriteStream;
 use crate::server_streaming::stream::CacheUpdateStream;
 use crate::server_streaming::stream::PartialResultSetStream;
-use gaxi::grpc::tonic;
+use crate::server_streaming::stream::SpannerServerStream;
+use crate::server_streaming::stream::StreamLifetimeGuard;
 use gaxi::grpc::tonic::Extensions;
 use gaxi::grpc::tonic::GrpcMethod;
 use gaxi::prost::ToProto;
@@ -36,6 +37,7 @@ pub(crate) struct ExecuteStreamingSql {
     grpc_client: gaxi::grpc::Client,
     request: ExecuteSqlRequest,
     options: RequestOptions,
+    lifetime_guard: Option<StreamLifetimeGuard>,
 }
 
 impl ExecuteStreamingSql {
@@ -44,7 +46,15 @@ impl ExecuteStreamingSql {
             grpc_client,
             request: ExecuteSqlRequest::default(),
             options: RequestOptions::default(),
+            lifetime_guard: None,
         }
+    }
+
+    /// Attaches an opaque RAII lifetime guard that remains alive for the duration of the stream.
+    #[allow(dead_code)]
+    pub(crate) fn with_lifetime_guard(mut self, guard: StreamLifetimeGuard) -> Self {
+        self.lifetime_guard = Some(guard);
+        self
     }
 
     /// Sets the full request, replacing any prior values.
@@ -59,23 +69,26 @@ impl ExecuteStreamingSql {
         self
     }
 
+    /// Returns a reference to the request options.
+    #[allow(dead_code)]
+    pub(crate) fn options(&self) -> &RequestOptions {
+        &self.options
+    }
+
     /// Start the server streaming request and receive the stream.
     pub(crate) async fn send(self) -> Result<PartialResultSetStream> {
-        let session = self.request.session.clone();
+        let request_params = format!("session={}", self.request.session);
         let request = self.request.to_proto().map_err(Error::deser)?;
-        let request_params = format!("session={session}");
-        let response = make_server_streaming_request(
+        make_server_streaming_request(
             &self.grpc_client,
             request,
             self.options,
             "ExecuteStreamingSql",
             "/google.spanner.v1.Spanner/ExecuteStreamingSql",
             &request_params,
+            self.lifetime_guard,
         )
-        .await?;
-        let (metadata, stream, _) = response.into_parts();
-        let headers = metadata.into_headers();
-        Ok(PartialResultSetStream::new(stream, headers))
+        .await
     }
 }
 
@@ -91,6 +104,7 @@ pub(crate) struct StreamingRead {
     grpc_client: gaxi::grpc::Client,
     request: ReadRequest,
     options: RequestOptions,
+    lifetime_guard: Option<StreamLifetimeGuard>,
 }
 
 impl StreamingRead {
@@ -99,7 +113,15 @@ impl StreamingRead {
             grpc_client,
             request: ReadRequest::default(),
             options: RequestOptions::default(),
+            lifetime_guard: None,
         }
+    }
+
+    /// Attaches an opaque RAII lifetime guard that remains alive for the duration of the stream.
+    #[allow(dead_code)]
+    pub(crate) fn with_lifetime_guard(mut self, guard: StreamLifetimeGuard) -> Self {
+        self.lifetime_guard = Some(guard);
+        self
     }
 
     /// Sets the full request, replacing any prior values.
@@ -114,23 +136,26 @@ impl StreamingRead {
         self
     }
 
+    /// Returns a reference to the request options.
+    #[allow(dead_code)]
+    pub(crate) fn options(&self) -> &RequestOptions {
+        &self.options
+    }
+
     /// Start the server streaming request and receive the stream.
     pub(crate) async fn send(self) -> Result<PartialResultSetStream> {
-        let session = self.request.session.clone();
+        let request_params = format!("session={}", self.request.session);
         let request = self.request.to_proto().map_err(Error::deser)?;
-        let request_params = format!("session={session}");
-        let response = make_server_streaming_request(
+        make_server_streaming_request(
             &self.grpc_client,
             request,
             self.options,
             "StreamingRead",
             "/google.spanner.v1.Spanner/StreamingRead",
             &request_params,
+            self.lifetime_guard,
         )
-        .await?;
-        let (metadata, stream, _) = response.into_parts();
-        let headers = metadata.into_headers();
-        Ok(PartialResultSetStream::new(stream, headers))
+        .await
     }
 }
 
@@ -146,6 +171,7 @@ pub(crate) struct BatchWrite {
     grpc_client: gaxi::grpc::Client,
     request: BatchWriteRequest,
     options: RequestOptions,
+    lifetime_guard: Option<StreamLifetimeGuard>,
 }
 
 impl BatchWrite {
@@ -154,7 +180,15 @@ impl BatchWrite {
             grpc_client,
             request: BatchWriteRequest::default(),
             options: RequestOptions::default(),
+            lifetime_guard: None,
         }
+    }
+
+    /// Attaches an opaque RAII lifetime guard that remains alive for the duration of the stream.
+    #[allow(dead_code)]
+    pub(crate) fn with_lifetime_guard(mut self, guard: StreamLifetimeGuard) -> Self {
+        self.lifetime_guard = Some(guard);
+        self
     }
 
     /// Sets the full request, replacing any prior values.
@@ -171,21 +205,18 @@ impl BatchWrite {
 
     /// Start the server streaming request and receive the stream.
     pub(crate) async fn send(self) -> Result<BatchWriteStream> {
-        let session = self.request.session.clone();
+        let request_params = format!("session={}", self.request.session);
         let request = self.request.to_proto().map_err(Error::deser)?;
-        let request_params = format!("session={session}");
-        let response = make_server_streaming_request(
+        make_server_streaming_request(
             &self.grpc_client,
             request,
             self.options,
             "BatchWrite",
             "/google.spanner.v1.Spanner/BatchWrite",
             &request_params,
+            self.lifetime_guard,
         )
-        .await?;
-        let (metadata, stream, _) = response.into_parts();
-        let headers = metadata.into_headers();
-        Ok(BatchWriteStream::new(stream, headers))
+        .await
     }
 }
 
@@ -201,6 +232,7 @@ pub(crate) struct FetchCacheUpdate {
     grpc_client: gaxi::grpc::Client,
     request: FetchCacheUpdateRequest,
     options: RequestOptions,
+    lifetime_guard: Option<StreamLifetimeGuard>,
 }
 
 impl FetchCacheUpdate {
@@ -209,7 +241,15 @@ impl FetchCacheUpdate {
             grpc_client,
             request: FetchCacheUpdateRequest::default(),
             options: RequestOptions::default(),
+            lifetime_guard: None,
         }
+    }
+
+    /// Attaches an opaque RAII lifetime guard that remains alive for the duration of the stream.
+    #[allow(dead_code)]
+    pub(crate) fn with_lifetime_guard(mut self, guard: StreamLifetimeGuard) -> Self {
+        self.lifetime_guard = Some(guard);
+        self
     }
 
     /// Sets the full request, replacing any prior values.
@@ -226,21 +266,18 @@ impl FetchCacheUpdate {
 
     /// Start the server streaming request and receive the stream.
     pub(crate) async fn send(self) -> Result<CacheUpdateStream> {
-        let database = self.request.database.clone();
+        let request_params = format!("database={}", self.request.database);
         let request = self.request.to_proto().map_err(Error::deser)?;
-        let request_params = format!("database={database}");
-        let response = make_server_streaming_request(
+        make_server_streaming_request(
             &self.grpc_client,
             request,
             self.options,
             "FetchCacheUpdate",
             "/google.spanner.v1.Spanner/FetchCacheUpdate",
             &request_params,
+            self.lifetime_guard,
         )
-        .await?;
-        let (metadata, stream, _) = response.into_parts();
-        let headers = metadata.into_headers();
-        Ok(CacheUpdateStream::new(stream, headers))
+        .await
     }
 }
 
@@ -266,20 +303,21 @@ async fn make_server_streaming_request<Req, Res>(
     method_name: &'static str,
     path_str: &'static str,
     x_goog_request_params: &str,
-) -> Result<tonic::Response<tonic::Streaming<Res>>>
+    lifetime_guard: Option<StreamLifetimeGuard>,
+) -> Result<SpannerServerStream<Res>>
 where
     Req: Message + Default + Clone + 'static,
     Res: Message + Default + 'static,
 {
     let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
     let extensions = {
-        let mut e = Extensions::new();
-        e.insert(GrpcMethod::new("google.spanner.v1.Spanner", method_name));
-        e
+        let mut extensions = Extensions::new();
+        extensions.insert(GrpcMethod::new("google.spanner.v1.Spanner", method_name));
+        extensions
     };
     let path = http::uri::PathAndQuery::from_static(path_str);
 
-    grpc_client
+    let response = match grpc_client
         .server_streaming(
             extensions,
             path,
@@ -289,21 +327,62 @@ where
             x_goog_request_params,
         )
         .await
+    {
+        Ok(response) => response,
+        Err(err) => {
+            if let Some(guard) = lifetime_guard
+                && let Some(status) = err.status()
+            {
+                guard.record_error_code(status.code);
+            }
+            return Err(err);
+        }
+    };
+    let (metadata, stream, _) = response.into_parts();
+    let headers = metadata.into_headers();
+    Ok(SpannerServerStream::new(stream, headers, lifetime_guard))
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::client::Spanner;
+    use crate::server_streaming::stream::StreamGuard;
+    use gaxi::grpc::tonic::Status;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_gax::error::rpc::Code;
+    use google_cloud_gax::options::RequestOptions;
     use google_cloud_test_macros::tokio_test_no_panics;
+    use std::fmt::Debug;
+    use std::sync::Arc;
+    use std::sync::Mutex;
+    use tokio::task::JoinHandle;
 
-    #[tokio_test_no_panics]
-    async fn fetch_cache_update_builder_configuration() {
-        let (address, _server) =
-            spanner_grpc_mock::start("0.0.0.0:0", spanner_grpc_mock::MockSpanner::new())
-                .await
-                .expect("mock server should start");
+    #[test]
+    fn traits() {
+        static_assertions::assert_impl_all!(ExecuteStreamingSql: Clone, Debug, Send, Sync);
+        static_assertions::assert_impl_all!(StreamingRead: Clone, Debug, Send, Sync);
+        static_assertions::assert_impl_all!(BatchWrite: Clone, Debug, Send, Sync);
+        static_assertions::assert_impl_all!(FetchCacheUpdate: Clone, Debug, Send, Sync);
+    }
+
+    #[derive(Debug)]
+    struct TestLifetimeGuard {
+        recorded_code: Arc<Mutex<Option<Code>>>,
+    }
+
+    impl StreamGuard for TestLifetimeGuard {
+        fn record_error_code(&self, code: Code) {
+            *self.recorded_code.lock().expect("lock poisoned") = Some(code);
+        }
+    }
+
+    async fn create_test_grpc_client_with_mock(
+        mock: spanner_grpc_mock::MockSpanner,
+    ) -> (gaxi::grpc::Client, JoinHandle<()>) {
+        let (address, server) = spanner_grpc_mock::start("0.0.0.0:0", mock)
+            .await
+            .expect("mock server should start");
         let spanner = Spanner::builder()
             .with_endpoint(address)
             .with_credentials(Anonymous::new().build())
@@ -315,18 +394,280 @@ mod tests {
             .grpc_client
             .clone()
             .expect("grpc client should exist");
+        (grpc_client, server)
+    }
+
+    async fn create_test_grpc_client() -> (gaxi::grpc::Client, JoinHandle<()>) {
+        create_test_grpc_client_with_mock(spanner_grpc_mock::MockSpanner::new()).await
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_streaming_sql_builder_configuration() {
+        let (grpc_client, _server) = create_test_grpc_client().await;
+        let guard = Arc::new(TestLifetimeGuard {
+            recorded_code: Arc::new(Mutex::new(None)),
+        });
+
+        let mut options = RequestOptions::default();
+        options.set_idempotency(true);
+
+        let mut builder = ExecuteStreamingSql::new(grpc_client)
+            .with_request(
+                ExecuteSqlRequest::default()
+                    .set_session("projects/p/instances/i/databases/d/sessions/s")
+                    .set_sql("SELECT 1"),
+            )
+            .with_options(options)
+            .with_lifetime_guard(guard);
+
+        assert_eq!(
+            builder.options().idempotent(),
+            Some(true),
+            "builder options should reflect configured options"
+        );
+        let request_options = builder.request_options();
+        request_options.set_idempotency(false);
+        assert_eq!(
+            builder.options().idempotent(),
+            Some(false),
+            "builder options should reflect mutated options"
+        );
+        assert_eq!(
+            builder.request.session, "projects/p/instances/i/databases/d/sessions/s",
+            "session should match configured value"
+        );
+        assert_eq!(
+            builder.request.sql, "SELECT 1",
+            "sql should match configured value"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn streaming_read_builder_configuration() {
+        let (grpc_client, _server) = create_test_grpc_client().await;
+        let guard = Arc::new(TestLifetimeGuard {
+            recorded_code: Arc::new(Mutex::new(None)),
+        });
+
+        let mut options = RequestOptions::default();
+        options.set_idempotency(true);
+
+        let mut builder = StreamingRead::new(grpc_client)
+            .with_request(
+                ReadRequest::default()
+                    .set_session("projects/p/instances/i/databases/d/sessions/s")
+                    .set_table("MyTable"),
+            )
+            .with_options(options)
+            .with_lifetime_guard(guard);
+
+        assert_eq!(
+            builder.options().idempotent(),
+            Some(true),
+            "builder options should reflect configured options"
+        );
+        let request_options = builder.request_options();
+        request_options.set_idempotency(false);
+        assert_eq!(
+            builder.options().idempotent(),
+            Some(false),
+            "builder options should reflect mutated options"
+        );
+        assert_eq!(
+            builder.request.session, "projects/p/instances/i/databases/d/sessions/s",
+            "session should match configured value"
+        );
+        assert_eq!(
+            builder.request.table, "MyTable",
+            "table should match configured value"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn batch_write_builder_configuration() {
+        let (grpc_client, _server) = create_test_grpc_client().await;
+        let guard = Arc::new(TestLifetimeGuard {
+            recorded_code: Arc::new(Mutex::new(None)),
+        });
+
+        let mut builder = BatchWrite::new(grpc_client)
+            .with_request(
+                BatchWriteRequest::default()
+                    .set_session("projects/p/instances/i/databases/d/sessions/s"),
+            )
+            .with_options(RequestOptions::default())
+            .with_lifetime_guard(guard);
+
+        let _ = builder.request_options();
+        assert_eq!(
+            builder.request.session, "projects/p/instances/i/databases/d/sessions/s",
+            "session should match configured value"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn fetch_cache_update_builder_configuration() {
+        let (grpc_client, _server) = create_test_grpc_client().await;
+        let guard = Arc::new(TestLifetimeGuard {
+            recorded_code: Arc::new(Mutex::new(None)),
+        });
 
         let mut builder = FetchCacheUpdate::new(grpc_client)
             .with_request(
                 FetchCacheUpdateRequest::default()
                     .set_database("projects/p/instances/i/databases/d"),
             )
-            .with_options(RequestOptions::default());
+            .with_options(RequestOptions::default())
+            .with_lifetime_guard(guard);
 
         let _ = builder.request_options();
         assert_eq!(
-            builder.request.database,
-            "projects/p/instances/i/databases/d"
+            builder.request.database, "projects/p/instances/i/databases/d",
+            "database should match configured value"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn make_server_streaming_request_records_error_code_on_initial_failure() {
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(|_| Err(Status::unavailable("backend unavailable")));
+
+        let (grpc_client, _server) = create_test_grpc_client_with_mock(mock).await;
+
+        let recorded_code = Arc::new(Mutex::new(None));
+        let guard = Arc::new(TestLifetimeGuard {
+            recorded_code: Arc::clone(&recorded_code),
+        });
+
+        let builder = ExecuteStreamingSql::new(grpc_client)
+            .with_lifetime_guard(guard)
+            .with_request(
+                ExecuteSqlRequest::default()
+                    .set_session("projects/p/instances/i/databases/d/sessions/s")
+                    .set_sql("SELECT 1"),
+            );
+
+        let result = builder.send().await;
+        assert!(result.is_err(), "Initial handshake failure must return Err");
+        assert_eq!(
+            *recorded_code.lock().expect("lock poisoned"),
+            Some(Code::Unavailable),
+            "Initial handshake failure must record Code::Unavailable on lifetime guard"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn streaming_read_records_error_code_on_initial_failure() {
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_streaming_read()
+            .once()
+            .returning(|_| Err(Status::unavailable("backend unavailable")));
+
+        let (grpc_client, _server) = create_test_grpc_client_with_mock(mock).await;
+
+        let recorded_code = Arc::new(Mutex::new(None));
+        let guard = Arc::new(TestLifetimeGuard {
+            recorded_code: Arc::clone(&recorded_code),
+        });
+
+        let builder = StreamingRead::new(grpc_client)
+            .with_lifetime_guard(guard)
+            .with_request(
+                ReadRequest::default()
+                    .set_session("projects/p/instances/i/databases/d/sessions/s")
+                    .set_table("MyTable"),
+            );
+
+        let result = builder.send().await;
+        assert!(result.is_err(), "Initial handshake failure must return Err");
+        assert_eq!(
+            *recorded_code.lock().expect("lock poisoned"),
+            Some(Code::Unavailable),
+            "Initial handshake failure must record Code::Unavailable on lifetime guard"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn batch_write_records_error_code_on_initial_failure() {
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_batch_write()
+            .once()
+            .returning(|_| Err(Status::unavailable("backend unavailable")));
+
+        let (grpc_client, _server) = create_test_grpc_client_with_mock(mock).await;
+
+        let recorded_code = Arc::new(Mutex::new(None));
+        let guard = Arc::new(TestLifetimeGuard {
+            recorded_code: Arc::clone(&recorded_code),
+        });
+
+        let builder = BatchWrite::new(grpc_client)
+            .with_lifetime_guard(guard)
+            .with_request(
+                BatchWriteRequest::default()
+                    .set_session("projects/p/instances/i/databases/d/sessions/s"),
+            );
+
+        let result = builder.send().await;
+        assert!(result.is_err(), "Initial handshake failure must return Err");
+        assert_eq!(
+            *recorded_code.lock().expect("lock poisoned"),
+            Some(Code::Unavailable),
+            "Initial handshake failure must record Code::Unavailable on lifetime guard"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn fetch_cache_update_records_error_code_on_initial_failure() {
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_fetch_cache_update()
+            .once()
+            .returning(|_| Err(Status::unavailable("backend unavailable")));
+
+        let (grpc_client, _server) = create_test_grpc_client_with_mock(mock).await;
+
+        let recorded_code = Arc::new(Mutex::new(None));
+        let guard = Arc::new(TestLifetimeGuard {
+            recorded_code: Arc::clone(&recorded_code),
+        });
+
+        let builder = FetchCacheUpdate::new(grpc_client)
+            .with_lifetime_guard(guard)
+            .with_request(
+                FetchCacheUpdateRequest::default()
+                    .set_database("projects/p/instances/i/databases/d"),
+            );
+
+        let result = builder.send().await;
+        assert!(result.is_err(), "Initial handshake failure must return Err");
+        assert_eq!(
+            *recorded_code.lock().expect("lock poisoned"),
+            Some(Code::Unavailable),
+            "Initial handshake failure must record Code::Unavailable on lifetime guard"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn make_server_streaming_request_without_guard_returns_error() {
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(|_| Err(Status::unavailable("backend unavailable")));
+
+        let (grpc_client, _server) = create_test_grpc_client_with_mock(mock).await;
+
+        let builder = ExecuteStreamingSql::new(grpc_client).with_request(
+            ExecuteSqlRequest::default()
+                .set_session("projects/p/instances/i/databases/d/sessions/s")
+                .set_sql("SELECT 1"),
+        );
+
+        let result = builder.send().await;
+        assert!(
+            result.is_err(),
+            "Initial handshake failure without lifetime guard must return Err"
         );
     }
 }
