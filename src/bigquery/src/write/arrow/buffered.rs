@@ -15,7 +15,7 @@
 use super::base::BaseWriter;
 use crate::Result;
 use crate::model::{ArrowRecordBatch, ArrowSchema, FinalizeWriteStreamResponse, FlushRowsResponse};
-use crate::write::append_builder::AppendWithOffset;
+use crate::write::builder::AppendWithOffset;
 use crate::write::transport::Transport;
 use std::sync::Arc;
 
