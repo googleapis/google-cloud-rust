@@ -23,6 +23,7 @@ use crate::model::ReadRequest;
 use crate::server_streaming::stream::BatchWriteStream;
 use crate::server_streaming::stream::CacheUpdateStream;
 use crate::server_streaming::stream::PartialResultSetStream;
+use crate::server_streaming::stream::TransactionIdCallback;
 use gaxi::grpc::tonic;
 use gaxi::grpc::tonic::Extensions;
 use gaxi::grpc::tonic::GrpcMethod;
@@ -31,11 +32,12 @@ use prost::Message;
 use std::sync::LazyLock;
 
 /// The request builder for [SpannerImpl::execute_streaming_sql][crate::client::SpannerImpl::execute_streaming_sql] calls.
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub(crate) struct ExecuteStreamingSql {
     grpc_client: gaxi::grpc::Client,
     request: ExecuteSqlRequest,
     options: RequestOptions,
+    on_first_transaction_id: Option<TransactionIdCallback>,
 }
 
 impl ExecuteStreamingSql {
@@ -44,6 +46,7 @@ impl ExecuteStreamingSql {
             grpc_client,
             request: ExecuteSqlRequest::default(),
             options: RequestOptions::default(),
+            on_first_transaction_id: None,
         }
     }
 
@@ -56,6 +59,15 @@ impl ExecuteStreamingSql {
     /// Sets all the options, replacing any prior values.
     pub(crate) fn with_options<V: Into<RequestOptions>>(mut self, v: V) -> Self {
         self.options = v.into();
+        self
+    }
+
+    /// Attaches a callback to invoke when the first non-empty transaction ID arrives in the stream.
+    pub(crate) fn with_transaction_id_callback<C: Into<Option<TransactionIdCallback>>>(
+        mut self,
+        callback: C,
+    ) -> Self {
+        self.on_first_transaction_id = callback.into();
         self
     }
 
@@ -75,7 +87,8 @@ impl ExecuteStreamingSql {
         .await?;
         let (metadata, stream, _) = response.into_parts();
         let headers = metadata.into_headers();
-        Ok(PartialResultSetStream::new(stream, headers))
+        Ok(PartialResultSetStream::new(stream, headers)
+            .with_transaction_id_callback(self.on_first_transaction_id))
     }
 }
 
@@ -86,11 +99,12 @@ impl RequestBuilder for ExecuteStreamingSql {
 }
 
 /// The request builder for [SpannerImpl::streaming_read][crate::client::SpannerImpl::streaming_read] calls.
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub(crate) struct StreamingRead {
     grpc_client: gaxi::grpc::Client,
     request: ReadRequest,
     options: RequestOptions,
+    on_first_transaction_id: Option<TransactionIdCallback>,
 }
 
 impl StreamingRead {
@@ -99,6 +113,7 @@ impl StreamingRead {
             grpc_client,
             request: ReadRequest::default(),
             options: RequestOptions::default(),
+            on_first_transaction_id: None,
         }
     }
 
@@ -111,6 +126,15 @@ impl StreamingRead {
     /// Sets all the options, replacing any prior values.
     pub(crate) fn with_options<V: Into<RequestOptions>>(mut self, v: V) -> Self {
         self.options = v.into();
+        self
+    }
+
+    /// Attaches a callback to invoke when the first non-empty transaction ID arrives in the stream.
+    pub(crate) fn with_transaction_id_callback<C: Into<Option<TransactionIdCallback>>>(
+        mut self,
+        callback: C,
+    ) -> Self {
+        self.on_first_transaction_id = callback.into();
         self
     }
 
@@ -130,7 +154,8 @@ impl StreamingRead {
         .await?;
         let (metadata, stream, _) = response.into_parts();
         let headers = metadata.into_headers();
-        Ok(PartialResultSetStream::new(stream, headers))
+        Ok(PartialResultSetStream::new(stream, headers)
+            .with_transaction_id_callback(self.on_first_transaction_id))
     }
 }
 

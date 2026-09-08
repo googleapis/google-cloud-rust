@@ -46,6 +46,7 @@ use crate::routing::latency_registry::LatencyRegistry;
 use crate::routing::location_router::{LocationRouter, RoutingContext};
 use crate::routing::server_connection::ServerConnection;
 use crate::server_streaming::builder::{BatchWrite, ExecuteStreamingSql, StreamingRead};
+use crate::server_streaming::stream::TransactionIdCallback;
 use crate::session_maintainer::ManagedSessionMaintainer;
 use crate::transaction_runner::TransactionRunnerBuilder;
 use crate::write_only_transaction::WriteOnlyTransactionBuilder;
@@ -139,6 +140,7 @@ macro_rules! define_db_streaming_rpc {
             options: RequestOptions,
             channel_hint: usize,
         ) -> $builder_type {
+            let is_read_write_begin = is_read_write_begin(request.transaction.as_ref());
             // Step 1: When location-aware routing is disabled (standard Cloud Spanner),
             // `self.location_routing` is `None` so `$extract_key` is skipped immediately.
             // When enabled (Spanner Omni), extract the operation UID and binary routing key.
@@ -156,7 +158,7 @@ macro_rules! define_db_streaming_rpc {
                 &mut request.routing_hint,
             );
 
-            // Step 4: Select the gRPC channel:
+            // Step 3: Select the gRPC channel:
             // - If location-aware routing resolved a direct node connection (`Some(connection)`), use `connection.channel()`.
             // - Otherwise (location routing disabled, unkeyed query/read, or cold cache), fall back to round-robin
             //   load-balancing across the client's channel pool via `self.spanner.get_channel(channel_hint)`.
@@ -165,7 +167,11 @@ macro_rules! define_db_streaming_rpc {
                 Some(connection) => connection.channel(),
                 None => self.spanner.get_channel(channel_hint),
             };
-            self.spanner.$method(request, options, channel)
+            let callback =
+                self.streaming_transaction_id_callback(is_read_write_begin, connection.as_ref());
+            self.spanner
+                .$method(request, options, channel)
+                .with_transaction_id_callback(callback)
         }
     };
 }
@@ -874,6 +880,22 @@ impl DatabaseClient {
         self.record_transaction_affinity_routing(is_read_write_begin, transaction_id, connection);
     }
 
+    fn streaming_transaction_id_callback(
+        &self,
+        is_read_write_begin: bool,
+        connection: Option<&ServerConnection>,
+    ) -> Option<TransactionIdCallback> {
+        if !is_read_write_begin {
+            return None;
+        }
+        let routing = self.location_routing.as_ref()?;
+        let address = routing.resolved_or_default_address(connection).to_string();
+        let router = Arc::clone(&routing.location_router);
+        Some(TransactionIdCallback::new(move |transaction_id| {
+            router.record_transaction_affinity(transaction_id, &address);
+        }))
+    }
+
     fn pre_route_rollback(
         &self,
         request: &mut RollbackRequest,
@@ -963,14 +985,7 @@ impl DatabaseClient {
         let Some(routing) = &self.location_routing else {
             return;
         };
-        let address = match connection {
-            Some(connection) => connection.address(),
-            None => routing
-                .location_router
-                .connection_cache()
-                .default_connection()
-                .address(),
-        };
+        let address = routing.resolved_or_default_address(connection);
         routing
             .location_router
             .record_transaction_affinity(transaction_id, address);
@@ -1275,6 +1290,22 @@ impl LocationRoutingState {
             key_recipe_cache,
             cache_subscriber,
             endpoint_lifecycle_manager,
+        }
+    }
+
+    /// Returns the target server address from the resolved direct connection, or
+    /// falls back to the default gateway connection address when no direct route exists.
+    pub(crate) fn resolved_or_default_address<'a>(
+        &'a self,
+        connection: Option<&'a ServerConnection>,
+    ) -> &'a str {
+        match connection {
+            Some(connection) => connection.address(),
+            None => self
+                .location_router
+                .connection_cache()
+                .default_connection()
+                .address(),
         }
     }
 }
