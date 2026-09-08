@@ -14,12 +14,17 @@
 
 //! Test helpers for the `Write` client internals
 
+use super::entry::StreamEntry;
+use super::runner::WriteRequest;
 use super::transport::Transport;
 use crate::google::cloud::bigquery::storage::v1::append_rows_response::{AppendResult, Response};
 use crate::google::cloud::bigquery::storage::v1::{AppendRowsRequest, AppendRowsResponse};
 use crate::model::ArrowSchema;
 use bigquery_grpc_mock::google::cloud::bigquery::storage::v1;
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+use std::sync::Arc;
+use std::sync::atomic::AtomicU64;
+use tokio::sync::mpsc;
 
 pub(super) fn write_stream() -> String {
     "projects/p/datasets/d/tables/t/streams/s".to_string()
@@ -61,4 +66,14 @@ pub(super) fn test_response(index: i64) -> AppendRowsResponse {
         write_stream: "projects/p/datasets/d/tables/t/streams/s".to_string(),
         ..Default::default()
     }
+}
+
+// Return a stream entry that sends requests on the provided channel.
+pub(super) fn test_entry(req_tx: mpsc::UnboundedSender<WriteRequest>) -> Arc<StreamEntry> {
+    Arc::new(StreamEntry {
+        id: 0,
+        req_tx,
+        outstanding_requests: Arc::new(AtomicU64::new(0)),
+        outstanding_bytes: Arc::new(AtomicU64::new(0)),
+    })
 }
