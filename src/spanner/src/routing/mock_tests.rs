@@ -46,7 +46,7 @@ use crate::model::{
     Tablet as ModelTablet, TransactionOptions, TransactionSelector, Type, TypeCode,
 };
 use crate::mutation::Mutation;
-use crate::omni::InstanceType;
+use crate::omni::{InstanceType, TlsConfig};
 use crate::read::ReadRequest;
 use crate::read_write_transaction::ReadWriteTransaction;
 use crate::routing::directed_read::select_eligible_tablets_for_directed_read;
@@ -54,6 +54,8 @@ use crate::routing::key_range_cache::RangeMode;
 use crate::routing::location_router::RoutingContext;
 use crate::statement::Statement;
 use bytes::Bytes;
+use gaxi::grpc::tonic::transport::server::TcpIncoming;
+use gaxi::grpc::tonic::transport::{Certificate, Identity, Server, ServerTlsConfig};
 use gaxi::grpc::tonic::{Response, Status as TonicStatus};
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use google_cloud_test_macros::tokio_test_no_panics;
@@ -61,6 +63,7 @@ use prost_types::{Timestamp, Value};
 use spanner_grpc_mock::MockSpanner;
 use spanner_grpc_mock::google::rpc::Status;
 use spanner_grpc_mock::google::spanner::v1 as mock_v1;
+use spanner_grpc_mock::google::spanner::v1::spanner_server::SpannerServer;
 use spanner_grpc_mock::start;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
@@ -4599,6 +4602,423 @@ async fn unary_execute_sql_with_directed_read_options_and_key_recipe_routes_to_d
     assert_eq!(
         tablet_hint.database_id, 5555,
         "routing hint database ID must match updated database ID"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn end_to_end_automatic_background_prewarming_populates_connection_cache()
+-> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let mut mock_tablet = create_base_mock();
+
+    let tablet_called = Arc::new(AtomicBool::new(false));
+    let tablet_called_clone = Arc::clone(&tablet_called);
+
+    mock_tablet
+        .expect_execute_streaming_sql()
+        .times(1)
+        .returning(move |_request| {
+            tablet_called_clone.store(true, Ordering::SeqCst);
+            single_row_streaming_response("account_id", "42", None)
+        });
+
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let gateway_called = Arc::new(AtomicBool::new(false));
+    let gateway_called_clone = Arc::clone(&gateway_called);
+    let tablet_address_for_update = tablet_address.clone();
+
+    mock_gateway
+        .expect_execute_streaming_sql()
+        .times(1)
+        .returning(move |request| {
+            gateway_called_clone.store(true, Ordering::SeqCst);
+            let operation_uid = request
+                .get_ref()
+                .routing_hint
+                .as_ref()
+                .map(|hint| hint.operation_uid)
+                .unwrap_or(1);
+
+            let cache_update = sample_query_mock_cache_update(
+                7777,
+                operation_uid,
+                9002,
+                &tablet_address_for_update,
+            );
+            single_row_streaming_response("account_id", "42", Some(cache_update))
+        });
+
+    let (database_client, _spanner, _gateway_server) =
+        setup_mock_database_client(mock_gateway).await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    // Initially, only the default connection exists in the cache
+    assert_eq!(
+        router.connection_cache().len(),
+        1,
+        "connection cache should only have default connection initially"
+    );
+    assert!(
+        router
+            .connection_cache()
+            .get_if_present(&tablet_address)
+            .is_none(),
+        "tablet connection should not exist in cache before any queries"
+    );
+
+    // Initial query cold-start: routes to gateway and ingests cache update
+    let statement = Statement::builder("SELECT * FROM Users WHERE account_id = @account_id")
+        .add_param("account_id", 42i64)
+        .build();
+
+    let transaction = database_client.single_use().build();
+    let mut result_set = transaction.execute_query(statement.clone()).await?;
+    let row = result_set.next().await;
+    assert!(row.is_some(), "first query should yield a row from gateway");
+    assert!(
+        gateway_called.load(Ordering::SeqCst),
+        "gateway must be called on initial query execution"
+    );
+
+    // Wait deterministically for the background pre-warming task to populate the connection cache
+    let prewarmed = tokio::time::timeout(Duration::from_secs(2), async {
+        while router
+            .connection_cache()
+            .get_if_present(&tablet_address)
+            .is_none()
+        {
+            tokio::task::yield_now().await;
+        }
+    })
+    .await;
+    assert!(
+        prewarmed.is_ok(),
+        "CacheUpdater background task must automatically pre-warm tablet connection in ConnectionCache"
+    );
+    assert_eq!(
+        router.connection_cache().len(),
+        2,
+        "cache must now contain both default connection and pre-warmed tablet connection"
+    );
+
+    gateway_called.store(false, Ordering::SeqCst);
+
+    // Second execution: routes directly to tablet mock without any manual get() call
+    let transaction2 = database_client.single_use().build();
+    let mut result_set2 = transaction2.execute_query(statement).await?;
+    let row2 = result_set2.next().await;
+    assert!(
+        row2.is_some(),
+        "second query should yield a row from tablet"
+    );
+
+    assert!(
+        tablet_called.load(Ordering::SeqCst),
+        "tablet mock must receive the query directly via the pre-warmed ConnectionCache"
+    );
+    assert!(
+        !gateway_called.load(Ordering::SeqCst),
+        "gateway mock must NOT receive the query once the tablet connection is cached"
+    );
+
+    Ok(())
+}
+
+const SAMPLE_CA_PEM: &[u8] = include_bytes!("../../../../testdata/tls/ca_cert.pem");
+const SAMPLE_CERT_PEM: &[u8] = include_bytes!("../../../../testdata/tls/server_cert.pem");
+const SAMPLE_KEY_PEM: &[u8] = include_bytes!("../../../../testdata/tls/server_key.pem");
+
+async fn start_mock_with_mtls(
+    service: MockSpanner,
+) -> anyhow::Result<(String, tokio::task::JoinHandle<()>)> {
+    let _ = rustls::crypto::aws_lc_rs::default_provider().install_default();
+    let incoming = TcpIncoming::bind("127.0.0.1:0".parse()?)?;
+    let address = incoming.local_addr()?;
+
+    let server_identity = Identity::from_pem(SAMPLE_CERT_PEM, SAMPLE_KEY_PEM);
+    let client_ca_root = Certificate::from_pem(SAMPLE_CA_PEM);
+    let mut server_builder = Server::builder().tls_config(
+        ServerTlsConfig::new()
+            .identity(server_identity)
+            .client_ca_root(client_ca_root),
+    )?;
+
+    let server = tokio::spawn(async move {
+        let _ = server_builder
+            .add_service(SpannerServer::new(service))
+            .serve_with_incoming(incoming)
+            .await;
+    });
+
+    Ok((format!("127.0.0.1:{}", address.port()), server))
+}
+
+#[tokio_test_no_panics]
+async fn end_to_end_routed_connection_with_omni_mtls() -> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let mut mock_tablet = create_base_mock();
+
+    let tablet_called = Arc::new(AtomicBool::new(false));
+    let tablet_called_clone = Arc::clone(&tablet_called);
+
+    mock_tablet
+        .expect_execute_streaming_sql()
+        .times(1)
+        .returning(move |_request| {
+            tablet_called_clone.store(true, Ordering::SeqCst);
+            single_row_streaming_response("account_id", "42", None)
+        });
+
+    let (tablet_address, _tablet_server) = start_mock_with_mtls(mock_tablet).await?;
+
+    let gateway_called = Arc::new(AtomicBool::new(false));
+    let gateway_called_clone = Arc::clone(&gateway_called);
+    let tablet_address_for_update = tablet_address.clone();
+
+    mock_gateway
+        .expect_execute_streaming_sql()
+        .times(1)
+        .returning(move |request| {
+            gateway_called_clone.store(true, Ordering::SeqCst);
+            let operation_uid = request
+                .get_ref()
+                .routing_hint
+                .as_ref()
+                .map(|hint| hint.operation_uid)
+                .unwrap_or(1);
+
+            let cache_update = sample_query_mock_cache_update(
+                7777,
+                operation_uid,
+                9002,
+                &tablet_address_for_update,
+            );
+            single_row_streaming_response("account_id", "42", Some(cache_update))
+        });
+
+    let (gateway_address, _gateway_server) = start_mock_with_mtls(mock_gateway).await?;
+
+    let gateway_port = gateway_address
+        .split(':')
+        .nth(1)
+        .expect("gateway address should contain a port");
+    let default_endpoint = format!("https://localhost:{gateway_port}");
+
+    // Configure Spanner client with Omni mTLS certificates (custom CA + client cert/key),
+    // pointing to default endpoint with domain "localhost".
+    // Crucially, no explicit domain_name_override is provided. Option 2 must automatically
+    // extract "localhost" from default_endpoint and carry it over along with the mTLS
+    // configuration to the routed tablet endpoint ("127.0.0.1:<tablet_port>").
+    let omni_tls = TlsConfig::new()
+        .with_root_certificate_pem(SAMPLE_CA_PEM)
+        .with_client_certificate_pem(SAMPLE_CERT_PEM, SAMPLE_KEY_PEM);
+
+    let spanner = Spanner::builder()
+        .with_endpoint(default_endpoint)
+        .with_omni_tls(omni_tls)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    // Initial query cold-start: routes to gateway over mTLS and ingests cache update
+    let statement = Statement::builder("SELECT * FROM Users WHERE account_id = @account_id")
+        .add_param("account_id", 42i64)
+        .build();
+
+    let transaction = database_client.single_use().build();
+    let mut result_set = transaction.execute_query(statement.clone()).await?;
+    let row = result_set.next().await;
+    assert!(row.is_some(), "first query should yield a row from gateway");
+    assert!(
+        gateway_called.load(Ordering::SeqCst),
+        "gateway must be called on initial query execution"
+    );
+
+    // Wait deterministically for the background pre-warming task to establish the mTLS tablet connection
+    let prewarmed = tokio::time::timeout(Duration::from_secs(2), async {
+        while router
+            .connection_cache()
+            .get_if_present(&tablet_address)
+            .is_none()
+        {
+            tokio::task::yield_now().await;
+        }
+    })
+    .await;
+    assert!(
+        prewarmed.is_ok(),
+        "background pre-warming task must establish tablet connection over mTLS in cache"
+    );
+    assert_eq!(
+        router.connection_cache().len(),
+        2,
+        "cache must contain both default connection and pre-warmed tablet connection"
+    );
+
+    gateway_called.store(false, Ordering::SeqCst);
+
+    // Second execution: routes directly to tablet mock at "127.0.0.1:<tablet_port>" over mTLS!
+    // This succeeds because Option 2 carried over the default endpoint's domain name ("localhost")
+    // as domain_name_override, allowing Tonic to verify the tablet server's certificate for "localhost".
+    let transaction2 = database_client.single_use().build();
+    let mut result_set2 = transaction2.execute_query(statement).await?;
+    let row2 = result_set2.next().await;
+    assert!(
+        row2.is_some(),
+        "second query should yield a row from tablet over mTLS"
+    );
+
+    assert!(
+        tablet_called.load(Ordering::SeqCst),
+        "tablet mock must receive the query directly over mTLS"
+    );
+    assert!(
+        !gateway_called.load(Ordering::SeqCst),
+        "gateway mock must NOT receive the second query once tablet connection is cached"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn end_to_end_routed_connection_with_omni_mtls_and_explicit_domain_override()
+-> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let mut mock_tablet = create_base_mock();
+
+    let tablet_called = Arc::new(AtomicBool::new(false));
+    let tablet_called_clone = Arc::clone(&tablet_called);
+
+    mock_tablet
+        .expect_execute_streaming_sql()
+        .times(1)
+        .returning(move |_request| {
+            tablet_called_clone.store(true, Ordering::SeqCst);
+            single_row_streaming_response("account_id", "42", None)
+        });
+
+    let (tablet_address, _tablet_server) = start_mock_with_mtls(mock_tablet).await?;
+
+    let gateway_called = Arc::new(AtomicBool::new(false));
+    let gateway_called_clone = Arc::clone(&gateway_called);
+    let tablet_address_for_update = tablet_address.clone();
+
+    mock_gateway
+        .expect_execute_streaming_sql()
+        .times(1)
+        .returning(move |request| {
+            gateway_called_clone.store(true, Ordering::SeqCst);
+            let operation_uid = request
+                .get_ref()
+                .routing_hint
+                .as_ref()
+                .map(|hint| hint.operation_uid)
+                .unwrap_or(1);
+
+            let cache_update = sample_query_mock_cache_update(
+                7777,
+                operation_uid,
+                9002,
+                &tablet_address_for_update,
+            );
+            single_row_streaming_response("account_id", "42", Some(cache_update))
+        });
+
+    let (gateway_address, _gateway_server) = start_mock_with_mtls(mock_gateway).await?;
+
+    // In this test, default endpoint uses the bare IP address ("https://127.0.0.1:<port>"),
+    // and the user explicitly configured with_domain_name_override("localhost").
+    // Option 2 must preserve this explicit domain override when creating routed connections
+    // to tablet endpoints.
+    let default_endpoint = format!("https://{gateway_address}");
+    let omni_tls = TlsConfig::new()
+        .with_root_certificate_pem(SAMPLE_CA_PEM)
+        .with_client_certificate_pem(SAMPLE_CERT_PEM, SAMPLE_KEY_PEM)
+        .with_domain_name_override("localhost");
+
+    let spanner = Spanner::builder()
+        .with_endpoint(default_endpoint)
+        .with_omni_tls(omni_tls)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    let statement = Statement::builder("SELECT * FROM Users WHERE account_id = @account_id")
+        .add_param("account_id", 42i64)
+        .build();
+
+    let transaction = database_client.single_use().build();
+    let mut result_set = transaction.execute_query(statement.clone()).await?;
+    let row = result_set.next().await;
+    assert!(row.is_some(), "first query should yield a row from gateway");
+    assert!(
+        gateway_called.load(Ordering::SeqCst),
+        "gateway must be called on initial query execution"
+    );
+
+    let prewarmed = tokio::time::timeout(Duration::from_secs(2), async {
+        while router
+            .connection_cache()
+            .get_if_present(&tablet_address)
+            .is_none()
+        {
+            tokio::task::yield_now().await;
+        }
+    })
+    .await;
+    assert!(
+        prewarmed.is_ok(),
+        "background pre-warming task must establish tablet connection over mTLS in cache"
+    );
+    assert_eq!(
+        router.connection_cache().len(),
+        2,
+        "cache must contain both default connection and pre-warmed tablet connection"
+    );
+
+    gateway_called.store(false, Ordering::SeqCst);
+
+    let transaction2 = database_client.single_use().build();
+    let mut result_set2 = transaction2.execute_query(statement).await?;
+    let row2 = result_set2.next().await;
+    assert!(
+        row2.is_some(),
+        "second query should yield a row from tablet over mTLS"
+    );
+
+    assert!(
+        tablet_called.load(Ordering::SeqCst),
+        "tablet mock must receive the query directly over mTLS"
+    );
+    assert!(
+        !gateway_called.load(Ordering::SeqCst),
+        "gateway mock must NOT receive the second query once tablet connection is cached"
     );
 
     Ok(())
