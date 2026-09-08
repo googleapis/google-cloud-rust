@@ -44,6 +44,7 @@ struct Inner {
     channel: Channel,
     state: AtomicU8,
     active_requests: AtomicUsize,
+    is_default: bool,
 }
 
 /// RAII guard that decrements the active request count of a [`ServerConnection`] when dropped.
@@ -66,14 +67,29 @@ impl Drop for ActiveRequestGuard {
 impl ServerConnection {
     /// Creates a new `ServerConnection` wrapping the given address and channel in the `READY` state.
     pub(crate) fn new(address: String, channel: Channel) -> Self {
+        Self::new_with_default(address, channel, false)
+    }
+
+    /// Creates a new `ServerConnection` designated as the default fallback gateway connection.
+    pub(crate) fn new_default(address: String, channel: Channel) -> Self {
+        Self::new_with_default(address, channel, true)
+    }
+
+    fn new_with_default(address: String, channel: Channel, is_default: bool) -> Self {
         Self {
             inner: Arc::new(Inner {
                 address,
                 channel,
                 state: AtomicU8::new(STATE_READY),
                 active_requests: AtomicUsize::new(0),
+                is_default,
             }),
         }
+    }
+
+    /// Returns whether this connection is the default fallback gateway connection.
+    pub(crate) fn is_default(&self) -> bool {
+        self.inner.is_default
     }
 
     /// Returns the network address of this server in `"host:port"` format.
@@ -265,5 +281,23 @@ mod tests {
         .expect("spawned task should complete");
 
         assert_eq!(conn.active_request_count(), 0);
+    }
+
+    #[test]
+    fn server_connection_default_flag() {
+        let connection = create_test_connection("10.0.0.1:15000");
+        assert!(
+            !connection.is_default(),
+            "standard connection must not be marked default"
+        );
+
+        let default_connection = ServerConnection::new_default(
+            "spanner.googleapis.com:443".to_string(),
+            Channel::new_for_test(DummyStub),
+        );
+        assert!(
+            default_connection.is_default(),
+            "new_default must mark connection as default"
+        );
     }
 }

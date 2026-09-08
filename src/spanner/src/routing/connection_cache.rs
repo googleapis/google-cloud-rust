@@ -51,6 +51,10 @@ pub(crate) struct ConnectionCache {
 impl ConnectionCache {
     /// Creates a new `ConnectionCache` with the specified default fallback connection.
     pub(crate) fn new(default_connection: ServerConnection) -> Self {
+        debug_assert!(
+            default_connection.is_default(),
+            "default connection provided to ConnectionCache must have is_default == true"
+        );
         let default_cell = Arc::new(OnceCell::from(default_connection.clone()));
         let mut cache = Self {
             default_connection,
@@ -383,6 +387,11 @@ mod tests {
         ServerConnection::new(address.to_string(), channel)
     }
 
+    fn create_default_test_connection(address: &str) -> ServerConnection {
+        let channel = Channel::new_for_test(DummyStub);
+        ServerConnection::new_default(address.to_string(), channel)
+    }
+
     #[test]
     fn traits() {
         static_assertions::assert_impl_all!(ConnectionCache: Send, Sync, std::fmt::Debug);
@@ -390,7 +399,7 @@ mod tests {
 
     #[test]
     fn connection_cache_default_connection_and_get_if_present() {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_connection.clone());
 
         assert_eq!(
@@ -430,7 +439,7 @@ mod tests {
 
     #[test]
     fn connection_cache_eviction_and_protection_of_default() {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_connection);
 
         // Manually insert a tablet connection into the cache for testing eviction.
@@ -482,7 +491,7 @@ mod tests {
 
     #[test]
     fn connection_cache_clear_preserves_default() {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_connection);
 
         {
@@ -528,7 +537,7 @@ mod tests {
 
     #[test]
     fn connection_cache_concurrent_access() {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_connection);
         let worker_count = 10;
         let iterations = 100;
@@ -561,7 +570,7 @@ mod tests {
 
     #[tokio::test]
     async fn connection_cache_get_cached() {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_connection);
         let config = ClientConfig::default();
 
@@ -583,7 +592,7 @@ mod tests {
 
     #[tokio::test]
     async fn connection_cache_concurrent_get_stampede_prevention() {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
         let config = ClientConfig::default();
 
@@ -620,7 +629,7 @@ mod tests {
 
     #[test]
     fn connection_cache_uninitialized_cell_not_counted_in_len() {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_connection);
         assert_eq!(cache.len(), 1, "cache should initially have 1 connection");
         assert!(!cache.is_empty(), "cache should not be empty");
@@ -644,7 +653,7 @@ mod tests {
 
     #[test]
     fn connection_cache_evict_uninitialized_cell() {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_connection);
 
         {
@@ -841,7 +850,7 @@ mod tests {
 
     #[test]
     fn is_default_address() {
-        let default_connection = create_test_connection("https://omni.example.com:8443/");
+        let default_connection = create_default_test_connection("https://omni.example.com:8443/");
         let cache = ConnectionCache::new(default_connection);
 
         assert!(
@@ -954,7 +963,8 @@ mod tests {
 
     #[tokio::test]
     async fn connection_cache_get_creates_and_caches_routed_endpoint_with_omni_mtls() {
-        let default_connection = create_test_connection("https://omni.spanner.internal:8443");
+        let default_connection =
+            create_default_test_connection("https://omni.spanner.internal:8443");
         let cache = ConnectionCache::new(default_connection);
 
         let mut config = ClientConfig::default();
@@ -1271,7 +1281,8 @@ mod tests {
 
     #[tokio::test]
     async fn connection_cache_get_default_address_bypasses_init() {
-        let default_connection = create_test_connection("https://omni.spanner.internal:8443/");
+        let default_connection =
+            create_default_test_connection("https://omni.spanner.internal:8443/");
         let cache = ConnectionCache::new(default_connection.clone());
         let config = ClientConfig::default();
 
@@ -1298,7 +1309,8 @@ mod tests {
 
     #[test]
     fn connection_cache_get_if_present_default_address_normalization() {
-        let default_connection = create_test_connection("https://omni.spanner.internal:8443/");
+        let default_connection =
+            create_default_test_connection("https://omni.spanner.internal:8443/");
         let cache = ConnectionCache::new(default_connection);
 
         assert!(
@@ -1327,7 +1339,8 @@ mod tests {
 
     #[test]
     fn connection_cache_evict_default_address_protection_with_normalization() {
-        let default_connection = create_test_connection("https://omni.spanner.internal:8443/");
+        let default_connection =
+            create_default_test_connection("https://omni.spanner.internal:8443/");
         let cache = ConnectionCache::new(default_connection);
 
         assert!(
@@ -1351,7 +1364,7 @@ mod tests {
 
     #[test]
     fn connection_cache_tablet_lookup_and_evict_normalization() {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_connection);
 
         let tablet_connection = create_test_connection("https://Tablet.Omni.Internal:8443/");
@@ -1396,7 +1409,7 @@ mod tests {
 
     #[tokio::test]
     async fn connection_cache_get_tablet_prevents_duplicate_connections() {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_connection);
         let config = ClientConfig::default();
 
@@ -1428,7 +1441,7 @@ mod tests {
 
     #[tokio::test]
     async fn connection_cache_get_tablet_different_scheme_creates_separate_connections() {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_connection);
         let config = ClientConfig::default();
 
@@ -1460,7 +1473,7 @@ mod tests {
 
     #[test]
     fn connection_cache_schemeless_default_rejects_http() {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_connection);
 
         assert!(
@@ -1479,7 +1492,7 @@ mod tests {
 
     #[tokio::test]
     async fn connection_cache_get_channel_create_error_propagates_and_retries() {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_connection);
         let config = ClientConfig::default();
 
@@ -1567,7 +1580,7 @@ mod tests {
 
     #[test]
     fn connection_cache_default_port_normalization() {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_connection);
 
         assert!(
@@ -1588,7 +1601,8 @@ mod tests {
 
     #[test]
     fn connection_cache_with_plaintext_default_propagates_http() {
-        let default_connection = create_test_connection("http://remote.spanner.internal:8080");
+        let default_connection =
+            create_default_test_connection("http://remote.spanner.internal:8080");
         let cache = ConnectionCache::new(default_connection);
 
         assert!(
@@ -1609,7 +1623,7 @@ mod tests {
 
     #[test]
     fn connection_cache_with_loopback_default_propagates_http() {
-        let default_connection = create_test_connection("localhost:9010");
+        let default_connection = create_default_test_connection("localhost:9010");
         let cache = ConnectionCache::new(default_connection);
 
         assert!(
@@ -1630,7 +1644,7 @@ mod tests {
 
     #[test]
     fn connection_cache_with_loopback_https_default_preserves_tls() {
-        let default_connection = create_test_connection("https://localhost:9010");
+        let default_connection = create_default_test_connection("https://localhost:9010");
         let cache = ConnectionCache::new(default_connection);
 
         assert!(
@@ -1815,7 +1829,7 @@ mod tests {
 
     #[test]
     fn connection_cache_bare_ipv6_normalization() {
-        let default_connection = create_test_connection("https://[::1]:443");
+        let default_connection = create_default_test_connection("https://[::1]:443");
         let cache = ConnectionCache::new(default_connection);
 
         assert_eq!(
@@ -1833,7 +1847,8 @@ mod tests {
             "bare IPv6 ::1 must match default address https://[::1]:443"
         );
 
-        let plaintext_cache = ConnectionCache::new(create_test_connection("http://[::1]:80"));
+        let plaintext_cache =
+            ConnectionCache::new(create_default_test_connection("http://[::1]:80"));
         assert_eq!(
             plaintext_cache.cache_key("::1"),
             "http://[::1]:80",
@@ -1847,7 +1862,7 @@ mod tests {
 
     #[test]
     fn connection_cache_key_unknown_scheme_fallback() {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = ConnectionCache::new(default_connection);
 
         assert_eq!(
