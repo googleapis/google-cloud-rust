@@ -28,8 +28,8 @@ use opentelemetry_sdk::metrics::data::{
 };
 use opentelemetry_sdk::metrics::exporter::PushMetricExporter;
 use std::collections::HashMap;
-use std::sync::Arc;
-use std::time::{Duration, SystemTime};
+use std::sync::{Arc, Mutex, PoisonError};
+use std::time::{Duration, Instant, SystemTime};
 use tokio::runtime::Handle;
 
 const SPANNER_METER_NAME: &str = "cloud.google.com/rust";
@@ -38,11 +38,21 @@ const SPANNER_RESOURCE_TYPE: &str = "spanner_instance_client";
 const SEND_BATCH_SIZE: usize = 200;
 const INITIAL_TIME_SERIES_CAPACITY: usize = 32;
 
-#[derive(Clone, Debug)]
+/// Minimum interval required between consecutive Cloud Monitoring export calls.
+///
+/// Cloud Monitoring enforces a 60-second sampling floor on Spanner internal client metrics.
+/// When the SDK shuts down or is dropped, OpenTelemetry triggers an immediate final export.
+/// If that shutdown occurs within 30 seconds of the previous periodic export, writing to
+/// Cloud Monitoring fails with `FAILED_PRECONDITION: One or more points were written more
+/// frequently than the maximum sampling period configured for the metric.`
+const MIN_EXPORT_INTERVAL: Duration = Duration::from_secs(30);
+
+#[derive(Debug)]
 pub(crate) struct GcpMonitoringExporter {
     client: Arc<MetricService>,
     project_name: String,
     handle: Option<Handle>,
+    last_exported_at: Mutex<Option<Instant>>,
 }
 
 impl GcpMonitoringExporter {
@@ -51,12 +61,27 @@ impl GcpMonitoringExporter {
             client: Arc::new(client),
             project_name: format!("projects/{}", project_id),
             handle: Handle::try_current().ok(),
+            last_exported_at: Mutex::new(None),
         }
     }
 }
 
 impl PushMetricExporter for GcpMonitoringExporter {
     async fn export(&self, metrics: &ResourceMetrics) -> OTelSdkResult {
+        // Fast path: suppress export if an export occurred within MIN_EXPORT_INTERVAL (30s)
+        // without allocating or converting any time series.
+        {
+            let last_exported = self
+                .last_exported_at
+                .lock()
+                .unwrap_or_else(PoisonError::into_inner);
+            if let Some(last) = *last_exported
+                && last.elapsed() < MIN_EXPORT_INTERVAL
+            {
+                return Ok(());
+            }
+        }
+
         let mut time_series_list = Vec::with_capacity(INITIAL_TIME_SERIES_CAPACITY);
         let monitored_resource = resource_to_monitored_resource(metrics.resource());
 
@@ -76,6 +101,21 @@ impl PushMetricExporter for GcpMonitoringExporter {
 
         if time_series_list.is_empty() {
             return Ok(());
+        }
+
+        // Atomically check and reserve the export timestamp to prevent concurrent in-flight exports
+        // and guard against partial-batch failure re-exports on shutdown.
+        {
+            let mut last_exported = self
+                .last_exported_at
+                .lock()
+                .unwrap_or_else(PoisonError::into_inner);
+            if let Some(last) = *last_exported
+                && last.elapsed() < MIN_EXPORT_INTERVAL
+            {
+                return Ok(());
+            }
+            *last_exported = Some(Instant::now());
         }
 
         let client = Arc::clone(&self.client);
@@ -107,6 +147,16 @@ impl PushMetricExporter for GcpMonitoringExporter {
         if let Err(err_msg) = result {
             tracing::warn!("Failed to export Spanner metrics batch: {err_msg}");
             return Err(OTelSdkError::InternalFailure(err_msg));
+        }
+
+        // Update the timestamp to mark completion time monotonically.
+        {
+            let mut last_exported = self
+                .last_exported_at
+                .lock()
+                .unwrap_or_else(PoisonError::into_inner);
+            let now = Instant::now();
+            *last_exported = Some(last_exported.map_or(now, |prev| prev.max(now)));
         }
 
         Ok(())
@@ -395,16 +445,42 @@ fn convert_f64_point(
 #[cfg(all(test, feature = "builtin-metrics"))]
 mod tests {
     use super::*;
+    use google_cloud_gax::Result as GaxResult;
+    use google_cloud_gax::error::Error as GaxError;
+    use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::response::Response;
+    use google_cloud_monitoring_v3::model::CreateTimeSeriesRequest;
+    use google_cloud_monitoring_v3::stub::MetricService as MetricServiceStub;
     use opentelemetry::metrics::{Counter, Histogram, MeterProvider as _};
-    use opentelemetry_sdk::metrics::InMemoryMetricExporter;
+    use opentelemetry_sdk::metrics::{InMemoryMetricExporter, PeriodicReader, SdkMeterProvider};
     use std::fmt::Debug;
+    use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
     use std::time::SystemTime;
+
+    #[derive(Debug, Default)]
+    struct MockMetricService {
+        call_count: AtomicUsize,
+        fail: AtomicBool,
+    }
+
+    impl MetricServiceStub for MockMetricService {
+        async fn create_service_time_series(
+            &self,
+            _req: CreateTimeSeriesRequest,
+            _options: RequestOptions,
+        ) -> GaxResult<Response<()>> {
+            self.call_count.fetch_add(1, Ordering::SeqCst);
+            if self.fail.load(Ordering::SeqCst) {
+                return Err(GaxError::timeout("simulated timeout"));
+            }
+            Ok(Response::from(()))
+        }
+    }
 
     static_assertions::assert_impl_all!(
         GcpMonitoringExporter: Send,
         Sync,
         Debug,
-        Clone,
         PushMetricExporter
     );
 
@@ -659,5 +735,197 @@ mod tests {
         assert_eq!(value_to_string(&OTelValue::from(123.456_f64)), "123.456");
         assert_eq!(value_to_string(&OTelValue::from(true)), "true");
         assert_eq!(value_to_string(&OTelValue::from(false)), "false");
+    }
+
+    fn create_test_resource_metrics() -> ResourceMetrics {
+        let in_memory_exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(in_memory_exporter.clone()).build();
+        let provider = SdkMeterProvider::builder().with_reader(reader).build();
+        let meter = provider.meter(SPANNER_METER_NAME);
+        let counter: Counter<u64> = meter.u64_counter("spanner_test_metric").build();
+        counter.add(1, &[]);
+        provider
+            .force_flush()
+            .expect("force_flush on provider should succeed");
+
+        let mut finished_metrics = in_memory_exporter
+            .get_finished_metrics()
+            .expect("finished metrics must be available");
+        assert!(
+            !finished_metrics.is_empty(),
+            "finished metrics should contain the recorded Spanner metric"
+        );
+        finished_metrics.remove(0)
+    }
+
+    #[tokio::test]
+    async fn export_proceeds_on_initial_export() {
+        let mock_service = Arc::new(MockMetricService::default());
+        let client = MetricService::from_stub::<MockMetricService>(Arc::clone(&mock_service));
+        let exporter = GcpMonitoringExporter::new(client, "test-project");
+
+        // Verify that initially last_exported_at is None:
+        {
+            let last_exported = exporter
+                .last_exported_at
+                .lock()
+                .expect("lock should not be poisoned");
+            assert!(
+                last_exported.is_none(),
+                "last_exported_at must be None initially"
+            );
+        }
+
+        let metrics = create_test_resource_metrics();
+
+        // The first export on a new client must proceed immediately:
+        let result = exporter.export(&metrics).await;
+        assert!(
+            result.is_ok(),
+            "initial export must proceed without being throttled"
+        );
+        assert_eq!(
+            mock_service.call_count.load(Ordering::SeqCst),
+            1,
+            "exactly one create_time_series RPC should be issued on initial export"
+        );
+
+        let last_exported = exporter
+            .last_exported_at
+            .lock()
+            .expect("lock should not be poisoned");
+        assert!(
+            last_exported.is_some(),
+            "last_exported_at must be updated after initial export"
+        );
+        assert!(
+            last_exported
+                .expect("last_exported must be present")
+                .elapsed()
+                < Duration::from_secs(5),
+            "last_exported_at must be updated with current timestamp"
+        );
+    }
+
+    #[tokio::test]
+    async fn export_suppressed_within_minimum_interval() {
+        let mock_service = Arc::new(MockMetricService::default());
+        let client = MetricService::from_stub::<MockMetricService>(Arc::clone(&mock_service));
+        let exporter = GcpMonitoringExporter::new(client, "test-project");
+
+        // Simulate that an export occurred 5 seconds ago:
+        let simulated_previous = Instant::now()
+            .checked_sub(Duration::from_secs(5))
+            .expect("system uptime should exceed test interval");
+        *exporter
+            .last_exported_at
+            .lock()
+            .expect("lock should not be poisoned") = Some(simulated_previous);
+
+        let metrics = create_test_resource_metrics();
+
+        // Calling export now must return Ok(()) because 5s < 30s MIN_EXPORT_INTERVAL:
+        let result = exporter.export(&metrics).await;
+        assert!(
+            result.is_ok(),
+            "rapid export within 30s must be suppressed and return Ok"
+        );
+        assert_eq!(
+            mock_service.call_count.load(Ordering::SeqCst),
+            0,
+            "no create_time_series RPC should be issued when export is suppressed"
+        );
+    }
+
+    #[tokio::test]
+    async fn export_proceeds_when_minimum_interval_has_elapsed() {
+        let mock_service = Arc::new(MockMetricService::default());
+        let client = MetricService::from_stub::<MockMetricService>(Arc::clone(&mock_service));
+        let exporter = GcpMonitoringExporter::new(client, "test-project");
+
+        // Simulate that the previous export occurred 35 seconds ago (exceeding MIN_EXPORT_INTERVAL):
+        let simulated_previous = Instant::now()
+            .checked_sub(Duration::from_secs(35))
+            .expect("system uptime should exceed test interval");
+        *exporter
+            .last_exported_at
+            .lock()
+            .expect("lock should not be poisoned") = Some(simulated_previous);
+
+        let metrics = create_test_resource_metrics();
+
+        // Calling export now should proceed past the rate-limiter and call create_time_series on the mock:
+        let result = exporter.export(&metrics).await;
+        assert!(
+            result.is_ok(),
+            "export after 35s should proceed past rate-limiter and succeed"
+        );
+        assert_eq!(
+            mock_service.call_count.load(Ordering::SeqCst),
+            1,
+            "exactly one create_time_series RPC should be issued when export proceeds"
+        );
+
+        let last_exported = exporter
+            .last_exported_at
+            .lock()
+            .expect("lock should not be poisoned");
+        assert!(
+            last_exported.is_some(),
+            "last_exported_at must be updated after successful export"
+        );
+        assert!(
+            last_exported
+                .expect("last_exported must be present")
+                .elapsed()
+                < Duration::from_secs(5),
+            "last_exported_at must be updated with current timestamp"
+        );
+    }
+
+    #[tokio::test]
+    async fn export_failure_still_records_timestamp_to_suppress_shutdown_flush() {
+        let mock_service = Arc::new(MockMetricService::default());
+        mock_service.fail.store(true, Ordering::SeqCst);
+        let client = MetricService::from_stub::<MockMetricService>(Arc::clone(&mock_service));
+        let exporter = GcpMonitoringExporter::new(client, "test-project");
+
+        let metrics = create_test_resource_metrics();
+
+        // First export fails because mock_service is configured to fail:
+        let result = exporter.export(&metrics).await;
+        assert!(
+            result.is_err(),
+            "export should fail when service returns error"
+        );
+        assert_eq!(
+            mock_service.call_count.load(Ordering::SeqCst),
+            1,
+            "exactly one create_time_series RPC should have been attempted"
+        );
+
+        // Even though export failed, last_exported_at must be recorded to suppress rapid re-export on shutdown:
+        {
+            let last_exported = exporter
+                .last_exported_at
+                .lock()
+                .expect("lock should not be poisoned");
+            assert!(
+                last_exported.is_some(),
+                "last_exported_at must be recorded even when export fails"
+            );
+        }
+
+        // Immediate subsequent export (simulating client drop or shutdown flush) must be suppressed:
+        let shutdown_result = exporter.export(&metrics).await;
+        assert!(
+            shutdown_result.is_ok(),
+            "subsequent export within 30s must be suppressed and return Ok"
+        );
+        assert_eq!(
+            mock_service.call_count.load(Ordering::SeqCst),
+            1,
+            "no additional create_time_series RPC should be issued on shutdown flush"
+        );
     }
 }
