@@ -168,7 +168,7 @@ impl BatchReadOnlyTransaction {
             .partition_query(
                 request,
                 crate::RequestOptions::default(),
-                self.inner.context.channel_hint,
+                self.inner.context.affinity(),
             )
             .await?;
 
@@ -231,7 +231,7 @@ impl BatchReadOnlyTransaction {
             .partition_read(
                 request,
                 crate::RequestOptions::default(),
-                self.inner.context.channel_hint,
+                self.inner.context.affinity(),
             )
             .await?;
 
@@ -405,15 +405,11 @@ impl Partition {
         req: &ExecuteSqlRequest,
         gax_options: GaxRequestOptions,
     ) -> crate::Result<ResultSet> {
-        let channel_hint = client.next_channel_hint();
-        let gax_options = client.attach_request_id(gax_options, channel_hint);
+        let builder = client.execute_streaming_sql(req.clone(), gax_options, None);
+        let actual_gax_options = builder.options().clone();
         let (stream, attempt_start_time) =
-            Self::execute_partition_stream(client, "ExecuteStreamingSql", || {
-                client
-                    .execute_streaming_sql(req.clone(), gax_options.clone(), channel_hint)
-                    .send()
-            })
-            .await?;
+            Self::execute_partition_stream(client, "ExecuteStreamingSql", move || builder.send())
+                .await?;
 
         ResultSet::create(ResultSetParams {
             stream,
@@ -428,8 +424,7 @@ impl Partition {
             session_name: req.session.clone(),
             transaction_tag: None,
             operation: StreamOperation::Query(req.clone()),
-            channel_hint,
-            gax_options,
+            gax_options: actual_gax_options,
             method_name: "ExecuteStreamingSql",
             attempt_start_time: Some(attempt_start_time),
             operation_start_time: Some(attempt_start_time),
@@ -443,15 +438,10 @@ impl Partition {
         req: &ReadRequest,
         gax_options: GaxRequestOptions,
     ) -> crate::Result<ResultSet> {
-        let channel_hint = client.next_channel_hint();
-        let gax_options = client.attach_request_id(gax_options, channel_hint);
+        let builder = client.streaming_read(req.clone(), gax_options, None);
+        let actual_gax_options = builder.options().clone();
         let (stream, attempt_start_time) =
-            Self::execute_partition_stream(client, "StreamingRead", || {
-                client
-                    .streaming_read(req.clone(), gax_options.clone(), channel_hint)
-                    .send()
-            })
-            .await?;
+            Self::execute_partition_stream(client, "StreamingRead", move || builder.send()).await?;
 
         ResultSet::create(ResultSetParams {
             stream,
@@ -466,8 +456,7 @@ impl Partition {
             session_name: req.session.clone(),
             transaction_tag: None,
             operation: StreamOperation::Read(req.clone()),
-            channel_hint,
-            gax_options,
+            gax_options: actual_gax_options,
             method_name: "StreamingRead",
             attempt_start_time: Some(attempt_start_time),
             operation_start_time: Some(attempt_start_time),

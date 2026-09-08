@@ -12,13 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::ClientBuilderResult;
 use crate::RequestOptions;
+use crate::Result;
+use crate::channel_pool::{
+    ChannelLease, ChannelPool, ChannelPoolConfig, StaticChannelPoolConfig, TransactionAffinity,
+};
 use crate::generated::gapic_dataplane::client::Spanner as GapicSpanner;
 use crate::model::{
-    BeginTransactionRequest, CommitRequest, CommitResponse, CreateSessionRequest,
-    ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest, FetchCacheUpdateRequest,
-    PartitionQueryRequest, PartitionReadRequest, PartitionResponse, RollbackRequest, Session,
-    Transaction,
+    BatchWriteRequest, BeginTransactionRequest, CommitRequest, CommitResponse,
+    CreateSessionRequest, ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest,
+    FetchCacheUpdateRequest, PartitionQueryRequest, PartitionReadRequest, PartitionResponse,
+    ReadRequest, ResultSet as ModelResultSet, RollbackRequest, Session, Transaction,
 };
 use crate::observability::Observability;
 #[cfg(feature = "metrics")]
@@ -43,10 +48,8 @@ use http::{
     header::{HeaderName, HeaderValue},
 };
 use std::env;
-use std::sync::{
-    Arc,
-    atomic::{AtomicUsize, Ordering},
-};
+use std::sync::Arc;
+use tokio::task::JoinSet;
 
 pub use crate::database_client::DatabaseClient;
 #[cfg(feature = "metrics")]
@@ -65,8 +68,7 @@ use opentelemetry::metrics::MeterProvider;
 /// [Spanner]: https://docs.cloud.google.com/spanner/docs
 #[derive(Clone, Debug)]
 pub struct Spanner {
-    pub(crate) channels: Vec<Channel>,
-    pub(crate) counter: Arc<AtomicUsize>,
+    pub(crate) channel_pool: ChannelPool,
     pub(crate) config: ClientConfig,
     pub(crate) is_emulator: bool,
     pub(crate) instance_type: InstanceType,
@@ -86,7 +88,7 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
     type Client = Spanner;
     type Credentials = Credentials;
 
-    async fn build(self, mut config: ClientConfig) -> crate::ClientBuilderResult<Self::Client> {
+    async fn build(self, mut config: ClientConfig) -> ClientBuilderResult<Self::Client> {
         let is_emulator = detect_and_configure_emulator(&mut config);
 
         let is_plaintext = config
@@ -114,17 +116,8 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             config.cred = Some(anonymous::Builder::new().build());
         }
 
-        let num_channels = env::var("SPANNER_NUM_CHANNELS")
-            .ok()
-            .and_then(|s| s.parse::<usize>().ok())
-            .unwrap_or(4);
-
-        // TODO(channel-pool): Dial initial channels concurrently via JoinSet during client builder
-        // construction once ChannelPool is integrated into the Spanner client.
-        let mut channels = Vec::with_capacity(num_channels);
-        for index in 0..num_channels {
-            channels.push(Channel::create(&config, index + 1).await?);
-        }
+        let pool_config = resolve_pool_config(&mut config)?;
+        let channel_pool = create_channel_pool(&config, pool_config).await?;
 
         #[cfg(feature = "builtin-metrics")]
         let export_builtin_metrics_to_cloud_monitoring = config
@@ -137,8 +130,7 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             extract_metrics_config(&config.extensions);
 
         Ok(Spanner {
-            channels,
-            counter: Arc::new(AtomicUsize::new(0)),
+            channel_pool,
             config,
             is_emulator,
             instance_type,
@@ -155,6 +147,19 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
 
 /// A builder for the Spanner client.
 pub type ClientBuilder = google_cloud_gax::client_builder::ClientBuilder<Factory, Credentials>;
+
+/// Builder extension trait for channel pool configuration.
+#[allow(dead_code)]
+pub(crate) trait SpannerPoolBuilderExt {
+    /// Configures the gRPC channel pool for the Spanner client.
+    fn with_channel_pool<C: Into<ChannelPoolConfig>>(self, pool_config: C) -> Self;
+}
+
+impl SpannerPoolBuilderExt for ClientBuilder {
+    fn with_channel_pool<C: Into<ChannelPoolConfig>>(self, pool_config: C) -> Self {
+        self.with_extension(pool_config.into())
+    }
+}
 
 /// Extension trait for [`ClientBuilder`] (also exported as `SpannerBuilder`) to configure Spanner-specific options.
 pub trait SpannerBuilderExt {
@@ -348,6 +353,67 @@ impl SpannerBuilderExt for ClientBuilder {
     }
 }
 
+fn resolve_pool_config(config: &mut ClientConfig) -> ClientBuilderResult<ChannelPoolConfig> {
+    resolve_pool_config_with(config, || {
+        env::var("SPANNER_NUM_CHANNELS")
+            .ok()
+            .filter(|string| !string.trim().is_empty())
+    })
+}
+
+fn resolve_pool_config_with(
+    config: &mut ClientConfig,
+    env_lookup: impl FnOnce() -> Option<String>,
+) -> ClientBuilderResult<ChannelPoolConfig> {
+    if let Some(config_override) = config.extensions.remove::<ChannelPoolConfig>() {
+        let pool_config = Arc::try_unwrap(config_override).unwrap_or_else(|arc| (*arc).clone());
+        pool_config.validate().map_err(BuilderError::transport)?;
+        return Ok(pool_config);
+    }
+    if let Some(num_channels_str) = env_lookup() {
+        let trimmed = num_channels_str.trim();
+        if !trimmed.is_empty() {
+            let num_channels = trimmed.parse::<usize>().map_err(BuilderError::transport)?;
+            let static_config = StaticChannelPoolConfig { num_channels };
+            static_config.validate().map_err(BuilderError::transport)?;
+            return Ok(ChannelPoolConfig::Static(static_config));
+        }
+    }
+    Ok(ChannelPoolConfig::Static(StaticChannelPoolConfig::default()))
+}
+
+async fn create_channel_pool(
+    config: &ClientConfig,
+    pool_config: ChannelPoolConfig,
+) -> ClientBuilderResult<ChannelPool> {
+    let num_initial = match &pool_config {
+        ChannelPoolConfig::Static(static_config) => static_config.num_channels,
+        ChannelPoolConfig::Dynamic(dynamic_config) => dynamic_config.initial_channels,
+    };
+
+    let mut join_set = JoinSet::new();
+    for index in 0..num_initial {
+        let config_clone = config.clone();
+        join_set.spawn(async move { Channel::create(&config_clone, index + 1).await });
+    }
+
+    let mut channels = Vec::with_capacity(num_initial);
+    while let Some(join_result) = join_set.join_next().await {
+        let channel_result = join_result.map_err(BuilderError::transport)?;
+        channels.push(channel_result?);
+    }
+    channels.sort_by_key(|channel| channel.channel_id);
+
+    Ok(match pool_config {
+        ChannelPoolConfig::Static(static_config) => {
+            ChannelPool::new_static(channels, static_config, config.clone())
+        }
+        ChannelPoolConfig::Dynamic(dynamic_config) => {
+            ChannelPool::new_dynamic(channels, dynamic_config, config.clone())
+        }
+    })
+}
+
 fn parse_emulator_endpoint(endpoint: &str) -> String {
     match url::Url::parse(endpoint) {
         Ok(url) if url.has_host() => endpoint.to_string(),
@@ -416,11 +482,11 @@ macro_rules! define_idempotent_rpc {
         pub(crate) async fn $method(
             &self,
             request: $request_type,
-            options: crate::RequestOptions,
+            options: RequestOptions,
             channel: &Channel,
             o11y: &Arc<Observability>,
-        ) -> crate::Result<$response_type> {
-            let options = self.attach_request_id(options, channel);
+        ) -> Result<$response_type> {
+            let options = self.attach_request_id(options, channel.channel_id);
             #[cfg(feature = "metrics")]
             let options = options.insert_extension(Arc::clone(o11y));
             o11y.trace_operation(
@@ -437,7 +503,7 @@ macro_rules! define_idempotent_rpc {
     };
 }
 
-fn apply_request_defaults(mut options: crate::RequestOptions) -> crate::RequestOptions {
+fn apply_request_defaults(mut options: RequestOptions) -> RequestOptions {
     if options.idempotent().is_none() {
         options.set_idempotency(true);
     }
@@ -580,13 +646,18 @@ impl Spanner {
     {
         // This method is primarily for testing and doesn't fully initialize grpc_client.
         // For production use, prefer `Spanner::builder().build()`.
+        let channel = Channel {
+            inner: GapicSpanner::from_stub(stub),
+            grpc_client: None,
+            channel_id: 1,
+        };
+        let channel_pool = ChannelPool::new_static(
+            vec![channel],
+            StaticChannelPoolConfig { num_channels: 1 },
+            ClientConfig::default(),
+        );
         Self {
-            channels: vec![Channel {
-                inner: GapicSpanner::from_stub(stub),
-                grpc_client: None,
-                channel_id: 1,
-            }],
-            counter: Arc::new(AtomicUsize::new(0)),
+            channel_pool,
             config: ClientConfig::default(),
             is_emulator: false,
             instance_type: InstanceType::Cloud,
@@ -628,25 +699,37 @@ impl Spanner {
         self.instance_type
     }
 
-    pub(crate) fn get_channel(&self, hint: usize) -> &Channel {
-        let idx = hint % self.channels.len();
-        &self.channels[idx]
+    /// Returns the first active channel in the pool, used strictly for fallback gateway metadata setup.
+    ///
+    /// # Warning
+    ///
+    /// Do **not** use this method for query or RPC dispatch; use [`Self::next_channel`] or
+    /// [`Self::resolve_affinity`] instead to ensure load-balanced distribution.
+    pub(crate) fn default_channel(&self) -> Option<Channel> {
+        self.channel_pool.default_channel()
     }
 
-    pub(crate) fn next_channel(&self) -> &Channel {
-        let hint = self.counter.fetch_add(1, Ordering::Relaxed);
-        self.get_channel(hint)
+    pub(crate) fn channel_pool(&self) -> &ChannelPool {
+        &self.channel_pool
     }
 
-    pub(crate) fn next_channel_hint(&self) -> usize {
-        self.counter.fetch_add(1, Ordering::Relaxed)
+    pub(crate) fn next_channel(&self) -> ChannelLease {
+        self.channel_pool
+            .pick_channel()
+            .expect("channel pool must have active channels")
+    }
+
+    pub(crate) fn resolve_affinity(&self, affinity: &TransactionAffinity) -> ChannelLease {
+        self.channel_pool
+            .resolve_affinity(affinity)
+            .expect("channel pool must have active channels")
     }
 
     pub(crate) fn attach_request_id(
         &self,
-        mut options: crate::RequestOptions,
-        channel: &Channel,
-    ) -> crate::RequestOptions {
+        mut options: RequestOptions,
+        channel_id: usize,
+    ) -> RequestOptions {
         if options
             .get_extension::<HeaderMap>()
             .is_some_and(|headers| headers.contains_key(&REQUEST_ID_HEADER))
@@ -654,7 +737,7 @@ impl Spanner {
             return options;
         }
 
-        let header_val_str = self.request_id_creator.next_id_prefix(channel.channel_id);
+        let header_val_str = self.request_id_creator.next_id_prefix(channel_id);
         let Ok(val) = HeaderValue::from_str(&header_val_str) else {
             return options;
         };
@@ -674,7 +757,7 @@ impl Spanner {
     define_idempotent_rpc!(
         execute_sql,
         ExecuteSqlRequest,
-        crate::model::ResultSet,
+        ModelResultSet,
         "google.spanner.v1.Spanner/ExecuteSql"
     );
     define_idempotent_rpc!(
@@ -720,8 +803,8 @@ impl Spanner {
     /// transport, since streaming responses are not yet auto-generated here.
     pub(crate) fn execute_streaming_sql(
         &self,
-        request: crate::model::ExecuteSqlRequest,
-        options: crate::RequestOptions,
+        request: ExecuteSqlRequest,
+        options: RequestOptions,
         channel: &Channel,
     ) -> builder::ExecuteStreamingSql {
         let grpc = channel
@@ -730,7 +813,7 @@ impl Spanner {
             .expect("Streaming RPCs are not supported when using a stub client");
         builder::ExecuteStreamingSql::new(grpc.clone())
             .with_request(request)
-            .with_options(self.attach_request_id(options, channel))
+            .with_options(self.attach_request_id(options, channel.channel_id))
     }
 
     /// Reads rows from the database, returning a stream of results.
@@ -739,8 +822,8 @@ impl Spanner {
     /// transport, since streaming responses are not yet auto-generated here.
     pub(crate) fn streaming_read(
         &self,
-        request: crate::model::ReadRequest,
-        options: crate::RequestOptions,
+        request: ReadRequest,
+        options: RequestOptions,
         channel: &Channel,
     ) -> builder::StreamingRead {
         let grpc = channel
@@ -749,13 +832,13 @@ impl Spanner {
             .expect("Streaming RPCs are not supported when using a stub client");
         builder::StreamingRead::new(grpc.clone())
             .with_request(request)
-            .with_options(self.attach_request_id(options, channel))
+            .with_options(self.attach_request_id(options, channel.channel_id))
     }
 
     pub(crate) fn batch_write(
         &self,
-        request: crate::model::BatchWriteRequest,
-        options: crate::RequestOptions,
+        request: BatchWriteRequest,
+        options: RequestOptions,
         channel: &Channel,
     ) -> builder::BatchWrite {
         let grpc = channel
@@ -764,7 +847,7 @@ impl Spanner {
             .expect("Streaming RPCs are not supported when using a stub client");
         builder::BatchWrite::new(grpc.clone())
             .with_request(request)
-            .with_options(self.attach_request_id(options, channel))
+            .with_options(self.attach_request_id(options, channel.channel_id))
     }
 
     pub(crate) fn fetch_cache_update(
@@ -779,7 +862,7 @@ impl Spanner {
             .expect("Streaming RPCs are not supported when using a stub client");
         builder::FetchCacheUpdate::new(grpc.clone())
             .with_request(request)
-            .with_options(self.attach_request_id(options, channel))
+            .with_options(self.attach_request_id(options, channel.channel_id))
     }
 }
 
@@ -855,6 +938,7 @@ mod tests {
     use google_cloud_gax::error::rpc::Code;
     use google_cloud_gax::retry_state::RetryState;
     use google_cloud_test_macros::tokio_test_no_panics;
+    use serial_test::serial;
     use spanner_grpc_mock::google::rpc as mock_rpc;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use spanner_grpc_mock::google::spanner::v1::CommitResponse;
@@ -884,7 +968,14 @@ mod tests {
         assert_not_impl_any!(Spanner: RefUnwindSafe, UnwindSafe);
     }
 
+    impl Spanner {
+        fn channel_count(&self) -> usize {
+            self.channel_pool.active_channel_count()
+        }
+    }
+
     #[tokio_test_no_panics]
+    #[serial]
     async fn channel_pool_default_size() {
         let mock = MockSpanner::new();
         let (address, _server) = start("0.0.0.0:0", mock)
@@ -898,7 +989,11 @@ mod tests {
             .await
             .expect("Failed to build client");
 
-        assert_eq!(client.channels.len(), 4);
+        assert_eq!(
+            client.channel_count(),
+            4,
+            "default static channel pool must have 4 channels"
+        );
     }
 
     #[test]
@@ -926,33 +1021,6 @@ mod tests {
             map_emulator_admin_endpoint("http://localhost:9010", false),
             "http://localhost:9010"
         );
-    }
-
-    #[tokio_test_no_panics]
-    async fn channel_selection() {
-        let mock = MockSpanner::new();
-        let (address, _server) = start("0.0.0.0:0", mock)
-            .await
-            .expect("Failed to start mock server");
-
-        let client = Spanner::builder()
-            .with_endpoint(address)
-            .with_credentials(Anonymous::new().build())
-            .build()
-            .await
-            .expect("Failed to build client");
-
-        let hint0 = client.next_channel_hint();
-        let hint1 = client.next_channel_hint();
-        let hint2 = client.next_channel_hint();
-        let hint3 = client.next_channel_hint();
-        let hint4 = client.next_channel_hint();
-
-        assert_eq!(hint0 % 4, 0);
-        assert_eq!(hint1 % 4, 1);
-        assert_eq!(hint2 % 4, 2);
-        assert_eq!(hint3 % 4, 3);
-        assert_eq!(hint4 % 4, 0);
     }
 
     #[tokio_test_no_panics]
@@ -990,7 +1058,7 @@ mod tests {
             .create_session(
                 req,
                 crate::RequestOptions::default(),
-                client.next_channel(),
+                &client.next_channel(),
                 &Observability::disabled_arc(),
             )
             .await
@@ -1046,7 +1114,7 @@ mod tests {
             "projects/test-project/instances/test-instance/databases/test-db".to_string();
 
         let session = client
-            .get_channel(client.next_channel_hint())
+            .next_channel()
             .inner
             .create_session()
             .with_request(req)
@@ -1110,7 +1178,7 @@ mod tests {
             .create_session(
                 req,
                 crate::RequestOptions::default(),
-                client.next_channel(),
+                &client.next_channel(),
                 &Observability::disabled_arc(),
             )
             .await
@@ -1160,7 +1228,7 @@ mod tests {
             .execute_sql(
                 req,
                 crate::RequestOptions::default(),
-                client.next_channel(),
+                &client.next_channel(),
                 &Observability::disabled_arc(),
             )
             .await
@@ -1204,7 +1272,7 @@ mod tests {
             .execute_batch_dml(
                 req,
                 crate::RequestOptions::default(),
-                client.next_channel(),
+                &client.next_channel(),
                 &Observability::disabled_arc(),
             )
             .await
@@ -1243,7 +1311,7 @@ mod tests {
             .begin_transaction(
                 req,
                 crate::RequestOptions::default(),
-                client.next_channel(),
+                &client.next_channel(),
                 &Observability::disabled_arc(),
             )
             .await
@@ -1286,7 +1354,7 @@ mod tests {
             .commit(
                 req,
                 crate::RequestOptions::default(),
-                client.next_channel(),
+                &client.next_channel(),
                 &Observability::disabled_arc(),
             )
             .await
@@ -1320,7 +1388,7 @@ mod tests {
             .rollback(
                 req,
                 crate::RequestOptions::default(),
-                client.next_channel(),
+                &client.next_channel(),
                 &Observability::disabled_arc(),
             )
             .await
@@ -1364,14 +1432,17 @@ mod tests {
         req.sql = "SELECT 1".to_string();
 
         let mut stream = client
-            .execute_streaming_sql(req, crate::RequestOptions::default(), client.next_channel())
+            .execute_streaming_sql(req, RequestOptions::default(), &client.next_channel())
             .send()
             .await
             .expect("Failed to call execute_streaming_sql");
 
         let result = stream.next_message().await;
-        assert!(result.is_some());
-        assert!(result.unwrap().is_ok());
+        assert!(result.is_some(), "expected stream item");
+        assert!(
+            result.expect("stream ended prematurely").is_ok(),
+            "stream item should be Ok"
+        );
     }
 
     #[tokio_test_no_panics]
@@ -1412,14 +1483,17 @@ mod tests {
         req.columns = vec!["col1".to_string()];
 
         let mut stream = client
-            .streaming_read(req, crate::RequestOptions::default(), client.next_channel())
+            .streaming_read(req, RequestOptions::default(), &client.next_channel())
             .send()
             .await
             .expect("Failed to call streaming_read");
 
         let result = stream.next_message().await;
-        assert!(result.is_some());
-        assert!(result.unwrap().is_ok());
+        assert!(result.is_some(), "expected stream item");
+        assert!(
+            result.expect("stream ended prematurely").is_ok(),
+            "stream item should be Ok"
+        );
     }
 
     #[tokio_test_no_panics]
@@ -1450,14 +1524,17 @@ mod tests {
         req.session = "test_session".to_string();
 
         let mut stream = client
-            .batch_write(req, crate::RequestOptions::default(), client.next_channel())
+            .batch_write(req, RequestOptions::default(), &client.next_channel())
             .send()
             .await
             .expect("Failed to call batch_write");
 
         let result = stream.next_message().await;
-        assert!(result.is_some());
-        assert!(result.unwrap().is_ok());
+        assert!(result.is_some(), "expected stream item");
+        assert!(
+            result.expect("stream ended prematurely").is_ok(),
+            "stream item should be Ok"
+        );
     }
 
     #[tokio_test_no_panics]
@@ -1486,17 +1563,19 @@ mod tests {
         req.sql = "SELECT 1".to_string();
 
         let mut stream = client
-            .execute_streaming_sql(req, crate::RequestOptions::default(), client.next_channel())
+            .execute_streaming_sql(req, RequestOptions::default(), &client.next_channel())
             .send()
             .await
             .expect("Failed to call execute_streaming_sql");
 
         let result = stream.next_message().await;
-        assert!(result.is_some());
-        let err = result.unwrap().expect_err("expected error");
+        assert!(result.is_some(), "expected stream item");
+        let err = result
+            .expect("stream ended prematurely")
+            .expect_err("expected error");
         assert_eq!(
-            err.status().unwrap().code,
-            google_cloud_gax::error::rpc::Code::Internal
+            err.status().expect("status should be present").code,
+            Code::Internal
         );
     }
 
@@ -1537,7 +1616,7 @@ mod tests {
             .create_session(
                 req,
                 crate::RequestOptions::default(),
-                client.next_channel(),
+                &client.next_channel(),
                 &Observability::disabled_arc(),
             )
             .await
@@ -1584,14 +1663,14 @@ mod tests {
             .create_session(
                 req,
                 options,
-                client.next_channel(),
+                &client.next_channel(),
                 &Observability::disabled_arc(),
             )
             .await;
 
         // 5. Verify that it failed and did not retry
         assert!(result.is_err(), "Expected error, got {:?}", result);
-        let err = result.unwrap_err();
+        let err = result.expect_err("expected error");
         assert_eq!(err.status().map(|s| s.code), Some(Code::Unavailable));
 
         Ok(())
@@ -2180,8 +2259,8 @@ mod tests {
             .expect("Failed to build client");
 
         let channel = client.next_channel();
-        let options = crate::RequestOptions::default();
-        let options = client.attach_request_id(options, channel);
+        let options = RequestOptions::default();
+        let options = client.attach_request_id(options, channel.channel_id);
         let headers = options
             .get_extension::<HeaderMap>()
             .expect("HeaderMap should be present");
@@ -2201,6 +2280,7 @@ mod tests {
     }
 
     #[tokio_test_no_panics]
+    #[serial]
     async fn attach_request_id_channel_id_in_range() {
         let mock = MockSpanner::new();
         let (address, _server) = start("0.0.0.0:0", mock)
@@ -2214,17 +2294,16 @@ mod tests {
             .await
             .expect("Failed to build client");
 
+        let expected_channels = if client.is_emulator() { 1 } else { 4 };
         assert_eq!(
-            client.channels.len(),
-            4,
-            "default pool size should be 4 channels"
+            client.channel_count(),
+            expected_channels,
+            "default pool size should match expected channels"
         );
 
-        // Test with a channel_hint that is larger than the pool size (e.g., hint = 7).
-        // get_channel(7) maps to channel at index (7 % 4 = 3), which has 1-based channel_id 4.
-        let channel = client.get_channel(7);
-        let options = crate::RequestOptions::default();
-        let options = client.attach_request_id(options, channel);
+        let channel = client.next_channel();
+        let options = RequestOptions::default();
+        let options = client.attach_request_id(options, channel.channel_id);
         let headers = options
             .get_extension::<HeaderMap>()
             .expect("HeaderMap should be present");
@@ -2234,11 +2313,16 @@ mod tests {
             .to_str()
             .expect("should be valid ASCII");
 
-        // With 4 channels and hint = 7: (7 % 4) + 1 = 3 + 1 = 4.
-        // So the prefix should contain ".4." for channel ID 4.
+        let channel_id = channel.channel_id;
         assert!(
-            val.contains(".4."),
-            "Request ID should contain channel ID 4 for hint 7 with pool size 4, got {val}"
+            (1..=expected_channels).contains(&channel_id),
+            "Channel ID should be in range 1..={expected_channels}, got {channel_id}"
+        );
+        let expected_segment = format!(".{}.", channel.channel_id);
+        assert!(
+            val.contains(&expected_segment),
+            "Request ID should contain channel ID {}, got {val}",
+            channel.channel_id
         );
     }
 
@@ -2256,9 +2340,9 @@ mod tests {
             .await
             .expect("Failed to build client");
 
-        let channel = client.get_channel(0);
-        let mut options = crate::RequestOptions::default();
-        options = client.attach_request_id(options, channel);
+        let channel = client.next_channel();
+        let mut options = RequestOptions::default();
+        options = client.attach_request_id(options, channel.channel_id);
         let first_headers = options
             .get_extension::<HeaderMap>()
             .expect("HeaderMap should be present")
@@ -2269,7 +2353,7 @@ mod tests {
             .clone();
 
         // Calling attach_request_id a second time must NOT change the value or add duplicate headers
-        options = client.attach_request_id(options, channel);
+        options = client.attach_request_id(options, channel.channel_id);
         let second_headers = options
             .get_extension::<HeaderMap>()
             .expect("HeaderMap should be present");
@@ -2288,7 +2372,7 @@ mod tests {
 
     #[test]
     fn amend_request_options_for_lar_idempotent_no_duplicate_headers() {
-        let options = crate::RequestOptions::default();
+        let options = RequestOptions::default();
         let options = super::amend_request_options_for_lar(true, options);
         let options = super::amend_request_options_for_lar(true, options);
 
@@ -2308,6 +2392,258 @@ mod tests {
             headers.get(&super::ROUTE_TO_LEADER_HEADER),
             Some(&super::ROUTE_TO_LEADER_VALUE),
             "LAR header should match ROUTE_TO_LEADER_VALUE"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn builder_with_static_channel_pool_config() {
+        use crate::channel_pool::StaticChannelPoolConfig;
+
+        let mock = MockSpanner::new();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .with_channel_pool(StaticChannelPoolConfig::new(2))
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        assert_eq!(
+            client.channel_count(),
+            2,
+            "Client should have exactly 2 channels configured"
+        );
+        assert!(
+            client.default_channel().is_some(),
+            "Client should have a default channel"
+        );
+        match client.channel_pool().config() {
+            ChannelPoolConfig::Static(config) => {
+                assert_eq!(
+                    config.num_channels, 2,
+                    "Configured static channel count should match"
+                );
+            }
+            ChannelPoolConfig::Dynamic(_) => {
+                panic!("Expected static pool config, got dynamic");
+            }
+        }
+    }
+
+    #[tokio_test_no_panics]
+    async fn builder_with_dynamic_channel_pool_config() {
+        use crate::channel_pool::config::DynamicChannelPoolConfig;
+
+        let mock = MockSpanner::new();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let dynamic_config = DynamicChannelPoolConfig::new()
+            .with_initial_channels(3)
+            .with_min_channels(2)
+            .with_max_channels(8);
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .with_channel_pool(dynamic_config)
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        assert_eq!(
+            client.channel_count(),
+            3,
+            "Client should have 3 initial channels configured"
+        );
+        match client.channel_pool().config() {
+            ChannelPoolConfig::Dynamic(config) => {
+                assert_eq!(config.initial_channels, 3, "Initial channels should match");
+                assert_eq!(config.min_channels, 2, "Min channels should match");
+                assert_eq!(config.max_channels, 8, "Max channels should match");
+            }
+            ChannelPoolConfig::Static(_) => {
+                panic!("Expected dynamic pool config, got static");
+            }
+        }
+    }
+
+    #[tokio_test_no_panics]
+    async fn builder_invalid_channel_pool_config_propagates_error() {
+        use crate::channel_pool::StaticChannelPoolConfig;
+
+        let result = Spanner::builder()
+            .with_endpoint("http://localhost:9010")
+            .with_credentials(Anonymous::new().build())
+            .with_channel_pool(StaticChannelPoolConfig { num_channels: 0 })
+            .build()
+            .await;
+
+        assert!(
+            result.is_err(),
+            "Builder must propagate error when channel pool validation fails"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn from_stub_creates_single_channel_static_pool() {
+        use crate::stub::Spanner as SpannerStub;
+
+        #[derive(Debug)]
+        struct DummyStub;
+        impl SpannerStub for DummyStub {}
+
+        let client = Spanner::from_stub(DummyStub);
+
+        assert_eq!(
+            client.channel_count(),
+            1,
+            "Client from stub should have exactly 1 channel"
+        );
+        assert!(
+            client.default_channel().is_some(),
+            "Client from stub should have a default channel"
+        );
+        match client.channel_pool().config() {
+            ChannelPoolConfig::Static(config) => {
+                assert_eq!(
+                    config.num_channels, 1,
+                    "From stub should configure exactly 1 static channel"
+                );
+            }
+            ChannelPoolConfig::Dynamic(_) => {
+                panic!("Expected static pool config from stub");
+            }
+        }
+    }
+
+    #[test]
+    fn resolve_pool_config() {
+        use crate::channel_pool::{DynamicChannelPoolConfig, StaticChannelPoolConfig};
+
+        // Case 1: Default when no env var and no override
+        let mut config = ClientConfig::default();
+        let pool_config = resolve_pool_config_with(&mut config, || None)
+            .expect("default pool config should resolve");
+        assert_eq!(
+            pool_config,
+            ChannelPoolConfig::Static(StaticChannelPoolConfig { num_channels: 4 }),
+            "default static pool has 4 channels"
+        );
+
+        // Case 2: SPANNER_NUM_CHANNELS valid integer
+        let mut config = ClientConfig::default();
+        let pool_config = resolve_pool_config_with(&mut config, || Some("2".to_string()))
+            .expect("pool config with SPANNER_NUM_CHANNELS=2 should resolve");
+        assert_eq!(
+            pool_config,
+            ChannelPoolConfig::Static(StaticChannelPoolConfig { num_channels: 2 }),
+            "configured static channels should be 2"
+        );
+
+        // Case 3: SPANNER_NUM_CHANNELS unparsable integer string
+        let mut config = ClientConfig::default();
+        let err = resolve_pool_config_with(&mut config, || Some("not_a_number".to_string()))
+            .expect_err("should fail when SPANNER_NUM_CHANNELS is not a valid integer");
+        let debug_err = format!("{err:?}");
+        assert!(
+            debug_err.contains("InvalidDigit"),
+            "error should indicate invalid digit: {debug_err}"
+        );
+
+        // Case 4: SPANNER_NUM_CHANNELS zero (validation failure)
+        let mut config = ClientConfig::default();
+        let err = resolve_pool_config_with(&mut config, || Some("0".to_string()))
+            .expect_err("should fail when SPANNER_NUM_CHANNELS is 0");
+        let debug_err = format!("{err:?}");
+        assert!(
+            debug_err.contains("num_channels must be at least 1"),
+            "error should indicate num_channels must be at least 1: {debug_err}"
+        );
+
+        // Case 5: Extension override takes precedence over SPANNER_NUM_CHANNELS
+        let mut config = ClientConfig::default();
+        config
+            .extensions
+            .insert(ChannelPoolConfig::Static(StaticChannelPoolConfig {
+                num_channels: 10,
+            }));
+        let pool_config = resolve_pool_config_with(&mut config, || Some("2".to_string()))
+            .expect("extension override should resolve");
+        assert_eq!(
+            pool_config,
+            ChannelPoolConfig::Static(StaticChannelPoolConfig { num_channels: 10 }),
+            "extension override takes precedence over env var"
+        );
+
+        // Case 6: SPANNER_NUM_CHANNELS empty or whitespace string falls back to default
+        let mut config = ClientConfig::default();
+        let pool_config = resolve_pool_config_with(&mut config, || Some("   ".to_string()))
+            .expect("whitespace SPANNER_NUM_CHANNELS should resolve to default");
+        assert_eq!(
+            pool_config,
+            ChannelPoolConfig::Static(StaticChannelPoolConfig { num_channels: 4 }),
+            "whitespace SPANNER_NUM_CHANNELS should default to 4 channels"
+        );
+
+        // Case 7: Extension override with dynamic channel pool configuration
+        let mut config = ClientConfig::default();
+        let dynamic_config = DynamicChannelPoolConfig::default();
+        config
+            .extensions
+            .insert(ChannelPoolConfig::Dynamic(dynamic_config.clone()));
+        let pool_config = resolve_pool_config_with(&mut config, || Some("2".to_string()))
+            .expect("dynamic extension override should resolve");
+        assert_eq!(
+            pool_config,
+            ChannelPoolConfig::Dynamic(dynamic_config),
+            "dynamic extension override takes precedence over env var"
+        );
+    }
+
+    #[tokio::test]
+    async fn client_builder_with_extension_configures_channel_pool() {
+        use google_cloud_auth::credentials::anonymous::Builder as AnonymousCredentialsBuilder;
+        use spanner_grpc_mock::{MockSpanner, start};
+
+        let mock = MockSpanner::new();
+        let (address, _server) = start("0.0.0.0:0", mock).await.expect("start mock server");
+
+        // Case A: using with_extension directly
+        let spanner = Spanner::builder()
+            .with_endpoint(address.clone())
+            .with_credentials(AnonymousCredentialsBuilder::new().build())
+            .with_extension(ChannelPoolConfig::Static(StaticChannelPoolConfig {
+                num_channels: 3,
+            }))
+            .build()
+            .await
+            .expect("build client with with_extension override");
+
+        assert_eq!(
+            spanner.channel_pool.active_channel_count(),
+            3,
+            "Channel pool must have 3 channels from with_extension override"
+        );
+
+        // Case B: using with_channel_pool helper
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(AnonymousCredentialsBuilder::new().build())
+            .with_channel_pool(StaticChannelPoolConfig { num_channels: 2 })
+            .build()
+            .await
+            .expect("build client with with_channel_pool override");
+
+        assert_eq!(
+            spanner.channel_pool.active_channel_count(),
+            2,
+            "Channel pool must have 2 channels from with_channel_pool override"
         );
     }
 

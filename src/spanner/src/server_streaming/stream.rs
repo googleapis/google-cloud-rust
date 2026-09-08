@@ -17,11 +17,18 @@ use crate::google::spanner::v1::CacheUpdate as ProtoCacheUpdate;
 use crate::google::spanner::v1::PartialResultSet;
 use gaxi::grpc::from_status::to_gax_error;
 use gaxi::grpc::tonic::Streaming;
+use google_cloud_gax::error::rpc::Code;
 use http::HeaderMap;
-use std::any::Any;
+use std::fmt::Debug;
+use std::sync::Arc;
 
-/// Type alias for opaque stream lifetime drop guards.
-pub(crate) type StreamLifetimeGuard = Box<dyn Any + Send + Sync>;
+/// Trait for stream lifetime drop guards capable of recording RPC error codes for dynamic channel pooling.
+pub(crate) trait StreamGuard: Debug + Send + Sync + 'static {
+    fn record_error_code(&self, code: Code);
+}
+
+/// Type alias for stream lifetime drop guards.
+pub(crate) type StreamLifetimeGuard = Arc<dyn StreamGuard>;
 
 /// Generic wrapper around gRPC server-streaming responses with lifetime management.
 #[derive(Debug)]
@@ -41,7 +48,6 @@ impl<T> SpannerServerStream<T> {
     }
 
     /// Attaches an opaque RAII lifetime guard that remains alive for the duration of the stream.
-    #[allow(dead_code)]
     pub(crate) fn with_lifetime_guard(mut self, guard: StreamLifetimeGuard) -> Self {
         self.lifetime_guard = Some(guard);
         self
@@ -60,9 +66,16 @@ impl<T> SpannerServerStream<T> {
     pub(crate) async fn next_message(&mut self) -> Option<crate::Result<T>> {
         match self.inner.message().await.map_err(to_gax_error).transpose() {
             Some(Ok(message)) => Some(Ok(message)),
-            other => {
+            Some(Err(err)) => {
+                let guard = self.lifetime_guard.take();
+                if let (Some(guard), Some(status)) = (guard.as_ref(), err.status()) {
+                    guard.record_error_code(status.code);
+                }
+                Some(Err(err))
+            }
+            None => {
                 self.lifetime_guard = None;
-                other
+                None
             }
         }
     }
@@ -84,8 +97,10 @@ mod tests {
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_test_macros::tokio_test_no_panics;
     use std::fmt::Debug;
-    use std::sync::Arc;
-    use std::sync::atomic::{AtomicBool, Ordering};
+    use std::sync::{
+        Arc, Mutex,
+        atomic::{AtomicBool, Ordering},
+    };
 
     #[test]
     fn auto_traits() {
@@ -94,8 +109,16 @@ mod tests {
         static_assertions::assert_impl_all!(CacheUpdateStream: Send, Sync, Debug);
     }
 
+    #[derive(Debug)]
     struct TestDropGuard {
         dropped: Arc<AtomicBool>,
+        recorded_code: Arc<Mutex<Option<Code>>>,
+    }
+
+    impl StreamGuard for TestDropGuard {
+        fn record_error_code(&self, code: Code) {
+            *self.recorded_code.lock().expect("lock poisoned") = Some(code);
+        }
     }
 
     impl Drop for TestDropGuard {
@@ -107,8 +130,10 @@ mod tests {
     #[tokio_test_no_panics]
     async fn stream_drop_releases_lifetime_guard() -> anyhow::Result<()> {
         let dropped = Arc::new(AtomicBool::new(false));
-        let guard = Box::new(TestDropGuard {
+        let recorded_code = Arc::new(Mutex::new(None));
+        let guard = Arc::new(TestDropGuard {
             dropped: Arc::clone(&dropped),
+            recorded_code: Arc::clone(&recorded_code),
         });
 
         let mut mock = create_session_mock();
@@ -123,7 +148,7 @@ mod tests {
                 .set_session(db_client.session_name())
                 .set_sql("SELECT 1");
             let stream = db_client
-                .execute_streaming_sql(request, RequestOptions::default(), 0)
+                .execute_streaming_sql(request, RequestOptions::default(), None)
                 .send()
                 .await?
                 .with_lifetime_guard(guard);
@@ -139,14 +164,21 @@ mod tests {
             dropped.load(Ordering::Relaxed),
             "Guard must be dropped when stream is dropped"
         );
+        assert_eq!(
+            *recorded_code.lock().expect("lock poisoned"),
+            None,
+            "No error code should be recorded on normal stream drop"
+        );
         Ok(())
     }
 
     #[tokio_test_no_panics]
     async fn stream_eof_releases_lifetime_guard() -> anyhow::Result<()> {
         let dropped = Arc::new(AtomicBool::new(false));
-        let guard = Box::new(TestDropGuard {
+        let recorded_code = Arc::new(Mutex::new(None));
+        let guard = Arc::new(TestDropGuard {
             dropped: Arc::clone(&dropped),
+            recorded_code: Arc::clone(&recorded_code),
         });
 
         let mut mock = create_session_mock();
@@ -160,7 +192,7 @@ mod tests {
             .set_session(db_client.session_name())
             .set_sql("SELECT 1");
         let mut stream = db_client
-            .execute_streaming_sql(request, RequestOptions::default(), 0)
+            .execute_streaming_sql(request, RequestOptions::default(), None)
             .send()
             .await?
             .with_lifetime_guard(guard);
@@ -179,14 +211,21 @@ mod tests {
             dropped.load(Ordering::Relaxed),
             "Guard must be dropped immediately on EOF"
         );
+        assert_eq!(
+            *recorded_code.lock().expect("lock poisoned"),
+            None,
+            "No error code should be recorded on normal EOF"
+        );
         Ok(())
     }
 
     #[tokio_test_no_panics]
     async fn stream_error_releases_lifetime_guard() -> anyhow::Result<()> {
         let dropped = Arc::new(AtomicBool::new(false));
-        let guard = Box::new(TestDropGuard {
+        let recorded_code = Arc::new(Mutex::new(None));
+        let guard = Arc::new(TestDropGuard {
             dropped: Arc::clone(&dropped),
+            recorded_code: Arc::clone(&recorded_code),
         });
 
         let mut mock = create_session_mock();
@@ -200,7 +239,7 @@ mod tests {
             .set_session(db_client.session_name())
             .set_sql("SELECT 1");
         let mut stream = db_client
-            .execute_streaming_sql(request, RequestOptions::default(), 0)
+            .execute_streaming_sql(request, RequestOptions::default(), None)
             .send()
             .await?
             .with_lifetime_guard(guard);
@@ -225,6 +264,75 @@ mod tests {
             dropped.load(Ordering::Relaxed),
             "Guard must be dropped immediately on stream error"
         );
+        assert_eq!(
+            *recorded_code.lock().expect("lock poisoned"),
+            Some(Code::Unavailable),
+            "Stream error must record Code::Unavailable on guard"
+        );
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn stream_error_penalizes_active_rpc_guard() -> anyhow::Result<()> {
+        use crate::channel_pool::entry::{ActiveRpcGuard, ChannelEntry};
+        use crate::model::ExecuteSqlRequest;
+        use std::time::Duration;
+
+        let mut mock = create_session_mock();
+        let (sender, receiver) = tokio::sync::mpsc::channel(1);
+        mock.expect_execute_streaming_sql()
+            .return_once(move |_| Ok(Response::from(receiver)));
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let channel = db_client
+            .spanner
+            .default_channel()
+            .expect("default channel should be present");
+        let entry = Arc::new(ChannelEntry::new(1, 1, channel));
+        assert_eq!(entry.in_flight(), 0, "initial in-flight should be 0");
+        assert_eq!(entry.current_penalty(), 0, "initial penalty should be 0");
+
+        let guard: Arc<dyn StreamGuard> = Arc::new(ActiveRpcGuard::new(
+            Arc::clone(&entry),
+            2,
+            Duration::from_secs(60),
+            10,
+        ));
+        assert_eq!(entry.in_flight(), 1, "guard creation increments in-flight");
+
+        let request = ExecuteSqlRequest::default()
+            .set_session(db_client.session_name())
+            .set_sql("SELECT 1");
+        let mut stream = db_client
+            .execute_streaming_sql(request, RequestOptions::default(), None)
+            .send()
+            .await?
+            .with_lifetime_guard(guard);
+
+        sender
+            .send(Err(Status::unavailable("server unavailable")))
+            .await
+            .expect("send error");
+
+        let next = stream.next_message().await;
+        assert!(next.is_some(), "Stream should yield Some on error");
+        assert!(
+            next.expect("error message").is_err(),
+            "Stream message should be an error"
+        );
+
+        assert_eq!(
+            entry.in_flight(),
+            0,
+            "Guard must be dropped and in_flight decremented on error"
+        );
+        assert_eq!(
+            entry.current_penalty(),
+            2,
+            "Stream error must apply configured penalty step (2) to ChannelEntry"
+        );
+
         Ok(())
     }
 }

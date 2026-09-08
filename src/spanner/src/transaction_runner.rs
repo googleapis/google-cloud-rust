@@ -2326,7 +2326,8 @@ mod tests {
                         transaction
                             .affinity()
                             .expect("affinity present")
-                            .set_entry_id(42);
+                            .compare_and_set_entry_id(0, 42)
+                            .expect("pin entry");
                         captured_ids.lock().expect("mutex lock").push(
                             transaction
                                 .affinity()

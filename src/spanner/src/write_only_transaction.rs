@@ -413,8 +413,6 @@ impl WriteOnlyTransaction {
         let client = self.client;
         let session_name = self.session_name.clone();
         let previous_transaction_id = Arc::new(Mutex::new(Bytes::new()));
-        let channel_hint = client.next_channel_hint();
-        let affinity = Arc::new(TransactionAffinity::new_read_write());
 
         let max_commit_delay = self.max_commit_delay;
         let return_commit_stats = self.return_commit_stats;
@@ -429,10 +427,13 @@ impl WriteOnlyTransaction {
             let previous_transaction_id = previous_transaction_id.clone();
             let begin_gax_options = begin_gax_options.clone();
             let commit_gax_options = commit_gax_options.clone();
-            let _affinity = Arc::clone(&affinity);
 
             async move {
-                let previous_id: Bytes = previous_transaction_id.lock().unwrap().clone();
+                let affinity = TransactionAffinity::new_read_write();
+                let previous_id: Bytes = previous_transaction_id
+                    .lock()
+                    .expect("previous_transaction_id mutex poisoned")
+                    .clone();
 
                 let begin_req = BeginTransactionRequest::default()
                     .set_session(session_name.clone())
@@ -449,23 +450,25 @@ impl WriteOnlyTransaction {
                     .set_request_options(req_options.clone())
                     .set_or_clear_mutation_key(mutation_key.clone());
 
-                let tx = client
-                    .begin_transaction(begin_req, begin_gax_options, channel_hint)
+                let transaction = client
+                    .begin_transaction(begin_req, begin_gax_options, Some(&affinity))
                     .await?;
-                *previous_transaction_id.lock().unwrap() = tx.id.clone();
+                *previous_transaction_id
+                    .lock()
+                    .expect("previous_transaction_id mutex poisoned") = transaction.id.clone();
 
                 let commit_req = create_commit_request(
                     session_name.clone(),
-                    tx.id.clone(),
+                    transaction.id.clone(),
                     mutations_proto,
-                    tx.precommit_token,
+                    transaction.precommit_token,
                     Some(req_options.clone()),
                     max_commit_delay,
                     return_commit_stats,
                 );
 
                 let response = client
-                    .commit(commit_req, commit_gax_options.clone(), channel_hint)
+                    .commit(commit_req, commit_gax_options.clone(), Some(&affinity))
                     .await?;
 
                 // If a commit_response with a precommit_token is returned, then we need to
@@ -473,7 +476,7 @@ impl WriteOnlyTransaction {
                 if let Some(new_token) = response.precommit_token().map(|b| *b.clone()) {
                     let retry_commit_req = create_commit_request(
                         session_name.clone(),
-                        tx.id,
+                        transaction.id,
                         Vec::new(),
                         Some(new_token),
                         Some(req_options),
@@ -482,7 +485,7 @@ impl WriteOnlyTransaction {
                     );
 
                     client
-                        .commit(retry_commit_req, commit_gax_options, channel_hint)
+                        .commit(retry_commit_req, commit_gax_options, Some(&affinity))
                         .await
                 } else {
                     Ok(response)
@@ -545,7 +548,6 @@ impl WriteOnlyTransaction {
             .set_or_clear_max_commit_delay(self.max_commit_delay)
             .set_return_commit_stats(self.return_commit_stats);
         let client = self.client;
-        let channel_hint = client.next_channel_hint();
         let is_emulator = client.is_emulator();
 
         let action = || {
@@ -553,11 +555,7 @@ impl WriteOnlyTransaction {
             let request = request.clone();
             let commit_gax_options = commit_gax_options.clone();
 
-            async move {
-                client
-                    .commit(request, commit_gax_options, channel_hint)
-                    .await
-            }
+            async move { client.commit(request, commit_gax_options, None).await }
         };
 
         retry_aborted(&*self.retry_policy, action, is_emulator).await

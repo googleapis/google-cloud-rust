@@ -18,10 +18,6 @@
 //! health-aware error penalization, caller-owned transaction affinity pinning, and background
 //! scaling and priming for gRPC channels.
 
-// TODO(dynamic-channel-pooling): Remove allow(dead_code, unused_imports) once integrated into Spanner client.
-#![allow(dead_code)]
-#![allow(unused_imports)]
-
 pub(crate) mod affinity;
 pub(crate) mod config;
 pub(crate) mod entry;
@@ -29,8 +25,8 @@ pub(crate) mod pool;
 pub(crate) mod scaler;
 
 pub(crate) use affinity::TransactionAffinity;
-pub(crate) use config::{
-    ChannelPoolConfig, ChannelSelectionStrategy, DynamicChannelPoolConfig, StaticChannelPoolConfig,
-};
-pub(crate) use entry::{ActiveRpcGuard, ChannelEntry, ChannelLease, RwTransactionAffinityGuard};
+#[cfg(test)]
+pub(crate) use config::DynamicChannelPoolConfig;
+pub(crate) use config::{ChannelPoolConfig, StaticChannelPoolConfig};
+pub(crate) use entry::ChannelLease;
 pub(crate) use pool::ChannelPool;
