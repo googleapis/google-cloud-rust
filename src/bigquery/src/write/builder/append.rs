@@ -14,23 +14,31 @@
 
 use super::super::append_future::AppendFuture;
 use super::super::append_response::to_result;
-use super::super::error::AppendError;
+use super::super::entry::StreamEntry;
 use super::super::runner::WriteRequest;
 use crate::Error;
 use crate::model::AppendRowsRequest;
 use gaxi::prost::{FromProto, ToProto};
+use std::sync::Arc;
+use std::sync::atomic::AtomicU64;
 use tokio::sync::{mpsc, oneshot};
 
 /// A request builder for appending rows on the default stream.
 #[derive(Clone, Debug)]
 pub struct Append {
-    req_tx: mpsc::UnboundedSender<WriteRequest>,
+    entry: StreamEntry,
     pub(crate) req: AppendRowsRequest,
 }
 
 impl Append {
     pub(crate) fn new(req_tx: mpsc::UnboundedSender<WriteRequest>, req: AppendRowsRequest) -> Self {
-        Self { req_tx, req }
+        let entry = StreamEntry {
+            id: 0,
+            req_tx,
+            outstanding_requests: Arc::new(AtomicU64::new(0)),
+            outstanding_bytes: Arc::new(AtomicU64::new(0)),
+        };
+        Self { entry, req }
     }
 
     /// Append rows to the stream.
@@ -58,14 +66,9 @@ impl Append {
     pub fn send(self) -> AppendFuture {
         let (tx, rx) = oneshot::channel();
         tokio::spawn(async move {
-            let (resp_tx, resp_rx) = oneshot::channel();
             let res = async move {
                 let req = self.req.to_proto().map_err(Error::deser)?;
-                let write = WriteRequest { req, resp_tx };
-                let _ = self.req_tx.send(write);
-                let resp = resp_rx
-                    .await
-                    .map_err(|_| AppendError::UnexpectedEndOfStream)??;
+                let resp = self.entry.send(req).await?;
                 let resp = resp.cnv().map_err(Error::ser)?;
                 to_result(resp)
             }
@@ -79,6 +82,7 @@ impl Append {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::error::AppendError;
     use crate::google::cloud::bigquery::storage::v1;
     use crate::google::cloud::bigquery::storage::v1::append_rows_response::{
         AppendResult, Response,
