@@ -21,8 +21,9 @@ use crate::google::storage::v2::{
 use bytes::Bytes;
 use std::collections::VecDeque;
 
-/// Defines the maximum capacity of the replay buffer in bytes (32 MiB).
-pub const MAX_REPLAY_BUFFER_SIZE: usize = 32 * 1024 * 1024;
+/// Defines the default capacity of the [`ReplayBuffer`] in bytes (32 MiB).
+// TODO(#5716): Remove once ReplayBuffer capacity is configured via CommonOptions.
+pub const DEFAULT_REPLAY_BUFFER_SIZE: usize = 32 * 1024 * 1024;
 
 /// Represents an unacknowledged data chunk retained in the [`ReplayBuffer`].
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -36,7 +37,7 @@ pub struct ReplayChunk {
 }
 
 impl ReplayChunk {
-    /// Creates a new replay chunk.
+    /// Creates a new [`ReplayChunk`].
     pub fn new(write_offset: i64, data: Bytes, crc32c: u32) -> Self {
         Self {
             write_offset,
@@ -50,7 +51,7 @@ impl ReplayChunk {
         self.write_offset + self.data.len() as i64
     }
 
-    /// Converts this replay chunk into a [`BidiWriteObjectRequest`] for transmission.
+    /// Converts this [`ReplayChunk`] into a [`BidiWriteObjectRequest`] for transmission.
     pub fn to_request(&self) -> BidiWriteObjectRequest {
         BidiWriteObjectRequest {
             write_offset: self.write_offset,
@@ -63,23 +64,41 @@ impl ReplayChunk {
     }
 }
 
-/// Manages an in-memory FIFO queue of unacknowledged chunks up to [`MAX_REPLAY_BUFFER_SIZE`].
-#[derive(Debug, Default)]
+/// Manages an in-memory FIFO queue of unacknowledged chunks up to a configurable capacity.
+#[derive(Debug)]
 pub struct ReplayBuffer {
     queue: VecDeque<ReplayChunk>,
     unpersisted_bytes: usize,
+    capacity: usize,
+}
+
+impl Default for ReplayBuffer {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl ReplayBuffer {
-    /// Creates a new, empty replay buffer.
+    /// Creates a new, empty [`ReplayBuffer`] with the default capacity ([`DEFAULT_REPLAY_BUFFER_SIZE`]).
     pub fn new() -> Self {
+        Self::with_capacity(DEFAULT_REPLAY_BUFFER_SIZE)
+    }
+
+    /// Creates a new, empty [`ReplayBuffer`] with a specified capacity in bytes.
+    pub fn with_capacity(capacity: usize) -> Self {
         Self {
             queue: VecDeque::new(),
             unpersisted_bytes: 0,
+            capacity,
         }
     }
 
-    /// Enqueues an unacknowledged [`ReplayChunk`] to the replay buffer.
+    /// Returns the configured capacity of the [`ReplayBuffer`] in bytes.
+    pub fn capacity(&self) -> usize {
+        self.capacity
+    }
+
+    /// Enqueues an unacknowledged [`ReplayChunk`] to the [`ReplayBuffer`].
     pub fn push(&mut self, chunk: ReplayChunk) {
         self.unpersisted_bytes += chunk.data.len();
         self.queue.push_back(chunk);
@@ -111,23 +130,22 @@ impl ReplayBuffer {
         }
     }
 
-    /// Returns `true` if the buffered byte count has reached or exceeded
-    /// [`MAX_REPLAY_BUFFER_SIZE`].
+    /// Returns `true` if the buffered byte count has reached or exceeded [`capacity`][Self::capacity].
     pub fn is_full(&self) -> bool {
-        self.unpersisted_bytes >= MAX_REPLAY_BUFFER_SIZE
+        self.unpersisted_bytes >= self.capacity
     }
 
-    /// Returns `true` if the replay buffer contains no chunks.
+    /// Returns `true` if the [`ReplayBuffer`] contains no chunks.
     pub fn is_empty(&self) -> bool {
         self.queue.is_empty()
     }
 
-    /// Returns the number of chunks currently held in the buffer.
+    /// Returns the number of chunks currently held in the [`ReplayBuffer`].
     pub fn num_chunks(&self) -> usize {
         self.queue.len()
     }
 
-    /// Returns the total unpersisted byte count currently retained in the buffer.
+    /// Returns the total unpersisted byte count currently retained in the [`ReplayBuffer`].
     pub fn unpersisted_bytes(&self) -> usize {
         self.unpersisted_bytes
     }
@@ -137,7 +155,7 @@ impl ReplayBuffer {
         self.queue.iter()
     }
 
-    /// Clears all chunks from the buffer and resets byte tracking.
+    /// Clears all chunks from the [`ReplayBuffer`] and resets byte tracking.
     pub fn clear(&mut self) {
         self.queue.clear();
         self.unpersisted_bytes = 0;
@@ -247,7 +265,7 @@ mod tests {
     fn is_full_threshold() {
         // Arrange.
         let mut buf = ReplayBuffer::new();
-        let huge_chunk = Bytes::from(vec![0u8; MAX_REPLAY_BUFFER_SIZE]);
+        let huge_chunk = Bytes::from(vec![0u8; DEFAULT_REPLAY_BUFFER_SIZE]);
 
         // Act.
         buf.push(ReplayChunk::new(0, huge_chunk, 0));
@@ -300,5 +318,46 @@ mod tests {
         // Assert.
         assert!(buf.is_empty());
         assert_eq!(buf.unpersisted_bytes(), 0);
+    }
+
+    #[test]
+    fn with_capacity_default() {
+        // Arrange & Act.
+        let buf = ReplayBuffer::new();
+
+        // Assert.
+        assert_eq!(buf.capacity(), DEFAULT_REPLAY_BUFFER_SIZE);
+    }
+
+    #[test]
+    fn with_capacity_custom() {
+        // Arrange.
+        const CUSTOM_CAPACITY: usize = 64 * 1024 * 1024; // 64 MiB
+
+        // Act.
+        let buf = ReplayBuffer::with_capacity(CUSTOM_CAPACITY);
+
+        // Assert.
+        assert_eq!(buf.capacity(), CUSTOM_CAPACITY);
+    }
+
+    #[test]
+    fn is_full_with_custom_capacity() {
+        // Arrange.
+        // Use a micro-capacity of 100 bytes for deterministic testing.
+        let mut buf = ReplayBuffer::with_capacity(100);
+        let chunk = Bytes::from(vec![0u8; 100]);
+
+        // Act.
+        buf.push(ReplayChunk::new(0, chunk, 0));
+
+        // Assert.
+        assert!(buf.is_full());
+
+        // Act.
+        buf.ack(1);
+
+        // Assert.
+        assert!(!buf.is_full());
     }
 }
