@@ -86,6 +86,11 @@ where
         }
     }
 
+    #[cfg(test)]
+    pub(crate) fn set_spec_state(&mut self, state: AppendObjectSpecState) {
+        *self.spec.lock().expect("never poisoned") = state;
+    }
+
     pub async fn connect_open(
         &mut self,
         req: crate::model_ext::OpenAppendableObjectRequest,
@@ -152,6 +157,23 @@ where
             spec,
             initial_chunk: None,
         };
+        self.connect_attempt_loop().await
+    }
+
+    /// Reconnects a broken or redirected bidirectional streaming write session.
+    ///
+    /// If `last_error` is a redirect error, this updates the internal routing token
+    /// and object spec before attempting reconnection. Reconnection attempts use
+    /// exponential backoff and retry policies configured in [`RequestOptions`].
+    pub async fn reconnect(
+        &mut self,
+        last_error: Error,
+    ) -> Result<(BidiWriteObjectResponse, Connection<T::Stream>)> {
+        if let Some(status) = gaxi::as_inner::as_inner::<gaxi::grpc::tonic::Status, _>(&last_error)
+        {
+            let mut guard = self.spec.lock().expect("never poisoned");
+            guard.handle_redirect(status.clone());
+        }
         self.connect_attempt_loop().await
     }
 
@@ -1058,6 +1080,115 @@ mod tests {
             spec.resource.as_ref().unwrap().name,
             want.resource.as_ref().unwrap().name
         );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn reconnect_with_redirect_status_updates_spec() -> Result<()> {
+        // Arrange.
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream = TonicResponse::from(rx);
+
+        let receivers = Arc::new(Mutex::new(Vec::new()));
+        let save = receivers.clone();
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .times(1)
+            .return_once(move |_, _, rx, _, _, params| {
+                assert!(params.contains("routing_token=new-token"));
+                save.lock().expect("never poisoned").push(rx);
+                Ok(Ok(stream))
+            });
+        let client = SharedMockClient::new(mock);
+        let mut connector = Connector::new(test_options(), client);
+
+        // Pre-configure connector in Append state
+        let initial_spec = crate::google::storage::v2::AppendObjectSpec {
+            bucket: "projects/_/buckets/test-bucket".into(),
+            object: "test-object".into(),
+            generation: 123456,
+            routing_token: Some("old-token".into()),
+            write_handle: None,
+            ..Default::default()
+        };
+        *connector.spec.lock().expect("never poisoned") = AppendObjectSpecState::Append {
+            spec: initial_spec,
+            initial_chunk: None,
+        };
+
+        let initial_response = BidiWriteObjectResponse {
+            write_status: Some(
+                crate::google::storage::v2::bidi_write_object_response::WriteStatus::PersistedSize(
+                    50,
+                ),
+            ),
+            ..Default::default()
+        };
+        tx.send(Ok(initial_response.clone())).await?;
+
+        let redirect_err = super::super::tests::redirect_error("new-token");
+
+        // Act.
+        let (resp, _conn) = connector.reconnect(redirect_err).await?;
+
+        // Assert.
+        assert_eq!(resp, initial_response);
+
+        let guard = connector.spec.lock().expect("never poisoned");
+        if let AppendObjectSpecState::Append { spec: s, .. } = &*guard {
+            assert_eq!(s.routing_token.as_deref(), Some("new-token"));
+            assert_eq!(s.generation, 42); // from test redirect_status
+        } else {
+            panic!("Expected AppendObjectSpecState::Append");
+        }
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn reconnect_with_transient_error() -> Result<()> {
+        // Arrange.
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream = TonicResponse::from(rx);
+
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .times(1)
+            .return_once(move |_, _, _, _, _, _| Ok(Ok(stream)));
+        let client = SharedMockClient::new(mock);
+        let mut connector = Connector::new(test_options(), client);
+
+        let initial_spec = crate::google::storage::v2::AppendObjectSpec {
+            bucket: "projects/_/buckets/test-bucket".into(),
+            object: "test-object".into(),
+            generation: 123456,
+            routing_token: Some("stable-token".into()),
+            write_handle: None,
+            ..Default::default()
+        };
+        *connector.spec.lock().expect("never poisoned") = AppendObjectSpecState::Append {
+            spec: initial_spec,
+            initial_chunk: None,
+        };
+
+        let initial_response = BidiWriteObjectResponse {
+            write_status: Some(
+                crate::google::storage::v2::bidi_write_object_response::WriteStatus::PersistedSize(
+                    100,
+                ),
+            ),
+            ..Default::default()
+        };
+        tx.send(Ok(initial_response.clone())).await?;
+
+        let transient_err = super::super::tests::transient_error();
+
+        // Act.
+        let (resp, _conn) = connector.reconnect(transient_err).await?;
+
+        // Assert.
+        assert_eq!(resp, initial_response);
 
         Ok(())
     }
