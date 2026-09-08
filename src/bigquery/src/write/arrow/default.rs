@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::super::append_builder::Append;
+use super::super::builder::Append;
 use super::super::runner::Runner;
 use super::super::transport::Transport;
 use crate::model::append_rows_request::ArrowData;
