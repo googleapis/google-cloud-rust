@@ -97,7 +97,10 @@ async fn run_stream_task(inner: Arc<Transport>, mut req_rx: mpsc::UnboundedRecei
                         // Forward the request to the stream.
                         let _ = request_tx.send(r.req).await;
                     }
-                    None => break drain_stream(stream, resp_txs).await,
+                    None => {
+                        drop(request_tx);
+                        break drain_stream(stream, resp_txs).await;
+                    }
                 }
             }
             resp = stream.message() => {
@@ -141,12 +144,9 @@ fn process_gax_response(
 }
 
 #[cfg(test)]
-pub(crate) mod tests {
-    use super::super::transport::tests::*;
+mod tests {
     use super::*;
-    use crate::google::cloud::bigquery::storage::v1::append_rows_response::{
-        AppendResult, Response,
-    };
+    use crate::write::test::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
     use google_cloud_gax::error::rpc::Code;
@@ -437,21 +437,35 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    pub(crate) fn test_request(index: i64) -> AppendRowsRequest {
-        AppendRowsRequest {
-            write_stream: "projects/p/datasets/d/tables/t/streams/s".to_string(),
-            offset: Some(index),
-            ..Default::default()
-        }
-    }
+    #[tokio::test]
+    async fn stream_closes_when_client_drops_sender() -> anyhow::Result<()> {
+        let (response_tx, response_rx) = mpsc::channel(10);
+        let mut mock = MockBigQueryWrite::new();
 
-    pub(crate) fn test_response(index: i64) -> AppendRowsResponse {
-        AppendRowsResponse {
-            response: Some(Response::AppendResult(AppendResult {
-                offset: Some(index),
-            })),
-            write_stream: "projects/p/datasets/d/tables/t/streams/s".to_string(),
-            ..Default::default()
-        }
+        mock.expect_append_rows().return_once(|request| {
+            let mut request_rx = request.into_inner();
+            tokio::spawn(async move {
+                while request_rx.recv().await.is_some() {}
+                drop(response_tx);
+            });
+            Ok(TonicResponse::from(response_rx))
+        });
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+
+        let Runner { req_tx, handle } = Runner::new(transport);
+
+        let (resp_tx, _resp_rx) = oneshot::channel();
+        let write = WriteRequest {
+            req: test_request(1),
+            resp_tx,
+        };
+        req_tx.send(write)?;
+        drop(req_tx);
+
+        handle.await?;
+
+        Ok(())
     }
 }

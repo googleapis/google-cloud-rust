@@ -963,13 +963,13 @@ mod tests {
     struct DummyStub;
     impl SpannerStub for DummyStub {}
 
-    fn create_test_connection(address: &str) -> ServerConnection {
+    fn create_default_test_connection(address: &str) -> ServerConnection {
         let channel = Channel::new_for_test(DummyStub);
-        ServerConnection::new(address.to_string(), channel)
+        ServerConnection::new_default(address.to_string(), channel)
     }
 
     fn make_test_manager() -> (EndpointLifecycleManager, Arc<ConnectionCache>) {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let connection_cache = Arc::new(ConnectionCache::new(default_connection));
         let manager = EndpointLifecycleManager::new(Arc::clone(&connection_cache));
         (manager, connection_cache)
@@ -1015,7 +1015,7 @@ mod tests {
 
     #[test]
     fn lifecycle_manager_with_options() {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let connection_cache = Arc::new(ConnectionCache::new(default_connection));
         let custom_probe = Duration::from_secs(15);
         let custom_idle = Duration::from_secs(300);
@@ -1435,7 +1435,7 @@ mod tests {
 
     #[tokio::test]
     async fn lifecycle_manager_request_endpoint_recreation_with_client_config_warms_cache() {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
         let manager = EndpointLifecycleManager::with_client_config(
             Arc::clone(&cache),
@@ -1553,7 +1553,7 @@ mod tests {
 
     #[tokio::test]
     async fn lifecycle_manager_probe_retries_missing_endpoints() {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
         let manager = EndpointLifecycleManager::with_client_config(
             Arc::clone(&cache),
@@ -2052,7 +2052,7 @@ mod tests {
 
     #[tokio::test]
     async fn lifecycle_manager_reconnection_task_cleans_up_if_evicted_during_connect() {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
         let manager = EndpointLifecycleManager::with_client_config(
             Arc::clone(&cache),
@@ -2089,7 +2089,7 @@ mod tests {
 
     #[tokio::test]
     async fn lifecycle_manager_reconnection_task_cleans_up_if_manager_dropped_during_connect() {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
         let manager = EndpointLifecycleManager::with_client_config(
             Arc::clone(&cache),
@@ -2141,7 +2141,7 @@ mod tests {
     async fn lifecycle_manager_maintenance_loop_runs_and_terminates_on_drop() {
         tokio::time::pause();
 
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let connection_cache = Arc::new(ConnectionCache::new(default_connection));
         let manager = Arc::new(EndpointLifecycleManager::with_options(
             Arc::clone(&connection_cache),
@@ -2219,7 +2219,7 @@ mod tests {
 
     #[tokio::test]
     async fn lifecycle_manager_connection_task_handles_cache_get_error() {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let cache = Arc::new(ConnectionCache::new(default_connection));
         let manager = EndpointLifecycleManager::with_client_config(
             Arc::clone(&cache),

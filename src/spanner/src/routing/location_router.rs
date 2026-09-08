@@ -887,13 +887,13 @@ mod tests {
     struct DummyStub;
     impl SpannerStub for DummyStub {}
 
-    fn create_test_connection(address: &str) -> ServerConnection {
+    fn create_default_test_connection(address: &str) -> ServerConnection {
         let channel = Channel::new_for_test(DummyStub);
-        ServerConnection::new(address.to_string(), channel)
+        ServerConnection::new_default(address.to_string(), channel)
     }
 
     fn make_test_router() -> LocationRouter {
-        let default_connection = create_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
         let connection_cache = Arc::new(ConnectionCache::new(default_connection));
         let key_range_cache = Arc::new(KeyRangeCache::new());
         let endpoint_lifecycle_manager =

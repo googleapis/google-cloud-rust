@@ -19,9 +19,9 @@ pub mod arrow;
 
 pub use append_future::AppendFuture;
 
-pub(super) mod append_builder;
 pub(super) mod append_future;
 pub(super) mod append_response;
+pub(super) mod builder;
 pub(super) mod client;
 pub(super) mod client_builder;
 pub(super) mod error;
@@ -37,3 +37,6 @@ mod status;
 
 #[allow(dead_code)]
 pub(crate) mod generated;
+
+#[cfg(test)]
+mod test;

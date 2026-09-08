@@ -147,10 +147,9 @@ impl StreamPool {
 }
 
 #[cfg(test)]
-pub(crate) mod tests {
-    use super::super::runner::tests::*;
-    use super::super::transport::tests::*;
+mod tests {
     use super::*;
+    use crate::write::test::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
     use test_case::test_case;
