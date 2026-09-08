@@ -2931,18 +2931,18 @@ mod tests {
 
         assert!(database_client.is_location_aware_routing_enabled());
 
-        // Verify across multiple channel affinities (channel_hint 2 -> slot .3., channel_hint 1 -> slot .2.):
+        // Verify across multiple channel affinities:
         // 1. Statements within a transaction remain pinned to the same channel slot.
         // 2. Different transactions distribute across distinct channel slots rather than
         //    collapsing onto Channel 0 (slot .1.).
-        for channel_hint in [2usize, 1usize] {
-            let expected_channel_id = format!(".{}.", channel_hint + 1);
+        for _ in 0..2 {
+            let affinity = TransactionAffinity::new_read_write();
 
             // 1. BeginTransaction (unkeyed read-write options)
             let begin_request = BeginTransactionRequest::default()
                 .set_options(TransactionOptions::default().set_read_write(ReadWrite::default()));
             let transaction = database_client
-                .begin_transaction(begin_request, RequestOptions::default(), channel_hint)
+                .begin_transaction(begin_request, RequestOptions::default(), Some(&affinity))
                 .await
                 .expect("begin_transaction should succeed");
 
@@ -2956,21 +2956,25 @@ mod tests {
             let selector = TransactionSelector::new().set_id(transaction_id.clone());
             let sql_request = ExecuteSqlRequest::default().set_transaction(selector.clone());
             database_client
-                .execute_sql(sql_request, RequestOptions::default(), channel_hint)
+                .execute_sql(sql_request, RequestOptions::default(), Some(&affinity))
                 .await
                 .expect("execute_sql should succeed");
 
             // 3. ExecuteStreamingSql with the returned transaction ID
             let streaming_request = ExecuteSqlRequest::default().set_transaction(selector);
             let _ = database_client
-                .execute_streaming_sql(streaming_request, RequestOptions::default(), channel_hint)
+                .execute_streaming_sql(
+                    streaming_request,
+                    RequestOptions::default(),
+                    Some(&affinity),
+                )
                 .send()
                 .await;
 
             // 4. Commit with the transaction ID
             let commit_request = CommitRequest::default().set_transaction_id(transaction_id);
             database_client
-                .commit(commit_request, RequestOptions::default(), channel_hint)
+                .commit(commit_request, RequestOptions::default(), Some(&affinity))
                 .await
                 .expect("commit should succeed");
 
@@ -2988,10 +2992,16 @@ mod tests {
                 4,
                 "expected 4 calls: begin_transaction, execute_sql, execute_streaming_sql, commit"
             );
+            let channel_segment = calls[0]
+                .1
+                .split('.')
+                .nth(1)
+                .expect("channel ID segment in request ID");
+            let expected_channel_id = format!(".{channel_segment}.");
             for (rpc_name, request_id) in calls {
                 assert!(
                     request_id.contains(&expected_channel_id),
-                    "RPC {rpc_name} for transaction with channel_hint {channel_hint} must route via channel {expected_channel_id}, got {request_id}"
+                    "RPC {rpc_name} for transaction must route via pinned channel {expected_channel_id}, got {request_id}"
                 );
             }
         }
@@ -5123,7 +5133,7 @@ mod tests {
             .set_options(TransactionOptions::new().set_read_write(ReadWrite::new()))
             .set_mutation_key(user_mutation.clone().build_proto());
         let _ = database_client
-            .begin_transaction(begin_request, RequestOptions::default(), 0)
+            .begin_transaction(begin_request, RequestOptions::default(), None)
             .await
             .expect("begin_transaction must succeed");
 
@@ -5159,7 +5169,7 @@ mod tests {
             .set_transaction_id(Bytes::from_static(b"tx-e2e-1"))
             .set_mutations(vec![user_mutation.clone().build_proto()]);
         let _ = database_client
-            .commit(commit_request, RequestOptions::default(), 0)
+            .commit(commit_request, RequestOptions::default(), None)
             .await
             .expect("commit must succeed");
 
@@ -5194,7 +5204,7 @@ mod tests {
             .set_single_use_transaction(TransactionOptions::new().set_read_write(ReadWrite::new()))
             .set_mutations(vec![user_mutation.clone().build_proto()]);
         let _ = database_client
-            .commit(single_use_commit_request, RequestOptions::default(), 0)
+            .commit(single_use_commit_request, RequestOptions::default(), None)
             .await
             .expect("single-use commit must succeed");
 
@@ -5224,7 +5234,7 @@ mod tests {
             .set_session("projects/p/instances/i/databases/d/sessions/s1")
             .set_options(TransactionOptions::new().set_read_write(ReadWrite::new()));
         let unkeyed_response = database_client
-            .begin_transaction(unkeyed_begin_request, RequestOptions::default(), 0)
+            .begin_transaction(unkeyed_begin_request, RequestOptions::default(), None)
             .await
             .expect("unkeyed begin_transaction must succeed");
 
