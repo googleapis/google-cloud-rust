@@ -24,6 +24,8 @@ pub(super) mod append_response;
 pub(super) mod builder;
 pub(super) mod client;
 pub(super) mod client_builder;
+#[cfg_attr(not(test), expect(dead_code))]
+mod entry;
 pub(super) mod error;
 #[cfg_attr(not(test), expect(dead_code))]
 mod pool;

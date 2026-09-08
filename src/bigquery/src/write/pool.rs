@@ -12,27 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::runner::{Runner, WriteRequest};
+use super::entry::StreamEntry;
+use super::runner::Runner;
 use super::transport::Transport;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, Mutex};
-use tokio::sync::mpsc;
-
-/// An entry in the stream pool serviced by a `Runner`.
-#[derive(Clone, Debug)]
-pub(crate) struct StreamEntry {
-    /// Unique identifier for this stream connection.
-    pub(crate) id: u64,
-
-    /// Channel to send requests to the stream's background runner task.
-    pub(crate) req_tx: mpsc::UnboundedSender<WriteRequest>,
-
-    /// The number of outstanding requests on this stream.
-    pub(crate) outstanding_requests: Arc<AtomicU64>,
-
-    /// The total outstanding bytes on this stream.
-    pub(crate) outstanding_bytes: Arc<AtomicU64>,
-}
 
 /// A pool of open streams that supports multiplexing, load balancing.
 #[derive(Debug)]
@@ -148,12 +132,13 @@ impl StreamPool {
 
 #[cfg(test)]
 mod tests {
+    use super::super::runner::WriteRequest;
     use super::*;
     use crate::write::test::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
     use test_case::test_case;
-    use tokio::sync::oneshot;
+    use tokio::sync::{mpsc, oneshot};
     use tokio::task::JoinSet;
 
     #[test_case(10, Some(100), 10_000, Some(100_000), 0.1, false)]
