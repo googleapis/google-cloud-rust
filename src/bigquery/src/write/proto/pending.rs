@@ -62,8 +62,7 @@ impl PendingWriter {
             .inner
             .write_stream
             .split_once("/streams/")
-            .map_or(self.inner.write_stream.as_str(), |(p, _)| p)
-            .to_string();
+            .map_or(self.inner.write_stream.as_str(), |(p, _)| p);
 
         self.inner
             .client
