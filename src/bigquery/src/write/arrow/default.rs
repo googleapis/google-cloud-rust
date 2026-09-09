@@ -12,20 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::super::append_builder::Append;
+use super::super::builder::Append;
+use super::super::entry::StreamEntry;
 use super::super::runner::Runner;
 use super::super::transport::Transport;
 use crate::model::append_rows_request::ArrowData;
 use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema};
 use std::sync::Arc;
+use std::sync::atomic::AtomicU64;
 
 /// A writer for the [default stream]
 ///
 /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
 #[derive(Debug)]
 pub struct DefaultWriter {
-    // TODO(#5744) - support multiplexed connections
-    runner: Runner,
+    entry: Arc<StreamEntry>,
     pub(crate) write_stream: String,
     pub(crate) schema: ArrowSchema,
 }
@@ -33,8 +34,14 @@ pub struct DefaultWriter {
 impl DefaultWriter {
     pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
         let runner = Runner::new(inner);
+        let entry = Arc::new(StreamEntry {
+            id: 0,
+            req_tx: runner.req_tx,
+            outstanding_requests: Arc::new(AtomicU64::new(0)),
+            outstanding_bytes: Arc::new(AtomicU64::new(0)),
+        });
         Self {
-            runner,
+            entry,
             write_stream,
             schema,
         }
@@ -50,23 +57,22 @@ impl DefaultWriter {
                     .set_writer_schema(self.schema.clone())
                     .set_rows(rows),
             );
-        Append::new(self.runner.req_tx.clone(), req)
+        Append::new(self.entry.clone(), req)
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::super::super::runner::tests::*;
-    use super::super::super::transport::tests::*;
     use super::*;
     use crate::error::AppendError;
+    use crate::write::test::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
     use tokio::sync::mpsc;
 
     #[tokio::test]
     async fn request_fields() -> anyhow::Result<()> {
-        let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
+        let transport = Arc::new(test_transport("http://ignored:1").await?);
         let writer = DefaultWriter::new(transport, write_stream(), schema());
 
         let b = writer.append(rows(1));
@@ -117,14 +123,6 @@ mod tests {
         assert!(matches!(err, AppendError::UnexpectedEndOfStream));
 
         Ok(())
-    }
-
-    fn write_stream() -> String {
-        "projects/p/datasets/d/tables/t/streams/_default".to_string()
-    }
-
-    fn schema() -> ArrowSchema {
-        ArrowSchema::new().set_serialized_schema("test")
     }
 
     fn rows(id: i64) -> ArrowRecordBatch {

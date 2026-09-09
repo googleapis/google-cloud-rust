@@ -5681,6 +5681,24 @@ impl Sessions {
     /// Dialogflow to send [partial
     /// responses](https://cloud.google.com/dialogflow/cx/docs/concept/fulfillment#partial-response)
     /// earlier in a single request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_cx_v3::client::Sessions;
+    /// use google_cloud_dialogflow_cx_v3::Result;
+    /// async fn sample(
+    ///    client: &Sessions
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.server_streaming_detect_intent()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn server_streaming_detect_intent(
         &self,
     ) -> super::builder::sessions::ServerStreamingDetectIntent {

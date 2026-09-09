@@ -945,6 +945,7 @@ impl std::fmt::Debug for super::BigQueryTableReferences {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BigQueryTableReferences");
         debug_struct.field("table_references", &self.table_references);
+        debug_struct.field("property_graph_references", &self.property_graph_references);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

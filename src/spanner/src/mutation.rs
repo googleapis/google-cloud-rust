@@ -13,9 +13,11 @@
 // limitations under the License.
 
 use crate::key::KeySet;
+use crate::model::Mutation as ProtoMutation;
 use crate::model::batch_write_request::MutationGroup as ProtoMutationGroup;
-use crate::model::mutation::Operation;
+use crate::model::mutation::{Delete as ProtoDelete, Operation, Write as ProtoWrite};
 use crate::value::Value;
+use rand::rng;
 use rand::seq::IteratorRandom;
 use std::slice::Iter;
 use std::vec::IntoIter;
@@ -144,74 +146,84 @@ impl Mutation {
         }
     }
 
-    pub(crate) fn build_proto(self) -> crate::model::Mutation {
+    pub(crate) fn build_proto(self) -> ProtoMutation {
         match self.inner {
-            InternalMutation::Insert(write) => {
-                crate::model::Mutation::new().set_insert(write.into_proto())
-            }
-            InternalMutation::Update(write) => {
-                crate::model::Mutation::new().set_update(write.into_proto())
-            }
+            InternalMutation::Insert(write) => ProtoMutation::new().set_insert(write.into_proto()),
+            InternalMutation::Update(write) => ProtoMutation::new().set_update(write.into_proto()),
             InternalMutation::InsertOrUpdate(write) => {
-                crate::model::Mutation::new().set_insert_or_update(write.into_proto())
+                ProtoMutation::new().set_insert_or_update(write.into_proto())
             }
             InternalMutation::Replace(write) => {
-                crate::model::Mutation::new().set_replace(write.into_proto())
+                ProtoMutation::new().set_replace(write.into_proto())
             }
             InternalMutation::Delete(delete) => {
-                crate::model::Mutation::new().set_delete(delete.into_proto())
+                ProtoMutation::new().set_delete(delete.into_proto())
             }
         }
     }
 
-    /// Selects the best mutation to act as a routing `mutation_key`.
+    /// Returns `true` if the mutation is a non-`Insert` operation that can provide a valid routing key.
+    /// Excludes `Insert`, queue operations (`Send`, `Ack`), and unroutable `Delete` operations
+    /// (e.g. `all = true`, empty `KeySet`, or missing `KeySet`).
+    fn is_routable_non_insert(mutation: &ProtoMutation) -> bool {
+        match &mutation.operation {
+            Some(Operation::Update(_) | Operation::InsertOrUpdate(_) | Operation::Replace(_)) => {
+                true
+            }
+            Some(Operation::Delete(delete)) => delete.key_set.as_ref().is_some_and(|key_set| {
+                !key_set.all && (!key_set.keys.is_empty() || !key_set.ranges.is_empty())
+            }),
+            _ => false,
+        }
+    }
+
+    /// Selects a reference to the best mutation to act as a routing `mutation_key`.
     /// Prefers any non-`Insert` variation (like `Update`, `InsertOrUpdate`, `Replace`, `Delete`)
     /// since inserts more often use auto-generated columns (e.g. for primary key generation).
     /// Using a mutation with only non-generated values as the mutation key is preferred, as it reduces
     /// the overhead internally in Spanner.
     /// If only `Insert` mutations are present, it selects the insert mutation with the largest number of rows.
-    pub(crate) fn select_mutation_key(
-        mutations: &[crate::model::Mutation],
-    ) -> Option<crate::model::Mutation> {
-        if mutations.is_empty() {
-            return None;
+    pub(crate) fn select_mutation_key_ref(mutations: &[ProtoMutation]) -> Option<&ProtoMutation> {
+        match mutations {
+            [] => None,
+            [single_mutation] => Some(single_mutation),
+            _ => {
+                // 1. Prefer any routable non-Insert mutation, choosing one at random.
+                let selected_non_insert = mutations
+                    .iter()
+                    .filter(|mutation| Self::is_routable_non_insert(mutation))
+                    .choose(&mut rng());
+
+                if let Some(mutation) = selected_non_insert {
+                    return Some(mutation);
+                }
+
+                // 2. If only Inserts are present, choose the one with the largest number of values (rows).
+                let max_insert = mutations
+                    .iter()
+                    .filter_map(|mutation| match &mutation.operation {
+                        Some(Operation::Insert(write)) => Some((mutation, write.values.len())),
+                        _ => None,
+                    })
+                    .max_by_key(|&(_, number_of_rows)| number_of_rows)
+                    .map(|(mutation, _)| mutation);
+
+                max_insert.or_else(|| mutations.first())
+            }
         }
+    }
 
-        // 1. Filter for any mutations other than Operation::Insert, Send, or Ack, selecting one randomly.
-        let selected_non_insert = mutations
-            .iter()
-            .filter(|m| {
-                m.operation.as_ref().is_some_and(|op| {
-                    !matches!(
-                        op,
-                        Operation::Insert(_) | Operation::Send(_) | Operation::Ack(_)
-                    )
-                })
-            })
-            .choose(&mut rand::rng())
-            .cloned();
-
-        if selected_non_insert.is_some() {
-            return selected_non_insert;
-        }
-
-        // 2. If only Inserts are present, choose the one with the largest number of values (rows).
-        let max_insert = mutations
-            .iter()
-            .filter_map(|m| match &m.operation {
-                Some(Operation::Insert(write)) => Some((m, write.values.len())),
-                _ => None,
-            })
-            .max_by_key(|&(_, rows)| rows)
-            .map(|(m, _)| m);
-
-        max_insert.cloned().or_else(|| mutations.first().cloned())
+    /// Selects the best mutation to act as a routing `mutation_key`.
+    ///
+    /// Delegates to [`Self::select_mutation_key_ref`] and clones the selected mutation.
+    pub(crate) fn select_mutation_key(mutations: &[ProtoMutation]) -> Option<ProtoMutation> {
+        Self::select_mutation_key_ref(mutations).cloned()
     }
 }
 
 impl Write {
-    fn into_proto(self) -> crate::model::mutation::Write {
-        crate::model::mutation::Write::new()
+    fn into_proto(self) -> ProtoWrite {
+        ProtoWrite::new()
             .set_table(self.table)
             .set_columns(self.columns)
             .set_values(vec![
@@ -224,8 +236,8 @@ impl Write {
 }
 
 impl Delete {
-    fn into_proto(self) -> crate::model::mutation::Delete {
-        crate::model::mutation::Delete::new()
+    fn into_proto(self) -> ProtoDelete {
+        ProtoDelete::new()
             .set_table(self.table)
             .set_key_set(self.key_set.into_proto())
     }
@@ -430,7 +442,13 @@ macro_rules! mutation {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::key::{Key, KeySet};
+    use crate::model::Mutation as ProtoMutation;
+    use crate::model::mutation::{
+        Ack as ProtoAck, Delete as ProtoDelete, Send as ProtoSend, Write as ProtoWrite,
+    };
     use crate::to_value::ToValue;
+    use std::slice;
 
     #[test]
     fn auto_traits() {
@@ -716,7 +734,7 @@ mod tests {
 
     #[test]
     fn build_proto_delete() {
-        let key_set = crate::key::KeySet::builder().build();
+        let key_set = KeySet::builder().build();
         let mutation = Mutation::delete("Users", key_set);
         let proto = mutation.build_proto();
         match proto.operation {
@@ -731,7 +749,51 @@ mod tests {
     fn test_select_mutation_key_empty() {
         let mutations = vec![];
         let key = Mutation::select_mutation_key(&mutations);
-        assert!(key.is_none());
+        assert!(
+            key.is_none(),
+            "select_mutation_key on empty slice must return None"
+        );
+        assert!(
+            Mutation::select_mutation_key_ref(&mutations).is_none(),
+            "select_mutation_key_ref on empty slice must return None"
+        );
+    }
+
+    #[test]
+    fn select_mutation_key_ref_single_mutation() {
+        let insert_mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1)
+            .build()
+            .build_proto();
+        let update_mutation = Mutation::new_update_builder("Users")
+            .set("UserId")
+            .to(2)
+            .build()
+            .build_proto();
+        let delete_all = Mutation::delete("Users", KeySet::all()).build_proto();
+        let send_mutation = ProtoMutation::new().set_send(ProtoSend::new());
+
+        assert_eq!(
+            Mutation::select_mutation_key_ref(slice::from_ref(&insert_mutation)),
+            Some(&insert_mutation),
+            "single insert mutation must be returned directly"
+        );
+        assert_eq!(
+            Mutation::select_mutation_key_ref(slice::from_ref(&update_mutation)),
+            Some(&update_mutation),
+            "single update mutation must be returned directly"
+        );
+        assert_eq!(
+            Mutation::select_mutation_key_ref(slice::from_ref(&delete_all)),
+            Some(&delete_all),
+            "single delete all mutation must be returned directly"
+        );
+        assert_eq!(
+            Mutation::select_mutation_key_ref(slice::from_ref(&send_mutation)),
+            Some(&send_mutation),
+            "single send mutation must be returned directly"
+        );
     }
 
     #[test]
@@ -766,11 +828,11 @@ mod tests {
         let row2 = vec![serde_json::json!("3")]
             .into_iter()
             .collect::<wkt::ListValue>();
-        let write2 = crate::model::mutation::Write::new()
+        let write2 = ProtoWrite::new()
             .set_table("Users")
             .set_columns(vec!["UserId".to_string()])
             .set_values(vec![row1, row2]);
-        let m2 = crate::model::Mutation::new().set_insert(write2);
+        let m2 = ProtoMutation::new().set_insert(write2);
 
         let mutations = vec![m1.clone(), m2.clone()];
         let key = Mutation::select_mutation_key(&mutations);
@@ -828,11 +890,212 @@ mod tests {
 
     #[test]
     fn test_select_mutation_key_operation_none() {
-        let m1 = crate::model::Mutation::default();
-        let m2 = crate::model::Mutation::default();
+        let m1 = ProtoMutation::default();
+        let m2 = ProtoMutation::default();
         let mutations = vec![m1.clone(), m2.clone()];
         let key = Mutation::select_mutation_key(&mutations);
         assert_eq!(key, Some(m1));
+    }
+
+    #[test]
+    fn select_mutation_key_ref_returns_reference() {
+        let insert_mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1)
+            .build()
+            .build_proto();
+        let update_mutation = Mutation::new_update_builder("Users")
+            .set("UserId")
+            .to(2)
+            .build()
+            .build_proto();
+        let mutations = vec![insert_mutation, update_mutation.clone()];
+        let selected_reference = Mutation::select_mutation_key_ref(&mutations);
+        assert_eq!(
+            selected_reference,
+            Some(&update_mutation),
+            "select_mutation_key_ref must return a reference to the selected non-insert mutation"
+        );
+    }
+
+    #[test]
+    fn select_mutation_key_ref_excludes_send_and_ack() {
+        let send_mutation = ProtoMutation::new().set_send(ProtoSend::new());
+        let ack_mutation = ProtoMutation::new().set_ack(ProtoAck::new());
+        let insert_mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1)
+            .build()
+            .build_proto();
+        let update_mutation = Mutation::new_update_builder("Users")
+            .set("UserId")
+            .to(2)
+            .build()
+            .build_proto();
+
+        // 1. [Send, Insert] selects Insert because Send is excluded from candidate non-inserts
+        let send_and_insert = vec![send_mutation.clone(), insert_mutation.clone()];
+        assert_eq!(
+            Mutation::select_mutation_key_ref(&send_and_insert),
+            Some(&insert_mutation),
+            "select_mutation_key_ref must prefer Insert over Send"
+        );
+
+        // 2. [Ack, Update] selects Update because Ack is excluded
+        let ack_and_update = vec![ack_mutation.clone(), update_mutation.clone()];
+        assert_eq!(
+            Mutation::select_mutation_key_ref(&ack_and_update),
+            Some(&update_mutation),
+            "select_mutation_key_ref must prefer Update over Ack"
+        );
+
+        // 3. Only [Send, Ack] falls back to the first mutation
+        let send_and_ack = vec![send_mutation.clone(), ack_mutation];
+        assert_eq!(
+            Mutation::select_mutation_key_ref(&send_and_ack),
+            Some(&send_mutation),
+            "select_mutation_key_ref must fall back to first when only Send and Ack are present"
+        );
+    }
+
+    #[test]
+    fn select_mutation_key_ref_excludes_delete_all() {
+        let delete_all = Mutation::delete("Users", KeySet::all()).build_proto();
+        let insert_mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1)
+            .build()
+            .build_proto();
+        let update_mutation = Mutation::new_update_builder("Users")
+            .set("UserId")
+            .to(2)
+            .build()
+            .build_proto();
+
+        // [Delete(all = true), Insert] selects Insert because Delete(all) cannot provide a routing key
+        let delete_and_insert = vec![delete_all.clone(), insert_mutation.clone()];
+        assert_eq!(
+            Mutation::select_mutation_key_ref(&delete_and_insert),
+            Some(&insert_mutation),
+            "select_mutation_key_ref must prefer Insert over Delete(all)"
+        );
+
+        // [Delete(all = true), Update] selects Update
+        let delete_and_update = vec![delete_all.clone(), update_mutation.clone()];
+        assert_eq!(
+            Mutation::select_mutation_key_ref(&delete_and_update),
+            Some(&update_mutation),
+            "select_mutation_key_ref must prefer Update over Delete(all)"
+        );
+
+        // Only [Delete(all = true)] falls back to the first mutation
+        let only_delete_all = vec![delete_all.clone()];
+        assert_eq!(
+            Mutation::select_mutation_key_ref(&only_delete_all),
+            Some(&delete_all),
+            "select_mutation_key_ref must fall back to first when only Delete(all) is present"
+        );
+    }
+
+    #[test]
+    fn select_mutation_key_ref_excludes_empty_keyset_delete() {
+        let empty_delete = Mutation::delete("Users", KeySet::builder().build()).build_proto();
+        let insert_mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1)
+            .build()
+            .build_proto();
+        let update_mutation = Mutation::new_update_builder("Users")
+            .set("UserId")
+            .to(2)
+            .build()
+            .build_proto();
+
+        // [Empty Delete, Insert] selects Insert because empty delete cannot provide a routing key
+        let delete_and_insert = vec![empty_delete.clone(), insert_mutation.clone()];
+        assert_eq!(
+            Mutation::select_mutation_key_ref(&delete_and_insert),
+            Some(&insert_mutation),
+            "select_mutation_key_ref must prefer Insert over empty Delete"
+        );
+
+        // [Empty Delete, Update] selects Update
+        let delete_and_update = vec![empty_delete.clone(), update_mutation.clone()];
+        assert_eq!(
+            Mutation::select_mutation_key_ref(&delete_and_update),
+            Some(&update_mutation),
+            "select_mutation_key_ref must prefer Update over empty Delete"
+        );
+
+        // Only [Empty Delete] falls back to the first mutation
+        let only_empty_delete = vec![empty_delete.clone()];
+        assert_eq!(
+            Mutation::select_mutation_key_ref(&only_empty_delete),
+            Some(&empty_delete),
+            "select_mutation_key_ref must fall back to first when only empty Delete is present"
+        );
+    }
+
+    #[test]
+    fn select_mutation_key_ref_excludes_delete_none_keyset() {
+        let delete_none = ProtoMutation::new().set_delete(ProtoDelete::new().set_table("Users"));
+        let insert_mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(1)
+            .build()
+            .build_proto();
+        let update_mutation = Mutation::new_update_builder("Users")
+            .set("UserId")
+            .to(2)
+            .build()
+            .build_proto();
+
+        // 1. [Delete(key_set == None), Insert] selects Insert because Delete without keys cannot provide a routing key
+        let delete_and_insert = vec![delete_none.clone(), insert_mutation.clone()];
+        assert_eq!(
+            Mutation::select_mutation_key_ref(&delete_and_insert),
+            Some(&insert_mutation),
+            "select_mutation_key_ref must prefer Insert over Delete with None key_set"
+        );
+
+        // 2. [Delete(key_set == None), Update] selects Update
+        let delete_and_update = vec![delete_none.clone(), update_mutation.clone()];
+        assert_eq!(
+            Mutation::select_mutation_key_ref(&delete_and_update),
+            Some(&update_mutation),
+            "select_mutation_key_ref must prefer Update over Delete with None key_set"
+        );
+
+        // 3. Only [Delete(key_set == None)] falls back to the first mutation
+        let only_delete_none = vec![delete_none.clone()];
+        assert_eq!(
+            Mutation::select_mutation_key_ref(&only_delete_none),
+            Some(&delete_none),
+            "select_mutation_key_ref must fall back to first when only Delete with None key_set is present"
+        );
+    }
+
+    #[test]
+    fn select_mutation_key_ref_prefers_valid_keyed_delete_over_insert() {
+        let keyed_delete = Mutation::delete(
+            "Users",
+            KeySet::builder()
+                .add_key(Key::new(vec![Value::from(1_i64)]))
+                .build(),
+        )
+        .build_proto();
+        let insert_mutation = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(2)
+            .build()
+            .build_proto();
+
+        let delete_and_insert = vec![insert_mutation.clone(), keyed_delete.clone()];
+        assert_eq!(
+            Mutation::select_mutation_key_ref(&delete_and_insert),
+            Some(&keyed_delete),
+            "select_mutation_key_ref must prefer a valid keyed Delete over an Insert"
+        );
     }
 
     #[test]

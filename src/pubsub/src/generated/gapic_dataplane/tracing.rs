@@ -63,6 +63,7 @@ where
     T: super::stub::Subscriber + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -108,6 +109,16 @@ where
             method: "client::Subscriber::acknowledge",
             self.inner.acknowledge(req, options));
         pending.await
+    }
+
+    fn streaming_pull(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingPullRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPullResponse>,
+    ) {
+        self.inner.streaming_pull(options)
     }
 }
 

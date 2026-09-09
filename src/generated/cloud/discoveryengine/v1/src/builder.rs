@@ -80,7 +80,11 @@ pub mod assistant_service {
     /// # use google_cloud_discoveryengine_v1::builder::assistant_service::StreamAssist;
     /// # async fn sample() -> google_cloud_discoveryengine_v1::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let mut receiver = builder.send().await?;
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
     /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StreamAssist {
@@ -3831,7 +3835,11 @@ pub mod conversational_search_service {
     /// # use google_cloud_discoveryengine_v1::builder::conversational_search_service::StreamAnswerQuery;
     /// # async fn sample() -> google_cloud_discoveryengine_v1::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let mut receiver = builder.send().await?;
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
     /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StreamAnswerQuery {

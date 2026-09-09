@@ -131,6 +131,24 @@ impl AssistantService {
     }
 
     /// Assists the user with a query in a streaming fashion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::AssistantService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AssistantService
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.stream_assist()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn stream_assist(&self) -> super::builder::assistant_service::StreamAssist {
         super::builder::assistant_service::StreamAssist::new(self.inner.clone())
     }
@@ -1473,6 +1491,24 @@ impl ConversationalSearchService {
     ///
     /// [google.cloud.discoveryengine.v1.AnswerQueryRequest]: crate::model::AnswerQueryRequest
     /// [google.cloud.discoveryengine.v1.AnswerQueryResponse]: crate::model::AnswerQueryResponse
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &ConversationalSearchService
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.stream_answer_query()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn stream_answer_query(
         &self,
     ) -> super::builder::conversational_search_service::StreamAnswerQuery {

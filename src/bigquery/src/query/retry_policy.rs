@@ -19,7 +19,7 @@ use google_cloud_bigquery_v2::model::ErrorProto;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::error::Error as GaxError;
-use google_cloud_gax::error::rpc::Code;
+use google_cloud_gax::error::rpc::{Code, StatusDetails};
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 use google_cloud_gax::retry_policy::RetryPolicy;
 use google_cloud_gax::retry_result::RetryResult;
@@ -29,7 +29,6 @@ use std::time::Duration;
 
 /// Follows the RPC retry strategy recommended by the BigQuery guides on error handling.
 #[derive(Clone, Debug)]
-#[allow(dead_code)]
 pub(crate) struct RetryableErrors;
 
 impl RetryPolicy for RetryableErrors {
@@ -58,7 +57,6 @@ impl RetryPolicy for RetryableErrors {
     }
 }
 
-#[allow(dead_code)]
 pub(crate) fn default_retry_policy() -> Arc<dyn RetryPolicy> {
     Arc::new(RetryableErrors)
 }
@@ -158,15 +156,28 @@ pub(crate) fn default_job_retry_policy() -> Arc<dyn JobRetryPolicy> {
 pub(crate) fn is_query_error_retryable(err: &QueryError) -> bool {
     match err {
         QueryError::JobFailed { errors } => is_retryable_errors(errors),
+        QueryError::Rpc { source } => is_rpc_error_retryable(source),
         _ => false,
     }
+}
+
+pub(crate) fn is_rpc_error_retryable(error: &GaxError) -> bool {
+    if let Some(status) = error.status() {
+        for detail in &status.details {
+            if let StatusDetails::ErrorInfo(info) = detail
+                && is_retryable_error_reason(&info.reason)
+            {
+                return true;
+            }
+        }
+    }
+    false
 }
 
 pub(crate) fn is_retryable_errors(errors: &[ErrorProto]) -> bool {
     !errors.is_empty() && errors.iter().all(|e| is_retryable_error_reason(&e.reason))
 }
 
-#[allow(dead_code)]
 pub(crate) fn is_retryable_error_reason(reason: &str) -> bool {
     matches!(
         reason,
@@ -175,6 +186,7 @@ pub(crate) fn is_retryable_error_reason(reason: &str) -> bool {
             | "rateLimitExceeded"
             | "jobRateLimitExceeded"
             | "internalError"
+            | "jobInternalError"
     )
 }
 #[cfg(test)]
@@ -184,6 +196,7 @@ mod tests {
     use google_cloud_bigquery_v2::model::ErrorProto;
     use google_cloud_gax::error::rpc::{Code, Status};
     use google_cloud_gax::retry_state::RetryState;
+    use google_cloud_rpc::model::ErrorInfo;
     use http::HeaderMap;
     use test_case::test_case;
 
@@ -192,6 +205,7 @@ mod tests {
     #[test_case("rateLimitExceeded", true)]
     #[test_case("jobRateLimitExceeded", true)]
     #[test_case("internalError", true)]
+    #[test_case("jobInternalError", true)]
     #[test_case("invalidQuery", false)]
     #[test_case("notFound", false)]
     fn test_is_retryable_error_reason(reason: &str, expected: bool) {
@@ -276,6 +290,58 @@ mod tests {
     }
 
     #[test]
+    fn test_is_rpc_error_retryable() {
+        use google_cloud_rpc::model::ErrorInfo;
+
+        // BigQuery REST API JSON error with backendError
+        const BQ_REST_PAYLOAD: &[u8] = br#"{
+  "error": {
+    "code": 400,
+    "message": "The job encountered an error during execution. Retrying the job may solve the problem.",
+    "errors": [
+      {
+        "message": "The job encountered an error during execution. Retrying the job may solve the problem.",
+        "domain": "global",
+        "reason": "backendError"
+      }
+    ],
+    "status": "INVALID_ARGUMENT"
+  }
+}"#;
+        let status = Status::try_from(&bytes::Bytes::from_static(BQ_REST_PAYLOAD))
+            .expect("should deserialize BigQuery REST error");
+        let err = GaxError::service(status);
+        assert!(is_rpc_error_retryable(&err));
+
+        // ErrorInfo detail with retryable reason
+        let status = Status::default()
+            .set_code(Code::InvalidArgument)
+            .set_message("Error occurred")
+            .set_details(vec![StatusDetails::ErrorInfo(
+                ErrorInfo::new().set_reason("backendError"),
+            )]);
+        let err = GaxError::service(status);
+        assert!(is_rpc_error_retryable(&err));
+
+        // ErrorInfo detail with non-retryable reason
+        let status = Status::default()
+            .set_code(Code::InvalidArgument)
+            .set_message("Error occurred")
+            .set_details(vec![StatusDetails::ErrorInfo(
+                ErrorInfo::new().set_reason("invalidQuery"),
+            )]);
+        let err = GaxError::service(status);
+        assert!(!is_rpc_error_retryable(&err));
+
+        // Status without ErrorInfo details
+        let status = Status::default()
+            .set_code(Code::InvalidArgument)
+            .set_message("Syntax error: Unexpected identifier");
+        let err = GaxError::service(status);
+        assert!(!is_rpc_error_retryable(&err));
+    }
+
+    #[test]
     fn test_job_retryable_errors() {
         let policy = RetryableJobErrors::default();
         let state = RetryState::default();
@@ -289,6 +355,26 @@ mod tests {
             errors: vec![ErrorProto::new().set_reason("invalidQuery")],
         };
         assert!(policy.on_error(&state, permanent_err).is_permanent());
+
+        let rpc_retryable_err = QueryError::Rpc {
+            source: GaxError::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_details(vec![StatusDetails::ErrorInfo(
+                        ErrorInfo::new().set_reason("backendError"),
+                    )]),
+            ),
+        };
+        assert!(policy.on_error(&state, rpc_retryable_err).is_continue());
+
+        let rpc_permanent_err = QueryError::Rpc {
+            source: GaxError::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message("Syntax error: Unexpected identifier"),
+            ),
+        };
+        assert!(policy.on_error(&state, rpc_permanent_err).is_permanent());
     }
 
     #[test]

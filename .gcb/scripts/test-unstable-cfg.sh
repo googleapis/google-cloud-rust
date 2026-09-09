@@ -39,11 +39,7 @@ for crate in "${crates[@]}"; do
 done
 
 # Integration tests
-echo "==== Install go compiler ===="
-curl -fsSL --retry 5 --retry-delay 15 https://go.dev/dl/go1.26.7.linux-amd64.tar.gz -o /tmp/go.tar.gz
-sha256sum -c <(echo ffb5f8de10c62550dfddab66b36b57030721e0a44a3218e9e1181d7b59f121ca /tmp/go.tar.gz)
-tar -C /usr/local -xzf /tmp/go.tar.gz
-export PATH=${PATH}:/usr/local/go/bin
+source "$(dirname "$0")"/install-go.sh
 
 echo "==== integration-tests (UNSTABLE) ===="
 cargo test -p integration-tests-showcase --features run-showcase-tests

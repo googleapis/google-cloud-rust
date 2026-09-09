@@ -1614,6 +1614,10 @@ impl gaxi::prost::ToProto<BigQueryTableReferences> for crate::model::BigQueryTab
                 .into_iter()
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            property_graph_references: self.property_graph_references
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
 }
@@ -1623,6 +1627,8 @@ impl gaxi::prost::FromProto<crate::model::BigQueryTableReferences> for BigQueryT
         Ok(
             crate::model::BigQueryTableReferences::new()
                 .set_table_references(self.table_references.into_iter().map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_property_graph_references(self.property_graph_references.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }

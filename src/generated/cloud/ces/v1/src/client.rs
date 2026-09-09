@@ -1548,6 +1548,24 @@ impl SessionService {
     /// to true.
     ///
     /// [google.cloud.ces.v1.SessionConfig.enable_text_streaming]: crate::model::SessionConfig::enable_text_streaming
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_ces_v1::client::SessionService;
+    /// use google_cloud_ces_v1::Result;
+    /// async fn sample(
+    ///    client: &SessionService
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.stream_run_session()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn stream_run_session(&self) -> super::builder::session_service::StreamRunSession {
         super::builder::session_service::StreamRunSession::new(self.inner.clone())
     }

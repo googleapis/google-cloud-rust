@@ -38395,6 +38395,435 @@ impl<'de> serde::de::Deserialize<'de> for super::GRPCTLSHealthCheck {
     feature = "zone-vm-extension-policies",
 ))]
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GetHealthOperationMetadata {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __health_info,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetHealthOperationMetadata")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "healthInfo" => Ok(__FieldTag::__health_info),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GetHealthOperationMetadata;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetHealthOperationMetadata")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__health_info => {
+                            if !fields.insert(__FieldTag::__health_info) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for health_info",
+                                ));
+                            }
+                            result.health_info = map.next_value::<std::option::Option<
+                                crate::model::GetHealthOperationMetadataHealthInfo,
+                            >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(any(
+    feature = "addresses",
+    feature = "autoscalers",
+    feature = "backend-buckets",
+    feature = "backend-services",
+    feature = "cross-site-networks",
+    feature = "disks",
+    feature = "external-vpn-gateways",
+    feature = "firewall-policies",
+    feature = "firewalls",
+    feature = "forwarding-rules",
+    feature = "future-reservations",
+    feature = "global-addresses",
+    feature = "global-forwarding-rules",
+    feature = "global-network-endpoint-groups",
+    feature = "global-operations",
+    feature = "global-organization-operations",
+    feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
+    feature = "health-checks",
+    feature = "hosts",
+    feature = "http-health-checks",
+    feature = "https-health-checks",
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instance-settings",
+    feature = "instance-templates",
+    feature = "instances",
+    feature = "instant-snapshot-groups",
+    feature = "instant-snapshots",
+    feature = "interconnect-attachment-groups",
+    feature = "interconnect-attachments",
+    feature = "interconnect-groups",
+    feature = "interconnects",
+    feature = "licenses",
+    feature = "machine-images",
+    feature = "network-attachments",
+    feature = "network-edge-security-services",
+    feature = "network-endpoint-groups",
+    feature = "network-firewall-policies",
+    feature = "networks",
+    feature = "node-groups",
+    feature = "node-templates",
+    feature = "organization-security-policies",
+    feature = "packet-mirrorings",
+    feature = "preview-features",
+    feature = "projects",
+    feature = "public-advertised-prefixes",
+    feature = "public-delegated-prefixes",
+    feature = "region-autoscalers",
+    feature = "region-backend-buckets",
+    feature = "region-backend-services",
+    feature = "region-commitments",
+    feature = "region-composite-health-checks",
+    feature = "region-disks",
+    feature = "region-health-aggregation-policies",
+    feature = "region-health-check-services",
+    feature = "region-health-checks",
+    feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
+    feature = "region-instant-snapshots",
+    feature = "region-network-endpoint-groups",
+    feature = "region-network-firewall-policies",
+    feature = "region-notification-endpoints",
+    feature = "region-operations",
+    feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
+    feature = "region-ssl-certificates",
+    feature = "region-ssl-policies",
+    feature = "region-target-http-proxies",
+    feature = "region-target-https-proxies",
+    feature = "region-target-tcp-proxies",
+    feature = "region-url-maps",
+    feature = "reservation-blocks",
+    feature = "reservation-slots",
+    feature = "reservation-sub-blocks",
+    feature = "reservations",
+    feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
+    feature = "routers",
+    feature = "routes",
+    feature = "security-policies",
+    feature = "service-attachments",
+    feature = "snapshot-settings",
+    feature = "snapshots",
+    feature = "ssl-certificates",
+    feature = "ssl-policies",
+    feature = "storage-pools",
+    feature = "subnetworks",
+    feature = "target-grpc-proxies",
+    feature = "target-http-proxies",
+    feature = "target-https-proxies",
+    feature = "target-instances",
+    feature = "target-pools",
+    feature = "target-ssl-proxies",
+    feature = "target-tcp-proxies",
+    feature = "target-vpn-gateways",
+    feature = "url-maps",
+    feature = "vpn-gateways",
+    feature = "vpn-tunnels",
+    feature = "wire-groups",
+    feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
+))]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GetHealthOperationMetadataHealthInfo {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __availability_slo_status,
+            __health_status,
+            __repair_category,
+            __unhealthy_reason,
+            __update_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetHealthOperationMetadataHealthInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "availabilitySloStatus" => Ok(__FieldTag::__availability_slo_status),
+                            "healthStatus" => Ok(__FieldTag::__health_status),
+                            "repairCategory" => Ok(__FieldTag::__repair_category),
+                            "unhealthyReason" => Ok(__FieldTag::__unhealthy_reason),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GetHealthOperationMetadataHealthInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetHealthOperationMetadataHealthInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__availability_slo_status => {
+                            if !fields.insert(__FieldTag::__availability_slo_status) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for availability_slo_status",
+                                ));
+                            }
+                            result.availability_slo_status = map.next_value::<std::option::Option<crate::model::get_health_operation_metadata_health_info::AvailabilitySloStatus>>()?
+                                ;
+                        }
+                        __FieldTag::__health_status => {
+                            if !fields.insert(__FieldTag::__health_status) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for health_status",
+                                ));
+                            }
+                            result.health_status = map.next_value::<std::option::Option<crate::model::get_health_operation_metadata_health_info::HealthStatus>>()?
+                                ;
+                        }
+                        __FieldTag::__repair_category => {
+                            if !fields.insert(__FieldTag::__repair_category) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repair_category",
+                                ));
+                            }
+                            result.repair_category = map.next_value::<std::option::Option<crate::model::get_health_operation_metadata_health_info::RepairCategory>>()?
+                                ;
+                        }
+                        __FieldTag::__unhealthy_reason => {
+                            if !fields.insert(__FieldTag::__unhealthy_reason) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unhealthy_reason",
+                                ));
+                            }
+                            result.unhealthy_reason = map.next_value::<std::option::Option<crate::model::get_health_operation_metadata_health_info::UnhealthyReason>>()?
+                                ;
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(any(
+    feature = "addresses",
+    feature = "autoscalers",
+    feature = "backend-buckets",
+    feature = "backend-services",
+    feature = "cross-site-networks",
+    feature = "disks",
+    feature = "external-vpn-gateways",
+    feature = "firewall-policies",
+    feature = "firewalls",
+    feature = "forwarding-rules",
+    feature = "future-reservations",
+    feature = "global-addresses",
+    feature = "global-forwarding-rules",
+    feature = "global-network-endpoint-groups",
+    feature = "global-operations",
+    feature = "global-organization-operations",
+    feature = "global-public-delegated-prefixes",
+    feature = "global-vm-extension-policies",
+    feature = "health-checks",
+    feature = "hosts",
+    feature = "http-health-checks",
+    feature = "https-health-checks",
+    feature = "images",
+    feature = "instance-group-manager-resize-requests",
+    feature = "instance-group-managers",
+    feature = "instance-groups",
+    feature = "instance-settings",
+    feature = "instance-templates",
+    feature = "instances",
+    feature = "instant-snapshot-groups",
+    feature = "instant-snapshots",
+    feature = "interconnect-attachment-groups",
+    feature = "interconnect-attachments",
+    feature = "interconnect-groups",
+    feature = "interconnects",
+    feature = "licenses",
+    feature = "machine-images",
+    feature = "network-attachments",
+    feature = "network-edge-security-services",
+    feature = "network-endpoint-groups",
+    feature = "network-firewall-policies",
+    feature = "networks",
+    feature = "node-groups",
+    feature = "node-templates",
+    feature = "organization-security-policies",
+    feature = "packet-mirrorings",
+    feature = "preview-features",
+    feature = "projects",
+    feature = "public-advertised-prefixes",
+    feature = "public-delegated-prefixes",
+    feature = "region-autoscalers",
+    feature = "region-backend-buckets",
+    feature = "region-backend-services",
+    feature = "region-commitments",
+    feature = "region-composite-health-checks",
+    feature = "region-disks",
+    feature = "region-health-aggregation-policies",
+    feature = "region-health-check-services",
+    feature = "region-health-checks",
+    feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
+    feature = "region-instance-group-managers",
+    feature = "region-instance-groups",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
+    feature = "region-instant-snapshots",
+    feature = "region-network-endpoint-groups",
+    feature = "region-network-firewall-policies",
+    feature = "region-notification-endpoints",
+    feature = "region-operations",
+    feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
+    feature = "region-ssl-certificates",
+    feature = "region-ssl-policies",
+    feature = "region-target-http-proxies",
+    feature = "region-target-https-proxies",
+    feature = "region-target-tcp-proxies",
+    feature = "region-url-maps",
+    feature = "reservation-blocks",
+    feature = "reservation-slots",
+    feature = "reservation-sub-blocks",
+    feature = "reservations",
+    feature = "resource-policies",
+    feature = "rollout-plans",
+    feature = "rollouts",
+    feature = "routers",
+    feature = "routes",
+    feature = "security-policies",
+    feature = "service-attachments",
+    feature = "snapshot-settings",
+    feature = "snapshots",
+    feature = "ssl-certificates",
+    feature = "ssl-policies",
+    feature = "storage-pools",
+    feature = "subnetworks",
+    feature = "target-grpc-proxies",
+    feature = "target-http-proxies",
+    feature = "target-https-proxies",
+    feature = "target-instances",
+    feature = "target-pools",
+    feature = "target-ssl-proxies",
+    feature = "target-tcp-proxies",
+    feature = "target-vpn-gateways",
+    feature = "url-maps",
+    feature = "vpn-gateways",
+    feature = "vpn-tunnels",
+    feature = "wire-groups",
+    feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
+))]
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::GetVersionOperationMetadata {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -71573,6 +72002,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Interconnect {
             __requested_link_count,
             __satisfies_pzs,
             __self_link,
+            __self_link_with_id,
             __state,
             __subzone,
             __wire_groups,
@@ -71632,6 +72062,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Interconnect {
                             "requestedLinkCount" => Ok(__FieldTag::__requested_link_count),
                             "satisfiesPzs" => Ok(__FieldTag::__satisfies_pzs),
                             "selfLink" => Ok(__FieldTag::__self_link),
+                            "selfLinkWithId" => Ok(__FieldTag::__self_link_with_id),
                             "state" => Ok(__FieldTag::__state),
                             "subzone" => Ok(__FieldTag::__subzone),
                             "wireGroups" => Ok(__FieldTag::__wire_groups),
@@ -72027,6 +72458,15 @@ impl<'de> serde::de::Deserialize<'de> for super::Interconnect {
                                 ));
                             }
                             result.self_link =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__self_link_with_id => {
+                            if !fields.insert(__FieldTag::__self_link_with_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for self_link_with_id",
+                                ));
+                            }
+                            result.self_link_with_id =
                                 map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__state => {
@@ -80463,6 +80903,8 @@ impl<'de> serde::de::Deserialize<'de> for super::InterconnectLocationCrossSiteIn
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __city,
+            __max_dynamic_path_bandwidth_gbps,
+            __max_fixed_path_bandwidth_gbps,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -80486,6 +80928,12 @@ impl<'de> serde::de::Deserialize<'de> for super::InterconnectLocationCrossSiteIn
                         use std::string::ToString;
                         match value {
                             "city" => Ok(__FieldTag::__city),
+                            "maxDynamicPathBandwidthGbps" => {
+                                Ok(__FieldTag::__max_dynamic_path_bandwidth_gbps)
+                            }
+                            "maxFixedPathBandwidthGbps" => {
+                                Ok(__FieldTag::__max_fixed_path_bandwidth_gbps)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -80519,6 +80967,44 @@ impl<'de> serde::de::Deserialize<'de> for super::InterconnectLocationCrossSiteIn
                             }
                             result.city =
                                 map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__max_dynamic_path_bandwidth_gbps => {
+                            if !fields.insert(__FieldTag::__max_dynamic_path_bandwidth_gbps) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for max_dynamic_path_bandwidth_gbps",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.max_dynamic_path_bandwidth_gbps = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__max_fixed_path_bandwidth_gbps => {
+                            if !fields.insert(__FieldTag::__max_fixed_path_bandwidth_gbps) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for max_fixed_path_bandwidth_gbps",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.max_fixed_path_bandwidth_gbps = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -87385,6 +87871,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ManagedInstance {
             __properties_from_flexibility_policy,
             __scheduling,
             __shutdown_details,
+            __target_status,
             __version,
             Unknown(std::string::String),
         }
@@ -87424,6 +87911,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ManagedInstance {
                             }
                             "scheduling" => Ok(__FieldTag::__scheduling),
                             "shutdownDetails" => Ok(__FieldTag::__shutdown_details),
+                            "targetStatus" => Ok(__FieldTag::__target_status),
                             "version" => Ok(__FieldTag::__version),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -87577,6 +88065,17 @@ impl<'de> serde::de::Deserialize<'de> for super::ManagedInstance {
                             result.shutdown_details =
                                 map.next_value::<std::option::Option<
                                     crate::model::ManagedInstanceShutdownDetails,
+                                >>()?;
+                        }
+                        __FieldTag::__target_status => {
+                            if !fields.insert(__FieldTag::__target_status) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for target_status",
+                                ));
+                            }
+                            result.target_status =
+                                map.next_value::<std::option::Option<
+                                    crate::model::managed_instance::TargetStatus,
                                 >>()?;
                         }
                         __FieldTag::__version => {
@@ -105021,6 +105520,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
             __description,
             __end_time,
             __error,
+            __get_health_operation_metadata,
             __get_version_operation_metadata,
             __http_error_message,
             __http_error_status_code,
@@ -105068,6 +105568,9 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                             "description" => Ok(__FieldTag::__description),
                             "endTime" => Ok(__FieldTag::__end_time),
                             "error" => Ok(__FieldTag::__error),
+                            "getHealthOperationMetadata" => {
+                                Ok(__FieldTag::__get_health_operation_metadata)
+                            }
                             "getVersionOperationMetadata" => {
                                 Ok(__FieldTag::__get_version_operation_metadata)
                             }
@@ -105166,6 +105669,15 @@ impl<'de> serde::de::Deserialize<'de> for super::Operation {
                             result.error = map
                                 .next_value::<std::option::Option<crate::model::operation::Error>>(
                                 )?;
+                        }
+                        __FieldTag::__get_health_operation_metadata => {
+                            if !fields.insert(__FieldTag::__get_health_operation_metadata) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for get_health_operation_metadata",
+                                ));
+                            }
+                            result.get_health_operation_metadata = map.next_value::<std::option::Option<crate::model::GetHealthOperationMetadata>>()?
+                                ;
                         }
                         __FieldTag::__get_version_operation_metadata => {
                             if !fields.insert(__FieldTag::__get_version_operation_metadata) {

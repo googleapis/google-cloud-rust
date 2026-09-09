@@ -111,6 +111,7 @@ impl std::fmt::Debug for super::MigrationSubtask {
 impl std::fmt::Debug for super::MigrationTaskResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MigrationTaskResult");
+        debug_struct.field("task_outputs", &self.task_outputs);
         debug_struct.field("details", &self.details);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -125,6 +126,72 @@ impl std::fmt::Debug for super::TranslationTaskResult {
         debug_struct.field("translated_literals", &self.translated_literals);
         debug_struct.field("report_log_messages", &self.report_log_messages);
         debug_struct.field("console_uri", &self.console_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::TaskOutput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TaskOutput");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("processing_error", &self.processing_error);
+        debug_struct.field("output", &self.output);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::LineageOutput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LineageOutput");
+        debug_struct.field("webapp_uri", &self.webapp_uri);
+        debug_struct.field("recognized_inputs", &self.recognized_inputs);
+        debug_struct.field(
+            "processing_progress_reports",
+            &self.processing_progress_reports,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::lineage_output::RecognizedInput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RecognizedInput");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("uncompressed_size_bytes", &self.uncompressed_size_bytes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::lineage_output::ProgressReport {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProgressReport");
+        debug_struct.field("processing_stage", &self.processing_stage);
+        debug_struct.field("work_summaries", &self.work_summaries);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::lineage_output::progress_report::WorkSummary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkSummary");
+        debug_struct.field("state", &self.state);
+        debug_struct.field("size", &self.size);
+        debug_struct.field("comment", &self.comment);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

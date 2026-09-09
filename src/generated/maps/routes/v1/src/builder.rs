@@ -272,7 +272,11 @@ pub mod routes_preferred {
     /// # use google_maps_routes_v1::builder::routes_preferred::ComputeRouteMatrix;
     /// # async fn sample() -> google_maps_routes_v1::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let mut receiver = builder.send().await?;
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
     /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ComputeRouteMatrix {

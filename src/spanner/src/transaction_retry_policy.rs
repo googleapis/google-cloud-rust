@@ -14,7 +14,7 @@
 
 use crate::Error;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
-use google_cloud_gax::error::rpc::StatusDetails;
+use google_cloud_gax::error::rpc::Code;
 use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
@@ -136,18 +136,10 @@ where
 }
 
 pub(crate) fn is_aborted(err: &crate::Error) -> bool {
-    err.status()
-        .is_some_and(|s| s.code == google_cloud_gax::error::rpc::Code::Aborted)
+    err.status().is_some_and(|s| s.code == Code::Aborted)
 }
 
-pub(crate) fn extract_retry_delay(err: &crate::Error) -> Option<Duration> {
-    err.status()?.details.iter().find_map(|detail| {
-        let StatusDetails::RetryInfo(retry_info) = detail else {
-            return None;
-        };
-        (*retry_info.retry_delay.as_ref()?).try_into().ok()
-    })
-}
+pub(crate) use crate::retry_delay::extract_retry_delay_from_error as extract_retry_delay;
 
 pub(crate) fn default_retry_backoff() -> ExponentialBackoff {
     ExponentialBackoffBuilder::new()
@@ -155,12 +147,12 @@ pub(crate) fn default_retry_backoff() -> ExponentialBackoff {
         .with_maximum_delay(Duration::from_secs(1))
         .with_scaling(1.3)
         .build()
-        .unwrap()
+        .expect("default retry backoff parameters are valid")
 }
 
 pub(crate) fn is_internal_emulator_error(err: &crate::Error) -> bool {
     if let Some(status) = err.status() {
-        status.code == google_cloud_gax::error::rpc::Code::Internal
+        status.code == Code::Internal
             && status.message.contains("Schema generation")
             && status
                 .message
@@ -208,6 +200,7 @@ pub(crate) async fn backoff_if_aborted(
 pub(crate) mod tests {
     use super::*;
     use crate::Error;
+    use gaxi::grpc::tonic::{Code as TonicCode, Status as TonicStatus};
     use google_cloud_gax::error::rpc::{Code, Status};
     use google_cloud_rpc::model::RetryInfo;
     use std::sync::Arc;
@@ -224,24 +217,19 @@ pub(crate) mod tests {
                 delay.as_secs() as i64,
                 delay.subsec_nanos() as i32,
             ));
-            status = status.set_details(vec![Any::from_msg(&retry_info).unwrap()]);
+            status = status.set_details(vec![
+                Any::from_msg(&retry_info).expect("serializing RetryInfo to Any must succeed"),
+            ]);
         }
 
         Error::service(status)
     }
 
-    pub(crate) fn create_aborted_status(
-        retry_delay: std::time::Duration,
-    ) -> gaxi::grpc::tonic::Status {
+    pub(crate) fn create_aborted_status(retry_delay: Duration) -> TonicStatus {
+        use crate::retry_delay::{ProtoRetryInfo, RETRY_INFO_TYPE_URL};
         use prost::Message;
 
-        #[derive(Clone, PartialEq, prost::Message)]
-        struct MockRetryInfo {
-            #[prost(message, optional, tag = "1")]
-            retry_delay: Option<prost_types::Duration>,
-        }
-
-        let retry_info = MockRetryInfo {
+        let retry_info = ProtoRetryInfo {
             retry_delay: Some(prost_types::Duration {
                 seconds: retry_delay.as_secs() as i64,
                 nanos: retry_delay.subsec_nanos() as i32,
@@ -249,22 +237,26 @@ pub(crate) mod tests {
         };
 
         let mut retry_buf = vec![];
-        retry_info.encode(&mut retry_buf).unwrap();
+        retry_info
+            .encode(&mut retry_buf)
+            .expect("encoding retry_info should succeed");
 
         let status = spanner_grpc_mock::google::rpc::Status {
-            code: gaxi::grpc::tonic::Code::Aborted as i32,
+            code: TonicCode::Aborted as i32,
             message: "test transaction aborted".to_string(),
             details: vec![prost_types::Any {
-                type_url: "type.googleapis.com/google.rpc.RetryInfo".to_string(),
+                type_url: RETRY_INFO_TYPE_URL.to_string(),
                 value: retry_buf,
             }],
         };
 
         let mut buf = vec![];
-        status.encode(&mut buf).unwrap();
+        status
+            .encode(&mut buf)
+            .expect("encoding mock status should succeed");
 
-        gaxi::grpc::tonic::Status::with_details(
-            gaxi::grpc::tonic::Code::Aborted,
+        TonicStatus::with_details(
+            TonicCode::Aborted,
             "test transaction aborted",
             bytes::Bytes::from(buf),
         )
@@ -463,9 +455,11 @@ pub(crate) mod tests {
     fn extract_retry_delay_empty_retry_info() {
         let mut status = Status::default().set_code(Code::Aborted);
         let retry_info = RetryInfo::default(); // no retry_delay set
-        status = status.set_details(vec![Any::from_msg(&retry_info).unwrap()]);
-        let err = Error::service(status);
-        assert_eq!(extract_retry_delay(&err), None);
+        status = status.set_details(vec![
+            Any::from_msg(&retry_info).expect("serializing RetryInfo to Any must succeed"),
+        ]);
+        let error = Error::service(status);
+        assert_eq!(extract_retry_delay(&error), None);
     }
 
     #[test]
@@ -475,9 +469,11 @@ pub(crate) mod tests {
             -10, // Invalid negative duration
             0,
         ));
-        status = status.set_details(vec![Any::from_msg(&retry_info).unwrap()]);
-        let err = Error::service(status);
-        assert_eq!(extract_retry_delay(&err), None);
+        status = status.set_details(vec![
+            Any::from_msg(&retry_info).expect("serializing RetryInfo to Any must succeed"),
+        ]);
+        let error = Error::service(status);
+        assert_eq!(extract_retry_delay(&error), None);
     }
 
     #[tokio::test(start_paused = true)]

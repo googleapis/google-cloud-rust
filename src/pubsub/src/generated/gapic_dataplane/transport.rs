@@ -34,7 +34,7 @@ mod info {
         });
 }
 
-/// Implements [Publisher](super::stub::Publisher) using a Tonic-generated client.
+/// Implements [Publisher](super::stub::Publisher) using a gRPC client.
 #[derive(Clone)]
 pub struct Publisher {
     pub(crate) inner: gaxi::grpc::Client,
@@ -120,7 +120,7 @@ impl super::stub::Publisher for Publisher {
     }
 }
 
-/// Implements [Subscriber](super::stub::Subscriber) using a Tonic-generated client.
+/// Implements [Subscriber](super::stub::Subscriber) using a gRPC client.
 #[derive(Clone)]
 pub struct Subscriber {
     pub(crate) inner: gaxi::grpc::Client,
@@ -264,5 +264,40 @@ impl super::stub::Subscriber for Subscriber {
             )
             .await
             .and_then(gaxi::grpc::to_gax_response::<TR, ()>)
+    }
+
+    fn streaming_pull(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::StreamingPullRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPullResponse>,
+    ) {
+        let x_goog_request_params = "";
+
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.pubsub.v1.Subscriber",
+                "StreamingPull",
+            ));
+            e
+        };
+        let path =
+            http::uri::PathAndQuery::from_static("/google.pubsub.v1.Subscriber/StreamingPull");
+
+        self.inner
+            .execute_bidi_streaming::<
+                crate::model::StreamingPullRequest,
+                crate::model::StreamingPullResponse,
+                crate::google::pubsub::v1::StreamingPullRequest,
+                crate::google::pubsub::v1::StreamingPullResponse,
+            >(
+                extensions,
+                path,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                x_goog_request_params,
+            )
     }
 }

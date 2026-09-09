@@ -4745,6 +4745,24 @@ impl FeaturestoreOnlineServingService {
     /// Reads Feature values for multiple entities. Depending on their size, data
     /// for different entities may be broken
     /// up across multiple responses.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.streaming_read_feature_values()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn streaming_read_feature_values(
         &self,
     ) -> super::builder::featurestore_online_serving_service::StreamingReadFeatureValues {
@@ -15047,6 +15065,24 @@ impl PredictionService {
     }
 
     /// Perform a streaming online prediction with an arbitrary HTTP payload.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.stream_raw_predict()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn stream_raw_predict(&self) -> super::builder::prediction_service::StreamRawPredict {
         super::builder::prediction_service::StreamRawPredict::new(self.inner.clone())
     }
@@ -15178,6 +15214,24 @@ impl PredictionService {
 
     /// Perform a server-side streaming online prediction request for Vertex
     /// LLM streaming.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.server_streaming_predict()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn server_streaming_predict(
         &self,
     ) -> super::builder::prediction_service::ServerStreamingPredict {
@@ -15264,6 +15318,24 @@ impl PredictionService {
     }
 
     /// Generate content with multimodal inputs with streaming support.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.stream_generate_content()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn stream_generate_content(
         &self,
     ) -> super::builder::prediction_service::StreamGenerateContent {
@@ -15653,6 +15725,24 @@ impl ReasoningEngineExecutionService {
     }
 
     /// Streams queries using a reasoning engine.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.stream_query_reasoning_engine()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn stream_query_reasoning_engine(
         &self,
     ) -> super::builder::reasoning_engine_execution_service::StreamQueryReasoningEngine {
@@ -18821,6 +18911,24 @@ impl TensorboardService {
     /// This is to allow reading blob data stored in consumer project's Cloud
     /// Storage bucket without users having to obtain Cloud Storage access
     /// permission.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.read_tensorboard_blob_data()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn read_tensorboard_blob_data(
         &self,
     ) -> super::builder::tensorboard_service::ReadTensorboardBlobData {

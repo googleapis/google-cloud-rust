@@ -383,6 +383,12 @@ pub mod developer_knowledge {
             self.0.request.query = v.into();
             self
         }
+
+        /// Sets the value of [filter][crate::model::AnswerQueryRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]

@@ -173,7 +173,11 @@ pub mod read {
     /// # use google_cloud_bigquery_read::builder::read::ReadRows;
     /// # async fn sample() -> google_cloud_bigquery_read::Result<()> {
     /// let builder = prepare_request_builder();
-    /// let mut receiver = builder.send().await?;
+    /// let mut resp_stream = builder.send().await?;
+    /// while let Some(response) = resp_stream.next().await {
+    ///     let response = response?;
+    ///     println!("response {:?}", response);
+    /// }
     /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ReadRows {

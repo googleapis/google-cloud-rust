@@ -41,6 +41,14 @@ pub trait Firestore: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
 
+    async fn batch_get_documents(
+        &self,
+        req: crate::model::BatchGetDocumentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::BatchGetDocumentsResponse>,
+    >;
+
     async fn begin_transaction(
         &self,
         req: crate::model::BeginTransactionRequest,
@@ -59,11 +67,41 @@ pub trait Firestore: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
 
+    async fn run_query(
+        &self,
+        req: crate::model::RunQueryRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::RunQueryResponse>>;
+
+    async fn run_aggregation_query(
+        &self,
+        req: crate::model::RunAggregationQueryRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::RunAggregationQueryResponse>,
+    >;
+
     async fn partition_query(
         &self,
         req: crate::model::PartitionQueryRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::PartitionQueryResponse>>;
+
+    fn write(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::WriteRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::WriteResponse>,
+    );
+
+    fn listen(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::ListenRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ListenResponse>,
+    );
 
     async fn list_collection_ids(
         &self,
@@ -124,6 +162,17 @@ impl<T: super::Firestore> Firestore for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn batch_get_documents(
+        &self,
+        req: crate::model::BatchGetDocumentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::BatchGetDocumentsResponse>,
+    > {
+        T::batch_get_documents(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn begin_transaction(
         &self,
         req: crate::model::BeginTransactionRequest,
@@ -151,12 +200,55 @@ impl<T: super::Firestore> Firestore for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn run_query(
+        &self,
+        req: crate::model::RunQueryRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<google_cloud_gax::streaming::ResponseStream<crate::model::RunQueryResponse>>
+    {
+        T::run_query(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn run_aggregation_query(
+        &self,
+        req: crate::model::RunAggregationQueryRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        google_cloud_gax::streaming::ResponseStream<crate::model::RunAggregationQueryResponse>,
+    > {
+        T::run_aggregation_query(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn partition_query(
         &self,
         req: crate::model::PartitionQueryRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::PartitionQueryResponse>> {
         T::partition_query(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    fn write(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::WriteRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::WriteResponse>,
+    ) {
+        T::write(self, options)
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    fn listen(
+        &self,
+        options: crate::RequestOptions,
+    ) -> (
+        google_cloud_gax::streaming::RequestSender<crate::model::ListenRequest>,
+        google_cloud_gax::streaming::ResponseStream<crate::model::ListenResponse>,
+    ) {
+        T::listen(self, options)
     }
 
     /// Forwards the call to the implementation provided by `T`.

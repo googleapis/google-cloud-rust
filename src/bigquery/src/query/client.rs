@@ -98,12 +98,17 @@ impl BigQuery {
         if builder.config.tracing {
             job_service_builder = job_service_builder.with_tracing();
         }
-        if let Some(retry_policy) = builder.config.retry_policy {
-            job_service_builder = job_service_builder.with_retry_policy(retry_policy);
-        }
-        if let Some(backoff_policy) = builder.config.backoff_policy {
-            job_service_builder = job_service_builder.with_backoff_policy(backoff_policy);
-        }
+        let retry_policy = builder
+            .config
+            .retry_policy
+            .unwrap_or_else(crate::query::retry_policy::default_retry_policy);
+        job_service_builder = job_service_builder.with_retry_policy(retry_policy);
+
+        let backoff_policy = builder
+            .config
+            .backoff_policy
+            .unwrap_or_else(crate::query::retry_policy::default_backoff_policy);
+        job_service_builder = job_service_builder.with_backoff_policy(backoff_policy);
         job_service_builder =
             job_service_builder.with_retry_throttler(builder.config.retry_throttler);
         let job_service = Arc::new(job_service_builder.build().await?);

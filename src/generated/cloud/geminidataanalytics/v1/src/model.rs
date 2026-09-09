@@ -9531,6 +9531,13 @@ pub struct BigQueryTableReferences {
     /// Optional. References to BigQuery tables.
     pub table_references: std::vec::Vec<crate::model::BigQueryTableReference>,
 
+    /// Optional. References to BigQuery graphs.
+    ///
+    /// Note: "property graph" is the former name for BigQuery Graph. The field and
+    /// message names retain the original term for backward compatibility; both
+    /// refer to the same resource.
+    pub property_graph_references: std::vec::Vec<crate::model::BigQueryPropertyGraphReference>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -9559,6 +9566,28 @@ impl BigQueryTableReferences {
     {
         use std::iter::Iterator;
         self.table_references = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [property_graph_references][crate::model::BigQueryTableReferences::property_graph_references].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::BigQueryTableReferences;
+    /// use google_cloud_geminidataanalytics_v1::model::BigQueryPropertyGraphReference;
+    /// let x = BigQueryTableReferences::new()
+    ///     .set_property_graph_references([
+    ///         BigQueryPropertyGraphReference::default()/* use setters */,
+    ///         BigQueryPropertyGraphReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_property_graph_references<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BigQueryPropertyGraphReference>,
+    {
+        use std::iter::Iterator;
+        self.property_graph_references = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

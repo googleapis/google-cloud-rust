@@ -212,6 +212,24 @@ impl Routes {
     ///   be automatically included in the response.
     /// * Selecting only the fields that you need results in a smaller response
     ///   size, and thus higher network throughput.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_maps_routing_v2::client::Routes;
+    /// use google_maps_routing_v2::Result;
+    /// async fn sample(
+    ///    client: &Routes
+    /// ) -> Result<()> {
+    ///     let mut resp_stream = client.compute_route_matrix()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     while let Some(response) = resp_stream.next().await {
+    ///         let response = response?;
+    ///         println!("response {:?}", response);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn compute_route_matrix(&self) -> super::builder::routes::ComputeRouteMatrix {
         super::builder::routes::ComputeRouteMatrix::new(self.inner.clone())
     }

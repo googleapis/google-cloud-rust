@@ -140,4 +140,15 @@ impl Subscriber {
     pub(crate) fn acknowledge(&self) -> super::builder::subscriber::Acknowledge {
         super::builder::subscriber::Acknowledge::new(self.inner.clone())
     }
+
+    /// Establishes a stream with the server, which sends messages down to the
+    /// client. The client streams acknowledgments and ack deadline modifications
+    /// back to the server. The server will close the stream and return the status
+    /// on any error. The server may close the stream with status `UNAVAILABLE` to
+    /// reassign server-side resources, in which case, the client should
+    /// re-establish the stream. Flow control can be achieved by configuring the
+    /// underlying RPC channel.
+    pub(crate) fn streaming_pull(&self) -> super::builder::subscriber::StreamingPull {
+        super::builder::subscriber::StreamingPull::new(self.inner.clone())
+    }
 }
