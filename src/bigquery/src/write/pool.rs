@@ -12,27 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::runner::{Runner, WriteRequest};
+use super::entry::StreamEntry;
+use super::runner::Runner;
 use super::transport::Transport;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, Mutex};
-use tokio::sync::mpsc;
-
-/// An entry in the stream pool serviced by a `Runner`.
-#[derive(Clone, Debug)]
-pub(crate) struct StreamEntry {
-    /// Unique identifier for this stream connection.
-    pub(crate) id: u64,
-
-    /// Channel to send requests to the stream's background runner task.
-    pub(crate) req_tx: mpsc::UnboundedSender<WriteRequest>,
-
-    /// The number of outstanding requests on this stream.
-    pub(crate) outstanding_requests: Arc<AtomicU64>,
-
-    /// The total outstanding bytes on this stream.
-    pub(crate) outstanding_bytes: Arc<AtomicU64>,
-}
 
 /// A pool of open streams that supports multiplexing, load balancing.
 #[derive(Debug)]
@@ -147,14 +131,14 @@ impl StreamPool {
 }
 
 #[cfg(test)]
-pub(crate) mod tests {
-    use super::super::runner::tests::*;
-    use super::super::transport::tests::*;
+mod tests {
+    use super::super::runner::WriteRequest;
     use super::*;
+    use crate::write::test::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
     use test_case::test_case;
-    use tokio::sync::oneshot;
+    use tokio::sync::{mpsc, oneshot};
     use tokio::task::JoinSet;
 
     #[test_case(10, Some(100), 10_000, Some(100_000), 0.1, false)]
@@ -205,11 +189,11 @@ pub(crate) mod tests {
 
         let s1 = pool.get();
         assert_eq!(s1.id, 1);
-        assert_eq!(pool.streams.lock().unwrap().len(), 1);
+        assert_eq!(pool.stream_ids(), [1]);
 
         let s2 = pool.get();
         assert_eq!(s2.id, 1);
-        assert_eq!(pool.streams.lock().unwrap().len(), 1);
+        assert_eq!(pool.stream_ids(), [1]);
 
         // Use the stream handles to send requests on the same underlying gRPC
         // stream.
@@ -267,7 +251,7 @@ pub(crate) mod tests {
             assert_eq!(s?.id, 1);
         }
         // Verify only one stream is created total.
-        assert_eq!(pool.streams.lock().unwrap().len(), 1);
+        assert_eq!(pool.stream_ids(), [1]);
 
         Ok(())
     }
@@ -278,11 +262,7 @@ pub(crate) mod tests {
         let pool = StreamPool::new(transport, 10);
 
         // Manually seed the pool
-        for load in [8, 2, 2, 3, 1, 9] {
-            let s = pool.new_stream_entry();
-            s.outstanding_requests.store(load, Ordering::Relaxed);
-            pool.streams.lock().unwrap().push(s);
-        }
+        pool.seed([8, 2, 2, 3, 1, 9]);
 
         let s = pool.get();
         assert_eq!(s.id, 5);
@@ -305,35 +285,35 @@ pub(crate) mod tests {
 
         let s = pool.get();
         assert_eq!(s.id, 1);
-        assert_eq!(pool.streams.lock().unwrap().len(), 1);
+        assert_eq!(pool.stream_ids(), [1]);
 
         // Simulate an in-flight request on the stream. It should not be loaded
         // yet.
         s.outstanding_requests.fetch_add(1, Ordering::Relaxed);
         let s = pool.get();
         assert_eq!(s.id, 1);
-        assert_eq!(pool.streams.lock().unwrap().len(), 1);
+        assert_eq!(pool.stream_ids(), [1]);
 
         // Simulate another in-flight request on the stream. Now it should be at
         // load. We should grow the pool.
         s.outstanding_requests.fetch_add(1, Ordering::Relaxed);
         let s = pool.get();
         assert_eq!(s.id, 2);
-        assert_eq!(pool.streams.lock().unwrap().len(), 2);
+        assert_eq!(pool.stream_ids(), [1, 2]);
 
         // Simulate an in-flight request on the second stream. It should not be
         // loaded yet.
         s.outstanding_requests.fetch_add(1, Ordering::Relaxed);
         let s = pool.get();
         assert_eq!(s.id, 2);
-        assert_eq!(pool.streams.lock().unwrap().len(), 2);
+        assert_eq!(pool.stream_ids(), [1, 2]);
 
         // Simulate another in-flight request on the second stream. Now it should be at
         // load. We should grow the pool again.
         s.outstanding_requests.fetch_add(1, Ordering::Relaxed);
         let s = pool.get();
         assert_eq!(s.id, 3);
-        assert_eq!(pool.streams.lock().unwrap().len(), 3);
+        assert_eq!(pool.stream_ids(), [1, 2, 3]);
 
         Ok(())
     }
@@ -353,16 +333,13 @@ pub(crate) mod tests {
 
         // Manually seed the pool to its limit (`max_streams`). Note that all
         // streams are already at load.
-        for load in [8, 5, 3, 8, 9, 11] {
-            let s = pool.new_stream_entry();
-            s.outstanding_requests.store(load, Ordering::Relaxed);
-            pool.streams.lock().unwrap().push(s);
-        }
+        pool.seed([8, 5, 3, 8, 9, 11]);
+        assert_eq!(pool.stream_ids().len(), 6);
 
         // We should return the least loaded stream without growing the pool.
         let s = pool.get();
         assert_eq!(s.id, 3);
-        assert_eq!(pool.streams.lock().unwrap().len(), 6);
+        assert_eq!(pool.stream_ids().len(), 6);
 
         Ok(())
     }
@@ -373,11 +350,7 @@ pub(crate) mod tests {
         let pool = StreamPool::new(transport, 10);
 
         // Manually seed the pool
-        for load in [1, 2, 3, 4, 5, 6] {
-            let s = pool.new_stream_entry();
-            s.outstanding_requests.store(load, Ordering::Relaxed);
-            pool.streams.lock().unwrap().push(s);
-        }
+        pool.seed([1, 2, 3, 4, 5, 6]);
         assert_eq!(pool.stream_ids(), [1, 2, 3, 4, 5, 6]);
 
         let s = pool.evict_and_replace(3);
@@ -399,9 +372,7 @@ pub(crate) mod tests {
         let pool = Arc::new(StreamPool::new(transport, 10));
 
         // Manually seed the pool
-        let s = pool.new_stream_entry();
-        s.outstanding_requests.store(1, Ordering::Relaxed);
-        pool.streams.lock().unwrap().push(s);
+        pool.seed([1]);
 
         let mut streams = JoinSet::new();
         for _ in 0..1000 {
@@ -413,13 +384,22 @@ pub(crate) mod tests {
             assert_eq!(s?.id, 2);
         }
         // Verify the pool stays at one stream total.
-        assert_eq!(pool.streams.lock().unwrap().len(), 1);
+        assert_eq!(pool.stream_ids(), [2]);
 
         Ok(())
     }
 
-    // Returns the stream IDs in the pool, in order.
     impl StreamPool {
+        // Seed the pool with loaded streams to simplify testing.
+        fn seed(&self, loads: impl IntoIterator<Item = u64>) {
+            for load in loads.into_iter() {
+                let s = self.new_stream_entry();
+                s.outstanding_requests.store(load, Ordering::Relaxed);
+                self.streams.lock().unwrap().push(s);
+            }
+        }
+
+        // Returns the stream IDs in the pool, in order.
         fn stream_ids(&self) -> Vec<u64> {
             let mut ids: Vec<_> = self.streams.lock().unwrap().iter().map(|s| s.id).collect();
             ids.sort();

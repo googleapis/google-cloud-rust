@@ -144,12 +144,9 @@ fn process_gax_response(
 }
 
 #[cfg(test)]
-pub(crate) mod tests {
-    use super::super::transport::tests::*;
+mod tests {
     use super::*;
-    use crate::google::cloud::bigquery::storage::v1::append_rows_response::{
-        AppendResult, Response,
-    };
+    use crate::write::test::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
     use google_cloud_gax::error::rpc::Code;
@@ -470,23 +467,5 @@ pub(crate) mod tests {
         handle.await?;
 
         Ok(())
-    }
-
-    pub(crate) fn test_request(index: i64) -> AppendRowsRequest {
-        AppendRowsRequest {
-            write_stream: "projects/p/datasets/d/tables/t/streams/s".to_string(),
-            offset: Some(index),
-            ..Default::default()
-        }
-    }
-
-    pub(crate) fn test_response(index: i64) -> AppendRowsResponse {
-        AppendRowsResponse {
-            response: Some(Response::AppendResult(AppendResult {
-                offset: Some(index),
-            })),
-            write_stream: "projects/p/datasets/d/tables/t/streams/s".to_string(),
-            ..Default::default()
-        }
     }
 }

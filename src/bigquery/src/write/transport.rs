@@ -68,30 +68,13 @@ impl Transport {
 }
 
 #[cfg(test)]
-pub(super) mod tests {
+mod tests {
     use super::*;
     use crate::google::cloud::bigquery::storage::v1::append_rows_response::{
         AppendResult, Response,
     };
-    use bigquery_grpc_mock::google::cloud::bigquery::storage::v1;
+    use crate::write::test::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
-    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
-
-    pub(crate) async fn test_transport<T: Into<String>>(endpoint: T) -> anyhow::Result<Transport> {
-        let mut config = gaxi::options::ClientConfig::default();
-        config.cred = Some(Anonymous::new().build());
-        config.endpoint = Some(endpoint.into());
-        Ok(Transport::new(config).await?)
-    }
-
-    // Both crates have their own copies of the protos. We can just serialize
-    // then deserialize to convert between the two, as performance is not a
-    // concern for these unit tests.
-    pub(crate) fn convert(pb: &AppendRowsResponse) -> v1::AppendRowsResponse {
-        use prost::Message;
-        let v = pb.encode_to_vec();
-        v1::AppendRowsResponse::decode(v.as_slice()).expect("encoding is always valid.")
-    }
 
     #[tokio::test]
     async fn append_rows() -> anyhow::Result<()> {

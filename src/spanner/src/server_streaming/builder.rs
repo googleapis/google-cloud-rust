@@ -25,6 +25,7 @@ use crate::server_streaming::stream::CacheUpdateStream;
 use crate::server_streaming::stream::PartialResultSetStream;
 use crate::server_streaming::stream::SpannerServerStream;
 use crate::server_streaming::stream::StreamLifetimeGuard;
+use crate::server_streaming::stream::TransactionIdCallback;
 use gaxi::grpc::tonic::Extensions;
 use gaxi::grpc::tonic::GrpcMethod;
 use gaxi::prost::ToProto;
@@ -32,12 +33,13 @@ use prost::Message;
 use std::sync::LazyLock;
 
 /// The request builder for [SpannerImpl::execute_streaming_sql][crate::client::SpannerImpl::execute_streaming_sql] calls.
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub(crate) struct ExecuteStreamingSql {
     grpc_client: gaxi::grpc::Client,
     request: ExecuteSqlRequest,
     options: RequestOptions,
     lifetime_guard: Option<StreamLifetimeGuard>,
+    on_first_transaction_id: Option<TransactionIdCallback>,
 }
 
 impl ExecuteStreamingSql {
@@ -47,6 +49,7 @@ impl ExecuteStreamingSql {
             request: ExecuteSqlRequest::default(),
             options: RequestOptions::default(),
             lifetime_guard: None,
+            on_first_transaction_id: None,
         }
     }
 
@@ -69,6 +72,15 @@ impl ExecuteStreamingSql {
         self
     }
 
+    /// Attaches a callback to invoke when the first non-empty transaction ID arrives in the stream.
+    pub(crate) fn with_transaction_id_callback<C: Into<Option<TransactionIdCallback>>>(
+        mut self,
+        callback: C,
+    ) -> Self {
+        self.on_first_transaction_id = callback.into();
+        self
+    }
+
     /// Returns a reference to the request options.
     #[allow(dead_code)]
     pub(crate) fn options(&self) -> &RequestOptions {
@@ -79,7 +91,7 @@ impl ExecuteStreamingSql {
     pub(crate) async fn send(self) -> Result<PartialResultSetStream> {
         let request_params = format!("session={}", self.request.session);
         let request = self.request.to_proto().map_err(Error::deser)?;
-        make_server_streaming_request(
+        let stream = make_server_streaming_request(
             &self.grpc_client,
             request,
             self.options,
@@ -88,7 +100,8 @@ impl ExecuteStreamingSql {
             &request_params,
             self.lifetime_guard,
         )
-        .await
+        .await?;
+        Ok(stream.with_transaction_id_callback(self.on_first_transaction_id))
     }
 }
 
@@ -99,12 +112,13 @@ impl RequestBuilder for ExecuteStreamingSql {
 }
 
 /// The request builder for [SpannerImpl::streaming_read][crate::client::SpannerImpl::streaming_read] calls.
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub(crate) struct StreamingRead {
     grpc_client: gaxi::grpc::Client,
     request: ReadRequest,
     options: RequestOptions,
     lifetime_guard: Option<StreamLifetimeGuard>,
+    on_first_transaction_id: Option<TransactionIdCallback>,
 }
 
 impl StreamingRead {
@@ -114,6 +128,7 @@ impl StreamingRead {
             request: ReadRequest::default(),
             options: RequestOptions::default(),
             lifetime_guard: None,
+            on_first_transaction_id: None,
         }
     }
 
@@ -136,6 +151,15 @@ impl StreamingRead {
         self
     }
 
+    /// Attaches a callback to invoke when the first non-empty transaction ID arrives in the stream.
+    pub(crate) fn with_transaction_id_callback<C: Into<Option<TransactionIdCallback>>>(
+        mut self,
+        callback: C,
+    ) -> Self {
+        self.on_first_transaction_id = callback.into();
+        self
+    }
+
     /// Returns a reference to the request options.
     #[allow(dead_code)]
     pub(crate) fn options(&self) -> &RequestOptions {
@@ -146,7 +170,7 @@ impl StreamingRead {
     pub(crate) async fn send(self) -> Result<PartialResultSetStream> {
         let request_params = format!("session={}", self.request.session);
         let request = self.request.to_proto().map_err(Error::deser)?;
-        make_server_streaming_request(
+        let stream = make_server_streaming_request(
             &self.grpc_client,
             request,
             self.options,
@@ -155,7 +179,8 @@ impl StreamingRead {
             &request_params,
             self.lifetime_guard,
         )
-        .await
+        .await?;
+        Ok(stream.with_transaction_id_callback(self.on_first_transaction_id))
     }
 }
 
@@ -360,8 +385,8 @@ mod tests {
 
     #[test]
     fn traits() {
-        static_assertions::assert_impl_all!(ExecuteStreamingSql: Clone, Debug, Send, Sync);
-        static_assertions::assert_impl_all!(StreamingRead: Clone, Debug, Send, Sync);
+        static_assertions::assert_impl_all!(ExecuteStreamingSql: Debug, Send, Sync);
+        static_assertions::assert_impl_all!(StreamingRead: Debug, Send, Sync);
         static_assertions::assert_impl_all!(BatchWrite: Clone, Debug, Send, Sync);
         static_assertions::assert_impl_all!(FetchCacheUpdate: Clone, Debug, Send, Sync);
     }

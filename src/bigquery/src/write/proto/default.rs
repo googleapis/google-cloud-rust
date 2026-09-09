@@ -16,23 +16,23 @@ use super::super::builder::Append;
 use super::super::entry::StreamEntry;
 use super::super::runner::Runner;
 use super::super::transport::Transport;
-use crate::model::append_rows_request::ArrowData;
-use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema};
+use crate::model::append_rows_request::ProtoData;
+use crate::model::{AppendRowsRequest, ProtoRows, ProtoSchema};
 use std::sync::Arc;
 use std::sync::atomic::AtomicU64;
 
-/// A writer for the [default stream]
+/// A writer for the [default stream] using Protobuf as the data format.
 ///
 /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
 #[derive(Debug)]
 pub struct DefaultWriter {
     entry: Arc<StreamEntry>,
     pub(crate) write_stream: String,
-    pub(crate) schema: ArrowSchema,
+    pub(crate) schema: ProtoSchema,
 }
 
 impl DefaultWriter {
-    pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
+    pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ProtoSchema) -> Self {
         let runner = Runner::new(inner);
         let entry = Arc::new(StreamEntry {
             id: 0,
@@ -48,12 +48,12 @@ impl DefaultWriter {
     }
 
     /// Append rows to the stream.
-    pub fn append(&self, rows: ArrowRecordBatch) -> Append {
+    pub fn append(&self, rows: ProtoRows) -> Append {
         // TODO(#5744) - send optimization
         let req = AppendRowsRequest::new()
             .set_write_stream(&self.write_stream)
-            .set_arrow_rows(
-                ArrowData::new()
+            .set_proto_rows(
+                ProtoData::new()
                     .set_writer_schema(self.schema.clone())
                     .set_rows(rows),
             );
@@ -73,23 +73,23 @@ mod tests {
     #[tokio::test]
     async fn request_fields() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let writer = DefaultWriter::new(transport, write_stream(), schema());
+        let writer = DefaultWriter::new(transport, write_stream(), proto_schema());
 
         let b = writer.append(rows(1));
         assert_eq!(b.req.write_stream, write_stream());
-        let data = b.req.arrow_rows().expect("arrow rows should be set");
+        let data = b.req.proto_rows().expect("proto rows should be set");
         let s = data.writer_schema.as_ref().expect("schema should be set");
-        assert_eq!(s.serialized_schema, "test");
+        assert_eq!(s.proto_descriptor.as_ref().unwrap().name, "TestMessage");
         let r = data.rows.as_ref().expect("rows should be set");
-        assert_eq!(r.serialized_record_batch, "1");
+        assert_eq!(r.serialized_rows, vec![bytes::Bytes::from("1")]);
 
         let b = writer.append(rows(2));
         assert_eq!(b.req.write_stream, write_stream());
-        let data = b.req.arrow_rows().expect("arrow rows should be set");
+        let data = b.req.proto_rows().expect("proto rows should be set");
         let s = data.writer_schema.as_ref().expect("schema should be set");
-        assert_eq!(s.serialized_schema, "test");
+        assert_eq!(s.proto_descriptor.as_ref().unwrap().name, "TestMessage");
         let r = data.rows.as_ref().expect("rows should be set");
-        assert_eq!(r.serialized_record_batch, "2");
+        assert_eq!(r.serialized_rows, vec![bytes::Bytes::from("2")]);
 
         Ok(())
     }
@@ -104,7 +104,7 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
 
-        let writer = DefaultWriter::new(transport, write_stream(), schema());
+        let writer = DefaultWriter::new(transport, write_stream(), proto_schema());
 
         response_tx.send(Ok(convert(&test_response(1)))).await?;
         let resp = writer.append(rows(1)).send().await?;
@@ -125,7 +125,7 @@ mod tests {
         Ok(())
     }
 
-    fn rows(id: i64) -> ArrowRecordBatch {
-        ArrowRecordBatch::new().set_serialized_record_batch(id.to_string())
+    fn rows(id: i64) -> ProtoRows {
+        ProtoRows::new().set_serialized_rows(vec![bytes::Bytes::from(id.to_string())])
     }
 }
