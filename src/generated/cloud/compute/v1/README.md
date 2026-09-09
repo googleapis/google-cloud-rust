@@ -4,7 +4,7 @@
 
 Compute Engine is an infrastructure as a service (IaaS) product that offers self-managed virtual machine (VM) instances and bare metal instances.
 
-This client library was generated from the "20260821" revision of the API.
+This client library was generated from the "20260828" revision of the API.
 
 The client library types and functions are stable and not expected to change.
 Please note that Google Cloud services do change from time to time. The client
@@ -73,6 +73,7 @@ The main types to work with this crate are the clients:
 - [OrganizationSecurityPolicies]: enabled by the `organization-security-policies` feature.
 - [PacketMirrorings]: enabled by the `packet-mirrorings` feature.
 - [PreviewFeatures]: enabled by the `preview-features` feature.
+- [ProjectViews]: enabled by the `project-views` feature.
 - [Projects]: enabled by the `projects` feature.
 - [PublicAdvertisedPrefixes]: enabled by the `public-advertised-prefixes` feature.
 - [PublicDelegatedPrefixes]: enabled by the `public-delegated-prefixes` feature.
@@ -217,6 +218,7 @@ The main types to work with this crate are the clients:
 [OrganizationSecurityPolicies]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.OrganizationSecurityPolicies.html
 [PacketMirrorings]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.PacketMirrorings.html
 [PreviewFeatures]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.PreviewFeatures.html
+[ProjectViews]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.ProjectViews.html
 [Projects]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.Projects.html
 [PublicAdvertisedPrefixes]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.PublicAdvertisedPrefixes.html
 [PublicDelegatedPrefixes]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.PublicDelegatedPrefixes.html
