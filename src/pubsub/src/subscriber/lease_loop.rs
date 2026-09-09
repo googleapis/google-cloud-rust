@@ -146,10 +146,8 @@ async fn shutdown<L>(mut state: LeaseState<L>, mut ack_rx: UnboundedReceiver<Act
 where
     L: Leaser + Clone + Send + 'static,
 {
-    while let Ok(r) = ack_rx.try_recv() {
-        if let Action::Ack(ack_id) = r {
-            state.process(Action::Ack(ack_id));
-        }
+    while let Ok(a) = ack_rx.try_recv() {
+        state.process(a);
     }
     state.shutdown().await;
 }

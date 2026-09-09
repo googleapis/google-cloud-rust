@@ -22,6 +22,7 @@ where
     T: super::stub::Spanner + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[allow(dead_code)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -125,6 +126,14 @@ where
         pending.await
     }
 
+    async fn execute_streaming_sql(
+        &self,
+        req: crate::model::ExecuteSqlRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::PartialResultSet>> {
+        self.inner.execute_streaming_sql(req, options).await
+    }
+
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn execute_batch_dml(
         &self,
@@ -151,6 +160,14 @@ where
             method: "client::Spanner::read",
             self.inner.read(req, options));
         pending.await
+    }
+
+    async fn streaming_read(
+        &self,
+        req: crate::model::ReadRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::PartialResultSet>> {
+        self.inner.streaming_read(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -221,6 +238,22 @@ where
             method: "client::Spanner::partition_read",
             self.inner.partition_read(req, options));
         pending.await
+    }
+
+    async fn batch_write(
+        &self,
+        req: crate::model::BatchWriteRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::BatchWriteResponse>> {
+        self.inner.batch_write(req, options).await
+    }
+
+    async fn fetch_cache_update(
+        &self,
+        req: crate::model::FetchCacheUpdateRequest,
+        options: crate::RequestOptions,
+    ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::CacheUpdate>> {
+        self.inner.fetch_cache_update(req, options).await
     }
 }
 

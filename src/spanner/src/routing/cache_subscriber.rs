@@ -588,8 +588,10 @@ mod tests {
 
     fn sample_cache_updater() -> Arc<CacheUpdater> {
         let channel = Channel::new_for_test(DummyStub);
-        let default_connection =
-            ServerConnection::new("default.spanner.googleapis.com:443".to_string(), channel);
+        let default_connection = ServerConnection::new_default(
+            "default.spanner.googleapis.com:443".to_string(),
+            channel,
+        );
         let connection_cache = Arc::new(ConnectionCache::new(default_connection));
         let key_range_cache = Arc::new(KeyRangeCache::new());
         let key_recipe_cache = Arc::new(KeyRecipeCache::new());
