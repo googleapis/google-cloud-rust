@@ -16,6 +16,8 @@
 ///
 /// [arrow]: https://arrow.apache.org/
 pub mod arrow;
+#[allow(dead_code)]
+pub(crate) mod proto;
 
 pub use append_future::AppendFuture;
 
@@ -33,6 +35,7 @@ mod proto_schema;
 mod runner;
 mod stream;
 mod transport;
+mod validate;
 
 // TODO(#4832) - remove handwritten code.
 mod status;

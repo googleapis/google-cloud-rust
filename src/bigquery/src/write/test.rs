@@ -19,7 +19,7 @@ use super::runner::WriteRequest;
 use super::transport::Transport;
 use crate::google::cloud::bigquery::storage::v1::append_rows_response::{AppendResult, Response};
 use crate::google::cloud::bigquery::storage::v1::{AppendRowsRequest, AppendRowsResponse};
-use crate::model::ArrowSchema;
+use crate::model::{ArrowSchema, ProtoSchema};
 use bigquery_grpc_mock::google::cloud::bigquery::storage::v1;
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use std::sync::Arc;
@@ -32,6 +32,11 @@ pub(super) fn write_stream() -> String {
 
 pub(super) fn schema() -> ArrowSchema {
     ArrowSchema::new().set_serialized_schema("test")
+}
+
+pub(super) fn proto_schema() -> ProtoSchema {
+    let descriptor = wkt::DescriptorProto::default().set_name("TestMessage".to_string());
+    ProtoSchema::new().set_proto_descriptor(descriptor)
 }
 
 pub(super) async fn test_transport<T: Into<String>>(endpoint: T) -> anyhow::Result<Transport> {
