@@ -67,7 +67,7 @@ pub struct Interval {
 }
 
 impl FromSql for Interval {
-    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+    fn from_value(value: wkt::Value) -> Result<Self, ConvertError> {
         match value {
             wkt::Value::String(s) => {
                 let mut parts = s.split_whitespace();
@@ -210,7 +210,7 @@ pub struct Range<T> {
 }
 
 impl<T: FromSql> FromSql for Range<T> {
-    fn from_sql(value: wkt::Value) -> Result<Self, ConvertError> {
+    fn from_value(value: wkt::Value) -> Result<Self, ConvertError> {
         match value {
             wkt::Value::String(s) => {
                 let trimmed = s.trim();
@@ -242,13 +242,13 @@ impl<T: FromSql> FromSql for Range<T> {
                 let start = if start_str.is_empty() || start_str == "UNBOUNDED" {
                     None
                 } else {
-                    Some(T::from_sql(wkt::Value::String(start_str.to_string()))?)
+                    Some(T::from_value(wkt::Value::String(start_str.to_string()))?)
                 };
 
                 let end = if end_str.is_empty() || end_str == "UNBOUNDED" {
                     None
                 } else {
-                    Some(T::from_sql(wkt::Value::String(end_str.to_string()))?)
+                    Some(T::from_value(wkt::Value::String(end_str.to_string()))?)
                 };
 
                 Ok(Range { start, end })
@@ -306,7 +306,7 @@ mod tests {
     #[test_case(wkt::Value::String("1-2 3 4:05:06:07".to_string()) => Err(TestConvertError::Convert("invalid interval time format".to_string())) ; "too many time parts")]
     #[test_case(wkt::Value::String("1-2 3 4:05:06.x".to_string()) => Err(TestConvertError::Convert("invalid digit found in string".to_string())) ; "invalid subsecond")]
     fn test_from_sql_interval(value: wkt::Value) -> Result<Interval, TestConvertError> {
-        FromSql::from_sql(value).map_err(TestConvertError::from)
+        FromSql::from_value(value).map_err(TestConvertError::from)
     }
 
     #[test_case(wkt::Value::String("[2026-05-28, 2026-05-29)".to_string()) => Ok(Range { start: Some(google_cloud_type::model::Date::new().set_year(2026).set_month(5).set_day(28)), end: Some(google_cloud_type::model::Date::new().set_year(2026).set_month(5).set_day(29)) }) ; "date range bounded")]
@@ -324,6 +324,6 @@ mod tests {
     fn test_from_sql_range(
         value: wkt::Value,
     ) -> Result<Range<google_cloud_type::model::Date>, TestConvertError> {
-        FromSql::from_sql(value).map_err(TestConvertError::from)
+        FromSql::from_value(value).map_err(TestConvertError::from)
     }
 }
