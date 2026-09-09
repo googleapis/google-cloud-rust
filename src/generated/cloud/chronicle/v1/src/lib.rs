@@ -34,7 +34,6 @@
 //! * [DataTableService](client/struct.DataTableService.html)
 //! * [EntityService](client/struct.EntityService.html)
 //! * [FeaturedContentNativeDashboardService](client/struct.FeaturedContentNativeDashboardService.html)
-//! * [FeedsService](client/struct.FeedsService.html)
 //! * [FindingsRefinementService](client/struct.FindingsRefinementService.html)
 //! * [InstanceService](client/struct.InstanceService.html)
 //! * [NativeDashboardService](client/struct.NativeDashboardService.html)

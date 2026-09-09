@@ -50,7 +50,6 @@ impl serde::ser::Serialize for super::AWSV4Signature {
 }
 
 #[cfg(any(
-    feature = "advice",
     feature = "future-reservations",
     feature = "instance-templates",
     feature = "instances",
@@ -6210,551 +6209,6 @@ impl serde::ser::Serialize for super::CalendarModeRecommendation {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.recommendations_per_spec.is_empty() {
             state.serialize_entry("recommendationsPerSpec", &self.recommendations_per_spec)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "advice")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::CapacityAdviceRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.distribution_policy.is_some() {
-            state.serialize_entry("distributionPolicy", &self.distribution_policy)?;
-        }
-        if self.instance_flexibility_policy.is_some() {
-            state.serialize_entry(
-                "instanceFlexibilityPolicy",
-                &self.instance_flexibility_policy,
-            )?;
-        }
-        if self.instance_properties.is_some() {
-            state.serialize_entry("instanceProperties", &self.instance_properties)?;
-        }
-        if self.size.is_some() {
-            struct __With<'a>(&'a std::option::Option<i32>);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
-                        self.0, serializer,
-                    )
-                }
-            }
-            state.serialize_entry("size", &__With(&self.size))?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "advice")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::CapacityAdviceRequestDistributionPolicy {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.target_shape.is_some() {
-            state.serialize_entry("targetShape", &self.target_shape)?;
-        }
-        if !self.zones.is_empty() {
-            state.serialize_entry("zones", &self.zones)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "advice")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::CapacityAdviceRequestDistributionPolicyZoneConfiguration {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.zone.is_some() {
-            state.serialize_entry("zone", &self.zone)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "advice")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::CapacityAdviceRequestInstanceFlexibilityPolicy {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.instance_selections.is_empty() {
-            state.serialize_entry("instanceSelections", &self.instance_selections)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "advice")]
-#[doc(hidden)]
-impl serde::ser::Serialize
-    for super::CapacityAdviceRequestInstanceFlexibilityPolicyInstanceSelection
-{
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.disks.is_empty() {
-            state.serialize_entry("disks", &self.disks)?;
-        }
-        if !self.guest_accelerators.is_empty() {
-            state.serialize_entry("guestAccelerators", &self.guest_accelerators)?;
-        }
-        if !self.machine_types.is_empty() {
-            state.serialize_entry("machineTypes", &self.machine_types)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "advice")]
-#[doc(hidden)]
-impl serde::ser::Serialize
-    for super::CapacityAdviceRequestInstanceFlexibilityPolicyInstanceSelectionAttachedDisk
-{
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.r#type.is_some() {
-            state.serialize_entry("type", &self.r#type)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "advice")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::CapacityAdviceRequestInstanceProperties {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.scheduling.is_some() {
-            state.serialize_entry("scheduling", &self.scheduling)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "advice")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::CapacityAdviceRequestInstancePropertiesScheduling {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.provisioning_model.is_some() {
-            state.serialize_entry("provisioningModel", &self.provisioning_model)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "advice")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::CapacityAdviceResponse {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.recommendations.is_empty() {
-            state.serialize_entry("recommendations", &self.recommendations)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "advice")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::CapacityAdviceResponseRecommendation {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.scores.is_some() {
-            state.serialize_entry("scores", &self.scores)?;
-        }
-        if !self.shards.is_empty() {
-            state.serialize_entry("shards", &self.shards)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "advice")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::CapacityAdviceResponseRecommendationScores {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.estimated_uptime.is_some() {
-            state.serialize_entry("estimatedUptime", &self.estimated_uptime)?;
-        }
-        if self.obtainability.is_some() {
-            struct __With<'a>(&'a std::option::Option<f64>);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<std::option::Option<wkt::internal::F64>>::serialize(
-                        self.0, serializer,
-                    )
-                }
-            }
-            state.serialize_entry("obtainability", &__With(&self.obtainability))?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "advice")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::CapacityAdviceResponseRecommendationShard {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.instance_count.is_some() {
-            struct __With<'a>(&'a std::option::Option<i32>);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
-                        self.0, serializer,
-                    )
-                }
-            }
-            state.serialize_entry("instanceCount", &__With(&self.instance_count))?;
-        }
-        if self.machine_type.is_some() {
-            state.serialize_entry("machineType", &self.machine_type)?;
-        }
-        if self.provisioning_model.is_some() {
-            state.serialize_entry("provisioningModel", &self.provisioning_model)?;
-        }
-        if self.zone.is_some() {
-            state.serialize_entry("zone", &self.zone)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "advice")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::CapacityHistoryRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.instance_properties.is_some() {
-            state.serialize_entry("instanceProperties", &self.instance_properties)?;
-        }
-        if self.location_policy.is_some() {
-            state.serialize_entry("locationPolicy", &self.location_policy)?;
-        }
-        if !self.types.is_empty() {
-            state.serialize_entry("types", &self.types)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "advice")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::CapacityHistoryRequestInstanceProperties {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.machine_type.is_some() {
-            state.serialize_entry("machineType", &self.machine_type)?;
-        }
-        if self.scheduling.is_some() {
-            state.serialize_entry("scheduling", &self.scheduling)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "advice")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::CapacityHistoryRequestInstancePropertiesScheduling {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.provisioning_model.is_some() {
-            state.serialize_entry("provisioningModel", &self.provisioning_model)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "advice")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::CapacityHistoryRequestLocationPolicy {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.location.is_some() {
-            state.serialize_entry("location", &self.location)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "advice")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::CapacityHistoryResponse {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.location.is_some() {
-            state.serialize_entry("location", &self.location)?;
-        }
-        if self.machine_type.is_some() {
-            state.serialize_entry("machineType", &self.machine_type)?;
-        }
-        if !self.preemption_history.is_empty() {
-            state.serialize_entry("preemptionHistory", &self.preemption_history)?;
-        }
-        if !self.price_history.is_empty() {
-            state.serialize_entry("priceHistory", &self.price_history)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "advice")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::CapacityHistoryResponsePreemptionRecord {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.interval.is_some() {
-            state.serialize_entry("interval", &self.interval)?;
-        }
-        if self.preemption_rate.is_some() {
-            struct __With<'a>(&'a std::option::Option<f64>);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<std::option::Option<wkt::internal::F64>>::serialize(
-                        self.0, serializer,
-                    )
-                }
-            }
-            state.serialize_entry("preemptionRate", &__With(&self.preemption_rate))?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "advice")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::CapacityHistoryResponsePriceRecord {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.interval.is_some() {
-            state.serialize_entry("interval", &self.interval)?;
-        }
-        if self.list_price.is_some() {
-            state.serialize_entry("listPrice", &self.list_price)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -22551,9 +22005,6 @@ impl serde::ser::Serialize for super::InstancePropertiesPatch {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.expose_host_topology.is_some() {
-            state.serialize_entry("exposeHostTopology", &self.expose_host_topology)?;
-        }
         if !self.labels.is_empty() {
             state.serialize_entry("labels", &self.labels)?;
         }
@@ -27746,32 +27197,6 @@ impl serde::ser::Serialize for super::InterconnectsGetMacsecConfigResponse {
     }
 }
 
-#[cfg(feature = "advice")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::Interval {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.end_time.is_some() {
-            state.serialize_entry("endTime", &self.end_time)?;
-        }
-        if self.start_time.is_some() {
-            state.serialize_entry("startTime", &self.start_time)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
 #[cfg(feature = "licenses")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::License {
@@ -29665,7 +29090,6 @@ impl serde::ser::Serialize for super::ManagedInstanceVersion {
     feature = "instance-templates",
     feature = "instances",
     feature = "machine-images",
-    feature = "project-views",
     feature = "projects",
     feature = "region-instance-templates",
     feature = "region-instances",
@@ -29715,7 +29139,6 @@ impl serde::ser::Serialize for super::Metadata {
     feature = "instance-templates",
     feature = "instances",
     feature = "machine-images",
-    feature = "project-views",
     feature = "projects",
     feature = "region-instance-templates",
     feature = "region-instances",
@@ -29797,57 +29220,6 @@ impl serde::ser::Serialize for super::MetadataFilterLabelMatch {
         }
         if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "advice")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::Money {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.currency_code.is_some() {
-            state.serialize_entry("currencyCode", &self.currency_code)?;
-        }
-        if self.nanos.is_some() {
-            struct __With<'a>(&'a std::option::Option<i32>);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
-                        self.0, serializer,
-                    )
-                }
-            }
-            state.serialize_entry("nanos", &__With(&self.nanos))?;
-        }
-        if self.units.is_some() {
-            struct __With<'a>(&'a std::option::Option<i64>);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
-                        self.0, serializer,
-                    )
-                }
-            }
-            state.serialize_entry("units", &__With(&self.units))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -37428,7 +36800,7 @@ impl serde::ser::Serialize for super::PreviewFeatureStatusReleaseStatus {
     }
 }
 
-#[cfg(any(feature = "project-views", feature = "projects",))]
+#[cfg(feature = "projects")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Project {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -37494,29 +36866,6 @@ impl serde::ser::Serialize for super::Project {
         }
         if self.xpn_project_status.is_some() {
             state.serialize_entry("xpnProjectStatus", &self.xpn_project_status)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "project-views")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::ProjectView {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.project.is_some() {
-            state.serialize_entry("project", &self.project)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -38361,7 +37710,7 @@ impl serde::ser::Serialize for super::public_delegated_prefixes_scoped_list::war
     }
 }
 
-#[cfg(any(feature = "project-views", feature = "projects", feature = "regions",))]
+#[cfg(any(feature = "projects", feature = "regions",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Quota {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -46927,9 +46276,6 @@ impl serde::ser::Serialize for super::Scheduling {
                 }
             }
             state.serialize_entry("availabilityDomain", &__With(&self.availability_domain))?;
-        }
-        if self.expose_host_topology.is_some() {
-            state.serialize_entry("exposeHostTopology", &self.expose_host_topology)?;
         }
         if self.graceful_shutdown.is_some() {
             state.serialize_entry("gracefulShutdown", &self.graceful_shutdown)?;
@@ -57886,7 +57232,7 @@ impl serde::ser::Serialize for super::usable_subnetworks_aggregated_list::warnin
     }
 }
 
-#[cfg(any(feature = "project-views", feature = "projects",))]
+#[cfg(feature = "projects")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::UsageExportLocation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>

@@ -239,28 +239,6 @@ pub trait Advice: std::fmt::Debug + Send + Sync {
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
-
-    /// Implements [super::client::Advice::capacity].
-    fn capacity(
-        &self,
-        _req: crate::model::advice::CapacityRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::CapacityAdviceResponse>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::Advice::capacity_history].
-    fn capacity_history(
-        &self,
-        _req: crate::model::advice::CapacityHistoryRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::CapacityHistoryResponse>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
 }
 
 /// Defines the trait used to implement [super::client::Autoscalers].
@@ -7983,31 +7961,6 @@ pub trait PreviewFeatures: std::fmt::Debug + Send + Sync {
         _options: &crate::RequestOptions,
     ) -> google_cloud_lro::PollerOptions {
         google_cloud_lro::PollerOptions::default()
-    }
-}
-
-/// Defines the trait used to implement [super::client::ProjectViews].
-///
-/// Application developers may need to implement this trait to mock
-/// `client::ProjectViews`.  In other use-cases, application developers only
-/// use `client::ProjectViews` and need not be concerned with this trait or
-/// its implementations.
-///
-/// Services gain new RPCs routinely. Consequently, this trait gains new methods
-/// too. To avoid breaking applications the trait provides a default
-/// implementation of each method. Most of these implementations just return an
-/// error.
-#[cfg(feature = "project-views")]
-#[cfg_attr(docsrs, doc(cfg(feature = "project-views")))]
-pub trait ProjectViews: std::fmt::Debug + Send + Sync {
-    /// Implements [super::client::ProjectViews::get].
-    fn get(
-        &self,
-        _req: crate::model::project_views::GetRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::ProjectView>>>
-    + Send {
-        gaxi::unimplemented::unimplemented_stub()
     }
 }
 

@@ -150,8 +150,6 @@ organization-security-policies = ["__enable-discovery-LRO"]
 packet-mirrorings = ["__enable-discovery-LRO"]
 # Enables `client::PreviewFeatures` and all the types it depends on.
 preview-features = ["__enable-discovery-LRO"]
-# Enables `client::ProjectViews` and all the types it depends on.
-project-views = []
 # Enables `client::Projects` and all the types it depends on.
 projects = ["__enable-discovery-LRO"]
 # Enables `client::PublicAdvertisedPrefixes` and all the types it depends on.

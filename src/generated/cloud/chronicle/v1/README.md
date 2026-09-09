@@ -23,7 +23,6 @@ The main types to work with this crate are the clients:
 - [DataTableService]
 - [EntityService]
 - [FeaturedContentNativeDashboardService]
-- [FeedsService]
 - [FindingsRefinementService]
 - [InstanceService]
 - [NativeDashboardService]
@@ -52,7 +51,6 @@ The main types to work with this crate are the clients:
 [DataTableService]: https://docs.rs/google-cloud-chronicle-v1/1.14.0/google_cloud_chronicle_v1/client/struct.DataTableService.html
 [EntityService]: https://docs.rs/google-cloud-chronicle-v1/1.14.0/google_cloud_chronicle_v1/client/struct.EntityService.html
 [FeaturedContentNativeDashboardService]: https://docs.rs/google-cloud-chronicle-v1/1.14.0/google_cloud_chronicle_v1/client/struct.FeaturedContentNativeDashboardService.html
-[FeedsService]: https://docs.rs/google-cloud-chronicle-v1/1.14.0/google_cloud_chronicle_v1/client/struct.FeedsService.html
 [FindingsRefinementService]: https://docs.rs/google-cloud-chronicle-v1/1.14.0/google_cloud_chronicle_v1/client/struct.FindingsRefinementService.html
 [InstanceService]: https://docs.rs/google-cloud-chronicle-v1/1.14.0/google_cloud_chronicle_v1/client/struct.InstanceService.html
 [NativeDashboardService]: https://docs.rs/google-cloud-chronicle-v1/1.14.0/google_cloud_chronicle_v1/client/struct.NativeDashboardService.html
