@@ -30,6 +30,7 @@ pub(crate) mod transport;
 #[allow(dead_code)]
 mod worker;
 
+use crate::GrpcClient;
 use crate::google::storage::v2::{BidiWriteObjectRequest, BidiWriteObjectResponse};
 use crate::request_options::RequestOptions;
 use gaxi::grpc::tonic::{Extensions, Response as TonicResponse, Result as TonicResult};
@@ -45,12 +46,8 @@ use tokio::sync::mpsc::Receiver;
 pub(crate) const MAX_WRITE_CHUNK_SIZE: usize = 2 * 1024 * 1024;
 
 #[cfg(google_cloud_unstable_grpc_rust)]
-pub(crate) type GrpcClient = gaxi::grpc::GrpcRustClient;
-#[cfg(google_cloud_unstable_grpc_rust)]
 pub(crate) type GrpcStream = gaxi::grpc::GrpcRustStreaming<BidiWriteObjectResponse>;
 
-#[cfg(not(google_cloud_unstable_grpc_rust))]
-pub(crate) type GrpcClient = gaxi::grpc::Client;
 #[cfg(not(google_cloud_unstable_grpc_rust))]
 pub(crate) type GrpcStream = gaxi::grpc::tonic::Streaming<BidiWriteObjectResponse>;
 
