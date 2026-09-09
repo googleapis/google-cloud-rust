@@ -76,6 +76,67 @@ pub trait SpacesService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
+
+    /// Implements [super::client::SpacesService::create_member].
+    fn create_member(
+        &self,
+        _req: crate::model::CreateMemberRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Member>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SpacesService::get_member].
+    fn get_member(
+        &self,
+        _req: crate::model::GetMemberRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Member>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SpacesService::list_members].
+    fn list_members(
+        &self,
+        _req: crate::model::ListMembersRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListMembersResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SpacesService::delete_member].
+    fn delete_member(
+        &self,
+        _req: crate::model::DeleteMemberRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SpacesService::update_member].
+    fn update_member(
+        &self,
+        _req: crate::model::UpdateMemberRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Member>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SpacesService::batch_update_members].
+    fn batch_update_members(
+        &self,
+        _req: crate::model::BatchUpdateMembersRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::BatchUpdateMembersResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
 }
 
 /// Defines the trait used to implement [super::client::ConferenceRecordsService].
@@ -215,6 +276,27 @@ pub trait ConferenceRecordsService: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::ListTranscriptEntriesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ConferenceRecordsService::get_smart_note].
+    fn get_smart_note(
+        &self,
+        _req: crate::model::GetSmartNoteRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::SmartNote>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ConferenceRecordsService::list_smart_notes].
+    fn list_smart_notes(
+        &self,
+        _req: crate::model::ListSmartNotesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListSmartNotesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
