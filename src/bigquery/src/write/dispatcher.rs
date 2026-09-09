@@ -51,7 +51,7 @@ impl Dispatcher {
     ///
     /// Evicts and updates its cached stream on transient errors.
     pub(crate) async fn send(&self, req: AppendRowsRequest) -> AppendResult<AppendResponse> {
-        let req = req.to_proto().map_err(Error::deser)?;
+        let req = req.to_proto().map_err(Error::ser)?;
 
         let stream = self.entry.load_full();
         let stream_id = stream.id;
@@ -64,7 +64,7 @@ impl Dispatcher {
                     let new_stream = self.pool.evict_and_replace(stream_id);
 
                     // The application can `send()` multiple writes
-                    // concurrently. Only one `send()` should update the cached
+                    // concurrently. Only one `send()` will update the cached
                     // stream on a transient error.
                     let _ = self.entry.compare_and_swap(&stream, Arc::new(new_stream));
 
@@ -74,7 +74,7 @@ impl Dispatcher {
             }
         }?;
 
-        let resp = resp.cnv().map_err(Error::ser)?;
+        let resp = resp.cnv().map_err(Error::deser)?;
         to_result(resp)
     }
 }
@@ -223,7 +223,7 @@ mod tests {
         }
 
         // We ran into a transient error. We should now have a new stream. Only
-        // one of the dispatchers should have evicted the failed stream.
+        // one of the callers should have evicted the failed stream.
         assert_eq!(dispatcher.entry.load().id, 2);
         assert_eq!(pool.stream_ids(), [2]);
 
