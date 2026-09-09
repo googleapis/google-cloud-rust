@@ -119,7 +119,7 @@ pub fn derive_from_sql(input: TokenStream) -> TokenStream {
         quote! {
             let #field_name = iter.next()
                 .ok_or_else(|| google_cloud_bigquery::error::ConvertError::MissingField(#db_column_name.to_string()))?;
-            let #field_name = google_cloud_bigquery::query::FromSql::from_sql(#field_name)?;
+            let #field_name = google_cloud_bigquery::query::FromSql::from_value(#field_name)?;
         }
     });
 
@@ -129,13 +129,13 @@ pub fn derive_from_sql(input: TokenStream) -> TokenStream {
         quote! {
             let #field_name = obj.remove(#db_column_name)
                 .ok_or_else(|| google_cloud_bigquery::error::ConvertError::MissingField(#db_column_name.to_string()))?;
-            let #field_name = google_cloud_bigquery::query::FromSql::from_sql(#field_name)?;
+            let #field_name = google_cloud_bigquery::query::FromSql::from_value(#field_name)?;
         }
     });
 
     let expanded = quote! {
         impl google_cloud_bigquery::query::FromSql for #name {
-            fn from_sql(value: wkt::Value) -> std::result::Result<Self, google_cloud_bigquery::error::ConvertError> {
+            fn from_value(value: wkt::Value) -> std::result::Result<Self, google_cloud_bigquery::error::ConvertError> {
                 match value {
                     wkt::Value::Array(arr) => {
                         let mut iter = arr.into_iter();
