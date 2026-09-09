@@ -13,12 +13,10 @@
 // limitations under the License.
 
 use super::super::transport::Transport;
+use super::super::validate::validate_table;
 use super::DefaultWriter;
+use crate::Result;
 use crate::model::ProtoSchema;
-use crate::{Error, Result};
-use gaxi::path_parameter::{PathMismatchBuilder, try_match};
-use gaxi::routing_parameter::Segment;
-use google_cloud_gax::error::binding::BindingError;
 use std::sync::Arc;
 
 /// A builder to create a protobuf stream writer
@@ -43,30 +41,6 @@ impl WriterBuilder {
         write_stream.push_str("/streams/_default");
         Ok(DefaultWriter::new(self.inner, write_stream, self.schema))
     }
-}
-
-fn validate_table(table: &str) -> Result<()> {
-    let segments = &[
-        Segment::Literal("projects/"),
-        Segment::SingleWildcard,
-        Segment::Literal("/datasets/"),
-        Segment::SingleWildcard,
-        Segment::Literal("/tables/"),
-        Segment::SingleWildcard,
-    ];
-    try_match(Some(table), segments)
-        .ok_or_else(|| {
-            let builder = PathMismatchBuilder::default().maybe_add(
-                Some(table),
-                segments,
-                "table",
-                "projects/*/datasets/*/tables/*",
-            );
-            Error::binding(BindingError {
-                paths: vec![builder.build()],
-            })
-        })
-        .map(|_| ())
 }
 
 #[cfg(test)]
