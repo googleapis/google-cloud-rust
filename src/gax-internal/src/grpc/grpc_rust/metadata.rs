@@ -37,6 +37,11 @@ pub(super) fn from_header_map(headers: &HeaderMap) -> GaxResult<GrpcMetadataMap>
                 .map_err(Error::ser)?;
             grpc_map.append_bin(k, GrpcMetadataValue::from_bytes(value.as_bytes()));
         } else {
+            // The gRPC wire specification requires ASCII metadata values to have
+            // a non-zero length.
+            if value.is_empty() {
+                continue;
+            }
             let k = GrpcMetadataKey::<GrpcAscii>::from_bytes(key.as_str().as_bytes())
                 .map_err(Error::ser)?;
             let val = GrpcAsciiMetadataValue::try_from(value.as_bytes()).map_err(Error::ser)?;
@@ -149,5 +154,49 @@ mod tests {
 
         // Assert
         assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_from_header_map_skips_empty_ascii_value() {
+        // Arrange
+        let mut headers = HeaderMap::new();
+        headers.insert(
+            http::header::HeaderName::from_static("tracestate"),
+            http::header::HeaderValue::from_static(""),
+        );
+        headers.insert(
+            http::header::HeaderName::from_static(ASCII_KEY),
+            http::header::HeaderValue::from_static(ASCII_VAL),
+        );
+
+        // Act
+        let grpc_map = from_header_map(&headers).expect("conversion succeeded");
+
+        // Assert
+        assert!(grpc_map.get("tracestate").is_none());
+        assert_eq!(
+            grpc_map
+                .get(ASCII_KEY)
+                .expect("ascii header present")
+                .to_str(),
+            ASCII_VAL
+        );
+    }
+
+    #[test]
+    fn test_from_header_map_preserves_empty_binary_value() {
+        // Arrange
+        let mut headers = HeaderMap::new();
+        headers.insert(
+            http::header::HeaderName::from_static(BIN_KEY),
+            http::header::HeaderValue::from_static(""),
+        );
+
+        // Act
+        let grpc_map = from_header_map(&headers).expect("conversion succeeded");
+
+        // Assert
+        let bin_val = grpc_map.get_bin(BIN_KEY).expect("binary header present");
+        assert_eq!(bin_val.as_bytes(), b"");
     }
 }
