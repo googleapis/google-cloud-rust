@@ -5,7 +5,6 @@ pub mod google {
             pub mod hive {
                 pub mod v1 {
                     include!("google.cloud.biglake.hive.v1.rs");
-            include!("../convert.rs");
                 }
             }
         }

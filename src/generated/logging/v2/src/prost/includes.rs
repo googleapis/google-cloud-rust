@@ -9,7 +9,6 @@ pub mod google {
         }
         pub mod v2 {
             include!("google.logging.v2.rs");
-            include!("../convert.rs");
         }
     }
 }

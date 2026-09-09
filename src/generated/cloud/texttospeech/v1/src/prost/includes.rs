@@ -4,7 +4,6 @@ pub mod google {
         pub mod texttospeech {
             pub mod v1 {
                 include!("google.cloud.texttospeech.v1.rs");
-            include!("../convert.rs");
             }
         }
     }

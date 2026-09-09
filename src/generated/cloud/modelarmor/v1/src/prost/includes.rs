@@ -4,7 +4,6 @@ pub mod google {
         pub mod modelarmor {
             pub mod v1 {
                 include!("google.cloud.modelarmor.v1.rs");
-            include!("../convert.rs");
             }
         }
     }

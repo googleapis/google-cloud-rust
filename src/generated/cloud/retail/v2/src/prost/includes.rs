@@ -4,7 +4,6 @@ pub mod google {
         pub mod retail {
             pub mod v2 {
                 include!("google.cloud.retail.v2.rs");
-            include!("../convert.rs");
             }
         }
     }

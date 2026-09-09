@@ -4,7 +4,6 @@ pub mod google {
         pub mod discoveryengine {
             pub mod v1 {
                 include!("google.cloud.discoveryengine.v1.rs");
-            include!("../convert.rs");
             }
         }
     }

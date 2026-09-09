@@ -4,7 +4,6 @@ pub mod google {
         pub mod visionai {
             pub mod v1 {
                 include!("google.cloud.visionai.v1.rs");
-            include!("../convert.rs");
             }
         }
     }
