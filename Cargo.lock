@@ -2751,7 +2751,6 @@ dependencies = [
  "anyhow",
  "async-trait",
  "bytes",
- "google-cloud-api",
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-longrunning",
