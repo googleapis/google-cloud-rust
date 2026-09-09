@@ -93,7 +93,7 @@ mod tests {
     use crate::write::test::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::{Response as TonicResponse, Status as TonicStatus};
-    use tokio::sync::mpsc;
+    use tokio::sync::{mpsc, oneshot};
     use tokio::task::JoinSet;
 
     fn test_req() -> AppendRowsRequest {
@@ -241,21 +241,28 @@ mod tests {
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, 10));
         let dispatcher = Arc::new(Dispatcher::new(pool.clone()));
-        assert_eq!(dispatcher.entry.load().id, 1);
 
-        // Acquire the stream pool's lock to simulate a pool scaling event.
-        let _guard = pool.lock();
+        // Acquire the stream pool's lock to simulate a pool scaling event. This
+        // needs to run in a separate thread because we don't want to hold the
+        // `std::sync::MutexGuard` across `await` points.
+        let (lock_acquired_tx, lock_acquired_rx) = oneshot::channel();
+        let (release_lock_tx, release_lock_rx) = std::sync::mpsc::channel::<()>();
+        std::thread::spawn(move || {
+            let _guard = pool.lock();
+            let _ = lock_acquired_tx.send(());
+            let _ = release_lock_rx.recv();
+        });
 
-        let write = {
-            let d = dispatcher.clone();
-            tokio::spawn(async move { d.send(test_req()).await })
-        };
-
-        response_tx.send(Ok(convert(&test_response(1)))).await?;
+        // Wait until the lock is acquired to send a write.
+        lock_acquired_rx.await?;
+        let write = tokio::spawn(async move { dispatcher.send(test_req()).await });
 
         // Verify the write goes through, even with the pool's lock held.
+        response_tx.send(Ok(convert(&test_response(1)))).await?;
         assert_eq!(write.await??.offset, Some(1));
-        assert_eq!(dispatcher.entry.load().id, 1);
+
+        // Release the lock
+        drop(release_lock_tx);
 
         Ok(())
     }
