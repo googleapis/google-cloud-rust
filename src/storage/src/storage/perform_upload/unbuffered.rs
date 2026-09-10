@@ -65,14 +65,13 @@ where
         // 2. An upfront CRC32C checksum is not already known (e.g. via `with_known_crc32c`).
         // If an upfront checksum is already present, recomputing it is redundant and skipped.
         if checksum_precomputation && !has_upfront_crc32c {
-            let mut payload = self.payload.lock().await;
-            payload.seek(0_u64).await.map_err(Error::ser)?;
-
-            // Phase 1 (Precomputation):
+            // (1) Precomputation of checksum:
             // Stream through the payload to compute the checksum using ChecksummedSource's
             // built-in hasher. ChecksummedSource::next() automatically updates its internal
-            // hasher on each chunk read, so we simply consume the stream without manual hashing,
-            // eliminating redundant double-computation of the checksum.
+            // hasher on each chunk read, so we simply consume the stream without manual hashing.
+            let payload_arc = self.payload.clone();
+            let mut payload = payload_arc.lock().await;
+            payload.seek(0_u64).await.map_err(Error::ser)?;
             while payload
                 .next()
                 .await
@@ -80,19 +79,23 @@ where
                 .map_err(Error::ser)?
                 .is_some()
             {}
-
-            // Extract the calculated checksum using `final_checksum()` and reset the
-            // internal hasher back to None using `reset_checksum()`. This accomplishes two things:
-            // 1. Returns the computed CRC32C/MD5 to place in the initial start-upload metadata.
-            // 2. Disables on-the-fly hashing for the subsequent upload pass (Phase 2), ensuring
-            //    chunks are not redundantly re-hashed while being streamed across the network.
             let computed = payload.final_checksum();
+
+            // (2) Update the checksum to the necessary place:
+            // Store the precomputed checksum in the object metadata so GCS receives it upfront
+            // during session initiation (start_resumable_upload).
+            let current = self.mut_resource().checksums.get_or_insert_default();
+            checksum_update(current, computed);
+
+            // (3) Clean up and reset work:
+            // - Reset ChecksummedSource's internal hasher to None (`reset_checksum()`) so
+            //   on-the-fly hashing is disabled during the subsequent upload pass (Phase 2).
+            // - Rewind the stream to the beginning (`seek(0)`) so upload streaming starts at byte 0.
+            // - Release the mutex lock (`drop(payload)`).
+            // - Clear options checksum to ensure no trailing checksum metadata is claimed.
             payload.reset_checksum();
             payload.seek(0_u64).await.map_err(Error::ser)?;
             drop(payload);
-
-            let current = self.mut_resource().checksums.get_or_insert_default();
-            checksum_update(current, computed);
             self.options.checksum = Checksum::default();
         }
 
