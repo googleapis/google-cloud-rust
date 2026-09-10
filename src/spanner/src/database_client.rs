@@ -31,6 +31,7 @@ use crate::partitioned_dml_transaction::PartitionedDmlTransactionBuilder;
 use crate::read_only_transaction::{
     MultiUseReadOnlyTransactionBuilder, SingleUseReadOnlyTransactionBuilder,
 };
+use crate::retry_delay::{extract_retry_delay_from_error, extract_status_code_from_error};
 use crate::routing::cache_subscriber::CacheSubscriber;
 use crate::routing::cache_updater::CacheUpdater;
 use crate::routing::connection_cache::ConnectionCache;
@@ -52,9 +53,10 @@ use crate::transaction_runner::TransactionRunnerBuilder;
 use crate::write_only_transaction::WriteOnlyTransactionBuilder;
 use crate::{RequestOptions, Result};
 use bytes::Bytes;
+use google_cloud_gax::error::rpc::Code;
 use std::env;
 use std::sync::Arc;
-use std::time::Duration;
+use std::time::{Duration, Instant};
 
 /// A client for interacting with a specific Spanner database.
 ///
@@ -84,7 +86,6 @@ pub struct DatabaseClient {
     spanner: Spanner,
     pub(crate) session_maintainer: Arc<ManagedSessionMaintainer>,
     pub(crate) leader_aware_routing_enabled: bool,
-    #[allow(dead_code)] // TODO: Used by request routing interceptors in subsequent PRs
     pub(crate) location_routing: Option<Arc<LocationRoutingState>>,
     pub(crate) o11y: Arc<Observability>,
 }
@@ -109,10 +110,17 @@ macro_rules! define_db_rpc {
                 Some(connection) => connection.channel(),
                 None => self.spanner.get_channel(channel_hint),
             };
+            let _request_guard = connection
+                .as_ref()
+                .map(ServerConnection::acquire_request_guard);
+            let group_uid = request.routing_group_uid();
+            let start = Instant::now();
             let result = self
                 .spanner
                 .$method(request, options, channel, &self.o11y)
                 .await;
+            let latency = start.elapsed();
+            self.record_routing_feedback(connection.as_ref(), group_uid, latency, &result);
             $post_hook(self, routing_context, connection.as_ref(), &result);
             let response = result?;
             response.observe(self);
@@ -299,7 +307,6 @@ impl DatabaseClient {
     ///     pointing directly to the target node.
     ///   - If route resolution falls back to the default gateway connection, returns `None` so the
     ///     request is dispatched over the client's channel pool using the transaction's assigned channel affinity.
-    #[allow(dead_code)] // TODO(#6236): Used by request routing in subsequent PRs
     pub(crate) fn resolve_routing_connection(
         &self,
         context: &RoutingContext,
@@ -551,8 +558,61 @@ impl DatabaseClient {
             .map(|routing| routing.location_router.latency_registry())
     }
 
+    /// Records feedback from an RPC execution into the [`LocationRouter`] and [`LatencyRegistry`].
+    ///
+    /// - For successful direct node executions, repairs cooldown failure tiers via `record_success`
+    ///   and records round-trip latency via `record_latency`.
+    /// - For failures on direct nodes (`Code::ResourceExhausted` or `Code::Unavailable`), places the
+    ///   endpoint on cooldown with any server-recommended retry delay, and inflates the latency score
+    ///   with an error penalty.
+    /// - Gateway fallback connections (`is_none()` or `is_default()`) are never placed on cooldown.
+    fn record_routing_feedback<T>(
+        &self,
+        connection: Option<&ServerConnection>,
+        group_uid: u64,
+        latency: Duration,
+        result: &Result<T>,
+    ) {
+        let Some(routing) = &self.location_routing else {
+            return;
+        };
+        let Some(connection) = connection else {
+            return;
+        };
+        if connection.is_default() {
+            return;
+        }
+        let address = connection.address();
+        match result {
+            Ok(_) => {
+                routing.location_router.record_success(address);
+                if group_uid > 0 {
+                    routing
+                        .location_router
+                        .record_latency(group_uid, address, latency);
+                }
+            }
+            Err(error) => {
+                let Some(code) = extract_status_code_from_error(error) else {
+                    return;
+                };
+                if matches!(code, Code::ResourceExhausted | Code::Unavailable) {
+                    let server_retry_delay = extract_retry_delay_from_error(error);
+                    routing.location_router.record_cooldown_error_with_delay(
+                        address,
+                        code,
+                        server_retry_delay,
+                    );
+                    if group_uid > 0 {
+                        routing.location_router.record_error(group_uid, address);
+                    }
+                }
+            }
+        }
+    }
+
     /// Records an observed round-trip latency sample for an endpoint address within a paxos group.
-    #[allow(dead_code)] // TODO: Used for latency recording in subsequent PRs
+    #[allow(dead_code)] // TODO: Used for streaming RPC latency recording in subsequent PRs
     pub(crate) fn record_latency(&self, group_uid: u64, server_address: &str, latency: Duration) {
         let Some(routing) = &self.location_routing else {
             return;
@@ -563,7 +623,7 @@ impl DatabaseClient {
     }
 
     /// Records an RPC error penalty for an endpoint address within a paxos group.
-    #[allow(dead_code)] // TODO: Used for error penalty recording in subsequent PRs
+    #[allow(dead_code)] // TODO: Used for streaming RPC error recording in subsequent PRs
     pub(crate) fn record_routing_error(&self, group_uid: u64, server_address: &str) {
         let Some(routing) = &self.location_routing else {
             return;
@@ -1370,6 +1430,60 @@ impl ObserveResponse for PartitionResponse {
     fn observe(&self, _client: &DatabaseClient) {}
 }
 
+/// Extracts the group UID from an RPC request to associate routing feedback with the covering group.
+///
+/// Protobuf requests that define a `routing_hint` field ([`ExecuteSqlRequest`], [`BeginTransactionRequest`],
+/// and [`CommitRequest`]) inspect their hint and return `group_uid`. Requests without a `routing_hint`
+/// field in their protobuf definitions ([`ExecuteBatchDmlRequest`], [`RollbackRequest`], [`PartitionQueryRequest`],
+/// and [`PartitionReadRequest`]) return 0.
+trait RequestRoutingGroupUid {
+    /// Returns the routing group UID if this request has an attached routing hint with a non-zero group UID,
+    /// or 0 if unkeyed or unhinted.
+    fn routing_group_uid(&self) -> u64;
+}
+
+impl RequestRoutingGroupUid for ExecuteSqlRequest {
+    fn routing_group_uid(&self) -> u64 {
+        self.routing_hint.as_ref().map_or(0, |hint| hint.group_uid)
+    }
+}
+
+impl RequestRoutingGroupUid for BeginTransactionRequest {
+    fn routing_group_uid(&self) -> u64 {
+        self.routing_hint.as_ref().map_or(0, |hint| hint.group_uid)
+    }
+}
+
+impl RequestRoutingGroupUid for CommitRequest {
+    fn routing_group_uid(&self) -> u64 {
+        self.routing_hint.as_ref().map_or(0, |hint| hint.group_uid)
+    }
+}
+
+impl RequestRoutingGroupUid for ExecuteBatchDmlRequest {
+    fn routing_group_uid(&self) -> u64 {
+        0
+    }
+}
+
+impl RequestRoutingGroupUid for RollbackRequest {
+    fn routing_group_uid(&self) -> u64 {
+        0
+    }
+}
+
+impl RequestRoutingGroupUid for PartitionQueryRequest {
+    fn routing_group_uid(&self) -> u64 {
+        0
+    }
+}
+
+impl RequestRoutingGroupUid for PartitionReadRequest {
+    fn routing_group_uid(&self) -> u64 {
+        0
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1400,6 +1514,68 @@ mod tests {
     use std::fmt;
     use std::sync::Mutex;
     use tokio::sync::mpsc;
+
+    #[test]
+    fn request_routing_group_uid_with_and_without_hint() {
+        let hint = RoutingHint::new().set_group_uid(9001u64);
+
+        let sql_with_hint = ExecuteSqlRequest::default().set_routing_hint(hint.clone());
+        assert_eq!(
+            sql_with_hint.routing_group_uid(),
+            9001,
+            "ExecuteSqlRequest with hint must return hint group_uid"
+        );
+        assert_eq!(
+            ExecuteSqlRequest::default().routing_group_uid(),
+            0,
+            "ExecuteSqlRequest without hint must return 0"
+        );
+
+        let begin_with_hint = BeginTransactionRequest::default().set_routing_hint(hint.clone());
+        assert_eq!(
+            begin_with_hint.routing_group_uid(),
+            9001,
+            "BeginTransactionRequest with hint must return hint group_uid"
+        );
+        assert_eq!(
+            BeginTransactionRequest::default().routing_group_uid(),
+            0,
+            "BeginTransactionRequest without hint must return 0"
+        );
+
+        let commit_with_hint = CommitRequest::default().set_routing_hint(hint);
+        assert_eq!(
+            commit_with_hint.routing_group_uid(),
+            9001,
+            "CommitRequest with hint must return hint group_uid"
+        );
+        assert_eq!(
+            CommitRequest::default().routing_group_uid(),
+            0,
+            "CommitRequest without hint must return 0"
+        );
+
+        assert_eq!(
+            ExecuteBatchDmlRequest::default().routing_group_uid(),
+            0,
+            "ExecuteBatchDmlRequest must return 0"
+        );
+        assert_eq!(
+            RollbackRequest::default().routing_group_uid(),
+            0,
+            "RollbackRequest must return 0"
+        );
+        assert_eq!(
+            PartitionQueryRequest::default().routing_group_uid(),
+            0,
+            "PartitionQueryRequest must return 0"
+        );
+        assert_eq!(
+            PartitionReadRequest::default().routing_group_uid(),
+            0,
+            "PartitionReadRequest must return 0"
+        );
+    }
 
     fn create_test_mock() -> MockSpanner {
         let mut mock = MockSpanner::new();
@@ -1562,7 +1738,8 @@ mod tests {
             Ok(_) => panic!("Client creation should have failed"),
             Err(e) => assert_eq!(
                 e.status().map(|s| s.code),
-                Some(google_cloud_gax::error::rpc::Code::PermissionDenied)
+                Some(Code::PermissionDenied),
+                "error status code should match expected PermissionDenied"
             ),
         }
     }
