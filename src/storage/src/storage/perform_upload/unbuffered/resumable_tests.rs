@@ -435,10 +435,7 @@ async fn precompute_source_next_error() -> Result {
     use crate::streaming_source::tests::MockSeekSource;
     use std::io::{Error as IoError, ErrorKind};
     let mut source = MockSeekSource::new();
-    source
-        .expect_seek()
-        .once()
-        .returning(|_| Ok(()));
+    source.expect_seek().once().returning(|_| Ok(()));
     source
         .expect_next()
         .once()
@@ -469,14 +466,8 @@ async fn precompute_rewind_seek_error() -> Result {
     use crate::streaming_source::tests::MockSeekSource;
     use std::io::{Error as IoError, ErrorKind};
     let mut source = MockSeekSource::new();
-    source
-        .expect_seek()
-        .times(1)
-        .returning(|_| Ok(()));
-    source
-        .expect_next()
-        .times(1)
-        .returning(|| None);
+    source.expect_seek().times(1).returning(|_| Ok(()));
+    source.expect_next().times(1).returning(|| None);
     source
         .expect_seek()
         .times(1)
@@ -544,10 +535,7 @@ async fn precompute_not_retriggered_on_retry() -> Result {
     // 2. Precomputation step 3: seek(0) to rewind the stream after hashing.
     // 3. Upload attempt (PUT): seek(0) before streaming the PUT body.
     // If precomputation were re-triggered on retry, seek(0) would be called 5 times.
-    source
-        .expect_seek()
-        .times(3)
-        .returning(|_| Ok(()));
+    source.expect_seek().times(3).returning(|_| Ok(()));
     let mut chunks = vec![
         Some(Ok(bytes::Bytes::from_static(b"retry-test-data"))),
         None,
