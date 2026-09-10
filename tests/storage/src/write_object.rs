@@ -520,6 +520,7 @@ async fn abort_upload_buffered(client: &Storage, bucket_name: &str) -> Result<()
     Ok(())
 }
 
+#[allow(deprecated)]
 pub async fn checksums(client: &Storage, bucket_name: &str) -> Result<()> {
     tracing::info!("checksums test, using bucket {bucket_name}");
 
