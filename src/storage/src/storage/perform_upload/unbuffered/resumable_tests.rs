@@ -337,6 +337,7 @@ async fn source_seek_error() -> Result {
         .write_object("projects/_/buckets/test-bucket", "test-object", source)
         .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
+        .with_checksum_precomputation(false)
         .send_unbuffered()
         .await
         .expect_err("expected a serialization error");
@@ -382,6 +383,7 @@ async fn source_next_error() -> Result {
         .write_object("projects/_/buckets/test-bucket", "test-object", source)
         .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
+        .with_checksum_precomputation(false)
         .send_unbuffered()
         .await
         .expect_err("expected a serialization error");
