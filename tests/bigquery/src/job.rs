@@ -186,10 +186,8 @@ pub async fn job_service_poller_error() -> Result<()> {
                 "expected non-empty error reason in ErrorProto"
             );
         }
-        google_cloud_bigquery_v2::operation::JobPollerError::Rpc(rpc_err) => {
-            panic!(
-                "expected JobPollerError::ErrorProto from BigQuery job, got RPC error: {rpc_err:?}"
-            );
+        _ => {
+            panic!("expected JobPollerError::ErrorProto, got {err:?}");
         }
     }
 
