@@ -3692,6 +3692,114 @@ pub mod secure_source_manager {
         }
     }
 
+    /// The request builder for [SecureSourceManager::fetch_refs][crate::client::SecureSourceManager::fetch_refs] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::FetchRefs;
+    /// # async fn sample() -> google_cloud_securesourcemanager_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> FetchRefs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct FetchRefs(RequestBuilder<crate::model::FetchRefsRequest>);
+
+    impl FetchRefs {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::FetchRefsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::FetchRefsResponse> {
+            (*self.0.stub)
+                .fetch_refs(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::FetchRefsResponse, crate::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<crate::model::FetchRefsResponse, crate::Error>
+        {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [repository][crate::model::FetchRefsRequest::repository].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_repository<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.repository = v.into();
+            self
+        }
+
+        /// Sets the value of [r#type][crate::model::FetchRefsRequest::type].
+        pub fn set_type<T: Into<crate::model::r#ref::RefType>>(mut self, v: T) -> Self {
+            self.0.request.r#type = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::FetchRefsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::FetchRefsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for FetchRefs {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [SecureSourceManager::create_issue][crate::client::SecureSourceManager::create_issue] calls.
     ///
     /// # Example
