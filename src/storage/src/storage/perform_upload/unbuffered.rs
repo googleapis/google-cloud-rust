@@ -82,10 +82,11 @@ where
             let current = self.mut_resource().checksums.get_or_insert_default();
             checksum_update(current, computed);
 
-            // 3. Reset the hasher, rewind the stream to byte 0, and clear pending options.
+            // 3. Reset the hasher, rewind the stream to byte 0, and drop lock.
             payload.reset_checksum();
             payload.seek(0_u64).await.map_err(Error::ser)?;
             drop(payload);
+            // Clear checksum options so streaming PUT does not redundantly re-hash.
             self.options.checksum = Checksum::default();
         }
 

@@ -1028,9 +1028,13 @@ where
     /// Configures checksum precomputation for unbuffered resumable uploads.
     ///
     /// Checksum precomputation is **enabled by default (`true`)** to ensure server-side data
-    /// integrity validation.
+    /// integrity validation for large objects streamed via resumable uploads.
     ///
-    /// Call `.with_checksum_precomputation(false)` to turn it off and prioritize upload speed.
+    /// Note: Single-shot unbuffered uploads (< resumable upload threshold) always compute checksums
+    /// on the fly via trailing multipart metadata and do not require precomputation.
+    ///
+    /// Call `.with_checksum_precomputation(false)` to turn off precomputation and prioritize
+    /// upload speed.
     ///
     /// # Example
     /// ```
@@ -1073,17 +1077,22 @@ where
     /// ```
     ///
     /// # Deprecated
-    /// `precompute_checksums()` is now redundant because checksums are automatically validated by default across all upload modes:
+    /// `precompute_checksums()` is now redundant because checksums are automatically
+    /// validated by default across all upload modes:
     /// - **Buffered upload**: Checksum is uploaded in the final chunk.
-    /// - **Single-shot unbuffered upload**: Checksum is attached as trailing metadata in a multipart request.
-    /// - **Resumable unbuffered upload**: Checksum is enforced to be precomputed upfront (or supplied via `with_known_crc32c`).
+    /// - **Single-shot unbuffered upload**: Checksum is attached as trailing metadata in a
+    ///   multipart request.
+    /// - **Resumable unbuffered upload**: Checksum is precomputed upfront by default
+    ///   (or supplied via `with_known_crc32c`).
     ///
-    /// For unbuffered resumable uploads, precomputing checksums incurs an extra read pass over the stream.
+    /// For unbuffered resumable uploads, precomputing checksums incurs an extra read pass.
     /// If you want to prioritize upload speed over data integrity, call
-    /// [with_checksum_precomputation(false)][WriteObject::with_checksum_precomputation] to explicitly turn off checksum precomputation.
+    /// [with_checksum_precomputation(false)][WriteObject::with_checksum_precomputation].
     #[deprecated(
         since = "1.19.0",
-        note = "`precompute_checksums()` is now redundant because checksums are automatically validated by default across all upload modes. For unbuffered resumable uploads, call `with_checksum_precomputation(false)` to prioritize speed over data integrity."
+        note = "`precompute_checksums()` is redundant as checksums are validated by default. \
+                For unbuffered resumable uploads, call `with_checksum_precomputation(false)` \
+                to prioritize speed over upfront integrity validation."
     )]
     pub async fn precompute_checksums(mut self) -> Result<Self> {
         let mut offset = 0_u64;
