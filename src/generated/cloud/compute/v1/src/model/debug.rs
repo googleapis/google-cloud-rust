@@ -33,6 +33,7 @@ impl std::fmt::Debug for super::AWSV4Signature {
 }
 
 #[cfg(any(
+    feature = "advice",
     feature = "future-reservations",
     feature = "instance-templates",
     feature = "instances",
@@ -2586,6 +2587,262 @@ impl std::fmt::Debug for super::CalendarModeRecommendation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CalendarModeRecommendation");
         debug_struct.field("recommendations_per_spec", &self.recommendations_per_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CapacityAdviceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityAdviceRequest");
+        debug_struct.field("distribution_policy", &self.distribution_policy);
+        debug_struct.field(
+            "instance_flexibility_policy",
+            &self.instance_flexibility_policy,
+        );
+        debug_struct.field("instance_properties", &self.instance_properties);
+        debug_struct.field("size", &self.size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CapacityAdviceRequestDistributionPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityAdviceRequestDistributionPolicy");
+        debug_struct.field("target_shape", &self.target_shape);
+        debug_struct.field("zones", &self.zones);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CapacityAdviceRequestDistributionPolicyZoneConfiguration {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct =
+            f.debug_struct("CapacityAdviceRequestDistributionPolicyZoneConfiguration");
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CapacityAdviceRequestInstanceFlexibilityPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityAdviceRequestInstanceFlexibilityPolicy");
+        debug_struct.field("instance_selections", &self.instance_selections);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CapacityAdviceRequestInstanceFlexibilityPolicyInstanceSelection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct =
+            f.debug_struct("CapacityAdviceRequestInstanceFlexibilityPolicyInstanceSelection");
+        debug_struct.field("disks", &self.disks);
+        debug_struct.field("guest_accelerators", &self.guest_accelerators);
+        debug_struct.field("machine_types", &self.machine_types);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug
+    for super::CapacityAdviceRequestInstanceFlexibilityPolicyInstanceSelectionAttachedDisk
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct(
+            "CapacityAdviceRequestInstanceFlexibilityPolicyInstanceSelectionAttachedDisk",
+        );
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CapacityAdviceRequestInstanceProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityAdviceRequestInstanceProperties");
+        debug_struct.field("scheduling", &self.scheduling);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CapacityAdviceRequestInstancePropertiesScheduling {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityAdviceRequestInstancePropertiesScheduling");
+        debug_struct.field("provisioning_model", &self.provisioning_model);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CapacityAdviceResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityAdviceResponse");
+        debug_struct.field("recommendations", &self.recommendations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CapacityAdviceResponseRecommendation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityAdviceResponseRecommendation");
+        debug_struct.field("scores", &self.scores);
+        debug_struct.field("shards", &self.shards);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CapacityAdviceResponseRecommendationScores {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityAdviceResponseRecommendationScores");
+        debug_struct.field("estimated_uptime", &self.estimated_uptime);
+        debug_struct.field("obtainability", &self.obtainability);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CapacityAdviceResponseRecommendationShard {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityAdviceResponseRecommendationShard");
+        debug_struct.field("instance_count", &self.instance_count);
+        debug_struct.field("machine_type", &self.machine_type);
+        debug_struct.field("provisioning_model", &self.provisioning_model);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CapacityHistoryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityHistoryRequest");
+        debug_struct.field("instance_properties", &self.instance_properties);
+        debug_struct.field("location_policy", &self.location_policy);
+        debug_struct.field("types", &self.types);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CapacityHistoryRequestInstanceProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityHistoryRequestInstanceProperties");
+        debug_struct.field("machine_type", &self.machine_type);
+        debug_struct.field("scheduling", &self.scheduling);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CapacityHistoryRequestInstancePropertiesScheduling {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityHistoryRequestInstancePropertiesScheduling");
+        debug_struct.field("provisioning_model", &self.provisioning_model);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CapacityHistoryRequestLocationPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityHistoryRequestLocationPolicy");
+        debug_struct.field("location", &self.location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CapacityHistoryResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityHistoryResponse");
+        debug_struct.field("location", &self.location);
+        debug_struct.field("machine_type", &self.machine_type);
+        debug_struct.field("preemption_history", &self.preemption_history);
+        debug_struct.field("price_history", &self.price_history);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CapacityHistoryResponsePreemptionRecord {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityHistoryResponsePreemptionRecord");
+        debug_struct.field("interval", &self.interval);
+        debug_struct.field("preemption_rate", &self.preemption_rate);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CapacityHistoryResponsePriceRecord {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityHistoryResponsePriceRecord");
+        debug_struct.field("interval", &self.interval);
+        debug_struct.field("list_price", &self.list_price);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -9792,6 +10049,7 @@ impl std::fmt::Debug for super::InstanceProperties {
 impl std::fmt::Debug for super::InstancePropertiesPatch {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InstancePropertiesPatch");
+        debug_struct.field("expose_host_topology", &self.expose_host_topology);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("metadata", &self.metadata);
         if !self._unknown_fields.is_empty() {
@@ -12136,6 +12394,19 @@ impl std::fmt::Debug for super::InterconnectsGetMacsecConfigResponse {
     }
 }
 
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::Interval {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Interval");
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("start_time", &self.start_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "licenses")]
 impl std::fmt::Debug for super::License {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -13010,6 +13281,7 @@ impl std::fmt::Debug for super::ManagedInstanceVersion {
     feature = "instance-templates",
     feature = "instances",
     feature = "machine-images",
+    feature = "project-views",
     feature = "projects",
     feature = "region-instance-templates",
     feature = "region-instances",
@@ -13031,6 +13303,7 @@ impl std::fmt::Debug for super::Metadata {
     feature = "instance-templates",
     feature = "instances",
     feature = "machine-images",
+    feature = "project-views",
     feature = "projects",
     feature = "region-instance-templates",
     feature = "region-instances",
@@ -13076,6 +13349,20 @@ impl std::fmt::Debug for super::MetadataFilterLabelMatch {
         let mut debug_struct = f.debug_struct("MetadataFilterLabelMatch");
         debug_struct.field("name", &self.name);
         debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::Money {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Money");
+        debug_struct.field("currency_code", &self.currency_code);
+        debug_struct.field("nanos", &self.nanos);
+        debug_struct.field("units", &self.units);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -16772,7 +17059,7 @@ impl std::fmt::Debug for super::PreviewFeatureStatusReleaseStatus {
     }
 }
 
-#[cfg(feature = "projects")]
+#[cfg(any(feature = "project-views", feature = "projects",))]
 impl std::fmt::Debug for super::Project {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Project");
@@ -16791,6 +17078,18 @@ impl std::fmt::Debug for super::Project {
         debug_struct.field("usage_export_location", &self.usage_export_location);
         debug_struct.field("vm_dns_setting", &self.vm_dns_setting);
         debug_struct.field("xpn_project_status", &self.xpn_project_status);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "project-views")]
+impl std::fmt::Debug for super::ProjectView {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProjectView");
+        debug_struct.field("project", &self.project);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -17162,7 +17461,7 @@ impl std::fmt::Debug for super::public_delegated_prefixes_scoped_list::warning::
     }
 }
 
-#[cfg(any(feature = "projects", feature = "regions",))]
+#[cfg(any(feature = "project-views", feature = "projects", feature = "regions",))]
 impl std::fmt::Debug for super::Quota {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Quota");
@@ -20883,6 +21182,7 @@ impl std::fmt::Debug for super::Scheduling {
         let mut debug_struct = f.debug_struct("Scheduling");
         debug_struct.field("automatic_restart", &self.automatic_restart);
         debug_struct.field("availability_domain", &self.availability_domain);
+        debug_struct.field("expose_host_topology", &self.expose_host_topology);
         debug_struct.field("graceful_shutdown", &self.graceful_shutdown);
         debug_struct.field(
             "host_error_timeout_seconds",
@@ -25954,7 +26254,7 @@ impl std::fmt::Debug for super::usable_subnetworks_aggregated_list::warning::Dat
     }
 }
 
-#[cfg(feature = "projects")]
+#[cfg(any(feature = "project-views", feature = "projects",))]
 impl std::fmt::Debug for super::UsageExportLocation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UsageExportLocation");
@@ -27333,6 +27633,34 @@ impl std::fmt::Debug for super::addresses::TestIamPermissionsRequest {
 impl std::fmt::Debug for super::advice::CalendarModeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CalendarModeRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::advice::CapacityRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::advice::CapacityHistoryRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CapacityHistoryRequest");
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
         debug_struct.field("body", &self.body);
@@ -34819,6 +35147,19 @@ impl std::fmt::Debug for super::preview_features::UpdateRequest {
         debug_struct.field("project", &self.project);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "project-views")]
+impl std::fmt::Debug for super::project_views::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
