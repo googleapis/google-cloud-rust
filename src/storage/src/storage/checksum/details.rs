@@ -173,10 +173,6 @@ impl<S> ChecksummedSource<S> {
         self.checksum.finalize()
     }
 
-    /// Resets the internal checksumming state back to default (`None`).
-    ///
-    /// This disables on-the-fly checksumming for subsequent stream reads, which is
-    /// used after precomputing checksums to avoid redundant re-hashing during upload.
     pub fn reset_checksum(&mut self) {
         self.checksum = Checksum::default();
     }
