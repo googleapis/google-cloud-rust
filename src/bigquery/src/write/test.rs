@@ -14,7 +14,9 @@
 
 //! Test helpers for the `Write` client internals
 
+use super::dispatcher::Dispatcher;
 use super::entry::StreamEntry;
+use super::pool::StreamPool;
 use super::runner::WriteRequest;
 use super::transport::Transport;
 use crate::google::cloud::bigquery::storage::v1::append_rows_response::{AppendResult, Response};
@@ -23,7 +25,6 @@ use crate::model::{ArrowSchema, ProtoSchema};
 use bigquery_grpc_mock::google::cloud::bigquery::storage::v1;
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use std::sync::Arc;
-use std::sync::atomic::AtomicU64;
 use tokio::sync::mpsc;
 
 pub(super) fn write_stream() -> String {
@@ -73,12 +74,20 @@ pub(super) fn test_response(index: i64) -> AppendRowsResponse {
     }
 }
 
-// Return a stream entry that sends requests on the provided channel.
-pub(super) fn test_entry(req_tx: mpsc::UnboundedSender<WriteRequest>) -> Arc<StreamEntry> {
-    Arc::new(StreamEntry {
-        id: 0,
+// Return a dispatcher that sends requests on the provided channel.
+pub(super) async fn test_dispatcher(
+    req_tx: mpsc::UnboundedSender<WriteRequest>,
+) -> anyhow::Result<Arc<Dispatcher>> {
+    let transport = Arc::new(test_transport("http://ignored:1").await?);
+    let pool = Arc::new(StreamPool::new(transport, 1));
+    let dispatcher = Arc::new(Dispatcher::new(pool));
+
+    // Override the stream entry's channel with the provided channel.
+    let current = dispatcher.entry.load();
+    let updated = StreamEntry {
         req_tx,
-        outstanding_requests: Arc::new(AtomicU64::new(0)),
-        outstanding_bytes: Arc::new(AtomicU64::new(0)),
-    })
+        ..(**current).clone()
+    };
+    dispatcher.entry.store(Arc::new(updated));
+    Ok(dispatcher)
 }
