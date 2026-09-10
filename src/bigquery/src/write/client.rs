@@ -48,7 +48,8 @@ impl Write {
     /// # async fn sample(client: Write) -> anyhow::Result<()> {
     /// let writer = client
     ///   .arrow(schema())
-    ///   .default("projects/my-project/datasets/my-dataset/tables/my-table")?;
+    ///   .default("projects/my-project/datasets/my-dataset/tables/my-table")
+    ///   .await?;
     /// # Ok(()) }
     ///
     /// use google_cloud_bigquery::model::ArrowSchema;
@@ -90,7 +91,8 @@ mod tests {
             .await?;
         let writer = client
             .arrow(ArrowSchema::new())
-            .default("projects/p/datasets/d/tables/t")?;
+            .default("projects/p/datasets/d/tables/t")
+            .await?;
         let err = writer
             .append(ArrowRecordBatch::new())
             .send()
@@ -114,7 +116,8 @@ mod tests {
             .await?;
         let writer = client
             .proto(ProtoSchema::new())
-            .default("projects/p/datasets/d/tables/t")?;
+            .default("projects/p/datasets/d/tables/t")
+            .await?;
         let err = writer
             .append(ProtoRows::new())
             .send()

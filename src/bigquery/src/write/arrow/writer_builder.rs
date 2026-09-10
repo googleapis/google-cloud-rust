@@ -44,7 +44,8 @@ impl WriterBuilder {
     /// # async fn sample(client: Write) -> anyhow::Result<()> {
     /// let writer = client
     ///     .arrow(schema())
-    ///     .default("projects/my-project/datasets/my-dataset/tables/my-table")?;
+    ///     .default("projects/my-project/datasets/my-dataset/tables/my-table")
+    ///     .await?;
     /// # Ok(()) }
     ///
     /// use google_cloud_bigquery::model::ArrowSchema;
@@ -54,7 +55,7 @@ impl WriterBuilder {
     /// ```
     ///
     /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
-    pub fn default<T: Into<String>>(self, table: T) -> Result<DefaultWriter> {
+    pub async fn default<T: Into<String>>(self, table: T) -> Result<DefaultWriter> {
         let table = table.into();
         validate_table(table.as_str())?;
         let mut write_stream = table;
@@ -309,7 +310,7 @@ mod tests {
     async fn default() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
         let builder = WriterBuilder::new(transport, schema());
-        let writer = builder.default("projects/p/datasets/d/tables/t")?;
+        let writer = builder.default("projects/p/datasets/d/tables/t").await?;
         assert_eq!(
             writer.write_stream,
             "projects/p/datasets/d/tables/t/streams/_default"
@@ -330,6 +331,7 @@ mod tests {
         let builder = WriterBuilder::new(transport, schema());
         let err = builder
             .default(table)
+            .await
             .expect_err("should fail locally on bad format");
         assert!(err.is_binding(), "{err:?}");
         Ok(())

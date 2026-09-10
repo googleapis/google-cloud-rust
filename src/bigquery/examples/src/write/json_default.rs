@@ -44,7 +44,8 @@ pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyho
     // Create a writer for the default stream
     let writer = client
         .arrow(ArrowSchema::new().set_serialized_schema(schema_buf))
-        .default(table)?;
+        .default(table)
+        .await?;
 
     // Create a decoder to convert JSON to Arrow
     let mut decoder = ReaderBuilder::new(schema).build_decoder()?;
