@@ -13,7 +13,10 @@
 // limitations under the License.
 
 use crate::error::Error;
+use google_cloud_rpc::model::ErrorInfo;
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
+use std::collections::HashMap;
 
 /// The [Status] type defines a logical error model that is suitable for
 /// different programming environments, including REST APIs and RPC APIs. Each
@@ -342,6 +345,43 @@ struct ErrorWrapper {
     error: WrapperStatus,
 }
 
+/// Some older Google Cloud APIs return errors with an `error.errors` array containing
+/// structured details (`reason`, `domain`, `message`). Examples include:
+/// - [BigQuery REST API error messages](https://cloud.google.com/bigquery/docs/error-messages)
+/// - [Cloud Storage JSON API status codes](https://cloud.google.com/storage/docs/json_api/v1/status-codes)
+#[derive(Clone, Debug, Default, PartialEq, Deserialize)]
+#[serde(default)]
+struct ErrorItem {
+    pub reason: Option<String>,
+    pub domain: Option<String>,
+    #[serde(flatten)]
+    pub extra: HashMap<String, Value>,
+}
+
+impl From<ErrorItem> for StatusDetails {
+    fn from(item: ErrorItem) -> Self {
+        let mut info = ErrorInfo::new();
+        if let Some(reason) = item.reason {
+            info.reason = reason;
+        }
+        if let Some(domain) = item.domain {
+            info.domain = domain;
+        }
+        info.metadata = item
+            .extra
+            .into_iter()
+            .map(|(k, v)| {
+                let v = match v {
+                    Value::String(s) => s,
+                    other => other.to_string(),
+                };
+                (k, v)
+            })
+            .collect();
+        StatusDetails::ErrorInfo(info)
+    }
+}
+
 #[derive(Clone, Debug, Default, PartialEq, Deserialize)]
 #[serde(default)]
 #[non_exhaustive]
@@ -350,6 +390,7 @@ struct WrapperStatus {
     pub message: String,
     pub status: Option<String>,
     pub details: Vec<StatusDetails>,
+    pub errors: Vec<ErrorItem>,
 }
 
 impl TryFrom<&bytes::Bytes> for Status {
@@ -363,10 +404,19 @@ impl TryFrom<&bytes::Bytes> for Status {
             Some(Ok(code)) => code,
             Some(Err(_)) | None => Code::Unknown,
         };
+        let details = Some(wrapper.details)
+            .filter(|d| !d.is_empty())
+            .unwrap_or_else(|| {
+                wrapper
+                    .errors
+                    .into_iter()
+                    .map(StatusDetails::from)
+                    .collect()
+            });
         Ok(Status {
             code,
             message: wrapper.message,
-            details: wrapper.details,
+            details,
         })
     }
 }
@@ -415,7 +465,7 @@ pub enum StatusDetails {
 
     /// Describes the cause of the error with structured details.
     ///
-    /// See [ErrorInfo][google_cloud_rpc::model::ErrorInfo] for more information.
+    /// See [ErrorInfo] for more information.
     #[serde(rename = "type.googleapis.com/google.rpc.ErrorInfo")]
     ErrorInfo(google_cloud_rpc::model::ErrorInfo),
 
@@ -893,6 +943,7 @@ mod tests {
                     "The provided Secret ID [] does not match the expected format [[a-zA-Z_0-9]+]"
                         .into(),
                 details: [].into(),
+                errors: [].into(),
             },
         };
         assert_eq!(got.error, want.error);
@@ -914,6 +965,94 @@ mod tests {
 
         let got = Status::try_from(&bytes::Bytes::from_static(INVALID_CODE_PAYLOAD))?;
         assert_eq!(got.code, Code::Unknown);
+        Ok(())
+    }
+
+    #[test]
+    fn try_from_bytes_rest_errors() -> Result<()> {
+        const BIGQUERY_ERR_PAYLOAD: &[u8] = br#"{
+  "error": {
+    "code": 400,
+    "message": "The job encountered an error during execution. Retrying the job may solve the problem.",
+    "errors": [
+      {
+        "message": "The job encountered an error during execution. Retrying the job may solve the problem.",
+        "domain": "global",
+        "reason": "backendError"
+      }
+    ],
+    "status": "INVALID_ARGUMENT"
+  }
+}"#;
+        let got = Status::try_from(&bytes::Bytes::from_static(BIGQUERY_ERR_PAYLOAD))?;
+        assert_eq!(got.code, Code::InvalidArgument);
+        assert_eq!(
+            got.message,
+            "The job encountered an error during execution. Retrying the job may solve the problem."
+        );
+        assert_eq!(got.details.len(), 1);
+        match &got.details[0] {
+            StatusDetails::ErrorInfo(info) => {
+                assert_eq!(info.reason, "backendError");
+                assert_eq!(info.domain, "global");
+                assert_eq!(
+                    info.metadata.get("message").map(String::as_str),
+                    Some(
+                        "The job encountered an error during execution. Retrying the job may solve the problem."
+                    )
+                );
+            }
+            other => panic!("expected ErrorInfo, got {other:?}"),
+        }
+        Ok(())
+    }
+
+    #[test]
+    fn try_from_bytes_rest_errors_with_location_and_debug_info() -> Result<()> {
+        const PAYLOAD: &[u8] = br#"{
+  "error": {
+    "code": 401,
+    "message": "Invalid Credentials",
+    "errors": [
+      {
+        "message": "Invalid Credentials",
+        "domain": "global",
+        "reason": "authError",
+        "locationType": "header",
+        "location": "Authorization",
+        "debugInfo": "token expired"
+      }
+    ],
+    "status": "UNAUTHENTICATED"
+  }
+}"#;
+        let got = Status::try_from(&bytes::Bytes::from_static(PAYLOAD))?;
+        assert_eq!(got.code, Code::Unauthenticated);
+        assert_eq!(got.message, "Invalid Credentials");
+        assert_eq!(got.details.len(), 1);
+        match &got.details[0] {
+            StatusDetails::ErrorInfo(info) => {
+                assert_eq!(info.reason, "authError");
+                assert_eq!(info.domain, "global");
+                assert_eq!(
+                    info.metadata.get("message").map(String::as_str),
+                    Some("Invalid Credentials")
+                );
+                assert_eq!(
+                    info.metadata.get("locationType").map(String::as_str),
+                    Some("header")
+                );
+                assert_eq!(
+                    info.metadata.get("location").map(String::as_str),
+                    Some("Authorization")
+                );
+                assert_eq!(
+                    info.metadata.get("debugInfo").map(String::as_str),
+                    Some("token expired")
+                );
+            }
+            other => panic!("expected ErrorInfo, got {other:?}"),
+        }
         Ok(())
     }
 

@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(#5716): Lift to shared bidi module.
-
 use super::connector::Connector;
 use super::tests::test_options;
 use super::{Client, Receiver, RequestOptions, TonicStreaming};

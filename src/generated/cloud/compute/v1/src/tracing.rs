@@ -71,6 +71,7 @@
     feature = "organization-security-policies",
     feature = "packet-mirrorings",
     feature = "preview-features",
+    feature = "project-views",
     feature = "projects",
     feature = "public-advertised-prefixes",
     feature = "public-delegated-prefixes",
@@ -453,6 +454,34 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::Advice::calendar_mode",
             self.inner.calendar_mode(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn capacity(
+        &self,
+        req: crate::model::advice::CapacityRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CapacityAdviceResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Advice::capacity",
+            self.inner.capacity(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn capacity_history(
+        &self,
+        req: crate::model::advice::CapacityHistoryRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CapacityHistoryResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Advice::capacity_history",
+            self.inner.capacity_history(req, options));
         pending.await
     }
 }
@@ -11196,6 +11225,50 @@ where
     }
 }
 
+/// Implements a [ProjectViews](super::stub::ProjectViews) decorator for logging and tracing.
+#[cfg(feature = "project-views")]
+#[derive(Clone, Debug)]
+pub struct ProjectViews<T>
+where
+    T: super::stub::ProjectViews + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+    duration: gaxi::observability::DurationMetric,
+}
+
+#[cfg(feature = "project-views")]
+impl<T> ProjectViews<T>
+where
+    T: super::stub::ProjectViews + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self {
+            inner,
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
+    }
+}
+
+#[cfg(feature = "project-views")]
+impl<T> super::stub::ProjectViews for ProjectViews<T>
+where
+    T: super::stub::ProjectViews + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get(
+        &self,
+        req: crate::model::project_views::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ProjectView>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ProjectViews::get",
+            self.inner.get(req, options));
+        pending.await
+    }
+}
+
 /// Implements a [Projects](super::stub::Projects) decorator for logging and tracing.
 #[cfg(feature = "projects")]
 #[derive(Clone, Debug)]
@@ -17991,6 +18064,20 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::ReservationSlots::get",
             self.inner.get(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_health(
+        &self,
+        req: crate::model::reservation_slots::GetHealthRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ReservationSlots::get_health",
+            self.inner.get_health(req, options));
         pending.await
     }
 

@@ -34,7 +34,7 @@ mod info {
         });
 }
 
-/// Implements [StorageControl](super::stub::StorageControl) using a Tonic-generated client.
+/// Implements [StorageControl](super::stub::StorageControl) using a gRPC client.
 #[derive(Clone)]
 pub struct StorageControl {
     inner: gaxi::grpc::Client,

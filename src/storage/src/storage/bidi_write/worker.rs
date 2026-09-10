@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(#5716): Lift to shared bidi module
-
 use super::connector::Connection;
 use super::{Client, TonicStreaming};
 use crate::Error;

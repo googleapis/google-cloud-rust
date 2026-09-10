@@ -12,26 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Placeholder transaction channel affinity management for Spanner.
+//! Transaction channel affinity management for Spanner.
 //!
-//! Note: This is a placeholder implementation to support transaction and stream lifetime
-//! interfaces. The complete dynamic channel pool implementation will be introduced in a
-//! separate PR.
-
-// TODO(#4969)
-#![allow(dead_code)]
+//! Provides caller-owned handles to pin multi-statement transactions to the same physical
+//! channel and support both hard affinity (Read/Write transactions) and soft affinity (Read-Only transactions).
 
 use std::sync::atomic::{AtomicU64, Ordering};
-
-/// Stickiness kind for transaction channel affinity.
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
-pub(crate) enum AffinityKind {
-    /// Read/Write transactions require hard stickiness.
-    #[default]
-    ReadWrite,
-    /// Read-Only transactions prefer soft stickiness.
-    ReadOnly,
-}
 
 /// Caller-owned handle managing channel affinity across multi-statement transactions.
 #[derive(Debug)]
@@ -46,7 +32,6 @@ impl Default for TransactionAffinity {
     }
 }
 
-#[allow(dead_code)]
 impl TransactionAffinity {
     /// Creates a new, unpinned `TransactionAffinity` handle for Read/Write transactions (hard stickiness).
     pub(crate) fn new() -> Self {
@@ -91,10 +76,32 @@ impl TransactionAffinity {
         self.entry_id.store(entry_id, Ordering::Release);
     }
 
+    /// Atomically sets the pinned channel entry ID if matching `current`.
+    ///
+    /// Returns `Ok(())` if this caller won the pin, or `Err(winner_id)` containing
+    /// the winning pinned entry ID if another thread pinned concurrently.
+    pub(crate) fn compare_and_set_entry_id(&self, current: u64, new: u64) -> Result<(), u64> {
+        self.entry_id
+            .compare_exchange(current, new, Ordering::AcqRel, Ordering::Acquire)
+            .map(|_| ())
+    }
+
     /// Clears the pinned channel entry ID, making this handle unpinned.
     pub(crate) fn reset(&self) {
         self.entry_id.store(0, Ordering::Release);
     }
+}
+
+/// Stickiness kind for transaction channel affinity.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub(crate) enum AffinityKind {
+    /// Read/Write transactions require hard stickiness,
+    /// even if the channel has transitioned to draining.
+    #[default]
+    ReadWrite,
+    /// Read-Only transactions prefer soft stickiness, but seamlessly
+    /// switch to a fresh active channel if their pinned channel begins draining.
+    ReadOnly,
 }
 
 #[cfg(test)]
@@ -155,11 +162,26 @@ mod tests {
             "Pinned entry ID must be updated to 99"
         );
 
+        let cas_failure = affinity.compare_and_set_entry_id(0, 100);
+        assert_eq!(
+            cas_failure,
+            Err(99),
+            "CAS with non-matching current value must fail and return existing winner ID"
+        );
+
         affinity.reset();
         assert_eq!(
             affinity.pinned_entry_id(),
             None,
             "Pinned entry ID must be None after reset"
+        );
+
+        let cas_success = affinity.compare_and_set_entry_id(0, 100);
+        assert_eq!(cas_success, Ok(()), "CAS on unpinned affinity must succeed");
+        assert_eq!(
+            affinity.pinned_entry_id(),
+            Some(100),
+            "Pinned entry ID must be 100 after successful CAS"
         );
 
         let read_only_affinity = TransactionAffinity::new_read_only();

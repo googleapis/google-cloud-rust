@@ -2008,6 +2008,176 @@ pub mod advice {
             &mut self.0.options
         }
     }
+
+    /// The request builder for [Advice::capacity][crate::client::Advice::capacity] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::builder::advice::Capacity;
+    /// # async fn sample() -> google_cloud_compute_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> Capacity {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Capacity(RequestBuilder<crate::model::advice::CapacityRequest>);
+
+    impl Capacity {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Advice>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::advice::CapacityRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::CapacityAdviceResponse> {
+            (*self.0.stub)
+                .capacity(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [project][crate::model::advice::CapacityRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::advice::CapacityRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::advice::CapacityRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CapacityAdviceRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::advice::CapacityRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CapacityAdviceRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for Capacity {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Advice::capacity_history][crate::client::Advice::capacity_history] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::builder::advice::CapacityHistory;
+    /// # async fn sample() -> google_cloud_compute_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CapacityHistory {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CapacityHistory(RequestBuilder<crate::model::advice::CapacityHistoryRequest>);
+
+    impl CapacityHistory {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Advice>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::advice::CapacityHistoryRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::CapacityHistoryResponse> {
+            (*self.0.stub)
+                .capacity_history(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [project][crate::model::advice::CapacityHistoryRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::advice::CapacityHistoryRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::advice::CapacityHistoryRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CapacityHistoryRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::advice::CapacityHistoryRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CapacityHistoryRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CapacityHistory {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
 }
 
 /// Request and client builders for [Autoscalers][crate::client::Autoscalers].
@@ -74627,6 +74797,135 @@ pub mod preview_features {
     }
 }
 
+/// Request and client builders for [ProjectViews][crate::client::ProjectViews].
+#[cfg(feature = "project-views")]
+#[cfg_attr(docsrs, doc(cfg(feature = "project-views")))]
+pub mod project_views {
+    use crate::Result;
+
+    /// A builder for [ProjectViews][crate::client::ProjectViews].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::*;
+    /// # use builder::project_views::ClientBuilder;
+    /// # use client::ProjectViews;
+    /// let builder : ClientBuilder = ProjectViews::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://compute.googleapis.com")
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ProjectViews;
+        pub struct Factory;
+        impl crate::ClientFactory for Factory {
+            type Client = ProjectViews;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> crate::ClientBuilderResult<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::ProjectViews] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ProjectViews>,
+        request: R,
+        options: crate::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProjectViews>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [ProjectViews::get][crate::client::ProjectViews::get] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::builder::project_views::Get;
+    /// # async fn sample() -> google_cloud_compute_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> Get {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Get(RequestBuilder<crate::model::project_views::GetRequest>);
+
+    impl Get {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProjectViews>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::project_views::GetRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ProjectView> {
+            (*self.0.stub)
+                .get(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [project][crate::model::project_views::GetRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::project_views::GetRequest::region].
+        pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.region = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
 /// Request and client builders for [Projects][crate::client::Projects].
 #[cfg(feature = "projects")]
 #[cfg_attr(docsrs, doc(cfg(feature = "projects")))]
@@ -117773,6 +118072,151 @@ pub mod reservation_slots {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for Get {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [ReservationSlots::get_health][crate::client::ReservationSlots::get_health] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_compute_v1::builder::reservation_slots::GetHealth;
+    /// # async fn sample() -> google_cloud_compute_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetHealth {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetHealth(RequestBuilder<crate::model::reservation_slots::GetHealthRequest>);
+
+    impl GetHealth {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationSlots>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::reservation_slots::GetHealthRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .get_health(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `get_health`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Operation, crate::model::Operation>
+        {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_compute_v1::client::ReservationSlots::get_health::until_done";
+            }
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let zone = self.0.request.zone.clone();
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                let project = project.clone();
+                let zone = zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_zone(zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
+            };
+
+            let start = move || async { self.send().await };
+
+            use google_cloud_lro::internal::PollerExt;
+            google_cloud_lro::internal::new_discovery_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+            .with_options(poller_options)
+        }
+
+        /// Sets the value of [parent_name][crate::model::reservation_slots::GetHealthRequest::parent_name].
+        pub fn set_parent_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent_name = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::reservation_slots::GetHealthRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::reservation_slots::GetHealthRequest::request_id].
+        pub fn set_request_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_id][crate::model::reservation_slots::GetHealthRequest::request_id].
+        pub fn set_or_clear_request_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.request_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [reservation_slot][crate::model::reservation_slots::GetHealthRequest::reservation_slot].
+        pub fn set_reservation_slot<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.reservation_slot = v.into();
+            self
+        }
+
+        /// Sets the value of [zone][crate::model::reservation_slots::GetHealthRequest::zone].
+        pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.zone = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetHealth {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

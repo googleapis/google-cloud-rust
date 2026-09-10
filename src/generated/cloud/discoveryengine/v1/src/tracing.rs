@@ -36,7 +36,6 @@
     feature = "user-event-service",
     feature = "user-license-service",
 ))]
-#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements a [AssistantService](super::stub::AssistantService) decorator for logging and tracing.

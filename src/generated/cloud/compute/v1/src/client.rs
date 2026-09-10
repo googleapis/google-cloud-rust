@@ -413,6 +413,18 @@ impl Advice {
     pub fn calendar_mode(&self) -> super::builder::advice::CalendarMode {
         super::builder::advice::CalendarMode::new(self.inner.clone())
     }
+
+    /// Advice on making real-time decisions (such as choosing zone or
+    /// machine types) during deployment to maximize your chances of obtaining
+    /// capacity.
+    pub fn capacity(&self) -> super::builder::advice::Capacity {
+        super::builder::advice::Capacity::new(self.inner.clone())
+    }
+
+    /// Gets the capacity history.
+    pub fn capacity_history(&self) -> super::builder::advice::CapacityHistory {
+        super::builder::advice::CapacityHistory::new(self.inner.clone())
+    }
 }
 
 /// Implements a client for the Compute Engine API.
@@ -9725,6 +9737,124 @@ impl PreviewFeatures {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_compute_v1::client::ProjectViews;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = ProjectViews::builder().build().await?;
+///     // use `client` to make requests to the Compute Engine API.
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `projectViews` resource.
+///
+/// # Configuration
+///
+/// To configure `ProjectViews` use the `with_*` methods in the type returned
+/// by [builder()][ProjectViews::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::project_views::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::project_views::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `ProjectViews` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `ProjectViews` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "project-views")]
+#[cfg_attr(docsrs, doc(cfg(feature = "project-views")))]
+#[derive(Clone, Debug)]
+pub struct ProjectViews {
+    inner: std::sync::Arc<dyn super::stub::dynamic::ProjectViews>,
+}
+
+#[cfg(feature = "project-views")]
+impl ProjectViews {
+    /// Returns a builder for [ProjectViews].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::ProjectViews;
+    /// let client = ProjectViews::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::project_views::ClientBuilder {
+        crate::new_client_builder(super::builder::project_views::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::ProjectViews + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ProjectViews>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::ProjectViews> {
+        super::transport::ProjectViews::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::ProjectViews> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ProjectViews::new)
+    }
+
+    /// Returns the specified global ProjectViews resource, with a regional
+    /// context.
+    /// This regional API endpoint reads resource metadata from regional
+    /// read-only replicas. Because changes are copied to these regional replicas
+    /// asynchronously, for real-time resource reads or any write operations
+    /// (creating, updating, or deleting resources), use the global
+    /// [projects.get](https://cloud.google.com/compute/docs/reference/rest/v1/projects/get)
+    /// endpoint.
+    pub fn get(&self) -> super::builder::project_views::Get {
+        super::builder::project_views::Get::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Compute Engine API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_compute_v1::client::Projects;
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
@@ -16025,6 +16155,11 @@ impl ReservationSlots {
     /// Retrieves information about the specified reservation slot.
     pub fn get(&self) -> super::builder::reservation_slots::Get {
         super::builder::reservation_slots::Get::new(self.inner.clone())
+    }
+
+    /// Get health info on a reservation slot.
+    pub fn get_health(&self) -> super::builder::reservation_slots::GetHealth {
+        super::builder::reservation_slots::GetHealth::new(self.inner.clone())
     }
 
     /// Allows customers to get SBOM versions of a reservation slot.

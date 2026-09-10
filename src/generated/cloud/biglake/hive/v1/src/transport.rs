@@ -18,7 +18,7 @@
 use crate::Error;
 use crate::Result;
 
-/// Implements [HiveMetastoreService](super::stub::HiveMetastoreService) using a [gaxi::http::ReqwestClient].
+/// Implements [HiveMetastoreService](super::stub::HiveMetastoreService) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
 #[derive(Clone)]
 pub struct HiveMetastoreService {
     inner: gaxi::http::ReqwestClient,
@@ -27,10 +27,10 @@ pub struct HiveMetastoreService {
 
 impl std::fmt::Debug for HiveMetastoreService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        let mut builder = f.debug_struct("HiveMetastoreService");
-        builder.field("inner", &self.inner);
-        builder.field("grpc_inner", &self.grpc_inner);
-        builder.finish()
+        f.debug_struct("HiveMetastoreService")
+            .field("inner", &self.inner)
+            .field("grpc_inner", &self.grpc_inner)
+            .finish()
     }
 }
 

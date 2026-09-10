@@ -590,6 +590,9 @@ pub mod internal {
     }
 
     /// A type-erased map of configuration extensions.
+    ///
+    /// Values are stored in an [`Arc`] so that [`Extensions`] can be
+    /// cloned cheaply without requiring extensions to implement [`Clone`].
     #[derive(Clone, Default)]
     pub struct Extensions {
         map: HashMap<TypeId, Arc<dyn Any + Send + Sync>>,
@@ -608,6 +611,13 @@ pub mod internal {
             self.map
                 .get(&TypeId::of::<T>())
                 .and_then(|boxed| boxed.as_ref().downcast_ref::<T>())
+        }
+
+        /// Removes the extension of type `T`, returning it as an [`Arc`] if present.
+        pub fn remove<T: Send + Sync + 'static>(&mut self) -> Option<Arc<T>> {
+            self.map
+                .remove(&TypeId::of::<T>())
+                .and_then(|arc| arc.downcast::<T>().ok())
         }
     }
 
@@ -908,6 +918,7 @@ pub mod examples {
 mod tests {
     use super::*;
     use std::error::Error as _;
+    use std::sync::Arc;
 
     #[test]
     fn error_credentials() {
@@ -955,7 +966,161 @@ mod tests {
         let mut config = internal::ClientConfig::<()>::default();
         config.extensions.insert(42i32);
         let cloned = config.clone();
-        assert_eq!(cloned.extensions.get::<i32>(), Some(&42));
+        assert_eq!(
+            cloned.extensions.get::<i32>(),
+            Some(&42),
+            "cloned config must contain inserted extension"
+        );
+    }
+
+    #[test]
+    fn extensions_remove() {
+        let mut extensions = Extensions::new();
+
+        // Corner case: removal from empty extensions
+        assert!(
+            extensions.remove::<i32>().is_none(),
+            "removing from empty Extensions must return None"
+        );
+
+        extensions.insert(42i32);
+        assert_eq!(
+            extensions.get::<i32>(),
+            Some(&42),
+            "extensions map get must return inserted value"
+        );
+
+        let removed = extensions.remove::<i32>();
+        assert_eq!(
+            removed.as_deref(),
+            Some(&42),
+            "removed value should match the inserted value"
+        );
+        assert_eq!(
+            extensions.get::<i32>(),
+            None,
+            "extensions map get must return None after removal"
+        );
+
+        let second_removal = extensions.remove::<i32>();
+        assert!(
+            second_removal.is_none(),
+            "removing non-existent element should return None"
+        );
+    }
+
+    #[test]
+    fn extensions_remove_heterogeneous_preserves_others() {
+        let mut extensions = Extensions::new();
+        extensions.insert(42i32);
+        extensions.insert("spanner".to_string());
+
+        assert_eq!(
+            format!("{extensions:?}"),
+            "Extensions { len: 2 }",
+            "debug format must reflect current extension count"
+        );
+
+        let removed = extensions.remove::<i32>();
+        assert_eq!(
+            removed.as_deref(),
+            Some(&42),
+            "removed i32 extension must match"
+        );
+
+        // Verify other extension type is completely untouched
+        assert_eq!(
+            extensions.get::<String>().map(|value| value.as_str()),
+            Some("spanner"),
+            "string extension must remain intact after removing i32"
+        );
+        assert_eq!(
+            format!("{extensions:?}"),
+            "Extensions { len: 1 }",
+            "debug format must update after removal"
+        );
+
+        // Verify unwrapping ownership from returned Arc
+        let arc = extensions
+            .remove::<String>()
+            .expect("String extension must be present");
+        let unwrapped = Arc::try_unwrap(arc).expect("Arc strong count should be 1");
+        assert_eq!(
+            unwrapped, "spanner",
+            "unwrapped extension value must match original"
+        );
+        assert_eq!(
+            format!("{extensions:?}"),
+            "Extensions { len: 0 }",
+            "debug format must show len 0 when empty"
+        );
+    }
+
+    #[test]
+    fn extensions_overwrite_and_remove() {
+        let mut extensions = Extensions::new();
+        extensions.insert(10i32);
+        extensions.insert(20i32);
+
+        assert_eq!(
+            extensions.get::<i32>(),
+            Some(&20),
+            "overwritten extension must return latest value"
+        );
+
+        let removed = extensions.remove::<i32>();
+        assert_eq!(
+            removed.as_deref(),
+            Some(&20),
+            "removed value must be the overwritten value"
+        );
+        assert!(
+            extensions.get::<i32>().is_none(),
+            "extension must be completely absent after removal"
+        );
+    }
+
+    #[test]
+    fn extensions_remove_non_clone() {
+        struct NonCloneExtension(i32);
+
+        let mut extensions = Extensions::new();
+        extensions.insert(NonCloneExtension(42));
+
+        let removed = extensions.remove::<NonCloneExtension>();
+        assert_eq!(
+            removed.as_deref().map(|extension| extension.0),
+            Some(42),
+            "non-clone extension must be successfully removed"
+        );
+        assert!(
+            extensions.get::<NonCloneExtension>().is_none(),
+            "extension must no longer be present after removal"
+        );
+    }
+
+    #[test]
+    fn extensions_clone_independence_on_remove() {
+        let mut original = Extensions::new();
+        original.insert(42i32);
+
+        let mut cloned = original.clone();
+        let removed = cloned.remove::<i32>();
+        assert_eq!(
+            removed.as_deref(),
+            Some(&42),
+            "removed value from cloned extensions must match"
+        );
+        assert_eq!(
+            cloned.get::<i32>(),
+            None,
+            "cloned extensions must not contain the removed value"
+        );
+        assert_eq!(
+            original.get::<i32>(),
+            Some(&42),
+            "original extensions must still retain the value after cloned removal"
+        );
     }
 
     #[test]
