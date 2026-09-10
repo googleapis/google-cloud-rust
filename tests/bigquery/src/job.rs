@@ -16,6 +16,7 @@ use super::{INSTANCE_LABEL, random_id_suffix};
 use anyhow::Result;
 use futures::stream::{StreamExt, TryStreamExt};
 use google_cloud_bigquery_v2::client::JobService;
+use google_cloud_bigquery_v2::job_poller::JobPollerError;
 use google_cloud_bigquery_v2::model::list_jobs_request::Projection;
 use google_cloud_bigquery_v2::model::{Job, JobConfiguration, JobConfigurationQuery, JobReference};
 use google_cloud_gax::paginator::ItemPaginator;
@@ -180,7 +181,7 @@ pub async fn job_service_poller_error() -> Result<()> {
 
     let err = result.expect_err("expected job polling to return error");
     match err {
-        google_cloud_bigquery_v2::operation::JobPollerError::ErrorProto(proto) => {
+        JobPollerError::ErrorProto(proto) => {
             assert!(
                 !proto.reason.is_empty(),
                 "expected non-empty error reason in ErrorProto"

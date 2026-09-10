@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Helpers to await the completion of an [InsertJob] request
+
 use crate::builder::job_service::InsertJob;
 use crate::model::Job;
 use google_cloud_gax::backoff_policy::BackoffPolicy;

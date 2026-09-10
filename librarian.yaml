@@ -611,7 +611,7 @@ libraries:
     version: 0.1.1
     copyright_year: "2025"
     keep:
-      - src/operation.rs
+      - src/job_poller.rs
     rust:
       package_dependencies:
         - name: thiserror
