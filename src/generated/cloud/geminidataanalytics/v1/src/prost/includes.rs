@@ -4,7 +4,6 @@ pub mod google {
         pub mod geminidataanalytics {
             pub mod v1 {
                 include!("google.cloud.geminidataanalytics.v1.rs");
-            include!("../convert.rs");
             }
         }
     }

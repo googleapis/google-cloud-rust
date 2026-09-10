@@ -5,7 +5,6 @@ pub mod google {
             pub mod cx {
                 pub mod v3 {
                     include!("google.cloud.dialogflow.cx.v3.rs");
-            include!("../convert.rs");
                 }
             }
         }

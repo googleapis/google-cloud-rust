@@ -5,7 +5,6 @@ pub mod google {
             pub mod lineage {
                 pub mod v1 {
                     include!("google.cloud.datacatalog.lineage.v1.rs");
-            include!("../convert.rs");
                 }
             }
         }

@@ -4,7 +4,6 @@ pub mod google {
         pub mod devicestreaming {
             pub mod v1 {
                 include!("google.cloud.devicestreaming.v1.rs");
-            include!("../convert.rs");
             }
         }
     }
