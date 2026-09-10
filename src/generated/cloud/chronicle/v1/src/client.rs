@@ -2384,6 +2384,520 @@ impl FeaturedContentNativeDashboardService {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_chronicle_v1::client::FeedsService;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    instance_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = FeedsService::builder().build().await?;
+///     let mut list = client.list_feeds()
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// FeedsService contains procedures for managing Chronicle third-party feeds.
+///
+/// # Configuration
+///
+/// To configure `FeedsService` use the `with_*` methods in the type returned
+/// by [builder()][FeedsService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://chronicle.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::feeds_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::feeds_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `FeedsService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `FeedsService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct FeedsService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::FeedsService>,
+}
+
+impl FeedsService {
+    /// Returns a builder for [FeedsService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_chronicle_v1::client::FeedsService;
+    /// let client = FeedsService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::feeds_service::ClientBuilder {
+        crate::new_client_builder(super::builder::feeds_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::FeedsService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::FeedsService>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::FeedsService> {
+        super::transport::FeedsService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::FeedsService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::FeedsService::new)
+    }
+
+    /// Fetch Chronicle's service account used for ingesting data from Cloud
+    /// Storage buckets.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeedsService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeedsService
+    /// ) -> Result<()> {
+    ///     let response = client.fetch_service_account_for_customer()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_service_account_for_customer(
+        &self,
+    ) -> super::builder::feeds_service::FetchServiceAccountForCustomer {
+        super::builder::feeds_service::FetchServiceAccountForCustomer::new(self.inner.clone())
+    }
+
+    /// Creates a feed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeedsService;
+    /// use google_cloud_chronicle_v1::model::Feed;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeedsService, project_id: &str, location_id: &str, instance_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_feed()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
+    ///         .set_feed(
+    ///             Feed::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_feed(&self) -> super::builder::feeds_service::CreateFeed {
+        super::builder::feeds_service::CreateFeed::new(self.inner.clone())
+    }
+
+    /// Gets a feed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeedsService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeedsService, project_id: &str, location_id: &str, instance_id: &str, feed_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_feed()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/feeds/{feed_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_feed(&self) -> super::builder::feeds_service::GetFeed {
+        super::builder::feeds_service::GetFeed::new(self.inner.clone())
+    }
+
+    /// Deletes a feed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeedsService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeedsService, project_id: &str, location_id: &str, instance_id: &str, feed_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_feed()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/feeds/{feed_id}"))
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_feed(&self) -> super::builder::feeds_service::DeleteFeed {
+        super::builder::feeds_service::DeleteFeed::new(self.inner.clone())
+    }
+
+    /// Enable feed for ingestion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeedsService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeedsService
+    /// ) -> Result<()> {
+    ///     let response = client.enable_feed()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn enable_feed(&self) -> super::builder::feeds_service::EnableFeed {
+        super::builder::feeds_service::EnableFeed::new(self.inner.clone())
+    }
+
+    /// Disable feed for ingestion. Make FeedState ARCHIVED.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeedsService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeedsService
+    /// ) -> Result<()> {
+    ///     let response = client.disable_feed()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn disable_feed(&self) -> super::builder::feeds_service::DisableFeed {
+        super::builder::feeds_service::DisableFeed::new(self.inner.clone())
+    }
+
+    /// Lists all feeds for the customer.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeedsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeedsService, project_id: &str, location_id: &str, instance_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_feeds()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_feeds(&self) -> super::builder::feeds_service::ListFeeds {
+        super::builder::feeds_service::ListFeeds::new(self.inner.clone())
+    }
+
+    /// Lists Packs for which feeds can be configured.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeedsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeedsService, project_id: &str, location_id: &str, instance_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_feed_packs()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_feed_packs(&self) -> super::builder::feeds_service::ListFeedPacks {
+        super::builder::feeds_service::ListFeedPacks::new(self.inner.clone())
+    }
+
+    /// Gets a feed pack.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeedsService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeedsService, project_id: &str, location_id: &str, instance_id: &str, feed_pack_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_feed_pack()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/feedPacks/{feed_pack_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_feed_pack(&self) -> super::builder::feeds_service::GetFeedPack {
+        super::builder::feeds_service::GetFeedPack::new(self.inner.clone())
+    }
+
+    /// Updates the full feed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeedsService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_chronicle_v1::model::Feed;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeedsService, project_id: &str, location_id: &str, instance_id: &str, feed_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_feed()
+    ///         .set_feed(
+    ///             Feed::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/feeds/{feed_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_feed(&self) -> super::builder::feeds_service::UpdateFeed {
+        super::builder::feeds_service::UpdateFeed::new(self.inner.clone())
+    }
+
+    /// List all FeedSourceTypeSchemas.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeedsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeedsService, project_id: &str, location_id: &str, instance_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_feed_source_type_schemas()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_feed_source_type_schemas(
+        &self,
+    ) -> super::builder::feeds_service::ListFeedSourceTypeSchemas {
+        super::builder::feeds_service::ListFeedSourceTypeSchemas::new(self.inner.clone())
+    }
+
+    /// List all LogTypeSchemas compatible with a given
+    /// FeedSourceType.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeedsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeedsService, project_id: &str, location_id: &str, instance_id: &str, feed_source_type_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_log_type_schemas()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/feedSourceTypeSchemas/{feed_source_type_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_log_type_schemas(&self) -> super::builder::feeds_service::ListLogTypeSchemas {
+        super::builder::feeds_service::ListLogTypeSchemas::new(self.inner.clone())
+    }
+
+    /// Import logs coming from https push feeds.
+    /// All log entries must be valid UTF-8. A single invalid event will cause the
+    /// entire request to be rejected.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeedsService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeedsService
+    /// ) -> Result<()> {
+    ///     let response = client.import_push_logs()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn import_push_logs(&self) -> super::builder::feeds_service::ImportPushLogs {
+        super::builder::feeds_service::ImportPushLogs::new(self.inner.clone())
+    }
+
+    /// Generates a new secret for https push feeds which do not support jwt
+    /// tokens. Secrets once generated should be copied and stored in safe place
+    /// to be used while configuring https push feeds.Please note that you can
+    /// always generate a new secret again for a feed using this API but it will
+    /// invalidate the previously generated secret for the feed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeedsService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeedsService
+    /// ) -> Result<()> {
+    ///     let response = client.generate_secret()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn generate_secret(&self) -> super::builder::feeds_service::GenerateSecret {
+        super::builder::feeds_service::GenerateSecret::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeedsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeedsService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::feeds_service::ListOperations {
+        super::builder::feeds_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeedsService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeedsService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::feeds_service::GetOperation {
+        super::builder::feeds_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeedsService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeedsService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::feeds_service::DeleteOperation {
+        super::builder::feeds_service::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::FeedsService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &FeedsService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::feeds_service::CancelOperation {
+        super::builder::feeds_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Chronicle API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_chronicle_v1::client::FindingsRefinementService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
 /// async fn sample(
