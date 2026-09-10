@@ -91,6 +91,7 @@ impl Default for JobRetryPolicy {
 
 /// Errors returned by the JobPoller.
 #[derive(Debug, thiserror::Error)]
+#[non_exhaustive]
 pub enum JobPollerError {
     /// An error occurred during the RPC or LRO polling.
     #[error(transparent)]
