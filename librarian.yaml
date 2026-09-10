@@ -506,7 +506,7 @@ libraries:
     version: 2.2.0
     copyright_year: "2025"
   - name: google-cloud-bigquery
-    version: 0.16.1-preview
+    version: 0.17.0
     copyright_year: "2026"
     output: src/bigquery
     rust:
@@ -608,7 +608,7 @@ libraries:
     version: 1.12.0
     copyright_year: "2025"
   - name: google-cloud-bigquery-v2
-    version: 0.1.1
+    version: 1.0.0
     copyright_year: "2025"
     keep:
       - src/job_poller.rs
