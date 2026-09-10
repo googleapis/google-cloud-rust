@@ -167,9 +167,10 @@ impl ClientBuilder {
     /// ```
     /// # use google_cloud_bigquery::client::BigQuery;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    /// use google_cloud_bigquery::query::retry_policy::RetryableErrors;
+    /// use google_cloud_gax::retry_policy::RetryPolicyExt;
     /// let client = BigQuery::builder()
-    ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
+    ///     .with_retry_policy(RetryableErrors.with_attempt_limit(3))
     ///     .build()
     ///     .await?;
     /// # Ok(()) }
@@ -192,6 +193,7 @@ impl ClientBuilder {
     /// # use google_cloud_bigquery::client::BigQuery;
     /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    /// use std::time::Duration;
     /// let policy = ExponentialBackoff::default();
     /// let client = BigQuery::builder()
     ///     .with_backoff_policy(policy)
@@ -224,9 +226,9 @@ impl ClientBuilder {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::query::retry_policy::RetryableErrors;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::exponential_backoff::ExponentialBackoff;
-    use google_cloud_gax::retry_policy::AlwaysRetry;
 
     #[test]
     fn defaults() -> anyhow::Result<()> {
@@ -249,7 +251,7 @@ mod tests {
             .with_endpoint("test-endpoint.com")
             .with_universe_domain("test-universe.com")
             .with_credentials(Anonymous::new().build())
-            .with_retry_policy(AlwaysRetry)
+            .with_retry_policy(RetryableErrors)
             .with_backoff_policy(ExponentialBackoff::default())
             .with_tracing();
 
