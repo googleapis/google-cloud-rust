@@ -336,6 +336,35 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     buckets.push(id.clone());
     buckets::create_bucket_hierarchical_namespace::sample(&control, &project_id, &id).await?;
 
+    let (archived_copy, archived_delete) = make_test_objects(&client, &id).await?;
+
+    tracing::info!("create temp file for upload");
+    let file_to_upload = tempfile::NamedTempFile::new()?;
+    let file_to_upload_path = file_to_upload.path().to_str().unwrap();
+    tokio::fs::write(file_to_upload_path, "hello world from file").await?;
+
+    run_object_file_and_stream_examples(&client, &id, file_to_upload_path).await?;
+    run_object_management_examples(&control, &id, &archived_copy, &archived_delete).await?;
+    run_object_kms_and_csek_examples(
+        &control,
+        &client,
+        &project_id,
+        &kms_ring,
+        buckets,
+        file_to_upload_path,
+    )
+    .await?;
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    run_object_appendable_examples(&control, &client, &project_id, buckets).await?;
+
+    run_object_retention_examples(&control, &client, &project_id, &service_account, buckets)
+        .await?;
+
+    Ok(())
+}
+
+async fn make_test_objects(client: &Storage, id: &str) -> anyhow::Result<(Object, Object)> {
     tracing::info!("create test objects for the examples");
     // Need a vector to accumulate the data. Using a slice of futures overflows
     // the stack on macOS.
@@ -358,31 +387,34 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
         "object-to-move",
     ]
     .into_iter()
-    .for_each(|name| writers.push(make_object(&client, &id, name)));
+    .for_each(|name| writers.push(Box::pin(make_object(client, id, name))));
     let _ = futures::future::join_all(writers)
         .await
         .into_iter()
         .collect::<anyhow::Result<Vec<_>>>()?;
     // We need to remember the metadata for these objects, so we create them
     // outside of the loop.
-    let archived_copy = make_object(&client, &id, "object-generation-to-copy").await?;
-    let archived_delete = make_object(&client, &id, "object-generation-to-delete").await?;
+    let archived_copy = make_object(client, id, "object-generation-to-copy").await?;
+    let archived_delete = make_object(client, id, "object-generation-to-delete").await?;
+    Ok((archived_copy, archived_delete))
+}
 
+async fn run_object_file_and_stream_examples(
+    client: &Storage,
+    id: &str,
+    file_to_upload_path: &str,
+) -> anyhow::Result<()> {
     tracing::info!("running stream_file_upload example");
-    objects::stream_file_upload::sample(&client, &id).await?;
+    objects::stream_file_upload::sample(client, id).await?;
     tracing::info!("running stream_file_download example");
-    objects::stream_file_download::sample(&client, &id).await?;
+    objects::stream_file_download::sample(client, id).await?;
 
-    tracing::info!("create temp file for upload");
-    let file_to_upload = tempfile::NamedTempFile::new()?;
-    let file_to_upload_path = file_to_upload.path().to_str().unwrap();
-    tokio::fs::write(file_to_upload_path, "hello world from file").await?;
     tracing::info!("running upload_file example");
-    objects::upload_file::sample(&client, &id, "uploaded-file.txt", file_to_upload_path).await?;
+    objects::upload_file::sample(client, id, "uploaded-file.txt", file_to_upload_path).await?;
     tracing::info!("running download_file example");
     let downloaded_file = tempfile::NamedTempFile::new()?;
     let downloaded_file_path = downloaded_file.path().to_str().unwrap();
-    objects::download_file::sample(&client, &id, "uploaded-file.txt", downloaded_file_path).await?;
+    objects::download_file::sample(client, id, "uploaded-file.txt", downloaded_file_path).await?;
     tracing::info!("checking downloaded file content");
     let content = tokio::fs::read_to_string(downloaded_file_path).await?;
     assert_eq!(content, "hello world from file");
@@ -394,7 +426,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     objects::download_public_file::sample(public_bucket, public_object).await?;
 
     tracing::info!("running download_byte_range example");
-    objects::download_byte_range::sample(&client, &id, "object-to-download.txt", 4, 10).await?;
+    objects::download_byte_range::sample(client, id, "object-to-download.txt", 4, 10).await?;
 
     tracing::info!("running open_object_single_ranged_read example");
     let downloaded_file = tempfile::NamedTempFile::new()?;
@@ -403,8 +435,8 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     let range_start = 4;
     let range_end = 10;
     objects::open_object_single_ranged_read::sample(
-        &client,
-        &id,
+        client,
+        id,
         object_name,
         range_start,
         range_end,
@@ -413,12 +445,12 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     .await?;
 
     tracing::info!("running open_object_multiple_ranged_read example");
-    objects::open_object_multiple_ranged_read::sample(&client, &id, object_name).await?;
+    objects::open_object_multiple_ranged_read::sample(client, id, object_name).await?;
 
     tracing::info!("running open_multiple_objects_ranged_read example");
     objects::open_multiple_objects_ranged_read::sample(
-        &client,
-        &id,
+        client,
+        id,
         &["object-to-download.txt", "object-to-read"],
     )
     .await?;
@@ -426,88 +458,109 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     tracing::info!("running open_object_read_full_object example");
     let downloaded_file = tempfile::NamedTempFile::new()?;
     let downloaded_file_name = downloaded_file.path().to_str().unwrap();
-    objects::open_object_read_full_object::sample(&client, &id, object_name, downloaded_file_name)
+    objects::open_object_read_full_object::sample(client, id, object_name, downloaded_file_name)
         .await?;
 
     tracing::info!("running file_upload_from_memory example");
-    objects::file_upload_from_memory::sample(&client, &id).await?;
+    objects::file_upload_from_memory::sample(client, id).await?;
     tracing::info!("running file_download_into_memory example");
-    objects::file_download_into_memory::sample(&client, &id).await?;
+    objects::file_download_into_memory::sample(client, id).await?;
 
+    Ok(())
+}
+
+async fn run_object_management_examples(
+    control: &StorageControl,
+    id: &str,
+    archived_copy: &Object,
+    archived_delete: &Object,
+) -> anyhow::Result<()> {
     tracing::info!("running list_files example");
-    objects::list_files::sample(&control, &id).await?;
+    objects::list_files::sample(control, id).await?;
     tracing::info!("running list_files_with_prefix example");
-    objects::list_files_with_prefix::sample(&control, &id).await?;
+    objects::list_files_with_prefix::sample(control, id).await?;
     tracing::info!("running list_file_archived_generations example");
-    objects::list_file_archived_generations::sample(&control, &id).await?;
+    objects::list_file_archived_generations::sample(control, id).await?;
     tracing::info!("running set_metadata example");
-    objects::set_metadata::sample(&control, &id).await?;
+    objects::set_metadata::sample(control, id).await?;
     tracing::info!("running get_metadata example");
-    objects::get_metadata::sample(&control, &id).await?;
+    objects::get_metadata::sample(control, id).await?;
     tracing::info!("running print_file_acl example");
-    objects::print_file_acl::sample(&control, &id).await?;
+    objects::print_file_acl::sample(control, id).await?;
     tracing::info!("running print_file_acl_for_user example");
-    objects::print_file_acl_for_user::sample(&control, &id).await?;
+    objects::print_file_acl_for_user::sample(control, id).await?;
     tracing::info!("running get_kms_key example");
-    objects::get_kms_key::sample(&control, &id).await?;
+    objects::get_kms_key::sample(control, id).await?;
     tracing::info!("running set_event_based_hold example");
-    objects::set_event_based_hold::sample(&control, &id).await?;
+    objects::set_event_based_hold::sample(control, id).await?;
     tracing::info!("running release_event_based_hold example");
-    objects::release_event_based_hold::sample(&control, &id).await?;
+    objects::release_event_based_hold::sample(control, id).await?;
     tracing::info!("running set_temporary_hold example");
-    objects::set_temporary_hold::sample(&control, &id).await?;
+    objects::set_temporary_hold::sample(control, id).await?;
     tracing::info!("running release_temporary_hold example");
-    objects::release_temporary_hold::sample(&control, &id).await?;
+    objects::release_temporary_hold::sample(control, id).await?;
     tracing::info!("running delete_file example");
-    objects::delete_file::sample(&control, &id).await?;
+    objects::delete_file::sample(control, id).await?;
     tracing::info!("running delete_file_archived_generation example");
-    objects::delete_file_archived_generation::sample(&control, &id, archived_delete.generation)
+    objects::delete_file_archived_generation::sample(control, id, archived_delete.generation)
         .await?;
     tracing::info!("running copy_file example");
-    objects::copy_file::sample(&control, &id, &id).await?;
+    objects::copy_file::sample(control, id, id).await?;
     tracing::info!("running copy_file_archived_generation example");
-    objects::copy_file_archived_generation::sample(&control, &id, &id, archived_copy.generation)
+    objects::copy_file_archived_generation::sample(control, id, id, archived_copy.generation)
         .await?;
-    tracing::info!("running change_file_storage_class example");
-    objects::change_file_storage_class::sample(&control, &id).await?;
+    tracing::info!("change_file_storage_class example");
+    objects::change_file_storage_class::sample(control, id).await?;
     tracing::info!("running compose_file example");
-    objects::compose_file::sample(&control, &id).await?;
+    objects::compose_file::sample(control, id).await?;
     tracing::info!("running move_file example");
-    objects::move_file::sample(&control, &id, &id).await?;
+    objects::move_file::sample(control, id, id).await?;
 
     #[cfg(feature = "skipped-integration-tests")]
     {
         // Skip, the internal Google policies prevent granting public access to
         // any buckets in our test projects.
         tracing::info!("running make_public example");
-        objects::make_public::sample(&control, &id).await?;
+        objects::make_public::sample(control, id).await?;
     }
 
     tracing::info!("running set_object_contexts example");
-    objects::set_object_contexts::sample(&control, &id).await?;
+    objects::set_object_contexts::sample(control, id).await?;
     tracing::info!("running list_object_contexts example");
-    objects::list_object_contexts::sample(&control, &id).await?;
+    objects::list_object_contexts::sample(control, id).await?;
     tracing::info!("running get_object_contexts example");
-    objects::get_object_contexts::sample(&control, &id).await?;
+    objects::get_object_contexts::sample(control, id).await?;
 
+    Ok(())
+}
+
+async fn run_object_kms_and_csek_examples(
+    control: &StorageControl,
+    client: &Storage,
+    project_id: &str,
+    kms_ring: &str,
+    buckets: &mut Vec<String>,
+    file_to_upload_path: &str,
+) -> anyhow::Result<()> {
     let id = random_bucket_id();
     buckets.push(id.clone());
     tracing::info!("create bucket for KMS examples");
-    let kms_key = create_bucket_kms_key(&control, project_id.clone(), kms_ring, &id).await?;
+    let kms_key =
+        create_bucket_kms_key(control, project_id.to_string(), kms_ring.to_string(), &id).await?;
     tracing::info!("running upload_with_kms_key example");
-    objects::upload_with_kms_key::sample(&client, &id, file_to_upload_path, &kms_key).await?;
+    objects::upload_with_kms_key::sample(client, &id, file_to_upload_path, &kms_key).await?;
 
     tracing::info!("running generate_encryption_key example");
     let csek_key = objects::generate_encryption_key::sample()?;
     tracing::info!("running upload_encrypted_file example");
-    objects::upload_encrypted_file::sample(&client, &id, "csek_file.txt", csek_key.clone()).await?;
+    objects::upload_encrypted_file::sample(client, &id, "csek_file.txt", csek_key.clone()).await?;
     tracing::info!("running download_encrypted_file example");
-    objects::download_encrypted_file::sample(&client, &id, "csek_file.txt", csek_key.clone())
+    objects::download_encrypted_file::sample(client, &id, "csek_file.txt", csek_key.clone())
         .await?;
     tracing::info!("running rotate_encryption_key example");
     let new_csek_key = objects::generate_encryption_key::sample()?;
     objects::rotate_encryption_key::sample(
-        &control,
+        control,
         &id,
         "csek_file.txt",
         csek_key.clone(),
@@ -515,83 +568,92 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     )
     .await?;
     tracing::info!("running download_encrypted_file example with new key");
-    objects::download_encrypted_file::sample(&client, &id, "csek_file.txt", new_csek_key.clone())
+    objects::download_encrypted_file::sample(client, &id, "csek_file.txt", new_csek_key.clone())
         .await?;
     tracing::info!("running object_csek_to_cmek example");
-    objects::object_csek_to_cmek::sample(&control, &id, "csek_file.txt", new_csek_key, &kms_key)
+    objects::object_csek_to_cmek::sample(control, &id, "csek_file.txt", new_csek_key, &kms_key)
         .await?;
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
-    {
-        use google_cloud_test_utils::runtime_config::{region_id, zone_id};
-        tracing::info!("create rapid bucket for appendable examples");
-        let rapid_bucket_id = random_bucket_id();
-        buckets.push(rapid_bucket_id.clone());
-        let _ = control
-            .create_bucket()
-            .set_parent("projects/_")
-            .set_bucket_id(rapid_bucket_id.clone())
-            .set_bucket(
-                Bucket::new()
-                    .set_project(format!("projects/{project_id}"))
-                    .set_location(region_id())
-                    .set_custom_placement_config(
-                        CustomPlacementConfig::new().set_data_locations([zone_id()]),
-                    )
-                    .set_storage_class("RAPID")
-                    .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
-                    .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
-                        UniformBucketLevelAccess::new().set_enabled(true),
-                    )),
-            )
-            .send()
-            .await?;
+    Ok(())
+}
 
-        tracing::info!("running open_appendable_object_write example");
-        objects::open_appendable_object_write::sample(
-            &client,
-            &rapid_bucket_id,
-            "appendable-write",
+#[cfg(google_cloud_unstable_storage_bidi)]
+async fn run_object_appendable_examples(
+    control: &StorageControl,
+    client: &Storage,
+    project_id: &str,
+    buckets: &mut Vec<String>,
+) -> anyhow::Result<()> {
+    use google_cloud_test_utils::runtime_config::{region_id, zone_id};
+    tracing::info!("create rapid bucket for appendable examples");
+    let rapid_bucket_id = random_bucket_id();
+    buckets.push(rapid_bucket_id.clone());
+    let _ = control
+        .create_bucket()
+        .set_parent("projects/_")
+        .set_bucket_id(rapid_bucket_id.clone())
+        .set_bucket(
+            Bucket::new()
+                .set_project(format!("projects/{project_id}"))
+                .set_location(region_id())
+                .set_custom_placement_config(
+                    CustomPlacementConfig::new().set_data_locations([zone_id()]),
+                )
+                .set_storage_class("RAPID")
+                .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
+                .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
+                    UniformBucketLevelAccess::new().set_enabled(true),
+                )),
         )
+        .send()
         .await?;
 
-        tracing::info!("running open_appendable_object_pause_resume example");
-        objects::open_appendable_object_pause_resume::sample(
-            &client,
-            &rapid_bucket_id,
-            "appendable-pause-resume",
-        )
+    tracing::info!("running open_appendable_object_write example");
+    objects::open_appendable_object_write::sample(client, &rapid_bucket_id, "appendable-write")
         .await?;
 
-        let mut writer = client
-            .open_appendable_object(
-                format!("projects/_/buckets/{rapid_bucket_id}"),
-                "appendable-finalize",
-            )
-            .send()
-            .await?;
-        writer.append(bytes::Bytes::from("hello ")).await?;
-        let generation = writer.generation();
-        writer.close().await?;
+    tracing::info!("running open_appendable_object_pause_resume example");
+    objects::open_appendable_object_pause_resume::sample(
+        client,
+        &rapid_bucket_id,
+        "appendable-pause-resume",
+    )
+    .await?;
 
-        tracing::info!("running open_appendable_object_finalize example");
-        objects::open_appendable_object_finalize::sample(
-            &client,
-            &rapid_bucket_id,
+    let mut writer = client
+        .open_appendable_object(
+            format!("projects/_/buckets/{rapid_bucket_id}"),
             "appendable-finalize",
-            generation,
         )
+        .send()
+        .await?;
+    writer.append(bytes::Bytes::from("hello ")).await?;
+    let generation = writer.generation();
+    writer.close().await?;
+
+    tracing::info!("running open_appendable_object_finalize example");
+    objects::open_appendable_object_finalize::sample(
+        client,
+        &rapid_bucket_id,
+        "appendable-finalize",
+        generation,
+    )
+    .await?;
+
+    tracing::info!("running open_appendable_object_read_tail example");
+    objects::open_appendable_object_read_tail::sample(client, &rapid_bucket_id, "appendable-write")
         .await?;
 
-        tracing::info!("running open_appendable_object_read_tail example");
-        objects::open_appendable_object_read_tail::sample(
-            &client,
-            &rapid_bucket_id,
-            "appendable-write",
-        )
-        .await?;
-    }
+    Ok(())
+}
 
+async fn run_object_retention_examples(
+    control: &StorageControl,
+    client: &Storage,
+    project_id: &str,
+    service_account: &str,
+    buckets: &mut Vec<String>,
+) -> anyhow::Result<()> {
     tracing::info!("create bucket for object ACL, retention examples");
     let id = random_bucket_id();
     buckets.push(id.clone());
@@ -612,13 +674,13 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
         .send()
         .await?;
     tracing::info!("create test object for object ACL examples");
-    let _ = make_object(&client, &id, "object-to-update").await;
+    let _ = make_object(client, &id, "object-to-update").await;
     tracing::info!("running add_file_owner example");
-    objects::add_file_owner::sample(&control, &id, &service_account).await?;
+    objects::add_file_owner::sample(control, &id, service_account).await?;
     tracing::info!("running remove_file_owner example");
-    objects::remove_file_owner::sample(&control, &id, &service_account).await?;
+    objects::remove_file_owner::sample(control, &id, service_account).await?;
     tracing::info!("running set_object_retention_policy example");
-    objects::set_object_retention_policy::sample(&control, &id).await?;
+    objects::set_object_retention_policy::sample(control, &id).await?;
 
     Ok(())
 }

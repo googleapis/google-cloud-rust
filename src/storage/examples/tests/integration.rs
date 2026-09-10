@@ -73,7 +73,11 @@ mod tests {
         let client = StorageControl::builder().build().await?;
 
         let mut buckets = Vec::new();
-        let result = run_object_examples(&mut buckets).await.inspect_err(anydump);
+        // Box the future to move its large state machine off the test thread
+        // stack and avoid a stack overflow in unoptimized debug builds.
+        let result = Box::pin(run_object_examples(&mut buckets))
+            .await
+            .inspect_err(anydump);
         cleanup_all_buckets(client, buckets).await;
         result
     }
