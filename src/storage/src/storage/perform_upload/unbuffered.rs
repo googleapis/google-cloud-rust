@@ -81,12 +81,13 @@ where
                 .is_some()
             {}
 
-            // Extract the calculated checksum and reset ChecksummedSource's internal hasher
-            // back to None (`Checksum::default()`). This accomplishes two critical things:
+            // Extract the calculated checksum using `final_checksum()` and reset the
+            // internal hasher back to None using `reset_checksum()`. This accomplishes two things:
             // 1. Returns the computed CRC32C/MD5 to place in the initial start-upload metadata.
             // 2. Disables on-the-fly hashing for the subsequent upload pass (Phase 2), ensuring
             //    chunks are not redundantly re-hashed while being streamed across the network.
-            let computed = payload.take_checksum();
+            let computed = payload.final_checksum();
+            payload.reset_checksum();
             payload.seek(0_u64).await.map_err(Error::ser)?;
             drop(payload);
 

@@ -173,16 +173,12 @@ impl<S> ChecksummedSource<S> {
         self.checksum.finalize()
     }
 
-    /// Finalizes the computed checksum and resets internal checksumming state to
-    /// default (i.e. disabled / `None`).
+    /// Resets the internal checksumming state back to default (`None`).
     ///
-    /// This is used when precomputing checksums before an upload pass: it extracts
-    /// the calculated checksum for metadata headers and leaves the source with no
-    /// active hashers, avoiding redundant recomputation during subsequent streaming.
-    pub fn take_checksum(&mut self) -> ObjectChecksums {
-        let computed = self.checksum.finalize();
+    /// This disables on-the-fly checksumming for subsequent stream reads, which is
+    /// used after precomputing checksums to avoid redundant re-hashing during upload.
+    pub fn reset_checksum(&mut self) {
         self.checksum = Checksum::default();
-        computed
     }
 }
 
@@ -505,7 +501,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn checksummed_source_take_checksum() -> anyhow::Result<()> {
+    async fn checksummed_source_reset_checksum() -> anyhow::Result<()> {
         let input = [
             "the ", "quick ", "brown ", "fox ", "jumps ", "over ", "the ", "lazy ", "dog",
         ];
@@ -530,10 +526,15 @@ mod tests {
         while source.next().await.transpose()?.is_some() {}
 
         let want = crc32c::crc32c("the quick brown fox jumps over the lazy dog".as_bytes());
-        let taken = source.take_checksum();
-        assert_eq!(taken, ObjectChecksums::new().set_crc32c(want));
+        assert_eq!(
+            source.final_checksum(),
+            ObjectChecksums::new().set_crc32c(want)
+        );
 
-        // After take_checksum(), the hasher is reset and final_checksum() returns empty
+        // Reset the checksumming state
+        source.reset_checksum();
+
+        // After reset_checksum(), the hasher is disabled and final_checksum() returns empty
         assert_eq!(source.final_checksum(), ObjectChecksums::new());
         assert!(source.checksum.crc32c.is_none());
         assert!(source.checksum.md5_hash.is_none());
