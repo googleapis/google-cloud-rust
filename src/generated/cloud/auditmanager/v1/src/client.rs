@@ -29,7 +29,7 @@
 ///    location_id: &str,
 /// ) -> anyhow::Result<()> {
 ///     let client = AuditManager::builder().build().await?;
-///     let mut list = client.list_audit_reports()
+///     let mut list = client.list_audit_schedules()
 ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
@@ -126,6 +126,99 @@ impl AuditManager {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AuditManager::new)
+    }
+
+    /// Creates a new audit schedule in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::client::AuditManager;
+    /// use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// use google_cloud_auditmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &AuditManager, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_audit_schedule()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .set_audit_schedule(
+    ///             AuditSchedule::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_audit_schedule(&self) -> super::builder::audit_manager::CreateAuditSchedule {
+        super::builder::audit_manager::CreateAuditSchedule::new(self.inner.clone())
+    }
+
+    /// Updates an existing audit schedule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::client::AuditManager;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// use google_cloud_auditmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &AuditManager, project_id: &str, location_id: &str, audit_schedule_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_audit_schedule()
+    ///         .set_audit_schedule(
+    ///             AuditSchedule::new().set_name(format!("projects/{project_id}/locations/{location_id}/auditSchedules/{audit_schedule_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_audit_schedule(&self) -> super::builder::audit_manager::UpdateAuditSchedule {
+        super::builder::audit_manager::UpdateAuditSchedule::new(self.inner.clone())
+    }
+
+    /// Gets details of a single audit schedule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::client::AuditManager;
+    /// use google_cloud_auditmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &AuditManager, project_id: &str, location_id: &str, audit_schedule_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_audit_schedule()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/auditSchedules/{audit_schedule_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_audit_schedule(&self) -> super::builder::audit_manager::GetAuditSchedule {
+        super::builder::audit_manager::GetAuditSchedule::new(self.inner.clone())
+    }
+
+    /// Lists audit schedules in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::client::AuditManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_auditmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &AuditManager, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_audit_schedules()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_audit_schedules(&self) -> super::builder::audit_manager::ListAuditSchedules {
+        super::builder::audit_manager::ListAuditSchedules::new(self.inner.clone())
     }
 
     /// Adds your project, folder, or organization to Audit

@@ -62,6 +62,21 @@ pub struct EnrollResourceRequest {
     /// available.
     pub destinations: std::vec::Vec<crate::model::enroll_resource_request::EligibleDestination>,
 
+    /// Optional. If `true`, only validates the request and does not enroll the
+    /// resource. This executes standard request validation (such as schema, IAM,
+    /// and destination checks) and skips the apply phase.
+    ///
+    /// Use this field for the following purposes:
+    ///
+    /// * **Infrastructure as Code (IaC)**: Allow tools like Terraform to run
+    ///   dry-run mutations (e.g., `terraform plan`) without creating real
+    ///   resources or incurring costs.
+    /// * **User Interface Validation**: Enable real-time form and permission
+    ///   validation in custom UIs before submitting requests.
+    /// * **CI/CD & Automation**: Test your scripts, permissions, and parameters
+    ///   safely without consuming resource quotas.
+    pub validate_only: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -102,6 +117,18 @@ impl EnrollResourceRequest {
     {
         use std::iter::Iterator;
         self.destinations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::EnrollResourceRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::EnrollResourceRequest;
+    /// let x = EnrollResourceRequest::new().set_validate_only(true);
+    /// ```
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
         self
     }
 }
@@ -243,6 +270,22 @@ pub struct GenerateAuditScopeReportRequest {
     /// generated against. For example, `NIST_800_53`.
     pub compliance_framework: std::string::String,
 
+    /// Optional. If `true`, only validates the request and does not generate the
+    /// audit scope report. This executes standard request validation (such as
+    /// schema, framework existence, scope, and IAM checks) and skips the apply
+    /// phase.
+    ///
+    /// Use this field for the following purposes:
+    ///
+    /// * **Infrastructure as Code (IaC)**: Allow tools like Terraform to run
+    ///   dry-run mutations (e.g., `terraform plan`) without creating real
+    ///   resources or incurring costs.
+    /// * **User Interface Validation**: Enable real-time form and permission
+    ///   validation in custom UIs before submitting requests.
+    /// * **CI/CD & Automation**: Test your scripts, permissions, and parameters
+    ///   safely without consuming resource quotas.
+    pub validate_only: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -312,6 +355,18 @@ impl GenerateAuditScopeReportRequest {
         v: T,
     ) -> Self {
         self.compliance_framework = v.into();
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::GenerateAuditScopeReportRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::GenerateAuditScopeReportRequest;
+    /// let x = GenerateAuditScopeReportRequest::new().set_validate_only(true);
+    /// ```
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
         self
     }
 }
@@ -3408,6 +3463,1237 @@ impl wkt::message::Message for ControlDetails {
     }
 }
 
+/// Request message for
+/// [CreateAuditSchedule][google.cloud.auditmanager.v1.AuditManager.CreateAuditSchedule].
+///
+/// [google.cloud.auditmanager.v1.AuditManager.CreateAuditSchedule]: crate::client::AuditManager::create_audit_schedule
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateAuditScheduleRequest {
+    /// Required. Project or folder that this audit schedule is for, in one of the
+    /// following formats:
+    ///
+    /// * `projects/{project}/locations/{location}`
+    /// * `folders/{folder}/locations/{location}`
+    pub parent: std::string::String,
+
+    /// Required. Audit schedule to create.
+    pub audit_schedule: std::option::Option<crate::model::AuditSchedule>,
+
+    /// Required. ID to use for the audit schedule, which becomes the final
+    /// component of the audit schedule's resource name.
+    pub audit_schedule_id: std::string::String,
+
+    /// Optional. If `true`, only validates the request and does not create the
+    /// audit schedule. This executes standard request validation (such as schema,
+    /// framework existence, scope, and IAM checks) and skips the apply phase.
+    ///
+    /// Use this field for the following purposes:
+    ///
+    /// * **Infrastructure as Code (IaC)**: Allow tools like Terraform to run
+    ///   dry-run mutations (e.g., `terraform plan`) without creating real
+    ///   resources or incurring costs.
+    /// * **User Interface Validation**: Enable real-time form and permission
+    ///   validation in custom UIs before submitting requests.
+    /// * **CI/CD & Automation**: Test your scripts, permissions, and parameters
+    ///   safely without consuming resource quotas.
+    pub validate_only: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateAuditScheduleRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateAuditScheduleRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::CreateAuditScheduleRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateAuditScheduleRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [audit_schedule][crate::model::CreateAuditScheduleRequest::audit_schedule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::CreateAuditScheduleRequest;
+    /// use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// let x = CreateAuditScheduleRequest::new().set_audit_schedule(AuditSchedule::default()/* use setters */);
+    /// ```
+    pub fn set_audit_schedule<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AuditSchedule>,
+    {
+        self.audit_schedule = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [audit_schedule][crate::model::CreateAuditScheduleRequest::audit_schedule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::CreateAuditScheduleRequest;
+    /// use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// let x = CreateAuditScheduleRequest::new().set_or_clear_audit_schedule(Some(AuditSchedule::default()/* use setters */));
+    /// let x = CreateAuditScheduleRequest::new().set_or_clear_audit_schedule(None::<AuditSchedule>);
+    /// ```
+    pub fn set_or_clear_audit_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AuditSchedule>,
+    {
+        self.audit_schedule = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [audit_schedule_id][crate::model::CreateAuditScheduleRequest::audit_schedule_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::CreateAuditScheduleRequest;
+    /// let x = CreateAuditScheduleRequest::new().set_audit_schedule_id("example");
+    /// ```
+    pub fn set_audit_schedule_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.audit_schedule_id = v.into();
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::CreateAuditScheduleRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::CreateAuditScheduleRequest;
+    /// let x = CreateAuditScheduleRequest::new().set_validate_only(true);
+    /// ```
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateAuditScheduleRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.auditmanager.v1.CreateAuditScheduleRequest"
+    }
+}
+
+/// Request message for
+/// [UpdateAuditSchedule][google.cloud.auditmanager.v1.AuditManager.UpdateAuditSchedule].
+///
+/// [google.cloud.auditmanager.v1.AuditManager.UpdateAuditSchedule]: crate::client::AuditManager::update_audit_schedule
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateAuditScheduleRequest {
+    /// Required. Audit schedule to update.
+    pub audit_schedule: std::option::Option<crate::model::AuditSchedule>,
+
+    /// Optional. List of fields to update.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. If `true`, only validates the request and does not update the
+    /// audit schedule. This executes standard request validation (such as
+    /// schema, framework existence, scope, and IAM checks) and skips the apply
+    /// phase.
+    ///
+    /// Use this field for the following purposes:
+    ///
+    /// * **Infrastructure as Code (IaC)**: Allow tools like Terraform to run
+    ///   dry-run mutations (e.g., `terraform plan`) without creating real
+    ///   resources or incurring costs.
+    /// * **User Interface Validation**: Enable real-time form and permission
+    ///   validation in custom UIs before submitting requests.
+    /// * **CI/CD & Automation**: Test your scripts, permissions, and parameters
+    ///   safely without consuming resource quotas.
+    pub validate_only: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateAuditScheduleRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [audit_schedule][crate::model::UpdateAuditScheduleRequest::audit_schedule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::UpdateAuditScheduleRequest;
+    /// use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// let x = UpdateAuditScheduleRequest::new().set_audit_schedule(AuditSchedule::default()/* use setters */);
+    /// ```
+    pub fn set_audit_schedule<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AuditSchedule>,
+    {
+        self.audit_schedule = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [audit_schedule][crate::model::UpdateAuditScheduleRequest::audit_schedule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::UpdateAuditScheduleRequest;
+    /// use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// let x = UpdateAuditScheduleRequest::new().set_or_clear_audit_schedule(Some(AuditSchedule::default()/* use setters */));
+    /// let x = UpdateAuditScheduleRequest::new().set_or_clear_audit_schedule(None::<AuditSchedule>);
+    /// ```
+    pub fn set_or_clear_audit_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AuditSchedule>,
+    {
+        self.audit_schedule = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateAuditScheduleRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::UpdateAuditScheduleRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAuditScheduleRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateAuditScheduleRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::UpdateAuditScheduleRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAuditScheduleRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateAuditScheduleRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::UpdateAuditScheduleRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::UpdateAuditScheduleRequest;
+    /// let x = UpdateAuditScheduleRequest::new().set_validate_only(true);
+    /// ```
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateAuditScheduleRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.auditmanager.v1.UpdateAuditScheduleRequest"
+    }
+}
+
+/// Request message for
+/// [GetAuditSchedule][google.cloud.auditmanager.v1.AuditManager.GetAuditSchedule].
+///
+/// [google.cloud.auditmanager.v1.AuditManager.GetAuditSchedule]: crate::client::AuditManager::get_audit_schedule
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetAuditScheduleRequest {
+    /// Required. Name of the audit schedule to retrieve, in one of the following
+    /// formats:
+    ///
+    /// * `projects/{project}/locations/{location}/auditSchedules/{audit_schedule}`
+    /// * `folders/{folder}/locations/{location}/auditSchedules/{audit_schedule}`
+    /// * `organizations/{organization}/locations/{location}/auditSchedules/{audit_schedule}`
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetAuditScheduleRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetAuditScheduleRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::GetAuditScheduleRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let audit_schedule_id = "audit_schedule_id";
+    /// let x = GetAuditScheduleRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/auditSchedules/{audit_schedule_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetAuditScheduleRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.auditmanager.v1.GetAuditScheduleRequest"
+    }
+}
+
+/// Request message for
+/// [ListAuditSchedules][google.cloud.auditmanager.v1.AuditManager.ListAuditSchedules].
+///
+/// [google.cloud.auditmanager.v1.AuditManager.ListAuditSchedules]: crate::client::AuditManager::list_audit_schedules
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAuditSchedulesRequest {
+    /// Required. Parent for the audit schedule, in one of the following formats:
+    ///
+    /// * `projects/{project}/locations/{location}`
+    /// * `folders/{folder}/locations/{location}`
+    /// * `organizations/{organization}/locations/{location}`
+    pub parent: std::string::String,
+
+    /// Optional. Maximum number of items to return in a single page. The service
+    /// might return fewer items than this value. If unspecified, the service picks
+    /// an appropriate default. The maximum value is 100; values above 100 are
+    /// reduced to 100.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous call, to retrieve the next
+    /// page of results.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAuditSchedulesRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListAuditSchedulesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::ListAuditSchedulesRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAuditSchedulesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListAuditSchedulesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::ListAuditSchedulesRequest;
+    /// let x = ListAuditSchedulesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListAuditSchedulesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::ListAuditSchedulesRequest;
+    /// let x = ListAuditSchedulesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAuditSchedulesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.auditmanager.v1.ListAuditSchedulesRequest"
+    }
+}
+
+/// Response message for
+/// [ListAuditSchedules][google.cloud.auditmanager.v1.AuditManager.ListAuditSchedules].
+///
+/// [google.cloud.auditmanager.v1.AuditManager.ListAuditSchedules]: crate::client::AuditManager::list_audit_schedules
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAuditSchedulesResponse {
+    /// List of audit schedules.
+    pub audit_schedules: std::vec::Vec<crate::model::AuditSchedule>,
+
+    /// A token that you can send as the `page_token` in a subsequent request to
+    /// retrieve the next page of results. If this field is empty, there are no
+    /// subsequent pages.
+    pub next_page_token: std::string::String,
+
+    /// Locations that can't be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAuditSchedulesResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [audit_schedules][crate::model::ListAuditSchedulesResponse::audit_schedules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::ListAuditSchedulesResponse;
+    /// use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// let x = ListAuditSchedulesResponse::new()
+    ///     .set_audit_schedules([
+    ///         AuditSchedule::default()/* use setters */,
+    ///         AuditSchedule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_audit_schedules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AuditSchedule>,
+    {
+        use std::iter::Iterator;
+        self.audit_schedules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAuditSchedulesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::ListAuditSchedulesResponse;
+    /// let x = ListAuditSchedulesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListAuditSchedulesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::ListAuditSchedulesResponse;
+    /// let x = ListAuditSchedulesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAuditSchedulesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.auditmanager.v1.ListAuditSchedulesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAuditSchedulesResponse {
+    type PageItem = crate::model::AuditSchedule;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.audit_schedules
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// An audit schedule, in one of the following formats:
+///
+/// * `projects/{project}/locations/{location}/auditSchedules/{audit_schedule}`
+/// * `folders/{folder}/locations/{location}/auditSchedules/{audit_schedule}`
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AuditSchedule {
+    /// Identifier. Unique identifier for the audit schedule.
+    /// Format:
+    /// projects/{project}/locations/{location}/auditSchedules/{audit_schedule}
+    /// folders/{folder}/locations/{location}/auditSchedules/{audit_schedule}
+    /// organizations/{organization}/locations/{location}/auditSchedules/{audit_schedule}
+    pub name: std::string::String,
+
+    /// Optional. Display name for the audit schedule.
+    pub display_name: std::string::String,
+
+    /// Required. Cloud Storage bucket where Audit Manager can upload the audit
+    /// report and evidence. The format is `gs://{bucket_name}`.
+    pub gcs_uri: std::string::String,
+
+    /// Required. Framework (set of controls) that the audit scope report is
+    /// generated against. For example, `NIST_800_53`.
+    pub compliance_framework: std::string::String,
+
+    /// Required. Format for the audit report.
+    pub report_format: crate::model::audit_schedule::AuditReportFormat,
+
+    /// Required. Configuration that defines when and how often audit runs are
+    /// automatically triggered for this schedule.
+    pub schedule_config: std::option::Option<crate::model::ScheduleConfig>,
+
+    /// Optional. State of the audit schedule. While most states are managed by the
+    /// system, you can use
+    /// [UpdateAuditSchedule][google.cloud.auditmanager.v1.AuditManager.UpdateAuditSchedule]
+    /// to start, pause, or delete the schedule.
+    ///
+    /// [google.cloud.auditmanager.v1.AuditManager.UpdateAuditSchedule]: crate::client::AuditManager::update_audit_schedule
+    pub state: crate::model::ScheduleState,
+
+    /// Output only. Timestamp when the schedule was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Timestamp when the schedule was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Calculated timestamp for the next scheduled run.
+    pub next_run_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Timestamp when the audit run was last triggered.
+    pub last_trigger_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Describes the error if the schedule is in an error state.
+    pub error_message: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AuditSchedule {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AuditSchedule::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let audit_schedule_id = "audit_schedule_id";
+    /// let x = AuditSchedule::new().set_name(format!("projects/{project_id}/locations/{location_id}/auditSchedules/{audit_schedule_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::AuditSchedule::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// let x = AuditSchedule::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [gcs_uri][crate::model::AuditSchedule::gcs_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// let x = AuditSchedule::new().set_gcs_uri("example");
+    /// ```
+    pub fn set_gcs_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.gcs_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [compliance_framework][crate::model::AuditSchedule::compliance_framework].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// let x = AuditSchedule::new().set_compliance_framework("example");
+    /// ```
+    pub fn set_compliance_framework<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.compliance_framework = v.into();
+        self
+    }
+
+    /// Sets the value of [report_format][crate::model::AuditSchedule::report_format].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// use google_cloud_auditmanager_v1::model::audit_schedule::AuditReportFormat;
+    /// let x0 = AuditSchedule::new().set_report_format(AuditReportFormat::Odf);
+    /// ```
+    pub fn set_report_format<
+        T: std::convert::Into<crate::model::audit_schedule::AuditReportFormat>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.report_format = v.into();
+        self
+    }
+
+    /// Sets the value of [schedule_config][crate::model::AuditSchedule::schedule_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// use google_cloud_auditmanager_v1::model::ScheduleConfig;
+    /// let x = AuditSchedule::new().set_schedule_config(ScheduleConfig::default()/* use setters */);
+    /// ```
+    pub fn set_schedule_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ScheduleConfig>,
+    {
+        self.schedule_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [schedule_config][crate::model::AuditSchedule::schedule_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// use google_cloud_auditmanager_v1::model::ScheduleConfig;
+    /// let x = AuditSchedule::new().set_or_clear_schedule_config(Some(ScheduleConfig::default()/* use setters */));
+    /// let x = AuditSchedule::new().set_or_clear_schedule_config(None::<ScheduleConfig>);
+    /// ```
+    pub fn set_or_clear_schedule_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ScheduleConfig>,
+    {
+        self.schedule_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::AuditSchedule::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// use google_cloud_auditmanager_v1::model::ScheduleState;
+    /// let x0 = AuditSchedule::new().set_state(ScheduleState::Active);
+    /// let x1 = AuditSchedule::new().set_state(ScheduleState::Paused);
+    /// let x2 = AuditSchedule::new().set_state(ScheduleState::Completed);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::ScheduleState>>(mut self, v: T) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::AuditSchedule::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// use wkt::Timestamp;
+    /// let x = AuditSchedule::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::AuditSchedule::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// use wkt::Timestamp;
+    /// let x = AuditSchedule::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AuditSchedule::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::AuditSchedule::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// use wkt::Timestamp;
+    /// let x = AuditSchedule::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::AuditSchedule::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// use wkt::Timestamp;
+    /// let x = AuditSchedule::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AuditSchedule::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [next_run_time][crate::model::AuditSchedule::next_run_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// use wkt::Timestamp;
+    /// let x = AuditSchedule::new().set_next_run_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_next_run_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.next_run_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [next_run_time][crate::model::AuditSchedule::next_run_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// use wkt::Timestamp;
+    /// let x = AuditSchedule::new().set_or_clear_next_run_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AuditSchedule::new().set_or_clear_next_run_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_next_run_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.next_run_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [last_trigger_time][crate::model::AuditSchedule::last_trigger_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// use wkt::Timestamp;
+    /// let x = AuditSchedule::new().set_last_trigger_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_last_trigger_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_trigger_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_trigger_time][crate::model::AuditSchedule::last_trigger_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// use wkt::Timestamp;
+    /// let x = AuditSchedule::new().set_or_clear_last_trigger_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AuditSchedule::new().set_or_clear_last_trigger_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_last_trigger_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_trigger_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [error_message][crate::model::AuditSchedule::error_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::AuditSchedule;
+    /// let x = AuditSchedule::new().set_error_message("example");
+    /// ```
+    pub fn set_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.error_message = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AuditSchedule {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.auditmanager.v1.AuditSchedule"
+    }
+}
+
+/// Defines additional types related to [AuditSchedule].
+pub mod audit_schedule {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Format for the audit report.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AuditReportFormat {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Open Document Format (ODF).
+        Odf,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AuditReportFormat::value] or
+        /// [AuditReportFormat::name].
+        UnknownValue(audit_report_format::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod audit_report_format {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl AuditReportFormat {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Odf => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("AUDIT_REPORT_FORMAT_UNSPECIFIED"),
+                Self::Odf => std::option::Option::Some("AUDIT_REPORT_FORMAT_ODF"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for AuditReportFormat {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AuditReportFormat {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AuditReportFormat {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Odf,
+                _ => Self::UnknownValue(audit_report_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AuditReportFormat {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "AUDIT_REPORT_FORMAT_UNSPECIFIED" => Self::Unspecified,
+                "AUDIT_REPORT_FORMAT_ODF" => Self::Odf,
+                _ => Self::UnknownValue(audit_report_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AuditReportFormat {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Odf => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AuditReportFormat {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<AuditReportFormat>::new(
+                ".google.cloud.auditmanager.v1.AuditSchedule.AuditReportFormat",
+            ))
+        }
+    }
+}
+
+/// Timing and frequency parameters for recurring audit runs.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ScheduleConfig {
+    /// Required. Date and time when the first audit run is triggered.
+    /// Subsequent runs are based on this time and the chosen frequency.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Date that the schedule stops.
+    /// If not specified, the schedule runs indefinitely.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Required. Frequency of audit runs.
+    pub frequency: crate::model::schedule_config::Frequency,
+
+    /// Optional. Time zone for the audit schedule in IANA format (for example,
+    /// `America/New_York`). The time zone is used to interpret the `start_time`
+    /// and the `end_time`, and to calculate subsequent run dates.
+    /// If not specified, the time zone default is UTC.
+    pub time_zone: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ScheduleConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [start_time][crate::model::ScheduleConfig::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::ScheduleConfig;
+    /// use wkt::Timestamp;
+    /// let x = ScheduleConfig::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::ScheduleConfig::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::ScheduleConfig;
+    /// use wkt::Timestamp;
+    /// let x = ScheduleConfig::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ScheduleConfig::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::ScheduleConfig::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::ScheduleConfig;
+    /// use wkt::Timestamp;
+    /// let x = ScheduleConfig::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::ScheduleConfig::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::ScheduleConfig;
+    /// use wkt::Timestamp;
+    /// let x = ScheduleConfig::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ScheduleConfig::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [frequency][crate::model::ScheduleConfig::frequency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::ScheduleConfig;
+    /// use google_cloud_auditmanager_v1::model::schedule_config::Frequency;
+    /// let x0 = ScheduleConfig::new().set_frequency(Frequency::Daily);
+    /// let x1 = ScheduleConfig::new().set_frequency(Frequency::Weekly);
+    /// let x2 = ScheduleConfig::new().set_frequency(Frequency::Monthly);
+    /// ```
+    pub fn set_frequency<T: std::convert::Into<crate::model::schedule_config::Frequency>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.frequency = v.into();
+        self
+    }
+
+    /// Sets the value of [time_zone][crate::model::ScheduleConfig::time_zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_auditmanager_v1::model::ScheduleConfig;
+    /// let x = ScheduleConfig::new().set_time_zone("example");
+    /// ```
+    pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.time_zone = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ScheduleConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.auditmanager.v1.ScheduleConfig"
+    }
+}
+
+/// Defines additional types related to [ScheduleConfig].
+pub mod schedule_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Frequency of audit runs.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Frequency {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// The audit runs every day.
+        Daily,
+        /// The audit runs weekly on the same day of the week as `start_time`.
+        Weekly,
+        /// The audit runs monthly on the same day of the month as `start_time`.
+        Monthly,
+        /// The audit runs quarterly (every 3 months) on the same
+        /// day of the month as `start_time`.
+        Quarterly,
+        /// The audit runs annually on the same month and day as `start_time`.
+        Annually,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Frequency::value] or
+        /// [Frequency::name].
+        UnknownValue(frequency::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod frequency {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Frequency {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Daily => std::option::Option::Some(1),
+                Self::Weekly => std::option::Option::Some(2),
+                Self::Monthly => std::option::Option::Some(3),
+                Self::Quarterly => std::option::Option::Some(4),
+                Self::Annually => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("FREQUENCY_UNSPECIFIED"),
+                Self::Daily => std::option::Option::Some("DAILY"),
+                Self::Weekly => std::option::Option::Some("WEEKLY"),
+                Self::Monthly => std::option::Option::Some("MONTHLY"),
+                Self::Quarterly => std::option::Option::Some("QUARTERLY"),
+                Self::Annually => std::option::Option::Some("ANNUALLY"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Frequency {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Frequency {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Frequency {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Daily,
+                2 => Self::Weekly,
+                3 => Self::Monthly,
+                4 => Self::Quarterly,
+                5 => Self::Annually,
+                _ => Self::UnknownValue(frequency::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Frequency {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "FREQUENCY_UNSPECIFIED" => Self::Unspecified,
+                "DAILY" => Self::Daily,
+                "WEEKLY" => Self::Weekly,
+                "MONTHLY" => Self::Monthly,
+                "QUARTERLY" => Self::Quarterly,
+                "ANNUALLY" => Self::Annually,
+                _ => Self::UnknownValue(frequency::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Frequency {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Daily => serializer.serialize_i32(1),
+                Self::Weekly => serializer.serialize_i32(2),
+                Self::Monthly => serializer.serialize_i32(3),
+                Self::Quarterly => serializer.serialize_i32(4),
+                Self::Annually => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Frequency {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Frequency>::new(
+                ".google.cloud.auditmanager.v1.ScheduleConfig.Frequency",
+            ))
+        }
+    }
+}
+
 /// Different execution states of the Audit Manager service.
 ///
 /// # Working with unknown values
@@ -3742,6 +5028,167 @@ impl<'de> serde::de::Deserialize<'de> for ComplianceState {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ComplianceState>::new(
             ".google.cloud.auditmanager.v1.ComplianceState",
+        ))
+    }
+}
+
+/// State of an audit schedule.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum ScheduleState {
+    /// Default value. This value is unused.
+    Unspecified,
+    /// Schedule is active and will trigger runs.
+    Active,
+    /// Schedule is paused and will not trigger runs.
+    Paused,
+    /// Schedule end time has passed.
+    Completed,
+    /// Schedule setup failed during creation or update.
+    FailedSetup,
+    /// Schedule is in an error state due to persistent failure to trigger an
+    /// audit. Manual intervention is required.
+    Error,
+    /// Schedule has been marked for deletion by the user.
+    Deleted,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [ScheduleState::value] or
+    /// [ScheduleState::name].
+    UnknownValue(schedule_state::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod schedule_state {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl ScheduleState {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Active => std::option::Option::Some(1),
+            Self::Paused => std::option::Option::Some(2),
+            Self::Completed => std::option::Option::Some(3),
+            Self::FailedSetup => std::option::Option::Some(4),
+            Self::Error => std::option::Option::Some(5),
+            Self::Deleted => std::option::Option::Some(6),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SCHEDULE_STATE_UNSPECIFIED"),
+            Self::Active => std::option::Option::Some("SCHEDULE_STATE_ACTIVE"),
+            Self::Paused => std::option::Option::Some("SCHEDULE_STATE_PAUSED"),
+            Self::Completed => std::option::Option::Some("SCHEDULE_STATE_COMPLETED"),
+            Self::FailedSetup => std::option::Option::Some("SCHEDULE_STATE_FAILED_SETUP"),
+            Self::Error => std::option::Option::Some("SCHEDULE_STATE_ERROR"),
+            Self::Deleted => std::option::Option::Some("SCHEDULE_STATE_DELETED"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for ScheduleState {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for ScheduleState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for ScheduleState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Active,
+            2 => Self::Paused,
+            3 => Self::Completed,
+            4 => Self::FailedSetup,
+            5 => Self::Error,
+            6 => Self::Deleted,
+            _ => Self::UnknownValue(schedule_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for ScheduleState {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SCHEDULE_STATE_UNSPECIFIED" => Self::Unspecified,
+            "SCHEDULE_STATE_ACTIVE" => Self::Active,
+            "SCHEDULE_STATE_PAUSED" => Self::Paused,
+            "SCHEDULE_STATE_COMPLETED" => Self::Completed,
+            "SCHEDULE_STATE_FAILED_SETUP" => Self::FailedSetup,
+            "SCHEDULE_STATE_ERROR" => Self::Error,
+            "SCHEDULE_STATE_DELETED" => Self::Deleted,
+            _ => Self::UnknownValue(schedule_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for ScheduleState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Active => serializer.serialize_i32(1),
+            Self::Paused => serializer.serialize_i32(2),
+            Self::Completed => serializer.serialize_i32(3),
+            Self::FailedSetup => serializer.serialize_i32(4),
+            Self::Error => serializer.serialize_i32(5),
+            Self::Deleted => serializer.serialize_i32(6),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ScheduleState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ScheduleState>::new(
+            ".google.cloud.auditmanager.v1.ScheduleState",
         ))
     }
 }

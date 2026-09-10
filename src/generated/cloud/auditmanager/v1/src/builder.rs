@@ -71,6 +71,384 @@ pub mod audit_manager {
         }
     }
 
+    /// The request builder for [AuditManager::create_audit_schedule][crate::client::AuditManager::create_audit_schedule] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::builder::audit_manager::CreateAuditSchedule;
+    /// # async fn sample() -> google_cloud_auditmanager_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateAuditSchedule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateAuditSchedule(RequestBuilder<crate::model::CreateAuditScheduleRequest>);
+
+    impl CreateAuditSchedule {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AuditManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateAuditScheduleRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::AuditSchedule> {
+            (*self.0.stub)
+                .create_audit_schedule(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateAuditScheduleRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [audit_schedule][crate::model::CreateAuditScheduleRequest::audit_schedule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_audit_schedule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AuditSchedule>,
+        {
+            self.0.request.audit_schedule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [audit_schedule][crate::model::CreateAuditScheduleRequest::audit_schedule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_audit_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AuditSchedule>,
+        {
+            self.0.request.audit_schedule = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [audit_schedule_id][crate::model::CreateAuditScheduleRequest::audit_schedule_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_audit_schedule_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.audit_schedule_id = v.into();
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::CreateAuditScheduleRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateAuditSchedule {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [AuditManager::update_audit_schedule][crate::client::AuditManager::update_audit_schedule] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::builder::audit_manager::UpdateAuditSchedule;
+    /// # async fn sample() -> google_cloud_auditmanager_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateAuditSchedule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateAuditSchedule(RequestBuilder<crate::model::UpdateAuditScheduleRequest>);
+
+    impl UpdateAuditSchedule {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AuditManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateAuditScheduleRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::AuditSchedule> {
+            (*self.0.stub)
+                .update_audit_schedule(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [audit_schedule][crate::model::UpdateAuditScheduleRequest::audit_schedule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_audit_schedule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AuditSchedule>,
+        {
+            self.0.request.audit_schedule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [audit_schedule][crate::model::UpdateAuditScheduleRequest::audit_schedule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_audit_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AuditSchedule>,
+        {
+            self.0.request.audit_schedule = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateAuditScheduleRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAuditScheduleRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::UpdateAuditScheduleRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateAuditSchedule {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [AuditManager::get_audit_schedule][crate::client::AuditManager::get_audit_schedule] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::builder::audit_manager::GetAuditSchedule;
+    /// # async fn sample() -> google_cloud_auditmanager_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetAuditSchedule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetAuditSchedule(RequestBuilder<crate::model::GetAuditScheduleRequest>);
+
+    impl GetAuditSchedule {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AuditManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetAuditScheduleRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::AuditSchedule> {
+            (*self.0.stub)
+                .get_audit_schedule(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetAuditScheduleRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetAuditSchedule {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [AuditManager::list_audit_schedules][crate::client::AuditManager::list_audit_schedules] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::builder::audit_manager::ListAuditSchedules;
+    /// # async fn sample() -> google_cloud_auditmanager_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListAuditSchedules {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListAuditSchedules(RequestBuilder<crate::model::ListAuditSchedulesRequest>);
+
+    impl ListAuditSchedules {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AuditManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListAuditSchedulesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListAuditSchedulesResponse> {
+            (*self.0.stub)
+                .list_audit_schedules(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListAuditSchedulesResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListAuditSchedulesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListAuditSchedulesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListAuditSchedulesRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListAuditSchedulesRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListAuditSchedules {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [AuditManager::enroll_resource][crate::client::AuditManager::enroll_resource] calls.
     ///
     /// # Example
@@ -135,6 +513,12 @@ pub mod audit_manager {
         {
             use std::iter::Iterator;
             self.0.request.destinations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::EnrollResourceRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
             self
         }
     }
@@ -230,6 +614,12 @@ pub mod audit_manager {
         /// This is a **required** field for requests.
         pub fn set_compliance_framework<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.compliance_framework = v.into();
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::GenerateAuditScopeReportRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
             self
         }
     }
