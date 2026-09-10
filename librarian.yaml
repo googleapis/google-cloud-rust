@@ -1562,7 +1562,7 @@ libraries:
           item_field: items
       quickstart_service_override: SqlInstancesService
   - name: google-cloud-storage
-    version: 1.18.0
+    version: 1.19.0
     copyright_year: "2025"
     output: src/storage
     rust:
