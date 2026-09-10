@@ -28,12 +28,12 @@ LIMIT 2500
 "#,
         )
         .with_project_id(project_id)
-        .set_max_results(1000_u32)
+        .set_page_size(1000_u32)
         .set_location("US")
         .until_done()
         .await?
         .read()
-        .set_max_results(1000);
+        .set_page_size(1000);
 
     let mut count = 0;
     while let Some(row) = rows.next().await.transpose()? {
