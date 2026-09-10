@@ -569,6 +569,27 @@ pub async fn checksums(client: &Storage, bucket_name: &str) -> Result<()> {
             ),
         ),
         (
+            "unbuffered/resumable/default",
+            Box::pin(
+                client
+                    .write_object(bucket_name, "unbuffered/resumable/default", VEXING)
+                    .set_if_generation_match(0)
+                    .with_resumable_upload_threshold(0_usize)
+                    .send_unbuffered(),
+            ),
+        ),
+        (
+            "unbuffered/resumable/precompute_false",
+            Box::pin(
+                client
+                    .write_object(bucket_name, "unbuffered/resumable/precompute_false", VEXING)
+                    .set_if_generation_match(0)
+                    .with_resumable_upload_threshold(0_usize)
+                    .with_checksum_precomputation(false)
+                    .send_unbuffered(),
+            ),
+        ),
+        (
             "computed/md5",
             Box::pin(
                 client

@@ -393,6 +393,110 @@ async fn source_next_error() -> Result {
 }
 
 #[tokio::test]
+async fn precompute_source_seek_error() -> Result {
+    let server = Server::run();
+    let client = Storage::builder()
+        .with_endpoint(format!("http://{}", server.addr()))
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+    use crate::streaming_source::tests::MockSeekSource;
+    use std::io::{Error as IoError, ErrorKind};
+    let mut source = MockSeekSource::new();
+    source.expect_next().never();
+    source
+        .expect_seek()
+        .once()
+        .returning(|_| Err(IoError::new(ErrorKind::ConnectionAborted, "test-only")));
+    source
+        .expect_size_hint()
+        .once()
+        .returning(|| Ok(SizeHint::with_exact(1024)));
+    let err = client
+        .write_object("projects/_/buckets/test-bucket", "test-object", source)
+        .set_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send_unbuffered()
+        .await
+        .expect_err("expected a serialization error");
+    assert!(err.is_serialization(), "{err:?}");
+
+    Ok(())
+}
+
+#[tokio::test]
+async fn precompute_source_next_error() -> Result {
+    let server = Server::run();
+    let client = Storage::builder()
+        .with_endpoint(format!("http://{}", server.addr()))
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+    use crate::streaming_source::tests::MockSeekSource;
+    use std::io::{Error as IoError, ErrorKind};
+    let mut source = MockSeekSource::new();
+    source
+        .expect_seek()
+        .once()
+        .returning(|_| Ok(()));
+    source
+        .expect_next()
+        .once()
+        .returning(|| Some(Err(IoError::new(ErrorKind::ConnectionAborted, "test-only"))));
+    source
+        .expect_size_hint()
+        .returning(|| Ok(SizeHint::with_exact(1024)));
+    let err = client
+        .write_object("projects/_/buckets/test-bucket", "test-object", source)
+        .set_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send_unbuffered()
+        .await
+        .expect_err("expected a serialization error");
+    assert!(err.is_serialization(), "{err:?}");
+
+    Ok(())
+}
+
+#[tokio::test]
+async fn precompute_rewind_seek_error() -> Result {
+    let server = Server::run();
+    let client = Storage::builder()
+        .with_endpoint(format!("http://{}", server.addr()))
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+    use crate::streaming_source::tests::MockSeekSource;
+    use std::io::{Error as IoError, ErrorKind};
+    let mut source = MockSeekSource::new();
+    source
+        .expect_seek()
+        .times(1)
+        .returning(|_| Ok(()));
+    source
+        .expect_next()
+        .times(1)
+        .returning(|| None);
+    source
+        .expect_seek()
+        .times(1)
+        .returning(|_| Err(IoError::new(ErrorKind::ConnectionAborted, "test-only")));
+    source
+        .expect_size_hint()
+        .returning(|| Ok(SizeHint::with_exact(1024)));
+    let err = client
+        .write_object("projects/_/buckets/test-bucket", "test-object", source)
+        .set_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send_unbuffered()
+        .await
+        .expect_err("expected a serialization error");
+    assert!(err.is_serialization(), "{err:?}");
+
+    Ok(())
+}
+
+#[tokio::test]
 async fn resumable_start_permanent_error() -> Result {
     let server = Server::run();
     server.expect(

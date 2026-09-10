@@ -1793,12 +1793,16 @@ mod tests {
         let session = server.url("/upload/session/test-only-001");
         let path = session.path().to_string();
 
+        use base64::{Engine, prelude::BASE64_STANDARD};
+        let expected_crc = crc32c::crc32c(b"hello world");
+        let expected_crc_b64 = BASE64_STANDARD.encode(expected_crc.to_be_bytes());
+
         server.expect(
             Expectation::matching(all_of![
                 request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
                 request::query(url_decoded(contains(("uploadType", "resumable")))),
-                request::body(json_decoded(|body: &serde_json::Value| {
-                    body.get("crc32c").is_some()
+                request::body(json_decoded(move |body: &serde_json::Value| {
+                    body.get("crc32c").and_then(|v| v.as_str()) == Some(&expected_crc_b64)
                 })),
             ])
             .times(1)
@@ -1806,13 +1810,16 @@ mod tests {
         );
 
         server.expect(
-            Expectation::matching(request::method_path("PUT", path))
-                .times(1)
-                .respond_with(
-                    status_code(200)
-                        .append_header(http::header::CONTENT_TYPE, "application/json")
-                        .body(serde_json::to_string(&crate::model::Object::new()).unwrap()),
-                ),
+            Expectation::matching(all_of![
+                request::method_path("PUT", path),
+                request::body("hello world"),
+            ])
+            .times(1)
+            .respond_with(
+                status_code(200)
+                    .append_header(http::header::CONTENT_TYPE, "application/json")
+                    .body(serde_json::to_string(&crate::model::Object::new()).unwrap()),
+            ),
         );
 
         let client = Storage::builder()
