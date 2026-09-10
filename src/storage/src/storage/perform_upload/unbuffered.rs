@@ -65,23 +65,34 @@ where
         // 2. An upfront CRC32C checksum is not already known (e.g. via `with_known_crc32c`).
         // If an upfront checksum is already present, recomputing it is redundant and skipped.
         if checksum_precomputation && !has_upfront_crc32c {
-            let mut offset = 0_u64;
             let mut payload = self.payload.lock().await;
-            payload.seek(offset).await.map_err(Error::ser)?;
-            while let Some(n) = payload.next().await.transpose().map_err(Error::ser)? {
-                self.options.checksum.update(offset, &n);
-                offset += n.len() as u64;
-            }
+            payload.seek(0_u64).await.map_err(Error::ser)?;
+
+            // Phase 1 (Precomputation):
+            // Stream through the payload to compute the checksum using ChecksummedSource's
+            // built-in hasher. ChecksummedSource::next() automatically updates its internal
+            // hasher on each chunk read, so we simply consume the stream without manual hashing,
+            // eliminating redundant double-computation of the checksum.
+            while payload
+                .next()
+                .await
+                .transpose()
+                .map_err(Error::ser)?
+                .is_some()
+            {}
+
+            // Extract the calculated checksum and reset ChecksummedSource's internal hasher
+            // back to None (`Checksum::default()`). This accomplishes two critical things:
+            // 1. Returns the computed CRC32C/MD5 to place in the initial start-upload metadata.
+            // 2. Disables on-the-fly hashing for the subsequent upload pass (Phase 2), ensuring
+            //    chunks are not redundantly re-hashed while being streamed across the network.
+            let computed = payload.take_checksum();
             payload.seek(0_u64).await.map_err(Error::ser)?;
             drop(payload);
 
-            let computed = self.options.checksum.finalize();
             let current = self.mut_resource().checksums.get_or_insert_default();
             checksum_update(current, computed);
-            self.options.checksum = Checksum {
-                crc32c: None,
-                md5_hash: None,
-            };
+            self.options.checksum = Checksum::default();
         }
 
         let mut upload_url = None;
