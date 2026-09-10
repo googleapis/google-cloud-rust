@@ -15,7 +15,6 @@
 //! Test helpers for the `Write` client internals
 
 use super::dispatcher::Dispatcher;
-use super::entry::StreamEntry;
 use super::pool::StreamPool;
 use super::runner::WriteRequest;
 use super::transport::Transport;
@@ -80,14 +79,13 @@ pub(super) async fn test_dispatcher(
 ) -> anyhow::Result<Arc<Dispatcher>> {
     let transport = Arc::new(test_transport("http://ignored:1").await?);
     let pool = Arc::new(StreamPool::new(transport, 1));
+    // Seed the pool with a stream.
+    pool.seed([0]);
+    // Override its channel with the provided channel.
+    pool.lock()
+        .first_mut()
+        .expect("there is one entry in the pool")
+        .req_tx = req_tx;
     let dispatcher = Arc::new(Dispatcher::new(pool));
-
-    // Override the stream entry's channel with the provided channel.
-    let current = dispatcher.entry.load();
-    let updated = StreamEntry {
-        req_tx,
-        ..(**current).clone()
-    };
-    dispatcher.entry.store(Arc::new(updated));
     Ok(dispatcher)
 }
