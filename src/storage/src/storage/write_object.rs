@@ -1930,7 +1930,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn unbuffered_single_shot_with_checksum_precomputation_true() -> Result {
+    async fn unbuffered_single_shot_with_checksum_precomputation_false() -> Result {
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
@@ -1956,7 +1956,7 @@ mod tests {
                 "test-object",
                 "hello world",
             )
-            .with_checksum_precomputation(true)
+            .with_checksum_precomputation(false)
             .send_unbuffered()
             .await?;
 
