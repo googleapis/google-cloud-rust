@@ -65,10 +65,7 @@ where
         // 2. An upfront CRC32C checksum is not already known (e.g. via `with_known_crc32c`).
         // If an upfront checksum is already present, recomputing it is redundant and skipped.
         if checksum_precomputation && !has_upfront_crc32c {
-            // (1) Precomputation of checksum:
-            // Stream through the payload to compute the checksum using ChecksummedSource's
-            // built-in hasher. ChecksummedSource::next() automatically updates its internal
-            // hasher on each chunk read, so we simply consume the stream without manual hashing.
+            // 1. Precompute checksum by consuming the stream through ChecksummedSource.
             let payload_arc = self.payload.clone();
             let mut payload = payload_arc.lock().await;
             payload.seek(0_u64).await.map_err(Error::ser)?;
@@ -81,18 +78,11 @@ where
             {}
             let computed = payload.final_checksum();
 
-            // (2) Update the checksum to the necessary place:
-            // Store the precomputed checksum in the object metadata so GCS receives it upfront
-            // during session initiation (start_resumable_upload).
+            // 2. Put the precomputed checksum into object metadata for the start-upload request.
             let current = self.mut_resource().checksums.get_or_insert_default();
             checksum_update(current, computed);
 
-            // (3) Clean up and reset work:
-            // - Reset ChecksummedSource's internal hasher to None (`reset_checksum()`) so
-            //   on-the-fly hashing is disabled during the subsequent upload pass (Phase 2).
-            // - Rewind the stream to the beginning (`seek(0)`) so upload streaming starts at byte 0.
-            // - Release the mutex lock (`drop(payload)`).
-            // - Clear options checksum to ensure no trailing checksum metadata is claimed.
+            // 3. Reset the hasher, rewind the stream to byte 0, and clear pending options.
             payload.reset_checksum();
             payload.seek(0_u64).await.map_err(Error::ser)?;
             drop(payload);
