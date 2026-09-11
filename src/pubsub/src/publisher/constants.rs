@@ -19,3 +19,10 @@ pub(crate) const MAX_DELAY: Duration = Duration::from_secs(60 * 60 * 24); // 1 d
 // Client libraries are expected to enforce these limits on batch siziing.
 pub(crate) const MAX_MESSAGES: u32 = 1000;
 pub(crate) const MAX_BYTES: u32 = 1e7 as u32; // 10MB
+
+pub(crate) const MIN_HEDGING_DELAY: Duration = Duration::from_millis(100);
+pub(crate) const MAX_HEDGING_DELAY: Duration = Duration::from_secs(10);
+pub(crate) const MIN_HEDGING_MAX_TOKENS: u32 = 1;
+pub(crate) const MAX_HEDGING_MAX_TOKENS: u32 = 250;
+pub(crate) const MIN_HEDGING_REFILL_RATIO: f32 = 0.001;
+pub(crate) const MAX_HEDGING_REFILL_RATIO: f32 = 0.2;
