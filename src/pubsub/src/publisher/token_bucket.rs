@@ -50,7 +50,7 @@ impl TokenBucket {
     /// Returns `true` if a token was acquired, `false` otherwise.
     fn try_acquire(&self) -> bool {
         self.tokens
-            .try_update(Ordering::Relaxed, Ordering::Relaxed, |current| {
+            .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |current| {
                 if current >= SCALE {
                     Some(current - SCALE)
                 } else {
@@ -66,7 +66,7 @@ impl TokenBucket {
     fn refill(&self) {
         let _ = self
             .tokens
-            .try_update(Ordering::Relaxed, Ordering::Relaxed, |current| {
+            .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |current| {
                 if current >= self.max_scaled_tokens {
                     None
                 } else {
