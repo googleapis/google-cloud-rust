@@ -14,6 +14,10 @@
 
 //! Telemetry header helpers.
 
+use google_cloud_gax::client_builder::internal::Extensions;
+use google_cloud_gax::error::Error;
+use http::HeaderValue;
+
 /// Generated libraries create one static instance of this struct and use it
 /// to lazy initialize (via [std::sync::LazyLock]) the x-goog-api-client header
 /// value.
@@ -70,6 +74,22 @@ impl XGoogApiClient {
             self.library_type, self.version
         )
     }
+}
+
+/// Resolves the effective `x-goog-api-client` header value for a gRPC request.
+///
+/// Precedence order:
+/// 1. Client-level `XGoogApiClient`
+/// 2. Default static header value
+#[cfg(any(test, feature = "_internal-grpc-client"))]
+pub(crate) fn resolve_grpc_header_value(
+    extensions: &Extensions,
+    default_header: &'static str,
+) -> Result<HeaderValue, Error> {
+    if let Some(h) = extensions.get::<XGoogApiClient>() {
+        return HeaderValue::from_str(&h.grpc_header_value()).map_err(Error::ser);
+    }
+    Ok(HeaderValue::from_static(default_header))
 }
 
 #[cfg(test)]
@@ -146,5 +166,32 @@ mod tests {
                 .unwrap_or(false),
             "mismatched rustc version {want} and {got:?}"
         );
+    }
+
+    #[test]
+    fn test_resolve_grpc_default() {
+        let extensions = Extensions::new();
+        let resolved = resolve_grpc_header_value(&extensions, "default-header")
+            .expect("should resolve default header");
+        assert_eq!(
+            resolved.to_str().expect("valid header string"),
+            "default-header"
+        );
+    }
+
+    #[test]
+    fn test_resolve_grpc_client_extension() {
+        let mut extensions = Extensions::new();
+        extensions.insert(XGoogApiClient {
+            name: "storage",
+            library_type: GCCL,
+            version: "0.1.0",
+        });
+
+        let resolved = resolve_grpc_header_value(&extensions, "default-header")
+            .expect("should resolve client extension header");
+        let val = resolved.to_str().expect("valid header string");
+        assert!(val.contains("gccl/0.1.0"), "{val}");
+        assert!(val.contains("grpc/"), "{val}");
     }
 }
