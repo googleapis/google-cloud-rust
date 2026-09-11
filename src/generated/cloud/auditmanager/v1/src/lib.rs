@@ -63,7 +63,7 @@ pub mod stub;
 ///    location_id: &str,
 /// ) -> anyhow::Result<()> {
 ///     let client = AuditManager::builder().build().await?;
-///     let mut list = client.list_audit_reports()
+///     let mut list = client.list_audit_schedules()
 ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {

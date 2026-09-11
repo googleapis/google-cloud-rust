@@ -28,8 +28,8 @@ pub(super) mod client;
 pub(super) mod client_builder;
 pub(super) mod error;
 
+mod dispatcher;
 mod entry;
-#[cfg_attr(not(test), expect(dead_code))]
 mod pool;
 mod proto_schema;
 mod runner;

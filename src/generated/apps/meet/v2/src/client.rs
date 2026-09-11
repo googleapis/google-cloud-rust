@@ -23,14 +23,17 @@
 /// # Example
 /// ```
 /// # use google_apps_meet_v2::client::SpacesService;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
 /// async fn sample(
 ///    space_id: &str,
 /// ) -> anyhow::Result<()> {
 ///     let client = SpacesService::builder().build().await?;
-///     let response = client.get_space()
-///         .set_name(format!("spaces/{space_id}"))
-///         .send().await?;
-///     println!("response {:?}", response);
+///     let mut list = client.list_members()
+///         .set_parent(format!("spaces/{space_id}"))
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 ///     Ok(())
 /// }
 /// ```
@@ -147,7 +150,7 @@ impl SpacesService {
     /// Gets details about a meeting space.
     ///
     /// For an example, see [Get a meeting
-    /// space](https://developers.google.com/meet/api/guides/meeting-spaces#get-meeting-space).
+    /// space](https://developers.google.com/workspace/meet/api/guides/meeting-spaces#get-meeting-space).
     ///
     /// # Example
     /// ```
@@ -170,7 +173,7 @@ impl SpacesService {
     /// Updates details about a meeting space.
     ///
     /// For an example, see [Update a meeting
-    /// space](https://developers.google.com/meet/api/guides/meeting-spaces#update-meeting-space).
+    /// space](https://developers.google.com/workspace/meet/api/guides/meeting-spaces#update-meeting-space).
     ///
     /// # Example
     /// ```
@@ -199,7 +202,7 @@ impl SpacesService {
     /// Ends an active conference (if there's one).
     ///
     /// For an example, see [End active
-    /// conference](https://developers.google.com/meet/api/guides/meeting-spaces#end-active-conference).
+    /// conference](https://developers.google.com/workspace/meet/api/guides/meeting-spaces#end-active-conference).
     ///
     /// # Example
     /// ```
@@ -216,6 +219,153 @@ impl SpacesService {
     /// ```
     pub fn end_active_conference(&self) -> super::builder::spaces_service::EndActiveConference {
         super::builder::spaces_service::EndActiveConference::new(self.inner.clone())
+    }
+
+    /// Creates a member.
+    ///
+    /// This API supports the `fields` parameter in
+    /// [SystemParameterContext](https://cloud.google.com/apis/docs/system-parameters).
+    /// When the `fields` parameter is omitted, this API response will default to
+    /// "name,email,role".
+    ///
+    /// # Example
+    /// ```
+    /// # use google_apps_meet_v2::client::SpacesService;
+    /// use google_apps_meet_v2::model::Member;
+    /// use google_apps_meet_v2::Result;
+    /// async fn sample(
+    ///    client: &SpacesService, space_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_member()
+    ///         .set_parent(format!("spaces/{space_id}"))
+    ///         .set_member(
+    ///             Member::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_member(&self) -> super::builder::spaces_service::CreateMember {
+        super::builder::spaces_service::CreateMember::new(self.inner.clone())
+    }
+
+    /// Gets a member.
+    ///
+    /// This API supports the `fields` parameter in
+    /// [SystemParameterContext](https://cloud.google.com/apis/docs/system-parameters).
+    /// When the `fields` parameter is omitted, this API response will default to
+    /// "name,email,role".
+    ///
+    /// # Example
+    /// ```
+    /// # use google_apps_meet_v2::client::SpacesService;
+    /// use google_apps_meet_v2::Result;
+    /// async fn sample(
+    ///    client: &SpacesService, space_id: &str, member_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_member()
+    ///         .set_name(format!("spaces/{space_id}/members/{member_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_member(&self) -> super::builder::spaces_service::GetMember {
+        super::builder::spaces_service::GetMember::new(self.inner.clone())
+    }
+
+    /// Lists members.
+    ///
+    /// This API supports the `fields` parameter in
+    /// [SystemParameterContext](https://cloud.google.com/apis/docs/system-parameters).
+    /// When the `fields` parameter is omitted this API response will default to
+    /// "name,email,role".
+    ///
+    /// # Example
+    /// ```
+    /// # use google_apps_meet_v2::client::SpacesService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_apps_meet_v2::Result;
+    /// async fn sample(
+    ///    client: &SpacesService, space_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_members()
+    ///         .set_parent(format!("spaces/{space_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_members(&self) -> super::builder::spaces_service::ListMembers {
+        super::builder::spaces_service::ListMembers::new(self.inner.clone())
+    }
+
+    /// Deletes the member who was previously assigned roles in the space.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_apps_meet_v2::client::SpacesService;
+    /// use google_apps_meet_v2::Result;
+    /// async fn sample(
+    ///    client: &SpacesService, space_id: &str, member_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_member()
+    ///         .set_name(format!("spaces/{space_id}/members/{member_id}"))
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_member(&self) -> super::builder::spaces_service::DeleteMember {
+        super::builder::spaces_service::DeleteMember::new(self.inner.clone())
+    }
+
+    /// Updates a member.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_apps_meet_v2::client::SpacesService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_apps_meet_v2::model::Member;
+    /// use google_apps_meet_v2::Result;
+    /// async fn sample(
+    ///    client: &SpacesService, space_id: &str, member_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_member()
+    ///         .set_member(
+    ///             Member::new().set_name(format!("spaces/{space_id}/members/{member_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_member(&self) -> super::builder::spaces_service::UpdateMember {
+        super::builder::spaces_service::UpdateMember::new(self.inner.clone())
+    }
+
+    /// Updates members of one space within a batch.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_apps_meet_v2::client::SpacesService;
+    /// use google_apps_meet_v2::Result;
+    /// async fn sample(
+    ///    client: &SpacesService
+    /// ) -> Result<()> {
+    ///     let response = client.batch_update_members()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn batch_update_members(&self) -> super::builder::spaces_service::BatchUpdateMembers {
+        super::builder::spaces_service::BatchUpdateMembers::new(self.inner.clone())
     }
 }
 
@@ -570,7 +720,8 @@ impl ConferenceRecordsService {
     ///
     /// Note: The transcript entries returned by the Google Meet API might not
     /// match the transcription found in the Google Docs transcript file. This can
-    /// occur when the Google Docs transcript file is modified after generation.
+    /// occur when 1) we have interleaved speakers within milliseconds, or
+    /// 2) the Google Docs transcript file is modified after generation.
     ///
     /// # Example
     /// ```
@@ -597,7 +748,8 @@ impl ConferenceRecordsService {
     ///
     /// Note: The transcript entries returned by the Google Meet API might not
     /// match the transcription found in the Google Docs transcript file. This can
-    /// occur when the Google Docs transcript file is modified after generation.
+    /// occur when 1) we have interleaved speakers within milliseconds, or
+    /// 2) the Google Docs transcript file is modified after generation.
     ///
     /// # Example
     /// ```
@@ -620,5 +772,49 @@ impl ConferenceRecordsService {
         &self,
     ) -> super::builder::conference_records_service::ListTranscriptEntries {
         super::builder::conference_records_service::ListTranscriptEntries::new(self.inner.clone())
+    }
+
+    /// Gets smart notes by smart note ID.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_apps_meet_v2::client::ConferenceRecordsService;
+    /// use google_apps_meet_v2::Result;
+    /// async fn sample(
+    ///    client: &ConferenceRecordsService, conference_record_id: &str, smart_note_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_smart_note()
+    ///         .set_name(format!("conferenceRecords/{conference_record_id}/smartNotes/{smart_note_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_smart_note(&self) -> super::builder::conference_records_service::GetSmartNote {
+        super::builder::conference_records_service::GetSmartNote::new(self.inner.clone())
+    }
+
+    /// Lists the set of smart notes from the conference record. By default,
+    /// ordered by start time and in ascending order.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_apps_meet_v2::client::ConferenceRecordsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_apps_meet_v2::Result;
+    /// async fn sample(
+    ///    client: &ConferenceRecordsService, conference_record_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_smart_notes()
+    ///         .set_parent(format!("conferenceRecords/{conference_record_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_smart_notes(&self) -> super::builder::conference_records_service::ListSmartNotes {
+        super::builder::conference_records_service::ListSmartNotes::new(self.inner.clone())
     }
 }

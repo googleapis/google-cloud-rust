@@ -33,7 +33,7 @@ pub async fn basic(
     let mut serializer = ArrowSerializer::new("basic")?;
 
     // Create a writer for the default stream
-    let writer = client.arrow(serializer.schema()).default(table)?;
+    let writer = client.arrow(serializer.schema()).default(table).await?;
 
     // Write the batches
     let batch1 = serializer.batch(vec!["Alice", "Bob"], vec![25, 28])?;

@@ -91,6 +91,12 @@ pub struct Instance {
     pub workforce_identity_federation_config:
         std::option::Option<crate::model::instance::WorkforceIdentityFederationConfig>,
 
+    /// Output only. Reserved for future use.
+    pub satisfies_pzi: bool,
+
+    /// Output only. Reserved for future use.
+    pub satisfies_pzs: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -344,6 +350,30 @@ impl Instance {
         T: std::convert::Into<crate::model::instance::WorkforceIdentityFederationConfig>,
     {
         self.workforce_identity_federation_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [satisfies_pzi][crate::model::Instance::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securesourcemanager_v1::model::Instance;
+    /// let x = Instance::new().set_satisfies_pzi(true);
+    /// ```
+    pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.satisfies_pzi = v.into();
+        self
+    }
+
+    /// Sets the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securesourcemanager_v1::model::Instance;
+    /// let x = Instance::new().set_satisfies_pzs(true);
+    /// ```
+    pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.satisfies_pzs = v.into();
         self
     }
 }
@@ -1802,6 +1832,7 @@ impl Hook {
     /// let x = Hook::new().set_events([
     ///     HookEventType::Push,
     ///     HookEventType::PullRequest,
+    ///     HookEventType::PullRequestComment,
     /// ]);
     /// ```
     pub fn set_events<T, V>(mut self, v: T) -> Self
@@ -2018,6 +2049,9 @@ pub mod hook {
         /// Pull request events are triggered when a pull request is opened, closed,
         /// reopened, or edited.
         PullRequest,
+        /// Triggers when a general comment is added, edited, or deleted on a pull
+        /// request.
+        PullRequestComment,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [HookEventType::value] or
@@ -2043,6 +2077,7 @@ pub mod hook {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::Push => std::option::Option::Some(1),
                 Self::PullRequest => std::option::Option::Some(2),
+                Self::PullRequestComment => std::option::Option::Some(3),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -2056,6 +2091,7 @@ pub mod hook {
                 Self::Unspecified => std::option::Option::Some("UNSPECIFIED"),
                 Self::Push => std::option::Option::Some("PUSH"),
                 Self::PullRequest => std::option::Option::Some("PULL_REQUEST"),
+                Self::PullRequestComment => std::option::Option::Some("PULL_REQUEST_COMMENT"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -2080,6 +2116,7 @@ pub mod hook {
                 0 => Self::Unspecified,
                 1 => Self::Push,
                 2 => Self::PullRequest,
+                3 => Self::PullRequestComment,
                 _ => Self::UnknownValue(hook_event_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -2094,6 +2131,7 @@ pub mod hook {
                 "UNSPECIFIED" => Self::Unspecified,
                 "PUSH" => Self::Push,
                 "PULL_REQUEST" => Self::PullRequest,
+                "PULL_REQUEST_COMMENT" => Self::PullRequestComment,
                 _ => Self::UnknownValue(hook_event_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -2110,6 +2148,7 @@ pub mod hook {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::Push => serializer.serialize_i32(1),
                 Self::PullRequest => serializer.serialize_i32(2),
+                Self::PullRequestComment => serializer.serialize_i32(3),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -4422,6 +4461,212 @@ pub mod pull_request_comment {
         Comment(std::boxed::Box<crate::model::pull_request_comment::Comment>),
         /// Optional. The comment on a code line.
         Code(std::boxed::Box<crate::model::pull_request_comment::Code>),
+    }
+}
+
+/// Ref represents a git reference within a repository.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Ref {
+    /// Identifier. Name of the git reference (e.g., 'refs/heads/foo' or
+    /// 'refs/tags/v1.0').
+    pub name: std::string::String,
+
+    /// Output only. The target of the reference, which is a commit SHA.
+    pub target: std::string::String,
+
+    /// Output only. The type of the reference.
+    pub r#type: crate::model::r#ref::RefType,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Ref {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Ref::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securesourcemanager_v1::model::Ref;
+    /// let x = Ref::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [target][crate::model::Ref::target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securesourcemanager_v1::model::Ref;
+    /// let x = Ref::new().set_target("example");
+    /// ```
+    pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.target = v.into();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::Ref::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securesourcemanager_v1::model::Ref;
+    /// use google_cloud_securesourcemanager_v1::model::r#ref::RefType;
+    /// let x0 = Ref::new().set_type(RefType::Branch);
+    /// let x1 = Ref::new().set_type(RefType::Tag);
+    /// ```
+    pub fn set_type<T: std::convert::Into<crate::model::r#ref::RefType>>(mut self, v: T) -> Self {
+        self.r#type = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Ref {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securesourcemanager.v1.Ref"
+    }
+}
+
+/// Defines additional types related to [Ref].
+pub mod r#ref {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The derived type of the reference (e.g., branch or tag) from the name.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RefType {
+        /// Unspecified ref type.
+        Unspecified,
+        /// Represents a branch.
+        Branch,
+        /// Represents a tag.
+        Tag,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RefType::value] or
+        /// [RefType::name].
+        UnknownValue(ref_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod ref_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl RefType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Branch => std::option::Option::Some(1),
+                Self::Tag => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("REF_TYPE_UNSPECIFIED"),
+                Self::Branch => std::option::Option::Some("REF_TYPE_BRANCH"),
+                Self::Tag => std::option::Option::Some("REF_TYPE_TAG"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for RefType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RefType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RefType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Branch,
+                2 => Self::Tag,
+                _ => Self::UnknownValue(ref_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RefType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "REF_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "REF_TYPE_BRANCH" => Self::Branch,
+                "REF_TYPE_TAG" => Self::Tag,
+                _ => Self::UnknownValue(ref_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RefType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Branch => serializer.serialize_i32(1),
+                Self::Tag => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RefType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RefType>::new(
+                ".google.cloud.securesourcemanager.v1.Ref.RefType",
+            ))
+        }
     }
 }
 
@@ -8057,6 +8302,169 @@ impl FetchBlobResponse {
 impl wkt::message::Message for FetchBlobResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.securesourcemanager.v1.FetchBlobResponse"
+    }
+}
+
+/// Request message for fetching git references from a repository.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FetchRefsRequest {
+    /// Required. The format is
+    /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}`.
+    /// Specifies the repository to fetch the references from.
+    pub repository: std::string::String,
+
+    /// Optional. The type of reference to fetch (eg. branch, tag). By default, all
+    /// references are returned.
+    pub r#type: crate::model::r#ref::RefType,
+
+    /// Optional. Requested page size. If unspecified, a default size of 30 will be
+    /// used. The maximum value is 100; values above 100 will be coerced to 100.
+    pub page_size: i32,
+
+    /// Optional. A token identifying a page of results the server should return.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FetchRefsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [repository][crate::model::FetchRefsRequest::repository].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securesourcemanager_v1::model::FetchRefsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let repository_id = "repository_id";
+    /// let x = FetchRefsRequest::new().set_repository(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"));
+    /// ```
+    pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.repository = v.into();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::FetchRefsRequest::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securesourcemanager_v1::model::FetchRefsRequest;
+    /// use google_cloud_securesourcemanager_v1::model::r#ref::RefType;
+    /// let x0 = FetchRefsRequest::new().set_type(RefType::Branch);
+    /// let x1 = FetchRefsRequest::new().set_type(RefType::Tag);
+    /// ```
+    pub fn set_type<T: std::convert::Into<crate::model::r#ref::RefType>>(mut self, v: T) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::FetchRefsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securesourcemanager_v1::model::FetchRefsRequest;
+    /// let x = FetchRefsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::FetchRefsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securesourcemanager_v1::model::FetchRefsRequest;
+    /// let x = FetchRefsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FetchRefsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securesourcemanager.v1.FetchRefsRequest"
+    }
+}
+
+/// Response message containing a list of git references.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FetchRefsResponse {
+    /// The list of git references.
+    pub refs: std::vec::Vec<crate::model::Ref>,
+
+    /// A token identifying a page of results the server should return.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FetchRefsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [refs][crate::model::FetchRefsResponse::refs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securesourcemanager_v1::model::FetchRefsResponse;
+    /// use google_cloud_securesourcemanager_v1::model::Ref;
+    /// let x = FetchRefsResponse::new()
+    ///     .set_refs([
+    ///         Ref::default()/* use setters */,
+    ///         Ref::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_refs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Ref>,
+    {
+        use std::iter::Iterator;
+        self.refs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::FetchRefsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securesourcemanager_v1::model::FetchRefsResponse;
+    /// let x = FetchRefsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FetchRefsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.securesourcemanager.v1.FetchRefsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for FetchRefsResponse {
+    type PageItem = crate::model::Ref;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.refs
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 

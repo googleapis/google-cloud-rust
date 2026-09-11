@@ -3968,6 +3968,50 @@ impl ::prost::Name for SeekResponse {
         "type.googleapis.com/google.pubsub.v1.SeekResponse".into()
     }
 }
+#[allow(clippy::large_enum_variant)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct PubsubClientTelemetry {
+    #[prost(oneof = "pubsub_client_telemetry::Operation", tags = "1")]
+    pub operation: ::core::option::Option<pubsub_client_telemetry::Operation>,
+}
+/// Nested message and enum types in `PubsubClientTelemetry`.
+pub mod pubsub_client_telemetry {
+    #[allow(clippy::large_enum_variant)]
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct PublishOperation {
+        #[prost(int32, tag = "1")]
+        pub hedged_attempt_count: i32,
+        #[prost(message, optional, tag = "2")]
+        pub publish_start_time: ::core::option::Option<::prost_types::Timestamp>,
+    }
+    impl ::prost::Name for PublishOperation {
+        const NAME: &'static str = "PublishOperation";
+        const PACKAGE: &'static str = "google.pubsub.v1";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.pubsub.v1.PubsubClientTelemetry.PublishOperation".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.pubsub.v1.PubsubClientTelemetry.PublishOperation"
+                .into()
+        }
+    }
+    #[allow(clippy::large_enum_variant)]
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Oneof)]
+    pub enum Operation {
+        #[prost(message, tag = "1")]
+        PublishOperation(PublishOperation),
+    }
+}
+impl ::prost::Name for PubsubClientTelemetry {
+    const NAME: &'static str = "PubsubClientTelemetry";
+    const PACKAGE: &'static str = "google.pubsub.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.pubsub.v1.PubsubClientTelemetry".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.pubsub.v1.PubsubClientTelemetry".into()
+    }
+}
 /// Generated client implementations.
 pub mod publisher_client {
     #![allow(
