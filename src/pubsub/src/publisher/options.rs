@@ -71,16 +71,16 @@ use super::constants::*;
 pub(crate) struct HedgingOptions {
     /// The delay before sending a hedged request for an outstanding batch.
     ///
-    /// Clamped between 100ms and 10s by the publisher builder. Defaults to 1s.
+    /// Clamped between 100ms and 10s. Defaults to 1s.
     pub(crate) delay: std::time::Duration,
     /// The maximum number of tokens in the token bucket.
     ///
-    /// Represents the maximum burst capacity of hedged requests. Clamped between 1 and 250
-    /// by the publisher builder. Defaults to 50.
+    /// Represents the maximum burst capacity of hedged requests. Clamped between 1 and 250.
+    /// Defaults to 50.
     pub(crate) max_tokens: u32,
     /// The fraction of a token added to the bucket for each successful publish RPC.
     ///
-    /// Clamped between 0.001 and 0.2 by the publisher builder. Defaults to 0.1 (1 full token per 10 successful RPCs).
+    /// Clamped between 0.001 and 0.2. Defaults to 0.1 (1 full token per 10 successful RPCs).
     pub(crate) refill_ratio: f32,
 }
 
@@ -110,9 +110,12 @@ impl HedgingOptions {
     /// Clamped between 0.001 and 0.2.
     #[cfg_attr(not(test), expect(dead_code))]
     pub(crate) fn set_refill_ratio<V: Into<f32>>(mut self, v: V) -> Self {
-        self.refill_ratio = v
-            .into()
-            .clamp(MIN_HEDGING_REFILL_RATIO, MAX_HEDGING_REFILL_RATIO);
+        let val = v.into();
+        self.refill_ratio = if val.is_nan() {
+            DEFAULT_HEDGING_REFILL_RATIO
+        } else {
+            val.clamp(MIN_HEDGING_REFILL_RATIO, MAX_HEDGING_REFILL_RATIO)
+        };
         self
     }
 }
@@ -120,20 +123,16 @@ impl HedgingOptions {
 impl std::default::Default for HedgingOptions {
     fn default() -> Self {
         Self {
-            delay: std::time::Duration::from_secs(1),
-            max_tokens: 50_u32,
-            refill_ratio: 0.1_f32,
+            delay: DEFAULT_HEDGING_DELAY,
+            max_tokens: DEFAULT_HEDGING_MAX_TOKENS,
+            refill_ratio: DEFAULT_HEDGING_REFILL_RATIO,
         }
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{
-        BatchingOptions, HedgingOptions, MAX_HEDGING_DELAY, MAX_HEDGING_MAX_TOKENS,
-        MAX_HEDGING_REFILL_RATIO, MIN_HEDGING_DELAY, MIN_HEDGING_MAX_TOKENS,
-        MIN_HEDGING_REFILL_RATIO,
-    };
+    use super::*;
     use std::time::Duration;
 
     #[tokio::test]
@@ -184,5 +183,13 @@ mod tests {
         assert_eq!(over_opts.delay, MAX_HEDGING_DELAY);
         assert_eq!(over_opts.max_tokens, MAX_HEDGING_MAX_TOKENS);
         assert_eq!(over_opts.refill_ratio, MAX_HEDGING_REFILL_RATIO);
+    }
+
+    #[test_case::test_case(f32::MAX, MAX_HEDGING_REFILL_RATIO)]
+    #[test_case::test_case(f32::MIN, MIN_HEDGING_REFILL_RATIO)]
+    #[test_case::test_case(f32::NAN, DEFAULT_HEDGING_REFILL_RATIO)]
+    fn refill_ratio_clamps_values(val: f32, want: f32) {
+        let opts = HedgingOptions::default().set_refill_ratio(val);
+        assert_eq!(opts.refill_ratio, want);
     }
 }
