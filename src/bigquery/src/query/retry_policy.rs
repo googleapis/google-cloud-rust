@@ -47,13 +47,25 @@ use std::time::Duration;
 /// This policy must be decorated to limit the duration of the retry loop or
 /// the number of attempts.
 ///
+/// Errors that occur before the request is sent are always retried. Any other
+/// error is only retried for idempotent requests, because the service may
+/// already have acted on the request.
+///
 /// [error handling]: https://cloud.google.com/bigquery/docs/error-messages
 #[derive(Clone, Debug)]
 pub struct RetryableErrors;
 
 impl RetryPolicy for RetryableErrors {
-    fn on_error(&self, _state: &RetryState, error: GaxError) -> RetryResult {
-        if error.is_transient_and_before_rpc() || error.is_io() || error.is_timeout() {
+    fn on_error(&self, state: &RetryState, error: GaxError) -> RetryResult {
+        if error.is_transient_and_before_rpc() {
+            return RetryResult::Continue(error);
+        }
+        // The request may have reached the service, so it is only safe to
+        // resend when it is idempotent.
+        if !state.idempotent {
+            return RetryResult::Permanent(error);
+        }
+        if error.is_io() || error.is_timeout() {
             return RetryResult::Continue(error);
         }
         if error.is_transport() && error.http_status_code().is_none() {
@@ -194,6 +206,21 @@ pub(crate) fn is_rpc_error_retryable(error: &GaxError) -> bool {
     false
 }
 
+/// Returns true if `error` reports a conflict with a resource that already
+/// exists, such as `409 Already Exists: Job my-project:US.job_1234567890`.
+///
+/// Deliberately coarse: the caller confirms the conflict by fetching the job
+/// ID it generated, so an unrelated conflict resolves to a `404` there.
+pub(crate) fn is_duplicate_job_error(error: &QueryError) -> bool {
+    let QueryError::Rpc { source } = error else {
+        return false;
+    };
+    source.http_status_code() == Some(409)
+        || source
+            .status()
+            .is_some_and(|s| s.code == Code::AlreadyExists)
+}
+
 pub(crate) fn is_retryable_errors(errors: &[ErrorProto]) -> bool {
     !errors.is_empty() && errors.iter().all(|e| is_retryable_error_reason(&e.reason))
 }
@@ -214,6 +241,7 @@ mod tests {
     use super::*;
     use crate::query::tests::create_test_backoff_policy;
     use google_cloud_bigquery_v2::model::ErrorProto;
+    use google_cloud_gax::error::CredentialsError;
     use google_cloud_gax::error::rpc::{Code, Status};
     use google_cloud_gax::retry_state::RetryState;
     use google_cloud_rpc::model::ErrorInfo;
@@ -253,10 +281,59 @@ mod tests {
     }
 
     #[test]
+    fn test_is_duplicate_job_error() {
+        let rpc = |source| QueryError::Rpc { source };
+        let status = |code| GaxError::service(Status::default().set_code(code));
+        let http = |code| GaxError::http(code, HeaderMap::new(), bytes::Bytes::new());
+
+        // Any conflict counts, including one that has nothing to do with a
+        // duplicate job: the caller rules those out by fetching the job ID it
+        // generated.
+        assert!(is_duplicate_job_error(&rpc(http(409))));
+        assert!(is_duplicate_job_error(&rpc(status(Code::AlreadyExists))));
+
+        assert!(!is_duplicate_job_error(&rpc(status(Code::Aborted))));
+        assert!(!is_duplicate_job_error(&rpc(http(500))));
+        assert!(!is_duplicate_job_error(&QueryError::JobFailed {
+            errors: vec![ErrorProto::new().set_reason("duplicate")],
+        }));
+    }
+
+    // Reissuing a duplicate would run and bill the query a second time, so the
+    // job retry loop must treat a real duplicate payload as permanent.
+    #[test]
+    fn test_duplicate_job_error_is_not_retryable() {
+        const BQ_DUPLICATE_PAYLOAD: &[u8] = br#"{
+  "error": {
+    "code": 409,
+    "message": "Already Exists: Job my-project:US.job_1234567890",
+    "errors": [
+      {
+        "message": "Already Exists: Job my-project:US.job_1234567890",
+        "domain": "global",
+        "reason": "duplicate"
+      }
+    ],
+    "status": "ALREADY_EXISTS"
+  }
+}"#;
+        let status = Status::try_from(&bytes::Bytes::from_static(BQ_DUPLICATE_PAYLOAD))
+            .expect("should deserialize BigQuery REST error");
+        let err = QueryError::Rpc {
+            source: GaxError::service(status),
+        };
+        assert!(is_duplicate_job_error(&err), "{err:?}");
+        assert!(!is_query_error_retryable(&err), "{err:?}");
+    }
+
+    #[test]
     fn test_retryable_errors_on_error() {
         let p = RetryableErrors;
-        let state = RetryState::default();
+        let idempotent = RetryState::new(true);
+        let non_idempotent = RetryState::new(false);
 
+        // Whatever we retry for an idempotent request is permanent when the
+        // request is not, because the service may already have acted on it.
         let retryable_codes = [
             Code::Aborted,
             Code::DeadlineExceeded,
@@ -266,11 +343,11 @@ mod tests {
             Code::Unknown,
         ];
         for code in retryable_codes {
-            let err = GaxError::service(Status::default().set_code(code));
+            let err = || GaxError::service(Status::default().set_code(code));
+            assert!(p.on_error(&idempotent, err()).is_continue(), "{code:?}");
             assert!(
-                p.on_error(&state, err).is_continue(),
-                "expected continue for {:?}",
-                code
+                p.on_error(&non_idempotent, err()).is_permanent(),
+                "{code:?}"
             );
         }
 
@@ -280,33 +357,48 @@ mod tests {
             Code::InvalidArgument,
         ];
         for code in permanent_codes {
-            let err = GaxError::service(Status::default().set_code(code));
+            let err = || GaxError::service(Status::default().set_code(code));
+            assert!(p.on_error(&idempotent, err()).is_permanent(), "{code:?}");
             assert!(
-                p.on_error(&state, err).is_permanent(),
-                "expected permanent for {:?}",
-                code
+                p.on_error(&non_idempotent, err()).is_permanent(),
+                "{code:?}"
             );
         }
 
         let retryable_http = [429, 500, 502, 503, 504];
         for code in retryable_http {
-            let err = GaxError::http(code, HeaderMap::new(), bytes::Bytes::new());
+            let err = || GaxError::http(code, HeaderMap::new(), bytes::Bytes::new());
+            assert!(p.on_error(&idempotent, err()).is_continue(), "HTTP {code}");
             assert!(
-                p.on_error(&state, err).is_continue(),
-                "expected continue for HTTP {}",
-                code
+                p.on_error(&non_idempotent, err()).is_permanent(),
+                "HTTP {code}"
             );
         }
 
         let permanent_http = [400, 404, 408, 409, 501];
         for code in permanent_http {
-            let err = GaxError::http(code, HeaderMap::new(), bytes::Bytes::new());
+            let err = || GaxError::http(code, HeaderMap::new(), bytes::Bytes::new());
+            assert!(p.on_error(&idempotent, err()).is_permanent(), "HTTP {code}");
             assert!(
-                p.on_error(&state, err).is_permanent(),
-                "expected permanent for HTTP {}",
-                code
+                p.on_error(&non_idempotent, err()).is_permanent(),
+                "HTTP {code}"
             );
         }
+
+        let io = || GaxError::io("connection reset");
+        assert!(p.on_error(&idempotent, io()).is_continue());
+        assert!(p.on_error(&non_idempotent, io()).is_permanent());
+
+        let timeout = || GaxError::timeout("deadline");
+        assert!(p.on_error(&idempotent, timeout()).is_continue());
+        assert!(p.on_error(&non_idempotent, timeout()).is_permanent());
+
+        // Failures before the request is sent cannot have reached the service,
+        // so they are retried either way.
+        let before_rpc =
+            || GaxError::authentication(CredentialsError::from_msg(true, "token refresh failed"));
+        assert!(p.on_error(&idempotent, before_rpc()).is_continue());
+        assert!(p.on_error(&non_idempotent, before_rpc()).is_continue());
     }
 
     #[test]
