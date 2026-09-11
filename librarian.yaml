@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.42.1-0.20260910150752-4c72bccefff1
+version: v0.42.1-0.20260911210912-fedb08b3d46a
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -534,6 +534,7 @@ libraries:
           api_path: google/cloud/bigquery/storage/v1
           template: prost
         - module_path: google_cloud_bigquery_v2::model
+          name_overrides: .synthetic.google.cloud.bigquery.v2.QueryRequest.max_results=page_size
           output: src/bigquery/src/generated
           skipped_ids:
             - .google.cloud.bigquery.v2.JobConfiguration.copy

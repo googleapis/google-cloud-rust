@@ -57,7 +57,7 @@ pub struct Query {
     pub(crate) completed: bool,
     pub(crate) metadata: QueryMetadata,
     pub(crate) cached_rows: Option<VecDeque<wkt::Struct>>,
-    pub(crate) max_results: Option<u32>,
+    pub(crate) page_size: Option<u32>,
     pub(crate) retry_context: Option<RetryContext>,
 }
 
@@ -66,7 +66,7 @@ impl Query {
         job_service: Arc<JobService>,
         initial_job: Job,
         retry_context: Option<RetryContext>,
-        max_results: Option<u32>,
+        page_size: Option<u32>,
     ) -> Self {
         let completed = initial_job
             .status
@@ -79,7 +79,7 @@ impl Query {
             cached_rows: None,
             metadata: QueryMetadata::from(initial_job),
             retry_context,
-            max_results,
+            page_size,
         }
     }
 
@@ -87,7 +87,7 @@ impl Query {
         job_service: Arc<JobService>,
         mut query_response: QueryResponse,
         retry_context: Option<RetryContext>,
-        max_results: Option<u32>,
+        page_size: Option<u32>,
     ) -> Self {
         let completed = query_response.job_complete.unwrap_or(false);
         let cached_rows = VecDeque::from(std::mem::take(&mut query_response.rows));
@@ -98,7 +98,7 @@ impl Query {
             cached_rows: Some(cached_rows),
             metadata,
             retry_context,
-            max_results,
+            page_size,
         }
     }
 
@@ -202,7 +202,7 @@ impl Query {
                 completed,
                 metadata,
                 cached_rows,
-                max_results,
+                page_size,
                 retry_context,
             } = self;
 
@@ -211,7 +211,7 @@ impl Query {
                     job_service,
                     metadata,
                     cached_rows,
-                    max_results,
+                    page_size,
                 ));
             }
 
@@ -233,7 +233,7 @@ impl Query {
                         job_service,
                         job_ref,
                         res,
-                        max_results,
+                        page_size,
                     ));
                 }
                 Err(err) => {
@@ -284,7 +284,7 @@ pub struct CompleteQuery {
     pub(crate) schema: Arc<Schema>,
     pub(crate) page_token: Option<String>,
     pub(crate) metadata: CompleteQueryMetadata,
-    pub(crate) max_results: Option<u32>,
+    pub(crate) page_size: Option<u32>,
 }
 
 impl CompleteQuery {
@@ -292,7 +292,7 @@ impl CompleteQuery {
         job_service: Arc<JobService>,
         job_ref: &JobReference,
         mut res: GetQueryResultsResponse,
-        max_results: Option<u32>,
+        page_size: Option<u32>,
     ) -> Self {
         let cached_rows = VecDeque::from(std::mem::take(&mut res.rows));
         let metadata = CompleteQueryMetadata::from(res);
@@ -311,7 +311,7 @@ impl CompleteQuery {
             page_token,
             schema,
             metadata,
-            max_results,
+            page_size,
         }
     }
 
@@ -319,7 +319,7 @@ impl CompleteQuery {
         job_service: Arc<JobService>,
         metadata: QueryMetadata,
         cached_rows: VecDeque<wkt::Struct>,
-        max_results: Option<u32>,
+        page_size: Option<u32>,
     ) -> Self {
         let job_ref = metadata.job_reference.clone();
         let metadata = CompleteQueryMetadata::from(metadata);
@@ -338,7 +338,7 @@ impl CompleteQuery {
             page_token,
             schema,
             metadata,
-            max_results,
+            page_size,
         }
     }
 
@@ -515,11 +515,11 @@ mod tests {
         pub(crate) fn from_query_response(
             job_service: Arc<JobService>,
             mut query_res: QueryResponse,
-            max_results: Option<u32>,
+            page_size: Option<u32>,
         ) -> Self {
             let cached_rows = std::mem::take(&mut query_res.rows).into();
             let metadata = QueryMetadata::from(query_res);
-            Self::from_query_metadata(job_service, metadata, cached_rows, max_results)
+            Self::from_query_metadata(job_service, metadata, cached_rows, page_size)
         }
     }
 
@@ -553,7 +553,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_query_until_done_preserves_max_results() -> TestResult {
+    async fn test_query_until_done_preserves_page_size() -> TestResult {
         let job_service = create_job_service(MockJobService::new());
         let job_ref = JobReference::new()
             .set_project_id("some_project")
@@ -566,7 +566,7 @@ mod tests {
         let query = Query::from_query_response(job_service, query_res, None, Some(42));
 
         let completed = query.until_done().await?;
-        assert_eq!(completed.max_results, Some(42));
+        assert_eq!(completed.page_size, Some(42));
 
         Ok(())
     }

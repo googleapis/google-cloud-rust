@@ -128,7 +128,7 @@ pub struct QueryRequest {
     /// through results might improve reliability when the query result set is
     /// large. In addition to this limit, responses are also limited to 10 MB. By
     /// default, there is no maximum row count, and only the byte limit applies.
-    pub max_results: std::option::Option<wkt::UInt32Value>,
+    pub page_size: std::option::Option<wkt::UInt32Value>,
 
     /// Optional. A target limit on the rate of slot consumption by this query. If
     /// set to a value > 0, BigQuery will attempt to limit the rate of slot
@@ -466,21 +466,21 @@ impl QueryRequest {
         self
     }
 
-    /// Sets the value of [max_results][crate::model_ext::QueryRequest::max_results].
-    pub fn set_max_results<T>(mut self, v: T) -> Self
+    /// Sets the value of [page_size][crate::model_ext::QueryRequest::page_size].
+    pub fn set_page_size<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::UInt32Value>,
     {
-        self.max_results = std::option::Option::Some(v.into());
+        self.page_size = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [max_results][crate::model_ext::QueryRequest::max_results].
-    pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+    /// Sets or clears the value of [page_size][crate::model_ext::QueryRequest::page_size].
+    pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::UInt32Value>,
     {
-        self.max_results = v.map(|x| x.into());
+        self.page_size = v.map(|x| x.into());
         self
     }
 
@@ -733,7 +733,7 @@ mod debug {
             debug_struct.field("job_timeout_ms", &self.job_timeout_ms);
             debug_struct.field("labels", &self.labels);
             debug_struct.field("location", &self.location);
-            debug_struct.field("max_results", &self.max_results);
+            debug_struct.field("page_size", &self.page_size);
             debug_struct.field("max_slots", &self.max_slots);
             debug_struct.field("maximum_bytes_billed", &self.maximum_bytes_billed);
             debug_struct.field("parameter_mode", &self.parameter_mode);
@@ -793,7 +793,7 @@ impl std::convert::From<QueryRequest> for google_cloud_bigquery_v2::model::Query
         out.job_timeout_ms = req.job_timeout_ms;
         out.labels = req.labels;
         out.location = req.location;
-        out.max_results = req.max_results;
+        out.max_results = req.page_size;
         out.max_slots = req.max_slots;
         out.maximum_bytes_billed = req.maximum_bytes_billed;
         out.parameter_mode = req.parameter_mode;

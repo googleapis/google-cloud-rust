@@ -207,19 +207,19 @@ impl Query {
         self
     }
 
-    /// Sets the value of [request.max_results][crate::builder::bigquery::QueryRequest::max_results].
-    pub fn set_max_results<T>(mut self, v: T) -> Self
+    /// Sets the value of [request.page_size][crate::builder::bigquery::QueryRequest::page_size].
+    pub fn set_page_size<T>(mut self, v: T) -> Self
     where T: std::convert::Into<wkt::UInt32Value>
     {
-        self.request.max_results = std::option::Option::Some(v.into());
+        self.request.page_size = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets or clears the value of [request.max_results][crate::builder::bigquery::QueryRequest::max_results].
-    pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+    /// Sets or clears the value of [request.page_size][crate::builder::bigquery::QueryRequest::page_size].
+    pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
     where T: std::convert::Into<wkt::UInt32Value>
     {
-        self.request.max_results = v.map(|x| x.into());
+        self.request.page_size = v.map(|x| x.into());
         self
     }
 

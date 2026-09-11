@@ -170,7 +170,7 @@ impl RetryContext {
     // Execute the query using the jobs.insert method.
     async fn execute_jobs_insert(&self, project_id: &str) -> Result<QueryHandle> {
         let job_service = self.template.job_service.clone();
-        let max_results = self.template.request.max_results;
+        let page_size = self.template.request.page_size;
 
         let job_config: JobConfiguration = self.template.request.clone().into();
         let job_ref = generate_job_reference(project_id, &self.template.request.location);
@@ -188,14 +188,14 @@ impl RetryContext {
             job_service,
             job,
             Some(self.clone()),
-            max_results,
+            page_size,
         ))
     }
 
     // Execute the query using the jobs.query method.
     async fn execute_jobs_query(&self, project_id: &str) -> Result<QueryHandle> {
         let job_service = self.template.job_service.clone();
-        let max_results = self.template.request.max_results;
+        let page_size = self.template.request.page_size;
 
         let query_request_id = generate_prefixed_id(QUERY_REQUEST_ID_PREFIX);
         let query_request: QueryRequest = self.template.request.clone().into();
@@ -216,7 +216,7 @@ impl RetryContext {
             job_service,
             res,
             Some(self.clone()),
-            max_results,
+            page_size,
         ))
     }
 }
