@@ -56,9 +56,84 @@ impl std::default::Default for BatchingOptions {
     }
 }
 
+use super::constants::*;
+
+/// Configure publisher request hedging behavior.
+///
+/// Request hedging sends a duplicate publish request when an in-flight batch publish
+/// RPC exceeds a configured delay threshold, mitigating tail latency caused by slow backend
+/// tasks or transient network stalls.
+///
+/// Hedging uses a token bucket to rate-limit hedged RPCs. Successful publish RPCs refill
+/// fractional tokens, and sending a hedged RPC decrements 1 token.
+#[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(not(test), expect(dead_code))]
+pub(crate) struct HedgingOptions {
+    /// The delay before sending a hedged request for an outstanding batch.
+    ///
+    /// Clamped between 100ms and 10s. Defaults to 1s.
+    pub(crate) delay: std::time::Duration,
+    /// The maximum number of tokens in the token bucket.
+    ///
+    /// Represents the maximum burst capacity of hedged requests. Clamped between 1 and 250.
+    /// Defaults to 50.
+    pub(crate) max_tokens: u32,
+    /// The fraction of a token added to the bucket for each successful publish RPC.
+    ///
+    /// Clamped between 0.001 and 0.2. Defaults to 0.1 (1 full token per 10 successful RPCs).
+    pub(crate) refill_ratio: f32,
+}
+
+impl HedgingOptions {
+    /// Set the delay before sending a hedged request.
+    ///
+    /// Clamped between 100ms and 10s.
+    #[cfg_attr(not(test), expect(dead_code))]
+    pub(crate) fn set_delay<V: Into<std::time::Duration>>(mut self, v: V) -> Self {
+        self.delay = v.into().clamp(MIN_HEDGING_DELAY, MAX_HEDGING_DELAY);
+        self
+    }
+
+    /// Set the maximum number of tokens in the token bucket.
+    ///
+    /// Clamped between 1 and 250.
+    #[cfg_attr(not(test), expect(dead_code))]
+    pub(crate) fn set_max_tokens<V: Into<u32>>(mut self, v: V) -> Self {
+        self.max_tokens = v
+            .into()
+            .clamp(MIN_HEDGING_MAX_TOKENS, MAX_HEDGING_MAX_TOKENS);
+        self
+    }
+
+    /// Set the fraction of a token refilled per successful publish RPC.
+    ///
+    /// Clamped between 0.001 and 0.2.
+    #[cfg_attr(not(test), expect(dead_code))]
+    pub(crate) fn set_refill_ratio<V: Into<f32>>(mut self, v: V) -> Self {
+        let val = v.into();
+        self.refill_ratio = if val.is_nan() {
+            DEFAULT_HEDGING_REFILL_RATIO
+        } else {
+            val.clamp(MIN_HEDGING_REFILL_RATIO, MAX_HEDGING_REFILL_RATIO)
+        };
+        self
+    }
+}
+
+impl std::default::Default for HedgingOptions {
+    fn default() -> Self {
+        Self {
+            delay: DEFAULT_HEDGING_DELAY,
+            max_tokens: DEFAULT_HEDGING_MAX_TOKENS,
+            refill_ratio: DEFAULT_HEDGING_REFILL_RATIO,
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
-    use super::BatchingOptions;
+    use super::*;
+    use std::time::Duration;
 
     #[tokio::test]
     async fn batching_options() -> anyhow::Result<()> {
@@ -73,5 +148,48 @@ mod tests {
             std::time::Duration::from_millis(12)
         );
         Ok(())
+    }
+
+    #[test]
+    fn hedging_options_defaults_and_builder() {
+        let default_opts = HedgingOptions::default();
+        assert_eq!(default_opts.delay, Duration::from_secs(1));
+        assert_eq!(default_opts.max_tokens, 50);
+        assert_eq!(default_opts.refill_ratio, 0.1);
+
+        let custom_opts = HedgingOptions::default()
+            .set_delay(Duration::from_millis(500))
+            .set_max_tokens(100_u32)
+            .set_refill_ratio(0.05_f32);
+        assert_eq!(custom_opts.delay, Duration::from_millis(500));
+        assert_eq!(custom_opts.max_tokens, 100);
+        assert_eq!(custom_opts.refill_ratio, 0.05);
+    }
+
+    #[test]
+    fn hedging_options_clamps_values() {
+        let under_opts = HedgingOptions::default()
+            .set_delay(Duration::from_millis(10))
+            .set_max_tokens(0_u32)
+            .set_refill_ratio(0.0001_f32);
+        assert_eq!(under_opts.delay, MIN_HEDGING_DELAY);
+        assert_eq!(under_opts.max_tokens, MIN_HEDGING_MAX_TOKENS);
+        assert_eq!(under_opts.refill_ratio, MIN_HEDGING_REFILL_RATIO);
+
+        let over_opts = HedgingOptions::default()
+            .set_delay(Duration::from_secs(60))
+            .set_max_tokens(500_u32)
+            .set_refill_ratio(0.5_f32);
+        assert_eq!(over_opts.delay, MAX_HEDGING_DELAY);
+        assert_eq!(over_opts.max_tokens, MAX_HEDGING_MAX_TOKENS);
+        assert_eq!(over_opts.refill_ratio, MAX_HEDGING_REFILL_RATIO);
+    }
+
+    #[test_case::test_case(f32::MAX, MAX_HEDGING_REFILL_RATIO)]
+    #[test_case::test_case(f32::MIN, MIN_HEDGING_REFILL_RATIO)]
+    #[test_case::test_case(f32::NAN, DEFAULT_HEDGING_REFILL_RATIO)]
+    fn refill_ratio_clamps_values(val: f32, want: f32) {
+        let opts = HedgingOptions::default().set_refill_ratio(val);
+        assert_eq!(opts.refill_ratio, want);
     }
 }
