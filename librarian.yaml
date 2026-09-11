@@ -534,7 +534,7 @@ libraries:
           api_path: google/cloud/bigquery/storage/v1
           template: prost
         - module_path: google_cloud_bigquery_v2::model
-          name_overrides: .google.cloud.bigquery.v2.QueryRequest.max_results=page_size
+          name_overrides: .synthetic.google.cloud.bigquery.v2.QueryRequest.max_results=page_size
           output: src/bigquery/src/generated
           skipped_ids:
             - .google.cloud.bigquery.v2.JobConfiguration.copy
