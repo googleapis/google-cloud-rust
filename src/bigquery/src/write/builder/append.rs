@@ -13,24 +13,21 @@
 // limitations under the License.
 
 use super::super::append_future::AppendFuture;
-use super::super::append_response::to_result;
-use super::super::entry::StreamEntry;
-use crate::Error;
+use super::super::dispatcher::Dispatcher;
 use crate::model::AppendRowsRequest;
-use gaxi::prost::{FromProto, ToProto};
 use std::sync::Arc;
 use tokio::sync::oneshot;
 
 /// A request builder for appending rows on the default stream.
 #[derive(Clone, Debug)]
 pub struct Append {
-    entry: Arc<StreamEntry>,
+    inner: Arc<Dispatcher>,
     pub(crate) req: AppendRowsRequest,
 }
 
 impl Append {
-    pub(crate) fn new(entry: Arc<StreamEntry>, req: AppendRowsRequest) -> Self {
-        Self { entry, req }
+    pub(crate) fn new(inner: Arc<Dispatcher>, req: AppendRowsRequest) -> Self {
+        Self { inner, req }
     }
 
     /// Append rows to the stream.
@@ -58,13 +55,7 @@ impl Append {
     pub fn send(self) -> AppendFuture {
         let (tx, rx) = oneshot::channel();
         tokio::spawn(async move {
-            let res = async move {
-                let req = self.req.to_proto().map_err(Error::deser)?;
-                let resp = self.entry.send(req).await?;
-                let resp = resp.cnv().map_err(Error::ser)?;
-                to_result(resp)
-            }
-            .await;
+            let res = self.inner.send(self.req).await;
             let _ = tx.send(res);
         });
         AppendFuture::new(rx)
@@ -74,6 +65,7 @@ impl Append {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::Error;
     use crate::error::AppendError;
     use crate::google::cloud::bigquery::storage::v1;
     use crate::google::cloud::bigquery::storage::v1::append_rows_response::{
@@ -86,10 +78,10 @@ mod tests {
     #[tokio::test]
     async fn success() -> anyhow::Result<()> {
         let (req_tx, mut req_rx) = mpsc::unbounded_channel();
-        let entry = test_entry(req_tx);
+        let dispatcher = test_dispatcher(req_tx).await?;
         let req = AppendRowsRequest::new().set_write_stream(write_stream());
 
-        let builder = Append::new(entry, req);
+        let builder = Append::new(dispatcher, req);
         let handle = tokio::spawn(async move { builder.send().await });
 
         // Receive and verify the request
@@ -117,10 +109,10 @@ mod tests {
     #[tokio::test]
     async fn stream_closed() -> anyhow::Result<()> {
         let (req_tx, req_rx) = mpsc::unbounded_channel();
-        let entry = test_entry(req_tx);
+        let dispatcher = test_dispatcher(req_tx).await?;
         let req = AppendRowsRequest::new().set_write_stream(write_stream());
 
-        let builder = Append::new(entry, req);
+        let builder = Append::new(dispatcher, req);
         let handle = tokio::spawn(async move { builder.send().await });
 
         // Simulate a stream closure
@@ -134,10 +126,10 @@ mod tests {
     #[tokio::test]
     async fn rpc_error() -> anyhow::Result<()> {
         let (req_tx, mut req_rx) = mpsc::unbounded_channel();
-        let entry = test_entry(req_tx);
+        let dispatcher = test_dispatcher(req_tx).await?;
         let req = AppendRowsRequest::new().set_write_stream(write_stream());
 
-        let builder = Append::new(entry, req);
+        let builder = Append::new(dispatcher, req);
         let handle = tokio::spawn(async move { builder.send().await });
 
         // Simulate a stream ending in a known error
@@ -156,10 +148,10 @@ mod tests {
     #[tokio::test]
     async fn row_errors() -> anyhow::Result<()> {
         let (req_tx, mut req_rx) = mpsc::unbounded_channel();
-        let entry = test_entry(req_tx);
+        let dispatcher = test_dispatcher(req_tx).await?;
         let req = AppendRowsRequest::new().set_write_stream(write_stream());
 
-        let builder = Append::new(entry, req);
+        let builder = Append::new(dispatcher, req);
         let handle = tokio::spawn(async move { builder.send().await });
 
         let write = req_rx.recv().await.expect("should receive request");

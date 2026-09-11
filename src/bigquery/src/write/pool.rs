@@ -392,7 +392,7 @@ mod tests {
 
     impl StreamPool {
         // Seed the pool with loaded streams to simplify testing.
-        fn seed(&self, loads: impl IntoIterator<Item = u64>) {
+        pub(crate) fn seed(&self, loads: impl IntoIterator<Item = u64>) {
             for load in loads.into_iter() {
                 let s = self.new_stream_entry();
                 s.outstanding_requests.store(load, Ordering::Relaxed);

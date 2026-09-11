@@ -38,6 +38,50 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait AuditManager: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::AuditManager::create_audit_schedule].
+    fn create_audit_schedule(
+        &self,
+        _req: crate::model::CreateAuditScheduleRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::AuditSchedule>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::AuditManager::update_audit_schedule].
+    fn update_audit_schedule(
+        &self,
+        _req: crate::model::UpdateAuditScheduleRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::AuditSchedule>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::AuditManager::get_audit_schedule].
+    fn get_audit_schedule(
+        &self,
+        _req: crate::model::GetAuditScheduleRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::AuditSchedule>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::AuditManager::list_audit_schedules].
+    fn list_audit_schedules(
+        &self,
+        _req: crate::model::ListAuditSchedulesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListAuditSchedulesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::AuditManager::enroll_resource].
     fn enroll_resource(
         &self,

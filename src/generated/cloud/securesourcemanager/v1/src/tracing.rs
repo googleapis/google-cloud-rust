@@ -490,6 +490,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn fetch_refs(
+        &self,
+        req: crate::model::FetchRefsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FetchRefsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecureSourceManager::fetch_refs",
+            self.inner.fetch_refs(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_issue(
         &self,
         req: crate::model::CreateIssueRequest,

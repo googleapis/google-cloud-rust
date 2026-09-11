@@ -634,4 +634,29 @@ mod tests {
         assert!(addresses.len() > 1, "{addresses:?}");
         Ok(())
     }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn api_client_header_client_extension_wire() -> anyhow::Result<()> {
+        let (endpoint, _server) = start_echo_server().await?;
+
+        let client = builder(endpoint)
+            .with_credentials(test_credentials())
+            .with_extension(google_cloud_gax_internal::api_header::XGoogApiClient {
+                name: "storage",
+                library_type: google_cloud_gax_internal::api_header::GCCL,
+                version: "1.0.0",
+            })
+            .build()
+            .await?;
+
+        let response = send_request(client, "test message", "").await?;
+        let header = response
+            .metadata
+            .get("x-goog-api-client")
+            .expect("header present");
+        assert!(header.contains("gccl/1.0.0"), "{header}");
+        assert!(header.contains("grpc/"), "{header}");
+        assert!(!header.contains("gapic/"), "{header}");
+        Ok(())
+    }
 }

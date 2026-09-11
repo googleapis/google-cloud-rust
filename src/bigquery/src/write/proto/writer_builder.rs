@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use super::super::generated::gapic_storage::client::BigQueryWrite;
+use super::super::pool::StreamPool;
 use super::super::transport::Transport;
 use super::super::validate::{validate_stream, validate_table};
 use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter, Writer};
@@ -37,12 +38,14 @@ impl WriterBuilder {
     /// Create a writer for the [default stream] for the given table.
     ///
     /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
-    pub fn default<T: Into<String>>(self, table: T) -> Result<DefaultWriter> {
+    pub async fn default<T: Into<String>>(self, table: T) -> Result<DefaultWriter> {
         let table = table.into();
         validate_table(table.as_str())?;
         let mut write_stream = table;
         write_stream.push_str("/streams/_default");
-        Ok(DefaultWriter::new(self.inner, write_stream, self.schema))
+        // TODO(#6765) - use client's pool if multiplexing is enabled
+        let pool = Arc::new(StreamPool::new(self.inner, 1));
+        Ok(DefaultWriter::new(pool, write_stream, self.schema))
     }
 
     /// Creates a writer for a [pending stream] for the given table.
@@ -227,7 +230,7 @@ mod tests {
     async fn default() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
         let builder = WriterBuilder::new(transport, proto_schema());
-        let writer = builder.default("projects/p/datasets/d/tables/t")?;
+        let writer = builder.default("projects/p/datasets/d/tables/t").await?;
         assert_eq!(
             writer.write_stream,
             "projects/p/datasets/d/tables/t/streams/_default"
@@ -248,6 +251,7 @@ mod tests {
         let builder = WriterBuilder::new(transport, proto_schema());
         let err = builder
             .default(table)
+            .await
             .expect_err("should fail locally on bad format");
         assert!(err.is_binding(), "{err:?}");
         Ok(())

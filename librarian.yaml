@@ -19,11 +19,11 @@ sources:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: ec8f2a6645fa86d4bf7ea6407416dc00547e3d95
-    sha256: 2b1a9085cb4e97899a8002f5c5c121ac59313f45f87d9a5002118d6c4aa72492
+    commit: 5bee7e33bd6c24d984e0bf3ca0c52f0c5c0c8c2c
+    sha256: a2aec2a4fa0434a10946e024fb8630d02d3d1145c24b2b907b9a494aaa447939
   googleapis:
-    commit: 62cbe9611031cb808431dc0806d5042c4b7fefd8
-    sha256: f0d4db6ddc21076ec1df6eca3e1eaa80a6cb05227efbfef197483d532c89ab10
+    commit: 667c11bc3cbb1dac66c4375beba1999458100e39
+    sha256: 673c6d0d05fec70ddd6c70ee166ffeacac0801c6e5db88967dedd7d79a0c6598
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -506,7 +506,7 @@ libraries:
     version: 2.2.0
     copyright_year: "2025"
   - name: google-cloud-bigquery
-    version: 0.16.1-preview
+    version: 0.17.0
     copyright_year: "2026"
     output: src/bigquery
     rust:
@@ -609,10 +609,10 @@ libraries:
     version: 1.12.0
     copyright_year: "2025"
   - name: google-cloud-bigquery-v2
-    version: 0.1.1
+    version: 1.0.0
     copyright_year: "2025"
     keep:
-      - src/operation.rs
+      - src/job_poller.rs
     rust:
       package_dependencies:
         - name: thiserror
@@ -692,7 +692,6 @@ libraries:
     roots:
       - discovery
       - googleapis
-    skip_generate: true
     specification_format: discovery
     rust:
       package_dependencies:
