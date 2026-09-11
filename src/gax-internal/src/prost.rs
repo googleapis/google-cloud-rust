@@ -307,9 +307,9 @@ impl ToProto<prost_types::DescriptorProto> for wkt::DescriptorProto {
                     number: Some(v.number),
                     label: v.label.value(),
                     r#type: v.r#type.value(),
-                    type_name: Some(v.type_name),
-                    json_name: Some(v.json_name),
-                    default_value: Some(v.default_value),
+                    type_name: (!v.type_name.is_empty()).then_some(v.type_name),
+                    json_name: (!v.json_name.is_empty()).then_some(v.json_name),
+                    default_value: (!v.default_value.is_empty()).then_some(v.default_value),
                     ..Default::default()
                 })
                 .collect(),
@@ -687,6 +687,32 @@ mod tests {
             Some("UNKNOWN".to_string())
         );
         assert_eq!(prost_msg.enum_type[0].value[0].number, Some(0));
+
+        let back: wkt::DescriptorProto = prost_msg.cnv()?;
+        assert_eq!(back, input);
+        Ok(())
+    }
+
+    #[test]
+    fn test_descriptor_proto_omits_empty_strings() -> anyhow::Result<()> {
+        // `wkt` represents unset optional strings as empty strings, while
+        // `prost_types` uses `None`. Mapping "" to `Some("")` produces a
+        // descriptor that reflection engines reject, e.g. an empty `type_name`
+        // on a scalar field.
+        let input = wkt::DescriptorProto::default()
+            .set_name("TestMessage".to_string())
+            .set_field(vec![
+                wkt::FieldDescriptorProto::default()
+                    .set_name("scalar".to_string())
+                    .set_number(1)
+                    .set_label(wkt::field_descriptor_proto::Label::Optional)
+                    .set_type(wkt::field_descriptor_proto::Type::Int64),
+            ]);
+
+        let prost_msg: prost_types::DescriptorProto = input.clone().to_proto()?;
+        assert_eq!(prost_msg.field[0].type_name, None);
+        assert_eq!(prost_msg.field[0].json_name, None);
+        assert_eq!(prost_msg.field[0].default_value, None);
 
         let back: wkt::DescriptorProto = prost_msg.cnv()?;
         assert_eq!(back, input);
