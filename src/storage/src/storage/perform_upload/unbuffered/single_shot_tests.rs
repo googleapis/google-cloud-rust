@@ -792,6 +792,7 @@ mod trailing_checksums {
     }
 
     #[tokio::test]
+    #[allow(deprecated)]
     async fn precompute_expecting_no_trailing() -> Result {
         let inner = test_inner_client(test_builder()).await;
         let options = inner.options.clone();

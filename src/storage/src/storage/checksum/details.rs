@@ -172,6 +172,10 @@ impl<S> ChecksummedSource<S> {
     pub fn final_checksum(&self) -> ObjectChecksums {
         self.checksum.finalize()
     }
+
+    pub fn reset_checksum(&mut self) {
+        self.checksum = Checksum::default();
+    }
 }
 
 impl<S> StreamingSource for ChecksummedSource<S>
@@ -488,6 +492,48 @@ mod tests {
         let err = ck.seek(0).await.unwrap_err();
         assert_eq!(err.kind(), ErrorKind::FileTooLarge, "{err:?}");
         assert_eq!(ck.offset, u64::MAX);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn checksummed_source_reset_checksum() -> anyhow::Result<()> {
+        let input = [
+            "the ", "quick ", "brown ", "fox ", "jumps ", "over ", "the ", "lazy ", "dog",
+        ];
+        let mut mock = MockSeekSource::new();
+        let stream = input
+            .iter()
+            .map(|&s| Ok(bytes::Bytes::from_static(s.as_bytes())))
+            .collect::<Vec<_>>();
+        let mut iter = stream.into_iter();
+        mock.expect_next()
+            .times(input.len() + 1)
+            .returning(move || iter.next());
+
+        let mut source = ChecksummedSource::new(
+            Checksum {
+                crc32c: Some(Crc32c::default()),
+                md5_hash: None,
+            },
+            mock,
+        );
+
+        while source.next().await.transpose()?.is_some() {}
+
+        let want = crc32c::crc32c("the quick brown fox jumps over the lazy dog".as_bytes());
+        assert_eq!(
+            source.final_checksum(),
+            ObjectChecksums::new().set_crc32c(want)
+        );
+
+        // Reset the checksumming state
+        source.reset_checksum();
+
+        // After reset_checksum(), the hasher is disabled and final_checksum() returns empty
+        assert_eq!(source.final_checksum(), ObjectChecksums::new());
+        assert!(source.checksum.crc32c.is_none());
+        assert!(source.checksum.md5_hash.is_none());
 
         Ok(())
     }

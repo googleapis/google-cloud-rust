@@ -520,6 +520,7 @@ async fn abort_upload_buffered(client: &Storage, bucket_name: &str) -> Result<()
     Ok(())
 }
 
+#[allow(deprecated)]
 pub async fn checksums(client: &Storage, bucket_name: &str) -> Result<()> {
     tracing::info!("checksums test, using bucket {bucket_name}");
 
@@ -564,6 +565,27 @@ pub async fn checksums(client: &Storage, bucket_name: &str) -> Result<()> {
                 client
                     .write_object(bucket_name, "unbuffered/verify/default", VEXING)
                     .set_if_generation_match(0)
+                    .send_unbuffered(),
+            ),
+        ),
+        (
+            "unbuffered/resumable/default",
+            Box::pin(
+                client
+                    .write_object(bucket_name, "unbuffered/resumable/default", VEXING)
+                    .set_if_generation_match(0)
+                    .with_resumable_upload_threshold(0_usize)
+                    .send_unbuffered(),
+            ),
+        ),
+        (
+            "unbuffered/resumable/precompute_false",
+            Box::pin(
+                client
+                    .write_object(bucket_name, "unbuffered/resumable/precompute_false", VEXING)
+                    .set_if_generation_match(0)
+                    .with_resumable_upload_threshold(0_usize)
+                    .with_checksum_precomputation(false)
                     .send_unbuffered(),
             ),
         ),

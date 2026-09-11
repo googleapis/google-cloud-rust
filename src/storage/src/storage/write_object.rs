@@ -991,6 +991,7 @@ where
             request: crate::model_ext::WriteObjectRequest {
                 spec: crate::model::WriteObjectSpec::new().set_resource(resource),
                 params: None,
+                checksum_precomputation: true,
             },
             payload: payload.into(),
             options,
@@ -1024,6 +1025,35 @@ where
             .await
     }
 
+    /// Configures checksum precomputation for unbuffered resumable uploads.
+    ///
+    /// Checksum precomputation is **enabled by default (`true`)** to ensure server-side data
+    /// integrity validation for large objects streamed via resumable uploads.
+    ///
+    /// Note: Single-shot unbuffered uploads (< resumable upload threshold) always compute checksums
+    /// on the fly via trailing multipart metadata and do not require precomputation.
+    ///
+    /// Call `.with_checksum_precomputation(false)` to turn off precomputation and prioritize
+    /// upload speed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let payload = tokio::fs::File::open("my-data").await?;
+    /// let response = client
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", payload)
+    ///     .with_checksum_precomputation(false)
+    ///     .send_unbuffered()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    pub fn with_checksum_precomputation<V: Into<bool>>(mut self, enable: V) -> Self {
+        self.request.checksum_precomputation = enable.into();
+        self
+    }
+
     /// Precomputes the payload checksums before uploading the data.
     ///
     /// If the checksums are known when the upload starts, the client library
@@ -1035,6 +1065,7 @@ where
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let payload = tokio::fs::File::open("my-data").await?;
+    /// #[allow(deprecated)]
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", payload)
     ///     .precompute_checksums()
@@ -1045,15 +1076,24 @@ where
     /// # Ok(()) }
     /// ```
     ///
-    /// Precomputing the checksums can be expensive if the data source is slow
-    /// to read. Therefore, the client library does not precompute the checksums
-    /// by default.
+    /// # Deprecated
+    /// `precompute_checksums()` is now redundant because checksums are automatically
+    /// validated by default across all upload modes:
+    /// - **Buffered upload**: Checksum is uploaded in the final chunk.
+    /// - **Single-shot unbuffered upload**: Checksum is attached as trailing metadata in a
+    ///   multipart request.
+    /// - **Resumable unbuffered upload**: Checksum is precomputed upfront by default
+    ///   (or supplied via `with_known_crc32c`).
     ///
-    /// For single-shot uploads, checksums are computed on the fly and sent as
-    /// trailing metadata, allowing the service to validate integrity before creating
-    /// the object. For resumable unbuffered uploads, the client library validates
-    /// checksums after the upload completes, so precomputing checksums ensures the
-    /// service validates the data before finalizing the object.
+    /// For unbuffered resumable uploads, precomputing checksums incurs an extra read pass.
+    /// If you want to prioritize upload speed over data integrity, call
+    /// [with_checksum_precomputation(false)][WriteObject::with_checksum_precomputation].
+    #[deprecated(
+        since = "1.19.0",
+        note = "`precompute_checksums()` is redundant as checksums are validated by default. \
+                For unbuffered resumable uploads, call `with_checksum_precomputation(false)` \
+                to prioritize speed over upfront integrity validation."
+    )]
     pub async fn precompute_checksums(mut self) -> Result<Self> {
         let mut offset = 0_u64;
         self.payload.seek(offset).await.map_err(Error::ser)?;
@@ -1126,6 +1166,7 @@ where
 }
 
 #[cfg(test)]
+#[allow(deprecated)]
 mod tests {
     use super::client::tests::{test_builder, test_inner_client};
     use super::*;
@@ -1734,6 +1775,242 @@ mod tests {
             .for_each(|text| {
                 assert!(fmt.contains(text), "expected {text} in {fmt}");
             });
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn with_checksum_precomputation_builder() -> Result {
+        let client = test_builder().build().await?;
+        let upload = client
+            .write_object("my-bucket", "my-object", "hello")
+            .with_checksum_precomputation(true);
+        assert!(upload.request.checksum_precomputation);
+
+        let upload = client
+            .write_object("my-bucket", "my-object", "hello")
+            .with_checksum_precomputation(false);
+        assert!(!upload.request.checksum_precomputation);
+
+        let upload = client.write_object("my-bucket", "my-object", "hello");
+        assert!(upload.request.checksum_precomputation);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn unbuffered_resumable_precomputes_by_default() -> Result {
+        let server = Server::run();
+        let session = server.url("/upload/session/test-only-001");
+        let path = session.path().to_string();
+
+        use base64::{Engine, prelude::BASE64_STANDARD};
+        let expected_crc = crc32c::crc32c(b"hello world");
+        let expected_crc_b64 = BASE64_STANDARD.encode(expected_crc.to_be_bytes());
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("uploadType", "resumable")))),
+                request::body(json_decoded(move |body: &serde_json::Value| {
+                    body.get("crc32c").and_then(|v| v.as_str()) == Some(&expected_crc_b64)
+                })),
+            ])
+            .times(1)
+            .respond_with(status_code(200).append_header("location", session.to_string())),
+        );
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("PUT", path),
+                request::body("hello world"),
+            ])
+            .times(1)
+            .respond_with(
+                status_code(200)
+                    .append_header(http::header::CONTENT_TYPE, "application/json")
+                    .body(serde_json::to_string(&crate::model::Object::new()).unwrap()),
+            ),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let _ = client
+            .write_object(
+                "projects/_/buckets/test-bucket",
+                "test-object",
+                "hello world",
+            )
+            .with_resumable_upload_threshold(0_usize)
+            .send_unbuffered()
+            .await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn unbuffered_resumable_with_checksum_precomputation_false() -> Result {
+        let server = Server::run();
+        let session = server.url("/upload/session/test-only-002");
+        let path = session.path().to_string();
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("uploadType", "resumable")))),
+                request::body(json_decoded(|body: &serde_json::Value| {
+                    body.get("crc32c").is_none()
+                })),
+            ])
+            .times(1)
+            .respond_with(status_code(200).append_header("location", session.to_string())),
+        );
+
+        server.expect(
+            Expectation::matching(request::method_path("PUT", path))
+                .times(1)
+                .respond_with(
+                    status_code(200)
+                        .append_header(http::header::CONTENT_TYPE, "application/json")
+                        .body(serde_json::to_string(&crate::model::Object::new()).unwrap()),
+                ),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let _ = client
+            .write_object(
+                "projects/_/buckets/test-bucket",
+                "test-object",
+                "hello world",
+            )
+            .with_resumable_upload_threshold(0_usize)
+            .with_checksum_precomputation(false)
+            .send_unbuffered()
+            .await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn unbuffered_single_shot_does_not_precompute_by_default() -> Result {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("uploadType", "multipart")))),
+            ])
+            .times(1)
+            .respond_with(
+                status_code(200)
+                    .append_header(http::header::CONTENT_TYPE, "application/json")
+                    .body(serde_json::to_string(&crate::model::Object::new()).unwrap()),
+            ),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let _ = client
+            .write_object(
+                "projects/_/buckets/test-bucket",
+                "test-object",
+                "hello world",
+            )
+            .send_unbuffered()
+            .await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn unbuffered_single_shot_with_checksum_precomputation_false() -> Result {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("uploadType", "multipart")))),
+            ])
+            .times(1)
+            .respond_with(
+                status_code(200)
+                    .append_header(http::header::CONTENT_TYPE, "application/json")
+                    .body(serde_json::to_string(&crate::model::Object::new()).unwrap()),
+            ),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let _ = client
+            .write_object(
+                "projects/_/buckets/test-bucket",
+                "test-object",
+                "hello world",
+            )
+            .with_checksum_precomputation(false)
+            .send_unbuffered()
+            .await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn unbuffered_resumable_with_known_crc32c_skips_precompute() -> Result {
+        let server = Server::run();
+        let session = server.url("/upload/session/test-only-003");
+        let path = session.path().to_string();
+
+        let known_crc = 123456_u32;
+        use base64::{Engine, prelude::BASE64_STANDARD};
+        let expected_crc_b64 = BASE64_STANDARD.encode(known_crc.to_be_bytes());
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("uploadType", "resumable")))),
+                request::body(json_decoded(move |body: &serde_json::Value| {
+                    body.get("crc32c").and_then(|v| v.as_str()) == Some(&expected_crc_b64)
+                })),
+            ])
+            .times(1)
+            .respond_with(status_code(200).append_header("location", session.to_string())),
+        );
+
+        server.expect(
+            Expectation::matching(request::method_path("PUT", path))
+                .times(1)
+                .respond_with(
+                    status_code(200)
+                        .append_header(http::header::CONTENT_TYPE, "application/json")
+                        .body(serde_json::to_string(&crate::model::Object::new()).unwrap()),
+                ),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let _ = client
+            .write_object(
+                "projects/_/buckets/test-bucket",
+                "test-object",
+                "hello world",
+            )
+            .with_known_crc32c(known_crc)
+            .with_resumable_upload_threshold(0_usize)
+            .send_unbuffered()
+            .await?;
+
         Ok(())
     }
 }
