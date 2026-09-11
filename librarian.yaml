@@ -1566,6 +1566,7 @@ libraries:
     output: src/storage
     rust:
       resource_name_heuristic: true
+      grpc_client: crate::GrpcClient
       modules:
         - module_path: crate::generated::gapic_control::model
           name_overrides: .google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_buckets=CloudStorageBucketsOneOf,.google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_locations=CloudStorageLocationsOneOf
