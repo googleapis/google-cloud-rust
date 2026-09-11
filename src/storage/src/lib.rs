@@ -55,6 +55,11 @@ pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
+#[cfg(google_cloud_unstable_grpc_rust)]
+pub(crate) type GrpcClient = gaxi::grpc::GrpcRustClient;
+#[cfg(not(google_cloud_unstable_grpc_rust))]
+pub(crate) type GrpcClient = gaxi::grpc::Client;
+
 #[cfg(google_cloud_unstable_storage_bidi)]
 #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
 pub mod appendable_object_writer;

@@ -15,7 +15,8 @@
 use super::redirect::is_redirect;
 use super::retry_redirect::RetryRedirect;
 use super::state::AppendObjectSpecState;
-use super::{Client, GrpcClient, GrpcStream, TonicStreaming, persisted_size};
+use super::{Client, GrpcStream, TonicStreaming, persisted_size};
+use crate::GrpcClient;
 use crate::google::storage::v2::{
     AppendObjectSpec, BidiWriteObjectRequest, BidiWriteObjectResponse, CommonObjectRequestParams,
     Object, WriteObjectSpec, bidi_write_object_request::FirstMessage,
