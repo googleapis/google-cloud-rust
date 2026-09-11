@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use super::request_options::RequestOptions;
+use crate::GrpcClient;
 #[cfg(google_cloud_unstable_storage_bidi)]
 use crate::builder::storage::OpenAppendableObject;
 use crate::builder::storage::ReadObject;
@@ -20,7 +21,7 @@ use crate::builder::storage::ReadObject;
 use crate::builder::storage::ReopenAppendableObject;
 use crate::builder::storage::WriteObject;
 use crate::read_resume_policy::ReadResumePolicy;
-use crate::storage::bidi::{GrpcClient, OpenObject};
+use crate::storage::bidi::OpenObject;
 use crate::storage::common_options::CommonOptions;
 use crate::streaming_source::Payload;
 use base64::Engine;

@@ -14,7 +14,8 @@
 
 use super::redirect::handle_redirect;
 use super::retry_redirect::RetryRedirect;
-use super::{Client, GrpcClient, GrpcStream, TonicStreaming};
+use super::{Client, GrpcStream, TonicStreaming};
+use crate::GrpcClient;
 use crate::google::storage::v2::{
     BidiReadObjectRequest, BidiReadObjectResponse, BidiReadObjectSpec, ReadRange as ProtoRange,
 };
