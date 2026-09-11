@@ -307,9 +307,9 @@ impl ToProto<prost_types::DescriptorProto> for wkt::DescriptorProto {
                     number: Some(v.number),
                     label: v.label.value(),
                     r#type: v.r#type.value(),
-                    type_name: (!v.type_name.is_empty()).then_some(v.type_name),
-                    json_name: (!v.json_name.is_empty()).then_some(v.json_name),
-                    default_value: (!v.default_value.is_empty()).then_some(v.default_value),
+                    type_name: Some(v.type_name).filter(|s| !s.is_empty()),
+                    json_name: Some(v.json_name).filter(|s| !s.is_empty()),
+                    default_value: Some(v.default_value).filter(|s| !s.is_empty()),
                     ..Default::default()
                 })
                 .collect(),
