@@ -68,7 +68,7 @@ impl TokenBucket {
             .tokens
             .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |current| {
                 if current >= self.max_scaled_tokens {
-                    None
+                    None // optimization to save an atomic update.
                 } else {
                     Some(
                         current
@@ -84,7 +84,6 @@ impl TokenBucket {
 mod tests {
     use super::*;
 
-    use google_cloud_test_macros::tokio_test_no_panics;
     use tokio::task::{JoinSet, yield_now};
 
     impl TokenBucket {
@@ -141,22 +140,25 @@ mod tests {
         assert!(!bucket.try_acquire());
     }
 
-    #[tokio_test_no_panics(flavor = "multi_thread", worker_threads = 4)]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 4)]
     async fn concurrent_refill_and_acquire() {
         use std::sync::Arc;
 
+        // Use a refill ratio of 1.0 to make it simple, each refill
+        // allows an acquired token. Set max tokens to ensure that
+        // it cannot overflow so that we get the correct number of
+        // acquires.
         let bucket = Arc::new(TokenBucket::new(1000, 1.0));
 
-        let num_refillers = 4;
-        let refills_per_task = 250;
-        let num_acquirers = 4;
+        let num_tasks = 4;
+        let tokens_per_task = 250;
 
         // Spawn refiller tasks
         let mut refillers = JoinSet::new();
-        for _ in 0..num_refillers {
+        for _ in 0..num_tasks {
             let bucket = Arc::clone(&bucket);
             refillers.spawn(async move {
-                for _ in 0..refills_per_task {
+                for _ in 0..tokens_per_task {
                     bucket.refill();
                 }
                 yield_now().await;
@@ -165,12 +167,12 @@ mod tests {
 
         // Spawn acquirer tasks
         let mut acquirers = JoinSet::new();
-        for _ in 0..num_acquirers {
+        for _ in 0..num_tasks {
             let bucket = Arc::clone(&bucket);
             acquirers.spawn(async move {
                 let mut total_acquired = 0;
                 loop {
-                    if total_acquired == refills_per_task {
+                    if total_acquired == tokens_per_task {
                         break;
                     }
                     if bucket.try_acquire() {
@@ -187,13 +189,10 @@ mod tests {
         // Wait for acquirers
         acquirers.join_all().await;
 
-        // Drain any remaining tokens
-        let mut remaining = 0;
-        while bucket.try_acquire() {
-            remaining += 1;
-        }
-
-        assert_eq!(remaining, 0, "Acquirers should have acquired all tokens");
-        assert_eq!(bucket.available_scaled_tokens(), 0);
+        assert_eq!(
+            bucket.available_scaled_tokens(),
+            0,
+            "all tokens should have been acquired"
+        );
     }
 }
