@@ -2389,7 +2389,6 @@ dependencies = [
  "bigquery-grpc-mock",
  "bytes",
  "google-cloud-auth",
- "google-cloud-bigquery",
  "google-cloud-bigquery-derive",
  "google-cloud-bigquery-v2",
  "google-cloud-gax",
