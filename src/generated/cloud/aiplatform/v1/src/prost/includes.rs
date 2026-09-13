@@ -7,7 +7,6 @@ pub mod google {
         pub mod aiplatform {
             pub mod v1 {
                 include!("google.cloud.aiplatform.v1.rs");
-            include!("../convert.rs");
             }
         }
     }
