@@ -40,7 +40,7 @@ Benchmarks the Rust BigQuery client library (`google-cloud-bigquery`), measuring
 >
 > **Indefinite Execution by Default:** If neither `--iterations` nor `--duration` is specified, the benchmark runs indefinitely until interrupted with `Ctrl+C`.
 
-### 1. Zero-Setup Synthetic Benchmark
+### Synthetic Benchmark
 
 Runs 10 iterations per task with 4 concurrent tasks, generating and streaming 100,000 rows per query:
 
@@ -53,7 +53,7 @@ cargo run --release -p bigquery-benchmark-queries -- \
     --output-dir ./results
 ```
 
-### 2. Public Dataset Query Benchmark
+### Public Dataset Query Benchmark
 
 Benchmark streaming 50,000 rows from the USA names public dataset:
 
@@ -66,7 +66,7 @@ cargo run --release -p bigquery-benchmark-queries -- \
     --output-dir ./results
 ```
 
-### 3. Custom SQL Query Benchmark
+### Custom SQL Query Benchmark
 
 ```shell
 cargo run --release -p bigquery-benchmark-queries -- \
@@ -120,9 +120,9 @@ tail -f results/samples-synthetic-100k-*.csv
 
 To execute endurance tests on a GCE VM and stream all logs directly into **Google Cloud Console (Cloud Logging)**:
 
-1. **Create the VM and Install Ops Agent**:
+1. **Create the VM and install Ops Agent**:
    ```shell
-   # 1. Create a VM with full cloud-platform scope
+   # Create a VM with full cloud-platform scope
    gcloud compute instances create bq-benchmark-vm \
      --zone=us-central1-a \
      --machine-type=c2-standard-4 \
@@ -137,7 +137,7 @@ To execute endurance tests on a GCE VM and stream all logs directly into **Googl
    "
    ```
 
-2. **Run in the Background via `systemd-cat`**:
+2. **Run in the background via `systemd-cat`**:
    Using `systemd-cat` tags the output in the system journal so the Ops Agent automatically forwards stdout and stderr to Cloud Logging:
    ```shell
    gcloud compute ssh bq-benchmark-vm --zone=us-central1-a
@@ -162,9 +162,6 @@ To execute endurance tests on a GCE VM and stream all logs directly into **Googl
      jsonPayload.SYSLOG_IDENTIFIER="bq-benchmark"
      ```
    * Click **Stream logs** in the top right to watch real-time benchmark execution logs arrive in the console.
-
-> [!TIP]
-> **Real-Time Reporting & Graceful Shutdown (`Ctrl+C`):** When `--output-dir` is provided, the benchmark writes raw sample CSV rows and updates the summary report JSON on disk in **real-time** as each query iteration completes. You can press `Ctrl+C` at any point during a long endurance test to immediately stop worker tasks, output the summary report to stdout, flush all OpenTelemetry metrics to Google Cloud, and preserve the recorded samples and summary report on disk.
 
 ---
 
@@ -202,7 +199,7 @@ sum by (scenario, status) (rate(workload_googleapis_com:bigquery_queries_total[1
 ```
 
 #### 2. Under-the-Hood Job Retries (Retry Rate & Count)
-Tracks how often queries triggered a backend job retry (where the job ID mutated between `Query::send()` and `Query::until_done()`):
+Tracks how often queries triggered a backend job retry (where the job ID mutated between `Query::send()` and `Query::until_done()` - needs to be improved to detect when queries are retried on creation):
 ```promql
 sum by (scenario) (rate(workload_googleapis_com:bigquery_queries_retries_detected[1m]))
 ```
