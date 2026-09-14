@@ -12,20 +12,46 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::sample::{Sample, SampleStatus};
 use opentelemetry::KeyValue;
 use opentelemetry::metrics::{Counter, Histogram};
 use serde::{Deserialize, Serialize};
-use std::sync::atomic::{AtomicU64, Ordering};
 use std::time::Duration;
 
+/// Serializes a [`Duration`] as fractional milliseconds.
+///
+/// The serde default for [`Duration`] emits `{"secs": 1, "nanos": 234000000}`,
+/// which is awkward to chart or load into BigQuery.
+mod duration_millis {
+    use serde::{Deserialize, Deserializer, Serializer};
+    use std::time::Duration;
+
+    pub fn serialize<S: Serializer>(duration: &Duration, ser: S) -> Result<S::Ok, S::Error> {
+        ser.serialize_f64(duration.as_secs_f64() * 1_000.0)
+    }
+
+    pub fn deserialize<'de, D: Deserializer<'de>>(de: D) -> Result<Duration, D::Error> {
+        let millis = f64::deserialize(de)?;
+        Ok(Duration::from_secs_f64(millis / 1_000.0))
+    }
+}
+
 /// Summary percentiles and metrics for execution latencies.
+///
+/// Durations are serialized as fractional milliseconds.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct LatencySummary {
+    #[serde(with = "duration_millis", rename = "min_millis")]
     pub min: Duration,
+    #[serde(with = "duration_millis", rename = "max_millis")]
     pub max: Duration,
+    #[serde(with = "duration_millis", rename = "mean_millis")]
     pub mean: Duration,
+    #[serde(with = "duration_millis", rename = "p50_millis")]
     pub p50: Duration,
+    #[serde(with = "duration_millis", rename = "p90_millis")]
     pub p90: Duration,
+    #[serde(with = "duration_millis", rename = "p99_millis")]
     pub p99: Duration,
     pub count: usize,
 }
@@ -60,219 +86,129 @@ pub fn compute_metrics(latencies: &[Duration]) -> Option<LatencySummary> {
     })
 }
 
-// In-process global atomic counters for quick telemetry reporting.
-static TOTAL_QUERIES: AtomicU64 = AtomicU64::new(0);
-static SUCCESS_QUERIES: AtomicU64 = AtomicU64::new(0);
-static ERROR_QUERIES: AtomicU64 = AtomicU64::new(0);
-static RETRIED_QUERIES: AtomicU64 = AtomicU64::new(0);
-static TOTAL_ROWS: AtomicU64 = AtomicU64::new(0);
-static TOTAL_BYTES: AtomicU64 = AtomicU64::new(0);
-
-#[inline]
-pub fn inc_total_queries() {
-    TOTAL_QUERIES.fetch_add(1, Ordering::SeqCst);
-}
-
-#[inline]
-pub fn inc_success_queries() {
-    SUCCESS_QUERIES.fetch_add(1, Ordering::SeqCst);
-}
-
-#[inline]
-pub fn inc_error_queries() {
-    ERROR_QUERIES.fetch_add(1, Ordering::SeqCst);
-}
-
-#[inline]
-pub fn inc_retried_queries() {
-    RETRIED_QUERIES.fetch_add(1, Ordering::SeqCst);
-}
-
-#[inline]
-pub fn add_rows_read(count: u64) {
-    TOTAL_ROWS.fetch_add(count, Ordering::SeqCst);
-}
-
-#[inline]
-pub fn add_bytes_processed(bytes: u64) {
-    TOTAL_BYTES.fetch_add(bytes, Ordering::SeqCst);
-}
-
-/// Returns a snapshot of in-process counters.
-pub fn get_counters() -> [(&'static str, u64); 6] {
-    [
-        ("total_queries", TOTAL_QUERIES.load(Ordering::Relaxed)),
-        ("success_queries", SUCCESS_QUERIES.load(Ordering::Relaxed)),
-        ("error_queries", ERROR_QUERIES.load(Ordering::Relaxed)),
-        ("retried_queries", RETRIED_QUERIES.load(Ordering::Relaxed)),
-        ("total_rows_read", TOTAL_ROWS.load(Ordering::Relaxed)),
-        ("total_bytes_processed", TOTAL_BYTES.load(Ordering::Relaxed)),
-    ]
-}
-
-/// OpenTelemetry metrics instruments.
+/// OpenTelemetry metrics instruments for a single scenario.
+///
+/// The scenario/status attribute sets are built once and reused, so recording a
+/// sample allocates nothing.
 #[derive(Clone)]
 pub struct OtelMetrics {
-    pub queries_total: Counter<u64>,
-    pub queries_success: Counter<u64>,
-    pub queries_error: Counter<u64>,
-    pub queries_retried: Counter<u64>,
-    pub rows_read: Counter<u64>,
-    pub bytes_processed: Counter<u64>,
-    pub query_duration: Histogram<f64>,
-    pub send_duration: Histogram<f64>,
-    pub poll_duration: Histogram<f64>,
-    pub read_duration: Histogram<f64>,
+    queries_total: Counter<u64>,
+    queries_success: Counter<u64>,
+    queries_error: Counter<u64>,
+    queries_retried: Counter<u64>,
+    rows_read: Counter<u64>,
+    bytes_processed: Counter<u64>,
+    query_duration: Histogram<f64>,
+    send_duration: Histogram<f64>,
+    poll_duration: Histogram<f64>,
+    read_duration: Histogram<f64>,
+    ok_attrs: [KeyValue; 2],
+    error_attrs: [KeyValue; 2],
 }
 
 impl OtelMetrics {
-    pub fn new() -> Self {
+    /// Creates the instruments for `scenario`.
+    ///
+    /// Every counter is seeded with 0 so the time series exist in Cloud
+    /// Monitoring even if no errors or retries occur during the run.
+    pub fn new(scenario: &str) -> Self {
         let meter = opentelemetry::global::meter("bigquery-benchmark-queries");
 
-        let queries_total = meter
-            .u64_counter("bigquery.queries.total")
-            .with_description("Total number of BigQuery queries attempted")
-            .build();
+        let metrics = Self {
+            queries_total: meter
+                .u64_counter("bigquery.queries.total")
+                .with_description("Total number of BigQuery queries attempted")
+                .build(),
+            queries_success: meter
+                .u64_counter("bigquery.queries.success")
+                .with_description("Number of BigQuery queries completed successfully")
+                .build(),
+            queries_error: meter
+                .u64_counter("bigquery.queries.error")
+                .with_description("Number of BigQuery queries that failed")
+                .build(),
+            queries_retried: meter
+                .u64_counter("bigquery.queries.retries_detected")
+                .with_description(
+                    "Number of queries where an under-the-hood job retry was detected",
+                )
+                .build(),
+            rows_read: meter
+                .u64_counter("bigquery.queries.rows_read")
+                .with_description("Total count of rows read from query results")
+                .build(),
+            bytes_processed: meter
+                .u64_counter("bigquery.queries.bytes_processed")
+                .with_description("Total estimated bytes processed by BigQuery jobs")
+                .build(),
+            query_duration: meter
+                .f64_histogram("bigquery.queries.duration_seconds")
+                .with_description("Total query end-to-end duration in seconds")
+                .build(),
+            send_duration: meter
+                .f64_histogram("bigquery.queries.send_duration_seconds")
+                .with_description("Duration for Query::send() execution")
+                .build(),
+            poll_duration: meter
+                .f64_histogram("bigquery.queries.poll_duration_seconds")
+                .with_description("Duration for Query::until_done() polling execution")
+                .build(),
+            read_duration: meter
+                .f64_histogram("bigquery.queries.read_duration_seconds")
+                .with_description("Duration for CompleteQuery::read() row streaming")
+                .build(),
+            ok_attrs: [
+                KeyValue::new("scenario", scenario.to_string()),
+                KeyValue::new("status", "ok"),
+            ],
+            error_attrs: [
+                KeyValue::new("scenario", scenario.to_string()),
+                KeyValue::new("status", "error"),
+            ],
+        };
 
-        let queries_success = meter
-            .u64_counter("bigquery.queries.success")
-            .with_description("Number of BigQuery queries completed successfully")
-            .build();
+        metrics.queries_total.add(0, &metrics.ok_attrs);
+        metrics.queries_total.add(0, &metrics.error_attrs);
+        metrics.queries_success.add(0, &metrics.ok_attrs);
+        metrics.queries_error.add(0, &metrics.error_attrs);
+        metrics.queries_retried.add(0, &metrics.ok_attrs);
+        metrics.rows_read.add(0, &metrics.ok_attrs);
+        metrics.bytes_processed.add(0, &metrics.ok_attrs);
 
-        let queries_error = meter
-            .u64_counter("bigquery.queries.error")
-            .with_description("Number of BigQuery queries that failed")
-            .build();
-
-        let queries_retried = meter
-            .u64_counter("bigquery.queries.retries_detected")
-            .with_description("Number of queries where an under-the-hood job retry was detected")
-            .build();
-
-        let rows_read = meter
-            .u64_counter("bigquery.queries.rows_read")
-            .with_description("Total count of rows read from query results")
-            .build();
-
-        let bytes_processed = meter
-            .u64_counter("bigquery.queries.bytes_processed")
-            .with_description("Total estimated bytes processed by BigQuery jobs")
-            .build();
-
-        let query_duration = meter
-            .f64_histogram("bigquery.queries.duration_seconds")
-            .with_description("Total query end-to-end duration in seconds")
-            .build();
-
-        let send_duration = meter
-            .f64_histogram("bigquery.queries.send_duration_seconds")
-            .with_description("Duration for Query::send() execution")
-            .build();
-
-        let poll_duration = meter
-            .f64_histogram("bigquery.queries.poll_duration_seconds")
-            .with_description("Duration for Query::until_done() polling execution")
-            .build();
-
-        let read_duration = meter
-            .f64_histogram("bigquery.queries.read_duration_seconds")
-            .with_description("Duration for CompleteQuery::read() row streaming")
-            .build();
-
-        Self {
-            queries_total,
-            queries_success,
-            queries_error,
-            queries_retried,
-            rows_read,
-            bytes_processed,
-            query_duration,
-            send_duration,
-            poll_duration,
-            read_duration,
-        }
+        metrics
     }
 
-    /// Initializes all counter metrics with 0 so time series exist in Cloud Monitoring
-    /// even if no errors or retries occur during the benchmark run.
-    pub fn init_scenario(&self, scenario: &str) {
-        let ok_attrs = [
-            KeyValue::new("scenario", scenario.to_string()),
-            KeyValue::new("status", "ok"),
-        ];
-        let err_attrs = [
-            KeyValue::new("scenario", scenario.to_string()),
-            KeyValue::new("status", "error"),
-        ];
-
-        self.queries_total.add(0, &ok_attrs);
-        self.queries_total.add(0, &err_attrs);
-        self.queries_success.add(0, &ok_attrs);
-        self.queries_error.add(0, &err_attrs);
-        self.queries_retried.add(0, &ok_attrs);
-        self.rows_read.add(0, &ok_attrs);
-        self.bytes_processed.add(0, &ok_attrs);
-    }
-
-    pub fn record_sample(&self, scenario: &str, sample: &crate::sample::Sample) {
-        let is_ok = sample.status == crate::sample::SampleStatus::Ok;
-        let attrs = [
-            KeyValue::new("scenario", scenario.to_string()),
-            KeyValue::new("status", if is_ok { "ok" } else { "error" }),
-        ];
-
-        self.queries_total.add(1, &attrs);
-        if is_ok {
-            self.queries_success.add(1, &attrs);
-            self.queries_error.add(
-                0,
-                &[
-                    KeyValue::new("scenario", scenario.to_string()),
-                    KeyValue::new("status", "error"),
-                ],
-            );
-            if sample.retry_detected {
-                self.queries_retried.add(1, &attrs);
-            } else {
-                self.queries_retried.add(0, &attrs);
-            }
-            self.rows_read.add(sample.rows_count as u64, &attrs);
-            self.bytes_processed
-                .add(sample.bytes_processed.max(0) as u64, &attrs);
-
-            self.send_duration.record(
-                Duration::from_micros(sample.send_duration_micros as u64).as_secs_f64(),
-                &attrs,
-            );
-            self.poll_duration.record(
-                Duration::from_micros(sample.poll_duration_micros as u64).as_secs_f64(),
-                &attrs,
-            );
-            self.read_duration.record(
-                Duration::from_micros(sample.read_duration_micros as u64).as_secs_f64(),
-                &attrs,
-            );
+    /// Records a single completed query execution.
+    pub fn record_sample(&self, sample: &Sample) {
+        let is_ok = sample.status == SampleStatus::Ok;
+        let attrs = if is_ok {
+            &self.ok_attrs
         } else {
-            self.queries_error.add(1, &attrs);
-            self.queries_success.add(
-                0,
-                &[
-                    KeyValue::new("scenario", scenario.to_string()),
-                    KeyValue::new("status", "ok"),
-                ],
-            );
+            &self.error_attrs
+        };
+
+        self.queries_total.add(1, attrs);
+        if is_ok {
+            self.queries_success.add(1, attrs);
+            if sample.retry_detected {
+                self.queries_retried.add(1, attrs);
+            }
+            self.rows_read.add(sample.rows_count as u64, attrs);
+            self.bytes_processed
+                .add(sample.bytes_processed.max(0) as u64, attrs);
+
+            self.send_duration
+                .record(sample.send_duration().as_secs_f64(), attrs);
+            self.poll_duration
+                .record(sample.poll_duration().as_secs_f64(), attrs);
+            self.read_duration
+                .record(sample.read_duration().as_secs_f64(), attrs);
+        } else {
+            self.queries_error.add(1, attrs);
         }
 
-        self.query_duration.record(
-            Duration::from_micros(sample.total_duration_micros as u64).as_secs_f64(),
-            &attrs,
-        );
-    }
-}
-
-impl Default for OtelMetrics {
-    fn default() -> Self {
-        Self::new()
+        self.query_duration
+            .record(sample.total_duration().as_secs_f64(), attrs);
     }
 }
 

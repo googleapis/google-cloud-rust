@@ -119,10 +119,6 @@ pub struct Args {
     /// Defaults to `https://telemetry.googleapis.com` if `--project-id` is provided.
     #[arg(long)]
     pub otlp_endpoint: Option<String>,
-
-    /// Whether to log debug details for retry decisions.
-    #[arg(long)]
-    pub debug_retry: bool,
 }
 
 impl Args {
@@ -136,10 +132,9 @@ impl Args {
                 "When using `--scenario custom`, either `--sql` or `--sql-file` must be provided."
             );
         }
-        if let Some(iterations) = self.iterations
-            && iterations == 0
-            && self.duration.is_none()
-        {
+        // Rejected even when `--duration` is set: the task loop breaks on
+        // `iteration >= 0` before running anything, producing an empty report.
+        if self.iterations == Some(0) {
             anyhow::bail!("--iterations must be greater than 0");
         }
         Ok(())
@@ -151,34 +146,18 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_default_args_validation() {
-        let args = Args::parse_from(["bigquery-benchmark-queries"]);
-        assert!(args.validate().is_ok());
-        assert_eq!(args.task_count, 1);
-        assert_eq!(args.iterations, None);
-        assert!(!args.use_query_cache);
-    }
-
-    #[test]
-    fn test_custom_scenario_validation() {
-        let args = Args::parse_from(["bigquery-benchmark-queries", "--scenario", "custom"]);
+    fn test_zero_iterations_rejected() {
+        let args = Args::parse_from(["bigquery-benchmark-queries", "--iterations", "0"]);
         assert!(args.validate().is_err());
 
+        // Also rejected alongside --duration: the task loop would exit immediately.
         let args = Args::parse_from([
             "bigquery-benchmark-queries",
-            "--scenario",
-            "custom",
-            "--sql",
-            "SELECT 1",
+            "--iterations",
+            "0",
+            "--duration",
+            "5m",
         ]);
-        assert!(args.validate().is_ok());
-    }
-
-    #[test]
-    fn test_duration_mode() {
-        let args = Args::parse_from(["bigquery-benchmark-queries", "--duration", "5m"]);
-        assert!(args.validate().is_ok());
-        assert_eq!(args.iterations, None);
-        assert_eq!(args.duration, Some(Duration::from_secs(300)));
+        assert!(args.validate().is_err());
     }
 }

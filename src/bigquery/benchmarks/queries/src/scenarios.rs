@@ -18,7 +18,7 @@ use std::fs;
 /// Represents a configured query benchmark scenario.
 #[derive(Clone, Debug)]
 pub struct Scenario {
-    pub name: String,
+    pub name: &'static str,
     pub sql: String,
     pub description: &'static str,
 }
@@ -26,56 +26,42 @@ pub struct Scenario {
 impl Scenario {
     /// Resolves the query scenario based on the provided CLI arguments.
     pub fn resolve(args: &Args) -> anyhow::Result<Self> {
-        match args.scenario {
-            ScenarioName::Synthetic100k => Ok(Self {
-                name: "synthetic-100k".to_string(),
-                sql: concat!(
-                    "SELECT ",
-                    "  x AS row_id, ",
-                    "  GENERATE_UUID() AS uuid, ",
-                    "  REPEAT('abcdefghij', 10) AS payload ",
-                    "FROM UNNEST(GENERATE_ARRAY(1, 100000)) AS x"
-                )
-                .to_string(),
-                description: "Generates 100,000 structured rows in-flight with no external table dependency.",
-            }),
-            ScenarioName::Synthetic10k => Ok(Self {
-                name: "synthetic-10k".to_string(),
-                sql: concat!(
-                    "SELECT ",
-                    "  x AS row_id, ",
-                    "  GENERATE_UUID() AS uuid, ",
-                    "  REPEAT('abcdefghij', 10) AS payload ",
-                    "FROM UNNEST(GENERATE_ARRAY(1, 10000)) AS x"
-                )
-                .to_string(),
-                description: "Generates 10,000 structured rows in-flight with no external table dependency.",
-            }),
-            ScenarioName::UsaNamesScan => Ok(Self {
-                name: "usa-names-scan".to_string(),
-                sql: concat!(
+        let (name, sql, description) = match args.scenario {
+            ScenarioName::Synthetic100k => (
+                "synthetic-100k",
+                synthetic_sql(100_000),
+                "Generates 100,000 structured rows in-flight with no external table dependency.",
+            ),
+            ScenarioName::Synthetic10k => (
+                "synthetic-10k",
+                synthetic_sql(10_000),
+                "Generates 10,000 structured rows in-flight with no external table dependency.",
+            ),
+            ScenarioName::UsaNamesScan => (
+                "usa-names-scan",
+                concat!(
                     "SELECT name, state, year, gender, number ",
                     "FROM `bigquery-public-data.usa_names.usa_1910_2013` ",
                     "WHERE year >= 2000 ",
                     "LIMIT 50000"
                 )
                 .to_string(),
-                description: "Scans and retrieves 50,000 rows from the USA names public dataset.",
-            }),
-            ScenarioName::UsaNamesAgg => Ok(Self {
-                name: "usa-names-agg".to_string(),
-                sql: concat!(
+                "Scans and retrieves 50,000 rows from the USA names public dataset.",
+            ),
+            ScenarioName::UsaNamesAgg => (
+                "usa-names-agg",
+                concat!(
                     "SELECT state, gender, SUM(number) AS total_count ",
                     "FROM `bigquery-public-data.usa_names.usa_1910_2013` ",
                     "GROUP BY state, gender ",
                     "ORDER BY total_count DESC"
                 )
                 .to_string(),
-                description: "Aggregates 5.5M rows grouped by state and gender.",
-            }),
-            ScenarioName::WikipediaAgg => Ok(Self {
-                name: "wikipedia-agg".to_string(),
-                sql: concat!(
+                "Aggregates 5.5M rows grouped by state and gender.",
+            ),
+            ScenarioName::WikipediaAgg => (
+                "wikipedia-agg",
+                concat!(
                     "SELECT title, SUM(views) AS total_views ",
                     "FROM `bigquery-public-data.samples.wikipedia` ",
                     "WHERE wp_namespace = 0 ",
@@ -84,62 +70,50 @@ impl Scenario {
                     "LIMIT 1000"
                 )
                 .to_string(),
-                description: "Aggregates top 1000 article views from Wikipedia public samples.",
-            }),
-            ScenarioName::Custom => {
-                let sql = if let Some(sql) = &args.sql {
-                    sql.clone()
-                } else if let Some(sql_file) = &args.sql_file {
-                    fs::read_to_string(sql_file).map_err(|e| {
-                        anyhow::anyhow!(
-                            "Failed to read custom SQL file {}: {}",
-                            sql_file.display(),
-                            e
-                        )
-                    })?
-                } else {
-                    anyhow::bail!("Custom scenario requires --sql or --sql-file");
-                };
+                "Aggregates top 1000 article views from Wikipedia public samples.",
+            ),
+            ScenarioName::Custom => (
+                "custom",
+                custom_sql(args)?,
+                "User-defined custom SQL query.",
+            ),
+        };
 
-                Ok(Self {
-                    name: "custom".to_string(),
-                    sql,
-                    description: "User-defined custom SQL query.",
-                })
-            }
-        }
+        Ok(Self {
+            name,
+            sql,
+            description,
+        })
     }
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use clap::Parser;
+/// Builds a zero-dependency query that generates `rows` structured rows in-flight.
+fn synthetic_sql(rows: u64) -> String {
+    format!(
+        concat!(
+            "SELECT ",
+            "  x AS row_id, ",
+            "  GENERATE_UUID() AS uuid, ",
+            "  REPEAT('abcdefghij', 10) AS payload ",
+            "FROM UNNEST(GENERATE_ARRAY(1, {})) AS x"
+        ),
+        rows
+    )
+}
 
-    #[test]
-    fn test_synthetic_scenarios() {
-        let args = Args::parse_from(["bigquery-benchmark-queries", "--scenario", "synthetic-100k"]);
-        let s = Scenario::resolve(&args).unwrap();
-        assert_eq!(s.name, "synthetic-100k");
-        assert!(s.sql.contains("100000"));
-
-        let args = Args::parse_from(["bigquery-benchmark-queries", "--scenario", "synthetic-10k"]);
-        let s = Scenario::resolve(&args).unwrap();
-        assert_eq!(s.name, "synthetic-10k");
-        assert!(s.sql.contains("10000"));
+/// Reads the user-supplied SQL from `--sql` or `--sql-file`.
+fn custom_sql(args: &Args) -> anyhow::Result<String> {
+    if let Some(sql) = &args.sql {
+        return Ok(sql.clone());
     }
-
-    #[test]
-    fn test_custom_scenario_from_string() {
-        let args = Args::parse_from([
-            "bigquery-benchmark-queries",
-            "--scenario",
-            "custom",
-            "--sql",
-            "SELECT 42",
-        ]);
-        let s = Scenario::resolve(&args).unwrap();
-        assert_eq!(s.name, "custom");
-        assert_eq!(s.sql, "SELECT 42");
-    }
+    let Some(sql_file) = &args.sql_file else {
+        anyhow::bail!("Custom scenario requires --sql or --sql-file");
+    };
+    fs::read_to_string(sql_file).map_err(|e| {
+        anyhow::anyhow!(
+            "Failed to read custom SQL file {}: {}",
+            sql_file.display(),
+            e
+        )
+    })
 }

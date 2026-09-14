@@ -28,9 +28,15 @@ use google_cloud_auth::credentials::Builder as CredentialsBuilder;
 use google_cloud_bigquery::client::BigQuery;
 use metrics::OtelMetrics;
 use scenarios::Scenario;
-use std::collections::BTreeMap;
-use std::time::Instant;
+use std::sync::Arc;
+use std::time::{Duration, Instant};
 use tokio::task::JoinSet;
+
+/// How often the Tokio runtime metrics are logged.
+const RUNTIME_MONITOR_INTERVAL: Duration = Duration::from_secs(5);
+
+/// Samples buffered per worker task before senders start blocking.
+const CHANNEL_CAPACITY_PER_TASK: usize = 1024;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
@@ -52,15 +58,14 @@ async fn main() -> anyhow::Result<()> {
         "Starting BigQuery benchmark"
     );
 
-    // Spawn periodic runtime monitor and counter logger
+    // Spawn periodic runtime monitor. Query counts are reported by the reporter
+    // and exported as OpenTelemetry metrics.
     let handle = tokio::runtime::Handle::current();
     let runtime_monitor = tokio_metrics::RuntimeMonitor::new(&handle);
-    let monitor_freq = std::time::Duration::from_secs(5);
     tokio::spawn(async move {
         for metrics in runtime_monitor.intervals() {
-            let counters = BTreeMap::from_iter(metrics::get_counters());
-            tracing::info!("Counters = {:?} RuntimeMetrics = {:?}", counters, metrics);
-            tokio::time::sleep(monitor_freq).await;
+            tracing::info!("RuntimeMetrics = {:?}", metrics);
+            tokio::time::sleep(RUNTIME_MONITOR_INTERVAL).await;
         }
     });
 
@@ -73,11 +78,13 @@ async fn main() -> anyhow::Result<()> {
     }
 
     let client = client_builder.build().await?;
-    let otel_metrics = OtelMetrics::new();
-    otel_metrics.init_scenario(&scenario.name);
+    let otel_metrics = OtelMetrics::new(scenario.name);
 
-    let channel_capacity = (1024 * args.task_count).max(64);
-    let (tx, rx) = tokio::sync::mpsc::channel(channel_capacity);
+    let (tx, rx) = tokio::sync::mpsc::channel(CHANNEL_CAPACITY_PER_TASK * args.task_count);
+
+    // Shared by every worker task; the SQL text and CLI options are read-only.
+    let args = Arc::new(args);
+    let scenario = Arc::new(scenario);
 
     // Spawn reporter in background to process samples as they arrive
     let reporter_scenario = scenario.clone();
@@ -143,9 +150,6 @@ async fn main() -> anyhow::Result<()> {
         Ok(Err(err)) => tracing::error!("Reporter failed: {err:?}"),
         Err(err) => tracing::error!("Reporter task panicked: {err:?}"),
     }
-
-    let final_counters = BTreeMap::from_iter(metrics::get_counters());
-    tracing::info!("Final counters: {:?}", final_counters);
 
     telemetry_guard.shutdown();
 

@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use crate::args::Args;
-use crate::metrics::{self, OtelMetrics};
-use crate::sample::{Sample, SampleStatus};
+use crate::metrics::OtelMetrics;
+use crate::sample::{Sample, SampleStatus, as_micros_u64};
 use crate::scenarios::Scenario;
 use google_cloud_bigquery::client::BigQuery;
 use std::time::{Duration, Instant};
@@ -55,7 +55,7 @@ impl TaskRunner<'_> {
             }
 
             let iter_start = Instant::now();
-            let start_offset_micros = self.test_start.elapsed().as_micros();
+            let start_offset_micros = as_micros_u64(self.test_start.elapsed());
 
             let iteration_span = tracing::info_span!(
                 "bigquery.query_benchmark.iteration",
@@ -71,40 +71,27 @@ impl TaskRunner<'_> {
             let sample = match tokio::time::timeout(self.args.query_timeout, sample_fut).await {
                 Ok(sample) => sample,
                 Err(_) => {
-                    let total_duration = iter_start.elapsed();
-                    metrics::inc_total_queries();
-                    metrics::inc_error_queries();
                     tracing::error!(
                         task_id = self.task_id,
                         iteration,
                         "Query iteration timed out after {:?}",
                         self.args.query_timeout
                     );
-                    let sample = Sample {
-                        task_id: self.task_id,
-                        iteration,
-                        start_offset_micros,
-                        send_duration_micros: 0,
-                        poll_duration_micros: 0,
-                        read_duration_micros: 0,
-                        total_duration_micros: total_duration.as_micros(),
-                        rows_count: 0,
-                        bytes_processed: 0,
-                        cache_hit: false,
-                        initial_job_id: String::new(),
-                        final_job_id: String::new(),
-                        retry_detected: false,
+                    Sample {
+                        total_duration_micros: as_micros_u64(iter_start.elapsed()),
                         status: SampleStatus::Timeout,
                         error_message: format!(
                             "Query iteration timed out after {:?}",
                             self.args.query_timeout
                         ),
-                    };
-                    self.metrics.record_sample(&self.scenario.name, &sample);
-                    sample
+                        ..Sample::new(self.task_id, iteration, start_offset_micros)
+                    }
                 }
             };
 
+            // Every execution path funnels through here, so no outcome can go
+            // unrecorded.
+            self.metrics.record_sample(&sample);
             let _ = self.tx.send(sample).await;
             iteration += 1;
         }
@@ -112,12 +99,18 @@ impl TaskRunner<'_> {
         Ok(())
     }
 
+    /// Runs one query end to end, returning a sample describing the outcome.
+    ///
+    /// The sample starts out marked as an error and is upgraded to
+    /// [`SampleStatus::Ok`] only once every phase has succeeded.
     async fn execute_iteration(
         &self,
         iteration: u64,
-        start_offset_micros: u128,
+        start_offset_micros: u64,
         iter_start: Instant,
     ) -> Sample {
+        let mut sample = Sample::new(self.task_id, iteration, start_offset_micros);
+
         let mut query_builder = self
             .client
             .query(&self.scenario.sql)
@@ -135,40 +128,24 @@ impl TaskRunner<'_> {
         let send_start = Instant::now();
         let send_span = tracing::info_span!("bigquery.send", task_id = self.task_id, iteration);
         let send_result = query_builder.send().instrument(send_span).await;
-        let send_duration = send_start.elapsed();
+        sample.send_duration_micros = as_micros_u64(send_start.elapsed());
 
         let query_handle = match send_result {
             Ok(handle) => handle,
             Err(err) => {
-                let total_duration = iter_start.elapsed();
-                metrics::inc_total_queries();
-                metrics::inc_error_queries();
-                tracing::error!(self.task_id, iteration, "Query::send failed: {err:?}");
-
-                let sample = Sample {
-                    task_id: self.task_id,
+                tracing::error!(
+                    task_id = self.task_id,
                     iteration,
-                    start_offset_micros,
-                    send_duration_micros: send_duration.as_micros(),
-                    poll_duration_micros: 0,
-                    read_duration_micros: 0,
-                    total_duration_micros: total_duration.as_micros(),
-                    rows_count: 0,
-                    bytes_processed: 0,
-                    cache_hit: false,
-                    initial_job_id: String::new(),
-                    final_job_id: String::new(),
-                    retry_detected: false,
-                    status: SampleStatus::Error,
-                    error_message: format!("Query::send: {err:#}"),
-                };
-                self.metrics.record_sample(&self.scenario.name, &sample);
+                    "Query::send failed: {err:?}"
+                );
+                sample.total_duration_micros = as_micros_u64(iter_start.elapsed());
+                sample.error_message = format!("Query::send: {err:#}");
                 return sample;
             }
         };
 
         // Capture initial job_id if present
-        let initial_job_id = query_handle
+        sample.initial_job_id = query_handle
             .metadata()
             .job_reference
             .as_ref()
@@ -181,76 +158,52 @@ impl TaskRunner<'_> {
             "bigquery.until_done",
             task_id = self.task_id,
             iteration,
-            %initial_job_id
+            initial_job_id = %sample.initial_job_id
         );
         let done_result = query_handle.until_done().instrument(poll_span).await;
-        let poll_duration = poll_start.elapsed();
+        sample.poll_duration_micros = as_micros_u64(poll_start.elapsed());
 
         let complete_query = match done_result {
             Ok(complete) => complete,
             Err(err) => {
-                let total_duration = iter_start.elapsed();
-                metrics::inc_total_queries();
-                metrics::inc_error_queries();
                 tracing::error!(
-                    self.task_id,
+                    task_id = self.task_id,
                     iteration,
-                    %initial_job_id,
+                    initial_job_id = %sample.initial_job_id,
                     "Query::until_done failed: {err:?}"
                 );
-
-                let sample = Sample {
-                    task_id: self.task_id,
-                    iteration,
-                    start_offset_micros,
-                    send_duration_micros: send_duration.as_micros(),
-                    poll_duration_micros: poll_duration.as_micros(),
-                    read_duration_micros: 0,
-                    total_duration_micros: total_duration.as_micros(),
-                    rows_count: 0,
-                    bytes_processed: 0,
-                    cache_hit: false,
-                    initial_job_id,
-                    final_job_id: String::new(),
-                    retry_detected: false,
-                    status: SampleStatus::Error,
-                    error_message: format!("Query::until_done: {err:#}"),
-                };
-                self.metrics.record_sample(&self.scenario.name, &sample);
+                sample.total_duration_micros = as_micros_u64(iter_start.elapsed());
+                sample.error_message = format!("Query::until_done: {err:#}");
                 return sample;
             }
         };
 
         // Capture final job_id
-        let final_job_id = complete_query
-            .metadata()
+        let metadata = complete_query.metadata();
+        sample.final_job_id = metadata
             .job_reference
             .as_ref()
             .map(|r| r.job_id.clone())
             .unwrap_or_default();
+        sample.bytes_processed = metadata.total_bytes_processed.unwrap_or(0);
+        sample.cache_hit = metadata.cache_hit.unwrap_or(false);
 
         // Step 3: Detect if under-the-hood job retry occurred
-        let retry_detected = !initial_job_id.is_empty()
-            && !final_job_id.is_empty()
-            && initial_job_id != final_job_id;
+        sample.retry_detected = !sample.initial_job_id.is_empty()
+            && !sample.final_job_id.is_empty()
+            && sample.initial_job_id != sample.final_job_id;
 
-        if retry_detected {
-            metrics::inc_retried_queries();
+        if sample.retry_detected {
             tracing::warn!(
                 task_id = self.task_id,
                 iteration,
-                %initial_job_id,
-                %final_job_id,
+                initial_job_id = %sample.initial_job_id,
+                final_job_id = %sample.final_job_id,
                 "Query job retry detected under the hood (job_id mutated)!"
             );
         }
 
-        let bytes_processed = complete_query.metadata().total_bytes_processed.unwrap_or(0);
-
-        let cache_hit = complete_query.metadata().cache_hit.unwrap_or(false);
-
         // Step 4: Stream and read result rows if enabled
-        let mut rows_count = 0_usize;
         let read_start = Instant::now();
         let mut read_error = None;
 
@@ -262,11 +215,11 @@ impl TaskRunner<'_> {
                 while let Some(row_result) = rows.next().await {
                     match row_result {
                         Ok(_) => {
-                            rows_count += 1;
+                            sample.rows_count += 1;
                         }
                         Err(err) => {
                             tracing::error!(
-                                self.task_id,
+                                task_id = self.task_id,
                                 iteration,
                                 "Error streaming rows: {err:?}"
                             );
@@ -279,58 +232,15 @@ impl TaskRunner<'_> {
             .instrument(read_span)
             .await;
         }
-        let read_duration = read_start.elapsed();
-        let total_duration = iter_start.elapsed();
 
-        metrics::inc_total_queries();
+        sample.read_duration_micros = as_micros_u64(read_start.elapsed());
+        sample.total_duration_micros = as_micros_u64(iter_start.elapsed());
 
-        let sample = if let Some(err_msg) = read_error {
-            metrics::inc_error_queries();
+        match read_error {
+            Some(err_msg) => sample.error_message = err_msg,
+            None => sample.status = SampleStatus::Ok,
+        }
 
-            Sample {
-                task_id: self.task_id,
-                iteration,
-                start_offset_micros,
-                send_duration_micros: send_duration.as_micros(),
-                poll_duration_micros: poll_duration.as_micros(),
-                read_duration_micros: read_duration.as_micros(),
-                total_duration_micros: total_duration.as_micros(),
-                rows_count,
-                bytes_processed,
-                cache_hit,
-                initial_job_id,
-                final_job_id,
-                retry_detected,
-                status: SampleStatus::Error,
-                error_message: err_msg,
-            }
-        } else {
-            metrics::inc_success_queries();
-            metrics::add_rows_read(rows_count as u64);
-            if bytes_processed > 0 {
-                metrics::add_bytes_processed(bytes_processed as u64);
-            }
-
-            Sample {
-                task_id: self.task_id,
-                iteration,
-                start_offset_micros,
-                send_duration_micros: send_duration.as_micros(),
-                poll_duration_micros: poll_duration.as_micros(),
-                read_duration_micros: read_duration.as_micros(),
-                total_duration_micros: total_duration.as_micros(),
-                rows_count,
-                bytes_processed,
-                cache_hit,
-                initial_job_id,
-                final_job_id,
-                retry_detected,
-                status: SampleStatus::Ok,
-                error_message: String::new(),
-            }
-        };
-
-        self.metrics.record_sample(&self.scenario.name, &sample);
         sample
     }
 }

@@ -27,21 +27,21 @@ use tracing_subscriber::prelude::*;
 use uuid::Uuid;
 
 const SERVICE_NAME: &str = "bigquery-benchmark-queries";
+const DEFAULT_MONITORING_REGION: &str = "us-central1";
 
 #[derive(Clone, Debug)]
 struct GenericNodeDetector {
     id: String,
     location: String,
-    namespace: String,
 }
 
 impl GenericNodeDetector {
     pub fn new() -> Self {
-        let id = Uuid::new_v4().to_string();
         Self {
-            id,
-            location: "us-central1".to_string(),
-            namespace: "bigquery-benchmark-queries".to_string(),
+            id: Uuid::new_v4().to_string(),
+            // Cloud Monitoring resolves `generic_node.location` to a GCP region
+            // or zone.
+            location: DEFAULT_MONITORING_REGION.to_string(),
         }
     }
 }
@@ -51,7 +51,7 @@ impl ResourceDetector for GenericNodeDetector {
         Resource::builder_empty()
             .with_attributes([
                 KeyValue::new("location", self.location.clone()),
-                KeyValue::new("namespace", self.namespace.clone()),
+                KeyValue::new("namespace", SERVICE_NAME),
                 KeyValue::new("node_id", self.id.clone()),
             ])
             .build()
@@ -59,25 +59,25 @@ impl ResourceDetector for GenericNodeDetector {
 }
 
 /// Holds providers that need graceful flush and shutdown upon completion.
+///
+/// Both providers are installed together, or not at all when no project ID is
+/// configured.
 pub struct TelemetryGuard {
-    tracer_provider: Option<SdkTracerProvider>,
-    meter_provider: Option<SdkMeterProvider>,
+    providers: Option<(SdkTracerProvider, SdkMeterProvider)>,
 }
 
 impl TelemetryGuard {
     /// Flushes and shuts down telemetry providers.
     pub fn shutdown(self) {
-        if let Some(tp) = self.tracer_provider {
-            let _ = tp.force_flush();
-            if let Err(e) = tp.shutdown() {
-                eprintln!("Error shutting down trace provider: {e:?}");
-            }
+        let Some((tracer_provider, meter_provider)) = self.providers else {
+            return;
+        };
+
+        if let Err(e) = tracer_provider.shutdown() {
+            eprintln!("Error shutting down trace provider: {e:?}");
         }
-        if let Some(mp) = self.meter_provider {
-            let _ = mp.force_flush();
-            if let Err(e) = mp.shutdown() {
-                eprintln!("Error shutting down meter provider: {e:?}");
-            }
+        if let Err(e) = meter_provider.shutdown() {
+            eprintln!("Error shutting down meter provider: {e:?}");
         }
     }
 }
@@ -169,15 +169,11 @@ pub async fn enable_telemetry(
             .expect("Setting global subscriber succeeds");
 
         return Ok(TelemetryGuard {
-            tracer_provider: Some(tracer_provider),
-            meter_provider: Some(meter_provider),
+            providers: Some((tracer_provider, meter_provider)),
         });
     }
 
     tracing::subscriber::set_global_default(registry).expect("Setting global subscriber succeeds");
 
-    Ok(TelemetryGuard {
-        tracer_provider: None,
-        meter_provider: None,
-    })
+    Ok(TelemetryGuard { providers: None })
 }
