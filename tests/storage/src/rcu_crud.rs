@@ -32,7 +32,7 @@ pub async fn purge_rapid_caches(client: &StorageControl, bucket_name: &str) {
     }
     for name in to_disable {
         if let Err(e) = client.disable_rapid_cache().set_name(&name).send().await {
-            tracing::warn!("failed to disable rapid cache {name} during teardown: {e:?}");
+            eprintln!("Warning: failed to disable rapid cache {name} during teardown: {e:?}");
         }
     }
 }
@@ -45,9 +45,11 @@ pub async fn run(client: StorageControl, bucket_name: &str) -> anyhow::Result<()
     } else {
         &zone
     };
-    tracing::info!(
-        "Running RCU CRUD integration test suite in zone {zone} on bucket {bucket_name}"
-    );
+    println!("\n========================================================");
+    println!(" Running RCU CRUD Integration Test Suite");
+    println!(" Bucket: {bucket_name}");
+    println!(" Zone:   {zone}");
+    println!("========================================================");
 
     test_create_rapid_cache(&client, bucket_name, zone).await?;
     test_create_rapid_cache_invalid_config(&client, bucket_name).await?;
@@ -59,7 +61,7 @@ pub async fn run(client: StorageControl, bucket_name: &str) -> anyhow::Result<()
     test_disable_rapid_cache(&client, bucket_name, zone).await?;
     test_disable_rapid_cache_non_existent(&client, bucket_name).await?;
 
-    tracing::info!("All 9 RCU CRUD integration tests completed successfully.");
+    println!("\n>>> All 9 RCU CRUD integration tests completed successfully! <<<\n");
     Ok(())
 }
 
@@ -69,7 +71,7 @@ pub async fn test_create_rapid_cache(
     bucket_name: &str,
     zone: &str,
 ) -> anyhow::Result<RapidCache> {
-    tracing::info!("Test 1: create_rapid_cache in zone {zone}");
+    println!("\n--- [Test 1/9] Testing CreateRapidCache (zone: {zone}) ---");
     let cache_name = format!("{bucket_name}/rapidCaches/{zone}");
     let cache = client
         .create_rapid_cache()
@@ -91,7 +93,7 @@ pub async fn test_create_rapid_cache(
     assert_eq!(cache.cache_type, "rapid-cache-ultra");
     assert_eq!(cache.state.to_lowercase(), "running");
     assert!(cache.create_time.is_some());
-    tracing::info!("Test 1 passed: cache created successfully: {cache:?}");
+    println!("SUCCESS on Test 1: CreateRapidCache -> {cache_name}");
     Ok(cache)
 }
 
@@ -100,7 +102,7 @@ pub async fn test_create_rapid_cache_invalid_config(
     client: &StorageControl,
     bucket_name: &str,
 ) -> anyhow::Result<()> {
-    tracing::info!("Test 2: create_rapid_cache with invalid configuration");
+    println!("\n--- [Test 2/9] Testing CreateRapidCache with invalid configuration ---");
     let invalid_zone = "invalid-zone-123";
     let cache_name = format!("{bucket_name}/rapidCaches/{invalid_zone}");
     let result: GaxResult<RapidCache> = client
@@ -128,7 +130,7 @@ pub async fn test_create_rapid_cache_invalid_config(
                 Some(Code::InvalidArgument),
                 "expected InvalidArgument status, got {e:?}"
             );
-            tracing::info!("Test 2 passed: received expected InvalidArgument error: {e}");
+            println!("SUCCESS on Test 2: expected InvalidArgument received for invalid zone");
         }
     }
     Ok(())
@@ -140,7 +142,7 @@ pub async fn test_create_rapid_cache_duplicate(
     bucket_name: &str,
     zone: &str,
 ) -> anyhow::Result<()> {
-    tracing::info!("Test 3: create duplicate rapid_cache in zone {zone}");
+    println!("\n--- [Test 3/9] Testing CreateRapidCache duplicate in zone {zone} ---");
     let cache_name = format!("{bucket_name}/rapidCaches/{zone}");
     let result: GaxResult<RapidCache> = client
         .create_rapid_cache()
@@ -167,7 +169,7 @@ pub async fn test_create_rapid_cache_duplicate(
                 Some(Code::AlreadyExists),
                 "expected AlreadyExists status, got {e:?}"
             );
-            tracing::info!("Test 3 passed: received expected AlreadyExists error: {e}");
+            println!("SUCCESS on Test 3: expected AlreadyExists received for duplicate cache");
         }
     }
     Ok(())
@@ -179,7 +181,7 @@ pub async fn test_get_rapid_cache(
     bucket_name: &str,
     zone: &str,
 ) -> anyhow::Result<RapidCache> {
-    tracing::info!("Test 4: get_rapid_cache in zone {zone}");
+    println!("\n--- [Test 4/9] Testing GetRapidCache (zone: {zone}) ---");
     let cache_name = format!("{bucket_name}/rapidCaches/{zone}");
     let cache = client
         .get_rapid_cache()
@@ -192,7 +194,7 @@ pub async fn test_get_rapid_cache(
     assert_eq!(cache.cache_type, "rapid-cache-ultra");
     assert_eq!(cache.state.to_lowercase(), "running");
     assert!(cache.create_time.is_some());
-    tracing::info!("Test 4 passed: successfully retrieved cache: {cache:?}");
+    println!("SUCCESS on Test 4: GetRapidCache -> state: {}", cache.state);
     Ok(cache)
 }
 
@@ -201,7 +203,7 @@ pub async fn test_get_rapid_cache_non_existent(
     client: &StorageControl,
     bucket_name: &str,
 ) -> anyhow::Result<()> {
-    tracing::info!("Test 5: get_rapid_cache for non-existent zone");
+    println!("\n--- [Test 5/9] Testing GetRapidCache for non-existent cache ---");
     let non_existent_name = format!("{bucket_name}/rapidCaches/us-central1-z");
     let result = client
         .get_rapid_cache()
@@ -220,7 +222,7 @@ pub async fn test_get_rapid_cache_non_existent(
                 Some(Code::NotFound),
                 "expected NotFound status, got {e:?}"
             );
-            tracing::info!("Test 5 passed: received expected NotFound error: {e}");
+            println!("SUCCESS on Test 5: expected NotFound received for non-existent cache");
         }
     }
     Ok(())
@@ -232,7 +234,7 @@ pub async fn test_list_rapid_caches(
     bucket_name: &str,
     expected_zone: &str,
 ) -> anyhow::Result<()> {
-    tracing::info!("Test 6: list_rapid_caches for bucket {bucket_name}");
+    println!("\n--- [Test 6/9] Testing ListRapidCaches ---");
     let mut stream = client.list_rapid_caches().set_parent(bucket_name).by_item();
 
     let mut caches = Vec::new();
@@ -249,8 +251,8 @@ pub async fn test_list_rapid_caches(
         caches.iter().any(|c| c.name == expected_name),
         "list did not contain expected cache {expected_name}: {caches:?}"
     );
-    tracing::info!(
-        "Test 6 passed: found {} rapid caches: {caches:?}",
+    println!(
+        "SUCCESS on Test 6: ListRapidCaches found {} cache(s)",
         caches.len()
     );
     Ok(())
@@ -262,7 +264,7 @@ pub async fn test_update_rapid_cache(
     bucket_name: &str,
     zone: &str,
 ) -> anyhow::Result<RapidCache> {
-    tracing::info!("Test 7: update_rapid_cache in zone {zone}");
+    println!("\n--- [Test 7/9] Testing UpdateRapidCache (zone: {zone}) ---");
     let cache_name = format!("{bucket_name}/rapidCaches/{zone}");
     let new_ttl = Duration::clamp(172800, 0); // 48 hours
 
@@ -291,7 +293,7 @@ pub async fn test_update_rapid_cache(
         .send()
         .await?;
     assert_eq!(fetched.ttl, Some(new_ttl));
-    tracing::info!("Test 7 passed: successfully updated rapid cache TTL: {updated:?}");
+    println!("SUCCESS on Test 7: UpdateRapidCache TTL updated to 48h");
     Ok(updated)
 }
 
@@ -301,7 +303,7 @@ pub async fn test_disable_rapid_cache(
     bucket_name: &str,
     zone: &str,
 ) -> anyhow::Result<()> {
-    tracing::info!("Test 8: disable_rapid_cache in zone {zone}");
+    println!("\n--- [Test 8/9] Testing DisableRapidCache (zone: {zone}) ---");
     let cache_name = format!("{bucket_name}/rapidCaches/{zone}");
     let disabled = client
         .disable_rapid_cache()
@@ -311,7 +313,7 @@ pub async fn test_disable_rapid_cache(
         .await?;
 
     assert_eq!(disabled.state.to_lowercase(), "disabled");
-    tracing::info!("Test 8 passed: rapid cache disabled: {disabled:?}");
+    println!("SUCCESS on Test 8: DisableRapidCache -> state: {}", disabled.state);
     Ok(())
 }
 
@@ -320,7 +322,7 @@ pub async fn test_disable_rapid_cache_non_existent(
     client: &StorageControl,
     bucket_name: &str,
 ) -> anyhow::Result<()> {
-    tracing::info!("Test 9: disable_rapid_cache for non-existent cache");
+    println!("\n--- [Test 9/9] Testing DisableRapidCache for non-existent cache ---");
     let non_existent_name = format!("{bucket_name}/rapidCaches/us-central1-z");
     let result: GaxResult<RapidCache> = client
         .disable_rapid_cache()
@@ -340,7 +342,7 @@ pub async fn test_disable_rapid_cache_non_existent(
                 Some(Code::NotFound),
                 "expected NotFound status, got {e:?}"
             );
-            tracing::info!("Test 9 passed: received expected NotFound error: {e}");
+            println!("SUCCESS on Test 9: expected NotFound received for non-existent cache");
         }
     }
     Ok(())
