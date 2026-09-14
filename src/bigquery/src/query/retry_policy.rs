@@ -278,8 +278,6 @@ mod tests {
         let idempotent = RetryState::new(true);
         let non_idempotent = RetryState::new(false);
 
-        // Whatever we retry for an idempotent request is permanent when the
-        // request is not, because the service may already have acted on it.
         let retryable_codes = [
             Code::Aborted,
             Code::DeadlineExceeded,
