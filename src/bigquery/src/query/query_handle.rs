@@ -436,7 +436,7 @@ impl CompleteQuery {
 /// Builds a `jobs.get` request from a job reference, or `None` if the
 /// reference cannot identify a job. Dry-run queries return a job reference
 /// without a job ID.
-fn build_get_job(job_service: &JobService, job_ref: &JobReference) -> Option<GetJob> {
+pub(crate) fn build_get_job(job_service: &JobService, job_ref: &JobReference) -> Option<GetJob> {
     if job_ref.job_id.is_empty() {
         return None;
     }
