@@ -144,9 +144,9 @@ pub async fn create_table_and_await_readiness(
             .await
         {
             Ok(_) => break,
-            Err(_e) if attempts < 5 => {
+            Err(_e) if attempts < 10 => {
                 attempts += 1;
-                tokio::time::sleep(Duration::from_millis(100)).await;
+                tokio::time::sleep(Duration::from_millis(500)).await;
             }
             Err(e) => return Err(e.into()),
         }

@@ -212,7 +212,6 @@ async fn run_stream_task(ctx: StreamTaskContext) -> anyhow::Result<()> {
                 Err(e) => {
                     eprintln!("Write error on writer {}: {:?}", task_id, e);
                     stats.error_count.fetch_add(1, Ordering::Relaxed);
-                    stats.stop_flag.store(true, Ordering::Relaxed);
                 }
             }
         });
