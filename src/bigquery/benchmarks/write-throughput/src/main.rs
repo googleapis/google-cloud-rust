@@ -77,12 +77,21 @@ async fn run_benchmark(config: crate::args::Config) -> anyhow::Result<()> {
         )]));
 
         let pool_size = 16;
-        let batches = Arc::new(generate_batches(
+        let raw_batches = generate_batches(
             &schema,
             config.rows_per_batch,
             config.row_size,
             pool_size,
-        )?);
+        )?;
+
+        let mut ipc_writer = StreamWriter::try_new(Vec::new(), &schema)?;
+        let schema_buf = std::mem::take(ipc_writer.get_mut());
+        let mut serialized_batches = Vec::with_capacity(raw_batches.len());
+        for batch in &raw_batches {
+            ipc_writer.write(batch)?;
+            serialized_batches.push(bytes::Bytes::from(std::mem::take(ipc_writer.get_mut())));
+        }
+        let batches = Arc::new(serialized_batches);
 
         let logical_bytes_per_batch = (config.row_size * config.rows_per_batch) as i64;
         println!(
@@ -110,7 +119,7 @@ async fn run_benchmark(config: crate::args::Config) -> anyhow::Result<()> {
                 task_id: w,
                 client: client.clone(),
                 table_path,
-                schema: schema.clone(),
+                schema_buf: schema_buf.clone(),
                 batches: batches.clone(),
                 stats: stats.clone(),
                 semaphore: semaphore.clone(),
@@ -123,7 +132,7 @@ async fn run_benchmark(config: crate::args::Config) -> anyhow::Result<()> {
         run_reporter(stats.clone(), config.report_interval, config.duration).await;
 
         // Drain all writer loops and in-flight requests before generating summary
-        drain_and_shutdown(&stats, writer_tasks, &semaphore, 1000).await;
+        drain_and_shutdown(&stats, writer_tasks, &semaphore, 1000).await?;
 
         print_summary(&stats, start_time.elapsed(), &config);
 
@@ -139,31 +148,25 @@ struct StreamTaskContext {
     task_id: usize,
     client: Arc<Write>,
     table_path: String,
-    schema: Arc<Schema>,
-    batches: Arc<Vec<RecordBatch>>,
+    schema_buf: Vec<u8>,
+    batches: Arc<Vec<bytes::Bytes>>,
     stats: Arc<Stats>,
     semaphore: Arc<tokio::sync::Semaphore>,
     logical_bytes_per_batch: i64,
 }
 
 /// Represents an individual stream worker task.
-///
-/// Holds an IPC `StreamWriter` per task to serialize Arrow record batches into
-/// bytes for the default stream writer.
 async fn run_stream_task(ctx: StreamTaskContext) -> anyhow::Result<()> {
     let StreamTaskContext {
         task_id,
         client,
         table_path,
-        schema,
+        schema_buf,
         batches,
         stats,
         semaphore,
         logical_bytes_per_batch,
     } = ctx;
-    // Initialize IPC stream writer and extract the serialized schema header.
-    let mut ipc_writer = StreamWriter::try_new(Vec::new(), &schema)?;
-    let schema_buf = std::mem::take(ipc_writer.get_mut());
 
     let arrow_schema = ArrowSchema::new().set_serialized_schema(schema_buf);
     let writer = Arc::new(client.arrow(arrow_schema).default(table_path).await?);
@@ -179,15 +182,8 @@ async fn run_stream_task(ctx: StreamTaskContext) -> anyhow::Result<()> {
             Err(_) => break,
         };
 
-        let batch = &batches[seq % batches.len()];
+        let batch_bytes = batches[seq % batches.len()].clone();
         seq = seq.wrapping_add(1);
-
-        if let Err(e) = ipc_writer.write(batch) {
-            eprintln!("IPC write error on writer {}: {:?}", task_id, e);
-            stats.stop_flag.store(true, Ordering::Relaxed);
-            break;
-        }
-        let batch_bytes = std::mem::take(ipc_writer.get_mut());
 
         let rows = ArrowRecordBatch::new().set_serialized_record_batch(batch_bytes);
         let append = writer.append(rows);
@@ -298,17 +294,24 @@ async fn drain_and_shutdown(
     writer_tasks: Vec<tokio::task::JoinHandle<anyhow::Result<()>>>,
     semaphore: &tokio::sync::Semaphore,
     max_concurrency: u32,
-) {
+) -> anyhow::Result<()> {
     // Set stop flag so all writer loops exit
     stats.stop_flag.store(true, Ordering::Relaxed);
 
-    // Await all writer stream tasks to finish
+    // Await all writer stream tasks to finish and collect any errors
+    let mut result = Ok(());
     for task in writer_tasks {
-        let _ = task.await;
+        match task.await {
+            Ok(Err(e)) => result = Err(e),
+            Err(e) => result = Err(anyhow::anyhow!("Task join error: {:?}", e)),
+            _ => {}
+        }
     }
 
     // Wait for all outstanding in-flight requests to complete
     let _ = semaphore.acquire_many(max_concurrency).await;
+
+    result
 }
 
 fn print_summary(stats: &Stats, total_elapsed: Duration, config: &crate::args::Config) {
