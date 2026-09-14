@@ -24,7 +24,7 @@ mod batch;
 mod client_builder;
 mod constants;
 mod future;
+mod hedging;
 mod options;
 mod retry_policy;
-#[allow(dead_code)]
 mod token_bucket;

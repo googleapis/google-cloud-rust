@@ -16,7 +16,7 @@
 
 use std::sync::atomic::{AtomicU32, Ordering};
 
-pub(crate) const SCALE: u32 = 1_000;
+const SCALE: u32 = 1_000;
 
 /// A lock-free token bucket used for request hedging.
 ///
@@ -35,7 +35,7 @@ impl TokenBucket {
     /// The refill amount is rounded.
     ///
     /// Bucket starts empty (0 tokens).
-    fn new(max_tokens: u32, refill_ratio: f32) -> Self {
+    pub(crate) fn new(max_tokens: u32, refill_ratio: f32) -> Self {
         let max_scaled_tokens = max_tokens * SCALE;
         let refill_amount = (refill_ratio * SCALE as f32).round() as u32;
         Self {
@@ -48,7 +48,7 @@ impl TokenBucket {
     /// Attempts to acquire 1 full token (1000 scaled units).
     ///
     /// Returns `true` if a token was acquired, `false` otherwise.
-    fn try_acquire(&self) -> bool {
+    pub(crate) fn try_acquire(&self) -> bool {
         self.tokens
             .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |current| {
                 if current >= SCALE {
@@ -63,7 +63,7 @@ impl TokenBucket {
     /// Refills the bucket by the configured refill amount.
     ///
     /// Tokens are capped at `max_tokens * SCALE`.
-    fn refill(&self) {
+    pub(crate) fn refill(&self) {
         let _ = self
             .tokens
             .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |current| {
