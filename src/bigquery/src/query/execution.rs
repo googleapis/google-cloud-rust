@@ -752,9 +752,6 @@ mod tests {
         assert!(parse_duplicate_job_reference(&job_failed).is_none());
     }
 
-    // Both RPCs opt into retries: each can recover the job a resend collides
-    // with, `jobs.insert` from the ID it generated and `jobs.query` from the
-    // ID the 409 names.
     #[tokio::test]
     async fn test_query_rpcs_are_idempotent() -> TestResult {
         let mut mock = MockJobService::new();
