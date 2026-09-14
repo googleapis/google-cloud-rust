@@ -246,15 +246,12 @@ pub async fn collect_and_report(
             retries_detected_count += 1;
         }
 
-        if let Some((csv_writer, _, json_path, _, _)) = &mut realtime_files {
+        if let Some((csv_writer, _, json_path, errors_writer, _)) = &mut realtime_files {
             if let Err(err) = writeln!(csv_writer, "{}", sample.to_csv_row()) {
                 tracing::error!("Failed to write CSV sample row to disk: {err:?}");
             }
-            if let Err(err) = csv_writer.flush() {
-                tracing::error!("Failed to flush CSV sample file: {err:?}");
-            }
 
-            // Periodically update summary JSON (every 5 seconds) to avoid high disk I/O and sorting overhead
+            // Periodically update summary JSON and flush buffers (every 5 seconds) to avoid high disk I/O and sorting overhead
             if last_json_write.elapsed() >= Duration::from_secs(5) {
                 last_json_write = Instant::now();
                 let stats = ReportStats {
@@ -273,9 +270,14 @@ pub async fn collect_and_report(
                     errors: &errors,
                 };
                 let current_report = build_report(&stats);
-                if let Ok(json_file) = File::create(&*json_path) {
-                    let _ = serde_json::to_writer_pretty(json_file, &current_report);
-                }
+                let json_path_clone = json_path.clone();
+                tokio::task::block_in_place(|| {
+                    let _ = csv_writer.flush();
+                    let _ = errors_writer.flush();
+                    if let Ok(json_file) = File::create(&json_path_clone) {
+                        let _ = serde_json::to_writer_pretty(json_file, &current_report);
+                    }
+                });
             }
         }
     }
@@ -299,11 +301,17 @@ pub async fn collect_and_report(
 
     report.print_stdout();
 
-    if let Some((_, csv_path, json_path, _, errors_path)) = &realtime_files {
-        // Save final complete JSON summary
-        if let Ok(json_file) = File::create(json_path) {
-            let _ = serde_json::to_writer_pretty(json_file, &report);
-        }
+    if let Some((csv_writer, csv_path, json_path, errors_writer, errors_path)) = &mut realtime_files
+    {
+        let json_path_clone = json_path.clone();
+        tokio::task::block_in_place(|| {
+            let _ = csv_writer.flush();
+            let _ = errors_writer.flush();
+            // Save final complete JSON summary
+            if let Ok(json_file) = File::create(&json_path_clone) {
+                let _ = serde_json::to_writer_pretty(json_file, &report);
+            }
+        });
         println!("Final samples saved to: {}", csv_path.display());
         println!("Final summary saved to: {}", json_path.display());
         if error_count > 0 {

@@ -257,20 +257,27 @@ impl TaskRunner<'_> {
         if self.args.read_results {
             let read_span =
                 tracing::info_span!("bigquery.read_rows", task_id = self.task_id, iteration);
-            let _guard = read_span.enter();
-            let mut rows = complete_query.read();
-            while let Some(row_result) = rows.next().await {
-                match row_result {
-                    Ok(_) => {
-                        rows_count += 1;
-                    }
-                    Err(err) => {
-                        tracing::error!(self.task_id, iteration, "Error streaming rows: {err:?}");
-                        read_error = Some(format!("CompleteQuery::read: {err:#}"));
-                        break;
+            async {
+                let mut rows = complete_query.read();
+                while let Some(row_result) = rows.next().await {
+                    match row_result {
+                        Ok(_) => {
+                            rows_count += 1;
+                        }
+                        Err(err) => {
+                            tracing::error!(
+                                self.task_id,
+                                iteration,
+                                "Error streaming rows: {err:?}"
+                            );
+                            read_error = Some(format!("CompleteQuery::read: {err:#}"));
+                            break;
+                        }
                     }
                 }
             }
+            .instrument(read_span)
+            .await;
         }
         let read_duration = read_start.elapsed();
         let total_duration = iter_start.elapsed();
