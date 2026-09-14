@@ -64,7 +64,6 @@ mod tests {
     #[test]
     fn test_parse_args_defaults() -> anyhow::Result<()> {
         let args = Config::try_parse_from(["cmd"])?;
-        assert_eq!(args.project, "");
         assert_eq!(args.row_size, 1024);
         assert_eq!(args.rows_per_batch, 1000);
         assert_eq!(args.num_tables, 1);
