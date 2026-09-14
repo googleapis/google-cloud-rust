@@ -43,14 +43,13 @@ impl PostQueryExecutor {
     }
 
     pub(crate) async fn execute(self) -> Result<QueryResponse> {
-        // Safe to resend: `request_id` merges a duplicate that is still in
-        // flight, and a duplicate that arrives after the original completed
-        // returns 409, which the caller recovers by adopting the named job.
         let res = self
             .job_service
             .query()
-            .with_request(self.request)
+            // requests to jobs.query are idempotent because every request
+            // carries a generated request_id.
             .with_idempotency(true)
+            .with_request(self.request)
             .send()
             .await?;
 
