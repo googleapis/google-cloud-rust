@@ -218,8 +218,6 @@ pub(crate) fn is_retryable_error_reason(reason: &str) -> bool {
 
 /// Returns true if `error` reports a conflict with a resource that already
 /// exists, such as `409 Already Exists: Job my-project:US.job_1234567890`.
-// TODO(#6717): use this function on execution.rs and remove here
-#[allow(dead_code)]
 pub(crate) fn is_duplicate_job_error(error: &QueryError) -> bool {
     let QueryError::Rpc { source } = error else {
         return false;

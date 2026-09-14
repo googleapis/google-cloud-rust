@@ -16,7 +16,8 @@ use crate::error::QueryError;
 use crate::query::builder::{
     QUERY_REQUEST_ID_PREFIX, Query, generate_job_reference, generate_prefixed_id,
 };
-use crate::query::retry_policy::JobRetryResult;
+use crate::query::query_handle::build_get_job;
+use crate::query::retry_policy::{JobRetryResult, is_duplicate_job_error};
 use crate::query::{Query as QueryHandle, Result};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{
@@ -94,15 +95,7 @@ impl InsertJobExecutor {
             .send()
             .await?;
 
-        let job_status = res.status.as_ref();
-        if let Some(status) = job_status
-            && status.error_result.is_some()
-        {
-            let errors = status.errors.clone();
-            return Err(QueryError::JobFailed { errors });
-        }
-
-        Ok(res)
+        check_job_status(res)
     }
 }
 
@@ -176,13 +169,32 @@ impl RetryContext {
         let job_ref = generate_job_reference(project_id, &self.template.request.location);
         let job = Job::new()
             .set_configuration(job_config)
-            .set_job_reference(job_ref);
+            .set_job_reference(job_ref.clone());
         let req = InsertJobRequest::new()
             .set_job(job)
             .set_project_id(project_id);
 
         // Box heavy RPC call future to avoid large stack frames.
-        let job = Box::pin(InsertJobExecutor::new(job_service.clone(), req).execute()).await?;
+        let job = match Box::pin(InsertJobExecutor::new(job_service.clone(), req).execute()).await {
+            Ok(job) => job,
+            Err(err) if is_duplicate_job_error(&err) => {
+                // A fresh job ID is generated per attempt, so a duplicate means
+                // an earlier attempt of this request reached the service. Adopt
+                // the job it created rather than fail a running, billing query.
+                let existing_job = match build_get_job(&job_service, &job_ref) {
+                    Some(get) => Box::pin(get.send()).await.ok(),
+                    None => None,
+                };
+                let Some(existing_job) = existing_job else {
+                    // The original error names the running job, and unlike a
+                    // `jobs.get` failure it never makes the job retry loop
+                    // reissue the query.
+                    return Err(err);
+                };
+                check_job_status(existing_job)?
+            }
+            Err(err) => return Err(err),
+        };
 
         Ok(QueryHandle::from_job(
             job_service,
@@ -221,6 +233,18 @@ impl RetryContext {
     }
 }
 
+/// Returns [`QueryError::JobFailed`] if the service reports the job as failed.
+fn check_job_status(job: Job) -> Result<Job> {
+    if let Some(status) = job.status.as_ref()
+        && status.error_result.is_some()
+    {
+        let errors = status.errors.clone();
+        return Err(QueryError::JobFailed { errors });
+    }
+
+    Ok(job)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -230,12 +254,30 @@ mod tests {
         QueryResponse,
     };
     use google_cloud_gax::error::Error as GaxError;
-    use google_cloud_gax::error::rpc::{Code, Status};
+    use google_cloud_gax::error::rpc::{Code, Status, StatusDetails};
     use google_cloud_gax::response::Response;
+    use google_cloud_rpc::model::ErrorInfo;
     use serde_json::{Map, json};
+    use std::sync::Mutex;
     use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
+
+    // The error BigQuery returns when a request tries to create a job that a
+    // previous, apparently failed, attempt of the same request already created.
+    fn duplicate_job_error(job_id: &str) -> GaxError {
+        let message = format!("Already Exists: Job my-project:US.{job_id}");
+        let status = Status::default()
+            .set_code(Code::AlreadyExists)
+            .set_message(message.clone())
+            .set_details(vec![StatusDetails::ErrorInfo(
+                ErrorInfo::new()
+                    .set_reason("duplicate")
+                    .set_domain("global")
+                    .set_metadata([("message".to_string(), message)]),
+            )]);
+        GaxError::service(status)
+    }
 
     #[tokio::test]
     async fn test_jobs_query_execute_success() -> TestResult {
@@ -465,6 +507,86 @@ mod tests {
 
         let handle = retry_ctx.execute_once("my-project").await?;
         assert_eq!(handle.metadata.job_reference.unwrap().job_id, "query-job");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_jobs_insert_duplicate_adopts_existing_job() -> TestResult {
+        let inserted = Arc::new(Mutex::new(None));
+
+        let mut mock = MockJobService::new();
+        let captured = inserted.clone();
+        mock.expect_insert_job().return_once(move |req, _| {
+            let job_ref = req.job.unwrap().job_reference.unwrap();
+            let err = duplicate_job_error(&job_ref.job_id);
+            *captured.lock().unwrap() = Some(job_ref);
+            Err(err)
+        });
+        mock.expect_get_job().return_once(move |req, _| {
+            let job_ref = JobReference::new()
+                .set_project_id(req.project_id)
+                .set_job_id(req.job_id)
+                .set_location(req.location);
+            let job = Job::new()
+                .set_configuration(JobConfiguration::new().set_query(JobConfigurationQuery::new()))
+                .set_job_reference(job_ref)
+                .set_status(JobStatus::new().set_state("RUNNING"));
+            Ok(Response::from(job))
+        });
+
+        let job_service = create_job_service(mock);
+        let query = Query::new(job_service, "SELECT 1".to_string())
+            .with_project_id("my-project")
+            .set_location("us-central1")
+            .set_priority("BATCH");
+
+        let retry_ctx = RetryContext::new(query);
+        assert!(retry_ctx.force_job_path(), "priority should force job path");
+
+        let handle = retry_ctx.execute_once("my-project").await?;
+
+        // The recovered job must be the one the earlier attempt created, and it
+        // must be fetched from the location of the query.
+        let inserted = inserted.lock().unwrap().clone().expect("job inserted");
+        let job_ref = handle.metadata.job_reference.expect("job reference");
+        assert_eq!(job_ref, inserted, "{job_ref:?}");
+        assert_eq!(job_ref.location.as_deref(), Some("us-central1"));
+        assert!(!handle.completed, "the recovered job is still running");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_jobs_insert_duplicate_reports_original_error() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_insert_job()
+            .return_once(move |_, _| Err(duplicate_job_error("job_123")));
+        // The job cannot be fetched, for example because the caller lacks
+        // permissions to read it.
+        mock.expect_get_job().return_once(move |_, _| {
+            let status = Status::default()
+                .set_code(Code::PermissionDenied)
+                .set_message("simulated permission denied");
+            Err(GaxError::service(status))
+        });
+
+        let job_service = create_job_service(mock);
+        let query = Query::new(job_service, "SELECT 1".to_string())
+            .with_project_id("my-project")
+            .set_priority("BATCH");
+
+        let err = RetryContext::new(query)
+            .execute_once("my-project")
+            .await
+            .unwrap_err();
+
+        // The duplicate error names the running job, so it is more useful than
+        // the error from `jobs.get`.
+        let QueryError::Rpc { source } = &err else {
+            panic!("expected QueryError::Rpc, got {err:?}");
+        };
+        let status = source.status().expect("status");
+        assert_eq!(status.code, Code::AlreadyExists, "{status:?}");
+        assert!(status.message.contains("Already Exists: Job"), "{status:?}");
         Ok(())
     }
 
