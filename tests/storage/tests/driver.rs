@@ -146,4 +146,22 @@ mod storage {
                 .inspect_err(anydump);
         result
     }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn run_storage_control_rapid_cache() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        let (control, bucket) = integration_tests_storage::create_test_hns_bucket()
+            .await
+            .inspect_err(anydump)?;
+        let result = integration_tests_storage::rcu_crud::run(control.clone(), &bucket.name)
+            .await
+            .inspect_err(anydump);
+        integration_tests_storage::rcu_crud::purge_rapid_caches(&control, &bucket.name).await;
+        let _ =
+            storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
+                .await
+                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+                .inspect_err(anydump);
+        result
+    }
 }
