@@ -42,7 +42,7 @@ pub(crate) const QUERY_REQUEST_ID_PREFIX: &str = "req_";
 /// let mut rows = client
 ///     .query("SELECT name FROM `bigquery-public-data.usa_names.usa_1910_2013` WHERE state = 'TX' LIMIT 100")
 ///     .set_location("US")
-///     .set_max_results(50_u32)
+///     .set_page_size(50_u32)
 ///     .until_done()
 ///     .await?
 ///     .read();
@@ -526,7 +526,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_run_jobs_query_with_max_results() -> TestResult {
+    async fn test_run_jobs_query_with_page_size() -> TestResult {
         let mut mock = MockJobService::new();
         mock.expect_query().returning(move |req, _| {
             assert_eq!(
@@ -538,15 +538,15 @@ mod tests {
         let job_service = create_job_service(mock);
         let query_builder = Query::new(job_service, "SELECT 1".to_string())
             .with_project_id("my-project")
-            .set_max_results(100_u32);
+            .set_page_size(100_u32);
         let query = query_builder.send().await?;
-        assert_eq!(query.max_results, Some(100));
+        assert_eq!(query.page_size, Some(100));
 
         Ok(())
     }
 
     #[tokio::test]
-    async fn test_run_jobs_insert_with_max_results() -> TestResult {
+    async fn test_run_jobs_insert_with_page_size() -> TestResult {
         let mut mock = MockJobService::new();
         mock.expect_insert_job().returning(|_, _| {
             let job_ref = JobReference::new()
@@ -562,9 +562,9 @@ mod tests {
         let query_builder = Query::new(job_service, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_allow_large_results(true)
-            .set_max_results(50_u32);
+            .set_page_size(50_u32);
         let query = query_builder.send().await?;
-        assert_eq!(query.max_results, Some(50));
+        assert_eq!(query.page_size, Some(50));
 
         Ok(())
     }

@@ -261,8 +261,8 @@ fn publish_primed_channel(inner: &ChannelPoolInner, channel: Channel, max_channe
 
     // Mark slots occupied by active channels
     for entry in active_write.iter() {
-        if entry.logical_channel_id <= MAX_SUPPORTED_CHANNELS {
-            occupied_slots[entry.logical_channel_id] = true;
+        if entry.logical_channel_id() <= MAX_SUPPORTED_CHANNELS {
+            occupied_slots[entry.logical_channel_id()] = true;
         }
     }
 
@@ -270,8 +270,8 @@ fn publish_primed_channel(inner: &ChannelPoolInner, channel: Channel, max_channe
     {
         let draining_guard = inner.draining_entries.read().expect("lock poisoned");
         for entry in draining_guard.iter() {
-            if !entry.is_closed() && entry.logical_channel_id <= MAX_SUPPORTED_CHANNELS {
-                occupied_slots[entry.logical_channel_id] = true;
+            if !entry.is_closed() && entry.logical_channel_id() <= MAX_SUPPORTED_CHANNELS {
+                occupied_slots[entry.logical_channel_id()] = true;
             }
         }
     }
@@ -962,7 +962,8 @@ mod tests {
                 "Active channel count must be 2 after publishing"
             );
             assert_eq!(
-                active[1].logical_channel_id, 3,
+                active[1].logical_channel_id(),
+                3,
                 "New channel must receive slot 3"
             );
             assert_eq!(active[1].id, 3, "New channel must receive monotonic ID 3");

@@ -60,8 +60,6 @@ impl RetryPolicy for RetryableErrors {
         if error.is_transient_and_before_rpc() {
             return RetryResult::Continue(error);
         }
-        // The request may have reached the service, so it is only safe to
-        // resend when it is idempotent.
         if !state.idempotent {
             return RetryResult::Permanent(error);
         }
@@ -236,6 +234,21 @@ pub(crate) fn is_retryable_error_reason(reason: &str) -> bool {
             | "jobInternalError"
     )
 }
+
+/// Returns true if `error` reports a conflict with a resource that already
+/// exists, such as `409 Already Exists: Job my-project:US.job_1234567890`.
+// TODO(#6717): use this function on execution.rs and remove here
+#[allow(dead_code)]
+pub(crate) fn is_duplicate_job_error(error: &QueryError) -> bool {
+    let QueryError::Rpc { source } = error else {
+        return false;
+    };
+    source.http_status_code() == Some(409)
+        || source
+            .status()
+            .is_some_and(|s| s.code == Code::AlreadyExists)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -286,9 +299,6 @@ mod tests {
         let status = |code| GaxError::service(Status::default().set_code(code));
         let http = |code| GaxError::http(code, HeaderMap::new(), bytes::Bytes::new());
 
-        // Any conflict counts, including one that has nothing to do with a
-        // duplicate job: the caller rules those out by fetching the job ID it
-        // generated.
         assert!(is_duplicate_job_error(&rpc(http(409))));
         assert!(is_duplicate_job_error(&rpc(status(Code::AlreadyExists))));
 
@@ -299,8 +309,6 @@ mod tests {
         }));
     }
 
-    // Reissuing a duplicate would run and bill the query a second time, so the
-    // job retry loop must treat a real duplicate payload as permanent.
     #[test]
     fn test_duplicate_job_error_is_not_retryable() {
         const BQ_DUPLICATE_PAYLOAD: &[u8] = br#"{
