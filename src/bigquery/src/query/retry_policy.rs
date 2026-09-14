@@ -47,10 +47,6 @@ use std::time::Duration;
 /// This policy must be decorated to limit the duration of the retry loop or
 /// the number of attempts.
 ///
-/// Errors that occur before the request is sent are always retried. Any other
-/// error is only retried for idempotent requests, because the service may
-/// already have acted on the request.
-///
 /// [error handling]: https://cloud.google.com/bigquery/docs/error-messages
 #[derive(Clone, Debug)]
 pub struct RetryableErrors;
@@ -204,21 +200,6 @@ pub(crate) fn is_rpc_error_retryable(error: &GaxError) -> bool {
     false
 }
 
-/// Returns true if `error` reports a conflict with a resource that already
-/// exists, such as `409 Already Exists: Job my-project:US.job_1234567890`.
-///
-/// Deliberately coarse: the caller confirms the conflict by fetching the job
-/// ID it generated, so an unrelated conflict resolves to a `404` there.
-pub(crate) fn is_duplicate_job_error(error: &QueryError) -> bool {
-    let QueryError::Rpc { source } = error else {
-        return false;
-    };
-    source.http_status_code() == Some(409)
-        || source
-            .status()
-            .is_some_and(|s| s.code == Code::AlreadyExists)
-}
-
 pub(crate) fn is_retryable_errors(errors: &[ErrorProto]) -> bool {
     !errors.is_empty() && errors.iter().all(|e| is_retryable_error_reason(&e.reason))
 }
@@ -237,8 +218,6 @@ pub(crate) fn is_retryable_error_reason(reason: &str) -> bool {
 
 /// Returns true if `error` reports a conflict with a resource that already
 /// exists, such as `409 Already Exists: Job my-project:US.job_1234567890`.
-// TODO(#6717): use this function on execution.rs and remove here
-#[allow(dead_code)]
 pub(crate) fn is_duplicate_job_error(error: &QueryError) -> bool {
     let QueryError::Rpc { source } = error else {
         return false;
@@ -291,47 +270,6 @@ mod tests {
             ErrorProto::new().set_reason("backendError"),
         ];
         assert!(is_retryable_errors(&retryable));
-    }
-
-    #[test]
-    fn test_is_duplicate_job_error() {
-        let rpc = |source| QueryError::Rpc { source };
-        let status = |code| GaxError::service(Status::default().set_code(code));
-        let http = |code| GaxError::http(code, HeaderMap::new(), bytes::Bytes::new());
-
-        assert!(is_duplicate_job_error(&rpc(http(409))));
-        assert!(is_duplicate_job_error(&rpc(status(Code::AlreadyExists))));
-
-        assert!(!is_duplicate_job_error(&rpc(status(Code::Aborted))));
-        assert!(!is_duplicate_job_error(&rpc(http(500))));
-        assert!(!is_duplicate_job_error(&QueryError::JobFailed {
-            errors: vec![ErrorProto::new().set_reason("duplicate")],
-        }));
-    }
-
-    #[test]
-    fn test_duplicate_job_error_is_not_retryable() {
-        const BQ_DUPLICATE_PAYLOAD: &[u8] = br#"{
-  "error": {
-    "code": 409,
-    "message": "Already Exists: Job my-project:US.job_1234567890",
-    "errors": [
-      {
-        "message": "Already Exists: Job my-project:US.job_1234567890",
-        "domain": "global",
-        "reason": "duplicate"
-      }
-    ],
-    "status": "ALREADY_EXISTS"
-  }
-}"#;
-        let status = Status::try_from(&bytes::Bytes::from_static(BQ_DUPLICATE_PAYLOAD))
-            .expect("should deserialize BigQuery REST error");
-        let err = QueryError::Rpc {
-            source: GaxError::service(status),
-        };
-        assert!(is_duplicate_job_error(&err), "{err:?}");
-        assert!(!is_query_error_retryable(&err), "{err:?}");
     }
 
     #[test]
@@ -407,6 +345,47 @@ mod tests {
             || GaxError::authentication(CredentialsError::from_msg(true, "token refresh failed"));
         assert!(p.on_error(&idempotent, before_rpc()).is_continue());
         assert!(p.on_error(&non_idempotent, before_rpc()).is_continue());
+    }
+
+    #[test]
+    fn test_is_duplicate_job_error() {
+        let rpc = |source| QueryError::Rpc { source };
+        let status = |code| GaxError::service(Status::default().set_code(code));
+        let http = |code| GaxError::http(code, HeaderMap::new(), bytes::Bytes::new());
+
+        assert!(is_duplicate_job_error(&rpc(http(409))));
+        assert!(is_duplicate_job_error(&rpc(status(Code::AlreadyExists))));
+
+        assert!(!is_duplicate_job_error(&rpc(status(Code::Aborted))));
+        assert!(!is_duplicate_job_error(&rpc(http(500))));
+        assert!(!is_duplicate_job_error(&QueryError::JobFailed {
+            errors: vec![ErrorProto::new().set_reason("duplicate")],
+        }));
+    }
+
+    #[test]
+    fn test_duplicate_job_error_is_not_retryable() {
+        const BQ_DUPLICATE_PAYLOAD: &[u8] = br#"{
+  "error": {
+    "code": 409,
+    "message": "Already Exists: Job my-project:US.job_1234567890",
+    "errors": [
+      {
+        "message": "Already Exists: Job my-project:US.job_1234567890",
+        "domain": "global",
+        "reason": "duplicate"
+      }
+    ],
+    "status": "ALREADY_EXISTS"
+  }
+}"#;
+        let status = Status::try_from(&bytes::Bytes::from_static(BQ_DUPLICATE_PAYLOAD))
+            .expect("should deserialize BigQuery REST error");
+        let err = QueryError::Rpc {
+            source: GaxError::service(status),
+        };
+        assert!(is_duplicate_job_error(&err), "{err:?}");
+        assert!(!is_query_error_retryable(&err), "{err:?}");
     }
 
     #[test]
