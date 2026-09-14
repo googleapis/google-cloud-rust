@@ -467,4 +467,39 @@ mod tests {
         assert_eq!(handle.metadata.job_reference.unwrap().job_id, "query-job");
         Ok(())
     }
+
+    #[tokio::test]
+    async fn test_query_rpcs_are_idempotent() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_query().times(1).returning(|_, options| {
+            assert_eq!(options.idempotent(), Some(true), "jobs.query");
+            Err(GaxError::service(
+                Status::default().set_code(Code::Unavailable),
+            ))
+        });
+        mock.expect_insert_job().times(1).returning(|_, options| {
+            assert_eq!(options.idempotent(), Some(true), "jobs.insert");
+            Err(GaxError::service(
+                Status::default().set_code(Code::Unavailable),
+            ))
+        });
+        let job_service = create_job_service(mock);
+
+        let query = Query::new(job_service.clone(), "SELECT 1".to_string())
+            .with_project_id("my-project")
+            .set_dry_run(false);
+        RetryContext::new(query)
+            .execute_once("my-project")
+            .await
+            .unwrap_err();
+
+        let query = Query::new(job_service, "SELECT 1".to_string())
+            .with_project_id("my-project")
+            .set_dry_run(true);
+        RetryContext::new(query)
+            .execute_once("my-project")
+            .await
+            .unwrap_err();
+        Ok(())
+    }
 }
