@@ -423,6 +423,32 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2af50177e190e07a26ab74f8b1efbfe2ef87da2116221318cb1c2e82baf7de06"
 
 [[package]]
+name = "bigquery-benchmark-queries"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "clap",
+ "futures",
+ "google-cloud-auth",
+ "google-cloud-bigquery",
+ "google-cloud-bigquery-v2",
+ "google-cloud-gax",
+ "humantime",
+ "integration-tests-o11y",
+ "opentelemetry",
+ "opentelemetry_sdk",
+ "rand 0.10.2",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tokio-metrics",
+ "tracing",
+ "tracing-log",
+ "tracing-subscriber",
+ "uuid",
+]
+
+[[package]]
 name = "bigquery-grpc-mock"
 version = "0.0.0"
 dependencies = [
