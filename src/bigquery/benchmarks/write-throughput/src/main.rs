@@ -48,6 +48,12 @@ async fn main() -> Result<(), anyhow::Error> {
             "GOOGLE_CLOUD_PROJECT environment variable or --project argument must be set"
         );
     }
+    if config.num_tables == 0 {
+        anyhow::bail!("--num-tables must be at least 1");
+    }
+    if config.num_writers == 0 {
+        anyhow::bail!("--num-writers must be at least 1");
+    }
 
     println!(
         "# Running BigQuery Write throughput benchmark with config: {:?}",
