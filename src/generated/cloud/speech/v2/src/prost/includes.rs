@@ -4,7 +4,6 @@ pub mod google {
         pub mod speech {
             pub mod v2 {
                 include!("google.cloud.speech.v2.rs");
-            include!("../convert.rs");
             }
         }
     }

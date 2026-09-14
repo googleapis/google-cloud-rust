@@ -118,6 +118,18 @@ pub(crate) mod prost {
     include!("prost/includes.rs");
 }
 
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "grounded-generation-service",
+))]
+#[doc(hidden)]
+#[allow(clippy::all)]
+#[allow(unused_imports)]
+#[allow(dead_code)]
+#[allow(missing_docs)]
+pub(crate) mod convert;
+
 /// The default host used by the service.
 #[cfg(any(
     feature = "assistant-service",
