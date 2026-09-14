@@ -27,7 +27,7 @@ LIMIT 10
 "#,
         )
         .with_project_id(project_id)
-        .set_max_results(5_u32)
+        .set_page_size(5_u32)
         .set_location("US")
         .until_done()
         .await?
