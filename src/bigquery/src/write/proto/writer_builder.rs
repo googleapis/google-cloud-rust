@@ -23,7 +23,7 @@ use crate::model::{ProtoSchema, WriteStream};
 use crate::write::error::{AttachError, AttachResult};
 use std::sync::Arc;
 
-/// A builder to create a protobuf stream writer
+/// A builder to create a protobuf stream writer.
 #[derive(Clone, Debug)]
 pub struct WriterBuilder {
     inner: Arc<Transport>,
@@ -35,7 +35,7 @@ impl WriterBuilder {
         Self { inner, schema }
     }
 
-    /// Create a writer for the [default stream] for the given table.
+    /// Creates a writer for the [default stream] for the given table.
     ///
     /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
     pub async fn default<T: Into<String>>(self, table: T) -> Result<DefaultWriter> {

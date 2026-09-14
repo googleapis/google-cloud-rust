@@ -40,7 +40,7 @@ impl Write {
         })
     }
 
-    /// Create a writer using [Arrow] as the data format.
+    /// Creates a writer using [Arrow] as the data format.
     ///
     /// # Example
     /// ```
