@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.42.1-0.20260913215518-8485c76316ae
+version: v0.43.1-0.20260914165741-b613abf45890
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -145,8 +145,6 @@ default:
     generate_rpc_samples: "true"
     detailed_tracing_attributes: true
     lro_stub_options: true
-    include_bidi_streaming_methods: true
-    include_server_streaming_methods: true
 libraries:
   - name: bigquery-grpc-mock
     copyright_year: "2026"
@@ -221,7 +219,7 @@ libraries:
     version: 1.16.0
     copyright_year: "2025"
     rust:
-      allow_streaming_any_types:
+      allow_grpc_any_fields:
         - .google.api.HttpBody.extensions
       per_service_features: true
       default_features:
@@ -595,7 +593,6 @@ libraries:
           generate_rpc_samples: "false"
           included_ids:
             - .google.cloud.bigquery.storage.v1.BigQueryRead
-          include_server_streaming_methods: true
           name_overrides: .google.cloud.bigquery.storage.v1.BigQueryRead=Read
           output: src/bigquery-read/src/generated/gapic_storage
           service_config: google/cloud/bigquery/storage/v1/bigquerystorage_v1.yaml
@@ -662,7 +659,7 @@ libraries:
     version: 1.5.0
     copyright_year: "2026"
     rust:
-      allow_streaming_any_types:
+      allow_grpc_any_fields:
         - .google.cloud.ces.v1.SessionOutput.context
   - name: google-cloud-chronicle-v1
     version: 1.14.0
@@ -1147,7 +1144,7 @@ libraries:
     copyright_year: "2025"
     rust:
       generate_rpc_samples: "false"
-      allow_streaming_any_types:
+      allow_grpc_any_fields:
         - .google.logging.v2.LogEntry.proto_payload
   - name: google-cloud-longrunning
     version: 1.13.0
@@ -1479,9 +1476,6 @@ libraries:
       - showcase
       - googleapis
     skip_release: true
-    rust:
-      include_bidi_streaming_methods: true
-      include_server_streaming_methods: true
   - name: google-cloud-spanner
     version: 0.34.5-preview
     copyright_year: "2026"
@@ -1549,8 +1543,6 @@ libraries:
   - name: google-cloud-speech-v2
     version: 1.14.0
     copyright_year: "2025"
-    rust:
-      include_bidi_streaming_methods: true
   - name: google-cloud-sql-v1
     version: 2.10.0
     copyright_year: "2025"
