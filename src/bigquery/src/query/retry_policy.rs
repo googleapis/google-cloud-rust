@@ -27,9 +27,29 @@ use google_cloud_gax::retry_state::RetryState;
 use std::sync::Arc;
 use std::time::Duration;
 
-/// Follows the RPC retry strategy recommended by the BigQuery guides on error handling.
+/// Follows the RPC retry strategy recommended by the BigQuery guides on
+/// [error handling].
+///
+/// ```
+/// # async fn sample() -> anyhow::Result<()> {
+/// # use google_cloud_bigquery::client::BigQuery;
+/// # use google_cloud_bigquery::query::retry_policy::RetryableErrors;
+/// # use google_cloud_gax::retry_policy::RetryPolicyExt;
+/// let policy = RetryableErrors.with_time_limit(std::time::Duration::from_secs(60));
+/// let client = BigQuery::builder()
+///     .with_retry_policy(policy)
+///     .build()
+///     .await?;
+/// # Ok(())
+/// # }
+/// ```
+///
+/// This policy must be decorated to limit the duration of the retry loop or
+/// the number of attempts.
+///
+/// [error handling]: https://cloud.google.com/bigquery/docs/error-messages
 #[derive(Clone, Debug)]
-pub(crate) struct RetryableErrors;
+pub struct RetryableErrors;
 
 impl RetryPolicy for RetryableErrors {
     fn on_error(&self, _state: &RetryState, error: GaxError) -> RetryResult {

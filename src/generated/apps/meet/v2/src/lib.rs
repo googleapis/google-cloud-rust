@@ -56,14 +56,17 @@ pub mod stub;
 /// # Example
 /// ```
 /// # use google_apps_meet_v2::client::SpacesService;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
 /// async fn sample(
 ///    space_id: &str,
 /// ) -> anyhow::Result<()> {
 ///     let client = SpacesService::builder().build().await?;
-///     let response = client.get_space()
-///         .set_name(format!("spaces/{space_id}"))
-///         .send().await?;
-///     println!("response {:?}", response);
+///     let mut list = client.list_members()
+///         .set_parent(format!("spaces/{space_id}"))
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 ///     Ok(())
 /// }
 /// ```

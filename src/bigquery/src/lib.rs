@@ -96,7 +96,8 @@
 //! let client = Write::builder().build().await?;
 //! let writer = client
 //!     .arrow(schema())
-//!     .default("projects/my-project/datasets/my-dataset/tables/my-table")?;
+//!     .default("projects/my-project/datasets/my-dataset/tables/my-table")
+//!     .await?;
 //!
 //! let f1 = writer.append(rows()).send();
 //! let f2 = writer.append(rows()).send();

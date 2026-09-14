@@ -116,7 +116,7 @@ impl Row {
     }
 
     fn convert_value_at<T: FromSql>(&self, idx: usize, val: Value) -> Result<T> {
-        T::from_sql(val).map_err(|e| {
+        T::from_value(val).map_err(|e| {
             let field_name = self
                 .schema
                 .get_field_by_index(idx)

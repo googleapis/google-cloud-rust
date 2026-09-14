@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(#5716): Lift to shared bidi module
-
 use super::coalescing_buffer::CoalescingBuffer;
 use super::connector::{Connection, Connector};
 use super::worker::{UploadIntent, Worker};
@@ -186,7 +184,6 @@ impl AppendableObjectWriterTransport {
         }
         // If persisted_size > 0 but the server didn't provide a checksum,
         // we can't reliably continue a running checksum, so it remains `None`.
-        // TODO(#5716): Check whether this is a valid case.
 
         let (tx, rx) = tokio::sync::mpsc::channel(CHANNEL_BUFFER_SIZE);
         let worker = Worker::new(connector);

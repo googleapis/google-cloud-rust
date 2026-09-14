@@ -26,3 +26,5 @@ mod constants;
 mod future;
 mod options;
 mod retry_policy;
+#[allow(dead_code)]
+mod token_bucket;

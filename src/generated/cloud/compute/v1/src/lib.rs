@@ -16,7 +16,7 @@
 
 //! Google Cloud Client Libraries for Rust - Compute Engine API
 //!
-//! This client library was generated from the "20260821" revision of the API.
+//! This client library was generated from the "20260828" revision of the API.
 //!
 //! This crate contains traits, types, and functions to interact with Compute Engine API
 //! Most applications will use the structs defined in the [client] module.
@@ -86,6 +86,7 @@
 //! * [OrganizationSecurityPolicies](client/struct.OrganizationSecurityPolicies.html)
 //! * [PacketMirrorings](client/struct.PacketMirrorings.html)
 //! * [PreviewFeatures](client/struct.PreviewFeatures.html)
+//! * [ProjectViews](client/struct.ProjectViews.html)
 //! * [Projects](client/struct.Projects.html)
 //! * [PublicAdvertisedPrefixes](client/struct.PublicAdvertisedPrefixes.html)
 //! * [PublicDelegatedPrefixes](client/struct.PublicDelegatedPrefixes.html)
@@ -266,6 +267,7 @@ pub(crate) mod transport;
     feature = "organization-security-policies",
     feature = "packet-mirrorings",
     feature = "preview-features",
+    feature = "project-views",
     feature = "projects",
     feature = "public-advertised-prefixes",
     feature = "public-delegated-prefixes",
@@ -397,6 +399,7 @@ const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
     feature = "organization-security-policies",
     feature = "packet-mirrorings",
     feature = "preview-features",
+    feature = "project-views",
     feature = "projects",
     feature = "public-advertised-prefixes",
     feature = "public-delegated-prefixes",

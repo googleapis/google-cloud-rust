@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use super::super::builder::Append;
-use super::super::runner::Runner;
-use super::super::transport::Transport;
+use super::super::dispatcher::Dispatcher;
+use super::super::pool::StreamPool;
 use crate::model::append_rows_request::ArrowData;
 use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema};
 use std::sync::Arc;
@@ -24,17 +24,16 @@ use std::sync::Arc;
 /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
 #[derive(Debug)]
 pub struct DefaultWriter {
-    // TODO(#5744) - support multiplexed connections
-    runner: Runner,
+    inner: Arc<Dispatcher>,
     pub(crate) write_stream: String,
     pub(crate) schema: ArrowSchema,
 }
 
 impl DefaultWriter {
-    pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
-        let runner = Runner::new(inner);
+    pub(crate) fn new(pool: Arc<StreamPool>, write_stream: String, schema: ArrowSchema) -> Self {
+        let inner = Arc::new(Dispatcher::new(pool));
         Self {
-            runner,
+            inner,
             write_stream,
             schema,
         }
@@ -50,7 +49,7 @@ impl DefaultWriter {
                     .set_writer_schema(self.schema.clone())
                     .set_rows(rows),
             );
-        Append::new(self.runner.req_tx.clone(), req)
+        Append::new(self.inner.clone(), req)
     }
 }
 
@@ -66,7 +65,8 @@ mod tests {
     #[tokio::test]
     async fn request_fields() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let writer = DefaultWriter::new(transport, write_stream(), schema());
+        let pool = Arc::new(StreamPool::new(transport, 1));
+        let writer = DefaultWriter::new(pool, write_stream(), schema());
 
         let b = writer.append(rows(1));
         assert_eq!(b.req.write_stream, write_stream());
@@ -96,8 +96,9 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
+        let pool = Arc::new(StreamPool::new(transport, 1));
 
-        let writer = DefaultWriter::new(transport, write_stream(), schema());
+        let writer = DefaultWriter::new(pool, write_stream(), schema());
 
         response_tx.send(Ok(convert(&test_response(1)))).await?;
         let resp = writer.append(rows(1)).send().await?;

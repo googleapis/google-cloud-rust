@@ -40,7 +40,8 @@ pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyho
     // Create a writer for the default stream
     let writer = client
         .arrow(ArrowSchema::new().set_serialized_schema(schema_buf))
-        .default(table)?;
+        .default(table)
+        .await?;
 
     let mut writes = JoinSet::new();
     for i in 0..100 {

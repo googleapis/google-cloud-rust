@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use google_cloud_bigquery_v2::client::JobService;
+use google_cloud_bigquery_v2::job_poller::JobPollerError;
 use google_cloud_bigquery_v2::model::{ErrorProto, InsertJobRequest, Job, JobReference, JobStatus};
-use google_cloud_bigquery_v2::operation::JobPollerError;
 use google_cloud_bigquery_v2::stub::JobService as JobServiceStub;
 use google_cloud_gax::Result as GaxResult;
 use google_cloud_gax::options::RequestOptions;
