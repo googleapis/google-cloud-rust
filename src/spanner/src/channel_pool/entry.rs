@@ -15,6 +15,7 @@
 //! Channel entry lifecycle, atomic accounting, and RAII drop guards.
 
 use crate::client::Channel;
+use crate::server_streaming::stream::StreamGuard;
 use google_cloud_gax::error::rpc::Code;
 use std::ops::Deref;
 use std::result::Result;
@@ -272,6 +273,12 @@ impl Drop for ActiveRpcGuard {
     }
 }
 
+impl StreamGuard for ActiveRpcGuard {
+    fn record_error_code(&self, code: Code) {
+        ActiveRpcGuard::record_error_code(self, code);
+    }
+}
+
 /// RAII token held by an active Read/Write transaction to prevent premature channel closure during draining.
 #[derive(Debug)]
 pub(crate) struct RwTransactionAffinityGuard {
@@ -332,6 +339,12 @@ impl ChannelLease {
         extract_code: impl Fn(&E) -> Option<Code>,
     ) {
         self.guard.record_result(result, extract_code);
+    }
+
+    /// Records the result of a standard GAX RPC call, extracting the gRPC status code if present.
+    pub(crate) fn record_call_result<T>(&self, result: &crate::Result<T>) {
+        self.guard
+            .record_result(result, |error| error.status().map(|status| status.code));
     }
 
     /// Returns a reference to the physical `Channel`.
@@ -785,6 +798,20 @@ mod tests {
             entry.current_penalty(),
             5,
             "record_result on qualifying error must add penalty load"
+        );
+    }
+
+    #[test]
+    fn stream_guard_record_error_code() {
+        let channel = create_mock_channel();
+        let entry = Arc::new(ChannelEntry::new(1, 1, channel));
+        let guard = ActiveRpcGuard::new(entry.clone(), 5, Duration::from_secs(5), 20);
+        let stream_guard: Arc<dyn StreamGuard> = Arc::new(guard);
+        stream_guard.record_error_code(Code::Unavailable);
+        assert_eq!(
+            entry.current_penalty(),
+            5,
+            "StreamGuard::record_error_code must add penalty load"
         );
     }
 }
