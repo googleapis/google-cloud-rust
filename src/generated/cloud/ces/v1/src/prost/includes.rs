@@ -4,7 +4,6 @@ pub mod google {
         pub mod ces {
             pub mod v1 {
                 include!("google.cloud.ces.v1.rs");
-            include!("../convert.rs");
             }
         }
     }
