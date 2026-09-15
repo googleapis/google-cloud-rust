@@ -230,14 +230,30 @@ impl WriterBuilder {
         Ok(U::build(self.inner, write_stream, self.schema))
     }
 
-    // TODO(#6765) - make public, add example
-    #[allow(dead_code)]
     /// Enable multiplexing
     ///
     /// Set this option to use the client's shared stream pool.
     ///
     /// This option only applies to the default stream.
-    pub(crate) fn with_multiplexing(mut self, enable: bool) -> Self {
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample(client: Write) -> anyhow::Result<()> {
+    /// let writer = client
+    ///     .arrow(schema())
+    ///     .with_multiplexing(true)
+    ///     .default("projects/my-project/datasets/my_dataset/tables/my_table")
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// #
+    /// # use google_cloud_bigquery::model::ArrowSchema;
+    /// # fn schema() -> ArrowSchema {
+    /// #   todo!("Define your table's schema...")
+    /// # }
+    /// ```
+    pub fn with_multiplexing(mut self, enable: bool) -> Self {
         self.multiplexing = enable;
         self
     }
