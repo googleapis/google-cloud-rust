@@ -117,6 +117,7 @@ wrappers = [
   "integration-tests-o11y",
   "integration-tests-spanner",
   "pubsub-grpc-mock",
+  "pubsub-hedging",
   "spanner-grpc-mock",
   "storage-grpc-mock",
   # Indirect dependencies are fine.
@@ -136,6 +137,7 @@ wrappers = [
   "grpc-server",
   "opentelemetry-proto",
   "pubsub-grpc-mock",
+  "pubsub-hedging",
   "spanner-grpc-mock",
   "storage-grpc-mock",
 ]
