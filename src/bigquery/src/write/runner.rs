@@ -473,7 +473,7 @@ mod tests {
 
     #[tokio::test]
     async fn stream_error_without_pending_requests() -> anyhow::Result<()> {
-        // This is a regeression test for
+        // This is a regression test for
         // https://github.com/googleapis/google-cloud-rust/issues/6815
 
         let (response_tx, response_rx) = mpsc::channel(10);
