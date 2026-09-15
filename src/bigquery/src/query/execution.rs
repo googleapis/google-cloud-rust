@@ -21,7 +21,8 @@ use crate::query::retry_policy::{JobRetryResult, is_duplicate_job_error};
 use crate::query::{Query as QueryHandle, Result};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{
-    InsertJobRequest, Job, JobConfiguration, PostQueryRequest, QueryRequest, QueryResponse,
+    InsertJobRequest, Job, JobConfiguration, JobReference, PostQueryRequest, QueryRequest,
+    QueryResponse,
 };
 use google_cloud_gax::options::RequestOptionsBuilder as _;
 use google_cloud_gax::retry_state::RetryState;
@@ -227,7 +228,39 @@ impl RetryContext {
             .set_query_request(query_request);
 
         // Box heavy RPC call future to avoid large stack frames.
-        let res = Box::pin(PostQueryExecutor::new(job_service.clone(), req).execute()).await?;
+        let res = match Box::pin(PostQueryExecutor::new(job_service.clone(), req).execute()).await {
+            Ok(res) => res,
+            Err(err) if is_duplicate_job_error(&err) => {
+                // The request ID only dedups in-flight queries, so a resend
+                // after the query finished collides with the job the first
+                // attempt created. That job ran and was billed, so we try to
+                // attach to it.
+                let get = parse_duplicate_job_reference(&err)
+                    .and_then(|job_ref| build_get_job(&job_service, &job_ref));
+                let existing_job = match get {
+                    Some(get) => {
+                        // The original error names the running job, and unlike a
+                        // `jobs.get` failure it never makes the job retry loop
+                        // reissue the query, so we discard the err if the job
+                        // request fails with `.ok`.
+                        Box::pin(get.send()).await.ok()
+                    }
+                    None => None,
+                };
+                let Some(existing_job) = existing_job else {
+                    // We were unable to successfully send a `jobs.get` RPC.
+                    // Return the original error message.
+                    return Err(err);
+                };
+                return Ok(QueryHandle::from_job(
+                    job_service,
+                    check_job_status(existing_job)?,
+                    Some(self.clone()),
+                    page_size,
+                ));
+            }
+            Err(err) => return Err(err),
+        };
 
         Ok(QueryHandle::from_query_response(
             job_service,
@@ -248,6 +281,63 @@ fn check_job_status(job: Job) -> Result<Job> {
     }
 
     Ok(job)
+}
+
+/// Extracts the job named by a duplicate job error, such as
+/// `Already Exists: Job my-project:US.job_123`.
+///
+/// When `jobs.query` returns a 409, the error message is the only handle on
+/// the duplicated job.
+fn parse_duplicate_job_reference(error: &QueryError) -> Option<JobReference> {
+    const PREFIX: &str = "already exists: job ";
+
+    let QueryError::Rpc { source } = error else {
+        return None;
+    };
+    let message = source.status()?.message.trim_start();
+    let (prefix, name) = message.split_at_checked(PREFIX.len())?;
+    if !prefix.eq_ignore_ascii_case(PREFIX) {
+        return None;
+    }
+
+    // The message may carry context after the job name.
+    parse_job_name(name.split_whitespace().next()?)
+}
+
+/// Parses a job name, which the service writes as `project:job_id` or
+/// `project:location.job_id`, and where `project` may be domain scoped, as in
+/// `example.com:my-project:US.job_123`.
+fn parse_job_name(name: &str) -> Option<JobReference> {
+    let (project_id, rest) = match name.split_once(':')? {
+        // Only a domain scoped project has a `.` before the first `:`.
+        (domain, rest) if domain.contains('.') => {
+            let (project_id, rest) = rest.split_once(':')?;
+            (format!("{domain}:{project_id}"), rest)
+        }
+        (project_id, rest) => (project_id.to_string(), rest),
+    };
+
+    // Locations never contain `.`, so the first one starts the job ID.
+    let (location, job_id) = match rest.split_once('.') {
+        Some((location, job_id)) => (Some(location), job_id),
+        None => (None, rest),
+    };
+
+    if project_id.is_empty()
+        || job_id.is_empty()
+        || job_id.contains(':')
+        || location.is_some_and(str::is_empty)
+    {
+        return None;
+    }
+
+    let job_ref = JobReference::new()
+        .set_project_id(project_id)
+        .set_job_id(job_id);
+    Some(match location {
+        Some(location) => job_ref.set_location(location),
+        None => job_ref,
+    })
 }
 
 #[cfg(test)]
@@ -513,6 +603,121 @@ mod tests {
         let handle = retry_ctx.execute_once("my-project").await?;
         assert_eq!(handle.metadata.job_reference.unwrap().job_id, "query-job");
         Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_jobs_query_duplicate_adopts_existing_job() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_query()
+            .return_once(move |_, _| Err(duplicate_job_error("job_123")));
+        mock.expect_get_job().return_once(move |req, _| {
+            let job_ref = JobReference::new()
+                .set_project_id(req.project_id)
+                .set_job_id(req.job_id)
+                .set_location(req.location);
+            let job = Job::new()
+                .set_configuration(JobConfiguration::new().set_query(JobConfigurationQuery::new()))
+                .set_job_reference(job_ref)
+                .set_status(JobStatus::new().set_state("RUNNING"));
+            Ok(Response::from(job))
+        });
+
+        let job_service = create_job_service(mock);
+        let query = Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+
+        let retry_ctx = RetryContext::new(query);
+        assert!(!retry_ctx.force_job_path(), "must use the jobs.query path");
+
+        let handle = retry_ctx.execute_once("my-project").await?;
+
+        // The adopted job is the one the 409 names, fetched in its location.
+        let job_ref = handle.metadata.job_reference.expect("job reference");
+        assert_eq!(job_ref.project_id, "my-project");
+        assert_eq!(job_ref.location.as_deref(), Some("US"));
+        assert_eq!(job_ref.job_id, "job_123");
+        assert!(!handle.completed, "the adopted job is still running");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_jobs_query_duplicate_reports_original_error() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_query()
+            .return_once(move |_, _| Err(duplicate_job_error("job_123")));
+        mock.expect_get_job().return_once(move |_, _| {
+            let status = Status::default()
+                .set_code(Code::PermissionDenied)
+                .set_message("simulated permission denied");
+            Err(GaxError::service(status))
+        });
+
+        let job_service = create_job_service(mock);
+        let query = Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+
+        let err = RetryContext::new(query)
+            .execute_once("my-project")
+            .await
+            .unwrap_err();
+
+        // The duplicate error names the running job, so it is more useful than
+        // the error from `jobs.get`.
+        let QueryError::Rpc { source } = &err else {
+            panic!("expected QueryError::Rpc, got {err:?}");
+        };
+        let status = source.status().expect("status");
+        assert_eq!(status.code, Code::AlreadyExists, "{status:?}");
+        Ok(())
+    }
+
+    #[test]
+    fn test_parse_duplicate_job_reference() {
+        let rpc = |message: &str| {
+            QueryError::from(GaxError::service(
+                Status::default()
+                    .set_code(Code::AlreadyExists)
+                    .set_message(message),
+            ))
+        };
+
+        let err = rpc("Already Exists: Job my-project:US.job_123");
+        let job_ref = parse_duplicate_job_reference(&err).expect("job reference");
+        assert_eq!(job_ref.project_id, "my-project");
+        assert_eq!(job_ref.location.as_deref(), Some("US"));
+        assert_eq!(job_ref.job_id, "job_123");
+
+        // The service also omits the location and lowercases the prefix.
+        let err = rpc("Already exists: Job my-project-123:job_123");
+        let job_ref = parse_duplicate_job_reference(&err).expect("job reference");
+        assert_eq!(job_ref.project_id, "my-project-123");
+        assert_eq!(job_ref.location.as_deref(), None);
+        assert_eq!(job_ref.job_id, "job_123");
+
+        // The domain holds the only `.` that does not start the job ID.
+        let err = rpc("Already Exists: Job example.com:my-project:US.job_123");
+        let job_ref = parse_duplicate_job_reference(&err).expect("job reference");
+        assert_eq!(job_ref.project_id, "example.com:my-project");
+        assert_eq!(job_ref.location.as_deref(), Some("US"));
+        assert_eq!(job_ref.job_id, "job_123");
+
+        // The message may carry context after the job name.
+        let err = rpc("Already Exists: Job my-project:US.job_123 (retry the request)");
+        let job_ref = parse_duplicate_job_reference(&err).expect("job reference");
+        assert_eq!(job_ref.project_id, "my-project");
+        assert_eq!(job_ref.location.as_deref(), Some("US"));
+        assert_eq!(job_ref.job_id, "job_123");
+
+        let unparsable = [
+            "Already Exists: Job my-project:US:job_123",
+            "Already Exists: Table my-project:US.table_123",
+        ];
+        for message in unparsable {
+            let err = rpc(message);
+            assert!(parse_duplicate_job_reference(&err).is_none(), "{message}");
+        }
+
+        // Only RPC failures carry a service message.
+        let job_failed = QueryError::JobFailed { errors: vec![] };
+        assert!(parse_duplicate_job_reference(&job_failed).is_none());
     }
 
     #[tokio::test]
