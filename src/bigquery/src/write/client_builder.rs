@@ -158,7 +158,7 @@ impl ClientBuilder {
     ///
     /// The default is 8 streams.
     pub(crate) fn with_pool_size_limit(mut self, v: usize) -> Self {
-        self.pool_options.max_streams = v;
+        self.pool_options.max_streams = v.max(1);
         self
     }
 
@@ -173,7 +173,7 @@ impl ClientBuilder {
     ///
     /// The default is 1000 requests.
     pub(crate) fn with_max_outstanding_requests(mut self, v: u64) -> Self {
-        self.pool_options.max_outstanding_requests = Some(v);
+        self.pool_options.max_outstanding_requests = Some(v.max(1));
         self
     }
 
@@ -186,7 +186,7 @@ impl ClientBuilder {
     /// dynamically adds more streams to the stream pool, up to the limit
     /// configured by `with_pool_size_limit`.
     pub(crate) fn with_max_outstanding_bytes(mut self, v: u64) -> Self {
-        self.pool_options.max_outstanding_bytes = Some(v);
+        self.pool_options.max_outstanding_bytes = Some(v.max(1));
         self
     }
 }
@@ -239,5 +239,17 @@ mod tests {
         assert_eq!(builder.pool_options.max_streams, 10);
         assert_eq!(builder.pool_options.max_outstanding_requests, Some(900));
         assert_eq!(builder.pool_options.max_outstanding_bytes, Some(1_000_000));
+    }
+
+    #[test]
+    fn validate_pool_options() {
+        let builder = ClientBuilder::new()
+            .with_credentials(Anonymous::new().build())
+            .with_pool_size_limit(0)
+            .with_max_outstanding_requests(0)
+            .with_max_outstanding_bytes(0);
+        assert_eq!(builder.pool_options.max_streams, 1);
+        assert_eq!(builder.pool_options.max_outstanding_requests, Some(1));
+        assert_eq!(builder.pool_options.max_outstanding_bytes, Some(1));
     }
 }
