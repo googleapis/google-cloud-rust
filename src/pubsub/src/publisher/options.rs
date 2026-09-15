@@ -67,7 +67,6 @@ use super::constants::*;
 /// Hedging uses a token bucket to rate-limit hedged RPCs. Successful publish RPCs refill
 /// fractional tokens, and sending a hedged RPC decrements 1 token.
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(not(test), expect(dead_code))]
 pub(crate) struct HedgingOptions {
     /// The delay before sending a hedged request for an outstanding batch.
     ///
@@ -88,7 +87,7 @@ impl HedgingOptions {
     /// Set the delay before sending a hedged request.
     ///
     /// Clamped between 100ms and 10s.
-    #[cfg_attr(not(test), expect(dead_code))]
+    #[allow(dead_code)]
     pub(crate) fn set_delay<V: Into<std::time::Duration>>(mut self, v: V) -> Self {
         self.delay = v.into().clamp(MIN_HEDGING_DELAY, MAX_HEDGING_DELAY);
         self
@@ -97,7 +96,7 @@ impl HedgingOptions {
     /// Set the maximum number of tokens in the token bucket.
     ///
     /// Clamped between 1 and 250.
-    #[cfg_attr(not(test), expect(dead_code))]
+    #[allow(dead_code)]
     pub(crate) fn set_max_tokens<V: Into<u32>>(mut self, v: V) -> Self {
         self.max_tokens = v
             .into()
@@ -108,7 +107,7 @@ impl HedgingOptions {
     /// Set the fraction of a token refilled per successful publish RPC.
     ///
     /// Clamped between 0.001 and 0.2.
-    #[cfg_attr(not(test), expect(dead_code))]
+    #[allow(dead_code)]
     pub(crate) fn set_refill_ratio<V: Into<f32>>(mut self, v: V) -> Self {
         let val = v.into();
         self.refill_ratio = if val.is_nan() {
