@@ -30,7 +30,6 @@ pub struct AppendWithOffset {
 }
 
 impl AppendWithOffset {
-    #[allow(dead_code)]
     pub(crate) fn new(req_tx: mpsc::UnboundedSender<WriteRequest>, req: AppendRowsRequest) -> Self {
         Self { req_tx, req }
     }
