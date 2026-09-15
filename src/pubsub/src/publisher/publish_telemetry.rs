@@ -1,3 +1,17 @@
+// Copyright 2026 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 use base64::{Engine, prelude::BASE64_STANDARD};
 use gaxi::prost::ToProto;
 use google_cloud_gax::options::RequestOptionsBuilder;
@@ -66,63 +80,77 @@ mod tests {
     }
 
     #[test]
-    fn test_format_telemetry_header_with_start_time() {
+    fn test_format_telemetry_header_with_start_time() -> anyhow::Result<()> {
         let start_time = wkt::Timestamp::clamp(1_700_000_000, 500_000_000);
         let header_val = format_pubsub_client_telemetry_header(2, Some(start_time))
-            .expect("header value should be generated");
+            .ok_or_else(|| anyhow::anyhow!("header value should be generated"))?;
 
-        let decoded_bytes = BASE64_STANDARD
-            .decode(header_val.as_bytes())
-            .expect("should be valid base64");
+        let decoded_bytes = BASE64_STANDARD.decode(header_val.as_bytes())?;
+        let telemetry = PubsubClientTelemetry::decode(&decoded_bytes[..])?;
 
-        let telemetry = PubsubClientTelemetry::decode(&decoded_bytes[..])
-            .expect("should decode into PubsubClientTelemetry");
-
-        match telemetry.operation {
-            Some(Operation::PublishOperation(op)) => {
-                assert_eq!(op.hedged_attempt_count, 2);
-                let ts = op.publish_start_time.expect("timestamp should be present");
-                assert_eq!(ts.seconds, 1_700_000_000);
-                assert_eq!(ts.nanos, 500_000_000);
+        assert_eq!(
+            telemetry,
+            PubsubClientTelemetry {
+                operation: Some(Operation::PublishOperation(PublishOperation {
+                    hedged_attempt_count: 2,
+                    publish_start_time: Some(prost_types::Timestamp {
+                        seconds: 1_700_000_000,
+                        nanos: 500_000_000,
+                    }),
+                })),
             }
-            _ => panic!("unexpected operation in telemetry proto"),
-        }
+        );
+        Ok(())
     }
 
     #[test]
-    fn test_format_telemetry_header_initial_attempt_without_start_time() {
+    fn test_format_telemetry_header_initial_attempt_without_start_time() -> anyhow::Result<()> {
         let header_val = format_pubsub_client_telemetry_header(0, None)
-            .expect("header value should be generated for initial attempt");
+            .ok_or_else(|| anyhow::anyhow!("header value should be generated for initial attempt"))?;
 
-        let decoded_bytes = BASE64_STANDARD
-            .decode(header_val.as_bytes())
-            .expect("should be valid base64");
+        let decoded_bytes = BASE64_STANDARD.decode(header_val.as_bytes())?;
+        let telemetry = PubsubClientTelemetry::decode(&decoded_bytes[..])?;
 
-        let telemetry = PubsubClientTelemetry::decode(&decoded_bytes[..])
-            .expect("should decode into PubsubClientTelemetry");
-
-        match telemetry.operation {
-            Some(Operation::PublishOperation(op)) => {
-                assert_eq!(op.hedged_attempt_count, 0);
-                assert!(op.publish_start_time.is_none());
+        assert_eq!(
+            telemetry,
+            PubsubClientTelemetry {
+                operation: Some(Operation::PublishOperation(PublishOperation {
+                    hedged_attempt_count: 0,
+                    publish_start_time: None,
+                })),
             }
-            _ => panic!("unexpected operation in telemetry proto"),
-        }
+        );
+        Ok(())
     }
 
     #[test]
-    fn test_publish_request_builder_attaches_header() {
+    fn test_format_telemetry_header_wire_format() -> anyhow::Result<()> {
+        let initial = format_pubsub_client_telemetry_header(0, None)
+            .ok_or_else(|| anyhow::anyhow!("header value should be generated"))?;
+        assert_eq!(initial.to_str()?, "CgA=");
+
+        let first_hedge = format_pubsub_client_telemetry_header(1, None)
+            .ok_or_else(|| anyhow::anyhow!("header value should be generated"))?;
+        assert_eq!(first_hedge.to_str()?, "CgIIAQ==");
+        Ok(())
+    }
+
+    #[test]
+    fn test_publish_request_builder_attaches_header() -> anyhow::Result<()> {
         let mut builder = PublishRequestBuilder::new(std::sync::Arc::new(MockPublisher::new()));
         builder = builder.set_pubsub_client_telemetry_header(1, None);
 
         let headers = builder
             .request_options()
             .get_extension::<http::HeaderMap>()
-            .expect("custom headers extension should be present");
+            .ok_or_else(|| anyhow::anyhow!("custom headers extension should be present"))?;
         let header_val = headers
             .get(&PUBSUB_CLIENT_TELEMETRY_HEADER)
-            .expect("telemetry header should be present");
+            .ok_or_else(|| anyhow::anyhow!("telemetry header should be present"))?;
 
-        assert!(!header_val.is_empty());
+        let expected = format_pubsub_client_telemetry_header(1, None)
+            .ok_or_else(|| anyhow::anyhow!("expected header value to generate"))?;
+        assert_eq!(header_val, &expected);
+        Ok(())
     }
 }
