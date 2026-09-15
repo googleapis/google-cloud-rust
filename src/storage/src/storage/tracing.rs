@@ -116,12 +116,16 @@ use crate::storage::stub::AppendableObjectWriter as AppendableObjectWriterStub;
 #[derive(Debug)]
 pub struct TracingAppendableObjectWriter<T> {
     inner: T,
+    parent: tracing::Span,
 }
 
 #[cfg(google_cloud_unstable_storage_bidi)]
 impl<T> TracingAppendableObjectWriter<T> {
     pub(crate) fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            parent: tracing::Span::current(),
+        }
     }
 }
 
@@ -130,6 +134,7 @@ impl AppendableObjectWriterStub
     for TracingAppendableObjectWriter<Box<dyn DynamicAppendableObjectWriterStub>>
 {
     #[tracing::instrument(
+        parent = &self.parent,
         name = "append",
         err,
         skip(self, chunk),
@@ -150,6 +155,7 @@ impl AppendableObjectWriterStub
     }
 
     #[tracing::instrument(
+        parent = &self.parent,
         name = "flush",
         err,
         skip(self),
@@ -172,6 +178,7 @@ impl AppendableObjectWriterStub
     }
 
     #[tracing::instrument(
+        parent = &self.parent,
         name = "finalize",
         err,
         skip(self),
@@ -194,6 +201,7 @@ impl AppendableObjectWriterStub
     }
 
     #[tracing::instrument(
+        parent = &self.parent,
         name = "close",
         err,
         skip(self),
