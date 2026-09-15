@@ -23,7 +23,6 @@ use std::sync::Arc;
 /// A client for BigQuery Storage Write API.
 #[derive(Debug)]
 pub struct Write {
-    #[allow(unused)]
     inner: Arc<Transport>,
 }
 
@@ -34,10 +33,8 @@ impl Write {
     }
 
     pub(crate) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
-        let transport = Transport::new(builder.config).await?;
-        Ok(Self {
-            inner: Arc::new(transport),
-        })
+        let inner = Arc::new(Transport::new(builder.config).await?);
+        Ok(Self { inner })
     }
 
     /// Create a writer using [Arrow] as the data format.
