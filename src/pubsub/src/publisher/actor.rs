@@ -546,9 +546,7 @@ impl SequentialBatchActor {
         self.paused = true;
         while let Some(publish) = self.pending_msgs.pop_front() {
             // The user may have dropped the handle, so it is ok if this fails.
-            let _ = publish
-                .tx
-                .send(Err(crate::error::PublishError::OrderingKeyPaused));
+            let _ = publish.tx.send(Err(PublishError::OrderingKeyPaused));
         }
     }
 
@@ -586,7 +584,7 @@ pub(crate) fn send(
 
 pub(crate) fn batch_resolve_publish_futures(
     resp: crate::Result<PublishResponse>,
-    txs: Vec<tokio::sync::oneshot::Sender<Result<String, PublishError>>>,
+    txs: Vec<oneshot::Sender<Result<String, PublishError>>>,
 ) -> crate::Result<()> {
     match resp {
         Err(e) => {

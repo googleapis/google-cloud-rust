@@ -12,8 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use tokio::sync::oneshot;
+
 use super::options::BatchingOptions;
 use crate::error::PublishError;
+use crate::model::Message;
 use crate::publisher::actor::BundledMessage;
 
 #[derive(Debug, Default)]
@@ -51,7 +54,7 @@ impl Batch {
         self.messages.push(msg);
     }
 
-    fn message_size(msg: &crate::model::Message) -> usize {
+    fn message_size(msg: &Message) -> usize {
         // This is only an estimate and not the wire length.
         // TODO(#3963): If we move on to use protobuf crate, then it may be
         // possible to use compute_size to find the wire length.
@@ -77,8 +80,8 @@ impl Batch {
     pub(crate) fn drain_messages(
         &mut self,
     ) -> (
-        Vec<crate::model::Message>,
-        Vec<tokio::sync::oneshot::Sender<Result<String, PublishError>>>,
+        Vec<Message>,
+        Vec<oneshot::Sender<Result<String, PublishError>>>,
     ) {
         self.messages_byte_size = self.initial_size;
         self.messages.drain(..).map(|msg| (msg.msg, msg.tx)).unzip()
@@ -87,11 +90,7 @@ impl Batch {
 
 #[cfg(test)]
 mod tests {
-    use crate::{
-        model::Message,
-        publisher::actor::BundledMessage,
-        publisher::batch::{Batch, BatchingOptions},
-    };
+    use super::*;
     use google_cloud_test_macros::tokio_test_no_panics;
 
     mockall::mock! {
@@ -166,7 +165,7 @@ mod tests {
         data: T,
     ) -> (
         BundledMessage,
-        tokio::sync::oneshot::Receiver<std::result::Result<String, crate::error::PublishError>>,
+        oneshot::Receiver<std::result::Result<String, PublishError>>,
     ) {
         create_bundled_message_from_pubsub_message(Message::new().set_data(data.into()))
     }
@@ -175,9 +174,9 @@ mod tests {
         msg: Message,
     ) -> (
         BundledMessage,
-        tokio::sync::oneshot::Receiver<std::result::Result<String, crate::error::PublishError>>,
+        oneshot::Receiver<std::result::Result<String, PublishError>>,
     ) {
-        let (tx, rx) = tokio::sync::oneshot::channel();
+        let (tx, rx) = oneshot::channel();
         (BundledMessage { tx, msg }, rx)
     }
 }
