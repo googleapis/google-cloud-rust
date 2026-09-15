@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 use super::constants::*;
-use super::options::BatchingOptions;
+use super::options::{BatchingOptions, HedgingOptions};
 use crate::client::Publisher;
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
 use crate::publisher::actor::Dispatcher;
@@ -30,6 +30,7 @@ pub use super::base_publisher::BasePublisherBuilder;
 pub struct PublisherBuilder {
     topic: String,
     batching_options: BatchingOptions,
+    hedging_options: Option<HedgingOptions>,
     base_builder: BasePublisherBuilder,
 }
 
@@ -38,6 +39,7 @@ impl PublisherBuilder {
         Self {
             topic,
             batching_options: BatchingOptions::default(),
+            hedging_options: None,
             base_builder: BasePublisher::builder(),
         }
     }
@@ -50,6 +52,7 @@ impl PublisherBuilder {
             .set_message_count_threshold(self.batching_options.message_count_threshold)
             .set_byte_threshold(self.batching_options.byte_threshold)
             .set_delay_threshold(self.batching_options.delay_threshold)
+            .set_or_clear_hedging_options(self.hedging_options)
             .build();
         Ok(publisher)
     }
@@ -115,6 +118,54 @@ impl PublisherBuilder {
     /// ```
     pub fn set_delay_threshold(mut self, threshold: Duration) -> PublisherBuilder {
         self.batching_options = self.batching_options.set_delay_threshold(threshold);
+        self
+    }
+
+    /// Sets the hedging options for the publisher.
+    ///
+    /// Request hedging sends a duplicate publish request when an in-flight batch publish
+    /// RPC exceeds a configured delay threshold, mitigating tail latency caused by slow backend
+    /// tasks or transient network stalls.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// # use google_cloud_pubsub::publisher::HedgingOptions;
+    /// # use std::time::Duration;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let publisher = Publisher::builder("projects/my-project/topics/my-topic")
+    ///     .set_hedging_options(HedgingOptions::new().set_delay(Duration::from_millis(500)))
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn set_hedging_options<V: Into<HedgingOptions>>(mut self, v: V) -> Self {
+        self.hedging_options = Some(v.into());
+        self
+    }
+
+    /// Sets or clears the hedging options for the publisher.
+    ///
+    /// Pass `None` to disable request hedging (the default).
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// # use google_cloud_pubsub::publisher::HedgingOptions;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let publisher = Publisher::builder("projects/my-project/topics/my-topic")
+    ///     .set_or_clear_hedging_options(None::<HedgingOptions>)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn set_or_clear_hedging_options<V>(mut self, v: Option<V>) -> Self
+    where
+        V: Into<HedgingOptions>,
+    {
+        self.hedging_options = v.map(Into::into);
         self
     }
 
@@ -308,6 +359,7 @@ pub struct PublisherPartialBuilder {
     pub(crate) inner: GapicPublisher,
     topic: String,
     batching_options: BatchingOptions,
+    hedging_options: Option<HedgingOptions>,
 }
 
 impl PublisherPartialBuilder {
@@ -317,6 +369,7 @@ impl PublisherPartialBuilder {
             inner: client,
             topic,
             batching_options: BatchingOptions::default(),
+            hedging_options: None,
         }
     }
 
@@ -387,6 +440,56 @@ impl PublisherPartialBuilder {
         self
     }
 
+    /// Sets the hedging options for the publisher.
+    ///
+    /// Request hedging sends a duplicate publish request when an in-flight batch publish
+    /// RPC exceeds a configured delay threshold, mitigating tail latency caused by slow backend
+    /// tasks or transient network stalls.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # use google_cloud_pubsub::publisher::HedgingOptions;
+    /// # use std::time::Duration;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// # let client: BasePublisher = BasePublisher::builder().build().await?;
+    /// let publisher = client
+    ///     .publisher("projects/my-project/topics/my-topic")
+    ///     .set_hedging_options(HedgingOptions::new().set_delay(Duration::from_millis(500)))
+    ///     .build();
+    /// # Ok(()) }
+    /// ```
+    pub fn set_hedging_options<V: Into<HedgingOptions>>(mut self, v: V) -> Self {
+        self.hedging_options = Some(v.into());
+        self
+    }
+
+    /// Sets or clears the hedging options for the publisher.
+    ///
+    /// Pass `None` to disable request hedging (the default).
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # use google_cloud_pubsub::publisher::HedgingOptions;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// # let client: BasePublisher = BasePublisher::builder().build().await?;
+    /// let publisher = client
+    ///     .publisher("projects/my-project/topics/my-topic")
+    ///     .set_or_clear_hedging_options(None::<HedgingOptions>)
+    ///     .build();
+    /// # Ok(()) }
+    /// ```
+    pub fn set_or_clear_hedging_options<V>(mut self, v: Option<V>) -> Self
+    where
+        V: Into<HedgingOptions>,
+    {
+        self.hedging_options = v.map(Into::into);
+        self
+    }
+
     /// Creates a new [`Publisher`] from the builder's configuration.
     pub fn build(self) -> Publisher {
         self.build_return_handle().0
@@ -414,6 +517,7 @@ impl PublisherPartialBuilder {
             )
             .set_byte_threshold(self.batching_options.byte_threshold.clamp(0, MAX_BYTES));
 
+        let hedging_options = self.hedging_options;
         let (tx, rx) = tokio::sync::mpsc::unbounded_channel();
         // Create the Dispatcher that will run in the background.
         // We don't need to keep track of a handle to the dispatcher.
@@ -425,6 +529,7 @@ impl PublisherPartialBuilder {
         (
             Publisher {
                 batching_options,
+                hedging_options,
                 tx,
             },
             handle,
@@ -442,12 +547,70 @@ mod tests {
         let builder = client.publisher("projects/my-project/topics/my-topic");
         let publisher = builder.set_message_count_threshold(1_u32).build();
         assert_eq!(publisher.batching_options.message_count_threshold, 1_u32);
+        assert_eq!(publisher.hedging_options, None);
 
         let publisher = Publisher::builder("projects/my-project/topics/my-topic")
             .set_message_count_threshold(1_u32)
             .build()
             .await?;
         assert_eq!(publisher.batching_options.message_count_threshold, 1_u32);
+        assert_eq!(publisher.hedging_options, None);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn hedging_options_builder() -> anyhow::Result<()> {
+        let topic = "projects/my-project/topics/my-topic";
+        let hedging = HedgingOptions::new()
+            .set_delay(Duration::from_millis(500))
+            .set_max_tokens(100_u32)
+            .set_refill_ratio(0.05_f32);
+
+        // Test PublisherBuilder with set_hedging_options
+        let publisher = Publisher::builder(topic)
+            .set_hedging_options(hedging.clone())
+            .build()
+            .await?;
+        assert_eq!(publisher.hedging_options, Some(hedging.clone()));
+
+        // Test PublisherBuilder with set_or_clear_hedging_options (None)
+        let publisher = Publisher::builder(topic)
+            .set_hedging_options(hedging.clone())
+            .set_or_clear_hedging_options(None::<HedgingOptions>)
+            .build()
+            .await?;
+        assert_eq!(publisher.hedging_options, None);
+
+        // Test PublisherBuilder with set_or_clear_hedging_options (Some)
+        let publisher = Publisher::builder(topic)
+            .set_or_clear_hedging_options(Some(hedging.clone()))
+            .build()
+            .await?;
+        assert_eq!(publisher.hedging_options, Some(hedging.clone()));
+
+        // Test PublisherPartialBuilder with set_hedging_options
+        let client: BasePublisher = BasePublisher::builder().build().await?;
+        let publisher = client
+            .publisher(topic)
+            .set_hedging_options(hedging.clone())
+            .build();
+        assert_eq!(publisher.hedging_options, Some(hedging.clone()));
+
+        // Test PublisherPartialBuilder with set_or_clear_hedging_options (None)
+        let publisher = client
+            .publisher(topic)
+            .set_hedging_options(hedging.clone())
+            .set_or_clear_hedging_options(None::<HedgingOptions>)
+            .build();
+        assert_eq!(publisher.hedging_options, None);
+
+        // Test PublisherPartialBuilder with set_or_clear_hedging_options (Some)
+        let publisher = client
+            .publisher(topic)
+            .set_or_clear_hedging_options(Some(hedging.clone()))
+            .build();
+        assert_eq!(publisher.hedging_options, Some(hedging));
+
         Ok(())
     }
 

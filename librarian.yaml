@@ -1310,6 +1310,7 @@ libraries:
     version: 1.4.0
     copyright_year: "2025"
     output: src/pubsub
+    skip_release: true
     rust:
       modules:
         - included_ids:

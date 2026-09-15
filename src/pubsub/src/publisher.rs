@@ -13,6 +13,7 @@
 // limitations under the License.
 
 pub use future::PublishFuture;
+pub use options::HedgingOptions;
 
 pub(super) mod builder;
 pub(super) mod client;
