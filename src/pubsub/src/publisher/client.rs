@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::options::BatchingOptions;
+use super::options::{BatchingOptions, HedgingOptions};
 use crate::publisher::actor::BundledMessage;
 use crate::publisher::actor::ToDispatcher;
 use crate::publisher::builder::PublisherBuilder;
@@ -46,7 +46,7 @@ pub use super::base_publisher::BasePublisher;
 /// * [with_endpoint()]: by default this client uses the global default endpoint
 ///   (`https://pubsub.googleapis.com`). Applications using regional
 ///   endpoints or running in restricted networks (e.g. a network configured
-//    with [Private Google Access with VPC Service Controls]) may want to
+///   with [Private Google Access with VPC Service Controls]) may want to
 ///   override this default.
 /// * [with_credentials()]: by default this client uses
 ///   [Application Default Credentials]. Applications using custom
@@ -69,6 +69,10 @@ pub struct Publisher {
     // purposes and also to include in the Debug output.
     #[cfg_attr(not(test), expect(dead_code))]
     pub(crate) batching_options: BatchingOptions,
+    // A copy of the hedging options are stored in the Publisher for testing
+    // purposes and also to include in the Debug output.
+    #[cfg_attr(not(test), expect(dead_code))]
+    pub(crate) hedging_options: Option<HedgingOptions>,
     pub(crate) tx: UnboundedSender<ToDispatcher>,
 }
 
