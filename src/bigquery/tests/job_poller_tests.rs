@@ -140,7 +140,7 @@ async fn non_retryable_error() -> anyhow::Result<()> {
         panic!("expected JobPollerError::JobFailed");
     };
 
-    assert_eq!(error_result.reason.as_str(), "invalidQuery");
+    assert_eq!(error_result.reason, "invalidQuery");
     assert!(errors.is_empty());
     Ok(())
 }
@@ -170,10 +170,10 @@ async fn non_retryable_error_with_underlying_errors() -> anyhow::Result<()> {
         panic!("expected JobPollerError::JobFailed");
     };
 
-    assert_eq!(error_result.reason.as_str(), "invalidQuery");
+    assert_eq!(error_result.reason, "invalidQuery");
     assert_eq!(errors.len(), 1);
-    assert_eq!(errors[0].reason.as_str(), "invalid");
-    assert_eq!(errors[0].location.as_str(), "row 42");
+    assert_eq!(errors[0].reason, "invalid");
+    assert_eq!(errors[0].location, "row 42");
     Ok(())
 }
 
@@ -199,7 +199,7 @@ async fn retry_exhausted() -> anyhow::Result<()> {
         panic!("expected JobPollerError::JobFailed");
     };
 
-    assert_eq!(error_result.reason.as_str(), "jobBackendError");
+    assert_eq!(error_result.reason, "jobBackendError");
     assert!(errors.is_empty());
     Ok(())
 }
