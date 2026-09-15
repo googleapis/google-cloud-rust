@@ -105,8 +105,9 @@ mod tests {
 
     #[test]
     fn test_format_telemetry_header_initial_attempt_without_start_time() -> anyhow::Result<()> {
-        let header_val = format_pubsub_client_telemetry_header(0, None)
-            .ok_or_else(|| anyhow::anyhow!("header value should be generated for initial attempt"))?;
+        let header_val = format_pubsub_client_telemetry_header(0, None).ok_or_else(|| {
+            anyhow::anyhow!("header value should be generated for initial attempt")
+        })?;
 
         let decoded_bytes = BASE64_STANDARD.decode(header_val.as_bytes())?;
         let telemetry = PubsubClientTelemetry::decode(&decoded_bytes[..])?;
