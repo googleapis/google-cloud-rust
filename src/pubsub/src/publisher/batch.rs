@@ -12,13 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use tokio::task::JoinSet;
-
 use super::options::BatchingOptions;
 use crate::error::PublishError;
-use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
 use crate::publisher::actor::BundledMessage;
-use std::sync::Arc;
 
 #[derive(Debug, Default)]
 pub(crate) struct Batch {
@@ -76,72 +72,27 @@ impl Batch {
         self.size() + Self::message_size(&next.msg) as u32 <= self.batching_options.byte_threshold
     }
 
-    /// Drains the batch and spawns a task to send the messages.
-    ///
-    /// This method mutably drains the messages from the current batch, leaving it
-    /// empty, and returns a `JoinHandle` for the spawned send operation. This allows
-    /// the `Worker` to immediately begin creating a new batch while the old one is
-    /// being sent in the background.
-    pub(crate) fn flush(
+    /// Drains all messages from the batch, resetting the message byte size back
+    /// to the initial size, and returns a tuple of `(Vec<Message>, Vec<Sender>)`.
+    pub(crate) fn drain_messages(
         &mut self,
-        client: GapicPublisher,
-        topic: String,
-        inflight: &mut JoinSet<crate::Result<()>>,
+    ) -> (
+        Vec<crate::model::Message>,
+        Vec<tokio::sync::oneshot::Sender<Result<String, PublishError>>>,
     ) {
-        let batch_to_send = Self {
-            initial_size: self.initial_size,
-            messages: std::mem::take(&mut self.messages),
-            messages_byte_size: self.messages_byte_size,
-            batching_options: self.batching_options.clone(),
-        };
         self.messages_byte_size = self.initial_size;
-        inflight.spawn(batch_to_send.send(client, topic));
-    }
-
-    /// Send the batch to the service and process the results.
-    async fn send(self, client: GapicPublisher, topic: String) -> crate::Result<()> {
-        let (msgs, txs): (Vec<_>, Vec<_>) = self
-            .messages
-            .into_iter()
-            .map(|msg| (msg.msg, msg.tx))
-            .unzip();
-        let request = client.publish().set_topic(topic).set_messages(msgs);
-
-        // Handle the response by extracting the message ID on success.
-        match request.send().await {
-            Err(e) => {
-                // TODO(#4013): To support message ordering retry, we need to correctly handle
-                // the send error here with either retry or propagate to the user.
-                let e = Arc::new(e);
-                for tx in txs {
-                    // The user may have dropped the handle, so it is ok if this fails.
-                    let _ = tx.send(Err(PublishError::Rpc(e.clone())));
-                }
-                Err(crate::Error::io(e))
-            }
-            Ok(result) => {
-                txs.into_iter()
-                    .zip(result.message_ids)
-                    .for_each(|(tx, result)| {
-                        // The user may have dropped the handle, so it is ok if this fails.
-                        let _ = tx.send(Ok(result));
-                    });
-                Ok(())
-            }
-        }
+        self.messages.drain(..).map(|msg| (msg.msg, msg.tx)).unzip()
     }
 }
 
 #[cfg(test)]
 mod tests {
     use crate::{
-        generated::gapic_dataplane::client::Publisher as GapicPublisher,
-        model::{Message, PublishResponse},
+        model::Message,
         publisher::actor::BundledMessage,
         publisher::batch::{Batch, BatchingOptions},
     };
     use google_cloud_test_macros::tokio_test_no_panics;
-    use tokio::task::JoinSet;
 
     mockall::mock! {
         #[derive(Debug)]
@@ -152,7 +103,7 @@ mod tests {
     }
 
     #[tokio_test_no_panics(start_paused = true)]
-    async fn test_push_and_flush_batch() -> anyhow::Result<()> {
+    async fn test_push_and_drain_batch() -> anyhow::Result<()> {
         let mut batch = Batch::new("topic".len() as u32, BatchingOptions::default());
         assert!(batch.is_empty());
 
@@ -168,15 +119,10 @@ mod tests {
         batch.push(message_c);
         assert_eq!(batch.len(), 3);
 
-        let mut mock = MockGapicPublisher::new();
-        mock.expect_publish()
-            .withf(|r, _| r.topic == "topic" && r.messages.len() == 3)
-            .return_once(|_, _| Ok(crate::Response::from(PublishResponse::new())));
-        let client = GapicPublisher::from_stub(mock);
-        let mut inflight = JoinSet::new();
-        batch.flush(client, "topic".to_string(), &mut inflight);
+        let (msgs, txs) = batch.drain_messages();
         assert_eq!(batch.len(), 0);
-        inflight.join_all().await;
+        assert_eq!(msgs.len(), 3);
+        assert_eq!(txs.len(), 3);
 
         Ok(())
     }
@@ -209,15 +155,9 @@ mod tests {
         batch.push(message_with_attributes);
         assert_eq!(batch.size(), expected_encoded_len as u32);
 
-        let mut mock = MockGapicPublisher::new();
-        mock.expect_publish()
-            .withf(|r, _| r.topic == "topic" && r.messages.len() == 3)
-            .return_once(|_, _| Ok(crate::Response::from(PublishResponse::new())));
-        let client = GapicPublisher::from_stub(mock);
-        let mut inflight = JoinSet::new();
-        batch.flush(client, "topic".to_string(), &mut inflight);
+        let (msgs, _txs) = batch.drain_messages();
+        assert_eq!(msgs.len(), 3);
         assert_eq!(batch.size(), "topic".len() as u32);
-        inflight.join_all().await;
 
         Ok(())
     }

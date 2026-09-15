@@ -13,10 +13,13 @@
 // limitations under the License.
 
 use super::options::BatchingOptions;
+use crate::error::PublishError;
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
+use crate::model::{Message, PublishResponse};
 use crate::publisher::batch::Batch;
 use std::collections::{HashMap, VecDeque};
 use std::pin::Pin;
+use std::sync::Arc;
 use tokio::sync::{mpsc, oneshot};
 use tokio::task::JoinSet;
 use tokio::time::Sleep;
@@ -47,7 +50,7 @@ enum ToBatchActor {
 /// half of the channel to resolve the [PublishFuture].
 #[derive(Debug)]
 pub(crate) struct BundledMessage {
-    pub msg: crate::model::Message,
+    pub msg: Message,
     pub tx: oneshot::Sender<std::result::Result<String, crate::error::PublishError>>,
 }
 
@@ -318,13 +321,17 @@ impl ConcurrentBatchActor {
 
     // Flush the pending batch if it's not empty.
     fn flush(&mut self, inflight: &mut JoinSet<crate::Result<()>>, batch: &mut Batch) {
-        if !batch.is_empty() {
-            batch.flush(
-                self.context.client.clone(),
-                self.context.topic.clone(),
-                inflight,
-            );
+        if batch.is_empty() {
+            return;
         }
+        let (msgs, txs) = batch.drain_messages();
+        send(
+            msgs,
+            txs,
+            self.context.client.clone(),
+            self.context.topic.clone(),
+            inflight,
+        );
     }
 
     // Move message to the pending batch respecting batch thresholds
@@ -438,7 +445,7 @@ impl SequentialBatchActor {
                 // (i.e. when timer.is_some()); select! evaluates the branch
                 // expression eagerly, so a bare unwrap would unwrap None.
                 _ = async { timer.as_mut().unwrap().await }, if timer.is_some() => {
-                    self.flush(&mut inflight, &mut batch).await;
+                    self.flush_all(&mut inflight, &mut batch).await;
                     inflight = JoinSet::new();
                     timer = None;
                 }
@@ -458,7 +465,7 @@ impl SequentialBatchActor {
                             }
                         },
                         Some(ToBatchActor::Flush(tx)) => {
-                            self.flush(&mut inflight, &mut batch).await;
+                            self.flush_all(&mut inflight, &mut batch).await;
                             inflight = JoinSet::new();
                             timer = None;
                             let _ = tx.send(());
@@ -469,7 +476,7 @@ impl SequentialBatchActor {
                         None => {
                             // This isn't guaranteed to execute if a user does not .await on the
                             // corresponding PublishFutures.
-                            self.flush(&mut inflight, &mut batch).await;
+                            self.flush_all(&mut inflight, &mut batch).await;
                             break;
                         }
                     }
@@ -479,21 +486,30 @@ impl SequentialBatchActor {
     }
 
     // Flush the pending messages by sending the messages in sequential batches.
-    async fn flush(&mut self, inflight: &mut JoinSet<crate::Result<()>>, batch: &mut Batch) {
+    async fn flush_all(&mut self, inflight: &mut JoinSet<crate::Result<()>>, batch: &mut Batch) {
         self.handle_inflight_join(inflight.join_next().await);
         while !self.pending_msgs.is_empty() {
             self.move_to_batch_and_flush(inflight, batch);
             self.handle_inflight_join(inflight.join_next().await);
         }
         // Flush the pending batch even if it does not fill the batch.
-        if !batch.is_empty() {
-            batch.flush(
-                self.context.client.clone(),
-                self.context.topic.clone(),
-                inflight,
-            );
-        }
+        self.flush(inflight, batch);
         self.handle_inflight_join(inflight.join_next().await);
+    }
+
+    // Flush the pending batch if it's not empty.
+    fn flush(&mut self, inflight: &mut JoinSet<crate::Result<()>>, batch: &mut Batch) {
+        if batch.is_empty() {
+            return;
+        }
+        let (msgs, txs) = batch.drain_messages();
+        send(
+            msgs,
+            txs,
+            self.context.client.clone(),
+            self.context.topic.clone(),
+            inflight,
+        );
     }
 
     // Move message to the pending batch respecting batch thresholds
@@ -521,11 +537,7 @@ impl SequentialBatchActor {
         }
 
         if should_flush {
-            batch.flush(
-                self.context.client.clone(),
-                self.context.topic.clone(),
-                inflight,
-            );
+            self.flush(inflight, batch);
         }
     }
 
@@ -550,6 +562,51 @@ impl SequentialBatchActor {
         // 3. The messages in rx will be handled when they are received.
         if let Some(Err(_) | Ok(Err(_))) = join_next_option {
             self.pause();
+        }
+    }
+}
+
+pub(crate) fn send(
+    msgs: Vec<Message>,
+    txs: Vec<oneshot::Sender<Result<String, PublishError>>>,
+    client: GapicPublisher,
+    topic: String,
+    inflight: &mut JoinSet<crate::Result<()>>,
+) {
+    inflight.spawn(async move {
+        let res = client
+            .publish()
+            .set_topic(topic)
+            .set_messages(msgs)
+            .send()
+            .await;
+        batch_resolve_publish_futures(res, txs)
+    });
+}
+
+pub(crate) fn batch_resolve_publish_futures(
+    resp: crate::Result<PublishResponse>,
+    txs: Vec<tokio::sync::oneshot::Sender<Result<String, PublishError>>>,
+) -> crate::Result<()> {
+    match resp {
+        Err(e) => {
+            // TODO(#4013): To support message ordering retry, we need to correctly handle
+            // the send error here with either retry or propagate to the user.
+            let e = Arc::new(e);
+            for tx in txs {
+                // The user may have dropped the handle, so it is ok if this fails.
+                let _ = tx.send(Err(PublishError::Rpc(e.clone())));
+            }
+            Err(crate::Error::io(e))
+        }
+        Ok(result) => {
+            txs.into_iter()
+                .zip(result.message_ids)
+                .for_each(|(tx, result)| {
+                    // The user may have dropped the handle, so it is ok if this fails.
+                    let _ = tx.send(Ok(result));
+                });
+            Ok(())
         }
     }
 }
@@ -595,14 +652,14 @@ mod tests {
         #[derive(Debug)]
         GapicPublisherWithFuture {}
         impl crate::generated::gapic_dataplane::stub::Publisher for GapicPublisherWithFuture {
-            fn publish(&self, req: crate::model::PublishRequest, _options: google_cloud_gax::options::RequestOptions) -> impl Future<Output=google_cloud_gax::Result<google_cloud_gax::response::Response<crate::model::PublishResponse>>> + Send;
+            fn publish(&self, req: crate::model::PublishRequest, _options: google_cloud_gax::options::RequestOptions) -> impl Future<Output=google_cloud_gax::Result<google_cloud_gax::response::Response<PublishResponse>>> + Send;
         }
     }
 
     fn publish_ok(
         req: crate::model::PublishRequest,
         _options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::PublishResponse>> {
+    ) -> crate::Result<crate::Response<PublishResponse>> {
         let ids = req
             .messages
             .iter()
@@ -626,7 +683,7 @@ mod tests {
     fn publish_err(
         _req: crate::model::PublishRequest,
         _options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::PublishResponse>> {
+    ) -> crate::Result<crate::Response<PublishResponse>> {
         Err(crate::Error::service(
             google_cloud_gax::error::rpc::Status::default()
                 .set_code(google_cloud_gax::error::rpc::Code::Unknown)
@@ -1196,5 +1253,67 @@ mod tests {
         assert_publish_is_ok!(actor_tx, 10);
 
         Ok(())
+    }
+
+    #[tokio::test]
+    async fn batch_resolve_publish_futures_success() {
+        let (tx1, rx1) = tokio::sync::oneshot::channel();
+        let (tx2, rx2) = tokio::sync::oneshot::channel();
+        let resp = Ok(PublishResponse::new()
+            .set_message_ids(vec!["msg-id-1".to_string(), "msg-id-2".to_string()]));
+
+        let res = super::batch_resolve_publish_futures(resp, vec![tx1, tx2]);
+        assert!(res.is_ok());
+
+        assert_eq!(rx1.await.unwrap().unwrap(), "msg-id-1");
+        assert_eq!(rx2.await.unwrap().unwrap(), "msg-id-2");
+    }
+
+    #[tokio::test]
+    async fn batch_resolve_publish_futures_error() {
+        let (tx1, rx1) = tokio::sync::oneshot::channel();
+        let (tx2, rx2) = tokio::sync::oneshot::channel();
+        let err = crate::Error::service(
+            google_cloud_gax::error::rpc::Status::default()
+                .set_code(google_cloud_gax::error::rpc::Code::Unavailable)
+                .set_message("unavailable"),
+        );
+
+        let res = super::batch_resolve_publish_futures(Err(err), vec![tx1, tx2]);
+        assert!(res.is_err());
+
+        let res1 = rx1.await.unwrap();
+        let res2 = rx2.await.unwrap();
+        assert!(matches!(res1, Err(PublishError::Rpc(_))));
+        assert!(matches!(res2, Err(PublishError::Rpc(_))));
+    }
+
+    #[tokio::test]
+    async fn batch_resolve_publish_futures_dropped_receiver() {
+        let (tx1, rx1) = tokio::sync::oneshot::channel();
+        let (tx2, rx2) = tokio::sync::oneshot::channel();
+        drop(rx1); // receiver dropped before batch completes
+
+        let resp = Ok(PublishResponse::new()
+            .set_message_ids(vec!["msg-id-1".to_string(), "msg-id-2".to_string()]));
+
+        // Should not panic or fail when one receiver is dropped
+        let res = super::batch_resolve_publish_futures(resp, vec![tx1, tx2]);
+        assert!(res.is_ok());
+        assert_eq!(rx2.await.unwrap().unwrap(), "msg-id-2");
+
+        // Dropped receiver on error path
+        let (tx3, rx3) = tokio::sync::oneshot::channel();
+        let (tx4, rx4) = tokio::sync::oneshot::channel();
+        drop(rx3);
+
+        let err = crate::Error::service(
+            google_cloud_gax::error::rpc::Status::default()
+                .set_code(google_cloud_gax::error::rpc::Code::Internal)
+                .set_message("internal error"),
+        );
+        let res_err = super::batch_resolve_publish_futures(Err(err), vec![tx3, tx4]);
+        assert!(res_err.is_err());
+        assert!(matches!(rx4.await.unwrap(), Err(PublishError::Rpc(_))));
     }
 }
