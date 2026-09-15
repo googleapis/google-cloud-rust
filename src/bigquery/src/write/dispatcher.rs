@@ -14,7 +14,7 @@
 
 use super::append_response::{AppendResponse, to_result};
 use super::entry::StreamEntry;
-use super::error::{AppendError, AppendResult};
+use super::error::AppendResult;
 use super::pool::StreamPool;
 use crate::Error;
 use crate::model::AppendRowsRequest;
@@ -59,17 +59,22 @@ impl Dispatcher {
         let resp = match stream.send(req).await {
             Ok(resp) => Ok(resp),
             Err(err) => {
-                if is_transient_error(&err) {
-                    // Atomically evicts failed_id and returns a new stream for use.
-                    let new_stream = self.pool.evict_and_replace(stream_id);
+                // Any error here means the stream is dead. Either the runner
+                // task exited (`UnexpectedEndOfStream`), or it forwarded a
+                // stream-level gRPC error. Note that `AppendError::RowErrors`
+                // cannot appear here. It is produced by `to_result()` below.
+                //
+                // It is fine to replace the stream entry on a typically
+                // permanent error, as streams are lazily initialized.
 
-                    // The application can `send()` multiple writes
-                    // concurrently. Only one `send()` will update the cached
-                    // stream on a transient error.
-                    let _ = self.entry.compare_and_swap(&stream, Arc::new(new_stream));
+                // Atomically evicts failed_id and returns a new stream for use.
+                let new_stream = self.pool.evict_and_replace(stream_id);
 
-                    // TODO(#6355): implement retries
-                }
+                // The application can `send()` multiple writes concurrently.
+                // Only one `send()` will update the cached stream.
+                let _ = self.entry.compare_and_swap(&stream, Arc::new(new_stream));
+
+                // TODO(#6355): implement retries
                 Err(err)
             }
         }?;
@@ -79,16 +84,9 @@ impl Dispatcher {
     }
 }
 
-pub(crate) fn is_transient_error(err: &AppendError) -> bool {
-    match err {
-        AppendError::UnexpectedEndOfStream => true,
-        // TODO(#6355): classify transient RPC errors
-        _ => false,
-    }
-}
-
 #[cfg(test)]
 mod tests {
+    use super::super::error::AppendError;
     use super::super::pool::StreamPoolOptions;
     use super::*;
     use crate::write::test::*;
@@ -168,7 +166,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn permanent_error() -> anyhow::Result<()> {
+    async fn rpc_error_evicts_stream() -> anyhow::Result<()> {
         let (response_tx, response_rx) = mpsc::channel(10);
         let mut mock = MockBigQueryWrite::new();
         mock.expect_append_rows()
@@ -177,7 +175,7 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
-        let dispatcher = Arc::new(Dispatcher::new(pool));
+        let dispatcher = Arc::new(Dispatcher::new(pool.clone()));
         assert_eq!(dispatcher.entry.load().id, 1);
 
         let write = {
@@ -185,13 +183,18 @@ mod tests {
             tokio::spawn(async move { d.send(test_req()).await })
         };
 
-        // Simulate a permanent stream error
+        // Simulate a stream-level error. The error is not retryable, but the
+        // stream is still dead.
         response_tx
             .send(Err(TonicStatus::failed_precondition("fail")))
             .await?;
 
         let err = write.await?.expect_err("should return an error");
         assert!(matches!(err, AppendError::Rpc { source: _ }));
+
+        // The stream terminated, so it should not remain in the pool.
+        assert_eq!(dispatcher.entry.load().id, 2);
+        assert_eq!(pool.stream_ids(), [2]);
 
         Ok(())
     }
