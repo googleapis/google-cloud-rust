@@ -46,6 +46,7 @@ impl RetryPolicy for RetryableErrors {
         if let Some(status) = error.status() {
             return match status.code {
                 Code::Aborted
+                | Code::Cancelled
                 | Code::DeadlineExceeded
                 | Code::Internal
                 | Code::ResourceExhausted
@@ -66,6 +67,7 @@ mod tests {
     use test_case::test_case;
 
     #[test_case(Code::Aborted)]
+    #[test_case(Code::Cancelled)]
     #[test_case(Code::DeadlineExceeded)]
     #[test_case(Code::Internal)]
     #[test_case(Code::ResourceExhausted)]
@@ -78,7 +80,6 @@ mod tests {
         ));
     }
 
-    #[test_case(Code::Cancelled)]
     #[test_case(Code::Unknown)]
     #[test_case(Code::InvalidArgument)]
     #[test_case(Code::NotFound)]
