@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use super::super::generated::gapic_storage::client::BigQueryWrite;
-use super::super::pool::StreamPool;
+use super::super::pool::{StreamPool, StreamPoolOptions};
 use super::super::transport::Transport;
 use super::super::validate::{validate_stream, validate_table};
 use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter, Writer};
@@ -61,7 +61,11 @@ impl WriterBuilder {
         let mut write_stream = table;
         write_stream.push_str("/streams/_default");
         // TODO(#6765) - use client's pool if multiplexing is enabled
-        let pool = Arc::new(StreamPool::new(self.inner, 1));
+        let options = StreamPoolOptions {
+            max_streams: 1,
+            ..Default::default()
+        };
+        let pool = Arc::new(StreamPool::new(self.inner, options));
         Ok(DefaultWriter::new(pool, write_stream, self.schema))
     }
 
