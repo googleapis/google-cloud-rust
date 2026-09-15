@@ -185,12 +185,15 @@ impl RetryContext {
                     Some(get) => {
                         // The original error names the running job, and unlike a
                         // `jobs.get` failure it never makes the job retry loop
-                        // reissue the query.
+                        // reissue the query, so we discard the err if the job
+                        // request fails with `.ok`.
                         Box::pin(get.send()).await.ok()
                     }
                     None => None,
                 };
                 let Some(existing_job) = existing_job else {
+                    // We were unable to successfully send a `jobs.get` RPC.
+                    // Return the original error message.
                     return Err(err);
                 };
                 check_job_status(existing_job)?
