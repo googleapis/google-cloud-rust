@@ -39,7 +39,7 @@ pub struct Args {
 
     /// The size of the object to upload in bytes.
     #[arg(long, default_value_t = 67_108_864)] // 64 MiB default
-    pub object_size: usize,
+    pub object_size: u64,
 
     /// Upload scenario / strategy to benchmark.
     #[arg(long, value_enum, default_value_t = UploadScenario::All)]

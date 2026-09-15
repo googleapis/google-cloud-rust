@@ -34,7 +34,7 @@ pub async fn scenario_option_a(
     bucket_name: &str,
     object_name: &str,
     file_path: &Path,
-    object_size: usize,
+    object_size: u64,
 ) -> anyhow::Result<IterationResult> {
     let file = File::open(file_path).await?;
     let start_time = Instant::now();
@@ -46,7 +46,7 @@ pub async fn scenario_option_a(
 
     let total_elapsed = start_time.elapsed();
 
-    if object.size as usize != object_size {
+    if object.size as u64 != object_size {
         anyhow::bail!(
             "persisted size mismatch: expected {}, got {}",
             object_size,
@@ -68,7 +68,7 @@ pub async fn scenario_option_b(
     bucket_name: &str,
     object_name: &str,
     file_path: &Path,
-    object_size: usize,
+    object_size: u64,
 ) -> anyhow::Result<IterationResult> {
     let file = File::open(file_path).await?;
     let total_start = Instant::now();
@@ -83,7 +83,7 @@ pub async fn scenario_option_b(
     let object = write_builder.send_unbuffered().await?;
     let total_elapsed = total_start.elapsed();
 
-    if object.size as usize != object_size {
+    if object.size as u64 != object_size {
         anyhow::bail!(
             "persisted size mismatch: expected {}, got {}",
             object_size,
@@ -105,7 +105,7 @@ pub async fn scenario_option_c(
     bucket_name: &str,
     object_name: &str,
     file_path: &Path,
-    object_size: usize,
+    object_size: u64,
 ) -> anyhow::Result<IterationResult> {
     let file = File::open(file_path).await?;
     let start_time = Instant::now();
@@ -117,7 +117,7 @@ pub async fn scenario_option_c(
 
     let total_elapsed = start_time.elapsed();
 
-    if object.size as usize != object_size {
+    if object.size as u64 != object_size {
         anyhow::bail!(
             "persisted size mismatch: expected {}, got {}",
             object_size,

@@ -76,7 +76,7 @@ pub async fn perform_global_warmup(
 /// The file is created in `temp_dir` on physical SSD storage.
 /// Returns the path to the temporary file and the NamedTempFile handle.
 pub async fn create_temp_test_file(
-    size_bytes: usize,
+    size_bytes: u64,
     temp_dir: &str,
 ) -> anyhow::Result<(NamedTempFile, PathBuf)> {
     // Ensure parent directory exists
@@ -88,15 +88,15 @@ pub async fn create_temp_test_file(
     // Use a 1 MiB chunk of pseudo-random data written repeatedly to disk
     let chunk_size = 1024 * 1024; // 1 MiB
     let mut rng = StdRng::seed_from_u64(42);
-    let mut pattern = vec![0u8; chunk_size.min(size_bytes)];
+    let mut pattern = vec![0u8; (chunk_size as u64).min(size_bytes) as usize];
     rng.fill(&mut pattern[..]);
 
     let mut async_file = tokio::fs::File::create(&path).await?;
     let mut remaining = size_bytes;
     while remaining > 0 {
-        let to_write = remaining.min(pattern.len());
+        let to_write = (remaining.min(pattern.len() as u64)) as usize;
         async_file.write_all(&pattern[..to_write]).await?;
-        remaining -= to_write;
+        remaining -= to_write as u64;
     }
     async_file.flush().await?;
 

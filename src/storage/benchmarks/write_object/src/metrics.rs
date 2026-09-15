@@ -30,7 +30,7 @@ pub struct Metrics {
 }
 
 /// Computes statistical metrics (mean, p50, p90, p99, throughput) from latencies.
-pub fn compute_metrics(latencies: &[Duration], object_size_bytes: usize) -> Option<Metrics> {
+pub fn compute_metrics(latencies: &[Duration], object_size_bytes: u64) -> Option<Metrics> {
     if latencies.is_empty() {
         return None;
     }

@@ -25,7 +25,7 @@ pub struct BenchmarkReport<'a> {
     /// Scenario name (e.g. Option A, Option B, Option C).
     pub scenario: &'a str,
     /// Object size in bytes.
-    pub object_size: usize,
+    pub object_size: u64,
     /// Number of measured iterations.
     pub measured_iterations: usize,
     /// Whether cold-cache eviction was enabled before each iteration.
