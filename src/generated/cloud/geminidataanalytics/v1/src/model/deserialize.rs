@@ -8329,6 +8329,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQueryTableReferences {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __table_references,
+            __property_graph_references,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -8351,6 +8352,12 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQueryTableReferences {
                         match value {
                             "tableReferences" => Ok(__FieldTag::__table_references),
                             "table_references" => Ok(__FieldTag::__table_references),
+                            "propertyGraphReferences" => {
+                                Ok(__FieldTag::__property_graph_references)
+                            }
+                            "property_graph_references" => {
+                                Ok(__FieldTag::__property_graph_references)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -8385,6 +8392,18 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQueryTableReferences {
                             result.table_references = map
                                 .next_value::<std::option::Option<
                                     std::vec::Vec<crate::model::BigQueryTableReference>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__property_graph_references => {
+                            if !fields.insert(__FieldTag::__property_graph_references) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for property_graph_references",
+                                ));
+                            }
+                            result.property_graph_references = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::BigQueryPropertyGraphReference>,
                                 >>()?
                                 .unwrap_or_default();
                         }

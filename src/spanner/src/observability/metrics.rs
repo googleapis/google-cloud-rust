@@ -13,42 +13,61 @@
 // limitations under the License.
 
 use crate::omni::InstanceType;
+#[cfg(feature = "builtin-metrics")]
+use crate::omni::is_plaintext_endpoint;
+use gaxi::attempt_interceptor::AttemptInterceptor;
 use gaxi::options::ClientConfig;
 use google_cloud_gax::error::Error;
 use http::HeaderMap;
+#[cfg(feature = "metrics")]
+use std::fmt;
 use std::fmt::Debug;
 use std::future::Future;
+#[cfg(feature = "metrics")]
+use std::ops::Deref;
 use std::sync::Arc;
 use std::time::Duration;
 
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "metrics")]
+pub(crate) const INSTRUMENTATION_SCOPE: &str = "cloud.google.com/rust";
+
+#[cfg(any(test, feature = "builtin-metrics"))]
+pub(crate) const NATIVE_METRICS_PREFIX: &str = "spanner.googleapis.com/internal/client/";
+
+#[cfg(feature = "metrics")]
+pub(crate) const CLIENT_METRICS_PREFIX: &str = "spanner/client/";
+
+#[cfg(feature = "metrics")]
 use {
-    crate::observability::exporter::GcpMonitoringExporter,
-    gaxi::attempt_interceptor::AttemptInterceptor,
-    gaxi::http::reqwest::{Client, Url},
     google_cloud_gax::options::RequestOptions,
-    google_cloud_monitoring_v3::client::MetricService,
     http::header::{HeaderName, HeaderValue},
     opentelemetry::KeyValue,
     opentelemetry::metrics::{Counter, Histogram, Meter, MeterProvider},
-    opentelemetry_sdk::{
-        Resource,
-        error::OTelSdkError,
-        metrics::{PeriodicReader, SdkMeterProvider},
-    },
     std::borrow::Cow,
     std::env,
     std::process,
     std::sync::LazyLock,
     std::time::Instant,
-    tokio::sync::OnceCell,
     uuid::Uuid,
 };
 
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "builtin-metrics")]
+use {
+    crate::observability::exporter::GcpMonitoringExporter,
+    gaxi::http::reqwest::{Client, Url},
+    google_cloud_monitoring_v3::client::MetricService,
+    opentelemetry_sdk::{
+        Resource,
+        error::OTelSdkError,
+        metrics::{PeriodicReader, SdkMeterProvider},
+    },
+    tokio::sync::OnceCell,
+};
+
+#[cfg(feature = "builtin-metrics")]
 pub(crate) const DEFAULT_EXPORT_INTERVAL: Duration = Duration::from_secs(60);
 
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "metrics")]
 pub(crate) const BUCKET_BOUNDARIES: [f64; 50] = [
     0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0,
     16.0, 17.0, 18.0, 19.0, 20.0, 25.0, 30.0, 40.0, 50.0, 65.0, 80.0, 100.0, 130.0, 160.0, 200.0,
@@ -56,76 +75,104 @@ pub(crate) const BUCKET_BOUNDARIES: [f64; 50] = [
     100000.0, 200000.0, 400000.0, 800000.0, 1600000.0, 3200000.0,
 ];
 
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "builtin-metrics")]
 const DEFAULT_CLIENT_LOCATION: &str = "global";
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "builtin-metrics")]
 const DEFAULT_GCP_CHECK_TIMEOUT_MS: u64 = 5000;
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "builtin-metrics")]
 const DEFAULT_GCP_CHECK_CONNECT_TIMEOUT_MS: u64 = 250;
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "builtin-metrics")]
 const GCE_METADATA_HOST_ENV_VAR: &str = "GCE_METADATA_HOST";
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "builtin-metrics")]
 const DEFAULT_METADATA_ROOT: &str = "http://metadata.google.internal";
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "builtin-metrics")]
 const INSTANCE_ZONE_METADATA_PATH: &str = "/computeMetadata/v1/instance/zone";
 
-#[cfg(feature = "_experimental-builtin-metrics")]
-#[derive(Debug)]
+#[cfg(feature = "metrics")]
+#[derive(Clone, Debug)]
 pub(crate) struct SpannerMetrics {
-    pub(crate) operation_latencies: Histogram<f64>,
-    pub(crate) attempt_latencies: Histogram<f64>,
-    pub(crate) gfe_latencies: Histogram<f64>,
-    pub(crate) afe_latencies: Histogram<f64>,
-    pub(crate) operation_count: Counter<u64>,
-    pub(crate) attempt_count: Counter<u64>,
-    pub(crate) gfe_connectivity_error_count: Counter<u64>,
+    operation_latencies: Histogram<f64>,
+    attempt_latencies: Histogram<f64>,
+    gfe_latencies: Histogram<f64>,
+    afe_latencies: Histogram<f64>,
+    operation_count: Counter<u64>,
+    attempt_count: Counter<u64>,
+    gfe_connectivity_error_count: Counter<u64>,
     #[allow(dead_code)]
-    pub(crate) afe_connectivity_error_count: Counter<u64>,
+    afe_connectivity_error_count: Counter<u64>,
 }
 
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "metrics")]
 impl SpannerMetrics {
-    pub(crate) fn new(meter: Meter) -> Self {
+    #[cfg(any(test, feature = "builtin-metrics"))]
+    pub(crate) fn new(meter: &Meter) -> Self {
+        Self::new_with_prefix(meter, NATIVE_METRICS_PREFIX)
+    }
+
+    pub(crate) fn new_with_prefix(meter: &Meter, prefix: &str) -> Self {
         Self {
             operation_latencies: meter
-                .f64_histogram("spanner.googleapis.com/internal/client/operation_latencies")
+                .f64_histogram(format!("{prefix}operation_latencies"))
                 .with_unit("ms")
                 .with_boundaries(BUCKET_BOUNDARIES.to_vec())
                 .build(),
             attempt_latencies: meter
-                .f64_histogram("spanner.googleapis.com/internal/client/attempt_latencies")
+                .f64_histogram(format!("{prefix}attempt_latencies"))
                 .with_unit("ms")
                 .with_boundaries(BUCKET_BOUNDARIES.to_vec())
                 .build(),
             gfe_latencies: meter
-                .f64_histogram("spanner.googleapis.com/internal/client/gfe_latencies")
+                .f64_histogram(format!("{prefix}gfe_latencies"))
                 .with_unit("ms")
                 .with_boundaries(BUCKET_BOUNDARIES.to_vec())
                 .build(),
             afe_latencies: meter
-                .f64_histogram("spanner.googleapis.com/internal/client/afe_latencies")
+                .f64_histogram(format!("{prefix}afe_latencies"))
                 .with_unit("ms")
                 .with_boundaries(BUCKET_BOUNDARIES.to_vec())
                 .build(),
             operation_count: meter
-                .u64_counter("spanner.googleapis.com/internal/client/operation_count")
+                .u64_counter(format!("{prefix}operation_count"))
                 .build(),
-            attempt_count: meter
-                .u64_counter("spanner.googleapis.com/internal/client/attempt_count")
-                .build(),
+            attempt_count: meter.u64_counter(format!("{prefix}attempt_count")).build(),
             gfe_connectivity_error_count: meter
-                .u64_counter("spanner.googleapis.com/internal/client/gfe_connectivity_error_count")
+                .u64_counter(format!("{prefix}gfe_connectivity_error_count"))
                 .build(),
             afe_connectivity_error_count: meter
-                .u64_counter("spanner.googleapis.com/internal/client/afe_connectivity_error_count")
+                .u64_counter(format!("{prefix}afe_connectivity_error_count"))
                 .build(),
+        }
+    }
+
+    pub(crate) fn record_operation(&self, duration_ms: f64, attributes: &[KeyValue]) {
+        self.operation_latencies.record(duration_ms, attributes);
+        self.operation_count.add(1, attributes);
+    }
+
+    pub(crate) fn record_attempt(
+        &self,
+        duration_ms: f64,
+        attributes: &[KeyValue],
+        timings: &ServerTimings,
+    ) {
+        self.attempt_latencies.record(duration_ms, attributes);
+        self.attempt_count.add(1, attributes);
+
+        // DirectPath is not used; record GFE latency or connectivity error counter
+        if let Some(gfe) = timings.gfe_latency {
+            self.gfe_latencies.record(gfe, attributes);
+        } else {
+            self.gfe_connectivity_error_count.add(1, attributes);
+        }
+        if let Some(afe) = timings.afe_latency {
+            self.afe_latencies.record(afe, attributes);
         }
     }
 }
 
 /// Parses `projects/{project}/instances/{instance}/databases/{database}` into its
 /// `(project_id, instance_id, database_id)` components.
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "metrics")]
 pub(crate) fn parse_database_name(database_name: &str) -> Option<(&str, &str, &str)> {
     let mut parts = database_name.split('/');
     if parts.next() != Some("projects") {
@@ -148,7 +195,7 @@ pub(crate) fn parse_database_name(database_name: &str) -> Option<(&str, &str, &s
 
 /// Generates a unique identifier for the `client_uid` metric attribute in the format
 /// `UUID@PID@hostname`.
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "metrics")]
 pub(crate) fn generate_client_uid() -> String {
     let uuid = Uuid::new_v4().to_string();
     let pid = process::id();
@@ -163,7 +210,7 @@ pub(crate) fn generate_client_uid() -> String {
 ///
 /// The 10-bit prefix (values in range `[000000, 0003ff]`) intentionally groups client processes
 /// into buckets to keep Cloud Monitoring monitored resource target cardinality within quota limits.
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "builtin-metrics")]
 pub(crate) fn generate_client_hash(client_uid: &str) -> String {
     if client_uid.is_empty() {
         return "000000".to_string();
@@ -183,7 +230,7 @@ pub(crate) fn generate_client_hash(client_uid: &str) -> String {
 /// - `"projects/12345/regions/us-central1"` -> `Some("us-central1")`
 /// - `"us-central1-a"` -> `Some("us-central1")`
 /// - `"us-central1"` -> `Some("us-central1")`
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "builtin-metrics")]
 pub(crate) fn parse_region_from_zone_or_region(zone_or_region: &str) -> Option<&str> {
     let trimmed = zone_or_region.trim().trim_end_matches('/');
     if trimmed.is_empty() {
@@ -199,14 +246,14 @@ pub(crate) fn parse_region_from_zone_or_region(zone_or_region: &str) -> Option<&
     Some(name)
 }
 
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "builtin-metrics")]
 static DETECTED_LOCATION: OnceCell<String> = OnceCell::const_new();
 
 /// Detects the client's GCP location (e.g. `"us-central1"`), falling back to `"global"`.
 ///
 /// The result is cached process-wide in an [`OnceCell`] so the MDS query runs
 /// at most once across the lifetime of the application.
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "builtin-metrics")]
 pub(crate) async fn detect_client_location(is_emulator: bool, is_plaintext: bool) -> String {
     if is_emulator || is_plaintext {
         return DEFAULT_CLIENT_LOCATION.to_string();
@@ -219,7 +266,7 @@ pub(crate) async fn detect_client_location(is_emulator: bool, is_plaintext: bool
 }
 
 /// Resolves the GCP location from environment variables or the Metadata Service.
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "builtin-metrics")]
 pub(crate) async fn resolve_client_location() -> String {
     if let Ok(loc) = env::var("SPANNER_CLIENT_LOCATION")
         && !loc.trim().is_empty()
@@ -237,7 +284,7 @@ pub(crate) async fn resolve_client_location() -> String {
         .unwrap_or_else(|| DEFAULT_CLIENT_LOCATION.to_string())
 }
 
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "builtin-metrics")]
 async fn fetch_location_from_mds() -> Option<String> {
     let timeout_ms = env::var("SPANNER_CHECK_IS_RUNNING_ON_GCP_TIMEOUT")
         .ok()
@@ -281,30 +328,41 @@ async fn fetch_location_from_mds() -> Option<String> {
 }
 
 /// Returns the library client identification string (`"spanner-rust/<VERSION>"`).
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "metrics")]
 pub(crate) fn client_name() -> &'static str {
     concat!("spanner-rust/", env!("CARGO_PKG_VERSION"))
 }
 
-#[cfg(feature = "_experimental-builtin-metrics")]
-#[derive(Clone, Debug)]
+#[cfg(feature = "metrics")]
+#[derive(Debug)]
 pub(crate) struct Observability {
-    pub(crate) metrics: Option<Arc<SpannerMetrics>>,
+    pub(crate) metrics: Vec<SpannerMetrics>,
     pub(crate) common_attributes: [KeyValue; 3],
+    #[cfg(feature = "builtin-metrics")]
     pub(crate) meter_provider: Option<Arc<SdkMeterProvider>>,
+    #[allow(dead_code)]
+    pub(crate) caller_meter_provider: Option<SharedMeterProvider>,
 }
 
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "metrics")]
 impl Observability {
     pub(crate) fn disabled() -> Self {
+        Self::disabled_with_caller_provider(None)
+    }
+
+    pub(crate) fn disabled_with_caller_provider(
+        caller_meter_provider: Option<SharedMeterProvider>,
+    ) -> Self {
         Self {
-            metrics: None,
+            metrics: Vec::new(),
             common_attributes: [
                 KeyValue::new("client_uid", ""),
                 KeyValue::new("client_name", ""),
                 KeyValue::new("database", ""),
             ],
+            #[cfg(feature = "builtin-metrics")]
             meter_provider: None,
+            caller_meter_provider,
         }
     }
 
@@ -313,35 +371,81 @@ impl Observability {
         Arc::new(Self::disabled())
     }
 
-    pub(crate) async fn init(
+    pub(crate) fn is_enabled(&self) -> bool {
+        !self.metrics.is_empty()
+    }
+
+    fn should_enable_metrics(
         config: &ClientConfig,
         instance_type: InstanceType,
-        database_name: &str,
         is_emulator: bool,
-    ) -> Self {
-        let disable_builtin_metrics = env::var("SPANNER_DISABLE_BUILTIN_METRICS")
-            .map(|s| s.eq_ignore_ascii_case("true") || s == "1")
-            .unwrap_or(false);
-        let is_plaintext = config
-            .endpoint
-            .as_ref()
-            .is_some_and(|ep| crate::omni::is_plaintext_endpoint(ep));
-        if disable_builtin_metrics
-            || instance_type == InstanceType::Omni
-            || is_emulator
-            || is_plaintext
-        {
-            return Self::disabled();
+        export_builtin_metrics_to_cloud_monitoring: Option<bool>,
+        export_builtin_metrics_to_custom_provider: Option<bool>,
+        has_custom_meter_provider: bool,
+    ) -> (bool, bool) {
+        #[cfg(feature = "builtin-metrics")]
+        let enable_cloud_monitoring = {
+            let is_plaintext = config
+                .endpoint
+                .as_deref()
+                .is_some_and(is_plaintext_endpoint);
+            let disable_builtin_metrics = env::var("SPANNER_DISABLE_BUILTIN_METRICS")
+                .map(|s| s.eq_ignore_ascii_case("true") || s == "1")
+                .unwrap_or(false);
+            let allowed =
+                export_builtin_metrics_to_cloud_monitoring.unwrap_or(!disable_builtin_metrics);
+
+            allowed && instance_type != InstanceType::Omni && !is_emulator && !is_plaintext
+        };
+
+        #[cfg(not(feature = "builtin-metrics"))]
+        let enable_cloud_monitoring = {
+            let _ = (config, export_builtin_metrics_to_cloud_monitoring);
+            false
+        };
+
+        // Resolve whether built-in request and latency metrics should be exported to the custom MeterProvider:
+        // - If explicitly configured, honor the caller's preference.
+        // - If unconfigured:
+        //   - For Cloud Spanner on GCP: default to false to protect users from unexpected third-party
+        //     ingestion costs (Datadog, Prometheus, etc.) or duplicate metrics ingestion, since built-in
+        //     metrics are absorbed free of charge by Google Cloud Monitoring.
+        //   - For Spanner Omni: default to true, as Cloud Monitoring is not active and the custom
+        //     MeterProvider is the customer's sole metrics sink.
+        let mut export_builtin_to_custom = match export_builtin_metrics_to_custom_provider {
+            Some(export) => export,
+            None => match instance_type {
+                InstanceType::Cloud => false,
+                InstanceType::Omni => true,
+            },
+        };
+
+        // Note: SPANNER_DISABLE_BUILTIN_METRICS only disables Google Cloud Monitoring export.
+        // It does not disable export to a customer's custom MeterProvider. Only the emulator
+        // disables all built-in metrics export.
+        if is_emulator {
+            export_builtin_to_custom = false;
         }
 
-        let (project_id, instance_id, database_id) = match parse_database_name(database_name) {
-            Some(parts) => parts,
-            None => return Self::disabled(),
-        };
+        let enable_builtin_to_custom = export_builtin_to_custom && has_custom_meter_provider;
+        (enable_cloud_monitoring, enable_builtin_to_custom)
+    }
+
+    #[cfg(feature = "builtin-metrics")]
+    async fn init_cloud_monitoring(
+        config: &ClientConfig,
+        project_id: &str,
+        instance_id: &str,
+        client_uid: &str,
+        is_emulator: bool,
+    ) -> Option<(SdkMeterProvider, SpannerMetrics)> {
+        let is_plaintext = config
+            .endpoint
+            .as_deref()
+            .is_some_and(is_plaintext_endpoint);
 
         // Create the Google Cloud Monitoring client using the same config
         let mut builder = MetricService::builder();
-
         if let Some(ref cred) = config.cred {
             builder = builder.with_credentials(cred.clone());
         }
@@ -350,21 +454,18 @@ impl Observability {
         }
 
         let monitoring_client = match builder.build().await {
-            Ok(monitoring_client) => monitoring_client,
+            Ok(client) => client,
             Err(error) => {
                 tracing::warn!(
                     "Failed to initialize Google Cloud Monitoring client for Spanner metrics: {:?}",
                     error
                 );
-                return Self::disabled();
+                return None;
             }
         };
 
         let exporter = GcpMonitoringExporter::new(monitoring_client, project_id);
-
-        let client_uid = generate_client_uid();
-        let client_hash = generate_client_hash(&client_uid);
-        let client_name = client_name();
+        let client_hash = generate_client_hash(client_uid);
         let location = detect_client_location(is_emulator, is_plaintext).await;
 
         let resource = Resource::builder()
@@ -387,8 +488,71 @@ impl Observability {
             .with_resource(resource)
             .build();
 
-        let meter = meter_provider.meter("cloud.google.com/rust");
-        let metrics = SpannerMetrics::new(meter);
+        let meter = meter_provider.meter(INSTRUMENTATION_SCOPE);
+        let gcm_metrics = SpannerMetrics::new(&meter);
+        Some((meter_provider, gcm_metrics))
+    }
+
+    pub(crate) async fn init(
+        config: &ClientConfig,
+        instance_type: InstanceType,
+        database_name: &str,
+        is_emulator: bool,
+        export_builtin_metrics_to_cloud_monitoring: Option<bool>,
+        export_builtin_metrics_to_custom_provider: Option<bool>,
+        custom_meter_provider: Option<SharedMeterProvider>,
+    ) -> Self {
+        let (enable_cloud_monitoring, enable_builtin_to_custom) = Self::should_enable_metrics(
+            config,
+            instance_type,
+            is_emulator,
+            export_builtin_metrics_to_cloud_monitoring,
+            export_builtin_metrics_to_custom_provider,
+            custom_meter_provider.is_some(),
+        );
+
+        if !enable_cloud_monitoring && !enable_builtin_to_custom {
+            return Self::disabled_with_caller_provider(custom_meter_provider);
+        }
+
+        let (project_id, instance_id, database_id) = match parse_database_name(database_name) {
+            Some(parts) => parts,
+            None => return Self::disabled_with_caller_provider(custom_meter_provider),
+        };
+        #[cfg(not(feature = "builtin-metrics"))]
+        let _ = (project_id, instance_id);
+
+        let client_uid = generate_client_uid();
+        let client_name = client_name();
+
+        let mut metrics = Vec::new();
+        if let (true, Some(provider)) = (enable_builtin_to_custom, &custom_meter_provider) {
+            let meter = provider.meter(INSTRUMENTATION_SCOPE);
+            metrics.push(SpannerMetrics::new_with_prefix(
+                &meter,
+                CLIENT_METRICS_PREFIX,
+            ));
+        }
+
+        #[cfg(feature = "builtin-metrics")]
+        let meter_provider = if enable_cloud_monitoring {
+            if let Some((provider, gcm_metrics)) = Self::init_cloud_monitoring(
+                config,
+                project_id,
+                instance_id,
+                &client_uid,
+                is_emulator,
+            )
+            .await
+            {
+                metrics.push(gcm_metrics);
+                Some(Arc::new(provider))
+            } else {
+                None
+            }
+        } else {
+            None
+        };
 
         let common_attributes = [
             KeyValue::new("client_uid", client_uid),
@@ -397,22 +561,11 @@ impl Observability {
         ];
 
         Self {
-            metrics: Some(Arc::new(metrics)),
+            metrics,
             common_attributes,
-            meter_provider: Some(Arc::new(meter_provider)),
-        }
-    }
-
-    #[cfg(test)]
-    pub(crate) fn for_test(metrics: SpannerMetrics, meter_provider: SdkMeterProvider) -> Self {
-        Self {
-            metrics: Some(Arc::new(metrics)),
-            common_attributes: [
-                KeyValue::new("client_uid", "test-uid"),
-                KeyValue::new("client_name", "test-name"),
-                KeyValue::new("database", "test-db"),
-            ],
-            meter_provider: Some(Arc::new(meter_provider)),
+            #[cfg(feature = "builtin-metrics")]
+            meter_provider,
+            caller_meter_provider: custom_meter_provider,
         }
     }
 
@@ -425,7 +578,7 @@ impl Observability {
     where
         Fut: Future<Output = crate::Result<T>>,
     {
-        if self.metrics.is_none() {
+        if !self.is_enabled() {
             return fut.await;
         }
         let start_time = Instant::now();
@@ -441,9 +594,9 @@ impl Observability {
         duration: Duration,
         error: Option<&Error>,
     ) {
-        let Some(ref metrics) = self.metrics else {
+        if self.metrics.is_empty() {
             return;
-        };
+        }
 
         let status = error_to_status_str(error);
         let method_name = normalize_method_name(method);
@@ -456,10 +609,10 @@ impl Observability {
             self.common_attributes[2].clone(),
         ];
 
-        metrics
-            .operation_latencies
-            .record(duration.as_secs_f64() * 1000.0, &attributes);
-        metrics.operation_count.add(1, &attributes);
+        let duration_ms = duration.as_secs_f64() * 1000.0;
+        for metrics in &self.metrics {
+            metrics.record_operation(duration_ms, &attributes);
+        }
     }
 
     /// Records metrics for a single RPC attempt, including attempt latency, attempt count,
@@ -471,9 +624,9 @@ impl Observability {
         error: Option<&Error>,
         headers: Option<&HeaderMap>,
     ) {
-        let Some(ref metrics) = self.metrics else {
+        if self.metrics.is_empty() {
             return;
-        };
+        }
 
         let timings = headers.map_or_else(ServerTimings::default, parse_server_timing_from_headers);
         let status = error_to_status_str(error);
@@ -488,23 +641,14 @@ impl Observability {
             self.common_attributes[2].clone(),
         ];
 
-        metrics
-            .attempt_latencies
-            .record(duration.as_secs_f64() * 1000.0, &attributes);
-        metrics.attempt_count.add(1, &attributes);
-
-        // DirectPath is not used; record GFE latency or connectivity error counter
-        if let Some(gfe) = timings.gfe_latency {
-            metrics.gfe_latencies.record(gfe, &attributes);
-        } else {
-            metrics.gfe_connectivity_error_count.add(1, &attributes);
-        }
-        if let Some(afe) = timings.afe_latency {
-            metrics.afe_latencies.record(afe, &attributes);
+        let duration_ms = duration.as_secs_f64() * 1000.0;
+        for metrics in &self.metrics {
+            metrics.record_attempt(duration_ms, &attributes, &timings);
         }
     }
 
     pub(crate) fn shutdown(&self) {
+        #[cfg(feature = "builtin-metrics")]
         if let Some(ref provider) = self.meter_provider
             && let Err(err) = provider.shutdown()
             && !matches!(err, OTelSdkError::AlreadyShutdown)
@@ -517,30 +661,76 @@ impl Observability {
     }
 }
 
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "metrics")]
 impl Drop for Observability {
     fn drop(&mut self) {
         self.shutdown();
     }
 }
 
-#[cfg(feature = "_experimental-builtin-metrics")]
+/// A thread-safe, debuggable wrapper around a caller-supplied OpenTelemetry [`MeterProvider`].
+///
+/// The trait object `dyn MeterProvider + Send + Sync` does not implement [`std::fmt::Debug`].
+/// Consequently, structs that store a custom meter provider (such as [`Spanner`](crate::client::Spanner)
+/// and [`Observability`]) cannot derive or cleanly implement `Debug` without wrapping it.
+///
+/// `SharedMeterProvider` encapsulates `Arc<dyn MeterProvider + Send + Sync>` and:
+/// - Provides a safe non-exhaustive [`Debug`](fmt::Debug) representation (`MeterProvider { .. }`).
+/// - Implements [`Deref<Target = dyn MeterProvider + Send + Sync>`](std::ops::Deref) so callers
+///   can invoke meter methods directly without manual unwrapping.
+/// - Implements [`Clone`] and [`From<Arc<dyn MeterProvider + Send + Sync>>`].
+#[cfg(feature = "metrics")]
+pub(crate) struct SharedMeterProvider(pub(crate) Arc<dyn MeterProvider + Send + Sync>);
+
+#[cfg(feature = "metrics")]
+impl Clone for SharedMeterProvider {
+    fn clone(&self) -> Self {
+        Self(Arc::clone(&self.0))
+    }
+}
+
+#[cfg(feature = "metrics")]
+impl fmt::Debug for SharedMeterProvider {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        formatter
+            .debug_struct("MeterProvider")
+            .finish_non_exhaustive()
+    }
+}
+
+#[cfg(feature = "metrics")]
+impl From<Arc<dyn MeterProvider + Send + Sync>> for SharedMeterProvider {
+    fn from(provider: Arc<dyn MeterProvider + Send + Sync>) -> Self {
+        Self(provider)
+    }
+}
+
+#[cfg(feature = "metrics")]
+impl Deref for SharedMeterProvider {
+    type Target = dyn MeterProvider;
+
+    fn deref(&self) -> &Self::Target {
+        &*self.0
+    }
+}
+
+#[cfg(feature = "metrics")]
 pub(crate) const AFE_SERVER_TIMING_HEADER: &str = "x-goog-spanner-enable-afe-server-timing";
 
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "metrics")]
 static AFE_SERVER_TIMING_ENABLED: LazyLock<bool> = LazyLock::new(|| {
     !env::var("SPANNER_DISABLE_AFE_SERVER_TIMING")
         .map(|val| val.eq_ignore_ascii_case("true") || val == "1")
         .unwrap_or(false)
 });
 
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "metrics")]
 #[inline]
 fn is_afe_server_timing_enabled() -> bool {
     *AFE_SERVER_TIMING_ENABLED
 }
 
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "metrics")]
 pub(crate) fn normalize_method_name(method: &str) -> Cow<'static, str> {
     let trimmed = method.trim_start_matches('/');
     let clean = if let Some(suffix) = trimmed.strip_prefix("google.spanner.v1.") {
@@ -581,14 +771,14 @@ pub(crate) fn normalize_method_name(method: &str) -> Cow<'static, str> {
     }
 }
 
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "metrics")]
 fn error_to_status_str(error: Option<&Error>) -> &'static str {
     error.map_or("OK", |e| {
         e.status().map_or("UNKNOWN", |status| status.code.name())
     })
 }
 
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "metrics")]
 pub(crate) fn parse_server_timing_from_headers(headers: &HeaderMap) -> ServerTimings {
     let mut timings = ServerTimings::default();
     for header_value in headers.get_all("server-timing") {
@@ -603,10 +793,10 @@ pub(crate) fn parse_server_timing_from_headers(headers: &HeaderMap) -> ServerTim
 }
 
 #[derive(Debug, Default, Clone)]
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "metrics")]
 pub(crate) struct SpannerMetricsInterceptor;
 
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "metrics")]
 impl AttemptInterceptor for SpannerMetricsInterceptor {
     fn intercept(&self, headers: &mut HeaderMap, _attempt: u32) {
         if is_afe_server_timing_enabled() {
@@ -634,14 +824,14 @@ impl AttemptInterceptor for SpannerMetricsInterceptor {
     }
 }
 
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "metrics")]
 #[derive(Debug, Default, PartialEq)]
 pub(crate) struct ServerTimings {
     pub(crate) gfe_latency: Option<f64>,
     pub(crate) afe_latency: Option<f64>,
 }
 
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "metrics")]
 pub(crate) fn parse_server_timing(header_val: &str) -> ServerTimings {
     let mut timings = ServerTimings::default();
     for part in header_val.split(',') {
@@ -666,7 +856,7 @@ pub(crate) fn parse_server_timing(header_val: &str) -> ServerTimings {
     timings
 }
 
-#[cfg(feature = "_experimental-builtin-metrics")]
+#[cfg(feature = "metrics")]
 fn parse_duration_param(param: &str) -> Option<f64> {
     let (key, value) = param.split_once('=')?;
     if !key.trim().eq_ignore_ascii_case("dur") {
@@ -680,11 +870,11 @@ fn parse_duration_param(param: &str) -> Option<f64> {
         .filter(|duration| *duration >= 0.0 && duration.is_finite())
 }
 
-#[cfg(not(feature = "_experimental-builtin-metrics"))]
-#[derive(Clone, Debug, Default)]
+#[cfg(not(feature = "metrics"))]
+#[derive(Debug, Default)]
 pub(crate) struct Observability;
 
-#[cfg(not(feature = "_experimental-builtin-metrics"))]
+#[cfg(not(feature = "metrics"))]
 impl Observability {
     pub(crate) fn disabled() -> Self {
         Self
@@ -716,10 +906,10 @@ impl Observability {
         fut.await
     }
 
-    /// No-op stub implementation when the `_experimental-builtin-metrics` feature is disabled.
+    /// No-op stub implementation when the `metrics` feature is disabled.
     ///
     /// This allows interceptors to call `record_attempt` unconditionally without sprinkling
-    /// `#[cfg(feature = "_experimental-builtin-metrics")]` across call sites.
+    /// `#[cfg(feature = "metrics")]` across call sites.
     #[inline(always)]
     pub(crate) fn record_attempt(
         &self,
@@ -730,10 +920,10 @@ impl Observability {
     ) {
     }
 
-    /// No-op stub implementation when the `_experimental-builtin-metrics` feature is disabled.
+    /// No-op stub implementation when the `metrics` feature is disabled.
     ///
     /// This allows client operations to call `record_operation` unconditionally without sprinkling
-    /// `#[cfg(feature = "_experimental-builtin-metrics")]` across call sites.
+    /// `#[cfg(feature = "metrics")]` across call sites.
     #[inline(always)]
     pub(crate) fn record_operation(
         &self,
@@ -744,18 +934,19 @@ impl Observability {
     }
 
     #[allow(dead_code)]
+    #[inline(always)]
     pub(crate) fn shutdown(&self) {}
 }
 
-#[cfg(not(feature = "_experimental-builtin-metrics"))]
+#[cfg(not(feature = "metrics"))]
 #[allow(dead_code)]
 #[derive(Debug, Default, Clone)]
 pub(crate) struct SpannerMetricsInterceptor;
 
-#[cfg(not(feature = "_experimental-builtin-metrics"))]
-impl gaxi::attempt_interceptor::AttemptInterceptor for SpannerMetricsInterceptor {}
+#[cfg(not(feature = "metrics"))]
+impl AttemptInterceptor for SpannerMetricsInterceptor {}
 
-#[cfg(all(test, not(feature = "_experimental-builtin-metrics")))]
+#[cfg(all(test, not(feature = "metrics")))]
 mod disabled_tests {
     use super::*;
 
@@ -781,23 +972,39 @@ mod disabled_tests {
     }
 }
 
-#[cfg(all(test, feature = "_experimental-builtin-metrics"))]
+#[cfg(all(test, feature = "metrics"))]
 mod tests {
     use super::*;
     use google_cloud_gax::error::rpc::{Code, Status};
     use http::HeaderValue;
-    use opentelemetry_sdk::metrics::InMemoryMetricExporter;
-    use opentelemetry_sdk::metrics::PeriodicReader;
     use opentelemetry_sdk::metrics::data::{AggregatedMetrics, MetricData, ResourceMetrics};
+    use opentelemetry_sdk::metrics::{InMemoryMetricExporter, PeriodicReader, SdkMeterProvider};
     use scoped_env::ScopedEnv;
     use serial_test::serial;
     use std::collections::HashMap;
     use std::fmt::Debug;
+    #[cfg(feature = "builtin-metrics")]
     use tokio::net::TcpListener;
+
+    impl Observability {
+        pub(crate) fn for_test(metrics: SpannerMetrics) -> Self {
+            Self {
+                metrics: vec![metrics],
+                common_attributes: [
+                    KeyValue::new("client_uid", "test-uid"),
+                    KeyValue::new("client_name", "test-name"),
+                    KeyValue::new("database", "test-db"),
+                ],
+                #[cfg(feature = "builtin-metrics")]
+                meter_provider: None,
+                caller_meter_provider: None,
+            }
+        }
+    }
 
     #[test]
     fn traits() {
-        static_assertions::assert_impl_all!(Observability: Send, Sync, Debug, Clone);
+        static_assertions::assert_impl_all!(Observability: Send, Sync, Debug);
         static_assertions::assert_impl_all!(SpannerMetrics: Send, Sync, Debug);
         static_assertions::assert_impl_all!(ServerTimings: Send, Sync, Debug, PartialEq, Default);
         static_assertions::assert_impl_all!(SpannerMetricsInterceptor: Send, Sync, Debug, Clone, Default);
@@ -887,9 +1094,10 @@ mod tests {
     #[test]
     fn observability_disabled() {
         let o11y = Observability::disabled();
-        assert!(o11y.metrics.is_none());
+        assert!(!o11y.is_enabled());
+        assert!(o11y.metrics.is_empty());
         let o11y_arc = Observability::disabled_arc();
-        assert!(o11y_arc.metrics.is_none());
+        assert!(!o11y_arc.is_enabled());
 
         o11y.record_operation("ExecuteSql", Duration::from_millis(10), None);
         o11y.record_attempt("ExecuteSql", Duration::from_millis(10), None, None);
@@ -930,16 +1138,18 @@ mod tests {
         let exporter = InMemoryMetricExporter::default();
         let reader = PeriodicReader::builder(exporter.clone()).build();
         let provider = SdkMeterProvider::builder().with_reader(reader).build();
-        let meter = provider.meter("cloud.google.com/rust");
-        let metrics = SpannerMetrics::new(meter);
+        let meter = provider.meter(INSTRUMENTATION_SCOPE);
+        let metrics = SpannerMetrics::new(&meter);
         let o11y = Observability {
-            metrics: Some(Arc::new(metrics)),
+            metrics: vec![metrics],
             common_attributes: [
                 KeyValue::new("client_uid", ""),
                 KeyValue::new("client_name", ""),
                 KeyValue::new("database", ""),
             ],
+            #[cfg(feature = "builtin-metrics")]
             meter_provider: Some(Arc::new(provider.clone())),
+            caller_meter_provider: None,
         };
 
         o11y.record_operation("ExecuteSql", Duration::from_millis(50), None);
@@ -960,7 +1170,68 @@ mod tests {
         let finished = exporter
             .get_finished_metrics()
             .expect("get_finished_metrics");
-        assert!(!finished.is_empty());
+        assert!(
+            !finished.is_empty(),
+            "expected recorded metrics to be exported"
+        );
+    }
+
+    #[test]
+    fn observability_custom_metrics_records_to_custom_sink() {
+        let exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(exporter.clone()).build();
+        let provider = SdkMeterProvider::builder().with_reader(reader).build();
+        let meter = provider.meter(INSTRUMENTATION_SCOPE);
+        let metrics = SpannerMetrics::new_with_prefix(&meter, CLIENT_METRICS_PREFIX);
+        let o11y = Observability {
+            metrics: vec![metrics],
+            common_attributes: [
+                KeyValue::new("client_uid", "test-uid"),
+                KeyValue::new("client_name", "test-name"),
+                KeyValue::new("database", "test-db"),
+            ],
+            #[cfg(feature = "builtin-metrics")]
+            meter_provider: None,
+            caller_meter_provider: None,
+        };
+
+        assert!(
+            o11y.is_enabled(),
+            "observability should be enabled with custom sink"
+        );
+        assert_eq!(o11y.metrics.len(), 1, "expected 1 metrics sink");
+
+        o11y.record_operation("ExecuteSql", Duration::from_millis(50), None);
+        let mut headers = HeaderMap::new();
+        headers.insert(
+            "server-timing",
+            HeaderValue::from_static("gfet4t7;dur=12.5,afe;dur=5.0"),
+        );
+        o11y.record_attempt(
+            "ExecuteSql",
+            Duration::from_millis(40),
+            None,
+            Some(&headers),
+        );
+
+        provider.force_flush().expect("force_flush failed");
+        let finished = exporter
+            .get_finished_metrics()
+            .expect("get_finished_metrics failed");
+        let metric_names: Vec<_> = finished
+            .iter()
+            .flat_map(|resource_metrics| resource_metrics.scope_metrics())
+            .flat_map(|scope_metrics| scope_metrics.metrics())
+            .map(|metric| metric.name())
+            .collect();
+        assert!(
+            metric_names.contains(&"spanner/client/operation_latencies"),
+            "expected custom operation_latencies metric"
+        );
+        assert!(
+            metric_names.contains(&"spanner/client/attempt_latencies"),
+            "expected custom attempt_latencies metric"
+        );
     }
 
     #[tokio::test]
@@ -1004,6 +1275,7 @@ mod tests {
         assert_eq!(parse_database_name("invalid/string"), None);
     }
 
+    #[cfg(feature = "builtin-metrics")]
     #[test]
     fn generate_client_hash_known_values() {
         assert_eq!(generate_client_hash(""), "000000");
@@ -1046,6 +1318,7 @@ mod tests {
     /// requests in a loop, and matches each request URL against the caller-supplied `routes`
     /// (defined as `(expected_path_substring, status_line, response_body)`). Any request path not
     /// matching one of the supplied routes receives a standard `404 Not Found` response.
+    #[cfg(feature = "builtin-metrics")]
     async fn spawn_mock_metadata_server(
         routes: &[(&'static str, &'static str, &'static str)],
     ) -> (String, String) {
@@ -1092,6 +1365,7 @@ mod tests {
         (format!("http://{local_addr}"), local_addr.to_string())
     }
 
+    #[cfg(feature = "builtin-metrics")]
     #[test]
     fn parse_region_from_zone_or_region_cases() {
         assert_eq!(
@@ -1145,6 +1419,7 @@ mod tests {
         assert_eq!(parse_region_from_zone_or_region("///"), None);
     }
 
+    #[cfg(feature = "builtin-metrics")]
     #[tokio::test]
     #[serial]
     async fn resolve_client_location_env_overrides() {
@@ -1181,6 +1456,7 @@ mod tests {
         }
     }
 
+    #[cfg(feature = "builtin-metrics")]
     #[tokio::test]
     #[serial]
     async fn resolve_client_location_with_mock_metadata_server() {
@@ -1207,6 +1483,7 @@ mod tests {
         assert_eq!(location, "us-west1");
     }
 
+    #[cfg(feature = "builtin-metrics")]
     #[tokio::test]
     #[serial]
     async fn resolve_client_location_with_mock_metadata_server_without_scheme_and_invalid_timeout()
@@ -1237,6 +1514,7 @@ mod tests {
         assert_eq!(location, "europe-west3");
     }
 
+    #[cfg(feature = "builtin-metrics")]
     #[tokio::test]
     #[serial]
     async fn resolve_client_location_with_mock_metadata_server_error_status() {
@@ -1266,6 +1544,7 @@ mod tests {
         );
     }
 
+    #[cfg(feature = "builtin-metrics")]
     #[tokio::test]
     #[serial]
     async fn resolve_client_location_unreachable_metadata_server_fallback() {
@@ -1282,6 +1561,7 @@ mod tests {
         );
     }
 
+    #[cfg(feature = "builtin-metrics")]
     #[tokio::test]
     #[serial]
     async fn detect_client_location_caching() {
@@ -1389,6 +1669,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[serial]
     async fn observability_init_disabled_env() {
         let _env = scoped_env::ScopedEnv::set("SPANNER_DISABLE_BUILTIN_METRICS", "true");
         let o11y = Observability::init(
@@ -1396,9 +1677,13 @@ mod tests {
             InstanceType::Cloud,
             "projects/p/instances/i/databases/d",
             false,
+            None,
+            None,
+            None,
         )
         .await;
-        assert!(o11y.metrics.is_none());
+        assert!(!o11y.is_enabled());
+        assert!(o11y.metrics.is_empty());
     }
 
     #[tokio::test]
@@ -1410,9 +1695,13 @@ mod tests {
             InstanceType::Cloud,
             "projects/p/instances/i/databases/d",
             false,
+            None,
+            None,
+            None,
         )
         .await;
-        assert!(o11y.metrics.is_none());
+        assert!(!o11y.is_enabled());
+        assert!(o11y.metrics.is_empty());
     }
 
     #[tokio::test]
@@ -1422,9 +1711,37 @@ mod tests {
             InstanceType::Cloud,
             "projects/p/instances/i/databases/d",
             true,
+            None,
+            None,
+            None,
         )
         .await;
-        assert!(o11y.metrics.is_none());
+        assert!(!o11y.is_enabled());
+        assert!(o11y.metrics.is_empty());
+    }
+
+    #[tokio::test]
+    async fn observability_init_emulator_with_custom_provider_disabled() {
+        let exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(exporter).build();
+        let provider: Arc<dyn MeterProvider + Send + Sync> =
+            Arc::new(SdkMeterProvider::builder().with_reader(reader).build());
+
+        let o11y = Observability::init(
+            &ClientConfig::default(),
+            InstanceType::Cloud,
+            "projects/p/instances/i/databases/d",
+            true,
+            None,
+            Some(true),
+            Some(SharedMeterProvider::from(provider)),
+        )
+        .await;
+        assert!(
+            !o11y.is_enabled(),
+            "Observability must be disabled when running against the emulator"
+        );
+        assert!(o11y.metrics.is_empty(), "metrics list should be empty");
     }
 
     #[tokio::test]
@@ -1434,9 +1751,200 @@ mod tests {
             InstanceType::Omni,
             "projects/p/instances/i/databases/d",
             false,
+            None,
+            None,
+            None,
         )
         .await;
-        assert!(o11y.metrics.is_none());
+        assert!(
+            !o11y.is_enabled(),
+            "Observability should be disabled when plaintext/no-cred client is used"
+        );
+        assert!(o11y.metrics.is_empty(), "metrics list should be empty");
+    }
+
+    #[tokio::test]
+    async fn observability_init_cloud_with_custom_provider_default_disabled() {
+        let exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(exporter.clone()).build();
+        let sdk_provider = SdkMeterProvider::builder().with_reader(reader).build();
+        let provider: Arc<dyn MeterProvider + Send + Sync> = Arc::new(sdk_provider.clone());
+
+        // Default on Cloud Spanner: export_builtin_metrics_to_custom_provider is None (false)
+        let o11y = Observability::init(
+            &ClientConfig::default(),
+            InstanceType::Cloud,
+            "projects/p/instances/i/databases/d",
+            false,
+            None,
+            None,
+            Some(SharedMeterProvider::from(provider)),
+        )
+        .await;
+
+        // Even though Cloud Monitoring may be initialized, the custom provider must not receive built-in metrics
+        o11y.record_operation("ExecuteSql", Duration::from_millis(50), None);
+        sdk_provider.force_flush().expect("force_flush failed");
+        let finished = exporter
+            .get_finished_metrics()
+            .expect("get_finished_metrics failed");
+        assert!(
+            finished.is_empty(),
+            "custom provider must not receive built-in metrics by default on Cloud Spanner"
+        );
+    }
+
+    #[tokio::test]
+    async fn observability_init_cloud_with_export_opt_in() {
+        let exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(exporter.clone()).build();
+        let sdk_provider = SdkMeterProvider::builder().with_reader(reader).build();
+        let provider: Arc<dyn MeterProvider + Send + Sync> = Arc::new(sdk_provider.clone());
+
+        let o11y = Observability::init(
+            &ClientConfig::default(),
+            InstanceType::Cloud,
+            "projects/p/instances/i/databases/d",
+            false,
+            None,
+            Some(true),
+            Some(SharedMeterProvider::from(provider)),
+        )
+        .await;
+        assert!(
+            o11y.is_enabled(),
+            "Observability should be enabled when explicitly opting in"
+        );
+
+        o11y.record_operation("ExecuteSql", Duration::from_millis(50), None);
+        sdk_provider.force_flush().expect("force_flush failed");
+        let finished = exporter
+            .get_finished_metrics()
+            .expect("get_finished_metrics failed");
+        assert!(
+            !finished.is_empty(),
+            "custom provider must receive built-in metrics when explicitly opting in"
+        );
+    }
+
+    #[tokio::test]
+    async fn observability_init_omni_with_custom_provider_default_enabled() {
+        let exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(exporter).build();
+        let provider: Arc<dyn MeterProvider + Send + Sync> =
+            Arc::new(SdkMeterProvider::builder().with_reader(reader).build());
+
+        // Default on Spanner Omni: export_builtin_metrics_to_custom_provider is None (true)
+        let o11y = Observability::init(
+            &ClientConfig::default(),
+            InstanceType::Omni,
+            "projects/p/instances/i/databases/d",
+            false,
+            None,
+            None,
+            Some(SharedMeterProvider::from(provider)),
+        )
+        .await;
+        assert!(
+            o11y.is_enabled(),
+            "Observability should be enabled for Omni with custom provider by default"
+        );
+        assert_eq!(o11y.metrics.len(), 1, "expected 1 metrics sink");
+    }
+
+    #[tokio::test]
+    async fn observability_init_omni_with_export_opt_out() {
+        let exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(exporter).build();
+        let provider: Arc<dyn MeterProvider + Send + Sync> =
+            Arc::new(SdkMeterProvider::builder().with_reader(reader).build());
+
+        // Explicit opt-out on Spanner Omni
+        let o11y = Observability::init(
+            &ClientConfig::default(),
+            InstanceType::Omni,
+            "projects/p/instances/i/databases/d",
+            false,
+            None,
+            Some(false),
+            Some(SharedMeterProvider::from(provider)),
+        )
+        .await;
+        assert!(
+            !o11y.is_enabled(),
+            "Observability should be disabled on Omni when explicitly opting out"
+        );
+        assert!(o11y.metrics.is_empty(), "metrics list should be empty");
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn observability_init_disabled_env_does_not_disable_custom_provider() {
+        let _env = scoped_env::ScopedEnv::set("SPANNER_DISABLE_BUILTIN_METRICS", "true");
+        let exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(exporter.clone()).build();
+        let sdk_provider = SdkMeterProvider::builder().with_reader(reader).build();
+        let provider: Arc<dyn MeterProvider + Send + Sync> = Arc::new(sdk_provider.clone());
+
+        // SPANNER_DISABLE_BUILTIN_METRICS is true, but custom provider export is opted in
+        let o11y = Observability::init(
+            &ClientConfig::default(),
+            InstanceType::Cloud,
+            "projects/p/instances/i/databases/d",
+            false,
+            None,
+            Some(true),
+            Some(SharedMeterProvider::from(provider)),
+        )
+        .await;
+        assert!(
+            o11y.is_enabled(),
+            "custom provider export must remain enabled even when SPANNER_DISABLE_BUILTIN_METRICS=true"
+        );
+        assert_eq!(
+            o11y.metrics.len(),
+            1,
+            "only custom provider sink should be active"
+        );
+
+        o11y.record_operation("ExecuteSql", Duration::from_millis(50), None);
+        sdk_provider.force_flush().expect("force_flush failed");
+        let finished = exporter
+            .get_finished_metrics()
+            .expect("get_finished_metrics failed");
+        assert!(
+            !finished.is_empty(),
+            "custom provider must receive built-in metrics despite SPANNER_DISABLE_BUILTIN_METRICS=true"
+        );
+    }
+
+    #[tokio::test]
+    async fn observability_init_programmatic_disable_cloud_monitoring() {
+        let exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(exporter.clone()).build();
+        let sdk_provider = SdkMeterProvider::builder().with_reader(reader).build();
+        let provider: Arc<dyn MeterProvider + Send + Sync> = Arc::new(sdk_provider.clone());
+
+        // Explicitly disable Cloud Monitoring export programmatically, but opt in to custom provider
+        let o11y = Observability::init(
+            &ClientConfig::default(),
+            InstanceType::Cloud,
+            "projects/p/instances/i/databases/d",
+            false,
+            Some(false),
+            Some(true),
+            Some(SharedMeterProvider::from(provider)),
+        )
+        .await;
+        assert!(
+            o11y.is_enabled(),
+            "Observability should be enabled for custom provider"
+        );
+        assert_eq!(
+            o11y.metrics.len(),
+            1,
+            "only custom provider sink should be active when Cloud Monitoring is programmatically disabled"
+        );
     }
 
     #[test]
@@ -1446,9 +1954,9 @@ mod tests {
         let exporter = InMemoryMetricExporter::default();
         let reader = PeriodicReader::builder(exporter.clone()).build();
         let provider = SdkMeterProvider::builder().with_reader(reader).build();
-        let meter = provider.meter("cloud.google.com/rust");
-        let metrics = SpannerMetrics::new(meter);
-        let o11y = Arc::new(Observability::for_test(metrics, provider.clone()));
+        let meter = provider.meter(INSTRUMENTATION_SCOPE);
+        let metrics = SpannerMetrics::new(&meter);
+        let o11y = Arc::new(Observability::for_test(metrics));
         let interceptor = SpannerMetricsInterceptor;
 
         let options = crate::RequestOptions::default().insert_extension(Arc::clone(&o11y));
@@ -1545,9 +2053,9 @@ mod tests {
         let exporter = InMemoryMetricExporter::default();
         let reader = PeriodicReader::builder(exporter.clone()).build();
         let provider = SdkMeterProvider::builder().with_reader(reader).build();
-        let meter = provider.meter("cloud.google.com/rust");
-        let metrics = SpannerMetrics::new(meter);
-        let o11y = Arc::new(Observability::for_test(metrics, provider.clone()));
+        let meter = provider.meter(INSTRUMENTATION_SCOPE);
+        let metrics = SpannerMetrics::new(&meter);
+        let o11y = Arc::new(Observability::for_test(metrics));
         let interceptor = SpannerMetricsInterceptor;
 
         let options = crate::RequestOptions::default().insert_extension(o11y);
@@ -1588,9 +2096,9 @@ mod tests {
         let exporter = InMemoryMetricExporter::default();
         let reader = PeriodicReader::builder(exporter.clone()).build();
         let provider = SdkMeterProvider::builder().with_reader(reader).build();
-        let meter = provider.meter("cloud.google.com/rust");
-        let metrics = SpannerMetrics::new(meter);
-        let o11y = Arc::new(Observability::for_test(metrics, provider.clone()));
+        let meter = provider.meter(INSTRUMENTATION_SCOPE);
+        let metrics = SpannerMetrics::new(&meter);
+        let o11y = Arc::new(Observability::for_test(metrics));
         let interceptor = SpannerMetricsInterceptor;
 
         let options = crate::RequestOptions::default().insert_extension(o11y);
@@ -1678,5 +2186,41 @@ mod tests {
             }
         }
         result
+    }
+
+    #[test]
+    fn shared_meter_provider_traits() {
+        use static_assertions::assert_impl_all;
+        assert_impl_all!(SharedMeterProvider: Send, Sync, Clone, Debug);
+        assert_impl_all!(Observability: Send, Sync, Debug);
+
+        let exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(exporter).build();
+        let sdk_provider = SdkMeterProvider::builder().with_reader(reader).build();
+        let provider: Arc<dyn MeterProvider + Send + Sync> = Arc::new(sdk_provider);
+        let shared = SharedMeterProvider::from(provider);
+        let formatted = format!("{shared:?}");
+        assert!(
+            formatted.contains("MeterProvider"),
+            "debug representation should contain struct name"
+        );
+        let cloned = shared.clone();
+        assert_eq!(format!("{cloned:?}"), formatted);
+    }
+
+    #[tokio::test]
+    async fn observability_init_invalid_database_name() {
+        let o11y = Observability::init(
+            &ClientConfig::default(),
+            InstanceType::Cloud,
+            "invalid-database-name",
+            false,
+            None,
+            None,
+            None,
+        )
+        .await;
+        assert!(!o11y.is_enabled());
+        assert!(o11y.metrics.is_empty());
     }
 }

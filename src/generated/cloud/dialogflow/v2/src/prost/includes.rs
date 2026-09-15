@@ -4,7 +4,6 @@ pub mod google {
         pub mod dialogflow {
             pub mod v2 {
                 include!("google.cloud.dialogflow.v2.rs");
-            include!("../convert.rs");
             }
         }
     }

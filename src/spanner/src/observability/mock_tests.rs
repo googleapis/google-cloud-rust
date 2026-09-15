@@ -2198,7 +2198,7 @@ async fn setup_mock_client_with_metrics(
         .with_resource(resource)
         .build();
     let meter = meter_provider.meter("cloud.google.com/rust");
-    let metrics = SpannerMetrics::new(meter);
+    let metrics = SpannerMetrics::new(&meter);
 
     let common_attributes = [
         KeyValue::new("client_uid", TEST_CLIENT_UID),
@@ -2207,9 +2207,10 @@ async fn setup_mock_client_with_metrics(
     ];
 
     let observability = Observability {
-        metrics: Some(Arc::new(metrics)),
+        metrics: vec![metrics],
         common_attributes,
         meter_provider: Some(Arc::new(meter_provider.clone())),
+        caller_meter_provider: None,
     };
 
     database_client.o11y = Arc::new(observability);

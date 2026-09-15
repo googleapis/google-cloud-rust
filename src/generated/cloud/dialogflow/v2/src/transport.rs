@@ -40,7 +40,6 @@ use crate::Error;
     feature = "tools",
     feature = "versions",
 ))]
-#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements [Agents](super::stub::Agents) using a [gaxi::http::ReqwestClient].
@@ -18993,7 +18992,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
     }
 }
 
-/// Implements [Participants](super::stub::Participants) using a [gaxi::http::ReqwestClient].
+/// Implements [Participants](super::stub::Participants) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
 #[cfg(feature = "participants")]
 #[derive(Clone)]
 pub struct Participants {
@@ -19004,10 +19003,10 @@ pub struct Participants {
 #[cfg(feature = "participants")]
 impl std::fmt::Debug for Participants {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        let mut builder = f.debug_struct("Participants");
-        builder.field("inner", &self.inner);
-        builder.field("grpc_inner", &self.grpc_inner);
-        builder.finish()
+        f.debug_struct("Participants")
+            .field("inner", &self.inner)
+            .field("grpc_inner", &self.grpc_inner)
+            .finish()
     }
 }
 
@@ -20562,7 +20561,7 @@ impl super::stub::Participants for Participants {
     }
 }
 
-/// Implements [Sessions](super::stub::Sessions) using a [gaxi::http::ReqwestClient].
+/// Implements [Sessions](super::stub::Sessions) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
 #[cfg(feature = "sessions")]
 #[derive(Clone)]
 pub struct Sessions {
@@ -20573,10 +20572,10 @@ pub struct Sessions {
 #[cfg(feature = "sessions")]
 impl std::fmt::Debug for Sessions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        let mut builder = f.debug_struct("Sessions");
-        builder.field("inner", &self.inner);
-        builder.field("grpc_inner", &self.grpc_inner);
-        builder.finish()
+        f.debug_struct("Sessions")
+            .field("inner", &self.inner)
+            .field("grpc_inner", &self.grpc_inner)
+            .finish()
     }
 }
 

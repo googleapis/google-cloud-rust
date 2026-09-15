@@ -4,7 +4,6 @@ pub mod google {
         pub mod routing {
             pub mod v2 {
                 include!("google.maps.routing.v2.rs");
-            include!("../convert.rs");
             }
         }
     }

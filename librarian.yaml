@@ -12,18 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.40.1-0.20260901220007-4f82678cd687
+version: v0.43.1-0.20260914165741-b613abf45890
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: d8cacf6980e983c7c3e3a39d2d4b43f33bbfe1bb
-    sha256: 1ee4d01ab951cbad692693c88454bf3b12ccf40cd1e0d90421ad5e40292e9d2e
+    commit: 5bee7e33bd6c24d984e0bf3ca0c52f0c5c0c8c2c
+    sha256: a2aec2a4fa0434a10946e024fb8630d02d3d1145c24b2b907b9a494aaa447939
   googleapis:
-    commit: 63425cf2c0ad42419f704d89ea3477e0ef0b548f
-    sha256: 1f2c2d14c6ea0647991226b1fcdbcf85e80914168548630d0e21b2d4a761854a
+    commit: 667c11bc3cbb1dac66c4375beba1999458100e39
+    sha256: 673c6d0d05fec70ddd6c70ee166ffeacac0801c6e5db88967dedd7d79a0c6598
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -145,8 +145,6 @@ default:
     generate_rpc_samples: "true"
     detailed_tracing_attributes: true
     lro_stub_options: true
-    include_bidi_streaming_methods: true
-    include_server_streaming_methods: true
 libraries:
   - name: bigquery-grpc-mock
     copyright_year: "2026"
@@ -221,7 +219,7 @@ libraries:
     version: 1.16.0
     copyright_year: "2025"
     rust:
-      allow_streaming_any_types:
+      allow_grpc_any_fields:
         - .google.api.HttpBody.extensions
       per_service_features: true
       default_features:
@@ -506,12 +504,10 @@ libraries:
     version: 2.2.0
     copyright_year: "2025"
   - name: google-cloud-bigquery
-    version: 0.16.1-preview
+    version: 0.17.0
     copyright_year: "2026"
     output: src/bigquery
     rust:
-      include_bidi_streaming_methods: false
-      include_server_streaming_methods: false
       modules:
         - module_path: crate::write::generated::gapic_storage::model
           output: src/bigquery/src/write/generated/convert/storage
@@ -536,6 +532,7 @@ libraries:
           api_path: google/cloud/bigquery/storage/v1
           template: prost
         - module_path: google_cloud_bigquery_v2::model
+          name_overrides: .synthetic.google.cloud.bigquery.v2.QueryRequest.max_results=page_size
           output: src/bigquery/src/generated
           skipped_ids:
             - .google.cloud.bigquery.v2.JobConfiguration.copy
@@ -597,7 +594,6 @@ libraries:
           generate_rpc_samples: "false"
           included_ids:
             - .google.cloud.bigquery.storage.v1.BigQueryRead
-          include_server_streaming_methods: true
           name_overrides: .google.cloud.bigquery.storage.v1.BigQueryRead=Read
           output: src/bigquery-read/src/generated/gapic_storage
           service_config: google/cloud/bigquery/storage/v1/bigquerystorage_v1.yaml
@@ -610,10 +606,10 @@ libraries:
     version: 1.12.0
     copyright_year: "2025"
   - name: google-cloud-bigquery-v2
-    version: 0.1.1
+    version: 1.0.0
     copyright_year: "2025"
     keep:
-      - src/operation.rs
+      - src/job_poller.rs
     rust:
       package_dependencies:
         - name: thiserror
@@ -664,7 +660,7 @@ libraries:
     version: 1.5.0
     copyright_year: "2026"
     rust:
-      allow_streaming_any_types:
+      allow_grpc_any_fields:
         - .google.cloud.ces.v1.SessionOutput.context
   - name: google-cloud-chronicle-v1
     version: 1.14.0
@@ -921,8 +917,6 @@ libraries:
     output: src/firestore
     skip_release: true
     rust:
-      include_bidi_streaming_methods: false
-      include_server_streaming_methods: false
       modules:
         - module_path: crate::generated::gapic::model
           output: src/firestore/src/generated/convert/firestore
@@ -1151,7 +1145,7 @@ libraries:
     copyright_year: "2025"
     rust:
       generate_rpc_samples: "false"
-      allow_streaming_any_types:
+      allow_grpc_any_fields:
         - .google.logging.v2.LogEntry.proto_payload
   - name: google-cloud-longrunning
     version: 1.13.0
@@ -1317,8 +1311,6 @@ libraries:
     copyright_year: "2025"
     output: src/pubsub
     rust:
-      include_bidi_streaming_methods: false
-      include_server_streaming_methods: false
       modules:
         - included_ids:
             - .google.pubsub.v1.Publisher.Publish
@@ -1485,16 +1477,11 @@ libraries:
       - showcase
       - googleapis
     skip_release: true
-    rust:
-      include_bidi_streaming_methods: true
-      include_server_streaming_methods: true
   - name: google-cloud-spanner
     version: 0.34.5-preview
     copyright_year: "2026"
     output: src/spanner
     rust:
-      include_bidi_streaming_methods: false
-      include_server_streaming_methods: false
       modules:
         - module_path: crate::generated::gapic_dataplane::model
           output: src/spanner/src/generated/convert/spanner
@@ -1557,8 +1544,6 @@ libraries:
   - name: google-cloud-speech-v2
     version: 1.14.0
     copyright_year: "2025"
-    rust:
-      include_bidi_streaming_methods: true
   - name: google-cloud-sql-v1
     version: 2.10.0
     copyright_year: "2025"
@@ -1574,8 +1559,6 @@ libraries:
     output: src/storage
     rust:
       resource_name_heuristic: true
-      include_bidi_streaming_methods: false
-      include_server_streaming_methods: false
       modules:
         - module_path: crate::generated::gapic_control::model
           name_overrides: .google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_buckets=CloudStorageBucketsOneOf,.google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_locations=CloudStorageLocationsOneOf
@@ -1916,6 +1899,9 @@ libraries:
     version: 1.0.0
     copyright_year: "2026"
   - name: google-shopping-merchant-lfp-v1
+    version: 1.0.0
+    copyright_year: "2026"
+  - name: google-shopping-merchant-loyaltycustomers-v1
     version: 1.0.0
     copyright_year: "2026"
   - name: google-shopping-merchant-notifications-v1

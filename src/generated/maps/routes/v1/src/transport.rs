@@ -18,7 +18,7 @@
 use crate::Error;
 use crate::Result;
 
-/// Implements [RoutesPreferred](super::stub::RoutesPreferred) using a [gaxi::http::ReqwestClient].
+/// Implements [RoutesPreferred](super::stub::RoutesPreferred) using a [gaxi::http::ReqwestClient] and a [gaxi::grpc::Client].
 #[derive(Clone)]
 pub struct RoutesPreferred {
     inner: gaxi::http::ReqwestClient,
@@ -27,10 +27,10 @@ pub struct RoutesPreferred {
 
 impl std::fmt::Debug for RoutesPreferred {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        let mut builder = f.debug_struct("RoutesPreferred");
-        builder.field("inner", &self.inner);
-        builder.field("grpc_inner", &self.grpc_inner);
-        builder.finish()
+        f.debug_struct("RoutesPreferred")
+            .field("inner", &self.inner)
+            .field("grpc_inner", &self.grpc_inner)
+            .finish()
     }
 }
 

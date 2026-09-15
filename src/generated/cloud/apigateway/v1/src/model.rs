@@ -405,8 +405,8 @@ pub struct ApiConfig {
     /// Optional. Display name.
     pub display_name: std::string::String,
 
-    /// Immutable. The Google Cloud IAM Service Account that Gateways serving this config
-    /// should use to authenticate to other services. This may either be the
+    /// Immutable. The Google Cloud IAM Service Account that Gateways serving this
+    /// config should use to authenticate to other services. This may either be the
     /// Service Account's email
     /// (`{ACCOUNT_ID}@{PROJECT}.iam.gserviceaccount.com`) or its full resource
     /// name (`projects/{PROJECT}/accounts/{UNIQUE_ID}`). This is most often used
@@ -425,12 +425,12 @@ pub struct ApiConfig {
     /// managed_service_configs must not be included.
     pub openapi_documents: std::vec::Vec<crate::model::api_config::OpenApiDocument>,
 
-    /// Optional. gRPC service definition files. If specified, openapi_documents must
-    /// not be included.
+    /// Optional. gRPC service definition files. If specified, openapi_documents
+    /// must not be included.
     pub grpc_services: std::vec::Vec<crate::model::api_config::GrpcServiceDefinition>,
 
-    /// Optional. Service Configuration files. At least one must be included when using gRPC
-    /// service definitions. See
+    /// Optional. Service Configuration files. At least one must be included when
+    /// using gRPC service definitions. See
     /// <https://cloud.google.com/endpoints/docs/grpc/grpc-service-config#service_configuration_overview>
     /// for the expected file contents.
     ///
@@ -813,8 +813,8 @@ pub mod api_config {
         /// $ protoc --include_imports --include_source_info test.proto -o out.pb
         pub file_descriptor_set: std::option::Option<crate::model::api_config::File>,
 
-        /// Optional. Uncompiled proto files associated with the descriptor set, used for
-        /// display purposes (server-side compilation is not supported). These
+        /// Optional. Uncompiled proto files associated with the descriptor set, used
+        /// for display purposes (server-side compilation is not supported). These
         /// should match the inputs to 'protoc' command used to generate
         /// file_descriptor_set.
         pub source: std::vec::Vec<crate::model::api_config::File>,
@@ -1658,8 +1658,8 @@ pub struct CreateGatewayRequest {
     /// `projects/*/locations/*`
     pub parent: std::string::String,
 
-    /// Required. Identifier to assign to the Gateway. Must be unique within scope of
-    /// the parent resource.
+    /// Required. Identifier to assign to the Gateway. Must be unique within scope
+    /// of the parent resource.
     pub gateway_id: std::string::String,
 
     /// Required. Gateway resource.
@@ -2721,8 +2721,8 @@ pub struct CreateApiConfigRequest {
     /// `projects/*/locations/global/apis/*`
     pub parent: std::string::String,
 
-    /// Required. Identifier to assign to the API Config. Must be unique within scope of
-    /// the parent resource.
+    /// Required. Identifier to assign to the API Config. Must be unique within
+    /// scope of the parent resource.
     pub api_config_id: std::string::String,
 
     /// Required. API resource.
@@ -2959,14 +2959,20 @@ pub struct OperationMetadata {
 
     /// Output only. Identifies whether the user has requested cancellation
     /// of the operation. Operations that have successfully been cancelled
-    /// have [Operation.error][] value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
+    /// have
+    /// [google.longrunning.Operation.error][google.longrunning.Operation.error]
+    /// value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
     /// corresponding to `Code.CANCELLED`.
+    ///
+    /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
     pub api_version: std::string::String,
 
-    /// Output only. Diagnostics generated during processing of configuration source files.
+    /// Output only. Diagnostics generated during processing of configuration
+    /// source files.
     pub diagnostics: std::vec::Vec<crate::model::operation_metadata::Diagnostic>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,

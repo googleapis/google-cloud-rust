@@ -13,18 +13,17 @@
 // limitations under the License.
 
 use super::super::generated::gapic_storage::client::BigQueryWrite;
+use super::super::pool::{StreamPool, StreamPoolOptions};
 use super::super::transport::Transport;
+use super::super::validate::{validate_stream, validate_table};
 use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter, Writer};
+use crate::Result;
 use crate::model::write_stream::Type;
 use crate::model::{ArrowSchema, WriteStream};
 use crate::write::error::{AttachError, AttachResult};
-use crate::{Error, Result};
-use gaxi::path_parameter::{PathMismatchBuilder, try_match};
-use gaxi::routing_parameter::Segment;
-use google_cloud_gax::error::binding::BindingError;
 use std::sync::Arc;
 
-/// A builder to create a stream writer
+/// A builder to create a stream writer.
 #[derive(Clone, Debug)]
 pub struct WriterBuilder {
     inner: Arc<Transport>,
@@ -36,7 +35,7 @@ impl WriterBuilder {
         Self { inner, schema }
     }
 
-    /// Create a writer for the [default stream] for the given table.
+    /// Creates a writer for the [default stream] for the given table.
     ///
     /// # Example
     ///
@@ -45,7 +44,8 @@ impl WriterBuilder {
     /// # async fn sample(client: Write) -> anyhow::Result<()> {
     /// let writer = client
     ///     .arrow(schema())
-    ///     .default("projects/my-project/datasets/my-dataset/tables/my-table")?;
+    ///     .default("projects/my-project/datasets/my-dataset/tables/my-table")
+    ///     .await?;
     /// # Ok(()) }
     ///
     /// use google_cloud_bigquery::model::ArrowSchema;
@@ -55,12 +55,18 @@ impl WriterBuilder {
     /// ```
     ///
     /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
-    pub fn default<T: Into<String>>(self, table: T) -> Result<DefaultWriter> {
+    pub async fn default<T: Into<String>>(self, table: T) -> Result<DefaultWriter> {
         let table = table.into();
         validate_table(table.as_str())?;
         let mut write_stream = table;
         write_stream.push_str("/streams/_default");
-        Ok(DefaultWriter::new(self.inner, write_stream, self.schema))
+        // TODO(#6765) - use client's pool if multiplexing is enabled
+        let options = StreamPoolOptions {
+            max_streams: 1,
+            ..Default::default()
+        };
+        let pool = Arc::new(StreamPool::new(self.inner, options));
+        Ok(DefaultWriter::new(pool, write_stream, self.schema))
     }
 
     /// Creates a pending writer for the given table.
@@ -215,61 +221,10 @@ impl WriterBuilder {
     }
 }
 
-fn validate_table(table: &str) -> Result<()> {
-    let segments = &[
-        Segment::Literal("projects/"),
-        Segment::SingleWildcard,
-        Segment::Literal("/datasets/"),
-        Segment::SingleWildcard,
-        Segment::Literal("/tables/"),
-        Segment::SingleWildcard,
-    ];
-    try_match(Some(table), segments)
-        .ok_or_else(|| {
-            let builder = PathMismatchBuilder::default().maybe_add(
-                Some(table),
-                segments,
-                "table",
-                "projects/*/datasets/*/tables/*",
-            );
-            Error::binding(BindingError {
-                paths: vec![builder.build()],
-            })
-        })
-        .map(|_| ())
-}
-
-fn validate_stream(stream: &str) -> crate::Result<()> {
-    let segments = &[
-        Segment::Literal("projects/"),
-        Segment::SingleWildcard,
-        Segment::Literal("/datasets/"),
-        Segment::SingleWildcard,
-        Segment::Literal("/tables/"),
-        Segment::SingleWildcard,
-        Segment::Literal("/streams/"),
-        Segment::SingleWildcard,
-    ];
-    try_match(Some(stream), segments)
-        .ok_or_else(|| {
-            let builder = gaxi::path_parameter::PathMismatchBuilder::default();
-            let builder = builder.maybe_add(
-                Some(stream),
-                segments,
-                "write_stream",
-                "projects/*/datasets/*/tables/*/streams/*",
-            );
-            Error::binding(BindingError {
-                paths: vec![builder.build()],
-            })
-        })
-        .map(|_| ())
-}
-
 #[cfg(test)]
 mod tests {
-    use super::super::super::transport::tests::test_transport;
     use super::*;
+    use crate::write::test::*;
     use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use test_case::test_case;
@@ -290,14 +245,13 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
-        let schema = ArrowSchema::new().set_serialized_schema("test");
-        let builder = WriterBuilder::new(transport, schema.clone());
+        let builder = WriterBuilder::new(transport, schema());
         let writer = builder.pending("projects/p/datasets/d/tables/t").await?;
         assert_eq!(
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, schema);
+        assert_eq!(writer.inner.schema, schema());
         Ok(())
     }
 
@@ -306,9 +260,8 @@ mod tests {
     #[test_case("projects/p/datasets/d/tables/")]
     #[tokio::test]
     async fn pending_bad_table_format(table: &str) -> anyhow::Result<()> {
-        let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let schema = ArrowSchema::new().set_serialized_schema("test");
-        let builder = WriterBuilder::new(transport, schema.clone());
+        let transport = Arc::new(test_transport("http://ignored:1").await?);
+        let builder = WriterBuilder::new(transport, schema());
         let err = builder
             .pending(table)
             .await
@@ -332,14 +285,13 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
-        let schema = ArrowSchema::new().set_serialized_schema("test");
-        let builder = WriterBuilder::new(transport, schema.clone());
+        let builder = WriterBuilder::new(transport, schema());
         let writer = builder.committed("projects/p/datasets/d/tables/t").await?;
         assert_eq!(
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, schema);
+        assert_eq!(writer.inner.schema, schema());
         Ok(())
     }
 
@@ -348,9 +300,8 @@ mod tests {
     #[test_case("projects/p/datasets/d/tables/")]
     #[tokio::test]
     async fn committed_bad_table_format(table: &str) -> anyhow::Result<()> {
-        let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let schema = ArrowSchema::new().set_serialized_schema("test");
-        let builder = WriterBuilder::new(transport, schema.clone());
+        let transport = Arc::new(test_transport("http://ignored:1").await?);
+        let builder = WriterBuilder::new(transport, schema());
         let err = builder
             .committed(table)
             .await
@@ -361,15 +312,14 @@ mod tests {
 
     #[tokio::test]
     async fn default() -> anyhow::Result<()> {
-        let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let schema = ArrowSchema::new().set_serialized_schema("test");
-        let builder = WriterBuilder::new(transport, schema.clone());
-        let writer = builder.default("projects/p/datasets/d/tables/t")?;
+        let transport = Arc::new(test_transport("http://ignored:1").await?);
+        let builder = WriterBuilder::new(transport, schema());
+        let writer = builder.default("projects/p/datasets/d/tables/t").await?;
         assert_eq!(
             writer.write_stream,
             "projects/p/datasets/d/tables/t/streams/_default"
         );
-        assert_eq!(writer.schema, schema);
+        assert_eq!(writer.schema, schema());
         Ok(())
     }
 
@@ -381,11 +331,11 @@ mod tests {
     #[test_case("projects/p/datasets/d/tables/t/streams/_default")]
     #[tokio::test]
     async fn bad_table_format(table: &str) -> anyhow::Result<()> {
-        let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let schema = ArrowSchema::new().set_serialized_schema("test");
-        let builder = WriterBuilder::new(transport, schema.clone());
+        let transport = Arc::new(test_transport("http://ignored:1").await?);
+        let builder = WriterBuilder::new(transport, schema());
         let err = builder
             .default(table)
+            .await
             .expect_err("should fail locally on bad format");
         assert!(err.is_binding(), "{err:?}");
         Ok(())
@@ -405,14 +355,13 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
-        let schema = ArrowSchema::new().set_serialized_schema("test");
-        let builder = WriterBuilder::new(transport, schema.clone());
+        let builder = WriterBuilder::new(transport, schema());
         let writer = builder.buffered("projects/p/datasets/d/tables/t").await?;
         assert_eq!(
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, schema);
+        assert_eq!(writer.inner.schema, schema());
         Ok(())
     }
 
@@ -421,9 +370,8 @@ mod tests {
     #[test_case("projects/p/datasets/d/tables/")]
     #[tokio::test]
     async fn buffered_bad_table_format(table: &str) -> anyhow::Result<()> {
-        let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let schema = ArrowSchema::new().set_serialized_schema("test");
-        let builder = WriterBuilder::new(transport, schema.clone());
+        let transport = Arc::new(test_transport("http://ignored:1").await?);
+        let builder = WriterBuilder::new(transport, schema());
         let err = builder
             .buffered(table)
             .await
@@ -451,8 +399,7 @@ mod tests {
     #[tokio::test]
     async fn attach_committed_success() -> anyhow::Result<()> {
         let (transport, _server) = attach_mock(Type::Committed).await?;
-        let schema = ArrowSchema::new().set_serialized_schema("test");
-        let builder = WriterBuilder::new(transport, schema.clone());
+        let builder = WriterBuilder::new(transport, schema());
         let writer: CommittedWriter = builder
             .attach("projects/p/datasets/d/tables/t/streams/s")
             .await?;
@@ -460,15 +407,14 @@ mod tests {
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, schema);
+        assert_eq!(writer.inner.schema, schema());
         Ok(())
     }
 
     #[tokio::test]
     async fn attach_pending_success() -> anyhow::Result<()> {
         let (transport, _server) = attach_mock(Type::Pending).await?;
-        let schema = ArrowSchema::new().set_serialized_schema("test");
-        let builder = WriterBuilder::new(transport, schema.clone());
+        let builder = WriterBuilder::new(transport, schema());
         let writer: PendingWriter = builder
             .attach("projects/p/datasets/d/tables/t/streams/s")
             .await?;
@@ -476,15 +422,14 @@ mod tests {
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, schema);
+        assert_eq!(writer.inner.schema, schema());
         Ok(())
     }
 
     #[tokio::test]
     async fn attach_buffered_success() -> anyhow::Result<()> {
         let (transport, _server) = attach_mock(Type::Buffered).await?;
-        let schema = ArrowSchema::new().set_serialized_schema("test");
-        let builder = WriterBuilder::new(transport, schema.clone());
+        let builder = WriterBuilder::new(transport, schema());
         let writer: BufferedWriter = builder
             .attach("projects/p/datasets/d/tables/t/streams/s")
             .await?;
@@ -492,7 +437,7 @@ mod tests {
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, schema);
+        assert_eq!(writer.inner.schema, schema());
         Ok(())
     }
 
@@ -502,9 +447,8 @@ mod tests {
     #[test_case("projects/p/datasets/d/tables/t/streams/")]
     #[tokio::test]
     async fn attach_bad_stream_format(stream: &str) -> anyhow::Result<()> {
-        let transport = Arc::new(test_transport("http://ignored:1".to_string()).await?);
-        let schema = ArrowSchema::new().set_serialized_schema("test");
-        let builder = WriterBuilder::new(transport, schema.clone());
+        let transport = Arc::new(test_transport("http://ignored:1").await?);
+        let builder = WriterBuilder::new(transport, schema());
         let err = builder
             .attach::<CommittedWriter, _>(stream)
             .await
@@ -516,8 +460,7 @@ mod tests {
     #[tokio::test]
     async fn attach_stream_type_mismatch() -> anyhow::Result<()> {
         let (transport, _server) = attach_mock(Type::Buffered).await?;
-        let schema = ArrowSchema::new().set_serialized_schema("test");
-        let builder = WriterBuilder::new(transport, schema.clone());
+        let builder = WriterBuilder::new(transport, schema());
         let err = builder
             .attach::<CommittedWriter, _>("projects/p/datasets/d/tables/t/streams/s")
             .await

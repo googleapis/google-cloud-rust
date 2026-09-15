@@ -19,7 +19,7 @@ mod execution;
 pub(super) mod from_sql;
 mod iterator;
 mod query_handle;
-mod retry_policy;
+pub mod retry_policy;
 mod row;
 mod schema;
 
@@ -29,7 +29,7 @@ pub(crate) use schema::Schema;
 
 pub use from_sql::FromSql;
 pub use google_cloud_bigquery_derive::{FromRow, FromSql};
-pub use row::Row;
+pub use row::{ColumnIndex, Row};
 
 /// Result type for query execution.
 pub(super) type Result<T> = std::result::Result<T, crate::error::QueryError>;

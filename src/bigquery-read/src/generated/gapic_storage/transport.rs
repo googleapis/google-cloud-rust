@@ -34,7 +34,7 @@ mod info {
         });
 }
 
-/// Implements [Read](super::stub::Read) using a Tonic-generated client.
+/// Implements [Read](super::stub::Read) using a gRPC client.
 #[derive(Clone)]
 pub struct Read {
     pub(crate) inner: gaxi::grpc::Client,

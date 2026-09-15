@@ -19,7 +19,7 @@ use google_cloud_bigquery_v2::model::ErrorProto;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::error::Error as GaxError;
-use google_cloud_gax::error::rpc::Code;
+use google_cloud_gax::error::rpc::{Code, StatusDetails};
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 use google_cloud_gax::retry_policy::RetryPolicy;
 use google_cloud_gax::retry_result::RetryResult;
@@ -27,14 +27,39 @@ use google_cloud_gax::retry_state::RetryState;
 use std::sync::Arc;
 use std::time::Duration;
 
-/// Follows the RPC retry strategy recommended by the BigQuery guides on error handling.
+/// Follows the RPC retry strategy recommended by the BigQuery guides on
+/// [error handling].
+///
+/// ```
+/// # async fn sample() -> anyhow::Result<()> {
+/// # use google_cloud_bigquery::client::BigQuery;
+/// # use google_cloud_bigquery::query::retry_policy::RetryableErrors;
+/// # use google_cloud_gax::retry_policy::RetryPolicyExt;
+/// let policy = RetryableErrors.with_time_limit(std::time::Duration::from_secs(60));
+/// let client = BigQuery::builder()
+///     .with_retry_policy(policy)
+///     .build()
+///     .await?;
+/// # Ok(())
+/// # }
+/// ```
+///
+/// This policy must be decorated to limit the duration of the retry loop or
+/// the number of attempts.
+///
+/// [error handling]: https://cloud.google.com/bigquery/docs/error-messages
 #[derive(Clone, Debug)]
-#[allow(dead_code)]
-pub(crate) struct RetryableErrors;
+pub struct RetryableErrors;
 
 impl RetryPolicy for RetryableErrors {
-    fn on_error(&self, _state: &RetryState, error: GaxError) -> RetryResult {
-        if error.is_transient_and_before_rpc() || error.is_io() || error.is_timeout() {
+    fn on_error(&self, state: &RetryState, error: GaxError) -> RetryResult {
+        if error.is_transient_and_before_rpc() {
+            return RetryResult::Continue(error);
+        }
+        if !state.idempotent {
+            return RetryResult::Permanent(error);
+        }
+        if error.is_io() || error.is_timeout() {
             return RetryResult::Continue(error);
         }
         if error.is_transport() && error.http_status_code().is_none() {
@@ -58,7 +83,6 @@ impl RetryPolicy for RetryableErrors {
     }
 }
 
-#[allow(dead_code)]
 pub(crate) fn default_retry_policy() -> Arc<dyn RetryPolicy> {
     Arc::new(RetryableErrors)
 }
@@ -158,15 +182,28 @@ pub(crate) fn default_job_retry_policy() -> Arc<dyn JobRetryPolicy> {
 pub(crate) fn is_query_error_retryable(err: &QueryError) -> bool {
     match err {
         QueryError::JobFailed { errors } => is_retryable_errors(errors),
+        QueryError::Rpc { source } => is_rpc_error_retryable(source),
         _ => false,
     }
+}
+
+pub(crate) fn is_rpc_error_retryable(error: &GaxError) -> bool {
+    if let Some(status) = error.status() {
+        for detail in &status.details {
+            if let StatusDetails::ErrorInfo(info) = detail
+                && is_retryable_error_reason(&info.reason)
+            {
+                return true;
+            }
+        }
+    }
+    false
 }
 
 pub(crate) fn is_retryable_errors(errors: &[ErrorProto]) -> bool {
     !errors.is_empty() && errors.iter().all(|e| is_retryable_error_reason(&e.reason))
 }
 
-#[allow(dead_code)]
 pub(crate) fn is_retryable_error_reason(reason: &str) -> bool {
     matches!(
         reason,
@@ -175,15 +212,33 @@ pub(crate) fn is_retryable_error_reason(reason: &str) -> bool {
             | "rateLimitExceeded"
             | "jobRateLimitExceeded"
             | "internalError"
+            | "jobInternalError"
     )
 }
+
+/// Returns true if `error` reports a conflict with a resource that already
+/// exists, such as `409 Already Exists: Job my-project:US.job_1234567890`.
+// TODO(#6717): use this function on execution.rs and remove here
+#[allow(dead_code)]
+pub(crate) fn is_duplicate_job_error(error: &QueryError) -> bool {
+    let QueryError::Rpc { source } = error else {
+        return false;
+    };
+    source.http_status_code() == Some(409)
+        || source
+            .status()
+            .is_some_and(|s| s.code == Code::AlreadyExists)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::query::tests::create_test_backoff_policy;
     use google_cloud_bigquery_v2::model::ErrorProto;
+    use google_cloud_gax::error::CredentialsError;
     use google_cloud_gax::error::rpc::{Code, Status};
     use google_cloud_gax::retry_state::RetryState;
+    use google_cloud_rpc::model::ErrorInfo;
     use http::HeaderMap;
     use test_case::test_case;
 
@@ -192,6 +247,7 @@ mod tests {
     #[test_case("rateLimitExceeded", true)]
     #[test_case("jobRateLimitExceeded", true)]
     #[test_case("internalError", true)]
+    #[test_case("jobInternalError", true)]
     #[test_case("invalidQuery", false)]
     #[test_case("notFound", false)]
     fn test_is_retryable_error_reason(reason: &str, expected: bool) {
@@ -221,7 +277,8 @@ mod tests {
     #[test]
     fn test_retryable_errors_on_error() {
         let p = RetryableErrors;
-        let state = RetryState::default();
+        let idempotent = RetryState::new(true);
+        let non_idempotent = RetryState::new(false);
 
         let retryable_codes = [
             Code::Aborted,
@@ -232,11 +289,11 @@ mod tests {
             Code::Unknown,
         ];
         for code in retryable_codes {
-            let err = GaxError::service(Status::default().set_code(code));
+            let err = || GaxError::service(Status::default().set_code(code));
+            assert!(p.on_error(&idempotent, err()).is_continue(), "{code:?}");
             assert!(
-                p.on_error(&state, err).is_continue(),
-                "expected continue for {:?}",
-                code
+                p.on_error(&non_idempotent, err()).is_permanent(),
+                "{code:?}"
             );
         }
 
@@ -246,33 +303,141 @@ mod tests {
             Code::InvalidArgument,
         ];
         for code in permanent_codes {
-            let err = GaxError::service(Status::default().set_code(code));
+            let err = || GaxError::service(Status::default().set_code(code));
+            assert!(p.on_error(&idempotent, err()).is_permanent(), "{code:?}");
             assert!(
-                p.on_error(&state, err).is_permanent(),
-                "expected permanent for {:?}",
-                code
+                p.on_error(&non_idempotent, err()).is_permanent(),
+                "{code:?}"
             );
         }
 
         let retryable_http = [429, 500, 502, 503, 504];
         for code in retryable_http {
-            let err = GaxError::http(code, HeaderMap::new(), bytes::Bytes::new());
+            let err = || GaxError::http(code, HeaderMap::new(), bytes::Bytes::new());
+            assert!(p.on_error(&idempotent, err()).is_continue(), "HTTP {code}");
             assert!(
-                p.on_error(&state, err).is_continue(),
-                "expected continue for HTTP {}",
-                code
+                p.on_error(&non_idempotent, err()).is_permanent(),
+                "HTTP {code}"
             );
         }
 
         let permanent_http = [400, 404, 408, 409, 501];
         for code in permanent_http {
-            let err = GaxError::http(code, HeaderMap::new(), bytes::Bytes::new());
+            let err = || GaxError::http(code, HeaderMap::new(), bytes::Bytes::new());
+            assert!(p.on_error(&idempotent, err()).is_permanent(), "HTTP {code}");
             assert!(
-                p.on_error(&state, err).is_permanent(),
-                "expected permanent for HTTP {}",
-                code
+                p.on_error(&non_idempotent, err()).is_permanent(),
+                "HTTP {code}"
             );
         }
+
+        let io = || GaxError::io("connection reset");
+        assert!(p.on_error(&idempotent, io()).is_continue());
+        assert!(p.on_error(&non_idempotent, io()).is_permanent());
+
+        let timeout = || GaxError::timeout("deadline");
+        assert!(p.on_error(&idempotent, timeout()).is_continue());
+        assert!(p.on_error(&non_idempotent, timeout()).is_permanent());
+
+        // Failures before the request is sent cannot have reached the service,
+        // so they are retried either way.
+        let before_rpc =
+            || GaxError::authentication(CredentialsError::from_msg(true, "token refresh failed"));
+        assert!(p.on_error(&idempotent, before_rpc()).is_continue());
+        assert!(p.on_error(&non_idempotent, before_rpc()).is_continue());
+    }
+
+    #[test]
+    fn test_is_duplicate_job_error() {
+        let rpc = |source| QueryError::Rpc { source };
+        let status = |code| GaxError::service(Status::default().set_code(code));
+        let http = |code| GaxError::http(code, HeaderMap::new(), bytes::Bytes::new());
+
+        assert!(is_duplicate_job_error(&rpc(http(409))));
+        assert!(is_duplicate_job_error(&rpc(status(Code::AlreadyExists))));
+
+        assert!(!is_duplicate_job_error(&rpc(status(Code::Aborted))));
+        assert!(!is_duplicate_job_error(&rpc(http(500))));
+        assert!(!is_duplicate_job_error(&QueryError::JobFailed {
+            errors: vec![ErrorProto::new().set_reason("duplicate")],
+        }));
+    }
+
+    #[test]
+    fn test_duplicate_job_error_is_not_retryable() {
+        const BQ_DUPLICATE_PAYLOAD: &[u8] = br#"{
+  "error": {
+    "code": 409,
+    "message": "Already Exists: Job my-project:US.job_1234567890",
+    "errors": [
+      {
+        "message": "Already Exists: Job my-project:US.job_1234567890",
+        "domain": "global",
+        "reason": "duplicate"
+      }
+    ],
+    "status": "ALREADY_EXISTS"
+  }
+}"#;
+        let status = Status::try_from(&bytes::Bytes::from_static(BQ_DUPLICATE_PAYLOAD))
+            .expect("should deserialize BigQuery REST error");
+        let err = QueryError::Rpc {
+            source: GaxError::service(status),
+        };
+        assert!(is_duplicate_job_error(&err), "{err:?}");
+        assert!(!is_query_error_retryable(&err), "{err:?}");
+    }
+
+    #[test]
+    fn test_is_rpc_error_retryable() {
+        use google_cloud_rpc::model::ErrorInfo;
+
+        // BigQuery REST API JSON error with backendError
+        const BQ_REST_PAYLOAD: &[u8] = br#"{
+  "error": {
+    "code": 400,
+    "message": "The job encountered an error during execution. Retrying the job may solve the problem.",
+    "errors": [
+      {
+        "message": "The job encountered an error during execution. Retrying the job may solve the problem.",
+        "domain": "global",
+        "reason": "backendError"
+      }
+    ],
+    "status": "INVALID_ARGUMENT"
+  }
+}"#;
+        let status = Status::try_from(&bytes::Bytes::from_static(BQ_REST_PAYLOAD))
+            .expect("should deserialize BigQuery REST error");
+        let err = GaxError::service(status);
+        assert!(is_rpc_error_retryable(&err));
+
+        // ErrorInfo detail with retryable reason
+        let status = Status::default()
+            .set_code(Code::InvalidArgument)
+            .set_message("Error occurred")
+            .set_details(vec![StatusDetails::ErrorInfo(
+                ErrorInfo::new().set_reason("backendError"),
+            )]);
+        let err = GaxError::service(status);
+        assert!(is_rpc_error_retryable(&err));
+
+        // ErrorInfo detail with non-retryable reason
+        let status = Status::default()
+            .set_code(Code::InvalidArgument)
+            .set_message("Error occurred")
+            .set_details(vec![StatusDetails::ErrorInfo(
+                ErrorInfo::new().set_reason("invalidQuery"),
+            )]);
+        let err = GaxError::service(status);
+        assert!(!is_rpc_error_retryable(&err));
+
+        // Status without ErrorInfo details
+        let status = Status::default()
+            .set_code(Code::InvalidArgument)
+            .set_message("Syntax error: Unexpected identifier");
+        let err = GaxError::service(status);
+        assert!(!is_rpc_error_retryable(&err));
     }
 
     #[test]
@@ -289,6 +454,26 @@ mod tests {
             errors: vec![ErrorProto::new().set_reason("invalidQuery")],
         };
         assert!(policy.on_error(&state, permanent_err).is_permanent());
+
+        let rpc_retryable_err = QueryError::Rpc {
+            source: GaxError::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_details(vec![StatusDetails::ErrorInfo(
+                        ErrorInfo::new().set_reason("backendError"),
+                    )]),
+            ),
+        };
+        assert!(policy.on_error(&state, rpc_retryable_err).is_continue());
+
+        let rpc_permanent_err = QueryError::Rpc {
+            source: GaxError::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message("Syntax error: Unexpected identifier"),
+            ),
+        };
+        assert!(policy.on_error(&state, rpc_permanent_err).is_permanent());
     }
 
     #[test]

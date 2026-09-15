@@ -3530,6 +3530,8 @@ impl wkt::message::Message for DeleteDocumentRequest {
 
 /// The request for
 /// [Firestore.BatchGetDocuments][google.firestore.v1.Firestore.BatchGetDocuments].
+///
+/// [google.firestore.v1.Firestore.BatchGetDocuments]: crate::client::Firestore::batch_get_documents
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchGetDocumentsRequest {
@@ -3854,6 +3856,8 @@ pub mod batch_get_documents_request {
 
 /// The streamed response for
 /// [Firestore.BatchGetDocuments][google.firestore.v1.Firestore.BatchGetDocuments].
+///
+/// [google.firestore.v1.Firestore.BatchGetDocuments]: crate::client::Firestore::batch_get_documents
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchGetDocumentsResponse {
@@ -4501,6 +4505,8 @@ impl wkt::message::Message for RollbackRequest {
 }
 
 /// The request for [Firestore.RunQuery][google.firestore.v1.Firestore.RunQuery].
+///
+/// [google.firestore.v1.Firestore.RunQuery]: crate::client::Firestore::run_query
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunQueryRequest {
@@ -4886,6 +4892,8 @@ pub mod run_query_request {
 
 /// The response for
 /// [Firestore.RunQuery][google.firestore.v1.Firestore.RunQuery].
+///
+/// [google.firestore.v1.Firestore.RunQuery]: crate::client::Firestore::run_query
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunQueryResponse {
@@ -5147,6 +5155,8 @@ pub mod run_query_response {
 
 /// The request for
 /// [Firestore.RunAggregationQuery][google.firestore.v1.Firestore.RunAggregationQuery].
+///
+/// [google.firestore.v1.Firestore.RunAggregationQuery]: crate::client::Firestore::run_aggregation_query
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunAggregationQueryRequest {
@@ -5538,6 +5548,8 @@ pub mod run_aggregation_query_request {
 
 /// The response for
 /// [Firestore.RunAggregationQuery][google.firestore.v1.Firestore.RunAggregationQuery].
+///
+/// [google.firestore.v1.Firestore.RunAggregationQuery]: crate::client::Firestore::run_aggregation_query
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunAggregationQueryResponse {
@@ -6126,6 +6138,8 @@ impl google_cloud_gax::paginator::internal::PageableResponse for PartitionQueryR
 /// When resuming a stream, the server first streams any responses later than the
 /// given token, then a response containing only an up-to-date token, to use in
 /// the next request.
+///
+/// [google.firestore.v1.Firestore.Write]: crate::client::Firestore::write
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WriteRequest {
@@ -6300,6 +6314,8 @@ impl wkt::message::Message for WriteRequest {
 }
 
 /// The response for [Firestore.Write][google.firestore.v1.Firestore.Write].
+///
+/// [google.firestore.v1.Firestore.Write]: crate::client::Firestore::write
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WriteResponse {
@@ -6419,6 +6435,8 @@ impl wkt::message::Message for WriteResponse {
 }
 
 /// A request for [Firestore.Listen][google.firestore.v1.Firestore.Listen]
+///
+/// [google.firestore.v1.Firestore.Listen]: crate::client::Firestore::listen
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListenRequest {
@@ -6638,6 +6656,8 @@ pub mod listen_request {
 }
 
 /// The response for [Firestore.Listen][google.firestore.v1.Firestore.Listen].
+///
+/// [google.firestore.v1.Firestore.Listen]: crate::client::Firestore::listen
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListenResponse {

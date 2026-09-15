@@ -54,7 +54,7 @@ pub struct RowIterator {
     schema: Arc<Schema>,
     page_token: Option<String>,
     rows: VecDeque<wkt::Struct>,
-    max_results: Option<u32>,
+    page_size: Option<u32>,
 }
 
 impl RowIterator {
@@ -65,7 +65,7 @@ impl RowIterator {
             schema: q.schema,
             page_token: q.page_token,
             rows: q.cached_rows,
-            max_results: q.max_results,
+            page_size: q.page_size,
         }
     }
 
@@ -84,12 +84,12 @@ impl RowIterator {
     ///     .until_done()
     ///     .await?
     ///     .read()
-    ///     .set_max_results(500);
+    ///     .set_page_size(500);
     /// # Ok(())
     /// # }
     /// ```
-    pub fn set_max_results(mut self, max_results: u32) -> Self {
-        self.max_results = Some(max_results);
+    pub fn set_page_size(mut self, page_size: u32) -> Self {
+        self.page_size = Some(page_size);
         self
     }
 
@@ -144,7 +144,7 @@ impl RowIterator {
 
         let mut req = GetQueryResultsRequest::new()
             .set_project_id(job_ref.project_id.clone())
-            .set_or_clear_max_results(self.max_results)
+            .set_or_clear_max_results(self.page_size)
             .set_job_id(job_ref.job_id.clone())
             .set_page_token(token)
             .set_format_options(
@@ -354,7 +354,7 @@ mod tests {
             vec![],
             Some("token_1".to_string()),
         );
-        let mut iter = q.read().set_max_results(50);
+        let mut iter = q.read().set_page_size(50);
 
         let row = iter.next().await.expect("should have row")?;
         assert_eq!(row.get::<String, _>("col")?, "page_row");
@@ -364,7 +364,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_row_iterator_inherits_max_results() -> TestResult {
+    async fn test_row_iterator_inherits_page_size() -> TestResult {
         let mut mock = MockJobService::new();
         mock.expect_get_query_results()
             .times(1)

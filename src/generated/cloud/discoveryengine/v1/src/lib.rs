@@ -118,6 +118,18 @@ pub(crate) mod prost {
     include!("prost/includes.rs");
 }
 
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "grounded-generation-service",
+))]
+#[doc(hidden)]
+#[allow(clippy::all)]
+#[allow(unused_imports)]
+#[allow(dead_code)]
+#[allow(missing_docs)]
+pub(crate) mod convert;
+
 /// The default host used by the service.
 #[cfg(any(
     feature = "assistant-service",
@@ -179,7 +191,6 @@ pub(crate) mod info {
             };
             ac.rest_header_value()
         });
-    #[allow(dead_code)]
     pub(crate) static X_GOOG_API_CLIENT_GRPC_HEADER: std::sync::LazyLock<String> =
         std::sync::LazyLock::new(|| {
             let ac = gaxi::api_header::XGoogApiClient {

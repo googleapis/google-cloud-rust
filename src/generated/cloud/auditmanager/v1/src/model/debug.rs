@@ -22,6 +22,7 @@ impl std::fmt::Debug for super::EnrollResourceRequest {
         let mut debug_struct = f.debug_struct("EnrollResourceRequest");
         debug_struct.field("scope", &self.scope);
         debug_struct.field("destinations", &self.destinations);
+        debug_struct.field("validate_only", &self.validate_only);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -47,6 +48,7 @@ impl std::fmt::Debug for super::GenerateAuditScopeReportRequest {
         debug_struct.field("compliance_standard", &self.compliance_standard);
         debug_struct.field("report_format", &self.report_format);
         debug_struct.field("compliance_framework", &self.compliance_framework);
+        debug_struct.field("validate_only", &self.validate_only);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -352,6 +354,106 @@ impl std::fmt::Debug for super::ControlDetails {
         debug_struct.field("control", &self.control);
         debug_struct.field("compliance_state", &self.compliance_state);
         debug_struct.field("control_report_summary", &self.control_report_summary);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateAuditScheduleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAuditScheduleRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("audit_schedule", &self.audit_schedule);
+        debug_struct.field("audit_schedule_id", &self.audit_schedule_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UpdateAuditScheduleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAuditScheduleRequest");
+        debug_struct.field("audit_schedule", &self.audit_schedule);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetAuditScheduleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAuditScheduleRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListAuditSchedulesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAuditSchedulesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListAuditSchedulesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAuditSchedulesResponse");
+        debug_struct.field("audit_schedules", &self.audit_schedules);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AuditSchedule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AuditSchedule");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("gcs_uri", &self.gcs_uri);
+        debug_struct.field("compliance_framework", &self.compliance_framework);
+        debug_struct.field("report_format", &self.report_format);
+        debug_struct.field("schedule_config", &self.schedule_config);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("next_run_time", &self.next_run_time);
+        debug_struct.field("last_trigger_time", &self.last_trigger_time);
+        debug_struct.field("error_message", &self.error_message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ScheduleConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ScheduleConfig");
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("frequency", &self.frequency);
+        debug_struct.field("time_zone", &self.time_zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -259,6 +259,18 @@ pub trait Advice: std::fmt::Debug + Send + Sync {
         req: crate::model::advice::CalendarModeRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::CalendarModeAdviceResponse>>;
+
+    async fn capacity(
+        &self,
+        req: crate::model::advice::CapacityRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CapacityAdviceResponse>>;
+
+    async fn capacity_history(
+        &self,
+        req: crate::model::advice::CapacityHistoryRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CapacityHistoryResponse>>;
 }
 
 /// All implementations of [super::Advice] also implement [Advice].
@@ -272,6 +284,24 @@ impl<T: super::Advice> Advice for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::CalendarModeAdviceResponse>> {
         T::calendar_mode(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn capacity(
+        &self,
+        req: crate::model::advice::CapacityRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CapacityAdviceResponse>> {
+        T::capacity(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn capacity_history(
+        &self,
+        req: crate::model::advice::CapacityHistoryRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CapacityHistoryResponse>> {
+        T::capacity_history(self, req, options).await
     }
 }
 
@@ -10254,6 +10284,31 @@ impl<T: super::PreviewFeatures> PreviewFeatures for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::ProjectViews].
+#[cfg(feature = "project-views")]
+#[async_trait::async_trait]
+pub trait ProjectViews: std::fmt::Debug + Send + Sync {
+    async fn get(
+        &self,
+        req: crate::model::project_views::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ProjectView>>;
+}
+
+/// All implementations of [super::ProjectViews] also implement [ProjectViews].
+#[cfg(feature = "project-views")]
+#[async_trait::async_trait]
+impl<T: super::ProjectViews> ProjectViews for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::project_views::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ProjectView>> {
+        T::get(self, req, options).await
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::Projects].
 #[cfg(feature = "projects")]
 #[async_trait::async_trait]
@@ -16413,6 +16468,12 @@ pub trait ReservationSlots: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ReservationSlotsGetResponse>>;
 
+    async fn get_health(
+        &self,
+        req: crate::model::reservation_slots::GetHealthRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
     async fn get_version(
         &self,
         req: crate::model::reservation_slots::GetVersionRequest,
@@ -16464,6 +16525,15 @@ impl<T: super::ReservationSlots> ReservationSlots for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ReservationSlotsGetResponse>> {
         T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_health(
+        &self,
+        req: crate::model::reservation_slots::GetHealthRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::get_health(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

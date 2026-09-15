@@ -570,6 +570,219 @@ pub mod spanner {
         }
     }
 
+    /// The request builder for [Spanner::execute_streaming_sql][crate::client::Spanner::execute_streaming_sql] calls.
+    #[derive(Clone, Debug)]
+    pub(crate) struct ExecuteStreamingSql(RequestBuilder<crate::model::ExecuteSqlRequest>);
+
+    impl ExecuteStreamingSql {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ExecuteSqlRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::PartialResultSet>>
+        {
+            (*self.0.stub)
+                .execute_streaming_sql(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [session][crate::model::ExecuteSqlRequest::session].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_session<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.session = v.into();
+            self
+        }
+
+        /// Sets the value of [transaction][crate::model::ExecuteSqlRequest::transaction].
+        pub fn set_transaction<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TransactionSelector>,
+        {
+            self.0.request.transaction = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [transaction][crate::model::ExecuteSqlRequest::transaction].
+        pub fn set_or_clear_transaction<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TransactionSelector>,
+        {
+            self.0.request.transaction = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [sql][crate::model::ExecuteSqlRequest::sql].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_sql<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.sql = v.into();
+            self
+        }
+
+        /// Sets the value of [params][crate::model::ExecuteSqlRequest::params].
+        pub fn set_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.0.request.params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [params][crate::model::ExecuteSqlRequest::params].
+        pub fn set_or_clear_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.0.request.params = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [param_types][crate::model::ExecuteSqlRequest::param_types].
+        pub fn set_param_types<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<crate::model::Type>,
+        {
+            self.0.request.param_types = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [resume_token][crate::model::ExecuteSqlRequest::resume_token].
+        pub fn set_resume_token<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request.resume_token = v.into();
+            self
+        }
+
+        /// Sets the value of [query_mode][crate::model::ExecuteSqlRequest::query_mode].
+        pub fn set_query_mode<T: Into<crate::model::execute_sql_request::QueryMode>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.query_mode = v.into();
+            self
+        }
+
+        /// Sets the value of [partition_token][crate::model::ExecuteSqlRequest::partition_token].
+        pub fn set_partition_token<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request.partition_token = v.into();
+            self
+        }
+
+        /// Sets the value of [seqno][crate::model::ExecuteSqlRequest::seqno].
+        pub fn set_seqno<T: Into<i64>>(mut self, v: T) -> Self {
+            self.0.request.seqno = v.into();
+            self
+        }
+
+        /// Sets the value of [query_options][crate::model::ExecuteSqlRequest::query_options].
+        pub fn set_query_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::execute_sql_request::QueryOptions>,
+        {
+            self.0.request.query_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [query_options][crate::model::ExecuteSqlRequest::query_options].
+        pub fn set_or_clear_query_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::execute_sql_request::QueryOptions>,
+        {
+            self.0.request.query_options = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_options][crate::model::ExecuteSqlRequest::request_options].
+        pub fn set_request_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_options][crate::model::ExecuteSqlRequest::request_options].
+        pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [directed_read_options][crate::model::ExecuteSqlRequest::directed_read_options].
+        pub fn set_directed_read_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DirectedReadOptions>,
+        {
+            self.0.request.directed_read_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [directed_read_options][crate::model::ExecuteSqlRequest::directed_read_options].
+        pub fn set_or_clear_directed_read_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DirectedReadOptions>,
+        {
+            self.0.request.directed_read_options = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [data_boost_enabled][crate::model::ExecuteSqlRequest::data_boost_enabled].
+        pub fn set_data_boost_enabled<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.data_boost_enabled = v.into();
+            self
+        }
+
+        /// Sets the value of [last_statement][crate::model::ExecuteSqlRequest::last_statement].
+        pub fn set_last_statement<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.last_statement = v.into();
+            self
+        }
+
+        /// Sets the value of [routing_hint][crate::model::ExecuteSqlRequest::routing_hint].
+        pub fn set_routing_hint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RoutingHint>,
+        {
+            self.0.request.routing_hint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [routing_hint][crate::model::ExecuteSqlRequest::routing_hint].
+        pub fn set_or_clear_routing_hint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RoutingHint>,
+        {
+            self.0.request.routing_hint = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ExecuteStreamingSql {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [Spanner::execute_batch_dml][crate::client::Spanner::execute_batch_dml] calls.
     #[derive(Clone, Debug)]
     pub(crate) struct ExecuteBatchDml(RequestBuilder<crate::model::ExecuteBatchDmlRequest>);
@@ -882,6 +1095,213 @@ pub mod spanner {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for Read {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Spanner::streaming_read][crate::client::Spanner::streaming_read] calls.
+    #[derive(Clone, Debug)]
+    pub(crate) struct StreamingRead(RequestBuilder<crate::model::ReadRequest>);
+
+    impl StreamingRead {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ReadRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::PartialResultSet>>
+        {
+            (*self.0.stub)
+                .streaming_read(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [session][crate::model::ReadRequest::session].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_session<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.session = v.into();
+            self
+        }
+
+        /// Sets the value of [transaction][crate::model::ReadRequest::transaction].
+        pub fn set_transaction<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TransactionSelector>,
+        {
+            self.0.request.transaction = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [transaction][crate::model::ReadRequest::transaction].
+        pub fn set_or_clear_transaction<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TransactionSelector>,
+        {
+            self.0.request.transaction = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [table][crate::model::ReadRequest::table].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_table<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.table = v.into();
+            self
+        }
+
+        /// Sets the value of [index][crate::model::ReadRequest::index].
+        pub fn set_index<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.index = v.into();
+            self
+        }
+
+        /// Sets the value of [columns][crate::model::ReadRequest::columns].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_columns<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.columns = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [key_set][crate::model::ReadRequest::key_set].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_key_set<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::KeySet>,
+        {
+            self.0.request.key_set = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [key_set][crate::model::ReadRequest::key_set].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_key_set<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::KeySet>,
+        {
+            self.0.request.key_set = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [limit][crate::model::ReadRequest::limit].
+        pub fn set_limit<T: Into<i64>>(mut self, v: T) -> Self {
+            self.0.request.limit = v.into();
+            self
+        }
+
+        /// Sets the value of [resume_token][crate::model::ReadRequest::resume_token].
+        pub fn set_resume_token<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request.resume_token = v.into();
+            self
+        }
+
+        /// Sets the value of [partition_token][crate::model::ReadRequest::partition_token].
+        pub fn set_partition_token<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request.partition_token = v.into();
+            self
+        }
+
+        /// Sets the value of [request_options][crate::model::ReadRequest::request_options].
+        pub fn set_request_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_options][crate::model::ReadRequest::request_options].
+        pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [directed_read_options][crate::model::ReadRequest::directed_read_options].
+        pub fn set_directed_read_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DirectedReadOptions>,
+        {
+            self.0.request.directed_read_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [directed_read_options][crate::model::ReadRequest::directed_read_options].
+        pub fn set_or_clear_directed_read_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DirectedReadOptions>,
+        {
+            self.0.request.directed_read_options = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [data_boost_enabled][crate::model::ReadRequest::data_boost_enabled].
+        pub fn set_data_boost_enabled<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.data_boost_enabled = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ReadRequest::order_by].
+        pub fn set_order_by<T: Into<crate::model::read_request::OrderBy>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+
+        /// Sets the value of [lock_hint][crate::model::ReadRequest::lock_hint].
+        pub fn set_lock_hint<T: Into<crate::model::read_request::LockHint>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.lock_hint = v.into();
+            self
+        }
+
+        /// Sets the value of [routing_hint][crate::model::ReadRequest::routing_hint].
+        pub fn set_routing_hint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RoutingHint>,
+        {
+            self.0.request.routing_hint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [routing_hint][crate::model::ReadRequest::routing_hint].
+        pub fn set_or_clear_routing_hint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RoutingHint>,
+        {
+            self.0.request.routing_hint = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StreamingRead {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
@@ -1476,6 +1896,152 @@ pub mod spanner {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for PartitionRead {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Spanner::batch_write][crate::client::Spanner::batch_write] calls.
+    #[derive(Clone, Debug)]
+    pub(crate) struct BatchWrite(RequestBuilder<crate::model::BatchWriteRequest>);
+
+    impl BatchWrite {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::BatchWriteRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::BatchWriteResponse>>
+        {
+            (*self.0.stub)
+                .batch_write(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [session][crate::model::BatchWriteRequest::session].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_session<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.session = v.into();
+            self
+        }
+
+        /// Sets the value of [request_options][crate::model::BatchWriteRequest::request_options].
+        pub fn set_request_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_options][crate::model::BatchWriteRequest::request_options].
+        pub fn set_or_clear_request_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestOptions>,
+        {
+            self.0.request.request_options = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [mutation_groups][crate::model::BatchWriteRequest::mutation_groups].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_mutation_groups<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::batch_write_request::MutationGroup>,
+        {
+            use std::iter::Iterator;
+            self.0.request.mutation_groups = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [exclude_txn_from_change_streams][crate::model::BatchWriteRequest::exclude_txn_from_change_streams].
+        pub fn set_exclude_txn_from_change_streams<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.exclude_txn_from_change_streams = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for BatchWrite {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Spanner::fetch_cache_update][crate::client::Spanner::fetch_cache_update] calls.
+    #[derive(Clone, Debug)]
+    pub(crate) struct FetchCacheUpdate(RequestBuilder<crate::model::FetchCacheUpdateRequest>);
+
+    impl FetchCacheUpdate {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Spanner>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::FetchCacheUpdateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Initiates the server stream.
+        pub async fn send(
+            self,
+        ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::CacheUpdate>>
+        {
+            (*self.0.stub)
+                .fetch_cache_update(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [database][crate::model::FetchCacheUpdateRequest::database].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.database = v.into();
+            self
+        }
+
+        /// Sets the value of [max_recipe_count][crate::model::FetchCacheUpdateRequest::max_recipe_count].
+        pub fn set_max_recipe_count<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.max_recipe_count = v.into();
+            self
+        }
+
+        /// Sets the value of [max_range_count][crate::model::FetchCacheUpdateRequest::max_range_count].
+        pub fn set_max_range_count<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.max_range_count = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for FetchCacheUpdate {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

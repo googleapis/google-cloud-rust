@@ -42,7 +42,7 @@ pub(crate) const QUERY_REQUEST_ID_PREFIX: &str = "req_";
 /// let mut rows = client
 ///     .query("SELECT name FROM `bigquery-public-data.usa_names.usa_1910_2013` WHERE state = 'TX' LIMIT 100")
 ///     .set_location("US")
-///     .set_max_results(50_u32)
+///     .set_page_size(50_u32)
 ///     .until_done()
 ///     .await?
 ///     .read();
@@ -225,6 +225,8 @@ mod tests {
         ErrorProto, Job, JobConfiguration, JobReference, JobStatus,
         QueryRequest as JobsQueryRequest, QueryResponse,
     };
+    use google_cloud_gax::error::Error as GaxError;
+    use google_cloud_gax::error::rpc::Status;
     use google_cloud_gax::response::Response;
 
     // bigquery limits request id to 36 characters
@@ -466,8 +468,65 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test(start_paused = true)]
+    async fn test_run_reissue_on_retryable_rpc_error() -> TestResult {
+        let mut mock = MockJobService::new();
+        let mut seq = mockall::Sequence::new();
+        let first_request_id = std::sync::Arc::new(std::sync::Mutex::new(String::new()));
+        let first_request_id_clone = first_request_id.clone();
+
+        mock.expect_query()
+            .in_sequence(&mut seq)
+            .times(1)
+            .returning(move |req, _| {
+                let req_id = req.query_request.as_ref().unwrap().request_id.clone();
+                assert!(req_id.starts_with(QUERY_REQUEST_ID_PREFIX));
+                *first_request_id_clone.lock().unwrap() = req_id;
+                const BQ_REST_PAYLOAD: &[u8] = br#"{
+  "error": {
+    "code": 400,
+    "message": "The job encountered an error during execution. Retrying the job may solve the problem.",
+    "errors": [
+      {
+        "message": "The job encountered an error during execution. Retrying the job may solve the problem.",
+        "domain": "global",
+        "reason": "backendError"
+      }
+    ],
+    "status": "INVALID_ARGUMENT"
+  }
+}"#;
+                let status = Status::try_from(&bytes::Bytes::from_static(BQ_REST_PAYLOAD)).unwrap();
+                Err(GaxError::service(status))
+            });
+
+        mock.expect_query()
+            .in_sequence(&mut seq)
+            .times(1)
+            .returning(move |req, _| {
+                let req_id = req.query_request.as_ref().unwrap().request_id.clone();
+                assert!(req_id.starts_with(QUERY_REQUEST_ID_PREFIX));
+                assert_ne!(
+                    req_id,
+                    *first_request_id.lock().unwrap(),
+                    "reissued query must generate a fresh request_id to avoid 409 duplicate ID conflicts"
+                );
+                Ok(Response::from(
+                    QueryResponse::new().set_query_id("q_success"),
+                ))
+            });
+
+        let job_service = create_job_service(mock);
+        let query_builder =
+            Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+        let query = query_builder.send().await?;
+        assert_eq!(query.metadata.query_id, "q_success");
+
+        Ok(())
+    }
+
     #[tokio::test]
-    async fn test_run_jobs_query_with_max_results() -> TestResult {
+    async fn test_run_jobs_query_with_page_size() -> TestResult {
         let mut mock = MockJobService::new();
         mock.expect_query().returning(move |req, _| {
             assert_eq!(
@@ -479,15 +538,15 @@ mod tests {
         let job_service = create_job_service(mock);
         let query_builder = Query::new(job_service, "SELECT 1".to_string())
             .with_project_id("my-project")
-            .set_max_results(100_u32);
+            .set_page_size(100_u32);
         let query = query_builder.send().await?;
-        assert_eq!(query.max_results, Some(100));
+        assert_eq!(query.page_size, Some(100));
 
         Ok(())
     }
 
     #[tokio::test]
-    async fn test_run_jobs_insert_with_max_results() -> TestResult {
+    async fn test_run_jobs_insert_with_page_size() -> TestResult {
         let mut mock = MockJobService::new();
         mock.expect_insert_job().returning(|_, _| {
             let job_ref = JobReference::new()
@@ -503,9 +562,9 @@ mod tests {
         let query_builder = Query::new(job_service, "SELECT 1".to_string())
             .with_project_id("my-project")
             .set_allow_large_results(true)
-            .set_max_results(50_u32);
+            .set_page_size(50_u32);
         let query = query_builder.send().await?;
-        assert_eq!(query.max_results, Some(50));
+        assert_eq!(query.page_size, Some(50));
 
         Ok(())
     }

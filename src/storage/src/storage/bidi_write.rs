@@ -15,6 +15,8 @@
 //! Internal traits and types for Appendable Object Write (Bidi Write).
 
 #[allow(dead_code)]
+pub(crate) mod coalescing_buffer;
+#[allow(dead_code)]
 pub(crate) mod connector;
 #[allow(dead_code)]
 mod redirect;
@@ -33,6 +35,14 @@ use crate::request_options::RequestOptions;
 use gaxi::grpc::tonic::{Extensions, Response as TonicResponse, Result as TonicResult, Streaming};
 use std::future::Future;
 use tokio::sync::mpsc::Receiver;
+
+/// Maximum payload chunk size for a single write request over gRPC (2 MiB).
+///
+/// The GCS v2 API specification (`google/storage/v2/storage.proto`) restricts the
+/// `ChecksummedData.content` payload length to at most 2 MiB per chunk. Splitting
+/// larger writes into <= 2 MiB chunks also ensures individual gRPC messages remain
+/// safely under gRPC's default 4 MiB message size limit.
+pub(crate) const MAX_WRITE_CHUNK_SIZE: usize = 2 * 1024 * 1024;
 
 /// A trait to mock `Streaming<T>` in the unit tests.
 ///

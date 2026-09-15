@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use google_cloud_bigquery_v2::client::JobService;
+use google_cloud_bigquery_v2::job_poller::JobPollerError;
 use google_cloud_bigquery_v2::model::{ErrorProto, InsertJobRequest, Job, JobReference, JobStatus};
-use google_cloud_bigquery_v2::operation::JobPollerError;
 use google_cloud_bigquery_v2::stub::JobService as JobServiceStub;
 use google_cloud_gax::Result as GaxResult;
 use google_cloud_gax::options::RequestOptions;
@@ -132,11 +132,48 @@ async fn non_retryable_error() -> anyhow::Result<()> {
     let result = poller.until_done().await;
 
     // Should return immediately after 1st attempt
-    let JobPollerError::ErrorProto(err) = result.unwrap_err() else {
-        panic!("expected JobPollerError::ErrorProto");
+    let JobPollerError::JobFailed {
+        error_result,
+        errors,
+    } = result.unwrap_err()
+    else {
+        panic!("expected JobPollerError::JobFailed");
     };
 
-    assert_eq!(err.reason.as_str(), "invalidQuery");
+    assert_eq!(error_result.reason, "invalidQuery");
+    assert!(errors.is_empty());
+    Ok(())
+}
+
+#[tokio::test]
+async fn non_retryable_error_with_underlying_errors() -> anyhow::Result<()> {
+    let mut failed_job = non_retryable_job_failure("job-1");
+    let detailed_error = ErrorProto::new()
+        .set_reason("invalid")
+        .set_message("Field 'age' cannot be null")
+        .set_location("row 42");
+    failed_job.status = failed_job.status.map(|s| s.set_errors([detailed_error]));
+
+    let mut mock = MockTestJobService::new();
+    mock.expect_insert_job()
+        .return_once(move |_, _| Ok(Response::from(failed_job)));
+
+    let client = JobService::from_stub(mock);
+    let poller = client.insert_job().into_job_poller();
+    let result = poller.until_done().await;
+
+    let JobPollerError::JobFailed {
+        error_result,
+        errors,
+    } = result.unwrap_err()
+    else {
+        panic!("expected JobPollerError::JobFailed");
+    };
+
+    assert_eq!(error_result.reason, "invalidQuery");
+    assert_eq!(errors.len(), 1);
+    assert_eq!(errors[0].reason, "invalid");
+    assert_eq!(errors[0].location, "row 42");
     Ok(())
 }
 
@@ -154,11 +191,16 @@ async fn retry_exhausted() -> anyhow::Result<()> {
     let result = poller.until_done().await;
 
     // Should stop retrying after limit of 3
-    let JobPollerError::ErrorProto(err) = result.unwrap_err() else {
-        panic!("expected JobPollerError::ErrorProto");
+    let JobPollerError::JobFailed {
+        error_result,
+        errors,
+    } = result.unwrap_err()
+    else {
+        panic!("expected JobPollerError::JobFailed");
     };
 
-    assert_eq!(err.reason.as_str(), "jobBackendError");
+    assert_eq!(error_result.reason, "jobBackendError");
+    assert!(errors.is_empty());
     Ok(())
 }
 

@@ -222,6 +222,9 @@ impl serde::ser::Serialize for super::AnswerQueryRequest {
         if !self.query.is_empty() {
             state.serialize_entry("query", &self.query)?;
         }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

@@ -26,7 +26,7 @@ use bytes::Bytes;
 use crc32c::crc32c;
 use rand::random_range;
 use std::collections::hash_map::Entry;
-use std::collections::{BTreeMap, HashMap};
+use std::collections::{BTreeMap, HashMap, HashSet};
 use std::mem::take;
 use std::ops::Bound;
 #[cfg(test)]
@@ -359,6 +359,22 @@ impl KeyRangeCache {
             .groups
             .get(&group_uid)
             .map(Arc::clone)
+    }
+
+    /// Returns the set of all active tablet server addresses currently tracked across all groups.
+    pub(crate) fn active_addresses(&self) -> HashSet<String> {
+        let state = self
+            .state
+            .read()
+            .expect("lock cache state for active_addresses");
+        state
+            .groups
+            .values()
+            .flat_map(|group| &group.tablets)
+            .map(|tablet| &tablet.server_address)
+            .filter(|address| !address.is_empty())
+            .cloned()
+            .collect()
     }
 
     /// Applies updates from a Spanner `CacheUpdate` message.
@@ -2146,6 +2162,63 @@ mod tests {
         assert_eq!(
             selected_tablet.tablet_uid, 1,
             "must fall back to local replica (UID 1) because leader (UID 2) distance is > 5"
+        );
+    }
+
+    #[test]
+    fn active_addresses_collects_addresses_from_all_groups_and_handles_clear() {
+        let cache = KeyRangeCache::new();
+        assert!(
+            cache.active_addresses().is_empty(),
+            "new cache must have empty active addresses"
+        );
+
+        let group1 = Group::new().set_group_uid(100u64).set_tablets(vec![
+            Tablet::new()
+                .set_tablet_uid(1u64)
+                .set_server_address("10.0.0.1:15000"),
+            Tablet::new()
+                .set_tablet_uid(2u64)
+                .set_server_address("10.0.0.2:15000"),
+            Tablet::new().set_tablet_uid(3u64).set_server_address(""),
+        ]);
+        let group2 = Group::new().set_group_uid(200u64).set_tablets(vec![
+            Tablet::new()
+                .set_tablet_uid(4u64)
+                .set_server_address("10.0.0.2:15000"),
+            Tablet::new()
+                .set_tablet_uid(5u64)
+                .set_server_address("10.0.0.3:15000"),
+        ]);
+
+        let update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![group1, group2]);
+        cache.add_ranges(&update);
+
+        let active_addresses = cache.active_addresses();
+        assert_eq!(
+            active_addresses.len(),
+            3,
+            "must contain exactly 3 unique non-empty server addresses"
+        );
+        assert!(
+            active_addresses.contains("10.0.0.1:15000"),
+            "must contain 10.0.0.1:15000"
+        );
+        assert!(
+            active_addresses.contains("10.0.0.2:15000"),
+            "must contain 10.0.0.2:15000"
+        );
+        assert!(
+            active_addresses.contains("10.0.0.3:15000"),
+            "must contain 10.0.0.3:15000"
+        );
+
+        cache.clear();
+        assert!(
+            cache.active_addresses().is_empty(),
+            "cleared cache must have empty active addresses"
         );
     }
 }

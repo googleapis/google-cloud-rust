@@ -35,7 +35,6 @@
     feature = "versions",
     feature = "webhooks",
 ))]
-#[allow(unused_imports)]
 use crate::Result;
 
 /// Implements a [Agents](super::stub::Agents) decorator for logging and tracing.

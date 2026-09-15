@@ -194,7 +194,7 @@ impl wkt::message::Message for ExcludeByHotword {
 #[non_exhaustive]
 pub struct ExcludeByImageFindings {
     /// A list of image-supported infoTypes—excluding [document
-    /// infoTypes](https://cloud.google.com/sensitive-data-protection/docs/infotypes-reference#documents)—to
+    /// infoTypes](https://docs.cloud.google.com/sensitive-data-protection/docs/infotypes-reference#documents)—to
     /// be used as context for the exclusion rule. A finding is excluded if
     /// its bounding box has the specified spatial relationship (defined by
     /// `image_containment_type`) with a finding of an infoType in this list.
@@ -695,7 +695,7 @@ impl wkt::message::Message for AdjustByMatchingInfoTypes {
 #[non_exhaustive]
 pub struct AdjustByImageFindings {
     /// A list of image-supported infoTypes—excluding [document
-    /// infoTypes](https://cloud.google.com/sensitive-data-protection/docs/infotypes-reference#documents)—to
+    /// infoTypes](https://docs.cloud.google.com/sensitive-data-protection/docs/infotypes-reference#documents)—to
     /// be used as context for the adjustment rule. Sensitive Data Protection
     /// adjusts the likelihood of an image finding if its bounding box has the
     /// specified spatial relationship (defined by `image_containment_type`) with a
@@ -1257,7 +1257,7 @@ impl wkt::message::Message for InspectionRuleSet {
 pub struct InspectConfig {
     /// Restricts what info_types to look for. The values must correspond to
     /// InfoType values returned by ListInfoTypes or listed at
-    /// <https://cloud.google.com/sensitive-data-protection/docs/infotypes-reference>.
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/infotypes-reference>.
     ///
     /// When no InfoTypes or CustomInfoTypes are specified in a request, the
     /// system may automatically choose a default list of detectors to run, which
@@ -1274,7 +1274,7 @@ pub struct InspectConfig {
     /// In general, the highest likelihood setting yields the fewest findings in
     /// results and the lowest chance of a false positive. For more information,
     /// see [Match
-    /// likelihood](https://cloud.google.com/sensitive-data-protection/docs/likelihood).
+    /// likelihood](https://docs.cloud.google.com/sensitive-data-protection/docs/likelihood).
     pub min_likelihood: crate::model::Likelihood,
 
     /// Minimum likelihood per infotype. For each infotype, a user can specify a
@@ -1317,7 +1317,7 @@ pub struct InspectConfig {
     pub exclude_info_types: bool,
 
     /// CustomInfoTypes provided by the user. See
-    /// <https://cloud.google.com/sensitive-data-protection/docs/creating-custom-infotypes>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-custom-infotypes>
     /// to learn more.
     pub custom_info_types: std::vec::Vec<crate::model::CustomInfoType>,
 
@@ -1872,7 +1872,7 @@ pub mod byte_content_item {
 
     /// The type of data being sent for inspection. To learn more, see
     /// [Supported file
-    /// types](https://cloud.google.com/sensitive-data-protection/docs/supported-file-types).
+    /// types](https://docs.cloud.google.com/sensitive-data-protection/docs/supported-file-types).
     ///
     /// Only the first frame of each multiframe image is inspected. Metadata and
     /// other frames aren't inspected.
@@ -2397,7 +2397,7 @@ pub mod content_item {
         /// String data to inspect or redact.
         Value(std::string::String),
         /// Structured content for inspection. See
-        /// <https://cloud.google.com/sensitive-data-protection/docs/inspecting-text#inspecting_a_table>
+        /// <https://docs.cloud.google.com/sensitive-data-protection/docs/inspecting-text#inspecting_a_table>
         /// to learn more.
         Table(std::boxed::Box<crate::model::Table>),
         /// Content data to inspect or redact. Replaces `type` and `data`.
@@ -2417,6 +2417,9 @@ pub mod content_item {
 pub struct ContentMetadata {
     /// User provided key-value pairs of content metadata.
     pub properties: std::vec::Vec<crate::model::KeyValueMetadataProperty>,
+
+    /// Optional. The file labels associated with the content.
+    pub file_labels: std::vec::Vec<crate::model::FileLabel>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2446,6 +2449,28 @@ impl ContentMetadata {
     {
         use std::iter::Iterator;
         self.properties = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [file_labels][crate::model::ContentMetadata::file_labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentMetadata;
+    /// use google_cloud_privacy_dlp_v2::model::FileLabel;
+    /// let x = ContentMetadata::new()
+    ///     .set_file_labels([
+    ///         FileLabel::default()/* use setters */,
+    ///         FileLabel::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_file_labels<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FileLabel>,
+    {
+        use std::iter::Iterator;
+        self.file_labels = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2863,7 +2888,7 @@ impl wkt::message::Message for StringValueBatch {
 }
 
 /// Structured content to inspect. Up to 50,000 `Value`s per request allowed. See
-/// <https://cloud.google.com/sensitive-data-protection/docs/inspecting-structured-text#inspecting_a_table>
+/// <https://docs.cloud.google.com/sensitive-data-protection/docs/inspecting-structured-text#inspecting_a_table>
 /// to learn more.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -3032,6 +3057,321 @@ impl KeyValueMetadataProperty {
 impl wkt::message::Message for KeyValueMetadataProperty {
     fn typename() -> &'static str {
         "type.googleapis.com/google.privacy.dlp.v2.KeyValueMetadataProperty"
+    }
+}
+
+/// Represents a file label.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FileLabel {
+    /// The type of file label.
+    pub r#type: std::option::Option<crate::model::file_label::Type>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FileLabel {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [r#type][crate::model::FileLabel::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileLabel;
+    /// use google_cloud_privacy_dlp_v2::model::file_label::SensitivityLabelMetadata;
+    /// let x = FileLabel::new().set_type(Some(
+    ///     google_cloud_privacy_dlp_v2::model::file_label::Type::SensitivityLabel(SensitivityLabelMetadata::default().into())));
+    /// ```
+    pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::file_label::Type>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// The value of [r#type][crate::model::FileLabel::r#type]
+    /// if it holds a `SensitivityLabel`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn sensitivity_label(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::file_label::SensitivityLabelMetadata>>
+    {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::file_label::Type::SensitivityLabel(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [r#type][crate::model::FileLabel::r#type]
+    /// to hold a `SensitivityLabel`.
+    ///
+    /// Note that all the setters affecting `r#type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileLabel;
+    /// use google_cloud_privacy_dlp_v2::model::file_label::SensitivityLabelMetadata;
+    /// let x = FileLabel::new().set_sensitivity_label(SensitivityLabelMetadata::default()/* use setters */);
+    /// assert!(x.sensitivity_label().is_some());
+    /// assert!(x.google_drive_label().is_none());
+    /// ```
+    pub fn set_sensitivity_label<
+        T: std::convert::Into<std::boxed::Box<crate::model::file_label::SensitivityLabelMetadata>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type =
+            std::option::Option::Some(crate::model::file_label::Type::SensitivityLabel(v.into()));
+        self
+    }
+
+    /// The value of [r#type][crate::model::FileLabel::r#type]
+    /// if it holds a `GoogleDriveLabel`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn google_drive_label(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::file_label::GoogleDriveLabelMetadata>>
+    {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::file_label::Type::GoogleDriveLabel(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [r#type][crate::model::FileLabel::r#type]
+    /// to hold a `GoogleDriveLabel`.
+    ///
+    /// Note that all the setters affecting `r#type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileLabel;
+    /// use google_cloud_privacy_dlp_v2::model::file_label::GoogleDriveLabelMetadata;
+    /// let x = FileLabel::new().set_google_drive_label(GoogleDriveLabelMetadata::default()/* use setters */);
+    /// assert!(x.google_drive_label().is_some());
+    /// assert!(x.sensitivity_label().is_none());
+    /// ```
+    pub fn set_google_drive_label<
+        T: std::convert::Into<std::boxed::Box<crate::model::file_label::GoogleDriveLabelMetadata>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type =
+            std::option::Option::Some(crate::model::file_label::Type::GoogleDriveLabel(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for FileLabel {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.FileLabel"
+    }
+}
+
+/// Defines additional types related to [FileLabel].
+pub mod file_label {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Sensitivity labels published by Microsoft.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SensitivityLabelMetadata {
+        /// Required. The GUID of the sensitivity label.
+        pub guid: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SensitivityLabelMetadata {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [guid][crate::model::file_label::SensitivityLabelMetadata::guid].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::file_label::SensitivityLabelMetadata;
+        /// let x = SensitivityLabelMetadata::new().set_guid("example");
+        /// ```
+        pub fn set_guid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.guid = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for SensitivityLabelMetadata {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.privacy.dlp.v2.FileLabel.SensitivityLabelMetadata"
+        }
+    }
+
+    /// Google Drive labels published by Google.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GoogleDriveLabelMetadata {
+        /// The [label
+        /// ID](https://developers.google.com/workspace/drive/labels/guides/overview)
+        /// of the Google Drive label.
+        pub label_id: std::string::String,
+
+        /// The field values of the Google Drive label
+        pub label_fields: std::vec::Vec<
+            crate::model::file_label::google_drive_label_metadata::LabelFieldMetadata,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl GoogleDriveLabelMetadata {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [label_id][crate::model::file_label::GoogleDriveLabelMetadata::label_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::file_label::GoogleDriveLabelMetadata;
+        /// let x = GoogleDriveLabelMetadata::new().set_label_id("example");
+        /// ```
+        pub fn set_label_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.label_id = v.into();
+            self
+        }
+
+        /// Sets the value of [label_fields][crate::model::file_label::GoogleDriveLabelMetadata::label_fields].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::file_label::GoogleDriveLabelMetadata;
+        /// use google_cloud_privacy_dlp_v2::model::file_label::google_drive_label_metadata::LabelFieldMetadata;
+        /// let x = GoogleDriveLabelMetadata::new()
+        ///     .set_label_fields([
+        ///         LabelFieldMetadata::default()/* use setters */,
+        ///         LabelFieldMetadata::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_label_fields<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                    crate::model::file_label::google_drive_label_metadata::LabelFieldMetadata,
+                >,
+        {
+            use std::iter::Iterator;
+            self.label_fields = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for GoogleDriveLabelMetadata {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.privacy.dlp.v2.FileLabel.GoogleDriveLabelMetadata"
+        }
+    }
+
+    /// Defines additional types related to [GoogleDriveLabelMetadata].
+    pub mod google_drive_label_metadata {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The field values of the Google Drive label
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct LabelFieldMetadata {
+            /// The identifier of the Label Field.
+            pub id: std::string::String,
+
+            /// The value of the Label Field.
+            pub value: std::option::Option<crate::model::Value>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl LabelFieldMetadata {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [id][crate::model::file_label::google_drive_label_metadata::LabelFieldMetadata::id].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::file_label::google_drive_label_metadata::LabelFieldMetadata;
+            /// let x = LabelFieldMetadata::new().set_id("example");
+            /// ```
+            pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.id = v.into();
+                self
+            }
+
+            /// Sets the value of [value][crate::model::file_label::google_drive_label_metadata::LabelFieldMetadata::value].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::file_label::google_drive_label_metadata::LabelFieldMetadata;
+            /// use google_cloud_privacy_dlp_v2::model::Value;
+            /// let x = LabelFieldMetadata::new().set_value(Value::default()/* use setters */);
+            /// ```
+            pub fn set_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::Value>,
+            {
+                self.value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [value][crate::model::file_label::google_drive_label_metadata::LabelFieldMetadata::value].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::file_label::google_drive_label_metadata::LabelFieldMetadata;
+            /// use google_cloud_privacy_dlp_v2::model::Value;
+            /// let x = LabelFieldMetadata::new().set_or_clear_value(Some(Value::default()/* use setters */));
+            /// let x = LabelFieldMetadata::new().set_or_clear_value(None::<Value>);
+            /// ```
+            pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::Value>,
+            {
+                self.value = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for LabelFieldMetadata {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.privacy.dlp.v2.FileLabel.GoogleDriveLabelMetadata.LabelFieldMetadata"
+            }
+        }
+    }
+
+    /// The type of file label.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// Sensitivity labels published by Microsoft.
+        SensitivityLabel(std::boxed::Box<crate::model::file_label::SensitivityLabelMetadata>),
+        /// Google Drive labels published by Google.
+        GoogleDriveLabel(std::boxed::Box<crate::model::file_label::GoogleDriveLabelMetadata>),
     }
 }
 
@@ -4941,7 +5281,8 @@ impl wkt::message::Message for ImageLocation {
     }
 }
 
-/// Bounding box encompassing detected text within an image.
+/// Bounding box encompassing detected text within an image. Coordinates are in
+/// pixels and strictly within the image or frame bounds.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BoundingBox {
@@ -5030,7 +5371,7 @@ pub struct RedactImageRequest {
     ///
     /// The format of this value varies depending on whether you have [specified a
     /// processing
-    /// location](https://cloud.google.com/sensitive-data-protection/docs/specifying-location):
+    /// location](https://docs.cloud.google.com/sensitive-data-protection/docs/specifying-location):
     ///
     /// + Projects scope, location specified:
     ///   `projects/{project_id}/locations/{location_id}`
@@ -5597,7 +5938,7 @@ pub struct DeidentifyContentRequest {
     ///
     /// The format of this value varies depending on whether you have [specified a
     /// processing
-    /// location](https://cloud.google.com/sensitive-data-protection/docs/specifying-location):
+    /// location](https://docs.cloud.google.com/sensitive-data-protection/docs/specifying-location):
     ///
     /// + Projects scope, location specified:
     ///   `projects/{project_id}/locations/{location_id}`
@@ -5923,7 +6264,7 @@ pub struct ReidentifyContentRequest {
     ///
     /// The format of this value varies depending on whether you have [specified a
     /// processing
-    /// location](https://cloud.google.com/sensitive-data-protection/docs/specifying-location):
+    /// location](https://docs.cloud.google.com/sensitive-data-protection/docs/specifying-location):
     ///
     /// + Projects scope, location specified:
     ///   `projects/{project_id}/locations/{location_id}`
@@ -6245,7 +6586,7 @@ pub struct InspectContentRequest {
     ///
     /// The format of this value varies depending on whether you have [specified a
     /// processing
-    /// location](https://cloud.google.com/sensitive-data-protection/docs/specifying-location):
+    /// location](https://docs.cloud.google.com/sensitive-data-protection/docs/specifying-location):
     ///
     /// + Projects scope, location specified:
     ///   `projects/{project_id}/locations/{location_id}`
@@ -6885,7 +7226,7 @@ pub struct InspectDataSourceDetails {
     pub requested_options:
         std::option::Option<crate::model::inspect_data_source_details::RequestedOptions>,
 
-    /// A summary of the outcome of this inspection job.
+    /// Output only. A summary of the outcome of this inspection job.
     pub result: std::option::Option<crate::model::inspect_data_source_details::Result>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6979,8 +7320,8 @@ pub mod inspect_data_source_details {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RequestedOptions {
-        /// If run with an InspectTemplate, a snapshot of its state at the time of
-        /// this run.
+        /// Output only. If run with an InspectTemplate, a snapshot of its state at
+        /// the time of this run.
         pub snapshot_inspect_template: std::option::Option<crate::model::InspectTemplate>,
 
         /// Inspect config.
@@ -9712,7 +10053,7 @@ impl wkt::message::Message for ListInfoTypesResponse {
 }
 
 /// Configuration for a risk analysis job. See
-/// <https://cloud.google.com/sensitive-data-protection/docs/concepts-risk-analysis>
+/// <https://docs.cloud.google.com/sensitive-data-protection/docs/concepts-risk-analysis>
 /// to learn more.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -13299,27 +13640,27 @@ pub mod analyze_data_source_risk_details {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Result {
-        /// Numerical stats result
+        /// Output only. Numerical stats result
         NumericalStatsResult(
             std::boxed::Box<crate::model::analyze_data_source_risk_details::NumericalStatsResult>,
         ),
-        /// Categorical stats result
+        /// Output only. Categorical stats result
         CategoricalStatsResult(
             std::boxed::Box<crate::model::analyze_data_source_risk_details::CategoricalStatsResult>,
         ),
-        /// K-anonymity result
+        /// Output only. K-anonymity result
         KAnonymityResult(
             std::boxed::Box<crate::model::analyze_data_source_risk_details::KAnonymityResult>,
         ),
-        /// L-divesity result
+        /// Output only. L-divesity result
         LDiversityResult(
             std::boxed::Box<crate::model::analyze_data_source_risk_details::LDiversityResult>,
         ),
-        /// K-map result
+        /// Output only. K-map result
         KMapEstimationResult(
             std::boxed::Box<crate::model::analyze_data_source_risk_details::KMapEstimationResult>,
         ),
-        /// Delta-presence result
+        /// Output only. Delta-presence result
         DeltaPresenceEstimationResult(
             std::boxed::Box<
                 crate::model::analyze_data_source_risk_details::DeltaPresenceEstimationResult,
@@ -15835,7 +16176,8 @@ pub mod time_part_config {
 /// Outputs a base64 encoded representation of the hashed output
 /// (for example, L7k0BHmF1ha5U3NfGykjro4xWi1MPVQPjhMAZbSV9mM=).
 /// Currently, only string and integer values can be hashed.
-/// See <https://cloud.google.com/sensitive-data-protection/docs/pseudonymization>
+/// See
+/// <https://docs.cloud.google.com/sensitive-data-protection/docs/pseudonymization>
 /// to learn more.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -16224,8 +16566,8 @@ pub mod replace_dictionary_config {
     #[non_exhaustive]
     pub enum Type {
         /// A list of words to select from for random replacement. The
-        /// [limits](https://cloud.google.com/sensitive-data-protection/limits) page
-        /// contains details about the size limits of dictionaries.
+        /// [limits](https://docs.cloud.google.com/sensitive-data-protection/limits)
+        /// page contains details about the size limits of dictionaries.
         WordList(std::boxed::Box<crate::model::custom_info_type::dictionary::WordList>),
     }
 }
@@ -16712,8 +17054,8 @@ impl wkt::message::Message for CharacterMaskConfig {
 /// be transformed to match the type of the bound before comparing.
 ///
 /// See
-/// <https://cloud.google.com/sensitive-data-protection/docs/concepts-bucketing> to
-/// learn more.
+/// <https://docs.cloud.google.com/sensitive-data-protection/docs/concepts-bucketing>
+/// to learn more.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FixedSizeBucketingConfig {
@@ -16837,8 +17179,8 @@ impl wkt::message::Message for FixedSizeBucketingConfig {
 /// will first attempt converting the type of the data to be transformed to match
 /// the type of the bound before comparing.
 /// See
-/// <https://cloud.google.com/sensitive-data-protection/docs/concepts-bucketing> to
-/// learn more.
+/// <https://docs.cloud.google.com/sensitive-data-protection/docs/concepts-bucketing>
+/// to learn more.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BucketingConfig {
@@ -17026,8 +17368,8 @@ pub mod bucketing_config {
 /// will be replaced with the same surrogate. Identifiers must be at least two
 /// characters long. In the case that the identifier is the empty string, it will
 /// be skipped. See
-/// <https://cloud.google.com/sensitive-data-protection/docs/pseudonymization> to
-/// learn more.
+/// <https://docs.cloud.google.com/sensitive-data-protection/docs/pseudonymization>
+/// to learn more.
 ///
 /// Note: We recommend using  CryptoDeterministicConfig for all use cases which
 /// do not require preserving the input alphabet space and size, plus warrant
@@ -17072,7 +17414,7 @@ pub struct CryptoReplaceFfxFpeConfig {
     ///
     /// This annotation identifies the surrogate when inspecting content using the
     /// custom infoType
-    /// [`SurrogateType`](https://cloud.google.com/sensitive-data-protection/docs/reference/rest/v2/InspectConfig#surrogatetype).
+    /// [`SurrogateType`](https://docs.cloud.google.com/sensitive-data-protection/docs/reference/rest/v2/InspectConfig#surrogatetype).
     /// This facilitates reversal of the surrogate when it occurs in free text.
     ///
     /// In order for inspection to work properly, the name of this infoType must
@@ -17801,7 +18143,7 @@ impl wkt::message::Message for UnwrappedCryptoKey {
 /// dlp.kms.encrypt
 ///
 /// For more information, see [Creating a wrapped key]
-/// (<https://cloud.google.com/sensitive-data-protection/docs/create-wrapped-key>).
+/// (<https://docs.cloud.google.com/sensitive-data-protection/docs/create-wrapped-key>).
 ///
 /// Note: When you use Cloud KMS for cryptographic operations,
 /// [charges apply](https://cloud.google.com/kms/pricing).
@@ -17856,7 +18198,7 @@ impl wkt::message::Message for KmsWrappedCryptoKey {
 
 /// Shifts dates by random number of days, with option to be consistent for the
 /// same context. See
-/// <https://cloud.google.com/sensitive-data-protection/docs/concepts-date-shifting>
+/// <https://docs.cloud.google.com/sensitive-data-protection/docs/concepts-date-shifting>
 /// to learn more.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -20388,8 +20730,8 @@ impl wkt::message::Message for Manual {
 /// The inspectTemplate contains a configuration (set of types of sensitive data
 /// to be detected) to be used anywhere you otherwise would normally specify
 /// InspectConfig. See
-/// <https://cloud.google.com/sensitive-data-protection/docs/concepts-templates> to
-/// learn more.
+/// <https://docs.cloud.google.com/sensitive-data-protection/docs/concepts-templates>
+/// to learn more.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InspectTemplate {
@@ -20414,6 +20756,12 @@ pub struct InspectTemplate {
 
     /// The core content of the template. Configuration of the scanning process.
     pub inspect_config: std::option::Option<crate::model::InspectConfig>,
+
+    /// Optional. Enables the use of [limited-availability built-in
+    /// infoTypes](https://docs.cloud.google.com/sensitive-data-protection/docs/infotypes-reference#limited-availability-infotypes)
+    /// in inspect_config. These infoTypes are supported only in specific regions
+    /// and can cause scanning errors if used elsewhere.
+    pub allow_limited_availability_info_types: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -20560,6 +20908,21 @@ impl InspectTemplate {
         self.inspect_config = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [allow_limited_availability_info_types][crate::model::InspectTemplate::allow_limited_availability_info_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectTemplate;
+    /// let x = InspectTemplate::new().set_allow_limited_availability_info_types(true);
+    /// ```
+    pub fn set_allow_limited_availability_info_types<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.allow_limited_availability_info_types = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for InspectTemplate {
@@ -20570,8 +20933,8 @@ impl wkt::message::Message for InspectTemplate {
 
 /// DeidentifyTemplates contains instructions on how to de-identify content.
 /// See
-/// <https://cloud.google.com/sensitive-data-protection/docs/concepts-templates> to
-/// learn more.
+/// <https://docs.cloud.google.com/sensitive-data-protection/docs/concepts-templates>
+/// to learn more.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeidentifyTemplate {
@@ -20997,13 +21360,13 @@ pub mod error {
 
 /// Contains a configuration to make API calls on a repeating basis.
 /// See
-/// <https://cloud.google.com/sensitive-data-protection/docs/concepts-job-triggers>
+/// <https://docs.cloud.google.com/sensitive-data-protection/docs/concepts-job-triggers>
 /// to learn more.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobTrigger {
-    /// Unique resource name for the triggeredJob, assigned by the service when the
-    /// triggeredJob is created, for example
+    /// Output only. Unique resource name for the triggeredJob, assigned by the
+    /// service when the triggeredJob is created, for example
     /// `projects/dlp-test-project/jobTriggers/53234423`.
     pub name: std::string::String,
 
@@ -21602,7 +21965,8 @@ pub mod job_trigger {
 }
 
 /// A task to execute on the completion of a job.
-/// See <https://cloud.google.com/sensitive-data-protection/docs/concepts-actions>
+/// See
+/// <https://docs.cloud.google.com/sensitive-data-protection/docs/concepts-actions>
 /// to learn more.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -22077,7 +22441,7 @@ pub mod action {
     /// Publish a message into a given Pub/Sub topic when DlpJob has completed. The
     /// message contains a single field, `DlpJobName`, which is equal to the
     /// finished job's
-    /// [`DlpJob.name`](https://cloud.google.com/sensitive-data-protection/docs/reference/rest/v2/projects.dlpJobs#DlpJob).
+    /// [`DlpJob.name`](https://docs.cloud.google.com/sensitive-data-protection/docs/reference/rest/v2/projects.dlpJobs#DlpJob).
     /// Compatible with: Inspect, Risk
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
@@ -22185,7 +22549,7 @@ pub mod action {
     /// Publish findings of a DlpJob to Dataplex Universal Catalog as a
     /// `sensitive-data-protection-job-result` aspect. For more information,
     /// see [Send inspection results to Dataplex Universal Catalog as
-    /// aspects](https://cloud.google.com/sensitive-data-protection/docs/add-aspects-inspection-job).
+    /// aspects](https://docs.cloud.google.com/sensitive-data-protection/docs/add-aspects-inspection-job).
     ///
     /// Aspects are stored in Dataplex Universal Catalog storage and are
     /// governed by service-specific policies for Dataplex Universal Catalog. For
@@ -22489,7 +22853,7 @@ pub mod action {
 
     /// Sends an email when the job completes. The email goes to IAM project owners
     /// and technical [Essential
-    /// Contacts](https://cloud.google.com/resource-manager/docs/managing-notification-contacts).
+    /// Contacts](https://docs.cloud.google.com/resource-manager/docs/managing-notification-contacts).
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct JobNotificationEmails {
@@ -22557,7 +22921,7 @@ pub mod action {
         Deidentify(std::boxed::Box<crate::model::action::Deidentify>),
         /// Sends an email when the job completes. The email goes to IAM project
         /// owners and technical [Essential
-        /// Contacts](https://cloud.google.com/resource-manager/docs/managing-notification-contacts).
+        /// Contacts](https://docs.cloud.google.com/resource-manager/docs/managing-notification-contacts).
         JobNotificationEmails(std::boxed::Box<crate::model::action::JobNotificationEmails>),
         /// Enable Stackdriver metric dlp.googleapis.com/finding_count.
         PublishToStackdriver(std::boxed::Box<crate::model::action::PublishToStackdriver>),
@@ -22662,7 +23026,7 @@ pub struct CreateInspectTemplateRequest {
     ///
     /// The format of this value varies depending on the scope of the request
     /// (project or organization) and whether you have [specified a processing
-    /// location](https://cloud.google.com/sensitive-data-protection/docs/specifying-location):
+    /// location](https://docs.cloud.google.com/sensitive-data-protection/docs/specifying-location):
     ///
     /// + Projects scope, location specified:
     ///   `projects/{project_id}/locations/{location_id}`
@@ -22938,7 +23302,7 @@ pub struct ListInspectTemplatesRequest {
     ///
     /// The format of this value varies depending on the scope of the request
     /// (project or organization) and whether you have [specified a processing
-    /// location](https://cloud.google.com/sensitive-data-protection/docs/specifying-location):
+    /// location](https://docs.cloud.google.com/sensitive-data-protection/docs/specifying-location):
     ///
     /// + Projects scope, location specified:
     ///   `projects/{project_id}/locations/{location_id}`
@@ -23183,7 +23547,7 @@ pub struct CreateJobTriggerRequest {
     ///
     /// The format of this value varies depending on whether you have [specified a
     /// processing
-    /// location](https://cloud.google.com/sensitive-data-protection/docs/specifying-location):
+    /// location](https://docs.cloud.google.com/sensitive-data-protection/docs/specifying-location):
     ///
     /// + Projects scope, location specified:
     ///   `projects/{project_id}/locations/{location_id}`
@@ -23970,7 +24334,7 @@ pub struct CreateDlpJobRequest {
     ///
     /// The format of this value varies depending on whether you have [specified a
     /// processing
-    /// location](https://cloud.google.com/sensitive-data-protection/docs/specifying-location):
+    /// location](https://docs.cloud.google.com/sensitive-data-protection/docs/specifying-location):
     ///
     /// + Projects scope, location specified:
     ///   `projects/{project_id}/locations/{location_id}`
@@ -24177,7 +24541,7 @@ pub struct ListJobTriggersRequest {
     ///
     /// The format of this value varies depending on whether you have [specified a
     /// processing
-    /// location](https://cloud.google.com/sensitive-data-protection/docs/specifying-location):
+    /// location](https://docs.cloud.google.com/sensitive-data-protection/docs/specifying-location):
     ///
     /// + Projects scope, location specified:
     ///   `projects/{project_id}/locations/{location_id}`
@@ -24951,9 +25315,9 @@ pub mod data_profile_action {
         ///   generated and the dataset and table are created, the discovery scan
         ///   configuration will be updated with the dataset and table names.
         /// * See [Analyze data profiles stored in
-        ///   BigQuery](https://cloud.google.com/sensitive-data-protection/docs/analyze-data-profiles).
+        ///   BigQuery](https://docs.cloud.google.com/sensitive-data-protection/docs/analyze-data-profiles).
         /// * See [Sample queries for your BigQuery
-        ///   table](https://cloud.google.com/sensitive-data-protection/docs/analyze-data-profiles#sample_sql_queries).
+        ///   table](https://docs.cloud.google.com/sensitive-data-protection/docs/analyze-data-profiles#sample_sql_queries).
         /// * Data is inserted using [streaming
         ///   insert](https://cloud.google.com/blog/products/bigquery/life-of-a-bigquery-streaming-insert)
         ///   and so data may be in the buffer for a period of time after the
@@ -24964,7 +25328,7 @@ pub mod data_profile_action {
         ///   notification.
         /// * The best practice is to use the same table for an entire organization
         ///   so that you can take advantage of the [provided Data Studio
-        ///   reports](https://cloud.google.com/sensitive-data-protection/docs/analyze-data-profiles#use_a_premade_report).
+        ///   reports](https://docs.cloud.google.com/sensitive-data-protection/docs/analyze-data-profiles#use_a_premade_report).
         ///   If you use VPC Service Controls to define security perimeters, then
         ///   you must use a separate table for each boundary.
         pub profile_table: std::option::Option<crate::model::BigQueryTable>,
@@ -25377,7 +25741,8 @@ pub mod data_profile_action {
 
     /// Create Dataplex Universal Catalog aspects for profiled resources with the
     /// aspect type Sensitive Data Protection Profile. To learn more about aspects,
-    /// see <https://cloud.google.com/sensitive-data-protection/docs/add-aspects>.
+    /// see
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/add-aspects>.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PublishToDataplexCatalog {
@@ -25418,10 +25783,10 @@ pub mod data_profile_action {
     }
 
     /// If set, attaches the [tags]
-    /// (<https://cloud.google.com/resource-manager/docs/tags/tags-overview>)
+    /// (<https://docs.cloud.google.com/resource-manager/docs/tags/tags-overview>)
     /// provided to profiled resources. Tags support [access
-    /// control](https://cloud.google.com/iam/docs/tags-access-control). You can
-    /// conditionally grant or deny access to a resource based on whether the
+    /// control](https://docs.cloud.google.com/iam/docs/tags-access-control). You
+    /// can conditionally grant or deny access to a resource based on whether the
     /// resource has a specific tag.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
@@ -25440,11 +25805,11 @@ pub mod data_profile_action {
 
         /// Whether applying a tag to a resource should lower the risk of the profile
         /// for that resource. For example, in conjunction with an [IAM deny
-        /// policy](https://cloud.google.com/iam/docs/deny-overview), you can deny
-        /// all principals a permission if a tag value is present, mitigating the
-        /// risk of the resource. This also lowers the data risk of resources at the
-        /// lower levels of the resource hierarchy. For example, reducing the data
-        /// risk of a table data profile also reduces the data risk of the
+        /// policy](https://docs.cloud.google.com/iam/docs/deny-overview), you can
+        /// deny all principals a permission if a tag value is present, mitigating
+        /// the risk of the resource. This also lowers the data risk of resources at
+        /// the lower levels of the resource hierarchy. For example, reducing the
+        /// data risk of a table data profile also reduces the data risk of the
         /// constituent column data profiles.
         pub lower_data_risk_to_low: bool,
 
@@ -25930,7 +26295,7 @@ pub mod data_profile_action {
         /// Publishes generated data profiles to Google Security Operations.
         /// For more information, see [Use Sensitive Data Protection data in
         /// context-aware
-        /// analytics](https://cloud.google.com/chronicle/docs/detection/usecase-dlp-high-risk-user-download).
+        /// analytics](https://docs.cloud.google.com/chronicle/docs/detection/usecase-dlp-high-risk-user-download).
         PublishToChronicle(std::boxed::Box<crate::model::data_profile_action::PublishToChronicle>),
         /// Publishes findings to Security Command Center for each data profile.
         PublishToScc(
@@ -25957,7 +26322,7 @@ pub struct DataProfileFinding {
     pub quote: std::string::String,
 
     /// The [type of
-    /// content](https://cloud.google.com/sensitive-data-protection/docs/infotypes-reference)
+    /// content](https://docs.cloud.google.com/sensitive-data-protection/docs/infotypes-reference)
     /// that might have been found.
     pub infotype: std::option::Option<crate::model::InfoType>,
 
@@ -26434,7 +26799,7 @@ impl wkt::message::Message for DataProfileFindingRecordLocation {
 ///
 /// The generated data profiles are retained according to the
 /// [data retention policy]
-/// (<https://cloud.google.com/sensitive-data-protection/docs/data-profiles#retention>).
+/// (<https://docs.cloud.google.com/sensitive-data-protection/docs/data-profiles#retention>).
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataProfileJobConfig {
@@ -26465,7 +26830,7 @@ pub struct DataProfileJobConfig {
     /// scanned.
     ///
     /// For more information, see
-    /// <https://cloud.google.com/sensitive-data-protection/docs/data-profiles#data-residency>.
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/data-profiles#data-residency>.
     pub inspect_templates: std::vec::Vec<std::string::String>,
 
     /// Actions to execute at the completion of the job.
@@ -26927,12 +27292,12 @@ pub mod data_profile_location {
 ///
 /// The generated data profiles are retained according to the
 /// [data retention policy]
-/// (<https://cloud.google.com/sensitive-data-protection/docs/data-profiles#retention>).
+/// (<https://docs.cloud.google.com/sensitive-data-protection/docs/data-profiles#retention>).
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiscoveryConfig {
-    /// Unique resource name for the DiscoveryConfig, assigned by the service when
-    /// the DiscoveryConfig is created, for example
+    /// Output only. Unique resource name for the DiscoveryConfig, assigned by the
+    /// service when the DiscoveryConfig is created, for example
     /// `projects/dlp-test-project/locations/global/discoveryConfigs/53234423`.
     pub name: std::string::String,
 
@@ -26961,7 +27326,7 @@ pub struct DiscoveryConfig {
     /// scanned.
     ///
     /// For more information, see
-    /// <https://cloud.google.com/sensitive-data-protection/docs/data-profiles#data-residency>.
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/data-profiles#data-residency>.
     pub inspect_templates: std::vec::Vec<std::string::String>,
 
     /// Actions to execute at the completion of scanning.
@@ -30578,7 +30943,7 @@ pub mod discovery_cloud_sql_generation_cadence {
 /// No inspect template should be included in the discovery config for a
 /// security benchmarks scan. Instead, the built-in list of secrets and
 /// credentials infoTypes will be used (see
-/// <https://cloud.google.com/sensitive-data-protection/docs/infotypes-reference#credentials_and_secrets>).
+/// <https://docs.cloud.google.com/sensitive-data-protection/docs/infotypes-reference#credentials_and_secrets>).
 ///
 /// Credentials and secrets discovered will be reported as vulnerabilities to
 /// Security Command Center.
@@ -31035,7 +31400,7 @@ pub struct FileStoreCollection {
     /// For a resource to match the tag filters, the resource must have all of the
     /// provided tags attached. Tags refer to Resource Manager tags bound to the
     /// resource or its ancestors. For more information, see [Manage
-    /// schedules](https://cloud.google.com/sensitive-data-protection/docs/profile-project-cloud-storage#manage-schedules).
+    /// schedules](https://docs.cloud.google.com/sensitive-data-protection/docs/profile-project-cloud-storage#manage-schedules).
     pub include_tags: std::option::Option<crate::model::TagFilters>,
 
     /// The first filter containing a pattern that matches a file store will be
@@ -31608,8 +31973,8 @@ pub mod discovery_cloud_storage_conditions {
     use super::*;
 
     /// The attribute of an object. See
-    /// <https://cloud.google.com/storage/docs/storage-classes> for more information
-    /// on storage classes.
+    /// <https://docs.cloud.google.com/storage/docs/storage-classes> for more
+    /// information on storage classes.
     ///
     /// # Working with unknown values
     ///
@@ -31812,11 +32177,13 @@ pub mod discovery_cloud_storage_conditions {
         Unspecified,
         /// Scan buckets regardless of the attribute.
         AllSupportedBuckets,
-        /// Buckets with [Autoclass](https://cloud.google.com/storage/docs/autoclass)
+        /// Buckets with
+        /// [Autoclass](https://docs.cloud.google.com/storage/docs/autoclass)
         /// disabled. Only one of
         /// AUTOCLASS_DISABLED or AUTOCLASS_ENABLED should be set.
         AutoclassDisabled,
-        /// Buckets with [Autoclass](https://cloud.google.com/storage/docs/autoclass)
+        /// Buckets with
+        /// [Autoclass](https://docs.cloud.google.com/storage/docs/autoclass)
         /// enabled. Only one of
         /// AUTOCLASS_DISABLED or AUTOCLASS_ENABLED should be set. Scanning
         /// Autoclass-enabled buckets can affect object storage classes.
@@ -32117,7 +32484,7 @@ pub mod discovery_file_store_conditions {
 
 /// Target used to match against for discovery of resources from other clouds.
 /// An [AWS connector in Security Command Center
-/// (Enterprise](https://cloud.google.com/security-command-center/docs/connect-scc-to-aws)
+/// (Enterprise](https://docs.cloud.google.com/security-command-center/docs/connect-scc-to-aws)
 /// is required to use this feature.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -34963,35 +35330,35 @@ impl wkt::message::Message for DiscoveryVertexDatasetGenerationCadence {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DlpJob {
-    /// The server-assigned name.
+    /// Output only. The server-assigned name.
     pub name: std::string::String,
 
     /// The type of job.
     pub r#type: crate::model::DlpJobType,
 
-    /// State of a job.
+    /// Output only. State of a job.
     pub state: crate::model::dlp_job::JobState,
 
-    /// Time when the job was created.
+    /// Output only. Time when the job was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
-    /// Time when the job started.
+    /// Output only. Time when the job started.
     pub start_time: std::option::Option<wkt::Timestamp>,
 
-    /// Time when the job finished.
+    /// Output only. Time when the job finished.
     pub end_time: std::option::Option<wkt::Timestamp>,
 
-    /// Time when the job was last modified by the system.
+    /// Output only. Time when the job was last modified by the system.
     pub last_modified: std::option::Option<wkt::Timestamp>,
 
-    /// If created by a job trigger, the resource name of the trigger that
-    /// instantiated the job.
+    /// Output only. If created by a job trigger, the resource name of the trigger
+    /// that instantiated the job.
     pub job_trigger_name: std::string::String,
 
-    /// A stream of errors encountered running the job.
+    /// Output only. A stream of errors encountered running the job.
     pub errors: std::vec::Vec<crate::model::Error>,
 
-    /// Events that should occur after the job has completed.
+    /// Output only. Events that should occur after the job has completed.
     pub action_details: std::vec::Vec<crate::model::ActionDetails>,
 
     /// Job details.
@@ -35576,7 +35943,7 @@ pub struct ListDlpJobsRequest {
     ///
     /// The format of this value varies depending on whether you have [specified a
     /// processing
-    /// location](https://cloud.google.com/sensitive-data-protection/docs/specifying-location):
+    /// location](https://docs.cloud.google.com/sensitive-data-protection/docs/specifying-location):
     ///
     /// + Projects scope, location specified:
     ///   `projects/{project_id}/locations/{location_id}`
@@ -35947,7 +36314,7 @@ pub struct CreateDeidentifyTemplateRequest {
     ///
     /// The format of this value varies depending on the scope of the request
     /// (project or organization) and whether you have [specified a processing
-    /// location](https://cloud.google.com/sensitive-data-protection/docs/specifying-location):
+    /// location](https://docs.cloud.google.com/sensitive-data-protection/docs/specifying-location):
     ///
     /// + Projects scope, location specified:
     ///   `projects/{project_id}/locations/{location_id}`
@@ -36224,7 +36591,7 @@ pub struct ListDeidentifyTemplatesRequest {
     ///
     /// The format of this value varies depending on the scope of the request
     /// (project or organization) and whether you have [specified a processing
-    /// location](https://cloud.google.com/sensitive-data-protection/docs/specifying-location):
+    /// location](https://docs.cloud.google.com/sensitive-data-protection/docs/specifying-location):
     ///
     /// + Projects scope, location specified:
     ///   `projects/{project_id}/locations/{location_id}`
@@ -36465,10 +36832,10 @@ impl wkt::message::Message for DeleteDeidentifyTemplateRequest {
 
 /// Configuration for a custom dictionary created from a data source of any size
 /// up to the maximum size defined in the
-/// [limits](https://cloud.google.com/sensitive-data-protection/limits) page. The
-/// artifacts of dictionary creation are stored in the specified Cloud Storage
-/// location. Consider using `CustomInfoType.Dictionary` for smaller dictionaries
-/// that satisfy the size requirements.
+/// [limits](https://docs.cloud.google.com/sensitive-data-protection/limits)
+/// page. The artifacts of dictionary creation are stored in the specified Cloud
+/// Storage location. Consider using `CustomInfoType.Dictionary` for smaller
+/// dictionaries that satisfy the size requirements.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LargeCustomDictionaryConfig {
@@ -36689,7 +37056,7 @@ impl wkt::message::Message for LargeCustomDictionaryStats {
 
 /// Configuration for stored infoTypes. All fields and subfield are provided
 /// by the user. For more information, see
-/// <https://cloud.google.com/sensitive-data-protection/docs/creating-custom-infotypes>.
+/// <https://docs.cloud.google.com/sensitive-data-protection/docs/creating-custom-infotypes>.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StoredInfoTypeConfig {
@@ -37012,18 +37379,18 @@ pub struct StoredInfoTypeVersion {
     /// StoredInfoType configuration.
     pub config: std::option::Option<crate::model::StoredInfoTypeConfig>,
 
-    /// Create timestamp of the version. Read-only, determined by the system
-    /// when the version is created.
+    /// Output only. Create timestamp of the version. Read-only, determined by the
+    /// system when the version is created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
-    /// Stored info type version state. Read-only, updated by the system
-    /// during dictionary creation.
+    /// Output only. Stored info type version state. Read-only, updated by the
+    /// system during dictionary creation.
     pub state: crate::model::StoredInfoTypeState,
 
-    /// Errors that occurred when creating this storedInfoType version, or
-    /// anomalies detected in the storedInfoType data that render it unusable. Only
-    /// the five most recent errors will be displayed, with the most recent error
-    /// appearing first.
+    /// Output only. Errors that occurred when creating this storedInfoType
+    /// version, or anomalies detected in the storedInfoType data that render it
+    /// unusable. Only the five most recent errors will be displayed, with the most
+    /// recent error appearing first.
     ///
     /// For example, some of the data for stored custom dictionaries is put in
     /// the user's Cloud Storage bucket, and if this data is modified or
@@ -37035,7 +37402,7 @@ pub struct StoredInfoTypeVersion {
     /// not the source of the error.
     pub errors: std::vec::Vec<crate::model::Error>,
 
-    /// Statistics about this storedInfoType version.
+    /// Output only. Statistics about this storedInfoType version.
     pub stats: std::option::Option<crate::model::StoredInfoTypeStats>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -37198,7 +37565,7 @@ impl wkt::message::Message for StoredInfoTypeVersion {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StoredInfoType {
-    /// Resource name.
+    /// Output only. Resource name.
     pub name: std::string::String,
 
     /// Current version of the stored info type.
@@ -37301,7 +37668,7 @@ pub struct CreateStoredInfoTypeRequest {
     ///
     /// The format of this value varies depending on the scope of the request
     /// (project or organization) and whether you have [specified a processing
-    /// location](https://cloud.google.com/sensitive-data-protection/docs/specifying-location):
+    /// location](https://docs.cloud.google.com/sensitive-data-protection/docs/specifying-location):
     ///
     /// + Projects scope, location specified:
     ///   `projects/{project_id}/locations/{location_id}`
@@ -37582,7 +37949,7 @@ pub struct ListStoredInfoTypesRequest {
     ///
     /// The format of this value varies depending on the scope of the request
     /// (project or organization) and whether you have [specified a processing
-    /// location](https://cloud.google.com/sensitive-data-protection/docs/specifying-location):
+    /// location](https://docs.cloud.google.com/sensitive-data-protection/docs/specifying-location):
     ///
     /// + Projects scope, location specified:
     ///   `projects/{project_id}/locations/{location_id}`
@@ -39799,7 +40166,7 @@ pub struct TableDataProfile {
     pub dataset_project_id: std::string::String,
 
     /// If supported, the location where the dataset's data is stored.
-    /// See <https://cloud.google.com/bigquery/docs/locations> for supported
+    /// See <https://docs.cloud.google.com/bigquery/docs/locations> for supported
     /// locations.
     pub dataset_location: std::string::String,
 
@@ -40980,7 +41347,7 @@ pub struct ColumnDataProfile {
     pub dataset_project_id: std::string::String,
 
     /// If supported, the location where the dataset's data is stored.
-    /// See <https://cloud.google.com/bigquery/docs/locations> for supported
+    /// See <https://docs.cloud.google.com/bigquery/docs/locations> for supported
     /// BigQuery locations.
     pub dataset_location: std::string::String,
 
@@ -41980,7 +42347,7 @@ pub struct FileStoreDataProfile {
     /// The location of the file store.
     ///
     /// * Cloud Storage:
-    ///   <https://cloud.google.com/storage/docs/locations#available-locations>
+    ///   <https://docs.cloud.google.com/storage/docs/locations#available-locations>
     /// * Amazon S3:
     ///   <https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints>
     pub file_store_location: std::string::String,
@@ -45400,8 +45767,8 @@ impl wkt::message::Message for SecretManagerCredential {
 
 /// Use IAM authentication to connect. This requires the Cloud SQL IAM feature
 /// to be enabled on the instance, which is not the default for Cloud SQL.
-/// See <https://cloud.google.com/sql/docs/postgres/authentication> and
-/// <https://cloud.google.com/sql/docs/mysql/authentication>.
+/// See <https://docs.cloud.google.com/sql/docs/postgres/authentication> and
+/// <https://docs.cloud.google.com/sql/docs/mysql/authentication>.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudSqlIamCredential {
@@ -46750,11 +47117,11 @@ pub mod domain {
         /// the table contains text embeddings.
         Embedding,
         /// The [Cloud SQL Vertex
-        /// AI](https://cloud.google.com/sql/docs/postgres/integrate-cloud-sql-with-vertex-ai)
+        /// AI](https://docs.cloud.google.com/sql/docs/postgres/integrate-cloud-sql-with-vertex-ai)
         /// plugin is installed on the database.
         VertexPlugin,
         /// Support for [Cloud SQL vector
-        /// embeddings](https://cloud.google.com/sql/docs/mysql/enable-vector-search)
+        /// embeddings](https://docs.cloud.google.com/sql/docs/mysql/enable-vector-search)
         /// is enabled on the database.
         VectorPlugin,
         /// Source code is present.
@@ -46896,6 +47263,1505 @@ pub mod domain {
     }
 }
 
+/// Request message for CreateContentPolicy.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateContentPolicyRequest {
+    /// Required. Parent resource name.
+    ///
+    /// The format of this value varies depending on the scope of the request
+    /// (project):
+    ///
+    /// + Projects scope:
+    ///   `projects/{project_id}/locations/{location_id}`
+    pub parent: std::string::String,
+
+    /// Required. The content_policy resource.
+    pub content_policy: std::option::Option<crate::model::ContentPolicy>,
+
+    /// Optional. The content policy ID can contain uppercase and lowercase
+    /// letters, numbers, and hyphens; that is, it must match the regular
+    /// expression:
+    /// `[a-zA-Z\d-_]+`.
+    /// The maximum length is 100 characters. If empty, the system will generate
+    /// a random id.
+    pub content_policy_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateContentPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateContentPolicyRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateContentPolicyRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateContentPolicyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [content_policy][crate::model::CreateContentPolicyRequest::content_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateContentPolicyRequest;
+    /// use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// let x = CreateContentPolicyRequest::new().set_content_policy(ContentPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_content_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ContentPolicy>,
+    {
+        self.content_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [content_policy][crate::model::CreateContentPolicyRequest::content_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateContentPolicyRequest;
+    /// use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// let x = CreateContentPolicyRequest::new().set_or_clear_content_policy(Some(ContentPolicy::default()/* use setters */));
+    /// let x = CreateContentPolicyRequest::new().set_or_clear_content_policy(None::<ContentPolicy>);
+    /// ```
+    pub fn set_or_clear_content_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ContentPolicy>,
+    {
+        self.content_policy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [content_policy_id][crate::model::CreateContentPolicyRequest::content_policy_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateContentPolicyRequest;
+    /// let x = CreateContentPolicyRequest::new().set_content_policy_id("example");
+    /// ```
+    pub fn set_content_policy_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.content_policy_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateContentPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.CreateContentPolicyRequest"
+    }
+}
+
+/// Request message for GetContentPolicy.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetContentPolicyRequest {
+    /// Required. Resource name in the format:
+    /// `projects/{project}/locations/{location}/contentPolicies/{content_policy}`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetContentPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetContentPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::GetContentPolicyRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let content_policy_id = "content_policy_id";
+    /// let x = GetContentPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/contentPolicies/{content_policy_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetContentPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.GetContentPolicyRequest"
+    }
+}
+
+/// Request message for ListContentPolicies.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListContentPoliciesRequest {
+    /// Required. Resource name of the project,
+    /// for example, `projects/project-id/locations/asia`.
+    pub parent: std::string::String,
+
+    /// Optional. Number of results per page, max 1000.
+    pub page_size: i32,
+
+    /// Optional. Page token from a previous page to return the next set of
+    /// results. If set, all other request fields must match the original request.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListContentPoliciesRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListContentPoliciesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListContentPoliciesRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListContentPoliciesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListContentPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListContentPoliciesRequest;
+    /// let x = ListContentPoliciesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListContentPoliciesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListContentPoliciesRequest;
+    /// let x = ListContentPoliciesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListContentPoliciesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.ListContentPoliciesRequest"
+    }
+}
+
+/// Response message for ListContentPolicies.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListContentPoliciesResponse {
+    /// List of content policies.
+    pub content_policies: std::vec::Vec<crate::model::ContentPolicy>,
+
+    /// Token to retrieve the next page of results. An empty value means there are
+    /// no more results.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListContentPoliciesResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [content_policies][crate::model::ListContentPoliciesResponse::content_policies].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListContentPoliciesResponse;
+    /// use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// let x = ListContentPoliciesResponse::new()
+    ///     .set_content_policies([
+    ///         ContentPolicy::default()/* use setters */,
+    ///         ContentPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_content_policies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ContentPolicy>,
+    {
+        use std::iter::Iterator;
+        self.content_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListContentPoliciesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListContentPoliciesResponse;
+    /// let x = ListContentPoliciesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListContentPoliciesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.ListContentPoliciesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListContentPoliciesResponse {
+    type PageItem = crate::model::ContentPolicy;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.content_policies
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for UpdateContentPolicy.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateContentPolicyRequest {
+    /// Required. Resource name in the format:
+    /// `projects/{project}/locations/{location}/contentPolicies/{content_policy}`.
+    pub name: std::string::String,
+
+    /// Required. The content_policy with new values for the relevant fields.
+    pub content_policy: std::option::Option<crate::model::ContentPolicy>,
+
+    /// Optional. Mask to control which fields get updated.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateContentPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::UpdateContentPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateContentPolicyRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let content_policy_id = "content_policy_id";
+    /// let x = UpdateContentPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/contentPolicies/{content_policy_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [content_policy][crate::model::UpdateContentPolicyRequest::content_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateContentPolicyRequest;
+    /// use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// let x = UpdateContentPolicyRequest::new().set_content_policy(ContentPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_content_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ContentPolicy>,
+    {
+        self.content_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [content_policy][crate::model::UpdateContentPolicyRequest::content_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateContentPolicyRequest;
+    /// use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// let x = UpdateContentPolicyRequest::new().set_or_clear_content_policy(Some(ContentPolicy::default()/* use setters */));
+    /// let x = UpdateContentPolicyRequest::new().set_or_clear_content_policy(None::<ContentPolicy>);
+    /// ```
+    pub fn set_or_clear_content_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ContentPolicy>,
+    {
+        self.content_policy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateContentPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateContentPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateContentPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateContentPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateContentPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateContentPolicyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateContentPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateContentPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.UpdateContentPolicyRequest"
+    }
+}
+
+/// Request message for DeleteContentPolicy.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteContentPolicyRequest {
+    /// Required. Resource name of the ContentPolicy to be deleted, in the format:
+    /// `projects/{project}/locations/{location}/contentPolicies/{content_policy}`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteContentPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteContentPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeleteContentPolicyRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let content_policy_id = "content_policy_id";
+    /// let x = DeleteContentPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/contentPolicies/{content_policy_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteContentPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.DeleteContentPolicyRequest"
+    }
+}
+
+/// A policy to apply to content based on its inspection findings.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ContentPolicy {
+    /// Output only. Resource name of the policy.
+    pub name: std::string::String,
+
+    /// Output only. The creation timestamp of a contentPolicy; output-only field.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The last update timestamp of a contentPolicy; output-only
+    /// field.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Display name (max 63 chars)
+    pub display_name: std::string::String,
+
+    /// Optional. InspectConfig to use to produce findings.
+    pub inspect_config: std::option::Option<crate::model::InspectConfig>,
+
+    /// Required. Policies to apply, based on the findings returned by inspection.
+    /// The first rule to match applies.
+    pub rules: std::vec::Vec<crate::model::content_policy::PolicyRule>,
+
+    /// Optional. Action to take if the content is an unsupported file type.
+    pub unsupported_file_type: std::option::Option<crate::model::content_policy::PolicyAction>,
+
+    /// Optional. Action to take if the content is a supported file type but is too
+    /// large to be scanned.
+    pub input_too_large: std::option::Option<crate::model::content_policy::PolicyAction>,
+
+    /// Optional. Action to take if the content is a supported file type and size
+    /// but fails to be scanned, for example because the file is encrypted or
+    /// corrupted.
+    pub failed_to_scan_supported_file_type:
+        std::option::Option<crate::model::content_policy::PolicyAction>,
+
+    /// Action to take if the content is scanned and no rules match.
+    /// Defaults to returning an ALLOW verdict if not set.
+    pub default_action: std::option::Option<crate::model::content_policy::PolicyAction>,
+
+    /// Optional. Log the actions taken by the content policy to external systems.
+    pub logging_configs: std::vec::Vec<crate::model::content_policy::LoggingConfig>,
+
+    /// Output only. A stream of errors encountered when the policy was applied.
+    /// Output only field. Will return the last 100 errors. Whenever the policy is
+    /// modified this list will be cleared.
+    pub errors: std::vec::Vec<crate::model::Error>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ContentPolicy {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ContentPolicy::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let content_policy_id = "content_policy_id";
+    /// let x = ContentPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/contentPolicies/{content_policy_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::ContentPolicy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// use wkt::Timestamp;
+    /// let x = ContentPolicy::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::ContentPolicy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// use wkt::Timestamp;
+    /// let x = ContentPolicy::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ContentPolicy::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::ContentPolicy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// use wkt::Timestamp;
+    /// let x = ContentPolicy::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::ContentPolicy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// use wkt::Timestamp;
+    /// let x = ContentPolicy::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ContentPolicy::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::ContentPolicy::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// let x = ContentPolicy::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [inspect_config][crate::model::ContentPolicy::inspect_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// let x = ContentPolicy::new().set_inspect_config(InspectConfig::default()/* use setters */);
+    /// ```
+    pub fn set_inspect_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InspectConfig>,
+    {
+        self.inspect_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [inspect_config][crate::model::ContentPolicy::inspect_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// let x = ContentPolicy::new().set_or_clear_inspect_config(Some(InspectConfig::default()/* use setters */));
+    /// let x = ContentPolicy::new().set_or_clear_inspect_config(None::<InspectConfig>);
+    /// ```
+    pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::InspectConfig>,
+    {
+        self.inspect_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [rules][crate::model::ContentPolicy::rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// use google_cloud_privacy_dlp_v2::model::content_policy::PolicyRule;
+    /// let x = ContentPolicy::new()
+    ///     .set_rules([
+    ///         PolicyRule::default()/* use setters */,
+    ///         PolicyRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::content_policy::PolicyRule>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [unsupported_file_type][crate::model::ContentPolicy::unsupported_file_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// use google_cloud_privacy_dlp_v2::model::content_policy::PolicyAction;
+    /// let x = ContentPolicy::new().set_unsupported_file_type(PolicyAction::default()/* use setters */);
+    /// ```
+    pub fn set_unsupported_file_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::content_policy::PolicyAction>,
+    {
+        self.unsupported_file_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [unsupported_file_type][crate::model::ContentPolicy::unsupported_file_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// use google_cloud_privacy_dlp_v2::model::content_policy::PolicyAction;
+    /// let x = ContentPolicy::new().set_or_clear_unsupported_file_type(Some(PolicyAction::default()/* use setters */));
+    /// let x = ContentPolicy::new().set_or_clear_unsupported_file_type(None::<PolicyAction>);
+    /// ```
+    pub fn set_or_clear_unsupported_file_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::content_policy::PolicyAction>,
+    {
+        self.unsupported_file_type = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [input_too_large][crate::model::ContentPolicy::input_too_large].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// use google_cloud_privacy_dlp_v2::model::content_policy::PolicyAction;
+    /// let x = ContentPolicy::new().set_input_too_large(PolicyAction::default()/* use setters */);
+    /// ```
+    pub fn set_input_too_large<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::content_policy::PolicyAction>,
+    {
+        self.input_too_large = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [input_too_large][crate::model::ContentPolicy::input_too_large].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// use google_cloud_privacy_dlp_v2::model::content_policy::PolicyAction;
+    /// let x = ContentPolicy::new().set_or_clear_input_too_large(Some(PolicyAction::default()/* use setters */));
+    /// let x = ContentPolicy::new().set_or_clear_input_too_large(None::<PolicyAction>);
+    /// ```
+    pub fn set_or_clear_input_too_large<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::content_policy::PolicyAction>,
+    {
+        self.input_too_large = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [failed_to_scan_supported_file_type][crate::model::ContentPolicy::failed_to_scan_supported_file_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// use google_cloud_privacy_dlp_v2::model::content_policy::PolicyAction;
+    /// let x = ContentPolicy::new().set_failed_to_scan_supported_file_type(PolicyAction::default()/* use setters */);
+    /// ```
+    pub fn set_failed_to_scan_supported_file_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::content_policy::PolicyAction>,
+    {
+        self.failed_to_scan_supported_file_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [failed_to_scan_supported_file_type][crate::model::ContentPolicy::failed_to_scan_supported_file_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// use google_cloud_privacy_dlp_v2::model::content_policy::PolicyAction;
+    /// let x = ContentPolicy::new().set_or_clear_failed_to_scan_supported_file_type(Some(PolicyAction::default()/* use setters */));
+    /// let x = ContentPolicy::new().set_or_clear_failed_to_scan_supported_file_type(None::<PolicyAction>);
+    /// ```
+    pub fn set_or_clear_failed_to_scan_supported_file_type<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::content_policy::PolicyAction>,
+    {
+        self.failed_to_scan_supported_file_type = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [default_action][crate::model::ContentPolicy::default_action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// use google_cloud_privacy_dlp_v2::model::content_policy::PolicyAction;
+    /// let x = ContentPolicy::new().set_default_action(PolicyAction::default()/* use setters */);
+    /// ```
+    pub fn set_default_action<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::content_policy::PolicyAction>,
+    {
+        self.default_action = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [default_action][crate::model::ContentPolicy::default_action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// use google_cloud_privacy_dlp_v2::model::content_policy::PolicyAction;
+    /// let x = ContentPolicy::new().set_or_clear_default_action(Some(PolicyAction::default()/* use setters */));
+    /// let x = ContentPolicy::new().set_or_clear_default_action(None::<PolicyAction>);
+    /// ```
+    pub fn set_or_clear_default_action<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::content_policy::PolicyAction>,
+    {
+        self.default_action = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [logging_configs][crate::model::ContentPolicy::logging_configs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// use google_cloud_privacy_dlp_v2::model::content_policy::LoggingConfig;
+    /// let x = ContentPolicy::new()
+    ///     .set_logging_configs([
+    ///         LoggingConfig::default()/* use setters */,
+    ///         LoggingConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_logging_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::content_policy::LoggingConfig>,
+    {
+        use std::iter::Iterator;
+        self.logging_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [errors][crate::model::ContentPolicy::errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentPolicy;
+    /// use google_cloud_privacy_dlp_v2::model::Error;
+    /// let x = ContentPolicy::new()
+    ///     .set_errors([
+    ///         Error::default()/* use setters */,
+    ///         Error::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Error>,
+    {
+        use std::iter::Iterator;
+        self.errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ContentPolicy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.ContentPolicy"
+    }
+}
+
+/// Defines additional types related to [ContentPolicy].
+pub mod content_policy {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A possible action to take when applying a content policy.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct PolicyAction {
+        #[allow(missing_docs)]
+        pub action: std::option::Option<crate::model::content_policy::policy_action::Action>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl PolicyAction {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [action][crate::model::content_policy::PolicyAction::action].
+        ///
+        /// Note that all the setters affecting `action` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::content_policy::PolicyAction;
+        /// use google_cloud_privacy_dlp_v2::model::ContentPolicyVerdict;
+        /// let x0 = PolicyAction::new().set_action(Some(
+        ///     google_cloud_privacy_dlp_v2::model::content_policy::policy_action::Action::ReturnVerdict(ContentPolicyVerdict::Allow)));
+        /// let x1 = PolicyAction::new().set_action(Some(
+        ///     google_cloud_privacy_dlp_v2::model::content_policy::policy_action::Action::ReturnVerdict(ContentPolicyVerdict::Block)));
+        /// ```
+        pub fn set_action<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::content_policy::policy_action::Action>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.action = v.into();
+            self
+        }
+
+        /// The value of [action][crate::model::content_policy::PolicyAction::action]
+        /// if it holds a `ReturnVerdict`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn return_verdict(&self) -> std::option::Option<&crate::model::ContentPolicyVerdict> {
+            #[allow(unreachable_patterns)]
+            self.action.as_ref().and_then(|v| match v {
+                crate::model::content_policy::policy_action::Action::ReturnVerdict(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [action][crate::model::content_policy::PolicyAction::action]
+        /// to hold a `ReturnVerdict`.
+        ///
+        /// Note that all the setters affecting `action` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::content_policy::PolicyAction;
+        /// use google_cloud_privacy_dlp_v2::model::ContentPolicyVerdict;
+        /// let x0 = PolicyAction::new().set_return_verdict(ContentPolicyVerdict::Allow);
+        /// let x1 = PolicyAction::new().set_return_verdict(ContentPolicyVerdict::Block);
+        /// assert!(x0.return_verdict().is_some());
+        /// assert!(x1.return_verdict().is_some());
+        /// ```
+        pub fn set_return_verdict<T: std::convert::Into<crate::model::ContentPolicyVerdict>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.action = std::option::Option::Some(
+                crate::model::content_policy::policy_action::Action::ReturnVerdict(v.into()),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for PolicyAction {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.privacy.dlp.v2.ContentPolicy.PolicyAction"
+        }
+    }
+
+    /// Defines additional types related to [PolicyAction].
+    pub mod policy_action {
+        #[allow(unused_imports)]
+        use super::*;
+
+        #[allow(missing_docs)]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Action {
+            /// Optional. If set, the verdict will be returned to the user.
+            ReturnVerdict(crate::model::ContentPolicyVerdict),
+        }
+    }
+
+    /// A single policy rule. The first rule to match from the list above controls
+    /// the result.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct PolicyRule {
+        /// Optional. Conditions that must match for this rule to apply.
+        /// All conditions must match (`AND`). For `OR` conditions, use multiple
+        /// rules.
+        pub conditions: std::vec::Vec<crate::model::content_policy::policy_rule::PolicyCondition>,
+
+        /// Required. Action to take if this rule applies.
+        pub action: std::option::Option<crate::model::content_policy::PolicyAction>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl PolicyRule {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [conditions][crate::model::content_policy::PolicyRule::conditions].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::content_policy::PolicyRule;
+        /// use google_cloud_privacy_dlp_v2::model::content_policy::policy_rule::PolicyCondition;
+        /// let x = PolicyRule::new()
+        ///     .set_conditions([
+        ///         PolicyCondition::default()/* use setters */,
+        ///         PolicyCondition::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_conditions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::content_policy::policy_rule::PolicyCondition>,
+        {
+            use std::iter::Iterator;
+            self.conditions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [action][crate::model::content_policy::PolicyRule::action].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::content_policy::PolicyRule;
+        /// use google_cloud_privacy_dlp_v2::model::content_policy::PolicyAction;
+        /// let x = PolicyRule::new().set_action(PolicyAction::default()/* use setters */);
+        /// ```
+        pub fn set_action<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::content_policy::PolicyAction>,
+        {
+            self.action = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [action][crate::model::content_policy::PolicyRule::action].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::content_policy::PolicyRule;
+        /// use google_cloud_privacy_dlp_v2::model::content_policy::PolicyAction;
+        /// let x = PolicyRule::new().set_or_clear_action(Some(PolicyAction::default()/* use setters */));
+        /// let x = PolicyRule::new().set_or_clear_action(None::<PolicyAction>);
+        /// ```
+        pub fn set_or_clear_action<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::content_policy::PolicyAction>,
+        {
+            self.action = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for PolicyRule {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.privacy.dlp.v2.ContentPolicy.PolicyRule"
+        }
+    }
+
+    /// Defines additional types related to [PolicyRule].
+    pub mod policy_rule {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// A condition that must match for this rule to apply.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct PolicyCondition {
+            /// A condition.
+            pub condition: std::option::Option<
+                crate::model::content_policy::policy_rule::policy_condition::Condition,
+            >,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl PolicyCondition {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [condition][crate::model::content_policy::policy_rule::PolicyCondition::condition].
+            ///
+            /// Note that all the setters affecting `condition` are mutually
+            /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::content_policy::policy_rule::PolicyCondition;
+            /// use google_cloud_privacy_dlp_v2::model::content_policy::policy_rule::policy_condition::InfoTypeCondition;
+            /// let x = PolicyCondition::new().set_condition(Some(
+            ///     google_cloud_privacy_dlp_v2::model::content_policy::policy_rule::policy_condition::Condition::InfoTypeCondition(InfoTypeCondition::default().into())));
+            /// ```
+            pub fn set_condition<
+                T: std::convert::Into<
+                        std::option::Option<
+                            crate::model::content_policy::policy_rule::policy_condition::Condition,
+                        >,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.condition = v.into();
+                self
+            }
+
+            /// The value of [condition][crate::model::content_policy::policy_rule::PolicyCondition::condition]
+            /// if it holds a `InfoTypeCondition`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn info_type_condition(
+                &self,
+            ) -> std::option::Option<
+                &std::boxed::Box<
+                    crate::model::content_policy::policy_rule::policy_condition::InfoTypeCondition,
+                >,
+            > {
+                #[allow(unreachable_patterns)]
+                self.condition.as_ref().and_then(|v| match v {
+                    crate::model::content_policy::policy_rule::policy_condition::Condition::InfoTypeCondition(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [condition][crate::model::content_policy::policy_rule::PolicyCondition::condition]
+            /// to hold a `InfoTypeCondition`.
+            ///
+            /// Note that all the setters affecting `condition` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::content_policy::policy_rule::PolicyCondition;
+            /// use google_cloud_privacy_dlp_v2::model::content_policy::policy_rule::policy_condition::InfoTypeCondition;
+            /// let x = PolicyCondition::new().set_info_type_condition(InfoTypeCondition::default()/* use setters */);
+            /// assert!(x.info_type_condition().is_some());
+            /// ```
+            pub fn set_info_type_condition<T: std::convert::Into<std::boxed::Box<crate::model::content_policy::policy_rule::policy_condition::InfoTypeCondition>>>(mut self, v: T) -> Self{
+                self.condition = std::option::Option::Some(
+                    crate::model::content_policy::policy_rule::policy_condition::Condition::InfoTypeCondition(
+                        v.into()
+                    )
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for PolicyCondition {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.privacy.dlp.v2.ContentPolicy.PolicyRule.PolicyCondition"
+            }
+        }
+
+        /// Defines additional types related to [PolicyCondition].
+        pub mod policy_condition {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// A info type based condition.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct InfoTypeCondition {
+
+                /// Optional. The minimum total number of findings of all matching info
+                /// types required for this condition to evaluate to true. Defaults to 1
+                /// if unset.
+                pub min_count: i64,
+
+                /// A condition based on info types.
+                pub info_type_condition: std::option::Option<crate::model::content_policy::policy_rule::policy_condition::info_type_condition::InfoTypeCondition>,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl InfoTypeCondition {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [min_count][crate::model::content_policy::policy_rule::policy_condition::InfoTypeCondition::min_count].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_privacy_dlp_v2::model::content_policy::policy_rule::policy_condition::InfoTypeCondition;
+                /// let x = InfoTypeCondition::new().set_min_count(42);
+                /// ```
+                pub fn set_min_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+                    self.min_count = v.into();
+                    self
+                }
+
+                /// Sets the value of [info_type_condition][crate::model::content_policy::policy_rule::policy_condition::InfoTypeCondition::info_type_condition].
+                ///
+                /// Note that all the setters affecting `info_type_condition` are mutually
+                /// exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_privacy_dlp_v2::model::content_policy::policy_rule::policy_condition::InfoTypeCondition;
+                /// use google_cloud_privacy_dlp_v2::model::content_policy::policy_rule::policy_condition::info_type_condition::InfoTypes;
+                /// let x = InfoTypeCondition::new().set_info_type_condition(Some(
+                ///     google_cloud_privacy_dlp_v2::model::content_policy::policy_rule::policy_condition::info_type_condition::InfoTypeCondition::InfoTypes(InfoTypes::default().into())));
+                /// ```
+                pub fn set_info_type_condition<T: std::convert::Into<std::option::Option<crate::model::content_policy::policy_rule::policy_condition::info_type_condition::InfoTypeCondition>>>(mut self, v: T) -> Self
+                {
+                    self.info_type_condition = v.into();
+                    self
+                }
+
+                /// The value of [info_type_condition][crate::model::content_policy::policy_rule::policy_condition::InfoTypeCondition::info_type_condition]
+                /// if it holds a `InfoTypes`, `None` if the field is not set or
+                /// holds a different branch.
+                pub fn info_types(&self) -> std::option::Option<&std::boxed::Box<crate::model::content_policy::policy_rule::policy_condition::info_type_condition::InfoTypes>>{
+                    #[allow(unreachable_patterns)]
+                    self.info_type_condition.as_ref().and_then(|v| match v {
+                        crate::model::content_policy::policy_rule::policy_condition::info_type_condition::InfoTypeCondition::InfoTypes(v) => std::option::Option::Some(v),
+                        _ => std::option::Option::None,
+                    })
+                }
+
+                /// Sets the value of [info_type_condition][crate::model::content_policy::policy_rule::policy_condition::InfoTypeCondition::info_type_condition]
+                /// to hold a `InfoTypes`.
+                ///
+                /// Note that all the setters affecting `info_type_condition` are
+                /// mutually exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_privacy_dlp_v2::model::content_policy::policy_rule::policy_condition::InfoTypeCondition;
+                /// use google_cloud_privacy_dlp_v2::model::content_policy::policy_rule::policy_condition::info_type_condition::InfoTypes;
+                /// let x = InfoTypeCondition::new().set_info_types(InfoTypes::default()/* use setters */);
+                /// assert!(x.info_types().is_some());
+                /// assert!(x.any_info_type().is_none());
+                /// ```
+                pub fn set_info_types<T: std::convert::Into<std::boxed::Box<crate::model::content_policy::policy_rule::policy_condition::info_type_condition::InfoTypes>>>(mut self, v: T) -> Self{
+                    self.info_type_condition = std::option::Option::Some(
+                        crate::model::content_policy::policy_rule::policy_condition::info_type_condition::InfoTypeCondition::InfoTypes(
+                            v.into()
+                        )
+                    );
+                    self
+                }
+
+                /// The value of [info_type_condition][crate::model::content_policy::policy_rule::policy_condition::InfoTypeCondition::info_type_condition]
+                /// if it holds a `AnyInfoType`, `None` if the field is not set or
+                /// holds a different branch.
+                pub fn any_info_type(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
+                    #[allow(unreachable_patterns)]
+                    self.info_type_condition.as_ref().and_then(|v| match v {
+                        crate::model::content_policy::policy_rule::policy_condition::info_type_condition::InfoTypeCondition::AnyInfoType(v) => std::option::Option::Some(v),
+                        _ => std::option::Option::None,
+                    })
+                }
+
+                /// Sets the value of [info_type_condition][crate::model::content_policy::policy_rule::policy_condition::InfoTypeCondition::info_type_condition]
+                /// to hold a `AnyInfoType`.
+                ///
+                /// Note that all the setters affecting `info_type_condition` are
+                /// mutually exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_privacy_dlp_v2::model::content_policy::policy_rule::policy_condition::InfoTypeCondition;
+                /// use wkt::Empty;
+                /// let x = InfoTypeCondition::new().set_any_info_type(Empty::default()/* use setters */);
+                /// assert!(x.any_info_type().is_some());
+                /// assert!(x.info_types().is_none());
+                /// ```
+                pub fn set_any_info_type<T: std::convert::Into<std::boxed::Box<wkt::Empty>>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.info_type_condition = std::option::Option::Some(
+                        crate::model::content_policy::policy_rule::policy_condition::info_type_condition::InfoTypeCondition::AnyInfoType(
+                            v.into()
+                        )
+                    );
+                    self
+                }
+            }
+
+            impl wkt::message::Message for InfoTypeCondition {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.privacy.dlp.v2.ContentPolicy.PolicyRule.PolicyCondition.InfoTypeCondition"
+                }
+            }
+
+            /// Defines additional types related to [InfoTypeCondition].
+            pub mod info_type_condition {
+                #[allow(unused_imports)]
+                use super::*;
+
+                /// Info types to match.
+                #[derive(Clone, Default, PartialEq)]
+                #[non_exhaustive]
+                pub struct InfoTypes {
+                    /// Required. A list of info types to match.
+                    pub info_type_names: std::vec::Vec<std::string::String>,
+
+                    pub(crate) _unknown_fields:
+                        serde_json::Map<std::string::String, serde_json::Value>,
+                }
+
+                impl InfoTypes {
+                    /// Creates a new default instance.
+                    pub fn new() -> Self {
+                        std::default::Default::default()
+                    }
+
+                    /// Sets the value of [info_type_names][crate::model::content_policy::policy_rule::policy_condition::info_type_condition::InfoTypes::info_type_names].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_privacy_dlp_v2::model::content_policy::policy_rule::policy_condition::info_type_condition::InfoTypes;
+                    /// let x = InfoTypes::new().set_info_type_names(["a", "b", "c"]);
+                    /// ```
+                    pub fn set_info_type_names<T, V>(mut self, v: T) -> Self
+                    where
+                        T: std::iter::IntoIterator<Item = V>,
+                        V: std::convert::Into<std::string::String>,
+                    {
+                        use std::iter::Iterator;
+                        self.info_type_names = v.into_iter().map(|i| i.into()).collect();
+                        self
+                    }
+                }
+
+                impl wkt::message::Message for InfoTypes {
+                    fn typename() -> &'static str {
+                        "type.googleapis.com/google.privacy.dlp.v2.ContentPolicy.PolicyRule.PolicyCondition.InfoTypeCondition.InfoTypes"
+                    }
+                }
+
+                /// A condition based on info types.
+                #[derive(Clone, Debug, PartialEq)]
+                #[non_exhaustive]
+                pub enum InfoTypeCondition {
+                    /// match any of these info types.
+                    InfoTypes(std::boxed::Box<crate::model::content_policy::policy_rule::policy_condition::info_type_condition::InfoTypes>),
+                    /// match any info types.
+                    AnyInfoType(std::boxed::Box<wkt::Empty>),
+                }
+            }
+
+            /// A condition.
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum Condition {
+                /// A condition based on info types.
+                InfoTypeCondition(std::boxed::Box<crate::model::content_policy::policy_rule::policy_condition::InfoTypeCondition>),
+            }
+        }
+    }
+
+    /// A single logging configuration.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct LoggingConfig {
+        /// The destination for the action logs.
+        pub destination:
+            std::option::Option<crate::model::content_policy::logging_config::Destination>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl LoggingConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [destination][crate::model::content_policy::LoggingConfig::destination].
+        ///
+        /// Note that all the setters affecting `destination` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::content_policy::LoggingConfig;
+        /// use google_cloud_privacy_dlp_v2::model::content_policy::logging_config::LogToBigQuery;
+        /// let x = LoggingConfig::new().set_destination(Some(
+        ///     google_cloud_privacy_dlp_v2::model::content_policy::logging_config::Destination::LogToBigQuery(LogToBigQuery::default().into())));
+        /// ```
+        pub fn set_destination<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::content_policy::logging_config::Destination>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.destination = v.into();
+            self
+        }
+
+        /// The value of [destination][crate::model::content_policy::LoggingConfig::destination]
+        /// if it holds a `LogToBigQuery`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn log_to_big_query(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::content_policy::logging_config::LogToBigQuery>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.destination.as_ref().and_then(|v| match v {
+                crate::model::content_policy::logging_config::Destination::LogToBigQuery(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [destination][crate::model::content_policy::LoggingConfig::destination]
+        /// to hold a `LogToBigQuery`.
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::content_policy::LoggingConfig;
+        /// use google_cloud_privacy_dlp_v2::model::content_policy::logging_config::LogToBigQuery;
+        /// let x = LoggingConfig::new().set_log_to_big_query(LogToBigQuery::default()/* use setters */);
+        /// assert!(x.log_to_big_query().is_some());
+        /// ```
+        pub fn set_log_to_big_query<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::content_policy::logging_config::LogToBigQuery>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.destination = std::option::Option::Some(
+                crate::model::content_policy::logging_config::Destination::LogToBigQuery(v.into()),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for LoggingConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.privacy.dlp.v2.ContentPolicy.LoggingConfig"
+        }
+    }
+
+    /// Defines additional types related to [LoggingConfig].
+    pub mod logging_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Configuration for logging content policy actions to BigQuery.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct LogToBigQuery {
+            /// Required. The ID of the project containing the BigQuery table to write
+            /// to.
+            pub project_id: std::string::String,
+
+            /// Required. The ID of the dataset containing the BigQuery table to write
+            /// to.
+            pub dataset_id: std::string::String,
+
+            /// Required. The ID of the BigQuery table to write to.
+            pub table_id: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl LogToBigQuery {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [project_id][crate::model::content_policy::logging_config::LogToBigQuery::project_id].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::content_policy::logging_config::LogToBigQuery;
+            /// let x = LogToBigQuery::new().set_project_id("example");
+            /// ```
+            pub fn set_project_id<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.project_id = v.into();
+                self
+            }
+
+            /// Sets the value of [dataset_id][crate::model::content_policy::logging_config::LogToBigQuery::dataset_id].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::content_policy::logging_config::LogToBigQuery;
+            /// let x = LogToBigQuery::new().set_dataset_id("example");
+            /// ```
+            pub fn set_dataset_id<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.dataset_id = v.into();
+                self
+            }
+
+            /// Sets the value of [table_id][crate::model::content_policy::logging_config::LogToBigQuery::table_id].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::content_policy::logging_config::LogToBigQuery;
+            /// let x = LogToBigQuery::new().set_table_id("example");
+            /// ```
+            pub fn set_table_id<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.table_id = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for LogToBigQuery {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.privacy.dlp.v2.ContentPolicy.LoggingConfig.LogToBigQuery"
+            }
+        }
+
+        /// The destination for the action logs.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Destination {
+            /// Optional. Log the actions taken to a BigQuery table.
+            LogToBigQuery(
+                std::boxed::Box<crate::model::content_policy::logging_config::LogToBigQuery>,
+            ),
+        }
+    }
+}
+
 /// Type of information detected by the API.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -46903,7 +48769,7 @@ pub struct InfoType {
     /// Name of the information type. Either a name of your choosing when
     /// creating a CustomInfoType, or one of the names listed
     /// at
-    /// <https://cloud.google.com/sensitive-data-protection/docs/infotypes-reference>
+    /// <https://docs.cloud.google.com/sensitive-data-protection/docs/infotypes-reference>
     /// when specifying a built-in type.  When sending Cloud DLP results to Data
     /// Catalog, infoType names should conform to the pattern
     /// `[A-Za-z0-9$_-]{1,64}`.
@@ -47487,6 +49353,7 @@ impl CustomInfoType {
     /// assert!(x.surrogate_type().is_none());
     /// assert!(x.stored_type().is_none());
     /// assert!(x.metadata_key_value_expression().is_none());
+    /// assert!(x.file_label_info_type().is_none());
     /// ```
     pub fn set_dictionary<
         T: std::convert::Into<std::boxed::Box<crate::model::custom_info_type::Dictionary>>,
@@ -47528,6 +49395,7 @@ impl CustomInfoType {
     /// assert!(x.surrogate_type().is_none());
     /// assert!(x.stored_type().is_none());
     /// assert!(x.metadata_key_value_expression().is_none());
+    /// assert!(x.file_label_info_type().is_none());
     /// ```
     pub fn set_regex<
         T: std::convert::Into<std::boxed::Box<crate::model::custom_info_type::Regex>>,
@@ -47569,6 +49437,7 @@ impl CustomInfoType {
     /// assert!(x.regex().is_none());
     /// assert!(x.stored_type().is_none());
     /// assert!(x.metadata_key_value_expression().is_none());
+    /// assert!(x.file_label_info_type().is_none());
     /// ```
     pub fn set_surrogate_type<
         T: std::convert::Into<std::boxed::Box<crate::model::custom_info_type::SurrogateType>>,
@@ -47609,6 +49478,7 @@ impl CustomInfoType {
     /// assert!(x.regex().is_none());
     /// assert!(x.surrogate_type().is_none());
     /// assert!(x.metadata_key_value_expression().is_none());
+    /// assert!(x.file_label_info_type().is_none());
     /// ```
     pub fn set_stored_type<T: std::convert::Into<std::boxed::Box<crate::model::StoredType>>>(
         mut self,
@@ -47652,6 +49522,7 @@ impl CustomInfoType {
     /// assert!(x.regex().is_none());
     /// assert!(x.surrogate_type().is_none());
     /// assert!(x.stored_type().is_none());
+    /// assert!(x.file_label_info_type().is_none());
     /// ```
     pub fn set_metadata_key_value_expression<
         T: std::convert::Into<
@@ -47663,6 +49534,52 @@ impl CustomInfoType {
     ) -> Self {
         self.r#type = std::option::Option::Some(
             crate::model::custom_info_type::Type::MetadataKeyValueExpression(v.into()),
+        );
+        self
+    }
+
+    /// The value of [r#type][crate::model::CustomInfoType::r#type]
+    /// if it holds a `FileLabelInfoType`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn file_label_info_type(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::custom_info_type::FileLabelInfoType>>
+    {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::custom_info_type::Type::FileLabelInfoType(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [r#type][crate::model::CustomInfoType::r#type]
+    /// to hold a `FileLabelInfoType`.
+    ///
+    /// Note that all the setters affecting `r#type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CustomInfoType;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::FileLabelInfoType;
+    /// let x = CustomInfoType::new().set_file_label_info_type(FileLabelInfoType::default()/* use setters */);
+    /// assert!(x.file_label_info_type().is_some());
+    /// assert!(x.dictionary().is_none());
+    /// assert!(x.regex().is_none());
+    /// assert!(x.surrogate_type().is_none());
+    /// assert!(x.stored_type().is_none());
+    /// assert!(x.metadata_key_value_expression().is_none());
+    /// ```
+    pub fn set_file_label_info_type<
+        T: std::convert::Into<std::boxed::Box<crate::model::custom_info_type::FileLabelInfoType>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = std::option::Option::Some(
+            crate::model::custom_info_type::Type::FileLabelInfoType(v.into()),
         );
         self
     }
@@ -47698,9 +49615,9 @@ pub mod custom_info_type {
     /// Dictionary words containing a large number of characters that are not
     /// letters or digits may result in unexpected findings because such characters
     /// are treated as whitespace. The
-    /// [limits](https://cloud.google.com/sensitive-data-protection/limits) page
-    /// contains details about the size limits of dictionaries. For dictionaries
-    /// that do not fit within these constraints, consider using
+    /// [limits](https://docs.cloud.google.com/sensitive-data-protection/limits)
+    /// page contains details about the size limits of dictionaries. For
+    /// dictionaries that do not fit within these constraints, consider using
     /// `LargeCustomDictionaryConfig` in the `StoredInfoType` API.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
@@ -47953,7 +49870,7 @@ pub mod custom_info_type {
 
     /// Message for detecting output from deidentification transformations
     /// such as
-    /// [`CryptoReplaceFfxFpeConfig`](https://cloud.google.com/sensitive-data-protection/docs/reference/rest/v2/organizations.deidentifyTemplates#cryptoreplaceffxfpeconfig).
+    /// [`CryptoReplaceFfxFpeConfig`](https://docs.cloud.google.com/sensitive-data-protection/docs/reference/rest/v2/organizations.deidentifyTemplates#cryptoreplaceffxfpeconfig).
     /// These types of transformations are
     /// those that perform pseudonymization, thereby producing a "surrogate" as
     /// output. This should be used in conjunction with a field on the
@@ -48027,6 +49944,339 @@ pub mod custom_info_type {
     impl wkt::message::Message for MetadataKeyValueExpression {
         fn typename() -> &'static str {
             "type.googleapis.com/google.privacy.dlp.v2.CustomInfoType.MetadataKeyValueExpression"
+        }
+    }
+
+    /// Configuration for a custom infoType that detects file labels.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct FileLabelInfoType {
+        /// The type of file label to detect.
+        pub r#type: std::option::Option<crate::model::custom_info_type::file_label_info_type::Type>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl FileLabelInfoType {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [r#type][crate::model::custom_info_type::FileLabelInfoType::type].
+        ///
+        /// Note that all the setters affecting `r#type` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::FileLabelInfoType;
+        /// use google_cloud_privacy_dlp_v2::model::custom_info_type::file_label_info_type::SensitivityLabel;
+        /// let x = FileLabelInfoType::new().set_type(Some(
+        ///     google_cloud_privacy_dlp_v2::model::custom_info_type::file_label_info_type::Type::SensitivityLabel(SensitivityLabel::default().into())));
+        /// ```
+        pub fn set_type<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::custom_info_type::file_label_info_type::Type>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.r#type = v.into();
+            self
+        }
+
+        /// The value of [r#type][crate::model::custom_info_type::FileLabelInfoType::r#type]
+        /// if it holds a `SensitivityLabel`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn sensitivity_label(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::custom_info_type::file_label_info_type::SensitivityLabel,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.r#type.as_ref().and_then(|v| match v {
+                crate::model::custom_info_type::file_label_info_type::Type::SensitivityLabel(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [r#type][crate::model::custom_info_type::FileLabelInfoType::r#type]
+        /// to hold a `SensitivityLabel`.
+        ///
+        /// Note that all the setters affecting `r#type` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::FileLabelInfoType;
+        /// use google_cloud_privacy_dlp_v2::model::custom_info_type::file_label_info_type::SensitivityLabel;
+        /// let x = FileLabelInfoType::new().set_sensitivity_label(SensitivityLabel::default()/* use setters */);
+        /// assert!(x.sensitivity_label().is_some());
+        /// assert!(x.google_drive_label().is_none());
+        /// ```
+        pub fn set_sensitivity_label<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::custom_info_type::file_label_info_type::SensitivityLabel,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.r#type = std::option::Option::Some(
+                crate::model::custom_info_type::file_label_info_type::Type::SensitivityLabel(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [r#type][crate::model::custom_info_type::FileLabelInfoType::r#type]
+        /// if it holds a `GoogleDriveLabel`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn google_drive_label(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::custom_info_type::file_label_info_type::GoogleDriveLabel,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.r#type.as_ref().and_then(|v| match v {
+                crate::model::custom_info_type::file_label_info_type::Type::GoogleDriveLabel(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [r#type][crate::model::custom_info_type::FileLabelInfoType::r#type]
+        /// to hold a `GoogleDriveLabel`.
+        ///
+        /// Note that all the setters affecting `r#type` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::FileLabelInfoType;
+        /// use google_cloud_privacy_dlp_v2::model::custom_info_type::file_label_info_type::GoogleDriveLabel;
+        /// let x = FileLabelInfoType::new().set_google_drive_label(GoogleDriveLabel::default()/* use setters */);
+        /// assert!(x.google_drive_label().is_some());
+        /// assert!(x.sensitivity_label().is_none());
+        /// ```
+        pub fn set_google_drive_label<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::custom_info_type::file_label_info_type::GoogleDriveLabel,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.r#type = std::option::Option::Some(
+                crate::model::custom_info_type::file_label_info_type::Type::GoogleDriveLabel(
+                    v.into(),
+                ),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for FileLabelInfoType {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.privacy.dlp.v2.CustomInfoType.FileLabelInfoType"
+        }
+    }
+
+    /// Defines additional types related to [FileLabelInfoType].
+    pub mod file_label_info_type {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Sensitivity labels published by Microsoft.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct SensitivityLabel {
+            /// The GUID of the sensitivity label.
+            pub guid: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl SensitivityLabel {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [guid][crate::model::custom_info_type::file_label_info_type::SensitivityLabel::guid].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::file_label_info_type::SensitivityLabel;
+            /// let x = SensitivityLabel::new().set_guid("example");
+            /// ```
+            pub fn set_guid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.guid = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for SensitivityLabel {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.privacy.dlp.v2.CustomInfoType.FileLabelInfoType.SensitivityLabel"
+            }
+        }
+
+        /// Google Drive labels published by Google.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct GoogleDriveLabel {
+
+            /// The [label
+            /// ID](https://developers.google.com/workspace/drive/labels/guides/overview)
+            /// of the Google Drive label.
+            pub label_id: std::string::String,
+
+            /// The field values of the Google Drive label to match.
+            pub label_fields_to_match: std::vec::Vec<crate::model::custom_info_type::file_label_info_type::google_drive_label::LabelField>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl GoogleDriveLabel {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [label_id][crate::model::custom_info_type::file_label_info_type::GoogleDriveLabel::label_id].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::file_label_info_type::GoogleDriveLabel;
+            /// let x = GoogleDriveLabel::new().set_label_id("example");
+            /// ```
+            pub fn set_label_id<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.label_id = v.into();
+                self
+            }
+
+            /// Sets the value of [label_fields_to_match][crate::model::custom_info_type::file_label_info_type::GoogleDriveLabel::label_fields_to_match].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::file_label_info_type::GoogleDriveLabel;
+            /// use google_cloud_privacy_dlp_v2::model::custom_info_type::file_label_info_type::google_drive_label::LabelField;
+            /// let x = GoogleDriveLabel::new()
+            ///     .set_label_fields_to_match([
+            ///         LabelField::default()/* use setters */,
+            ///         LabelField::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
+            pub fn set_label_fields_to_match<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::custom_info_type::file_label_info_type::google_drive_label::LabelField>
+            {
+                use std::iter::Iterator;
+                self.label_fields_to_match = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        impl wkt::message::Message for GoogleDriveLabel {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.privacy.dlp.v2.CustomInfoType.FileLabelInfoType.GoogleDriveLabel"
+            }
+        }
+
+        /// Defines additional types related to [GoogleDriveLabel].
+        pub mod google_drive_label {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// The field values of the Google Drive label to match.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct LabelField {
+                /// The identifier of the Label Field.
+                pub id: std::string::String,
+
+                /// The value of the Label Field to match.
+                pub value: std::string::String,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl LabelField {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [id][crate::model::custom_info_type::file_label_info_type::google_drive_label::LabelField::id].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::file_label_info_type::google_drive_label::LabelField;
+                /// let x = LabelField::new().set_id("example");
+                /// ```
+                pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                    self.id = v.into();
+                    self
+                }
+
+                /// Sets the value of [value][crate::model::custom_info_type::file_label_info_type::google_drive_label::LabelField::value].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::file_label_info_type::google_drive_label::LabelField;
+                /// let x = LabelField::new().set_value("example");
+                /// ```
+                pub fn set_value<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.value = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for LabelField {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.privacy.dlp.v2.CustomInfoType.FileLabelInfoType.GoogleDriveLabel.LabelField"
+                }
+            }
+        }
+
+        /// The type of file label to detect.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Type {
+            /// Sensitivity labels published by Microsoft.
+            SensitivityLabel(
+                std::boxed::Box<
+                    crate::model::custom_info_type::file_label_info_type::SensitivityLabel,
+                >,
+            ),
+            /// Google Drive labels published by Google.
+            GoogleDriveLabel(
+                std::boxed::Box<
+                    crate::model::custom_info_type::file_label_info_type::GoogleDriveLabel,
+                >,
+            ),
         }
     }
 
@@ -48138,7 +50388,7 @@ pub mod custom_info_type {
             /// if you want to modify the likelihood of an entire column of findngs,
             /// set this to 1. For more information, see
             /// [Hotword example: Set the match likelihood of a table column]
-            /// (<https://cloud.google.com/sensitive-data-protection/docs/creating-custom-infotypes-likelihood#match-column-values>).
+            /// (<https://docs.cloud.google.com/sensitive-data-protection/docs/creating-custom-infotypes-likelihood#match-column-values>).
             pub window_before: i32,
 
             /// Number of characters after the finding to consider.
@@ -48351,7 +50601,7 @@ pub mod custom_info_type {
             /// For tabular data, if you want to modify the likelihood of an entire
             /// column of findngs, see
             /// [Hotword example: Set the match likelihood of a table column]
-            /// (<https://cloud.google.com/sensitive-data-protection/docs/creating-custom-infotypes-likelihood#match-column-values>).
+            /// (<https://docs.cloud.google.com/sensitive-data-protection/docs/creating-custom-infotypes-likelihood#match-column-values>).
             pub proximity:
                 std::option::Option<crate::model::custom_info_type::detection_rule::Proximity>,
 
@@ -48636,6 +50886,8 @@ pub mod custom_info_type {
         MetadataKeyValueExpression(
             std::boxed::Box<crate::model::custom_info_type::MetadataKeyValueExpression>,
         ),
+        /// File label to detect.
+        FileLabelInfoType(std::boxed::Box<crate::model::custom_info_type::FileLabelInfoType>),
     }
 }
 
@@ -48991,7 +51243,7 @@ pub struct CloudStorageOptions {
     /// This field can't be set if de-identification is requested. For certain file
     /// types, setting this field has no effect. For more information, see [Limits
     /// on bytes scanned per
-    /// file](https://cloud.google.com/sensitive-data-protection/docs/supported-file-types#max-byte-size-per-file).
+    /// file](https://docs.cloud.google.com/sensitive-data-protection/docs/supported-file-types#max-byte-size-per-file).
     pub bytes_limit_per_file: i64,
 
     /// Max percentage of bytes to scan from a file. The rest are omitted. The
@@ -49001,7 +51253,7 @@ pub struct CloudStorageOptions {
     /// This field can't be set if de-identification is requested. For certain file
     /// types, setting this field has no effect. For more information, see [Limits
     /// on bytes scanned per
-    /// file](https://cloud.google.com/sensitive-data-protection/docs/supported-file-types#max-byte-size-per-file).
+    /// file](https://docs.cloud.google.com/sensitive-data-protection/docs/supported-file-types#max-byte-size-per-file).
     pub bytes_limit_per_file_percent: i32,
 
     /// List of file type groups to include in the scan.
@@ -49468,7 +51720,7 @@ pub struct BigQueryOptions {
     /// TimespanConfig.
     ///
     /// Caution: A [known
-    /// issue](https://cloud.google.com/sensitive-data-protection/docs/known-issues#bq-sampling)
+    /// issue](https://docs.cloud.google.com/sensitive-data-protection/docs/known-issues#bq-sampling)
     /// is causing the `rowsLimitPercent` field to behave unexpectedly. We
     /// recommend using `rowsLimit` instead.
     pub rows_limit_percent: i32,
@@ -50067,7 +52319,7 @@ pub mod storage_config {
         /// `TIMESTAMP`, and `DATETIME`.
         ///
         /// If your BigQuery table is [partitioned at ingestion
-        /// time](https://cloud.google.com/bigquery/docs/partitioned-tables#ingestion_time),
+        /// time](https://docs.cloud.google.com/bigquery/docs/partitioned-tables#ingestion_time),
         /// you can use any of the following pseudo-columns as your timestamp field.
         /// When used with Cloud DLP, these pseudo-column names are case sensitive.
         ///
@@ -50084,7 +52336,7 @@ pub mod storage_config {
         ///
         /// See the
         /// [known
-        /// issue](https://cloud.google.com/sensitive-data-protection/docs/known-issues#bq-timespan)
+        /// issue](https://docs.cloud.google.com/sensitive-data-protection/docs/known-issues#bq-timespan)
         /// related to this operation.
         pub timestamp_field: std::option::Option<crate::model::FieldId>,
 
@@ -50102,7 +52354,7 @@ pub mod storage_config {
         /// timestamp will result in skipped rows.
         ///
         /// See the [known
-        /// issue](https://cloud.google.com/sensitive-data-protection/docs/known-issues#recently-streamed-data)
+        /// issue](https://docs.cloud.google.com/sensitive-data-protection/docs/known-issues#recently-streamed-data)
         /// related to this operation.
         pub enable_auto_population_of_timespan_config: bool,
 
@@ -51253,6 +53505,141 @@ impl TableOptions {
 impl wkt::message::Message for TableOptions {
     fn typename() -> &'static str {
         "type.googleapis.com/google.privacy.dlp.v2.TableOptions"
+    }
+}
+
+/// Possible results of applying a content policy. This may expand to include
+/// additional result types in the future.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum ContentPolicyVerdict {
+    /// Not used.
+    Unspecified,
+    /// The policy allows the provided content to be used.
+    Allow,
+    /// The policy prevents the provided content from being used. This should
+    /// result in a blocked file upload, exclusion from training dataset, or
+    /// other similar block action. (specific action will depend on the caller).
+    Block,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [ContentPolicyVerdict::value] or
+    /// [ContentPolicyVerdict::name].
+    UnknownValue(content_policy_verdict::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod content_policy_verdict {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl ContentPolicyVerdict {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Allow => std::option::Option::Some(1),
+            Self::Block => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("CONTENT_POLICY_VERDICT_UNSPECIFIED"),
+            Self::Allow => std::option::Option::Some("ALLOW"),
+            Self::Block => std::option::Option::Some("BLOCK"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for ContentPolicyVerdict {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for ContentPolicyVerdict {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for ContentPolicyVerdict {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Allow,
+            2 => Self::Block,
+            _ => Self::UnknownValue(content_policy_verdict::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for ContentPolicyVerdict {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "CONTENT_POLICY_VERDICT_UNSPECIFIED" => Self::Unspecified,
+            "ALLOW" => Self::Allow,
+            "BLOCK" => Self::Block,
+            _ => Self::UnknownValue(content_policy_verdict::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for ContentPolicyVerdict {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Allow => serializer.serialize_i32(1),
+            Self::Block => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ContentPolicyVerdict {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ContentPolicyVerdict>::new(
+            ".google.privacy.dlp.v2.ContentPolicyVerdict",
+        ))
     }
 }
 
@@ -54358,7 +56745,7 @@ impl<'de> serde::de::Deserialize<'de> for ConnectionState {
 ///
 /// For more information about each likelihood level
 /// and how likelihood works, see [Match
-/// likelihood](https://cloud.google.com/sensitive-data-protection/docs/likelihood).
+/// likelihood](https://docs.cloud.google.com/sensitive-data-protection/docs/likelihood).
 ///
 /// # Working with unknown values
 ///

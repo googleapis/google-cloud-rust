@@ -209,6 +209,12 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::FetchBlobResponse>>;
 
+    async fn fetch_refs(
+        &self,
+        req: crate::model::FetchRefsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchRefsResponse>>;
+
     async fn create_issue(
         &self,
         req: crate::model::CreateIssueRequest,
@@ -689,6 +695,15 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::FetchBlobResponse>> {
         T::fetch_blob(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn fetch_refs(
+        &self,
+        req: crate::model::FetchRefsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FetchRefsResponse>> {
+        T::fetch_refs(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

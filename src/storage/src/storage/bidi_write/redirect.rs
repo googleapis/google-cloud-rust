@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(#5716): Lift to shared bidi module
-
 use crate::Error;
 use crate::google::rpc::Status as RpcStatus;
 use crate::google::storage::v2::BidiWriteObjectRedirectedError;

@@ -3030,6 +3030,10 @@ pub struct VerifyConfidentialGkeRequest {
     pub options:
         std::option::Option<crate::model::verify_confidential_gke_request::ConfidentialGkeOptions>,
 
+    /// Optional. Optional platform security architecture hint for the verifier
+    /// engine. Defaults to `VIRTUALIZED_CVM` behavior if unspecified.
+    pub platform_type: crate::model::verify_confidential_gke_request::PlatformType,
+
     /// Required. A tee attestation report, used to populate hardware rooted
     /// claims.
     pub tee_attestation:
@@ -3093,6 +3097,25 @@ impl VerifyConfidentialGkeRequest {
             >,
     {
         self.options = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [platform_type][crate::model::VerifyConfidentialGkeRequest::platform_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialGkeRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::verify_confidential_gke_request::PlatformType;
+    /// let x0 = VerifyConfidentialGkeRequest::new().set_platform_type(PlatformType::VirtualizedCvm);
+    /// let x1 = VerifyConfidentialGkeRequest::new().set_platform_type(PlatformType::BareMetalVtpm);
+    /// ```
+    pub fn set_platform_type<
+        T: std::convert::Into<crate::model::verify_confidential_gke_request::PlatformType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.platform_type = v.into();
         self
     }
 
@@ -3248,6 +3271,139 @@ pub mod verify_confidential_gke_request {
     impl wkt::message::Message for ConfidentialGkeOptions {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.confidentialcomputing.v1.VerifyConfidentialGkeRequest.ConfidentialGkeOptions"
+        }
+    }
+
+    /// Platform types supported by Confidential GKE.
+    /// This enum is not frozen, and new values may be added in the future.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PlatformType {
+        /// Unspecified platform type, defaults to `VIRTUALIZED_CVM`.
+        Unspecified,
+        /// Standard virtualized Confidential GKE VM.
+        VirtualizedCvm,
+        /// Bare Metal host using a vTPM.
+        BareMetalVtpm,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [PlatformType::value] or
+        /// [PlatformType::name].
+        UnknownValue(platform_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod platform_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl PlatformType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::VirtualizedCvm => std::option::Option::Some(1),
+                Self::BareMetalVtpm => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PLATFORM_TYPE_UNSPECIFIED"),
+                Self::VirtualizedCvm => std::option::Option::Some("VIRTUALIZED_CVM"),
+                Self::BareMetalVtpm => std::option::Option::Some("BARE_METAL_VTPM"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for PlatformType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for PlatformType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for PlatformType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::VirtualizedCvm,
+                2 => Self::BareMetalVtpm,
+                _ => Self::UnknownValue(platform_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for PlatformType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PLATFORM_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "VIRTUALIZED_CVM" => Self::VirtualizedCvm,
+                "BARE_METAL_VTPM" => Self::BareMetalVtpm,
+                _ => Self::UnknownValue(platform_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for PlatformType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::VirtualizedCvm => serializer.serialize_i32(1),
+                Self::BareMetalVtpm => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PlatformType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<PlatformType>::new(
+                ".google.cloud.confidentialcomputing.v1.VerifyConfidentialGkeRequest.PlatformType",
+            ))
         }
     }
 

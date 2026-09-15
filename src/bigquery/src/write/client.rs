@@ -14,15 +14,15 @@
 
 use super::arrow::WriterBuilder as ArrowWriterBuilder;
 use super::client_builder::ClientBuilder;
+use super::proto::WriterBuilder as ProtoWriterBuilder;
 use super::transport::Transport;
 use crate::ClientBuilderResult as BuilderResult;
-use crate::model::ArrowSchema;
+use crate::model::{ArrowSchema, ProtoSchema};
 use std::sync::Arc;
 
 /// A client for BigQuery Storage Write API.
 #[derive(Debug)]
 pub struct Write {
-    #[allow(unused)]
     inner: Arc<Transport>,
 }
 
@@ -33,13 +33,11 @@ impl Write {
     }
 
     pub(crate) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
-        let transport = Transport::new(builder.config).await?;
-        Ok(Self {
-            inner: Arc::new(transport),
-        })
+        let inner = Arc::new(Transport::new(builder.config).await?);
+        Ok(Self { inner })
     }
 
-    /// Create a writer using [Arrow] as the data format.
+    /// Creates a writer using [Arrow] as the data format.
     ///
     /// # Example
     /// ```
@@ -47,7 +45,8 @@ impl Write {
     /// # async fn sample(client: Write) -> anyhow::Result<()> {
     /// let writer = client
     ///   .arrow(schema())
-    ///   .default("projects/my-project/datasets/my-dataset/tables/my-table")?;
+    ///   .default("projects/my-project/datasets/my-dataset/tables/my-table")
+    ///   .await?;
     /// # Ok(()) }
     ///
     /// use google_cloud_bigquery::model::ArrowSchema;
@@ -60,13 +59,18 @@ impl Write {
     pub fn arrow(&self, schema: ArrowSchema) -> ArrowWriterBuilder {
         ArrowWriterBuilder::new(self.inner.clone(), schema)
     }
+
+    #[allow(dead_code)]
+    pub(crate) fn proto(&self, schema: ProtoSchema) -> ProtoWriterBuilder {
+        ProtoWriterBuilder::new(self.inner.clone(), schema)
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::super::error::AppendError;
     use super::*;
-    use crate::model::{ArrowRecordBatch, ArrowSchema};
+    use crate::model::{ArrowRecordBatch, ArrowSchema, ProtoRows, ProtoSchema};
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Status as TonicStatus;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
@@ -84,9 +88,35 @@ mod tests {
             .await?;
         let writer = client
             .arrow(ArrowSchema::new())
-            .default("projects/p/datasets/d/tables/t")?;
+            .default("projects/p/datasets/d/tables/t")
+            .await?;
         let err = writer
             .append(ArrowRecordBatch::new())
+            .send()
+            .await
+            .expect_err("write should fail");
+        assert!(matches!(err, AppendError::Rpc { source: _ }));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn proto() -> anyhow::Result<()> {
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_append_rows()
+            .return_once(|_| Err(TonicStatus::failed_precondition("fail")));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = Write::builder()
+            .with_endpoint(endpoint)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let writer = client
+            .proto(ProtoSchema::new())
+            .default("projects/p/datasets/d/tables/t")
+            .await?;
+        let err = writer
+            .append(ProtoRows::new())
             .send()
             .await
             .expect_err("write should fail");

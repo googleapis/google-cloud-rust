@@ -42,6 +42,62 @@ where
     T: super::stub::AuditManager + std::fmt::Debug + Send + Sync,
 {
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_audit_schedule(
+        &self,
+        req: crate::model::CreateAuditScheduleRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AuditSchedule>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AuditManager::create_audit_schedule",
+            self.inner.create_audit_schedule(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_audit_schedule(
+        &self,
+        req: crate::model::UpdateAuditScheduleRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AuditSchedule>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AuditManager::update_audit_schedule",
+            self.inner.update_audit_schedule(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_audit_schedule(
+        &self,
+        req: crate::model::GetAuditScheduleRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AuditSchedule>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AuditManager::get_audit_schedule",
+            self.inner.get_audit_schedule(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_audit_schedules(
+        &self,
+        req: crate::model::ListAuditSchedulesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListAuditSchedulesResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AuditManager::list_audit_schedules",
+            self.inner.list_audit_schedules(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn enroll_resource(
         &self,
         req: crate::model::EnrollResourceRequest,

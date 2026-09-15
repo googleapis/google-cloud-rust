@@ -638,6 +638,43 @@ pub(crate) fn extract_statement_routing_key(
     extract_statement_params_routing_key(key_recipe_cache, operation_uid, &statement.params)
 }
 
+/// Prepares or resolves the operation UID for an [`ExecuteSqlRequest`] and extracts the binary
+/// routing key from query parameters if a matching query [`KeyRecipe`] is already cached.
+///
+/// Returns `(operation_uid, maybe_routing_key)`:
+/// - On cold start (recipe not yet cached): returns `(operation_uid, None)`.
+/// - On cache hit: returns `(operation_uid, Some(routing_key))`.
+/// - If unkeyed / partitioned / invalid: returns `(0, None)`.
+pub(crate) fn extract_execute_sql_request_routing(
+    key_recipe_cache: &KeyRecipeCache,
+    request: &ExecuteSqlRequest,
+) -> (u64, Option<Vec<u8>>) {
+    let Some(operation_uid) = key_recipe_cache.get_or_prepare_query(request) else {
+        return (0, None);
+    };
+    let routing_key =
+        extract_execute_sql_request_routing_key(key_recipe_cache, operation_uid, request);
+    (operation_uid, routing_key)
+}
+
+/// Prepares or resolves the operation UID for a protobuf [`ProtoReadRequest`] and extracts the binary
+/// routing key from request keys if a matching table or index [`KeyRecipe`] is already cached.
+///
+/// Returns `(operation_uid, maybe_routing_key)`:
+/// - On cold start (recipe not yet cached): returns `(operation_uid, None)`.
+/// - On cache hit: returns `(operation_uid, Some(routing_key))`.
+/// - If unkeyed / partitioned / invalid: returns `(0, None)`.
+pub(crate) fn extract_proto_read_request_routing(
+    key_recipe_cache: &KeyRecipeCache,
+    request: &ProtoReadRequest,
+) -> (u64, Option<Vec<u8>>) {
+    let Some(operation_uid) = key_recipe_cache.get_or_prepare_read(request) else {
+        return (0, None);
+    };
+    let routing_key = extract_proto_read_request_routing_key(key_recipe_cache, request);
+    (operation_uid, routing_key)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -2042,6 +2079,75 @@ mod tests {
         assert_eq!(
             routing_key, statement_key,
             "json params None and empty statement params must produce the identical tag-only routing key"
+        );
+    }
+
+    #[test]
+    fn extract_execute_sql_request_routing_cold_start_and_cache_hit() {
+        let cache = KeyRecipeCache::new();
+
+        let statement = Statement::builder("SELECT * FROM Users WHERE account_id = @account_id")
+            .add_param("account_id", 42i64)
+            .build();
+        let request = statement.clone().into_request();
+
+        // 1. Cold start: prepares query and allocates operation UID, but recipe is not yet cached
+        let (operation_uid, routing_key) = extract_execute_sql_request_routing(&cache, &request);
+        assert_ne!(operation_uid, 0, "operation UID must be assigned");
+        assert!(
+            routing_key.is_none(),
+            "routing key must be None on cold start"
+        );
+
+        // 2. Cache recipe under the allocated operation UID
+        let recipe = sample_query_recipe(operation_uid, "account_id");
+        cache.insert(recipe);
+
+        // 3. Cache hit: returns assigned operation UID and encoded routing key
+        let (hit_operation_uid, hit_routing_key) =
+            extract_execute_sql_request_routing(&cache, &request);
+        assert_eq!(
+            hit_operation_uid, operation_uid,
+            "operation UID must be preserved"
+        );
+        assert!(
+            hit_routing_key.is_some(),
+            "routing key must be resolved after recipe insertion"
+        );
+    }
+
+    #[test]
+    fn extract_proto_read_request_routing_cold_start_and_cache_hit() {
+        let cache = KeyRecipeCache::new();
+
+        let read_request = ReadRequest::builder("Accounts", vec!["Balance"])
+            .with_keys(key!["acc_999"])
+            .build();
+        let proto_request = read_request.into_request();
+
+        // 1. Cold start: prepares read and allocates operation UID, but recipe is not yet cached
+        let (operation_uid, routing_key) =
+            extract_proto_read_request_routing(&cache, &proto_request);
+        assert_ne!(operation_uid, 0, "operation UID must be assigned");
+        assert!(
+            routing_key.is_none(),
+            "routing key must be None on cold start"
+        );
+
+        // 2. Cache recipe for table "Accounts"
+        let recipe = sample_table_recipe("Accounts", vec![string_part(Order::Ascending)]);
+        cache.insert(recipe);
+
+        // 3. Cache hit: returns assigned operation UID and encoded routing key
+        let (hit_operation_uid, hit_routing_key) =
+            extract_proto_read_request_routing(&cache, &proto_request);
+        assert_eq!(
+            hit_operation_uid, operation_uid,
+            "operation UID must be preserved"
+        );
+        assert!(
+            hit_routing_key.is_some(),
+            "routing key must be resolved after recipe insertion"
         );
     }
 }

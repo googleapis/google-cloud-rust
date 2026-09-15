@@ -52,11 +52,11 @@ async fn open_stream(inner: Arc<Transport>, initial_req: AppendRowsRequest) -> R
 
 #[cfg(test)]
 mod tests {
-    use super::super::transport::tests::*;
     use super::*;
     use crate::google::cloud::bigquery::storage::v1::append_rows_response::{
         AppendResult, Response,
     };
+    use crate::write::test::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::{Response as TonicResponse, Status as TonicStatus};
     use google_cloud_gax::error::rpc::Code;

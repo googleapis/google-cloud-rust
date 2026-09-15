@@ -55,6 +55,20 @@ pub(crate) fn matches_replica_selection(tablet: &Tablet, selection: &ReplicaSele
     }
 }
 
+/// Returns `true` if `tablet` satisfies the active replica directives (`IncludeReplicas` or `ExcludeReplicas`).
+pub(crate) fn matches_replicas(tablet: &Tablet, replicas: &Replicas) -> bool {
+    match replicas {
+        Replicas::IncludeReplicas(include) => include
+            .replica_selections
+            .iter()
+            .any(|selection| matches_replica_selection(tablet, selection)),
+        Replicas::ExcludeReplicas(exclude) => !exclude
+            .replica_selections
+            .iter()
+            .any(|selection| matches_replica_selection(tablet, selection)),
+    }
+}
+
 /// Returns `true` if `tablet` satisfies the given directed read options.
 ///
 /// # Fallback & Selection Semantics
@@ -68,22 +82,9 @@ pub(crate) fn matches_directed_read_options(
     tablet: &Tablet,
     options: Option<&DirectedReadOptions>,
 ) -> bool {
-    let Some(options) = options else {
-        return tablet.distance <= MAX_LOCAL_REPLICA_DISTANCE;
-    };
-    let Some(replicas) = &options.replicas else {
-        return tablet.distance <= MAX_LOCAL_REPLICA_DISTANCE;
-    };
-
-    match replicas {
-        Replicas::IncludeReplicas(include) => include
-            .replica_selections
-            .iter()
-            .any(|selection| matches_replica_selection(tablet, selection)),
-        Replicas::ExcludeReplicas(exclude) => !exclude
-            .replica_selections
-            .iter()
-            .any(|selection| matches_replica_selection(tablet, selection)),
+    match options.and_then(|options| options.replicas.as_ref()) {
+        Some(replicas) => matches_replicas(tablet, replicas),
+        None => tablet.distance <= MAX_LOCAL_REPLICA_DISTANCE,
     }
 }
 
@@ -117,7 +118,7 @@ pub(crate) fn select_eligible_tablets_for_directed_read<'a>(
         && !leader.server_address.is_empty()
         && options
             .and_then(|options| options.replicas.as_ref())
-            .is_none_or(|_| matches_directed_read_options(leader, options))
+            .is_none_or(|replicas| matches_replicas(leader, replicas))
     {
         return vec![leader];
     }
@@ -247,6 +248,72 @@ mod tests {
         assert!(
             matches_replica_selection(&tablet_unspecified, &selection_rw),
             "expected Unspecified role tablet to match ReadWrite selection"
+        );
+    }
+
+    #[test]
+    fn matches_replicas_include_and_exclude() {
+        let tablet_east = make_test_tablet(1, "us-east1", Role::ReadOnly, 10);
+        let tablet_west = make_test_tablet(2, "us-west1", Role::ReadOnly, 10);
+
+        // IncludeReplicas matching us-east1
+        let include_east = Replicas::IncludeReplicas(Box::new(IncludeReplicas {
+            replica_selections: vec![ReplicaSelection {
+                location: "us-east1".to_string(),
+                r#type: Type::ReadOnly,
+                _unknown_fields: Default::default(),
+            }],
+            auto_failover_disabled: false,
+            _unknown_fields: Default::default(),
+        }));
+
+        assert!(
+            matches_replicas(&tablet_east, &include_east),
+            "expected tablet in us-east1 to match IncludeReplicas for us-east1"
+        );
+        assert!(
+            !matches_replicas(&tablet_west, &include_east),
+            "expected tablet in us-west1 to reject IncludeReplicas for us-east1"
+        );
+
+        // Empty IncludeReplicas matches nothing
+        let empty_include = Replicas::IncludeReplicas(Box::new(IncludeReplicas {
+            replica_selections: Vec::new(),
+            auto_failover_disabled: false,
+            _unknown_fields: Default::default(),
+        }));
+        assert!(
+            !matches_replicas(&tablet_east, &empty_include),
+            "empty IncludeReplicas must not match any tablet"
+        );
+
+        // ExcludeReplicas excluding us-east1
+        let exclude_east = Replicas::ExcludeReplicas(Box::new(ExcludeReplicas {
+            replica_selections: vec![ReplicaSelection {
+                location: "us-east1".to_string(),
+                r#type: Type::ReadOnly,
+                _unknown_fields: Default::default(),
+            }],
+            _unknown_fields: Default::default(),
+        }));
+
+        assert!(
+            !matches_replicas(&tablet_east, &exclude_east),
+            "expected tablet in us-east1 to be excluded by ExcludeReplicas"
+        );
+        assert!(
+            matches_replicas(&tablet_west, &exclude_east),
+            "expected tablet in us-west1 to match ExcludeReplicas for us-east1"
+        );
+
+        // Empty ExcludeReplicas matches everything
+        let empty_exclude = Replicas::ExcludeReplicas(Box::new(ExcludeReplicas {
+            replica_selections: Vec::new(),
+            _unknown_fields: Default::default(),
+        }));
+        assert!(
+            matches_replicas(&tablet_east, &empty_exclude),
+            "empty ExcludeReplicas must match all tablets"
         );
     }
 
