@@ -174,7 +174,7 @@ impl ConnectionCache {
         cell.get_or_try_init(|| async {
             let endpoint_config =
                 prepare_routed_endpoint_config(config, self.default_connection.address(), address);
-            let channel = Channel::create(&endpoint_config, 0).await?;
+            let channel = Channel::create(endpoint_config, 0).await?;
             Ok(ServerConnection::new(address.to_string(), channel))
         })
         .await
