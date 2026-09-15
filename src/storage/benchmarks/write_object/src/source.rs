@@ -16,14 +16,14 @@ use bytes::Bytes;
 use google_cloud_storage::client::{Storage, StorageControl};
 use rand::rngs::StdRng;
 use rand::{RngExt, SeedableRng};
+#[cfg(target_os = "linux")]
 use std::fs::File;
+#[cfg(target_os = "linux")]
+use std::os::unix::io::AsRawFd;
 use std::path::{Path, PathBuf};
 use tempfile::NamedTempFile;
 use tokio::io::AsyncWriteExt;
 use uuid::Uuid;
-
-#[cfg(unix)]
-use std::os::unix::io::AsRawFd;
 
 const WARMUP_PAYLOAD_SIZE: usize = 512 * 1024; // 512 KiB
 
@@ -105,7 +105,7 @@ pub async fn create_temp_test_file(
 
 /// Evicts the given file's data from the OS page cache (RAM) to simulate a cold physical disk read.
 pub fn drop_file_from_page_cache(path: &Path) -> std::io::Result<()> {
-    #[cfg(unix)]
+    #[cfg(target_os = "linux")]
     {
         let std_file = File::open(path)?;
         let fd = std_file.as_raw_fd();
@@ -118,6 +118,10 @@ pub fn drop_file_from_page_cache(path: &Path) -> std::io::Result<()> {
         if ret != 0 {
             return Err(std::io::Error::from_raw_os_error(ret));
         }
+    }
+    #[cfg(not(target_os = "linux"))]
+    {
+        let _ = path;
     }
     Ok(())
 }
