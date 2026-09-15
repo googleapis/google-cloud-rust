@@ -253,32 +253,61 @@ fn check_job_status(job: Job) -> Result<Job> {
     Ok(job)
 }
 
-/// Extracts the job named by an `Already Exists: Job my-project:US.job_123`
-/// error message.
+/// Extracts the job named by a duplicate job error, such as
+/// `Already Exists: Job my-project:US.job_123`.
 ///
 /// When `jobs.query` returns a 409, the error message is the only handle on
 /// the duplicated job.
 fn parse_duplicate_job_reference(error: &QueryError) -> Option<JobReference> {
-    const PREFIX: &str = "Already Exists: Job ";
+    const PREFIX: &str = "already exists: job ";
 
     let QueryError::Rpc { source } = error else {
         return None;
     };
-    let name = source.status()?.message.strip_prefix(PREFIX)?;
-
-    // Format looks like `example.com:my-project:US.job_123`.
-    let (project_and_location, job_id) = name.rsplit_once('.')?;
-    let (project_id, location) = project_and_location.rsplit_once(':')?;
-    if project_id.is_empty() || location.is_empty() || job_id.is_empty() {
+    let message = source.status()?.message.trim_start();
+    let (prefix, name) = message.split_at_checked(PREFIX.len())?;
+    if !prefix.eq_ignore_ascii_case(PREFIX) {
         return None;
     }
 
-    Some(
-        JobReference::new()
-            .set_project_id(project_id)
-            .set_location(location)
-            .set_job_id(job_id),
-    )
+    // The message may carry context after the job name.
+    parse_job_name(name.split_whitespace().next()?)
+}
+
+/// Parses a job name, which the service writes as `project:job_id` or
+/// `project:location.job_id`, and where `project` may be domain scoped, as in
+/// `example.com:my-project:US.job_123`.
+fn parse_job_name(name: &str) -> Option<JobReference> {
+    let (project_id, rest) = match name.split_once(':')? {
+        // Only a domain scoped project has a `.` before the first `:`.
+        (domain, rest) if domain.contains('.') => {
+            let (project_id, rest) = rest.split_once(':')?;
+            (format!("{domain}:{project_id}"), rest)
+        }
+        (project_id, rest) => (project_id.to_string(), rest),
+    };
+
+    // Locations never contain `.`, so the first one starts the job ID.
+    let (location, job_id) = match rest.split_once('.') {
+        Some((location, job_id)) => (Some(location), job_id),
+        None => (None, rest),
+    };
+
+    if project_id.is_empty()
+        || job_id.is_empty()
+        || job_id.contains(':')
+        || location.is_some_and(str::is_empty)
+    {
+        return None;
+    }
+
+    let job_ref = JobReference::new()
+        .set_project_id(project_id)
+        .set_job_id(job_id);
+    Some(match location {
+        Some(location) => job_ref.set_location(location),
+        None => job_ref,
+    })
 }
 
 #[cfg(test)]
@@ -625,19 +654,30 @@ mod tests {
         assert_eq!(job_ref.location.as_deref(), Some("US"));
         assert_eq!(job_ref.job_id, "job_123");
 
-        // Domain scoped project IDs contain both separators.
+        // The service also omits the location and lowercases the prefix.
+        let err = rpc("Already exists: Job my-project-123:job_123");
+        let job_ref = parse_duplicate_job_reference(&err).expect("job reference");
+        assert_eq!(job_ref.project_id, "my-project-123");
+        assert_eq!(job_ref.location.as_deref(), None);
+        assert_eq!(job_ref.job_id, "job_123");
+
+        // The domain holds the only `.` that does not start the job ID.
         let err = rpc("Already Exists: Job example.com:my-project:US.job_123");
         let job_ref = parse_duplicate_job_reference(&err).expect("job reference");
         assert_eq!(job_ref.project_id, "example.com:my-project");
         assert_eq!(job_ref.location.as_deref(), Some("US"));
         assert_eq!(job_ref.job_id, "job_123");
 
+        // The message may carry context after the job name.
+        let err = rpc("Already Exists: Job my-project:US.job_123 (retry the request)");
+        let job_ref = parse_duplicate_job_reference(&err).expect("job reference");
+        assert_eq!(job_ref.project_id, "my-project");
+        assert_eq!(job_ref.location.as_deref(), Some("US"));
+        assert_eq!(job_ref.job_id, "job_123");
+
         let unparsable = [
-            "Already Exists: Job my-project:US.",
-            "Already Exists: Job my-project.job_123",
             "Already Exists: Job my-project:US:job_123",
-            "Already Exists: Job ",
-            "Some other error",
+            "Already Exists: Table my-project:US.table_123",
         ];
         for message in unparsable {
             let err = rpc(message);
