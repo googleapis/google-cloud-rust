@@ -147,9 +147,19 @@ impl ClientBuilder {
         self
     }
 
-    // TODO(#6765) - make public, add example
-    #[allow(dead_code)]
     /// Configure the maximum streams in the client's multiplexed stream pool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let count = std::thread::available_parallelism()?.get();
+    /// let client = Write::builder()
+    ///     .with_pool_size_limit(count)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
     ///
     /// This stream pool is shared by default writers with multiplexing enabled.
     ///
@@ -157,35 +167,53 @@ impl ClientBuilder {
     /// pool encounter load.
     ///
     /// The default is 8 streams.
-    pub(crate) fn with_pool_size_limit(mut self, v: usize) -> Self {
+    pub fn with_pool_size_limit(mut self, v: usize) -> Self {
         self.pool_options.max_streams = v.max(1);
         self
     }
 
-    // TODO(#6765) - make public
-    #[allow(dead_code)]
     /// Configure the maximum outstanding requests in the client's multiplexed
     /// stream pool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Write::builder()
+    ///     .with_max_outstanding_requests(200)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
     ///
     /// As streams in the stream pool approach this limit, the client
     /// dynamically adds more streams to the stream pool, up to the limit
     /// configured by `with_pool_size_limit`.
     ///
     /// The default is 1000 requests.
-    pub(crate) fn with_max_outstanding_requests(mut self, v: u64) -> Self {
+    pub fn with_max_outstanding_requests(mut self, v: u64) -> Self {
         self.pool_options.max_outstanding_requests = Some(v.max(1));
         self
     }
 
-    // TODO(#6765) - make public
-    #[allow(dead_code)]
     /// Configure the maximum outstanding bytes in the client's multiplexed
     /// stream pool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Write::builder()
+    ///     .with_max_outstanding_bytes(200_000)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
     ///
     /// As streams in the stream pool approach this limit, the client
     /// dynamically adds more streams to the stream pool, up to the limit
     /// configured by `with_pool_size_limit`.
-    pub(crate) fn with_max_outstanding_bytes(mut self, v: u64) -> Self {
+    pub fn with_max_outstanding_bytes(mut self, v: u64) -> Self {
         self.pool_options.max_outstanding_bytes = Some(v.max(1));
         self
     }
