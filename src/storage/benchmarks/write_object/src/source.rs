@@ -73,7 +73,10 @@ pub async fn perform_global_warmup(
 }
 
 /// Creates a temporary file of the given size populated with pseudo-random bytes.
-/// The file is created in `temp_dir` on physical SSD storage.
+/// The file is created in `temp_dir` on physical storage.
+///
+/// To minimize setup overhead and memory consumption, a 1 MiB pseudo-random block
+/// is generated once and written repeatedly to disk until the target size is reached.
 /// Returns the path to the temporary file and the NamedTempFile handle.
 pub async fn create_temp_test_file(
     size_bytes: u64,
@@ -109,9 +112,12 @@ pub fn drop_file_from_page_cache(path: &Path) -> std::io::Result<()> {
     {
         let std_file = File::open(path)?;
         let fd = std_file.as_raw_fd();
-        // Sync dirty pages to disk first.
+        // Sync dirty pages to disk first. Dirty pages cannot be discarded by posix_fadvise.
         // SAFETY: `fdatasync` is called with a valid open file descriptor owned by `std_file`.
-        let _ = unsafe { libc::fdatasync(fd) };
+        let ret = unsafe { libc::fdatasync(fd) };
+        if ret != 0 {
+            return Err(std::io::Error::last_os_error());
+        }
         // Tell the OS kernel to discard cached pages for the entire file range.
         // SAFETY: `posix_fadvise` is called with a valid open file descriptor owned by `std_file` and valid offset/len arguments.
         let ret = unsafe { libc::posix_fadvise(fd, 0, 0, libc::POSIX_FADV_DONTNEED) };
