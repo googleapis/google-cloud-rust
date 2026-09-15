@@ -267,11 +267,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
-        let pool = Arc::new(StreamPool::new(
-            transport.clone(),
-            StreamPoolOptions::default(),
-        ));
-        let builder = WriterBuilder::new(transport, pool, schema());
+        let builder = test_builder(transport);
         let writer = builder.pending("projects/p/datasets/d/tables/t").await?;
         assert_eq!(
             writer.inner.write_stream,
@@ -287,11 +283,7 @@ mod tests {
     #[tokio::test]
     async fn pending_bad_table_format(table: &str) -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let pool = Arc::new(StreamPool::new(
-            transport.clone(),
-            StreamPoolOptions::default(),
-        ));
-        let builder = WriterBuilder::new(transport, pool, schema());
+        let builder = test_builder(transport);
         let err = builder
             .pending(table)
             .await
@@ -315,11 +307,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
-        let pool = Arc::new(StreamPool::new(
-            transport.clone(),
-            StreamPoolOptions::default(),
-        ));
-        let builder = WriterBuilder::new(transport, pool, schema());
+        let builder = test_builder(transport);
         let writer = builder.committed("projects/p/datasets/d/tables/t").await?;
         assert_eq!(
             writer.inner.write_stream,
@@ -335,11 +323,7 @@ mod tests {
     #[tokio::test]
     async fn committed_bad_table_format(table: &str) -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let pool = Arc::new(StreamPool::new(
-            transport.clone(),
-            StreamPoolOptions::default(),
-        ));
-        let builder = WriterBuilder::new(transport, pool, schema());
+        let builder = test_builder(transport);
         let err = builder
             .committed(table)
             .await
@@ -351,11 +335,7 @@ mod tests {
     #[tokio::test]
     async fn default() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let pool = Arc::new(StreamPool::new(
-            transport.clone(),
-            StreamPoolOptions::default(),
-        ));
-        let builder = WriterBuilder::new(transport, pool, schema());
+        let builder = test_builder(transport);
         let writer = builder.default("projects/p/datasets/d/tables/t").await?;
         assert_eq!(
             writer.write_stream,
@@ -374,11 +354,7 @@ mod tests {
     #[tokio::test]
     async fn bad_table_format(table: &str) -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let pool = Arc::new(StreamPool::new(
-            transport.clone(),
-            StreamPoolOptions::default(),
-        ));
-        let builder = WriterBuilder::new(transport, pool, schema());
+        let builder = test_builder(transport);
         let err = builder
             .default(table)
             .await
@@ -401,11 +377,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
-        let pool = Arc::new(StreamPool::new(
-            transport.clone(),
-            StreamPoolOptions::default(),
-        ));
-        let builder = WriterBuilder::new(transport, pool, schema());
+        let builder = test_builder(transport);
         let writer = builder.buffered("projects/p/datasets/d/tables/t").await?;
         assert_eq!(
             writer.inner.write_stream,
@@ -421,11 +393,7 @@ mod tests {
     #[tokio::test]
     async fn buffered_bad_table_format(table: &str) -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let pool = Arc::new(StreamPool::new(
-            transport.clone(),
-            StreamPoolOptions::default(),
-        ));
-        let builder = WriterBuilder::new(transport, pool, schema());
+        let builder = test_builder(transport);
         let err = builder
             .buffered(table)
             .await
@@ -453,11 +421,7 @@ mod tests {
     #[tokio::test]
     async fn attach_committed_success() -> anyhow::Result<()> {
         let (transport, _server) = attach_mock(Type::Committed).await?;
-        let pool = Arc::new(StreamPool::new(
-            transport.clone(),
-            StreamPoolOptions::default(),
-        ));
-        let builder = WriterBuilder::new(transport, pool, schema());
+        let builder = test_builder(transport);
         let writer: CommittedWriter = builder
             .attach("projects/p/datasets/d/tables/t/streams/s")
             .await?;
@@ -472,11 +436,7 @@ mod tests {
     #[tokio::test]
     async fn attach_pending_success() -> anyhow::Result<()> {
         let (transport, _server) = attach_mock(Type::Pending).await?;
-        let pool = Arc::new(StreamPool::new(
-            transport.clone(),
-            StreamPoolOptions::default(),
-        ));
-        let builder = WriterBuilder::new(transport, pool, schema());
+        let builder = test_builder(transport);
         let writer: PendingWriter = builder
             .attach("projects/p/datasets/d/tables/t/streams/s")
             .await?;
@@ -491,11 +451,7 @@ mod tests {
     #[tokio::test]
     async fn attach_buffered_success() -> anyhow::Result<()> {
         let (transport, _server) = attach_mock(Type::Buffered).await?;
-        let pool = Arc::new(StreamPool::new(
-            transport.clone(),
-            StreamPoolOptions::default(),
-        ));
-        let builder = WriterBuilder::new(transport, pool, schema());
+        let builder = test_builder(transport);
         let writer: BufferedWriter = builder
             .attach("projects/p/datasets/d/tables/t/streams/s")
             .await?;
@@ -514,11 +470,7 @@ mod tests {
     #[tokio::test]
     async fn attach_bad_stream_format(stream: &str) -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let pool = Arc::new(StreamPool::new(
-            transport.clone(),
-            StreamPoolOptions::default(),
-        ));
-        let builder = WriterBuilder::new(transport, pool, schema());
+        let builder = test_builder(transport);
         let err = builder
             .attach::<CommittedWriter, _>(stream)
             .await
@@ -530,11 +482,7 @@ mod tests {
     #[tokio::test]
     async fn attach_stream_type_mismatch() -> anyhow::Result<()> {
         let (transport, _server) = attach_mock(Type::Buffered).await?;
-        let pool = Arc::new(StreamPool::new(
-            transport.clone(),
-            StreamPoolOptions::default(),
-        ));
-        let builder = WriterBuilder::new(transport, pool, schema());
+        let builder = test_builder(transport);
         let err = builder
             .attach::<CommittedWriter, _>("projects/p/datasets/d/tables/t/streams/s")
             .await
@@ -542,5 +490,13 @@ mod tests {
         assert!(matches!(err, AttachError::TypeMismatch { .. }));
         assert!(err.to_string().contains("stream type mismatch: requested"));
         Ok(())
+    }
+
+    fn test_builder(transport: Arc<Transport>) -> WriterBuilder {
+        let pool = Arc::new(StreamPool::new(
+            transport.clone(),
+            StreamPoolOptions::default(),
+        ));
+        WriterBuilder::new(transport, pool, schema())
     }
 }
