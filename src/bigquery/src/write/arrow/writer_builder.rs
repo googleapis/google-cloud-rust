@@ -23,7 +23,7 @@ use crate::model::{ArrowSchema, WriteStream};
 use crate::write::error::{AttachError, AttachResult};
 use std::sync::Arc;
 
-/// A builder to create a stream writer
+/// A builder to create a stream writer.
 #[derive(Clone, Debug)]
 pub struct WriterBuilder {
     inner: Arc<Transport>,
@@ -35,7 +35,7 @@ impl WriterBuilder {
         Self { inner, schema }
     }
 
-    /// Create a writer for the [default stream] for the given table.
+    /// Creates a writer for the [default stream] for the given table.
     ///
     /// # Example
     ///
