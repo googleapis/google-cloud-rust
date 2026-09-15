@@ -18,7 +18,7 @@ use crate::model::AppendRowsRequest;
 use std::sync::Arc;
 use tokio::sync::oneshot;
 
-/// A request builder for appending rows on the default stream.
+/// A request builder for appending rows to the default stream.
 #[derive(Clone, Debug)]
 pub struct Append {
     inner: Arc<Dispatcher>,

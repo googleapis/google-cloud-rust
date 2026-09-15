@@ -336,6 +336,68 @@ pub async fn attach(
     Ok(())
 }
 
+pub async fn multiplex(
+    client: &Write,
+    project_id: &str,
+    dataset_id: &str,
+    table_id_prefix: &str,
+) -> Result<()> {
+    let table1 = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id_prefix}1");
+    let table2 = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id_prefix}2");
+    let mut serializer = ArrowSerializer::new("multiplex")?;
+    let schema = serializer.schema();
+
+    // Create a writer for each table. They share the stream pool.
+    let writer1 = client
+        .arrow(schema.clone())
+        .with_multiplexing(true)
+        .default(table1)
+        .await?;
+    let writer2 = client
+        .arrow(schema)
+        .with_multiplexing(true)
+        .default(table2)
+        .await?;
+
+    // Write the batches
+    let batch1 = serializer.batch(vec!["Alice", "Bob"], vec![25, 28])?;
+    let _ = writer1.append(batch1.clone()).send().await?;
+    let _ = writer2.append(batch1).send().await?;
+
+    let batch2 = serializer.batch(vec!["Charlie"], vec![31])?;
+    let _ = writer1.append(batch2.clone()).send().await?;
+    let _ = writer2.append(batch2).send().await?;
+
+    // Verify the writes
+    let table_id1 = format!("{table_id_prefix}1");
+    let table_id2 = format!("{table_id_prefix}2");
+    for table_id in [table_id1, table_id2] {
+        let users = read_writes_table(project_id, dataset_id, &table_id, "multiplex").await?;
+        assert_eq!(
+            users,
+            vec![
+                WriteUserRecord {
+                    name: "Alice".to_string(),
+                    age: 25,
+                    test: "multiplex".to_string()
+                },
+                WriteUserRecord {
+                    name: "Bob".to_string(),
+                    age: 28,
+                    test: "multiplex".to_string()
+                },
+                WriteUserRecord {
+                    name: "Charlie".to_string(),
+                    age: 31,
+                    test: "multiplex".to_string()
+                },
+            ]
+        );
+    }
+
+    Ok(())
+}
+
 struct ArrowSerializer {
     schema: Arc<Schema>,
     writer: StreamWriter<Vec<u8>>,

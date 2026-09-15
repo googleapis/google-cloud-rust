@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use super::super::generated::gapic_storage::client::BigQueryWrite;
-use super::super::pool::StreamPool;
+use super::super::pool::{StreamPool, StreamPoolOptions};
 use super::super::transport::Transport;
 use super::super::validate::{validate_stream, validate_table};
 use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter, Writer};
@@ -23,7 +23,7 @@ use crate::model::{ProtoSchema, WriteStream};
 use crate::write::error::{AttachError, AttachResult};
 use std::sync::Arc;
 
-/// A builder to create a protobuf stream writer
+/// A builder to create a protobuf stream writer.
 #[derive(Clone, Debug)]
 pub struct WriterBuilder {
     inner: Arc<Transport>,
@@ -35,7 +35,7 @@ impl WriterBuilder {
         Self { inner, schema }
     }
 
-    /// Create a writer for the [default stream] for the given table.
+    /// Creates a writer for the [default stream] for the given table.
     ///
     /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
     pub async fn default<T: Into<String>>(self, table: T) -> Result<DefaultWriter> {
@@ -44,7 +44,11 @@ impl WriterBuilder {
         let mut write_stream = table;
         write_stream.push_str("/streams/_default");
         // TODO(#6765) - use client's pool if multiplexing is enabled
-        let pool = Arc::new(StreamPool::new(self.inner, 1));
+        let options = StreamPoolOptions {
+            max_streams: 1,
+            ..Default::default()
+        };
+        let pool = Arc::new(StreamPool::new(self.inner, options));
         Ok(DefaultWriter::new(pool, write_stream, self.schema))
     }
 

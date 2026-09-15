@@ -181,14 +181,14 @@ pub async fn job_service_poller_error() -> Result<()> {
 
     let err = result.expect_err("expected job polling to return error");
     match err {
-        JobPollerError::ErrorProto(proto) => {
+        JobPollerError::JobFailed { error_result, .. } => {
             assert!(
-                !proto.reason.is_empty(),
+                !error_result.reason.is_empty(),
                 "expected non-empty error reason in ErrorProto"
             );
         }
         _ => {
-            panic!("expected JobPollerError::ErrorProto, got {err:?}");
+            panic!("expected JobPollerError::JobFailed, got {err:?}");
         }
     }
 

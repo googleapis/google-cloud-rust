@@ -14,6 +14,7 @@
 
 use super::arrow::WriterBuilder as ArrowWriterBuilder;
 use super::client_builder::ClientBuilder;
+use super::pool::StreamPool;
 use super::proto::WriterBuilder as ProtoWriterBuilder;
 use super::transport::Transport;
 use crate::ClientBuilderResult as BuilderResult;
@@ -23,8 +24,8 @@ use std::sync::Arc;
 /// A client for BigQuery Storage Write API.
 #[derive(Debug)]
 pub struct Write {
-    #[allow(unused)]
     inner: Arc<Transport>,
+    pool: Arc<StreamPool>,
 }
 
 impl Write {
@@ -34,13 +35,12 @@ impl Write {
     }
 
     pub(crate) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
-        let transport = Transport::new(builder.config).await?;
-        Ok(Self {
-            inner: Arc::new(transport),
-        })
+        let inner = Arc::new(Transport::new(builder.config).await?);
+        let pool = Arc::new(StreamPool::new(inner.clone(), builder.pool_options));
+        Ok(Self { inner, pool })
     }
 
-    /// Create a writer using [Arrow] as the data format.
+    /// Creates a writer using [Arrow] as the data format.
     ///
     /// # Example
     /// ```
@@ -60,7 +60,7 @@ impl Write {
     ///
     /// [arrow]: https://arrow.apache.org/
     pub fn arrow(&self, schema: ArrowSchema) -> ArrowWriterBuilder {
-        ArrowWriterBuilder::new(self.inner.clone(), schema)
+        ArrowWriterBuilder::new(self.inner.clone(), self.pool.clone(), schema)
     }
 
     #[allow(dead_code)]
@@ -124,6 +124,29 @@ mod tests {
             .await
             .expect_err("write should fail");
         assert!(matches!(err, AppendError::Rpc { source: _ }));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn multiplexing() -> anyhow::Result<()> {
+        let client = Write::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let multiplexed_writer = client
+            .arrow(ArrowSchema::new())
+            .with_multiplexing(true)
+            .default("projects/p/datasets/d/tables/t")
+            .await?;
+        assert!(Arc::ptr_eq(&client.pool, &multiplexed_writer.inner.pool));
+
+        let standalone_writer = client
+            .arrow(ArrowSchema::new())
+            .with_multiplexing(false)
+            .default("projects/p/datasets/d/tables/t")
+            .await?;
+        assert!(!Arc::ptr_eq(&client.pool, &standalone_writer.inner.pool));
 
         Ok(())
     }
