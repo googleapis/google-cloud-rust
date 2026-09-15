@@ -61,6 +61,7 @@ pub(crate) struct Dispatcher {
     topic_name: String,
     client: GapicPublisher,
     batching_options: BatchingOptions,
+    total_timeout: Option<std::time::Duration>,
     rx: mpsc::UnboundedReceiver<ToDispatcher>,
 }
 
@@ -69,6 +70,7 @@ impl Dispatcher {
         topic_name: String,
         client: GapicPublisher,
         batching_options: BatchingOptions,
+        total_timeout: Option<std::time::Duration>,
         rx: mpsc::UnboundedReceiver<ToDispatcher>,
     ) -> Self {
         Self {
@@ -76,6 +78,7 @@ impl Dispatcher {
             client,
             rx,
             batching_options,
+            total_timeout,
         }
     }
 
@@ -88,6 +91,7 @@ impl Dispatcher {
                     self.topic_name.clone(),
                     self.client.clone(),
                     self.batching_options.clone(),
+                    self.total_timeout,
                     rx,
                 )
                 .run(),
@@ -225,6 +229,8 @@ impl BatchActorContext {
 #[derive(Debug)]
 struct ConcurrentBatchActor {
     context: BatchActorContext,
+    #[allow(dead_code)]
+    total_timeout: Option<std::time::Duration>,
 }
 
 impl ConcurrentBatchActor {
@@ -232,10 +238,12 @@ impl ConcurrentBatchActor {
         topic: String,
         client: GapicPublisher,
         batching_options: BatchingOptions,
+        total_timeout: Option<std::time::Duration>,
         rx: mpsc::UnboundedReceiver<ToBatchActor>,
     ) -> Self {
         ConcurrentBatchActor {
             context: BatchActorContext::new(topic, client, batching_options, rx),
+            total_timeout,
         }
     }
 
@@ -798,6 +806,7 @@ mod tests {
             TOPIC.to_string(),
             client.clone(),
             batching_options.clone(),
+            None,
             rx,
         );
 
@@ -826,6 +835,7 @@ mod tests {
                 TOPIC.to_string(),
                 GapicPublisher::from_stub(mock),
                 BatchingOptions::default().set_message_count_threshold(2_u32),
+                None,
                 actor_rx,
             )
             .run(),
@@ -903,6 +913,7 @@ mod tests {
                 TOPIC.to_string(),
                 GapicPublisher::from_stub(mock),
                 BatchingOptions::default().set_message_count_threshold(2_u32),
+                None,
                 actor_rx,
             )
             .run(),
@@ -984,6 +995,7 @@ mod tests {
                 TOPIC.to_string(),
                 GapicPublisher::from_stub(MockGapicPublisher::new()),
                 BatchingOptions::default(),
+                None,
                 actor_rx,
             )
             .run(),
@@ -1073,6 +1085,7 @@ mod tests {
                     .set_message_count_threshold(10_u32)
                     .set_byte_threshold(MAX_BYTES)
                     .set_delay_threshold(std::time::Duration::MAX),
+                None,
                 actor_rx,
             )
             .run(),
@@ -1132,6 +1145,7 @@ mod tests {
                 BatchingOptions::default()
                     .set_message_count_threshold(MAX_MESSAGES)
                     .set_byte_threshold(25_u32), // The current test generates 24 byte single message batches.
+                None,
                 actor_rx,
             )
             .run(),
@@ -1244,6 +1258,7 @@ mod tests {
                 BatchingOptions::default()
                     .set_message_count_threshold(MAX_MESSAGES)
                     .set_byte_threshold(1_u32), // The current test generates 24 byte single message batches.
+                None,
                 actor_rx,
             )
             .run(),

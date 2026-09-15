@@ -308,6 +308,7 @@ pub struct PublisherPartialBuilder {
     pub(crate) inner: GapicPublisher,
     topic: String,
     batching_options: BatchingOptions,
+    pub(crate) total_timeout: Option<Duration>,
 }
 
 impl PublisherPartialBuilder {
@@ -317,7 +318,13 @@ impl PublisherPartialBuilder {
             inner: client,
             topic,
             batching_options: BatchingOptions::default(),
+            total_timeout: None,
         }
+    }
+
+    pub(crate) fn with_total_timeout(mut self, total_timeout: Option<Duration>) -> Self {
+        self.total_timeout = total_timeout;
+        self
     }
 
     /// Sets the message count threshold for batching.
@@ -419,7 +426,13 @@ impl PublisherPartialBuilder {
         // We don't need to keep track of a handle to the dispatcher.
         // Dropping the Publisher will drop the only sender to the channel.
         // This will cause the dispatcher to gracefully exit.
-        let dispatcher = Dispatcher::new(self.topic, self.inner, batching_options.clone(), rx);
+        let dispatcher = Dispatcher::new(
+            self.topic,
+            self.inner,
+            batching_options.clone(),
+            self.total_timeout,
+            rx,
+        );
         let handle = tokio::spawn(dispatcher.run());
 
         (
