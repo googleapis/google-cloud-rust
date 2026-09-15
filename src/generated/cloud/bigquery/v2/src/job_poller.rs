@@ -102,7 +102,7 @@ pub enum JobPollerError {
     #[error("BigQuery job failed ({}): {}", .error_result.reason, .error_result.message)]
     JobFailed {
         /// Final error result of the job.
-        error_result: crate::model::ErrorProto,
+        error_result: Box<crate::model::ErrorProto>,
         /// Errors and warnings encountered during the running of the job.
         errors: Vec<crate::model::ErrorProto>,
     },
@@ -167,10 +167,9 @@ impl JobPoller {
                 if !is_retryable_job_error(&err.reason)
                     || attempts >= self.policy.job_level_attempt_limit
                 {
-                    let status = job.status.unwrap_or_default();
                     return Err(JobPollerError::JobFailed {
-                        error_result: status.error_result.unwrap_or_default(),
-                        errors: status.errors,
+                        error_result: Box::new(err.clone()),
+                        errors: status.errors.clone(),
                     });
                 }
 
@@ -402,7 +401,7 @@ mod tests {
             .set_message("detailed error");
 
         let poller_err = JobPollerError::JobFailed {
-            error_result: err_proto,
+            error_result: Box::new(err_proto),
             errors: vec![sub_error],
         };
 
