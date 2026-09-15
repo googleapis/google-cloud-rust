@@ -26,6 +26,60 @@
 
 pub(crate) mod dynamic;
 
+/// Defines the trait used to implement [super::client::Read].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::Read`.  In other use-cases, application developers only
+/// use `client::Read` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait Read: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::Read::create_read_session].
+    fn create_read_session(
+        &self,
+        _req: crate::write::generated::gapic_storage::model::CreateReadSessionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::write::generated::gapic_storage::model::ReadSession>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Read::read_rows].
+    fn read_rows(
+        &self,
+        _req: crate::write::generated::gapic_storage::model::ReadRowsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            google_cloud_gax::streaming::ResponseStream<
+                crate::write::generated::gapic_storage::model::ReadRowsResponse,
+            >,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_server_streaming_stub()
+    }
+
+    /// Implements [super::client::Read::split_read_stream].
+    fn split_read_stream(
+        &self,
+        _req: crate::write::generated::gapic_storage::model::SplitReadStreamRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::write::generated::gapic_storage::model::SplitReadStreamResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
 /// Defines the trait used to implement [super::client::BigQueryWrite].
 ///
 /// Application developers may need to implement this trait to mock

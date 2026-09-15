@@ -16,9 +16,8 @@ use anyhow::Result;
 use bigquery_samples::{
     cleanup_stale_datasets, create_dataset, create_table, delete_dataset, random_dataset_id,
 };
-use google_cloud_bigquery::client::BigQuery;
-use google_cloud_bigquery_read::client::Read;
-use google_cloud_bigquery_read::model::{DataFormat, ReadSession};
+use google_cloud_bigquery::client::{BigQuery, Read};
+use google_cloud_bigquery::model::{DataFormat, ReadSession};
 use google_cloud_bigquery_v2::client::{DatasetService, TableService};
 use google_cloud_bigquery_v2::model::{TableFieldSchema, TableSchema};
 use google_cloud_test_utils::runtime_config::project_id;
