@@ -17,6 +17,7 @@ use super::{
     StreamingSource, X_GOOG_API_CLIENT_HEADER, apply_customer_supplied_encryption_headers,
     handle_object_response, v1,
 };
+use crate::storage::checksum::details::{Checksum, update as checksum_update};
 use futures::stream::unfold;
 use gaxi::attempt_info::AttemptInfo;
 use gaxi::http::HttpRequestBuilder;
@@ -30,7 +31,7 @@ where
     <S as StreamingSource>::Error: std::error::Error + Send + Sync + 'static,
     <S as Seek>::Error: std::error::Error + Send + Sync + 'static,
 {
-    pub(crate) async fn send_unbuffered(self) -> Result<Object> {
+    pub(crate) async fn send_unbuffered(self, checksum_precomputation: bool) -> Result<Object> {
         let hint = self
             .payload
             .lock()
@@ -40,13 +41,55 @@ where
             .map_err(Error::deser)?;
         let threshold = self.options.resumable_upload_threshold() as u64;
         if hint.upper().is_none_or(|max| max >= threshold) {
-            self.send_unbuffered_resumable(hint).await
+            self.send_unbuffered_resumable(hint, checksum_precomputation)
+                .await
         } else {
             self.send_unbuffered_single_shot(hint).await
         }
     }
 
-    async fn send_unbuffered_resumable(self, hint: SizeHint) -> Result<Object> {
+    async fn send_unbuffered_resumable(
+        mut self,
+        hint: SizeHint,
+        checksum_precomputation: bool,
+    ) -> Result<Object> {
+        let has_upfront_crc32c = self
+            .resource()
+            .checksums
+            .as_ref()
+            .and_then(|c| c.crc32c)
+            .is_some();
+
+        // Checksum precomputation is only executed if:
+        // 1. Precomputation is enabled (default `true`, or toggled via `with_checksum_precomputation`).
+        // 2. An upfront CRC32C checksum is not already known (e.g. via `with_known_crc32c`).
+        // If an upfront checksum is already present, recomputing it is redundant and skipped.
+        if checksum_precomputation && !has_upfront_crc32c {
+            // 1. Precompute checksum by consuming the stream through ChecksummedSource.
+            let payload_arc = self.payload.clone();
+            let mut payload = payload_arc.lock().await;
+            payload.seek(0_u64).await.map_err(Error::ser)?;
+            while payload
+                .next()
+                .await
+                .transpose()
+                .map_err(Error::ser)?
+                .is_some()
+            {}
+            let computed = payload.final_checksum();
+
+            // 2. Put the precomputed checksum into object metadata for the start-upload request.
+            let current = self.mut_resource().checksums.get_or_insert_default();
+            checksum_update(current, computed);
+
+            // 3. Reset the hasher, rewind the stream to byte 0, and drop lock.
+            payload.reset_checksum();
+            payload.seek(0_u64).await.map_err(Error::ser)?;
+            drop(payload);
+            // Clear checksum options so streaming PUT does not redundantly re-hash.
+            self.options.checksum = Checksum::default();
+        }
+
         let mut upload_url = None;
         let throttler = self.options.retry_throttler.clone();
         let retry = Arc::new(ContinueOn308::new(self.options.retry_policy.clone()));

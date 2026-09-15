@@ -326,6 +326,8 @@ pub struct WriteObjectRequest {
     pub spec: crate::model::WriteObjectSpec,
     /// Additional request parameters that are not part of the object attributes.
     pub params: Option<crate::model::CommonObjectRequestParams>,
+    /// Whether to precompute checksums for unbuffered resumable uploads.
+    pub checksum_precomputation: bool,
 }
 
 #[cfg(test)]

@@ -337,6 +337,7 @@ async fn source_seek_error() -> Result {
         .write_object("projects/_/buckets/test-bucket", "test-object", source)
         .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
+        .with_checksum_precomputation(false)
         .send_unbuffered()
         .await
         .expect_err("expected a serialization error");
@@ -382,10 +383,185 @@ async fn source_next_error() -> Result {
         .write_object("projects/_/buckets/test-bucket", "test-object", source)
         .set_if_generation_match(0)
         .with_resumable_upload_threshold(0_usize)
+        .with_checksum_precomputation(false)
         .send_unbuffered()
         .await
         .expect_err("expected a serialization error");
     assert!(err.is_serialization(), "{err:?}");
+
+    Ok(())
+}
+
+#[tokio::test]
+async fn precompute_source_seek_error() -> Result {
+    let server = Server::run();
+    let client = Storage::builder()
+        .with_endpoint(format!("http://{}", server.addr()))
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+    use crate::streaming_source::tests::MockSeekSource;
+    use std::io::{Error as IoError, ErrorKind};
+    let mut source = MockSeekSource::new();
+    source.expect_next().never();
+    source
+        .expect_seek()
+        .once()
+        .returning(|_| Err(IoError::new(ErrorKind::ConnectionAborted, "test-only")));
+    source
+        .expect_size_hint()
+        .once()
+        .returning(|| Ok(SizeHint::with_exact(1024)));
+    let err = client
+        .write_object("projects/_/buckets/test-bucket", "test-object", source)
+        .set_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send_unbuffered()
+        .await
+        .expect_err("expected a serialization error");
+    assert!(err.is_serialization(), "{err:?}");
+
+    Ok(())
+}
+
+#[tokio::test]
+async fn precompute_source_next_error() -> Result {
+    let server = Server::run();
+    let client = Storage::builder()
+        .with_endpoint(format!("http://{}", server.addr()))
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+    use crate::streaming_source::tests::MockSeekSource;
+    use std::io::{Error as IoError, ErrorKind};
+    let mut source = MockSeekSource::new();
+    source.expect_seek().once().returning(|_| Ok(()));
+    source
+        .expect_next()
+        .once()
+        .returning(|| Some(Err(IoError::new(ErrorKind::ConnectionAborted, "test-only"))));
+    source
+        .expect_size_hint()
+        .returning(|| Ok(SizeHint::with_exact(1024)));
+    let err = client
+        .write_object("projects/_/buckets/test-bucket", "test-object", source)
+        .set_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send_unbuffered()
+        .await
+        .expect_err("expected a serialization error");
+    assert!(err.is_serialization(), "{err:?}");
+
+    Ok(())
+}
+
+#[tokio::test]
+async fn precompute_rewind_seek_error() -> Result {
+    let server = Server::run();
+    let client = Storage::builder()
+        .with_endpoint(format!("http://{}", server.addr()))
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+    use crate::streaming_source::tests::MockSeekSource;
+    use std::io::{Error as IoError, ErrorKind};
+    let mut source = MockSeekSource::new();
+    source.expect_seek().times(1).returning(|_| Ok(()));
+    source.expect_next().times(1).returning(|| None);
+    source
+        .expect_seek()
+        .times(1)
+        .returning(|_| Err(IoError::new(ErrorKind::ConnectionAborted, "test-only")));
+    source
+        .expect_size_hint()
+        .returning(|| Ok(SizeHint::with_exact(1024)));
+    let err = client
+        .write_object("projects/_/buckets/test-bucket", "test-object", source)
+        .set_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send_unbuffered()
+        .await
+        .expect_err("expected a serialization error");
+    assert!(err.is_serialization(), "{err:?}");
+
+    Ok(())
+}
+
+#[tokio::test]
+async fn precompute_not_retriggered_on_retry() -> Result {
+    let server = Server::run();
+    let session = server.url("/upload/session/test-only-retry");
+    let path = session.path().to_string();
+
+    use base64::{Engine, prelude::BASE64_STANDARD};
+    let expected_crc = crc32c::crc32c(b"retry-test-data");
+    let expected_crc_b64 = BASE64_STANDARD.encode(expected_crc.to_be_bytes());
+
+    // Expect 2 POST requests (first fails with transient 503, second succeeds with 200).
+    // Both requests must contain the precomputed crc32c.
+    let expected_crc_clone = expected_crc_b64.clone();
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+            request::query(url_decoded(contains(("uploadType", "resumable")))),
+            request::body(json_decoded(move |body: &serde_json::Value| {
+                body.get("crc32c").and_then(|v| v.as_str()) == Some(&expected_crc_clone)
+            })),
+        ])
+        .times(2)
+        .respond_with(cycle![
+            status_code(503).body("transient-error"),
+            status_code(200).append_header("location", session.to_string()),
+        ]),
+    );
+
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("PUT", path),
+            request::body("retry-test-data"),
+        ])
+        .times(1)
+        .respond_with(
+            status_code(200)
+                .append_header(http::header::CONTENT_TYPE, "application/json")
+                .body(serde_json::to_string(&response_body()).unwrap()),
+        ),
+    );
+
+    use crate::streaming_source::tests::MockSeekSource;
+    let mut source = MockSeekSource::new();
+    // Exactly 3 seeks occur:
+    // 1. Precomputation step 1: seek(0) before hashing the stream.
+    // 2. Precomputation step 3: seek(0) to rewind the stream after hashing.
+    // 3. Upload attempt (PUT): seek(0) before streaming the PUT body.
+    // If precomputation were re-triggered on retry, seek(0) would be called 5 times.
+    source.expect_seek().times(3).returning(|_| Ok(()));
+    let mut chunks = vec![
+        Some(Ok(bytes::Bytes::from_static(b"retry-test-data"))),
+        None,
+        Some(Ok(bytes::Bytes::from_static(b"retry-test-data"))),
+        None,
+    ]
+    .into_iter();
+    source
+        .expect_next()
+        .times(4)
+        .returning(move || chunks.next().unwrap_or(None));
+    source
+        .expect_size_hint()
+        .returning(|| Ok(SizeHint::with_exact(15)));
+
+    let client = test_builder()
+        .with_endpoint(format!("http://{}", server.addr()))
+        .build()
+        .await?;
+
+    let _ = client
+        .write_object("projects/_/buckets/test-bucket", "test-object", source)
+        .set_if_generation_match(0)
+        .with_resumable_upload_threshold(0_usize)
+        .send_unbuffered()
+        .await?;
 
     Ok(())
 }

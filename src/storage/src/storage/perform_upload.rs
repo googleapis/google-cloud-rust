@@ -70,6 +70,13 @@ impl<S> PerformUpload<S> {
             .expect("resource field initialized in `new()`")
     }
 
+    fn mut_resource(&mut self) -> &mut crate::model::Object {
+        self.spec
+            .resource
+            .as_mut()
+            .expect("resource field initialized in `new()`")
+    }
+
     async fn start_resumable_upload_attempt(&self, attempt_count: u32) -> Result<String> {
         let builder = self.start_resumable_upload_request().await?;
         let options = self.options.gax();
