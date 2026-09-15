@@ -1049,8 +1049,8 @@ where
     /// println!("response details={response:?}");
     /// # Ok(()) }
     /// ```
-    pub fn with_checksum_precomputation<V: Into<bool>>(mut self, enable: V) -> Self {
-        self.request.checksum_precomputation = enable.into();
+    pub fn with_checksum_precomputation(mut self, enable: bool) -> Self {
+        self.request.checksum_precomputation = enable;
         self
     }
 
