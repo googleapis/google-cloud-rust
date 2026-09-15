@@ -30,7 +30,6 @@ pub struct AppendFuture {
 }
 
 impl AppendFuture {
-    #[allow(dead_code)]
     pub(crate) fn new(rx: oneshot::Receiver<AppendResult<AppendResponse>>) -> Self {
         Self { rx }
     }

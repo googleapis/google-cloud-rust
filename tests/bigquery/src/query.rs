@@ -280,7 +280,7 @@ pub async fn query_client_multi_page() -> Result<()> {
 
     let query = bq
         .query("SELECT * FROM UNNEST(GENERATE_ARRAY(1, 10000)) AS val")
-        .set_max_results(1000_u32)
+        .set_page_size(1000_u32)
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .until_done()

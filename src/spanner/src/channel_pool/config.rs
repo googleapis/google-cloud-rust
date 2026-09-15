@@ -23,7 +23,7 @@ pub(crate) const MAX_SUPPORTED_CHANNELS: usize = 256;
 /// Strategy used to select channels from the active pool.
 ///
 /// # Example
-/// ```ignore
+/// ```no_rust
 /// use google_cloud_spanner::channel_pool::{ChannelSelectionStrategy, DynamicChannelPoolConfig};
 ///
 /// let config = DynamicChannelPoolConfig::new()
@@ -41,7 +41,7 @@ pub(crate) enum ChannelSelectionStrategy {
 /// Configuration for the Spanner client channel pool.
 ///
 /// # Example
-/// ```ignore
+/// ```no_rust
 /// use google_cloud_spanner::client::{Spanner, SpannerPoolBuilderExt};
 /// use google_cloud_spanner::channel_pool::{ChannelPoolConfig, StaticChannelPoolConfig};
 ///
@@ -99,7 +99,7 @@ impl ChannelPoolConfig {
 /// Configuration for a static (fixed-size) channel pool.
 ///
 /// # Example
-/// ```ignore
+/// ```no_rust
 /// use google_cloud_spanner::client::{Spanner, SpannerPoolBuilderExt};
 /// use google_cloud_spanner::channel_pool::StaticChannelPoolConfig;
 ///
@@ -127,7 +127,7 @@ impl StaticChannelPoolConfig {
     /// Creates a new static channel pool configuration with the specified number of channels.
     ///
     /// # Example
-    /// ```ignore
+    /// ```no_rust
     /// use google_cloud_spanner::client::{Spanner, SpannerPoolBuilderExt};
     /// use google_cloud_spanner::channel_pool::StaticChannelPoolConfig;
     ///
@@ -163,7 +163,7 @@ impl From<StaticChannelPoolConfig> for ChannelPoolConfig {
 /// Configuration for a dynamically scaling channel pool.
 ///
 /// # Example
-/// ```ignore
+/// ```no_rust
 /// use google_cloud_spanner::client::{Spanner, SpannerPoolBuilderExt};
 /// use google_cloud_spanner::channel_pool::DynamicChannelPoolConfig;
 ///
@@ -244,7 +244,7 @@ impl DynamicChannelPoolConfig {
     /// Creates a new default dynamic channel pool configuration.
     ///
     /// # Example
-    /// ```ignore
+    /// ```no_rust
     /// use google_cloud_spanner::client::{Spanner, SpannerPoolBuilderExt};
     /// use google_cloud_spanner::channel_pool::DynamicChannelPoolConfig;
     ///

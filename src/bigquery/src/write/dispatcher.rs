@@ -89,6 +89,7 @@ pub(crate) fn is_transient_error(err: &AppendError) -> bool {
 
 #[cfg(test)]
 mod tests {
+    use super::super::pool::StreamPoolOptions;
     use super::*;
     use crate::write::test::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
@@ -109,7 +110,7 @@ mod tests {
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
-        let pool = Arc::new(StreamPool::new(transport, 10));
+        let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
         let dispatcher = Arc::new(Dispatcher::new(pool));
         assert_eq!(dispatcher.entry.load().id, 1);
 
@@ -144,7 +145,7 @@ mod tests {
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
-        let pool = Arc::new(StreamPool::new(transport, 10));
+        let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
         let dispatcher = Arc::new(Dispatcher::new(pool));
         assert_eq!(dispatcher.entry.load().id, 1);
 
@@ -175,7 +176,7 @@ mod tests {
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
-        let pool = Arc::new(StreamPool::new(transport, 10));
+        let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
         let dispatcher = Arc::new(Dispatcher::new(pool));
         assert_eq!(dispatcher.entry.load().id, 1);
 
@@ -204,7 +205,7 @@ mod tests {
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
-        let pool = Arc::new(StreamPool::new(transport, 10));
+        let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
         let dispatcher = Arc::new(Dispatcher::new(pool.clone()));
         assert_eq!(dispatcher.entry.load().id, 1);
 
@@ -239,7 +240,7 @@ mod tests {
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
-        let pool = Arc::new(StreamPool::new(transport, 10));
+        let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
         let dispatcher = Arc::new(Dispatcher::new(pool.clone()));
 
         // Acquire the stream pool's lock to simulate a pool scaling event. This

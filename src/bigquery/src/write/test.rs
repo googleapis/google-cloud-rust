@@ -15,7 +15,7 @@
 //! Test helpers for the `Write` client internals
 
 use super::dispatcher::Dispatcher;
-use super::pool::StreamPool;
+use super::pool::{StreamPool, StreamPoolOptions};
 use super::runner::WriteRequest;
 use super::transport::Transport;
 use crate::google::cloud::bigquery::storage::v1::append_rows_response::{AppendResult, Response};
@@ -78,7 +78,7 @@ pub(super) async fn test_dispatcher(
     req_tx: mpsc::UnboundedSender<WriteRequest>,
 ) -> anyhow::Result<Arc<Dispatcher>> {
     let transport = Arc::new(test_transport("http://ignored:1").await?);
-    let pool = Arc::new(StreamPool::new(transport, 1));
+    let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
     // Seed the pool with a stream.
     pool.seed([0]);
     // Override its channel with the provided channel.

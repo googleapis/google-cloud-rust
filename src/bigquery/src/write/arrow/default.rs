@@ -19,7 +19,7 @@ use crate::model::append_rows_request::ArrowData;
 use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema};
 use std::sync::Arc;
 
-/// A writer for the [default stream]
+/// A writer for the [default stream].
 ///
 /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
 #[derive(Debug)]
@@ -55,6 +55,7 @@ impl DefaultWriter {
 
 #[cfg(test)]
 mod tests {
+    use super::super::super::pool::StreamPoolOptions;
     use super::*;
     use crate::error::AppendError;
     use crate::write::test::*;
@@ -65,7 +66,7 @@ mod tests {
     #[tokio::test]
     async fn request_fields() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let pool = Arc::new(StreamPool::new(transport, 1));
+        let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
         let writer = DefaultWriter::new(pool, write_stream(), schema());
 
         let b = writer.append(rows(1));
@@ -96,7 +97,7 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
-        let pool = Arc::new(StreamPool::new(transport, 1));
+        let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
 
         let writer = DefaultWriter::new(pool, write_stream(), schema());
 

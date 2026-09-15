@@ -93,6 +93,13 @@ pub(crate) mod prost {
     include!("prost/includes.rs");
 }
 
+#[doc(hidden)]
+#[allow(clippy::all)]
+#[allow(unused_imports)]
+#[allow(dead_code)]
+#[allow(missing_docs)]
+pub(crate) mod convert;
+
 /// The default host used by the service.
 const DEFAULT_HOST: &str = "https://datalineage.googleapis.com/";
 
