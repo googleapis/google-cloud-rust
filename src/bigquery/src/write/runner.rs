@@ -135,13 +135,14 @@ fn process_gax_response(
     resp: Result<AppendRowsResponse>,
 ) {
     // Pop the response channel associated with this response.
-    if let Some(resp_tx) = resp_txs.pop_front() {
-        // Forward the result.
-        let _ = resp_tx.send(resp.map_err(AppendError::from));
-    } else {
+    let Some(resp_tx) = resp_txs.pop_front() else {
         // Note that the server may close an idle stream that has no requests
         // queued up. If so, the runner task will terminate gracefully.
-    }
+        return;
+    };
+
+    // Forward the result.
+    let _ = resp_tx.send(resp.map_err(AppendError::from));
 }
 
 #[cfg(test)]
