@@ -182,13 +182,15 @@ impl RetryContext {
                 // an earlier attempt of this request reached the service. Adopt
                 // the job it created rather than fail a running, billing query.
                 let existing_job = match build_get_job(&job_service, &job_ref) {
-                    Some(get) => Box::pin(get.send()).await.ok(),
+                    Some(get) => {
+                        // The original error names the running job, and unlike a
+                        // `jobs.get` failure it never makes the job retry loop
+                        // reissue the query.
+                        Box::pin(get.send()).await.ok()
+                    }
                     None => None,
                 };
                 let Some(existing_job) = existing_job else {
-                    // The original error names the running job, and unlike a
-                    // `jobs.get` failure it never makes the job retry loop
-                    // reissue the query.
                     return Err(err);
                 };
                 check_job_status(existing_job)?
