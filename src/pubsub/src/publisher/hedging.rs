@@ -159,7 +159,7 @@ mod tests {
 
     fn mock_publish_response(msg_id: &str) -> crate::Result<crate::Response<PublishResponse>> {
         Ok(crate::Response::from(
-            PublishResponse::new().set_message_ids([msg_id.to_string()]),
+            PublishResponse::new().set_message_ids([msg_id]),
         ))
     }
 
@@ -199,13 +199,13 @@ mod tests {
         let msg_id = rx.await??;
         assert_eq!(msg_id, "msg-initial");
         assert!(state.cancel_token.is_cancelled());
-        assert!(done_rx.await.is_ok_and(|r| r.is_ok()));
+        done_rx.await??;
 
         Ok(())
     }
 
     #[tokio_test_no_panics(start_paused = true)]
-    async fn test_initial_fails_option_1() -> anyhow::Result<()> {
+    async fn test_initial_fails() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().return_once(|_, _| {
             Err(crate::Error::io(std::io::Error::other(
@@ -230,27 +230,58 @@ mod tests {
     #[tokio_test_no_panics(start_paused = true)]
     async fn test_cancellation_when_initial_finishes_first() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisherWithFuture::new();
+        let mut seq = mockall::Sequence::new();
 
         // Initial succeeds after 50ms
-        mock.expect_publish().times(1).returning(|_, _| {
-            Box::pin(async {
-                tokio::time::sleep(Duration::from_millis(50)).await;
-                mock_publish_response("msg-initial")
-            })
-        });
+        mock.expect_publish()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_, _| {
+                Box::pin(async {
+                    tokio::time::sleep(Duration::from_millis(50)).await;
+                    mock_publish_response("msg-initial")
+                })
+            });
+
+        // Hedged hangs for 10s
+        mock.expect_publish()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_, _| {
+                Box::pin(async {
+                    tokio::time::sleep(Duration::from_secs(10)).await;
+                    mock_publish_response("msg-hedged")
+                })
+            });
 
         let client = GapicPublisher::from_stub(mock);
         let token_bucket = Arc::new(TokenBucket::new(10, 0.1));
         let (state, rx, done_rx) = test_batch_state(client, token_bucket);
 
         assert!(!state.cancel_token.is_cancelled());
-        state.send_initial().await;
+
+        let initial_handle = {
+            let state = state.clone();
+            tokio::spawn(async move {
+                state.send_initial().await;
+            })
+        };
+
+        let hedged_handle = {
+            let state = state.clone();
+            tokio::spawn(async move {
+                state.send_hedged_rpc().await;
+            })
+        };
+
+        initial_handle.await?;
         assert!(state.cancel_token.is_cancelled());
+        let _ = hedged_handle.await;
 
         let msg_id = rx.await??;
         assert_eq!(msg_id, "msg-initial");
         assert!(state.cancel_token.is_cancelled());
-        assert!(done_rx.await.is_ok_and(|r| r.is_ok()));
+        done_rx.await??;
 
         Ok(())
     }
@@ -258,40 +289,47 @@ mod tests {
     #[tokio_test_no_panics(start_paused = true)]
     async fn test_cancellation_when_hedged_succeeds_first() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisherWithFuture::new();
+        let mut seq = mockall::Sequence::new();
 
         // Initial hangs for 10s
-        mock.expect_publish().times(1).returning(|_, _| {
-            Box::pin(async {
-                tokio::time::sleep(Duration::from_secs(10)).await;
-                mock_publish_response("msg-initial")
-            })
-        });
+        mock.expect_publish()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_, _| {
+                Box::pin(async {
+                    tokio::time::sleep(Duration::from_secs(10)).await;
+                    mock_publish_response("msg-initial")
+                })
+            });
 
         // Hedged succeeds after 20ms
-        mock.expect_publish().times(1).returning(|_, _| {
-            Box::pin(async {
-                tokio::time::sleep(Duration::from_millis(20)).await;
-                mock_publish_response("msg-hedged")
-            })
-        });
+        mock.expect_publish()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_, _| {
+                Box::pin(async {
+                    tokio::time::sleep(Duration::from_millis(20)).await;
+                    mock_publish_response("msg-hedged")
+                })
+            });
 
         let client = GapicPublisher::from_stub(mock);
         let token_bucket = Arc::new(TokenBucket::new(10, 0.1));
         let (state, rx, done_rx) = test_batch_state(client, token_bucket);
 
-        let initial_handle = tokio::spawn({
+        let initial_handle = {
             let state = state.clone();
-            async move {
+            tokio::spawn(async move {
                 state.send_initial().await;
-            }
-        });
+            })
+        };
 
-        let hedged_handle = tokio::spawn({
+        let hedged_handle = {
             let state = state.clone();
-            async move {
+            tokio::spawn(async move {
                 state.send_hedged_rpc().await;
-            }
-        });
+            })
+        };
 
         let _ = hedged_handle.await;
         // Upon hedged completion, cancel_token was cancelled so initial finishes quickly
@@ -301,7 +339,7 @@ mod tests {
         let msg_id = rx.await??;
         assert_eq!(msg_id, "msg-hedged");
         assert!(state.cancel_token.is_cancelled());
-        assert!(done_rx.await.is_ok_and(|r| r.is_ok()));
+        done_rx.await??;
 
         Ok(())
     }
@@ -309,41 +347,48 @@ mod tests {
     #[tokio_test_no_panics(start_paused = true)]
     async fn test_hedged_errors_ignored() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisherWithFuture::new();
+        let mut seq = mockall::Sequence::new();
 
         // Initial hangs for 10s
-        mock.expect_publish().times(1).returning(|_, _| {
-            Box::pin(async {
-                tokio::time::sleep(Duration::from_secs(10)).await;
-                mock_publish_response("msg-initial")
-            })
-        });
+        mock.expect_publish()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_, _| {
+                Box::pin(async {
+                    tokio::time::sleep(Duration::from_secs(10)).await;
+                    mock_publish_response("msg-initial")
+                })
+            });
 
         // Hedged fails immediately
-        mock.expect_publish().times(1).returning(|_, _| {
-            Box::pin(async {
-                Err(crate::Error::io(std::io::Error::other(
-                    "fatal network error",
-                )))
-            })
-        });
+        mock.expect_publish()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_, _| {
+                Box::pin(async {
+                    Err(crate::Error::io(std::io::Error::other(
+                        "fatal network error",
+                    )))
+                })
+            });
 
         let client = GapicPublisher::from_stub(mock);
         let token_bucket = Arc::new(TokenBucket::new(10, 0.1));
         let (state, rx, done_rx) = test_batch_state(client, token_bucket);
 
-        let initial_handle = tokio::spawn({
+        let initial_handle = {
             let state = state.clone();
-            async move {
+            tokio::spawn(async move {
                 state.send_initial().await;
-            }
-        });
+            })
+        };
 
-        let hedged_handle = tokio::spawn({
+        let hedged_handle = {
             let state = state.clone();
-            async move {
+            tokio::spawn(async move {
                 state.send_hedged_rpc().await;
-            }
-        });
+            })
+        };
 
         let _ = hedged_handle.await;
         // Upon hedged completion, cancel_token should not be cancelled.
@@ -353,7 +398,20 @@ mod tests {
         let msg_id = rx.await??;
         assert_eq!(msg_id, "msg-initial");
         assert!(state.cancel_token.is_cancelled());
-        assert!(done_rx.await.is_ok_and(|r| r.is_ok()));
+        done_rx.await??;
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn test_hedged_rpc_skipped_if_already_cancelled() -> anyhow::Result<()> {
+        let mock = MockGapicPublisher::new();
+        let client = GapicPublisher::from_stub(mock);
+        let token_bucket = Arc::new(TokenBucket::new(10, 0.1));
+        let (state, _rx, _done_rx) = test_batch_state(client, token_bucket);
+
+        state.cancel_token.cancel();
+        state.send_hedged_rpc().await;
 
         Ok(())
     }
