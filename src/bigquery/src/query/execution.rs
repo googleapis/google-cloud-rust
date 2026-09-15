@@ -238,12 +238,18 @@ impl RetryContext {
                 let get = parse_duplicate_job_reference(&err)
                     .and_then(|job_ref| build_get_job(&job_service, &job_ref));
                 let existing_job = match get {
-                    Some(get) => Box::pin(get.send()).await.ok(),
+                    Some(get) => {
+                        // The original error names the running job, and unlike a
+                        // `jobs.get` failure it never makes the job retry loop
+                        // reissue the query, so we discard the err if the job
+                        // request fails with `.ok`.
+                        Box::pin(get.send()).await.ok()
+                    }
                     None => None,
                 };
                 let Some(existing_job) = existing_job else {
-                    // This error names the job and, unlike a `jobs.get`
-                    // failure, never makes the retry loop reissue the query.
+                    // We were unable to successfully send a `jobs.get` RPC.
+                    // Return the original error message.
                     return Err(err);
                 };
                 return Ok(QueryHandle::from_job(
