@@ -591,11 +591,13 @@ pub(crate) fn send(
     topic: String,
     inflight: &mut JoinSet<crate::Result<()>>,
 ) {
+    let start_time = wkt::Timestamp::try_from(std::time::SystemTime::now()).ok();
     inflight.spawn(async move {
         let res = client
             .publish()
             .set_topic(topic)
             .set_messages(msgs)
+            .set_pubsub_client_telemetry_header(0, start_time)
             .send()
             .await;
         batch_resolve_publish_futures(res, txs)
@@ -633,10 +635,12 @@ pub(crate) fn batch_resolve_publish_futures(
 mod tests {
     use super::{ConcurrentBatchActor, SequentialBatchActor};
     use crate::error::PublishError;
+    use crate::google::pubsub::v1::pubsub_client_telemetry::Operation;
     use crate::publisher::actor::{BundledMessage, ToBatchActor};
     use crate::publisher::batch::Batch;
     use crate::publisher::constants::{MAX_BYTES, MAX_MESSAGES};
     use crate::publisher::options::BatchingOptions;
+    use crate::publisher::publish_telemetry::parse_pubsub_client_telemetry_header;
     use crate::{
         generated::gapic_dataplane::client::Publisher as GapicPublisher,
         model::{Message, PublishResponse},
@@ -1752,5 +1756,40 @@ mod tests {
         let res_err = super::batch_resolve_publish_futures(Err(err), vec![tx3, tx4]);
         assert!(res_err.is_err());
         assert!(matches!(rx4.await.unwrap(), Err(PublishError::Rpc(_))));
+    }
+
+    #[tokio::test]
+    async fn send_attaches_telemetry_header() {
+        let (tx, rx) = tokio::sync::oneshot::channel();
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish()
+            .withf(|_req, options| {
+                let telemetry = parse_pubsub_client_telemetry_header(options)
+                    .expect("telemetry header should be present and valid");
+                match telemetry.operation {
+                    Some(Operation::PublishOperation(op)) => {
+                        op.hedged_attempt_count == 0 && op.publish_start_time.is_some()
+                    }
+                    _ => false,
+                }
+            })
+            .return_once(|_, _| {
+                Ok(crate::Response::from(
+                    PublishResponse::new().set_message_ids(["msg-1"]),
+                ))
+            });
+
+        let client = GapicPublisher::from_stub(mock);
+        let mut inflight = tokio::task::JoinSet::new();
+        super::send(
+            vec![Message::new().set_data("test")],
+            vec![tx],
+            client,
+            "topic".to_string(),
+            &mut inflight,
+        );
+
+        let _ = inflight.join_next().await;
+        assert_eq!(rx.await.unwrap().unwrap(), "msg-1");
     }
 }

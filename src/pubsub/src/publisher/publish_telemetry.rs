@@ -61,6 +61,18 @@ impl PublishRequestBuilder {
     }
 }
 
+/// Helper function for tests to decode `x-goog-pubsub-client-telemetry` from `RequestOptions`.
+#[cfg(test)]
+pub(crate) fn parse_pubsub_client_telemetry_header(
+    options: &google_cloud_gax::options::RequestOptions,
+) -> Option<PubsubClientTelemetry> {
+    use google_cloud_gax::options::internal::RequestOptionsExt as _;
+    let headers = options.get_extension::<http::HeaderMap>()?;
+    let header_val = headers.get(&PUBSUB_CLIENT_TELEMETRY_HEADER)?;
+    let bytes = BASE64_STANDARD.decode(header_val.as_bytes()).ok()?;
+    PubsubClientTelemetry::decode(&bytes[..]).ok()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -152,6 +164,31 @@ mod tests {
         let expected = format_pubsub_client_telemetry_header(1, None)
             .ok_or_else(|| anyhow::anyhow!("expected header value to generate"))?;
         assert_eq!(header_val, &expected);
+        Ok(())
+    }
+
+    #[test]
+    fn test_parse_pubsub_client_telemetry_header() -> anyhow::Result<()> {
+        let mut builder = PublishRequestBuilder::new(std::sync::Arc::new(MockPublisher::new()));
+        assert!(parse_pubsub_client_telemetry_header(builder.request_options()).is_none());
+
+        let start_time = wkt::Timestamp::clamp(1_700_000_000, 500_000_000);
+        builder = builder.set_pubsub_client_telemetry_header(2, Some(start_time));
+
+        let telemetry = parse_pubsub_client_telemetry_header(builder.request_options())
+            .ok_or_else(|| anyhow::anyhow!("telemetry should be parsed"))?;
+        assert_eq!(
+            telemetry,
+            PubsubClientTelemetry {
+                operation: Some(Operation::PublishOperation(PublishOperation {
+                    hedged_attempt_count: 2,
+                    publish_start_time: Some(prost_types::Timestamp {
+                        seconds: 1_700_000_000,
+                        nanos: 500_000_000,
+                    }),
+                })),
+            }
+        );
         Ok(())
     }
 }
