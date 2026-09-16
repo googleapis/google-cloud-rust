@@ -329,7 +329,7 @@ pub(crate) fn resource_to_monitored_resource(resource: &Resource) -> MonitoredRe
     for (key, val) in resource.iter() {
         let key_str = key.as_str();
         match key_str {
-            "instance_id" | "location" | "instance_config" | "client_hash" => {
+            "project_id" | "instance_id" | "location" | "instance_config" | "client_hash" => {
                 labels.insert(key_str.to_string(), value_to_string(val));
             }
             _ => {}
@@ -524,33 +524,48 @@ mod tests {
 
         let monitored_res = super::resource_to_monitored_resource(&resource);
 
-        assert_eq!(monitored_res.r#type, "spanner_instance_client");
         assert_eq!(
-            monitored_res.labels.get("instance_id").map(|s| s.as_str()),
-            Some("my-instance")
+            monitored_res.r#type, "spanner_instance_client",
+            "Resource type must be spanner_instance_client"
         );
         assert_eq!(
-            monitored_res.labels.get("location").map(|s| s.as_str()),
-            Some("us-central1")
+            monitored_res.labels.get("project_id").map(String::as_str),
+            Some("my-project"),
+            "MonitoredResource must contain project_id"
+        );
+        assert_eq!(
+            monitored_res.labels.get("instance_id").map(String::as_str),
+            Some("my-instance"),
+            "MonitoredResource must contain instance_id"
+        );
+        assert_eq!(
+            monitored_res.labels.get("location").map(String::as_str),
+            Some("us-central1"),
+            "MonitoredResource must contain location"
         );
         assert_eq!(
             monitored_res
                 .labels
                 .get("instance_config")
-                .map(|s| s.as_str()),
-            Some("regional-us-central1")
+                .map(String::as_str),
+            Some("regional-us-central1"),
+            "MonitoredResource must contain instance_config"
         );
         assert_eq!(
-            monitored_res.labels.get("client_hash").map(|s| s.as_str()),
-            Some("abc1234")
+            monitored_res.labels.get("client_hash").map(String::as_str),
+            Some("abc1234"),
+            "MonitoredResource must contain client_hash"
         );
 
-        // project_id must be excluded
-        assert!(!monitored_res.labels.contains_key("project_id"));
-
         // Unrelated OpenTelemetry resource attributes must be filtered out
-        assert!(!monitored_res.labels.contains_key("service.name"));
-        assert!(!monitored_res.labels.contains_key("telemetry.sdk.version"));
+        assert!(
+            !monitored_res.labels.contains_key("service.name"),
+            "service.name must be filtered out"
+        );
+        assert!(
+            !monitored_res.labels.contains_key("telemetry.sdk.version"),
+            "telemetry.sdk.version must be filtered out"
+        );
     }
 
     #[test]
