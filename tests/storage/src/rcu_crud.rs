@@ -14,12 +14,72 @@
 
 use google_cloud_gax::Result as GaxResult;
 use google_cloud_gax::error::rpc::Code;
+use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
+use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_gax::paginator::ItemPaginator as _;
+use google_cloud_gax::retry_policy::RetryPolicyExt;
 use google_cloud_lro::Poller;
 use google_cloud_storage::client::StorageControl;
-use google_cloud_storage::model::RapidCache;
+use google_cloud_storage::model::bucket::iam_config::UniformBucketLevelAccess;
+use google_cloud_storage::model::bucket::{HierarchicalNamespace, IamConfig};
+use google_cloud_storage::model::{Bucket, RapidCache};
+use google_cloud_storage::retry_policy::RetryableErrors;
+use google_cloud_test_utils::resource_names::random_bucket_id;
 use google_cloud_test_utils::runtime_config::zone_id;
 use google_cloud_wkt::{Duration, FieldMask};
+use std::time::Duration as StdDuration;
+
+/// Creates a StorageControl client. Defaults to the Preprod endpoint
+/// (`https://storage-preprod-test-grpc.googleusercontent.com:443`) unless overridden
+/// by `GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT`.
+pub async fn create_client() -> anyhow::Result<StorageControl> {
+    let endpoint =
+        std::env::var("GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT").unwrap_or_else(|_| {
+            "https://storage-preprod-test-grpc.googleusercontent.com:443".to_string()
+        });
+    println!("StorageControl endpoint: {endpoint}");
+
+    let client = StorageControl::builder()
+        .with_endpoint(&endpoint)
+        .with_backoff_policy(
+            ExponentialBackoffBuilder::new()
+                .with_initial_delay(StdDuration::from_secs(2))
+                .with_maximum_delay(StdDuration::from_secs(8))
+                .build()
+                .unwrap(),
+        )
+        .with_retry_policy(RetryableErrors.with_attempt_limit(5))
+        .build()
+        .await?;
+
+    Ok(client)
+}
+
+/// Creates an HNS-enabled bucket for RCU testing.
+pub async fn create_test_hns_bucket(client: &StorageControl) -> anyhow::Result<Bucket> {
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
+    let bucket_id = random_bucket_id();
+
+    let create = client
+        .create_bucket()
+        .set_parent("projects/_")
+        .set_bucket_id(bucket_id)
+        .set_bucket(
+            Bucket::new()
+                .set_project(format!("projects/{project_id}"))
+                .set_location("us-central1")
+                .set_labels([("integration-test", "true")])
+                .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
+                .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
+                    UniformBucketLevelAccess::new().set_enabled(true),
+                )),
+        )
+        .with_idempotency(true)
+        .send()
+        .await?;
+    println!("create_test_hns_bucket(): {create:?}");
+    Ok(create)
+}
 
 /// Purges any lingering rapid caches configured on the bucket.
 pub async fn purge_rapid_caches(client: &StorageControl, bucket_name: &str) {
@@ -33,6 +93,32 @@ pub async fn purge_rapid_caches(client: &StorageControl, bucket_name: &str) {
     for name in to_disable {
         if let Err(e) = client.disable_rapid_cache().set_name(&name).send().await {
             eprintln!("Warning: failed to disable rapid cache {name} during teardown: {e:?}");
+        }
+    }
+}
+
+/// Cleans up test resources: purges rapid caches and deletes the test bucket.
+pub async fn cleanup_bucket(client: &StorageControl, bucket_name: &str) -> anyhow::Result<()> {
+    purge_rapid_caches(client, bucket_name).await;
+
+    let mut attempts = 0;
+    loop {
+        attempts += 1;
+        match client.delete_bucket().set_name(bucket_name).send().await {
+            Ok(()) => {
+                println!("Successfully deleted test bucket {bucket_name}");
+                return Ok(());
+            }
+            Err(e) if attempts < 5 => {
+                eprintln!(
+                    "Retrying bucket delete for {bucket_name} (attempt {attempts}/5) after error: {e:?}"
+                );
+                tokio::time::sleep(StdDuration::from_secs(2)).await;
+            }
+            Err(e) => {
+                eprintln!("Failed to delete bucket {bucket_name} after {attempts} attempts: {e:?}");
+                return Err(e.into());
+            }
         }
     }
 }
@@ -57,7 +143,9 @@ pub async fn run(client: StorageControl, bucket_name: &str) -> anyhow::Result<()
     test_get_rapid_cache(&client, bucket_name, zone).await?;
     test_get_rapid_cache_non_existent(&client, bucket_name).await?;
     test_list_rapid_caches(&client, bucket_name, zone).await?;
+
     test_update_rapid_cache(&client, bucket_name, zone).await?;
+
     test_disable_rapid_cache(&client, bucket_name, zone).await?;
     test_disable_rapid_cache_non_existent(&client, bucket_name).await?;
 
@@ -313,7 +401,10 @@ pub async fn test_disable_rapid_cache(
         .await?;
 
     assert_eq!(disabled.state.to_lowercase(), "disabled");
-    println!("SUCCESS on Test 8: DisableRapidCache -> state: {}", disabled.state);
+    println!(
+        "SUCCESS on Test 8: DisableRapidCache -> state: {}",
+        disabled.state
+    );
     Ok(())
 }
 
