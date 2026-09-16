@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use super::pool::StreamPoolOptions;
+use super::retry_policy::RetryOptions;
 use crate::ClientBuilderResult as BuilderResult;
 use crate::client::Write;
 use gaxi::options::ClientConfig;
@@ -35,6 +36,7 @@ use google_cloud_auth::credentials::Credentials;
 pub struct ClientBuilder {
     pub(super) config: ClientConfig,
     pub(super) pool_options: StreamPoolOptions,
+    pub(super) retry_options: RetryOptions,
 }
 
 impl ClientBuilder {
@@ -42,6 +44,7 @@ impl ClientBuilder {
         Self {
             config: ClientConfig::default(),
             pool_options: StreamPoolOptions::default(),
+            retry_options: RetryOptions::default(),
         }
     }
 

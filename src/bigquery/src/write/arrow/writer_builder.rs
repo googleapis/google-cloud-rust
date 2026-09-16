@@ -14,6 +14,7 @@
 
 use super::super::generated::gapic_storage::client::BigQueryWrite;
 use super::super::pool::{StreamPool, StreamPoolOptions};
+use super::super::retry_policy::RetryOptions;
 use super::super::transport::Transport;
 use super::super::validate::{validate_stream, validate_table};
 use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter, Writer};
@@ -28,15 +29,22 @@ use std::sync::Arc;
 pub struct WriterBuilder {
     inner: Arc<Transport>,
     pool: Arc<StreamPool>,
+    retry_options: RetryOptions,
     schema: ArrowSchema,
     multiplexing: bool,
 }
 
 impl WriterBuilder {
-    pub(crate) fn new(inner: Arc<Transport>, pool: Arc<StreamPool>, schema: ArrowSchema) -> Self {
+    pub(crate) fn new(
+        inner: Arc<Transport>,
+        pool: Arc<StreamPool>,
+        retry_options: RetryOptions,
+        schema: ArrowSchema,
+    ) -> Self {
         Self {
             inner,
             pool,
+            retry_options,
             schema,
             multiplexing: false,
         }
@@ -76,7 +84,12 @@ impl WriterBuilder {
             };
             Arc::new(StreamPool::new(self.inner, options))
         };
-        Ok(DefaultWriter::new(pool, write_stream, self.schema))
+        Ok(DefaultWriter::new(
+            pool,
+            self.retry_options,
+            write_stream,
+            self.schema,
+        ))
     }
 
     /// Creates a pending writer for the given table.
@@ -513,6 +526,6 @@ mod tests {
             transport.clone(),
             StreamPoolOptions::default(),
         ));
-        WriterBuilder::new(transport, pool, schema())
+        WriterBuilder::new(transport, pool, test_retry_options(), schema())
     }
 }

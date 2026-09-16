@@ -16,6 +16,7 @@
 
 use super::dispatcher::Dispatcher;
 use super::pool::{StreamPool, StreamPoolOptions};
+use super::retry_policy::RetryOptions;
 use super::runner::WriteRequest;
 use super::transport::Transport;
 use crate::google::cloud::bigquery::storage::v1::append_rows_response::{AppendResult, Response};
@@ -95,6 +96,17 @@ pub(super) fn test_response(index: i64) -> AppendRowsResponse {
     }
 }
 
+/// Retry options that never retry, and never wait.
+///
+/// Tests override the fields they exercise.
+pub(super) fn test_retry_options() -> RetryOptions {
+    RetryOptions {
+        retry_policy: Arc::new(NeverRetry),
+        backoff_policy: Arc::new(NoBackoff),
+        attempt_timeout: None,
+    }
+}
+
 // Return a dispatcher that sends requests on the provided channel.
 //
 // The dispatcher never retries. Only the seeded stream routes to the provided
@@ -112,10 +124,6 @@ pub(super) async fn test_dispatcher(
         .first_mut()
         .expect("there is one entry in the pool")
         .req_tx = req_tx;
-    let dispatcher = Arc::new(Dispatcher::with_policies(
-        pool,
-        Arc::new(NeverRetry),
-        Arc::new(NoBackoff),
-    ));
+    let dispatcher = Arc::new(Dispatcher::new(pool, test_retry_options()));
     Ok(dispatcher)
 }

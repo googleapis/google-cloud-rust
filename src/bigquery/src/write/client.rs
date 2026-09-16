@@ -16,6 +16,7 @@ use super::arrow::WriterBuilder as ArrowWriterBuilder;
 use super::client_builder::ClientBuilder;
 use super::pool::StreamPool;
 use super::proto::WriterBuilder as ProtoWriterBuilder;
+use super::retry_policy::RetryOptions;
 use super::transport::Transport;
 use crate::ClientBuilderResult as BuilderResult;
 use crate::model::{ArrowSchema, ProtoSchema};
@@ -26,6 +27,7 @@ use std::sync::Arc;
 pub struct Write {
     inner: Arc<Transport>,
     pool: Arc<StreamPool>,
+    retry_options: RetryOptions,
 }
 
 impl Write {
@@ -37,7 +39,11 @@ impl Write {
     pub(crate) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
         let inner = Arc::new(Transport::new(builder.config).await?);
         let pool = Arc::new(StreamPool::new(inner.clone(), builder.pool_options));
-        Ok(Self { inner, pool })
+        Ok(Self {
+            inner,
+            pool,
+            retry_options: builder.retry_options,
+        })
     }
 
     /// Creates a writer using [Arrow] as the data format.
@@ -60,12 +66,17 @@ impl Write {
     ///
     /// [arrow]: https://arrow.apache.org/
     pub fn arrow(&self, schema: ArrowSchema) -> ArrowWriterBuilder {
-        ArrowWriterBuilder::new(self.inner.clone(), self.pool.clone(), schema)
+        ArrowWriterBuilder::new(
+            self.inner.clone(),
+            self.pool.clone(),
+            self.retry_options.clone(),
+            schema,
+        )
     }
 
     #[allow(dead_code)]
     pub(crate) fn proto(&self, schema: ProtoSchema) -> ProtoWriterBuilder {
-        ProtoWriterBuilder::new(self.inner.clone(), schema)
+        ProtoWriterBuilder::new(self.inner.clone(), self.retry_options.clone(), schema)
     }
 }
 
@@ -147,6 +158,35 @@ mod tests {
             .default("projects/p/datasets/d/tables/t")
             .await?;
         assert!(!Arc::ptr_eq(&client.pool, &standalone_writer.inner.pool));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn retry_options() -> anyhow::Result<()> {
+        let client = Write::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let writer = client
+            .arrow(ArrowSchema::new())
+            .default("projects/p/datasets/d/tables/t")
+            .await?;
+
+        // The writer uses the client's policies, not a fresh set of defaults.
+        let options = &writer.inner.options;
+        assert!(Arc::ptr_eq(
+            &client.retry_options.retry_policy,
+            &options.retry_policy
+        ));
+        assert!(Arc::ptr_eq(
+            &client.retry_options.backoff_policy,
+            &options.backoff_policy
+        ));
+        assert_eq!(
+            client.retry_options.attempt_timeout,
+            options.attempt_timeout
+        );
 
         Ok(())
     }
