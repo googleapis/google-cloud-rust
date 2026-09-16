@@ -34,8 +34,6 @@ pub struct BenchmarkReport<'a> {
     pub errors: usize,
     /// Calculated latency metrics.
     pub metrics: Option<Metrics>,
-    /// Average precomputation duration if applicable (Option B).
-    pub mean_precompute_ms: Option<f64>,
 }
 
 impl BenchmarkReport<'_> {
@@ -57,9 +55,6 @@ impl BenchmarkReport<'_> {
             println!("P90 Latency:         {:?}", m.p90);
             println!("P99 Latency:         {:?}", m.p99);
             println!("Throughput:          {:.2} MiB/s", m.throughput_mib_per_sec);
-        }
-        if let Some(precompute_ms) = self.mean_precompute_ms {
-            println!("Pass 1 Hash Time:    {:.2} ms", precompute_ms);
         }
         println!("-----------------------------------------");
     }
@@ -83,16 +78,11 @@ impl BenchmarkReport<'_> {
             writeln!(writer, "  \"p99_latency_ms\": {},", m.p99.as_millis())?;
             writeln!(
                 writer,
-                "  \"throughput_mib_s\": {:.2},",
+                "  \"throughput_mib_s\": {:.2}",
                 m.throughput_mib_per_sec
             )?;
         } else {
-            writeln!(writer, "  \"metrics\": null,")?;
-        }
-        if let Some(precompute_ms) = self.mean_precompute_ms {
-            writeln!(writer, "  \"mean_precompute_ms\": {:.2}", precompute_ms)?;
-        } else {
-            writeln!(writer, "  \"mean_precompute_ms\": null")?;
+            writeln!(writer, "  \"metrics\": null")?;
         }
         writeln!(writer, "}}")
     }
@@ -106,21 +96,6 @@ pub fn report(
     errors: usize,
     args: &Args,
 ) -> anyhow::Result<()> {
-    let mean_precompute_ms = if results.is_empty() {
-        None
-    } else {
-        let precomputes: Vec<_> = results
-            .iter()
-            .filter_map(|r| r.precompute_duration)
-            .collect();
-        if precomputes.is_empty() {
-            None
-        } else {
-            let sum_ms: f64 = precomputes.iter().map(|d| d.as_secs_f64() * 1000.0).sum();
-            Some(sum_ms / precomputes.len() as f64)
-        }
-    };
-
     let report = BenchmarkReport {
         scenario: scenario_name,
         object_size: args.object_size,
@@ -128,7 +103,6 @@ pub fn report(
         cold_cache: args.cold_cache,
         errors,
         metrics,
-        mean_precompute_ms,
     };
 
     // 1. Output summary table to terminal
@@ -163,13 +137,9 @@ pub fn report(
             csv_path.display()
         )
     })?;
-    writeln!(csv_file, "iteration,total_latency_ms,precompute_ms")?;
+    writeln!(csv_file, "iteration,total_latency_ms")?;
     for (i, r) in results.iter().enumerate() {
-        let pre_ms = r
-            .precompute_duration
-            .map(|d| format!("{:.2}", d.as_secs_f64() * 1000.0))
-            .unwrap_or_else(|| "0.0".to_string());
-        writeln!(csv_file, "{},{},{}", i, r.total_elapsed.as_millis(), pre_ms)?;
+        writeln!(csv_file, "{},{}", i, r.total_elapsed.as_millis())?;
     }
     println!("Raw latencies saved to:   {}", csv_path.display());
 

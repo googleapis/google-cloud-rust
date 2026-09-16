@@ -225,14 +225,7 @@ async fn run_single_scenario(
 
         match res {
             Ok(r) => {
-                println!(
-                    "Measured {:>2}: {:?}{}",
-                    i + 1,
-                    r.total_elapsed,
-                    r.precompute_duration
-                        .map(|d| format!(" (Pass 1 Hash: {:?})", d))
-                        .unwrap_or_default()
-                );
+                println!("Measured {:>2}: {:?}", i + 1, r.total_elapsed);
                 results.push(r);
             }
             Err(err) => {
