@@ -22,7 +22,7 @@ pub async fn sample(project_id: &str) -> anyhow::Result<()> {
     // [END rust_prompt_and_image_client] ANCHOR_END: prompt-and-image-client
 
     // [START rust_prompt_and_image_model] ANCHOR: prompt-and-image-model
-    const MODEL: &str = "gemini-2.5-flash";
+    const MODEL: &str = "gemini-3.8-flash";
     let model = format!("projects/{project_id}/locations/global/publishers/google/models/{MODEL}");
     // [END rust_prompt_and_image_model] ANCHOR_END: prompt-and-image-model
 

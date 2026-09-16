@@ -49,6 +49,7 @@ use crate::mutation::Mutation;
 use crate::omni::{InstanceType, TlsConfig};
 use crate::read::ReadRequest;
 use crate::read_write_transaction::ReadWriteTransaction;
+use crate::retry_delay::ProtoRetryInfo;
 use crate::routing::directed_read::select_eligible_tablets_for_directed_read;
 use crate::routing::key_range_cache::RangeMode;
 use crate::routing::location_router::RoutingContext;
@@ -56,18 +57,21 @@ use crate::statement::Statement;
 use bytes::Bytes;
 use gaxi::grpc::tonic::transport::server::TcpIncoming;
 use gaxi::grpc::tonic::transport::{Certificate, Identity, Server, ServerTlsConfig};
-use gaxi::grpc::tonic::{Response, Status as TonicStatus};
+use gaxi::grpc::tonic::{Code as TonicCode, MetadataMap, Response, Status as TonicStatus};
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+use google_cloud_gax::retry_policy::NeverRetry;
 use google_cloud_test_macros::tokio_test_no_panics;
-use prost_types::{Timestamp, Value};
+use mockall::Sequence;
+use prost::Message as _;
+use prost_types::{Duration as ProtoDuration, Timestamp, Value};
 use spanner_grpc_mock::MockSpanner;
 use spanner_grpc_mock::google::rpc::Status;
 use spanner_grpc_mock::google::spanner::v1 as mock_v1;
 use spanner_grpc_mock::google::spanner::v1::spanner_server::SpannerServer;
 use spanner_grpc_mock::start;
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::{Arc, Mutex};
-use std::time::Duration;
+use std::time::{Duration, Instant};
 use tokio::sync::mpsc;
 
 #[tokio_test_no_panics]
@@ -3483,6 +3487,857 @@ async fn unary_execute_batch_dml_with_inline_begin_rw_records_affinity() -> anyh
 }
 
 #[tokio_test_no_panics]
+async fn streaming_execute_sql_with_inline_begin_rw_records_affinity() -> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let gateway_sql_received = Arc::new(AtomicBool::new(false));
+    let gateway_sql_received_clone = Arc::clone(&gateway_sql_received);
+    mock_gateway
+        .expect_execute_streaming_sql()
+        .returning(move |_| {
+            gateway_sql_received_clone.store(true, Ordering::SeqCst);
+            single_row_streaming_response_with_transaction(b"tx-inline-stream-sql-rw")
+        });
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    let execute_sql_request = ExecuteSqlRequest::default()
+        .set_session(
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1",
+        )
+        .set_sql("SELECT 1")
+        .set_transaction(
+            TransactionSelector::default()
+                .set_begin(TransactionOptions::default().set_read_write(ReadWrite::default())),
+        );
+
+    let mut stream = database_client
+        .execute_streaming_sql(execute_sql_request, RequestOptions::default(), 0)
+        .send()
+        .await?;
+
+    let message = stream.next_message().await;
+    assert!(
+        message.is_some(),
+        "stream should yield at least one message"
+    );
+    let message = message.expect("message must exist")?;
+    assert!(
+        message.metadata.is_some(),
+        "partial result set should contain metadata"
+    );
+
+    assert!(
+        gateway_sql_received.load(Ordering::SeqCst),
+        "execute_streaming_sql with inline begin must be executed"
+    );
+    assert_eq!(
+        router.get_transaction_affinity(b"tx-inline-stream-sql-rw"),
+        Some(Arc::from(gateway_address.as_str())),
+        "inline begin in execute_streaming_sql must record transaction affinity"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn streaming_execute_sql_with_multiple_chunks_records_affinity_and_yields_all_rows()
+-> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let gateway_sql_received = Arc::new(AtomicBool::new(false));
+    let gateway_sql_received_clone = Arc::clone(&gateway_sql_received);
+    mock_gateway
+        .expect_execute_streaming_sql()
+        .returning(move |_| {
+            gateway_sql_received_clone.store(true, Ordering::SeqCst);
+            let (sender, receiver) = mpsc::channel(2);
+            // Chunk 1: metadata with transaction ID, first row, last: false
+            let chunk_1 = mock_v1::PartialResultSet {
+                metadata: Some(mock_v1::ResultSetMetadata {
+                    row_type: Some(mock_v1::StructType {
+                        fields: vec![mock_v1::struct_type::Field {
+                            name: "SingerId".to_string(),
+                            r#type: Some(mock_v1::Type {
+                                code: mock_v1::TypeCode::Int64 as i32,
+                                ..Default::default()
+                            }),
+                        }],
+                    }),
+                    transaction: Some(mock_v1::Transaction {
+                        id: b"tx-multi-chunk-rw".to_vec(),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }),
+                values: vec![Value {
+                    kind: Some(prost_types::value::Kind::StringValue("1".to_string())),
+                }],
+                last: false,
+                ..Default::default()
+            };
+            sender.try_send(Ok(chunk_1)).expect("send chunk 1");
+
+            // Chunk 2: second row without transaction ID, last: true
+            let chunk_2 = mock_v1::PartialResultSet {
+                values: vec![Value {
+                    kind: Some(prost_types::value::Kind::StringValue("2".to_string())),
+                }],
+                last: true,
+                ..Default::default()
+            };
+            sender.try_send(Ok(chunk_2)).expect("send chunk 2");
+
+            Ok(Response::from(receiver))
+        });
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    let execute_sql_request = ExecuteSqlRequest::default()
+        .set_session(
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1",
+        )
+        .set_sql("SELECT SingerId FROM Singers")
+        .set_transaction(
+            TransactionSelector::default()
+                .set_begin(TransactionOptions::default().set_read_write(ReadWrite::default())),
+        );
+
+    let mut stream = database_client
+        .execute_streaming_sql(execute_sql_request, RequestOptions::default(), 0)
+        .send()
+        .await?;
+
+    // First chunk
+    let first_message = stream.next_message().await;
+    assert!(
+        first_message.is_some(),
+        "first chunk should yield a message"
+    );
+    let first_message = first_message.expect("message 1 must exist")?;
+    assert!(
+        first_message.metadata.is_some(),
+        "first chunk must contain metadata"
+    );
+    assert_eq!(
+        router.get_transaction_affinity(b"tx-multi-chunk-rw"),
+        Some(Arc::from(gateway_address.as_str())),
+        "affinity must be recorded on first chunk"
+    );
+
+    // Second chunk
+    let second_message = stream.next_message().await;
+    assert!(
+        second_message.is_some(),
+        "second chunk should yield a message"
+    );
+    let second_message = second_message.expect("message 2 must exist")?;
+    assert!(second_message.last, "second chunk must have last flag set");
+    assert_eq!(
+        router.get_transaction_affinity(b"tx-multi-chunk-rw"),
+        Some(Arc::from(gateway_address.as_str())),
+        "affinity must remain bound after subsequent chunk"
+    );
+
+    // Stream conclusion (EOF)
+    let end = stream.next_message().await;
+    assert!(end.is_none(), "stream should conclude with None on EOF");
+
+    assert!(
+        gateway_sql_received.load(Ordering::SeqCst),
+        "streaming sql must be received by gateway"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn streaming_read_with_inline_begin_rw_records_affinity() -> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let gateway_read_received = Arc::new(AtomicBool::new(false));
+    let gateway_read_received_clone = Arc::clone(&gateway_read_received);
+    mock_gateway.expect_streaming_read().returning(move |_| {
+        gateway_read_received_clone.store(true, Ordering::SeqCst);
+        single_row_streaming_response_with_transaction(b"tx-inline-stream-read-rw")
+    });
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    let read_request = ReadRequest::builder("Singers", vec!["SingerId"])
+        .with_keys(KeySet::all())
+        .build()
+        .into_request()
+        .set_session(
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1",
+        )
+        .set_transaction(
+            TransactionSelector::default()
+                .set_begin(TransactionOptions::default().set_read_write(ReadWrite::default())),
+        );
+
+    let mut stream = database_client
+        .streaming_read(read_request, RequestOptions::default(), 0)
+        .send()
+        .await?;
+
+    let message = stream.next_message().await;
+    assert!(
+        message.is_some(),
+        "stream should yield at least one message"
+    );
+    let message = message.expect("message must exist")?;
+    assert!(
+        message.metadata.is_some(),
+        "partial result set should contain metadata"
+    );
+
+    assert!(
+        gateway_read_received.load(Ordering::SeqCst),
+        "streaming_read with inline begin must be executed"
+    );
+    assert_eq!(
+        router.get_transaction_affinity(b"tx-inline-stream-read-rw"),
+        Some(Arc::from(gateway_address.as_str())),
+        "inline begin in streaming_read must record transaction affinity"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn streaming_execute_sql_with_inline_begin_ro_does_not_record_affinity() -> anyhow::Result<()>
+{
+    let mut mock_gateway = create_base_mock();
+    let gateway_sql_received = Arc::new(AtomicBool::new(false));
+    let gateway_sql_received_clone = Arc::clone(&gateway_sql_received);
+    mock_gateway
+        .expect_execute_streaming_sql()
+        .returning(move |_| {
+            gateway_sql_received_clone.store(true, Ordering::SeqCst);
+            single_row_streaming_response_with_transaction(b"tx-inline-stream-sql-ro")
+        });
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    let execute_sql_request = ExecuteSqlRequest::default()
+        .set_session(
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1",
+        )
+        .set_sql("SELECT 1")
+        .set_transaction(
+            TransactionSelector::default()
+                .set_begin(TransactionOptions::default().set_read_only(ReadOnly::default())),
+        );
+
+    let mut stream = database_client
+        .execute_streaming_sql(execute_sql_request, RequestOptions::default(), 0)
+        .send()
+        .await?;
+
+    let message = stream.next_message().await;
+    assert!(
+        message.is_some(),
+        "stream should yield at least one message"
+    );
+    let message = message.expect("message must exist")?;
+    assert!(
+        message.metadata.is_some(),
+        "partial result set should contain metadata"
+    );
+
+    assert!(
+        gateway_sql_received.load(Ordering::SeqCst),
+        "execute_streaming_sql with read-only inline begin must be executed"
+    );
+    assert_eq!(
+        router.get_transaction_affinity(b"tx-inline-stream-sql-ro"),
+        None,
+        "read-only inline begin must not record transaction affinity"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn streaming_execute_sql_with_error_does_not_record_affinity() -> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let gateway_sql_received = Arc::new(AtomicBool::new(false));
+    let gateway_sql_received_clone = Arc::clone(&gateway_sql_received);
+    mock_gateway
+        .expect_execute_streaming_sql()
+        .returning(move |_| {
+            gateway_sql_received_clone.store(true, Ordering::SeqCst);
+            streaming_error_response(TonicStatus::invalid_argument("table not found"))
+        });
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    let execute_sql_request = ExecuteSqlRequest::default()
+        .set_session(
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1",
+        )
+        .set_sql("SELECT * FROM NonExistentTable")
+        .set_transaction(
+            TransactionSelector::default()
+                .set_begin(TransactionOptions::default().set_read_write(ReadWrite::default())),
+        );
+
+    let mut stream = database_client
+        .execute_streaming_sql(execute_sql_request, RequestOptions::default(), 0)
+        .send()
+        .await?;
+
+    let message = stream.next_message().await;
+    assert!(message.is_some(), "stream should yield an error message");
+    assert!(
+        message.expect("message must exist").is_err(),
+        "stream message must be an error"
+    );
+
+    assert!(
+        gateway_sql_received.load(Ordering::SeqCst),
+        "execute_streaming_sql must be executed"
+    );
+    assert_eq!(
+        router.affinity_count(),
+        0,
+        "failed streaming execution must not record any affinity"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn read_write_transaction_inline_begin_query_records_affinity_and_routes_commit_to_affinity()
+-> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let gateway_sql_received = Arc::new(AtomicBool::new(false));
+    let gateway_sql_received_clone = Arc::clone(&gateway_sql_received);
+    mock_gateway
+        .expect_execute_streaming_sql()
+        .returning(move |_| {
+            gateway_sql_received_clone.store(true, Ordering::SeqCst);
+            single_row_streaming_response_with_transaction(b"tx-inline-runner-rw")
+        });
+
+    let gateway_commit_received = Arc::new(AtomicBool::new(false));
+    let gateway_commit_received_clone = Arc::clone(&gateway_commit_received);
+    mock_gateway.expect_commit().returning(move |request| {
+        gateway_commit_received_clone.store(true, Ordering::SeqCst);
+        assert_eq!(
+            request.get_ref().transaction,
+            Some(mock_v1::commit_request::Transaction::TransactionId(
+                b"tx-inline-runner-rw".to_vec()
+            )),
+            "commit must carry the transaction ID returned by inline begin"
+        );
+        Ok(Response::new(mock_v1::CommitResponse {
+            commit_timestamp: Some(Timestamp {
+                seconds: 1700000000,
+                nanos: 0,
+            }),
+            ..Default::default()
+        }))
+    });
+
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    let affinity_verified_inside_runner = Arc::new(AtomicBool::new(false));
+    let affinity_verified_inside_runner_clone = Arc::clone(&affinity_verified_inside_runner);
+    let router_clone = Arc::clone(router);
+    let gateway_address_clone = gateway_address.clone();
+
+    let runner = database_client.read_write_transaction().build().await?;
+    runner
+        .run(|transaction: ReadWriteTransaction| {
+            let router_clone = Arc::clone(&router_clone);
+            let gateway_address_clone = gateway_address_clone.clone();
+            let affinity_verified = Arc::clone(&affinity_verified_inside_runner_clone);
+            async move {
+                let mut result_set = transaction.execute_query("SELECT 1").await?;
+                let row = result_set.next().await;
+                assert!(row.is_some(), "result set should yield a row");
+
+                assert_eq!(
+                    router_clone.get_transaction_affinity(b"tx-inline-runner-rw"),
+                    Some(Arc::from(gateway_address_clone.as_str())),
+                    "affinity must be recorded during inline begin execution"
+                );
+                affinity_verified.store(true, Ordering::SeqCst);
+
+                Ok(())
+            }
+        })
+        .await?;
+
+    assert!(
+        gateway_sql_received.load(Ordering::SeqCst),
+        "streaming sql must be received by gateway"
+    );
+    assert!(
+        affinity_verified_inside_runner.load(Ordering::SeqCst),
+        "affinity must be verified inside transaction runner"
+    );
+    assert!(
+        gateway_commit_received.load(Ordering::SeqCst),
+        "commit must be received by gateway"
+    );
+    assert_eq!(
+        router.get_transaction_affinity(b"tx-inline-runner-rw"),
+        None,
+        "commit must clear transaction affinity"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn read_write_transaction_inline_begin_read_records_affinity_and_routes_commit_to_affinity()
+-> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let gateway_read_received = Arc::new(AtomicBool::new(false));
+    let gateway_read_received_clone = Arc::clone(&gateway_read_received);
+    mock_gateway
+        .expect_streaming_read()
+        .returning(move |request| {
+            gateway_read_received_clone.store(true, Ordering::SeqCst);
+            assert!(
+                request.get_ref().transaction.is_some(),
+                "request must contain transaction selector"
+            );
+            single_row_streaming_response_with_transaction(b"tx-inline-runner-read-rw")
+        });
+
+    let gateway_commit_received = Arc::new(AtomicBool::new(false));
+    let gateway_commit_received_clone = Arc::clone(&gateway_commit_received);
+    mock_gateway.expect_commit().returning(move |request| {
+        gateway_commit_received_clone.store(true, Ordering::SeqCst);
+        assert_eq!(
+            request.get_ref().transaction,
+            Some(mock_v1::commit_request::Transaction::TransactionId(
+                b"tx-inline-runner-read-rw".to_vec()
+            )),
+            "commit must route to transaction ID recorded by inline begin read"
+        );
+        Ok(Response::new(mock_v1::CommitResponse {
+            commit_timestamp: Some(Timestamp {
+                seconds: 1700000000,
+                nanos: 0,
+            }),
+            ..Default::default()
+        }))
+    });
+
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    let affinity_verified_inside_runner = Arc::new(AtomicBool::new(false));
+    let affinity_verified = Arc::clone(&affinity_verified_inside_runner);
+    let router_clone = Arc::clone(router);
+    let gateway_address_clone = gateway_address.clone();
+
+    let runner = database_client.read_write_transaction().build().await?;
+    runner
+        .run(|transaction: ReadWriteTransaction| {
+            let affinity_verified = Arc::clone(&affinity_verified);
+            let router_clone = Arc::clone(&router_clone);
+            let gateway_address_clone = gateway_address_clone.clone();
+            async move {
+                let read = ReadRequest::builder("Singers", vec!["SingerId"])
+                    .with_keys(key![100i64])
+                    .build();
+                let mut result_set = transaction.execute_read(read).await?;
+                let row = result_set.next().await;
+                assert!(row.is_some(), "result set should yield a row");
+                let row = row.expect("row must exist")?;
+                assert_eq!(row.raw_values().len(), 1, "row must contain 1 column");
+
+                assert_eq!(
+                    router_clone.get_transaction_affinity(b"tx-inline-runner-read-rw"),
+                    Some(Arc::from(gateway_address_clone.as_str())),
+                    "affinity must be recorded during inline begin read execution"
+                );
+                affinity_verified.store(true, Ordering::SeqCst);
+
+                Ok(())
+            }
+        })
+        .await?;
+
+    assert!(
+        gateway_read_received.load(Ordering::SeqCst),
+        "streaming read must be received by gateway"
+    );
+    assert!(
+        affinity_verified_inside_runner.load(Ordering::SeqCst),
+        "affinity must be verified inside transaction runner"
+    );
+    assert!(
+        gateway_commit_received.load(Ordering::SeqCst),
+        "commit must be received by gateway"
+    );
+    assert_eq!(
+        router.get_transaction_affinity(b"tx-inline-runner-read-rw"),
+        None,
+        "commit must clear transaction affinity"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn read_write_transaction_inline_begin_query_aborted_retries_and_updates_affinity()
+-> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let mut sequence = mockall::Sequence::new();
+
+    // Attempt 1: ExecuteStreamingSql succeeds with tx-attempt-1, but Commit fails with ABORTED
+    mock_gateway
+        .expect_execute_streaming_sql()
+        .times(1)
+        .in_sequence(&mut sequence)
+        .returning(|_| single_row_streaming_response_with_transaction(b"tx-attempt-1"));
+
+    mock_gateway
+        .expect_commit()
+        .times(1)
+        .in_sequence(&mut sequence)
+        .returning(|request| {
+            assert_eq!(
+                request.get_ref().transaction,
+                Some(mock_v1::commit_request::Transaction::TransactionId(
+                    b"tx-attempt-1".to_vec()
+                )),
+                "first commit attempt must carry tx-attempt-1"
+            );
+            Err(TonicStatus::aborted("Transaction concurrency conflict"))
+        });
+
+    // Attempt 2: ExecuteStreamingSql succeeds with tx-attempt-2, and Commit succeeds
+    mock_gateway
+        .expect_execute_streaming_sql()
+        .times(1)
+        .in_sequence(&mut sequence)
+        .returning(|_| single_row_streaming_response_with_transaction(b"tx-attempt-2"));
+
+    let commit_received = Arc::new(AtomicBool::new(false));
+    let commit_received_clone = Arc::clone(&commit_received);
+    mock_gateway
+        .expect_commit()
+        .times(1)
+        .in_sequence(&mut sequence)
+        .returning(move |request| {
+            commit_received_clone.store(true, Ordering::SeqCst);
+            assert_eq!(
+                request.get_ref().transaction,
+                Some(mock_v1::commit_request::Transaction::TransactionId(
+                    b"tx-attempt-2".to_vec()
+                )),
+                "second commit attempt must carry tx-attempt-2"
+            );
+            Ok(Response::new(mock_v1::CommitResponse {
+                commit_timestamp: Some(Timestamp {
+                    seconds: 1700000000,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    let attempts = Arc::new(AtomicUsize::new(0));
+    let attempts_clone = Arc::clone(&attempts);
+    let router_clone = Arc::clone(router);
+    let gateway_address_clone = gateway_address.clone();
+
+    let runner = database_client.read_write_transaction().build().await?;
+    runner
+        .run(|transaction: ReadWriteTransaction| {
+            let attempts = Arc::clone(&attempts_clone);
+            let router_clone = Arc::clone(&router_clone);
+            let gateway_address_clone = gateway_address_clone.clone();
+            async move {
+                let current_attempt = attempts.fetch_add(1, Ordering::SeqCst) + 1;
+                let mut result_set = transaction.execute_query("SELECT 1").await?;
+                let row = result_set.next().await;
+                assert!(
+                    row.is_some(),
+                    "result set should yield a row on each attempt"
+                );
+                let row = row.expect("row must exist")?;
+                assert_eq!(row.raw_values().len(), 1, "row must contain 1 column");
+
+                if current_attempt == 1 {
+                    assert_eq!(
+                        router_clone.get_transaction_affinity(b"tx-attempt-1"),
+                        Some(Arc::from(gateway_address_clone.as_str())),
+                        "first attempt must bind affinity to gateway for tx-attempt-1"
+                    );
+                } else if current_attempt == 2 {
+                    assert_eq!(
+                        router_clone.get_transaction_affinity(b"tx-attempt-2"),
+                        Some(Arc::from(gateway_address_clone.as_str())),
+                        "retried attempt must bind affinity to gateway for tx-attempt-2"
+                    );
+                }
+
+                Ok(())
+            }
+        })
+        .await?;
+
+    assert_eq!(
+        attempts.load(Ordering::SeqCst),
+        2,
+        "transaction should succeed on second attempt"
+    );
+    assert!(
+        commit_received.load(Ordering::SeqCst),
+        "commit must be received for the retried attempt"
+    );
+    assert_eq!(
+        router.get_transaction_affinity(b"tx-attempt-2"),
+        None,
+        "commit must clear affinity for second attempt"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn streaming_read_with_inline_begin_rw_routed_to_tablet_records_tablet_affinity()
+-> anyhow::Result<()> {
+    let mock_gateway = create_base_mock();
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let mut mock_tablet = create_base_mock();
+    let tablet_read_received = Arc::new(AtomicBool::new(false));
+    let tablet_read_received_clone = Arc::clone(&tablet_read_received);
+    mock_tablet
+        .expect_streaming_read()
+        .returning(move |request| {
+            tablet_read_received_clone.store(true, Ordering::SeqCst);
+            let hint = request
+                .get_ref()
+                .routing_hint
+                .as_ref()
+                .expect("routing hint must be present on routed request");
+            assert_eq!(
+                hint.tablet_uid, 5001,
+                "routing hint must target tablet 5001"
+            );
+            single_row_streaming_response_with_transaction(b"tx-inline-tablet-read-rw")
+        });
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    let mut cache_update = sample_model_cache_update(5005, 5001, &tablet_address, &tablet_address);
+    cache_update.range = vec![ModelRange {
+        start_key: Bytes::from_static(b""),
+        limit_key: Bytes::from_static(b""),
+        group_uid: 5001,
+        split_id: 5001,
+        generation: Bytes::from_static(b"gen_1"),
+        _unknown_fields: Default::default(),
+    }];
+    database_client.observe_cache_update(Some(cache_update));
+
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    let read_request = ReadRequest::builder("Singers", vec!["SingerId"])
+        .with_keys(key![100i64])
+        .build()
+        .into_request()
+        .set_session(
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1",
+        )
+        .set_transaction(
+            TransactionSelector::default()
+                .set_begin(TransactionOptions::default().set_read_write(ReadWrite::default())),
+        );
+
+    let mut stream = database_client
+        .streaming_read(read_request, RequestOptions::default(), 0)
+        .send()
+        .await?;
+
+    let message = stream.next_message().await;
+    assert!(
+        message.is_some(),
+        "stream should yield at least one message"
+    );
+    let message = message.expect("message must exist")?;
+    assert!(
+        message.metadata.is_some(),
+        "partial result set should contain metadata"
+    );
+
+    assert!(
+        tablet_read_received.load(Ordering::SeqCst),
+        "streaming_read with inline begin must be received by tablet"
+    );
+    assert_eq!(
+        router.get_transaction_affinity(b"tx-inline-tablet-read-rw"),
+        Some(Arc::from(tablet_address.as_str())),
+        "inline begin routed to tablet must record affinity to tablet address"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
 async fn unary_partition_read_routes_to_tablet_node() -> anyhow::Result<()> {
     let mock_gateway = create_base_mock();
     let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
@@ -3844,6 +4699,47 @@ fn single_row_streaming_response(
     sender
         .try_send(Ok(partial_result_set))
         .expect("send partial result set");
+    Ok(Response::from(receiver))
+}
+
+fn single_row_streaming_response_with_transaction(
+    transaction_id: &[u8],
+) -> Result<Response<mpsc::Receiver<Result<mock_v1::PartialResultSet, TonicStatus>>>, TonicStatus> {
+    let partial_result_set = mock_v1::PartialResultSet {
+        metadata: Some(mock_v1::ResultSetMetadata {
+            row_type: Some(mock_v1::StructType {
+                fields: vec![mock_v1::struct_type::Field {
+                    name: "SingerId".to_string(),
+                    r#type: Some(mock_v1::Type {
+                        code: mock_v1::TypeCode::Int64 as i32,
+                        ..Default::default()
+                    }),
+                }],
+            }),
+            transaction: Some(mock_v1::Transaction {
+                id: transaction_id.to_vec(),
+                ..Default::default()
+            }),
+            ..Default::default()
+        }),
+        values: vec![Value {
+            kind: Some(prost_types::value::Kind::StringValue("42".to_string())),
+        }],
+        last: true,
+        ..Default::default()
+    };
+    let (sender, receiver) = mpsc::channel(1);
+    sender
+        .try_send(Ok(partial_result_set))
+        .expect("send partial result set");
+    Ok(Response::from(receiver))
+}
+
+fn streaming_error_response(
+    status: TonicStatus,
+) -> Result<Response<mpsc::Receiver<Result<mock_v1::PartialResultSet, TonicStatus>>>, TonicStatus> {
+    let (sender, receiver) = mpsc::channel(1);
+    sender.try_send(Err(status)).expect("send streaming error");
     Ok(Response::from(receiver))
 }
 
@@ -5019,6 +5915,837 @@ async fn end_to_end_routed_connection_with_omni_mtls_and_explicit_domain_overrid
     assert!(
         !gateway_called.load(Ordering::SeqCst),
         "gateway mock must NOT receive the second query once tablet connection is cached"
+    );
+
+    Ok(())
+}
+
+fn encode_test_retry_info(seconds: i64, nanos: i32) -> Vec<u8> {
+    let mut bytes = Vec::new();
+    ProtoRetryInfo {
+        retry_delay: Some(ProtoDuration { seconds, nanos }),
+    }
+    .encode(&mut bytes)
+    .expect("encoding ProtoRetryInfo must succeed");
+    bytes
+}
+
+#[tokio_test_no_panics]
+async fn unary_rpc_feedback_success_records_latency_and_repairs_cooldown() -> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let mut mock_tablet = create_base_mock();
+
+    let tablet_called = Arc::new(AtomicBool::new(false));
+    let tablet_called_clone = Arc::clone(&tablet_called);
+
+    mock_tablet
+        .expect_execute_sql()
+        .times(3)
+        .returning(move |_| {
+            tablet_called_clone.store(true, Ordering::SeqCst);
+            Ok(Response::new(mock_v1::ResultSet::default()))
+        });
+
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let tablet_address_for_update = tablet_address.clone();
+    mock_gateway
+        .expect_execute_sql()
+        .times(1)
+        .returning(move |request| {
+            let operation_uid = request
+                .get_ref()
+                .routing_hint
+                .as_ref()
+                .map(|hint| hint.operation_uid)
+                .unwrap_or(1);
+
+            let cache_update = sample_query_mock_cache_update(
+                5555,
+                operation_uid,
+                9001,
+                &tablet_address_for_update,
+            );
+            Ok(Response::new(mock_v1::ResultSet {
+                cache_update: Some(cache_update),
+                ..Default::default()
+            }))
+        });
+
+    let (database_client, _spanner, _gateway_server) =
+        setup_mock_database_client(mock_gateway).await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    // Cold-start query populates recipe and range cache via gateway
+    let statement = Statement::builder("SELECT * FROM Users WHERE account_id = @account_id")
+        .add_param("account_id", 42i64)
+        .build();
+    let _ = database_client
+        .execute_sql(
+            statement.clone().into_request(),
+            RequestOptions::default(),
+            0,
+        )
+        .await?;
+
+    // Pre-warm tablet connection in cache
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater must be present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    // Record an expired failure in cooldown tracker (30s in the past so cooldown is over, but failure tier is 1)
+    let past = Instant::now() - Duration::from_secs(30);
+    router
+        .cooldown_tracker()
+        .record_failure_at(&tablet_address, past);
+    assert!(
+        !router.cooldown_tracker().is_empty(),
+        "cooldown tracker should contain entry for tablet address before repair"
+    );
+
+    assert!(
+        !router
+            .latency_registry()
+            .has_score(Some(router.database_scope()), 9001, &tablet_address),
+        "latency registry should have no score for tablet address before direct RPC execution"
+    );
+
+    // Execute 3 successful direct unary RPCs to the tablet
+    for _ in 0..3 {
+        let _ = database_client
+            .execute_sql(
+                statement.clone().into_request(),
+                RequestOptions::default(),
+                0,
+            )
+            .await?;
+    }
+
+    assert!(
+        tablet_called.load(Ordering::SeqCst),
+        "mock tablet must have received direct unary execute_sql calls"
+    );
+
+    // Verify latency was recorded
+    assert!(
+        router
+            .latency_registry()
+            .has_score(Some(router.database_scope()), 9001, &tablet_address),
+        "latency registry must have recorded latency score for tablet address after successful direct execution"
+    );
+    let cost = router.latency_registry().get_selection_cost(
+        Some(router.database_scope()),
+        9001,
+        0,
+        &tablet_address,
+    );
+    assert!(
+        cost > 0.0,
+        "selection cost for tablet address must be greater than zero after latency recording"
+    );
+
+    // Verify that 3 consecutive successes repaired the failure tier and pruned the entry
+    assert!(
+        router.cooldown_tracker().is_empty(),
+        "cooldown tracker must be empty after 3 successful RPCs repaired failure tier of expired entry"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn unary_rpc_feedback_resource_exhausted_places_endpoint_on_cooldown_and_penalizes_latency()
+-> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let mut mock_tablet = create_base_mock();
+
+    let tablet_called = Arc::new(AtomicBool::new(false));
+    let tablet_called_clone = Arc::clone(&tablet_called);
+
+    // Encode a RetryInfo with a 2-second delay
+    let retry_info_bytes = encode_test_retry_info(2, 0);
+
+    mock_tablet
+        .expect_execute_sql()
+        .times(1)
+        .returning(move |_| {
+            tablet_called_clone.store(true, Ordering::SeqCst);
+            Err(TonicStatus::with_details_and_metadata(
+                TonicCode::ResourceExhausted,
+                "tablet overloaded with resource exhaustion",
+                retry_info_bytes.clone().into(),
+                MetadataMap::new(),
+            ))
+        });
+
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let mut gateway_sequence = Sequence::new();
+    let tablet_address_for_update = tablet_address.clone();
+    let fallback_called = Arc::new(AtomicBool::new(false));
+    let fallback_called_clone = Arc::clone(&fallback_called);
+
+    mock_gateway
+        .expect_execute_sql()
+        .times(1)
+        .in_sequence(&mut gateway_sequence)
+        .returning(move |request| {
+            // Cold-start response providing recipe and range
+            let operation_uid = request
+                .get_ref()
+                .routing_hint
+                .as_ref()
+                .map(|hint| hint.operation_uid)
+                .unwrap_or(1);
+
+            let cache_update = sample_query_mock_cache_update(
+                5555,
+                operation_uid,
+                9001,
+                &tablet_address_for_update,
+            );
+            Ok(Response::new(mock_v1::ResultSet {
+                cache_update: Some(cache_update),
+                ..Default::default()
+            }))
+        });
+
+    mock_gateway
+        .expect_execute_sql()
+        .times(1)
+        .in_sequence(&mut gateway_sequence)
+        .returning(move |_| {
+            fallback_called_clone.store(true, Ordering::SeqCst);
+            // Fallback execution when tablet is on cooldown
+            Ok(Response::new(mock_v1::ResultSet::default()))
+        });
+
+    let (database_client, _spanner, _gateway_server) =
+        setup_mock_database_client(mock_gateway).await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    // Cold-start query populates recipe and range cache via gateway
+    let statement = Statement::builder("SELECT * FROM Users WHERE account_id = @account_id")
+        .add_param("account_id", 42i64)
+        .build();
+    let _ = database_client
+        .execute_sql(
+            statement.clone().into_request(),
+            RequestOptions::default(),
+            0,
+        )
+        .await?;
+
+    assert!(
+        !fallback_called.load(Ordering::SeqCst),
+        "gateway fallback must not be invoked during initial cold-start query"
+    );
+
+    // Pre-warm tablet connection in cache
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater must be present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    assert!(
+        !router.cooldown_tracker().is_cooling_down(&tablet_address),
+        "tablet address must not be cooling down initially"
+    );
+    assert!(
+        !router
+            .latency_registry()
+            .has_score(Some(router.database_scope()), 9001, &tablet_address),
+        "latency registry should have no score for tablet address before failure"
+    );
+
+    // Second execution targets tablet directly and fails with ResourceExhausted
+    let result = database_client
+        .execute_sql(
+            statement.clone().into_request(),
+            RequestOptions::default(),
+            0,
+        )
+        .await;
+    assert!(
+        result.is_err(),
+        "unary execute_sql to overloaded tablet must return an error"
+    );
+    assert!(
+        tablet_called.load(Ordering::SeqCst),
+        "mock tablet must have received direct unary execute_sql call"
+    );
+
+    // Verify tablet was placed on cooldown and latency penalty was recorded
+    assert!(
+        router.cooldown_tracker().is_cooling_down(&tablet_address),
+        "tablet address must be on active cooldown after ResourceExhausted error"
+    );
+    assert!(
+        router
+            .latency_registry()
+            .has_score(Some(router.database_scope()), 9001, &tablet_address),
+        "latency registry must have recorded error penalty for tablet address after failure"
+    );
+
+    // Third execution: since tablet is on cooldown, router falls back to gateway
+    let fallback_result = database_client
+        .execute_sql(statement.into_request(), RequestOptions::default(), 0)
+        .await;
+    assert!(
+        fallback_result.is_ok(),
+        "subsequent execute_sql must succeed via fallback when tablet is cooling down"
+    );
+    assert!(
+        fallback_called.load(Ordering::SeqCst),
+        "gateway must have received the fallback query execution"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn unary_rpc_feedback_unavailable_places_endpoint_on_cooldown() -> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let mut mock_tablet = create_base_mock();
+
+    let tablet_called = Arc::new(AtomicBool::new(false));
+    let tablet_called_clone = Arc::clone(&tablet_called);
+
+    mock_tablet
+        .expect_execute_sql()
+        .times(1)
+        .returning(move |_| {
+            tablet_called_clone.store(true, Ordering::SeqCst);
+            Err(TonicStatus::unavailable("tablet node restarting"))
+        });
+
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let tablet_address_for_update = tablet_address.clone();
+    mock_gateway
+        .expect_execute_sql()
+        .times(1)
+        .returning(move |request| {
+            let operation_uid = request
+                .get_ref()
+                .routing_hint
+                .as_ref()
+                .map(|hint| hint.operation_uid)
+                .unwrap_or(1);
+
+            let cache_update = sample_query_mock_cache_update(
+                5555,
+                operation_uid,
+                9001,
+                &tablet_address_for_update,
+            );
+            Ok(Response::new(mock_v1::ResultSet {
+                cache_update: Some(cache_update),
+                ..Default::default()
+            }))
+        });
+
+    let (database_client, _spanner, _gateway_server) =
+        setup_mock_database_client(mock_gateway).await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    // Cold-start query populates recipe and range cache via gateway
+    let statement = Statement::builder("SELECT * FROM Users WHERE account_id = @account_id")
+        .add_param("account_id", 42i64)
+        .build();
+    let _ = database_client
+        .execute_sql(
+            statement.clone().into_request(),
+            RequestOptions::default(),
+            0,
+        )
+        .await?;
+
+    // Pre-warm tablet connection in cache
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater must be present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    assert!(
+        !router.cooldown_tracker().is_cooling_down(&tablet_address),
+        "tablet address must not be cooling down initially"
+    );
+
+    // Direct execution to tablet fails with Unavailable (using NeverRetry to avoid retry backoff)
+    let mut options = RequestOptions::default();
+    options.set_retry_policy(NeverRetry);
+    let result = database_client
+        .execute_sql(statement.into_request(), options, 0)
+        .await;
+    assert!(
+        result.is_err(),
+        "unary execute_sql to unavailable tablet must return an error"
+    );
+    assert!(
+        tablet_called.load(Ordering::SeqCst),
+        "mock tablet must have received direct unary execute_sql call"
+    );
+
+    // Verify tablet was placed on cooldown and latency penalty was recorded
+    assert!(
+        router.cooldown_tracker().is_cooling_down(&tablet_address),
+        "tablet address must be on active cooldown after Unavailable error"
+    );
+    assert!(
+        router
+            .latency_registry()
+            .has_score(Some(router.database_scope()), 9001, &tablet_address),
+        "latency registry must have recorded error penalty for tablet address after Unavailable failure"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn unary_rpc_feedback_gateway_fallback_never_placed_on_cooldown() -> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+
+    let gateway_called = Arc::new(AtomicBool::new(false));
+    let gateway_called_clone = Arc::clone(&gateway_called);
+
+    mock_gateway
+        .expect_execute_sql()
+        .times(1)
+        .returning(move |_| {
+            gateway_called_clone.store(true, Ordering::SeqCst);
+            Err(TonicStatus::resource_exhausted("gateway overloaded"))
+        });
+
+    let (database_client, _spanner, _gateway_server) =
+        setup_mock_database_client(mock_gateway).await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    // Cold-start query executed against gateway fails with ResourceExhausted
+    let statement = Statement::builder("SELECT * FROM Users WHERE account_id = @account_id")
+        .add_param("account_id", 42i64)
+        .build();
+    let result = database_client
+        .execute_sql(statement.into_request(), RequestOptions::default(), 0)
+        .await;
+    assert!(
+        result.is_err(),
+        "query to overloaded gateway must return an error"
+    );
+    assert!(
+        gateway_called.load(Ordering::SeqCst),
+        "mock gateway must have received the query"
+    );
+
+    // Verify gateway fallback was never placed on cooldown
+    assert!(
+        router.cooldown_tracker().is_empty(),
+        "cooldown tracker must remain completely empty after gateway fallback error"
+    );
+    assert!(
+        router.latency_registry().is_empty(),
+        "latency registry must remain empty after gateway fallback error"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn unary_rpc_feedback_non_retryable_error_does_not_place_endpoint_on_cooldown()
+-> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let mut mock_tablet = create_base_mock();
+
+    let tablet_called = Arc::new(AtomicBool::new(false));
+    let tablet_called_clone = Arc::clone(&tablet_called);
+
+    mock_tablet
+        .expect_execute_sql()
+        .times(1)
+        .returning(move |_| {
+            tablet_called_clone.store(true, Ordering::SeqCst);
+            Err(TonicStatus::invalid_argument(
+                "invalid query syntax in tablet",
+            ))
+        });
+
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let tablet_address_for_update = tablet_address.clone();
+    mock_gateway
+        .expect_execute_sql()
+        .times(1)
+        .returning(move |request| {
+            let operation_uid = request
+                .get_ref()
+                .routing_hint
+                .as_ref()
+                .map(|hint| hint.operation_uid)
+                .unwrap_or(1);
+
+            let cache_update = sample_query_mock_cache_update(
+                5555,
+                operation_uid,
+                9001,
+                &tablet_address_for_update,
+            );
+            Ok(Response::new(mock_v1::ResultSet {
+                cache_update: Some(cache_update),
+                ..Default::default()
+            }))
+        });
+
+    let (database_client, _spanner, _gateway_server) =
+        setup_mock_database_client(mock_gateway).await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    // Cold-start query populates recipe and range cache via gateway
+    let statement = Statement::builder("SELECT * FROM Users WHERE account_id = @account_id")
+        .add_param("account_id", 42i64)
+        .build();
+    let _ = database_client
+        .execute_sql(
+            statement.clone().into_request(),
+            RequestOptions::default(),
+            0,
+        )
+        .await?;
+
+    // Pre-warm tablet connection in cache
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater must be present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    assert!(
+        !router.cooldown_tracker().is_cooling_down(&tablet_address),
+        "tablet address must not be cooling down initially"
+    );
+
+    // Direct execution to tablet fails with non-retryable InvalidArgument
+    let result = database_client
+        .execute_sql(statement.into_request(), RequestOptions::default(), 0)
+        .await;
+    assert!(
+        result.is_err(),
+        "unary execute_sql with invalid argument must return an error"
+    );
+    assert!(
+        tablet_called.load(Ordering::SeqCst),
+        "mock tablet must have received direct unary execute_sql call"
+    );
+
+    // Verify non-retryable error did NOT trigger cooldown or latency error penalty
+    assert!(
+        !router.cooldown_tracker().is_cooling_down(&tablet_address),
+        "tablet address must NOT be cooling down after non-retryable InvalidArgument error"
+    );
+    assert!(
+        router.cooldown_tracker().is_empty(),
+        "cooldown tracker must remain empty after non-retryable error"
+    );
+    assert!(
+        !router
+            .latency_registry()
+            .has_score(Some(router.database_scope()), 9001, &tablet_address),
+        "latency registry must NOT have recorded error penalty for non-retryable error"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn unary_rpc_feedback_begin_transaction_records_latency_and_repairs_cooldown()
+-> anyhow::Result<()> {
+    let mock_gateway = create_base_mock();
+    let (gateway_address, _gateway_server) = start("127.0.0.1:0", mock_gateway).await?;
+
+    let mut mock_tablet_leader = create_base_mock();
+    let leader_begin_called = Arc::new(AtomicBool::new(false));
+    let leader_begin_called_clone = Arc::clone(&leader_begin_called);
+
+    mock_tablet_leader
+        .expect_begin_transaction()
+        .times(1)
+        .returning(move |_| {
+            leader_begin_called_clone.store(true, Ordering::SeqCst);
+            Ok(Response::new(mock_v1::Transaction {
+                id: b"tx-feedback-leader-123".to_vec(),
+                ..Default::default()
+            }))
+        });
+    let (tablet_leader_address, _tablet_leader_server) =
+        start("127.0.0.1:0", mock_tablet_leader).await?;
+
+    let mock_tablet_follower = create_base_mock();
+    let (tablet_follower_address, _tablet_follower_server) =
+        start("127.0.0.1:0", mock_tablet_follower).await?;
+
+    let spanner = Spanner::builder()
+        .with_endpoint(gateway_address.clone())
+        .with_instance_type(InstanceType::Omni)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let database_client = spanner
+        .database_client("projects/test-project/instances/test-instance/databases/test-db")
+        .with_location_aware_routing(true)
+        .build()
+        .await?;
+
+    let mut update = sample_model_cache_update(
+        10102,
+        8002,
+        &tablet_leader_address,
+        &tablet_follower_address,
+    );
+    update.range = vec![ModelRange {
+        start_key: Bytes::from_static(b""),
+        limit_key: Bytes::from_static(b""),
+        group_uid: 8002,
+        split_id: 8002,
+        generation: Bytes::from_static(b"gen_1"),
+        _unknown_fields: Default::default(),
+    }];
+    database_client.observe_cache_update(Some(update));
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_leader_address, client_config)
+        .await?;
+
+    assert!(
+        !router.latency_registry().has_score(
+            Some(router.database_scope()),
+            8002,
+            &tablet_leader_address
+        ),
+        "latency registry should have no score for tablet leader prior to execution"
+    );
+
+    let mutation = Mutation::new_insert_builder("Singers")
+        .set("SingerId")
+        .to(101i64)
+        .build();
+
+    let begin_request = BeginTransactionRequest::default()
+        .set_session(
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1",
+        )
+        .set_options(TransactionOptions::default().set_read_write(ReadWrite::default()))
+        .set_mutation_key(mutation.build_proto());
+
+    let response = database_client
+        .begin_transaction(begin_request, RequestOptions::default(), 0)
+        .await?;
+
+    assert!(
+        leader_begin_called.load(Ordering::SeqCst),
+        "explicit begin transaction with mutation key must route directly to leader tablet"
+    );
+    assert_eq!(
+        response.id.as_ref(),
+        b"tx-feedback-leader-123",
+        "returned transaction ID must match mock response"
+    );
+    assert!(
+        router.latency_registry().has_score(
+            Some(router.database_scope()),
+            8002,
+            &tablet_leader_address
+        ),
+        "successful begin_transaction must record latency score for routing group 8002"
+    );
+
+    let cost = router.latency_registry().selection_cost(
+        Some(router.database_scope()),
+        8002,
+        0,
+        &tablet_leader_address,
+    );
+    assert!(
+        cost > 0.0,
+        "selection cost must be positive after successful RPC"
+    );
+
+    Ok(())
+}
+
+#[tokio_test_no_panics]
+async fn unary_rpc_feedback_direct_affinity_zero_group_uid_handles_cooldown_and_fallback()
+-> anyhow::Result<()> {
+    let mut mock_gateway = create_base_mock();
+    let mut mock_tablet = create_base_mock();
+
+    let mut tablet_sequence = Sequence::new();
+
+    mock_tablet
+        .expect_execute_sql()
+        .times(1)
+        .in_sequence(&mut tablet_sequence)
+        .returning(|_| Ok(Response::new(mock_v1::ResultSet::default())));
+
+    mock_tablet
+        .expect_execute_sql()
+        .times(1)
+        .in_sequence(&mut tablet_sequence)
+        .returning(|_| {
+            Err(TonicStatus::resource_exhausted(
+                "tablet node overloaded on affinity request",
+            ))
+        });
+
+    let (tablet_address, _tablet_server) = start("127.0.0.1:0", mock_tablet).await?;
+
+    let fallback_called = Arc::new(AtomicBool::new(false));
+    let fallback_called_clone = Arc::clone(&fallback_called);
+
+    mock_gateway
+        .expect_execute_sql()
+        .times(1)
+        .returning(move |_| {
+            fallback_called_clone.store(true, Ordering::SeqCst);
+            Ok(Response::new(mock_v1::ResultSet::default()))
+        });
+
+    let (database_client, _spanner, _gateway_server) =
+        setup_mock_database_client(mock_gateway).await?;
+
+    let router = database_client
+        .location_router()
+        .expect("location router must be present");
+
+    // Pre-warm tablet connection in cache
+    let client_config = database_client
+        .cache_updater()
+        .expect("cache updater must be present")
+        .client_config();
+    let _ = router
+        .connection_cache()
+        .get(&tablet_address, client_config)
+        .await?;
+
+    let transaction_id = b"tx-affinity-feedback-zero-group";
+    router.record_transaction_affinity(transaction_id, &tablet_address);
+
+    // Call 1: Direct affinity execution succeeds with group_uid == 0.
+    // Verifies that success repairs cooldown and does NOT record any score in latency registry under group 0.
+    let execute_request_1 = ExecuteSqlRequest::default()
+        .set_session(
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1",
+        )
+        .set_sql("SELECT 1")
+        .set_transaction(
+            TransactionSelector::default().set_id(Bytes::copy_from_slice(transaction_id)),
+        );
+
+    let result_1 = database_client
+        .execute_sql(execute_request_1, RequestOptions::default(), 0)
+        .await;
+    assert!(
+        result_1.is_ok(),
+        "direct affinity execute_sql with group_uid 0 must succeed"
+    );
+    assert!(
+        router.latency_registry().is_empty(),
+        "success with group_uid 0 must not record latency score under group 0"
+    );
+    assert!(
+        !router.cooldown_tracker().is_cooling_down(&tablet_address),
+        "tablet address must not be cooling down after successful RPC"
+    );
+
+    // Call 2: Direct affinity execution fails with ResourceExhausted (group_uid == 0).
+    // Verifies that error places affinity endpoint on cooldown, but does NOT record error penalty in latency registry.
+    let execute_request_2 = ExecuteSqlRequest::default()
+        .set_session(
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1",
+        )
+        .set_sql("SELECT 1")
+        .set_transaction(
+            TransactionSelector::default().set_id(Bytes::copy_from_slice(transaction_id)),
+        );
+
+    let result_2 = database_client
+        .execute_sql(execute_request_2, RequestOptions::default(), 0)
+        .await;
+    assert!(
+        result_2.is_err(),
+        "direct affinity execute_sql to overloaded tablet must return an error"
+    );
+    assert!(
+        router.cooldown_tracker().is_cooling_down(&tablet_address),
+        "affinity tablet must be placed on cooldown after ResourceExhausted error"
+    );
+    assert!(
+        router.latency_registry().is_empty(),
+        "error with group_uid 0 must not record error penalty in latency registry"
+    );
+    assert!(
+        !fallback_called.load(Ordering::SeqCst),
+        "gateway fallback must not be invoked prior to post-cooldown request"
+    );
+
+    // Call 3: Subsequent request in the same transaction falls back to gateway because affinity endpoint is on cooldown.
+    let execute_request_3 = ExecuteSqlRequest::default()
+        .set_session(
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/session-1",
+        )
+        .set_sql("SELECT 1")
+        .set_transaction(
+            TransactionSelector::default().set_id(Bytes::copy_from_slice(transaction_id)),
+        );
+
+    let result_3 = database_client
+        .execute_sql(execute_request_3, RequestOptions::default(), 0)
+        .await;
+    assert!(
+        result_3.is_ok(),
+        "subsequent query must succeed via gateway fallback when affinity endpoint is cooling down"
+    );
+    assert!(
+        fallback_called.load(Ordering::SeqCst),
+        "gateway fallback must have received the post-cooldown execution"
     );
 
     Ok(())

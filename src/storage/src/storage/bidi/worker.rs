@@ -101,7 +101,7 @@ where
         };
         // Return errors for any future readers.
         while let Some(mut r) = requests.recv().await {
-            println!("sending error after closed stream: {e:?}");
+            tracing::debug!("sending error after closed stream: {e:?}");
             r.interrupted(e.clone()).await;
         }
         Err(e)

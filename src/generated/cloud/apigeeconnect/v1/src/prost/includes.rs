@@ -4,7 +4,6 @@ pub mod google {
         pub mod apigeeconnect {
             pub mod v1 {
                 include!("google.cloud.apigeeconnect.v1.rs");
-            include!("../convert.rs");
             }
         }
     }

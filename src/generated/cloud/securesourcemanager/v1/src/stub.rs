@@ -387,6 +387,17 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::SecureSourceManager::fetch_refs].
+    fn fetch_refs(
+        &self,
+        _req: crate::model::FetchRefsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::FetchRefsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::SecureSourceManager::create_issue].
     fn create_issue(
         &self,

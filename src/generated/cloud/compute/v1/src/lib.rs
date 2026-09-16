@@ -16,7 +16,7 @@
 
 //! Google Cloud Client Libraries for Rust - Compute Engine API
 //!
-//! This client library was generated from the "20260821" revision of the API.
+//! This client library was generated from the "20260908" revision of the API.
 //!
 //! This crate contains traits, types, and functions to interact with Compute Engine API
 //! Most applications will use the structs defined in the [client] module.
@@ -86,6 +86,7 @@
 //! * [OrganizationSecurityPolicies](client/struct.OrganizationSecurityPolicies.html)
 //! * [PacketMirrorings](client/struct.PacketMirrorings.html)
 //! * [PreviewFeatures](client/struct.PreviewFeatures.html)
+//! * [ProjectViews](client/struct.ProjectViews.html)
 //! * [Projects](client/struct.Projects.html)
 //! * [PublicAdvertisedPrefixes](client/struct.PublicAdvertisedPrefixes.html)
 //! * [PublicDelegatedPrefixes](client/struct.PublicDelegatedPrefixes.html)
@@ -184,6 +185,7 @@ pub use google_cloud_gax::error::Error;
 #[allow(rustdoc::redundant_explicit_links)]
 pub mod stub;
 
+/// Concrete implementations of client library traits.
 ///
 /// # Example
 /// ```
@@ -195,7 +197,6 @@ pub mod stub;
 ///     Ok(())
 /// }
 /// ```
-/// Concrete implementations of this client library traits.
 pub mod client;
 
 /// Request builders.
@@ -266,6 +267,7 @@ pub(crate) mod transport;
     feature = "organization-security-policies",
     feature = "packet-mirrorings",
     feature = "preview-features",
+    feature = "project-views",
     feature = "projects",
     feature = "public-advertised-prefixes",
     feature = "public-delegated-prefixes",
@@ -397,6 +399,7 @@ const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
     feature = "organization-security-policies",
     feature = "packet-mirrorings",
     feature = "preview-features",
+    feature = "project-views",
     feature = "projects",
     feature = "public-advertised-prefixes",
     feature = "public-delegated-prefixes",
@@ -491,8 +494,6 @@ pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
-#[allow(missing_docs)]
 pub mod errors;
 
-#[allow(missing_docs)]
 pub mod operation;

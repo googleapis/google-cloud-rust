@@ -34,6 +34,215 @@ mod info {
         });
 }
 
+/// Implements [Read](super::stub::Read) using a gRPC client.
+#[derive(Clone)]
+pub struct Read {
+    pub(crate) inner: gaxi::grpc::Client,
+}
+
+impl std::fmt::Debug for Read {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        f.debug_struct("Read").field("inner", &self.inner).finish()
+    }
+}
+
+impl Read {
+    pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        let inner = if gaxi::options::tracing_enabled(&config) {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                DEFAULT_HOST,
+                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, DEFAULT_HOST).await?
+        };
+        Ok(Self { inner })
+    }
+}
+
+impl super::stub::Read for Read {
+    async fn create_read_session(
+        &self,
+        req: crate::write::generated::gapic_storage::model::CreateReadSessionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::write::generated::gapic_storage::model::ReadSession>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
+                "google.cloud.bigquery.storage.v1.BigQueryRead",
+                "CreateReadSession",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.cloud.bigquery.storage.v1.BigQueryRead/CreateReadSession",
+        );
+        let x_goog_request_params = [Some(&req)
+            .and_then(|m| m.read_session.as_ref())
+            .map(|m| &m.table)
+            .map(|s| s.as_str())
+            .map(|v| format!("read_session.table={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = crate::google::cloud::bigquery::storage::v1::ReadSession;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.cloud.bigquery.storage.v1.BigQueryRead/CreateReadSession");
+            let resource_name = (|| {
+                Some(format!(
+                    "//bigquerystorage.googleapis.com/{}",
+                    Some(&req)
+                        .and_then(|m| m.read_session.as_ref())
+                        .map(|m| &m.table)
+                        .map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(
+                gaxi::grpc::to_gax_response::<
+                    TR,
+                    crate::write::generated::gapic_storage::model::ReadSession,
+                >,
+            )
+    }
+
+    async fn read_rows(
+        &self,
+        req: crate::write::generated::gapic_storage::model::ReadRowsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<
+        google_cloud_gax::streaming::ResponseStream<
+            crate::write::generated::gapic_storage::model::ReadRowsResponse,
+        >,
+    > {
+        let extensions = {
+            let mut e = gaxi::grpc::tonic::Extensions::new();
+            e.insert(gaxi::grpc::tonic::GrpcMethod::new(
+                "google.cloud.bigquery.storage.v1.BigQueryRead",
+                "ReadRows",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.cloud.bigquery.storage.v1.BigQueryRead/ReadRows",
+        );
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.read_stream)
+            .map(|s| s.as_str())
+            .map(|v| format!("read_stream={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        self.inner
+            .execute_server_streaming::<
+                crate::write::generated::gapic_storage::model::ReadRowsRequest,
+                crate::write::generated::gapic_storage::model::ReadRowsResponse,
+                crate::google::cloud::bigquery::storage::v1::ReadRowsRequest,
+                crate::google::cloud::bigquery::storage::v1::ReadRowsResponse,
+            >(
+                extensions,
+                path,
+                req,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+    }
+
+    async fn split_read_stream(
+        &self,
+        req: crate::write::generated::gapic_storage::model::SplitReadStreamRequest,
+        options: crate::RequestOptions,
+    ) -> Result<
+        crate::Response<crate::write::generated::gapic_storage::model::SplitReadStreamResponse>,
+    > {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
+                "google.cloud.bigquery.storage.v1.BigQueryRead",
+                "SplitReadStream",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.cloud.bigquery.storage.v1.BigQueryRead/SplitReadStream",
+        );
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.name)
+            .map(|s| s.as_str())
+            .map(|v| format!("name={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
+
+        type TR = crate::google::cloud::bigquery::storage::v1::SplitReadStreamResponse;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.cloud.bigquery.storage.v1.BigQueryRead/SplitReadStream");
+            let resource_name = (|| {
+                Some(format!(
+                    "//bigquerystorage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(
+                gaxi::grpc::to_gax_response::<
+                    TR,
+                    crate::write::generated::gapic_storage::model::SplitReadStreamResponse,
+                >,
+            )
+    }
+}
+
 /// Implements [BigQueryWrite](super::stub::BigQueryWrite) using a gRPC client.
 #[derive(Clone)]
 pub struct BigQueryWrite {

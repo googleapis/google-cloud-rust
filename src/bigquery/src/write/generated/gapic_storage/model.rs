@@ -45,6 +45,12 @@ impl ArrowSchema {
     }
 
     /// Sets the value of [serialized_schema][crate::write::generated::gapic_storage::model::ArrowSchema::serialized_schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ArrowSchema;
+    /// let x = ArrowSchema::new().set_serialized_schema(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_serialized_schema<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.serialized_schema = v.into();
         self
@@ -79,6 +85,12 @@ impl ArrowRecordBatch {
     }
 
     /// Sets the value of [serialized_record_batch][crate::write::generated::gapic_storage::model::ArrowRecordBatch::serialized_record_batch].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ArrowRecordBatch;
+    /// let x = ArrowRecordBatch::new().set_serialized_record_batch(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_serialized_record_batch<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
@@ -88,6 +100,12 @@ impl ArrowRecordBatch {
     }
 
     /// Sets the value of [row_count][crate::write::generated::gapic_storage::model::ArrowRecordBatch::row_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ArrowRecordBatch;
+    /// let x = ArrowRecordBatch::new().set_row_count(42);
+    /// ```
     #[deprecated]
     pub fn set_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.row_count = v.into();
@@ -124,12 +142,29 @@ impl ArrowSerializationOptions {
     }
 
     /// Sets the value of [buffer_compression][crate::write::generated::gapic_storage::model::ArrowSerializationOptions::buffer_compression].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ArrowSerializationOptions;
+    /// use google_cloud_bigquery::model::arrow_serialization_options::CompressionCodec;
+    /// let x0 = ArrowSerializationOptions::new().set_buffer_compression(CompressionCodec::Lz4Frame);
+    /// let x1 = ArrowSerializationOptions::new().set_buffer_compression(CompressionCodec::Zstd);
+    /// ```
     pub fn set_buffer_compression<T: std::convert::Into<crate::write::generated::gapic_storage::model::arrow_serialization_options::CompressionCodec>>(mut self, v: T) -> Self{
         self.buffer_compression = v.into();
         self
     }
 
     /// Sets the value of [picos_timestamp_precision][crate::write::generated::gapic_storage::model::ArrowSerializationOptions::picos_timestamp_precision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ArrowSerializationOptions;
+    /// use google_cloud_bigquery::model::arrow_serialization_options::PicosTimestampPrecision;
+    /// let x0 = ArrowSerializationOptions::new().set_picos_timestamp_precision(PicosTimestampPrecision::TimestampPrecisionMicros);
+    /// let x1 = ArrowSerializationOptions::new().set_picos_timestamp_precision(PicosTimestampPrecision::TimestampPrecisionNanos);
+    /// let x2 = ArrowSerializationOptions::new().set_picos_timestamp_precision(PicosTimestampPrecision::TimestampPrecisionPicos);
+    /// ```
     pub fn set_picos_timestamp_precision<T: std::convert::Into<crate::write::generated::gapic_storage::model::arrow_serialization_options::PicosTimestampPrecision>>(mut self, v: T) -> Self{
         self.picos_timestamp_precision = v.into();
         self
@@ -452,6 +487,12 @@ impl AvroSchema {
     }
 
     /// Sets the value of [schema][crate::write::generated::gapic_storage::model::AvroSchema::schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AvroSchema;
+    /// let x = AvroSchema::new().set_schema("example");
+    /// ```
     pub fn set_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schema = v.into();
         self
@@ -486,6 +527,12 @@ impl AvroRows {
     }
 
     /// Sets the value of [serialized_binary_rows][crate::write::generated::gapic_storage::model::AvroRows::serialized_binary_rows].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AvroRows;
+    /// let x = AvroRows::new().set_serialized_binary_rows(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_serialized_binary_rows<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
@@ -495,6 +542,12 @@ impl AvroRows {
     }
 
     /// Sets the value of [row_count][crate::write::generated::gapic_storage::model::AvroRows::row_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AvroRows;
+    /// let x = AvroRows::new().set_row_count(42);
+    /// ```
     #[deprecated]
     pub fn set_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.row_count = v.into();
@@ -539,12 +592,27 @@ impl AvroSerializationOptions {
     }
 
     /// Sets the value of [enable_display_name_attribute][crate::write::generated::gapic_storage::model::AvroSerializationOptions::enable_display_name_attribute].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AvroSerializationOptions;
+    /// let x = AvroSerializationOptions::new().set_enable_display_name_attribute(true);
+    /// ```
     pub fn set_enable_display_name_attribute<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_display_name_attribute = v.into();
         self
     }
 
     /// Sets the value of [picos_timestamp_precision][crate::write::generated::gapic_storage::model::AvroSerializationOptions::picos_timestamp_precision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AvroSerializationOptions;
+    /// use google_cloud_bigquery::model::avro_serialization_options::PicosTimestampPrecision;
+    /// let x0 = AvroSerializationOptions::new().set_picos_timestamp_precision(PicosTimestampPrecision::TimestampPrecisionMicros);
+    /// let x1 = AvroSerializationOptions::new().set_picos_timestamp_precision(PicosTimestampPrecision::TimestampPrecisionNanos);
+    /// let x2 = AvroSerializationOptions::new().set_picos_timestamp_precision(PicosTimestampPrecision::TimestampPrecisionPicos);
+    /// ```
     pub fn set_picos_timestamp_precision<T: std::convert::Into<crate::write::generated::gapic_storage::model::avro_serialization_options::PicosTimestampPrecision>>(mut self, v: T) -> Self{
         self.picos_timestamp_precision = v.into();
         self
@@ -740,6 +808,13 @@ impl ProtoSchema {
     }
 
     /// Sets the value of [proto_descriptor][crate::write::generated::gapic_storage::model::ProtoSchema::proto_descriptor].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ProtoSchema;
+    /// use wkt::DescriptorProto;
+    /// let x = ProtoSchema::new().set_proto_descriptor(DescriptorProto::default()/* use setters */);
+    /// ```
     pub fn set_proto_descriptor<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::DescriptorProto>,
@@ -749,6 +824,14 @@ impl ProtoSchema {
     }
 
     /// Sets or clears the value of [proto_descriptor][crate::write::generated::gapic_storage::model::ProtoSchema::proto_descriptor].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ProtoSchema;
+    /// use wkt::DescriptorProto;
+    /// let x = ProtoSchema::new().set_or_clear_proto_descriptor(Some(DescriptorProto::default()/* use setters */));
+    /// let x = ProtoSchema::new().set_or_clear_proto_descriptor(None::<DescriptorProto>);
+    /// ```
     pub fn set_or_clear_proto_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::DescriptorProto>,
@@ -784,6 +867,14 @@ impl ProtoRows {
     }
 
     /// Sets the value of [serialized_rows][crate::write::generated::gapic_storage::model::ProtoRows::serialized_rows].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ProtoRows;
+    /// let b1 = bytes::Bytes::from_static(b"abc");
+    /// let b2 = bytes::Bytes::from_static(b"xyz");
+    /// let x = ProtoRows::new().set_serialized_rows([b1, b2]);
+    /// ```
     pub fn set_serialized_rows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -845,12 +936,25 @@ impl CreateReadSessionRequest {
     }
 
     /// Sets the value of [parent][crate::write::generated::gapic_storage::model::CreateReadSessionRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::CreateReadSessionRequest;
+    /// let x = CreateReadSessionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [read_session][crate::write::generated::gapic_storage::model::CreateReadSessionRequest::read_session].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::CreateReadSessionRequest;
+    /// use google_cloud_bigquery::model::ReadSession;
+    /// let x = CreateReadSessionRequest::new().set_read_session(ReadSession::default()/* use setters */);
+    /// ```
     pub fn set_read_session<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::write::generated::gapic_storage::model::ReadSession>,
@@ -860,6 +964,14 @@ impl CreateReadSessionRequest {
     }
 
     /// Sets or clears the value of [read_session][crate::write::generated::gapic_storage::model::CreateReadSessionRequest::read_session].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::CreateReadSessionRequest;
+    /// use google_cloud_bigquery::model::ReadSession;
+    /// let x = CreateReadSessionRequest::new().set_or_clear_read_session(Some(ReadSession::default()/* use setters */));
+    /// let x = CreateReadSessionRequest::new().set_or_clear_read_session(None::<ReadSession>);
+    /// ```
     pub fn set_or_clear_read_session<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::write::generated::gapic_storage::model::ReadSession>,
@@ -869,12 +981,24 @@ impl CreateReadSessionRequest {
     }
 
     /// Sets the value of [max_stream_count][crate::write::generated::gapic_storage::model::CreateReadSessionRequest::max_stream_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::CreateReadSessionRequest;
+    /// let x = CreateReadSessionRequest::new().set_max_stream_count(42);
+    /// ```
     pub fn set_max_stream_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_stream_count = v.into();
         self
     }
 
     /// Sets the value of [preferred_min_stream_count][crate::write::generated::gapic_storage::model::CreateReadSessionRequest::preferred_min_stream_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::CreateReadSessionRequest;
+    /// let x = CreateReadSessionRequest::new().set_preferred_min_stream_count(42);
+    /// ```
     pub fn set_preferred_min_stream_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.preferred_min_stream_count = v.into();
         self
@@ -916,12 +1040,28 @@ impl ReadRowsRequest {
     }
 
     /// Sets the value of [read_stream][crate::write::generated::gapic_storage::model::ReadRowsRequest::read_stream].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadRowsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let session_id = "session_id";
+    /// # let stream_id = "stream_id";
+    /// let x = ReadRowsRequest::new().set_read_stream(format!("projects/{project_id}/locations/{location_id}/sessions/{session_id}/streams/{stream_id}"));
+    /// ```
     pub fn set_read_stream<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.read_stream = v.into();
         self
     }
 
     /// Sets the value of [offset][crate::write::generated::gapic_storage::model::ReadRowsRequest::offset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadRowsRequest;
+    /// let x = ReadRowsRequest::new().set_offset(42);
+    /// ```
     pub fn set_offset<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.offset = v.into();
         self
@@ -931,6 +1071,14 @@ impl ReadRowsRequest {
     ///
     /// Note that all the setters affecting `output_format_serialization_options` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadRowsRequest;
+    /// use google_cloud_bigquery::model::ArrowSerializationOptions;
+    /// let x = ReadRowsRequest::new().set_output_format_serialization_options(Some(
+    ///     google_cloud_bigquery::model::read_rows_request::OutputFormatSerializationOptions::ArrowSerializationOptions(ArrowSerializationOptions::default().into())));
+    /// ```
     pub fn set_output_format_serialization_options<T: std::convert::Into<std::option::Option<crate::write::generated::gapic_storage::model::read_rows_request::OutputFormatSerializationOptions>>>(mut self, v: T) -> Self
     {
         self.output_format_serialization_options = v.into();
@@ -957,6 +1105,14 @@ impl ReadRowsRequest {
     ///
     /// Note that all the setters affecting `output_format_serialization_options` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadRowsRequest;
+    /// use google_cloud_bigquery::model::ArrowSerializationOptions;
+    /// let x = ReadRowsRequest::new().set_arrow_serialization_options(ArrowSerializationOptions::default()/* use setters */);
+    /// assert!(x.arrow_serialization_options().is_some());
+    /// ```
     pub fn set_arrow_serialization_options<
         T: std::convert::Into<
                 std::boxed::Box<
@@ -1036,6 +1192,12 @@ impl ThrottleState {
     }
 
     /// Sets the value of [throttle_percent][crate::write::generated::gapic_storage::model::ThrottleState::throttle_percent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ThrottleState;
+    /// let x = ThrottleState::new().set_throttle_percent(42);
+    /// ```
     pub fn set_throttle_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.throttle_percent = v.into();
         self
@@ -1066,6 +1228,13 @@ impl StreamStats {
     }
 
     /// Sets the value of [progress][crate::write::generated::gapic_storage::model::StreamStats::progress].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::StreamStats;
+    /// use google_cloud_bigquery::model::stream_stats::Progress;
+    /// let x = StreamStats::new().set_progress(Progress::default()/* use setters */);
+    /// ```
     pub fn set_progress<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<
@@ -1077,6 +1246,14 @@ impl StreamStats {
     }
 
     /// Sets or clears the value of [progress][crate::write::generated::gapic_storage::model::StreamStats::progress].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::StreamStats;
+    /// use google_cloud_bigquery::model::stream_stats::Progress;
+    /// let x = StreamStats::new().set_or_clear_progress(Some(Progress::default()/* use setters */));
+    /// let x = StreamStats::new().set_or_clear_progress(None::<Progress>);
+    /// ```
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<
@@ -1131,12 +1308,24 @@ pub mod stream_stats {
         }
 
         /// Sets the value of [at_response_start][crate::write::generated::gapic_storage::model::stream_stats::Progress::at_response_start].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::stream_stats::Progress;
+        /// let x = Progress::new().set_at_response_start(42.0);
+        /// ```
         pub fn set_at_response_start<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.at_response_start = v.into();
             self
         }
 
         /// Sets the value of [at_response_end][crate::write::generated::gapic_storage::model::stream_stats::Progress::at_response_end].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::stream_stats::Progress;
+        /// let x = Progress::new().set_at_response_end(42.0);
+        /// ```
         pub fn set_at_response_end<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.at_response_end = v.into();
             self
@@ -1212,12 +1401,25 @@ impl ReadRowsResponse {
     }
 
     /// Sets the value of [row_count][crate::write::generated::gapic_storage::model::ReadRowsResponse::row_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadRowsResponse;
+    /// let x = ReadRowsResponse::new().set_row_count(42);
+    /// ```
     pub fn set_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.row_count = v.into();
         self
     }
 
     /// Sets the value of [stats][crate::write::generated::gapic_storage::model::ReadRowsResponse::stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadRowsResponse;
+    /// use google_cloud_bigquery::model::StreamStats;
+    /// let x = ReadRowsResponse::new().set_stats(StreamStats::default()/* use setters */);
+    /// ```
     pub fn set_stats<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::write::generated::gapic_storage::model::StreamStats>,
@@ -1227,6 +1429,14 @@ impl ReadRowsResponse {
     }
 
     /// Sets or clears the value of [stats][crate::write::generated::gapic_storage::model::ReadRowsResponse::stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadRowsResponse;
+    /// use google_cloud_bigquery::model::StreamStats;
+    /// let x = ReadRowsResponse::new().set_or_clear_stats(Some(StreamStats::default()/* use setters */));
+    /// let x = ReadRowsResponse::new().set_or_clear_stats(None::<StreamStats>);
+    /// ```
     pub fn set_or_clear_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::write::generated::gapic_storage::model::StreamStats>,
@@ -1236,6 +1446,13 @@ impl ReadRowsResponse {
     }
 
     /// Sets the value of [throttle_state][crate::write::generated::gapic_storage::model::ReadRowsResponse::throttle_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadRowsResponse;
+    /// use google_cloud_bigquery::model::ThrottleState;
+    /// let x = ReadRowsResponse::new().set_throttle_state(ThrottleState::default()/* use setters */);
+    /// ```
     pub fn set_throttle_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::write::generated::gapic_storage::model::ThrottleState>,
@@ -1245,6 +1462,14 @@ impl ReadRowsResponse {
     }
 
     /// Sets or clears the value of [throttle_state][crate::write::generated::gapic_storage::model::ReadRowsResponse::throttle_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadRowsResponse;
+    /// use google_cloud_bigquery::model::ThrottleState;
+    /// let x = ReadRowsResponse::new().set_or_clear_throttle_state(Some(ThrottleState::default()/* use setters */));
+    /// let x = ReadRowsResponse::new().set_or_clear_throttle_state(None::<ThrottleState>);
+    /// ```
     pub fn set_or_clear_throttle_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::write::generated::gapic_storage::model::ThrottleState>,
@@ -1254,6 +1479,12 @@ impl ReadRowsResponse {
     }
 
     /// Sets the value of [uncompressed_byte_size][crate::write::generated::gapic_storage::model::ReadRowsResponse::uncompressed_byte_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadRowsResponse;
+    /// let x = ReadRowsResponse::new().set_uncompressed_byte_size(42);
+    /// ```
     pub fn set_uncompressed_byte_size<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1263,6 +1494,13 @@ impl ReadRowsResponse {
     }
 
     /// Sets or clears the value of [uncompressed_byte_size][crate::write::generated::gapic_storage::model::ReadRowsResponse::uncompressed_byte_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadRowsResponse;
+    /// let x = ReadRowsResponse::new().set_or_clear_uncompressed_byte_size(Some(42));
+    /// let x = ReadRowsResponse::new().set_or_clear_uncompressed_byte_size(None::<i32>);
+    /// ```
     pub fn set_or_clear_uncompressed_byte_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1272,6 +1510,12 @@ impl ReadRowsResponse {
     }
 
     /// Sets the value of [total_estimated_row_count][crate::write::generated::gapic_storage::model::ReadRowsResponse::total_estimated_row_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadRowsResponse;
+    /// let x = ReadRowsResponse::new().set_total_estimated_row_count(42);
+    /// ```
     pub fn set_total_estimated_row_count<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1281,6 +1525,13 @@ impl ReadRowsResponse {
     }
 
     /// Sets or clears the value of [total_estimated_row_count][crate::write::generated::gapic_storage::model::ReadRowsResponse::total_estimated_row_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadRowsResponse;
+    /// let x = ReadRowsResponse::new().set_or_clear_total_estimated_row_count(Some(42));
+    /// let x = ReadRowsResponse::new().set_or_clear_total_estimated_row_count(None::<i32>);
+    /// ```
     pub fn set_or_clear_total_estimated_row_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1293,6 +1544,14 @@ impl ReadRowsResponse {
     ///
     /// Note that all the setters affecting `rows` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadRowsResponse;
+    /// use google_cloud_bigquery::model::AvroRows;
+    /// let x = ReadRowsResponse::new().set_rows(Some(
+    ///     google_cloud_bigquery::model::read_rows_response::Rows::AvroRows(AvroRows::default().into())));
+    /// ```
     pub fn set_rows<
         T: std::convert::Into<
                 std::option::Option<
@@ -1329,6 +1588,15 @@ impl ReadRowsResponse {
     ///
     /// Note that all the setters affecting `rows` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadRowsResponse;
+    /// use google_cloud_bigquery::model::AvroRows;
+    /// let x = ReadRowsResponse::new().set_avro_rows(AvroRows::default()/* use setters */);
+    /// assert!(x.avro_rows().is_some());
+    /// assert!(x.arrow_record_batch().is_none());
+    /// ```
     pub fn set_avro_rows<
         T: std::convert::Into<
                 std::boxed::Box<crate::write::generated::gapic_storage::model::AvroRows>,
@@ -1365,6 +1633,15 @@ impl ReadRowsResponse {
     ///
     /// Note that all the setters affecting `rows` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadRowsResponse;
+    /// use google_cloud_bigquery::model::ArrowRecordBatch;
+    /// let x = ReadRowsResponse::new().set_arrow_record_batch(ArrowRecordBatch::default()/* use setters */);
+    /// assert!(x.arrow_record_batch().is_some());
+    /// assert!(x.avro_rows().is_none());
+    /// ```
     pub fn set_arrow_record_batch<
         T: std::convert::Into<
                 std::boxed::Box<crate::write::generated::gapic_storage::model::ArrowRecordBatch>,
@@ -1385,6 +1662,14 @@ impl ReadRowsResponse {
     ///
     /// Note that all the setters affecting `schema` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadRowsResponse;
+    /// use google_cloud_bigquery::model::AvroSchema;
+    /// let x = ReadRowsResponse::new().set_schema(Some(
+    ///     google_cloud_bigquery::model::read_rows_response::Schema::AvroSchema(AvroSchema::default().into())));
+    /// ```
     pub fn set_schema<
         T: std::convert::Into<
                 std::option::Option<
@@ -1419,6 +1704,15 @@ impl ReadRowsResponse {
     ///
     /// Note that all the setters affecting `schema` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadRowsResponse;
+    /// use google_cloud_bigquery::model::AvroSchema;
+    /// let x = ReadRowsResponse::new().set_avro_schema(AvroSchema::default()/* use setters */);
+    /// assert!(x.avro_schema().is_some());
+    /// assert!(x.arrow_schema().is_none());
+    /// ```
     pub fn set_avro_schema<
         T: std::convert::Into<
                 std::boxed::Box<crate::write::generated::gapic_storage::model::AvroSchema>,
@@ -1455,6 +1749,15 @@ impl ReadRowsResponse {
     ///
     /// Note that all the setters affecting `schema` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadRowsResponse;
+    /// use google_cloud_bigquery::model::ArrowSchema;
+    /// let x = ReadRowsResponse::new().set_arrow_schema(ArrowSchema::default()/* use setters */);
+    /// assert!(x.arrow_schema().is_some());
+    /// assert!(x.avro_schema().is_none());
+    /// ```
     pub fn set_arrow_schema<
         T: std::convert::Into<
                 std::boxed::Box<crate::write::generated::gapic_storage::model::ArrowSchema>,
@@ -1574,12 +1877,28 @@ impl SplitReadStreamRequest {
     }
 
     /// Sets the value of [name][crate::write::generated::gapic_storage::model::SplitReadStreamRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::SplitReadStreamRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let session_id = "session_id";
+    /// # let stream_id = "stream_id";
+    /// let x = SplitReadStreamRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/sessions/{session_id}/streams/{stream_id}"));
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [fraction][crate::write::generated::gapic_storage::model::SplitReadStreamRequest::fraction].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::SplitReadStreamRequest;
+    /// let x = SplitReadStreamRequest::new().set_fraction(42.0);
+    /// ```
     pub fn set_fraction<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.fraction = v.into();
         self
@@ -1617,6 +1936,13 @@ impl SplitReadStreamResponse {
     }
 
     /// Sets the value of [primary_stream][crate::write::generated::gapic_storage::model::SplitReadStreamResponse::primary_stream].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::SplitReadStreamResponse;
+    /// use google_cloud_bigquery::model::ReadStream;
+    /// let x = SplitReadStreamResponse::new().set_primary_stream(ReadStream::default()/* use setters */);
+    /// ```
     pub fn set_primary_stream<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::write::generated::gapic_storage::model::ReadStream>,
@@ -1626,6 +1952,14 @@ impl SplitReadStreamResponse {
     }
 
     /// Sets or clears the value of [primary_stream][crate::write::generated::gapic_storage::model::SplitReadStreamResponse::primary_stream].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::SplitReadStreamResponse;
+    /// use google_cloud_bigquery::model::ReadStream;
+    /// let x = SplitReadStreamResponse::new().set_or_clear_primary_stream(Some(ReadStream::default()/* use setters */));
+    /// let x = SplitReadStreamResponse::new().set_or_clear_primary_stream(None::<ReadStream>);
+    /// ```
     pub fn set_or_clear_primary_stream<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::write::generated::gapic_storage::model::ReadStream>,
@@ -1635,6 +1969,13 @@ impl SplitReadStreamResponse {
     }
 
     /// Sets the value of [remainder_stream][crate::write::generated::gapic_storage::model::SplitReadStreamResponse::remainder_stream].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::SplitReadStreamResponse;
+    /// use google_cloud_bigquery::model::ReadStream;
+    /// let x = SplitReadStreamResponse::new().set_remainder_stream(ReadStream::default()/* use setters */);
+    /// ```
     pub fn set_remainder_stream<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::write::generated::gapic_storage::model::ReadStream>,
@@ -1644,6 +1985,14 @@ impl SplitReadStreamResponse {
     }
 
     /// Sets or clears the value of [remainder_stream][crate::write::generated::gapic_storage::model::SplitReadStreamResponse::remainder_stream].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::SplitReadStreamResponse;
+    /// use google_cloud_bigquery::model::ReadStream;
+    /// let x = SplitReadStreamResponse::new().set_or_clear_remainder_stream(Some(ReadStream::default()/* use setters */));
+    /// let x = SplitReadStreamResponse::new().set_or_clear_remainder_stream(None::<ReadStream>);
+    /// ```
     pub fn set_or_clear_remainder_stream<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::write::generated::gapic_storage::model::ReadStream>,
@@ -1681,12 +2030,25 @@ impl CreateWriteStreamRequest {
     }
 
     /// Sets the value of [parent][crate::write::generated::gapic_storage::model::CreateWriteStreamRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::CreateWriteStreamRequest;
+    /// let x = CreateWriteStreamRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [write_stream][crate::write::generated::gapic_storage::model::CreateWriteStreamRequest::write_stream].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::CreateWriteStreamRequest;
+    /// use google_cloud_bigquery::model::WriteStream;
+    /// let x = CreateWriteStreamRequest::new().set_write_stream(WriteStream::default()/* use setters */);
+    /// ```
     pub fn set_write_stream<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::write::generated::gapic_storage::model::WriteStream>,
@@ -1696,6 +2058,14 @@ impl CreateWriteStreamRequest {
     }
 
     /// Sets or clears the value of [write_stream][crate::write::generated::gapic_storage::model::CreateWriteStreamRequest::write_stream].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::CreateWriteStreamRequest;
+    /// use google_cloud_bigquery::model::WriteStream;
+    /// let x = CreateWriteStreamRequest::new().set_or_clear_write_stream(Some(WriteStream::default()/* use setters */));
+    /// let x = CreateWriteStreamRequest::new().set_or_clear_write_stream(None::<WriteStream>);
+    /// ```
     pub fn set_or_clear_write_stream<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::write::generated::gapic_storage::model::WriteStream>,
@@ -1820,12 +2190,29 @@ impl AppendRowsRequest {
     }
 
     /// Sets the value of [write_stream][crate::write::generated::gapic_storage::model::AppendRowsRequest::write_stream].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AppendRowsRequest;
+    /// # let project_id = "project_id";
+    /// # let dataset_id = "dataset_id";
+    /// # let table_id = "table_id";
+    /// # let stream_id = "stream_id";
+    /// let x = AppendRowsRequest::new().set_write_stream(format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}/streams/{stream_id}"));
+    /// ```
     pub fn set_write_stream<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.write_stream = v.into();
         self
     }
 
     /// Sets the value of [offset][crate::write::generated::gapic_storage::model::AppendRowsRequest::offset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AppendRowsRequest;
+    /// use wkt::Int64Value;
+    /// let x = AppendRowsRequest::new().set_offset(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -1835,6 +2222,14 @@ impl AppendRowsRequest {
     }
 
     /// Sets or clears the value of [offset][crate::write::generated::gapic_storage::model::AppendRowsRequest::offset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AppendRowsRequest;
+    /// use wkt::Int64Value;
+    /// let x = AppendRowsRequest::new().set_or_clear_offset(Some(Int64Value::default()/* use setters */));
+    /// let x = AppendRowsRequest::new().set_or_clear_offset(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -1844,12 +2239,28 @@ impl AppendRowsRequest {
     }
 
     /// Sets the value of [trace_id][crate::write::generated::gapic_storage::model::AppendRowsRequest::trace_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AppendRowsRequest;
+    /// let x = AppendRowsRequest::new().set_trace_id("example");
+    /// ```
     pub fn set_trace_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.trace_id = v.into();
         self
     }
 
     /// Sets the value of [missing_value_interpretations][crate::write::generated::gapic_storage::model::AppendRowsRequest::missing_value_interpretations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AppendRowsRequest;
+    /// use google_cloud_bigquery::model::append_rows_request::MissingValueInterpretation;
+    /// let x = AppendRowsRequest::new().set_missing_value_interpretations([
+    ///     ("key0", MissingValueInterpretation::NullValue),
+    ///     ("key1", MissingValueInterpretation::DefaultValue),
+    /// ]);
+    /// ```
     pub fn set_missing_value_interpretations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1863,12 +2274,27 @@ impl AppendRowsRequest {
     }
 
     /// Sets the value of [default_missing_value_interpretation][crate::write::generated::gapic_storage::model::AppendRowsRequest::default_missing_value_interpretation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AppendRowsRequest;
+    /// use google_cloud_bigquery::model::append_rows_request::MissingValueInterpretation;
+    /// let x0 = AppendRowsRequest::new().set_default_missing_value_interpretation(MissingValueInterpretation::NullValue);
+    /// let x1 = AppendRowsRequest::new().set_default_missing_value_interpretation(MissingValueInterpretation::DefaultValue);
+    /// ```
     pub fn set_default_missing_value_interpretation<T: std::convert::Into<crate::write::generated::gapic_storage::model::append_rows_request::MissingValueInterpretation>>(mut self, v: T) -> Self{
         self.default_missing_value_interpretation = v.into();
         self
     }
 
     /// Sets the value of [client_stats][crate::write::generated::gapic_storage::model::AppendRowsRequest::client_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AppendRowsRequest;
+    /// use google_cloud_bigquery::model::ClientStats;
+    /// let x = AppendRowsRequest::new().set_client_stats(ClientStats::default()/* use setters */);
+    /// ```
     pub fn set_client_stats<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::write::generated::gapic_storage::model::ClientStats>,
@@ -1878,6 +2304,14 @@ impl AppendRowsRequest {
     }
 
     /// Sets or clears the value of [client_stats][crate::write::generated::gapic_storage::model::AppendRowsRequest::client_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AppendRowsRequest;
+    /// use google_cloud_bigquery::model::ClientStats;
+    /// let x = AppendRowsRequest::new().set_or_clear_client_stats(Some(ClientStats::default()/* use setters */));
+    /// let x = AppendRowsRequest::new().set_or_clear_client_stats(None::<ClientStats>);
+    /// ```
     pub fn set_or_clear_client_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::write::generated::gapic_storage::model::ClientStats>,
@@ -1890,6 +2324,14 @@ impl AppendRowsRequest {
     ///
     /// Note that all the setters affecting `rows` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AppendRowsRequest;
+    /// use google_cloud_bigquery::model::append_rows_request::ProtoData;
+    /// let x = AppendRowsRequest::new().set_rows(Some(
+    ///     google_cloud_bigquery::model::append_rows_request::Rows::ProtoRows(ProtoData::default().into())));
+    /// ```
     pub fn set_rows<
         T: std::convert::Into<
                 std::option::Option<
@@ -1928,6 +2370,15 @@ impl AppendRowsRequest {
     ///
     /// Note that all the setters affecting `rows` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AppendRowsRequest;
+    /// use google_cloud_bigquery::model::append_rows_request::ProtoData;
+    /// let x = AppendRowsRequest::new().set_proto_rows(ProtoData::default()/* use setters */);
+    /// assert!(x.proto_rows().is_some());
+    /// assert!(x.arrow_rows().is_none());
+    /// ```
     pub fn set_proto_rows<
         T: std::convert::Into<
                 std::boxed::Box<
@@ -1970,6 +2421,15 @@ impl AppendRowsRequest {
     ///
     /// Note that all the setters affecting `rows` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AppendRowsRequest;
+    /// use google_cloud_bigquery::model::append_rows_request::ArrowData;
+    /// let x = AppendRowsRequest::new().set_arrow_rows(ArrowData::default()/* use setters */);
+    /// assert!(x.arrow_rows().is_some());
+    /// assert!(x.proto_rows().is_none());
+    /// ```
     pub fn set_arrow_rows<
         T: std::convert::Into<
                 std::boxed::Box<
@@ -2022,6 +2482,13 @@ pub mod append_rows_request {
         }
 
         /// Sets the value of [writer_schema][crate::write::generated::gapic_storage::model::append_rows_request::ArrowData::writer_schema].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::append_rows_request::ArrowData;
+        /// use google_cloud_bigquery::model::ArrowSchema;
+        /// let x = ArrowData::new().set_writer_schema(ArrowSchema::default()/* use setters */);
+        /// ```
         pub fn set_writer_schema<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::write::generated::gapic_storage::model::ArrowSchema>,
@@ -2031,6 +2498,14 @@ pub mod append_rows_request {
         }
 
         /// Sets or clears the value of [writer_schema][crate::write::generated::gapic_storage::model::append_rows_request::ArrowData::writer_schema].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::append_rows_request::ArrowData;
+        /// use google_cloud_bigquery::model::ArrowSchema;
+        /// let x = ArrowData::new().set_or_clear_writer_schema(Some(ArrowSchema::default()/* use setters */));
+        /// let x = ArrowData::new().set_or_clear_writer_schema(None::<ArrowSchema>);
+        /// ```
         pub fn set_or_clear_writer_schema<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::write::generated::gapic_storage::model::ArrowSchema>,
@@ -2040,6 +2515,13 @@ pub mod append_rows_request {
         }
 
         /// Sets the value of [rows][crate::write::generated::gapic_storage::model::append_rows_request::ArrowData::rows].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::append_rows_request::ArrowData;
+        /// use google_cloud_bigquery::model::ArrowRecordBatch;
+        /// let x = ArrowData::new().set_rows(ArrowRecordBatch::default()/* use setters */);
+        /// ```
         pub fn set_rows<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::write::generated::gapic_storage::model::ArrowRecordBatch>,
@@ -2049,6 +2531,14 @@ pub mod append_rows_request {
         }
 
         /// Sets or clears the value of [rows][crate::write::generated::gapic_storage::model::append_rows_request::ArrowData::rows].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::append_rows_request::ArrowData;
+        /// use google_cloud_bigquery::model::ArrowRecordBatch;
+        /// let x = ArrowData::new().set_or_clear_rows(Some(ArrowRecordBatch::default()/* use setters */));
+        /// let x = ArrowData::new().set_or_clear_rows(None::<ArrowRecordBatch>);
+        /// ```
         pub fn set_or_clear_rows<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::write::generated::gapic_storage::model::ArrowRecordBatch>,
@@ -2097,6 +2587,13 @@ pub mod append_rows_request {
         }
 
         /// Sets the value of [writer_schema][crate::write::generated::gapic_storage::model::append_rows_request::ProtoData::writer_schema].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::append_rows_request::ProtoData;
+        /// use google_cloud_bigquery::model::ProtoSchema;
+        /// let x = ProtoData::new().set_writer_schema(ProtoSchema::default()/* use setters */);
+        /// ```
         pub fn set_writer_schema<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::write::generated::gapic_storage::model::ProtoSchema>,
@@ -2106,6 +2603,14 @@ pub mod append_rows_request {
         }
 
         /// Sets or clears the value of [writer_schema][crate::write::generated::gapic_storage::model::append_rows_request::ProtoData::writer_schema].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::append_rows_request::ProtoData;
+        /// use google_cloud_bigquery::model::ProtoSchema;
+        /// let x = ProtoData::new().set_or_clear_writer_schema(Some(ProtoSchema::default()/* use setters */));
+        /// let x = ProtoData::new().set_or_clear_writer_schema(None::<ProtoSchema>);
+        /// ```
         pub fn set_or_clear_writer_schema<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::write::generated::gapic_storage::model::ProtoSchema>,
@@ -2115,6 +2620,13 @@ pub mod append_rows_request {
         }
 
         /// Sets the value of [rows][crate::write::generated::gapic_storage::model::append_rows_request::ProtoData::rows].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::append_rows_request::ProtoData;
+        /// use google_cloud_bigquery::model::ProtoRows;
+        /// let x = ProtoData::new().set_rows(ProtoRows::default()/* use setters */);
+        /// ```
         pub fn set_rows<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::write::generated::gapic_storage::model::ProtoRows>,
@@ -2124,6 +2636,14 @@ pub mod append_rows_request {
         }
 
         /// Sets or clears the value of [rows][crate::write::generated::gapic_storage::model::append_rows_request::ProtoData::rows].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::append_rows_request::ProtoData;
+        /// use google_cloud_bigquery::model::ProtoRows;
+        /// let x = ProtoData::new().set_or_clear_rows(Some(ProtoRows::default()/* use setters */));
+        /// let x = ProtoData::new().set_or_clear_rows(None::<ProtoRows>);
+        /// ```
         pub fn set_or_clear_rows<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::write::generated::gapic_storage::model::ProtoRows>,
@@ -2355,6 +2875,13 @@ impl AppendRowsResponse {
     }
 
     /// Sets the value of [updated_schema][crate::write::generated::gapic_storage::model::AppendRowsResponse::updated_schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AppendRowsResponse;
+    /// use google_cloud_bigquery::model::TableSchema;
+    /// let x = AppendRowsResponse::new().set_updated_schema(TableSchema::default()/* use setters */);
+    /// ```
     pub fn set_updated_schema<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::write::generated::gapic_storage::model::TableSchema>,
@@ -2364,6 +2891,14 @@ impl AppendRowsResponse {
     }
 
     /// Sets or clears the value of [updated_schema][crate::write::generated::gapic_storage::model::AppendRowsResponse::updated_schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AppendRowsResponse;
+    /// use google_cloud_bigquery::model::TableSchema;
+    /// let x = AppendRowsResponse::new().set_or_clear_updated_schema(Some(TableSchema::default()/* use setters */));
+    /// let x = AppendRowsResponse::new().set_or_clear_updated_schema(None::<TableSchema>);
+    /// ```
     pub fn set_or_clear_updated_schema<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::write::generated::gapic_storage::model::TableSchema>,
@@ -2373,6 +2908,17 @@ impl AppendRowsResponse {
     }
 
     /// Sets the value of [row_errors][crate::write::generated::gapic_storage::model::AppendRowsResponse::row_errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AppendRowsResponse;
+    /// use google_cloud_bigquery::model::RowError;
+    /// let x = AppendRowsResponse::new()
+    ///     .set_row_errors([
+    ///         RowError::default()/* use setters */,
+    ///         RowError::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_row_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2384,6 +2930,12 @@ impl AppendRowsResponse {
     }
 
     /// Sets the value of [write_stream][crate::write::generated::gapic_storage::model::AppendRowsResponse::write_stream].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AppendRowsResponse;
+    /// let x = AppendRowsResponse::new().set_write_stream("example");
+    /// ```
     pub fn set_write_stream<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.write_stream = v.into();
         self
@@ -2393,6 +2945,14 @@ impl AppendRowsResponse {
     ///
     /// Note that all the setters affecting `response` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AppendRowsResponse;
+    /// use google_cloud_bigquery::model::append_rows_response::AppendResult;
+    /// let x = AppendRowsResponse::new().set_response(Some(
+    ///     google_cloud_bigquery::model::append_rows_response::Response::AppendResult(AppendResult::default().into())));
+    /// ```
     pub fn set_response<
         T: std::convert::Into<
                 std::option::Option<
@@ -2429,6 +2989,15 @@ impl AppendRowsResponse {
     ///
     /// Note that all the setters affecting `response` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AppendRowsResponse;
+    /// use google_cloud_bigquery::model::append_rows_response::AppendResult;
+    /// let x = AppendRowsResponse::new().set_append_result(AppendResult::default()/* use setters */);
+    /// assert!(x.append_result().is_some());
+    /// assert!(x.error().is_none());
+    /// ```
     pub fn set_append_result<T: std::convert::Into<std::boxed::Box<crate::write::generated::gapic_storage::model::append_rows_response::AppendResult>>>(mut self, v: T) -> Self{
         self.response = std::option::Option::Some(
             crate::write::generated::gapic_storage::model::append_rows_response::Response::AppendResult(
@@ -2454,6 +3023,15 @@ impl AppendRowsResponse {
     ///
     /// Note that all the setters affecting `response` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::AppendRowsResponse;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = AppendRowsResponse::new().set_error(Status::default()/* use setters */);
+    /// assert!(x.error().is_some());
+    /// assert!(x.append_result().is_none());
+    /// ```
     pub fn set_error<T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>>(
         mut self,
         v: T,
@@ -2496,6 +3074,13 @@ pub mod append_rows_response {
         }
 
         /// Sets the value of [offset][crate::write::generated::gapic_storage::model::append_rows_response::AppendResult::offset].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::append_rows_response::AppendResult;
+        /// use wkt::Int64Value;
+        /// let x = AppendResult::new().set_offset(Int64Value::default()/* use setters */);
+        /// ```
         pub fn set_offset<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
@@ -2505,6 +3090,14 @@ pub mod append_rows_response {
         }
 
         /// Sets or clears the value of [offset][crate::write::generated::gapic_storage::model::append_rows_response::AppendResult::offset].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::append_rows_response::AppendResult;
+        /// use wkt::Int64Value;
+        /// let x = AppendResult::new().set_or_clear_offset(Some(Int64Value::default()/* use setters */));
+        /// let x = AppendResult::new().set_or_clear_offset(None::<Int64Value>);
+        /// ```
         pub fn set_or_clear_offset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int64Value>,
@@ -2591,12 +3184,30 @@ impl GetWriteStreamRequest {
     }
 
     /// Sets the value of [name][crate::write::generated::gapic_storage::model::GetWriteStreamRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::GetWriteStreamRequest;
+    /// # let project_id = "project_id";
+    /// # let dataset_id = "dataset_id";
+    /// # let table_id = "table_id";
+    /// # let stream_id = "stream_id";
+    /// let x = GetWriteStreamRequest::new().set_name(format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}/streams/{stream_id}"));
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::write::generated::gapic_storage::model::GetWriteStreamRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::GetWriteStreamRequest;
+    /// use google_cloud_bigquery::model::WriteStreamView;
+    /// let x0 = GetWriteStreamRequest::new().set_view(WriteStreamView::Basic);
+    /// let x1 = GetWriteStreamRequest::new().set_view(WriteStreamView::Full);
+    /// ```
     pub fn set_view<
         T: std::convert::Into<crate::write::generated::gapic_storage::model::WriteStreamView>,
     >(
@@ -2635,12 +3246,24 @@ impl BatchCommitWriteStreamsRequest {
     }
 
     /// Sets the value of [parent][crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::BatchCommitWriteStreamsRequest;
+    /// let x = BatchCommitWriteStreamsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [write_streams][crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsRequest::write_streams].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::BatchCommitWriteStreamsRequest;
+    /// let x = BatchCommitWriteStreamsRequest::new().set_write_streams(["a", "b", "c"]);
+    /// ```
     pub fn set_write_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2684,6 +3307,13 @@ impl BatchCommitWriteStreamsResponse {
     }
 
     /// Sets the value of [commit_time][crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsResponse::commit_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::BatchCommitWriteStreamsResponse;
+    /// use wkt::Timestamp;
+    /// let x = BatchCommitWriteStreamsResponse::new().set_commit_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_commit_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2693,6 +3323,14 @@ impl BatchCommitWriteStreamsResponse {
     }
 
     /// Sets or clears the value of [commit_time][crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsResponse::commit_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::BatchCommitWriteStreamsResponse;
+    /// use wkt::Timestamp;
+    /// let x = BatchCommitWriteStreamsResponse::new().set_or_clear_commit_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BatchCommitWriteStreamsResponse::new().set_or_clear_commit_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_commit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2702,6 +3340,17 @@ impl BatchCommitWriteStreamsResponse {
     }
 
     /// Sets the value of [stream_errors][crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsResponse::stream_errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::BatchCommitWriteStreamsResponse;
+    /// use google_cloud_bigquery::model::StorageError;
+    /// let x = BatchCommitWriteStreamsResponse::new()
+    ///     .set_stream_errors([
+    ///         StorageError::default()/* use setters */,
+    ///         StorageError::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_stream_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2737,6 +3386,16 @@ impl FinalizeWriteStreamRequest {
     }
 
     /// Sets the value of [name][crate::write::generated::gapic_storage::model::FinalizeWriteStreamRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::FinalizeWriteStreamRequest;
+    /// # let project_id = "project_id";
+    /// # let dataset_id = "dataset_id";
+    /// # let table_id = "table_id";
+    /// # let stream_id = "stream_id";
+    /// let x = FinalizeWriteStreamRequest::new().set_name(format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}/streams/{stream_id}"));
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2766,6 +3425,12 @@ impl FinalizeWriteStreamResponse {
     }
 
     /// Sets the value of [row_count][crate::write::generated::gapic_storage::model::FinalizeWriteStreamResponse::row_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::FinalizeWriteStreamResponse;
+    /// let x = FinalizeWriteStreamResponse::new().set_row_count(42);
+    /// ```
     pub fn set_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.row_count = v.into();
         self
@@ -2799,12 +3464,29 @@ impl FlushRowsRequest {
     }
 
     /// Sets the value of [write_stream][crate::write::generated::gapic_storage::model::FlushRowsRequest::write_stream].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::FlushRowsRequest;
+    /// # let project_id = "project_id";
+    /// # let dataset_id = "dataset_id";
+    /// # let table_id = "table_id";
+    /// # let stream_id = "stream_id";
+    /// let x = FlushRowsRequest::new().set_write_stream(format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}/streams/{stream_id}"));
+    /// ```
     pub fn set_write_stream<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.write_stream = v.into();
         self
     }
 
     /// Sets the value of [offset][crate::write::generated::gapic_storage::model::FlushRowsRequest::offset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::FlushRowsRequest;
+    /// use wkt::Int64Value;
+    /// let x = FlushRowsRequest::new().set_offset(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_offset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -2814,6 +3496,14 @@ impl FlushRowsRequest {
     }
 
     /// Sets or clears the value of [offset][crate::write::generated::gapic_storage::model::FlushRowsRequest::offset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::FlushRowsRequest;
+    /// use wkt::Int64Value;
+    /// let x = FlushRowsRequest::new().set_or_clear_offset(Some(Int64Value::default()/* use setters */));
+    /// let x = FlushRowsRequest::new().set_or_clear_offset(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_offset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -2846,6 +3536,12 @@ impl FlushRowsResponse {
     }
 
     /// Sets the value of [offset][crate::write::generated::gapic_storage::model::FlushRowsResponse::offset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::FlushRowsResponse;
+    /// let x = FlushRowsResponse::new().set_offset(42);
+    /// ```
     pub fn set_offset<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.offset = v.into();
         self
@@ -2884,6 +3580,15 @@ impl StorageError {
     }
 
     /// Sets the value of [code][crate::write::generated::gapic_storage::model::StorageError::code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::StorageError;
+    /// use google_cloud_bigquery::model::storage_error::StorageErrorCode;
+    /// let x0 = StorageError::new().set_code(StorageErrorCode::TableNotFound);
+    /// let x1 = StorageError::new().set_code(StorageErrorCode::StreamAlreadyCommitted);
+    /// let x2 = StorageError::new().set_code(StorageErrorCode::StreamNotFound);
+    /// ```
     pub fn set_code<
         T: std::convert::Into<
                 crate::write::generated::gapic_storage::model::storage_error::StorageErrorCode,
@@ -2897,12 +3602,24 @@ impl StorageError {
     }
 
     /// Sets the value of [entity][crate::write::generated::gapic_storage::model::StorageError::entity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::StorageError;
+    /// let x = StorageError::new().set_entity("example");
+    /// ```
     pub fn set_entity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entity = v.into();
         self
     }
 
     /// Sets the value of [error_message][crate::write::generated::gapic_storage::model::StorageError::error_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::StorageError;
+    /// let x = StorageError::new().set_error_message("example");
+    /// ```
     pub fn set_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error_message = v.into();
         self
@@ -3170,12 +3887,25 @@ impl RowError {
     }
 
     /// Sets the value of [index][crate::write::generated::gapic_storage::model::RowError::index].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::RowError;
+    /// let x = RowError::new().set_index(42);
+    /// ```
     pub fn set_index<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.index = v.into();
         self
     }
 
     /// Sets the value of [code][crate::write::generated::gapic_storage::model::RowError::code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::RowError;
+    /// use google_cloud_bigquery::model::row_error::RowErrorCode;
+    /// let x0 = RowError::new().set_code(RowErrorCode::FieldsError);
+    /// ```
     pub fn set_code<
         T: std::convert::Into<crate::write::generated::gapic_storage::model::row_error::RowErrorCode>,
     >(
@@ -3187,6 +3917,12 @@ impl RowError {
     }
 
     /// Sets the value of [message][crate::write::generated::gapic_storage::model::RowError::message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::RowError;
+    /// let x = RowError::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
@@ -3355,6 +4091,13 @@ impl ClientStats {
     }
 
     /// Sets the value of [request_stats][crate::write::generated::gapic_storage::model::ClientStats::request_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ClientStats;
+    /// use google_cloud_bigquery::model::client_stats::RequestStats;
+    /// let x = ClientStats::new().set_request_stats(RequestStats::default()/* use setters */);
+    /// ```
     pub fn set_request_stats<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<
@@ -3366,6 +4109,14 @@ impl ClientStats {
     }
 
     /// Sets or clears the value of [request_stats][crate::write::generated::gapic_storage::model::ClientStats::request_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ClientStats;
+    /// use google_cloud_bigquery::model::client_stats::RequestStats;
+    /// let x = ClientStats::new().set_or_clear_request_stats(Some(RequestStats::default()/* use setters */));
+    /// let x = ClientStats::new().set_or_clear_request_stats(None::<RequestStats>);
+    /// ```
     pub fn set_or_clear_request_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<
@@ -3377,6 +4128,13 @@ impl ClientStats {
     }
 
     /// Sets the value of [window_stats][crate::write::generated::gapic_storage::model::ClientStats::window_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ClientStats;
+    /// use google_cloud_bigquery::model::client_stats::WindowStats;
+    /// let x = ClientStats::new().set_window_stats(WindowStats::default()/* use setters */);
+    /// ```
     pub fn set_window_stats<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<
@@ -3388,6 +4146,14 @@ impl ClientStats {
     }
 
     /// Sets or clears the value of [window_stats][crate::write::generated::gapic_storage::model::ClientStats::window_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ClientStats;
+    /// use google_cloud_bigquery::model::client_stats::WindowStats;
+    /// let x = ClientStats::new().set_or_clear_window_stats(Some(WindowStats::default()/* use setters */));
+    /// let x = ClientStats::new().set_or_clear_window_stats(None::<WindowStats>);
+    /// ```
     pub fn set_or_clear_window_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<
@@ -3433,6 +4199,12 @@ pub mod client_stats {
         }
 
         /// Sets the value of [send_time_millis][crate::write::generated::gapic_storage::model::client_stats::RequestStats::send_time_millis].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::client_stats::RequestStats;
+        /// let x = RequestStats::new().set_send_time_millis(42);
+        /// ```
         pub fn set_send_time_millis<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3442,6 +4214,13 @@ pub mod client_stats {
         }
 
         /// Sets or clears the value of [send_time_millis][crate::write::generated::gapic_storage::model::client_stats::RequestStats::send_time_millis].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::client_stats::RequestStats;
+        /// let x = RequestStats::new().set_or_clear_send_time_millis(Some(42));
+        /// let x = RequestStats::new().set_or_clear_send_time_millis(None::<i32>);
+        /// ```
         pub fn set_or_clear_send_time_millis<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3451,6 +4230,12 @@ pub mod client_stats {
         }
 
         /// Sets the value of [queued_requests_count][crate::write::generated::gapic_storage::model::client_stats::RequestStats::queued_requests_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::client_stats::RequestStats;
+        /// let x = RequestStats::new().set_queued_requests_count(42);
+        /// ```
         pub fn set_queued_requests_count<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3460,6 +4245,13 @@ pub mod client_stats {
         }
 
         /// Sets or clears the value of [queued_requests_count][crate::write::generated::gapic_storage::model::client_stats::RequestStats::queued_requests_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::client_stats::RequestStats;
+        /// let x = RequestStats::new().set_or_clear_queued_requests_count(Some(42));
+        /// let x = RequestStats::new().set_or_clear_queued_requests_count(None::<i32>);
+        /// ```
         pub fn set_or_clear_queued_requests_count<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3520,6 +4312,12 @@ pub mod client_stats {
         }
 
         /// Sets the value of [max_response_latency_millis][crate::write::generated::gapic_storage::model::client_stats::WindowStats::max_response_latency_millis].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::client_stats::WindowStats;
+        /// let x = WindowStats::new().set_max_response_latency_millis(42);
+        /// ```
         pub fn set_max_response_latency_millis<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3529,6 +4327,13 @@ pub mod client_stats {
         }
 
         /// Sets or clears the value of [max_response_latency_millis][crate::write::generated::gapic_storage::model::client_stats::WindowStats::max_response_latency_millis].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::client_stats::WindowStats;
+        /// let x = WindowStats::new().set_or_clear_max_response_latency_millis(Some(42));
+        /// let x = WindowStats::new().set_or_clear_max_response_latency_millis(None::<i32>);
+        /// ```
         pub fn set_or_clear_max_response_latency_millis<T>(
             mut self,
             v: std::option::Option<T>,
@@ -3541,6 +4346,12 @@ pub mod client_stats {
         }
 
         /// Sets the value of [avg_response_latency_millis][crate::write::generated::gapic_storage::model::client_stats::WindowStats::avg_response_latency_millis].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::client_stats::WindowStats;
+        /// let x = WindowStats::new().set_avg_response_latency_millis(42);
+        /// ```
         pub fn set_avg_response_latency_millis<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3550,6 +4361,13 @@ pub mod client_stats {
         }
 
         /// Sets or clears the value of [avg_response_latency_millis][crate::write::generated::gapic_storage::model::client_stats::WindowStats::avg_response_latency_millis].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::client_stats::WindowStats;
+        /// let x = WindowStats::new().set_or_clear_avg_response_latency_millis(Some(42));
+        /// let x = WindowStats::new().set_or_clear_avg_response_latency_millis(None::<i32>);
+        /// ```
         pub fn set_or_clear_avg_response_latency_millis<T>(
             mut self,
             v: std::option::Option<T>,
@@ -3562,6 +4380,12 @@ pub mod client_stats {
         }
 
         /// Sets the value of [longest_wait_no_response_millis][crate::write::generated::gapic_storage::model::client_stats::WindowStats::longest_wait_no_response_millis].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::client_stats::WindowStats;
+        /// let x = WindowStats::new().set_longest_wait_no_response_millis(42);
+        /// ```
         pub fn set_longest_wait_no_response_millis<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3571,6 +4395,13 @@ pub mod client_stats {
         }
 
         /// Sets or clears the value of [longest_wait_no_response_millis][crate::write::generated::gapic_storage::model::client_stats::WindowStats::longest_wait_no_response_millis].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::client_stats::WindowStats;
+        /// let x = WindowStats::new().set_or_clear_longest_wait_no_response_millis(Some(42));
+        /// let x = WindowStats::new().set_or_clear_longest_wait_no_response_millis(None::<i32>);
+        /// ```
         pub fn set_or_clear_longest_wait_no_response_millis<T>(
             mut self,
             v: std::option::Option<T>,
@@ -3583,6 +4414,12 @@ pub mod client_stats {
         }
 
         /// Sets the value of [requests_sent_count][crate::write::generated::gapic_storage::model::client_stats::WindowStats::requests_sent_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::client_stats::WindowStats;
+        /// let x = WindowStats::new().set_requests_sent_count(42);
+        /// ```
         pub fn set_requests_sent_count<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3592,6 +4429,13 @@ pub mod client_stats {
         }
 
         /// Sets or clears the value of [requests_sent_count][crate::write::generated::gapic_storage::model::client_stats::WindowStats::requests_sent_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::client_stats::WindowStats;
+        /// let x = WindowStats::new().set_or_clear_requests_sent_count(Some(42));
+        /// let x = WindowStats::new().set_or_clear_requests_sent_count(None::<i32>);
+        /// ```
         pub fn set_or_clear_requests_sent_count<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3601,6 +4445,12 @@ pub mod client_stats {
         }
 
         /// Sets the value of [responses_received_count][crate::write::generated::gapic_storage::model::client_stats::WindowStats::responses_received_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::client_stats::WindowStats;
+        /// let x = WindowStats::new().set_responses_received_count(42);
+        /// ```
         pub fn set_responses_received_count<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3610,6 +4460,13 @@ pub mod client_stats {
         }
 
         /// Sets or clears the value of [responses_received_count][crate::write::generated::gapic_storage::model::client_stats::WindowStats::responses_received_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::client_stats::WindowStats;
+        /// let x = WindowStats::new().set_or_clear_responses_received_count(Some(42));
+        /// let x = WindowStats::new().set_or_clear_responses_received_count(None::<i32>);
+        /// ```
         pub fn set_or_clear_responses_received_count<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3619,6 +4476,12 @@ pub mod client_stats {
         }
 
         /// Sets the value of [bytes_sent_count][crate::write::generated::gapic_storage::model::client_stats::WindowStats::bytes_sent_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::client_stats::WindowStats;
+        /// let x = WindowStats::new().set_bytes_sent_count(42);
+        /// ```
         pub fn set_bytes_sent_count<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3628,6 +4491,13 @@ pub mod client_stats {
         }
 
         /// Sets or clears the value of [bytes_sent_count][crate::write::generated::gapic_storage::model::client_stats::WindowStats::bytes_sent_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::client_stats::WindowStats;
+        /// let x = WindowStats::new().set_or_clear_bytes_sent_count(Some(42));
+        /// let x = WindowStats::new().set_or_clear_bytes_sent_count(None::<i32>);
+        /// ```
         pub fn set_or_clear_bytes_sent_count<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3637,6 +4507,12 @@ pub mod client_stats {
         }
 
         /// Sets the value of [window_start_time_epoch_millis][crate::write::generated::gapic_storage::model::client_stats::WindowStats::window_start_time_epoch_millis].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::client_stats::WindowStats;
+        /// let x = WindowStats::new().set_window_start_time_epoch_millis(42);
+        /// ```
         pub fn set_window_start_time_epoch_millis<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3646,6 +4522,13 @@ pub mod client_stats {
         }
 
         /// Sets or clears the value of [window_start_time_epoch_millis][crate::write::generated::gapic_storage::model::client_stats::WindowStats::window_start_time_epoch_millis].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::client_stats::WindowStats;
+        /// let x = WindowStats::new().set_or_clear_window_start_time_epoch_millis(Some(42));
+        /// let x = WindowStats::new().set_or_clear_window_start_time_epoch_millis(None::<i32>);
+        /// ```
         pub fn set_or_clear_window_start_time_epoch_millis<T>(
             mut self,
             v: std::option::Option<T>,
@@ -3658,6 +4541,12 @@ pub mod client_stats {
         }
 
         /// Sets the value of [window_millis][crate::write::generated::gapic_storage::model::client_stats::WindowStats::window_millis].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::client_stats::WindowStats;
+        /// let x = WindowStats::new().set_window_millis(42);
+        /// ```
         pub fn set_window_millis<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3667,6 +4556,13 @@ pub mod client_stats {
         }
 
         /// Sets or clears the value of [window_millis][crate::write::generated::gapic_storage::model::client_stats::WindowStats::window_millis].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::client_stats::WindowStats;
+        /// let x = WindowStats::new().set_or_clear_window_millis(Some(42));
+        /// let x = WindowStats::new().set_or_clear_window_millis(None::<i32>);
+        /// ```
         pub fn set_or_clear_window_millis<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -3765,12 +4661,28 @@ impl ReadSession {
     }
 
     /// Sets the value of [name][crate::write::generated::gapic_storage::model::ReadSession::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadSession;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let session_id = "session_id";
+    /// let x = ReadSession::new().set_name(format!("projects/{project_id}/locations/{location_id}/sessions/{session_id}"));
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [expire_time][crate::write::generated::gapic_storage::model::ReadSession::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadSession;
+    /// use wkt::Timestamp;
+    /// let x = ReadSession::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3780,6 +4692,14 @@ impl ReadSession {
     }
 
     /// Sets or clears the value of [expire_time][crate::write::generated::gapic_storage::model::ReadSession::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadSession;
+    /// use wkt::Timestamp;
+    /// let x = ReadSession::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ReadSession::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3789,6 +4709,14 @@ impl ReadSession {
     }
 
     /// Sets the value of [data_format][crate::write::generated::gapic_storage::model::ReadSession::data_format].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadSession;
+    /// use google_cloud_bigquery::model::DataFormat;
+    /// let x0 = ReadSession::new().set_data_format(DataFormat::Avro);
+    /// let x1 = ReadSession::new().set_data_format(DataFormat::Arrow);
+    /// ```
     pub fn set_data_format<
         T: std::convert::Into<crate::write::generated::gapic_storage::model::DataFormat>,
     >(
@@ -3800,12 +4728,25 @@ impl ReadSession {
     }
 
     /// Sets the value of [table][crate::write::generated::gapic_storage::model::ReadSession::table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadSession;
+    /// let x = ReadSession::new().set_table("example");
+    /// ```
     pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table = v.into();
         self
     }
 
     /// Sets the value of [table_modifiers][crate::write::generated::gapic_storage::model::ReadSession::table_modifiers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadSession;
+    /// use google_cloud_bigquery::model::read_session::TableModifiers;
+    /// let x = ReadSession::new().set_table_modifiers(TableModifiers::default()/* use setters */);
+    /// ```
     pub fn set_table_modifiers<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<
@@ -3817,6 +4758,14 @@ impl ReadSession {
     }
 
     /// Sets or clears the value of [table_modifiers][crate::write::generated::gapic_storage::model::ReadSession::table_modifiers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadSession;
+    /// use google_cloud_bigquery::model::read_session::TableModifiers;
+    /// let x = ReadSession::new().set_or_clear_table_modifiers(Some(TableModifiers::default()/* use setters */));
+    /// let x = ReadSession::new().set_or_clear_table_modifiers(None::<TableModifiers>);
+    /// ```
     pub fn set_or_clear_table_modifiers<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<
@@ -3828,6 +4777,13 @@ impl ReadSession {
     }
 
     /// Sets the value of [read_options][crate::write::generated::gapic_storage::model::ReadSession::read_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadSession;
+    /// use google_cloud_bigquery::model::read_session::TableReadOptions;
+    /// let x = ReadSession::new().set_read_options(TableReadOptions::default()/* use setters */);
+    /// ```
     pub fn set_read_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<
@@ -3839,6 +4795,14 @@ impl ReadSession {
     }
 
     /// Sets or clears the value of [read_options][crate::write::generated::gapic_storage::model::ReadSession::read_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadSession;
+    /// use google_cloud_bigquery::model::read_session::TableReadOptions;
+    /// let x = ReadSession::new().set_or_clear_read_options(Some(TableReadOptions::default()/* use setters */));
+    /// let x = ReadSession::new().set_or_clear_read_options(None::<TableReadOptions>);
+    /// ```
     pub fn set_or_clear_read_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<
@@ -3850,6 +4814,17 @@ impl ReadSession {
     }
 
     /// Sets the value of [streams][crate::write::generated::gapic_storage::model::ReadSession::streams].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadSession;
+    /// use google_cloud_bigquery::model::ReadStream;
+    /// let x = ReadSession::new()
+    ///     .set_streams([
+    ///         ReadStream::default()/* use setters */,
+    ///         ReadStream::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_streams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3861,12 +4836,24 @@ impl ReadSession {
     }
 
     /// Sets the value of [estimated_total_bytes_scanned][crate::write::generated::gapic_storage::model::ReadSession::estimated_total_bytes_scanned].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadSession;
+    /// let x = ReadSession::new().set_estimated_total_bytes_scanned(42);
+    /// ```
     pub fn set_estimated_total_bytes_scanned<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.estimated_total_bytes_scanned = v.into();
         self
     }
 
     /// Sets the value of [estimated_total_physical_file_size][crate::write::generated::gapic_storage::model::ReadSession::estimated_total_physical_file_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadSession;
+    /// let x = ReadSession::new().set_estimated_total_physical_file_size(42);
+    /// ```
     pub fn set_estimated_total_physical_file_size<T: std::convert::Into<i64>>(
         mut self,
         v: T,
@@ -3876,12 +4863,24 @@ impl ReadSession {
     }
 
     /// Sets the value of [estimated_row_count][crate::write::generated::gapic_storage::model::ReadSession::estimated_row_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadSession;
+    /// let x = ReadSession::new().set_estimated_row_count(42);
+    /// ```
     pub fn set_estimated_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.estimated_row_count = v.into();
         self
     }
 
     /// Sets the value of [trace_id][crate::write::generated::gapic_storage::model::ReadSession::trace_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadSession;
+    /// let x = ReadSession::new().set_trace_id("example");
+    /// ```
     pub fn set_trace_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.trace_id = v.into();
         self
@@ -3891,6 +4890,14 @@ impl ReadSession {
     ///
     /// Note that all the setters affecting `schema` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadSession;
+    /// use google_cloud_bigquery::model::AvroSchema;
+    /// let x = ReadSession::new().set_schema(Some(
+    ///     google_cloud_bigquery::model::read_session::Schema::AvroSchema(AvroSchema::default().into())));
+    /// ```
     pub fn set_schema<
         T: std::convert::Into<
                 std::option::Option<
@@ -3927,6 +4934,15 @@ impl ReadSession {
     ///
     /// Note that all the setters affecting `schema` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadSession;
+    /// use google_cloud_bigquery::model::AvroSchema;
+    /// let x = ReadSession::new().set_avro_schema(AvroSchema::default()/* use setters */);
+    /// assert!(x.avro_schema().is_some());
+    /// assert!(x.arrow_schema().is_none());
+    /// ```
     pub fn set_avro_schema<
         T: std::convert::Into<
                 std::boxed::Box<crate::write::generated::gapic_storage::model::AvroSchema>,
@@ -3965,6 +4981,15 @@ impl ReadSession {
     ///
     /// Note that all the setters affecting `schema` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadSession;
+    /// use google_cloud_bigquery::model::ArrowSchema;
+    /// let x = ReadSession::new().set_arrow_schema(ArrowSchema::default()/* use setters */);
+    /// assert!(x.arrow_schema().is_some());
+    /// assert!(x.avro_schema().is_none());
+    /// ```
     pub fn set_arrow_schema<
         T: std::convert::Into<
                 std::boxed::Box<crate::write::generated::gapic_storage::model::ArrowSchema>,
@@ -4010,6 +5035,13 @@ pub mod read_session {
         }
 
         /// Sets the value of [snapshot_time][crate::write::generated::gapic_storage::model::read_session::TableModifiers::snapshot_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::read_session::TableModifiers;
+        /// use wkt::Timestamp;
+        /// let x = TableModifiers::new().set_snapshot_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_snapshot_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4019,6 +5051,14 @@ pub mod read_session {
         }
 
         /// Sets or clears the value of [snapshot_time][crate::write::generated::gapic_storage::model::read_session::TableModifiers::snapshot_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::read_session::TableModifiers;
+        /// use wkt::Timestamp;
+        /// let x = TableModifiers::new().set_or_clear_snapshot_time(Some(Timestamp::default()/* use setters */));
+        /// let x = TableModifiers::new().set_or_clear_snapshot_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_snapshot_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4125,6 +5165,12 @@ pub mod read_session {
         }
 
         /// Sets the value of [selected_fields][crate::write::generated::gapic_storage::model::read_session::TableReadOptions::selected_fields].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::read_session::TableReadOptions;
+        /// let x = TableReadOptions::new().set_selected_fields(["a", "b", "c"]);
+        /// ```
         pub fn set_selected_fields<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4136,6 +5182,12 @@ pub mod read_session {
         }
 
         /// Sets the value of [row_restriction][crate::write::generated::gapic_storage::model::read_session::TableReadOptions::row_restriction].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::read_session::TableReadOptions;
+        /// let x = TableReadOptions::new().set_row_restriction("example");
+        /// ```
         pub fn set_row_restriction<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4145,6 +5197,12 @@ pub mod read_session {
         }
 
         /// Sets the value of [sample_percentage][crate::write::generated::gapic_storage::model::read_session::TableReadOptions::sample_percentage].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::read_session::TableReadOptions;
+        /// let x = TableReadOptions::new().set_sample_percentage(42.0);
+        /// ```
         pub fn set_sample_percentage<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<f64>,
@@ -4154,6 +5212,13 @@ pub mod read_session {
         }
 
         /// Sets or clears the value of [sample_percentage][crate::write::generated::gapic_storage::model::read_session::TableReadOptions::sample_percentage].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::read_session::TableReadOptions;
+        /// let x = TableReadOptions::new().set_or_clear_sample_percentage(Some(42.0));
+        /// let x = TableReadOptions::new().set_or_clear_sample_percentage(None::<f32>);
+        /// ```
         pub fn set_or_clear_sample_percentage<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f64>,
@@ -4163,6 +5228,13 @@ pub mod read_session {
         }
 
         /// Sets the value of [response_compression_codec][crate::write::generated::gapic_storage::model::read_session::TableReadOptions::response_compression_codec].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::read_session::TableReadOptions;
+        /// use google_cloud_bigquery::model::read_session::table_read_options::ResponseCompressionCodec;
+        /// let x0 = TableReadOptions::new().set_response_compression_codec(ResponseCompressionCodec::Lz4);
+        /// ```
         pub fn set_response_compression_codec<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::write::generated::gapic_storage::model::read_session::table_read_options::ResponseCompressionCodec>
         {
@@ -4171,6 +5243,14 @@ pub mod read_session {
         }
 
         /// Sets or clears the value of [response_compression_codec][crate::write::generated::gapic_storage::model::read_session::TableReadOptions::response_compression_codec].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::read_session::TableReadOptions;
+        /// use google_cloud_bigquery::model::read_session::table_read_options::ResponseCompressionCodec;
+        /// let x0 = TableReadOptions::new().set_or_clear_response_compression_codec(Some(ResponseCompressionCodec::Lz4));
+        /// let x_none = TableReadOptions::new().set_or_clear_response_compression_codec(None::<ResponseCompressionCodec>);
+        /// ```
         pub fn set_or_clear_response_compression_codec<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::write::generated::gapic_storage::model::read_session::table_read_options::ResponseCompressionCodec>
         {
@@ -4182,6 +5262,14 @@ pub mod read_session {
         ///
         /// Note that all the setters affecting `output_format_serialization_options` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::read_session::TableReadOptions;
+        /// use google_cloud_bigquery::model::ArrowSerializationOptions;
+        /// let x = TableReadOptions::new().set_output_format_serialization_options(Some(
+        ///     google_cloud_bigquery::model::read_session::table_read_options::OutputFormatSerializationOptions::ArrowSerializationOptions(ArrowSerializationOptions::default().into())));
+        /// ```
         pub fn set_output_format_serialization_options<T: std::convert::Into<std::option::Option<crate::write::generated::gapic_storage::model::read_session::table_read_options::OutputFormatSerializationOptions>>>(mut self, v: T) -> Self
         {
             self.output_format_serialization_options = v.into();
@@ -4210,6 +5298,15 @@ pub mod read_session {
         ///
         /// Note that all the setters affecting `output_format_serialization_options` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::read_session::TableReadOptions;
+        /// use google_cloud_bigquery::model::ArrowSerializationOptions;
+        /// let x = TableReadOptions::new().set_arrow_serialization_options(ArrowSerializationOptions::default()/* use setters */);
+        /// assert!(x.arrow_serialization_options().is_some());
+        /// assert!(x.avro_serialization_options().is_none());
+        /// ```
         pub fn set_arrow_serialization_options<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -4250,6 +5347,15 @@ pub mod read_session {
         ///
         /// Note that all the setters affecting `output_format_serialization_options` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::read_session::TableReadOptions;
+        /// use google_cloud_bigquery::model::AvroSerializationOptions;
+        /// let x = TableReadOptions::new().set_avro_serialization_options(AvroSerializationOptions::default()/* use setters */);
+        /// assert!(x.avro_serialization_options().is_some());
+        /// assert!(x.arrow_serialization_options().is_none());
+        /// ```
         pub fn set_avro_serialization_options<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -4509,6 +5615,16 @@ impl ReadStream {
     }
 
     /// Sets the value of [name][crate::write::generated::gapic_storage::model::ReadStream::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::ReadStream;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let session_id = "session_id";
+    /// # let stream_id = "stream_id";
+    /// let x = ReadStream::new().set_name(format!("projects/{project_id}/locations/{location_id}/sessions/{session_id}/streams/{stream_id}"));
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4567,12 +5683,31 @@ impl WriteStream {
     }
 
     /// Sets the value of [name][crate::write::generated::gapic_storage::model::WriteStream::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::WriteStream;
+    /// # let project_id = "project_id";
+    /// # let dataset_id = "dataset_id";
+    /// # let table_id = "table_id";
+    /// # let stream_id = "stream_id";
+    /// let x = WriteStream::new().set_name(format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}/streams/{stream_id}"));
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::write::generated::gapic_storage::model::WriteStream::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::WriteStream;
+    /// use google_cloud_bigquery::model::write_stream::Type;
+    /// let x0 = WriteStream::new().set_type(Type::Committed);
+    /// let x1 = WriteStream::new().set_type(Type::Pending);
+    /// let x2 = WriteStream::new().set_type(Type::Buffered);
+    /// ```
     pub fn set_type<
         T: std::convert::Into<crate::write::generated::gapic_storage::model::write_stream::Type>,
     >(
@@ -4584,6 +5719,13 @@ impl WriteStream {
     }
 
     /// Sets the value of [create_time][crate::write::generated::gapic_storage::model::WriteStream::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::WriteStream;
+    /// use wkt::Timestamp;
+    /// let x = WriteStream::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4593,6 +5735,14 @@ impl WriteStream {
     }
 
     /// Sets or clears the value of [create_time][crate::write::generated::gapic_storage::model::WriteStream::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::WriteStream;
+    /// use wkt::Timestamp;
+    /// let x = WriteStream::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = WriteStream::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4602,6 +5752,13 @@ impl WriteStream {
     }
 
     /// Sets the value of [commit_time][crate::write::generated::gapic_storage::model::WriteStream::commit_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::WriteStream;
+    /// use wkt::Timestamp;
+    /// let x = WriteStream::new().set_commit_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_commit_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4611,6 +5768,14 @@ impl WriteStream {
     }
 
     /// Sets or clears the value of [commit_time][crate::write::generated::gapic_storage::model::WriteStream::commit_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::WriteStream;
+    /// use wkt::Timestamp;
+    /// let x = WriteStream::new().set_or_clear_commit_time(Some(Timestamp::default()/* use setters */));
+    /// let x = WriteStream::new().set_or_clear_commit_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_commit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4620,6 +5785,13 @@ impl WriteStream {
     }
 
     /// Sets the value of [table_schema][crate::write::generated::gapic_storage::model::WriteStream::table_schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::WriteStream;
+    /// use google_cloud_bigquery::model::TableSchema;
+    /// let x = WriteStream::new().set_table_schema(TableSchema::default()/* use setters */);
+    /// ```
     pub fn set_table_schema<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::write::generated::gapic_storage::model::TableSchema>,
@@ -4629,6 +5801,14 @@ impl WriteStream {
     }
 
     /// Sets or clears the value of [table_schema][crate::write::generated::gapic_storage::model::WriteStream::table_schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::WriteStream;
+    /// use google_cloud_bigquery::model::TableSchema;
+    /// let x = WriteStream::new().set_or_clear_table_schema(Some(TableSchema::default()/* use setters */));
+    /// let x = WriteStream::new().set_or_clear_table_schema(None::<TableSchema>);
+    /// ```
     pub fn set_or_clear_table_schema<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::write::generated::gapic_storage::model::TableSchema>,
@@ -4638,6 +5818,13 @@ impl WriteStream {
     }
 
     /// Sets the value of [write_mode][crate::write::generated::gapic_storage::model::WriteStream::write_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::WriteStream;
+    /// use google_cloud_bigquery::model::write_stream::WriteMode;
+    /// let x0 = WriteStream::new().set_write_mode(WriteMode::Insert);
+    /// ```
     pub fn set_write_mode<
         T: std::convert::Into<crate::write::generated::gapic_storage::model::write_stream::WriteMode>,
     >(
@@ -4649,6 +5836,12 @@ impl WriteStream {
     }
 
     /// Sets the value of [location][crate::write::generated::gapic_storage::model::WriteStream::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::WriteStream;
+    /// let x = WriteStream::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
@@ -4952,6 +6145,17 @@ impl TableSchema {
     }
 
     /// Sets the value of [fields][crate::write::generated::gapic_storage::model::TableSchema::fields].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::TableSchema;
+    /// use google_cloud_bigquery::model::TableFieldSchema;
+    /// let x = TableSchema::new()
+    ///     .set_fields([
+    ///         TableFieldSchema::default()/* use setters */,
+    ///         TableFieldSchema::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5076,12 +6280,27 @@ impl TableFieldSchema {
     }
 
     /// Sets the value of [name][crate::write::generated::gapic_storage::model::TableFieldSchema::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::TableFieldSchema;
+    /// let x = TableFieldSchema::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::write::generated::gapic_storage::model::TableFieldSchema::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::TableFieldSchema;
+    /// use google_cloud_bigquery::model::table_field_schema::Type;
+    /// let x0 = TableFieldSchema::new().set_type(Type::String);
+    /// let x1 = TableFieldSchema::new().set_type(Type::Int64);
+    /// let x2 = TableFieldSchema::new().set_type(Type::Double);
+    /// ```
     pub fn set_type<
         T: std::convert::Into<crate::write::generated::gapic_storage::model::table_field_schema::Type>,
     >(
@@ -5093,6 +6312,15 @@ impl TableFieldSchema {
     }
 
     /// Sets the value of [mode][crate::write::generated::gapic_storage::model::TableFieldSchema::mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::TableFieldSchema;
+    /// use google_cloud_bigquery::model::table_field_schema::Mode;
+    /// let x0 = TableFieldSchema::new().set_mode(Mode::Nullable);
+    /// let x1 = TableFieldSchema::new().set_mode(Mode::Required);
+    /// let x2 = TableFieldSchema::new().set_mode(Mode::Repeated);
+    /// ```
     pub fn set_mode<
         T: std::convert::Into<crate::write::generated::gapic_storage::model::table_field_schema::Mode>,
     >(
@@ -5104,6 +6332,16 @@ impl TableFieldSchema {
     }
 
     /// Sets the value of [fields][crate::write::generated::gapic_storage::model::TableFieldSchema::fields].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::TableFieldSchema;
+    /// let x = TableFieldSchema::new()
+    ///     .set_fields([
+    ///         TableFieldSchema::default()/* use setters */,
+    ///         TableFieldSchema::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5115,30 +6353,60 @@ impl TableFieldSchema {
     }
 
     /// Sets the value of [description][crate::write::generated::gapic_storage::model::TableFieldSchema::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::TableFieldSchema;
+    /// let x = TableFieldSchema::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [max_length][crate::write::generated::gapic_storage::model::TableFieldSchema::max_length].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::TableFieldSchema;
+    /// let x = TableFieldSchema::new().set_max_length(42);
+    /// ```
     pub fn set_max_length<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.max_length = v.into();
         self
     }
 
     /// Sets the value of [precision][crate::write::generated::gapic_storage::model::TableFieldSchema::precision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::TableFieldSchema;
+    /// let x = TableFieldSchema::new().set_precision(42);
+    /// ```
     pub fn set_precision<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.precision = v.into();
         self
     }
 
     /// Sets the value of [scale][crate::write::generated::gapic_storage::model::TableFieldSchema::scale].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::TableFieldSchema;
+    /// let x = TableFieldSchema::new().set_scale(42);
+    /// ```
     pub fn set_scale<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.scale = v.into();
         self
     }
 
     /// Sets the value of [default_value_expression][crate::write::generated::gapic_storage::model::TableFieldSchema::default_value_expression].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::TableFieldSchema;
+    /// let x = TableFieldSchema::new().set_default_value_expression("example");
+    /// ```
     pub fn set_default_value_expression<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5148,6 +6416,13 @@ impl TableFieldSchema {
     }
 
     /// Sets the value of [timestamp_precision][crate::write::generated::gapic_storage::model::TableFieldSchema::timestamp_precision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::TableFieldSchema;
+    /// use wkt::Int64Value;
+    /// let x = TableFieldSchema::new().set_timestamp_precision(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_timestamp_precision<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -5157,6 +6432,14 @@ impl TableFieldSchema {
     }
 
     /// Sets or clears the value of [timestamp_precision][crate::write::generated::gapic_storage::model::TableFieldSchema::timestamp_precision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::TableFieldSchema;
+    /// use wkt::Int64Value;
+    /// let x = TableFieldSchema::new().set_or_clear_timestamp_precision(Some(Int64Value::default()/* use setters */));
+    /// let x = TableFieldSchema::new().set_or_clear_timestamp_precision(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_timestamp_precision<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -5166,6 +6449,13 @@ impl TableFieldSchema {
     }
 
     /// Sets the value of [range_element_type][crate::write::generated::gapic_storage::model::TableFieldSchema::range_element_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::TableFieldSchema;
+    /// use google_cloud_bigquery::model::table_field_schema::FieldElementType;
+    /// let x = TableFieldSchema::new().set_range_element_type(FieldElementType::default()/* use setters */);
+    /// ```
     pub fn set_range_element_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<
@@ -5177,6 +6467,14 @@ impl TableFieldSchema {
     }
 
     /// Sets or clears the value of [range_element_type][crate::write::generated::gapic_storage::model::TableFieldSchema::range_element_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery::model::TableFieldSchema;
+    /// use google_cloud_bigquery::model::table_field_schema::FieldElementType;
+    /// let x = TableFieldSchema::new().set_or_clear_range_element_type(Some(FieldElementType::default()/* use setters */));
+    /// let x = TableFieldSchema::new().set_or_clear_range_element_type(None::<FieldElementType>);
+    /// ```
     pub fn set_or_clear_range_element_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<
@@ -5216,6 +6514,15 @@ pub mod table_field_schema {
         }
 
         /// Sets the value of [r#type][crate::write::generated::gapic_storage::model::table_field_schema::FieldElementType::type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery::model::table_field_schema::FieldElementType;
+        /// use google_cloud_bigquery::model::table_field_schema::Type;
+        /// let x0 = FieldElementType::new().set_type(Type::String);
+        /// let x1 = FieldElementType::new().set_type(Type::Int64);
+        /// let x2 = FieldElementType::new().set_type(Type::Double);
+        /// ```
         pub fn set_type<
             T: std::convert::Into<
                     crate::write::generated::gapic_storage::model::table_field_schema::Type,

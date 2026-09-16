@@ -2172,6 +2172,12 @@ impl serde::ser::Serialize for super::ExternalProtectionLevelOptions {
         if !self.ekm_connection_key_path.is_empty() {
             state.serialize_entry("ekmConnectionKeyPath", &self.ekm_connection_key_path)?;
         }
+        if !self.ekm_connection_backend_override.is_empty() {
+            state.serialize_entry(
+                "ekmConnectionBackendOverride",
+                &self.ekm_connection_backend_override,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

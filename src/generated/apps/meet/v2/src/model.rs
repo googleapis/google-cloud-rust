@@ -47,7 +47,7 @@ pub struct Space {
     /// server-generated ID and is case sensitive. For example, `jQCFfuBOdN5z`.
     ///
     /// For more information, see [How Meet identifies a meeting
-    /// space](https://developers.google.com/meet/api/guides/meeting-spaces#identify-meeting-space).
+    /// space](https://developers.google.com/workspace/meet/api/guides/meeting-spaces#identify-meeting-space).
     pub name: std::string::String,
 
     /// Output only. URI used to join meetings consisting of
@@ -69,6 +69,14 @@ pub struct Space {
 
     /// Active conference, if it exists.
     pub active_conference: std::option::Option<crate::model::ActiveConference>,
+
+    /// Output only. All regional phone access methods for this meeting space. Can
+    /// be empty.
+    pub phone_access: std::vec::Vec<crate::model::space::PhoneAccess>,
+
+    /// Output only. The SIP-based access methods that can be used to join the
+    /// conference. Can be empty.
+    pub gateway_sip_access: std::vec::Vec<crate::model::space::GatewaySipAccess>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -181,11 +189,218 @@ impl Space {
         self.active_conference = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [phone_access][crate::model::Space::phone_access].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::Space;
+    /// use google_apps_meet_v2::model::space::PhoneAccess;
+    /// let x = Space::new()
+    ///     .set_phone_access([
+    ///         PhoneAccess::default()/* use setters */,
+    ///         PhoneAccess::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_phone_access<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::space::PhoneAccess>,
+    {
+        use std::iter::Iterator;
+        self.phone_access = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [gateway_sip_access][crate::model::Space::gateway_sip_access].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::Space;
+    /// use google_apps_meet_v2::model::space::GatewaySipAccess;
+    /// let x = Space::new()
+    ///     .set_gateway_sip_access([
+    ///         GatewaySipAccess::default()/* use setters */,
+    ///         GatewaySipAccess::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_gateway_sip_access<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::space::GatewaySipAccess>,
+    {
+        use std::iter::Iterator;
+        self.gateway_sip_access = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for Space {
     fn typename() -> &'static str {
         "type.googleapis.com/google.apps.meet.v2.Space"
+    }
+}
+
+/// Defines additional types related to [Space].
+pub mod space {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Phone access contains information required to dial into a conference using
+    /// a regional phone number and a PIN that is specific to that phone number.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct PhoneAccess {
+        /// The phone number to dial for this meeting space in E.164 format.
+        /// Full phone number with a leading '+' character.
+        pub phone_number: std::string::String,
+
+        /// The PIN that users must enter after dialing the given number. The PIN
+        /// consists of only decimal digits and the length may vary.
+        pub pin: std::string::String,
+
+        /// The CLDR/ISO 3166 region code for the country associated with this phone
+        /// access. To be parsed by the i18n RegionCode utility. Example: "SE" for
+        /// Sweden.
+        pub region_code: std::string::String,
+
+        /// The BCP 47/LDML language code for the language associated with this phone
+        /// access. To be parsed by the i18n LanguageCode utility. Examples: "es-419"
+        /// for Latin American Spanish, "fr-CA" for Canadian French.
+        pub language_code: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl PhoneAccess {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [phone_number][crate::model::space::PhoneAccess::phone_number].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_apps_meet_v2::model::space::PhoneAccess;
+        /// let x = PhoneAccess::new().set_phone_number("example");
+        /// ```
+        pub fn set_phone_number<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.phone_number = v.into();
+            self
+        }
+
+        /// Sets the value of [pin][crate::model::space::PhoneAccess::pin].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_apps_meet_v2::model::space::PhoneAccess;
+        /// let x = PhoneAccess::new().set_pin("example");
+        /// ```
+        pub fn set_pin<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.pin = v.into();
+            self
+        }
+
+        /// Sets the value of [region_code][crate::model::space::PhoneAccess::region_code].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_apps_meet_v2::model::space::PhoneAccess;
+        /// let x = PhoneAccess::new().set_region_code("example");
+        /// ```
+        pub fn set_region_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.region_code = v.into();
+            self
+        }
+
+        /// Sets the value of [language_code][crate::model::space::PhoneAccess::language_code].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_apps_meet_v2::model::space::PhoneAccess;
+        /// let x = PhoneAccess::new().set_language_code("example");
+        /// ```
+        pub fn set_language_code<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.language_code = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for PhoneAccess {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.apps.meet.v2.Space.PhoneAccess"
+        }
+    }
+
+    /// Details how to join the conference through a SIP gateway.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GatewaySipAccess {
+        /// The Session Initiation Protocol (SIP) URI the conference can be reached
+        /// through.
+        ///
+        /// The string is in one of these formats:
+        ///
+        /// * "sip:USER_ID@GATEWAY_ADDRESS"
+        /// * "sips:USER_ID@GATEWAY_ADDRESS"
+        ///
+        /// where USER_ID is the 13-digit universal pin (with the future option to
+        /// support using a Meet meeting code as well), and GATEWAY_ADDRESS is a
+        /// valid address to be resolved using a DNS SRV lookup, or a dotted quad.
+        pub uri: std::string::String,
+
+        /// The permanent numeric code for manual entry on specially configured
+        /// devices.
+        pub sip_access_code: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl GatewaySipAccess {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [uri][crate::model::space::GatewaySipAccess::uri].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_apps_meet_v2::model::space::GatewaySipAccess;
+        /// let x = GatewaySipAccess::new().set_uri("example");
+        /// ```
+        pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.uri = v.into();
+            self
+        }
+
+        /// Sets the value of [sip_access_code][crate::model::space::GatewaySipAccess::sip_access_code].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_apps_meet_v2::model::space::GatewaySipAccess;
+        /// let x = GatewaySipAccess::new().set_sip_access_code("example");
+        /// ```
+        pub fn set_sip_access_code<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.sip_access_code = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for GatewaySipAccess {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.apps.meet.v2.Space.GatewaySipAccess"
+        }
     }
 }
 
@@ -244,6 +459,23 @@ pub struct SpaceConfig {
     /// Default: EntryPointAccess.ALL
     pub entry_point_access: crate::model::space_config::EntryPointAccess,
 
+    /// The pre-configured moderation mode for the Meeting.
+    /// Default: Controlled by the user's policies.
+    pub moderation: crate::model::space_config::Moderation,
+
+    /// When moderation.ON, these restrictions go into effect for the meeting.
+    /// When moderation.OFF, will be reset to default ModerationRestrictions.
+    pub moderation_restrictions:
+        std::option::Option<crate::model::space_config::ModerationRestrictions>,
+
+    /// Whether attendance report is enabled for the meeting space.
+    pub attendance_report_generation_type:
+        crate::model::space_config::AttendanceReportGenerationType,
+
+    /// Configuration pertaining to the auto-generated artifacts that the meeting
+    /// supports.
+    pub artifact_config: std::option::Option<crate::model::space_config::ArtifactConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -289,6 +521,108 @@ impl SpaceConfig {
         self.entry_point_access = v.into();
         self
     }
+
+    /// Sets the value of [moderation][crate::model::SpaceConfig::moderation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::SpaceConfig;
+    /// use google_apps_meet_v2::model::space_config::Moderation;
+    /// let x0 = SpaceConfig::new().set_moderation(Moderation::Off);
+    /// let x1 = SpaceConfig::new().set_moderation(Moderation::On);
+    /// ```
+    pub fn set_moderation<T: std::convert::Into<crate::model::space_config::Moderation>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.moderation = v.into();
+        self
+    }
+
+    /// Sets the value of [moderation_restrictions][crate::model::SpaceConfig::moderation_restrictions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::SpaceConfig;
+    /// use google_apps_meet_v2::model::space_config::ModerationRestrictions;
+    /// let x = SpaceConfig::new().set_moderation_restrictions(ModerationRestrictions::default()/* use setters */);
+    /// ```
+    pub fn set_moderation_restrictions<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::space_config::ModerationRestrictions>,
+    {
+        self.moderation_restrictions = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [moderation_restrictions][crate::model::SpaceConfig::moderation_restrictions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::SpaceConfig;
+    /// use google_apps_meet_v2::model::space_config::ModerationRestrictions;
+    /// let x = SpaceConfig::new().set_or_clear_moderation_restrictions(Some(ModerationRestrictions::default()/* use setters */));
+    /// let x = SpaceConfig::new().set_or_clear_moderation_restrictions(None::<ModerationRestrictions>);
+    /// ```
+    pub fn set_or_clear_moderation_restrictions<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::space_config::ModerationRestrictions>,
+    {
+        self.moderation_restrictions = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [attendance_report_generation_type][crate::model::SpaceConfig::attendance_report_generation_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::SpaceConfig;
+    /// use google_apps_meet_v2::model::space_config::AttendanceReportGenerationType;
+    /// let x0 = SpaceConfig::new().set_attendance_report_generation_type(AttendanceReportGenerationType::GenerateReport);
+    /// let x1 = SpaceConfig::new().set_attendance_report_generation_type(AttendanceReportGenerationType::DoNotGenerate);
+    /// ```
+    pub fn set_attendance_report_generation_type<
+        T: std::convert::Into<crate::model::space_config::AttendanceReportGenerationType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.attendance_report_generation_type = v.into();
+        self
+    }
+
+    /// Sets the value of [artifact_config][crate::model::SpaceConfig::artifact_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::SpaceConfig;
+    /// use google_apps_meet_v2::model::space_config::ArtifactConfig;
+    /// let x = SpaceConfig::new().set_artifact_config(ArtifactConfig::default()/* use setters */);
+    /// ```
+    pub fn set_artifact_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::space_config::ArtifactConfig>,
+    {
+        self.artifact_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [artifact_config][crate::model::SpaceConfig::artifact_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::SpaceConfig;
+    /// use google_apps_meet_v2::model::space_config::ArtifactConfig;
+    /// let x = SpaceConfig::new().set_or_clear_artifact_config(Some(ArtifactConfig::default()/* use setters */));
+    /// let x = SpaceConfig::new().set_or_clear_artifact_config(None::<ArtifactConfig>);
+    /// ```
+    pub fn set_or_clear_artifact_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::space_config::ArtifactConfig>,
+    {
+        self.artifact_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for SpaceConfig {
@@ -301,6 +635,819 @@ impl wkt::message::Message for SpaceConfig {
 pub mod space_config {
     #[allow(unused_imports)]
     use super::*;
+
+    /// Defines restrictions for features when the meeting is moderated.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ModerationRestrictions {
+        /// Defines who has permission to send chat messages in the meeting space.
+        pub chat_restriction: crate::model::space_config::moderation_restrictions::RestrictionType,
+
+        /// Defines who has permission to send reactions in the meeting space.
+        pub reaction_restriction:
+            crate::model::space_config::moderation_restrictions::RestrictionType,
+
+        /// Defines who has permission to share their screen in the meeting space.
+        pub present_restriction:
+            crate::model::space_config::moderation_restrictions::RestrictionType,
+
+        /// Defines whether to restrict the default role assigned to users as viewer.
+        pub default_join_as_viewer_type:
+            crate::model::space_config::moderation_restrictions::DefaultJoinAsViewerType,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ModerationRestrictions {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [chat_restriction][crate::model::space_config::ModerationRestrictions::chat_restriction].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_apps_meet_v2::model::space_config::ModerationRestrictions;
+        /// use google_apps_meet_v2::model::space_config::moderation_restrictions::RestrictionType;
+        /// let x0 = ModerationRestrictions::new().set_chat_restriction(RestrictionType::HostsOnly);
+        /// let x1 = ModerationRestrictions::new().set_chat_restriction(RestrictionType::NoRestriction);
+        /// ```
+        pub fn set_chat_restriction<
+            T: std::convert::Into<
+                    crate::model::space_config::moderation_restrictions::RestrictionType,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.chat_restriction = v.into();
+            self
+        }
+
+        /// Sets the value of [reaction_restriction][crate::model::space_config::ModerationRestrictions::reaction_restriction].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_apps_meet_v2::model::space_config::ModerationRestrictions;
+        /// use google_apps_meet_v2::model::space_config::moderation_restrictions::RestrictionType;
+        /// let x0 = ModerationRestrictions::new().set_reaction_restriction(RestrictionType::HostsOnly);
+        /// let x1 = ModerationRestrictions::new().set_reaction_restriction(RestrictionType::NoRestriction);
+        /// ```
+        pub fn set_reaction_restriction<
+            T: std::convert::Into<
+                    crate::model::space_config::moderation_restrictions::RestrictionType,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.reaction_restriction = v.into();
+            self
+        }
+
+        /// Sets the value of [present_restriction][crate::model::space_config::ModerationRestrictions::present_restriction].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_apps_meet_v2::model::space_config::ModerationRestrictions;
+        /// use google_apps_meet_v2::model::space_config::moderation_restrictions::RestrictionType;
+        /// let x0 = ModerationRestrictions::new().set_present_restriction(RestrictionType::HostsOnly);
+        /// let x1 = ModerationRestrictions::new().set_present_restriction(RestrictionType::NoRestriction);
+        /// ```
+        pub fn set_present_restriction<
+            T: std::convert::Into<
+                    crate::model::space_config::moderation_restrictions::RestrictionType,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.present_restriction = v.into();
+            self
+        }
+
+        /// Sets the value of [default_join_as_viewer_type][crate::model::space_config::ModerationRestrictions::default_join_as_viewer_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_apps_meet_v2::model::space_config::ModerationRestrictions;
+        /// use google_apps_meet_v2::model::space_config::moderation_restrictions::DefaultJoinAsViewerType;
+        /// let x0 = ModerationRestrictions::new().set_default_join_as_viewer_type(DefaultJoinAsViewerType::On);
+        /// let x1 = ModerationRestrictions::new().set_default_join_as_viewer_type(DefaultJoinAsViewerType::Off);
+        /// ```
+        pub fn set_default_join_as_viewer_type<
+            T: std::convert::Into<
+                    crate::model::space_config::moderation_restrictions::DefaultJoinAsViewerType,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.default_join_as_viewer_type = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ModerationRestrictions {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.apps.meet.v2.SpaceConfig.ModerationRestrictions"
+        }
+    }
+
+    /// Defines additional types related to [ModerationRestrictions].
+    pub mod moderation_restrictions {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Determines who has permission to use a particular feature.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum RestrictionType {
+            /// Default value specified by user policy.
+            /// This should never be returned.
+            Unspecified,
+            /// Meeting owner and co-host have the permission.
+            HostsOnly,
+            /// All Participants have permissions.
+            NoRestriction,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [RestrictionType::value] or
+            /// [RestrictionType::name].
+            UnknownValue(restriction_type::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod restriction_type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl RestrictionType {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::HostsOnly => std::option::Option::Some(1),
+                    Self::NoRestriction => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("RESTRICTION_TYPE_UNSPECIFIED"),
+                    Self::HostsOnly => std::option::Option::Some("HOSTS_ONLY"),
+                    Self::NoRestriction => std::option::Option::Some("NO_RESTRICTION"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for RestrictionType {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for RestrictionType {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for RestrictionType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::HostsOnly,
+                    2 => Self::NoRestriction,
+                    _ => Self::UnknownValue(restriction_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for RestrictionType {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "RESTRICTION_TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "HOSTS_ONLY" => Self::HostsOnly,
+                    "NO_RESTRICTION" => Self::NoRestriction,
+                    _ => Self::UnknownValue(restriction_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for RestrictionType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::HostsOnly => serializer.serialize_i32(1),
+                    Self::NoRestriction => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for RestrictionType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<RestrictionType>::new(
+                    ".google.apps.meet.v2.SpaceConfig.ModerationRestrictions.RestrictionType",
+                ))
+            }
+        }
+
+        /// By default users will join as contributors. Hosts can restrict users to
+        /// join as viewers.
+        /// Note: If an explicit role is set for a user in the Member resource, the
+        /// user will join as that role.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum DefaultJoinAsViewerType {
+            /// Default value specified by user policy.
+            /// This should never be returned.
+            Unspecified,
+            /// Users will by default join as viewers.
+            On,
+            /// Users will by default join as contributors.
+            Off,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [DefaultJoinAsViewerType::value] or
+            /// [DefaultJoinAsViewerType::name].
+            UnknownValue(default_join_as_viewer_type::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod default_join_as_viewer_type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl DefaultJoinAsViewerType {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::On => std::option::Option::Some(1),
+                    Self::Off => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => {
+                        std::option::Option::Some("DEFAULT_JOIN_AS_VIEWER_TYPE_UNSPECIFIED")
+                    }
+                    Self::On => std::option::Option::Some("ON"),
+                    Self::Off => std::option::Option::Some("OFF"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for DefaultJoinAsViewerType {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for DefaultJoinAsViewerType {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for DefaultJoinAsViewerType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::On,
+                    2 => Self::Off,
+                    _ => Self::UnknownValue(default_join_as_viewer_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for DefaultJoinAsViewerType {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "DEFAULT_JOIN_AS_VIEWER_TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "ON" => Self::On,
+                    "OFF" => Self::Off,
+                    _ => Self::UnknownValue(default_join_as_viewer_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for DefaultJoinAsViewerType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::On => serializer.serialize_i32(1),
+                    Self::Off => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for DefaultJoinAsViewerType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<DefaultJoinAsViewerType>::new(
+                    ".google.apps.meet.v2.SpaceConfig.ModerationRestrictions.DefaultJoinAsViewerType"))
+            }
+        }
+    }
+
+    /// Configuration related to meeting artifacts potentially generated by this
+    /// meeting space.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ArtifactConfig {
+        /// Configuration for recording.
+        pub recording_config:
+            std::option::Option<crate::model::space_config::artifact_config::RecordingConfig>,
+
+        /// Configuration for auto-transcript.
+        pub transcription_config:
+            std::option::Option<crate::model::space_config::artifact_config::TranscriptionConfig>,
+
+        /// Configuration for auto-smart-notes.
+        pub smart_notes_config:
+            std::option::Option<crate::model::space_config::artifact_config::SmartNotesConfig>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ArtifactConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [recording_config][crate::model::space_config::ArtifactConfig::recording_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_apps_meet_v2::model::space_config::ArtifactConfig;
+        /// use google_apps_meet_v2::model::space_config::artifact_config::RecordingConfig;
+        /// let x = ArtifactConfig::new().set_recording_config(RecordingConfig::default()/* use setters */);
+        /// ```
+        pub fn set_recording_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::space_config::artifact_config::RecordingConfig>,
+        {
+            self.recording_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [recording_config][crate::model::space_config::ArtifactConfig::recording_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_apps_meet_v2::model::space_config::ArtifactConfig;
+        /// use google_apps_meet_v2::model::space_config::artifact_config::RecordingConfig;
+        /// let x = ArtifactConfig::new().set_or_clear_recording_config(Some(RecordingConfig::default()/* use setters */));
+        /// let x = ArtifactConfig::new().set_or_clear_recording_config(None::<RecordingConfig>);
+        /// ```
+        pub fn set_or_clear_recording_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::space_config::artifact_config::RecordingConfig>,
+        {
+            self.recording_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [transcription_config][crate::model::space_config::ArtifactConfig::transcription_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_apps_meet_v2::model::space_config::ArtifactConfig;
+        /// use google_apps_meet_v2::model::space_config::artifact_config::TranscriptionConfig;
+        /// let x = ArtifactConfig::new().set_transcription_config(TranscriptionConfig::default()/* use setters */);
+        /// ```
+        pub fn set_transcription_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::space_config::artifact_config::TranscriptionConfig>,
+        {
+            self.transcription_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [transcription_config][crate::model::space_config::ArtifactConfig::transcription_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_apps_meet_v2::model::space_config::ArtifactConfig;
+        /// use google_apps_meet_v2::model::space_config::artifact_config::TranscriptionConfig;
+        /// let x = ArtifactConfig::new().set_or_clear_transcription_config(Some(TranscriptionConfig::default()/* use setters */));
+        /// let x = ArtifactConfig::new().set_or_clear_transcription_config(None::<TranscriptionConfig>);
+        /// ```
+        pub fn set_or_clear_transcription_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::space_config::artifact_config::TranscriptionConfig>,
+        {
+            self.transcription_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [smart_notes_config][crate::model::space_config::ArtifactConfig::smart_notes_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_apps_meet_v2::model::space_config::ArtifactConfig;
+        /// use google_apps_meet_v2::model::space_config::artifact_config::SmartNotesConfig;
+        /// let x = ArtifactConfig::new().set_smart_notes_config(SmartNotesConfig::default()/* use setters */);
+        /// ```
+        pub fn set_smart_notes_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::space_config::artifact_config::SmartNotesConfig>,
+        {
+            self.smart_notes_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [smart_notes_config][crate::model::space_config::ArtifactConfig::smart_notes_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_apps_meet_v2::model::space_config::ArtifactConfig;
+        /// use google_apps_meet_v2::model::space_config::artifact_config::SmartNotesConfig;
+        /// let x = ArtifactConfig::new().set_or_clear_smart_notes_config(Some(SmartNotesConfig::default()/* use setters */));
+        /// let x = ArtifactConfig::new().set_or_clear_smart_notes_config(None::<SmartNotesConfig>);
+        /// ```
+        pub fn set_or_clear_smart_notes_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::space_config::artifact_config::SmartNotesConfig>,
+        {
+            self.smart_notes_config = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for ArtifactConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.apps.meet.v2.SpaceConfig.ArtifactConfig"
+        }
+    }
+
+    /// Defines additional types related to [ArtifactConfig].
+    pub mod artifact_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Configuration related to recording in a meeting space.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct RecordingConfig {
+            /// Defines whether a meeting space is automatically recorded when someone
+            /// with the privilege to record joins the meeting.
+            pub auto_recording_generation:
+                crate::model::space_config::artifact_config::AutoGenerationType,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl RecordingConfig {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [auto_recording_generation][crate::model::space_config::artifact_config::RecordingConfig::auto_recording_generation].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_apps_meet_v2::model::space_config::artifact_config::RecordingConfig;
+            /// use google_apps_meet_v2::model::space_config::artifact_config::AutoGenerationType;
+            /// let x0 = RecordingConfig::new().set_auto_recording_generation(AutoGenerationType::On);
+            /// let x1 = RecordingConfig::new().set_auto_recording_generation(AutoGenerationType::Off);
+            /// ```
+            pub fn set_auto_recording_generation<
+                T: std::convert::Into<crate::model::space_config::artifact_config::AutoGenerationType>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.auto_recording_generation = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for RecordingConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.apps.meet.v2.SpaceConfig.ArtifactConfig.RecordingConfig"
+            }
+        }
+
+        /// Configuration related to transcription in a meeting space.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct TranscriptionConfig {
+            /// Defines whether the content of a meeting is automatically transcribed
+            /// when someone with the privilege to transcribe joins the meeting.
+            pub auto_transcription_generation:
+                crate::model::space_config::artifact_config::AutoGenerationType,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl TranscriptionConfig {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [auto_transcription_generation][crate::model::space_config::artifact_config::TranscriptionConfig::auto_transcription_generation].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_apps_meet_v2::model::space_config::artifact_config::TranscriptionConfig;
+            /// use google_apps_meet_v2::model::space_config::artifact_config::AutoGenerationType;
+            /// let x0 = TranscriptionConfig::new().set_auto_transcription_generation(AutoGenerationType::On);
+            /// let x1 = TranscriptionConfig::new().set_auto_transcription_generation(AutoGenerationType::Off);
+            /// ```
+            pub fn set_auto_transcription_generation<
+                T: std::convert::Into<crate::model::space_config::artifact_config::AutoGenerationType>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.auto_transcription_generation = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for TranscriptionConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.apps.meet.v2.SpaceConfig.ArtifactConfig.TranscriptionConfig"
+            }
+        }
+
+        /// Configuration related to smart notes in a meeting space. For
+        /// more information about smart notes, see ["Take notes for me" in Google
+        /// Meet](https://support.google.com/meet/answer/14754931).
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct SmartNotesConfig {
+            /// Defines whether to automatically generate a summary and recap of the
+            /// meeting for all invitees in the organization when someone with the
+            /// privilege to enable smart notes joins the meeting.
+            pub auto_smart_notes_generation:
+                crate::model::space_config::artifact_config::AutoGenerationType,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl SmartNotesConfig {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [auto_smart_notes_generation][crate::model::space_config::artifact_config::SmartNotesConfig::auto_smart_notes_generation].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_apps_meet_v2::model::space_config::artifact_config::SmartNotesConfig;
+            /// use google_apps_meet_v2::model::space_config::artifact_config::AutoGenerationType;
+            /// let x0 = SmartNotesConfig::new().set_auto_smart_notes_generation(AutoGenerationType::On);
+            /// let x1 = SmartNotesConfig::new().set_auto_smart_notes_generation(AutoGenerationType::Off);
+            /// ```
+            pub fn set_auto_smart_notes_generation<
+                T: std::convert::Into<crate::model::space_config::artifact_config::AutoGenerationType>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.auto_smart_notes_generation = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for SmartNotesConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.apps.meet.v2.SpaceConfig.ArtifactConfig.SmartNotesConfig"
+            }
+        }
+
+        /// Determines whether an artifact can be automatically generated in the
+        /// meeting space.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum AutoGenerationType {
+            /// Default value specified by user policy.
+            /// This should never be returned.
+            Unspecified,
+            /// The artifact is generated automatically.
+            On,
+            /// The artifact is not generated automatically.
+            Off,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [AutoGenerationType::value] or
+            /// [AutoGenerationType::name].
+            UnknownValue(auto_generation_type::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod auto_generation_type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl AutoGenerationType {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::On => std::option::Option::Some(1),
+                    Self::Off => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => {
+                        std::option::Option::Some("AUTO_GENERATION_TYPE_UNSPECIFIED")
+                    }
+                    Self::On => std::option::Option::Some("ON"),
+                    Self::Off => std::option::Option::Some("OFF"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for AutoGenerationType {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for AutoGenerationType {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for AutoGenerationType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::On,
+                    2 => Self::Off,
+                    _ => Self::UnknownValue(auto_generation_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for AutoGenerationType {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "AUTO_GENERATION_TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "ON" => Self::On,
+                    "OFF" => Self::Off,
+                    _ => Self::UnknownValue(auto_generation_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for AutoGenerationType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::On => serializer.serialize_i32(1),
+                    Self::Off => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for AutoGenerationType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<AutoGenerationType>::new(
+                    ".google.apps.meet.v2.SpaceConfig.ArtifactConfig.AutoGenerationType",
+                ))
+            }
+        }
+    }
 
     /// Possible access types for a meeting space.
     ///
@@ -576,6 +1723,486 @@ pub mod space_config {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<EntryPointAccess>::new(
                 ".google.apps.meet.v2.SpaceConfig.EntryPointAccess",
+            ))
+        }
+    }
+
+    /// The moderation mode for a meeting. When the moderation mode is on, the
+    /// meeting owner has more control over the meeting with features such as
+    /// co-host management (see message Member) and feature restrictions (see
+    /// message ModerationRestrictions).
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Moderation {
+        /// Moderation type is not specified. This is used to indicate the user
+        /// hasn't specified any value as the user does not intend to update the
+        /// state. Users are not allowed to set the value as unspecified.
+        Unspecified,
+        /// Moderation is off.
+        Off,
+        /// Moderation is on.
+        On,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Moderation::value] or
+        /// [Moderation::name].
+        UnknownValue(moderation::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod moderation {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Moderation {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Off => std::option::Option::Some(1),
+                Self::On => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MODERATION_UNSPECIFIED"),
+                Self::Off => std::option::Option::Some("OFF"),
+                Self::On => std::option::Option::Some("ON"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Moderation {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Moderation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Moderation {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Off,
+                2 => Self::On,
+                _ => Self::UnknownValue(moderation::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Moderation {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MODERATION_UNSPECIFIED" => Self::Unspecified,
+                "OFF" => Self::Off,
+                "ON" => Self::On,
+                _ => Self::UnknownValue(moderation::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Moderation {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Off => serializer.serialize_i32(1),
+                Self::On => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Moderation {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Moderation>::new(
+                ".google.apps.meet.v2.SpaceConfig.Moderation",
+            ))
+        }
+    }
+
+    /// Possible states of whether attendance report is enabled for the meeting
+    /// space.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AttendanceReportGenerationType {
+        /// Default value specified by user policy.
+        /// This should never be returned.
+        Unspecified,
+        /// Attendance report will be generated and sent to drive/email.
+        GenerateReport,
+        /// Attendance report will not be generated.
+        DoNotGenerate,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AttendanceReportGenerationType::value] or
+        /// [AttendanceReportGenerationType::name].
+        UnknownValue(attendance_report_generation_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod attendance_report_generation_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl AttendanceReportGenerationType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::GenerateReport => std::option::Option::Some(1),
+                Self::DoNotGenerate => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("ATTENDANCE_REPORT_GENERATION_TYPE_UNSPECIFIED")
+                }
+                Self::GenerateReport => std::option::Option::Some("GENERATE_REPORT"),
+                Self::DoNotGenerate => std::option::Option::Some("DO_NOT_GENERATE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for AttendanceReportGenerationType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AttendanceReportGenerationType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AttendanceReportGenerationType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::GenerateReport,
+                2 => Self::DoNotGenerate,
+                _ => Self::UnknownValue(attendance_report_generation_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AttendanceReportGenerationType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ATTENDANCE_REPORT_GENERATION_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "GENERATE_REPORT" => Self::GenerateReport,
+                "DO_NOT_GENERATE" => Self::DoNotGenerate,
+                _ => Self::UnknownValue(attendance_report_generation_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AttendanceReportGenerationType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::GenerateReport => serializer.serialize_i32(1),
+                Self::DoNotGenerate => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AttendanceReportGenerationType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<AttendanceReportGenerationType>::new(
+                    ".google.apps.meet.v2.SpaceConfig.AttendanceReportGenerationType",
+                ),
+            )
+        }
+    }
+}
+
+/// Users who are configured to have a role in the space. These users can
+/// join the space without knocking.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Member {
+    /// Identifier. Resource name of the member.
+    /// Format: spaces/{space}/members/{member}
+    pub name: std::string::String,
+
+    /// Email for the member. This is required for creating the member.
+    pub email: std::string::String,
+
+    /// The meeting role assigned to the member.
+    pub role: crate::model::member::Role,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Member {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Member::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::Member;
+    /// # let space_id = "space_id";
+    /// # let member_id = "member_id";
+    /// let x = Member::new().set_name(format!("spaces/{space_id}/members/{member_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [email][crate::model::Member::email].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::Member;
+    /// let x = Member::new().set_email("example");
+    /// ```
+    pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.email = v.into();
+        self
+    }
+
+    /// Sets the value of [role][crate::model::Member::role].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::Member;
+    /// use google_apps_meet_v2::model::member::Role;
+    /// let x0 = Member::new().set_role(Role::Cohost);
+    /// ```
+    pub fn set_role<T: std::convert::Into<crate::model::member::Role>>(mut self, v: T) -> Self {
+        self.role = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Member {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.apps.meet.v2.Member"
+    }
+}
+
+/// Defines additional types related to [Member].
+pub mod member {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Role of this member in the space.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Role {
+        /// This is used to indicate the user hasn't specified any value and the
+        /// user’s role will be determined upon joining the meetings between
+        /// 'contributor' and 'viewer' role depending on meeting configuration. For
+        /// more information about the viewer role, see [Assign View only roles in
+        /// Google Meet](https://support.google.com/meet/answer/13658394).
+        Unspecified,
+        /// Co-host role.
+        Cohost,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Role::value] or
+        /// [Role::name].
+        UnknownValue(role::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod role {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Role {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Cohost => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ROLE_UNSPECIFIED"),
+                Self::Cohost => std::option::Option::Some("COHOST"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Role {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Role {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Role {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Cohost,
+                _ => Self::UnknownValue(role::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Role {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ROLE_UNSPECIFIED" => Self::Unspecified,
+                "COHOST" => Self::Cohost,
+                _ => Self::UnknownValue(role::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Role {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Cohost => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Role {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Role>::new(
+                ".google.apps.meet.v2.Member.Role",
             ))
         }
     }
@@ -2228,6 +3855,359 @@ impl wkt::message::Message for TranscriptEntry {
     }
 }
 
+/// Metadata for a smart note generated from a conference. It refers to the notes
+/// generated from Take Notes with Gemini during the conference.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SmartNote {
+    /// Output only. Identifier. Resource name of the smart notes.
+    /// Format: `conferenceRecords/{conference_record}/smartNotes/{smart_note}`,
+    /// where `{smart_note}` is a 1:1 mapping to each unique smart notes session
+    /// of the conference.
+    pub name: std::string::String,
+
+    /// Output only. Current state.
+    pub state: crate::model::smart_note::State,
+
+    /// Output only. Timestamp when the smart notes started.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Timestamp when the smart notes stopped.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Destination of the smart notes.
+    pub destination: std::option::Option<crate::model::smart_note::Destination>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SmartNote {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::SmartNote::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::SmartNote;
+    /// # let conference_record_id = "conference_record_id";
+    /// # let smart_note_id = "smart_note_id";
+    /// let x = SmartNote::new().set_name(format!("conferenceRecords/{conference_record_id}/smartNotes/{smart_note_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::SmartNote::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::SmartNote;
+    /// use google_apps_meet_v2::model::smart_note::State;
+    /// let x0 = SmartNote::new().set_state(State::Started);
+    /// let x1 = SmartNote::new().set_state(State::Ended);
+    /// let x2 = SmartNote::new().set_state(State::FileGenerated);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::smart_note::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::SmartNote::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::SmartNote;
+    /// use wkt::Timestamp;
+    /// let x = SmartNote::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::SmartNote::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::SmartNote;
+    /// use wkt::Timestamp;
+    /// let x = SmartNote::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SmartNote::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::SmartNote::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::SmartNote;
+    /// use wkt::Timestamp;
+    /// let x = SmartNote::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::SmartNote::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::SmartNote;
+    /// use wkt::Timestamp;
+    /// let x = SmartNote::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SmartNote::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [destination][crate::model::SmartNote::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::SmartNote;
+    /// use google_apps_meet_v2::model::DocsDestination;
+    /// let x = SmartNote::new().set_destination(Some(
+    ///     google_apps_meet_v2::model::smart_note::Destination::DocsDestination(DocsDestination::default().into())));
+    /// ```
+    pub fn set_destination<
+        T: std::convert::Into<std::option::Option<crate::model::smart_note::Destination>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination = v.into();
+        self
+    }
+
+    /// The value of [destination][crate::model::SmartNote::destination]
+    /// if it holds a `DocsDestination`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn docs_destination(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DocsDestination>> {
+        #[allow(unreachable_patterns)]
+        self.destination.as_ref().and_then(|v| match v {
+            crate::model::smart_note::Destination::DocsDestination(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [destination][crate::model::SmartNote::destination]
+    /// to hold a `DocsDestination`.
+    ///
+    /// Note that all the setters affecting `destination` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::SmartNote;
+    /// use google_apps_meet_v2::model::DocsDestination;
+    /// let x = SmartNote::new().set_docs_destination(DocsDestination::default()/* use setters */);
+    /// assert!(x.docs_destination().is_some());
+    /// ```
+    pub fn set_docs_destination<
+        T: std::convert::Into<std::boxed::Box<crate::model::DocsDestination>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination = std::option::Option::Some(
+            crate::model::smart_note::Destination::DocsDestination(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for SmartNote {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.apps.meet.v2.SmartNote"
+    }
+}
+
+/// Defines additional types related to [SmartNote].
+pub mod smart_note {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Current state of the smart notes session.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Default, never used.
+        Unspecified,
+        /// An active smart notes session has started.
+        Started,
+        /// This smart notes session has ended, but the smart notes file hasn't been
+        /// generated yet.
+        Ended,
+        /// Smart notes file is generated and ready to download.
+        FileGenerated,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Started => std::option::Option::Some(1),
+                Self::Ended => std::option::Option::Some(2),
+                Self::FileGenerated => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Started => std::option::Option::Some("STARTED"),
+                Self::Ended => std::option::Option::Some("ENDED"),
+                Self::FileGenerated => std::option::Option::Some("FILE_GENERATED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Started,
+                2 => Self::Ended,
+                3 => Self::FileGenerated,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "STARTED" => Self::Started,
+                "ENDED" => Self::Ended,
+                "FILE_GENERATED" => Self::FileGenerated,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Started => serializer.serialize_i32(1),
+                Self::Ended => serializer.serialize_i32(2),
+                Self::FileGenerated => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.apps.meet.v2.SmartNote.State",
+            ))
+        }
+    }
+
+    /// Destination of the smart notes.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Destination {
+        /// Output only. The Google Doc destination where the smart notes are saved.
+        DocsDestination(std::boxed::Box<crate::model::DocsDestination>),
+    }
+}
+
 /// Request to create a space.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -2307,7 +4287,7 @@ pub struct GetSpaceRequest {
     /// Meet](https://support.google.com/meet/answer/10710509).
     ///
     /// For more information, see [How Meet identifies a meeting
-    /// space](https://developers.google.com/meet/api/guides/meeting-spaces#identify-meeting-space).
+    /// space](https://developers.google.com/workspace/meet/api/guides/meeting-spaces#identify-meeting-space).
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2448,7 +4428,7 @@ pub struct EndActiveConferenceRequest {
     /// server-generated ID and is case sensitive. For example, `jQCFfuBOdN5z`.
     ///
     /// For more information, see [How Meet identifies a meeting
-    /// space](https://developers.google.com/meet/api/guides/meeting-spaces#identify-meeting-space).
+    /// space](https://developers.google.com/workspace/meet/api/guides/meeting-spaces#identify-meeting-space).
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2477,6 +4457,552 @@ impl EndActiveConferenceRequest {
 impl wkt::message::Message for EndActiveConferenceRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.apps.meet.v2.EndActiveConferenceRequest"
+    }
+}
+
+/// Request to create a member for a space.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateMemberRequest {
+    /// Required. Format: spaces/{space}
+    pub parent: std::string::String,
+
+    /// Required. The member to be created.
+    pub member: std::option::Option<crate::model::Member>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateMemberRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateMemberRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::CreateMemberRequest;
+    /// # let space_id = "space_id";
+    /// let x = CreateMemberRequest::new().set_parent(format!("spaces/{space_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [member][crate::model::CreateMemberRequest::member].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::CreateMemberRequest;
+    /// use google_apps_meet_v2::model::Member;
+    /// let x = CreateMemberRequest::new().set_member(Member::default()/* use setters */);
+    /// ```
+    pub fn set_member<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Member>,
+    {
+        self.member = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [member][crate::model::CreateMemberRequest::member].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::CreateMemberRequest;
+    /// use google_apps_meet_v2::model::Member;
+    /// let x = CreateMemberRequest::new().set_or_clear_member(Some(Member::default()/* use setters */));
+    /// let x = CreateMemberRequest::new().set_or_clear_member(None::<Member>);
+    /// ```
+    pub fn set_or_clear_member<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Member>,
+    {
+        self.member = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateMemberRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.apps.meet.v2.CreateMemberRequest"
+    }
+}
+
+/// Request to get a member from a space.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetMemberRequest {
+    /// Required. Format: “spaces/{space}/members/{member}”
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetMemberRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetMemberRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::GetMemberRequest;
+    /// # let space_id = "space_id";
+    /// # let member_id = "member_id";
+    /// let x = GetMemberRequest::new().set_name(format!("spaces/{space_id}/members/{member_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetMemberRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.apps.meet.v2.GetMemberRequest"
+    }
+}
+
+/// Request to list all members of a space.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListMembersRequest {
+    /// Required. Format: spaces/{space}
+    pub parent: std::string::String,
+
+    /// Optional. Maximum number of members to return. The service might return
+    /// fewer than this value. If unspecified or set to 0, at most 250 members are
+    /// returned. The maximum value is 500; values above 500 are coerced to 500.
+    /// Maximum might change in the future.
+    pub page_size: i32,
+
+    /// Optional. Page token returned from previous List Call.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMembersRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListMembersRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::ListMembersRequest;
+    /// # let space_id = "space_id";
+    /// let x = ListMembersRequest::new().set_parent(format!("spaces/{space_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListMembersRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::ListMembersRequest;
+    /// let x = ListMembersRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListMembersRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::ListMembersRequest;
+    /// let x = ListMembersRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMembersRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.apps.meet.v2.ListMembersRequest"
+    }
+}
+
+/// Response of list members.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListMembersResponse {
+    /// The list of members for the current page.
+    pub members: std::vec::Vec<crate::model::Member>,
+
+    /// Token to be circulated back for further list call if current list doesn't
+    /// include all the members. Unset if all members are returned.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMembersResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [members][crate::model::ListMembersResponse::members].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::ListMembersResponse;
+    /// use google_apps_meet_v2::model::Member;
+    /// let x = ListMembersResponse::new()
+    ///     .set_members([
+    ///         Member::default()/* use setters */,
+    ///         Member::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_members<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Member>,
+    {
+        use std::iter::Iterator;
+        self.members = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMembersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::ListMembersResponse;
+    /// let x = ListMembersResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMembersResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.apps.meet.v2.ListMembersResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListMembersResponse {
+    type PageItem = crate::model::Member;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.members
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request to delete a member from a space.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteMemberRequest {
+    /// Required. Format: “spaces/{space}/members/{member}”
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteMemberRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteMemberRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::DeleteMemberRequest;
+    /// # let space_id = "space_id";
+    /// # let member_id = "member_id";
+    /// let x = DeleteMemberRequest::new().set_name(format!("spaces/{space_id}/members/{member_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteMemberRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.apps.meet.v2.DeleteMemberRequest"
+    }
+}
+
+/// Request to update a member.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateMemberRequest {
+    /// Required. The Member to update.
+    /// Format: spaces/{space}/members/{member}
+    pub member: std::option::Option<crate::model::Member>,
+
+    /// Optional. Field mask used to specify the fields to be updated in the
+    /// member. If update_mask isn't provided(not set, set with empty paths, or
+    /// only has "" as paths), it defaults to update all fields provided with
+    /// values in the request. Using "*" as update_mask will update all fields,
+    /// including deleting fields not set in the request. In case of BatchUpdate,
+    /// it must be absent or the same as the update_mask in
+    /// BatchUpdateMembersRequest when UpdateMemberRequest is built as a child
+    /// request of BatchUpdateMembersRequest.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateMemberRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [member][crate::model::UpdateMemberRequest::member].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::UpdateMemberRequest;
+    /// use google_apps_meet_v2::model::Member;
+    /// let x = UpdateMemberRequest::new().set_member(Member::default()/* use setters */);
+    /// ```
+    pub fn set_member<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Member>,
+    {
+        self.member = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [member][crate::model::UpdateMemberRequest::member].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::UpdateMemberRequest;
+    /// use google_apps_meet_v2::model::Member;
+    /// let x = UpdateMemberRequest::new().set_or_clear_member(Some(Member::default()/* use setters */));
+    /// let x = UpdateMemberRequest::new().set_or_clear_member(None::<Member>);
+    /// ```
+    pub fn set_or_clear_member<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Member>,
+    {
+        self.member = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateMemberRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::UpdateMemberRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMemberRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateMemberRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::UpdateMemberRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMemberRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateMemberRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateMemberRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.apps.meet.v2.UpdateMemberRequest"
+    }
+}
+
+/// Request to update members of one space within a batch.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BatchUpdateMembersRequest {
+    /// Required. The parent resource shared by all Members being updated.
+    /// Format: spaces/{space}
+    pub parent: std::string::String,
+
+    /// Required. The request message specifying the resources to update.
+    /// A maximum of 500 members can be modified in a batch.
+    pub requests: std::vec::Vec<crate::model::UpdateMemberRequest>,
+
+    /// Optional. Top-level field mask used to specify the fields to be updated in
+    /// the member for all UpdateMemberRequests. There are 4 possible scenarios for
+    /// top-level and child field mask:
+    ///
+    /// 1. top-level and child field mask is absent:
+    ///    All fields provided in the requests are updated, including deleting
+    ///    fields not set in the requests.
+    /// 1. top-level field mask is present but child field mask is absent:
+    ///    The fields specified in the top-level field mask are updated.
+    /// 1. top-level and child field mask is present:
+    ///    The child field mask must be the same as the top-level field mask.
+    /// 1. top-level field mask is absent but child field mask is present:
+    ///    It isn't supported and will return an error.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BatchUpdateMembersRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::BatchUpdateMembersRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::BatchUpdateMembersRequest;
+    /// # let space_id = "space_id";
+    /// let x = BatchUpdateMembersRequest::new().set_parent(format!("spaces/{space_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [requests][crate::model::BatchUpdateMembersRequest::requests].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::BatchUpdateMembersRequest;
+    /// use google_apps_meet_v2::model::UpdateMemberRequest;
+    /// let x = BatchUpdateMembersRequest::new()
+    ///     .set_requests([
+    ///         UpdateMemberRequest::default()/* use setters */,
+    ///         UpdateMemberRequest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_requests<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::UpdateMemberRequest>,
+    {
+        use std::iter::Iterator;
+        self.requests = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::BatchUpdateMembersRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::BatchUpdateMembersRequest;
+    /// use wkt::FieldMask;
+    /// let x = BatchUpdateMembersRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::BatchUpdateMembersRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::BatchUpdateMembersRequest;
+    /// use wkt::FieldMask;
+    /// let x = BatchUpdateMembersRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = BatchUpdateMembersRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for BatchUpdateMembersRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.apps.meet.v2.BatchUpdateMembersRequest"
+    }
+}
+
+/// Response of batch update members.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BatchUpdateMembersResponse {
+    /// Members updated.
+    pub members: std::vec::Vec<crate::model::Member>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BatchUpdateMembersResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [members][crate::model::BatchUpdateMembersResponse::members].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::BatchUpdateMembersResponse;
+    /// use google_apps_meet_v2::model::Member;
+    /// let x = BatchUpdateMembersResponse::new()
+    ///     .set_members([
+    ///         Member::default()/* use setters */,
+    ///         Member::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_members<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Member>,
+    {
+        use std::iter::Iterator;
+        self.members = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BatchUpdateMembersResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.apps.meet.v2.BatchUpdateMembersResponse"
     }
 }
 
@@ -3646,6 +6172,188 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListTranscriptE
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.transcript_entries
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request for GetSmartNote method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetSmartNoteRequest {
+    /// Required. Resource name of the smart note.
+    /// Format: conferenceRecords/{conference_record}/smartNotes/{smart_note}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetSmartNoteRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetSmartNoteRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::GetSmartNoteRequest;
+    /// # let conference_record_id = "conference_record_id";
+    /// # let smart_note_id = "smart_note_id";
+    /// let x = GetSmartNoteRequest::new().set_name(format!("conferenceRecords/{conference_record_id}/smartNotes/{smart_note_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetSmartNoteRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.apps.meet.v2.GetSmartNoteRequest"
+    }
+}
+
+/// Request for ListSmartNotes method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSmartNotesRequest {
+    /// Required. Format: `conferenceRecords/{conference_record}`
+    pub parent: std::string::String,
+
+    /// Optional. Maximum number of smart notes to return. The service might return
+    /// fewer than this value. If unspecified, at most 10 smart notes are returned.
+    /// The maximum value is 100; values above 100 are coerced to 100.
+    /// Maximum might change in the future.
+    pub page_size: i32,
+
+    /// Optional. Page token returned from previous List Call.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSmartNotesRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListSmartNotesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::ListSmartNotesRequest;
+    /// # let conference_record_id = "conference_record_id";
+    /// let x = ListSmartNotesRequest::new().set_parent(format!("conferenceRecords/{conference_record_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListSmartNotesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::ListSmartNotesRequest;
+    /// let x = ListSmartNotesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListSmartNotesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::ListSmartNotesRequest;
+    /// let x = ListSmartNotesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSmartNotesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.apps.meet.v2.ListSmartNotesRequest"
+    }
+}
+
+/// Response for ListSmartNotes method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSmartNotesResponse {
+    /// List of smart notes in one page.
+    pub smart_notes: std::vec::Vec<crate::model::SmartNote>,
+
+    /// Token to be circulated back for further List call if current List doesn't
+    /// include all the smart notes. Unset if all smart notes are returned.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSmartNotesResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [smart_notes][crate::model::ListSmartNotesResponse::smart_notes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::ListSmartNotesResponse;
+    /// use google_apps_meet_v2::model::SmartNote;
+    /// let x = ListSmartNotesResponse::new()
+    ///     .set_smart_notes([
+    ///         SmartNote::default()/* use setters */,
+    ///         SmartNote::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_smart_notes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SmartNote>,
+    {
+        use std::iter::Iterator;
+        self.smart_notes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSmartNotesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_apps_meet_v2::model::ListSmartNotesResponse;
+    /// let x = ListSmartNotesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSmartNotesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.apps.meet.v2.ListSmartNotesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListSmartNotesResponse {
+    type PageItem = crate::model::SmartNote;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.smart_notes
     }
 
     fn next_page_token(&self) -> std::string::String {

@@ -1022,6 +1022,29 @@ impl SecureSourceManager {
         super::builder::secure_source_manager::FetchBlob::new(self.inner.clone())
     }
 
+    /// Fetches git references from a repository.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let mut list = client.fetch_refs()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_refs(&self) -> super::builder::secure_source_manager::FetchRefs {
+        super::builder::secure_source_manager::FetchRefs::new(self.inner.clone())
+    }
+
     /// Creates an issue.
     ///
     /// # Long running operations

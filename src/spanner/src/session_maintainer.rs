@@ -140,10 +140,12 @@ impl ManagedSessionMaintainer {
                     .set_creator_role(database_role),
             );
 
-        let channel = spanner.next_channel();
-        spanner
-            .create_session(request, options.clone(), channel, o11y)
-            .await
+        let channel = spanner.pick_channel();
+        let result = spanner
+            .create_session(request, options.clone(), &channel, o11y)
+            .await;
+        channel.record_call_result(&result);
+        result
     }
 
     async fn maintenance_loop(

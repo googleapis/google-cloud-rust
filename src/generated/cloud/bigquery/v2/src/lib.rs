@@ -16,16 +16,14 @@
 
 //! Google Cloud Client Libraries for Rust - BigQuery API
 //!
-//! **FEEDBACK WANTED:** We believe the APIs in this crate are stable, and
-//! do not anticipate any breaking changes are needed. We are looking for
-//! feedback before labeling the APIs "1.0". Changes (even breaking changes)
-//! are still possible, but not expected.
-//!
-//! We also believe the implementation is ready for production, bugs are
-//! still possible, but not expected.
-//!
 //! This crate contains traits, types, and functions to interact with BigQuery API
 //! Most applications will use the structs defined in the [client] module.
+//!
+//! The client library types and functions are stable and not expected to change.
+//! Please note that Google Cloud services do change from time to time. The client
+//! libraries are designed to preserve backwards compatibility when the service
+//! changes in compatible ways. For example, adding RPCs, or fields to messages
+//! should not introduce breaking changes to the client libraries.
 //!
 //! # Available Clients
 //!
@@ -61,6 +59,7 @@ pub use google_cloud_gax::error::Error;
 #[allow(rustdoc::redundant_explicit_links)]
 pub mod stub;
 
+/// Concrete implementations of client library traits.
 ///
 /// # Example
 /// ```
@@ -75,7 +74,6 @@ pub mod stub;
 ///     Ok(())
 /// }
 /// ```
-/// Concrete implementations of this client library traits.
 pub mod client;
 
 /// Request builders.
@@ -113,5 +111,4 @@ pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
-#[allow(missing_docs)]
-pub mod operation;
+pub mod job_poller;

@@ -61,6 +61,7 @@ pub use google_cloud_gax::error::Error;
 #[allow(rustdoc::redundant_explicit_links)]
 pub mod stub;
 
+/// Concrete implementations of client library traits.
 ///
 /// # Example
 /// ```
@@ -75,7 +76,6 @@ pub mod stub;
 ///     Ok(())
 /// }
 /// ```
-/// Concrete implementations of this client library traits.
 pub mod client;
 
 /// Request builders.
@@ -113,5 +113,4 @@ pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
-#[allow(missing_docs)]
 pub mod operation;

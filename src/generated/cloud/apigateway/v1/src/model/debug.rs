@@ -101,6 +101,8 @@ impl std::fmt::Debug for super::Gateway {
         debug_struct.field("api_config", &self.api_config);
         debug_struct.field("state", &self.state);
         debug_struct.field("default_hostname", &self.default_hostname);
+        debug_struct.field("streaming_mode", &self.streaming_mode);
+        debug_struct.field("effective_streaming_mode", &self.effective_streaming_mode);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

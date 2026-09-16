@@ -839,6 +839,207 @@ pub trait FeaturedContentNativeDashboardService: std::fmt::Debug + Send + Sync {
     }
 }
 
+/// Defines the trait used to implement [super::client::FeedsService].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::FeedsService`.  In other use-cases, application developers only
+/// use `client::FeedsService` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait FeedsService: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::FeedsService::fetch_service_account_for_customer].
+    fn fetch_service_account_for_customer(
+        &self,
+        _req: crate::model::FetchServiceAccountForCustomerRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::FeedServiceAccount>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::FeedsService::create_feed].
+    fn create_feed(
+        &self,
+        _req: crate::model::CreateFeedRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Feed>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::FeedsService::get_feed].
+    fn get_feed(
+        &self,
+        _req: crate::model::GetFeedRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Feed>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::FeedsService::delete_feed].
+    fn delete_feed(
+        &self,
+        _req: crate::model::DeleteFeedRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::FeedsService::enable_feed].
+    fn enable_feed(
+        &self,
+        _req: crate::model::EnableFeedRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Feed>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::FeedsService::disable_feed].
+    fn disable_feed(
+        &self,
+        _req: crate::model::DisableFeedRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Feed>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::FeedsService::list_feeds].
+    fn list_feeds(
+        &self,
+        _req: crate::model::ListFeedsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListFeedsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::FeedsService::list_feed_packs].
+    fn list_feed_packs(
+        &self,
+        _req: crate::model::ListFeedPacksRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListFeedPacksResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::FeedsService::get_feed_pack].
+    fn get_feed_pack(
+        &self,
+        _req: crate::model::GetFeedPackRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::FeedPack>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::FeedsService::update_feed].
+    fn update_feed(
+        &self,
+        _req: crate::model::UpdateFeedRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Feed>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::FeedsService::list_feed_source_type_schemas].
+    fn list_feed_source_type_schemas(
+        &self,
+        _req: crate::model::ListFeedSourceTypeSchemasRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListFeedSourceTypeSchemasResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::FeedsService::list_log_type_schemas].
+    fn list_log_type_schemas(
+        &self,
+        _req: crate::model::ListLogTypeSchemasRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListLogTypeSchemasResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::FeedsService::import_push_logs].
+    fn import_push_logs(
+        &self,
+        _req: crate::model::ImportPushLogsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_api::model::HttpBody>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::FeedsService::generate_secret].
+    fn generate_secret(
+        &self,
+        _req: crate::model::GenerateSecretRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::GenerateSecretResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::FeedsService::list_operations].
+    fn list_operations(
+        &self,
+        _req: google_cloud_longrunning::model::ListOperationsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::FeedsService::get_operation].
+    fn get_operation(
+        &self,
+        _req: google_cloud_longrunning::model::GetOperationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::FeedsService::delete_operation].
+    fn delete_operation(
+        &self,
+        _req: google_cloud_longrunning::model::DeleteOperationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::FeedsService::cancel_operation].
+    fn cancel_operation(
+        &self,
+        _req: google_cloud_longrunning::model::CancelOperationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
 /// Defines the trait used to implement [super::client::FindingsRefinementService].
 ///
 /// Application developers may need to implement this trait to mock

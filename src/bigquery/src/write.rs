@@ -12,10 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Types to write data in [Arrow] format
+/// Types to write data in [Arrow] format.
 ///
 /// [arrow]: https://arrow.apache.org/
 pub mod arrow;
+#[allow(dead_code)]
+pub(crate) mod proto;
 
 pub use append_future::AppendFuture;
 
@@ -26,13 +28,16 @@ pub(super) mod client;
 pub(super) mod client_builder;
 pub(super) mod error;
 
+mod dispatcher;
 mod entry;
-#[cfg_attr(not(test), expect(dead_code))]
 mod pool;
 mod proto_schema;
+#[allow(dead_code)]
+mod retry_policy;
 mod runner;
 mod stream;
 mod transport;
+mod validate;
 
 // TODO(#4832) - remove handwritten code.
 mod status;

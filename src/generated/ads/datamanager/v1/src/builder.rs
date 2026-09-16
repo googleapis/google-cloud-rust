@@ -617,8 +617,6 @@ pub mod ingestion_service {
         }
 
         /// Sets the value of [encryption_info][crate::model::IngestAdEventsRequest::encryption_info].
-        ///
-        /// This is a **required** field for requests.
         pub fn set_encryption_info<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::EncryptionInfo>,
@@ -628,8 +626,6 @@ pub mod ingestion_service {
         }
 
         /// Sets or clears the value of [encryption_info][crate::model::IngestAdEventsRequest::encryption_info].
-        ///
-        /// This is a **required** field for requests.
         pub fn set_or_clear_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::EncryptionInfo>,

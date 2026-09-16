@@ -22,13 +22,13 @@ use crate::model::{AppendRowsResponse, TableSchema};
 #[non_exhaustive]
 pub struct AppendResponse {
     /// The row offset at which the last append occurred. The offset will not be
-    /// set if appending using default streams.
+    /// set if appending using the default stream.
     pub offset: Option<i64>,
 
-    /// If set, the service reports that the table schema has changed.
+    /// If set, the table schema has changed.
     ///
     /// Note that this notification is best effort. Changing a table schema can
-    /// take several minutes to propagate on the server side.
+    /// take several minutes to propagate.
     ///
     /// The client library does not use this information to modify any internal
     /// state. It only forwards the notification to the application, which

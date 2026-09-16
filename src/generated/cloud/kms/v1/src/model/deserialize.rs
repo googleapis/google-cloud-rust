@@ -7574,6 +7574,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ExternalProtectionLevelOptions 
         enum __FieldTag {
             __external_key_uri,
             __ekm_connection_key_path,
+            __ekm_connection_backend_override,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -7598,6 +7599,12 @@ impl<'de> serde::de::Deserialize<'de> for super::ExternalProtectionLevelOptions 
                             "external_key_uri" => Ok(__FieldTag::__external_key_uri),
                             "ekmConnectionKeyPath" => Ok(__FieldTag::__ekm_connection_key_path),
                             "ekm_connection_key_path" => Ok(__FieldTag::__ekm_connection_key_path),
+                            "ekmConnectionBackendOverride" => {
+                                Ok(__FieldTag::__ekm_connection_backend_override)
+                            }
+                            "ekm_connection_backend_override" => {
+                                Ok(__FieldTag::__ekm_connection_backend_override)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -7640,6 +7647,16 @@ impl<'de> serde::de::Deserialize<'de> for super::ExternalProtectionLevelOptions 
                                 ));
                             }
                             result.ekm_connection_key_path = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ekm_connection_backend_override => {
+                            if !fields.insert(__FieldTag::__ekm_connection_backend_override) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ekm_connection_backend_override",
+                                ));
+                            }
+                            result.ekm_connection_backend_override = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }

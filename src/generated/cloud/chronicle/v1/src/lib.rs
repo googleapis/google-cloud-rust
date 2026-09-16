@@ -34,6 +34,7 @@
 //! * [DataTableService](client/struct.DataTableService.html)
 //! * [EntityService](client/struct.EntityService.html)
 //! * [FeaturedContentNativeDashboardService](client/struct.FeaturedContentNativeDashboardService.html)
+//! * [FeedsService](client/struct.FeedsService.html)
 //! * [FindingsRefinementService](client/struct.FindingsRefinementService.html)
 //! * [InstanceService](client/struct.InstanceService.html)
 //! * [NativeDashboardService](client/struct.NativeDashboardService.html)
@@ -63,6 +64,7 @@ pub use google_cloud_gax::error::Error;
 #[allow(rustdoc::redundant_explicit_links)]
 pub mod stub;
 
+/// Concrete implementations of client library traits.
 ///
 /// # Example
 /// ```
@@ -80,7 +82,6 @@ pub mod stub;
 ///     Ok(())
 /// }
 /// ```
-/// Concrete implementations of this client library traits.
 pub mod client;
 
 /// Request builders.

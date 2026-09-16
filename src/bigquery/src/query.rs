@@ -19,7 +19,7 @@ mod execution;
 pub(super) mod from_sql;
 mod iterator;
 mod query_handle;
-mod retry_policy;
+pub mod retry_policy;
 mod row;
 mod schema;
 

@@ -22,7 +22,7 @@ use crate::google::rpc::Status as ProtoStatus;
 use base64::Engine as _;
 use base64::prelude::{BASE64_STANDARD, BASE64_STANDARD_NO_PAD};
 use gaxi::grpc::tonic::Status as TonicStatus;
-use google_cloud_gax::error::rpc::{Status, StatusDetails};
+use google_cloud_gax::error::rpc::{Code, Status, StatusDetails};
 use http::HeaderMap;
 use prost::Message;
 use prost_types::Duration as ProtoDuration;
@@ -43,14 +43,56 @@ pub(crate) struct ProtoRetryInfo {
     pub retry_delay: Option<ProtoDuration>,
 }
 
+/// Extracts the gRPC status code from an [`Error`], inspecting GAX status, nested [`Error`] instances, and nested [`TonicStatus`].
+pub(crate) fn extract_status_code_from_error(error: &Error) -> Option<Code> {
+    if let Some(status) = error.status() {
+        return Some(status.code);
+    }
+
+    let mut current_source = error.source();
+    while let Some(source) = current_source {
+        if let Some(inner_error) = source.downcast_ref::<Error>()
+            && let Some(status) = inner_error.status()
+        {
+            return Some(status.code);
+        }
+        if let Some(status) = source.downcast_ref::<TonicStatus>() {
+            return Some(Code::from(status.code() as i32));
+        }
+        current_source = source.source();
+    }
+
+    None
+}
+
 /// Extracts the server-recommended retry delay from an [`Error`], if present.
 pub(crate) fn extract_retry_delay_from_error(error: &Error) -> Option<Duration> {
     if let Some(delay) = error.status().and_then(extract_retry_delay_from_status) {
         return Some(delay);
     }
+    if let Some(delay) = error
+        .http_headers()
+        .and_then(extract_retry_delay_from_headers)
+    {
+        return Some(delay);
+    }
 
     let mut current_source = error.source();
     while let Some(source) = current_source {
+        if let Some(inner_error) = source.downcast_ref::<Error>() {
+            if let Some(delay) = inner_error
+                .status()
+                .and_then(extract_retry_delay_from_status)
+            {
+                return Some(delay);
+            }
+            if let Some(delay) = inner_error
+                .http_headers()
+                .and_then(extract_retry_delay_from_headers)
+            {
+                return Some(delay);
+            }
+        }
         if let Some(delay) = source
             .downcast_ref::<TonicStatus>()
             .and_then(extract_retry_delay_from_tonic_status)
@@ -60,9 +102,7 @@ pub(crate) fn extract_retry_delay_from_error(error: &Error) -> Option<Duration> 
         current_source = source.source();
     }
 
-    error
-        .http_headers()
-        .and_then(extract_retry_delay_from_headers)
+    None
 }
 
 /// Extracts the server-recommended retry delay from HTTP headers, if the `google.rpc.retryinfo-bin` header is present.
@@ -144,6 +184,7 @@ mod tests {
     use prost_types::Any as ProtoAny;
     use static_assertions::assert_impl_all;
     use std::fmt::Debug;
+    use wkt::Duration as WktDuration;
 
     assert_impl_all!(ProtoRetryInfo: Send, Sync, Debug, Clone);
 
@@ -548,6 +589,101 @@ mod tests {
             extract_retry_delay_from_retry_info_bytes(&bytes),
             None,
             "ProtoRetryInfo without retry_delay must yield None"
+        );
+    }
+
+    #[test]
+    fn extract_status_code_from_gax_status() {
+        let status = Status::default().set_code(Code::ResourceExhausted);
+        let error = Error::service(status);
+        assert_eq!(
+            extract_status_code_from_error(&error),
+            Some(Code::ResourceExhausted),
+            "must extract ResourceExhausted status code from GAX Status"
+        );
+    }
+
+    #[test]
+    fn extract_status_code_from_tonic_status_source() {
+        let tonic_status = TonicStatus::unavailable("endpoint temporarily unavailable");
+        let error = Error::connect(tonic_status);
+        assert_eq!(
+            extract_status_code_from_error(&error),
+            Some(Code::Unavailable),
+            "must extract Unavailable status code from TonicStatus source"
+        );
+    }
+
+    #[test]
+    fn extract_status_code_from_non_status_error() {
+        let error = Error::exhausted("retry policy exhausted");
+        assert_eq!(
+            extract_status_code_from_error(&error),
+            None,
+            "non-status error must yield None for status code"
+        );
+    }
+
+    #[test]
+    fn extract_status_code_from_exhausted_nested_service_error() {
+        let status = Status::default().set_code(Code::ResourceExhausted);
+        let inner_error = Error::service(status);
+        let exhausted = Error::exhausted(inner_error);
+        assert_eq!(
+            extract_status_code_from_error(&exhausted),
+            Some(Code::ResourceExhausted),
+            "must extract status code from nested Error inside Error::exhausted"
+        );
+    }
+
+    #[test]
+    fn extract_retry_delay_from_exhausted_nested_service_error() {
+        let retry_info = RetryInfo::default().set_retry_delay(WktDuration::clamp(4, 500_000_000));
+        let status = Status::default()
+            .set_code(Code::ResourceExhausted)
+            .set_details(vec![StatusDetails::RetryInfo(retry_info)]);
+        let inner_error = Error::service(status);
+        let exhausted = Error::exhausted(inner_error);
+        assert_eq!(
+            extract_retry_delay_from_error(&exhausted),
+            Some(Duration::new(4, 500_000_000)),
+            "must extract retry delay from nested Error inside Error::exhausted"
+        );
+    }
+
+    #[test]
+    fn extract_retry_delay_from_exhausted_nested_tonic_error() {
+        let retry_info_bytes = encode_test_retry_info(3, 0);
+        let tonic_status = TonicStatus::with_details_and_metadata(
+            TonicCode::ResourceExhausted,
+            "overloaded",
+            retry_info_bytes.into(),
+            MetadataMap::new(),
+        );
+        let inner_error = Error::connect(tonic_status);
+        let exhausted = Error::exhausted(inner_error);
+        assert_eq!(
+            extract_retry_delay_from_error(&exhausted),
+            Some(Duration::from_secs(3)),
+            "must extract retry delay from nested TonicStatus inside Error::exhausted"
+        );
+    }
+
+    #[test]
+    fn extract_retry_delay_from_exhausted_nested_http_headers() {
+        let retry_info_bytes = encode_test_retry_info(6, 250_000_000);
+        let mut headers = HeaderMap::new();
+        let base64_encoded = BASE64_STANDARD.encode(&retry_info_bytes);
+        headers.insert(
+            HeaderName::from_static(RETRY_INFO_BINARY_HEADER),
+            HeaderValue::from_str(&base64_encoded).expect("valid header value"),
+        );
+        let inner_http_error = Error::http(429, headers, Bytes::new());
+        let exhausted = Error::exhausted(inner_http_error);
+        assert_eq!(
+            extract_retry_delay_from_error(&exhausted),
+            Some(Duration::new(6, 250_000_000)),
+            "must extract retry delay from nested Error with http_headers inside Error::exhausted"
         );
     }
 }

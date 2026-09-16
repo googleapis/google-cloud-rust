@@ -15,7 +15,9 @@
 //! Channel entry lifecycle, atomic accounting, and RAII drop guards.
 
 use crate::client::Channel;
+use crate::server_streaming::stream::StreamGuard;
 use google_cloud_gax::error::rpc::Code;
+use std::ops::Deref;
 use std::result::Result;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicU8, AtomicU32, AtomicU64, Ordering};
@@ -40,8 +42,6 @@ pub(crate) enum ChannelState {
 pub(crate) struct ChannelEntry {
     /// Monotonically increasing unique internal ID for transaction affinity pinning.
     pub(crate) id: u64,
-    /// Logical 1-based channel slot (1..=max_channels) passed to `x-goog-spanner-request-id`.
-    pub(crate) logical_channel_id: usize,
     /// Physical gRPC channel instance.
     pub(crate) channel: Channel,
     /// Count of active RPCs currently executing over the wire.
@@ -76,7 +76,6 @@ impl ChannelEntry {
         channel.channel_id = logical_channel_id;
         Self {
             id,
-            logical_channel_id,
             channel,
             in_flight_rpcs: AtomicU32::new(0),
             active_rw_transactions: AtomicU32::new(0),
@@ -85,6 +84,11 @@ impl ChannelEntry {
             created_at,
             last_activity_nanos: AtomicU64::new(0),
         }
+    }
+
+    /// Logical 1-based channel slot (1..=max_channels) passed to `x-goog-spanner-request-id`.
+    pub(crate) fn logical_channel_id(&self) -> usize {
+        self.channel.channel_id
     }
 
     pub(crate) fn decode_penalty_state(packed: u64) -> (u32, u64) {
@@ -104,11 +108,6 @@ impl ChannelEntry {
         let elapsed = u64::try_from(self.created_at.elapsed().as_nanos()).unwrap_or(u64::MAX);
         self.last_activity_nanos
             .fetch_max(elapsed, Ordering::Relaxed);
-    }
-
-    /// Returns the raw activity timestamp in nanoseconds from `created_at` for warmth comparisons.
-    pub(crate) fn last_activity_nanos(&self) -> u64 {
-        self.last_activity_nanos.load(Ordering::Relaxed)
     }
 
     /// Returns the current number of in-flight RPCs on this channel.
@@ -274,6 +273,12 @@ impl Drop for ActiveRpcGuard {
     }
 }
 
+impl StreamGuard for ActiveRpcGuard {
+    fn record_error_code(&self, code: Code) {
+        ActiveRpcGuard::record_error_code(self, code);
+    }
+}
+
 /// RAII token held by an active Read/Write transaction to prevent premature channel closure during draining.
 #[derive(Debug)]
 pub(crate) struct RwTransactionAffinityGuard {
@@ -285,6 +290,11 @@ impl RwTransactionAffinityGuard {
     pub(crate) fn new(entry: Arc<ChannelEntry>) -> Self {
         entry.active_rw_transactions.fetch_add(1, Ordering::Relaxed);
         Self { entry }
+    }
+
+    /// Returns the monotonic entry ID of the guarded channel entry.
+    pub(crate) fn entry_id(&self) -> u64 {
+        self.entry.id
     }
 }
 
@@ -317,14 +327,29 @@ impl ChannelLease {
         Self { guard }
     }
 
+    /// Consumes the lease, returning the underlying active RPC guard.
+    pub(crate) fn into_guard(self) -> ActiveRpcGuard {
+        self.guard
+    }
+
+    /// Records the result of an RPC call and applies an error penalty if a qualifying error occurred.
+    pub(crate) fn record_result<T, E>(
+        &self,
+        result: &Result<T, E>,
+        extract_code: impl Fn(&E) -> Option<Code>,
+    ) {
+        self.guard.record_result(result, extract_code);
+    }
+
+    /// Records the result of a standard GAX RPC call, extracting the gRPC status code if present.
+    pub(crate) fn record_call_result<T>(&self, result: &crate::Result<T>) {
+        self.guard
+            .record_result(result, |error| error.status().map(|status| status.code));
+    }
+
     /// Returns a reference to the physical `Channel`.
     pub(crate) fn channel(&self) -> &Channel {
         &self.guard.entry.channel
-    }
-
-    /// Returns the logical 1-based channel slot (1..=max_channels) for request ID tagging.
-    pub(crate) fn logical_channel_id(&self) -> usize {
-        self.guard.entry.logical_channel_id
     }
 
     /// Returns the unique monotonic internal entry ID.
@@ -335,6 +360,16 @@ impl ChannelLease {
     /// Creates an RAII guard that pins this channel entry for an active Read/Write transaction.
     pub(crate) fn rw_affinity_guard(&self) -> RwTransactionAffinityGuard {
         RwTransactionAffinityGuard::new(Arc::clone(&self.guard.entry))
+    }
+}
+
+/// Enables `ChannelLease` to dereference transparently to the underlying `Channel`,
+/// allowing callers to pass `&lease` anywhere a `&Channel` is required.
+impl Deref for ChannelLease {
+    type Target = Channel;
+
+    fn deref(&self) -> &Self::Target {
+        &self.guard.entry.channel
     }
 }
 
@@ -545,7 +580,8 @@ mod tests {
 
         assert_eq!(entry.id, 10, "id must match constructor arg");
         assert_eq!(
-            entry.logical_channel_id, 2,
+            entry.logical_channel_id(),
+            2,
             "logical_channel_id must match constructor arg"
         );
         assert!(entry.is_active(), "New channel entry must start Active");
@@ -599,11 +635,11 @@ mod tests {
         );
 
         // Activity timestamps
-        let initial_activity = entry.last_activity_nanos();
+        let initial_activity = entry.last_activity_nanos.load(Ordering::Relaxed);
         assert_eq!(initial_activity, 0, "Initial last_activity_nanos must be 0");
 
         entry.touch_activity();
-        let updated_activity = entry.last_activity_nanos();
+        let updated_activity = entry.last_activity_nanos.load(Ordering::Relaxed);
         assert!(
             updated_activity > 0,
             "touch_activity() must set last_activity_nanos > 0"
@@ -680,14 +716,19 @@ mod tests {
             "entry_id() must return entry's internal id 42"
         );
         assert_eq!(
-            lease.logical_channel_id(),
+            lease.channel().channel_id,
             3,
-            "logical_channel_id() must return entry's logical id 3"
+            "channel.channel_id must match entry's logical id 3"
         );
         let _channel = lease.channel();
 
         // rw_affinity_guard helper creates an RAII guard incrementing active_rw_transactions
         let rw_guard = lease.rw_affinity_guard();
+        assert_eq!(
+            rw_guard.entry_id(),
+            42,
+            "rw_affinity_guard() must report matching entry_id"
+        );
         assert_eq!(
             entry.active_rw_count(),
             1,
@@ -698,6 +739,79 @@ mod tests {
             entry.active_rw_count(),
             0,
             "dropping RwTransactionAffinityGuard must decrement active_rw_transactions"
+        );
+    }
+
+    #[test]
+    fn channel_lease_into_guard() {
+        let channel = create_mock_channel();
+        let entry = Arc::new(ChannelEntry::new(42, 3, channel));
+
+        assert_eq!(entry.in_flight(), 0, "initial in-flight count must be 0");
+        let guard = ActiveRpcGuard::new(Arc::clone(&entry), 0, Duration::ZERO, 0);
+        let lease = ChannelLease::new(guard);
+        assert_eq!(
+            entry.in_flight(),
+            1,
+            "creating guard must increment in-flight count"
+        );
+
+        let guard = lease.into_guard();
+        assert_eq!(
+            entry.in_flight(),
+            1,
+            "into_guard must preserve in-flight count"
+        );
+
+        drop(guard);
+        assert_eq!(
+            entry.in_flight(),
+            0,
+            "dropping ActiveRpcGuard must decrement in-flight count"
+        );
+    }
+
+    #[test]
+    fn channel_lease_record_result_and_deref() {
+        let channel = create_mock_channel();
+        let entry = Arc::new(ChannelEntry::new(42, 3, channel));
+        let guard = ActiveRpcGuard::new(Arc::clone(&entry), 5, Duration::from_secs(10), 10);
+        let lease = ChannelLease::new(guard);
+
+        // Verify Deref to Channel
+        assert_eq!(
+            lease.channel_id, 3,
+            "Deref must allow accessing underlying channel fields"
+        );
+
+        let ok_result: Result<&str, Status> = Ok("success");
+        lease.record_result(&ok_result, |status| Some(status.code));
+        assert_eq!(
+            entry.current_penalty(),
+            0,
+            "record_result on Ok must not add penalty load"
+        );
+
+        let err_result: Result<&str, Status> = Err(Status::default().set_code(Code::Unavailable));
+        lease.record_result(&err_result, |status| Some(status.code));
+        assert_eq!(
+            entry.current_penalty(),
+            5,
+            "record_result on qualifying error must add penalty load"
+        );
+    }
+
+    #[test]
+    fn stream_guard_record_error_code() {
+        let channel = create_mock_channel();
+        let entry = Arc::new(ChannelEntry::new(1, 1, channel));
+        let guard = ActiveRpcGuard::new(entry.clone(), 5, Duration::from_secs(5), 20);
+        let stream_guard: Arc<dyn StreamGuard> = Arc::new(guard);
+        stream_guard.record_error_code(Code::Unavailable);
+        assert_eq!(
+            entry.current_penalty(),
+            5,
+            "StreamGuard::record_error_code must add penalty load"
         );
     }
 }

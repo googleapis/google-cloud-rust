@@ -40,6 +40,42 @@ pub trait SpacesService: std::fmt::Debug + Send + Sync {
         req: crate::model::EndActiveConferenceRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
+
+    async fn create_member(
+        &self,
+        req: crate::model::CreateMemberRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Member>>;
+
+    async fn get_member(
+        &self,
+        req: crate::model::GetMemberRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Member>>;
+
+    async fn list_members(
+        &self,
+        req: crate::model::ListMembersRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListMembersResponse>>;
+
+    async fn delete_member(
+        &self,
+        req: crate::model::DeleteMemberRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
+
+    async fn update_member(
+        &self,
+        req: crate::model::UpdateMemberRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Member>>;
+
+    async fn batch_update_members(
+        &self,
+        req: crate::model::BatchUpdateMembersRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BatchUpdateMembersResponse>>;
 }
 
 /// All implementations of [super::SpacesService] also implement [SpacesService].
@@ -79,6 +115,60 @@ impl<T: super::SpacesService> SpacesService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>> {
         T::end_active_conference(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_member(
+        &self,
+        req: crate::model::CreateMemberRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Member>> {
+        T::create_member(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_member(
+        &self,
+        req: crate::model::GetMemberRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Member>> {
+        T::get_member(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_members(
+        &self,
+        req: crate::model::ListMembersRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListMembersResponse>> {
+        T::list_members(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_member(
+        &self,
+        req: crate::model::DeleteMemberRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::delete_member(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_member(
+        &self,
+        req: crate::model::UpdateMemberRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Member>> {
+        T::update_member(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn batch_update_members(
+        &self,
+        req: crate::model::BatchUpdateMembersRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BatchUpdateMembersResponse>> {
+        T::batch_update_members(self, req, options).await
     }
 }
 
@@ -156,6 +246,18 @@ pub trait ConferenceRecordsService: std::fmt::Debug + Send + Sync {
         req: crate::model::ListTranscriptEntriesRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListTranscriptEntriesResponse>>;
+
+    async fn get_smart_note(
+        &self,
+        req: crate::model::GetSmartNoteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SmartNote>>;
+
+    async fn list_smart_notes(
+        &self,
+        req: crate::model::ListSmartNotesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSmartNotesResponse>>;
 }
 
 /// All implementations of [super::ConferenceRecordsService] also implement [ConferenceRecordsService].
@@ -267,5 +369,23 @@ impl<T: super::ConferenceRecordsService> ConferenceRecordsService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListTranscriptEntriesResponse>> {
         T::list_transcript_entries(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_smart_note(
+        &self,
+        req: crate::model::GetSmartNoteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SmartNote>> {
+        T::get_smart_note(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_smart_notes(
+        &self,
+        req: crate::model::ListSmartNotesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListSmartNotesResponse>> {
+        T::list_smart_notes(self, req, options).await
     }
 }

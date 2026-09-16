@@ -949,6 +949,10 @@ impl std::fmt::Debug for super::ExternalProtectionLevelOptions {
         let mut debug_struct = f.debug_struct("ExternalProtectionLevelOptions");
         debug_struct.field("external_key_uri", &self.external_key_uri);
         debug_struct.field("ekm_connection_key_path", &self.ekm_connection_key_path);
+        debug_struct.field(
+            "ekm_connection_backend_override",
+            &self.ekm_connection_backend_override,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

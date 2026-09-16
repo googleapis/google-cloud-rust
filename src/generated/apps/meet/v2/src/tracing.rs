@@ -96,6 +96,90 @@ where
             self.inner.end_active_conference(req, options));
         pending.await
     }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_member(
+        &self,
+        req: crate::model::CreateMemberRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Member>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SpacesService::create_member",
+            self.inner.create_member(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_member(
+        &self,
+        req: crate::model::GetMemberRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Member>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SpacesService::get_member",
+            self.inner.get_member(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_members(
+        &self,
+        req: crate::model::ListMembersRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListMembersResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SpacesService::list_members",
+            self.inner.list_members(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_member(
+        &self,
+        req: crate::model::DeleteMemberRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SpacesService::delete_member",
+            self.inner.delete_member(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_member(
+        &self,
+        req: crate::model::UpdateMemberRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Member>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SpacesService::update_member",
+            self.inner.update_member(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn batch_update_members(
+        &self,
+        req: crate::model::BatchUpdateMembersRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BatchUpdateMembersResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SpacesService::batch_update_members",
+            self.inner.batch_update_members(req, options));
+        pending.await
+    }
 }
 
 /// Implements a [ConferenceRecordsService](super::stub::ConferenceRecordsService) decorator for logging and tracing.
@@ -289,6 +373,34 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::ConferenceRecordsService::list_transcript_entries",
             self.inner.list_transcript_entries(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_smart_note(
+        &self,
+        req: crate::model::GetSmartNoteRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SmartNote>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ConferenceRecordsService::get_smart_note",
+            self.inner.get_smart_note(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_smart_notes(
+        &self,
+        req: crate::model::ListSmartNotesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListSmartNotesResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ConferenceRecordsService::list_smart_notes",
+            self.inner.list_smart_notes(req, options));
         pending.await
     }
 }

@@ -18,6 +18,26 @@ use super::transport::Transport;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, Mutex};
 
+/// Configuration options for the stream pool.
+#[derive(Debug)]
+pub(crate) struct StreamPoolOptions {
+    pub(crate) max_streams: usize,
+    pub(crate) max_outstanding_requests: Option<u64>,
+    pub(crate) max_outstanding_bytes: Option<u64>,
+    pub(crate) load_threshold: f64,
+}
+
+impl Default for StreamPoolOptions {
+    fn default() -> Self {
+        Self {
+            max_streams: 8,
+            max_outstanding_requests: Some(1000),
+            max_outstanding_bytes: None,
+            load_threshold: 0.2,
+        }
+    }
+}
+
 /// A pool of open streams that supports multiplexing, load balancing.
 #[derive(Debug)]
 pub(crate) struct StreamPool {
@@ -30,23 +50,17 @@ pub(crate) struct StreamPool {
     // only acquire the lock when adding a new writer or recovering from a
     // stream error.
     streams: Mutex<Vec<StreamEntry>>,
-    max_streams: usize,
-    max_outstanding_requests: Option<u64>,
-    max_outstanding_bytes: Option<u64>,
-    load_threshold: f64,
+    options: StreamPoolOptions,
 }
 
 impl StreamPool {
     /// Initializes a new [StreamPool].
-    pub(crate) fn new(inner: Arc<Transport>, max_streams: usize) -> Self {
+    pub(crate) fn new(inner: Arc<Transport>, options: StreamPoolOptions) -> Self {
         Self {
             inner,
             next_stream_id: AtomicU64::new(1),
             streams: Mutex::new(Vec::new()),
-            max_streams,
-            max_outstanding_requests: Some(1000),
-            max_outstanding_bytes: None,
-            load_threshold: 0.2,
+            options,
         }
     }
 
@@ -85,7 +99,7 @@ impl StreamPool {
             load_a.total_cmp(&load_b)
         });
         let should_grow = least_loaded.is_none_or(|s| self.is_loaded(s));
-        if streams.len() < self.max_streams && should_grow {
+        if streams.len() < self.options.max_streams && should_grow {
             // If we can and should scale up, do so.
             let stream = self.new_stream_entry();
             streams.push(stream.clone());
@@ -114,10 +128,12 @@ impl StreamPool {
     /// Our best proxy is to use outstanding requests, outstanding bytes.
     fn normalize_load(&self, entry: &StreamEntry) -> f64 {
         let r = self
+            .options
             .max_outstanding_requests
             .map(|m| entry.outstanding_requests.load(Ordering::Relaxed) as f64 / m as f64)
             .unwrap_or_default();
         let b = self
+            .options
             .max_outstanding_bytes
             .map(|m| entry.outstanding_bytes.load(Ordering::Relaxed) as f64 / m as f64)
             .unwrap_or_default();
@@ -126,7 +142,7 @@ impl StreamPool {
 
     /// Determine if the stream is approaching load
     fn is_loaded(&self, entry: &StreamEntry) -> bool {
-        self.normalize_load(entry) > self.load_threshold
+        self.normalize_load(entry) > self.options.load_threshold
     }
 }
 
@@ -137,6 +153,7 @@ mod tests {
     use crate::write::test::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
+    use std::sync::MutexGuard;
     use test_case::test_case;
     use tokio::sync::{mpsc, oneshot};
     use tokio::task::JoinSet;
@@ -158,15 +175,13 @@ mod tests {
         expected_is_loaded: bool,
     ) -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("ignored").await?);
-        let pool = StreamPool {
-            inner: transport,
-            next_stream_id: AtomicU64::new(1),
-            streams: Mutex::new(Vec::new()),
+        let options = StreamPoolOptions {
             max_streams: 10,
             max_outstanding_requests,
             max_outstanding_bytes,
             load_threshold: 0.2,
         };
+        let pool = StreamPool::new(transport, options);
 
         let s = pool.new_stream_entry();
         s.outstanding_requests.store(requests, Ordering::Relaxed);
@@ -185,7 +200,7 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
-        let pool = StreamPool::new(transport, 10);
+        let pool = StreamPool::new(transport, StreamPoolOptions::default());
 
         let s1 = pool.get();
         assert_eq!(s1.id, 1);
@@ -230,16 +245,14 @@ mod tests {
     #[tokio::test]
     async fn empty_pool_get_lock_contention() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("ignored").await?);
-        let pool = Arc::new(StreamPool {
-            inner: transport,
-            next_stream_id: AtomicU64::new(1),
-            streams: Mutex::new(Vec::new()),
+        let options = StreamPoolOptions {
             max_streams: 10,
             // Disable load tracking. We should never scale past a single stream.
             max_outstanding_requests: None,
             max_outstanding_bytes: None,
             load_threshold: 0.2,
-        });
+        };
+        let pool = Arc::new(StreamPool::new(transport, options));
 
         let mut streams = JoinSet::new();
         for _ in 0..1000 {
@@ -259,7 +272,7 @@ mod tests {
     #[tokio::test]
     async fn get_least_loaded() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("ignored").await?);
-        let pool = StreamPool::new(transport, 10);
+        let pool = StreamPool::new(transport, StreamPoolOptions::default());
 
         // Manually seed the pool
         pool.seed([8, 2, 2, 3, 1, 9]);
@@ -273,15 +286,13 @@ mod tests {
     #[tokio::test]
     async fn get_should_grow() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("ignored").await?);
-        let pool = Arc::new(StreamPool {
-            inner: transport,
-            next_stream_id: AtomicU64::new(1),
-            streams: Mutex::new(Vec::new()),
+        let options = StreamPoolOptions {
             max_streams: 10,
             max_outstanding_requests: Some(3),
             max_outstanding_bytes: None,
             load_threshold: 0.5,
-        });
+        };
+        let pool = Arc::new(StreamPool::new(transport, options));
 
         let s = pool.get();
         assert_eq!(s.id, 1);
@@ -321,15 +332,13 @@ mod tests {
     #[tokio::test]
     async fn fully_loaded_get() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("ignored").await?);
-        let pool = Arc::new(StreamPool {
-            inner: transport,
-            next_stream_id: AtomicU64::new(1),
-            streams: Mutex::new(Vec::new()),
+        let options = StreamPoolOptions {
             max_streams: 6,
             max_outstanding_requests: Some(10),
             max_outstanding_bytes: None,
             load_threshold: 0.2,
-        });
+        };
+        let pool = Arc::new(StreamPool::new(transport, options));
 
         // Manually seed the pool to its limit (`max_streams`). Note that all
         // streams are already at load.
@@ -347,7 +356,7 @@ mod tests {
     #[tokio::test]
     async fn evict_basic() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("ignored").await?);
-        let pool = StreamPool::new(transport, 10);
+        let pool = StreamPool::new(transport, StreamPoolOptions::default());
 
         // Manually seed the pool
         pool.seed([1, 2, 3, 4, 5, 6]);
@@ -369,7 +378,7 @@ mod tests {
     #[tokio::test]
     async fn evict_lock_contention() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("ignored").await?);
-        let pool = Arc::new(StreamPool::new(transport, 10));
+        let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
 
         // Manually seed the pool
         pool.seed([1]);
@@ -391,7 +400,7 @@ mod tests {
 
     impl StreamPool {
         // Seed the pool with loaded streams to simplify testing.
-        fn seed(&self, loads: impl IntoIterator<Item = u64>) {
+        pub(crate) fn seed(&self, loads: impl IntoIterator<Item = u64>) {
             for load in loads.into_iter() {
                 let s = self.new_stream_entry();
                 s.outstanding_requests.store(load, Ordering::Relaxed);
@@ -400,10 +409,15 @@ mod tests {
         }
 
         // Returns the stream IDs in the pool, in order.
-        fn stream_ids(&self) -> Vec<u64> {
+        pub(crate) fn stream_ids(&self) -> Vec<u64> {
             let mut ids: Vec<_> = self.streams.lock().unwrap().iter().map(|s| s.id).collect();
             ids.sort();
             ids
+        }
+
+        // Acquire the stream lock
+        pub(crate) fn lock(&self) -> MutexGuard<'_, Vec<StreamEntry>> {
+            self.streams.lock().unwrap()
         }
     }
 }
