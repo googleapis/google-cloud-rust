@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::pool::StreamPoolOptions;
 use crate::ClientBuilderResult as BuilderResult;
 use crate::client::Write;
 use gaxi::options::ClientConfig;
@@ -33,12 +34,14 @@ use google_cloud_auth::credentials::Credentials;
 #[derive(Debug)]
 pub struct ClientBuilder {
     pub(super) config: ClientConfig,
+    pub(super) pool_options: StreamPoolOptions,
 }
 
 impl ClientBuilder {
     pub(super) fn new() -> Self {
         Self {
             config: ClientConfig::default(),
+            pool_options: StreamPoolOptions::default(),
         }
     }
 
@@ -143,6 +146,77 @@ impl ClientBuilder {
         self.config.grpc_subchannel_count = Some(v);
         self
     }
+
+    /// Configure the maximum streams in the client's multiplexed stream pool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let count = std::thread::available_parallelism()?.get();
+    /// let client = Write::builder()
+    ///     .with_pool_size_limit(count)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// This stream pool is shared by default writers with multiplexing enabled.
+    ///
+    /// The client scales the stream pool up to this limit as the streams in the
+    /// pool encounter load.
+    ///
+    /// The default is 8 streams.
+    pub fn with_pool_size_limit(mut self, v: usize) -> Self {
+        self.pool_options.max_streams = v.max(1);
+        self
+    }
+
+    /// Configure the maximum outstanding requests in the client's multiplexed
+    /// stream pool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Write::builder()
+    ///     .with_max_outstanding_requests(200)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// As streams in the stream pool approach this limit, the client
+    /// dynamically adds more streams to the stream pool, up to the limit
+    /// configured by `with_pool_size_limit`.
+    ///
+    /// The default is 1000 requests.
+    pub fn with_max_outstanding_requests(mut self, v: u64) -> Self {
+        self.pool_options.max_outstanding_requests = Some(v.max(1));
+        self
+    }
+
+    /// Configure the maximum outstanding bytes in the client's multiplexed
+    /// stream pool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Write::builder()
+    ///     .with_max_outstanding_bytes(200_000)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// As streams in the stream pool approach this limit, the client
+    /// dynamically adds more streams to the stream pool, up to the limit
+    /// configured by `with_pool_size_limit`.
+    pub fn with_max_outstanding_bytes(mut self, v: u64) -> Self {
+        self.pool_options.max_outstanding_bytes = Some(v.max(1));
+        self
+    }
 }
 
 #[cfg(test)]
@@ -165,6 +239,9 @@ mod tests {
             "{:?}",
             builder.config
         );
+        assert_eq!(builder.pool_options.max_streams, 8);
+        assert_eq!(builder.pool_options.max_outstanding_requests, Some(1000));
+        assert_eq!(builder.pool_options.max_outstanding_bytes, None);
     }
 
     #[test]
@@ -173,7 +250,10 @@ mod tests {
             .with_endpoint("test-endpoint.com")
             .with_universe_domain("test-ud.com")
             .with_credentials(Anonymous::new().build())
-            .with_grpc_subchannel_count(16);
+            .with_grpc_subchannel_count(16)
+            .with_pool_size_limit(10)
+            .with_max_outstanding_requests(900)
+            .with_max_outstanding_bytes(1_000_000);
         assert_eq!(
             builder.config.endpoint,
             Some("test-endpoint.com".to_string())
@@ -184,5 +264,20 @@ mod tests {
         );
         assert!(builder.config.cred.is_some(), "{:?}", builder.config);
         assert_eq!(builder.config.grpc_subchannel_count, Some(16));
+        assert_eq!(builder.pool_options.max_streams, 10);
+        assert_eq!(builder.pool_options.max_outstanding_requests, Some(900));
+        assert_eq!(builder.pool_options.max_outstanding_bytes, Some(1_000_000));
+    }
+
+    #[test]
+    fn validate_pool_options() {
+        let builder = ClientBuilder::new()
+            .with_credentials(Anonymous::new().build())
+            .with_pool_size_limit(0)
+            .with_max_outstanding_requests(0)
+            .with_max_outstanding_bytes(0);
+        assert_eq!(builder.pool_options.max_streams, 1);
+        assert_eq!(builder.pool_options.max_outstanding_requests, Some(1));
+        assert_eq!(builder.pool_options.max_outstanding_bytes, Some(1));
     }
 }

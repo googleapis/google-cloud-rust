@@ -27,6 +27,9 @@
 //! For executing queries and managing jobs:
 //! * [BigQuery][client::BigQuery]
 //!
+//! For reading query results efficiently:
+//! * [Read][client::Read]
+//!
 //! For streaming data to BigQuery:
 //! * [Write][client::Write]
 //!
@@ -96,7 +99,8 @@
 //! let client = Write::builder().build().await?;
 //! let writer = client
 //!     .arrow(schema())
-//!     .default("projects/my-project/datasets/my-dataset/tables/my-table")?;
+//!     .default("projects/my-project/datasets/my-dataset/tables/my-table")
+//!     .await?;
 //!
 //! let f1 = writer.append(rows()).send();
 //! let f2 = writer.append(rows()).send();
@@ -122,18 +126,12 @@ pub(crate) mod generated;
 pub mod client {
     pub use crate::query::client::BigQuery;
     pub use crate::write::client::Write;
+    pub use crate::write::generated::gapic_storage::client::Read;
     // TODO(#6152) - add Write admin client
 }
 
 /// The messages and enums that are part of this client library
-pub mod model {
-    pub(crate) use crate::write::generated::gapic_storage::model::*;
-    pub use crate::write::generated::gapic_storage::model::{
-        ArrowRecordBatch, ArrowSchema, BatchCommitWriteStreamsResponse,
-        FinalizeWriteStreamResponse, FlushRowsResponse, RowError, StorageError, TableFieldSchema,
-        TableSchema, row_error, storage_error, table_field_schema,
-    };
-}
+pub use crate::write::generated::gapic_storage::model;
 
 /// Extends [crate::model].
 ///
@@ -157,6 +155,12 @@ pub mod builder {
         pub use crate::write::builder::{Append, AppendWithOffset};
         pub use crate::write::client_builder::ClientBuilder;
     }
+    pub use crate::write::generated::gapic_storage::builder::read;
+}
+
+/// Traits to mock the clients in this library.
+pub mod stub {
+    pub use crate::write::generated::gapic_storage::stub::Read;
 }
 
 /// Custom errors for the BigQuery clients.
@@ -170,7 +174,10 @@ pub mod write;
 
 pub mod datatypes;
 
-pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
+pub(crate) use google_cloud_gax::client_builder::internal::{
+    ClientFactory, new_builder as new_client_builder,
+};
+pub(crate) use google_cloud_gax::client_builder::{ClientBuilder, Result as ClientBuilderResult};
 pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;

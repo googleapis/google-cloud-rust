@@ -20,7 +20,6 @@ default-members = [
   "src/auth",
   "src/bigquery",
   "src/bigquery-derive",
-  "src/bigquery-read",
   "src/bigquery/examples",
   "src/bigtable",
   "src/datastore",
@@ -70,7 +69,7 @@ members = [
   "src/auth",
   "src/bigquery",
   "src/bigquery-derive",
-  "src/bigquery-read",
+  "src/bigquery/benchmarks/write-throughput",
   "src/bigquery/examples",
   "src/bigquery/grpc-mock",
   "src/bigtable",
@@ -345,6 +344,7 @@ members = [
   "src/generated/type",
   "src/lro",
   "src/pubsub",
+  "src/pubsub/benchmarks/hedging",
   "src/pubsub/benchmarks/throughput",
   "src/pubsub/examples",
   "src/pubsub/grpc-mock",
@@ -355,6 +355,7 @@ members = [
   "src/storage/benchmarks/appendable_object",
   "src/storage/benchmarks/random",
   "src/storage/benchmarks/w1r3",
+  "src/storage/benchmarks/write_object",
   "src/storage/examples",
   "src/storage/tests/scenarios",
   "src/wkt",
@@ -444,6 +445,7 @@ humantime             = { default-features = false, version = "2" }
 hyper                 = { default-features = false, version = "1.10" }
 jiff                  = { default-features = false, version = "0.2.32" }
 jsonwebtoken          = { default-features = false, version = "11" }
+libc                  = { default-features = false, version = "0.2.183" }
 markdown              = { default-features = false, version = "1.0" }
 opentelemetry         = { default-features = false, version = "0.32" }
 opentelemetry-proto   = { default-features = false, version = "0.32" }
@@ -583,10 +585,9 @@ google-cloud-compute-v1              = { default-features = false, path = "src/g
 google-cloud-storage                 = { default-features = false, path = "src/storage" }
 google-cloud-pubsub                  = { default-features = false, path = "src/pubsub" }
 google-cloud-spanner                 = { default-features = false, path = "src/spanner" }
-google-cloud-bigquery                = { default-features = false, path = "src/bigquery", version = "0.16.1-preview" }
+google-cloud-bigquery                = { default-features = false, path = "src/bigquery", version = "0.17.0" }
 google-cloud-bigquery-derive         = { default-features = false, path = "src/bigquery-derive", version = "0.1.0" }
-google-cloud-bigquery-read           = { default-features = false, path = "src/bigquery-read" }
-google-cloud-bigquery-v2             = { default-features = false, path = "src/generated/cloud/bigquery/v2", version = "0.1.1" }
+google-cloud-bigquery-v2             = { default-features = false, path = "src/generated/cloud/bigquery/v2", version = "1.0.0" }
 google-cloud-iam-credentials-v1      = { default-features = false, path = "src/generated/iam/credentials/v1" }
 google-cloud-language-v2             = { default-features = false, path = "src/generated/cloud/language/v2" }
 google-cloud-dns-v1                  = { default-features = false, path = "src/generated/cloud/dns/v1" }
@@ -604,10 +605,11 @@ integration-tests         = { path = "tests/integration" }
 integration-tests-o11y    = { default-features = false, path = "tests/o11y" }
 integration-tests-spanner = { path = "tests/spanner" }
 bigquery-samples          = { path = "src/bigquery/examples" }
+pubsub-grpc-mock          = { path = "src/pubsub/grpc-mock" }
 pubsub-samples            = { path = "src/pubsub/examples" }
 spanner-samples           = { path = "src/spanner/examples" }
-storage-samples           = { path = "src/storage/examples" }
 storage-grpc-mock         = { path = "src/storage/grpc-mock" }
+storage-samples           = { path = "src/storage/examples" }
 
 [workspace.lints.rust]
 unexpected_cfgs = { level = "deny", check-cfg = [

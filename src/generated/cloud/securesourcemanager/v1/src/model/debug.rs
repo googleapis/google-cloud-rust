@@ -33,6 +33,8 @@ impl std::fmt::Debug for super::Instance {
             "workforce_identity_federation_config",
             &self.workforce_identity_federation_config,
         );
+        debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -372,6 +374,19 @@ impl std::fmt::Debug for super::pull_request_comment::Position {
         let mut debug_struct = f.debug_struct("Position");
         debug_struct.field("path", &self.path);
         debug_struct.field("line", &self.line);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Ref {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Ref");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("r#type", &self.r#type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -958,6 +973,32 @@ impl std::fmt::Debug for super::FetchBlobResponse {
         let mut debug_struct = f.debug_struct("FetchBlobResponse");
         debug_struct.field("sha", &self.sha);
         debug_struct.field("content", &self.content);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::FetchRefsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchRefsRequest");
+        debug_struct.field("repository", &self.repository);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::FetchRefsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FetchRefsResponse");
+        debug_struct.field("refs", &self.refs);
+        debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

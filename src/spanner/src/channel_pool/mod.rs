@@ -28,9 +28,14 @@ pub(crate) mod entry;
 pub(crate) mod pool;
 pub(crate) mod scaler;
 
+#[allow(unused_imports)]
 pub(crate) use affinity::TransactionAffinity;
-pub(crate) use config::{
-    ChannelPoolConfig, ChannelSelectionStrategy, DynamicChannelPoolConfig, StaticChannelPoolConfig,
-};
-pub(crate) use entry::{ActiveRpcGuard, ChannelEntry, ChannelLease, RwTransactionAffinityGuard};
+#[allow(unused_imports)]
+#[cfg(test)]
+pub(crate) use config::DynamicChannelPoolConfig;
+#[allow(unused_imports)]
+pub(crate) use config::{ChannelPoolConfig, StaticChannelPoolConfig};
+#[allow(unused_imports)]
+pub(crate) use entry::ChannelLease;
+#[allow(unused_imports)]
 pub(crate) use pool::ChannelPool;

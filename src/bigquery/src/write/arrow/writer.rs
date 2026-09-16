@@ -56,4 +56,6 @@ pub(crate) mod sealed {
 /// This trait is sealed and cannot be implemented for types outside of this crate.
 pub trait Writer: sealed::Writer + Sized {}
 
-impl<T: sealed::Writer + Sized> Writer for T {}
+impl Writer for PendingWriter {}
+impl Writer for CommittedWriter {}
+impl Writer for BufferedWriter {}

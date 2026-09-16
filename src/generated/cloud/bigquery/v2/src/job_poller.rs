@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Helpers to await the completion of an [InsertJob] request
+
 use crate::builder::job_service::InsertJob;
 use crate::model::Job;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
@@ -91,13 +93,19 @@ impl Default for JobRetryPolicy {
 
 /// Errors returned by the JobPoller.
 #[derive(Debug, thiserror::Error)]
+#[non_exhaustive]
 pub enum JobPollerError {
     /// An error occurred during the RPC or LRO polling.
     #[error(transparent)]
     Rpc(#[from] GaxError),
     /// The job completed, but the BigQuery service reported an internal error.
-    #[error("BigQuery job failed ({}): {}", .0.reason, .0.message)]
-    ErrorProto(crate::model::ErrorProto),
+    #[error("BigQuery job failed ({}): {}", .error_result.reason, .error_result.message)]
+    JobFailed {
+        /// Final error result of the job.
+        error_result: Box<crate::model::ErrorProto>,
+        /// Errors and warnings encountered during the running of the job.
+        errors: Vec<crate::model::ErrorProto>,
+    },
 }
 
 /// A poller that monitors the status of an inserted BigQuery job and handles retries.
@@ -159,7 +167,10 @@ impl JobPoller {
                 if !is_retryable_job_error(&err.reason)
                     || attempts >= self.policy.job_level_attempt_limit
                 {
-                    return Err(JobPollerError::ErrorProto(err.clone()));
+                    return Err(JobPollerError::JobFailed {
+                        error_result: Box::new(err.clone()),
+                        errors: status.errors.clone(),
+                    });
                 }
 
                 let job = prepare_job_for_retry(job);
@@ -378,5 +389,35 @@ mod tests {
 
         policy.job_level_attempt_limit = 5;
         assert_eq!(policy.job_level_attempt_limit, 5);
+    }
+
+    #[test]
+    fn job_poller_error_job_failed_display() {
+        let err_proto = ErrorProto::new()
+            .set_reason("invalidQuery")
+            .set_message("syntax error");
+        let sub_error = ErrorProto::new()
+            .set_reason("invalid")
+            .set_message("detailed error");
+
+        let poller_err = JobPollerError::JobFailed {
+            error_result: Box::new(err_proto),
+            errors: vec![sub_error],
+        };
+
+        let JobPollerError::JobFailed {
+            error_result,
+            errors,
+        } = &poller_err
+        else {
+            panic!("expected JobPollerError::JobFailed");
+        };
+        assert_eq!(error_result.reason, "invalidQuery");
+        assert_eq!(errors.len(), 1);
+        assert_eq!(errors[0].reason, "invalid");
+        assert_eq!(
+            poller_err.to_string(),
+            "BigQuery job failed (invalidQuery): syntax error"
+        );
     }
 }

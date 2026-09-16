@@ -17,6 +17,30 @@
 /// A dyn-compatible, crate-private version of [super::AuditManager].
 #[async_trait::async_trait]
 pub trait AuditManager: std::fmt::Debug + Send + Sync {
+    async fn create_audit_schedule(
+        &self,
+        req: crate::model::CreateAuditScheduleRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AuditSchedule>>;
+
+    async fn update_audit_schedule(
+        &self,
+        req: crate::model::UpdateAuditScheduleRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AuditSchedule>>;
+
+    async fn get_audit_schedule(
+        &self,
+        req: crate::model::GetAuditScheduleRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AuditSchedule>>;
+
+    async fn list_audit_schedules(
+        &self,
+        req: crate::model::ListAuditSchedulesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAuditSchedulesResponse>>;
+
     async fn enroll_resource(
         &self,
         req: crate::model::EnrollResourceRequest,
@@ -120,6 +144,42 @@ pub trait AuditManager: std::fmt::Debug + Send + Sync {
 /// All implementations of [super::AuditManager] also implement [AuditManager].
 #[async_trait::async_trait]
 impl<T: super::AuditManager> AuditManager for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_audit_schedule(
+        &self,
+        req: crate::model::CreateAuditScheduleRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AuditSchedule>> {
+        T::create_audit_schedule(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_audit_schedule(
+        &self,
+        req: crate::model::UpdateAuditScheduleRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AuditSchedule>> {
+        T::update_audit_schedule(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_audit_schedule(
+        &self,
+        req: crate::model::GetAuditScheduleRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AuditSchedule>> {
+        T::get_audit_schedule(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_audit_schedules(
+        &self,
+        req: crate::model::ListAuditSchedulesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAuditSchedulesResponse>> {
+        T::list_audit_schedules(self, req, options).await
+    }
+
     /// Forwards the call to the implementation provided by `T`.
     async fn enroll_resource(
         &self,

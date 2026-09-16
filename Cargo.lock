@@ -458,6 +458,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "bigquery-write-throughput"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "arrow",
+ "bytes",
+ "clap",
+ "google-cloud-bigquery",
+ "google-cloud-bigquery-v2",
+ "humantime",
+ "rand 0.10.2",
+ "tokio",
+]
+
+[[package]]
 name = "bitflags"
 version = "1.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1188,7 +1203,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "39cab71617ae0d63f51a36d69f866391735b51691dbda63cf6f96d042b63efeb"
 dependencies = [
  "libc",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -2380,7 +2395,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery"
-version = "0.16.1-preview"
+version = "0.17.0"
 dependencies = [
  "anyhow",
  "arc-swap",
@@ -2389,7 +2404,6 @@ dependencies = [
  "bigquery-grpc-mock",
  "bytes",
  "google-cloud-auth",
- "google-cloud-bigquery",
  "google-cloud-bigquery-derive",
  "google-cloud-bigquery-v2",
  "google-cloud-gax",
@@ -2530,32 +2544,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "google-cloud-bigquery-read"
-version = "0.0.0"
-dependencies = [
- "anyhow",
- "async-trait",
- "bytes",
- "google-cloud-auth",
- "google-cloud-bigquery-read",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-rpc",
- "google-cloud-wkt",
- "http",
- "prost",
- "prost-types",
- "serde",
- "serde_json",
- "serde_with",
- "test-case",
- "thiserror",
- "tokio",
- "tokio-stream",
- "tracing",
-]
-
-[[package]]
 name = "google-cloud-bigquery-reservation-v1"
 version = "1.12.0"
 dependencies = [
@@ -2576,7 +2564,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery-v2"
-version = "0.1.1"
+version = "1.0.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -7229,7 +7217,6 @@ dependencies = [
  "futures",
  "google-cloud-auth",
  "google-cloud-bigquery",
- "google-cloud-bigquery-read",
  "google-cloud-bigquery-v2",
  "google-cloud-gax",
  "google-cloud-test-utils",
@@ -8540,6 +8527,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "pubsub-hedging"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "bytes",
+ "clap",
+ "google-cloud-auth",
+ "google-cloud-pubsub",
+ "humantime",
+ "pubsub-grpc-mock",
+ "rand 0.10.2",
+ "tokio",
+ "tokio-stream",
+ "tonic",
+]
+
+[[package]]
 name = "pubsub-samples"
 version = "0.0.0"
 dependencies = [
@@ -8621,7 +8625,7 @@ dependencies = [
  "once_cell",
  "socket2",
  "tracing",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -8999,14 +9003,14 @@ dependencies = [
  "errno",
  "libc",
  "linux-raw-sys",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
 name = "rustls"
-version = "0.23.43"
+version = "0.23.45"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0283386ce02abc0151e1761d08802dfe86c173b0b494af5cbc086574e453da06"
+checksum = "0d41d731c7d2f962d1ccc364cec258de3c0e93b38c2fb3ba97ac74513048d634"
 dependencies = [
  "aws-lc-rs",
  "log",
@@ -9058,7 +9062,7 @@ dependencies = [
  "security-framework",
  "security-framework-sys",
  "webpki-root-certs",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -9575,6 +9579,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "storage-benchmark-write-object"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "bytes",
+ "clap",
+ "crc32c",
+ "google-cloud-auth",
+ "google-cloud-storage",
+ "libc",
+ "rand 0.10.2",
+ "tempfile",
+ "tokio",
+ "tracing-subscriber",
+ "uuid",
+]
+
+[[package]]
 name = "storage-grpc-mock"
 version = "0.0.0"
 dependencies = [
@@ -9792,7 +9814,7 @@ dependencies = [
  "getrandom 0.3.4",
  "once_cell",
  "rustix",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -10587,7 +10609,7 @@ version = "0.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c2a7b1c03c876122aa43f3020e6c3c3ee5c05081c9a00739faf7503aeba10d22"
 dependencies = [
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
