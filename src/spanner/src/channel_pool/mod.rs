@@ -31,7 +31,6 @@ pub(crate) mod scaler;
 #[allow(unused_imports)]
 pub(crate) use affinity::TransactionAffinity;
 #[allow(unused_imports)]
-#[cfg(test)]
 pub(crate) use config::DynamicChannelPoolConfig;
 #[allow(unused_imports)]
 pub(crate) use config::{ChannelPoolConfig, StaticChannelPoolConfig};
