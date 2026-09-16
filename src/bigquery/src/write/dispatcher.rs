@@ -138,7 +138,7 @@ impl Dispatcher {
             if self
                 .retry_policy
                 .remaining_time(&state)
-                .is_some_and(|remaining| remaining < delay)
+                .is_some_and(|remaining| remaining <= delay)
             {
                 return Err(Error::exhausted(err).into());
             }
