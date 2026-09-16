@@ -60,7 +60,7 @@ mod tests {
     use crate::error::AppendError;
     use crate::write::test::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
-    use gaxi::grpc::tonic::Response as TonicResponse;
+    use gaxi::grpc::tonic::{Response as TonicResponse, Status as TonicStatus};
     use tokio::sync::mpsc;
 
     #[tokio::test]
@@ -113,9 +113,11 @@ mod tests {
         let resp = writer.append(rows(3)).send().await?;
         assert_eq!(resp.offset, Some(3));
 
-        drop(response_tx);
-        let err = writer.append(rows(4)).send().await.expect_err("channel");
-        assert!(matches!(err, AppendError::UnexpectedEndOfStream));
+        response_tx
+            .send(Err(TonicStatus::failed_precondition("fail")))
+            .await?;
+        let err = writer.append(rows(4)).send().await.expect_err("fail");
+        assert!(matches!(err, AppendError::Rpc { source: _ }), "{err:?}");
 
         Ok(())
     }
