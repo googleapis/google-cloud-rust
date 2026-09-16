@@ -612,7 +612,7 @@ mod tests {
         let msg_id = rx.await??;
         assert_eq!(msg_id, "msg-hedged");
         assert!(state.cancel_token.is_cancelled());
-        assert!(done_rx.await.is_ok_and(|r| r.is_ok()));
+        done_rx.await??;
 
         Ok(())
     }
@@ -633,7 +633,7 @@ mod tests {
             PublishResponse::new().set_message_ids(["msg".to_string()])
         ));
         assert!(state.cancel_token.is_cancelled());
-        assert!(done_rx.await.is_ok_and(|r| r.is_ok()));
+        done_rx.await??;
 
         tx.send(state)?;
         // Drop sender to signal shutdown
@@ -703,7 +703,7 @@ mod tests {
         let msg_id = rx.await??;
         assert_eq!(msg_id, "msg-hedged-2");
         assert!(state.cancel_token.is_cancelled());
-        assert!(done_rx.await.is_ok_and(|r| r.is_ok()));
+        done_rx.await??;
 
         Ok(())
     }
@@ -750,7 +750,7 @@ mod tests {
         let msg_id = rx.await??;
         assert_eq!(msg_id, "msg-initial");
         assert!(state.cancel_token.is_cancelled());
-        assert!(done_rx.await.is_ok_and(|r| r.is_ok()));
+        done_rx.await??;
 
         Ok(())
     }
@@ -794,7 +794,7 @@ mod tests {
         let msg_id = rx.await??;
         assert_eq!(msg_id, "msg-initial");
         assert!(state.cancel_token.is_cancelled());
-        assert!(done_rx.await.is_ok_and(|r| r.is_ok()));
+        done_rx.await??;
 
         // Advance past the 100ms hedging deadline to verify scheduler pops and safely discards it
         tokio::time::advance(Duration::from_millis(100)).await;
