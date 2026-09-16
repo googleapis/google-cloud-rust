@@ -23,8 +23,30 @@ use crate::google::cloud::bigquery::storage::v1::{AppendRowsRequest, AppendRowsR
 use crate::model::{ArrowSchema, ProtoSchema};
 use bigquery_grpc_mock::google::cloud::bigquery::storage::v1;
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+use google_cloud_gax::backoff_policy::BackoffPolicy;
+use google_cloud_gax::retry_policy::NeverRetry;
+use google_cloud_gax::retry_state::RetryState;
 use std::sync::Arc;
+use std::time::Duration;
 use tokio::sync::mpsc;
+
+mockall::mock! {
+    #[derive(Debug)]
+    pub BackoffPolicy {}
+    impl BackoffPolicy for BackoffPolicy {
+        fn on_failure(&self, state: &RetryState) -> Duration;
+    }
+}
+
+/// A backoff policy that does not wait, so tests do not depend on timing.
+#[derive(Debug)]
+pub(super) struct NoBackoff;
+
+impl BackoffPolicy for NoBackoff {
+    fn on_failure(&self, _state: &RetryState) -> Duration {
+        Duration::ZERO
+    }
+}
 
 pub(super) fn write_stream() -> String {
     "projects/p/datasets/d/tables/t/streams/s".to_string()
@@ -74,6 +96,10 @@ pub(super) fn test_response(index: i64) -> AppendRowsResponse {
 }
 
 // Return a dispatcher that sends requests on the provided channel.
+//
+// The dispatcher never retries. Only the seeded stream routes to the provided
+// channel, so a retry would use a replacement stream that the test cannot
+// observe.
 pub(super) async fn test_dispatcher(
     req_tx: mpsc::UnboundedSender<WriteRequest>,
 ) -> anyhow::Result<Arc<Dispatcher>> {
@@ -86,6 +112,10 @@ pub(super) async fn test_dispatcher(
         .first_mut()
         .expect("there is one entry in the pool")
         .req_tx = req_tx;
-    let dispatcher = Arc::new(Dispatcher::new(pool));
+    let dispatcher = Arc::new(Dispatcher::with_policies(
+        pool,
+        Arc::new(NeverRetry),
+        Arc::new(NoBackoff),
+    ));
     Ok(dispatcher)
 }
