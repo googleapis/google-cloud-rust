@@ -90,9 +90,9 @@ pub struct Args {
     #[arg(long, value_parser = parse_duration)]
     pub duration: Option<Duration>,
 
-    /// The maximum number of rows per page returned from BigQuery (maps to `max_results`).
+    /// The maximum number of rows per page returned from BigQuery.
     #[arg(long)]
-    pub max_results: Option<u32>,
+    pub page_size: Option<u32>,
 
     /// Whether to consume all returned rows by iterating over the stream (`read().next().await`).
     #[arg(long, default_value_t = true, action = clap::ArgAction::Set)]

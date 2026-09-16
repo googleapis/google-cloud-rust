@@ -117,8 +117,8 @@ impl TaskRunner<'_> {
             .set_location(&self.args.location)
             .set_use_query_cache(self.args.use_query_cache);
 
-        if let Some(max_results) = self.args.max_results {
-            query_builder = query_builder.set_max_results(max_results);
+        if let Some(page_size) = self.args.page_size {
+            query_builder = query_builder.set_page_size(page_size);
         }
         if let Some(project_id) = &self.args.project_id {
             query_builder = query_builder.with_project_id(project_id);
