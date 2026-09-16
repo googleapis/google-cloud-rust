@@ -1466,8 +1466,11 @@ pub struct DeviceSession {
     /// Output only. The timestamp that the session first became ACTIVE.
     pub active_start_time: std::option::Option<wkt::Timestamp>,
 
-    /// Required. The requested device
+    /// Required. The requested device.
     pub android_device: std::option::Option<crate::model::AndroidDevice>,
+
+    /// Optional. Information about the client which invoked the device session.
+    pub client_info: std::option::Option<crate::model::ClientInfo>,
 
     /// The amount of time that a device will be initially allocated for.
     pub expiration: std::option::Option<crate::model::device_session::Expiration>,
@@ -1676,6 +1679,39 @@ impl DeviceSession {
         T: std::convert::Into<crate::model::AndroidDevice>,
     {
         self.android_device = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [client_info][crate::model::DeviceSession::client_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// use google_cloud_devicestreaming_v1::model::ClientInfo;
+    /// let x = DeviceSession::new().set_client_info(ClientInfo::default()/* use setters */);
+    /// ```
+    pub fn set_client_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ClientInfo>,
+    {
+        self.client_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [client_info][crate::model::DeviceSession::client_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// use google_cloud_devicestreaming_v1::model::ClientInfo;
+    /// let x = DeviceSession::new().set_or_clear_client_info(Some(ClientInfo::default()/* use setters */));
+    /// let x = DeviceSession::new().set_or_clear_client_info(None::<ClientInfo>);
+    /// ```
+    pub fn set_or_clear_client_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ClientInfo>,
+    {
+        self.client_info = v.map(|x| x.into());
         self
     }
 
@@ -2066,6 +2102,56 @@ pub mod device_session {
         /// will be ended and the SessionState will transition from ACTIVE to
         /// FINISHED.
         ExpireTime(std::boxed::Box<wkt::Timestamp>),
+    }
+}
+
+/// Information about the client which invoked the device session.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ClientInfo {
+    /// Required. Client name, such as gcloud. The maximum length is 64 characters.
+    pub client: std::string::String,
+
+    /// Optional. Client version. The maximum length is 64 characters.
+    pub version: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ClientInfo {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [client][crate::model::ClientInfo::client].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::ClientInfo;
+    /// let x = ClientInfo::new().set_client("example");
+    /// ```
+    pub fn set_client<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client = v.into();
+        self
+    }
+
+    /// Sets the value of [version][crate::model::ClientInfo::version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::ClientInfo;
+    /// let x = ClientInfo::new().set_version("example");
+    /// ```
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ClientInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.devicestreaming.v1.ClientInfo"
     }
 }
 

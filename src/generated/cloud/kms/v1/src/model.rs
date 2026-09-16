@@ -10808,19 +10808,31 @@ pub mod import_job {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExternalProtectionLevelOptions {
-    /// The URI for an external resource that this
+    /// Optional. The URI for an external resource that this
     /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] represents.
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     pub external_key_uri: std::string::String,
 
-    /// The path to the external key material on the EKM when using
+    /// Optional. The path to the external key material on the EKM when using
     /// [EkmConnection][google.cloud.kms.v1.EkmConnection] e.g., "v0/my/key". Set
     /// this field instead of external_key_uri when using an
     /// [EkmConnection][google.cloud.kms.v1.EkmConnection].
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     pub ekm_connection_key_path: std::string::String,
+
+    /// Optional. The resource name of the backend environment where the key
+    /// material of [CryptoKeyVersions][google.cloud.kms.v1.CryptoKeyVersion] is
+    /// associated with. Setting this field overrides the [CryptoKeyBackend][].
+    /// This field may be set when
+    /// [CryptoKeyVersions][google.cloud.kms.v1.CryptoKeyVersion] is set to
+    /// [EXTERNAL_VPC][google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]. Format:
+    /// `projects/*/locations/*/ekmConnections/*`.
+    ///
+    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::ProtectionLevel::ExternalVpc
+    pub ekm_connection_backend_override: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -10858,6 +10870,24 @@ impl ExternalProtectionLevelOptions {
         v: T,
     ) -> Self {
         self.ekm_connection_key_path = v.into();
+        self
+    }
+
+    /// Sets the value of [ekm_connection_backend_override][crate::model::ExternalProtectionLevelOptions::ekm_connection_backend_override].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ExternalProtectionLevelOptions;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let ekm_connection_id = "ekm_connection_id";
+    /// let x = ExternalProtectionLevelOptions::new().set_ekm_connection_backend_override(format!("projects/{project_id}/locations/{location_id}/ekmConnections/{ekm_connection_id}"));
+    /// ```
+    pub fn set_ekm_connection_backend_override<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ekm_connection_backend_override = v.into();
         self
     }
 }

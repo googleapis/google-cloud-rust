@@ -57,8 +57,21 @@ pub struct FindClosestBuildingInsightsRequest {
     /// imagery is returned if `required_quality` is set to `MEDIUM`.
     pub exact_quality_required: bool,
 
-    /// Optional. Specifies the pre-GA features to enable.
+    /// Optional. Specifies the pre-GA experiments to enable. Requests using this
+    /// field are classified as a pre-GA offering under the [Google Maps Platform
+    /// Service Specific
+    /// Terms](https://cloud.google.com/maps-platform/terms/maps-service-terms).
+    /// See [launch stage
+    /// descriptions](https://cloud.google.com/maps-platform/terms/launch-stages)
+    /// for more details.
     pub experiments: std::vec::Vec<crate::model::Experiment>,
+
+    /// Optional. A list of
+    /// [additional_insights][google.maps.solar.v1.FindClosestBuildingInsightsRequest.additional_insights]
+    /// to be included in the response.
+    ///
+    /// [google.maps.solar.v1.FindClosestBuildingInsightsRequest.additional_insights]: crate::model::FindClosestBuildingInsightsRequest::additional_insights
+    pub additional_insights: std::vec::Vec<crate::model::AdditionalInsights>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -149,6 +162,26 @@ impl FindClosestBuildingInsightsRequest {
     {
         use std::iter::Iterator;
         self.experiments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [additional_insights][crate::model::FindClosestBuildingInsightsRequest::additional_insights].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_solar_v1::model::FindClosestBuildingInsightsRequest;
+    /// use google_maps_solar_v1::model::AdditionalInsights;
+    /// let x = FindClosestBuildingInsightsRequest::new().set_additional_insights([
+    ///     AdditionalInsights::DetectedArrays,
+    /// ]);
+    /// ```
+    pub fn set_additional_insights<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AdditionalInsights>,
+    {
+        use std::iter::Iterator;
+        self.additional_insights = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -290,6 +323,13 @@ pub struct BuildingInsights {
 
     /// The quality of the imagery used to compute the data for this building.
     pub imagery_quality: crate::model::ImageryQuality,
+
+    /// Solar arrays detected on the building. This field is only populated if
+    /// DETECTED_ARRAYS is included in the request's
+    /// [FindClosestBuildingInsightsRequest.additional_insights][google.maps.solar.v1.FindClosestBuildingInsightsRequest.additional_insights].
+    ///
+    /// [google.maps.solar.v1.FindClosestBuildingInsightsRequest.additional_insights]: crate::model::FindClosestBuildingInsightsRequest::additional_insights
+    pub detected_arrays: std::option::Option<crate::model::building_insights::DetectedArrays>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -548,11 +588,283 @@ impl BuildingInsights {
         self.imagery_quality = v.into();
         self
     }
+
+    /// Sets the value of [detected_arrays][crate::model::BuildingInsights::detected_arrays].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_solar_v1::model::BuildingInsights;
+    /// use google_maps_solar_v1::model::building_insights::DetectedArrays;
+    /// let x = BuildingInsights::new().set_detected_arrays(DetectedArrays::default()/* use setters */);
+    /// ```
+    pub fn set_detected_arrays<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::building_insights::DetectedArrays>,
+    {
+        self.detected_arrays = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [detected_arrays][crate::model::BuildingInsights::detected_arrays].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_solar_v1::model::BuildingInsights;
+    /// use google_maps_solar_v1::model::building_insights::DetectedArrays;
+    /// let x = BuildingInsights::new().set_or_clear_detected_arrays(Some(DetectedArrays::default()/* use setters */));
+    /// let x = BuildingInsights::new().set_or_clear_detected_arrays(None::<DetectedArrays>);
+    /// ```
+    pub fn set_or_clear_detected_arrays<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::building_insights::DetectedArrays>,
+    {
+        self.detected_arrays = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for BuildingInsights {
     fn typename() -> &'static str {
         "type.googleapis.com/google.maps.solar.v1.BuildingInsights"
+    }
+}
+
+/// Defines additional types related to [BuildingInsights].
+pub mod building_insights {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Information about solar arrays detected on the building.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DetectedArrays {
+        /// Indicates the detection status of solar arrays for this building.
+        pub detection_status: crate::model::building_insights::detected_arrays::DetectionStatus,
+
+        /// The date indicating when the latest solar array data was captured.
+        pub latest_capture_date: std::option::Option<google_cloud_type::model::Date>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DetectedArrays {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [detection_status][crate::model::building_insights::DetectedArrays::detection_status].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_maps_solar_v1::model::building_insights::DetectedArrays;
+        /// use google_maps_solar_v1::model::building_insights::detected_arrays::DetectionStatus;
+        /// let x0 = DetectedArrays::new().set_detection_status(DetectionStatus::DataUnavailable);
+        /// let x1 = DetectedArrays::new().set_detection_status(DetectionStatus::ArraysDetected);
+        /// let x2 = DetectedArrays::new().set_detection_status(DetectionStatus::NoArraysDetected);
+        /// ```
+        pub fn set_detection_status<
+            T: std::convert::Into<crate::model::building_insights::detected_arrays::DetectionStatus>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.detection_status = v.into();
+            self
+        }
+
+        /// Sets the value of [latest_capture_date][crate::model::building_insights::DetectedArrays::latest_capture_date].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_maps_solar_v1::model::building_insights::DetectedArrays;
+        /// use google_cloud_type::model::Date;
+        /// let x = DetectedArrays::new().set_latest_capture_date(Date::default()/* use setters */);
+        /// ```
+        pub fn set_latest_capture_date<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_type::model::Date>,
+        {
+            self.latest_capture_date = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [latest_capture_date][crate::model::building_insights::DetectedArrays::latest_capture_date].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_maps_solar_v1::model::building_insights::DetectedArrays;
+        /// use google_cloud_type::model::Date;
+        /// let x = DetectedArrays::new().set_or_clear_latest_capture_date(Some(Date::default()/* use setters */));
+        /// let x = DetectedArrays::new().set_or_clear_latest_capture_date(None::<Date>);
+        /// ```
+        pub fn set_or_clear_latest_capture_date<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_type::model::Date>,
+        {
+            self.latest_capture_date = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for DetectedArrays {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.maps.solar.v1.BuildingInsights.DetectedArrays"
+        }
+    }
+
+    /// Defines additional types related to [DetectedArrays].
+    pub mod detected_arrays {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Indicates the detection status of solar arrays for this building.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum DetectionStatus {
+            /// Unspecified status.
+            Unspecified,
+            /// Detected solar array data is unavailable for this building.
+            DataUnavailable,
+            /// At least one solar array has been detected for this building.
+            ArraysDetected,
+            /// No solar arrays detected for this building.
+            NoArraysDetected,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [DetectionStatus::value] or
+            /// [DetectionStatus::name].
+            UnknownValue(detection_status::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod detection_status {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl DetectionStatus {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::DataUnavailable => std::option::Option::Some(1),
+                    Self::ArraysDetected => std::option::Option::Some(2),
+                    Self::NoArraysDetected => std::option::Option::Some(3),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("DETECTION_STATUS_UNSPECIFIED"),
+                    Self::DataUnavailable => {
+                        std::option::Option::Some("DETECTION_STATUS_DATA_UNAVAILABLE")
+                    }
+                    Self::ArraysDetected => {
+                        std::option::Option::Some("DETECTION_STATUS_ARRAYS_DETECTED")
+                    }
+                    Self::NoArraysDetected => {
+                        std::option::Option::Some("DETECTION_STATUS_NO_ARRAYS_DETECTED")
+                    }
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for DetectionStatus {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for DetectionStatus {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for DetectionStatus {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::DataUnavailable,
+                    2 => Self::ArraysDetected,
+                    3 => Self::NoArraysDetected,
+                    _ => Self::UnknownValue(detection_status::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for DetectionStatus {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "DETECTION_STATUS_UNSPECIFIED" => Self::Unspecified,
+                    "DETECTION_STATUS_DATA_UNAVAILABLE" => Self::DataUnavailable,
+                    "DETECTION_STATUS_ARRAYS_DETECTED" => Self::ArraysDetected,
+                    "DETECTION_STATUS_NO_ARRAYS_DETECTED" => Self::NoArraysDetected,
+                    _ => Self::UnknownValue(detection_status::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for DetectionStatus {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::DataUnavailable => serializer.serialize_i32(1),
+                    Self::ArraysDetected => serializer.serialize_i32(2),
+                    Self::NoArraysDetected => serializer.serialize_i32(3),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for DetectionStatus {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<DetectionStatus>::new(
+                    ".google.maps.solar.v1.BuildingInsights.DetectedArrays.DetectionStatus",
+                ))
+            }
+        }
     }
 }
 
@@ -623,10 +935,12 @@ pub struct SolarPotential {
     /// Size and sunlight quantiles for each roof segment.
     pub roof_segment_stats: std::vec::Vec<crate::model::RoofSegmentSizeAndSunshineStats>,
 
-    /// Each [SolarPanel] [google.maps.solar.v1.SolarPanel]
+    /// Each [SolarPanel][google.maps.solar.v1.SolarPanel]
     /// describes a single solar panel. They are listed in the order that
     /// the panel layout algorithm placed this. This is usually, though
     /// not always, in decreasing order of annual energy production.
+    ///
+    /// [google.maps.solar.v1.SolarPanel]: crate::model::SolarPanel
     pub solar_panels: std::vec::Vec<crate::model::SolarPanel>,
 
     /// Each [SolarPanelConfig]
@@ -2990,7 +3304,13 @@ pub struct GetDataLayersRequest {
     /// imagery is returned if `required_quality` is set to `MEDIUM`.
     pub exact_quality_required: bool,
 
-    /// Optional. Specifies the pre-GA experiments to enable.
+    /// Optional. Specifies the pre-GA experiments to enable. Requests using this
+    /// field are classified as a pre-GA offering under the [Google Maps Platform
+    /// Service Specific
+    /// Terms](https://cloud.google.com/maps-platform/terms/maps-service-terms).
+    /// See [launch stage descriptions](
+    /// <https://cloud.google.com/maps-platform/terms/launch-stages>) for more
+    /// details.
     pub experiments: std::vec::Vec<crate::model::Experiment>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3428,6 +3748,137 @@ impl GetGeoTiffRequest {
 impl wkt::message::Message for GetGeoTiffRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.maps.solar.v1.GetGeoTiffRequest"
+    }
+}
+
+/// Additional building information such as roof geometry and
+/// solar panel arrays that can be returned in BuildingInsights.
+///
+/// New values may be added to this enum in the future.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum AdditionalInsights {
+    /// The default value. The default BuildingInsights will be returned.
+    Unspecified,
+    /// Determines whether the response will include the detected arrays.
+    ///
+    /// If specified, the `detected_arrays` field will be populated in the
+    /// response.
+    DetectedArrays,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [AdditionalInsights::value] or
+    /// [AdditionalInsights::name].
+    UnknownValue(additional_insights::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod additional_insights {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl AdditionalInsights {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::DetectedArrays => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("ADDITIONAL_INSIGHTS_UNSPECIFIED"),
+            Self::DetectedArrays => std::option::Option::Some("DETECTED_ARRAYS"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for AdditionalInsights {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for AdditionalInsights {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for AdditionalInsights {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            2 => Self::DetectedArrays,
+            _ => Self::UnknownValue(additional_insights::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for AdditionalInsights {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "ADDITIONAL_INSIGHTS_UNSPECIFIED" => Self::Unspecified,
+            "DETECTED_ARRAYS" => Self::DetectedArrays,
+            _ => Self::UnknownValue(additional_insights::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for AdditionalInsights {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::DetectedArrays => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for AdditionalInsights {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<AdditionalInsights>::new(
+            ".google.maps.solar.v1.AdditionalInsights",
+        ))
     }
 }
 

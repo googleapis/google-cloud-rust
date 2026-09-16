@@ -76,6 +76,9 @@ impl super::stub::Solar for Solar {
                         .experiments
                         .iter()
                         .fold(builder, |builder, p| builder.query(&[("experiments", p)]));
+                    let builder = req.additional_insights.iter().fold(builder, |builder, p| {
+                        builder.query(&[("additionalInsights", p)])
+                    });
                     Ok(builder)
                 })();
                 Some(builder.map(|b| (b, Method::GET, path_template)))

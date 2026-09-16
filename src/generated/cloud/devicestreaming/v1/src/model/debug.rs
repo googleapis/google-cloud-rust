@@ -203,6 +203,7 @@ impl std::fmt::Debug for super::DeviceSession {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("active_start_time", &self.active_start_time);
         debug_struct.field("android_device", &self.android_device);
+        debug_struct.field("client_info", &self.client_info);
         debug_struct.field("expiration", &self.expiration);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -217,6 +218,18 @@ impl std::fmt::Debug for super::device_session::SessionStateEvent {
         debug_struct.field("session_state", &self.session_state);
         debug_struct.field("event_time", &self.event_time);
         debug_struct.field("state_message", &self.state_message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ClientInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ClientInfo");
+        debug_struct.field("client", &self.client);
+        debug_struct.field("version", &self.version);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

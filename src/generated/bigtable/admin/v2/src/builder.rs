@@ -1431,6 +1431,331 @@ pub mod bigtable_instance_admin {
         }
     }
 
+    /// The request builder for [BigtableInstanceAdmin::update_memory_layer][crate::client::BigtableInstanceAdmin::update_memory_layer] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::UpdateMemoryLayer;
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateMemoryLayer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateMemoryLayer(RequestBuilder<crate::model::UpdateMemoryLayerRequest>);
+
+    impl UpdateMemoryLayer {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateMemoryLayerRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_memory_layer][crate::client::BigtableInstanceAdmin::update_memory_layer].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_memory_layer(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_memory_layer`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::MemoryLayer,
+            crate::model::UpdateMemoryLayerMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::MemoryLayer,
+                crate::model::UpdateMemoryLayerMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin::update_memory_layer::until_done";
+            }
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            use google_cloud_lro::internal::PollerExt;
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
+            .with_options(poller_options)
+        }
+
+        /// Sets the value of [memory_layer][crate::model::UpdateMemoryLayerRequest::memory_layer].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_memory_layer<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MemoryLayer>,
+        {
+            self.0.request.memory_layer = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [memory_layer][crate::model::UpdateMemoryLayerRequest::memory_layer].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_memory_layer<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MemoryLayer>,
+        {
+            self.0.request.memory_layer = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateMemoryLayerRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMemoryLayerRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateMemoryLayer {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BigtableInstanceAdmin::list_memory_layers][crate::client::BigtableInstanceAdmin::list_memory_layers] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListMemoryLayers;
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListMemoryLayers {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListMemoryLayers(RequestBuilder<crate::model::ListMemoryLayersRequest>);
+
+    impl ListMemoryLayers {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListMemoryLayersRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListMemoryLayersResponse> {
+            (*self.0.stub)
+                .list_memory_layers(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListMemoryLayersResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListMemoryLayersResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListMemoryLayersRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListMemoryLayersRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListMemoryLayersRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListMemoryLayers {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BigtableInstanceAdmin::get_memory_layer][crate::client::BigtableInstanceAdmin::get_memory_layer] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetMemoryLayer;
+    /// # async fn sample() -> google_cloud_bigtable_admin_v2::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetMemoryLayer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetMemoryLayer(RequestBuilder<crate::model::GetMemoryLayerRequest>);
+
+    impl GetMemoryLayer {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetMemoryLayerRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::MemoryLayer> {
+            (*self.0.stub)
+                .get_memory_layer(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetMemoryLayerRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetMemoryLayer {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [BigtableInstanceAdmin::create_app_profile][crate::client::BigtableInstanceAdmin::create_app_profile] calls.
     ///
     /// # Example

@@ -1083,9 +1083,21 @@ pub struct Gateway {
     /// Output only. The current state of the Gateway.
     pub state: crate::model::gateway::State,
 
-    /// Output only. The default API Gateway host name of the form
-    /// `{gateway_id}-{hash}.{region_code}.gateway.dev`.
+    /// Output only. The default hostname that serves traffic for this Gateway.
     pub default_hostname: std::string::String,
+
+    /// Optional. Immutable. Requests streaming for a new gateway. An attempt to
+    /// change it on update is rejected. If unset, the service selects the mode.
+    /// This field records only what was requested and is never modified by the
+    /// service; read `effective_streaming_mode` for the mode the gateway is served
+    /// with.
+    pub streaming_mode: crate::model::gateway::StreamingMode,
+
+    /// Output only. The streaming mode this gateway is actually served with, which
+    /// the service resolves at creation from `streaming_mode`, the referenced API
+    /// Config, and the platform default at the time. Read this rather than
+    /// `streaming_mode` to determine whether a gateway supports streaming.
+    pub effective_streaming_mode: crate::model::gateway::EffectiveStreamingMode,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1254,6 +1266,41 @@ impl Gateway {
         self.default_hostname = v.into();
         self
     }
+
+    /// Sets the value of [streaming_mode][crate::model::Gateway::streaming_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apigateway_v1::model::Gateway;
+    /// use google_cloud_apigateway_v1::model::gateway::StreamingMode;
+    /// let x0 = Gateway::new().set_streaming_mode(StreamingMode::Enabled);
+    /// ```
+    pub fn set_streaming_mode<T: std::convert::Into<crate::model::gateway::StreamingMode>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.streaming_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [effective_streaming_mode][crate::model::Gateway::effective_streaming_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apigateway_v1::model::Gateway;
+    /// use google_cloud_apigateway_v1::model::gateway::EffectiveStreamingMode;
+    /// let x0 = Gateway::new().set_effective_streaming_mode(EffectiveStreamingMode::Disabled);
+    /// let x1 = Gateway::new().set_effective_streaming_mode(EffectiveStreamingMode::Enabled);
+    /// ```
+    pub fn set_effective_streaming_mode<
+        T: std::convert::Into<crate::model::gateway::EffectiveStreamingMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.effective_streaming_mode = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for Gateway {
@@ -1416,6 +1463,271 @@ pub mod gateway {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
                 ".google.cloud.apigateway.v1.Gateway.State",
+            ))
+        }
+    }
+
+    /// Streaming mode for a Gateway.
+    /// This enum is frozen. No values are expected to be added in the future.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum StreamingMode {
+        /// Lets the service select the streaming mode.
+        Unspecified,
+        /// Enables streaming. The gateway supports Server-Sent Events (SSE), HTTP/2
+        /// streaming, HTTP chunked transfer, WebSockets, and gRPC bidirectional
+        /// streaming.
+        Enabled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [StreamingMode::value] or
+        /// [StreamingMode::name].
+        UnknownValue(streaming_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod streaming_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl StreamingMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Enabled => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STREAMING_MODE_UNSPECIFIED"),
+                Self::Enabled => std::option::Option::Some("STREAMING_MODE_ENABLED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for StreamingMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for StreamingMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for StreamingMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Enabled,
+                _ => Self::UnknownValue(streaming_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for StreamingMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STREAMING_MODE_UNSPECIFIED" => Self::Unspecified,
+                "STREAMING_MODE_ENABLED" => Self::Enabled,
+                _ => Self::UnknownValue(streaming_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for StreamingMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Enabled => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for StreamingMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<StreamingMode>::new(
+                ".google.cloud.apigateway.v1.Gateway.StreamingMode",
+            ))
+        }
+    }
+
+    /// The streaming mode a Gateway is served with.
+    /// This enum is frozen. No values are expected to be added in the future.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum EffectiveStreamingMode {
+        /// Indicates that the service has not resolved a mode. Every gateway
+        /// returned by `GetGateway` and `ListGateways` carries a resolved mode, so
+        /// this value should not be returned under normal circumstances.
+        Unspecified,
+        /// Indicates that the gateway does not support streaming.
+        Disabled,
+        /// Indicates that the gateway supports streaming.
+        Enabled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [EffectiveStreamingMode::value] or
+        /// [EffectiveStreamingMode::name].
+        UnknownValue(effective_streaming_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod effective_streaming_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl EffectiveStreamingMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Disabled => std::option::Option::Some(1),
+                Self::Enabled => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("EFFECTIVE_STREAMING_MODE_UNSPECIFIED")
+                }
+                Self::Disabled => std::option::Option::Some("EFFECTIVE_STREAMING_MODE_DISABLED"),
+                Self::Enabled => std::option::Option::Some("EFFECTIVE_STREAMING_MODE_ENABLED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for EffectiveStreamingMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for EffectiveStreamingMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for EffectiveStreamingMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Disabled,
+                2 => Self::Enabled,
+                _ => Self::UnknownValue(effective_streaming_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for EffectiveStreamingMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EFFECTIVE_STREAMING_MODE_UNSPECIFIED" => Self::Unspecified,
+                "EFFECTIVE_STREAMING_MODE_DISABLED" => Self::Disabled,
+                "EFFECTIVE_STREAMING_MODE_ENABLED" => Self::Enabled,
+                _ => Self::UnknownValue(effective_streaming_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for EffectiveStreamingMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Disabled => serializer.serialize_i32(1),
+                Self::Enabled => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EffectiveStreamingMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<EffectiveStreamingMode>::new(
+                ".google.cloud.apigateway.v1.Gateway.EffectiveStreamingMode",
             ))
         }
     }

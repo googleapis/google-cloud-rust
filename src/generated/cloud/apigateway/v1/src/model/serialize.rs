@@ -224,6 +224,12 @@ impl serde::ser::Serialize for super::Gateway {
         if !self.default_hostname.is_empty() {
             state.serialize_entry("defaultHostname", &self.default_hostname)?;
         }
+        if !wkt::internal::is_default(&self.streaming_mode) {
+            state.serialize_entry("streamingMode", &self.streaming_mode)?;
+        }
+        if !wkt::internal::is_default(&self.effective_streaming_mode) {
+            state.serialize_entry("effectiveStreamingMode", &self.effective_streaming_mode)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
