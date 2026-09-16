@@ -39958,6 +39958,14 @@ pub struct SearchRequest {
     /// [google.cloud.discoveryengine.v1.SearchRequest]: crate::model::SearchRequest
     pub data_store_specs: std::vec::Vec<crate::model::search_request::DataStoreSpec>,
 
+    /// Optional. The maximum number of results to retrieve from each data store.
+    /// If not specified, it will use the
+    /// [SearchRequest.DataStoreSpec.num_results][google.cloud.discoveryengine.v1.SearchRequest.DataStoreSpec.num_results]
+    /// if provided, otherwise there is no limit.
+    ///
+    /// [google.cloud.discoveryengine.v1.SearchRequest.DataStoreSpec.num_results]: crate::model::search_request::DataStoreSpec::num_results
+    pub num_results_per_data_store: i32,
+
     /// The filter syntax consists of an expression language for constructing a
     /// predicate from one or more fields of the documents being filtered. Filter
     /// expression is case-sensitive.
@@ -40157,6 +40165,15 @@ pub struct SearchRequest {
     ///   Google model to determine the keyword-based overlap between the query and
     ///   the document.
     /// * `base_rank`: the default rank of the result
+    /// * `media_actor_match`: whether the media actor matches the query
+    /// * `media_director_match`: whether the media director matches the query
+    /// * `media_genre_match`: whether the media genre matches the query
+    /// * `media_language_match`: whether the media language matches the query
+    /// * `media_title_match`: whether the media title matches the query
+    /// * `media_prefix_similarity_rank`: prefix similarity rank for media
+    ///   results
+    /// * `media_semantic_similarity_rank`: semantic similarity rank for media
+    ///   results
     ///
     /// [google.cloud.discoveryengine.v1.SearchRequest.ranking_expression_backend]: crate::model::SearchRequest::ranking_expression_backend
     /// [google.cloud.discoveryengine.v1.ServingConfig.ranking_expression]: crate::model::ServingConfig::ranking_expression
@@ -40236,10 +40253,6 @@ pub struct SearchRequest {
     /// Call /answer API with the session ID generated in the first call.
     /// Here, the answer generation happens in the context of the search
     /// results from the first search call.
-    ///
-    /// Multi-turn Search feature is currently at private GA stage. Please use
-    /// v1alpha or v1beta version instead before we launch this feature to public
-    /// GA. Or ask for allowlisting through Google Support team.
     pub session: std::string::String,
 
     /// Session specification.
@@ -40271,6 +40284,23 @@ pub struct SearchRequest {
 
     /// Optional. The specification for returning the relevance score.
     pub relevance_score_spec: std::option::Option<crate::model::search_request::RelevanceScoreSpec>,
+
+    /// Optional. SearchAddonSpec is used to disable add-ons for search as per new
+    /// repricing model.
+    /// This field is only supported for search requests.
+    pub search_addon_spec: std::option::Option<crate::model::search_request::SearchAddonSpec>,
+
+    /// Optional. Optional configuration for the Custom Ranking feature.
+    pub custom_ranking_params:
+        std::option::Option<crate::model::search_request::CustomRankingParams>,
+
+    /// Optional. The entity for customers that may run multiple different
+    /// entities, domains, sites or regions, for example, "Google US", "Google
+    /// Ads", "Waymo", "google.com", "youtube.com", etc. If this is set, it should
+    /// be exactly matched with
+    /// [UserEvent.entity][google.cloud.discoveryengine.v1.UserEvent.entity] to get
+    /// search results boosted by entity.
+    pub entity: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -40444,6 +40474,18 @@ impl SearchRequest {
     {
         use std::iter::Iterator;
         self.data_store_specs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [num_results_per_data_store][crate::model::SearchRequest::num_results_per_data_store].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::SearchRequest;
+    /// let x = SearchRequest::new().set_num_results_per_data_store(42);
+    /// ```
+    pub fn set_num_results_per_data_store<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.num_results_per_data_store = v.into();
         self
     }
 
@@ -41044,6 +41086,84 @@ impl SearchRequest {
         self.relevance_score_spec = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [search_addon_spec][crate::model::SearchRequest::search_addon_spec].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::SearchRequest;
+    /// use google_cloud_discoveryengine_v1::model::search_request::SearchAddonSpec;
+    /// let x = SearchRequest::new().set_search_addon_spec(SearchAddonSpec::default()/* use setters */);
+    /// ```
+    pub fn set_search_addon_spec<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::search_request::SearchAddonSpec>,
+    {
+        self.search_addon_spec = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [search_addon_spec][crate::model::SearchRequest::search_addon_spec].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::SearchRequest;
+    /// use google_cloud_discoveryengine_v1::model::search_request::SearchAddonSpec;
+    /// let x = SearchRequest::new().set_or_clear_search_addon_spec(Some(SearchAddonSpec::default()/* use setters */));
+    /// let x = SearchRequest::new().set_or_clear_search_addon_spec(None::<SearchAddonSpec>);
+    /// ```
+    pub fn set_or_clear_search_addon_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::search_request::SearchAddonSpec>,
+    {
+        self.search_addon_spec = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [custom_ranking_params][crate::model::SearchRequest::custom_ranking_params].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::SearchRequest;
+    /// use google_cloud_discoveryengine_v1::model::search_request::CustomRankingParams;
+    /// let x = SearchRequest::new().set_custom_ranking_params(CustomRankingParams::default()/* use setters */);
+    /// ```
+    pub fn set_custom_ranking_params<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::search_request::CustomRankingParams>,
+    {
+        self.custom_ranking_params = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [custom_ranking_params][crate::model::SearchRequest::custom_ranking_params].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::SearchRequest;
+    /// use google_cloud_discoveryengine_v1::model::search_request::CustomRankingParams;
+    /// let x = SearchRequest::new().set_or_clear_custom_ranking_params(Some(CustomRankingParams::default()/* use setters */));
+    /// let x = SearchRequest::new().set_or_clear_custom_ranking_params(None::<CustomRankingParams>);
+    /// ```
+    pub fn set_or_clear_custom_ranking_params<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::search_request::CustomRankingParams>,
+    {
+        self.custom_ranking_params = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [entity][crate::model::SearchRequest::entity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::SearchRequest;
+    /// let x = SearchRequest::new().set_entity("example");
+    /// ```
+    pub fn set_entity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.entity = v.into();
+        self
+    }
 }
 
 #[cfg(any(
@@ -41079,7 +41199,7 @@ pub mod search_request {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ImageQuery {
-        #[allow(missing_docs)]
+        /// Specifies the image bytes.
         pub image: std::option::Option<crate::model::search_request::image_query::Image>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -41176,7 +41296,7 @@ pub mod search_request {
         #[allow(unused_imports)]
         use super::*;
 
-        #[allow(missing_docs)]
+        /// Specifies the image bytes.
         #[cfg(any(
             feature = "assistant-service",
             feature = "conversational-search-service",
@@ -41228,6 +41348,16 @@ pub mod search_request {
         /// search operators, see
         /// [SearchOperators](https://support.google.com/cloudsearch/answer/6172299).
         pub custom_search_operators: std::string::String,
+
+        /// Optional. The maximum number of results to retrieve from this data store.
+        /// If not specified, it will use the
+        /// [SearchRequest.num_results_per_data_store][google.cloud.discoveryengine.v1.SearchRequest.num_results_per_data_store]
+        /// if provided, otherwise there is no limit. If both this field and
+        /// [SearchRequest.num_results_per_data_store][google.cloud.discoveryengine.v1.SearchRequest.num_results_per_data_store]
+        /// are specified, this field will be used.
+        ///
+        /// [google.cloud.discoveryengine.v1.SearchRequest.num_results_per_data_store]: crate::model::SearchRequest::num_results_per_data_store
+        pub num_results: i32,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -41316,6 +41446,18 @@ pub mod search_request {
             v: T,
         ) -> Self {
             self.custom_search_operators = v.into();
+            self
+        }
+
+        /// Sets the value of [num_results][crate::model::search_request::DataStoreSpec::num_results].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_request::DataStoreSpec;
+        /// let x = DataStoreSpec::new().set_num_results(42);
+        /// ```
+        pub fn set_num_results<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.num_results = v.into();
             self
         }
     }
@@ -44382,9 +44524,6 @@ pub mod search_request {
         /// Field names used for location-based filtering, where geolocation filters
         /// are detected in natural language search queries.
         /// Only valid when the FilterExtractionCondition is set to `ENABLED`.
-        ///
-        /// If this field is set, it overrides the field names set in
-        /// [ServingConfig.geo_search_query_detection_field_names][google.cloud.discoveryengine.v1.ServingConfig.geo_search_query_detection_field_names].
         pub geo_search_query_detection_field_names: std::vec::Vec<std::string::String>,
 
         /// Optional. Controls behavior of how extracted filters are applied to the
@@ -44917,6 +45056,13 @@ pub mod search_request {
         /// [google.cloud.discoveryengine.v1.SearchRequest.SearchAsYouTypeSpec.Condition.DISABLED]: crate::model::search_request::search_as_you_type_spec::Condition::Disabled
         pub condition: crate::model::search_request::search_as_you_type_spec::Condition,
 
+        /// Optional. The list of fields to be used for Search As You Type scoring.
+        pub fields: std::vec::Vec<crate::model::search_request::search_as_you_type_spec::Field>,
+
+        /// Optional. Search As You Type score threshold for filtering purpose.
+        /// We keep the result if `score` >= `score_threshold`.
+        pub score_threshold: std::option::Option<f64>,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -44951,6 +45097,59 @@ pub mod search_request {
             self.condition = v.into();
             self
         }
+
+        /// Sets the value of [fields][crate::model::search_request::SearchAsYouTypeSpec::fields].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_request::SearchAsYouTypeSpec;
+        /// use google_cloud_discoveryengine_v1::model::search_request::search_as_you_type_spec::Field;
+        /// let x = SearchAsYouTypeSpec::new()
+        ///     .set_fields([
+        ///         Field::default()/* use setters */,
+        ///         Field::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_fields<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::search_request::search_as_you_type_spec::Field>,
+        {
+            use std::iter::Iterator;
+            self.fields = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [score_threshold][crate::model::search_request::SearchAsYouTypeSpec::score_threshold].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_request::SearchAsYouTypeSpec;
+        /// let x = SearchAsYouTypeSpec::new().set_score_threshold(42.0);
+        /// ```
+        pub fn set_score_threshold<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.score_threshold = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [score_threshold][crate::model::search_request::SearchAsYouTypeSpec::score_threshold].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_request::SearchAsYouTypeSpec;
+        /// let x = SearchAsYouTypeSpec::new().set_or_clear_score_threshold(Some(42.0));
+        /// let x = SearchAsYouTypeSpec::new().set_or_clear_score_threshold(None::<f32>);
+        /// ```
+        pub fn set_or_clear_score_threshold<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.score_threshold = v.map(|x| x.into());
+            self
+        }
     }
 
     #[cfg(any(
@@ -44975,6 +45174,96 @@ pub mod search_request {
     pub mod search_as_you_type_spec {
         #[allow(unused_imports)]
         use super::*;
+
+        /// A schema field to be used for Search As You Type scoring on this
+        /// request. Overrides any data-store-level Search As You Type field
+        /// configuration for the duration of the request.
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Field {
+            /// Required. A field key that has been indexed for Search As You Type.
+            pub key: std::string::String,
+
+            /// Optional. Weight for scores from this field. Defaults to 1.0 if not
+            /// specified.
+            pub weight: std::option::Option<f64>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl Field {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [key][crate::model::search_request::search_as_you_type_spec::Field::key].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_discoveryengine_v1::model::search_request::search_as_you_type_spec::Field;
+            /// let x = Field::new().set_key("example");
+            /// ```
+            pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.key = v.into();
+                self
+            }
+
+            /// Sets the value of [weight][crate::model::search_request::search_as_you_type_spec::Field::weight].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_discoveryengine_v1::model::search_request::search_as_you_type_spec::Field;
+            /// let x = Field::new().set_weight(42.0);
+            /// ```
+            pub fn set_weight<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<f64>,
+            {
+                self.weight = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [weight][crate::model::search_request::search_as_you_type_spec::Field::weight].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_discoveryengine_v1::model::search_request::search_as_you_type_spec::Field;
+            /// let x = Field::new().set_or_clear_weight(Some(42.0));
+            /// let x = Field::new().set_or_clear_weight(None::<f32>);
+            /// ```
+            pub fn set_or_clear_weight<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<f64>,
+            {
+                self.weight = v.map(|x| x.into());
+                self
+            }
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl wkt::message::Message for Field {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.SearchAsYouTypeSpec.Field"
+            }
+        }
 
         /// Enum describing under which condition search as you type should occur.
         ///
@@ -45756,10 +46045,6 @@ pub mod search_request {
     }
 
     /// Session specification.
-    ///
-    /// Multi-turn Search feature is currently at private GA stage. Please use
-    /// v1alpha or v1beta version instead before we launch this feature to public
-    /// GA. Or ask for allowlisting through Google Support team.
     #[cfg(any(
         feature = "assistant-service",
         feature = "conversational-search-service",
@@ -45878,60 +46163,6 @@ pub mod search_request {
     impl wkt::message::Message for SessionSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.SessionSpec"
-        }
-    }
-
-    /// The specification for returning the document relevance score.
-    #[cfg(any(
-        feature = "assistant-service",
-        feature = "conversational-search-service",
-        feature = "search-service",
-        feature = "serving-config-service",
-    ))]
-    #[derive(Clone, Default, PartialEq)]
-    #[non_exhaustive]
-    pub struct RelevanceScoreSpec {
-        /// Optional. Whether to return the relevance score for search results.
-        /// The higher the score, the more relevant the document is to the query.
-        pub return_relevance_score: bool,
-
-        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-    }
-
-    #[cfg(any(
-        feature = "assistant-service",
-        feature = "conversational-search-service",
-        feature = "search-service",
-        feature = "serving-config-service",
-    ))]
-    impl RelevanceScoreSpec {
-        /// Creates a new default instance.
-        pub fn new() -> Self {
-            std::default::Default::default()
-        }
-
-        /// Sets the value of [return_relevance_score][crate::model::search_request::RelevanceScoreSpec::return_relevance_score].
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_discoveryengine_v1::model::search_request::RelevanceScoreSpec;
-        /// let x = RelevanceScoreSpec::new().set_return_relevance_score(true);
-        /// ```
-        pub fn set_return_relevance_score<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-            self.return_relevance_score = v.into();
-            self
-        }
-    }
-
-    #[cfg(any(
-        feature = "assistant-service",
-        feature = "conversational-search-service",
-        feature = "search-service",
-        feature = "serving-config-service",
-    ))]
-    impl wkt::message::Message for RelevanceScoreSpec {
-        fn typename() -> &'static str {
-            "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.RelevanceScoreSpec"
         }
     }
 
@@ -46247,6 +46478,216 @@ pub mod search_request {
                 /// The value must be in [0.0, 1.0].
                 SemanticRelevanceThreshold(f32),
             }
+        }
+    }
+
+    /// The specification for returning the document relevance score.
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RelevanceScoreSpec {
+        /// Optional. Whether to return the relevance score for search results.
+        /// The higher the score, the more relevant the document is to the query.
+        pub return_relevance_score: bool,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    impl RelevanceScoreSpec {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [return_relevance_score][crate::model::search_request::RelevanceScoreSpec::return_relevance_score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_request::RelevanceScoreSpec;
+        /// let x = RelevanceScoreSpec::new().set_return_relevance_score(true);
+        /// ```
+        pub fn set_return_relevance_score<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.return_relevance_score = v.into();
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    impl wkt::message::Message for RelevanceScoreSpec {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.RelevanceScoreSpec"
+        }
+    }
+
+    /// SearchAddonSpec is used to disable add-ons for search as per new
+    /// repricing model. By default if the SearchAddonSpec is not specified, we
+    /// consider that the customer wants to enable them wherever applicable.
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SearchAddonSpec {
+        /// Optional. If true, semantic add-on is disabled. Semantic add-on includes
+        /// embeddings and jetstream.
+        pub disable_semantic_add_on: bool,
+
+        /// Optional. If true, disables event re-ranking and personalization to
+        /// optimize KPIs & personalize results.
+        pub disable_kpi_personalization_add_on: bool,
+
+        /// Optional. If true, generative answer add-on is disabled. Generative
+        /// answer add-on includes natural language to filters and simple answers.
+        pub disable_generative_answer_add_on: bool,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    impl SearchAddonSpec {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [disable_semantic_add_on][crate::model::search_request::SearchAddonSpec::disable_semantic_add_on].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_request::SearchAddonSpec;
+        /// let x = SearchAddonSpec::new().set_disable_semantic_add_on(true);
+        /// ```
+        pub fn set_disable_semantic_add_on<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.disable_semantic_add_on = v.into();
+            self
+        }
+
+        /// Sets the value of [disable_kpi_personalization_add_on][crate::model::search_request::SearchAddonSpec::disable_kpi_personalization_add_on].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_request::SearchAddonSpec;
+        /// let x = SearchAddonSpec::new().set_disable_kpi_personalization_add_on(true);
+        /// ```
+        pub fn set_disable_kpi_personalization_add_on<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.disable_kpi_personalization_add_on = v.into();
+            self
+        }
+
+        /// Sets the value of [disable_generative_answer_add_on][crate::model::search_request::SearchAddonSpec::disable_generative_answer_add_on].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_request::SearchAddonSpec;
+        /// let x = SearchAddonSpec::new().set_disable_generative_answer_add_on(true);
+        /// ```
+        pub fn set_disable_generative_answer_add_on<T: std::convert::Into<bool>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.disable_generative_answer_add_on = v.into();
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    impl wkt::message::Message for SearchAddonSpec {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.SearchAddonSpec"
+        }
+    }
+
+    /// Configuration parameters for the Custom Ranking feature.
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct CustomRankingParams {
+        /// Optional. A list of ranking expressions (see `ranking_expression` for the
+        /// syntax documentation) to evaluate. The evaluation results will be
+        /// returned in
+        /// `SearchResponse.SearchResult.rank_signals.precomputed_expression_values`
+        /// field.
+        pub expressions_to_precompute: std::vec::Vec<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    impl CustomRankingParams {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [expressions_to_precompute][crate::model::search_request::CustomRankingParams::expressions_to_precompute].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_request::CustomRankingParams;
+        /// let x = CustomRankingParams::new().set_expressions_to_precompute(["a", "b", "c"]);
+        /// ```
+        pub fn set_expressions_to_precompute<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.expressions_to_precompute = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    impl wkt::message::Message for CustomRankingParams {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.CustomRankingParams"
         }
     }
 
@@ -46732,6 +47173,9 @@ pub struct SearchResponse {
     /// [google.cloud.discoveryengine.v1.SearchRequest.ContentSearchSpec.summary_spec]: crate::model::search_request::ContentSearchSpec::summary_spec
     pub summary: std::option::Option<crate::model::search_response::Summary>,
 
+    /// Optional. Controls applied as part of the Control service.
+    pub applied_controls: std::vec::Vec<std::string::String>,
+
     /// Query expansion information for the returned results.
     pub query_expansion_info:
         std::option::Option<crate::model::search_response::QueryExpansionInfo>,
@@ -46903,6 +47347,23 @@ impl SearchResponse {
         T: std::convert::Into<crate::model::search_response::Summary>,
     {
         self.summary = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [applied_controls][crate::model::SearchResponse::applied_controls].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::SearchResponse;
+    /// let x = SearchResponse::new().set_applied_controls(["a", "b", "c"]);
+    /// ```
+    pub fn set_applied_controls<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.applied_controls = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -47110,6 +47571,11 @@ pub mod search_response {
         pub rank_signals:
             std::option::Option<crate::model::search_response::search_result::RankSignals>,
 
+        /// Optional. A set of signals used by the relevance filter meant for use to
+        /// fine-tune the relevance filter thresholds.
+        pub retrieval_signals:
+            std::option::Option<crate::model::search_response::search_result::RetrievalSignals>,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -47252,6 +47718,39 @@ pub mod search_response {
             self.rank_signals = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [retrieval_signals][crate::model::search_response::SearchResult::retrieval_signals].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_response::SearchResult;
+        /// use google_cloud_discoveryengine_v1::model::search_response::search_result::RetrievalSignals;
+        /// let x = SearchResult::new().set_retrieval_signals(RetrievalSignals::default()/* use setters */);
+        /// ```
+        pub fn set_retrieval_signals<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_response::search_result::RetrievalSignals>,
+        {
+            self.retrieval_signals = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [retrieval_signals][crate::model::search_response::SearchResult::retrieval_signals].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_response::SearchResult;
+        /// use google_cloud_discoveryengine_v1::model::search_response::search_result::RetrievalSignals;
+        /// let x = SearchResult::new().set_or_clear_retrieval_signals(Some(RetrievalSignals::default()/* use setters */));
+        /// let x = SearchResult::new().set_or_clear_retrieval_signals(None::<RetrievalSignals>);
+        /// ```
+        pub fn set_or_clear_retrieval_signals<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_response::search_result::RetrievalSignals>,
+        {
+            self.retrieval_signals = v.map(|x| x.into());
+            self
+        }
     }
 
     #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
@@ -47300,6 +47799,11 @@ pub mod search_response {
             pub custom_signals: std::vec::Vec<
                 crate::model::search_response::search_result::rank_signals::CustomSignal,
             >,
+
+            /// Optional. A list of precomputed expression results for a given
+            /// document, in the same order as requested in
+            /// `SearchRequest.custom_ranking_params.expressions_to_precompute`.
+            pub precomputed_expression_values: std::vec::Vec<f32>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -47569,6 +48073,23 @@ pub mod search_response {
                 self.custom_signals = v.into_iter().map(|i| i.into()).collect();
                 self
             }
+
+            /// Sets the value of [precomputed_expression_values][crate::model::search_response::search_result::RankSignals::precomputed_expression_values].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_discoveryengine_v1::model::search_response::search_result::RankSignals;
+            /// let x = RankSignals::new().set_precomputed_expression_values([1.0, 2.0, 3.0]);
+            /// ```
+            pub fn set_precomputed_expression_values<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<f32>,
+            {
+                use std::iter::Iterator;
+                self.precomputed_expression_values = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
         }
 
         #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
@@ -47638,6 +48159,226 @@ pub mod search_response {
             impl wkt::message::Message for CustomSignal {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.SearchResult.RankSignals.CustomSignal"
+                }
+            }
+        }
+
+        /// Contains a set of signals used by the relevance filter.
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct RetrievalSignals {
+            /// Optional. Indicates how the result was retrieved.
+            pub retrieval_sources: std::vec::Vec<
+                crate::model::search_response::search_result::retrieval_signals::RetrievalSource,
+            >,
+
+            /// Optional. Relevance score used by the filter when
+            /// semantic_relevance_threshold is set.
+            pub semantic_relevance_score: f32,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+        impl RetrievalSignals {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [retrieval_sources][crate::model::search_response::search_result::RetrievalSignals::retrieval_sources].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_discoveryengine_v1::model::search_response::search_result::RetrievalSignals;
+            /// use google_cloud_discoveryengine_v1::model::search_response::search_result::retrieval_signals::RetrievalSource;
+            /// let x = RetrievalSignals::new().set_retrieval_sources([
+            ///     RetrievalSource::KeywordSearch,
+            ///     RetrievalSource::SemanticSearch,
+            /// ]);
+            /// ```
+            pub fn set_retrieval_sources<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::search_response::search_result::retrieval_signals::RetrievalSource>
+            {
+                use std::iter::Iterator;
+                self.retrieval_sources = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [semantic_relevance_score][crate::model::search_response::search_result::RetrievalSignals::semantic_relevance_score].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_discoveryengine_v1::model::search_response::search_result::RetrievalSignals;
+            /// let x = RetrievalSignals::new().set_semantic_relevance_score(42.0);
+            /// ```
+            pub fn set_semantic_relevance_score<T: std::convert::Into<f32>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.semantic_relevance_score = v.into();
+                self
+            }
+        }
+
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+        impl wkt::message::Message for RetrievalSignals {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.SearchResult.RetrievalSignals"
+            }
+        }
+
+        /// Defines additional types related to [RetrievalSignals].
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+        pub mod retrieval_signals {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Indicates the source of the retrieval.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum RetrievalSource {
+                /// Unspecified retrieval source.
+                Unspecified,
+                /// Indicates the result was retrieved by keyword search.
+                KeywordSearch,
+                /// Indicates the result was retrieved by semantic search.
+                SemanticSearch,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [RetrievalSource::value] or
+                /// [RetrievalSource::name].
+                UnknownValue(retrieval_source::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            pub mod retrieval_source {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
+
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            impl RetrievalSource {
+                /// Gets the enum value.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::KeywordSearch => std::option::Option::Some(1),
+                        Self::SemanticSearch => std::option::Option::Some(2),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
+                }
+
+                /// Gets the enum value as a string.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => {
+                            std::option::Option::Some("RETRIEVAL_SOURCE_UNSPECIFIED")
+                        }
+                        Self::KeywordSearch => std::option::Option::Some("KEYWORD_SEARCH"),
+                        Self::SemanticSearch => std::option::Option::Some("SEMANTIC_SEARCH"),
+                        Self::UnknownValue(u) => u.0.name(),
+                    }
+                }
+            }
+
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            impl std::default::Default for RetrievalSource {
+                fn default() -> Self {
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            impl std::fmt::Display for RetrievalSource {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            impl std::convert::From<i32> for RetrievalSource {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::KeywordSearch,
+                        2 => Self::SemanticSearch,
+                        _ => Self::UnknownValue(retrieval_source::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            impl std::convert::From<&str> for RetrievalSource {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "RETRIEVAL_SOURCE_UNSPECIFIED" => Self::Unspecified,
+                        "KEYWORD_SEARCH" => Self::KeywordSearch,
+                        "SEMANTIC_SEARCH" => Self::SemanticSearch,
+                        _ => Self::UnknownValue(retrieval_source::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            impl serde::ser::Serialize for RetrievalSource {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::KeywordSearch => serializer.serialize_i32(1),
+                        Self::SemanticSearch => serializer.serialize_i32(2),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            impl<'de> serde::de::Deserialize<'de> for RetrievalSource {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<RetrievalSource>::new(
+                        ".google.cloud.discoveryengine.v1.SearchResponse.SearchResult.RetrievalSignals.RetrievalSource"))
                 }
             }
         }

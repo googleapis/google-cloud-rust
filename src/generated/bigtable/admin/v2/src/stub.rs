@@ -163,6 +163,38 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::BigtableInstanceAdmin::update_memory_layer].
+    fn update_memory_layer(
+        &self,
+        _req: crate::model::UpdateMemoryLayerRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BigtableInstanceAdmin::list_memory_layers].
+    fn list_memory_layers(
+        &self,
+        _req: crate::model::ListMemoryLayersRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListMemoryLayersResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BigtableInstanceAdmin::get_memory_layer].
+    fn get_memory_layer(
+        &self,
+        _req: crate::model::GetMemoryLayerRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::MemoryLayer>>>
+    + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::BigtableInstanceAdmin::create_app_profile].
     fn create_app_profile(
         &self,

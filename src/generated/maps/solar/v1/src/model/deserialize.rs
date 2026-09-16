@@ -31,6 +31,7 @@ impl<'de> serde::de::Deserialize<'de> for super::FindClosestBuildingInsightsRequ
             __required_quality,
             __exact_quality_required,
             __experiments,
+            __additional_insights,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -57,6 +58,8 @@ impl<'de> serde::de::Deserialize<'de> for super::FindClosestBuildingInsightsRequ
                             "exactQualityRequired" => Ok(__FieldTag::__exact_quality_required),
                             "exact_quality_required" => Ok(__FieldTag::__exact_quality_required),
                             "experiments" => Ok(__FieldTag::__experiments),
+                            "additionalInsights" => Ok(__FieldTag::__additional_insights),
+                            "additional_insights" => Ok(__FieldTag::__additional_insights),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -118,6 +121,18 @@ impl<'de> serde::de::Deserialize<'de> for super::FindClosestBuildingInsightsRequ
                                 ));
                             }
                             result.experiments = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Experiment>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__additional_insights => {
+                            if !fields.insert(__FieldTag::__additional_insights) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for additional_insights",
+                                ));
+                            }
+                            result.additional_insights = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::AdditionalInsights>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -243,6 +258,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BuildingInsights {
             __region_code,
             __solar_potential,
             __imagery_quality,
+            __detected_arrays,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -283,6 +299,8 @@ impl<'de> serde::de::Deserialize<'de> for super::BuildingInsights {
                             "solar_potential" => Ok(__FieldTag::__solar_potential),
                             "imageryQuality" => Ok(__FieldTag::__imagery_quality),
                             "imagery_quality" => Ok(__FieldTag::__imagery_quality),
+                            "detectedArrays" => Ok(__FieldTag::__detected_arrays),
+                            "detected_arrays" => Ok(__FieldTag::__detected_arrays),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -415,6 +433,108 @@ impl<'de> serde::de::Deserialize<'de> for super::BuildingInsights {
                             result.imagery_quality = map
                                 .next_value::<std::option::Option<crate::model::ImageryQuality>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__detected_arrays => {
+                            if !fields.insert(__FieldTag::__detected_arrays) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for detected_arrays",
+                                ));
+                            }
+                            result.detected_arrays = map.next_value::<std::option::Option<
+                                crate::model::building_insights::DetectedArrays,
+                            >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::building_insights::DetectedArrays {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __detection_status,
+            __latest_capture_date,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DetectedArrays")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "detectionStatus" => Ok(__FieldTag::__detection_status),
+                            "detection_status" => Ok(__FieldTag::__detection_status),
+                            "latestCaptureDate" => Ok(__FieldTag::__latest_capture_date),
+                            "latest_capture_date" => Ok(__FieldTag::__latest_capture_date),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::building_insights::DetectedArrays;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DetectedArrays")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__detection_status => {
+                            if !fields.insert(__FieldTag::__detection_status) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for detection_status",
+                                ));
+                            }
+                            result.detection_status = map.next_value::<std::option::Option<crate::model::building_insights::detected_arrays::DetectionStatus>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__latest_capture_date => {
+                            if !fields.insert(__FieldTag::__latest_capture_date) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for latest_capture_date",
+                                ));
+                            }
+                            result.latest_capture_date = map
+                                .next_value::<std::option::Option<google_cloud_type::model::Date>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

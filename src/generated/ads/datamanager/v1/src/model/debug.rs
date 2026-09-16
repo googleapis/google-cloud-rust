@@ -26,6 +26,7 @@ impl std::fmt::Debug for super::AdEvent {
         debug_struct.field("event_id", &self.event_id);
         debug_struct.field("user_data", &self.user_data);
         debug_struct.field("device_info", &self.device_info);
+        debug_struct.field("ip_address", &self.ip_address);
         debug_struct.field("mobile_device_id", &self.mobile_device_id);
         debug_struct.field("campaign_id", &self.campaign_id);
         debug_struct.field("campaign_name", &self.campaign_name);
@@ -390,6 +391,8 @@ impl std::fmt::Debug for super::AdIdentifiers {
         debug_struct.field("impression_id", &self.impression_id);
         debug_struct.field("match_id", &self.match_id);
         debug_struct.field("encrypted_user_ids", &self.encrypted_user_ids);
+        debug_struct.field("ppid", &self.ppid);
+        debug_struct.field("visitor_ppid", &self.visitor_ppid);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

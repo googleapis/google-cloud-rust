@@ -68,6 +68,13 @@ pub struct AdEvent {
     /// event happened.
     pub device_info: std::option::Option<crate::model::DeviceInfo>,
 
+    /// Optional. IP address used for measurement. This must be same value as
+    /// [DeviceInfo.ip_address][google.ads.datamanager.v1.DeviceInfo.ip_address].
+    /// Keep it blank if you do not want to share IP for measurement.
+    ///
+    /// [google.ads.datamanager.v1.DeviceInfo.ip_address]: crate::model::DeviceInfo::ip_address
+    pub ip_address: std::string::String,
+
     /// Optional. The device ID of the device that the ad was served to.
     pub mobile_device_id: std::string::String,
 
@@ -301,6 +308,18 @@ impl AdEvent {
         T: std::convert::Into<crate::model::DeviceInfo>,
     {
         self.device_info = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ip_address][crate::model::AdEvent::ip_address].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::AdEvent;
+    /// let x = AdEvent::new().set_ip_address("example");
+    /// ```
+    pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.ip_address = v.into();
         self
     }
 
@@ -3072,9 +3091,12 @@ pub struct Destination {
     /// Required. The account to send the data to or remove the data from.
     pub operating_account: std::option::Option<crate::model::ProductAccount>,
 
-    /// Required. The object within the product account to ingest into. For
+    /// Optional. The object within the product account to ingest into. For
     /// example, a Google Ads audience ID, a Display & Video 360 audience ID or a
     /// Google Ads conversion action ID.
+    ///
+    /// This field is optional for Google Ad Manager event ingestion and User
+    /// ingestion. Required for all other use cases.
     pub product_destination_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3341,6 +3363,8 @@ pub mod product_account {
         GoogleAdManagerAudienceLink,
         /// Floodlight configuration.
         FloodlightConfig,
+        /// Google Ad Manager.
+        GoogleAdManager,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [AccountType::value] or
@@ -3371,6 +3395,7 @@ pub mod product_account {
                 Self::GoogleAnalyticsProperty => std::option::Option::Some(5),
                 Self::GoogleAdManagerAudienceLink => std::option::Option::Some(6),
                 Self::FloodlightConfig => std::option::Option::Some(7),
+                Self::GoogleAdManager => std::option::Option::Some(8),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -3395,6 +3420,7 @@ pub mod product_account {
                     std::option::Option::Some("GOOGLE_AD_MANAGER_AUDIENCE_LINK")
                 }
                 Self::FloodlightConfig => std::option::Option::Some("FLOODLIGHT_CONFIG"),
+                Self::GoogleAdManager => std::option::Option::Some("GOOGLE_AD_MANAGER"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -3424,6 +3450,7 @@ pub mod product_account {
                 5 => Self::GoogleAnalyticsProperty,
                 6 => Self::GoogleAdManagerAudienceLink,
                 7 => Self::FloodlightConfig,
+                8 => Self::GoogleAdManager,
                 _ => Self::UnknownValue(account_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -3443,6 +3470,7 @@ pub mod product_account {
                 "GOOGLE_ANALYTICS_PROPERTY" => Self::GoogleAnalyticsProperty,
                 "GOOGLE_AD_MANAGER_AUDIENCE_LINK" => Self::GoogleAdManagerAudienceLink,
                 "FLOODLIGHT_CONFIG" => Self::FloodlightConfig,
+                "GOOGLE_AD_MANAGER" => Self::GoogleAdManager,
                 _ => Self::UnknownValue(account_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -3464,6 +3492,7 @@ pub mod product_account {
                 Self::GoogleAnalyticsProperty => serializer.serialize_i32(5),
                 Self::GoogleAdManagerAudienceLink => serializer.serialize_i32(6),
                 Self::FloodlightConfig => serializer.serialize_i32(7),
+                Self::GoogleAdManager => serializer.serialize_i32(8),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -3489,17 +3518,7 @@ pub struct DeviceInfo {
     pub user_agent: std::string::String,
 
     /// Optional. The IP address of the device for the given context. Required when
-    /// used in an [AdEvent][google.ads.datamanager.v1.AdEvent].
-    ///
-    /// **Note:** Google Ads does not support IP address matching for end users in
-    /// the European Economic Area (EEA), United Kingdom (UK), or Switzerland (CH).
-    /// Add logic to conditionally exclude sharing IP addresses from users from
-    /// these regions and ensure that you provide users with clear and
-    /// comprehensive information about the data you collect on your sites, apps,
-    /// and other properties and get consent where required by law or any
-    /// applicable Google policies. See the [About offline conversion
-    /// imports](https://support.google.com/google-ads/answer/2998031) page for
-    /// more details.
+    /// used in an [AdEvent][google.ads.datamanager.v1.AdEvent] for geo checks.
     ///
     /// [google.ads.datamanager.v1.AdEvent]: crate::model::AdEvent
     pub ip_address: std::string::String,
@@ -5503,6 +5522,14 @@ pub struct AdIdentifiers {
     /// Optional. Any number of encrypted user IDs.
     pub encrypted_user_ids: std::vec::Vec<crate::model::EncryptedUserId>,
 
+    /// Optional. A unique identifier for an authenticated user (signed-in), as
+    /// defined by the publisher.
+    pub ppid: std::string::String,
+
+    /// Optional. A unique identifier for an unauthenticated user (user who is not
+    /// signed-in), as defined by the publisher.
+    pub visitor_ppid: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5666,6 +5693,30 @@ impl AdIdentifiers {
     {
         use std::iter::Iterator;
         self.encrypted_user_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [ppid][crate::model::AdIdentifiers::ppid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::AdIdentifiers;
+    /// let x = AdIdentifiers::new().set_ppid("example");
+    /// ```
+    pub fn set_ppid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.ppid = v.into();
+        self
+    }
+
+    /// Sets the value of [visitor_ppid][crate::model::AdIdentifiers::visitor_ppid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::AdIdentifiers;
+    /// let x = AdIdentifiers::new().set_visitor_ppid("example");
+    /// ```
+    pub fn set_visitor_ppid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.visitor_ppid = v.into();
         self
     }
 }
@@ -5998,13 +6049,14 @@ pub struct IngestAudienceMembersRequest {
     /// executed. Only errors are returned, not results.
     pub validate_only: bool,
 
-    /// Optional. Required for [UserData][google.ads.datamanager.v1.UserData]
-    /// uploads. The encoding type of the user identifiers. For hashed user
-    /// identifiers, this is the encoding type of the hashed string. For encrypted
-    /// hashed user identifiers, this is the encoding type of the outer encrypted
-    /// string, but not necessarily the inner hashed string, meaning the inner
-    /// hashed string could be encoded in a different way than the outer encrypted
-    /// string. For non `UserData` uploads, this field is ignored.
+    /// Optional. Must be provided for
+    /// [UserData][google.ads.datamanager.v1.UserData] uploads. The encoding type
+    /// of the user identifiers. For hashed user identifiers, this is the encoding
+    /// type of the hashed string. For encrypted hashed user identifiers, this is
+    /// the encoding type of the outer encrypted string, but not necessarily the
+    /// inner hashed string, meaning the inner hashed string could be encoded in a
+    /// different way than the outer encrypted string. For non `UserData` uploads,
+    /// this field is ignored.
     ///
     /// [google.ads.datamanager.v1.UserData]: crate::model::UserData
     pub encoding: crate::model::Encoding,
@@ -6286,10 +6338,10 @@ pub struct RemoveAudienceMembersRequest {
     /// executed. Only errors are returned, not results.
     pub validate_only: bool,
 
-    /// Optional. Required for [UserData][google.ads.datamanager.v1.UserData]
-    /// uploads. The encoding type of the user identifiers. Applies to only the
-    /// outer encoding for encrypted user identifiers. For non `UserData` uploads,
-    /// this field is ignored.
+    /// Optional. Must be provided for
+    /// [UserData][google.ads.datamanager.v1.UserData] uploads. The encoding type
+    /// of the user identifiers. Applies to only the outer encoding for encrypted
+    /// user identifiers. For non `UserData` uploads, this field is ignored.
     ///
     /// [google.ads.datamanager.v1.UserData]: crate::model::UserData
     pub encoding: crate::model::Encoding,
@@ -6628,13 +6680,14 @@ pub struct IngestEventsRequest {
     /// executed. Only errors are returned, not results.
     pub validate_only: bool,
 
-    /// Optional. Required for [UserData][google.ads.datamanager.v1.UserData]
-    /// uploads. The encoding type of the user identifiers. For hashed user
-    /// identifiers, this is the encoding type of the hashed string. For encrypted
-    /// hashed user identifiers, this is the encoding type of the outer encrypted
-    /// string, but not necessarily the inner hashed string, meaning the inner
-    /// hashed string could be encoded in a different way than the outer encrypted
-    /// string. For non `UserData` uploads, this field is ignored.
+    /// Optional. Must be provided for
+    /// [UserData][google.ads.datamanager.v1.UserData] uploads. The encoding type
+    /// of the user identifiers. For hashed user identifiers, this is the encoding
+    /// type of the hashed string. For encrypted hashed user identifiers, this is
+    /// the encoding type of the outer encrypted string, but not necessarily the
+    /// inner hashed string, meaning the inner hashed string could be encoded in a
+    /// different way than the outer encrypted string. For non `UserData` uploads,
+    /// this field is ignored.
     ///
     /// [google.ads.datamanager.v1.UserData]: crate::model::UserData
     pub encoding: crate::model::Encoding,
@@ -6869,8 +6922,11 @@ pub struct IngestAdEventsRequest {
     /// Required. Required (at least 1). A list of ad events.
     pub ad_events: std::vec::Vec<crate::model::AdEvent>,
 
-    /// Required. Information about encryption keys which are used to encrypt the
-    /// data.
+    /// Optional. Information about encryption keys which are used to encrypt the
+    /// data. This field must be provided when ad events contain
+    /// [UserData][google.ads.datamanager.v1.UserData].
+    ///
+    /// [google.ads.datamanager.v1.UserData]: crate::model::UserData
     pub encryption_info: std::option::Option<crate::model::EncryptionInfo>,
 
     /// Optional. If true, the request is validated, but not executed.
@@ -8020,6 +8076,7 @@ pub struct SearchPartnerLinksRequest {
     /// feature set, the following fields are also supported:
     ///
     /// - `partner_customer_account.account_id`
+    /// - `partner_link_metadata.implicit_accounts.account_id`
     ///
     /// Example:
     /// `owning_account.account_type = "GOOGLE_ADS" AND partner_account.account_id
@@ -20195,6 +20252,11 @@ pub enum ErrorReason {
     /// The remove as of time must be in the past or present. Future timestamps are
     /// not permitted for removing audience members.
     InvalidRemoveAsOfTime,
+    /// Request status is only available for approximately 50 days after the API
+    /// receives a request.
+    RequestTooOld,
+    /// The conversion action was created too recently.
+    ConversionActionTooRecentlyCreated,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [ErrorReason::value] or
@@ -20356,6 +20418,8 @@ impl ErrorReason {
             Self::InsightsMissingForDimension => std::option::Option::Some(123),
             Self::RequiredPrerequisiteLinkMissing => std::option::Option::Some(124),
             Self::InvalidRemoveAsOfTime => std::option::Option::Some(125),
+            Self::RequestTooOld => std::option::Option::Some(126),
+            Self::ConversionActionTooRecentlyCreated => std::option::Option::Some(127),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -20613,6 +20677,10 @@ impl ErrorReason {
                 std::option::Option::Some("REQUIRED_PREREQUISITE_LINK_MISSING")
             }
             Self::InvalidRemoveAsOfTime => std::option::Option::Some("INVALID_REMOVE_AS_OF_TIME"),
+            Self::RequestTooOld => std::option::Option::Some("REQUEST_TOO_OLD"),
+            Self::ConversionActionTooRecentlyCreated => {
+                std::option::Option::Some("CONVERSION_ACTION_TOO_RECENTLY_CREATED")
+            }
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -20759,6 +20827,8 @@ impl std::convert::From<i32> for ErrorReason {
             123 => Self::InsightsMissingForDimension,
             124 => Self::RequiredPrerequisiteLinkMissing,
             125 => Self::InvalidRemoveAsOfTime,
+            126 => Self::RequestTooOld,
+            127 => Self::ConversionActionTooRecentlyCreated,
             _ => Self::UnknownValue(error_reason::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -20949,6 +21019,8 @@ impl std::convert::From<&str> for ErrorReason {
             "INSIGHTS_MISSING_FOR_DIMENSION" => Self::InsightsMissingForDimension,
             "REQUIRED_PREREQUISITE_LINK_MISSING" => Self::RequiredPrerequisiteLinkMissing,
             "INVALID_REMOVE_AS_OF_TIME" => Self::InvalidRemoveAsOfTime,
+            "REQUEST_TOO_OLD" => Self::RequestTooOld,
+            "CONVERSION_ACTION_TOO_RECENTLY_CREATED" => Self::ConversionActionTooRecentlyCreated,
             _ => Self::UnknownValue(error_reason::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -21099,6 +21171,8 @@ impl serde::ser::Serialize for ErrorReason {
             Self::InsightsMissingForDimension => serializer.serialize_i32(123),
             Self::RequiredPrerequisiteLinkMissing => serializer.serialize_i32(124),
             Self::InvalidRemoveAsOfTime => serializer.serialize_i32(125),
+            Self::RequestTooOld => serializer.serialize_i32(126),
+            Self::ConversionActionTooRecentlyCreated => serializer.serialize_i32(127),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }

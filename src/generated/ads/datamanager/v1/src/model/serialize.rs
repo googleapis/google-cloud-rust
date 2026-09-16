@@ -51,6 +51,9 @@ impl serde::ser::Serialize for super::AdEvent {
         if self.device_info.is_some() {
             state.serialize_entry("deviceInfo", &self.device_info)?;
         }
+        if !self.ip_address.is_empty() {
+            state.serialize_entry("ipAddress", &self.ip_address)?;
+        }
         if !self.mobile_device_id.is_empty() {
             state.serialize_entry("mobileDeviceId", &self.mobile_device_id)?;
         }
@@ -1009,6 +1012,12 @@ impl serde::ser::Serialize for super::AdIdentifiers {
         }
         if !self.encrypted_user_ids.is_empty() {
             state.serialize_entry("encryptedUserIds", &self.encrypted_user_ids)?;
+        }
+        if !self.ppid.is_empty() {
+            state.serialize_entry("ppid", &self.ppid)?;
+        }
+        if !self.visitor_ppid.is_empty() {
+            state.serialize_entry("visitorPpid", &self.visitor_ppid)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

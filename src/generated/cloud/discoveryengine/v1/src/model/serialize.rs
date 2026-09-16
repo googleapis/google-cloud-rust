@@ -10017,6 +10017,21 @@ impl serde::ser::Serialize for super::SearchRequest {
         if !self.data_store_specs.is_empty() {
             state.serialize_entry("dataStoreSpecs", &self.data_store_specs)?;
         }
+        if !wkt::internal::is_default(&self.num_results_per_data_store) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "numResultsPerDataStore",
+                &__With(&self.num_results_per_data_store),
+            )?;
+        }
         if !self.filter.is_empty() {
             state.serialize_entry("filter", &self.filter)?;
         }
@@ -10095,6 +10110,15 @@ impl serde::ser::Serialize for super::SearchRequest {
         if self.relevance_score_spec.is_some() {
             state.serialize_entry("relevanceScoreSpec", &self.relevance_score_spec)?;
         }
+        if self.search_addon_spec.is_some() {
+            state.serialize_entry("searchAddonSpec", &self.search_addon_spec)?;
+        }
+        if self.custom_ranking_params.is_some() {
+            state.serialize_entry("customRankingParams", &self.custom_ranking_params)?;
+        }
+        if !self.entity.is_empty() {
+            state.serialize_entry("entity", &self.entity)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -10159,6 +10183,18 @@ impl serde::ser::Serialize for super::search_request::DataStoreSpec {
         }
         if !self.custom_search_operators.is_empty() {
             state.serialize_entry("customSearchOperators", &self.custom_search_operators)?;
+        }
+        if !wkt::internal::is_default(&self.num_results) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("numResults", &__With(&self.num_results))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -10879,6 +10915,65 @@ impl serde::ser::Serialize for super::search_request::SearchAsYouTypeSpec {
         if !wkt::internal::is_default(&self.condition) {
             state.serialize_entry("condition", &self.condition)?;
         }
+        if !self.fields.is_empty() {
+            state.serialize_entry("fields", &self.fields)?;
+        }
+        if self.score_threshold.is_some() {
+            struct __With<'a>(&'a std::option::Option<f64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("scoreThreshold", &__With(&self.score_threshold))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::search_request::search_as_you_type_spec::Field {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.key.is_empty() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if self.weight.is_some() {
+            struct __With<'a>(&'a std::option::Option<f64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("weight", &__With(&self.weight))?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -11014,34 +11109,6 @@ impl serde::ser::Serialize for super::search_request::SessionSpec {
     feature = "serving-config-service",
 ))]
 #[doc(hidden)]
-impl serde::ser::Serialize for super::search_request::RelevanceScoreSpec {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !wkt::internal::is_default(&self.return_relevance_score) {
-            state.serialize_entry("returnRelevanceScore", &self.return_relevance_score)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
-#[doc(hidden)]
 impl serde::ser::Serialize for super::search_request::RelevanceFilterSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -11108,6 +11175,102 @@ impl serde::ser::Serialize
     }
 }
 
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::search_request::RelevanceScoreSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.return_relevance_score) {
+            state.serialize_entry("returnRelevanceScore", &self.return_relevance_score)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::search_request::SearchAddonSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.disable_semantic_add_on) {
+            state.serialize_entry("disableSemanticAddOn", &self.disable_semantic_add_on)?;
+        }
+        if !wkt::internal::is_default(&self.disable_kpi_personalization_add_on) {
+            state.serialize_entry(
+                "disableKpiPersonalizationAddOn",
+                &self.disable_kpi_personalization_add_on,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.disable_generative_answer_add_on) {
+            state.serialize_entry(
+                "disableGenerativeAnswerAddOn",
+                &self.disable_generative_answer_add_on,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::search_request::CustomRankingParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.expressions_to_precompute.is_empty() {
+            state.serialize_entry("expressionsToPrecompute", &self.expressions_to_precompute)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::SearchResponse {
@@ -11151,6 +11314,9 @@ impl serde::ser::Serialize for super::SearchResponse {
         }
         if self.summary.is_some() {
             state.serialize_entry("summary", &self.summary)?;
+        }
+        if !self.applied_controls.is_empty() {
+            state.serialize_entry("appliedControls", &self.applied_controls)?;
         }
         if self.query_expansion_info.is_some() {
             state.serialize_entry("queryExpansionInfo", &self.query_expansion_info)?;
@@ -11204,6 +11370,9 @@ impl serde::ser::Serialize for super::search_response::SearchResult {
         }
         if self.rank_signals.is_some() {
             state.serialize_entry("rankSignals", &self.rank_signals)?;
+        }
+        if self.retrieval_signals.is_some() {
+            state.serialize_entry("retrievalSignals", &self.retrieval_signals)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -11344,6 +11513,23 @@ impl serde::ser::Serialize for super::search_response::search_result::RankSignal
         if !self.custom_signals.is_empty() {
             state.serialize_entry("customSignals", &self.custom_signals)?;
         }
+        if !self.precomputed_expression_values.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<f32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::F32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "precomputedExpressionValues",
+                &__With(&self.precomputed_expression_values),
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -11378,6 +11564,44 @@ impl serde::ser::Serialize for super::search_response::search_result::rank_signa
                 }
             }
             state.serialize_entry("value", &__With(&self.value))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::search_response::search_result::RetrievalSignals {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.retrieval_sources.is_empty() {
+            state.serialize_entry("retrievalSources", &self.retrieval_sources)?;
+        }
+        if !wkt::internal::is_default(&self.semantic_relevance_score) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "semanticRelevanceScore",
+                &__With(&self.semantic_relevance_score),
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

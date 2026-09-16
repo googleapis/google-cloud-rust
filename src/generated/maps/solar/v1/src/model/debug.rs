@@ -24,6 +24,7 @@ impl std::fmt::Debug for super::FindClosestBuildingInsightsRequest {
         debug_struct.field("required_quality", &self.required_quality);
         debug_struct.field("exact_quality_required", &self.exact_quality_required);
         debug_struct.field("experiments", &self.experiments);
+        debug_struct.field("additional_insights", &self.additional_insights);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -57,6 +58,19 @@ impl std::fmt::Debug for super::BuildingInsights {
         debug_struct.field("region_code", &self.region_code);
         debug_struct.field("solar_potential", &self.solar_potential);
         debug_struct.field("imagery_quality", &self.imagery_quality);
+        debug_struct.field("detected_arrays", &self.detected_arrays);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::building_insights::DetectedArrays {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DetectedArrays");
+        debug_struct.field("detection_status", &self.detection_status);
+        debug_struct.field("latest_capture_date", &self.latest_capture_date);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

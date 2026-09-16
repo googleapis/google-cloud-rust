@@ -210,6 +210,48 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_memory_layer(
+        &self,
+        req: crate::model::UpdateMemoryLayerRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::update_memory_layer",
+            self.inner.update_memory_layer(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_memory_layers(
+        &self,
+        req: crate::model::ListMemoryLayersRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListMemoryLayersResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::list_memory_layers",
+            self.inner.list_memory_layers(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_memory_layer(
+        &self,
+        req: crate::model::GetMemoryLayerRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::MemoryLayer>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::get_memory_layer",
+            self.inner.get_memory_layer(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_app_profile(
         &self,
         req: crate::model::CreateAppProfileRequest,

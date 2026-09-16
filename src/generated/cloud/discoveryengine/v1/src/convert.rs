@@ -4274,6 +4274,7 @@ impl gaxi::prost::ToProto<search_request::DataStoreSpec>
             filter: self.filter.to_proto()?,
             boost_spec: self.boost_spec.map(|v| v.to_proto()).transpose()?,
             custom_search_operators: self.custom_search_operators.to_proto()?,
+            num_results: self.num_results.to_proto()?,
         })
     }
 }
@@ -4295,7 +4296,8 @@ impl gaxi::prost::FromProto<crate::model::search_request::DataStoreSpec>
             .set_data_store(self.data_store)
             .set_filter(self.filter)
             .set_or_clear_boost_spec(self.boost_spec.map(|v| v.cnv()).transpose()?)
-            .set_custom_search_operators(self.custom_search_operators))
+            .set_custom_search_operators(self.custom_search_operators)
+            .set_num_results(self.num_results))
     }
 }
 
@@ -5230,6 +5232,52 @@ impl gaxi::prost::FromProto<crate::model::search_request::NaturalLanguageQueryUn
     feature = "search-service",
     feature = "serving-config-service",
 ))]
+impl gaxi::prost::ToProto<search_request::search_as_you_type_spec::Field>
+    for crate::model::search_request::search_as_you_type_spec::Field
+{
+    type Output = search_request::search_as_you_type_spec::Field;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<
+        search_request::search_as_you_type_spec::Field,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(Self::Output {
+            key: self.key.to_proto()?,
+            weight: self.weight.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+impl gaxi::prost::FromProto<crate::model::search_request::search_as_you_type_spec::Field>
+    for search_request::search_as_you_type_spec::Field
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::search_request::search_as_you_type_spec::Field,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(
+            crate::model::search_request::search_as_you_type_spec::Field::new()
+                .set_key(self.key)
+                .set_or_clear_weight(self.weight.map(|v| v.cnv()).transpose()?),
+        )
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
 impl gaxi::prost::ToProto<search_request::search_as_you_type_spec::Condition>
     for crate::model::search_request::search_as_you_type_spec::Condition
 {
@@ -5257,6 +5305,12 @@ impl gaxi::prost::ToProto<search_request::SearchAsYouTypeSpec>
     ) -> std::result::Result<search_request::SearchAsYouTypeSpec, gaxi::prost::ConvertError> {
         Ok(Self::Output {
             condition: self.condition.to_proto()?,
+            fields: self
+                .fields
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            score_threshold: self.score_threshold.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -5276,7 +5330,15 @@ impl gaxi::prost::FromProto<crate::model::search_request::SearchAsYouTypeSpec>
         crate::model::search_request::SearchAsYouTypeSpec,
         gaxi::prost::ConvertError,
     > {
-        Ok(crate::model::search_request::SearchAsYouTypeSpec::new().set_condition(self.condition))
+        Ok(crate::model::search_request::SearchAsYouTypeSpec::new()
+            .set_condition(self.condition)
+            .set_fields(
+                self.fields
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            )
+            .set_or_clear_score_threshold(self.score_threshold.map(|v| v.cnv()).transpose()?))
     }
 }
 
@@ -5446,45 +5508,6 @@ impl gaxi::prost::FromProto<crate::model::search_request::SessionSpec>
     feature = "search-service",
     feature = "serving-config-service",
 ))]
-impl gaxi::prost::ToProto<search_request::RelevanceScoreSpec>
-    for crate::model::search_request::RelevanceScoreSpec
-{
-    type Output = search_request::RelevanceScoreSpec;
-    fn to_proto(
-        self,
-    ) -> std::result::Result<search_request::RelevanceScoreSpec, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-            return_relevance_score: self.return_relevance_score.to_proto()?,
-        })
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
-impl gaxi::prost::FromProto<crate::model::search_request::RelevanceScoreSpec>
-    for search_request::RelevanceScoreSpec
-{
-    fn cnv(
-        self,
-    ) -> std::result::Result<
-        crate::model::search_request::RelevanceScoreSpec,
-        gaxi::prost::ConvertError,
-    > {
-        Ok(crate::model::search_request::RelevanceScoreSpec::new()
-            .set_return_relevance_score(self.return_relevance_score))
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
 impl gaxi::prost::ToProto<search_request::relevance_filter_spec::relevance_threshold_spec::RelevanceThresholdSpec> for crate::model::search_request::relevance_filter_spec::relevance_threshold_spec::RelevanceThresholdSpec {
     type Output = search_request::relevance_filter_spec::relevance_threshold_spec::RelevanceThresholdSpec;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -5621,6 +5644,137 @@ impl gaxi::prost::FromProto<crate::model::search_request::RelevanceFilterSpec>
     feature = "search-service",
     feature = "serving-config-service",
 ))]
+impl gaxi::prost::ToProto<search_request::RelevanceScoreSpec>
+    for crate::model::search_request::RelevanceScoreSpec
+{
+    type Output = search_request::RelevanceScoreSpec;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<search_request::RelevanceScoreSpec, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            return_relevance_score: self.return_relevance_score.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+impl gaxi::prost::FromProto<crate::model::search_request::RelevanceScoreSpec>
+    for search_request::RelevanceScoreSpec
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::search_request::RelevanceScoreSpec,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(crate::model::search_request::RelevanceScoreSpec::new()
+            .set_return_relevance_score(self.return_relevance_score))
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+impl gaxi::prost::ToProto<search_request::SearchAddonSpec>
+    for crate::model::search_request::SearchAddonSpec
+{
+    type Output = search_request::SearchAddonSpec;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<search_request::SearchAddonSpec, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            disable_semantic_add_on: self.disable_semantic_add_on.to_proto()?,
+            disable_kpi_personalization_add_on: self
+                .disable_kpi_personalization_add_on
+                .to_proto()?,
+            disable_generative_answer_add_on: self.disable_generative_answer_add_on.to_proto()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+impl gaxi::prost::FromProto<crate::model::search_request::SearchAddonSpec>
+    for search_request::SearchAddonSpec
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<crate::model::search_request::SearchAddonSpec, gaxi::prost::ConvertError>
+    {
+        Ok(crate::model::search_request::SearchAddonSpec::new()
+            .set_disable_semantic_add_on(self.disable_semantic_add_on)
+            .set_disable_kpi_personalization_add_on(self.disable_kpi_personalization_add_on)
+            .set_disable_generative_answer_add_on(self.disable_generative_answer_add_on))
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+impl gaxi::prost::ToProto<search_request::CustomRankingParams>
+    for crate::model::search_request::CustomRankingParams
+{
+    type Output = search_request::CustomRankingParams;
+    fn to_proto(
+        self,
+    ) -> std::result::Result<search_request::CustomRankingParams, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            expressions_to_precompute: self
+                .expressions_to_precompute
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+        })
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+impl gaxi::prost::FromProto<crate::model::search_request::CustomRankingParams>
+    for search_request::CustomRankingParams
+{
+    fn cnv(
+        self,
+    ) -> std::result::Result<
+        crate::model::search_request::CustomRankingParams,
+        gaxi::prost::ConvertError,
+    > {
+        Ok(
+            crate::model::search_request::CustomRankingParams::new().set_expressions_to_precompute(
+                self.expressions_to_precompute
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            ),
+        )
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
 impl gaxi::prost::ToProto<search_request::RankingExpressionBackend>
     for crate::model::search_request::RankingExpressionBackend
 {
@@ -5679,6 +5833,7 @@ impl gaxi::prost::ToProto<SearchRequest> for crate::model::SearchRequest {
                 .into_iter()
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            num_results_per_data_store: self.num_results_per_data_store.to_proto()?,
             filter: self.filter.to_proto()?,
             canonical_filter: self.canonical_filter.to_proto()?,
             order_by: self.order_by.to_proto()?,
@@ -5738,6 +5893,12 @@ impl gaxi::prost::ToProto<SearchRequest> for crate::model::SearchRequest {
                 .relevance_score_spec
                 .map(|v| v.to_proto())
                 .transpose()?,
+            search_addon_spec: self.search_addon_spec.map(|v| v.to_proto()).transpose()?,
+            custom_ranking_params: self
+                .custom_ranking_params
+                .map(|v| v.to_proto())
+                .transpose()?,
+            entity: self.entity.to_proto()?,
         })
     }
 }
@@ -5771,6 +5932,7 @@ impl gaxi::prost::FromProto<crate::model::SearchRequest> for SearchRequest {
                     .map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
+            .set_num_results_per_data_store(self.num_results_per_data_store)
             .set_filter(self.filter)
             .set_canonical_filter(self.canonical_filter)
             .set_order_by(self.order_by)
@@ -5831,7 +5993,12 @@ impl gaxi::prost::FromProto<crate::model::SearchRequest> for SearchRequest {
             )
             .set_or_clear_relevance_score_spec(
                 self.relevance_score_spec.map(|v| v.cnv()).transpose()?,
-            ))
+            )
+            .set_or_clear_search_addon_spec(self.search_addon_spec.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_custom_ranking_params(
+                self.custom_ranking_params.map(|v| v.cnv()).transpose()?,
+            )
+            .set_entity(self.entity))
     }
 }
 

@@ -1309,6 +1309,8 @@ pub struct SearchRequest {
     pub one_box_page_size: i32,
     #[prost(message, repeated, tag = "32")]
     pub data_store_specs: ::prost::alloc::vec::Vec<search_request::DataStoreSpec>,
+    #[prost(int32, tag = "65")]
+    pub num_results_per_data_store: i32,
     #[prost(string, tag = "7")]
     pub filter: ::prost::alloc::string::String,
     #[prost(string, tag = "29")]
@@ -1373,6 +1375,14 @@ pub struct SearchRequest {
     >,
     #[prost(message, optional, tag = "52")]
     pub relevance_score_spec: ::core::option::Option<search_request::RelevanceScoreSpec>,
+    #[prost(message, optional, tag = "62")]
+    pub search_addon_spec: ::core::option::Option<search_request::SearchAddonSpec>,
+    #[prost(message, optional, tag = "64")]
+    pub custom_ranking_params: ::core::option::Option<
+        search_request::CustomRankingParams,
+    >,
+    #[prost(string, tag = "66")]
+    pub entity: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `SearchRequest`.
 pub mod search_request {
@@ -1410,6 +1420,8 @@ pub mod search_request {
         pub boost_spec: ::core::option::Option<BoostSpec>,
         #[prost(string, tag = "7")]
         pub custom_search_operators: ::prost::alloc::string::String,
+        #[prost(int32, tag = "9")]
+        pub num_results: i32,
     }
     impl ::prost::Name for DataStoreSpec {
         const NAME: &'static str = "DataStoreSpec";
@@ -2090,13 +2102,36 @@ pub mod search_request {
                 .into()
         }
     }
-    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct SearchAsYouTypeSpec {
         #[prost(enumeration = "search_as_you_type_spec::Condition", tag = "1")]
         pub condition: i32,
+        #[prost(message, repeated, tag = "2")]
+        pub fields: ::prost::alloc::vec::Vec<search_as_you_type_spec::Field>,
+        #[prost(double, optional, tag = "3")]
+        pub score_threshold: ::core::option::Option<f64>,
     }
     /// Nested message and enum types in `SearchAsYouTypeSpec`.
     pub mod search_as_you_type_spec {
+        #[derive(Clone, PartialEq, ::prost::Message)]
+        pub struct Field {
+            #[prost(string, tag = "1")]
+            pub key: ::prost::alloc::string::String,
+            #[prost(double, optional, tag = "2")]
+            pub weight: ::core::option::Option<f64>,
+        }
+        impl ::prost::Name for Field {
+            const NAME: &'static str = "Field";
+            const PACKAGE: &'static str = "google.cloud.discoveryengine.v1";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.cloud.discoveryengine.v1.SearchRequest.SearchAsYouTypeSpec.Field"
+                    .into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.SearchAsYouTypeSpec.Field"
+                    .into()
+            }
+        }
         #[derive(
             Clone,
             Copy,
@@ -2293,22 +2328,6 @@ pub mod search_request {
                 .into()
         }
     }
-    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
-    pub struct RelevanceScoreSpec {
-        #[prost(bool, tag = "1")]
-        pub return_relevance_score: bool,
-    }
-    impl ::prost::Name for RelevanceScoreSpec {
-        const NAME: &'static str = "RelevanceScoreSpec";
-        const PACKAGE: &'static str = "google.cloud.discoveryengine.v1";
-        fn full_name() -> ::prost::alloc::string::String {
-            "google.cloud.discoveryengine.v1.SearchRequest.RelevanceScoreSpec".into()
-        }
-        fn type_url() -> ::prost::alloc::string::String {
-            "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.RelevanceScoreSpec"
-                .into()
-        }
-    }
     #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct RelevanceFilterSpec {
         #[prost(message, optional, tag = "1")]
@@ -2363,6 +2382,60 @@ pub mod search_request {
         }
         fn type_url() -> ::prost::alloc::string::String {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.RelevanceFilterSpec"
+                .into()
+        }
+    }
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct RelevanceScoreSpec {
+        #[prost(bool, tag = "1")]
+        pub return_relevance_score: bool,
+    }
+    impl ::prost::Name for RelevanceScoreSpec {
+        const NAME: &'static str = "RelevanceScoreSpec";
+        const PACKAGE: &'static str = "google.cloud.discoveryengine.v1";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.discoveryengine.v1.SearchRequest.RelevanceScoreSpec".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.RelevanceScoreSpec"
+                .into()
+        }
+    }
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct SearchAddonSpec {
+        #[prost(bool, tag = "1")]
+        pub disable_semantic_add_on: bool,
+        #[prost(bool, tag = "2")]
+        pub disable_kpi_personalization_add_on: bool,
+        #[prost(bool, tag = "3")]
+        pub disable_generative_answer_add_on: bool,
+    }
+    impl ::prost::Name for SearchAddonSpec {
+        const NAME: &'static str = "SearchAddonSpec";
+        const PACKAGE: &'static str = "google.cloud.discoveryengine.v1";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.discoveryengine.v1.SearchRequest.SearchAddonSpec".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.SearchAddonSpec"
+                .into()
+        }
+    }
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+    pub struct CustomRankingParams {
+        #[prost(string, repeated, tag = "1")]
+        pub expressions_to_precompute: ::prost::alloc::vec::Vec<
+            ::prost::alloc::string::String,
+        >,
+    }
+    impl ::prost::Name for CustomRankingParams {
+        const NAME: &'static str = "CustomRankingParams";
+        const PACKAGE: &'static str = "google.cloud.discoveryengine.v1";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.cloud.discoveryengine.v1.SearchRequest.CustomRankingParams".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.CustomRankingParams"
                 .into()
         }
     }

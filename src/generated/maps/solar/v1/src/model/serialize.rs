@@ -39,6 +39,9 @@ impl serde::ser::Serialize for super::FindClosestBuildingInsightsRequest {
         if !self.experiments.is_empty() {
             state.serialize_entry("experiments", &self.experiments)?;
         }
+        if !self.additional_insights.is_empty() {
+            state.serialize_entry("additionalInsights", &self.additional_insights)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -115,6 +118,34 @@ impl serde::ser::Serialize for super::BuildingInsights {
         }
         if !wkt::internal::is_default(&self.imagery_quality) {
             state.serialize_entry("imageryQuality", &self.imagery_quality)?;
+        }
+        if self.detected_arrays.is_some() {
+            state.serialize_entry("detectedArrays", &self.detected_arrays)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::building_insights::DetectedArrays {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.detection_status) {
+            state.serialize_entry("detectionStatus", &self.detection_status)?;
+        }
+        if self.latest_capture_date.is_some() {
+            state.serialize_entry("latestCaptureDate", &self.latest_capture_date)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

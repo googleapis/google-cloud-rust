@@ -162,6 +162,17 @@ pub mod solar {
             self.0.request.experiments = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [additional_insights][crate::model::FindClosestBuildingInsightsRequest::additional_insights].
+        pub fn set_additional_insights<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::AdditionalInsights>,
+        {
+            use std::iter::Iterator;
+            self.0.request.additional_insights = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
     }
 
     #[doc(hidden)]

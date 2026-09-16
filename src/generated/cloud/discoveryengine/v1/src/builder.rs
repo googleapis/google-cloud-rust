@@ -12087,6 +12087,12 @@ pub mod search_service {
             self
         }
 
+        /// Sets the value of [num_results_per_data_store][crate::model::SearchRequest::num_results_per_data_store].
+        pub fn set_num_results_per_data_store<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.num_results_per_data_store = v.into();
+            self
+        }
+
         /// Sets the value of [filter][crate::model::SearchRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
@@ -12404,6 +12410,48 @@ pub mod search_service {
             T: std::convert::Into<crate::model::search_request::RelevanceScoreSpec>,
         {
             self.0.request.relevance_score_spec = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [search_addon_spec][crate::model::SearchRequest::search_addon_spec].
+        pub fn set_search_addon_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::SearchAddonSpec>,
+        {
+            self.0.request.search_addon_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [search_addon_spec][crate::model::SearchRequest::search_addon_spec].
+        pub fn set_or_clear_search_addon_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::SearchAddonSpec>,
+        {
+            self.0.request.search_addon_spec = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [custom_ranking_params][crate::model::SearchRequest::custom_ranking_params].
+        pub fn set_custom_ranking_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::CustomRankingParams>,
+        {
+            self.0.request.custom_ranking_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_ranking_params][crate::model::SearchRequest::custom_ranking_params].
+        pub fn set_or_clear_custom_ranking_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::CustomRankingParams>,
+        {
+            self.0.request.custom_ranking_params = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [entity][crate::model::SearchRequest::entity].
+        pub fn set_entity<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.entity = v.into();
             self
         }
     }
@@ -12573,6 +12621,12 @@ pub mod search_service {
             self
         }
 
+        /// Sets the value of [num_results_per_data_store][crate::model::SearchRequest::num_results_per_data_store].
+        pub fn set_num_results_per_data_store<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.num_results_per_data_store = v.into();
+            self
+        }
+
         /// Sets the value of [filter][crate::model::SearchRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
@@ -12890,6 +12944,48 @@ pub mod search_service {
             T: std::convert::Into<crate::model::search_request::RelevanceScoreSpec>,
         {
             self.0.request.relevance_score_spec = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [search_addon_spec][crate::model::SearchRequest::search_addon_spec].
+        pub fn set_search_addon_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::SearchAddonSpec>,
+        {
+            self.0.request.search_addon_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [search_addon_spec][crate::model::SearchRequest::search_addon_spec].
+        pub fn set_or_clear_search_addon_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::SearchAddonSpec>,
+        {
+            self.0.request.search_addon_spec = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [custom_ranking_params][crate::model::SearchRequest::custom_ranking_params].
+        pub fn set_custom_ranking_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::CustomRankingParams>,
+        {
+            self.0.request.custom_ranking_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_ranking_params][crate::model::SearchRequest::custom_ranking_params].
+        pub fn set_or_clear_custom_ranking_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_request::CustomRankingParams>,
+        {
+            self.0.request.custom_ranking_params = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [entity][crate::model::SearchRequest::entity].
+        pub fn set_entity<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.entity = v.into();
             self
         }
     }
