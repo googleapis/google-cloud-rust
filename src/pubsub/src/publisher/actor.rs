@@ -63,6 +63,7 @@ pub(crate) struct Dispatcher {
     topic_name: String,
     client: GapicPublisher,
     batching_options: BatchingOptions,
+    hedging_options: Option<HedgingOptions>,
     rx: mpsc::UnboundedReceiver<ToDispatcher>,
 }
 
@@ -71,6 +72,7 @@ impl Dispatcher {
         topic_name: String,
         client: GapicPublisher,
         batching_options: BatchingOptions,
+        hedging_options: Option<HedgingOptions>,
         rx: mpsc::UnboundedReceiver<ToDispatcher>,
     ) -> Self {
         Self {
@@ -78,6 +80,7 @@ impl Dispatcher {
             client,
             rx,
             batching_options,
+            hedging_options,
         }
     }
 
@@ -90,7 +93,7 @@ impl Dispatcher {
                     self.topic_name.clone(),
                     self.client.clone(),
                     self.batching_options.clone(),
-                    None,
+                    self.hedging_options.clone(),
                     rx,
                 )
                 .run(),

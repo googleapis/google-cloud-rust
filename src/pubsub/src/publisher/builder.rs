@@ -523,7 +523,13 @@ impl PublisherPartialBuilder {
         // We don't need to keep track of a handle to the dispatcher.
         // Dropping the Publisher will drop the only sender to the channel.
         // This will cause the dispatcher to gracefully exit.
-        let dispatcher = Dispatcher::new(self.topic, self.inner, batching_options.clone(), rx);
+        let dispatcher = Dispatcher::new(
+            self.topic,
+            self.inner,
+            batching_options.clone(),
+            hedging_options.clone(),
+            rx,
+        );
         let handle = tokio::spawn(dispatcher.run());
 
         (
