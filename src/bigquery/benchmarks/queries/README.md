@@ -46,10 +46,11 @@ ______________________________________________________________________
 
 ## Running Benchmarks
 
-> [!NOTE] **Query Caching is disabled by default (`--use-query-cache false`)**
-> to force queries to always execute against storage and provide accurate,
-> repeatable latency measurements. You can pass `--use-query-cache true` if you
-> wish to benchmark cache hit performance.
+> [!NOTE]
+> **Query Caching is disabled by default (`--use-query-cache false`)** to force
+> queries to always execute against storage and provide accurate, repeatable
+> latency measurements. You can pass `--use-query-cache true` if you wish to
+> benchmark cache hit performance.
 >
 > **Indefinite Execution by Default:** If neither `--iterations` nor
 > `--duration` is specified, the benchmark runs indefinitely until interrupted
