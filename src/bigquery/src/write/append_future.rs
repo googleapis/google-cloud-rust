@@ -24,6 +24,9 @@ use tokio::sync::oneshot;
 /// This future represents a write request that has already been queued by the
 /// client library to send over the network. Awaiting this future yields the server's acknowledgment
 /// or an error if the write fails.
+///
+/// The underlying operation begins immediately and runs independently in the
+/// background, even if this future is dropped or never awaited.
 #[derive(Debug)]
 pub struct AppendFuture {
     rx: oneshot::Receiver<AppendResult<AppendResponse>>,
