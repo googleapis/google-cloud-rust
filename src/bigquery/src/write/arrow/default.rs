@@ -24,7 +24,7 @@ use std::sync::Arc;
 /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
 #[derive(Debug)]
 pub struct DefaultWriter {
-    inner: Arc<Dispatcher>,
+    pub(crate) inner: Arc<Dispatcher>,
     pub(crate) write_stream: String,
     pub(crate) schema: ArrowSchema,
 }

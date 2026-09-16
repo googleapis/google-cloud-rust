@@ -135,9 +135,11 @@ fn process_gax_response(
     resp: Result<AppendRowsResponse>,
 ) {
     // Pop the response channel associated with this response.
-    let resp_tx = resp_txs
-        .pop_front()
-        .expect("the service sends one response per request");
+    let Some(resp_tx) = resp_txs.pop_front() else {
+        // Note that the server may close an idle stream that has no requests
+        // queued up. If so, the runner task will terminate gracefully.
+        return;
+    };
 
     // Forward the result.
     let _ = resp_tx.send(resp.map_err(AppendError::from));
@@ -463,6 +465,42 @@ mod tests {
         };
         req_tx.send(write)?;
         drop(req_tx);
+
+        handle.await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn stream_error_without_pending_requests() -> anyhow::Result<()> {
+        // This is a regression test for
+        // https://github.com/googleapis/google-cloud-rust/issues/6815
+
+        let (response_tx, response_rx) = mpsc::channel(10);
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_append_rows()
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = Arc::new(test_transport(endpoint).await?);
+
+        let Runner { req_tx, handle } = Runner::new(transport);
+
+        // Perform a write, opening the stream.
+        let (resp_tx, resp_rx) = oneshot::channel();
+        let write = WriteRequest {
+            req: test_request(1),
+            resp_tx,
+        };
+        req_tx.send(write)?;
+
+        // Respond to the write, draining the request queue.
+        response_tx.send(Ok(convert(&test_response(1)))).await?;
+        let _ = resp_rx.await??;
+
+        // Close the stream with an error
+        response_tx
+            .send(Err(TonicStatus::failed_precondition("fail")))
+            .await?;
 
         handle.await?;
 

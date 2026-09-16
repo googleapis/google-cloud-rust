@@ -13,6 +13,7 @@
 // limitations under the License.
 
 pub use future::PublishFuture;
+pub use options::HedgingOptions;
 
 pub(super) mod builder;
 pub(super) mod client;
@@ -24,6 +25,8 @@ mod batch;
 mod client_builder;
 mod constants;
 mod future;
+#[allow(dead_code)]
+mod hedging;
 mod options;
 mod retry_policy;
 #[allow(dead_code)]

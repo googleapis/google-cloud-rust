@@ -20,7 +20,7 @@ use google_cloud_auth::credentials::Credentials;
 use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
 use google_cloud_storage::client::StorageControl;
 
-const MODEL: &str = "gemini-2.5-flash";
+const MODEL: &str = "gemini-3.8-flash";
 
 #[derive(Clone, Debug)]
 pub struct AppState {

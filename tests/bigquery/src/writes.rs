@@ -41,13 +41,33 @@ pub async fn run_writes() -> Result<()> {
             TableFieldSchema::new().set_name("age").set_type("INTEGER"),
             TableFieldSchema::new().set_name("test").set_type("STRING"),
         ]);
-        create_table(&table_service, &project_id, &dataset_id, table_id, schema).await?;
+        create_table(
+            &table_service,
+            &project_id,
+            &dataset_id,
+            table_id,
+            schema.clone(),
+        )
+        .await?;
         let client = Write::builder().build().await?;
         arrow::basic(&client, &project_id, &dataset_id, table_id).await?;
         arrow::pending(&client, &project_id, &dataset_id, table_id).await?;
         arrow::committed(&client, &project_id, &dataset_id, table_id).await?;
         arrow::buffered(&client, &project_id, &dataset_id, table_id).await?;
-        arrow::attach(&client, &project_id, &dataset_id, table_id).await
+        arrow::attach(&client, &project_id, &dataset_id, table_id).await?;
+
+        create_table(
+            &table_service,
+            &project_id,
+            &dataset_id,
+            "multi1",
+            schema.clone(),
+        )
+        .await?;
+        create_table(&table_service, &project_id, &dataset_id, "multi2", schema).await?;
+        arrow::multiplex(&client, &project_id, &dataset_id, "multi").await?;
+
+        Ok(())
     }
     .await;
 
