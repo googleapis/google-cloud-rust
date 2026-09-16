@@ -238,22 +238,24 @@ mod tests {
         };
 
         // Execute first RPC (attempt 1 -> UNAVAILABLE, attempt 2 -> success)
+        let lease1 = client.pick_channel();
         let _session1 = client
             .create_session(
                 request.clone(),
                 crate::RequestOptions::default(),
-                client.get_channel(0),
+                &lease1,
                 &Observability::disabled_arc(),
             )
             .await
             .expect("first create_session should succeed after retry");
 
         // Execute second RPC (attempt 1 -> success)
+        let lease2 = client.pick_channel();
         let _session2 = client
             .create_session(
                 request,
                 crate::RequestOptions::default(),
-                client.get_channel(0),
+                &lease2,
                 &Observability::disabled_arc(),
             )
             .await
