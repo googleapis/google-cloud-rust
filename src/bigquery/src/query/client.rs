@@ -67,6 +67,11 @@ pub struct BigQuery {
     project_id: Option<String>,
 }
 
+pub(super) mod info {
+    pub(crate) const NAME: &str = env!("CARGO_PKG_NAME");
+    pub(crate) const VERSION: &str = env!("CARGO_PKG_VERSION");
+}
+
 impl BigQuery {
     /// Returns a new [`ClientBuilder`] for configuring and instantiating a [`BigQuery`] client.
     ///
@@ -111,6 +116,14 @@ impl BigQuery {
         job_service_builder = job_service_builder.with_backoff_policy(backoff_policy);
         job_service_builder =
             job_service_builder.with_retry_throttler(builder.config.retry_throttler);
+
+        job_service_builder =
+            job_service_builder.with_extension(gaxi::api_header::XGoogApiClient {
+                name: info::NAME,
+                version: info::VERSION,
+                library_type: gaxi::api_header::GCCL,
+            });
+
         let job_service = Arc::new(job_service_builder.build().await?);
 
         Ok(BigQuery {
@@ -418,6 +431,58 @@ mod tests {
             matches!(&err, QueryError::UnsupportedJobType),
             "expected UnsupportedJobType, got {err:?}"
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_bigquery_calls_send_veneer_header_not_gapic() -> anyhow::Result<()> {
+        use httptest::{Expectation, Server, all_of, matchers::*, responders::*};
+        use serde_json::json;
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "/bigquery/v2/projects/test-proj/jobs/job_123"),
+                request::headers(contains((
+                    "x-goog-api-client",
+                    matches(format!("gccl/{}", env!("CARGO_PKG_VERSION"))),
+                ))),
+                not(request::headers(contains((
+                    "x-goog-api-client",
+                    matches("gapic/"),
+                )))),
+            ])
+            .respond_with(json_encoded(json!({
+                "jobReference": {
+                    "projectId": "test-proj",
+                    "jobId": "job_123"
+                },
+                "configuration": {
+                    "query": {
+                        "query": "SELECT 1"
+                    }
+                },
+                "status": {
+                    "state": "DONE"
+                }
+            }))),
+        );
+
+        let client = BigQuery::builder()
+            .with_endpoint(server.url_str(""))
+            .with_credentials(Anonymous::new().build())
+            .with_project_id("test-proj")
+            .build()
+            .await?;
+
+        let job_ref = JobReference::new().set_job_id("job_123");
+        let query = client.attach_job(job_ref).await?;
+        let metadata = query.metadata();
+        assert_eq!(
+            metadata.job_reference.as_ref().map(|j| j.job_id.as_str()),
+            Some("job_123")
+        );
+
         Ok(())
     }
 }
