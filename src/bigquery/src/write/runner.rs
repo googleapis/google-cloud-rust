@@ -516,7 +516,7 @@ mod tests {
         // We use this channel to surface writes (requests) from outside our
         // mock expectation.
         let (recover_writes_tx, mut recover_writes_rx) = mpsc::channel(10);
-        let (_, response_rx) = mpsc::channel(10);
+        let (response_tx, response_rx) = mpsc::channel(10);
         let mut mock = MockBigQueryWrite::new();
         mock.expect_append_rows().return_once(move |request| {
             tokio::spawn(async move {
@@ -535,7 +535,7 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
 
-        let Runner { req_tx, handle: _ } = Runner::new(transport);
+        let Runner { req_tx, handle } = Runner::new(transport);
 
         // write 1
         let (resp_tx1, _) = oneshot::channel();
@@ -568,6 +568,9 @@ mod tests {
             .await
             .expect("should receive a second request")?;
         assert_eq!(second_req.trace_id, "");
+
+        drop(response_tx);
+        handle.await?;
 
         Ok(())
     }
