@@ -111,8 +111,8 @@ impl ReplayBuffer {
     pub fn ack(&mut self, persisted_size: i64) {
         while let Some(front) = self.queue.front() {
             if front.end_offset() <= persisted_size {
-                let chunk = self.queue.pop_front().expect("front chunk must exist");
-                self.unpersisted_bytes -= chunk.data.len();
+                self.unpersisted_bytes -= front.data.len();
+                self.queue.pop_front();
             } else {
                 break;
             }
@@ -122,7 +122,7 @@ impl ReplayBuffer {
             && front.write_offset < persisted_size
         {
             let trimmed_bytes = (persisted_size - front.write_offset) as usize;
-            // SAFETY: persisted_size is guaranteed to be within the bounds of the chunk because front.write_offset < persisted_size and front.end_offset() > persisted_size.
+            // Invariant: persisted_size is guaranteed to be within the bounds of the chunk because front.write_offset < persisted_size and front.end_offset() > persisted_size.
             front.data = front.data.slice(trimmed_bytes..);
             front.write_offset = persisted_size;
             front.crc32c = crc32c::crc32c(&front.data);
