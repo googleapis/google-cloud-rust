@@ -69,6 +69,7 @@ members = [
   "src/auth",
   "src/bigquery",
   "src/bigquery-derive",
+  "src/bigquery/benchmarks/queries",
   "src/bigquery/benchmarks/write-throughput",
   "src/bigquery/examples",
   "src/bigquery/grpc-mock",
