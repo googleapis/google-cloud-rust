@@ -19,11 +19,11 @@ use gaxi::grpc::tonic::{Response as TonicResponse, Streaming};
 use tokio::sync::mpsc::Receiver;
 use tokio_stream::wrappers::ReceiverStream;
 
-mod info {
+pub(super) mod info {
     use std::sync::LazyLock;
 
     const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    pub(crate) const VERSION: &str = env!("CARGO_PKG_VERSION");
     pub(super) static X_GOOG_API_CLIENT_HEADER: LazyLock<String> = LazyLock::new(|| {
         let ac = gaxi::api_header::XGoogApiClient {
             name: NAME,
