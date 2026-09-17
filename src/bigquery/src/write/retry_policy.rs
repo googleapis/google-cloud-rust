@@ -14,11 +14,33 @@
 
 //! Defines the retry policy for the BigQuery Storage Write API.
 
+use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::error::Error;
 use google_cloud_gax::error::rpc::Code;
-use google_cloud_gax::retry_policy::RetryPolicy;
+use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+use google_cloud_gax::retry_policy::{RetryPolicy, RetryPolicyExt};
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
+use std::sync::Arc;
+use std::time::Duration;
+
+/// Configuration options for retrying writes.
+#[derive(Clone, Debug)]
+pub(crate) struct RetryOptions {
+    pub(crate) retry_policy: Arc<dyn RetryPolicy>,
+    pub(crate) backoff_policy: Arc<dyn BackoffPolicy>,
+    pub(crate) attempt_timeout: Option<Duration>,
+}
+
+impl Default for RetryOptions {
+    fn default() -> Self {
+        Self {
+            retry_policy: Arc::new(RetryableErrors.with_time_limit(Duration::from_secs(60))),
+            backoff_policy: Arc::new(ExponentialBackoff::default()),
+            attempt_timeout: Some(Duration::from_secs(30)),
+        }
+    }
+}
 
 /// Follows the RPC retry strategy recommended for BigQuery Storage Write API.
 ///

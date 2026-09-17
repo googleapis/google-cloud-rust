@@ -14,6 +14,7 @@
 
 use super::super::generated::gapic_storage::client::BigQueryWrite;
 use super::super::pool::{StreamPool, StreamPoolOptions};
+use super::super::retry_policy::RetryOptions;
 use super::super::transport::Transport;
 use super::super::validate::{validate_stream, validate_table};
 use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter, Writer};
@@ -27,12 +28,21 @@ use std::sync::Arc;
 #[derive(Clone, Debug)]
 pub struct WriterBuilder {
     inner: Arc<Transport>,
+    retry_options: RetryOptions,
     schema: ProtoSchema,
 }
 
 impl WriterBuilder {
-    pub(crate) fn new(inner: Arc<Transport>, schema: ProtoSchema) -> Self {
-        Self { inner, schema }
+    pub(crate) fn new(
+        inner: Arc<Transport>,
+        retry_options: RetryOptions,
+        schema: ProtoSchema,
+    ) -> Self {
+        Self {
+            inner,
+            retry_options,
+            schema,
+        }
     }
 
     /// Creates a writer for the [default stream] for the given table.
@@ -49,7 +59,12 @@ impl WriterBuilder {
             ..Default::default()
         };
         let pool = Arc::new(StreamPool::new(self.inner, options));
-        Ok(DefaultWriter::new(pool, write_stream, self.schema))
+        Ok(DefaultWriter::new(
+            pool,
+            self.retry_options,
+            write_stream,
+            self.schema,
+        ))
     }
 
     /// Creates a writer for a [pending stream] for the given table.
@@ -165,7 +180,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
-        let builder = WriterBuilder::new(transport, proto_schema());
+        let builder = WriterBuilder::new(transport, test_retry_options(), proto_schema());
         let writer = builder.pending("projects/p/datasets/d/tables/t").await?;
         assert_eq!(
             writer.inner.write_stream,
@@ -181,7 +196,7 @@ mod tests {
     #[tokio::test]
     async fn pending_bad_table_format(table: &str) -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let builder = WriterBuilder::new(transport, proto_schema());
+        let builder = WriterBuilder::new(transport, test_retry_options(), proto_schema());
         let err = builder
             .pending(table)
             .await
@@ -205,7 +220,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
-        let builder = WriterBuilder::new(transport, proto_schema());
+        let builder = WriterBuilder::new(transport, test_retry_options(), proto_schema());
         let writer = builder.committed("projects/p/datasets/d/tables/t").await?;
         assert_eq!(
             writer.inner.write_stream,
@@ -221,7 +236,7 @@ mod tests {
     #[tokio::test]
     async fn committed_bad_table_format(table: &str) -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let builder = WriterBuilder::new(transport, proto_schema());
+        let builder = WriterBuilder::new(transport, test_retry_options(), proto_schema());
         let err = builder
             .committed(table)
             .await
@@ -233,7 +248,7 @@ mod tests {
     #[tokio::test]
     async fn default() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let builder = WriterBuilder::new(transport, proto_schema());
+        let builder = WriterBuilder::new(transport, test_retry_options(), proto_schema());
         let writer = builder.default("projects/p/datasets/d/tables/t").await?;
         assert_eq!(
             writer.write_stream,
@@ -252,7 +267,7 @@ mod tests {
     #[tokio::test]
     async fn bad_table_format(table: &str) -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let builder = WriterBuilder::new(transport, proto_schema());
+        let builder = WriterBuilder::new(transport, test_retry_options(), proto_schema());
         let err = builder
             .default(table)
             .await
@@ -276,7 +291,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
-        let builder = WriterBuilder::new(transport, proto_schema());
+        let builder = WriterBuilder::new(transport, test_retry_options(), proto_schema());
         let writer = builder.buffered("projects/p/datasets/d/tables/t").await?;
         assert_eq!(
             writer.inner.write_stream,
@@ -292,7 +307,7 @@ mod tests {
     #[tokio::test]
     async fn buffered_bad_table_format(table: &str) -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let builder = WriterBuilder::new(transport, proto_schema());
+        let builder = WriterBuilder::new(transport, test_retry_options(), proto_schema());
         let err = builder
             .buffered(table)
             .await
@@ -320,7 +335,7 @@ mod tests {
     #[tokio::test]
     async fn attach_committed_success() -> anyhow::Result<()> {
         let (transport, _server) = attach_mock(Type::Committed).await?;
-        let builder = WriterBuilder::new(transport, proto_schema());
+        let builder = WriterBuilder::new(transport, test_retry_options(), proto_schema());
         let writer: CommittedWriter = builder
             .attach("projects/p/datasets/d/tables/t/streams/s")
             .await?;
@@ -335,7 +350,7 @@ mod tests {
     #[tokio::test]
     async fn attach_pending_success() -> anyhow::Result<()> {
         let (transport, _server) = attach_mock(Type::Pending).await?;
-        let builder = WriterBuilder::new(transport, proto_schema());
+        let builder = WriterBuilder::new(transport, test_retry_options(), proto_schema());
         let writer: PendingWriter = builder
             .attach("projects/p/datasets/d/tables/t/streams/s")
             .await?;
@@ -350,7 +365,7 @@ mod tests {
     #[tokio::test]
     async fn attach_buffered_success() -> anyhow::Result<()> {
         let (transport, _server) = attach_mock(Type::Buffered).await?;
-        let builder = WriterBuilder::new(transport, proto_schema());
+        let builder = WriterBuilder::new(transport, test_retry_options(), proto_schema());
         let writer: BufferedWriter = builder
             .attach("projects/p/datasets/d/tables/t/streams/s")
             .await?;
@@ -369,7 +384,7 @@ mod tests {
     #[tokio::test]
     async fn attach_bad_stream_format(stream: &str) -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let builder = WriterBuilder::new(transport, proto_schema());
+        let builder = WriterBuilder::new(transport, test_retry_options(), proto_schema());
         let err = builder
             .attach::<CommittedWriter, _>(stream)
             .await
@@ -381,7 +396,7 @@ mod tests {
     #[tokio::test]
     async fn attach_stream_type_mismatch() -> anyhow::Result<()> {
         let (transport, _server) = attach_mock(Type::Buffered).await?;
-        let builder = WriterBuilder::new(transport, proto_schema());
+        let builder = WriterBuilder::new(transport, test_retry_options(), proto_schema());
         let err = builder
             .attach::<CommittedWriter, _>("projects/p/datasets/d/tables/t/streams/s")
             .await

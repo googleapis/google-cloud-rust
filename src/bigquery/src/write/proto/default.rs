@@ -15,6 +15,7 @@
 use super::super::builder::Append;
 use super::super::dispatcher::Dispatcher;
 use super::super::pool::StreamPool;
+use super::super::retry_policy::RetryOptions;
 use crate::model::append_rows_request::ProtoData;
 use crate::model::{AppendRowsRequest, ProtoRows, ProtoSchema};
 use std::sync::Arc;
@@ -30,8 +31,13 @@ pub struct DefaultWriter {
 }
 
 impl DefaultWriter {
-    pub(crate) fn new(pool: Arc<StreamPool>, write_stream: String, schema: ProtoSchema) -> Self {
-        let inner = Arc::new(Dispatcher::new(pool));
+    pub(crate) fn new(
+        pool: Arc<StreamPool>,
+        retry_options: RetryOptions,
+        write_stream: String,
+        schema: ProtoSchema,
+    ) -> Self {
+        let inner = Arc::new(Dispatcher::new(pool, retry_options));
         Self {
             inner,
             write_stream,
@@ -67,7 +73,7 @@ mod tests {
     async fn request_fields() -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
         let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
-        let writer = DefaultWriter::new(pool, write_stream(), proto_schema());
+        let writer = DefaultWriter::new(pool, test_retry_options(), write_stream(), proto_schema());
 
         let b = writer.append(rows(1));
         assert_eq!(b.req.write_stream, write_stream());
@@ -99,7 +105,7 @@ mod tests {
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
 
-        let writer = DefaultWriter::new(pool, write_stream(), proto_schema());
+        let writer = DefaultWriter::new(pool, test_retry_options(), write_stream(), proto_schema());
 
         response_tx.send(Ok(convert(&test_response(1)))).await?;
         let resp = writer.append(rows(1)).send().await?;
