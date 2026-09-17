@@ -516,7 +516,7 @@ mod tests {
         // We use this channel to surface writes (requests) from outside our
         // mock expectation.
         let (recover_writes_tx, mut recover_writes_rx) = mpsc::channel(10);
-        let (response_tx, response_rx) = mpsc::channel(10);
+        let (_, response_rx) = mpsc::channel(10);
         let mut mock = MockBigQueryWrite::new();
         mock.expect_append_rows().return_once(move |request| {
             tokio::spawn(async move {
