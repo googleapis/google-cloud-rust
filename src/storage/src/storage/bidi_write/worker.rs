@@ -14,7 +14,7 @@
 
 use super::connector::{Connection, Connector};
 use super::replay_buffer::{ReplayBuffer, ReplayChunk};
-use super::{Client, TonicStreaming};
+use super::{Client, MAX_WRITE_CHUNK_SIZE, TonicStreaming};
 use crate::Error;
 use crate::error::WriteError;
 use crate::google::storage::v2::{
@@ -97,16 +97,49 @@ pub struct Worker<C> {
     pending_requests: VecDeque<PendingRequest>,
     /// Tracks if the client intends to complete the upload by sending a Finalize intent.
     finalized: bool,
+    /// Tracks if a worker-initiated `state_lookup` request is awaiting a server response.
+    ///
+    /// The worker injects such a request when the replay buffer crosses its high
+    /// watermark, so that an `ack()` is guaranteed to arrive before the buffer fills.
+    self_flush_outstanding: bool,
 }
 
 impl<C> Worker<C> {
     pub fn new(connector: Connector<C>) -> Self {
+        Self::with_replay_buffer(connector, ReplayBuffer::new())
+    }
+
+    /// Creates a [`Worker`] with a caller-provided [`ReplayBuffer`].
+    ///
+    /// Tests use this to exercise the buffer capacity limits without buffering
+    /// [`DEFAULT_REPLAY_BUFFER_SIZE`][super::replay_buffer::DEFAULT_REPLAY_BUFFER_SIZE] bytes.
+    pub fn with_replay_buffer(connector: Connector<C>, replay_buffer: ReplayBuffer) -> Self {
         Self {
             connector,
-            replay_buffer: ReplayBuffer::new(),
+            replay_buffer,
             pending_requests: VecDeque::new(),
             finalized: false,
+            self_flush_outstanding: false,
         }
+    }
+
+    /// Returns `true` if the replay buffer has crossed its high watermark and no
+    /// worker-initiated `state_lookup` is outstanding.
+    ///
+    /// The replay buffer only shrinks when [`ReplayBuffer::ack`] is called, which
+    /// requires a server response, and the server only responds when a request sets
+    /// `state_lookup`. Without injecting one, a caller that appends
+    /// [`ReplayBuffer::capacity`] bytes without an explicit flush would fill the buffer,
+    /// disable the intent branch of the worker loop, and stall forever. The watermark
+    /// leaves two chunks worth of headroom so the injected request is dispatched well
+    /// before [`ReplayBuffer::is_full`] trips.
+    fn needs_watermark_flush(&self) -> bool {
+        !self.self_flush_outstanding
+            && self.replay_buffer.unpersisted_bytes()
+                >= self
+                    .replay_buffer
+                    .capacity()
+                    .saturating_sub(2 * MAX_WRITE_CHUNK_SIZE)
     }
 }
 
@@ -176,7 +209,7 @@ where
 
     fn process_intent(&mut self, intent: UploadIntent) -> BidiWriteObjectRequest {
         match intent {
-            UploadIntent::Append(req) => {
+            UploadIntent::Append(mut req) => {
                 if let Some(Data::ChecksummedData(ref cd)) = req.data {
                     let crc32c = cd.crc32c.unwrap_or_else(|| crc32c::crc32c(&cd.content));
                     self.replay_buffer.push(ReplayChunk::new(
@@ -184,6 +217,14 @@ where
                         cd.content.clone(),
                         crc32c,
                     ));
+                }
+                // Piggyback a `state_lookup` on this append once the replay buffer
+                // crosses its high watermark. Only `state_lookup` elicits a response,
+                // and only a response drives `ReplayBuffer::ack()`.
+                if self.needs_watermark_flush() {
+                    req.flush = true;
+                    req.state_lookup = true;
+                    self.self_flush_outstanding = true;
                 }
                 req
             }
@@ -270,18 +311,25 @@ where
             }
         }
 
-        if !matched {
+        // A worker-initiated `state_lookup` has no entry in `pending_requests`, so its
+        // response legitimately matches nothing. Do not report it as unprompted.
+        if !matched && !self.self_flush_outstanding {
             tracing::debug!(
                 "Received unprompted BidiWriteObjectResponse from server: {:?}",
                 response
             );
         }
+        self.self_flush_outstanding = false;
     }
 
     async fn reconnect(
         &mut self,
         last_error: Error,
     ) -> Option<LoopResult<Option<Connection<C::Stream>>>> {
+        // Any response the worker-initiated `state_lookup` was waiting on will never
+        // arrive on the dead stream.
+        self.self_flush_outstanding = false;
+
         let (initial_response, connection) = match self.connector.reconnect(last_error).await {
             Ok(res) => res,
             Err(e) => return Some(Err(e)),
@@ -307,6 +355,28 @@ where
             if let Err(e) = connection.tx.send(pending.request()).await {
                 return Some(Err(Error::io(e.to_string())));
             }
+        }
+
+        // Replayed chunks set neither `flush` nor `state_lookup`. If the buffer is
+        // still above the watermark and no user request is pending, nothing would
+        // elicit a response on the new stream, so restore the invariant explicitly.
+        if self.pending_requests.is_empty() && self.needs_watermark_flush() {
+            let write_offset = self
+                .replay_buffer
+                .chunks_to_replay()
+                .last()
+                .map(|chunk| chunk.end_offset())
+                .unwrap_or(initial_persisted_size);
+            let request = BidiWriteObjectRequest {
+                write_offset,
+                flush: true,
+                state_lookup: true,
+                ..BidiWriteObjectRequest::default()
+            };
+            if let Err(e) = connection.tx.send(request).await {
+                return Some(Err(Error::io(e.to_string())));
+            }
+            self.self_flush_outstanding = true;
         }
 
         Some(Ok(Some(connection)))
@@ -365,7 +435,20 @@ mod tests {
         mpsc::Sender<TonicResult<BidiWriteObjectResponse>>,
     );
 
+    /// Defines the payload size of the synthetic appends used in the watermark tests.
+    const TEST_CHUNK_SIZE: usize = 512;
+
+    /// Places the watermark (`capacity - 2 * MAX_WRITE_CHUNK_SIZE`) at exactly two test
+    /// chunks, so the second append is the one that crosses it.
+    const TEST_CAPACITY: usize = 2 * MAX_WRITE_CHUNK_SIZE + 2 * TEST_CHUNK_SIZE;
+
     fn spawn_test_worker() -> TestWorkerContext {
+        spawn_test_worker_with_replay_capacity(
+            super::super::replay_buffer::DEFAULT_REPLAY_BUFFER_SIZE,
+        )
+    }
+
+    fn spawn_test_worker_with_replay_capacity(capacity: usize) -> TestWorkerContext {
         let (request_tx, request_rx) = mpsc::channel(10);
         let (response_tx, response_rx) = mpsc::channel(10);
         let (tx, rx) = mpsc::channel(10);
@@ -375,10 +458,25 @@ mod tests {
         mock.expect_start().never();
 
         let connector = mock_connector(mock);
-        let worker = Worker::new(connector);
+        let worker = Worker::with_replay_buffer(connector, ReplayBuffer::with_capacity(capacity));
         let handle = tokio::spawn(worker.run(connection, rx));
 
         (handle, tx, request_rx, response_tx)
+    }
+
+    fn append_intent(write_offset: i64, len: usize) -> UploadIntent {
+        let content = bytes::Bytes::from(vec![b'x'; len]);
+        let crc32c = crc32c::crc32c(&content);
+        UploadIntent::Append(BidiWriteObjectRequest {
+            write_offset,
+            data: Some(Data::ChecksummedData(
+                crate::google::storage::v2::ChecksummedData {
+                    content,
+                    crc32c: Some(crc32c),
+                },
+            )),
+            ..Default::default()
+        })
     }
 
     #[tokio::test]
@@ -786,5 +884,198 @@ mod tests {
             .send(UploadIntent::Finalize(finalize_request, finalize_tx))
             .await;
         assert!(handle.await.unwrap_err().is_panic());
+    }
+
+    #[tokio::test]
+    async fn run_append_injects_watermark_flush() -> anyhow::Result<()> {
+        // Arrange.
+        let (handle, tx, mut request_rx, response_tx) =
+            spawn_test_worker_with_replay_capacity(TEST_CAPACITY);
+
+        // Act.
+        tx.send(append_intent(0, TEST_CHUNK_SIZE)).await?;
+        tx.send(append_intent(TEST_CHUNK_SIZE as i64, TEST_CHUNK_SIZE))
+            .await?;
+
+        // Assert.
+        // The first append stays below the watermark and is dispatched untouched.
+        let first = request_rx.recv().await.unwrap();
+        assert!(!first.flush, "{first:?}");
+        assert!(!first.state_lookup, "{first:?}");
+
+        // The second append crosses the watermark, so the worker piggybacks a flush
+        // and a state_lookup on it. Only state_lookup elicits a server response.
+        let second = request_rx.recv().await.unwrap();
+        assert!(second.flush, "{second:?}");
+        assert!(second.state_lookup, "{second:?}");
+
+        drop(tx);
+        tokio::task::yield_now().await;
+        drop(response_tx);
+        handle.await??;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_append_does_not_repeat_watermark_flush() -> anyhow::Result<()> {
+        // Arrange.
+        let (handle, tx, mut request_rx, response_tx) =
+            spawn_test_worker_with_replay_capacity(TEST_CAPACITY);
+
+        // Act.
+        // Three appends, all above the watermark from the second one onwards, with no
+        // server response in between.
+        for i in 0..3 {
+            tx.send(append_intent((i * TEST_CHUNK_SIZE) as i64, TEST_CHUNK_SIZE))
+                .await?;
+        }
+
+        // Assert.
+        let _first = request_rx.recv().await.unwrap();
+        let second = request_rx.recv().await.unwrap();
+        assert!(second.state_lookup, "{second:?}");
+
+        // A state_lookup is already outstanding, so the third append is not flagged.
+        let third = request_rx.recv().await.unwrap();
+        assert!(!third.flush, "{third:?}");
+        assert!(!third.state_lookup, "{third:?}");
+
+        drop(tx);
+        tokio::task::yield_now().await;
+        drop(response_tx);
+        handle.await??;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_append_past_capacity_without_explicit_flush() -> anyhow::Result<()> {
+        // Arrange.
+        // A capacity of four chunks, so the appends below overrun it several times over.
+        const APPEND_COUNT: usize = 16;
+        let (handle, tx, mut request_rx, response_tx) =
+            spawn_test_worker_with_replay_capacity(4 * TEST_CHUNK_SIZE);
+
+        // A server that replies only when the client asks for it via state_lookup.
+        let server = tokio::spawn(async move {
+            let mut data_requests = 0_usize;
+            let mut persisted_size = 0_i64;
+            while let Some(request) = request_rx.recv().await {
+                if let Some(Data::ChecksummedData(cd)) = request.data.as_ref() {
+                    data_requests += 1;
+                    persisted_size = request.write_offset + cd.content.len() as i64;
+                }
+                if request.state_lookup {
+                    let response = BidiWriteObjectResponse {
+                        write_status: Some(WriteStatus::PersistedSize(persisted_size)),
+                        ..Default::default()
+                    };
+                    if response_tx.send(Ok(response)).await.is_err() {
+                        break;
+                    }
+                }
+            }
+            data_requests
+        });
+
+        // Act.
+        // Without the injected watermark flush the replay buffer fills, the intent
+        // branch of the worker loop is disabled forever and this block never returns.
+        let result = tokio::time::timeout(std::time::Duration::from_secs(10), async move {
+            for i in 0..APPEND_COUNT {
+                tx.send(append_intent((i * TEST_CHUNK_SIZE) as i64, TEST_CHUNK_SIZE))
+                    .await
+                    .expect("the worker must keep accepting appends");
+            }
+            drop(tx);
+            handle.await.expect("the worker task must not panic")
+        })
+        .await
+        .expect("appends without an explicit flush must not deadlock");
+
+        // Assert.
+        result?;
+        assert_eq!(server.await?, APPEND_COUNT);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_reconnect_restores_watermark_state_lookup() -> anyhow::Result<()> {
+        // Arrange.
+        let (stream1_tx, mut stream1_rx) = mpsc::channel(10);
+        let (stream1_resp_tx, stream1_resp_rx) = mpsc::channel(10);
+        let conn1 = Connection::new(stream1_tx, stream1_resp_rx);
+
+        let (captured_stream2_req_tx, mut captured_stream2_req_rx) =
+            mpsc::channel::<mpsc::Receiver<BidiWriteObjectRequest>>(1);
+        let (stream2_resp_tx, stream2_resp_rx) = mpsc::channel(10);
+        let stream2 = TonicResponse::from(stream2_resp_rx);
+
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .times(1)
+            .return_once(move |_, _, req_rx, _, _, _| {
+                let _ = captured_stream2_req_tx.try_send(req_rx);
+                Ok(Ok(stream2))
+            });
+
+        let mut connector = mock_connector(mock);
+        connector.set_spec_state(super::super::state::AppendObjectSpecState::Append {
+            spec: crate::google::storage::v2::AppendObjectSpec {
+                bucket: "projects/_/buckets/test-bucket".into(),
+                object: "test-object".into(),
+                ..Default::default()
+            },
+            initial_chunk: None,
+        });
+
+        let worker =
+            Worker::with_replay_buffer(connector, ReplayBuffer::with_capacity(TEST_CAPACITY));
+        let (intent_tx, intent_rx) = mpsc::channel(10);
+        let handle = tokio::spawn(worker.run(conn1, intent_rx));
+
+        // Fill the replay buffer up to the watermark on the first stream.
+        intent_tx.send(append_intent(0, TEST_CHUNK_SIZE)).await?;
+        intent_tx
+            .send(append_intent(TEST_CHUNK_SIZE as i64, TEST_CHUNK_SIZE))
+            .await?;
+        let _ = stream1_rx.recv().await.unwrap();
+        let _ = stream1_rx.recv().await.unwrap();
+
+        // Act.
+        // Break the first stream. The watermark state_lookup sent on it is lost.
+        drop(stream1_resp_tx);
+
+        // The reconnected stream reports nothing persisted, so both chunks are replayed.
+        stream2_resp_tx
+            .send(Ok(BidiWriteObjectResponse {
+                write_status: Some(WriteStatus::PersistedSize(0)),
+                ..Default::default()
+            }))
+            .await?;
+
+        // Assert.
+        let mut stream2_req_rx = captured_stream2_req_rx.recv().await.unwrap();
+        let initial_req = stream2_req_rx.recv().await.unwrap();
+        assert!(initial_req.first_message.is_some());
+
+        // Replayed chunks carry data but neither flush nor state_lookup.
+        for i in 0..2 {
+            let replayed = stream2_req_rx.recv().await.unwrap();
+            assert_eq!(replayed.write_offset, (i * TEST_CHUNK_SIZE) as i64);
+            assert!(!replayed.state_lookup, "{replayed:?}");
+        }
+
+        // The buffer is still at the watermark and no user request is pending, so the
+        // worker re-establishes the invariant with a standalone state_lookup.
+        let watermark_req = stream2_req_rx.recv().await.unwrap();
+        assert!(watermark_req.flush, "{watermark_req:?}");
+        assert!(watermark_req.state_lookup, "{watermark_req:?}");
+        assert_eq!(watermark_req.write_offset, (2 * TEST_CHUNK_SIZE) as i64);
+
+        drop(intent_tx);
+        tokio::task::yield_now().await;
+        drop(stream2_resp_tx);
+        handle.await??;
+        Ok(())
     }
 }
