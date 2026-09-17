@@ -10,11 +10,11 @@ When uploading seekable data (such as local disk files), SDKs face a protocol
 trade-off regarding data integrity validation and throughput:
 
 - **Option A (`Option_A_Unbuffered_Baseline`)**:
-  - Code: `.send_unbuffered()`
+  - Code: `.with_checksum_precomputation(false).send_unbuffered()`
   - Single continuous stream, 0 application RAM buffer.
   - Checksum calculated on the fly; verified client-side upon completion.
 - **Option B (`Option_B_Unbuffered_2Pass`)**:
-  - Code: `.precompute_checksums().await?.send_unbuffered()`
+  - Code: `.with_checksum_precomputation(true).send_unbuffered()`
   - **Pass 1:** Scans the local file to compute SIMD CRC32C checksum (reads from
     physical disk if cold, populates page cache).
   - **Pass 2:** Streams data via a single continuous PUT request with

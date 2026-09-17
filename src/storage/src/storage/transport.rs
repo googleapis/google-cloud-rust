@@ -183,7 +183,7 @@ impl Storage {
             request.params,
             options,
         )
-        .send_unbuffered()
+        .send_unbuffered(request.checksum_precomputation)
         .await
     }
 

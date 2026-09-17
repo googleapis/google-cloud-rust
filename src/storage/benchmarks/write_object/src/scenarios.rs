@@ -22,8 +22,6 @@ use tokio::fs::File;
 pub struct IterationResult {
     /// Total elapsed time for the upload operation.
     pub total_elapsed: Duration,
-    /// Precomputation duration (Option B only).
-    pub precompute_duration: Option<Duration>,
 }
 
 /// Scenario A: Baseline 1-Pass Unbuffered Stream (Option A)
@@ -41,6 +39,7 @@ pub async fn scenario_option_a(
 
     let object = client
         .write_object(bucket_name, object_name, file)
+        .with_checksum_precomputation(false)
         .send_unbuffered()
         .await?;
 
@@ -54,15 +53,12 @@ pub async fn scenario_option_a(
         );
     }
 
-    Ok(IterationResult {
-        total_elapsed,
-        precompute_duration: None,
-    })
+    Ok(IterationResult { total_elapsed })
 }
 
 /// Scenario B: 2-Pass Unbuffered Stream (Option B)
-/// - Pass 1: Local hash computation (`precompute_checksums()`).
-/// - Pass 2: Continuous stream with server-side validation, 0 RAM buffer.
+/// - Local hash computation done automatically via `with_checksum_precomputation(true)`
+/// - Continuous stream with server-side validation, 0 RAM buffer.
 pub async fn scenario_option_b(
     client: &Storage,
     bucket_name: &str,
@@ -73,14 +69,11 @@ pub async fn scenario_option_b(
     let file = File::open(file_path).await?;
     let total_start = Instant::now();
 
-    let precompute_start = Instant::now();
-    let write_builder = client
+    let object = client
         .write_object(bucket_name, object_name, file)
-        .precompute_checksums()
+        .with_checksum_precomputation(true)
+        .send_unbuffered()
         .await?;
-    let precompute_duration = precompute_start.elapsed();
-
-    let object = write_builder.send_unbuffered().await?;
     let total_elapsed = total_start.elapsed();
 
     if object.size as u64 != object_size {
@@ -91,10 +84,7 @@ pub async fn scenario_option_b(
         );
     }
 
-    Ok(IterationResult {
-        total_elapsed,
-        precompute_duration: Some(precompute_duration),
-    })
+    Ok(IterationResult { total_elapsed })
 }
 
 /// Scenario C: 1-Pass Chunked Buffered Upload (Option C)
@@ -125,10 +115,7 @@ pub async fn scenario_option_c(
         );
     }
 
-    Ok(IterationResult {
-        total_elapsed,
-        precompute_duration: None,
-    })
+    Ok(IterationResult { total_elapsed })
 }
 
 /// Cleans up a test object from GCS.
