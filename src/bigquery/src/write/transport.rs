@@ -23,7 +23,7 @@ pub(super) mod info {
     use std::sync::LazyLock;
 
     const NAME: &str = env!("CARGO_PKG_NAME");
-    pub(in super::super) const VERSION: &str = env!("CARGO_PKG_VERSION");
+    pub(crate) const VERSION: &str = env!("CARGO_PKG_VERSION");
     pub(super) static X_GOOG_API_CLIENT_HEADER: LazyLock<String> = LazyLock::new(|| {
         let ac = gaxi::api_header::XGoogApiClient {
             name: NAME,
