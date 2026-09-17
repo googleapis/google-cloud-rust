@@ -8480,11 +8480,13 @@ name = "pubsub-hedging"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "base64 0.23.1",
  "bytes",
  "clap",
  "google-cloud-auth",
  "google-cloud-pubsub",
  "humantime",
+ "prost",
  "pubsub-grpc-mock",
  "rand 0.10.2",
  "tokio",
