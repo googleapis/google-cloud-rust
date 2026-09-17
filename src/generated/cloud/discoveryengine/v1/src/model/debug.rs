@@ -4433,6 +4433,10 @@ impl std::fmt::Debug for super::SearchRequest {
         debug_struct.field("offset", &self.offset);
         debug_struct.field("one_box_page_size", &self.one_box_page_size);
         debug_struct.field("data_store_specs", &self.data_store_specs);
+        debug_struct.field(
+            "num_results_per_data_store",
+            &self.num_results_per_data_store,
+        );
         debug_struct.field("filter", &self.filter);
         debug_struct.field("canonical_filter", &self.canonical_filter);
         debug_struct.field("order_by", &self.order_by);
@@ -4464,6 +4468,9 @@ impl std::fmt::Debug for super::SearchRequest {
         debug_struct.field("relevance_threshold", &self.relevance_threshold);
         debug_struct.field("relevance_filter_spec", &self.relevance_filter_spec);
         debug_struct.field("relevance_score_spec", &self.relevance_score_spec);
+        debug_struct.field("search_addon_spec", &self.search_addon_spec);
+        debug_struct.field("custom_ranking_params", &self.custom_ranking_params);
+        debug_struct.field("entity", &self.entity);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4501,6 +4508,7 @@ impl std::fmt::Debug for super::search_request::DataStoreSpec {
         debug_struct.field("filter", &self.filter);
         debug_struct.field("boost_spec", &self.boost_spec);
         debug_struct.field("custom_search_operators", &self.custom_search_operators);
+        debug_struct.field("num_results", &self.num_results);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4855,6 +4863,26 @@ impl std::fmt::Debug for super::search_request::SearchAsYouTypeSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchAsYouTypeSpec");
         debug_struct.field("condition", &self.condition);
+        debug_struct.field("fields", &self.fields);
+        debug_struct.field("score_threshold", &self.score_threshold);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+impl std::fmt::Debug for super::search_request::search_as_you_type_spec::Field {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Field");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("weight", &self.weight);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4928,23 +4956,6 @@ impl std::fmt::Debug for super::search_request::SessionSpec {
     feature = "search-service",
     feature = "serving-config-service",
 ))]
-impl std::fmt::Debug for super::search_request::RelevanceScoreSpec {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("RelevanceScoreSpec");
-        debug_struct.field("return_relevance_score", &self.return_relevance_score);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
 impl std::fmt::Debug for super::search_request::RelevanceFilterSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RelevanceFilterSpec");
@@ -4974,6 +4985,65 @@ impl std::fmt::Debug for super::search_request::relevance_filter_spec::Relevance
     }
 }
 
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+impl std::fmt::Debug for super::search_request::RelevanceScoreSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RelevanceScoreSpec");
+        debug_struct.field("return_relevance_score", &self.return_relevance_score);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+impl std::fmt::Debug for super::search_request::SearchAddonSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SearchAddonSpec");
+        debug_struct.field("disable_semantic_add_on", &self.disable_semantic_add_on);
+        debug_struct.field(
+            "disable_kpi_personalization_add_on",
+            &self.disable_kpi_personalization_add_on,
+        );
+        debug_struct.field(
+            "disable_generative_answer_add_on",
+            &self.disable_generative_answer_add_on,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+impl std::fmt::Debug for super::search_request::CustomRankingParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomRankingParams");
+        debug_struct.field("expressions_to_precompute", &self.expressions_to_precompute);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
 impl std::fmt::Debug for super::SearchResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -4986,6 +5056,7 @@ impl std::fmt::Debug for super::SearchResponse {
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("corrected_query", &self.corrected_query);
         debug_struct.field("summary", &self.summary);
+        debug_struct.field("applied_controls", &self.applied_controls);
         debug_struct.field("query_expansion_info", &self.query_expansion_info);
         debug_struct.field(
             "natural_language_query_understanding_info",
@@ -5010,6 +5081,7 @@ impl std::fmt::Debug for super::search_response::SearchResult {
         debug_struct.field("chunk", &self.chunk);
         debug_struct.field("model_scores", &self.model_scores);
         debug_struct.field("rank_signals", &self.rank_signals);
+        debug_struct.field("retrieval_signals", &self.retrieval_signals);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5030,6 +5102,10 @@ impl std::fmt::Debug for super::search_response::search_result::RankSignals {
         debug_struct.field("boosting_factor", &self.boosting_factor);
         debug_struct.field("default_rank", &self.default_rank);
         debug_struct.field("custom_signals", &self.custom_signals);
+        debug_struct.field(
+            "precomputed_expression_values",
+            &self.precomputed_expression_values,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5043,6 +5119,19 @@ impl std::fmt::Debug for super::search_response::search_result::rank_signals::Cu
         let mut debug_struct = f.debug_struct("CustomSignal");
         debug_struct.field("name", &self.name);
         debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+impl std::fmt::Debug for super::search_response::search_result::RetrievalSignals {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RetrievalSignals");
+        debug_struct.field("retrieval_sources", &self.retrieval_sources);
+        debug_struct.field("semantic_relevance_score", &self.semantic_relevance_score);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

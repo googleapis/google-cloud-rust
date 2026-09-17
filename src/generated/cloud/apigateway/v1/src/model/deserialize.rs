@@ -688,6 +688,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Gateway {
             __api_config,
             __state,
             __default_hostname,
+            __streaming_mode,
+            __effective_streaming_mode,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -721,6 +723,12 @@ impl<'de> serde::de::Deserialize<'de> for super::Gateway {
                             "state" => Ok(__FieldTag::__state),
                             "defaultHostname" => Ok(__FieldTag::__default_hostname),
                             "default_hostname" => Ok(__FieldTag::__default_hostname),
+                            "streamingMode" => Ok(__FieldTag::__streaming_mode),
+                            "streaming_mode" => Ok(__FieldTag::__streaming_mode),
+                            "effectiveStreamingMode" => Ok(__FieldTag::__effective_streaming_mode),
+                            "effective_streaming_mode" => {
+                                Ok(__FieldTag::__effective_streaming_mode)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -827,6 +835,26 @@ impl<'de> serde::de::Deserialize<'de> for super::Gateway {
                             }
                             result.default_hostname = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__streaming_mode => {
+                            if !fields.insert(__FieldTag::__streaming_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for streaming_mode",
+                                ));
+                            }
+                            result.streaming_mode = map.next_value::<std::option::Option<crate::model::gateway::StreamingMode>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__effective_streaming_mode => {
+                            if !fields.insert(__FieldTag::__effective_streaming_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for effective_streaming_mode",
+                                ));
+                            }
+                            result.effective_streaming_mode =
+                                map.next_value::<std::option::Option<
+                                    crate::model::gateway::EffectiveStreamingMode,
+                                >>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

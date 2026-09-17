@@ -27,10 +27,11 @@
 /// async fn sample(
 ///    project_id: &str,
 ///    instance_id: &str,
+///    cluster_id: &str,
 /// ) -> anyhow::Result<()> {
 ///     let client = BigtableInstanceAdmin::builder().build().await?;
-///     let mut list = client.list_app_profiles()
-///         .set_parent(format!("projects/{project_id}/instances/{instance_id}"))
+///     let mut list = client.list_memory_layers()
+///         .set_parent(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
@@ -466,6 +467,91 @@ impl BigtableInstanceAdmin {
     /// ```
     pub fn delete_cluster(&self) -> super::builder::bigtable_instance_admin::DeleteCluster {
         super::builder::bigtable_instance_admin::DeleteCluster::new(self.inner.clone())
+    }
+
+    /// Updates the memory layer of a cluster.
+    ///
+    /// To enable the memory layer, set the memory_config.
+    /// To disable the memory layer, unset the memory_config.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_bigtable_admin_v2::model::MemoryLayer;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str, cluster_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_memory_layer()
+    ///         .set_memory_layer(
+    ///             MemoryLayer::new().set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}/memoryLayer"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_memory_layer(
+        &self,
+    ) -> super::builder::bigtable_instance_admin::UpdateMemoryLayer {
+        super::builder::bigtable_instance_admin::UpdateMemoryLayer::new(self.inner.clone())
+    }
+
+    /// Lists information about memory layers.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str, cluster_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_memory_layers()
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_memory_layers(&self) -> super::builder::bigtable_instance_admin::ListMemoryLayers {
+        super::builder::bigtable_instance_admin::ListMemoryLayers::new(self.inner.clone())
+    }
+
+    /// Gets information about the memory layer of a cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str, cluster_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_memory_layer()
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}/memoryLayer"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_memory_layer(&self) -> super::builder::bigtable_instance_admin::GetMemoryLayer {
+        super::builder::bigtable_instance_admin::GetMemoryLayer::new(self.inner.clone())
     }
 
     /// Creates an app profile within an instance.

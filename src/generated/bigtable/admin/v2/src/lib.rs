@@ -63,10 +63,11 @@ pub mod stub;
 /// async fn sample(
 ///    project_id: &str,
 ///    instance_id: &str,
+///    cluster_id: &str,
 /// ) -> anyhow::Result<()> {
 ///     let client = BigtableInstanceAdmin::builder().build().await?;
-///     let mut list = client.list_app_profiles()
-///         .set_parent(format!("projects/{project_id}/instances/{instance_id}"))
+///     let mut list = client.list_memory_layers()
+///         .set_parent(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);

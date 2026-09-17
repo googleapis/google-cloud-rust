@@ -28,6 +28,7 @@ mod future;
 #[allow(dead_code)]
 mod hedging;
 mod options;
-mod retry_policy;
 #[allow(dead_code)]
+mod publish_telemetry;
+mod retry_policy;
 mod token_bucket;

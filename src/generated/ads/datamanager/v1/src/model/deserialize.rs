@@ -35,6 +35,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AdEvent {
             __event_id,
             __user_data,
             __device_info,
+            __ip_address,
             __mobile_device_id,
             __campaign_id,
             __campaign_name,
@@ -95,6 +96,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AdEvent {
                             "user_data" => Ok(__FieldTag::__user_data),
                             "deviceInfo" => Ok(__FieldTag::__device_info),
                             "device_info" => Ok(__FieldTag::__device_info),
+                            "ipAddress" => Ok(__FieldTag::__ip_address),
+                            "ip_address" => Ok(__FieldTag::__ip_address),
                             "mobileDeviceId" => Ok(__FieldTag::__mobile_device_id),
                             "mobile_device_id" => Ok(__FieldTag::__mobile_device_id),
                             "campaignId" => Ok(__FieldTag::__campaign_id),
@@ -260,6 +263,16 @@ impl<'de> serde::de::Deserialize<'de> for super::AdEvent {
                             }
                             result.device_info =
                                 map.next_value::<std::option::Option<crate::model::DeviceInfo>>()?;
+                        }
+                        __FieldTag::__ip_address => {
+                            if !fields.insert(__FieldTag::__ip_address) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ip_address",
+                                ));
+                            }
+                            result.ip_address = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__mobile_device_id => {
                             if !fields.insert(__FieldTag::__mobile_device_id) {
@@ -3640,6 +3653,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AdIdentifiers {
             __impression_id,
             __match_id,
             __encrypted_user_ids,
+            __ppid,
+            __visitor_ppid,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3678,6 +3693,9 @@ impl<'de> serde::de::Deserialize<'de> for super::AdIdentifiers {
                             "match_id" => Ok(__FieldTag::__match_id),
                             "encryptedUserIds" => Ok(__FieldTag::__encrypted_user_ids),
                             "encrypted_user_ids" => Ok(__FieldTag::__encrypted_user_ids),
+                            "ppid" => Ok(__FieldTag::__ppid),
+                            "visitorPpid" => Ok(__FieldTag::__visitor_ppid),
+                            "visitor_ppid" => Ok(__FieldTag::__visitor_ppid),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3802,6 +3820,26 @@ impl<'de> serde::de::Deserialize<'de> for super::AdIdentifiers {
                                 map.next_value::<std::option::Option<
                                     std::vec::Vec<crate::model::EncryptedUserId>,
                                 >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ppid => {
+                            if !fields.insert(__FieldTag::__ppid) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ppid",
+                                ));
+                            }
+                            result.ppid = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__visitor_ppid => {
+                            if !fields.insert(__FieldTag::__visitor_ppid) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for visitor_ppid",
+                                ));
+                            }
+                            result.visitor_ppid = map
+                                .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

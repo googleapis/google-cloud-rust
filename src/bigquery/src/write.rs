@@ -32,7 +32,6 @@ mod dispatcher;
 mod entry;
 mod pool;
 mod proto_schema;
-#[allow(dead_code)]
 mod retry_policy;
 mod runner;
 mod stream;

@@ -25,7 +25,6 @@ use google_cloud_gax::retry_state::RetryState;
 /// This policy must be decorated to limit the duration of the retry loop or
 /// the number of attempts.
 #[derive(Clone, Debug)]
-#[allow(dead_code)]
 pub struct RetryableErrors;
 
 impl RetryPolicy for RetryableErrors {

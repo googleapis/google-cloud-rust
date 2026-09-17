@@ -89,6 +89,24 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
 
+    async fn update_memory_layer(
+        &self,
+        req: crate::model::UpdateMemoryLayerRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn list_memory_layers(
+        &self,
+        req: crate::model::ListMemoryLayersRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListMemoryLayersResponse>>;
+
+    async fn get_memory_layer(
+        &self,
+        req: crate::model::GetMemoryLayerRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MemoryLayer>>;
+
     async fn create_app_profile(
         &self,
         req: crate::model::CreateAppProfileRequest,
@@ -352,6 +370,33 @@ impl<T: super::BigtableInstanceAdmin> BigtableInstanceAdmin for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>> {
         T::delete_cluster(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_memory_layer(
+        &self,
+        req: crate::model::UpdateMemoryLayerRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_memory_layer(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_memory_layers(
+        &self,
+        req: crate::model::ListMemoryLayersRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListMemoryLayersResponse>> {
+        T::list_memory_layers(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_memory_layer(
+        &self,
+        req: crate::model::GetMemoryLayerRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MemoryLayer>> {
+        T::get_memory_layer(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

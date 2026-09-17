@@ -886,7 +886,6 @@ mod tests {
     }
 
     /// Models a complete lifecycle ending in close: `open` -> `append` -> `flush` -> `close`.
-    #[ignore = "TODO(#6324) - disabled because it was flaky"]
     #[cfg(google_cloud_unstable_storage_bidi)]
     #[tokio::test]
     async fn open_appendable_object_success() -> anyhow::Result<()> {
@@ -968,7 +967,6 @@ mod tests {
     }
 
     /// Models a complete lifecycle ending in finalize: `open` -> `append` -> `flush` -> `finalize`.
-    #[ignore = "TODO(#6324) - disabled because it was flaky"]
     #[cfg(google_cloud_unstable_storage_bidi)]
     #[tokio::test]
     async fn open_appendable_object_finalize_success() -> anyhow::Result<()> {
@@ -1100,7 +1098,6 @@ mod tests {
     }
 
     /// Models an opening stream with initial payload: `send_and_append` -> `finalize`.
-    #[ignore = "TODO(#6324) - disabled because it was flaky"]
     #[cfg(google_cloud_unstable_storage_bidi)]
     #[tokio::test]
     async fn open_appendable_object_and_append_success() -> anyhow::Result<()> {
@@ -1222,7 +1219,6 @@ mod tests {
     }
 
     /// Models a complete lifecycle: `reopen` -> `append` -> `flush` -> `finalize`.
-    #[ignore = "TODO(#6324) - disabled because it was flaky"]
     #[cfg(google_cloud_unstable_storage_bidi)]
     #[tokio::test]
     async fn reopen_appendable_object_success() -> anyhow::Result<()> {

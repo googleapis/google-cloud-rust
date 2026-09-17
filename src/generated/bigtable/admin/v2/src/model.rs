@@ -1777,6 +1777,446 @@ impl wkt::message::Message for PartialUpdateClusterRequest {
     }
 }
 
+/// Request message for BigtableInstanceAdmin.UpdateMemoryLayer.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateMemoryLayerRequest {
+    /// Required. The memory layer to update.
+    ///
+    /// The memory layer's `name` format is as follows:
+    /// `projects/{project}/instances/{instance}/clusters/{cluster}/memoryLayer`.
+    pub memory_layer: std::option::Option<crate::model::MemoryLayer>,
+
+    /// Optional. The list of fields to update.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateMemoryLayerRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [memory_layer][crate::model::UpdateMemoryLayerRequest::memory_layer].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::UpdateMemoryLayerRequest;
+    /// use google_cloud_bigtable_admin_v2::model::MemoryLayer;
+    /// let x = UpdateMemoryLayerRequest::new().set_memory_layer(MemoryLayer::default()/* use setters */);
+    /// ```
+    pub fn set_memory_layer<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MemoryLayer>,
+    {
+        self.memory_layer = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [memory_layer][crate::model::UpdateMemoryLayerRequest::memory_layer].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::UpdateMemoryLayerRequest;
+    /// use google_cloud_bigtable_admin_v2::model::MemoryLayer;
+    /// let x = UpdateMemoryLayerRequest::new().set_or_clear_memory_layer(Some(MemoryLayer::default()/* use setters */));
+    /// let x = UpdateMemoryLayerRequest::new().set_or_clear_memory_layer(None::<MemoryLayer>);
+    /// ```
+    pub fn set_or_clear_memory_layer<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MemoryLayer>,
+    {
+        self.memory_layer = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateMemoryLayerRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::UpdateMemoryLayerRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMemoryLayerRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateMemoryLayerRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::UpdateMemoryLayerRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMemoryLayerRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateMemoryLayerRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateMemoryLayerRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.UpdateMemoryLayerRequest"
+    }
+}
+
+/// The metadata for the Operation returned by UpdateMemoryLayer.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateMemoryLayerMetadata {
+    /// The request that prompted the initiation of this UpdateMemoryLayer
+    /// operation.
+    pub original_request: std::option::Option<crate::model::UpdateMemoryLayerRequest>,
+
+    /// The time at which the original request was received.
+    pub request_time: std::option::Option<wkt::Timestamp>,
+
+    /// The time at which the operation failed or was completed successfully.
+    pub finish_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateMemoryLayerMetadata {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [original_request][crate::model::UpdateMemoryLayerMetadata::original_request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::UpdateMemoryLayerMetadata;
+    /// use google_cloud_bigtable_admin_v2::model::UpdateMemoryLayerRequest;
+    /// let x = UpdateMemoryLayerMetadata::new().set_original_request(UpdateMemoryLayerRequest::default()/* use setters */);
+    /// ```
+    pub fn set_original_request<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::UpdateMemoryLayerRequest>,
+    {
+        self.original_request = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [original_request][crate::model::UpdateMemoryLayerMetadata::original_request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::UpdateMemoryLayerMetadata;
+    /// use google_cloud_bigtable_admin_v2::model::UpdateMemoryLayerRequest;
+    /// let x = UpdateMemoryLayerMetadata::new().set_or_clear_original_request(Some(UpdateMemoryLayerRequest::default()/* use setters */));
+    /// let x = UpdateMemoryLayerMetadata::new().set_or_clear_original_request(None::<UpdateMemoryLayerRequest>);
+    /// ```
+    pub fn set_or_clear_original_request<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::UpdateMemoryLayerRequest>,
+    {
+        self.original_request = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_time][crate::model::UpdateMemoryLayerMetadata::request_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::UpdateMemoryLayerMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UpdateMemoryLayerMetadata::new().set_request_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_request_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.request_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [request_time][crate::model::UpdateMemoryLayerMetadata::request_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::UpdateMemoryLayerMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UpdateMemoryLayerMetadata::new().set_or_clear_request_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UpdateMemoryLayerMetadata::new().set_or_clear_request_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.request_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [finish_time][crate::model::UpdateMemoryLayerMetadata::finish_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::UpdateMemoryLayerMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UpdateMemoryLayerMetadata::new().set_finish_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_finish_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.finish_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [finish_time][crate::model::UpdateMemoryLayerMetadata::finish_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::UpdateMemoryLayerMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UpdateMemoryLayerMetadata::new().set_or_clear_finish_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UpdateMemoryLayerMetadata::new().set_or_clear_finish_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.finish_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateMemoryLayerMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.UpdateMemoryLayerMetadata"
+    }
+}
+
+/// Request message for BigtableInstanceAdmin.ListMemoryLayers.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListMemoryLayersRequest {
+    /// Required. The unique name of the cluster for which a list of memory layers
+    /// is requested. Values are of the form
+    /// `projects/{project}/instances/{instance}/clusters/{cluster}`.
+    /// Use `{cluster} = '-'` to list MemoryLayers for all Clusters in an instance,
+    /// e.g., `projects/myproject/instances/myinstance/clusters/-`.
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of memory layers to return. The service may
+    /// return fewer than this value.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListMemoryLayers` call.
+    /// Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to `ListMemoryLayers`
+    /// must match the call that provided the page token.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMemoryLayersRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListMemoryLayersRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::ListMemoryLayersRequest;
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = ListMemoryLayersRequest::new().set_parent(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListMemoryLayersRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::ListMemoryLayersRequest;
+    /// let x = ListMemoryLayersRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListMemoryLayersRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::ListMemoryLayersRequest;
+    /// let x = ListMemoryLayersRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMemoryLayersRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.ListMemoryLayersRequest"
+    }
+}
+
+/// Response message for BigtableInstanceAdmin.ListMemoryLayers.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListMemoryLayersResponse {
+    /// The list of requested memory layers.
+    pub memory_layers: std::vec::Vec<crate::model::MemoryLayer>,
+
+    /// Locations from which MemoryLayer information could not be retrieved,
+    /// due to an outage or some other transient condition.
+    /// MemoryLayers from these locations may be missing from `memory_layers`,
+    /// or may only have partial information returned.
+    /// Values are of the form `projects/<project>/locations/<zone_id>`
+    pub failed_locations: std::vec::Vec<std::string::String>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMemoryLayersResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [memory_layers][crate::model::ListMemoryLayersResponse::memory_layers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::ListMemoryLayersResponse;
+    /// use google_cloud_bigtable_admin_v2::model::MemoryLayer;
+    /// let x = ListMemoryLayersResponse::new()
+    ///     .set_memory_layers([
+    ///         MemoryLayer::default()/* use setters */,
+    ///         MemoryLayer::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_memory_layers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MemoryLayer>,
+    {
+        use std::iter::Iterator;
+        self.memory_layers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [failed_locations][crate::model::ListMemoryLayersResponse::failed_locations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::ListMemoryLayersResponse;
+    /// let x = ListMemoryLayersResponse::new().set_failed_locations(["a", "b", "c"]);
+    /// ```
+    pub fn set_failed_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.failed_locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMemoryLayersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::ListMemoryLayersResponse;
+    /// let x = ListMemoryLayersResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMemoryLayersResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.ListMemoryLayersResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListMemoryLayersResponse {
+    type PageItem = crate::model::MemoryLayer;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.memory_layers
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for BigtableInstanceAdmin.GetMemoryLayer.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetMemoryLayerRequest {
+    /// Required. The unique name of the requested cluster's memory layer. Values
+    /// are of the form
+    /// `projects/{project}/instances/{instance}/clusters/{cluster}/memoryLayer`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetMemoryLayerRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetMemoryLayerRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::GetMemoryLayerRequest;
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = GetMemoryLayerRequest::new().set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}/memoryLayer"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetMemoryLayerRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.GetMemoryLayerRequest"
+    }
+}
+
 /// Request message for BigtableInstanceAdmin.CreateAppProfile.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -10815,6 +11255,317 @@ pub mod cluster {
     }
 }
 
+/// The memory layer of a cluster. A memory layer serves reads from
+/// memory without hitting the backing persistent data store.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MemoryLayer {
+    /// Identifier. Name of the memory layer. This is always:
+    /// "projects/{project}/instances/{instance}/clusters/{cluster}/memoryLayer".
+    pub name: std::string::String,
+
+    /// The configuration of this memory layer. Set an empty `memory_config` to
+    /// enable the memory layer. Unset this to disable the memory layer.
+    pub memory_config: std::option::Option<crate::model::memory_layer::MemoryConfig>,
+
+    /// Optional. The etag for this memory layer.
+    /// This may be sent on update requests to ensure that the client has an
+    /// up-to-date value before proceeding. The server returns an ABORTED error on
+    /// a mismatched etag.
+    pub etag: std::string::String,
+
+    /// Output only. The current state of the memory layer.
+    pub state: crate::model::memory_layer::State,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MemoryLayer {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::MemoryLayer::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::MemoryLayer;
+    /// # let project_id = "project_id";
+    /// # let instance_id = "instance_id";
+    /// # let cluster_id = "cluster_id";
+    /// let x = MemoryLayer::new().set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}/memoryLayer"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [memory_config][crate::model::MemoryLayer::memory_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::MemoryLayer;
+    /// use google_cloud_bigtable_admin_v2::model::memory_layer::MemoryConfig;
+    /// let x = MemoryLayer::new().set_memory_config(MemoryConfig::default()/* use setters */);
+    /// ```
+    pub fn set_memory_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::memory_layer::MemoryConfig>,
+    {
+        self.memory_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [memory_config][crate::model::MemoryLayer::memory_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::MemoryLayer;
+    /// use google_cloud_bigtable_admin_v2::model::memory_layer::MemoryConfig;
+    /// let x = MemoryLayer::new().set_or_clear_memory_config(Some(MemoryConfig::default()/* use setters */));
+    /// let x = MemoryLayer::new().set_or_clear_memory_config(None::<MemoryConfig>);
+    /// ```
+    pub fn set_or_clear_memory_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::memory_layer::MemoryConfig>,
+    {
+        self.memory_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::MemoryLayer::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::MemoryLayer;
+    /// let x = MemoryLayer::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::MemoryLayer::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::MemoryLayer;
+    /// use google_cloud_bigtable_admin_v2::model::memory_layer::State;
+    /// let x0 = MemoryLayer::new().set_state(State::Ready);
+    /// let x1 = MemoryLayer::new().set_state(State::Enabling);
+    /// let x2 = MemoryLayer::new().set_state(State::Resizing);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::memory_layer::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MemoryLayer {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.MemoryLayer"
+    }
+}
+
+/// Defines additional types related to [MemoryLayer].
+pub mod memory_layer {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Configuration of a memory layer.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct MemoryConfig {
+        /// Output only. Reporting the current size of the memory layer in GiB.
+        pub storage_size_gib: i32,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl MemoryConfig {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [storage_size_gib][crate::model::memory_layer::MemoryConfig::storage_size_gib].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigtable_admin_v2::model::memory_layer::MemoryConfig;
+        /// let x = MemoryConfig::new().set_storage_size_gib(42);
+        /// ```
+        pub fn set_storage_size_gib<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.storage_size_gib = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for MemoryConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.bigtable.admin.v2.MemoryLayer.MemoryConfig"
+        }
+    }
+
+    /// Possible states of a memory layer.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// The state of the memory layer could not be determined.
+        NotKnown,
+        /// The memory layer has been successfully enabled and is ready to serve
+        /// requests.
+        Ready,
+        /// The memory layer is currently being enabled, and may be disabled
+        /// if the enablement process encounters an error. A cluster may not be able
+        /// to serve requests from the memory layer while being enabled.
+        Enabling,
+        /// The memory layer is currently being resized, and may revert to its
+        /// previous storage size if the process encounters an error. The memory
+        /// layer is still capable of serving requests while being resized, but may
+        /// exhibit performance as if its number of allocated nodes is between the
+        /// starting and requested states.
+        Resizing,
+        /// The memory layer is disabled. The default state for a cluster without a
+        /// memory layer.
+        Disabled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::NotKnown => std::option::Option::Some(0),
+                Self::Ready => std::option::Option::Some(1),
+                Self::Enabling => std::option::Option::Some(2),
+                Self::Resizing => std::option::Option::Some(3),
+                Self::Disabled => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::NotKnown => std::option::Option::Some("STATE_NOT_KNOWN"),
+                Self::Ready => std::option::Option::Some("READY"),
+                Self::Enabling => std::option::Option::Some("ENABLING"),
+                Self::Resizing => std::option::Option::Some("RESIZING"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::NotKnown,
+                1 => Self::Ready,
+                2 => Self::Enabling,
+                3 => Self::Resizing,
+                4 => Self::Disabled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_NOT_KNOWN" => Self::NotKnown,
+                "READY" => Self::Ready,
+                "ENABLING" => Self::Enabling,
+                "RESIZING" => Self::Resizing,
+                "DISABLED" => Self::Disabled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::NotKnown => serializer.serialize_i32(0),
+                Self::Ready => serializer.serialize_i32(1),
+                Self::Enabling => serializer.serialize_i32(2),
+                Self::Resizing => serializer.serialize_i32(3),
+                Self::Disabled => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.bigtable.admin.v2.MemoryLayer.State",
+            ))
+        }
+    }
+}
+
 /// A configuration object describing how Cloud Bigtable should treat traffic
 /// from a particular end user application.
 #[derive(Clone, Default, PartialEq)]
@@ -11408,6 +12159,11 @@ pub mod app_profile {
         /// The priority of requests sent using this app profile.
         pub priority: crate::model::app_profile::Priority,
 
+        /// Optional. The memory config to use for requests sent using this app
+        /// profile.
+        pub memory_config:
+            std::option::Option<crate::model::app_profile::standard_isolation::MemoryConfig>,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -11434,11 +12190,74 @@ pub mod app_profile {
             self.priority = v.into();
             self
         }
+
+        /// Sets the value of [memory_config][crate::model::app_profile::StandardIsolation::memory_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigtable_admin_v2::model::app_profile::StandardIsolation;
+        /// use google_cloud_bigtable_admin_v2::model::app_profile::standard_isolation::MemoryConfig;
+        /// let x = StandardIsolation::new().set_memory_config(MemoryConfig::default()/* use setters */);
+        /// ```
+        pub fn set_memory_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::app_profile::standard_isolation::MemoryConfig>,
+        {
+            self.memory_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [memory_config][crate::model::app_profile::StandardIsolation::memory_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigtable_admin_v2::model::app_profile::StandardIsolation;
+        /// use google_cloud_bigtable_admin_v2::model::app_profile::standard_isolation::MemoryConfig;
+        /// let x = StandardIsolation::new().set_or_clear_memory_config(Some(MemoryConfig::default()/* use setters */));
+        /// let x = StandardIsolation::new().set_or_clear_memory_config(None::<MemoryConfig>);
+        /// ```
+        pub fn set_or_clear_memory_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::app_profile::standard_isolation::MemoryConfig>,
+        {
+            self.memory_config = v.map(|x| x.into());
+            self
+        }
     }
 
     impl wkt::message::Message for StandardIsolation {
         fn typename() -> &'static str {
             "type.googleapis.com/google.bigtable.admin.v2.AppProfile.StandardIsolation"
+        }
+    }
+
+    /// Defines additional types related to [StandardIsolation].
+    pub mod standard_isolation {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// If set, eligible single-row requests (currently limited to ReadRows)
+        /// using this app profile will be routed to the memory layer. All eligible
+        /// writes populate the memory layer. MemoryConfig can only be set if the
+        /// AppProfile uses single cluster routing and the configured cluster has a
+        /// memory layer enabled.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct MemoryConfig {
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl MemoryConfig {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+        }
+
+        impl wkt::message::Message for MemoryConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.bigtable.admin.v2.AppProfile.StandardIsolation.MemoryConfig"
+            }
         }
     }
 

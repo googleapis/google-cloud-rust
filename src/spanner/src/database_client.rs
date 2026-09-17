@@ -289,7 +289,7 @@ impl DatabaseClient {
         channel_hint: usize,
     ) -> RequestOptions {
         let channel = self.spanner.get_channel(channel_hint);
-        self.spanner.attach_request_id(options, channel)
+        self.spanner.attach_request_id(options, channel.channel_id)
     }
 
     for_all_unary_db_rpcs!(define_db_rpc);
