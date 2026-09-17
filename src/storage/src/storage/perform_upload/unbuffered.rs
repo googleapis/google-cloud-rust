@@ -66,8 +66,7 @@ where
         // If an upfront checksum is already present, recomputing it is redundant and skipped.
         if checksum_precomputation && !has_upfront_crc32c {
             // 1. Precompute checksum by consuming the stream through ChecksummedSource.
-            let payload_arc = self.payload.clone();
-            let mut payload = payload_arc.lock().await;
+            let mut payload = self.payload.lock().await;
             payload.seek(0_u64).await.map_err(Error::ser)?;
             while payload
                 .next()
@@ -78,14 +77,14 @@ where
             {}
             let computed = payload.final_checksum();
 
-            // 2. Put the precomputed checksum into object metadata for the start-upload request.
-            let current = self.mut_resource().checksums.get_or_insert_default();
-            checksum_update(current, computed);
-
-            // 3. Reset the hasher, rewind the stream to byte 0, and drop lock.
+            // 2. Reset the hasher, rewind the stream to byte 0, and drop lock.
             payload.reset_checksum();
             payload.seek(0_u64).await.map_err(Error::ser)?;
             drop(payload);
+
+            // 3. Put the precomputed checksum into object metadata for the start-upload request.
+            let current = self.mut_resource().checksums.get_or_insert_default();
+            checksum_update(current, computed);
             // Clear checksum options so streaming PUT does not redundantly re-hash.
             self.options.checksum = Checksum::default();
         }
