@@ -458,7 +458,7 @@ impl PublisherPartialBuilder {
     /// # Ok(()) }
     /// ```
     pub fn set_hedging_options(mut self, v: HedgingOptions) -> Self {
-        self.hedging_options = Some(v.into());
+        self.hedging_options = Some(v);
         self
     }
 
@@ -480,7 +480,7 @@ impl PublisherPartialBuilder {
     /// # Ok(()) }
     /// ```
     pub fn set_or_clear_hedging_options(mut self, v: Option<HedgingOptions>) -> Self {
-        self.hedging_options = v.map(Into::into);
+        self.hedging_options = v;
         self
     }
 
