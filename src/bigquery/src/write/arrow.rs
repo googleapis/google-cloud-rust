@@ -23,7 +23,12 @@ use super::format::Arrow;
 
 pub use buffered::BufferedWriter;
 pub use committed::CommittedWriter;
-pub type DefaultWriter = super::DefaultWriter<Arrow>;
 pub use pending::PendingWriter;
 pub use writer::Writer;
 pub use writer_builder::WriterBuilder;
+
+/// DEPRECATED - do not use.
+///
+/// This type is about to be deleted. See:
+/// https://github.com/googleapis/google-cloud-rust/issues/6855
+pub type DefaultWriter = super::DefaultWriter<Arrow>;

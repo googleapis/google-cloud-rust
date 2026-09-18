@@ -19,6 +19,7 @@ mod proto;
 ///
 /// This trait is sealed and cannot be implemented for types outside this crate.
 pub trait DataFormat: sealed::DataFormat {
+    /// The representation of rows for this data format.
     type Rows;
 }
 
