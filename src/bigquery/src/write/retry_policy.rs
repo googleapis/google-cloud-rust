@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Defines the retry policy for the BigQuery Storage Write API.
-
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::error::Error;
 use google_cloud_gax::error::rpc::Code;

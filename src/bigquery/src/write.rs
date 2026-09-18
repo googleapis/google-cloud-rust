@@ -21,6 +21,9 @@ pub(crate) mod proto;
 
 pub use append_future::AppendFuture;
 
+/// Defines the retry policy for the BigQuery Storage Write API.
+pub mod retry_policy;
+
 pub(super) mod append_future;
 pub(super) mod append_response;
 pub(super) mod builder;
@@ -32,7 +35,6 @@ mod dispatcher;
 mod entry;
 mod pool;
 mod proto_schema;
-mod retry_policy;
 mod runner;
 mod stream;
 mod transport;
