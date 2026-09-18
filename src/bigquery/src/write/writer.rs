@@ -12,9 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::super::format::Arrow;
+use super::format::DataFormat;
 use super::{BufferedWriter, CommittedWriter, PendingWriter};
-use crate::model::ArrowSchema;
 use crate::model::write_stream::Type;
 use crate::write::transport::Transport;
 use std::sync::Arc;
@@ -22,44 +21,43 @@ use std::sync::Arc;
 pub(crate) mod sealed {
     use super::*;
 
-    pub trait Writer {
+    pub trait Writer<F> {
         const STREAM_TYPE: Type;
-        fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self;
+        fn build(inner: Arc<Transport>, write_stream: String, format: F) -> Self;
     }
 
-    impl Writer for PendingWriter {
+    impl<F: DataFormat> Writer<F> for PendingWriter<F> {
         const STREAM_TYPE: Type = Type::Pending;
 
-        fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
-            let format = Arrow { schema };
+        fn build(inner: Arc<Transport>, write_stream: String, format: F) -> Self {
             Self::new(inner, write_stream, format)
         }
     }
 
-    impl Writer for CommittedWriter {
+    impl<F: DataFormat> Writer<F> for CommittedWriter<F> {
         const STREAM_TYPE: Type = Type::Committed;
 
-        fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
-            let format = Arrow { schema };
+        fn build(inner: Arc<Transport>, write_stream: String, format: F) -> Self {
             Self::new(inner, write_stream, format)
         }
     }
 
-    impl Writer for BufferedWriter {
+    impl<F: DataFormat> Writer<F> for BufferedWriter<F> {
         const STREAM_TYPE: Type = Type::Buffered;
 
-        fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
-            let format = Arrow { schema };
+        fn build(inner: Arc<Transport>, write_stream: String, format: F) -> Self {
             Self::new(inner, write_stream, format)
         }
     }
 }
 
-/// A trait for strongly-typed stream writers that can be attached to an existing stream.
+/// A trait for strongly-typed stream writers that can be attached to an
+/// existing stream.
 ///
-/// This trait is sealed and cannot be implemented for types outside of this crate.
-pub trait Writer: sealed::Writer + Sized {}
+/// This trait is sealed and cannot be implemented for types outside of this
+/// crate.
+pub trait Writer<F>: sealed::Writer<F> + Sized {}
 
-impl Writer for PendingWriter {}
-impl Writer for CommittedWriter {}
-impl Writer for BufferedWriter {}
+impl<F: DataFormat> Writer<F> for PendingWriter<F> {}
+impl<F: DataFormat> Writer<F> for CommittedWriter<F> {}
+impl<F: DataFormat> Writer<F> for BufferedWriter<F> {}

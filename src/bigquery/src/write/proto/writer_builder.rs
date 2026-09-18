@@ -73,7 +73,7 @@ impl WriterBuilder {
     }
 
     /// Returns a writer for a newly created stream for the given table.
-    pub async fn create<U: Writer, T: Into<String>>(
+    pub async fn create<U: Writer<Proto>, T: Into<String>>(
         self,
         table: T,
     ) -> std::result::Result<U, WriterBuilderError> {
@@ -88,11 +88,14 @@ impl WriterBuilder {
             .send()
             .await?;
 
-        Ok(U::build(self.inner, stream.name, self.schema))
+        let format = Proto {
+            schema: self.schema,
+        };
+        Ok(U::build(self.inner, stream.name, format))
     }
 
     /// Attaches the builder to an existing stream.
-    pub async fn attach<U: Writer, S: Into<String>>(
+    pub async fn attach<U: Writer<Proto>, S: Into<String>>(
         self,
         write_stream: S,
     ) -> std::result::Result<U, WriterBuilderError> {
@@ -102,7 +105,7 @@ impl WriterBuilder {
         let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
         let stream = client
             .get_write_stream()
-            .set_name(&write_stream)
+            .set_name(write_stream)
             .send()
             .await?;
 
@@ -113,7 +116,10 @@ impl WriterBuilder {
                 actual: stream_type,
             });
         }
-        Ok(U::build(self.inner, write_stream, self.schema))
+        let format = Proto {
+            schema: self.schema,
+        };
+        Ok(U::build(self.inner, stream.name, format))
     }
 }
 

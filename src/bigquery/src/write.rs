@@ -28,6 +28,12 @@ pub use committed::CommittedWriter;
 pub use default::DefaultWriter;
 pub use pending::PendingWriter;
 
+// TODO(#6855) - rename as `stream_type::Stream` and generalize.
+pub use writer::Writer;
+
+// TODO(#6855) - expose in `crate::builder::write` only.
+pub use writer_builder::WriterBuilder;
+
 /// Defines the data formats accepted by a writer.
 pub mod format;
 
@@ -54,6 +60,8 @@ mod runner;
 mod stream;
 mod transport;
 mod validate;
+mod writer;
+mod writer_builder;
 
 // TODO(#4832) - remove handwritten code.
 mod status;
