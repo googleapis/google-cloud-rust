@@ -140,8 +140,8 @@ impl PublisherBuilder {
     ///     .await?;
     /// # Ok(()) }
     /// ```
-    pub fn set_hedging_options<V: Into<HedgingOptions>>(mut self, v: V) -> Self {
-        self.hedging_options = Some(v.into());
+    pub fn set_hedging_options(mut self, v: HedgingOptions) -> Self {
+        self.hedging_options = Some(v);
         self
     }
 
@@ -156,16 +156,13 @@ impl PublisherBuilder {
     /// # use google_cloud_pubsub::publisher::HedgingOptions;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let publisher = Publisher::builder("projects/my-project/topics/my-topic")
-    ///     .set_or_clear_hedging_options(None::<HedgingOptions>)
+    ///     .set_or_clear_hedging_options(None)
     ///     .build()
     ///     .await?;
     /// # Ok(()) }
     /// ```
-    pub fn set_or_clear_hedging_options<V>(mut self, v: Option<V>) -> Self
-    where
-        V: Into<HedgingOptions>,
-    {
-        self.hedging_options = v.map(Into::into);
+    pub fn set_or_clear_hedging_options(mut self, v: Option<HedgingOptions>) -> Self {
+        self.hedging_options = v;
         self
     }
 
@@ -460,7 +457,7 @@ impl PublisherPartialBuilder {
     ///     .build();
     /// # Ok(()) }
     /// ```
-    pub fn set_hedging_options<V: Into<HedgingOptions>>(mut self, v: V) -> Self {
+    pub fn set_hedging_options(mut self, v: HedgingOptions) -> Self {
         self.hedging_options = Some(v.into());
         self
     }
@@ -478,14 +475,11 @@ impl PublisherPartialBuilder {
     /// # let client: BasePublisher = BasePublisher::builder().build().await?;
     /// let publisher = client
     ///     .publisher("projects/my-project/topics/my-topic")
-    ///     .set_or_clear_hedging_options(None::<HedgingOptions>)
+    ///     .set_or_clear_hedging_options(None)
     ///     .build();
     /// # Ok(()) }
     /// ```
-    pub fn set_or_clear_hedging_options<V>(mut self, v: Option<V>) -> Self
-    where
-        V: Into<HedgingOptions>,
-    {
+    pub fn set_or_clear_hedging_options(mut self, v: Option<HedgingOptions>) -> Self {
         self.hedging_options = v.map(Into::into);
         self
     }
