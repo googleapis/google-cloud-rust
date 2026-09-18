@@ -15,7 +15,7 @@
 use crate::model::append_rows_request::ArrowData;
 use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema};
 
-/// Marker struct for [Arrow] data.
+/// Represents the [Arrow] data format for a writer.
 ///
 /// [Arrow]: https://arrow.apache.org/
 #[derive(Debug)]
