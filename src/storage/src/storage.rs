@@ -45,8 +45,8 @@ const DEFAULT_HOST: &str = "https://storage.googleapis.com";
 pub(crate) mod info {
     use std::sync::LazyLock;
 
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    pub(crate) const NAME: &str = env!("CARGO_PKG_NAME");
+    pub(crate) const VERSION: &str = env!("CARGO_PKG_VERSION");
     pub(crate) static X_GOOG_API_CLIENT_HEADER: LazyLock<String> = LazyLock::new(|| {
         let ac = gaxi::api_header::XGoogApiClient {
             name: NAME,
