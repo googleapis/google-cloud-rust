@@ -325,16 +325,11 @@ fn key_values_to_metric_labels<'a>(
 }
 
 pub(crate) fn resource_to_monitored_resource(resource: &Resource) -> MonitoredResource {
-    let mut labels = HashMap::new();
-    for (key, val) in resource.iter() {
-        let key_str = key.as_str();
-        match key_str {
-            "project_id" | "instance_id" | "location" | "instance_config" | "client_hash" => {
-                labels.insert(key_str.to_string(), value_to_string(val));
-            }
-            _ => {}
-        }
-    }
+    let labels: HashMap<String, String> = resource
+        .iter()
+        .filter(|(key, _)| is_monitored_resource_label(key.as_str()))
+        .map(|(key, value)| (key.as_str().to_string(), value_to_string(value)))
+        .collect();
 
     MonitoredResource::new()
         .set_type(SPANNER_RESOURCE_TYPE.to_string())
