@@ -50,6 +50,7 @@ pub(crate) struct BatchState {
     pub client: GapicPublisher,
     pub topic: String,
     pub token_bucket: Arc<TokenBucket>,
+    pub start_time: Option<wkt::Timestamp>,
     /// Cancellation token shared across all attempts (initial and hedged) for this batch.
     /// Triggered as soon as any attempt succeeds (or the initial attempt fails permanently).
     pub cancel_token: CancellationToken,
@@ -70,6 +71,7 @@ impl BatchState {
             client,
             topic,
             token_bucket,
+            start_time: wkt::Timestamp::try_from(std::time::SystemTime::now()).ok(),
             cancel_token: CancellationToken::new(),
         }
     }
@@ -83,7 +85,8 @@ impl BatchState {
             .client
             .publish()
             .set_topic(self.topic.clone())
-            .set_messages((*self.msgs).clone());
+            .set_messages((*self.msgs).clone())
+            .set_pubsub_client_telemetry_header(0, self.start_time);
 
         tokio::select! {
             _ = self.cancel_token.cancelled() => {}
@@ -98,7 +101,7 @@ impl BatchState {
     /// Errors from hedged attempts are ignored so they never fail the batch.
     /// If the hedged attempt succeeds first, it completes the batch and cancels
     /// the slower initial attempt.
-    pub(crate) async fn send_hedged_rpc(&self) {
+    pub(crate) async fn send_hedged_rpc(&self, attempt_count: i32) {
         if self.cancel_token.is_cancelled() {
             return;
         }
@@ -111,6 +114,7 @@ impl BatchState {
             .publish()
             .set_topic(self.topic.clone())
             .set_messages((*self.msgs).clone())
+            .set_pubsub_client_telemetry_header(attempt_count, self.start_time)
             .with_retry_policy(NeverRetry.with_time_limit(timeout));
 
         tokio::select! {
@@ -144,6 +148,7 @@ impl BatchState {
 struct HedgeItem {
     state: Arc<BatchState>,
     deadline: tokio::time::Instant,
+    attempt_count: i32,
 }
 
 /// Handle held by ConcurrentBatchActor to submit batches to the dedicated scheduler task.
@@ -227,7 +232,11 @@ impl HedgingScheduler {
     /// (`now + delay`) is monotonically non-decreasing relative to previously queued items.
     fn handle_new_batch(&mut self, state: Arc<BatchState>) {
         let deadline = tokio::time::Instant::now() + self.delay;
-        self.queue.push_back(HedgeItem { state, deadline });
+        self.queue.push_back(HedgeItem {
+            state,
+            deadline,
+            attempt_count: 1,
+        });
         if self.timer.is_none() {
             self.timer = Some(Box::pin(tokio::time::sleep_until(deadline)));
         }
@@ -245,13 +254,14 @@ impl HedgingScheduler {
                 {
                     let state = item.state.clone();
                     tokio::spawn(async move {
-                        state.send_hedged_rpc().await;
+                        state.send_hedged_rpc(item.attempt_count).await;
                     });
                     // Only schedule the next hedged attempt if this attempt acquired a token.
                     // Rescheduled at `now + delay`, which places it chronologically at the back.
                     self.queue.push_back(HedgeItem {
                         deadline: now + self.delay,
                         state: item.state,
+                        attempt_count: item.attempt_count + 1,
                     });
                 }
             } else {
@@ -289,7 +299,9 @@ impl HedgingScheduler {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::google::pubsub::v1::pubsub_client_telemetry::Operation;
     use crate::model::Message;
+    use crate::publisher::publish_telemetry::parse_pubsub_client_telemetry_header;
     use google_cloud_test_macros::tokio_test_no_panics;
 
     mockall::mock! {
@@ -421,7 +433,7 @@ mod tests {
         let hedged_handle = {
             let state = state.clone();
             tokio::spawn(async move {
-                state.send_hedged_rpc().await;
+                state.send_hedged_rpc(1).await;
             })
         };
 
@@ -478,7 +490,7 @@ mod tests {
         let hedged_handle = {
             let state = state.clone();
             tokio::spawn(async move {
-                state.send_hedged_rpc().await;
+                state.send_hedged_rpc(1).await;
             })
         };
 
@@ -537,7 +549,7 @@ mod tests {
         let hedged_handle = {
             let state = state.clone();
             tokio::spawn(async move {
-                state.send_hedged_rpc().await;
+                state.send_hedged_rpc(1).await;
             })
         };
 
@@ -562,7 +574,7 @@ mod tests {
         let (state, _rx, _done_rx) = test_batch_state(client, token_bucket);
 
         state.cancel_token.cancel();
-        state.send_hedged_rpc().await;
+        state.send_hedged_rpc(1).await;
 
         Ok(())
     }
@@ -886,6 +898,78 @@ mod tests {
         assert_eq!(msg_b, "msg-hedged-b");
         assert!(state_b.cancel_token.is_cancelled());
         assert!(done_rx_b.await.is_ok_and(|r| r.is_ok()));
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn test_hedging_telemetry_progression() -> anyhow::Result<()> {
+        let mut mock = MockGapicPublisherWithFuture::new();
+        let recorded_ops = Arc::new(std::sync::Mutex::new(Vec::new()));
+
+        let ops_clone = recorded_ops.clone();
+        mock.expect_publish().times(3).returning(move |_, options| {
+            let telemetry = parse_pubsub_client_telemetry_header(&options)
+                .expect("telemetry header should be present and valid");
+            let attempt = if let Some(Operation::PublishOperation(ref op)) = telemetry.operation {
+                ops_clone.lock().unwrap().push(*op);
+                op.hedged_attempt_count
+            } else {
+                -1
+            };
+            Box::pin(async move {
+                if attempt < 2 {
+                    tokio::time::sleep(Duration::from_secs(10)).await;
+                }
+                mock_publish_response("msg-done")
+            })
+        });
+
+        let client = GapicPublisher::from_stub(mock);
+        let opts = HedgingOptions {
+            delay: Duration::from_millis(100),
+            max_tokens: 10,
+            refill_ratio: 0.1,
+        };
+        let scheduler_handle = HedgingScheduler::spawn(opts);
+        let token_bucket = scheduler_handle.token_bucket.clone();
+        for _ in 0..20 {
+            token_bucket.refill();
+        }
+
+        let (state, rx, done_rx) = test_batch_state(client, token_bucket);
+
+        let state_clone = state.clone();
+        tokio::spawn(async move {
+            state_clone.send_initial().await;
+        });
+        scheduler_handle.tx.send(state.clone())?;
+
+        // 1. Initial attempt is in flight (attempt 0).
+        // Advance 150ms -> triggers 1st hedge at 100ms (attempt 1).
+        tokio::time::advance(Duration::from_millis(150)).await;
+        tokio::task::yield_now().await;
+        assert!(!state.cancel_token.is_cancelled());
+
+        // 2. Advance another 100ms (to 250ms) -> triggers 2nd hedge at 200ms (attempt 2), which completes.
+        tokio::time::advance(Duration::from_millis(100)).await;
+        tokio::task::yield_now().await;
+
+        let msg_id = rx.await??;
+        assert_eq!(msg_id, "msg-done");
+        assert!(state.cancel_token.is_cancelled());
+        done_rx.await??;
+
+        let ops = recorded_ops.lock().unwrap().clone();
+        assert_eq!(ops.len(), 3);
+        assert_eq!(ops[0].hedged_attempt_count, 0);
+        assert_eq!(ops[1].hedged_attempt_count, 1);
+        assert_eq!(ops[2].hedged_attempt_count, 2);
+
+        let start_time = ops[0].publish_start_time;
+        assert!(start_time.is_some());
+        assert_eq!(ops[1].publish_start_time, start_time);
+        assert_eq!(ops[2].publish_start_time, start_time);
 
         Ok(())
     }

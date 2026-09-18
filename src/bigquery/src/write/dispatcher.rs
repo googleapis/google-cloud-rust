@@ -16,15 +16,12 @@ use super::append_response::{AppendResponse, to_result};
 use super::entry::StreamEntry;
 use super::error::{AppendError, AppendResult};
 use super::pool::StreamPool;
-use super::retry_policy::RetryableErrors;
+use super::retry_policy::RetryOptions;
 use crate::Error;
 use crate::google::cloud::bigquery::storage::v1::AppendRowsRequest as AppendRowsRequestProto;
 use crate::model::AppendRowsRequest;
 use arc_swap::ArcSwap;
 use gaxi::prost::{FromProto, ToProto};
-use google_cloud_gax::backoff_policy::BackoffPolicy;
-use google_cloud_gax::exponential_backoff::ExponentialBackoff;
-use google_cloud_gax::retry_policy::{RetryPolicy, RetryPolicyExt};
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
 use std::sync::Arc;
@@ -43,44 +40,18 @@ use std::time::Duration;
 pub(crate) struct Dispatcher {
     pub(crate) pool: Arc<StreamPool>,
     pub(crate) entry: ArcSwap<StreamEntry>,
-    retry_policy: Arc<dyn RetryPolicy>,
-    backoff_policy: Arc<dyn BackoffPolicy>,
-    attempt_timeout: Option<Duration>,
+    pub(crate) options: RetryOptions,
 }
 
 impl Dispatcher {
     /// Creates a new `Dispatcher` for a given `StreamPool`.
-    pub(crate) fn new(pool: Arc<StreamPool>) -> Self {
-        // TODO(#6355): plumb the policies from the client
-        Self::with_policies(
-            pool,
-            Arc::new(RetryableErrors.with_time_limit(Duration::from_secs(60))),
-            Arc::new(ExponentialBackoff::default()),
-        )
-        .with_attempt_timeout(Duration::from_secs(30))
-    }
-
-    /// Creates a new `Dispatcher` with the given retry and backoff policies.
-    pub(super) fn with_policies(
-        pool: Arc<StreamPool>,
-        retry_policy: Arc<dyn RetryPolicy>,
-        backoff_policy: Arc<dyn BackoffPolicy>,
-    ) -> Self {
+    pub(crate) fn new(pool: Arc<StreamPool>, options: RetryOptions) -> Self {
         let stream = pool.get();
         Self {
             pool,
             entry: ArcSwap::from_pointee(stream),
-            retry_policy,
-            backoff_policy,
-            attempt_timeout: None,
+            options,
         }
-    }
-
-    // TODO(#6355) - remove builder pattern and send all options via new()
-    /// Limits how long each attempt may take.
-    pub(super) fn with_attempt_timeout(mut self, attempt_timeout: Duration) -> Self {
-        self.attempt_timeout = Some(attempt_timeout);
-        self
     }
 
     /// Send the write and process the response.
@@ -95,8 +66,8 @@ impl Dispatcher {
         loop {
             state.attempt_count += 1;
             let timeout = effective_timeout(
-                self.attempt_timeout,
-                self.retry_policy.remaining_time(&state),
+                self.options.attempt_timeout,
+                self.options.retry_policy.remaining_time(&state),
             );
             let err = match self.send_one_attempt(req.clone(), timeout).await {
                 Ok(resp) => return Ok(resp),
@@ -114,7 +85,7 @@ impl Dispatcher {
                 // attempt limit.
                 AppendError::UnexpectedEndOfStream => {
                     let err = Error::io(AppendError::UnexpectedEndOfStream);
-                    match self.retry_policy.on_error(&state, err) {
+                    match self.options.retry_policy.on_error(&state, err) {
                         RetryResult::Continue(e) => e,
                         RetryResult::Exhausted(_) | RetryResult::Permanent(_) => {
                             // Return the original error.
@@ -123,19 +94,22 @@ impl Dispatcher {
                     }
                 }
 
-                AppendError::Rpc { source } => match self.retry_policy.on_error(&state, source) {
-                    RetryResult::Continue(e) => e,
-                    RetryResult::Exhausted(e) | RetryResult::Permanent(e) => {
-                        return Err(e.into());
+                AppendError::Rpc { source } => {
+                    match self.options.retry_policy.on_error(&state, source) {
+                        RetryResult::Continue(e) => e,
+                        RetryResult::Exhausted(e) | RetryResult::Permanent(e) => {
+                            return Err(e.into());
+                        }
                     }
-                },
+                }
             };
 
             // Give up if the retry loop expires before the next attempt could
             // start. Note that we query the policy again, as the attempt above
             // consumed some of the remaining time.
-            let delay = self.backoff_policy.on_failure(&state);
+            let delay = self.options.backoff_policy.on_failure(&state);
             if self
+                .options
                 .retry_policy
                 .remaining_time(&state)
                 .is_some_and(|remaining| remaining <= delay)
@@ -218,13 +192,14 @@ fn effective_timeout(
 mod tests {
     use super::super::error::AppendError;
     use super::super::pool::StreamPoolOptions;
+    use super::super::retry_policy::RetryableErrors;
     use super::*;
     use crate::google::cloud::bigquery::storage::v1;
     use crate::write::test::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::{Response as TonicResponse, Status as TonicStatus};
     use google_cloud_gax::error::rpc::Code;
-    use google_cloud_gax::retry_policy::NeverRetry;
+    use google_cloud_gax::retry_policy::{NeverRetry, RetryPolicy, RetryPolicyExt};
     use google_cloud_gax::retry_result::RetryResult;
     use google_cloud_gax::retry_state::RetryState;
     use google_cloud_gax::throttle_result::ThrottleResult;
@@ -267,7 +242,7 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
-        let dispatcher = Arc::new(Dispatcher::new(pool));
+        let dispatcher = Arc::new(Dispatcher::new(pool, RetryOptions::default()));
         assert_eq!(dispatcher.entry.load().id, 1);
 
         let write1 = {
@@ -311,10 +286,13 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
-        let dispatcher = Arc::new(Dispatcher::with_policies(
+        let dispatcher = Arc::new(Dispatcher::new(
             pool,
-            Arc::new(retry),
-            Arc::new(NoBackoff),
+            RetryOptions {
+                retry_policy: Arc::new(retry),
+                backoff_policy: Arc::new(NoBackoff),
+                ..test_retry_options()
+            },
         ));
         assert_eq!(dispatcher.entry.load().id, 1);
 
@@ -346,7 +324,7 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
-        let dispatcher = Arc::new(Dispatcher::new(pool.clone()));
+        let dispatcher = Arc::new(Dispatcher::new(pool.clone(), RetryOptions::default()));
         assert_eq!(dispatcher.entry.load().id, 1);
 
         let write = {
@@ -380,10 +358,13 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
-        let dispatcher = Arc::new(Dispatcher::with_policies(
+        let dispatcher = Arc::new(Dispatcher::new(
             pool.clone(),
-            Arc::new(NeverRetry),
-            Arc::new(NoBackoff),
+            RetryOptions {
+                retry_policy: Arc::new(NeverRetry),
+                backoff_policy: Arc::new(NoBackoff),
+                ..test_retry_options()
+            },
         ));
         assert_eq!(dispatcher.entry.load().id, 1);
 
@@ -419,7 +400,7 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
-        let dispatcher = Arc::new(Dispatcher::new(pool.clone()));
+        let dispatcher = Arc::new(Dispatcher::new(pool.clone(), RetryOptions::default()));
 
         // Acquire the stream pool's lock to simulate a pool scaling event. This
         // needs to run in a separate thread because we don't want to hold the
@@ -475,10 +456,13 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
-        let dispatcher = Arc::new(Dispatcher::with_policies(
+        let dispatcher = Arc::new(Dispatcher::new(
             pool.clone(),
-            Arc::new(retry),
-            Arc::new(backoff),
+            RetryOptions {
+                retry_policy: Arc::new(retry),
+                backoff_policy: Arc::new(backoff),
+                ..test_retry_options()
+            },
         ));
         assert_eq!(dispatcher.entry.load().id, 1);
 
@@ -509,10 +493,13 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
-        let dispatcher = Dispatcher::with_policies(
+        let dispatcher = Dispatcher::new(
             pool.clone(),
-            Arc::new(RetryableErrors.with_attempt_limit(NUM_ATTEMPTS)),
-            Arc::new(NoBackoff),
+            RetryOptions {
+                retry_policy: Arc::new(RetryableErrors.with_attempt_limit(NUM_ATTEMPTS)),
+                backoff_policy: Arc::new(NoBackoff),
+                ..test_retry_options()
+            },
         );
 
         let err = dispatcher
@@ -547,10 +534,13 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
-        let dispatcher = Arc::new(Dispatcher::with_policies(
+        let dispatcher = Arc::new(Dispatcher::new(
             pool.clone(),
-            Arc::new(retry),
-            Arc::new(NoBackoff),
+            RetryOptions {
+                retry_policy: Arc::new(retry),
+                backoff_policy: Arc::new(NoBackoff),
+                ..test_retry_options()
+            },
         ));
         assert_eq!(dispatcher.entry.load().id, 1);
 
@@ -602,10 +592,13 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
-        let dispatcher = Arc::new(Dispatcher::with_policies(
+        let dispatcher = Arc::new(Dispatcher::new(
             pool.clone(),
-            Arc::new(retry),
-            Arc::new(NoBackoff),
+            RetryOptions {
+                retry_policy: Arc::new(retry),
+                backoff_policy: Arc::new(NoBackoff),
+                ..test_retry_options()
+            },
         ));
         assert_eq!(dispatcher.entry.load().id, 1);
 
@@ -686,10 +679,14 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
-        let dispatcher = Arc::new(
-            Dispatcher::with_policies(pool.clone(), Arc::new(retry), Arc::new(NoBackoff))
-                .with_attempt_timeout(Duration::from_millis(100)),
-        );
+        let dispatcher = Arc::new(Dispatcher::new(
+            pool.clone(),
+            RetryOptions {
+                retry_policy: Arc::new(retry),
+                attempt_timeout: Some(Duration::from_millis(100)),
+                ..test_retry_options()
+            },
+        ));
         assert_eq!(dispatcher.entry.load().id, 1);
 
         let write = {
@@ -737,7 +734,14 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
-        let dispatcher = Dispatcher::with_policies(pool, Arc::new(retry), Arc::new(backoff));
+        let dispatcher = Dispatcher::new(
+            pool,
+            RetryOptions {
+                retry_policy: Arc::new(retry),
+                backoff_policy: Arc::new(backoff),
+                ..test_retry_options()
+            },
+        );
 
         let err = dispatcher
             .send(test_req())

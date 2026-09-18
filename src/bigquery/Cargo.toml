@@ -54,6 +54,7 @@ uuid.workspace               = true
 
 [dev-dependencies]
 anyhow.workspace            = true
+httptest.workspace          = true
 mockall.workspace           = true
 test-case.workspace         = true
 tokio                       = { workspace = true, features = ["macros", "rt-multi-thread", "test-util"] }
