@@ -18,10 +18,9 @@ use super::super::retry_policy::RetryOptions;
 use super::super::transport::Transport;
 use super::super::validate::{validate_stream, validate_table};
 use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter, Writer};
-use crate::Result;
 use crate::model::write_stream::Type;
 use crate::model::{ArrowSchema, WriteStream};
-use crate::write::error::{WriterBuilderError, WriterBuilderResult};
+use crate::write::error::WriterBuilderError;
 use std::sync::Arc;
 
 /// A builder to create a stream writer.
@@ -70,7 +69,10 @@ impl WriterBuilder {
     /// ```
     ///
     /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
-    pub async fn default<T: Into<String>>(self, table: T) -> Result<DefaultWriter> {
+    pub async fn default<T: Into<String>>(
+        self,
+        table: T,
+    ) -> std::result::Result<DefaultWriter, WriterBuilderError> {
         let table = table.into();
         validate_table(table.as_str())?;
         let mut write_stream = table;
@@ -110,7 +112,10 @@ impl WriterBuilder {
     ///   todo!("Define your table's schema...")
     /// }
     /// ```
-    pub async fn pending<T: Into<String>>(self, table: T) -> Result<PendingWriter> {
+    pub async fn pending<T: Into<String>>(
+        self,
+        table: T,
+    ) -> std::result::Result<PendingWriter, WriterBuilderError> {
         let table = table.into();
         validate_table(table.as_str())?;
 
@@ -147,7 +152,10 @@ impl WriterBuilder {
     ///   todo!("Define your table's schema...")
     /// }
     /// ```
-    pub async fn committed<T: Into<String>>(self, table: T) -> Result<CommittedWriter> {
+    pub async fn committed<T: Into<String>>(
+        self,
+        table: T,
+    ) -> std::result::Result<CommittedWriter, WriterBuilderError> {
         let table = table.into();
         validate_table(table.as_str())?;
 
@@ -184,7 +192,10 @@ impl WriterBuilder {
     ///   todo!("Define your table's schema...")
     /// }
     /// ```
-    pub async fn buffered<T: Into<String>>(self, table: T) -> Result<BufferedWriter> {
+    pub async fn buffered<T: Into<String>>(
+        self,
+        table: T,
+    ) -> std::result::Result<BufferedWriter, WriterBuilderError> {
         let table = table.into();
         validate_table(table.as_str())?;
 
@@ -225,7 +236,7 @@ impl WriterBuilder {
     pub async fn attach<U: Writer, S: Into<String>>(
         self,
         write_stream: S,
-    ) -> WriterBuilderResult<U> {
+    ) -> std::result::Result<U, WriterBuilderError> {
         let write_stream = write_stream.into();
         validate_stream(write_stream.as_str())?;
 
@@ -320,7 +331,7 @@ mod tests {
             .pending(table)
             .await
             .expect_err("should fail locally on bad format");
-        assert!(err.is_binding(), "{err:?}");
+        assert!(matches!(err, WriterBuilderError::Rpc { source: e } if e.is_binding()));
         Ok(())
     }
 
@@ -360,7 +371,7 @@ mod tests {
             .committed(table)
             .await
             .expect_err("should fail locally on bad format");
-        assert!(err.is_binding(), "{err:?}");
+        assert!(matches!(err, WriterBuilderError::Rpc { source: e } if e.is_binding()));
         Ok(())
     }
 
@@ -391,7 +402,7 @@ mod tests {
             .default(table)
             .await
             .expect_err("should fail locally on bad format");
-        assert!(err.is_binding(), "{err:?}");
+        assert!(matches!(err, WriterBuilderError::Rpc { source: e } if e.is_binding()));
         Ok(())
     }
     #[tokio::test]
@@ -430,7 +441,7 @@ mod tests {
             .buffered(table)
             .await
             .expect_err("should fail locally on bad format");
-        assert!(err.is_binding(), "{err:?}");
+        assert!(matches!(err, WriterBuilderError::Rpc { source: e } if e.is_binding()));
         Ok(())
     }
 

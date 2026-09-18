@@ -68,8 +68,6 @@ pub enum WriterBuilderError {
     },
 }
 
-pub(crate) type WriterBuilderResult<T> = std::result::Result<T, WriterBuilderError>;
-
 #[cfg(test)]
 mod tests {
     use super::*;
