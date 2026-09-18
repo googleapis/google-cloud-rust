@@ -2383,6 +2383,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "http",
+ "httptest",
  "mockall",
  "prost",
  "prost-types",
