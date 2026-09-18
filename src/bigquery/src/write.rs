@@ -33,6 +33,8 @@ pub(super) mod error;
 
 mod dispatcher;
 mod entry;
+#[cfg_attr(not(test), expect(dead_code))]
+mod format;
 mod pool;
 mod proto_schema;
 mod runner;
