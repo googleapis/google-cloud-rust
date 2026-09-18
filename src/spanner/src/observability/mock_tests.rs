@@ -52,6 +52,7 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 use tokio::sync::mpsc::{Receiver, channel};
 use tokio::task::JoinHandle;
 
+const TEST_PROJECT: &str = "test-project";
 const TEST_CLIENT_UID: &str = "test-uid-12345";
 const TEST_CLIENT_HASH: &str = "abc1234";
 const TEST_DATABASE: &str = "test-database";
@@ -225,6 +226,14 @@ async fn streaming_sql_happy_path_records_all_metrics_and_time_series() -> anyho
         assert_eq!(
             monitored_resource.r#type, "spanner_instance_client",
             "Resource type must be spanner_instance_client"
+        );
+        assert_eq!(
+            monitored_resource
+                .labels
+                .get("project_id")
+                .map(String::as_str),
+            Some(TEST_PROJECT),
+            "MonitoredResource must contain project_id"
         );
         assert_eq!(
             monitored_resource
@@ -2183,7 +2192,7 @@ async fn setup_mock_client_with_metrics(
 
     let resource = Resource::builder()
         .with_attributes([
-            KeyValue::new("project_id", "test-project"),
+            KeyValue::new("project_id", TEST_PROJECT),
             KeyValue::new("instance_id", TEST_INSTANCE),
             KeyValue::new("location", TEST_LOCATION),
             KeyValue::new("instance_config", TEST_INSTANCE_CONFIG),
