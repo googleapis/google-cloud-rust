@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::format::DataFormat;
 use crate::Result;
-use crate::model::append_rows_request::ProtoData;
-use crate::model::{AppendRowsRequest, FinalizeWriteStreamResponse, ProtoRows, ProtoSchema};
+use crate::model::{AppendRowsRequest, FinalizeWriteStreamResponse};
 use crate::write::generated::gapic_storage::client::BigQueryWrite;
 use crate::write::runner::Runner;
 use crate::write::transport::Transport;
@@ -26,33 +26,30 @@ use std::sync::Arc;
 /// Specific stream behaviors should be handled individually by their respective wrapper
 /// structs (e.g. `BufferedWriter`, `CommittedWriter`, `PendingWriter`).
 #[derive(Debug)]
-pub(crate) struct BaseWriter {
+pub(crate) struct BaseWriter<F> {
     pub(crate) runner: Runner,
     pub(crate) write_stream: String,
-    pub(crate) schema: ProtoSchema,
+    pub(crate) format: F,
     pub(crate) client: BigQueryWrite,
 }
 
-impl BaseWriter {
-    pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ProtoSchema) -> Self {
+impl<F> BaseWriter<F>
+where
+    F: DataFormat,
+{
+    pub(crate) fn new(inner: Arc<Transport>, write_stream: String, format: F) -> Self {
         let runner = Runner::new(inner.clone());
         let client = BigQueryWrite::from_stub::<Transport>(inner);
         Self {
             runner,
             write_stream,
-            schema,
+            format,
             client,
         }
     }
 
-    pub(crate) fn append_request(&self, rows: ProtoRows) -> AppendRowsRequest {
-        AppendRowsRequest::new()
-            .set_write_stream(&self.write_stream)
-            .set_proto_rows(
-                ProtoData::new()
-                    .set_writer_schema(self.schema.clone())
-                    .set_rows(rows),
-            )
+    pub(crate) fn append_request(&self, rows: F::Rows) -> AppendRowsRequest {
+        self.format.make_request(&self.write_stream, rows)
     }
 
     pub(crate) async fn finalize(&self) -> Result<FinalizeWriteStreamResponse> {
