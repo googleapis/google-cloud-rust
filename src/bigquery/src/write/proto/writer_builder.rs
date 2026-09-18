@@ -141,10 +141,13 @@ impl WriterBuilder {
             .send()
             .await?;
 
+        let format = Proto {
+            schema: self.schema,
+        };
         Ok(BufferedWriter::new(
             self.inner,
             write_stream.name,
-            self.schema,
+            format,
         ))
     }
 

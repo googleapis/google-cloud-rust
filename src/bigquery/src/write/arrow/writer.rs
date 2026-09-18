@@ -17,6 +17,7 @@ use crate::model::ArrowSchema;
 use crate::model::write_stream::Type;
 use crate::write::transport::Transport;
 use std::sync::Arc;
+use super::super::format::Arrow;
 
 pub(crate) mod sealed {
     use super::*;
@@ -46,7 +47,8 @@ pub(crate) mod sealed {
         const STREAM_TYPE: Type = Type::Buffered;
 
         fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
-            Self::new(inner, write_stream, schema)
+            let format = Arrow { schema };
+            Self::new(inner, write_stream, format)
         }
     }
 }

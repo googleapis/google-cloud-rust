@@ -211,10 +211,13 @@ impl WriterBuilder {
             .send()
             .await?;
 
+        let format = Arrow {
+            schema: self.schema,
+        };
         Ok(BufferedWriter::new(
             self.inner,
             write_stream.name,
-            self.schema,
+            format,
         ))
     }
 
