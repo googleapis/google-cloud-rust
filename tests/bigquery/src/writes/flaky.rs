@@ -89,7 +89,7 @@ pub async fn reconnect_on_close_parallel(
     schema: TableSchema,
 ) -> Result<()> {
     let table_id = format!(
-        "{}_reconnect_on_close_parallel",
+        "{}_parallel_reconnect_on_close",
         bigquery_samples::random_id_suffix()
     );
     create_flaky_table(table_service, project_id, dataset_id, &table_id, schema).await?;
@@ -208,7 +208,7 @@ pub async fn initial_connect_failure_parallel(
     schema: TableSchema,
 ) -> Result<()> {
     let table_id = format!(
-        "{}_initial_connect_failure_parallel",
+        "{}_parallel_initial_connect_failure",
         bigquery_samples::random_id_suffix()
     );
     create_flaky_table(table_service, project_id, dataset_id, &table_id, schema).await?;
@@ -271,7 +271,10 @@ pub async fn reconnect_on_close_default(
     dataset_id: &str,
     schema: TableSchema,
 ) -> Result<()> {
-    let table_id = format!("{}_reconnect_default", bigquery_samples::random_id_suffix());
+    let table_id = format!(
+        "{}_default_reconnect_on_close",
+        bigquery_samples::random_id_suffix()
+    );
     create_flaky_table(table_service, project_id, dataset_id, &table_id, schema).await?;
 
     let table = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}");
