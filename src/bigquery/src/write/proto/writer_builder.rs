@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::super::format::Proto;
 use super::super::generated::gapic_storage::client::BigQueryWrite;
 use super::super::pool::{StreamPool, StreamPoolOptions};
 use super::super::retry_policy::RetryOptions;
@@ -61,11 +62,14 @@ impl WriterBuilder {
             ..Default::default()
         };
         let pool = Arc::new(StreamPool::new(self.inner, options));
+        let format = Proto {
+            schema: self.schema,
+        };
         Ok(DefaultWriter::new(
             pool,
             self.retry_options,
             write_stream,
-            self.schema,
+            format,
         ))
     }
 
@@ -268,7 +272,7 @@ mod tests {
             writer.write_stream,
             "projects/p/datasets/d/tables/t/streams/_default"
         );
-        assert_eq!(writer.schema, proto_schema());
+        assert_eq!(writer.format.schema, proto_schema());
         Ok(())
     }
 
