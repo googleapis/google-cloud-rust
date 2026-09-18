@@ -27,11 +27,13 @@ workspace = true
 
 [dependencies]
 anyhow.workspace    = true
+base64.workspace    = true
 bytes.workspace     = true
 clap                = { workspace = true, features = ["derive", "env", "help", "std"] }
 google-cloud-auth   = { workspace = true }
 google-cloud-pubsub = { workspace = true, features = ["default-rustls-provider"] }
 humantime.workspace = true
+prost.workspace     = true
 pubsub-grpc-mock    = { workspace = true }
 rand.workspace      = true
 tokio               = { workspace = true, features = ["full"] }

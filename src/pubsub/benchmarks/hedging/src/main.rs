@@ -15,6 +15,7 @@
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use google_cloud_pubsub::client::Publisher;
 use google_cloud_pubsub::model::Message;
+use google_cloud_pubsub::publisher::HedgingOptions;
 use std::sync::atomic::Ordering;
 use std::time::{Duration, Instant};
 use tokio::task::JoinSet;
@@ -40,18 +41,36 @@ async fn main() -> anyhow::Result<()> {
         "  Payload Size:         {} bytes (unbatched: 1 msg/batch)",
         PAYLOAD_SIZE
     );
+    println!("  Enable Hedging:       {}", args.enable_hedging);
+    if args.enable_hedging {
+        println!("  Hedge Delay:          {:.2?}", args.hedge_delay);
+        println!("  Hedge Max Tokens:     {}", args.hedge_max_tokens);
+        println!("  Hedge Refill Ratio:   {}", args.hedge_refill_ratio);
+    }
 
     let (endpoint, mock_handle) =
         mock_server::start_mock_server(mock_server::MockServerConfig::default()).await?;
     println!("  Mock Server Endpoint: {}", endpoint);
     println!("================================================================================\n");
 
+    let hedging_options = if args.enable_hedging {
+        Some(
+            HedgingOptions::new()
+                .set_delay(args.hedge_delay)
+                .set_max_tokens(args.hedge_max_tokens)
+                .set_refill_ratio(args.hedge_refill_ratio),
+        )
+    } else {
+        None
+    };
+
     let topic_name = "projects/test-project/topics/test-topic";
     let builder = Publisher::builder(topic_name)
         .with_endpoint(&endpoint)
         .with_credentials(Anonymous::default().build())
         .set_message_count_threshold(1)
-        .set_delay_threshold(Duration::ZERO);
+        .set_delay_threshold(Duration::ZERO)
+        .set_or_clear_hedging_options(hedging_options);
 
     let publisher = builder.build().await?;
     let payload = bytes::Bytes::from(vec![b'x'; PAYLOAD_SIZE]);
@@ -87,6 +106,9 @@ async fn main() -> anyhow::Result<()> {
         mock_handle.stats.reset();
         println!("Warmup complete. Starting benchmark...\n");
     }
+
+    let mut interval = tokio::time::interval(interval_duration);
+    interval.set_missed_tick_behavior(tokio::time::MissedTickBehavior::Burst);
 
     let mut join_set = JoinSet::new();
     let bench_start = Instant::now();
