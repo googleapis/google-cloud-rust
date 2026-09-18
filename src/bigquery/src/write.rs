@@ -24,6 +24,7 @@ pub(crate) mod proto;
 pub use append_future::AppendFuture;
 
 pub use buffered::BufferedWriter;
+pub use committed::CommittedWriter;
 pub use default::DefaultWriter;
 
 /// Defines the data formats accepted by a writer.
@@ -41,6 +42,7 @@ pub(super) mod error;
 
 mod base;
 mod buffered;
+mod committed;
 mod default;
 mod dispatcher;
 mod entry;
