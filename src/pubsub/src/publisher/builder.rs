@@ -365,6 +365,7 @@ pub struct PublisherPartialBuilder {
     topic: String,
     batching_options: BatchingOptions,
     hedging_options: Option<HedgingOptions>,
+    pub(crate) total_timeout: Option<Duration>,
 }
 
 impl PublisherPartialBuilder {
@@ -375,7 +376,13 @@ impl PublisherPartialBuilder {
             topic,
             batching_options: BatchingOptions::default(),
             hedging_options: None,
+            total_timeout: None,
         }
+    }
+
+    pub(crate) fn with_total_timeout(mut self, total_timeout: Option<Duration>) -> Self {
+        self.total_timeout = total_timeout;
+        self
     }
 
     /// Sets the message count threshold for batching.
@@ -538,6 +545,7 @@ impl PublisherPartialBuilder {
             self.inner,
             batching_options.clone(),
             hedging_options.clone(),
+            self.total_timeout,
             rx,
         );
         let handle = tokio::spawn(dispatcher.run());
