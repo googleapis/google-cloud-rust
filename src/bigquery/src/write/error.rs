@@ -44,7 +44,7 @@ pub enum AppendError {
 
 pub(crate) type AppendResult<T> = std::result::Result<T, AppendError>;
 
-/// Represents an error that can occur when attaching to an existing stream.
+/// Represents an error that can occur when building a writer.
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum WriterBuilderError {
@@ -68,7 +68,7 @@ pub enum WriterBuilderError {
     },
 }
 
-pub(crate) type AttachResult<T> = std::result::Result<T, WriterBuilderError>;
+pub(crate) type WriterBuilderResult<T> = std::result::Result<T, WriterBuilderError>;
 
 #[cfg(test)]
 mod tests {

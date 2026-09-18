@@ -20,7 +20,7 @@ use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter, Write
 use crate::Result;
 use crate::model::write_stream::Type;
 use crate::model::{ArrowSchema, WriteStream};
-use crate::write::error::{AttachResult, WriterBuilderError};
+use crate::write::error::{WriterBuilderError, WriterBuilderResult};
 use std::sync::Arc;
 
 /// A builder to create a stream writer.
@@ -209,7 +209,10 @@ impl WriterBuilder {
     /// #   todo!("Define your table's schema...")
     /// # }
     /// ```
-    pub async fn attach<U: Writer, S: Into<String>>(self, write_stream: S) -> AttachResult<U> {
+    pub async fn attach<U: Writer, S: Into<String>>(
+        self,
+        write_stream: S,
+    ) -> WriterBuilderResult<U> {
         let write_stream = write_stream.into();
         validate_stream(write_stream.as_str())?;
 
