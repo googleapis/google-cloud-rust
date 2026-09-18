@@ -15,7 +15,6 @@
 mod base;
 mod buffered;
 mod committed;
-mod default;
 mod pending;
 mod writer;
 mod writer_builder;
@@ -24,7 +23,8 @@ use super::format::Proto;
 
 pub(crate) use buffered::BufferedWriter;
 pub(crate) use committed::CommittedWriter;
-pub type DefaultWriter = super::DefaultWriter<Proto>;
 pub(crate) use pending::PendingWriter;
 pub(crate) use writer::Writer;
 pub(crate) use writer_builder::WriterBuilder;
+
+pub(crate) type DefaultWriter = super::DefaultWriter<Proto>;
