@@ -21,6 +21,8 @@ use google_cloud_bigquery_v2::model::{Table, TableReference, TableSchema};
 use std::sync::Arc;
 
 pub const FLAKY_REGION: &str = "us-east7";
+pub const RECONNECT_ON_CLOSE_SUFFIX: &str = "_reconnect_on_close";
+pub const INITIAL_CONNECT_FAILURE_SUFFIX: &str = "_initial_connect_failure";
 const ITERATIONS: usize = 50;
 const ROWS_PER_BATCH: usize = 10;
 const TOTAL_ROWS: usize = ITERATIONS * ROWS_PER_BATCH; // 500
@@ -37,7 +39,7 @@ pub async fn reconnect_on_close_sequential(
     schema: TableSchema,
 ) -> Result<()> {
     let table_id = format!(
-        "{}_reconnect_on_close",
+        "{}{RECONNECT_ON_CLOSE_SUFFIX}",
         bigquery_samples::random_id_suffix()
     );
     create_flaky_table(table_service, project_id, dataset_id, &table_id, schema).await?;
@@ -89,7 +91,7 @@ pub async fn reconnect_on_close_parallel(
     schema: TableSchema,
 ) -> Result<()> {
     let table_id = format!(
-        "{}_parallel_reconnect_on_close",
+        "{}_parallel{RECONNECT_ON_CLOSE_SUFFIX}",
         bigquery_samples::random_id_suffix()
     );
     create_flaky_table(table_service, project_id, dataset_id, &table_id, schema).await?;
@@ -156,7 +158,7 @@ pub async fn initial_connect_failure_sequential(
     schema: TableSchema,
 ) -> Result<()> {
     let table_id = format!(
-        "{}_initial_connect_failure",
+        "{}{INITIAL_CONNECT_FAILURE_SUFFIX}",
         bigquery_samples::random_id_suffix()
     );
     create_flaky_table(table_service, project_id, dataset_id, &table_id, schema).await?;
@@ -208,7 +210,7 @@ pub async fn initial_connect_failure_parallel(
     schema: TableSchema,
 ) -> Result<()> {
     let table_id = format!(
-        "{}_parallel_initial_connect_failure",
+        "{}_parallel{INITIAL_CONNECT_FAILURE_SUFFIX}",
         bigquery_samples::random_id_suffix()
     );
     create_flaky_table(table_service, project_id, dataset_id, &table_id, schema).await?;
@@ -272,7 +274,7 @@ pub async fn reconnect_on_close_default(
     schema: TableSchema,
 ) -> Result<()> {
     let table_id = format!(
-        "{}_default_reconnect_on_close",
+        "{}_default{RECONNECT_ON_CLOSE_SUFFIX}",
         bigquery_samples::random_id_suffix()
     );
     create_flaky_table(table_service, project_id, dataset_id, &table_id, schema).await?;
