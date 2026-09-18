@@ -31,3 +31,6 @@ pub(super) mod sealed {
             Self: super::DataFormat;
     }
 }
+
+pub use arrow::Arrow;
+pub(crate) use proto::Proto;

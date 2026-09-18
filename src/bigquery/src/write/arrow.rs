@@ -15,14 +15,15 @@
 mod base;
 mod buffered;
 mod committed;
-mod default;
 mod pending;
 mod writer;
 mod writer_builder;
 
+use super::format::Arrow;
+
 pub use buffered::BufferedWriter;
 pub use committed::CommittedWriter;
-pub use default::DefaultWriter;
+pub type DefaultWriter = super::DefaultWriter<Arrow>;
 pub use pending::PendingWriter;
 pub use writer::Writer;
 pub use writer_builder::WriterBuilder;

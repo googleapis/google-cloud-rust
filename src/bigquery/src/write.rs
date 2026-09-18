@@ -21,6 +21,11 @@ pub(crate) mod proto;
 
 pub use append_future::AppendFuture;
 
+pub use default::DefaultWriter;
+
+/// Defines the data formats accepted by a writer.
+pub mod format;
+
 /// Defines the retry policy for the BigQuery Storage Write API.
 pub mod retry_policy;
 
@@ -31,10 +36,9 @@ pub(super) mod client;
 pub(super) mod client_builder;
 pub(super) mod error;
 
+mod default;
 mod dispatcher;
 mod entry;
-#[cfg_attr(not(test), expect(dead_code))]
-mod format;
 mod pool;
 mod proto_schema;
 mod runner;
