@@ -20,7 +20,7 @@ use super::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter, Write
 use crate::Result;
 use crate::model::write_stream::Type;
 use crate::model::{ArrowSchema, WriteStream};
-use crate::write::error::{AttachError, AttachResult};
+use crate::write::error::{AttachResult, WriterBuilderError};
 use std::sync::Arc;
 
 /// A builder to create a stream writer.
@@ -222,7 +222,7 @@ impl WriterBuilder {
 
         let stream_type = stream.r#type.clone();
         if stream_type != U::STREAM_TYPE {
-            return Err(AttachError::TypeMismatch {
+            return Err(WriterBuilderError::TypeMismatch {
                 expected: U::STREAM_TYPE,
                 actual: stream_type,
             });
@@ -491,7 +491,7 @@ mod tests {
             .attach::<CommittedWriter, _>(stream)
             .await
             .expect_err("should fail locally on bad format");
-        assert!(matches!(err, AttachError::Rpc { source: e } if e.is_binding()));
+        assert!(matches!(err, WriterBuilderError::Rpc { source: e } if e.is_binding()));
         Ok(())
     }
 
@@ -503,7 +503,7 @@ mod tests {
             .attach::<CommittedWriter, _>("projects/p/datasets/d/tables/t/streams/s")
             .await
             .expect_err("should return type mismatch error");
-        assert!(matches!(err, AttachError::TypeMismatch { .. }));
+        assert!(matches!(err, WriterBuilderError::TypeMismatch { .. }));
         assert!(err.to_string().contains("stream type mismatch: requested"));
         Ok(())
     }

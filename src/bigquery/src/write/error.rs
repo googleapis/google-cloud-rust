@@ -47,7 +47,7 @@ pub(crate) type AppendResult<T> = std::result::Result<T, AppendError>;
 /// Represents an error that can occur when attaching to an existing stream.
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
-pub enum AttachError {
+pub enum WriterBuilderError {
     /// The stream type provided by the service did not match the expected type.
     #[error("stream type mismatch: requested {expected:?}, but matched resource yields {actual:?}")]
     TypeMismatch {
@@ -68,7 +68,7 @@ pub enum AttachError {
     },
 }
 
-pub(crate) type AttachResult<T> = std::result::Result<T, AttachError>;
+pub(crate) type AttachResult<T> = std::result::Result<T, WriterBuilderError>;
 
 #[cfg(test)]
 mod tests {
