@@ -400,6 +400,7 @@ pub async fn multiplex(
 
 struct ArrowSerializer {
     schema: Arc<Schema>,
+    schema_msg: ArrowSchema,
     writer: StreamWriter<Vec<u8>>,
     test: &'static str,
 }
@@ -411,17 +412,19 @@ impl ArrowSerializer {
             Field::new("age", DataType::Int64, false),
             Field::new("test", DataType::Utf8, false),
         ]));
-        let writer = StreamWriter::try_new(Vec::new(), &schema)?;
+        let mut writer = StreamWriter::try_new(Vec::new(), &schema)?;
+        let buf = std::mem::take(writer.get_mut());
+        let schema_msg = ArrowSchema::new().set_serialized_schema(buf);
         Ok(Self {
             schema,
+            schema_msg,
             writer,
             test,
         })
     }
 
-    fn schema(&mut self) -> ArrowSchema {
-        let buf = std::mem::take(self.writer.get_mut());
-        ArrowSchema::new().set_serialized_schema(buf)
+    fn schema(&self) -> ArrowSchema {
+        self.schema_msg.clone()
     }
 
     fn batch(&mut self, names: Vec<&str>, ages: Vec<i64>) -> Result<ArrowRecordBatch> {
