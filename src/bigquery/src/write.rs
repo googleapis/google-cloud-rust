@@ -38,6 +38,7 @@ pub(super) mod client;
 pub(super) mod client_builder;
 pub(super) mod error;
 
+mod base;
 mod default;
 mod dispatcher;
 mod entry;
