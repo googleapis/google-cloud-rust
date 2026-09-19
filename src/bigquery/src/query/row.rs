@@ -823,4 +823,43 @@ mod tests {
         assert!(matches!(err, RowError::ColumnNotFound(col) if col == "custom_int"));
         Ok(())
     }
+
+    #[derive(FromRow, Debug, PartialEq)]
+    struct ShadowedFieldNamesRow {
+        row: i64,
+        name: String,
+    }
+
+    #[tokio::test]
+    async fn derive_from_row_shadowing_field_names() -> TestResult {
+        let raw_row = Map::from_iter([(
+            "f".to_string(),
+            json!([
+                { "v": "42" },
+                { "v": "Alice" },
+            ]),
+        )]);
+        let schema = TableSchema::new().set_fields([
+            TableFieldSchema::new()
+                .set_name("row")
+                .set_type("INTEGER")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("name")
+                .set_type("STRING")
+                .set_mode("NULLABLE"),
+        ]);
+        let schema = Arc::new(Schema::new(schema));
+        let row = Row::try_new(raw_row, &schema)?;
+
+        let converted = ShadowedFieldNamesRow::try_from(row)?;
+        assert_eq!(
+            converted,
+            ShadowedFieldNamesRow {
+                row: 42,
+                name: "Alice".to_string(),
+            }
+        );
+        Ok(())
+    }
 }
