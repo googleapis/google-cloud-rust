@@ -46,10 +46,14 @@ mod has_stream;
 mod markers;
 mod stream;
 
-pub use application_created_stream::*;
-pub use has_stream::*;
-pub use markers::*;
-pub use stream::*;
+pub use application_created_stream::ApplicationCreatedStream;
+pub use has_stream::HasStream;
+pub use markers::{BufferedStream, CommittedStream, DefaultStream, PendingStream};
+pub use stream::Stream;
+
+pub(crate) mod sealed {
+    pub(crate) use super::application_created_stream::sealed::ApplicationCreatedStream;
+}
 
 #[cfg(test)]
 mod tests {

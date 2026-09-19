@@ -13,6 +13,11 @@
 // limitations under the License.
 
 use super::{BufferedStream, CommittedStream, PendingStream, Stream};
+use crate::model::write_stream::Type;
+use crate::write::format::DataFormat;
+use crate::write::transport::Transport;
+use crate::write::{BufferedWriter, CommittedWriter, PendingWriter};
+use std::sync::Arc;
 
 /// Marker trait for [application-created stream] types.
 /// - [`PendingStream`]
@@ -42,9 +47,49 @@ pub(crate) mod sealed {
     use super::*;
 
     /// Sealed trait for application-created write stream types.
-    pub trait ApplicationCreatedStream {}
+    pub trait ApplicationCreatedStream {
+        const STREAM_TYPE: Type;
+        fn build<F>(
+            inner: Arc<Transport>,
+            write_stream: String,
+            format: F,
+        ) -> <Self as Stream>::Writer<F>
+        where
+            F: DataFormat,
+            Self: Stream;
+    }
 
-    impl ApplicationCreatedStream for PendingStream {}
-    impl ApplicationCreatedStream for CommittedStream {}
-    impl ApplicationCreatedStream for BufferedStream {}
+    impl ApplicationCreatedStream for PendingStream {
+        const STREAM_TYPE: Type = Type::Pending;
+
+        fn build<F: DataFormat>(
+            inner: Arc<Transport>,
+            write_stream: String,
+            format: F,
+        ) -> PendingWriter<F> {
+            PendingWriter::<F>::new(inner, write_stream, format)
+        }
+    }
+    impl ApplicationCreatedStream for CommittedStream {
+        const STREAM_TYPE: Type = Type::Committed;
+
+        fn build<F: DataFormat>(
+            inner: Arc<Transport>,
+            write_stream: String,
+            format: F,
+        ) -> CommittedWriter<F> {
+            CommittedWriter::<F>::new(inner, write_stream, format)
+        }
+    }
+    impl ApplicationCreatedStream for BufferedStream {
+        const STREAM_TYPE: Type = Type::Buffered;
+
+        fn build<F: DataFormat>(
+            inner: Arc<Transport>,
+            write_stream: String,
+            format: F,
+        ) -> BufferedWriter<F> {
+            BufferedWriter::<F>::new(inner, write_stream, format)
+        }
+    }
 }
