@@ -127,6 +127,10 @@ impl PublisherBuilder {
     /// RPC exceeds a configured delay threshold, mitigating tail latency caused by slow backend
     /// tasks or transient network stalls.
     ///
+    /// Request hedging is only active for messages published without an ordering key. For
+    /// ordered publishing (messages with an ordering key), hedging is disabled to preserve
+    /// strict ordering guarantees.
+    ///
     /// # Example
     ///
     /// ```
@@ -148,6 +152,10 @@ impl PublisherBuilder {
     /// Sets or clears the hedging options for the publisher.
     ///
     /// Pass `None` to disable request hedging (the default).
+    ///
+    /// Request hedging is only active for messages published without an ordering key. For
+    /// ordered publishing (messages with an ordering key), hedging is disabled to preserve
+    /// strict ordering guarantees.
     ///
     /// # Example
     ///
@@ -443,6 +451,10 @@ impl PublisherPartialBuilder {
     /// RPC exceeds a configured delay threshold, mitigating tail latency caused by slow backend
     /// tasks or transient network stalls.
     ///
+    /// Request hedging is only active for messages published without an ordering key. For
+    /// ordered publishing (messages with an ordering key), hedging is disabled to preserve
+    /// strict ordering guarantees.
+    ///
     /// # Example
     ///
     /// ```
@@ -465,6 +477,10 @@ impl PublisherPartialBuilder {
     /// Sets or clears the hedging options for the publisher.
     ///
     /// Pass `None` to disable request hedging (the default).
+    ///
+    /// Request hedging is only active for messages published without an ordering key. For
+    /// ordered publishing (messages with an ordering key), hedging is disabled to preserve
+    /// strict ordering guarantees.
     ///
     /// # Example
     ///

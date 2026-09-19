@@ -66,6 +66,10 @@ use super::constants::*;
 ///
 /// Hedging uses a token bucket to rate-limit hedged RPCs. Successful publish RPCs refill
 /// fractional tokens, and sending a hedged RPC decrements 1 token.
+///
+/// Request hedging is only active for messages published without an ordering key. For
+/// ordered publishing (messages with an ordering key), hedging is disabled to preserve
+/// strict ordering guarantees.
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub struct HedgingOptions {
