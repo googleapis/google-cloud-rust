@@ -102,10 +102,11 @@ where
     ///
     /// # Example
     /// ```
-    /// use google_cloud_bigquery::write::arrow::PendingWriter;
+    /// use google_cloud_bigquery::write::format::Arrow;
+    /// use google_cloud_bigquery::write::PendingWriter;
     /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample(client: Write) -> anyhow::Result<()> {
-    /// let writer: PendingWriter = client
+    /// let writer: PendingWriter<Arrow> = client
     ///     .arrow(schema())
     ///     .create("projects/my-project/datasets/my_dataset/tables/my_table")
     ///     .await?;
@@ -139,10 +140,11 @@ where
     ///
     /// # Example
     /// ```
-    /// use google_cloud_bigquery::write::arrow::CommittedWriter;
+    /// use google_cloud_bigquery::write::format::Arrow;
+    /// use google_cloud_bigquery::write::CommittedWriter;
     /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample(client: Write) -> anyhow::Result<()> {
-    /// let writer: CommittedWriter = client
+    /// let writer: CommittedWriter<Arrow> = client
     ///     .arrow(schema())
     ///     .attach("projects/my-project/datasets/my_dataset/tables/my_table/streams/my_stream")
     ///     .await?;
