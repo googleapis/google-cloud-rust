@@ -31,6 +31,11 @@ pub mod format;
 /// Defines the retry policy for the BigQuery Storage Write API.
 pub mod retry_policy;
 
+// TODO(#6855) - use markers, traits and expose this mod.
+#[cfg_attr(not(test), expect(unused_imports))]
+#[cfg_attr(not(test), expect(dead_code))]
+mod stream_type;
+
 pub(super) mod append_future;
 pub(super) mod append_response;
 pub(super) mod builder;
@@ -51,6 +56,7 @@ mod runner;
 mod stream;
 mod transport;
 mod validate;
+// TODO(#6855) - replace with the marker types in `stream_type`
 mod writer;
 mod writer_builder;
 
