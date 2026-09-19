@@ -415,7 +415,8 @@ mod tests {
             .await
             .expect("spanner client should build");
 
-        let grpc_client = spanner.channels[0]
+        let grpc_client = spanner
+            .pick_channel()
             .grpc_client
             .clone()
             .expect("grpc client should exist");

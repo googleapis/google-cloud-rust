@@ -2367,4 +2367,187 @@ mod tests {
 
         Ok(())
     }
+
+    async fn setup_db_client_with_dynamic_pool(
+        mock: spanner_grpc_mock::MockSpanner,
+        initial_channels: usize,
+        max_channels: usize,
+    ) -> (DatabaseClient, tokio::task::JoinHandle<()>) {
+        use crate::channel_pool::DynamicChannelPoolConfig;
+        use crate::client::{Spanner, SpannerBuilderExt};
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+
+        let (address, server) = spanner_grpc_mock::start("127.0.0.1:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let dynamic_config = DynamicChannelPoolConfig::new()
+            .with_initial_channels(initial_channels)
+            .with_min_channels(initial_channels)
+            .with_max_channels(max_channels);
+
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .with_channel_pool(dynamic_config)
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await
+            .expect("Failed to create DatabaseClient");
+
+        (database_client, server)
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_aborted_retry_routes_all_attempts_to_same_channel()
+    -> anyhow::Result<()> {
+        use crate::result_set::tests::adapt;
+        use crate::statement::Statement;
+
+        let mut mock = create_session_mock();
+        let remote_addresses = Arc::new(Mutex::new(Vec::new()));
+
+        // Attempt 1: Statement 1 (ExecuteStreamingSql) succeeds
+        let remote_addresses_clone = remote_addresses.clone();
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                let metadata = v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    transaction: Some(v1::Transaction {
+                        id: vec![1, 2, 3],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                Ok(tonic::Response::from(adapt([Ok(partial_result_set)])))
+            });
+
+        // Attempt 1: Statement 2 (ExecuteSql) fails with Aborted
+        let remote_addresses_clone = remote_addresses.clone();
+        mock.expect_execute_sql().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Err(tonic::Status::new(
+                tonic::Code::Aborted,
+                "Transaction was aborted",
+            ))
+        });
+
+        // Attempt 2: Statement 1 (ExecuteStreamingSql) succeeds
+        let remote_addresses_clone = remote_addresses.clone();
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                let metadata = v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    transaction: Some(v1::Transaction {
+                        id: vec![4, 5, 6],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                Ok(tonic::Response::from(adapt([Ok(partial_result_set)])))
+            });
+
+        // Attempt 2: Statement 2 (ExecuteSql) succeeds
+        let remote_addresses_clone = remote_addresses.clone();
+        mock.expect_execute_sql().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(tonic::Response::new(v1::ResultSet {
+                metadata: Some(v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    ..Default::default()
+                }),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // Attempt 2: Commit succeeds
+        let remote_addresses_clone = remote_addresses.clone();
+        mock.expect_commit().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(tonic::Response::new(CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 2000,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (database_client, _server) = setup_db_client_with_dynamic_pool(mock, 4, 8).await;
+
+        let runner = database_client.read_write_transaction().build().await?;
+        let result = runner
+            .run(|transaction: ReadWriteTransaction| async move {
+                let mut result_set = transaction
+                    .execute_query(Statement::builder("SELECT 1").build())
+                    .await?;
+                let _ = result_set.next().await;
+                let count = transaction
+                    .execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+                    .await?;
+                Ok(count)
+            })
+            .await?;
+
+        assert_eq!(result.result, 1, "Expected update count of 1 on retry");
+
+        let addresses = remote_addresses.lock().expect("mutex lock");
+        assert_eq!(
+            addresses.len(),
+            5,
+            "Expected 5 total RPCs across both attempts (2 on attempt 1, 3 on attempt 2)"
+        );
+
+        let initial_address = addresses[0];
+        for (index, address) in addresses.iter().enumerate() {
+            assert_eq!(
+                *address, initial_address,
+                "RPC at index {} must use the same channel as attempt 1 ({})",
+                index, initial_address
+            );
+        }
+
+        Ok(())
+    }
 }

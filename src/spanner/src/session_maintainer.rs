@@ -66,6 +66,10 @@ impl ManagedSessionMaintainer {
         let session =
             Self::create_session(&spanner, &database_name, &database_role, &options, &o11y).await?;
 
+        spanner
+            .channel_pool()
+            .set_prime_session(session.name.clone());
+
         let maintainer = Arc::new(ManagedSessionMaintainer {
             spanner,
             session: RwLock::new(ManagedSession {
@@ -112,6 +116,10 @@ impl ManagedSessionMaintainer {
             &self.o11y,
         )
         .await?;
+
+        self.spanner
+            .channel_pool()
+            .set_prime_session(new_session.name.clone());
 
         let mut guard = self.session.write().expect("failed to write session");
         *guard = ManagedSession {

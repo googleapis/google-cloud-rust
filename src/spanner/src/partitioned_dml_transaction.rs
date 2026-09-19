@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::channel_pool::TransactionAffinity;
+use crate::channel_pool::{ChannelTarget, TransactionAffinity};
 use crate::client::amend_request_options_for_lar;
 use crate::database_client::DatabaseClient;
 use crate::google::spanner::v1::result_set_stats::RowCount::RowCountLowerBound;
@@ -181,7 +181,6 @@ impl PartitionedDmlTransaction {
             ..Default::default()
         };
         let base_request = statement.into_request();
-        let channel_hint = self.client.next_channel_hint();
         let client = self.client;
         let is_emulator = client.is_emulator();
 
@@ -193,9 +192,10 @@ impl PartitionedDmlTransaction {
             let client = client.clone();
 
             async move {
-                let _affinity = Arc::new(TransactionAffinity::new_read_write());
+                let affinity = Arc::new(TransactionAffinity::new_read_write());
+                let target = ChannelTarget::Affinity(&affinity);
                 let transaction = client
-                    .begin_transaction(begin_request, gax_options.clone(), channel_hint)
+                    .begin_transaction(begin_request, gax_options.clone(), target)
                     .await?;
 
                 let execute_request =
@@ -209,7 +209,7 @@ impl PartitionedDmlTransaction {
                         });
 
                 let stream_builder =
-                    client.execute_streaming_sql(execute_request, gax_options, channel_hint);
+                    client.execute_streaming_sql(execute_request, gax_options, target);
                 let stream = stream_builder.send().await?;
 
                 extract_lower_bound_update_count_from_stream(stream, &client).await

@@ -158,9 +158,10 @@ pub(crate) async fn scale_up_worker_loop(
 
 /// Evaluates scale-up eligibility, enforces capacity bounds, and calculates how many channels to add.
 ///
-/// Returns `0` if capacity is already at `max_channels` or current capacity is sufficient for the
-/// observed load. Commits cooldown timestamp to throttle subsequent picker wakeups when at capacity
-/// ceiling or when scaling begins. Cooldown sleep is managed by the worker loop before invocation.
+/// Returns `0` if capacity is already at `max_channels` or neither individual channel saturation
+/// nor aggregate load warrants scale-up. Commits cooldown timestamp to throttle subsequent picker
+/// wakeups when at capacity ceiling or when scaling begins. Cooldown sleep is managed by the worker
+/// loop before invocation.
 fn calculate_scale_up_count(inner: &ChannelPoolInner, config: &DynamicChannelPoolConfig) -> usize {
     let active_guard = inner.active_entries.read().expect("lock poisoned");
     let current_len = active_guard.len();
@@ -170,7 +171,7 @@ fn calculate_scale_up_count(inner: &ChannelPoolInner, config: &DynamicChannelPoo
         return 0;
     }
 
-    // 1. Sizing calculation:
+    // 1. Sizing and saturation evaluation:
     // desired_channels = ceil(total_load / target_rpc).
     // Note: Scale-up uses effective_pick_load() (in-flight + error penalty) to prompt
     // replacement capacity for failing channels.
@@ -178,22 +179,35 @@ fn calculate_scale_up_count(inner: &ChannelPoolInner, config: &DynamicChannelPoo
         .iter()
         .map(|entry| entry.effective_pick_load())
         .sum();
+    let has_saturated_channel = active_guard
+        .iter()
+        .any(|entry| (entry.effective_pick_load() as f64) > config.max_rpc_per_channel);
+    let scale_up_requested = inner.scale_up_requested.swap(false, Ordering::AcqRel);
+    let is_saturated = (has_saturated_channel || scale_up_requested) && total_load > 0;
     let desired_channels = config.desired_channel_count(total_load);
 
-    if desired_channels <= current_len {
+    if !is_saturated && desired_channels <= current_len {
         return 0;
     }
 
-    // 2. Rate limiting:
-    // Add at most max_scale_up_percent (default 30%, minimum 2 channels) per scale event,
+    // 2. Rate limiting step:
+    // Add at most max_scale_up_percent (default 100%, minimum 2 channels) per scale event,
     // bounded by max_channels ceiling.
     let max_to_add_by_percent =
         ((current_len as f64) * (config.max_scale_up_percent as f64) / 100.0).ceil() as usize;
     let max_to_add_by_percent = max_to_add_by_percent.max(2);
 
-    let channels_to_add = (desired_channels - current_len)
-        .min(max_to_add_by_percent)
-        .min(config.max_channels - current_len);
+    let base_needed = desired_channels.saturating_sub(current_len);
+    let channels_to_add = if is_saturated {
+        // Individual channel saturation indicates immediate queuing/contention.
+        // Guarantee scaling by the scale-up step (governed by max_scale_up_percent),
+        // avoiding the Little's Law aggregate veto on ultra-low-latency queries.
+        max_to_add_by_percent
+    } else {
+        // Aggregate load requires more capacity, but no single channel is saturated.
+        base_needed.min(max_to_add_by_percent)
+    }
+    .min(config.max_channels - current_len);
 
     // Only commit cooldown timestamp if channels are actually being added.
     // Note: We commit the scale-up cooldown timestamp here before awaiting dialing/priming
@@ -412,7 +426,7 @@ fn evaluate_and_execute_scale_down(inner: &ChannelPoolInner, config: &DynamicCha
     let total_in_flight: u32 = active_write.iter().map(|entry| entry.in_flight()).sum();
     let avg_load = (total_in_flight as f64) / (active_write.len() as f64);
 
-    // Debouncing: Require consecutive_low_load_checks (default 3 cycles = 9 minutes)
+    // Debouncing: Require consecutive_low_load_checks (default 3 cycles = 3 minutes)
     // of sustained low load before transitioning channels to draining.
     if avg_load >= config.min_rpc_per_channel {
         // Load recovered above min threshold; reset debounce counter.
@@ -544,8 +558,8 @@ mod tests {
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use std::fmt::Debug;
     use std::future::{Future, ready};
-    use std::sync::atomic::{AtomicU64, AtomicUsize};
-    use std::sync::{Mutex, RwLock};
+    use std::sync::atomic::{AtomicBool, AtomicU64, AtomicUsize};
+    use std::sync::{Mutex, RwLock, Weak};
     use tokio::sync::Notify;
     use tokio::sync::watch::channel as watch_channel;
     use tokio::task::yield_now;
@@ -610,6 +624,7 @@ mod tests {
             ]),
             next_entry_id: AtomicU64::new(4),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -651,9 +666,6 @@ mod tests {
             config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig {
                 min_channels: 2,
                 max_channels: 4,
-                min_rpc_per_channel: 15.0,
-                max_rpc_per_channel: 25.0,
-                consecutive_low_load_checks: 3,
                 max_remove_channels: 2,
                 ..Default::default()
             }),
@@ -667,6 +679,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(5),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -684,7 +697,7 @@ mod tests {
             let active = inner.active_entries.read().expect("lock poisoned");
             let total_load: u32 = active.iter().map(|entry| entry.in_flight()).sum();
             let avg_load = (total_load as f64) / (active.len() as f64);
-            assert!(avg_load < 15.0, "Average load must be below threshold 15.0");
+            assert!(avg_load < 2.0, "Average load must be below threshold 2.0");
         }
 
         let runs = inner
@@ -731,8 +744,6 @@ mod tests {
             config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig {
                 min_channels: 2,
                 max_channels: 4,
-                min_rpc_per_channel: 15.0,
-                max_rpc_per_channel: 25.0,
                 consecutive_low_load_checks: 1,
                 max_remove_channels: 2,
                 ..Default::default()
@@ -746,6 +757,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(4),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -788,8 +800,6 @@ mod tests {
             config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig {
                 min_channels: 2,
                 max_channels: 4,
-                min_rpc_per_channel: 15.0,
-                max_rpc_per_channel: 25.0,
                 consecutive_low_load_checks: 1,
                 max_remove_channels: 1,
                 ..Default::default()
@@ -803,6 +813,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(4),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -856,8 +867,6 @@ mod tests {
         let config = DynamicChannelPoolConfig {
             min_channels: 2,
             max_channels: 8,
-            min_rpc_per_channel: 10.0,
-            max_rpc_per_channel: 20.0,
             scale_up_cooldown: Duration::from_secs(10),
             max_scale_up_percent: 30,
             ..Default::default()
@@ -873,6 +882,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(3),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -891,23 +901,74 @@ mod tests {
             "Cooldown timestamp must not be set on low load so subsequent bursts are not delayed"
         );
 
-        // 2. High load: total load 90 -> target rpc 15 -> desired = 6 channels
+        // 2. Single-channel saturation with low aggregate load (Little's Law case):
+        // channel_1 receives 10 in-flight (> 8.0 max_rpc), channel_2 has 0 in-flight.
+        // total load = 10, target rpc = 5 -> desired = ceil(10 / 5) = 2 <= current (2).
+        // Saturated channel must NOT be vetoed; rate limit (min 2) scales up pool by 2.
+        channel_1.in_flight_rpcs.store(10, Ordering::Relaxed);
+        channel_2.in_flight_rpcs.store(0, Ordering::Relaxed);
+        let count_saturated = calculate_scale_up_count(&inner, &config);
+        assert_eq!(
+            count_saturated, 2,
+            "Saturated channel with low aggregate load must scale up without veto"
+        );
+        assert!(
+            inner.last_scale_up_time.lock().expect("lock").is_some(),
+            "Cooldown timestamp must be set after scale-up count > 0"
+        );
+
+        // 3. High load with rate limiting: total load 30 -> target rpc 5 -> desired = 6 channels
         // current = 2, max_to_add = max(ceil(2 * 0.3) = 1, 2) = 2 -> channels_to_add = 2
-        channel_1.in_flight_rpcs.store(45, Ordering::Relaxed);
-        channel_2.in_flight_rpcs.store(45, Ordering::Relaxed);
+        *inner.last_scale_up_time.lock().expect("lock") = None;
+        channel_1.in_flight_rpcs.store(15, Ordering::Relaxed);
+        channel_2.in_flight_rpcs.store(15, Ordering::Relaxed);
         let count = calculate_scale_up_count(&inner, &config);
         assert_eq!(
             count, 2,
             "High load must calculate 2 channels to add based on rate limiting"
         );
 
-        // Verify cooldown was committed
-        assert!(
-            inner.last_scale_up_time.lock().expect("lock").is_some(),
-            "Cooldown timestamp must be set after scale-up count > 0"
+        // 4. Default 100% max_scale_up_percent adds 100% capacity under saturation:
+        let default_scale_config = DynamicChannelPoolConfig {
+            min_channels: 2,
+            max_channels: 16,
+            ..Default::default()
+        };
+        let channel_3 = Arc::new(ChannelEntry::new(3, 3, create_mock_channel()));
+        let channel_4 = Arc::new(ChannelEntry::new(4, 4, create_mock_channel()));
+        *inner.active_entries.write().expect("lock") = vec![
+            Arc::clone(&channel_1),
+            Arc::clone(&channel_2),
+            Arc::clone(&channel_3),
+            Arc::clone(&channel_4),
+        ];
+        // Saturated channel on 4 channels: adds 4 channels (4 -> 8)
+        channel_1.in_flight_rpcs.store(10, Ordering::Relaxed);
+        channel_2.in_flight_rpcs.store(0, Ordering::Relaxed);
+        channel_3.in_flight_rpcs.store(0, Ordering::Relaxed);
+        channel_4.in_flight_rpcs.store(0, Ordering::Relaxed);
+        let count_default_scale = calculate_scale_up_count(&inner, &default_scale_config);
+        assert_eq!(
+            count_default_scale, 4,
+            "100% max_scale_up_percent must add 4 channels to 4 channels"
         );
 
-        // 3. Pool already at max_channels (8) -> returns 0 and commits cooldown timestamp
+        // 5. Aggregate load exceeds capacity without any single channel saturated:
+        // 4 channels, each with 5 in-flight (below 8.0 max_rpc). Total load = 20.
+        // target rpc = (2 + 8) / 2 = 5 -> desired = ceil(20 / 5) = 4 <= 4 (no scale-up).
+        // With each at 6 in-flight: Total load = 24 -> desired = ceil(24 / 5) = 5 > 4.
+        // base_needed = 5 - 4 = 1. Scaler adds 1 channel.
+        channel_1.in_flight_rpcs.store(6, Ordering::Relaxed);
+        channel_2.in_flight_rpcs.store(6, Ordering::Relaxed);
+        channel_3.in_flight_rpcs.store(6, Ordering::Relaxed);
+        channel_4.in_flight_rpcs.store(6, Ordering::Relaxed);
+        let count_aggregate = calculate_scale_up_count(&inner, &default_scale_config);
+        assert_eq!(
+            count_aggregate, 1,
+            "Aggregate load exceeding capacity without saturated channels adds base_needed"
+        );
+
+        // 6. Pool already at max_channels (8) -> returns 0 and commits cooldown timestamp
         *inner.last_scale_up_time.lock().expect("lock") = None;
         let mut full_channels = Vec::new();
         for index in 1..=8 {
@@ -945,6 +1006,7 @@ mod tests {
             draining_entries: RwLock::new(vec![Arc::clone(&channel_2)]),
             next_entry_id: AtomicU64::new(3),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -990,8 +1052,6 @@ mod tests {
         let config = DynamicChannelPoolConfig {
             min_channels: 2,
             max_channels: 6,
-            min_rpc_per_channel: 15.0,
-            max_rpc_per_channel: 25.0,
             consecutive_low_load_checks: 2,
             max_remove_channels: 2,
             ..Default::default()
@@ -1034,6 +1094,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(5),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -1042,10 +1103,10 @@ mod tests {
         };
 
         // 1. High load (avg >= min_rpc_per_channel) -> resets consecutive checks to 0
-        channel_1.in_flight_rpcs.store(20, Ordering::Relaxed);
-        channel_2.in_flight_rpcs.store(20, Ordering::Relaxed);
-        channel_3.in_flight_rpcs.store(20, Ordering::Relaxed);
-        channel_4.in_flight_rpcs.store(20, Ordering::Relaxed);
+        channel_1.in_flight_rpcs.store(10, Ordering::Relaxed);
+        channel_2.in_flight_rpcs.store(10, Ordering::Relaxed);
+        channel_3.in_flight_rpcs.store(10, Ordering::Relaxed);
+        channel_4.in_flight_rpcs.store(10, Ordering::Relaxed);
         evaluate_and_execute_scale_down(&inner, &config);
         assert_eq!(
             inner.consecutive_low_load_checks.load(Ordering::Relaxed),
@@ -1127,6 +1188,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(13),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -1144,8 +1206,6 @@ mod tests {
         let zero_remove_config = DynamicChannelPoolConfig {
             min_channels: 2,
             max_channels: 6,
-            min_rpc_per_channel: 15.0,
-            max_rpc_per_channel: 25.0,
             consecutive_low_load_checks: 1,
             max_remove_channels: 0,
             ..Default::default()
@@ -1162,6 +1222,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(23),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -1183,8 +1244,6 @@ mod tests {
         let config = DynamicChannelPoolConfig {
             min_channels: 2,
             max_channels: 8,
-            min_rpc_per_channel: 15.0,
-            max_rpc_per_channel: 25.0,
             consecutive_low_load_checks: 1,
             max_remove_channels: 4,
             ..Default::default()
@@ -1207,6 +1266,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(7),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -1275,6 +1335,7 @@ mod tests {
             ]),
             next_entry_id: AtomicU64::new(3),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -1335,6 +1396,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -1371,6 +1433,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -1448,6 +1511,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -1637,6 +1701,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(1),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -1711,6 +1776,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(1),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -1768,6 +1834,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -1812,6 +1879,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(Some(Instant::now())),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -1893,6 +1961,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(Some(Instant::now())),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -1979,6 +2048,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(Some(Instant::now())),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -2067,6 +2137,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -2117,6 +2188,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -2161,6 +2233,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(3),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -2245,6 +2318,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(Some(Instant::now() - Duration::from_millis(49))),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -2297,6 +2371,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -2332,6 +2407,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -2401,6 +2477,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(3),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -2469,16 +2546,13 @@ mod tests {
         let channel_3 = Arc::new(ChannelEntry::new(3, 3, create_mock_channel()));
         let channel_4 = Arc::new(ChannelEntry::new(4, 4, create_mock_channel()));
 
-        // Channel 1 receives a heavy burst of 35 in-flight RPCs (> 25 max_rpc),
-        // but aggregate load (35) across 4 channels is well within total capacity (desired = ceil(35/20) = 2 <= 4).
-        channel_1.in_flight_rpcs.store(35, Ordering::Relaxed);
+        // Channel 1 receives an unsaturating burst of 6 in-flight RPCs (below max_rpc of 8.0),
+        // and aggregate load (6) across 4 channels is well within total capacity (desired = ceil(6/5) = 2 <= 4).
+        channel_1.in_flight_rpcs.store(6, Ordering::Relaxed);
 
         let inner = Arc::new(ChannelPoolInner {
             config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig {
-                min_channels: 4,
                 max_channels: 8,
-                min_rpc_per_channel: 15.0,
-                max_rpc_per_channel: 25.0,
                 scale_up_cooldown: Duration::from_secs(10),
                 ..Default::default()
             }),
@@ -2492,6 +2566,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(5),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -2532,5 +2607,50 @@ mod tests {
             result.is_ok(),
             "scale_up_worker_loop must terminate promptly on pool drop"
         );
+    }
+
+    #[tokio::test]
+    async fn mock_stub_create_session() {
+        let channel = create_mock_channel();
+        let result = channel.inner.create_session().send().await;
+        assert!(result.is_ok(), "mock session create must succeed");
+    }
+
+    #[tokio::test]
+    async fn scale_up_worker_loop_exits_when_weak_inner_is_none() {
+        let (_sender, receiver) = watch_channel(());
+        let weak_inner = Weak::new();
+        scale_up_worker_loop(weak_inner, receiver).await;
+    }
+
+    #[tokio::test]
+    async fn scale_down_monitor_loop_exits_when_weak_inner_is_none() {
+        let (_sender, receiver) = watch_channel(());
+        let weak_inner = Weak::new();
+        scale_down_monitor_loop(weak_inner, receiver, Duration::from_millis(10)).await;
+    }
+
+    #[tokio::test]
+    async fn scale_up_worker_loop_exits_for_static_config() {
+        let (_sender, receiver) = watch_channel(());
+        let pool = ChannelPool::new_static(
+            vec![create_mock_channel()],
+            StaticChannelPoolConfig { num_channels: 1 },
+            ClientConfig::default(),
+        );
+        let weak_inner = Arc::downgrade(&pool.inner);
+        scale_up_worker_loop(weak_inner, receiver).await;
+    }
+
+    #[tokio::test]
+    async fn scale_down_monitor_loop_exits_for_static_config() {
+        let (_sender, receiver) = watch_channel(());
+        let pool = ChannelPool::new_static(
+            vec![create_mock_channel()],
+            StaticChannelPoolConfig { num_channels: 1 },
+            ClientConfig::default(),
+        );
+        let weak_inner = Arc::downgrade(&pool.inner);
+        scale_down_monitor_loop(weak_inner, receiver, Duration::from_millis(1)).await;
     }
 }

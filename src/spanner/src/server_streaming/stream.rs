@@ -168,6 +168,7 @@ pub(crate) type CacheUpdateStream = SpannerServerStream<ProtoCacheUpdate>;
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::channel_pool::ChannelTarget;
     use crate::model::ExecuteSqlRequest;
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
     use gaxi::grpc::tonic::{Response, Status};
@@ -254,7 +255,7 @@ mod tests {
                 .set_session(db_client.session_name())
                 .set_sql("SELECT 1");
             let stream = db_client
-                .execute_streaming_sql(request, RequestOptions::default(), 0)
+                .execute_streaming_sql(request, RequestOptions::default(), ChannelTarget::Any)
                 .with_lifetime_guard(guard)
                 .send()
                 .await?;
@@ -298,7 +299,7 @@ mod tests {
             .set_session(db_client.session_name())
             .set_sql("SELECT 1");
         let mut stream = db_client
-            .execute_streaming_sql(request, RequestOptions::default(), 0)
+            .execute_streaming_sql(request, RequestOptions::default(), ChannelTarget::Any)
             .with_lifetime_guard(guard)
             .send()
             .await?;
@@ -345,7 +346,7 @@ mod tests {
             .set_session(db_client.session_name())
             .set_sql("SELECT 1");
         let mut stream = db_client
-            .execute_streaming_sql(request, RequestOptions::default(), 0)
+            .execute_streaming_sql(request, RequestOptions::default(), ChannelTarget::Any)
             .with_lifetime_guard(guard)
             .send()
             .await?;
@@ -391,7 +392,7 @@ mod tests {
             .set_session(db_client.session_name())
             .set_sql("SELECT 1");
         let mut stream = db_client
-            .execute_streaming_sql(request, RequestOptions::default(), 0)
+            .execute_streaming_sql(request, RequestOptions::default(), ChannelTarget::Any)
             .send()
             .await?;
 
@@ -430,7 +431,7 @@ mod tests {
             .set_session(db_client.session_name())
             .set_sql("SELECT 1");
         let mut stream = db_client
-            .execute_streaming_sql(request, RequestOptions::default(), 0)
+            .execute_streaming_sql(request, RequestOptions::default(), ChannelTarget::Any)
             .send()
             .await?
             .with_transaction_id_callback(callback);
@@ -512,7 +513,7 @@ mod tests {
                 .set_session(db_client.session_name())
                 .set_sql("SELECT 1");
             let mut stream = db_client
-                .execute_streaming_sql(request, RequestOptions::default(), 0)
+                .execute_streaming_sql(request, RequestOptions::default(), ChannelTarget::Any)
                 .send()
                 .await?
                 .with_transaction_id_callback(callback);
@@ -544,7 +545,7 @@ mod tests {
                 .set_session(db_client.session_name())
                 .set_sql("SELECT 1");
             let mut stream = db_client
-                .execute_streaming_sql(request, RequestOptions::default(), 0)
+                .execute_streaming_sql(request, RequestOptions::default(), ChannelTarget::Any)
                 .send()
                 .await?
                 .with_transaction_id_callback(callback);

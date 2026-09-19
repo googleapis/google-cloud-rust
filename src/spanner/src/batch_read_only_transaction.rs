@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::channel_pool::ChannelTarget;
 use crate::database_client::DatabaseClient;
 use crate::model::{ExecuteSqlRequest, PartitionOptions, ReadRequest};
 use crate::precommit::PrecommitTokenTracker;
@@ -161,15 +162,12 @@ impl BatchReadOnlyTransaction {
             .set_transaction(selector.clone())
             .set_partition_options(options);
 
+        let target = ChannelTarget::from(self.inner.context.affinity());
         let response = self
             .inner
             .context
             .client
-            .partition_query(
-                request,
-                crate::RequestOptions::default(),
-                self.inner.context.channel_hint,
-            )
+            .partition_query(request, crate::RequestOptions::default(), target)
             .await?;
 
         Ok(response
@@ -224,15 +222,12 @@ impl BatchReadOnlyTransaction {
             .set_transaction(selector.clone())
             .set_partition_options(options);
 
+        let target = ChannelTarget::from(self.inner.context.affinity());
         let response = self
             .inner
             .context
             .client
-            .partition_read(
-                request,
-                crate::RequestOptions::default(),
-                self.inner.context.channel_hint,
-            )
+            .partition_read(request, crate::RequestOptions::default(), target)
             .await?;
 
         Ok(response
@@ -405,12 +400,10 @@ impl Partition {
         req: &ExecuteSqlRequest,
         gax_options: GaxRequestOptions,
     ) -> crate::Result<ResultSet> {
-        let channel_hint = client.next_channel_hint();
-        let gax_options = client.attach_request_id(gax_options, channel_hint);
         let (stream, attempt_start_time) =
             Self::execute_partition_stream(client, "ExecuteStreamingSql", || {
                 client
-                    .execute_streaming_sql(req.clone(), gax_options.clone(), channel_hint)
+                    .execute_streaming_sql(req.clone(), gax_options.clone(), ChannelTarget::Any)
                     .send()
             })
             .await?;
@@ -428,7 +421,6 @@ impl Partition {
             session_name: req.session.clone(),
             transaction_tag: None,
             operation: StreamOperation::Query(req.clone()),
-            channel_hint,
             gax_options,
             method_name: "ExecuteStreamingSql",
             attempt_start_time: Some(attempt_start_time),
@@ -443,12 +435,10 @@ impl Partition {
         req: &ReadRequest,
         gax_options: GaxRequestOptions,
     ) -> crate::Result<ResultSet> {
-        let channel_hint = client.next_channel_hint();
-        let gax_options = client.attach_request_id(gax_options, channel_hint);
         let (stream, attempt_start_time) =
             Self::execute_partition_stream(client, "StreamingRead", || {
                 client
-                    .streaming_read(req.clone(), gax_options.clone(), channel_hint)
+                    .streaming_read(req.clone(), gax_options.clone(), ChannelTarget::Any)
                     .send()
             })
             .await?;
@@ -466,7 +456,6 @@ impl Partition {
             session_name: req.session.clone(),
             transaction_tag: None,
             operation: StreamOperation::Read(req.clone()),
-            channel_hint,
             gax_options,
             method_name: "StreamingRead",
             attempt_start_time: Some(attempt_start_time),
@@ -493,7 +482,9 @@ pub(crate) mod tests {
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
     use crate::statement::Statement;
     use crate::transaction::TimestampBound;
-    use gaxi::grpc::tonic::Response;
+    use gaxi::grpc::tonic::{Response, Status};
+    use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_test_macros::tokio_test_no_panics;
     use prost_types::Timestamp;
     use spanner_grpc_mock::google::spanner::v1::{
@@ -502,6 +493,7 @@ pub(crate) mod tests {
     };
     use static_assertions::assert_impl_all;
     use std::fmt::Debug;
+    use std::time::Duration;
 
     #[test]
     fn auto_traits() {
@@ -512,8 +504,6 @@ pub(crate) mod tests {
 
     #[test]
     fn serialize_partition_skips_gax_options() -> anyhow::Result<()> {
-        use std::time::Duration;
-
         let req = crate::model::ExecuteSqlRequest::new()
             .set_sql("SELECT 1")
             .set_partition_token(b"token".to_vec());
@@ -934,6 +924,82 @@ pub(crate) mod tests {
         };
 
         let _result_set = partition.set_data_boost(true).execute(&db_client).await?;
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_query_with_retry_and_backoff_policy() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_execute_streaming_sql().once().returning(|_| {
+            Ok(Response::from(crate::result_set::tests::adapt([Ok(
+                crate::read_only_transaction::tests::setup_select1(),
+            )])))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let req = crate::model::ExecuteSqlRequest::new()
+            .set_session("projects/p/instances/i/databases/d/sessions/123")
+            .set_transaction(crate::model::TransactionSelector {
+                selector: Some(crate::model::transaction_selector::Selector::Id(
+                    b"tx_id_1".to_vec().into(),
+                )),
+                ..Default::default()
+            })
+            .set_sql("SELECT * FROM Users")
+            .set_partition_token(b"partition_token_123".to_vec());
+
+        let partition = Partition {
+            inner: PartitionedOperation::Query(req),
+            gax_options: GaxRequestOptions::default(),
+        };
+
+        let _result_set = partition
+            .with_retry_policy(NeverRetry)
+            .with_backoff_policy(ExponentialBackoff::default())
+            .execute(&db_client)
+            .await?;
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_query_error_records_telemetry() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(|_| Err(Status::internal("rpc failed")));
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let req = crate::model::ExecuteSqlRequest::new()
+            .set_session("projects/p/instances/i/databases/d/sessions/123")
+            .set_transaction(crate::model::TransactionSelector {
+                selector: Some(crate::model::transaction_selector::Selector::Id(
+                    b"tx_id_1".to_vec().into(),
+                )),
+                ..Default::default()
+            })
+            .set_sql("SELECT * FROM Users")
+            .set_partition_token(b"partition_token_123".to_vec());
+
+        let partition = Partition {
+            inner: PartitionedOperation::Query(req),
+            gax_options: GaxRequestOptions::default(),
+        };
+
+        let result = partition
+            .with_retry_policy(NeverRetry)
+            .execute(&db_client)
+            .await;
+
+        assert!(
+            result.is_err(),
+            "partition execution must fail on rpc error"
+        );
 
         Ok(())
     }
