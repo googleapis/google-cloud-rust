@@ -13,6 +13,8 @@
 // limitations under the License.
 
 use super::{BufferedStream, CommittedStream, DefaultStream, PendingStream};
+use crate::write::WriterBuilder;
+use crate::write::format::DataFormat;
 use crate::write::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter};
 
 /// Trait mapping a write stream type ([`DefaultStream`], [`PendingStream`], [`CommittedStream`],
@@ -44,13 +46,50 @@ pub(crate) mod sealed {
     use super::*;
 
     /// Sealed trait for all write stream types.
-    pub trait Stream: Sized {}
+    pub trait Stream: Sized {
+        fn build<F>(builder: WriterBuilder<F>, write_stream: String) -> Self::Writer<F>
+        where
+            F: DataFormat,
+            Self: super::Stream;
+    }
 
-    impl Stream for DefaultStream {}
+    impl Stream for DefaultStream {
+        fn build<F>(builder: WriterBuilder<F>, write_stream: String) -> DefaultWriter<F>
+        where
+            F: DataFormat,
+            Self: super::Stream,
+        {
+            builder.make_default_writer(write_stream)
+        }
+    }
 
-    impl Stream for PendingStream {}
+    impl Stream for PendingStream {
+        fn build<F>(builder: WriterBuilder<F>, write_stream: String) -> PendingWriter<F>
+        where
+            F: DataFormat,
+            Self: super::Stream,
+        {
+            PendingWriter::new(builder.inner, write_stream, builder.format)
+        }
+    }
 
-    impl Stream for CommittedStream {}
+    impl Stream for CommittedStream {
+        fn build<F>(builder: WriterBuilder<F>, write_stream: String) -> CommittedWriter<F>
+        where
+            F: DataFormat,
+            Self: super::Stream,
+        {
+            CommittedWriter::new(builder.inner, write_stream, builder.format)
+        }
+    }
 
-    impl Stream for BufferedStream {}
+    impl Stream for BufferedStream {
+        fn build<F>(builder: WriterBuilder<F>, write_stream: String) -> BufferedWriter<F>
+        where
+            F: DataFormat,
+            Self: super::Stream,
+        {
+            BufferedWriter::new(builder.inner, write_stream, builder.format)
+        }
+    }
 }
