@@ -26,6 +26,7 @@ pub use append_future::AppendFuture;
 pub use buffered::BufferedWriter;
 pub use committed::CommittedWriter;
 pub use default::DefaultWriter;
+pub use pending::PendingWriter;
 
 /// Defines the data formats accepted by a writer.
 pub mod format;
@@ -46,6 +47,7 @@ mod committed;
 mod default;
 mod dispatcher;
 mod entry;
+mod pending;
 mod pool;
 mod proto_schema;
 mod runner;

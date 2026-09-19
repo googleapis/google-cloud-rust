@@ -131,11 +131,10 @@ impl WriterBuilder {
             .send()
             .await?;
 
-        Ok(PendingWriter::new(
-            self.inner,
-            write_stream.name,
-            self.schema,
-        ))
+        let format = Arrow {
+            schema: self.schema,
+        };
+        Ok(PendingWriter::new(self.inner, write_stream.name, format))
     }
 
     /// Creates a committed writer for the given table.
