@@ -40,14 +40,17 @@ fn derive_from_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
             _ => {
                 return syn::Error::new_spanned(
                     name,
-                    "FromRow cannot be derived for empty structs",
+                    "FromRow can only be derived for non-empty structs with named fields",
                 )
                 .to_compile_error();
             }
         },
         _ => {
-            return syn::Error::new_spanned(name, "FromRow can only be derived for structs")
-                .to_compile_error();
+            return syn::Error::new_spanned(
+                name,
+                "FromRow can only be derived for non-empty structs with named fields",
+            )
+            .to_compile_error();
         }
     };
     let field_initializations = fields.iter().map(|f| {
@@ -91,14 +94,17 @@ fn derive_from_sql_impl(input: DeriveInput) -> proc_macro2::TokenStream {
             _ => {
                 return syn::Error::new_spanned(
                     name,
-                    "FromSql cannot be derived for empty structs",
+                    "FromSql can only be derived for non-empty structs with named fields",
                 )
                 .to_compile_error();
             }
         },
         _ => {
-            return syn::Error::new_spanned(name, "FromSql can only be derived for structs")
-                .to_compile_error();
+            return syn::Error::new_spanned(
+                name,
+                "FromSql can only be derived for non-empty structs with named fields",
+            )
+            .to_compile_error();
         }
     };
 
@@ -184,17 +190,18 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_rejects_empty_named_structs() {
-        let row_err = derive_from_row_impl(syn::parse_str("struct Empty {}").unwrap()).to_string();
+    fn test_rejects_empty_named_structs() -> Result<(), syn::Error> {
+        let row_err = derive_from_row_impl(syn::parse_str("struct Empty {}")?).to_string();
         assert!(
-            row_err.contains("FromRow cannot be derived for empty structs"),
+            row_err.contains("FromRow can only be derived for non-empty structs with named fields"),
             "unexpected expansion: {row_err}"
         );
 
-        let sql_err = derive_from_sql_impl(syn::parse_str("struct Empty {}").unwrap()).to_string();
+        let sql_err = derive_from_sql_impl(syn::parse_str("struct Empty {}")?).to_string();
         assert!(
-            sql_err.contains("FromSql cannot be derived for empty structs"),
+            sql_err.contains("FromSql can only be derived for non-empty structs with named fields"),
             "unexpected expansion: {sql_err}"
         );
+        Ok(())
     }
 }
