@@ -56,11 +56,9 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::super::format::Arrow;
     use super::super::pool::StreamPoolOptions;
     use super::*;
     use crate::error::AppendError;
-    use crate::model::ArrowRecordBatch;
     use crate::write::test::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::{Response as TonicResponse, Status as TonicStatus};
@@ -77,8 +75,7 @@ mod tests {
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
 
-        let format = Arrow { schema: schema() };
-        let writer = DefaultWriter::new(pool, test_retry_options(), write_stream(), format);
+        let writer = DefaultWriter::new(pool, test_retry_options(), write_stream(), format());
 
         response_tx.send(Ok(convert(&test_response(1)))).await?;
         let resp = writer.append(rows(1)).send().await?;
@@ -99,9 +96,5 @@ mod tests {
         assert!(matches!(err, AppendError::Rpc { source: _ }), "{err:?}");
 
         Ok(())
-    }
-
-    fn rows(id: i64) -> ArrowRecordBatch {
-        ArrowRecordBatch::new().set_serialized_record_batch(id.to_string())
     }
 }

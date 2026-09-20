@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::super::format::Arrow;
 use super::{BufferedWriter, CommittedWriter, PendingWriter};
 use crate::model::ArrowSchema;
 use crate::model::write_stream::Type;
@@ -46,7 +47,8 @@ pub(crate) mod sealed {
         const STREAM_TYPE: Type = Type::Buffered;
 
         fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
-            Self::new(inner, write_stream, schema)
+            let format = Arrow { schema };
+            Self::new(inner, write_stream, format)
         }
     }
 }

@@ -141,11 +141,10 @@ impl WriterBuilder {
             .send()
             .await?;
 
-        Ok(BufferedWriter::new(
-            self.inner,
-            write_stream.name,
-            self.schema,
-        ))
+        let format = Proto {
+            schema: self.schema,
+        };
+        Ok(BufferedWriter::new(self.inner, write_stream.name, format))
     }
 
     /// Attaches the builder to an existing stream.
