@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::super::format::Proto;
 use super::{BufferedWriter, CommittedWriter, PendingWriter};
 use crate::model::ProtoSchema;
 use crate::model::write_stream::Type;
 use crate::write::transport::Transport;
 use std::sync::Arc;
-use super::super::format::Proto;
 
 pub(crate) mod sealed {
     use super::*;

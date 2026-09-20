@@ -22,7 +22,7 @@ use super::runner::WriteRequest;
 use super::transport::Transport;
 use crate::google::cloud::bigquery::storage::v1::append_rows_response::{AppendResult, Response};
 use crate::google::cloud::bigquery::storage::v1::{AppendRowsRequest, AppendRowsResponse};
-use crate::model::{ArrowSchema, ArrowRecordBatch, ProtoSchema};
+use crate::model::{ArrowRecordBatch, ArrowSchema, ProtoSchema};
 use bigquery_grpc_mock::google::cloud::bigquery::storage::v1;
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
@@ -55,13 +55,13 @@ pub(super) fn write_stream() -> String {
 }
 
 // We only need to test the shared implementations once. We pick Arrow as the
-// DataFormat. 
+// DataFormat.
 pub(super) fn format() -> Arrow {
     Arrow { schema: schema() }
 }
 
 // We only need to test the shared implementations once. We pick Arrow as the
-// DataFormat. 
+// DataFormat.
 pub(super) fn rows(id: i64) -> ArrowRecordBatch {
     ArrowRecordBatch::new().set_serialized_record_batch(id.to_string())
 }

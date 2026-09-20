@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::super::format::Arrow;
 use super::{BufferedWriter, CommittedWriter, PendingWriter};
 use crate::model::ArrowSchema;
 use crate::model::write_stream::Type;
 use crate::write::transport::Transport;
 use std::sync::Arc;
-use super::super::format::Arrow;
 
 pub(crate) mod sealed {
     use super::*;

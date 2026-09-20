@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use super::base::BaseWriter;
-use crate::Result;
 use super::format::DataFormat;
+use crate::Result;
 use crate::model::{FinalizeWriteStreamResponse, FlushRowsResponse};
 use crate::write::builder::AppendWithOffset;
 use crate::write::transport::Transport;
@@ -29,7 +29,9 @@ pub struct BufferedWriter<F> {
 }
 
 impl<F> BufferedWriter<F>
-where F: DataFormat {
+where
+    F: DataFormat,
+{
     pub(crate) fn new(inner: Arc<Transport>, write_stream: String, format: F) -> Self {
         Self {
             inner: BaseWriter::new(inner, write_stream, format),

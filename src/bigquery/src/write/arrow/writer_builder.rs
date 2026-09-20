@@ -214,11 +214,7 @@ impl WriterBuilder {
         let format = Arrow {
             schema: self.schema,
         };
-        Ok(BufferedWriter::new(
-            self.inner,
-            write_stream.name,
-            format,
-        ))
+        Ok(BufferedWriter::new(self.inner, write_stream.name, format))
     }
 
     /// Attaches the builder to an existing stream.
