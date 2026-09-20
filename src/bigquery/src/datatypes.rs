@@ -164,10 +164,7 @@ impl FromSql for Interval {
                 })
             }
             wkt::Value::Null => Err(ConvertError::NotNull),
-            other => Err(ConvertError::TypeMismatch {
-                expected: "string",
-                got: other,
-            }),
+            other => Err(ConvertError::type_mismatch("string", other)),
         }
     }
 }
@@ -254,10 +251,7 @@ impl<T: FromSql> FromSql for Range<T> {
                 Ok(Range { start, end })
             }
             wkt::Value::Null => Err(ConvertError::NotNull),
-            other => Err(ConvertError::TypeMismatch {
-                expected: "string",
-                got: other,
-            }),
+            other => Err(ConvertError::type_mismatch("string", other)),
         }
     }
 }
@@ -270,7 +264,7 @@ mod tests {
     #[derive(Debug, PartialEq)]
     enum TestConvertError {
         NotNull,
-        TypeMismatch(&'static str),
+        TypeMismatch(String),
         Convert(String),
     }
 
@@ -295,7 +289,7 @@ mod tests {
     #[test_case(wkt::Value::String("-1-2 -3 -4:05:06.123".to_string()) => Ok(Interval { years: -1, months: -2, days: -3, hours: -4, minutes: -5, seconds: -6, nanos: -123_000_000 }) ; "all negative interval")]
     #[test_case(wkt::Value::String("0-0 0 0:00:00.1234567899".to_string()) => Ok(Interval { years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0, nanos: 123_456_789 }) ; "truncated nanos")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null interval")]
-    #[test_case(wkt::Value::Number(123.into()) => Err(TestConvertError::TypeMismatch("string")) ; "type mismatch interval")]
+    #[test_case(wkt::Value::Number(123.into()) => Err(TestConvertError::TypeMismatch("string".to_string())) ; "type mismatch interval")]
     #[test_case(wkt::Value::String("".to_string()) => Err(TestConvertError::Convert("invalid interval format: expected 3 parts, got ``".to_string())) ; "empty interval string")]
     #[test_case(wkt::Value::String("1-2 3".to_string()) => Err(TestConvertError::Convert("invalid interval format: expected 3 parts, got `1-2 3`".to_string())) ; "invalid interval parts count")]
     #[test_case(wkt::Value::String("1 3 4:05:06".to_string()) => Err(TestConvertError::Convert("invalid interval year-month format".to_string())) ; "invalid year-month format")]
@@ -314,7 +308,7 @@ mod tests {
     #[test_case(wkt::Value::String("[UNBOUNDED, 2026-05-29)".to_string()) => Ok(Range { start: None, end: Some(google_cloud_type::model::Date::new().set_year(2026).set_month(5).set_day(29)) }) ; "date range unbounded start")]
     #[test_case(wkt::Value::String("[UNBOUNDED, UNBOUNDED)".to_string()) => Ok(Range { start: None, end: None }) ; "date range unbounded both")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null range")]
-    #[test_case(wkt::Value::Number(123.into()) => Err(TestConvertError::TypeMismatch("string")) ; "range type mismatch")]
+    #[test_case(wkt::Value::Number(123.into()) => Err(TestConvertError::TypeMismatch("string".to_string())) ; "range type mismatch")]
     #[test_case(wkt::Value::String("[2026-05-28)".to_string()) => Err(TestConvertError::Convert("invalid range format: expected 2 parts, got 1".to_string())) ; "range invalid format one part")]
     #[test_case(wkt::Value::String("[2026-05-28, 2026-05-29, 2026-05-30)".to_string()) => Err(TestConvertError::Convert("invalid range format: expected 2 parts, got 3".to_string())) ; "range invalid format three parts")]
     #[test_case(wkt::Value::String("[".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range too short")]

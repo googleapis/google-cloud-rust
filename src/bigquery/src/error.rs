@@ -64,10 +64,13 @@ pub enum RowError {
     },
 
     /// Failed to convert/parse the cell value to the target type.
-    #[error("type conversion error for column '{column}': {source}")]
+    #[error("type conversion error for column '{column}' (SQL type {sql_type}): {source}")]
+    #[non_exhaustive]
     TypeConversion {
         /// The column identifier (name or index).
         column: String,
+        /// The BigQuery SQL type of the column.
+        sql_type: String,
         /// The underlying parsing error.
         #[source]
         source: ConvertError,
@@ -88,17 +91,17 @@ pub enum RowError {
     },
 }
 
-/// Represents failures when converting a raw BigQuery cell value (`wkt::Value`) to a Rust type.
+/// Represents failures when converting a BigQuery cell value to a Rust type.
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum ConvertError {
     /// The value type did not match the expected type.
-    #[error("type mismatch, expected {expected}, got {got:?}")]
+    #[error("type mismatch, expected {expected}, got {got}")]
     TypeMismatch {
         /// The expected type name.
-        expected: &'static str,
-        /// The actual value received.
-        got: wkt::Value,
+        expected: String,
+        /// The actual type received.
+        got: String,
     },
 
     /// The value was null, but the target type does not support nulls (non-Option).
@@ -116,6 +119,23 @@ pub enum ConvertError {
         #[source]
         Box<dyn std::error::Error + Send + Sync + 'static>,
     ),
+}
+
+impl ConvertError {
+    pub(crate) fn type_mismatch(expected: impl Into<String>, got: wkt::Value) -> Self {
+        let got_type = match got {
+            wkt::Value::Null => "null",
+            wkt::Value::Bool(_) => "bool",
+            wkt::Value::Number(_) => "number",
+            wkt::Value::String(_) => "string",
+            wkt::Value::Array(_) => "array",
+            wkt::Value::Object(_) => "object",
+        };
+        Self::TypeMismatch {
+            expected: expected.into(),
+            got: got_type.to_string(),
+        }
+    }
 }
 
 // TODO(#6443) - consolidate crates
@@ -180,11 +200,12 @@ mod tests {
 
         let err = RowError::TypeConversion {
             column: "age".to_string(),
+            sql_type: "INTEGER".to_string(),
             source: ConvertError::NotNull,
         };
         assert_eq!(
             err.to_string(),
-            "type conversion error for column 'age': expected non-null value, got null"
+            "type conversion error for column 'age' (SQL type INTEGER): expected non-null value, got null"
         );
 
         let err = RowError::InvalidRowFormat("missing f field".to_string());
@@ -204,14 +225,8 @@ mod tests {
 
     #[test]
     fn test_convert_error_display() {
-        let err = ConvertError::TypeMismatch {
-            expected: "i64",
-            got: wkt::Value::String("hello".to_string()),
-        };
-        assert_eq!(
-            err.to_string(),
-            "type mismatch, expected i64, got String(\"hello\")"
-        );
+        let err = ConvertError::type_mismatch("i64", wkt::Value::String("hello".to_string()));
+        assert_eq!(err.to_string(), "type mismatch, expected i64, got string");
 
         let err = ConvertError::NotNull;
         assert_eq!(err.to_string(), "expected non-null value, got null");

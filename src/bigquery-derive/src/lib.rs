@@ -148,8 +148,16 @@ fn derive_from_sql_impl(input: DeriveInput) -> proc_macro2::TokenStream {
                         })
                     }
                     other => std::result::Result::Err(google_cloud_bigquery::error::ConvertError::TypeMismatch {
-                        expected: "array or object",
-                        got: other,
+                        expected: "array or object".to_string(),
+                        got: match other {
+                            wkt::Value::Null => "null",
+                            wkt::Value::Bool(_) => "bool",
+                            wkt::Value::Number(_) => "number",
+                            wkt::Value::String(_) => "string",
+                            wkt::Value::Array(_) => "array",
+                            wkt::Value::Object(_) => "object",
+                        }
+                        .to_string(),
                     }),
                 }
             }
