@@ -89,7 +89,7 @@ mod sealed {
 
     impl ColumnIndex for String {
         fn index(&self, row: &Row) -> Option<usize> {
-            self.as_str().index(row)
+            <&str as ColumnIndex>::index(&self.as_str(), row)
         }
     }
 }
@@ -114,7 +114,7 @@ impl Row {
     }
 
     fn resolve_index<I: ColumnIndex>(&self, col: &I) -> Result<usize> {
-        col.index(self)
+        sealed::ColumnIndex::index(col, self)
             .ok_or_else(|| RowError::ColumnNotFound(format!("{col}")))
     }
 
@@ -594,6 +594,7 @@ mod tests {
         }))?;
         assert_eq!(row.get::<Struct, _>(0)?, expected);
         assert_eq!(row.get::<Struct, _>("user")?, expected);
+        assert_eq!(row.get::<Struct, _>("user".to_string())?, expected);
         assert_eq!(row.take::<Struct, _>("user")?, expected);
         assert_eq!(row.get::<Option<Struct>, _>("user")?, None);
 
