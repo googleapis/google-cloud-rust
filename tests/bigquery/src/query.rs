@@ -68,6 +68,7 @@ struct UserData {
     payload_bytes: bytes::Bytes,
     nullable_bytes: Option<Vec<u8>>,
     interval_val: Interval,
+    json_val: wkt::Struct,
 }
 
 pub async fn query_client_datatypes() -> Result<()> {
@@ -76,24 +77,25 @@ pub async fn query_client_datatypes() -> Result<()> {
 
     let query = bq
         .query(
-            "SELECT \
-                 'John Doe' AS name, \
-                 30 AS age, \
-                 1.85 AS height, \
-                 true AS active, \
-                 ARRAY[1, 2, 3] AS numbers, \
-                 TIMESTAMP '2026-05-28 15:30:00 UTC' AS created_at, \
-                 DATE '2026-05-28' AS birth_date, \
-                 TIME '15:30:00' AS daily_alarm, \
-                 DATETIME '2026-05-28 15:30:00' AS event_time, \
-                 RANGE(DATE '2026-05-28', DATE '2026-05-29') AS date_range, \
-                 RANGE(TIMESTAMP '2026-05-28 15:30:00 UTC', NULL) AS timestamp_range, \
-                 CAST(NULL AS STRING) AS nullable_name, \
-                 CAST(NULL AS INT64) AS nullable_age, \
-                 B'hello world' AS raw_bytes, \
-                 B'payload in bytes' AS payload_bytes, \
-                 CAST(NULL AS BYTES) AS nullable_bytes, \
-                 INTERVAL '1 2:30:45.123456' DAY TO SECOND AS interval_val",
+            r#"SELECT
+                 'John Doe' AS name,
+                 30 AS age,
+                 1.85 AS height,
+                 true AS active,
+                 ARRAY[1, 2, 3] AS numbers,
+                 TIMESTAMP '2026-05-28 15:30:00 UTC' AS created_at,
+                 DATE '2026-05-28' AS birth_date,
+                 TIME '15:30:00' AS daily_alarm,
+                 DATETIME '2026-05-28 15:30:00' AS event_time,
+                 RANGE(DATE '2026-05-28', DATE '2026-05-29') AS date_range,
+                 RANGE(TIMESTAMP '2026-05-28 15:30:00 UTC', NULL) AS timestamp_range,
+                 CAST(NULL AS STRING) AS nullable_name,
+                 CAST(NULL AS INT64) AS nullable_age,
+                 B'hello world' AS raw_bytes,
+                 B'payload in bytes' AS payload_bytes,
+                 CAST(NULL AS BYTES) AS nullable_bytes,
+                 INTERVAL '1 2:30:45.123456' DAY TO SECOND AS interval_val,
+                 JSON '{"role": "admin", "level": 5}' AS json_val"#,
         )
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
@@ -161,6 +163,10 @@ pub async fn query_client_datatypes() -> Result<()> {
             seconds: 45,
             nanos: 123_456_000,
         },
+        json_val: wkt::Struct::from_iter([
+            ("role".to_string(), wkt::Value::String("admin".to_string())),
+            ("level".to_string(), wkt::Value::Number(5.into())),
+        ]),
     };
 
     assert_eq!(row.get::<String, _>("name")?, expected.name);
@@ -212,6 +218,24 @@ pub async fn query_client_datatypes() -> Result<()> {
     assert_eq!(
         row.get::<Interval, _>("interval_val")?,
         expected.interval_val
+    );
+    assert_eq!(
+        row.get::<String, _>("json_val")?,
+        r#"{"level":5,"role":"admin"}"#
+    );
+    assert_eq!(row.get::<wkt::Struct, _>("json_val")?, expected.json_val);
+
+    #[derive(google_cloud_bigquery::query::FromSql, Debug, PartialEq)]
+    struct JsonRole {
+        role: String,
+        level: i64,
+    }
+    assert_eq!(
+        row.get::<JsonRole, _>("json_val")?,
+        JsonRole {
+            role: "admin".to_string(),
+            level: 5,
+        }
     );
 
     let data: UserData = row.try_into()?;
