@@ -204,7 +204,7 @@ mod tests {
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, proto_schema());
+        assert_eq!(writer.inner.format.schema, proto_schema());
         Ok(())
     }
 
@@ -244,7 +244,7 @@ mod tests {
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, proto_schema());
+        assert_eq!(writer.inner.format.schema, proto_schema());
         Ok(())
     }
 
@@ -315,7 +315,7 @@ mod tests {
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, proto_schema());
+        assert_eq!(writer.inner.format.schema, proto_schema());
         Ok(())
     }
 
@@ -361,7 +361,7 @@ mod tests {
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, proto_schema());
+        assert_eq!(writer.inner.format.schema, proto_schema());
         Ok(())
     }
 
@@ -376,7 +376,7 @@ mod tests {
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, proto_schema());
+        assert_eq!(writer.inner.format.schema, proto_schema());
         Ok(())
     }
 
@@ -391,7 +391,7 @@ mod tests {
             writer.inner.write_stream,
             "projects/p/datasets/d/tables/t/streams/s"
         );
-        assert_eq!(writer.inner.schema, proto_schema());
+        assert_eq!(writer.inner.format.schema, proto_schema());
         Ok(())
     }
 

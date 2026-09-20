@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::base::BaseWriter;
+use super::{Arrow, BaseWriter};
 use crate::Result;
 use crate::model::{ArrowRecordBatch, ArrowSchema, FinalizeWriteStreamResponse, FlushRowsResponse};
 use crate::write::builder::AppendWithOffset;
@@ -29,8 +29,9 @@ pub struct BufferedWriter {
 
 impl BufferedWriter {
     pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
+        let format = Arrow { schema };
         Self {
-            inner: BaseWriter::new(inner, write_stream, schema),
+            inner: BaseWriter::new(inner, write_stream, format),
         }
     }
 

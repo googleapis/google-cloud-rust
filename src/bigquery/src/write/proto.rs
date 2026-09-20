@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod base;
 mod buffered;
 mod committed;
 mod pending;
@@ -20,6 +19,7 @@ mod writer;
 mod writer_builder;
 
 use super::format::Proto;
+type BaseWriter = super::base::BaseWriter<Proto>;
 
 pub(crate) use buffered::BufferedWriter;
 pub(crate) use committed::CommittedWriter;

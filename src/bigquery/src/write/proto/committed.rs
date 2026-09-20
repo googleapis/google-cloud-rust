@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::base::BaseWriter;
+use super::{BaseWriter, Proto};
 use crate::Result;
 use crate::model::{FinalizeWriteStreamResponse, ProtoRows, ProtoSchema};
 use crate::write::builder::AppendWithOffset;
@@ -29,8 +29,9 @@ pub struct CommittedWriter {
 
 impl CommittedWriter {
     pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ProtoSchema) -> Self {
+        let format = Proto { schema };
         Self {
-            inner: BaseWriter::new(inner, write_stream, schema),
+            inner: BaseWriter::new(inner, write_stream, format),
         }
     }
 
