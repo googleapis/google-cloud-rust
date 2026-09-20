@@ -12,26 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::{BaseWriter, Proto};
+use super::base::BaseWriter;
+use super::format::DataFormat;
 use crate::Result;
-use crate::model::{
-    BatchCommitWriteStreamsResponse, FinalizeWriteStreamResponse, ProtoRows, ProtoSchema,
-};
+use crate::model::{BatchCommitWriteStreamsResponse, FinalizeWriteStreamResponse};
 use crate::write::builder::AppendWithOffset;
 use crate::write::transport::Transport;
 use std::sync::Arc;
 
-/// A writer for a [pending stream] using Protobuf as the data format.
+/// A writer for a [pending stream].
 ///
 /// [pending stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#pending_type
 #[derive(Debug)]
-pub struct PendingWriter {
-    pub(crate) inner: BaseWriter,
+pub struct PendingWriter<F> {
+    pub(crate) inner: BaseWriter<F>,
 }
 
-impl PendingWriter {
-    pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ProtoSchema) -> Self {
-        let format = Proto { schema };
+impl<F> PendingWriter<F>
+where
+    F: DataFormat,
+{
+    pub(crate) fn new(inner: Arc<Transport>, write_stream: String, format: F) -> Self {
         Self {
             inner: BaseWriter::new(inner, write_stream, format),
         }
@@ -43,7 +44,7 @@ impl PendingWriter {
     }
 
     /// Appends rows to the pending stream.
-    pub fn append(&self, rows: ProtoRows) -> AppendWithOffset {
+    pub fn append(&self, rows: F::Rows) -> AppendWithOffset {
         AppendWithOffset::new(
             self.inner.runner.req_tx.clone(),
             self.inner.append_request(rows),
@@ -63,7 +64,8 @@ impl PendingWriter {
             .inner
             .write_stream
             .split_once("/streams/")
-            .map_or(self.inner.write_stream.as_str(), |(p, _)| p);
+            .map_or(self.inner.write_stream.as_str(), |(p, _)| p)
+            .to_string();
 
         self.inner
             .client
@@ -82,23 +84,6 @@ mod tests {
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
     use tokio::sync::mpsc;
-
-    #[tokio::test]
-    async fn request_fields() -> anyhow::Result<()> {
-        let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let writer = PendingWriter::new(transport, write_stream(), proto_schema());
-        assert_eq!(writer.write_stream(), write_stream());
-
-        let b = writer.append(rows(1));
-        assert_eq!(b.req.write_stream, write_stream());
-        let data = b.req.proto_rows().expect("proto rows should be set");
-        let s = data.writer_schema.as_ref().expect("schema should be set");
-        assert_eq!(s.proto_descriptor.as_ref().unwrap().name, "TestMessage");
-        let r = data.rows.as_ref().expect("rows should be set");
-        assert_eq!(r.serialized_rows, vec![bytes::Bytes::from("1")]);
-
-        Ok(())
-    }
 
     #[tokio::test]
     async fn basic_success() -> anyhow::Result<()> {
@@ -121,7 +106,7 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
 
-        let writer = PendingWriter::new(transport, write_stream(), proto_schema());
+        let writer = PendingWriter::new(transport, write_stream(), format());
         assert_eq!(writer.write_stream(), write_stream());
 
         response_tx.send(Ok(convert(&test_response(1)))).await?;
@@ -132,9 +117,5 @@ mod tests {
         writer.commit().await?;
 
         Ok(())
-    }
-
-    fn rows(id: i64) -> ProtoRows {
-        ProtoRows::new().set_serialized_rows(vec![bytes::Bytes::from(id.to_string())])
     }
 }

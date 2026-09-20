@@ -12,17 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod pending;
 mod writer;
 mod writer_builder;
 
 use super::format::Proto;
-type BaseWriter = super::base::BaseWriter<Proto>;
 
-pub(crate) use pending::PendingWriter;
 pub(crate) use writer::Writer;
 pub(crate) use writer_builder::WriterBuilder;
 
 pub(crate) type BufferedWriter = super::BufferedWriter<Proto>;
 pub(crate) type CommittedWriter = super::CommittedWriter<Proto>;
 pub(crate) type DefaultWriter = super::DefaultWriter<Proto>;
+pub(crate) type PendingWriter = super::PendingWriter<Proto>;

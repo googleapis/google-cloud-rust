@@ -31,7 +31,8 @@ pub(crate) mod sealed {
         const STREAM_TYPE: Type = Type::Pending;
 
         fn build(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
-            Self::new(inner, write_stream, schema)
+            let format = Arrow { schema };
+            Self::new(inner, write_stream, format)
         }
     }
 
