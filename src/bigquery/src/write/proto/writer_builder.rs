@@ -164,6 +164,8 @@ mod tests {
         mock.expect_create_write_stream().return_once(move |req| {
             let req = req.into_inner();
             assert_eq!(req.parent, "projects/p/datasets/d/tables/t");
+            let ws = req.write_stream.expect("write_stream populated");
+            assert_eq!(Type::from(ws.r#type), stream_type);
             Ok(gaxi::grpc::tonic::Response::new(MockWriteStream {
                 name: "projects/p/datasets/d/tables/t/streams/s".to_string(),
                 r#type: stream_type.value().expect("known enum value"),
