@@ -204,4 +204,20 @@ mod tests {
         );
         Ok(())
     }
+
+    #[test]
+    fn test_rejects_non_structs() -> Result<(), syn::Error> {
+        let row_err = derive_from_row_impl(syn::parse_str("enum Foo {}")?).to_string();
+        assert!(
+            row_err.contains("FromRow can only be derived for non-empty structs with named fields"),
+            "unexpected expansion: {row_err}"
+        );
+
+        let sql_err = derive_from_sql_impl(syn::parse_str("enum Foo {}")?).to_string();
+        assert!(
+            sql_err.contains("FromSql can only be derived for non-empty structs with named fields"),
+            "unexpected expansion: {sql_err}"
+        );
+        Ok(())
+    }
 }
