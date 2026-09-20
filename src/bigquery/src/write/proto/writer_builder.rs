@@ -116,11 +116,10 @@ impl WriterBuilder {
             .send()
             .await?;
 
-        Ok(CommittedWriter::new(
-            self.inner,
-            write_stream.name,
-            self.schema,
-        ))
+        let format = Proto {
+            schema: self.schema,
+        };
+        Ok(CommittedWriter::new(self.inner, write_stream.name, format))
     }
 
     /// Creates a writer for a [buffered stream] for the given table.
