@@ -106,7 +106,7 @@ impl WriterBuilder {
     /// # async fn sample(client: Write) -> anyhow::Result<()> {
     /// let writer: PendingWriter = client
     ///     .arrow(schema())
-    ///     .create("projects/my-project/datasets/my_dataset/tables/my_table/streams/my_stream")
+    ///     .create("projects/my-project/datasets/my_dataset/tables/my_table")
     ///     .await?;
     /// # Ok(())
     /// # }
