@@ -117,13 +117,14 @@ impl Row {
 
     fn convert_value_at<T: FromSql>(&self, idx: usize, val: Value) -> Result<T> {
         T::from_value(val).map_err(|e| {
-            let field_name = self
+            let (column, sql_type) = self
                 .schema
                 .get_field_by_index(idx)
-                .map(|f| f.name.clone())
-                .unwrap_or_else(|| idx.to_string());
+                .map(|f| (f.name.clone(), f.r#type.clone()))
+                .unwrap_or_else(|| (idx.to_string(), "UNKNOWN".to_string()));
             RowError::TypeConversion {
-                column: field_name,
+                column,
+                sql_type,
                 source: e,
             }
         })
@@ -291,6 +292,7 @@ fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Resu
         "INTEGER" | "INT64" => {
             let num = value.parse::<i64>().map_err(|e| RowError::TypeConversion {
                 column: field_name.to_string(),
+                sql_type: field_type.to_string(),
                 source: ConvertError::Convert(Box::new(e)),
             })?;
             Ok(Value::Number(serde_json::Number::from(num)))
@@ -298,6 +300,7 @@ fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Resu
         "FLOAT" | "FLOAT64" => {
             let num = value.parse::<f64>().map_err(|e| RowError::TypeConversion {
                 column: field_name.to_string(),
+                sql_type: field_type.to_string(),
                 source: ConvertError::Convert(Box::new(e)),
             })?;
             match serde_json::Number::from_f64(num) {
@@ -313,6 +316,7 @@ fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Resu
             } else {
                 return Err(RowError::TypeConversion {
                     column: field_name.to_string(),
+                    sql_type: field_type.to_string(),
                     source: ConvertError::Convert(
                         "provided string was not `true` or `false`".into(),
                     ),
