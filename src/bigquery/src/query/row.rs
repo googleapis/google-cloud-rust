@@ -68,16 +68,35 @@ pub struct Row {
 
 mod sealed {
     use super::Row;
+    use crate::error::ConvertError;
+    use crate::query::SqlValue;
+    use wkt::Value;
 
     /// A sealed trait to prevent external implementation of `ColumnIndex`.
     pub trait ColumnIndex {
         /// Returns the index of the column in the given row, if it exists.
         fn index(&self, row: &Row) -> Option<usize>;
+
+        /// Takes a value by column index or field name from `SqlValue`.
+        fn take_sql_value(&self, value: &mut SqlValue) -> std::result::Result<Value, ConvertError>;
     }
 
     impl ColumnIndex for usize {
         fn index(&self, row: &Row) -> Option<usize> {
             row.schema.get_field_by_index(*self).map(|_| *self)
+        }
+
+        fn take_sql_value(&self, value: &mut SqlValue) -> std::result::Result<Value, ConvertError> {
+            match &mut value.inner {
+                Value::Array(arr) => {
+                    let slot = arr
+                        .get_mut(*self)
+                        .ok_or_else(|| ConvertError::MissingField(self.to_string()))?;
+                    Ok(std::mem::replace(slot, Value::Null))
+                }
+                Value::Null => Err(ConvertError::NotNull),
+                other => Err(ConvertError::type_mismatch("array", other.clone())),
+            }
         }
     }
 
@@ -85,16 +104,30 @@ mod sealed {
         fn index(&self, row: &Row) -> Option<usize> {
             row.schema.get_field_index_by_name(self)
         }
+
+        fn take_sql_value(&self, value: &mut SqlValue) -> std::result::Result<Value, ConvertError> {
+            match &mut value.inner {
+                Value::Object(obj) => obj
+                    .remove(*self)
+                    .ok_or_else(|| ConvertError::MissingField((*self).to_string())),
+                Value::Null => Err(ConvertError::NotNull),
+                other => Err(ConvertError::type_mismatch("object", other.clone())),
+            }
+        }
     }
 
     impl ColumnIndex for String {
         fn index(&self, row: &Row) -> Option<usize> {
             <&str as ColumnIndex>::index(&self.as_str(), row)
         }
+
+        fn take_sql_value(&self, value: &mut SqlValue) -> std::result::Result<Value, ConvertError> {
+            self.as_str().take_sql_value(value)
+        }
     }
 }
 
-/// A trait for types that can be used to index into a [`Row`].
+/// A trait for types that can be used to index into a [`Row`] or [`SqlValue`](crate::query::SqlValue).
 ///
 /// This trait is sealed and cannot be implemented for types outside of this crate.
 pub trait ColumnIndex: sealed::ColumnIndex + std::fmt::Display {}
@@ -119,7 +152,7 @@ impl Row {
     }
 
     fn convert_value_at<T: FromSql>(&self, idx: usize, val: Value) -> Result<T> {
-        T::from_value(val).map_err(|e| {
+        T::from_value(crate::query::SqlValue::new(val)).map_err(|e| {
             let (column, sql_type) = self
                 .schema
                 .get_field_by_index(idx)

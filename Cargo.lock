@@ -2391,6 +2391,7 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
+ "static_assertions",
  "test-case",
  "thiserror",
  "time",

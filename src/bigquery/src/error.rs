@@ -97,6 +97,7 @@ pub enum RowError {
 pub enum ConvertError {
     /// The value type did not match the expected type.
     #[error("type mismatch, expected {expected}, got {got}")]
+    #[non_exhaustive]
     TypeMismatch {
         /// The expected type name.
         expected: String,
