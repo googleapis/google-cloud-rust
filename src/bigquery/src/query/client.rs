@@ -48,7 +48,7 @@ use std::sync::Arc;
 /// # async fn sample() -> anyhow::Result<()> {
 /// let client = BigQuery::builder().build().await?;
 /// let mut rows = client
-///     .query("SELECT name, count FROM `bigquery-public-data.usa_names.usa_1910_2013` WHERE state = 'WA' ORDER BY count DESC LIMIT 5")
+///     .query("SELECT name, number FROM `bigquery-public-data.usa_names.usa_1910_2013` WHERE state = 'WA' ORDER BY number DESC LIMIT 5")
 ///     .with_project_id("my-project-id")
 ///     .until_done()
 ///     .await?
@@ -56,8 +56,8 @@ use std::sync::Arc;
 ///
 /// while let Some(row) = rows.next().await.transpose()? {
 ///     let name: String = row.get("name")?;
-///     let count: i64 = row.get("count")?;
-///     println!("{name}: {count}");
+///     let number: i64 = row.get("number")?;
+///     println!("{name}: {number}");
 /// }
 /// # Ok(()) }
 /// ```
