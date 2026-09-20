@@ -67,38 +67,41 @@ pub struct Row {
 }
 
 mod sealed {
+    use super::Row;
+
     /// A sealed trait to prevent external implementation of `ColumnIndex`.
-    pub trait ColumnIndex {}
-    impl ColumnIndex for usize {}
-    impl ColumnIndex for &str {}
-    impl ColumnIndex for String {}
+    pub trait ColumnIndex {
+        /// Returns the index of the column in the given row, if it exists.
+        fn index(&self, row: &Row) -> Option<usize>;
+    }
+
+    impl ColumnIndex for usize {
+        fn index(&self, row: &Row) -> Option<usize> {
+            row.schema.get_field_by_index(*self).map(|_| *self)
+        }
+    }
+
+    impl ColumnIndex for &str {
+        fn index(&self, row: &Row) -> Option<usize> {
+            row.schema.get_field_index_by_name(self)
+        }
+    }
+
+    impl ColumnIndex for String {
+        fn index(&self, row: &Row) -> Option<usize> {
+            self.as_str().index(row)
+        }
+    }
 }
 
 /// A trait for types that can be used to index into a [`Row`].
 ///
 /// This trait is sealed and cannot be implemented for types outside of this crate.
-pub trait ColumnIndex: sealed::ColumnIndex + std::fmt::Display {
-    /// Returns the index of the column in the given row, if it exists.
-    fn index(&self, row: &Row) -> Option<usize>;
-}
+pub trait ColumnIndex: sealed::ColumnIndex + std::fmt::Display {}
 
-impl ColumnIndex for usize {
-    fn index(&self, row: &Row) -> Option<usize> {
-        row.schema.get_field_by_index(*self).map(|_| *self)
-    }
-}
-
-impl ColumnIndex for &str {
-    fn index(&self, row: &Row) -> Option<usize> {
-        row.schema.get_field_index_by_name(self)
-    }
-}
-
-impl ColumnIndex for String {
-    fn index(&self, row: &Row) -> Option<usize> {
-        self.as_str().index(row)
-    }
-}
+impl ColumnIndex for usize {}
+impl ColumnIndex for &str {}
+impl ColumnIndex for String {}
 
 impl Row {
     pub(crate) fn try_new(row: Struct, schema: &Arc<Schema>) -> Result<Self> {
