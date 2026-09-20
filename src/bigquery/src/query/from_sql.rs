@@ -619,4 +619,49 @@ mod tests {
     fn test_derive_from_sql(value: wkt::Value) -> Result<TestSqlStruct, TestConvertError> {
         FromSql::from_value(value).map_err(TestConvertError::from)
     }
+
+    #[derive(FromSql, Debug, PartialEq)]
+    struct ShadowedSqlStruct {
+        iter: i64,
+        obj: i64,
+        arr: i64,
+        value: String,
+    }
+
+    #[test]
+    fn test_derive_from_sql_shadowing_field_names() {
+        let from_arr = ShadowedSqlStruct::from_value(wkt::Value::Array(vec![
+            wkt::Value::Number(1.into()),
+            wkt::Value::Number(2.into()),
+            wkt::Value::Number(3.into()),
+            wkt::Value::String("hello".to_string()),
+        ]))
+        .expect("should deserialize from array");
+        assert_eq!(
+            from_arr,
+            ShadowedSqlStruct {
+                iter: 1,
+                obj: 2,
+                arr: 3,
+                value: "hello".to_string(),
+            }
+        );
+
+        let from_obj = ShadowedSqlStruct::from_value(wkt::Value::Object(wkt::Struct::from_iter([
+            ("iter".to_string(), wkt::Value::Number(10.into())),
+            ("obj".to_string(), wkt::Value::Number(20.into())),
+            ("arr".to_string(), wkt::Value::Number(30.into())),
+            ("value".to_string(), wkt::Value::String("world".to_string())),
+        ])))
+        .expect("should deserialize from object");
+        assert_eq!(
+            from_obj,
+            ShadowedSqlStruct {
+                iter: 10,
+                obj: 20,
+                arr: 30,
+                value: "world".to_string(),
+            }
+        );
+    }
 }

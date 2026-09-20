@@ -48,17 +48,13 @@ pub fn derive_from_row(input: TokenStream) -> TokenStream {
                 .into();
         }
     };
-    let value_extractions = fields.iter().map(|f| {
+    let field_initializations = fields.iter().map(|f| {
         let field_name = f.ident.as_ref().expect("named field must have identifier");
         let db_column_name = get_field_name(f);
         quote! {
-            let #field_name = row.take(#db_column_name)?;
+            #field_name: row.take(#db_column_name)?,
         }
     });
-
-    let field_idents = fields
-        .iter()
-        .map(|f| f.ident.as_ref().expect("named field must have identifier"));
 
     // TODO(#5592): check that the schema and this struct have same columns/attributes count.
 
@@ -67,10 +63,8 @@ pub fn derive_from_row(input: TokenStream) -> TokenStream {
             type Error = google_cloud_bigquery::error::RowError;
 
             fn try_from(mut row: google_cloud_bigquery::query::Row) -> std::result::Result<Self, Self::Error> {
-                #( #value_extractions )*
-
                 std::result::Result::Ok(Self {
-                    #( #field_idents, )*
+                    #( #field_initializations )*
                 })
             }
         }
@@ -106,30 +100,27 @@ pub fn derive_from_sql(input: TokenStream) -> TokenStream {
         }
     };
 
-    let field_idents_struct_array = fields
-        .iter()
-        .map(|f| f.ident.as_ref().expect("named field must have identifier"));
-    let field_idents_struct_obj = fields
-        .iter()
-        .map(|f| f.ident.as_ref().expect("named field must have identifier"));
-
-    let field_extractions_array = fields.iter().map(|f| {
+    let field_initializations_array = fields.iter().map(|f| {
         let field_name = f.ident.as_ref().expect("named field must have identifier");
         let db_column_name = get_field_name(f);
         quote! {
-            let #field_name = iter.next()
-                .ok_or_else(|| google_cloud_bigquery::error::ConvertError::MissingField(#db_column_name.to_string()))?;
-            let #field_name = google_cloud_bigquery::query::FromSql::from_value(#field_name)?;
+            #field_name: {
+                let val = iter.next()
+                    .ok_or_else(|| google_cloud_bigquery::error::ConvertError::MissingField(#db_column_name.to_string()))?;
+                google_cloud_bigquery::query::FromSql::from_value(val)?
+            },
         }
     });
 
-    let field_extractions_obj = fields.iter().map(|f| {
+    let field_initializations_obj = fields.iter().map(|f| {
         let field_name = f.ident.as_ref().expect("named field must have identifier");
         let db_column_name = get_field_name(f);
         quote! {
-            let #field_name = obj.remove(#db_column_name)
-                .ok_or_else(|| google_cloud_bigquery::error::ConvertError::MissingField(#db_column_name.to_string()))?;
-            let #field_name = google_cloud_bigquery::query::FromSql::from_value(#field_name)?;
+            #field_name: {
+                let val = obj.remove(#db_column_name)
+                    .ok_or_else(|| google_cloud_bigquery::error::ConvertError::MissingField(#db_column_name.to_string()))?;
+                google_cloud_bigquery::query::FromSql::from_value(val)?
+            },
         }
     });
 
@@ -139,15 +130,13 @@ pub fn derive_from_sql(input: TokenStream) -> TokenStream {
                 match value {
                     wkt::Value::Array(arr) => {
                         let mut iter = arr.into_iter();
-                        #( #field_extractions_array )*
                         std::result::Result::Ok(Self {
-                            #( #field_idents_struct_array, )*
+                            #( #field_initializations_array )*
                         })
                     }
                     wkt::Value::Object(mut obj) => {
-                        #( #field_extractions_obj )*
                         std::result::Result::Ok(Self {
-                            #( #field_idents_struct_obj, )*
+                            #( #field_initializations_obj )*
                         })
                     }
                     other => std::result::Result::Err(google_cloud_bigquery::error::ConvertError::TypeMismatch {
