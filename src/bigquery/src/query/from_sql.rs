@@ -132,7 +132,7 @@ impl FromSql for String {
         match value.inner {
             wkt::Value::String(s) => Ok(s),
             wkt::Value::Null => Err(ConvertError::NotNull),
-            other => Err(ConvertError::type_mismatch("string", other)),
+            other => Err(ConvertError::type_mismatch("string", &other)),
         }
     }
 }
@@ -148,7 +148,7 @@ impl FromSql for i32 {
                 .parse::<i32>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
             wkt::Value::Null => Err(ConvertError::NotNull),
-            other => Err(ConvertError::type_mismatch("number or string", other)),
+            other => Err(ConvertError::type_mismatch("number or string", &other)),
         }
     }
 }
@@ -163,7 +163,7 @@ impl FromSql for i64 {
                 .parse::<i64>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
             wkt::Value::Null => Err(ConvertError::NotNull),
-            other => Err(ConvertError::type_mismatch("number or string", other)),
+            other => Err(ConvertError::type_mismatch("number or string", &other)),
         }
     }
 }
@@ -179,7 +179,7 @@ impl FromSql for f32 {
                 .parse::<f32>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
             wkt::Value::Null => Err(ConvertError::NotNull),
-            other => Err(ConvertError::type_mismatch("number or string", other)),
+            other => Err(ConvertError::type_mismatch("number or string", &other)),
         }
     }
 }
@@ -194,7 +194,7 @@ impl FromSql for f64 {
                 .parse::<f64>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
             wkt::Value::Null => Err(ConvertError::NotNull),
-            other => Err(ConvertError::type_mismatch("number or string", other)),
+            other => Err(ConvertError::type_mismatch("number or string", &other)),
         }
     }
 }
@@ -207,7 +207,7 @@ impl FromSql for bool {
                 .parse::<bool>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
             wkt::Value::Null => Err(ConvertError::NotNull),
-            other => Err(ConvertError::type_mismatch("bool or string", other)),
+            other => Err(ConvertError::type_mismatch("bool or string", &other)),
         }
     }
 }
@@ -229,7 +229,7 @@ impl<T: FromSql> FromSql for Vec<T> {
                 .map(|v| T::from_value(SqlValue::new(v)))
                 .collect(),
             wkt::Value::Null => Err(ConvertError::NotNull),
-            other => Err(ConvertError::type_mismatch("array", other)),
+            other => Err(ConvertError::type_mismatch("array", &other)),
         }
     }
 }
@@ -239,7 +239,7 @@ impl FromSql for wkt::Struct {
         match value.inner {
             wkt::Value::Object(obj) => Ok(obj),
             wkt::Value::Null => Err(ConvertError::NotNull),
-            other => Err(ConvertError::type_mismatch("object", other)),
+            other => Err(ConvertError::type_mismatch("object", &other)),
         }
     }
 }
@@ -260,7 +260,7 @@ impl FromSql for wkt::Timestamp {
                 timestamp_from_micros(micros)
             }
             wkt::Value::Null => Err(ConvertError::NotNull),
-            other => Err(ConvertError::type_mismatch("string or number", other)),
+            other => Err(ConvertError::type_mismatch("string or number", &other)),
         }
     }
 }
@@ -285,7 +285,7 @@ impl FromSql for google_cloud_type::model::Date {
                     .set_day(date.day() as i32))
             }
             wkt::Value::Null => Err(ConvertError::NotNull),
-            other => Err(ConvertError::type_mismatch("string", other)),
+            other => Err(ConvertError::type_mismatch("string", &other)),
         }
     }
 }
@@ -311,7 +311,7 @@ impl FromSql for google_cloud_type::model::TimeOfDay {
                     .set_nanos(time.nanosecond() as i32))
             }
             wkt::Value::Null => Err(ConvertError::NotNull),
-            other => Err(ConvertError::type_mismatch("string", other)),
+            other => Err(ConvertError::type_mismatch("string", &other)),
         }
     }
 }
@@ -337,7 +337,7 @@ impl FromSql for google_cloud_type::model::DateTime {
                     .set_nanos(dt.nanosecond() as i32))
             }
             wkt::Value::Null => Err(ConvertError::NotNull),
-            other => Err(ConvertError::type_mismatch("string", other)),
+            other => Err(ConvertError::type_mismatch("string", &other)),
         }
     }
 }
@@ -350,7 +350,7 @@ impl FromSql for google_cloud_type::model::Decimal {
                 Ok(google_cloud_type::model::Decimal::new().set_value(n.to_string()))
             }
             wkt::Value::Null => Err(ConvertError::NotNull),
-            other => Err(ConvertError::type_mismatch("string or number", other)),
+            other => Err(ConvertError::type_mismatch("string or number", &other)),
         }
     }
 }
@@ -375,7 +375,7 @@ impl FromSql for rust_decimal::Decimal {
                 }
             }
             wkt::Value::Null => Err(ConvertError::NotNull),
-            other => Err(ConvertError::type_mismatch("string or number", other)),
+            other => Err(ConvertError::type_mismatch("string or number", &other)),
         }
     }
 }
@@ -389,7 +389,7 @@ impl FromSql for Vec<u8> {
             wkt::Value::Null => Err(ConvertError::NotNull),
             other => Err(ConvertError::type_mismatch(
                 "string (base64 encoded)",
-                other,
+                &other,
             )),
         }
     }

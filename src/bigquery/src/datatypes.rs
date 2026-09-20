@@ -164,7 +164,7 @@ impl FromSql for Interval {
                 })
             }
             wkt::Value::Null => Err(ConvertError::NotNull),
-            other => Err(ConvertError::type_mismatch("string", other)),
+            other => Err(ConvertError::type_mismatch("string", &other)),
         }
     }
 }
@@ -255,7 +255,7 @@ impl<T: FromSql> FromSql for Range<T> {
                 Ok(Range { start, end })
             }
             wkt::Value::Null => Err(ConvertError::NotNull),
-            other => Err(ConvertError::type_mismatch("string", other)),
+            other => Err(ConvertError::type_mismatch("string", &other)),
         }
     }
 }

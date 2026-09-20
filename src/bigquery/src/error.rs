@@ -123,7 +123,7 @@ pub enum ConvertError {
 }
 
 impl ConvertError {
-    pub(crate) fn type_mismatch(expected: impl Into<String>, got: wkt::Value) -> Self {
+    pub(crate) fn type_mismatch(expected: impl Into<String>, got: &wkt::Value) -> Self {
         let got_type = match got {
             wkt::Value::Null => "null",
             wkt::Value::Bool(_) => "bool",
@@ -226,7 +226,7 @@ mod tests {
 
     #[test]
     fn test_convert_error_display() {
-        let err = ConvertError::type_mismatch("i64", wkt::Value::String("hello".to_string()));
+        let err = ConvertError::type_mismatch("i64", &wkt::Value::String("hello".to_string()));
         assert_eq!(err.to_string(), "type mismatch, expected i64, got string");
 
         let err = ConvertError::NotNull;

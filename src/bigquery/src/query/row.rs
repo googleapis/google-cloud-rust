@@ -95,7 +95,7 @@ mod sealed {
                     Ok(std::mem::replace(slot, Value::Null))
                 }
                 Value::Null => Err(ConvertError::NotNull),
-                other => Err(ConvertError::type_mismatch("array", other.clone())),
+                other => Err(ConvertError::type_mismatch("array", other)),
             }
         }
     }
@@ -111,7 +111,7 @@ mod sealed {
                     .remove(*self)
                     .ok_or_else(|| ConvertError::MissingField((*self).to_string())),
                 Value::Null => Err(ConvertError::NotNull),
-                other => Err(ConvertError::type_mismatch("object", other.clone())),
+                other => Err(ConvertError::type_mismatch("object", other)),
             }
         }
     }
