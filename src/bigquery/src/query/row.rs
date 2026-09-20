@@ -787,6 +787,45 @@ mod tests {
         Ok(())
     }
 
+    #[derive(FromRow, Debug, PartialEq)]
+    struct RawIdentRow {
+        r#type: String,
+        r#match: i64,
+    }
+
+    #[tokio::test]
+    async fn derive_from_row_raw_identifier() -> TestResult {
+        let raw_row = Map::from_iter([(
+            "f".to_string(),
+            json!([
+                { "v": "click" },
+                { "v": "7" },
+            ]),
+        )]);
+        let schema = TableSchema::new().set_fields([
+            TableFieldSchema::new()
+                .set_name("type")
+                .set_type("STRING")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("match")
+                .set_type("INTEGER")
+                .set_mode("NULLABLE"),
+        ]);
+        let schema = Arc::new(Schema::new(schema));
+        let row = Row::try_new(raw_row, &schema)?;
+
+        let converted = RawIdentRow::try_from(row)?;
+        assert_eq!(
+            converted,
+            RawIdentRow {
+                r#type: "click".to_string(),
+                r#match: 7,
+            }
+        );
+        Ok(())
+    }
+
     #[tokio::test]
     async fn derive_from_row_missing_column() -> TestResult {
         let raw_row = Map::from_iter([(

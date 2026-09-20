@@ -443,6 +443,28 @@ mod tests {
         FromSql::from_value(value).map_err(TestConvertError::from)
     }
 
+    #[derive(FromSql, Debug, PartialEq)]
+    struct RawIdentSqlStruct {
+        r#type: String,
+        r#match: i64,
+    }
+
+    #[test]
+    fn test_derive_from_sql_raw_identifier() {
+        let val = wkt::Value::Object(wkt::Struct::from_iter([
+            ("type".to_string(), wkt::Value::String("event".to_string())),
+            ("match".to_string(), wkt::Value::Number(99.into())),
+        ]));
+        let parsed = RawIdentSqlStruct::from_value(val).expect("should strip r# prefix");
+        assert_eq!(
+            parsed,
+            RawIdentSqlStruct {
+                r#type: "event".to_string(),
+                r#match: 99,
+            }
+        );
+    }
+
     #[test_case(wkt::Value::String("hello".to_string()) => Ok("hello".to_string()) ; "string")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null string")]
     #[test_case(wkt::Value::Number(123.into()) => Err(TestConvertError::TypeMismatch("string")) ; "type mismatch string")]

@@ -170,9 +170,11 @@ fn get_field_name(field: &syn::Field) -> String {
             }
         }
     }
-    field
-        .ident
-        .as_ref()
-        .expect("named field must have identifier")
-        .to_string()
+    syn::ext::IdentExt::unraw(
+        field
+            .ident
+            .as_ref()
+            .expect("named field must have identifier"),
+    )
+    .to_string()
 }
