@@ -84,7 +84,7 @@ impl AppendWithOffset {
     pub fn send(self) -> AppendFuture {
         let (tx, rx) = oneshot::channel();
         let (resp_tx, resp_rx) = oneshot::channel();
-        let req = match self.req.to_proto().map_err(Error::deser) {
+        let req = match self.req.to_proto().map_err(Error::ser) {
             Ok(req) => req,
             Err(e) => {
                 let _ = tx.send(Err(e.into()));
@@ -98,7 +98,7 @@ impl AppendWithOffset {
                 let resp = resp_rx
                     .await
                     .map_err(|_| AppendError::UnexpectedEndOfStream)??;
-                let resp = resp.cnv().map_err(Error::ser)?;
+                let resp = resp.cnv().map_err(Error::deser)?;
                 to_result(resp)
             }
             .await;
