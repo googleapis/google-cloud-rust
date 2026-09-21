@@ -319,6 +319,8 @@ mod tests {
     #[test_case(wkt::Value::String("2026-05-28, 2026-05-29".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range missing brackets")]
     #[test_case(wkt::Value::String("(2026-05-28, 2026-05-29)".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range invalid leading parenthesis")]
     #[test_case(wkt::Value::String("[2026-05-28, 2026-05-29]".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range invalid trailing square bracket")]
+    #[test_case(wkt::Value::String("[invalid-start, 2026-05-29)".to_string()) => Err(TestConvertError::Convert("the 'year' component could not be parsed".to_string())) ; "range invalid start element")]
+    #[test_case(wkt::Value::String("[2026-05-28, invalid-end)".to_string()) => Err(TestConvertError::Convert("the 'year' component could not be parsed".to_string())) ; "range invalid end element")]
     fn test_from_sql_range(
         value: wkt::Value,
     ) -> Result<Range<google_cloud_type::model::Date>, TestConvertError> {
