@@ -80,21 +80,15 @@ where
         table: T,
     ) -> std::result::Result<DefaultWriter<F>, WriterBuilderError> {
         let table = table.into();
-        validate_table(table.as_str())?;
         let op = Operation::OpenDefault { table };
         self.build::<DefaultStream>(op).await
     }
 
-    async fn open_default<S>(
-        self,
-        table: String,
-    ) -> std::result::Result<S::Writer<F>, WriterBuilderError>
-    where
-        S: Stream,
-    {
+    async fn open_default(&self, table: String) -> std::result::Result<String, WriterBuilderError> {
+        validate_table(table.as_str())?;
         let mut write_stream = table;
         write_stream.push_str("/streams/_default");
-        Ok(S::build(self, write_stream))
+        Ok(write_stream)
     }
 
     pub(crate) fn make_default_writer(self, write_stream: String) -> DefaultWriter<F> {
@@ -142,14 +136,11 @@ where
         self.build::<W::Stream>(op).await
     }
 
-    async fn create_stream<S>(
-        self,
+    async fn create_stream(
+        &self,
         table: String,
         stream_type: Type,
-    ) -> std::result::Result<S::Writer<F>, WriterBuilderError>
-    where
-        S: Stream,
-    {
+    ) -> std::result::Result<String, WriterBuilderError> {
         validate_table(table.as_str())?;
 
         let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
@@ -160,7 +151,7 @@ where
             .send()
             .await?;
 
-        Ok(S::build(self, stream.name))
+        Ok(stream.name)
     }
 
     /// Attaches a writer to an existing stream.
@@ -198,14 +189,11 @@ where
         self.build::<W::Stream>(op).await
     }
 
-    async fn attach_to_stream<S>(
-        self,
+    async fn attach_to_stream(
+        &self,
         write_stream: String,
         stream_type: Type,
-    ) -> std::result::Result<S::Writer<F>, WriterBuilderError>
-    where
-        S: Stream,
-    {
+    ) -> std::result::Result<String, WriterBuilderError> {
         validate_stream(write_stream.as_str())?;
 
         let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
@@ -221,7 +209,7 @@ where
                 actual: stream.r#type,
             });
         }
-        Ok(S::build(self, stream.name))
+        Ok(stream.name)
     }
 
     /// Enable multiplexing
@@ -256,16 +244,17 @@ where
     where
         S: Stream,
     {
-        match op {
-            Operation::OpenDefault { table } => self.open_default::<S>(table).await,
+        let write_stream = match op {
+            Operation::OpenDefault { table } => self.open_default(table).await?,
             Operation::Create { table, stream_type } => {
-                self.create_stream::<S>(table, stream_type).await
+                self.create_stream(table, stream_type).await?
             }
             Operation::Attach {
                 write_stream,
                 stream_type,
-            } => self.attach_to_stream::<S>(write_stream, stream_type).await,
-        }
+            } => self.attach_to_stream(write_stream, stream_type).await?,
+        };
+        Ok(S::build(self, write_stream))
     }
 }
 
