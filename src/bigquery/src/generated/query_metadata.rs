@@ -740,15 +740,16 @@ impl std::convert::From<google_cloud_bigquery_v2::model::Job> for QueryMetadata 
             .unwrap_or_default();
         let query_stats = resp.statistics.as_ref().and_then(|s| s.query.as_ref());
         let schema = query_stats.and_then(|q| q.schema.clone());
-        let total_bytes_processed = query_stats
-            .and_then(|q| q.total_bytes_processed.clone())
-            .or_else(|| {
-                resp.statistics
-                    .as_ref()
-                    .and_then(|s| s.total_bytes_processed.clone())
-            });
+        let total_bytes_processed =
+            query_stats
+                .and_then(|q| q.total_bytes_processed)
+                .or_else(|| {
+                    resp.statistics
+                        .as_ref()
+                        .and_then(|s| s.total_bytes_processed)
+                });
         let cache_hit = query_stats.and_then(|q| q.cache_hit);
-        let num_dml_affected_rows = query_stats.and_then(|q| q.num_dml_affected_rows.clone());
+        let num_dml_affected_rows = query_stats.and_then(|q| q.num_dml_affected_rows);
         let dml_stats = query_stats.and_then(|q| q.dml_stats.clone());
         let session_info = resp
             .statistics
