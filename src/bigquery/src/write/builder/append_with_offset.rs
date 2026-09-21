@@ -207,7 +207,7 @@ mod tests {
             .expect("sending on channel always succeeds");
 
         let err = future.await.expect_err("should return an error");
-        assert!(matches!(err, AppendError::RowErrors(_)));
+        assert!(matches!(err, AppendError::RowErrors { .. }));
         Ok(())
     }
 

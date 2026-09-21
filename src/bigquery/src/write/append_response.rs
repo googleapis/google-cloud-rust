@@ -37,17 +37,26 @@ pub struct AppendResponse {
 }
 
 pub(crate) fn to_result(resp: AppendRowsResponse) -> AppendResult<AppendResponse> {
-    if !resp.row_errors.is_empty() {
-        return Err(AppendError::RowErrors(resp.row_errors));
-    }
-
+    let mut status = None;
     let offset = match resp.response {
         None => None,
         Some(Response::AppendResult(r)) => r.offset,
         Some(Response::Error(s)) => {
-            return Err(Error::service((*s).into()).into());
+            status = Some((*s).into());
+            None
         }
     };
+
+    if !resp.row_errors.is_empty() {
+        return Err(AppendError::RowErrors {
+            status: status.unwrap_or_default(),
+            row_errors: resp.row_errors,
+        });
+    }
+    if let Some(status) = status {
+        return Err(Error::service(status).into());
+    }
+
     Ok(AppendResponse {
         offset,
         updated_schema: resp.updated_schema,
@@ -105,13 +114,33 @@ mod tests {
 
     #[test]
     fn row_errors() {
+        let resp = AppendRowsResponse::new()
+            .set_error(
+                RpcStatus::new()
+                    .set_code(Code::InvalidArgument as i32)
+                    .set_message("Errors found while processing rows."),
+            )
+            .set_row_errors(vec![row_error(1), row_error(2)]);
+
+        let err = to_result(resp).expect_err("should error");
+        let AppendError::RowErrors { status, row_errors } = err else {
+            panic!("Expected AppendError::RowErrors, got {:?}", err);
+        };
+        assert_eq!(status.code, Code::InvalidArgument);
+        assert_eq!(status.message, "Errors found while processing rows.");
+        assert_eq!(row_errors, vec![row_error(1), row_error(2)]);
+    }
+
+    #[test]
+    fn row_errors_without_status() {
         let resp = AppendRowsResponse::new().set_row_errors(vec![row_error(1), row_error(2)]);
 
         let err = to_result(resp).expect_err("should error");
-        let AppendError::RowErrors(errors) = err else {
+        let AppendError::RowErrors { status, row_errors } = err else {
             panic!("Expected AppendError::RowErrors, got {:?}", err);
         };
-        assert_eq!(errors, vec![row_error(1), row_error(2)]);
+        assert_eq!(status.code, Code::Unknown);
+        assert_eq!(row_errors, vec![row_error(1), row_error(2)]);
     }
 
     #[test]
