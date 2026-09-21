@@ -131,7 +131,7 @@ impl RowIterator {
         };
 
         let (fetched_rows, next_token) = self.fetch_page(token).await?;
-        if fetched_rows.is_empty() {
+        if fetched_rows.is_empty() && next_token.as_deref() == Some(token) {
             self.page_token = None;
         } else {
             self.page_token = next_token;
@@ -423,15 +423,43 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_row_iterator_empty_page_with_token_terminates() -> TestResult {
+    async fn test_row_iterator_empty_page_handling() -> TestResult {
         let mut mock = MockJobService::new();
+        let mut seq = mockall::Sequence::new();
+
+        // empty page with a new token: should continue fetching
         mock.expect_get_query_results()
             .times(1)
+            .in_sequence(&mut seq)
             .returning(|req, _| {
-                assert_eq!(req.page_token, "stuck_token");
+                assert_eq!(req.page_token, "token_1");
                 let res = GetQueryResultsResponse::new()
                     .set_rows(Vec::<wkt::Struct>::new())
-                    .set_page_token("stuck_token");
+                    .set_page_token("token_2");
+                Ok(Response::from(res))
+            });
+
+        // next page returns rows and advances to token_3
+        mock.expect_get_query_results()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|req, _| {
+                assert_eq!(req.page_token, "token_2");
+                let res = GetQueryResultsResponse::new()
+                    .set_rows(vec![create_test_row("page2_row")])
+                    .set_page_token("token_3");
+                Ok(Response::from(res))
+            });
+
+        // empty page with the same token: should terminate pagination
+        mock.expect_get_query_results()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|req, _| {
+                assert_eq!(req.page_token, "token_3");
+                let res = GetQueryResultsResponse::new()
+                    .set_rows(Vec::<wkt::Struct>::new())
+                    .set_page_token("token_3");
                 Ok(Response::from(res))
             });
 
@@ -440,9 +468,12 @@ mod tests {
             job_service,
             Some(create_test_job_ref()),
             vec![],
-            Some("stuck_token".to_string()),
+            Some("token_1".to_string()),
         );
         let mut iter = q.read();
+
+        let row = iter.next().await.expect("should have row")?;
+        assert_eq!(row.get::<String, _>("col")?, "page2_row");
         assert!(iter.next().await.is_none(), "{iter:?}");
         Ok(())
     }
