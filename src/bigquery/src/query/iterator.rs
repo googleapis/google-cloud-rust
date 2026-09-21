@@ -131,8 +131,12 @@ impl RowIterator {
         };
 
         let (fetched_rows, next_token) = self.fetch_page(token).await?;
-        self.page_token = next_token;
-        self.rows.extend(fetched_rows);
+        if fetched_rows.is_empty() {
+            self.page_token = None;
+        } else {
+            self.page_token = next_token;
+            self.rows.extend(fetched_rows);
+        }
         Ok(())
     }
 
@@ -415,6 +419,31 @@ mod tests {
             err.to_string().contains("temporary service error"),
             "{err:?}"
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_row_iterator_empty_page_with_token_terminates() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_get_query_results()
+            .times(1)
+            .returning(|req, _| {
+                assert_eq!(req.page_token, "stuck_token");
+                let res = GetQueryResultsResponse::new()
+                    .set_rows(Vec::<wkt::Struct>::new())
+                    .set_page_token("stuck_token");
+                Ok(Response::from(res))
+            });
+
+        let job_service = create_job_service(mock);
+        let q = create_test_complete_query(
+            job_service,
+            Some(create_test_job_ref()),
+            vec![],
+            Some("stuck_token".to_string()),
+        );
+        let mut iter = q.read();
+        assert!(iter.next().await.is_none(), "{iter:?}");
         Ok(())
     }
 }
