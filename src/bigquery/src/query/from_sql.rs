@@ -370,11 +370,10 @@ impl FromSql for rust_decimal::Decimal {
                     Ok(rust_decimal::Decimal::from(i))
                 } else if let Some(u) = n.as_u64() {
                     Ok(rust_decimal::Decimal::from(u))
-                } else if let Some(f) = n.as_f64() {
+                } else {
+                    let f = n.as_f64().expect("Number must be i64, u64, or f64");
                     rust_decimal::Decimal::try_from(f)
                         .map_err(|e| ConvertError::Convert(Box::new(e)))
-                } else {
-                    Err(ConvertError::Convert("invalid number".into()))
                 }
             }
             wkt::Value::Null => Err(ConvertError::NotNull),
@@ -607,7 +606,9 @@ mod tests {
     }
 
     #[test_case(wkt::Value::String("123.456".to_string()) => Ok(RustDecimal::from_str_exact("123.456").unwrap()) ; "rust_decimal from string")]
-    #[test_case(wkt::Value::Number(serde_json::Number::from_f64(123.456).unwrap()) => Ok(RustDecimal::from_str_exact("123.456").unwrap()) ; "rust_decimal from number")]
+    #[test_case(wkt::Value::Number((-123i64).into()) => Ok(RustDecimal::from(-123i64)) ; "rust_decimal from i64 number")]
+    #[test_case(wkt::Value::Number(u64::MAX.into()) => Ok(RustDecimal::from(u64::MAX)) ; "rust_decimal from u64 number")]
+    #[test_case(wkt::Value::Number(serde_json::Number::from_f64(123.456).unwrap()) => Ok(RustDecimal::from_str_exact("123.456").unwrap()) ; "rust_decimal from f64 number")]
     #[test_case(wkt::Value::String("99999999999999999999999999999999.123".to_string()) => Err(TestConvertError::Convert("Invalid decimal: overflow from too many digits".to_string())) ; "rust_decimal overflow")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null rust_decimal")]
     #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::type_mismatch("string or number")) ; "try bool as rust_decimal")]
