@@ -23,7 +23,7 @@
 //!
 //! ```no_rust
 //! use google_cloud_bigquery::write::format::Arrow;
-//! use google_cloud_bigquery::write::PendingStreamWriter;
+//! use google_cloud_bigquery::write::PendingWriter;
 //! let w: PendingWriter<Arrow> = client
 //!     .create_stream(table)
 //!     .build_arrow(schema)
@@ -36,7 +36,7 @@
 //! ```no_rust
 //! use google_cloud_bigquery::write::stream_type::PendingStream;
 //! let w = client
-//!     .create_stream::<PendingStream>(table)
+//!     .create_stream::<PendingStream, _>(table)
 //!     .build_arrow(schema)
 //!     .await?;
 //! ```
