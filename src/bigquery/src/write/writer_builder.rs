@@ -13,14 +13,14 @@
 // limitations under the License.
 
 use super::DefaultWriter;
-use super::format::{Arrow, DataFormat};
+use super::format::{Arrow, DataFormat, Proto};
 use super::generated::gapic_storage::client::BigQueryWrite;
 use super::pool::{StreamPool, StreamPoolOptions};
 use super::retry_policy::RetryOptions;
 use super::transport::Transport;
 use super::validate::{validate_stream, validate_table};
-use crate::model::WriteStream;
 use crate::model::write_stream::Type;
+use crate::model::{ArrowSchema, ProtoSchema, WriteStream};
 use crate::write::error::WriterBuilderError;
 use crate::write::stream_type::sealed::ApplicationCreatedStream as _;
 use crate::write::stream_type::{ApplicationCreatedStream, DefaultStream, HasStream, Stream};
@@ -33,9 +33,88 @@ pub struct WriterBuilder<S, F = Arrow> {
     pub(crate) inner: Arc<Transport>,
     pub(crate) pool: Arc<StreamPool>,
     pub(crate) retry_options: RetryOptions,
+    op: Option<Operation>,
     pub(crate) format: Option<F>,
     pub(crate) multiplexing: bool,
     _stream: PhantomData<S>,
+}
+
+impl WriterBuilder<DefaultStream> {
+    pub(crate) fn new_open_default(
+        inner: Arc<Transport>,
+        pool: Arc<StreamPool>,
+        retry_options: RetryOptions,
+        table: String,
+    ) -> Self {
+        Self {
+            inner,
+            pool,
+            retry_options,
+            op: Some(Operation::OpenDefault { table }),
+            format: None,
+            multiplexing: false,
+            _stream: PhantomData,
+        }
+    }
+}
+
+impl<S: Stream> WriterBuilder<S> {
+    /// Consumes the builder and creates a writer using [Arrow] as the data format.
+    ///
+    /// Returns the writer `W` corresponding to the stream type `S`:
+    /// - [`DefaultStream`] -> [`DefaultWriter<Arrow>`][crate::write::DefaultWriter]
+    /// - [`PendingStream`][crate::write::stream_type::PendingStream] -> [`PendingWriter<Arrow>`][crate::write::PendingWriter]
+    /// - [`CommittedStream`][crate::write::stream_type::CommittedStream] -> [`CommittedWriter<Arrow>`][crate::write::CommittedWriter]
+    /// - [`BufferedStream`][crate::write::stream_type::BufferedStream] -> [`BufferedWriter<Arrow>`][crate::write::BufferedWriter]
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # use google_cloud_bigquery::model::ArrowSchema;
+    /// # async fn sample(client: Write) -> anyhow::Result<()> {
+    /// let writer = client
+    ///     .open_default_stream("projects/my-project/datasets/my_dataset/tables/my_table")
+    ///     .build_arrow(ArrowSchema::new())
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// [Arrow]: https://arrow.apache.org/
+    pub async fn build_arrow<W>(
+        mut self,
+        schema: ArrowSchema,
+    ) -> std::result::Result<W, WriterBuilderError>
+    where
+        S: Stream<Writer<Arrow> = W>,
+        W: HasStream<Stream = S>,
+    {
+        let op = self.op.take().expect("op set by stream builder starter");
+        self.build::<S>(op, Arrow { schema }).await
+    }
+
+    /// Consumes the builder and creates a writer using Protobuf as the data format.
+    #[allow(dead_code)]
+    pub(crate) async fn build_proto<W>(
+        mut self,
+        schema: ProtoSchema,
+    ) -> std::result::Result<W, WriterBuilderError>
+    where
+        S: Stream<Writer<Proto> = W>,
+        W: HasStream<Stream = S>,
+    {
+        let op = self.op.take().expect("op set by stream builder starter");
+        let builder = WriterBuilder::<S, Proto> {
+            inner: self.inner,
+            pool: self.pool,
+            retry_options: self.retry_options,
+            op: None,
+            format: None,
+            multiplexing: self.multiplexing,
+            _stream: PhantomData,
+        };
+        builder.build::<S>(op, Proto { schema }).await
+    }
 }
 
 impl<B, F> WriterBuilder<B, F>
@@ -52,6 +131,7 @@ where
             inner,
             pool,
             retry_options,
+            op: None,
             format: Some(format),
             multiplexing: false,
             _stream: PhantomData,
@@ -262,13 +342,13 @@ where
         self
     }
 
-    async fn build<S>(
+    async fn build<S2>(
         self,
         op: Operation,
         format: F,
-    ) -> std::result::Result<S::Writer<F>, WriterBuilderError>
+    ) -> std::result::Result<S2::Writer<F>, WriterBuilderError>
     where
-        S: Stream,
+        S2: Stream,
     {
         let write_stream = match op {
             Operation::OpenDefault { table } => Self::open_default(table)?,
@@ -280,7 +360,7 @@ where
                 stream_type,
             } => self.attach_to_stream(write_stream, stream_type).await?,
         };
-        Ok(S::build(self, write_stream, format))
+        Ok(S2::build(self, write_stream, format))
     }
 }
 

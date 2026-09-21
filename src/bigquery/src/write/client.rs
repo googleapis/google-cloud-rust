@@ -47,6 +47,34 @@ impl Write {
         })
     }
 
+    /// Opens the [default stream] for the given table.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample(client: Write) -> anyhow::Result<()> {
+    /// let writer = client
+    ///     .open_default_stream("projects/my-project/datasets/my-dataset/tables/my-table")
+    ///     .build_arrow(schema())
+    ///     .await?;
+    /// # Ok(()) }
+    ///
+    /// use google_cloud_bigquery::model::ArrowSchema;
+    /// fn schema() -> ArrowSchema {
+    ///   todo!("Define your table's schema...")
+    /// }
+    /// ```
+    ///
+    /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
+    pub fn open_default_stream<T: Into<String>>(&self, table: T) -> WriterBuilder<DefaultStream> {
+        WriterBuilder::new_open_default(
+            self.inner.clone(),
+            self.pool.clone(),
+            self.retry_options.clone(),
+            table.into(),
+        )
+    }
+
     /// Creates a writer using [Arrow] as the data format.
     ///
     /// # Example
