@@ -25,12 +25,15 @@ cargo run -p pubsub-hedging -- --help
 
 ### Simulated Latency Profile
 
-The in-process mock server introduces probabilistic latency degradations to simulate real-world tail latency and network anomalies:
+The in-process mock server introduces probabilistic latency degradations to
+simulate real-world tail latency and network anomalies:
+
 - **Fast / Normal Responses (95% of requests):** 5ms latency
 - **Degraded Responses (4% of requests):** 300ms latency
 - **Tail Stalls / Outliers (1% of requests):** 4.0s latency
 
 ### Raw Benchmark Outputs
+
 Here are sample results ran on September 17, 2026.
 
 #### Without Hedging
