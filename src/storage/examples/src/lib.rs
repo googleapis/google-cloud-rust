@@ -320,6 +320,18 @@ pub async fn run_managed_folder_examples(buckets: &mut Vec<String>) -> anyhow::R
     tracing::info!("running control::delete_folder example");
     control::delete_folder::sample(&client, &id).await?;
 
+    // Create a nested folder hierarchy for the delete_folder_recursive example.
+    let _ = client
+        .create_folder()
+        .set_parent(format!("projects/_/buckets/{id}"))
+        .set_folder_id("parent-folder-id/child-folder-id")
+        .set_recursive(true)
+        .send()
+        .await?;
+
+    tracing::info!("running control::delete_folder_recursive example");
+    control::delete_folder_recursive::sample(&client, &id, "parent-folder-id").await?;
+
     Ok(())
 }
 
