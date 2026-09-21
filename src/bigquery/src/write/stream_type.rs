@@ -53,7 +53,6 @@ pub use stream::Stream;
 
 pub(crate) mod sealed {
     pub(crate) use super::application_created_stream::sealed::ApplicationCreatedStream;
-    pub(crate) use super::stream::sealed::Stream;
 }
 
 #[cfg(test)]

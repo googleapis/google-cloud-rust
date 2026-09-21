@@ -20,9 +20,10 @@ use super::retry_policy::RetryOptions;
 use super::transport::Transport;
 use super::validate::{validate_stream, validate_table};
 use crate::model::WriteStream;
+use crate::model::write_stream::Type;
 use crate::write::error::WriterBuilderError;
-use crate::write::stream_type::sealed::{ApplicationCreatedStream as _, Stream as _};
-use crate::write::stream_type::{ApplicationCreatedStream, DefaultStream, HasStream};
+use crate::write::stream_type::sealed::ApplicationCreatedStream as _;
+use crate::write::stream_type::{ApplicationCreatedStream, DefaultStream, HasStream, Stream};
 use std::sync::Arc;
 
 /// A builder to create a stream writer.
@@ -80,9 +81,20 @@ where
     ) -> std::result::Result<DefaultWriter<F>, WriterBuilderError> {
         let table = table.into();
         validate_table(table.as_str())?;
+        let op = Operation::OpenDefault { table };
+        self.build::<DefaultStream>(op).await
+    }
+
+    async fn open_default<S>(
+        self,
+        table: String,
+    ) -> std::result::Result<S::Writer<F>, WriterBuilderError>
+    where
+        S: Stream,
+    {
         let mut write_stream = table;
         write_stream.push_str("/streams/_default");
-        Ok(DefaultStream::build(self, write_stream))
+        Ok(S::build(self, write_stream))
     }
 
     pub(crate) fn make_default_writer(self, write_stream: String) -> DefaultWriter<F> {
@@ -125,17 +137,30 @@ where
         W::Stream: ApplicationCreatedStream<Writer<F> = W>,
     {
         let table = table.into();
+        let stream_type = <W::Stream>::STREAM_TYPE;
+        let op = Operation::Create { table, stream_type };
+        self.build::<W::Stream>(op).await
+    }
+
+    async fn create_stream<S>(
+        self,
+        table: String,
+        stream_type: Type,
+    ) -> std::result::Result<S::Writer<F>, WriterBuilderError>
+    where
+        S: Stream,
+    {
         validate_table(table.as_str())?;
 
         let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
         let stream = client
             .create_write_stream()
             .set_parent(table)
-            .set_write_stream(WriteStream::new().set_type(<W::Stream>::STREAM_TYPE))
+            .set_write_stream(WriteStream::new().set_type(stream_type))
             .send()
             .await?;
 
-        Ok(<W::Stream>::build(self, stream.name))
+        Ok(S::build(self, stream.name))
     }
 
     /// Attaches a writer to an existing stream.
@@ -165,6 +190,22 @@ where
         W::Stream: ApplicationCreatedStream<Writer<F> = W>,
     {
         let write_stream = write_stream.into();
+        let stream_type = <W::Stream>::STREAM_TYPE;
+        let op = Operation::Attach {
+            write_stream,
+            stream_type,
+        };
+        self.build::<W::Stream>(op).await
+    }
+
+    async fn attach_to_stream<S>(
+        self,
+        write_stream: String,
+        stream_type: Type,
+    ) -> std::result::Result<S::Writer<F>, WriterBuilderError>
+    where
+        S: Stream,
+    {
         validate_stream(write_stream.as_str())?;
 
         let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
@@ -174,14 +215,13 @@ where
             .send()
             .await?;
 
-        let stream_type = stream.r#type.clone();
-        if stream_type != <W::Stream>::STREAM_TYPE {
+        if stream_type != stream.r#type {
             return Err(WriterBuilderError::TypeMismatch {
-                expected: <W::Stream>::STREAM_TYPE,
-                actual: stream_type,
+                expected: stream_type,
+                actual: stream.r#type,
             });
         }
-        Ok(<W::Stream>::build(self, stream.name))
+        Ok(S::build(self, stream.name))
     }
 
     /// Enable multiplexing
@@ -211,6 +251,37 @@ where
         self.multiplexing = enable;
         self
     }
+
+    async fn build<S>(self, op: Operation) -> std::result::Result<S::Writer<F>, WriterBuilderError>
+    where
+        S: Stream,
+    {
+        match op {
+            Operation::OpenDefault { table } => self.open_default::<S>(table).await,
+            Operation::Create { table, stream_type } => {
+                self.create_stream::<S>(table, stream_type).await
+            }
+            Operation::Attach {
+                write_stream,
+                stream_type,
+            } => self.attach_to_stream::<S>(write_stream, stream_type).await,
+        }
+    }
+}
+
+#[derive(Clone, Debug)]
+enum Operation {
+    OpenDefault {
+        table: String,
+    },
+    Create {
+        table: String,
+        stream_type: Type,
+    },
+    Attach {
+        write_stream: String,
+        stream_type: Type,
+    },
 }
 
 #[cfg(test)]
