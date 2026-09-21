@@ -16,6 +16,7 @@ use super::client_builder::ClientBuilder;
 use super::format::{Arrow, Proto};
 use super::pool::StreamPool;
 use super::retry_policy::RetryOptions;
+use super::stream_type::DefaultStream;
 use super::transport::Transport;
 use super::writer_builder::WriterBuilder;
 use crate::ClientBuilderResult as BuilderResult;
@@ -65,7 +66,7 @@ impl Write {
     /// ```
     ///
     /// [arrow]: https://arrow.apache.org/
-    pub fn arrow(&self, schema: ArrowSchema) -> WriterBuilder<Arrow> {
+    pub fn arrow(&self, schema: ArrowSchema) -> WriterBuilder<DefaultStream, Arrow> {
         let format = Arrow { schema };
         WriterBuilder::new(
             self.inner.clone(),
@@ -79,7 +80,7 @@ impl Write {
     // protobuf-based surface is not exposed. Ideally they would have separate
     // pools.
     #[allow(dead_code)]
-    pub(crate) fn proto(&self, schema: ProtoSchema) -> WriterBuilder<Proto> {
+    pub(crate) fn proto(&self, schema: ProtoSchema) -> WriterBuilder<DefaultStream, Proto> {
         let format = Proto { schema };
         WriterBuilder::new(
             self.inner.clone(),

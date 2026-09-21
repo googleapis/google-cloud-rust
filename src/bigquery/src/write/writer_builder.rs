@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use super::DefaultWriter;
-use super::format::DataFormat;
+use super::format::{Arrow, DataFormat};
 use super::generated::gapic_storage::client::BigQueryWrite;
 use super::pool::{StreamPool, StreamPoolOptions};
 use super::retry_policy::RetryOptions;
@@ -24,19 +24,21 @@ use crate::model::write_stream::Type;
 use crate::write::error::WriterBuilderError;
 use crate::write::stream_type::sealed::ApplicationCreatedStream as _;
 use crate::write::stream_type::{ApplicationCreatedStream, DefaultStream, HasStream, Stream};
+use std::marker::PhantomData;
 use std::sync::Arc;
 
 /// A builder to create a stream writer.
 #[derive(Clone, Debug)]
-pub struct WriterBuilder<F> {
+pub struct WriterBuilder<S, F = Arrow> {
     pub(crate) inner: Arc<Transport>,
     pub(crate) pool: Arc<StreamPool>,
     pub(crate) retry_options: RetryOptions,
-    pub(crate) format: F,
+    pub(crate) format: Option<F>,
     pub(crate) multiplexing: bool,
+    _stream: PhantomData<S>,
 }
 
-impl<F> WriterBuilder<F>
+impl<B, F> WriterBuilder<B, F>
 where
     F: DataFormat,
 {
@@ -50,8 +52,9 @@ where
             inner,
             pool,
             retry_options,
-            format,
+            format: Some(format),
             multiplexing: false,
+            _stream: PhantomData,
         }
     }
 
@@ -76,12 +79,16 @@ where
     ///
     /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
     pub async fn default<T: Into<String>>(
-        self,
+        mut self,
         table: T,
     ) -> std::result::Result<DefaultWriter<F>, WriterBuilderError> {
         let table = table.into();
         let op = Operation::OpenDefault { table };
-        self.build::<DefaultStream>(op).await
+        let format = self
+            .format
+            .take()
+            .expect("format set by WriterBuilder::new");
+        self.build::<DefaultStream>(op, format).await
     }
 
     fn open_default(table: String) -> std::result::Result<String, WriterBuilderError> {
@@ -91,7 +98,11 @@ where
         Ok(write_stream)
     }
 
-    pub(crate) fn make_default_writer(self, write_stream: String) -> DefaultWriter<F> {
+    pub(crate) fn make_default_writer<F2: DataFormat>(
+        self,
+        write_stream: String,
+        format: F2,
+    ) -> DefaultWriter<F2> {
         let pool = if self.multiplexing {
             self.pool
         } else {
@@ -101,7 +112,7 @@ where
             };
             Arc::new(StreamPool::new(self.inner, options))
         };
-        DefaultWriter::new(pool, self.retry_options, write_stream, self.format)
+        DefaultWriter::new(pool, self.retry_options, write_stream, format)
     }
 
     /// Returns a writer for a newly created stream for the given table.
@@ -124,7 +135,7 @@ where
     /// #   todo!("Define your table's schema...")
     /// # }
     /// ```
-    pub async fn create<W, S>(self, table: S) -> std::result::Result<W, WriterBuilderError>
+    pub async fn create<W, S>(mut self, table: S) -> std::result::Result<W, WriterBuilderError>
     where
         S: Into<String>,
         W: HasStream,
@@ -133,7 +144,11 @@ where
         let table = table.into();
         let stream_type = <W::Stream>::STREAM_TYPE;
         let op = Operation::Create { table, stream_type };
-        self.build::<W::Stream>(op).await
+        let format = self
+            .format
+            .take()
+            .expect("format set by WriterBuilder::new");
+        self.build::<W::Stream>(op, format).await
     }
 
     async fn create_stream(
@@ -174,7 +189,10 @@ where
     /// #   todo!("Define your table's schema...")
     /// # }
     /// ```
-    pub async fn attach<W, S>(self, write_stream: S) -> std::result::Result<W, WriterBuilderError>
+    pub async fn attach<W, S>(
+        mut self,
+        write_stream: S,
+    ) -> std::result::Result<W, WriterBuilderError>
     where
         S: Into<String>,
         W: HasStream,
@@ -186,7 +204,11 @@ where
             write_stream,
             stream_type,
         };
-        self.build::<W::Stream>(op).await
+        let format = self
+            .format
+            .take()
+            .expect("format set by WriterBuilder::new");
+        self.build::<W::Stream>(op, format).await
     }
 
     async fn attach_to_stream(
@@ -240,7 +262,11 @@ where
         self
     }
 
-    async fn build<S>(self, op: Operation) -> std::result::Result<S::Writer<F>, WriterBuilderError>
+    async fn build<S>(
+        self,
+        op: Operation,
+        format: F,
+    ) -> std::result::Result<S::Writer<F>, WriterBuilderError>
     where
         S: Stream,
     {
@@ -254,7 +280,7 @@ where
                 stream_type,
             } => self.attach_to_stream(write_stream, stream_type).await?,
         };
-        Ok(S::build(self, write_stream))
+        Ok(S::build(self, write_stream, format))
     }
 }
 
