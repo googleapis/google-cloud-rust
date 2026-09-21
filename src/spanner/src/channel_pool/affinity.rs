@@ -55,16 +55,6 @@ impl TransactionAffinity {
         }
     }
 
-    /// Returns the provided affinity handle, or creates a new default `ReadOnly` affinity if `None`.
-    pub(crate) fn default_read_only(existing: Option<Arc<Self>>) -> Arc<Self> {
-        existing.unwrap_or_else(|| Arc::new(Self::new_read_only()))
-    }
-
-    /// Returns the provided affinity handle, or creates a new default `ReadWrite` affinity if `None`.
-    pub(crate) fn default_read_write(existing: Option<Arc<Self>>) -> Arc<Self> {
-        existing.unwrap_or_else(|| Arc::new(Self::new_read_write()))
-    }
-
     /// Returns `true` if this handle requires hard stickiness (Read/Write transactions).
     pub(crate) fn is_read_write(&self) -> bool {
         self.kind == AffinityKind::ReadWrite
@@ -102,6 +92,16 @@ impl TransactionAffinity {
         }
         *slot = Some(lease.rw_affinity_guard());
     }
+
+    /// Releases the active Read/Write transaction guard on the channel entry,
+    /// allowing draining channels to close once the transaction completes.
+    pub(crate) fn release_rw_guard(&self) {
+        let mut slot = self
+            .rw_guard
+            .lock()
+            .expect("affinity rw_guard lock poisoned");
+        *slot = None;
+    }
 }
 
 /// Stickiness kind for transaction channel affinity.
@@ -114,6 +114,52 @@ pub(crate) enum AffinityKind {
     /// Read-Only transactions prefer soft stickiness, but seamlessly
     /// switch to a fresh active channel if their pinned channel begins draining.
     ReadOnly,
+}
+
+/// Routing target for channel selection: either an unpinned channel or a transaction affinity handle.
+#[derive(Clone, Copy, Debug, Default)]
+pub(crate) enum ChannelTarget<'a> {
+    /// Leases any active channel via Power-of-Two-Choices (P2C) load balancing.
+    #[default]
+    Any,
+    /// Pins or resolves request dispatch to the channel associated with the given transaction affinity handle.
+    Affinity(&'a TransactionAffinity),
+}
+
+impl<'a> From<&'a TransactionAffinity> for ChannelTarget<'a> {
+    fn from(affinity: &'a TransactionAffinity) -> Self {
+        Self::Affinity(affinity)
+    }
+}
+
+impl<'a> From<&'a Arc<TransactionAffinity>> for ChannelTarget<'a> {
+    fn from(affinity: &'a Arc<TransactionAffinity>) -> Self {
+        Self::Affinity(affinity)
+    }
+}
+
+impl<'a> From<Option<&'a TransactionAffinity>> for ChannelTarget<'a> {
+    fn from(affinity: Option<&'a TransactionAffinity>) -> Self {
+        match affinity {
+            Some(affinity) => Self::Affinity(affinity),
+            None => Self::Any,
+        }
+    }
+}
+
+impl<'a> From<&'a Option<Arc<TransactionAffinity>>> for ChannelTarget<'a> {
+    fn from(affinity: &'a Option<Arc<TransactionAffinity>>) -> Self {
+        match affinity {
+            Some(affinity) => Self::Affinity(affinity),
+            None => Self::Any,
+        }
+    }
+}
+
+impl From<()> for ChannelTarget<'_> {
+    fn from(_: ()) -> Self {
+        Self::Any
+    }
 }
 
 #[cfg(test)]
@@ -155,6 +201,8 @@ mod tests {
     use crate::client::Channel;
     use crate::generated::gapic_dataplane::stub::Spanner as SpannerStub;
     use std::fmt::Debug;
+    use std::ptr;
+    use std::sync::Arc;
     use std::time::Duration;
 
     #[derive(Debug)]
@@ -165,6 +213,7 @@ mod tests {
     fn traits() {
         static_assertions::assert_impl_all!(TransactionAffinity: Debug, Send, Sync);
         static_assertions::assert_impl_all!(AffinityKind: Clone, Copy, Debug, PartialEq, Eq, Send, Sync);
+        static_assertions::assert_impl_all!(ChannelTarget<'_>: Clone, Copy, Debug, Send, Sync);
     }
 
     impl TransactionAffinity {
@@ -252,37 +301,6 @@ mod tests {
         assert!(
             !read_only_affinity.is_read_write(),
             "ReadOnly affinity is not ReadWrite"
-        );
-    }
-
-    #[test]
-    fn transaction_affinity_defaults() {
-        let default_read_only = TransactionAffinity::default_read_only(None);
-        assert!(
-            default_read_only.is_read_only(),
-            "default_read_only(None) must return ReadOnly affinity"
-        );
-
-        let custom_read_only = Arc::new(TransactionAffinity::new_read_only());
-        let passed_read_only =
-            TransactionAffinity::default_read_only(Some(Arc::clone(&custom_read_only)));
-        assert!(
-            Arc::ptr_eq(&custom_read_only, &passed_read_only),
-            "default_read_only(Some(handle)) must return existing handle without recreating"
-        );
-
-        let default_read_write = TransactionAffinity::default_read_write(None);
-        assert!(
-            default_read_write.is_read_write(),
-            "default_read_write(None) must return ReadWrite affinity"
-        );
-
-        let custom_read_write = Arc::new(TransactionAffinity::new_read_write());
-        let passed_read_write =
-            TransactionAffinity::default_read_write(Some(Arc::clone(&custom_read_write)));
-        assert!(
-            Arc::ptr_eq(&custom_read_write, &passed_read_write),
-            "default_read_write(Some(handle)) must return existing handle without recreating"
         );
     }
 
@@ -390,5 +408,90 @@ mod tests {
         affinity.ensure_rw_guard(&lease2);
         assert_eq!(entry1.active_rw_count(), 0, "entry1 count must drop to 0");
         assert_eq!(entry2.active_rw_count(), 1, "entry2 count must be 1");
+    }
+
+    #[test]
+    fn release_rw_guard_drops_guard_and_decrements_count() {
+        let channel = Channel::new_for_test(DummyStub);
+        let entry = Arc::new(ChannelEntry::new(1, 1, channel));
+        let guard = ActiveRpcGuard::new(Arc::clone(&entry), 0, Duration::ZERO, 0);
+        let lease = ChannelLease::new(guard);
+
+        let affinity = TransactionAffinity::new_read_write();
+        affinity.ensure_rw_guard(&lease);
+        assert_eq!(
+            entry.active_rw_count(),
+            1,
+            "entry active_rw_count must be 1 after ensuring guard"
+        );
+
+        affinity.release_rw_guard();
+        assert_eq!(
+            entry.active_rw_count(),
+            0,
+            "entry active_rw_count must drop to 0 after release_rw_guard"
+        );
+
+        // Repeated release must be an idempotent no-op
+        affinity.release_rw_guard();
+        assert_eq!(
+            entry.active_rw_count(),
+            0,
+            "entry active_rw_count must remain 0 on repeated release"
+        );
+    }
+
+    #[test]
+    fn channel_target_from_conversions() {
+        let affinity = TransactionAffinity::new_read_write();
+        let target_from_ref = ChannelTarget::from(&affinity);
+        assert!(
+            matches!(target_from_ref, ChannelTarget::Affinity(target_affinity) if ptr::eq(target_affinity, &affinity)),
+            "target_from_ref affinity must match"
+        );
+
+        let arc_affinity = Arc::new(TransactionAffinity::new_read_only());
+        let target_from_arc = ChannelTarget::from(&arc_affinity);
+        assert!(
+            matches!(target_from_arc, ChannelTarget::Affinity(target_affinity) if ptr::eq(target_affinity, &*arc_affinity)),
+            "target_from_arc affinity must match"
+        );
+
+        let target_from_some = ChannelTarget::from(Some(&affinity));
+        assert!(
+            matches!(target_from_some, ChannelTarget::Affinity(target_affinity) if ptr::eq(target_affinity, &affinity)),
+            "target_from_some affinity must match"
+        );
+
+        let target_from_none = ChannelTarget::from(None);
+        assert!(
+            matches!(target_from_none, ChannelTarget::Any),
+            "target_from_none must be ChannelTarget::Any"
+        );
+
+        let opt_arc: Option<Arc<TransactionAffinity>> = Some(Arc::clone(&arc_affinity));
+        let target_from_opt_arc = ChannelTarget::from(&opt_arc);
+        assert!(
+            matches!(target_from_opt_arc, ChannelTarget::Affinity(target_affinity) if ptr::eq(target_affinity, &*arc_affinity)),
+            "target_from_opt_arc must be ChannelTarget::Affinity"
+        );
+
+        let opt_arc_none: Option<Arc<TransactionAffinity>> = None;
+        let target_from_opt_arc_none = ChannelTarget::from(&opt_arc_none);
+        assert!(
+            matches!(target_from_opt_arc_none, ChannelTarget::Any),
+            "target_from_opt_arc_none must be ChannelTarget::Any"
+        );
+
+        let target_from_unit = ChannelTarget::from(());
+        assert!(
+            matches!(target_from_unit, ChannelTarget::Any),
+            "target_from_unit must be ChannelTarget::Any"
+        );
+
+        assert!(
+            matches!(ChannelTarget::default(), ChannelTarget::Any),
+            "ChannelTarget default must be ChannelTarget::Any"
+        );
     }
 }

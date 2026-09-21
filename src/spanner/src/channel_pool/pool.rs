@@ -17,7 +17,7 @@
 //! Provides `ChannelPool`, which unifies both static (fixed-size) and dynamically scaling channel
 //! pool configurations under a single API for the Spanner client.
 
-use crate::channel_pool::affinity::TransactionAffinity;
+use crate::channel_pool::affinity::{ChannelTarget, TransactionAffinity};
 use crate::channel_pool::config::{
     ChannelPoolConfig, DynamicChannelPoolConfig, MAX_SUPPORTED_CHANNELS, StaticChannelPoolConfig,
 };
@@ -27,7 +27,7 @@ use crate::client::Channel;
 use crate::routing::power_of_two_selector::PowerOfTwoSelector;
 use gaxi::options::ClientConfig;
 use std::fmt::{Debug, Formatter, Result as FmtResult};
-use std::sync::atomic::{AtomicU64, AtomicUsize};
+use std::sync::atomic::{AtomicBool, AtomicU64, AtomicUsize, Ordering};
 use std::sync::{Arc, Mutex, RwLock};
 use std::time::{Duration, Instant};
 use tokio::spawn;
@@ -82,6 +82,7 @@ impl ChannelPool {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id,
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -109,6 +110,7 @@ impl ChannelPool {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id,
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -147,6 +149,7 @@ impl ChannelPool {
                 guard.entry.effective_pick_load() as f64 > dynamic_config.max_rpc_per_channel
             })
         {
+            self.inner.scale_up_requested.store(true, Ordering::Release);
             self.inner.scale_up_notify.notify_one();
         }
 
@@ -158,6 +161,17 @@ impl ChannelPool {
         let active_guard = self.inner.active_entries.read().expect("lock poisoned");
 
         self.pick_from_slice(&active_guard)
+    }
+
+    /// Leases a channel from the pool based on the specified routing target.
+    pub(crate) fn pick_channel_for_target(
+        &self,
+        target: &ChannelTarget<'_>,
+    ) -> Option<ChannelLease> {
+        match target {
+            ChannelTarget::Affinity(affinity) => self.resolve_affinity(affinity),
+            ChannelTarget::Any => self.pick_channel(),
+        }
     }
 
     /// Resolves an affinity handle to a leased channel.
@@ -344,15 +358,9 @@ impl ChannelPool {
 
     /// Returns a clone of the first active channel in the pool, if present.
     ///
-    /// # Warning
-    ///
-    /// This method is intended strictly for internal metadata setup (e.g. configuring
-    /// fallback gateway connection endpoints during client initialization).
-    ///
-    /// **Never** use this method for routing or executing queries or RPCs. Doing so would
-    /// bypass load balancing and cause traffic to herd onto the first channel.
-    /// Use [`ChannelPool::pick_channel`] for P2C load-balanced channel selection, or
-    /// [`ChannelPool::resolve_affinity`] for operations requiring transaction affinity.
+    /// This helper is intended exclusively for unit tests to verify channel pool initialization
+    /// and channel availability. It is never used in production request routing.
+    #[cfg(test)]
     pub(crate) fn default_channel(&self) -> Option<Channel> {
         let active_guard = self.inner.active_entries.read().expect("lock poisoned");
         active_guard.first().map(|entry| entry.channel.clone())
@@ -367,6 +375,7 @@ pub(crate) struct ChannelPoolInner {
     pub(crate) draining_entries: RwLock<Vec<Arc<ChannelEntry>>>,
     pub(crate) next_entry_id: AtomicU64,
     pub(crate) scale_up_notify: Arc<Notify>,
+    pub(crate) scale_up_requested: AtomicBool,
     #[allow(dead_code)]
     // Retained for RAII drop signaling; read in scaler unit tests via subscribe()
     pub(crate) shutdown_sender: WatchSender<()>,
@@ -1080,6 +1089,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -1108,6 +1118,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -1266,5 +1277,116 @@ mod tests {
             2,
             "must adopt winning channel 2 on CAS conflict"
         );
+    }
+
+    #[tokio::test]
+    async fn mock_stub_create_session() {
+        let channel = create_mock_channel();
+        let result = channel.inner.create_session().send().await;
+        assert!(result.is_ok(), "mock session create must succeed");
+    }
+
+    #[test]
+    fn empty_pool_pick_channel_for_target() {
+        let client_config = ClientConfig::default();
+        let pool = ChannelPool::new_static(
+            vec![],
+            StaticChannelPoolConfig { num_channels: 0 },
+            client_config,
+        );
+
+        assert!(
+            pool.pick_channel().is_none(),
+            "pick_channel on empty pool must return None"
+        );
+        assert!(
+            pool.pick_channel_for_target(&ChannelTarget::Any).is_none(),
+            "pick_channel_for_target on empty pool must return None"
+        );
+        let affinity = TransactionAffinity::new_read_write();
+        assert!(
+            pool.pick_channel_for_target(&ChannelTarget::Affinity(&affinity))
+                .is_none(),
+            "pick_channel_for_target with affinity on empty pool must return None"
+        );
+    }
+
+    #[test]
+    fn pick_channel_for_target_variants() {
+        let client_config = ClientConfig::default();
+        let channel = Arc::new(ChannelEntry::new(10, 3, create_mock_channel()));
+        let pool = ChannelPool::new_static(
+            vec![],
+            StaticChannelPoolConfig { num_channels: 0 },
+            client_config,
+        );
+        pool.inner
+            .active_entries
+            .write()
+            .expect("lock poisoned")
+            .push(Arc::clone(&channel));
+
+        // 1. ChannelTarget::Any leases an active channel
+        let any_lease = pool.pick_channel_for_target(&ChannelTarget::Any);
+        assert!(
+            any_lease.is_some(),
+            "pick_channel_for_target on ChannelTarget::Any must return a lease"
+        );
+        assert_eq!(
+            any_lease.expect("lease must be present").channel_id,
+            3,
+            "Leased channel for ChannelTarget::Any must have channel_id 3"
+        );
+
+        // 2. ChannelTarget::Affinity with unpinned affinity leases and pins the channel
+        let affinity = TransactionAffinity::new_read_write();
+        let affinity_lease = pool.pick_channel_for_target(&ChannelTarget::Affinity(&affinity));
+        assert!(
+            affinity_lease.is_some(),
+            "pick_channel_for_target on ChannelTarget::Affinity must return a lease"
+        );
+        assert_eq!(
+            affinity.pinned_entry_id(),
+            Some(10),
+            "Unpinned affinity must be pinned to channel entry 10 upon lease"
+        );
+        assert_eq!(
+            affinity_lease.expect("lease must be present").channel_id,
+            3,
+            "Leased channel for affinity target must have channel_id 3"
+        );
+    }
+
+    #[tokio::test]
+    async fn pick_channel_triggers_scale_up_request_on_saturation() {
+        let client_config = ClientConfig::default();
+        let channels = vec![create_mock_channel()];
+        let pool = ChannelPool::new_dynamic(
+            channels,
+            DynamicChannelPoolConfig {
+                initial_channels: 1,
+                min_channels: 1,
+                max_channels: 4,
+                // Setting max_rpc_per_channel to 0.5 ensures 1 in-flight RPC triggers scale-up
+                max_rpc_per_channel: 0.5,
+                ..Default::default()
+            },
+            client_config,
+        );
+
+        assert!(
+            !pool.inner.scale_up_requested.load(Ordering::Acquire),
+            "scale_up_requested must be false initially"
+        );
+
+        let lease = pool
+            .pick_channel()
+            .expect("pick_channel on non-empty pool must succeed");
+        assert!(
+            pool.inner.scale_up_requested.load(Ordering::Acquire),
+            "scale_up_requested must be true after picking saturated channel"
+        );
+
+        drop(lease);
     }
 }
