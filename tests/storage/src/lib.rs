@@ -30,7 +30,7 @@ use google_cloud_lro::Poller;
 pub use google_cloud_storage::builder::storage::ClientBuilder as StorageBuilder;
 use google_cloud_storage::builder::storage::SignedUrlBuilder;
 pub use google_cloud_storage::builder::storage_control::ClientBuilder as StorageControlBuilder;
-use google_cloud_storage::client::StorageControl;
+use google_cloud_storage::client::{Storage, StorageControl};
 use google_cloud_storage::model::Bucket;
 use google_cloud_storage::model::bucket::iam_config::UniformBucketLevelAccess;
 use google_cloud_storage::model::bucket::{HierarchicalNamespace, IamConfig};
@@ -42,6 +42,52 @@ use std::time::Duration;
 pub use storage_samples::{
     cleanup_stale_buckets, create_test_bucket, create_test_hns_bucket, create_test_rapid_bucket,
 };
+
+pub async fn build_storage_client() -> Result<Storage> {
+    let mut builder = Storage::builder();
+    if let Ok(endpoint) = std::env::var("GOOGLE_CLOUD_TEST_STORAGE_ENDPOINT") {
+        builder = builder.with_endpoint(endpoint);
+    }
+    Ok(builder.build().await?)
+}
+
+pub async fn build_non_colocated_storage_client(off_zone: &str) -> Result<Storage> {
+    let mut builder = Storage::builder();
+    if let Ok(endpoint) = std::env::var("GOOGLE_CLOUD_TEST_STORAGE_ENDPOINT") {
+        builder = builder.with_endpoint(endpoint);
+    } else {
+        builder = builder.with_endpoint(format!("https://{off_zone}-storage.googleapis.com"));
+    }
+    Ok(builder.build().await?)
+}
+
+pub async fn create_test_regional_rapid_bucket() -> Result<(StorageControl, Bucket)> {
+    let project_id = project_id()?;
+    let control = StorageControl::builder().build().await?;
+    cleanup_stale_buckets(&control, &project_id).await;
+
+    let bucket_id = random_bucket_id();
+    let create = control
+        .create_bucket()
+        .set_parent("projects/_")
+        .set_bucket_id(bucket_id)
+        .set_bucket(
+            Bucket::new()
+                .set_project(format!("projects/{project_id}"))
+                .set_location("us-central1")
+                .set_storage_class("RAPID")
+                .set_labels([("integration-test", "true")])
+                .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
+                .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
+                    UniformBucketLevelAccess::new().set_enabled(true),
+                )),
+        )
+        .with_idempotency(true)
+        .send()
+        .await?;
+    println!("create_test_regional_rapid_bucket(): {create:?}");
+    Ok((control, create))
+}
 
 pub async fn objects(builder: StorageBuilder, bucket_name: &str, prefix: &str) -> Result<()> {
     let client = builder.build().await?;

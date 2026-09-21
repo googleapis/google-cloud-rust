@@ -23,11 +23,22 @@ use google_cloud_storage::read_object::ReadObjectResponse;
 
 /// Runs all 5 live cloud conformance tests for Bidirectional Read.
 pub async fn run(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
+    run_with_scenario(client, bucket_name, "Default").await
+}
+
+/// Runs all 5 live cloud conformance tests for Bidirectional Read with a specific scenario name.
+pub async fn run_with_scenario(
+    client: &Storage,
+    bucket_name: &str,
+    scenario_name: &str,
+) -> anyhow::Result<()> {
+    println!("\n=== [Scenario: {scenario_name}] Running Bidi Read Conformance Suite ===");
     test_multiple_ranged_read(client, bucket_name).await?;
     test_read_post_stream_close(client, bucket_name).await?;
     test_zero_copy_read(client, bucket_name).await?;
     test_non_existent_bucket_read(client).await?;
     test_out_of_range(client, bucket_name).await?;
+    println!("=== [Scenario: {scenario_name}] Conformance Suite Completed Successfully ===\n");
     Ok(())
 }
 
