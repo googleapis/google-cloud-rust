@@ -204,7 +204,7 @@ impl RetryContext {
         Ok(QueryHandle::from_job(
             job_service,
             job,
-            Some(self.clone()),
+            Some(self),
             page_size,
         ))
     }
@@ -254,7 +254,7 @@ impl RetryContext {
                 return Ok(QueryHandle::from_job(
                     job_service,
                     check_job_status(existing_job)?,
-                    Some(self.clone()),
+                    Some(self),
                     page_size,
                 ));
             }
@@ -264,7 +264,7 @@ impl RetryContext {
         Ok(QueryHandle::from_query_response(
             job_service,
             res,
-            Some(self.clone()),
+            Some(self),
             page_size,
         ))
     }
@@ -601,6 +601,41 @@ mod tests {
 
         let handle = retry_ctx.execute_once("my-project").await?;
         assert_eq!(handle.metadata.job_reference.unwrap().job_id, "query-job");
+        assert!(handle.retry_context.is_some());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_execute_drops_retry_context_when_completed() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_query().times(1).returning(|_, _| {
+            let res = QueryResponse::new()
+                .set_job_complete(true)
+                .set_job_reference(JobReference::new().set_job_id("query-job"));
+            Ok(Response::from(res))
+        });
+        mock.expect_insert_job().times(1).returning(|_, _| {
+            let job = Job::new()
+                .set_job_reference(JobReference::new().set_job_id("insert-job"))
+                .set_status(JobStatus::new().set_state("DONE"));
+            Ok(Response::from(job))
+        });
+
+        let job_service = create_job_service(mock);
+
+        let query = Query::new(job_service.clone(), "SELECT 1".to_string())
+            .with_project_id("my-project")
+            .set_dry_run(false);
+        let handle = RetryContext::new(query).execute_once("my-project").await?;
+        assert!(handle.completed);
+        assert!(handle.retry_context.is_none());
+
+        let query = Query::new(job_service, "SELECT 1".to_string())
+            .with_project_id("my-project")
+            .set_dry_run(true);
+        let handle = RetryContext::new(query).execute_once("my-project").await?;
+        assert!(handle.completed);
+        assert!(handle.retry_context.is_none());
         Ok(())
     }
 
