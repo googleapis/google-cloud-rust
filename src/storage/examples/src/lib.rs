@@ -330,7 +330,23 @@ pub async fn run_managed_folder_examples(buckets: &mut Vec<String>) -> anyhow::R
         .await?;
 
     tracing::info!("running control::delete_folder_recursive example");
-    control::delete_folder_recursive::sample(&client, &id, "parent-folder-id").await?;
+    match control::delete_folder_recursive::sample(&client, &id, "parent-folder-id").await {
+        Ok(()) => {}
+        Err(e)
+            if e.to_string()
+                .contains("Recursive folder delete is not enabled") =>
+        {
+            tracing::info!("skipping delete_folder_recursive: {e}");
+            for folder_id in ["parent-folder-id/child-folder-id", "parent-folder-id"] {
+                client
+                    .delete_folder()
+                    .set_name(format!("projects/_/buckets/{id}/folders/{folder_id}"))
+                    .send()
+                    .await?;
+            }
+        }
+        Err(e) => return Err(e),
+    }
 
     Ok(())
 }
