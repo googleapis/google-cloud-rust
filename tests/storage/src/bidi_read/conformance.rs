@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,41 +12,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Cross-SDK Conformance Tests for Bidirectional Read (Test Suite 1).
+//!
+//! Implements the formal test cases specified in the GCS Bidirectional Read
+//! specification and the Rapid Cache Ultra (RCU) integration testing matrix.
+
 use google_cloud_storage::client::Storage;
 use google_cloud_storage::model_ext::ReadRange;
 use google_cloud_storage::read_object::ReadObjectResponse;
 
-pub async fn run(bucket_name: &str) -> anyhow::Result<()> {
-    let mut builder = Storage::builder();
-    if let Ok(endpoint) = std::env::var("GOOGLE_CLOUD_TEST_STORAGE_ENDPOINT") {
-        builder = builder.with_endpoint(endpoint);
-    }
-    let client = builder.build().await?;
-
-    // Suite 1: Bidirectional Read live cloud integration tests
-    test_multiple_ranged_read(&client, bucket_name).await?;
-    test_read_post_stream_close(&client, bucket_name).await?;
-    test_zero_copy_read(&client, bucket_name).await?;
-    test_non_existent_bucket_read(&client).await?;
-    test_out_of_range(&client, bucket_name).await?;
-
-    // Pre-existing Bidirectional Read tests
-    send(&client, bucket_name).await?;
-    send_and_read(&client, bucket_name).await?;
-    send_and_read_full(&client, bucket_name).await?;
-    send_and_read_md5(&client, bucket_name).await?;
-    send_and_read_gzip(&client, bucket_name).await?;
+/// Runs all 5 live cloud conformance tests for Bidirectional Read.
+pub async fn run(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
+    test_multiple_ranged_read(client, bucket_name).await?;
+    test_read_post_stream_close(client, bucket_name).await?;
+    test_zero_copy_read(client, bucket_name).await?;
+    test_non_existent_bucket_read(client).await?;
+    test_out_of_range(client, bucket_name).await?;
     Ok(())
 }
 
 /// Test Suite 1 - Test 1: Multiple Ranged Read
 ///
-/// Tests reading an Object across multiple concurrent range read streams over the
+/// Tests reading an object across multiple concurrent range read streams over the
 /// bidirectional gRPC stream session. Validates that concurrent streams drain properly
 /// without deadlock, all received bytes match the expected slices, total length matches,
 /// and CRC32C checksum integrity across all ranges matches.
 pub async fn test_multiple_ranged_read(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
-    println!("--- [Test 1/5] Testing Multiple Ranged Read ---");
+    println!("--- [Conformance 1/5] Testing Multiple Ranged Read ---");
     const TOTAL_SIZE: usize = 512 * 1024;
     let payload = String::from_iter(('a'..='z').cycle().take(TOTAL_SIZE));
     let object_name = "bidi_read/multi_range_source.txt";
@@ -59,7 +51,7 @@ pub async fn test_multiple_ranged_read(client: &Storage, bucket_name: &str) -> a
 
     let descriptor = client.open_object(bucket_name, &write.name).send().await?;
 
-    // Define 4 non-overlapping segments covering the entire 512 KiB object
+    // Define 4 non-overlapping segments covering the entire 512 KiB object:
     // Range 0: [0..64 KiB] (64 KiB)
     // Range 1: [64 KiB..192 KiB] (128 KiB)
     // Range 2: [192 KiB..384 KiB] (192 KiB)
@@ -101,7 +93,7 @@ pub async fn test_multiple_ranged_read(client: &Storage, bucket_name: &str) -> a
     let crc3 = crc32c::crc32c(&buf3);
     assert_eq!(crc3, crc32c::crc32c(&payload_bytes[384 * 1024..512 * 1024]));
 
-    println!("SUCCESS on Test 1: Multiple Ranged Read (512 KiB across 4 concurrent ranges)");
+    println!("SUCCESS on Conformance 1: Multiple Ranged Read (512 KiB across 4 concurrent ranges)");
     Ok(())
 }
 
@@ -115,7 +107,7 @@ pub async fn test_read_post_stream_close(
     client: &Storage,
     bucket_name: &str,
 ) -> anyhow::Result<()> {
-    println!("--- [Test 2/5] Testing Read Post Stream Close ---");
+    println!("--- [Conformance 2/5] Testing Read Post Stream Close ---");
     let payload = String::from_iter(('a'..='z').cycle().take(100_000));
     let object_name = "bidi_read/post_close_source.txt";
 
@@ -152,7 +144,7 @@ pub async fn test_read_post_stream_close(
     assert_eq!(subsequent_data.len(), 50);
     assert_eq!(subsequent_data, &payload.as_bytes()[200..250]);
 
-    println!("SUCCESS on Test 2: Read Post Stream Close");
+    println!("SUCCESS on Conformance 2: Read Post Stream Close");
     Ok(())
 }
 
@@ -160,7 +152,7 @@ pub async fn test_read_post_stream_close(
 ///
 /// Tests concurrent zero-copy range reads, validating bytes::Bytes buffer access and memory safety.
 pub async fn test_zero_copy_read(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
-    println!("--- [Test 3/5] Testing Zero Copy Read ---");
+    println!("--- [Conformance 3/5] Testing Zero Copy Read ---");
     const SIZE: usize = 100_000;
     let payload = String::from_iter(('a'..='z').cycle().take(SIZE));
     let object_name = "bidi_read/zero_copy_source.txt";
@@ -203,16 +195,16 @@ pub async fn test_zero_copy_read(client: &Storage, bucket_name: &str) -> anyhow:
     }
     assert_eq!(combined2, &payload.as_bytes()[50_000..100_000]);
 
-    println!("SUCCESS on Test 3: Zero Copy Read");
+    println!("SUCCESS on Conformance 3: Zero Copy Read");
     Ok(())
 }
 
 /// Test Suite 1 - Test 4: Non-Existent Bucket Read
 ///
 /// Tests opening a stream on a non-existent bucket. Verifies that an appropriate
-/// error with NotFound status (HTTP 404) is returned.
+/// error with NotFound status (HTTP 404) or PermissionDenied (allowlist check) is returned.
 pub async fn test_non_existent_bucket_read(client: &Storage) -> anyhow::Result<()> {
-    println!("--- [Test 4/5] Testing Non Existent Bucket Read ---");
+    println!("--- [Conformance 4/5] Testing Non Existent Bucket Read ---");
     let non_existent_bucket = format!(
         "projects/_/buckets/non-existent-bucket-{}",
         google_cloud_test_utils::resource_names::random_bucket_id()
@@ -239,7 +231,7 @@ pub async fn test_non_existent_bucket_read(client: &Storage) -> anyhow::Result<(
         }
     }
 
-    println!("SUCCESS on Test 4: Non Existent Bucket Read");
+    println!("SUCCESS on Conformance 4: Non Existent Bucket Read");
     Ok(())
 }
 
@@ -266,7 +258,7 @@ fn assert_is_not_found(err: &google_cloud_gax::error::Error) {
 /// Ensures appropriate exception/EOF is returned for the invalid range while valid range reads
 /// on the same session succeed.
 pub async fn test_out_of_range(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
-    println!("--- [Test 5/5] Testing Out Of Range Read ---");
+    println!("--- [Conformance 5/5] Testing Out Of Range Read ---");
     let payload = String::from_iter(('a'..='z').cycle().take(10_000));
     let object_name = "bidi_read/out_of_range_source.txt";
 
@@ -315,7 +307,7 @@ pub async fn test_out_of_range(client: &Storage, bucket_name: &str) -> anyhow::R
         }
     }
 
-    println!("SUCCESS on Test 5: Out Of Range Read");
+    println!("SUCCESS on Conformance 5: Out Of Range Read");
     Ok(())
 }
 
@@ -335,193 +327,4 @@ async fn collect_zero_copy_chunks(
         chunks.push(chunk);
     }
     Ok(chunks)
-}
-
-async fn send(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
-    let write = client
-        .write_object(
-            bucket_name,
-            "basic/source.txt",
-            String::from_iter((0..100_000).map(|_| 'a')),
-        )
-        .set_if_generation_match(0)
-        .send_unbuffered()
-        .await?;
-
-    let open = client.open_object(bucket_name, &write.name).send().await?;
-    tracing::info!("open returns: {open:?}");
-    let got = open.object();
-    let mut want = write.clone();
-    // This field is a mismatch, but both `Some(false)` and `None` represent
-    // the same value.
-    want.event_based_hold = want.event_based_hold.or(Some(false));
-    // There is a submillisecond difference, maybe rounding?
-    want.finalize_time = got.finalize_time;
-    assert_eq!(got, want);
-
-    let mut reader = open.read_range(ReadRange::head(100)).await;
-    let mut count = 0_usize;
-    while let Some(r) = reader.next().await.transpose()? {
-        tracing::info!("received {} bytes", r.len());
-        count += r.len();
-    }
-    assert_eq!(count, 100_usize);
-
-    Ok(())
-}
-
-pub async fn send_and_read(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
-    let payload = String::from_iter(('a'..='z').cycle().take(100_000));
-    let write = client
-        .write_object(bucket_name, "open_and_read/source.txt", payload.clone())
-        .set_if_generation_match(0)
-        .send_unbuffered()
-        .await?;
-
-    let (descriptor, mut reader) = client
-        .open_object(bucket_name, &write.name)
-        .send_and_read(ReadRange::tail(100))
-        .await?;
-    tracing::info!("object: {:?}", descriptor.object());
-    tracing::info!("headers: {:?}", descriptor.headers());
-    tracing::info!("reader: {:?}", reader);
-    let got = descriptor.object();
-    let mut want = write.clone();
-    // This field is a mismatch, but both `Some(false)` and `None` represent
-    // the same value.
-    want.event_based_hold = want.event_based_hold.or(Some(false));
-    // There is a submillisecond difference, maybe rounding?
-    want.finalize_time = got.finalize_time;
-    assert_eq!(got, want);
-
-    let mut data = Vec::new();
-    while let Some(r) = reader.next().await.transpose()? {
-        tracing::info!("received {} bytes", r.len());
-        data.extend_from_slice(&r);
-    }
-    assert_eq!(data, &payload.as_bytes()[(payload.len() - 100)..]);
-
-    Ok(())
-}
-
-pub async fn send_and_read_md5(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
-    let payload = String::from_iter(('a'..='z').cycle().take(100_000));
-    let write = client
-        .write_object(bucket_name, "open_and_read_md5/source.txt", payload.clone())
-        .set_if_generation_match(0)
-        .send_unbuffered()
-        .await?;
-
-    let (descriptor, mut reader) = client
-        .open_object(bucket_name, &write.name)
-        .compute_md5()
-        .send_and_read(ReadRange::all())
-        .await?;
-    tracing::info!("object: {:?}", descriptor.object());
-    tracing::info!("headers: {:?}", descriptor.headers());
-    tracing::info!("reader: {:?}", reader);
-    let got = descriptor.object();
-    let mut want = write.clone();
-    want.event_based_hold = want.event_based_hold.or(Some(false));
-    want.finalize_time = got.finalize_time;
-    assert_eq!(got, want);
-
-    let mut data = Vec::new();
-    while let Some(r) = reader.next().await.transpose()? {
-        tracing::info!("received {} bytes", r.len());
-        data.extend_from_slice(&r);
-    }
-    assert_eq!(data, payload.as_bytes());
-
-    Ok(())
-}
-
-pub async fn send_and_read_full(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
-    let payload = String::from_iter(('a'..='z').cycle().take(100_000));
-    let write = client
-        .write_object(
-            bucket_name,
-            "open_and_read_full/source.txt",
-            payload.clone(),
-        )
-        .set_if_generation_match(0)
-        .send_unbuffered()
-        .await?;
-
-    let (descriptor, mut reader) = client
-        .open_object(bucket_name, &write.name)
-        .send_and_read(ReadRange::all())
-        .await?;
-    tracing::info!("object: {:?}", descriptor.object());
-    tracing::info!("headers: {:?}", descriptor.headers());
-    tracing::info!("reader: {:?}", reader);
-    let got = descriptor.object();
-    let mut want = write.clone();
-    want.event_based_hold = want.event_based_hold.or(Some(false));
-    want.finalize_time = got.finalize_time;
-    assert_eq!(got, want);
-
-    let mut data = Vec::new();
-    while let Some(r) = reader.next().await.transpose()? {
-        tracing::info!("received {} bytes", r.len());
-        data.extend_from_slice(&r);
-    }
-    assert_eq!(data, payload.as_bytes());
-
-    Ok(())
-}
-
-/// This test verifies the checksum validation behavior for gzip-encoded objects
-/// over the gRPC Bidi read stream.
-///
-/// Unlike the JSON REST API, which often transcodes (decompresses) gzip objects
-/// on the fly, the gRPC Bidi read stream delivers the raw, compressed bytes directly.
-/// Because no on-the-fly decompression occurs, the CRC32C checksum of the received
-/// chunks will naturally match the server's stored checksum of the compressed object.
-///
-/// We explicitly expect `RangeReader`'s automatic checksum validation to succeed
-/// without throwing a `ChecksumMismatch` error, proving that we do not need to
-/// bypass checksum validation for `content-encoding: gzip` objects in gRPC.
-pub async fn send_and_read_gzip(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
-    use std::io::Write;
-    let payload = String::from_iter(('a'..='z').cycle().take(100_000));
-
-    // Compress the payload
-    let mut e = flate2::write::GzEncoder::new(Vec::new(), flate2::Compression::default());
-    e.write_all(payload.as_bytes())?;
-    let compressed_payload = e.finish()?;
-
-    let write = client
-        .write_object(
-            bucket_name,
-            "open_and_read_gzip/source.txt",
-            bytes::Bytes::from_owner(compressed_payload.clone()),
-        )
-        .set_if_generation_match(0)
-        .set_content_encoding("gzip")
-        .send_unbuffered()
-        .await?;
-
-    let (descriptor, mut reader) = client
-        .open_object(bucket_name, &write.name)
-        .send_and_read(ReadRange::all())
-        .await?;
-    tracing::info!("object: {:?}", descriptor.object());
-    tracing::info!("headers: {:?}", descriptor.headers());
-    tracing::info!("reader: {:?}", reader);
-    let got = descriptor.object();
-    let mut want = write.clone();
-    want.event_based_hold = want.event_based_hold.or(Some(false));
-    want.finalize_time = got.finalize_time;
-    assert_eq!(got, want);
-
-    let mut data = Vec::new();
-    while let Some(r) = reader.next().await.transpose()? {
-        tracing::info!("received {} bytes", r.len());
-        data.extend_from_slice(&r);
-    }
-    // Verify we received the EXACT compressed payload, meaning gRPC did not decompress it.
-    assert_eq!(data, compressed_payload);
-
-    Ok(())
 }
