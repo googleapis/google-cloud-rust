@@ -68,8 +68,9 @@ pub struct Interval {
 
 impl FromSql for Interval {
     fn from_value(value: crate::query::SqlValue) -> Result<Self, ConvertError> {
+        use crate::query::from_sql::SqlValueInner;
         match value.inner {
-            wkt::Value::String(s) => {
+            SqlValueInner::String(s) => {
                 let mut parts = s.split_whitespace();
                 let ym_str = parts.next();
                 let days_str = parts.next();
@@ -163,7 +164,7 @@ impl FromSql for Interval {
                     nanos,
                 })
             }
-            wkt::Value::Null => Err(ConvertError::NotNull),
+            SqlValueInner::Null => Err(ConvertError::NotNull),
             other => Err(ConvertError::type_mismatch("string", &other)),
         }
     }
@@ -208,8 +209,9 @@ pub struct Range<T> {
 
 impl<T: FromSql> FromSql for Range<T> {
     fn from_value(value: crate::query::SqlValue) -> Result<Self, ConvertError> {
+        use crate::query::from_sql::SqlValueInner;
         match value.inner {
-            wkt::Value::String(s) => {
+            SqlValueInner::String(s) => {
                 let trimmed = s.trim();
                 // Strip leading [ and trailing )
                 let content = trimmed
@@ -239,22 +241,22 @@ impl<T: FromSql> FromSql for Range<T> {
                 let start = if start_str.is_empty() || start_str == "UNBOUNDED" {
                     None
                 } else {
-                    Some(T::from_value(crate::query::SqlValue::new(
-                        wkt::Value::String(start_str.to_string()),
+                    Some(T::from_value(crate::query::SqlValue::from_inner(
+                        SqlValueInner::String(start_str.to_string()),
                     ))?)
                 };
 
                 let end = if end_str.is_empty() || end_str == "UNBOUNDED" {
                     None
                 } else {
-                    Some(T::from_value(crate::query::SqlValue::new(
-                        wkt::Value::String(end_str.to_string()),
+                    Some(T::from_value(crate::query::SqlValue::from_inner(
+                        SqlValueInner::String(end_str.to_string()),
                     ))?)
                 };
 
                 Ok(Range { start, end })
             }
-            wkt::Value::Null => Err(ConvertError::NotNull),
+            SqlValueInner::Null => Err(ConvertError::NotNull),
             other => Err(ConvertError::type_mismatch("string", &other)),
         }
     }
