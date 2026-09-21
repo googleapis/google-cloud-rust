@@ -59,10 +59,12 @@ pub struct RowIterator {
 
 impl RowIterator {
     pub(crate) fn new(q: CompleteQuery) -> Self {
+        // DDL/DML queries have no schema.
+        let schema = Arc::new(Schema::new(q.metadata.schema.unwrap_or_default()));
         Self {
             job_service: q.job_service,
             job_ref: q.job_ref,
-            schema: q.schema,
+            schema,
             page_token: q.page_token,
             rows: q.cached_rows,
             page_size: q.page_size,

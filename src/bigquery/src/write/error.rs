@@ -14,6 +14,7 @@
 
 use crate::Error;
 use crate::model::{RowError, StorageError};
+use google_cloud_gax::error::rpc::Status;
 
 /// Represents an error that can occur when appending rows.
 #[derive(thiserror::Error, Debug)]
@@ -30,10 +31,16 @@ pub enum AppendError {
     },
 
     /// Certain rows have errors.
+    #[non_exhaustive]
     #[error(
-        "the service reports an error for the following rows. No rows in the batch were appended. You can remove the bad rows and retry the request. Rows: {0:?}"
+        "there was an error for the following rows. No rows in the batch were appended. You can remove the bad rows and retry the request. Status: {status:?}, Rows: {row_errors:?}"
     )]
-    RowErrors(Vec<RowError>),
+    RowErrors {
+        /// The status returned by the service for the request.
+        status: Status,
+        /// The row-level errors reported by the service.
+        row_errors: Vec<RowError>,
+    },
 
     /// The `AppendRows` stream closed unexpectedly.
     #[error(

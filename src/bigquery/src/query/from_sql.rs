@@ -238,8 +238,11 @@ impl FromSql for wkt::Struct {
     fn from_value(value: SqlValue) -> Result<Self, ConvertError> {
         match value.inner {
             wkt::Value::Object(obj) => Ok(obj),
+            wkt::Value::String(s) => {
+                serde_json::from_str(&s).map_err(|e| ConvertError::Convert(Box::new(e)))
+            }
             wkt::Value::Null => Err(ConvertError::NotNull),
-            other => Err(ConvertError::type_mismatch("object", &other)),
+            other => Err(ConvertError::type_mismatch("object or string", &other)),
         }
     }
 }
@@ -527,8 +530,10 @@ mod tests {
     }
 
     #[test_case(wkt::Value::Object(wkt::Struct::from_iter([("a".to_string(), wkt::Value::Number(1.into()))])) => Ok(wkt::Struct::from_iter([("a".to_string(), wkt::Value::Number(1.into()))])) ; "struct ok")]
+    #[test_case(wkt::Value::String(r#"{"a": 1}"#.to_string()) => Ok(wkt::Struct::from_iter([("a".to_string(), wkt::Value::Number(1.into()))])) ; "struct from json string")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "struct null")]
-    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::type_mismatch("object")) ; "struct type mismatch")]
+    #[test_case(wkt::Value::String("hello".to_string()) => Err(TestConvertError::Convert("expected value at line 1 column 1".to_string())) ; "struct invalid json string")]
+    #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::type_mismatch("object or string")) ; "struct type mismatch")]
     fn test_from_sql_struct(value: wkt::Value) -> Result<wkt::Struct, TestConvertError> {
         FromSql::from_value(SqlValue::new(value)).map_err(TestConvertError::from)
     }
@@ -647,9 +652,11 @@ mod tests {
     }
 
     #[test_case(wkt::Value::Object(wkt::Struct::from_iter([("name".to_string(), wkt::Value::String("James".to_string())), ("custom_int".to_string(), wkt::Value::Number(272793.into())), ("some_bool".to_string(), wkt::Value::Bool(true))])) => Ok(TestSqlStruct { name: "James".to_string(), some_int: 272793, some_bool: true }) ; "object success")]
+    #[test_case(wkt::Value::String(r#"{"name": "James", "custom_int": 272793, "some_bool": true}"#.to_string()) => Ok(TestSqlStruct { name: "James".to_string(), some_int: 272793, some_bool: true }) ; "json string success")]
     #[test_case(wkt::Value::Object(wkt::Struct::from_iter([("name".to_string(), wkt::Value::String("James".to_string())), ("some_bool".to_string(), wkt::Value::Bool(true))])) => Err(TestConvertError::MissingField("custom_int".to_string())) ; "missing field")]
     #[test_case(wkt::Value::Null => Err(TestConvertError::NotNull) ; "null error")]
-    #[test_case(wkt::Value::String("invalid".to_string()) => Err(TestConvertError::type_mismatch("object")) ; "type mismatch")]
+    #[test_case(wkt::Value::String("invalid".to_string()) => Err(TestConvertError::Convert("expected value at line 1 column 1".to_string())) ; "invalid json string")]
+    #[test_case(wkt::Value::Bool(true) => Err(TestConvertError::type_mismatch("object or string")) ; "type mismatch")]
     fn test_derive_from_sql(value: wkt::Value) -> Result<TestSqlStruct, TestConvertError> {
         FromSql::from_value(SqlValue::new(value)).map_err(TestConvertError::from)
     }

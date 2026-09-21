@@ -476,14 +476,12 @@ mod tests {
 
     #[test]
     fn test_job_attempt_limit() {
-        let policy = default_job_retry_policy();
+        let policy = default_job_retry_policy(); // default attempt_limit is 3
         let retryable_err = || QueryError::JobFailed {
             errors: vec![ErrorProto::new().set_reason("backendError")],
         };
 
         let mut state = RetryState::default();
-        assert!(policy.on_error(&state, retryable_err()).is_continue());
-
         state.attempt_count = 1;
         assert!(policy.on_error(&state, retryable_err()).is_continue());
 

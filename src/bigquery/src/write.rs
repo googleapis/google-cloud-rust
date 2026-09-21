@@ -12,24 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(#6855) - delete this module
-/// Types to write data in [Arrow] format.
-///
-/// [arrow]: https://arrow.apache.org/
-pub mod arrow;
-// TODO(#6855) - delete this module
-#[allow(dead_code)]
-pub(crate) mod proto;
-
 pub use append_future::AppendFuture;
 
 pub use buffered::BufferedWriter;
 pub use committed::CommittedWriter;
 pub use default::DefaultWriter;
 pub use pending::PendingWriter;
-
-// TODO(#6855) - rename as `stream_type::Stream` and generalize.
-pub use writer::Writer;
 
 // TODO(#6855) - expose in `crate::builder::write` only.
 pub use writer_builder::WriterBuilder;
@@ -39,6 +27,8 @@ pub mod format;
 
 /// Defines the retry policy for the BigQuery Storage Write API.
 pub mod retry_policy;
+
+pub mod stream_type;
 
 pub(super) mod append_future;
 pub(super) mod append_response;
@@ -60,7 +50,6 @@ mod runner;
 mod stream;
 mod transport;
 mod validate;
-mod writer;
 mod writer_builder;
 
 // TODO(#4832) - remove handwritten code.

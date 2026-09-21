@@ -94,8 +94,18 @@ mod sealed {
                         .ok_or_else(|| ConvertError::MissingField(self.to_string()))?;
                     Ok(std::mem::replace(slot, Value::Null))
                 }
+                Value::String(s) => {
+                    let mut arr: Vec<Value> =
+                        serde_json::from_str(s).map_err(|e| ConvertError::Convert(Box::new(e)))?;
+                    let val = arr
+                        .get_mut(*self)
+                        .map(|slot| std::mem::replace(slot, Value::Null))
+                        .ok_or_else(|| ConvertError::MissingField(self.to_string()));
+                    value.inner = Value::Array(arr);
+                    val
+                }
                 Value::Null => Err(ConvertError::NotNull),
-                other => Err(ConvertError::type_mismatch("array", other)),
+                other => Err(ConvertError::type_mismatch("array or string", other)),
             }
         }
     }
@@ -110,8 +120,17 @@ mod sealed {
                 Value::Object(obj) => obj
                     .remove(*self)
                     .ok_or_else(|| ConvertError::MissingField((*self).to_string())),
+                Value::String(s) => {
+                    let mut obj: wkt::Struct =
+                        serde_json::from_str(s).map_err(|e| ConvertError::Convert(Box::new(e)))?;
+                    let val = obj
+                        .remove(*self)
+                        .ok_or_else(|| ConvertError::MissingField((*self).to_string()));
+                    value.inner = Value::Object(obj);
+                    val
+                }
                 Value::Null => Err(ConvertError::NotNull),
-                other => Err(ConvertError::type_mismatch("object", other)),
+                other => Err(ConvertError::type_mismatch("object or string", other)),
             }
         }
     }
@@ -638,6 +657,54 @@ mod tests {
         Ok(())
     }
 
+    #[derive(crate::query::FromSql, Debug, PartialEq)]
+    struct JsonPayload {
+        name: String,
+        age: i64,
+    }
+
+    #[tokio::test]
+    async fn convert_json_from_row() -> TestResult {
+        let json_str = json!({"name": "Alice", "age": 30}).to_string();
+        let raw_row = Map::from_iter([(
+            "f".to_string(),
+            json!([
+                { "v": json_str },
+                { "v": null },
+            ]),
+        )]);
+        let schema = TableSchema::new().set_fields([
+            TableFieldSchema::new()
+                .set_name("json_obj")
+                .set_type("JSON")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("json_null")
+                .set_type("JSON")
+                .set_mode("NULLABLE"),
+        ]);
+        let schema = Arc::new(Schema::new(schema));
+        let row = Row::try_new(raw_row, &schema)?;
+
+        let expected_struct: Struct = serde_json::from_value(json!({
+            "name": "Alice",
+            "age": 30,
+        }))?;
+        assert_eq!(row.get::<String, _>("json_obj")?, json_str);
+        assert_eq!(row.get::<Struct, _>("json_obj")?, expected_struct);
+        assert_eq!(
+            row.get::<JsonPayload, _>("json_obj")?,
+            JsonPayload {
+                name: "Alice".to_string(),
+                age: 30,
+            }
+        );
+        assert_eq!(row.get::<Option<Struct>, _>("json_null")?, None);
+        assert_eq!(row.get::<Option<JsonPayload>, _>("json_null")?, None);
+
+        Ok(())
+    }
+
     #[tokio::test]
     async fn convert_repeated_from_row() -> TestResult {
         let raw_row = Map::from_iter([(
@@ -739,6 +806,7 @@ mod tests {
     #[test_case("BOOLEAN", "true", Value::Bool(true); "boolean true lowercase")]
     #[test_case("BOOLEAN", "TRUE", Value::Bool(true); "boolean true uppercase")]
     #[test_case("BOOL", "false", Value::Bool(false); "bool false")]
+    #[test_case("JSON", r#"{"a":1}"#, Value::String(r#"{"a":1}"#.to_string()); "json string")]
     fn convert_basic_type_cases_success(field_type: &str, value: &str, expected: Value) {
         let res = convert_basic_type(value.to_string(), "test_col", field_type);
         let value = res.expect("should succeed");

@@ -16,7 +16,7 @@ use crate::error::QueryError;
 use crate::generated::{CompleteQueryMetadata, QueryMetadata};
 use crate::query::execution::RetryContext;
 use crate::query::retry_policy::JobRetryResult;
-use crate::query::{Result, RowIterator, Schema};
+use crate::query::{Result, RowIterator};
 use google_cloud_bigquery_v2::builder::job_service::GetJob;
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{
@@ -282,7 +282,6 @@ pub struct CompleteQuery {
     pub(crate) job_service: Arc<JobService>,
     pub(crate) job_ref: Option<JobReference>,
     pub(crate) cached_rows: VecDeque<wkt::Struct>,
-    pub(crate) schema: Arc<Schema>,
     pub(crate) page_token: Option<String>,
     pub(crate) metadata: CompleteQueryMetadata,
     pub(crate) page_size: Option<u32>,
@@ -326,9 +325,6 @@ impl CompleteQuery {
         cached_rows: VecDeque<wkt::Struct>,
         page_size: Option<u32>,
     ) -> Self {
-        // DDL/DML queries have no schema.
-        let schema = metadata.schema.clone().unwrap_or_default();
-        let schema = Arc::new(Schema::new(schema));
         let page_token = if metadata.page_token.is_empty() {
             None
         } else {
@@ -339,7 +335,6 @@ impl CompleteQuery {
             job_ref,
             cached_rows,
             page_token,
-            schema,
             metadata,
             page_size,
         }
@@ -937,9 +932,10 @@ mod tests {
 
         let query_builder = QueryBuilder::new(job_service.clone(), "SELECT 1".to_string())
             .with_project_id("some_project");
-        let retry_context = Some(RetryContext::new(query_builder));
+        let mut retry_context = RetryContext::new(query_builder);
+        retry_context.state.attempt_count = 1;
 
-        let query = Query::from_query_response(job_service, query_res, retry_context, None);
+        let query = Query::from_query_response(job_service, query_res, Some(retry_context), None);
 
         let completed = query.until_done().await?;
         assert_eq!(
@@ -954,7 +950,7 @@ mod tests {
         let mut mock = MockJobService::new();
         let mut seq = mockall::Sequence::new();
 
-        // First poll on initial_job_id fails with retryable error (attempt 0 -> 1)
+        // First poll on initial_job_id fails with retryable error (attempt 1)
         mock.expect_get_query_results()
             .in_sequence(&mut seq)
             .times(1)
@@ -967,7 +963,7 @@ mod tests {
                 Ok(Response::from(res))
             });
 
-        // Reissue succeeds and returns reissued_job_id
+        // Reissue succeeds and returns reissued_job_id (attempt 2)
         mock.expect_query()
             .in_sequence(&mut seq)
             .times(1)
@@ -986,7 +982,7 @@ mod tests {
                 ))
             });
 
-        // Second poll on reissued_job_id fails with retryable error, but attempt limit (1) is exhausted!
+        // Second poll on reissued_job_id fails with retryable error, but attempt limit (2) is exhausted!
         mock.expect_get_query_results()
             .in_sequence(&mut seq)
             .times(1)
@@ -1011,10 +1007,11 @@ mod tests {
         let mut query_builder = QueryBuilder::new(job_service.clone(), "SELECT 1".to_string())
             .with_project_id("some_project");
         query_builder.job_retry_policy =
-            Arc::new(RetryableJobErrors::default().with_attempt_limit(1));
-        let retry_context = Some(RetryContext::new(query_builder));
+            Arc::new(RetryableJobErrors::default().with_attempt_limit(2));
+        let mut retry_context = RetryContext::new(query_builder);
+        retry_context.state.attempt_count = 1;
 
-        let query = Query::from_query_response(job_service, query_res, retry_context, None);
+        let query = Query::from_query_response(job_service, query_res, Some(retry_context), None);
 
         let err = query.until_done().await.unwrap_err();
         let errors = match err {

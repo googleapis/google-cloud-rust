@@ -19,9 +19,10 @@ use super::pool::{StreamPool, StreamPoolOptions};
 use super::retry_policy::RetryOptions;
 use super::transport::Transport;
 use super::validate::{validate_stream, validate_table};
-use super::writer::Writer;
 use crate::model::WriteStream;
 use crate::write::error::WriterBuilderError;
+use crate::write::stream_type::sealed::ApplicationCreatedStream as _;
+use crate::write::stream_type::{ApplicationCreatedStream, HasStream};
 use std::sync::Arc;
 
 /// A builder to create a stream writer.
@@ -102,10 +103,11 @@ where
     ///
     /// # Example
     /// ```
-    /// use google_cloud_bigquery::write::arrow::PendingWriter;
+    /// use google_cloud_bigquery::write::format::Arrow;
+    /// use google_cloud_bigquery::write::PendingWriter;
     /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample(client: Write) -> anyhow::Result<()> {
-    /// let writer: PendingWriter = client
+    /// let writer: PendingWriter<Arrow> = client
     ///     .arrow(schema())
     ///     .create("projects/my-project/datasets/my_dataset/tables/my_table")
     ///     .await?;
@@ -117,10 +119,12 @@ where
     /// #   todo!("Define your table's schema...")
     /// # }
     /// ```
-    pub async fn create<U: Writer<F>, T: Into<String>>(
-        self,
-        table: T,
-    ) -> std::result::Result<U, WriterBuilderError> {
+    pub async fn create<W, S>(self, table: S) -> std::result::Result<W, WriterBuilderError>
+    where
+        S: Into<String>,
+        W: HasStream,
+        W::Stream: ApplicationCreatedStream<Writer<F> = W>,
+    {
         let table = table.into();
         validate_table(table.as_str())?;
 
@@ -128,21 +132,22 @@ where
         let stream = client
             .create_write_stream()
             .set_parent(table)
-            .set_write_stream(WriteStream::new().set_type(U::STREAM_TYPE))
+            .set_write_stream(WriteStream::new().set_type(<W::Stream>::STREAM_TYPE))
             .send()
             .await?;
 
-        Ok(U::build(self.inner, stream.name, self.format))
+        Ok(<W::Stream>::build(self.inner, stream.name, self.format))
     }
 
     /// Attaches a writer to an existing stream.
     ///
     /// # Example
     /// ```
-    /// use google_cloud_bigquery::write::arrow::CommittedWriter;
+    /// use google_cloud_bigquery::write::format::Arrow;
+    /// use google_cloud_bigquery::write::CommittedWriter;
     /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample(client: Write) -> anyhow::Result<()> {
-    /// let writer: CommittedWriter = client
+    /// let writer: CommittedWriter<Arrow> = client
     ///     .arrow(schema())
     ///     .attach("projects/my-project/datasets/my_dataset/tables/my_table/streams/my_stream")
     ///     .await?;
@@ -154,10 +159,12 @@ where
     /// #   todo!("Define your table's schema...")
     /// # }
     /// ```
-    pub async fn attach<U: Writer<F>, S: Into<String>>(
-        self,
-        write_stream: S,
-    ) -> std::result::Result<U, WriterBuilderError> {
+    pub async fn attach<W, S>(self, write_stream: S) -> std::result::Result<W, WriterBuilderError>
+    where
+        S: Into<String>,
+        W: HasStream,
+        W::Stream: ApplicationCreatedStream<Writer<F> = W>,
+    {
         let write_stream = write_stream.into();
         validate_stream(write_stream.as_str())?;
 
@@ -169,13 +176,13 @@ where
             .await?;
 
         let stream_type = stream.r#type.clone();
-        if stream_type != U::STREAM_TYPE {
+        if stream_type != <W::Stream>::STREAM_TYPE {
             return Err(WriterBuilderError::TypeMismatch {
-                expected: U::STREAM_TYPE,
+                expected: <W::Stream>::STREAM_TYPE,
                 actual: stream_type,
             });
         }
-        Ok(U::build(self.inner, stream.name, self.format))
+        Ok(<W::Stream>::build(self.inner, stream.name, self.format))
     }
 
     /// Enable multiplexing
@@ -218,6 +225,8 @@ mod tests {
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use test_case::test_case;
     use tokio::task::JoinHandle;
+
+    type Result<T> = std::result::Result<T, WriterBuilderError>;
 
     #[tokio::test]
     async fn default() -> anyhow::Result<()> {
@@ -319,10 +328,8 @@ mod tests {
     async fn create_bad_table_format(table: &str) -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
         let builder = test_builder(transport);
-        let err = builder
-            .create::<PendingWriter<Arrow>, _>(table)
-            .await
-            .expect_err("should fail locally on bad format");
+        let res: Result<PendingWriter<Arrow>> = builder.create(table).await;
+        let err = res.expect_err("should fail locally on bad format");
         assert!(matches!(err, WriterBuilderError::Rpc { source: e } if e.is_binding()));
         Ok(())
     }
@@ -396,10 +403,8 @@ mod tests {
     async fn attach_bad_stream_format(stream: &str) -> anyhow::Result<()> {
         let transport = Arc::new(test_transport("http://ignored:1").await?);
         let builder = test_builder(transport);
-        let err = builder
-            .attach::<CommittedWriter<Arrow>, _>(stream)
-            .await
-            .expect_err("should fail locally on bad format");
+        let res: Result<CommittedWriter<Arrow>> = builder.attach(stream).await;
+        let err = res.expect_err("should fail locally on bad format");
         assert!(matches!(err, WriterBuilderError::Rpc { source: e } if e.is_binding()));
         Ok(())
     }
@@ -408,10 +413,10 @@ mod tests {
     async fn attach_stream_type_mismatch() -> anyhow::Result<()> {
         let (transport, _server) = attach_mock(Type::Buffered).await?;
         let builder = test_builder(transport);
-        let err = builder
-            .attach::<CommittedWriter<Arrow>, _>("projects/p/datasets/d/tables/t/streams/s")
-            .await
-            .expect_err("should return type mismatch error");
+        let res: Result<CommittedWriter<Arrow>> = builder
+            .attach("projects/p/datasets/d/tables/t/streams/s")
+            .await;
+        let err = res.expect_err("should return type mismatch error");
         assert!(matches!(err, WriterBuilderError::TypeMismatch { .. }));
         assert!(err.to_string().contains("stream type mismatch: requested"));
         Ok(())

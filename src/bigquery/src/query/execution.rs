@@ -119,9 +119,8 @@ impl RetryContext {
         self.template.job_retry_policy.on_error(&self.state, error)
     }
 
-    pub(crate) async fn reissue(mut self, delay: Duration) -> Result<QueryHandle> {
+    pub(crate) async fn reissue(self, delay: Duration) -> Result<QueryHandle> {
         tokio::time::sleep(delay).await;
-        self.state.attempt_count += 1;
         // Box heavy RPC call future to avoid large stack frames.
         Box::pin(self.execute()).await
     }
@@ -130,13 +129,13 @@ impl RetryContext {
         let project_id = self.template.project_id.clone().unwrap_or_default();
 
         loop {
+            self.state.attempt_count += 1;
             // Box heavy RPC call future to avoid large stack frames.
             match Box::pin(self.execute_once(&project_id)).await {
                 Ok(query) => return Ok(query),
                 Err(err) => match self.on_error(err) {
                     JobRetryResult::Continue(delay, _) => {
                         tokio::time::sleep(delay).await;
-                        self.state.attempt_count += 1;
                     }
                     JobRetryResult::Permanent(e) | JobRetryResult::Exhausted(e) => {
                         return Err(e);
@@ -832,6 +831,97 @@ mod tests {
             .execute_once("my-project")
             .await
             .unwrap_err();
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn test_retry_context_attempt_limit_exhausted() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_query().times(3).returning(|_, _| {
+            let err_proto = ErrorProto::new()
+                .set_reason("backendError")
+                .set_message("server error");
+            Ok(Response::from(
+                QueryResponse::new().set_errors(vec![err_proto]),
+            ))
+        });
+        let job_service = create_job_service(mock);
+        let query = Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+        let retry_ctx = RetryContext::new(query);
+        let err = retry_ctx.execute().await.unwrap_err();
+        match err {
+            QueryError::JobFailed { errors } => {
+                assert_eq!(errors.len(), 1);
+                assert_eq!(errors[0].reason, "backendError");
+            }
+            _ => panic!("expected QueryError::JobFailed, got {err:?}"),
+        }
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn test_retry_context_attempt_count_progression() -> TestResult {
+        let attempt_counts = Arc::new(Mutex::new(Vec::new()));
+        let attempt_counts_clone = attempt_counts.clone();
+
+        struct RecordingPolicy {
+            counts: Arc<Mutex<Vec<u32>>>,
+        }
+        impl std::fmt::Debug for RecordingPolicy {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                f.debug_struct("RecordingPolicy").finish()
+            }
+        }
+        impl crate::query::retry_policy::JobRetryPolicy for RecordingPolicy {
+            fn on_error(&self, state: &RetryState, error: QueryError) -> JobRetryResult {
+                self.counts.lock().unwrap().push(state.attempt_count);
+                if state.attempt_count >= 3 {
+                    JobRetryResult::Exhausted(error)
+                } else {
+                    JobRetryResult::Continue(Duration::from_millis(100), error)
+                }
+            }
+        }
+
+        let mut mock = MockJobService::new();
+        mock.expect_query().times(3).returning(|_, _| {
+            let err_proto = ErrorProto::new()
+                .set_reason("backendError")
+                .set_message("server error");
+            Ok(Response::from(
+                QueryResponse::new().set_errors(vec![err_proto]),
+            ))
+        });
+        let job_service = create_job_service(mock);
+        let mut query =
+            Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+        query.job_retry_policy = Arc::new(RecordingPolicy {
+            counts: attempt_counts_clone,
+        });
+
+        let retry_ctx = RetryContext::new(query);
+        let _ = retry_ctx.execute().await;
+
+        let recorded = attempt_counts.lock().unwrap().clone();
+        assert_eq!(
+            recorded,
+            vec![1, 2, 3],
+            "attempt counts must be 1-based on error without duplicate counts"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_retry_context_successful_execute_records_attempt_count() -> TestResult {
+        let mut mock = MockJobService::new();
+        mock.expect_query()
+            .times(1)
+            .returning(|_, _| Ok(Response::from(QueryResponse::new().set_query_id("q1"))));
+        let job_service = create_job_service(mock);
+        let query = Query::new(job_service, "SELECT 1".to_string()).with_project_id("my-project");
+        let retry_ctx = RetryContext::new(query);
+        let handle = retry_ctx.execute().await?;
+        assert_eq!(handle.retry_context.unwrap().state.attempt_count, 1);
         Ok(())
     }
 }
