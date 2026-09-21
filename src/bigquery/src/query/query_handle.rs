@@ -16,7 +16,7 @@ use crate::error::QueryError;
 use crate::generated::{CompleteQueryMetadata, QueryMetadata};
 use crate::query::execution::RetryContext;
 use crate::query::retry_policy::JobRetryResult;
-use crate::query::{Result, RowIterator, Schema};
+use crate::query::{Result, RowIterator};
 use google_cloud_bigquery_v2::builder::job_service::GetJob;
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{
@@ -281,7 +281,6 @@ pub struct CompleteQuery {
     pub(crate) job_service: Arc<JobService>,
     pub(crate) job_ref: Option<JobReference>,
     pub(crate) cached_rows: VecDeque<wkt::Struct>,
-    pub(crate) schema: Arc<Schema>,
     pub(crate) page_token: Option<String>,
     pub(crate) metadata: CompleteQueryMetadata,
     pub(crate) page_size: Option<u32>,
@@ -296,9 +295,6 @@ impl CompleteQuery {
     ) -> Self {
         let cached_rows = VecDeque::from(std::mem::take(&mut res.rows));
         let metadata = CompleteQueryMetadata::from(res);
-        // DDL/DML queries have no schema.
-        let schema = metadata.schema.clone().unwrap_or_default();
-        let schema = Arc::new(Schema::new(schema));
         let page_token = if metadata.page_token.is_empty() {
             None
         } else {
@@ -309,7 +305,6 @@ impl CompleteQuery {
             job_ref: Some(job_ref.clone()),
             cached_rows,
             page_token,
-            schema,
             metadata,
             page_size,
         }
@@ -323,9 +318,6 @@ impl CompleteQuery {
     ) -> Self {
         let job_ref = metadata.job_reference.clone();
         let metadata = CompleteQueryMetadata::from(metadata);
-        // DDL/DML queries have no schema.
-        let schema = metadata.schema.clone().unwrap_or_default();
-        let schema = Arc::new(Schema::new(schema));
         let page_token = if metadata.page_token.is_empty() {
             None
         } else {
@@ -336,7 +328,6 @@ impl CompleteQuery {
             job_ref,
             cached_rows,
             page_token,
-            schema,
             metadata,
             page_size,
         }
