@@ -12,13 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod writer;
-mod writer_builder;
-
 use super::format::Arrow;
-
-pub use writer::Writer;
-pub use writer_builder::WriterBuilder;
 
 /// DEPRECATED - do not use.
 ///
@@ -43,3 +37,9 @@ pub type CommittedWriter = super::CommittedWriter<Arrow>;
 /// This type is about to be deleted. See:
 /// <https://github.com/googleapis/google-cloud-rust/issues/6855>
 pub type PendingWriter = super::PendingWriter<Arrow>;
+
+/// DEPRECATED - do not use.
+///
+/// This type is about to be deleted. See:
+/// <https://github.com/googleapis/google-cloud-rust/issues/6855>
+pub type WriterBuilder = super::WriterBuilder<Arrow>;

@@ -14,6 +14,7 @@
 
 use super::arrow::WriterBuilder as ArrowWriterBuilder;
 use super::client_builder::ClientBuilder;
+use super::format::{Arrow, Proto};
 use super::pool::StreamPool;
 use super::proto::WriterBuilder as ProtoWriterBuilder;
 use super::retry_policy::RetryOptions;
@@ -66,17 +67,27 @@ impl Write {
     ///
     /// [arrow]: https://arrow.apache.org/
     pub fn arrow(&self, schema: ArrowSchema) -> ArrowWriterBuilder {
+        let format = Arrow { schema };
         ArrowWriterBuilder::new(
             self.inner.clone(),
             self.pool.clone(),
             self.retry_options.clone(),
-            schema,
+            format,
         )
     }
 
+    // For now we share the stream pool. This is safe because the
+    // protobuf-based surface is not exposed. Ideally they would have separate
+    // pools.
     #[allow(dead_code)]
     pub(crate) fn proto(&self, schema: ProtoSchema) -> ProtoWriterBuilder {
-        ProtoWriterBuilder::new(self.inner.clone(), self.retry_options.clone(), schema)
+        let format = Proto { schema };
+        ProtoWriterBuilder::new(
+            self.inner.clone(),
+            self.pool.clone(),
+            self.retry_options.clone(),
+            format,
+        )
     }
 }
 

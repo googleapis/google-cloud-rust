@@ -12,39 +12,43 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::super::format::Arrow;
-use super::super::generated::gapic_storage::client::BigQueryWrite;
-use super::super::pool::{StreamPool, StreamPoolOptions};
-use super::super::retry_policy::RetryOptions;
-use super::super::transport::Transport;
-use super::super::validate::{validate_stream, validate_table};
-use super::{DefaultWriter, Writer};
-use crate::model::{ArrowSchema, WriteStream};
+use super::DefaultWriter;
+use super::format::DataFormat;
+use super::generated::gapic_storage::client::BigQueryWrite;
+use super::pool::{StreamPool, StreamPoolOptions};
+use super::retry_policy::RetryOptions;
+use super::transport::Transport;
+use super::validate::{validate_stream, validate_table};
+use super::writer::Writer;
+use crate::model::WriteStream;
 use crate::write::error::WriterBuilderError;
 use std::sync::Arc;
 
 /// A builder to create a stream writer.
 #[derive(Clone, Debug)]
-pub struct WriterBuilder {
+pub struct WriterBuilder<F> {
     inner: Arc<Transport>,
     pool: Arc<StreamPool>,
     retry_options: RetryOptions,
-    schema: ArrowSchema,
+    format: F,
     multiplexing: bool,
 }
 
-impl WriterBuilder {
+impl<F> WriterBuilder<F>
+where
+    F: DataFormat,
+{
     pub(crate) fn new(
         inner: Arc<Transport>,
         pool: Arc<StreamPool>,
         retry_options: RetryOptions,
-        schema: ArrowSchema,
+        format: F,
     ) -> Self {
         Self {
             inner,
             pool,
             retry_options,
-            schema,
+            format,
             multiplexing: false,
         }
     }
@@ -72,7 +76,7 @@ impl WriterBuilder {
     pub async fn default<T: Into<String>>(
         self,
         table: T,
-    ) -> std::result::Result<DefaultWriter, WriterBuilderError> {
+    ) -> std::result::Result<DefaultWriter<F>, WriterBuilderError> {
         let table = table.into();
         validate_table(table.as_str())?;
         let mut write_stream = table;
@@ -86,14 +90,11 @@ impl WriterBuilder {
             };
             Arc::new(StreamPool::new(self.inner, options))
         };
-        let format = Arrow {
-            schema: self.schema,
-        };
         Ok(DefaultWriter::new(
             pool,
             self.retry_options,
             write_stream,
-            format,
+            self.format,
         ))
     }
 
@@ -116,7 +117,7 @@ impl WriterBuilder {
     /// #   todo!("Define your table's schema...")
     /// # }
     /// ```
-    pub async fn create<U: Writer, T: Into<String>>(
+    pub async fn create<U: Writer<F>, T: Into<String>>(
         self,
         table: T,
     ) -> std::result::Result<U, WriterBuilderError> {
@@ -131,7 +132,7 @@ impl WriterBuilder {
             .send()
             .await?;
 
-        Ok(U::build(self.inner, stream.name, self.schema))
+        Ok(U::build(self.inner, stream.name, self.format))
     }
 
     /// Attaches a writer to an existing stream.
@@ -153,7 +154,7 @@ impl WriterBuilder {
     /// #   todo!("Define your table's schema...")
     /// # }
     /// ```
-    pub async fn attach<U: Writer, S: Into<String>>(
+    pub async fn attach<U: Writer<F>, S: Into<String>>(
         self,
         write_stream: S,
     ) -> std::result::Result<U, WriterBuilderError> {
@@ -163,7 +164,7 @@ impl WriterBuilder {
         let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
         let stream = client
             .get_write_stream()
-            .set_name(&write_stream)
+            .set_name(write_stream)
             .send()
             .await?;
 
@@ -174,7 +175,7 @@ impl WriterBuilder {
                 actual: stream_type,
             });
         }
-        Ok(U::build(self.inner, write_stream, self.schema))
+        Ok(U::build(self.inner, stream.name, self.format))
     }
 
     /// Enable multiplexing
@@ -208,6 +209,7 @@ impl WriterBuilder {
 
 #[cfg(test)]
 mod tests {
+    use super::super::format::Arrow;
     use super::*;
     use crate::model::write_stream::Type;
     use crate::write::test::*;
@@ -415,11 +417,11 @@ mod tests {
         Ok(())
     }
 
-    fn test_builder(transport: Arc<Transport>) -> WriterBuilder {
+    fn test_builder(transport: Arc<Transport>) -> WriterBuilder<Arrow> {
         let pool = Arc::new(StreamPool::new(
             transport.clone(),
             StreamPoolOptions::default(),
         ));
-        WriterBuilder::new(transport, pool, test_retry_options(), schema())
+        WriterBuilder::new(transport, pool, test_retry_options(), format())
     }
 }
