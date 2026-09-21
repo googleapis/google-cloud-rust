@@ -32,6 +32,18 @@ pub struct Args {
 
     #[arg(long, default_value_t = 200, value_parser = clap::value_parser!(u64).range(1..))]
     pub message_rate: u64,
+
+    #[arg(long, default_value_t = false)]
+    pub enable_hedging: bool,
+
+    #[arg(long, value_parser = parse_duration, default_value = "100ms")]
+    pub hedge_delay: Duration,
+
+    #[arg(long, default_value_t = 50)]
+    pub hedge_max_tokens: u32,
+
+    #[arg(long, default_value_t = 0.1)]
+    pub hedge_refill_ratio: f32,
 }
 
 pub fn parse_args() -> Args {

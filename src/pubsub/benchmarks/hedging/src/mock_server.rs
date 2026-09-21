@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use base64::Engine;
+use base64::prelude::BASE64_STANDARD;
+use prost::Message;
 use rand::RngExt;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, Ordering};
@@ -19,11 +22,12 @@ use std::time::Duration;
 use tokio::task::JoinHandle;
 
 use pubsub_grpc_mock::google::pubsub::v1::publisher_server::{Publisher, PublisherServer};
+use pubsub_grpc_mock::google::pubsub::v1::pubsub_client_telemetry::Operation;
 use pubsub_grpc_mock::google::pubsub::v1::{
     DeleteTopicRequest, DetachSubscriptionRequest, DetachSubscriptionResponse, GetTopicRequest,
     ListTopicSnapshotsRequest, ListTopicSnapshotsResponse, ListTopicSubscriptionsRequest,
     ListTopicSubscriptionsResponse, ListTopicsRequest, ListTopicsResponse, PublishRequest,
-    PublishResponse, Topic, UpdateTopicRequest,
+    PublishResponse, PubsubClientTelemetry, Topic, UpdateTopicRequest,
 };
 
 #[derive(Debug, Clone)]
@@ -91,11 +95,18 @@ impl Publisher for MockPublisherService {
             .total_publish_requests
             .fetch_add(1, Ordering::Relaxed);
 
-        if request
+        let is_hedged = request
             .metadata()
             .get("x-goog-pubsub-client-telemetry")
-            .is_some()
-        {
+            .and_then(|v| BASE64_STANDARD.decode(v.as_bytes()).ok())
+            .and_then(|bytes| PubsubClientTelemetry::decode(&bytes[..]).ok())
+            .and_then(|telemetry| match telemetry.operation {
+                Some(Operation::PublishOperation(op)) if op.hedged_attempt_count > 0 => Some(()),
+                _ => None,
+            })
+            .is_some();
+
+        if is_hedged {
             self.stats
                 .hedged_publish_requests
                 .fetch_add(1, Ordering::Relaxed);
