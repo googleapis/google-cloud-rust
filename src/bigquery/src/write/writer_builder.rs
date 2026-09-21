@@ -84,7 +84,7 @@ where
         self.build::<DefaultStream>(op).await
     }
 
-    async fn open_default(&self, table: String) -> std::result::Result<String, WriterBuilderError> {
+    fn open_default(table: String) -> std::result::Result<String, WriterBuilderError> {
         validate_table(table.as_str())?;
         let mut write_stream = table;
         write_stream.push_str("/streams/_default");
@@ -245,7 +245,7 @@ where
         S: Stream,
     {
         let write_stream = match op {
-            Operation::OpenDefault { table } => self.open_default(table).await?,
+            Operation::OpenDefault { table } => Self::open_default(table)?,
             Operation::Create { table, stream_type } => {
                 self.create_stream(table, stream_type).await?
             }
