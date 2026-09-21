@@ -19,9 +19,6 @@ pub use committed::CommittedWriter;
 pub use default::DefaultWriter;
 pub use pending::PendingWriter;
 
-// TODO(#6855) - rename as `stream_type::Stream` and generalize.
-pub use writer::Writer;
-
 // TODO(#6855) - expose in `crate::builder::write` only.
 pub use writer_builder::WriterBuilder;
 
@@ -31,10 +28,7 @@ pub mod format;
 /// Defines the retry policy for the BigQuery Storage Write API.
 pub mod retry_policy;
 
-// TODO(#6855) - use markers, traits and expose this mod.
-#[cfg_attr(not(test), expect(unused_imports))]
-#[cfg_attr(not(test), expect(dead_code))]
-mod stream_type;
+pub mod stream_type;
 
 pub(super) mod append_future;
 pub(super) mod append_response;
@@ -56,8 +50,6 @@ mod runner;
 mod stream;
 mod transport;
 mod validate;
-// TODO(#6855) - replace with the marker types in `stream_type`
-mod writer;
 mod writer_builder;
 
 // TODO(#4832) - remove handwritten code.
