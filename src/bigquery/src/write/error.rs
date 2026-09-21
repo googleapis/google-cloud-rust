@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::Error;
-use crate::model::RowError;
+use crate::model::{RowError, StorageError};
 
 /// Represents an error that can occur when appending rows.
 #[derive(thiserror::Error, Debug)]
@@ -44,6 +44,31 @@ pub enum AppendError {
 
 pub(crate) type AppendResult<T> = std::result::Result<T, AppendError>;
 
+/// Represents an error that can occur when committing a pending write stream.
+#[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
+pub enum CommitError {
+    /// The underlying RPC failed.
+    #[non_exhaustive]
+    #[error("the operation failed. RPC error: {source}")]
+    Rpc {
+        /// The error returned by the service for the request.
+        #[from]
+        #[source]
+        source: Error,
+    },
+
+    /// The stream could not be committed.
+    #[non_exhaustive]
+    #[error(
+        "the service failed to commit the stream. No rows in the stream were committed. Stream errors: {stream_errors:?}"
+    )]
+    FailedTransaction {
+        /// The stream-level errors reported by the service.
+        stream_errors: Vec<StorageError>,
+    },
+}
+
 /// Represents an error that can occur when building a writer.
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
@@ -71,6 +96,7 @@ pub enum WriterBuilderError {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::model::storage_error::StorageErrorCode;
     use google_cloud_gax::error::rpc::{Code, Status};
 
     #[test]
@@ -85,5 +111,31 @@ mod tests {
         let fmt = format!("{e}");
         assert!(fmt.contains("operation failed."), "{fmt}");
         assert!(fmt.contains("inner fail"), "{fmt}");
+    }
+
+    #[test]
+    fn commit_error_display() {
+        let e = CommitError::Rpc {
+            source: Error::service(
+                Status::default()
+                    .set_code(Code::Unavailable)
+                    .set_message("inner fail"),
+            ),
+        };
+        let fmt = format!("{e}");
+        assert!(fmt.contains("operation failed."), "{fmt}");
+        assert!(fmt.contains("inner fail"), "{fmt}");
+
+        let e = CommitError::FailedTransaction {
+            stream_errors: vec![
+                StorageError::new()
+                    .set_code(StorageErrorCode::InvalidStreamState)
+                    .set_entity("projects/p/datasets/d/tables/t/streams/s")
+                    .set_error_message("stream not finalized"),
+            ],
+        };
+        let fmt = format!("{e}");
+        assert!(fmt.contains("failed to commit the stream"), "{fmt}");
+        assert!(fmt.contains("stream not finalized"), "{fmt}");
     }
 }
