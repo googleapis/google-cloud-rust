@@ -108,58 +108,20 @@ fn derive_from_sql_impl(input: DeriveInput) -> proc_macro2::TokenStream {
         }
     };
 
-    let field_initializations_array = fields.iter().map(|f| {
+    let field_initializations = fields.iter().map(|f| {
         let field_name = f.ident.as_ref().expect("named field must have identifier");
         let db_column_name = get_field_name(f);
         quote! {
-            #field_name: {
-                let val = iter.next()
-                    .ok_or_else(|| google_cloud_bigquery::error::ConvertError::MissingField(#db_column_name.to_string()))?;
-                google_cloud_bigquery::query::FromSql::from_value(val)?
-            },
-        }
-    });
-
-    let field_initializations_obj = fields.iter().map(|f| {
-        let field_name = f.ident.as_ref().expect("named field must have identifier");
-        let db_column_name = get_field_name(f);
-        quote! {
-            #field_name: {
-                let val = obj.remove(#db_column_name)
-                    .ok_or_else(|| google_cloud_bigquery::error::ConvertError::MissingField(#db_column_name.to_string()))?;
-                google_cloud_bigquery::query::FromSql::from_value(val)?
-            },
+            #field_name: value.take(#db_column_name)?,
         }
     });
 
     quote! {
         impl google_cloud_bigquery::query::FromSql for #name {
-            fn from_value(value: wkt::Value) -> std::result::Result<Self, google_cloud_bigquery::error::ConvertError> {
-                match value {
-                    wkt::Value::Array(arr) => {
-                        let mut iter = arr.into_iter();
-                        std::result::Result::Ok(Self {
-                            #( #field_initializations_array )*
-                        })
-                    }
-                    wkt::Value::Object(mut obj) => {
-                        std::result::Result::Ok(Self {
-                            #( #field_initializations_obj )*
-                        })
-                    }
-                    other => std::result::Result::Err(google_cloud_bigquery::error::ConvertError::TypeMismatch {
-                        expected: "array or object".to_string(),
-                        got: match other {
-                            wkt::Value::Null => "null",
-                            wkt::Value::Bool(_) => "bool",
-                            wkt::Value::Number(_) => "number",
-                            wkt::Value::String(_) => "string",
-                            wkt::Value::Array(_) => "array",
-                            wkt::Value::Object(_) => "object",
-                        }
-                        .to_string(),
-                    }),
-                }
+            fn from_value(mut value: google_cloud_bigquery::query::SqlValue) -> std::result::Result<Self, google_cloud_bigquery::error::ConvertError> {
+                std::result::Result::Ok(Self {
+                    #( #field_initializations )*
+                })
             }
         }
     }

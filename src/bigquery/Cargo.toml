@@ -57,6 +57,7 @@ uuid.workspace               = true
 anyhow.workspace            = true
 httptest.workspace          = true
 mockall.workspace           = true
+static_assertions.workspace = true
 test-case.workspace         = true
 tokio                       = { workspace = true, features = ["macros", "rt-multi-thread", "test-util"] }
 bigquery-grpc-mock          = { path = "../bigquery/grpc-mock" }
