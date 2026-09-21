@@ -392,7 +392,8 @@ async fn execute_subscriber_iteration(
     debug!(database = %config.database, "Connecting to FetchCacheUpdate stream");
     let connect_future = config
         .spanner
-        .fetch_cache_update(request, RequestOptions::default(), &channel_lease)
+        .fetch_cache_update(request, RequestOptions::default(), channel_lease.channel())
+        .with_lifetime_guard(Arc::new(channel_lease.into_guard()))
         .send();
     tokio::pin!(connect_future);
 

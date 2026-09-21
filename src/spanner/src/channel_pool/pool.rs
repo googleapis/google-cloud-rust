@@ -17,7 +17,7 @@
 //! Provides `ChannelPool`, which unifies both static (fixed-size) and dynamically scaling channel
 //! pool configurations under a single API for the Spanner client.
 
-use crate::channel_pool::affinity::TransactionAffinity;
+use crate::channel_pool::affinity::{ChannelTarget, TransactionAffinity};
 use crate::channel_pool::config::{
     ChannelPoolConfig, DynamicChannelPoolConfig, MAX_SUPPORTED_CHANNELS, StaticChannelPoolConfig,
 };
@@ -158,6 +158,17 @@ impl ChannelPool {
         let active_guard = self.inner.active_entries.read().expect("lock poisoned");
 
         self.pick_from_slice(&active_guard)
+    }
+
+    /// Leases a channel from the pool based on the specified routing target.
+    pub(crate) fn pick_channel_for_target(
+        &self,
+        target: &ChannelTarget<'_>,
+    ) -> Option<ChannelLease> {
+        match target {
+            ChannelTarget::Affinity(affinity) => self.resolve_affinity(affinity),
+            ChannelTarget::Any => self.pick_channel(),
+        }
     }
 
     /// Resolves an affinity handle to a leased channel.
@@ -657,7 +668,7 @@ mod tests {
         // Simulate a Read-Only transaction that was previously pinned to channel 2,
         // which has now transitioned to Draining during a scale-down event.
         let read_only_affinity = TransactionAffinity::new_read_only();
-        read_only_affinity.set_pinned_entry_id_for_test(2);
+        read_only_affinity.set_entry_id(2);
 
         let lease = pool
             .resolve_affinity(&read_only_affinity)
@@ -874,7 +885,7 @@ mod tests {
         // 1. Simulate a Read/Write transaction previously pinned to channel 2,
         // which has now transitioned to Closed after an idle timeout.
         let rw_affinity = TransactionAffinity::new_read_write();
-        rw_affinity.set_pinned_entry_id_for_test(2);
+        rw_affinity.set_entry_id(2);
         let lease = pool
             .resolve_affinity(&rw_affinity)
             .expect("must fallback to active channel when draining channel is closed");
@@ -887,7 +898,7 @@ mod tests {
 
         // 2. Simulate affinity pinned to a stale / non-existent channel ID -> must fallback to active channel
         let non_existent_affinity = TransactionAffinity::new_read_write();
-        non_existent_affinity.set_pinned_entry_id_for_test(999);
+        non_existent_affinity.set_entry_id(999);
         let lease_fallback = pool
             .resolve_affinity(&non_existent_affinity)
             .expect("must fallback to active channel for unknown channel ID");
@@ -1249,7 +1260,7 @@ mod tests {
 
         let affinity = TransactionAffinity::new_read_write();
         // Simulate affinity having an unknown stale ID (e.g. 999)
-        affinity.set_pinned_entry_id_for_test(999);
+        affinity.set_entry_id(999);
 
         // Another concurrent thread successfully updates affinity to channel 2
         affinity
@@ -1265,6 +1276,77 @@ mod tests {
             lease.entry_id(),
             2,
             "must adopt winning channel 2 on CAS conflict"
+        );
+    }
+
+    #[test]
+    fn empty_pool_pick_channel_for_target() {
+        let client_config = ClientConfig::default();
+        let pool = ChannelPool::new_static(
+            vec![],
+            StaticChannelPoolConfig { num_channels: 0 },
+            client_config,
+        );
+
+        assert!(
+            pool.pick_channel().is_none(),
+            "pick_channel on empty pool must return None"
+        );
+        assert!(
+            pool.pick_channel_for_target(&ChannelTarget::Any).is_none(),
+            "pick_channel_for_target on empty pool must return None"
+        );
+        let affinity = TransactionAffinity::new_read_write();
+        assert!(
+            pool.pick_channel_for_target(&ChannelTarget::Affinity(&affinity))
+                .is_none(),
+            "pick_channel_for_target with affinity on empty pool must return None"
+        );
+    }
+
+    #[test]
+    fn pick_channel_for_target_variants() {
+        let client_config = ClientConfig::default();
+        let channel = Arc::new(ChannelEntry::new(10, 3, create_mock_channel()));
+        let pool = ChannelPool::new_static(
+            vec![],
+            StaticChannelPoolConfig { num_channels: 0 },
+            client_config,
+        );
+        pool.inner
+            .active_entries
+            .write()
+            .expect("lock poisoned")
+            .push(Arc::clone(&channel));
+
+        // 1. ChannelTarget::Any leases an active channel
+        let any_lease = pool.pick_channel_for_target(&ChannelTarget::Any);
+        assert!(
+            any_lease.is_some(),
+            "pick_channel_for_target on ChannelTarget::Any must return a lease"
+        );
+        assert_eq!(
+            any_lease.expect("lease must be present").channel_id,
+            3,
+            "Leased channel for ChannelTarget::Any must have channel_id 3"
+        );
+
+        // 2. ChannelTarget::Affinity with unpinned affinity leases and pins the channel
+        let affinity = TransactionAffinity::new_read_write();
+        let affinity_lease = pool.pick_channel_for_target(&ChannelTarget::Affinity(&affinity));
+        assert!(
+            affinity_lease.is_some(),
+            "pick_channel_for_target on ChannelTarget::Affinity must return a lease"
+        );
+        assert_eq!(
+            affinity.pinned_entry_id(),
+            Some(10),
+            "Unpinned affinity must be pinned to channel entry 10 upon lease"
+        );
+        assert_eq!(
+            affinity_lease.expect("lease must be present").channel_id,
+            3,
+            "Leased channel for affinity target must have channel_id 3"
         );
     }
 }
