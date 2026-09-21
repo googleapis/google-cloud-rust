@@ -123,18 +123,13 @@ pub enum ConvertError {
 }
 
 impl ConvertError {
-    pub(crate) fn type_mismatch(expected: impl Into<String>, got: &wkt::Value) -> Self {
-        let got_type = match got {
-            wkt::Value::Null => "null",
-            wkt::Value::Bool(_) => "bool",
-            wkt::Value::Number(_) => "number",
-            wkt::Value::String(_) => "string",
-            wkt::Value::Array(_) => "array",
-            wkt::Value::Object(_) => "object",
-        };
+    pub(crate) fn type_mismatch(
+        expected: impl Into<String>,
+        got: &crate::query::from_sql::SqlValueInner,
+    ) -> Self {
         Self::TypeMismatch {
             expected: expected.into(),
-            got: got_type.to_string(),
+            got: got.type_name().to_string(),
         }
     }
 }
@@ -227,7 +222,8 @@ mod tests {
 
     #[test]
     fn test_convert_error_display() {
-        let err = ConvertError::type_mismatch("i64", &wkt::Value::String("hello".to_string()));
+        let val = crate::query::SqlValue::new(wkt::Value::String("hello".to_string()));
+        let err = ConvertError::type_mismatch("i64", &val.inner);
         assert_eq!(err.to_string(), "type mismatch, expected i64, got string");
 
         let err = ConvertError::NotNull;
