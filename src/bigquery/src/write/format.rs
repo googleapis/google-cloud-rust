@@ -12,15 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod writer;
-mod writer_builder;
+mod arrow;
+mod proto;
 
-use super::format::Proto;
+/// The data format accepted by a writer.
+///
+/// This trait is sealed and cannot be implemented for types outside this crate.
+pub trait DataFormat: sealed::DataFormat {
+    /// The representation of rows for this data format.
+    type Rows;
+}
 
-pub(crate) use writer::Writer;
-pub(crate) use writer_builder::WriterBuilder;
+pub(super) mod sealed {
+    use crate::model::AppendRowsRequest;
 
-pub(crate) type BufferedWriter = super::BufferedWriter<Proto>;
-pub(crate) type CommittedWriter = super::CommittedWriter<Proto>;
-pub(crate) type DefaultWriter = super::DefaultWriter<Proto>;
-pub(crate) type PendingWriter = super::PendingWriter<Proto>;
+    pub trait DataFormat {
+        fn make_request(&self, write_stream: &str, rows: Self::Rows) -> AppendRowsRequest
+        where
+            Self: super::DataFormat;
+    }
+}
+
+pub use arrow::Arrow;
+pub(crate) use proto::Proto;

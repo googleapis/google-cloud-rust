@@ -67,38 +67,41 @@ pub struct Row {
 }
 
 mod sealed {
+    use super::Row;
+
     /// A sealed trait to prevent external implementation of `ColumnIndex`.
-    pub trait ColumnIndex {}
-    impl ColumnIndex for usize {}
-    impl ColumnIndex for &str {}
-    impl ColumnIndex for String {}
+    pub trait ColumnIndex {
+        /// Returns the index of the column in the given row, if it exists.
+        fn index(&self, row: &Row) -> Option<usize>;
+    }
+
+    impl ColumnIndex for usize {
+        fn index(&self, row: &Row) -> Option<usize> {
+            row.schema.get_field_by_index(*self).map(|_| *self)
+        }
+    }
+
+    impl ColumnIndex for &str {
+        fn index(&self, row: &Row) -> Option<usize> {
+            row.schema.get_field_index_by_name(self)
+        }
+    }
+
+    impl ColumnIndex for String {
+        fn index(&self, row: &Row) -> Option<usize> {
+            <&str as ColumnIndex>::index(&self.as_str(), row)
+        }
+    }
 }
 
 /// A trait for types that can be used to index into a [`Row`].
 ///
 /// This trait is sealed and cannot be implemented for types outside of this crate.
-pub trait ColumnIndex: sealed::ColumnIndex + std::fmt::Display {
-    /// Returns the index of the column in the given row, if it exists.
-    fn index(&self, row: &Row) -> Option<usize>;
-}
+pub trait ColumnIndex: sealed::ColumnIndex + std::fmt::Display {}
 
-impl ColumnIndex for usize {
-    fn index(&self, row: &Row) -> Option<usize> {
-        row.schema.get_field_by_index(*self).map(|_| *self)
-    }
-}
-
-impl ColumnIndex for &str {
-    fn index(&self, row: &Row) -> Option<usize> {
-        row.schema.get_field_index_by_name(self)
-    }
-}
-
-impl ColumnIndex for String {
-    fn index(&self, row: &Row) -> Option<usize> {
-        self.as_str().index(row)
-    }
-}
+impl ColumnIndex for usize {}
+impl ColumnIndex for &str {}
+impl ColumnIndex for String {}
 
 impl Row {
     pub(crate) fn try_new(row: Struct, schema: &Arc<Schema>) -> Result<Self> {
@@ -111,19 +114,20 @@ impl Row {
     }
 
     fn resolve_index<I: ColumnIndex>(&self, col: &I) -> Result<usize> {
-        col.index(self)
+        sealed::ColumnIndex::index(col, self)
             .ok_or_else(|| RowError::ColumnNotFound(format!("{col}")))
     }
 
     fn convert_value_at<T: FromSql>(&self, idx: usize, val: Value) -> Result<T> {
         T::from_value(val).map_err(|e| {
-            let field_name = self
+            let (column, sql_type) = self
                 .schema
                 .get_field_by_index(idx)
-                .map(|f| f.name.clone())
-                .unwrap_or_else(|| idx.to_string());
+                .map(|f| (f.name.clone(), f.r#type.clone()))
+                .unwrap_or_else(|| (idx.to_string(), "UNKNOWN".to_string()));
             RowError::TypeConversion {
-                column: field_name,
+                column,
+                sql_type,
                 source: e,
             }
         })
@@ -291,6 +295,7 @@ fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Resu
         "INTEGER" | "INT64" => {
             let num = value.parse::<i64>().map_err(|e| RowError::TypeConversion {
                 column: field_name.to_string(),
+                sql_type: field_type.to_string(),
                 source: ConvertError::Convert(Box::new(e)),
             })?;
             Ok(Value::Number(serde_json::Number::from(num)))
@@ -298,6 +303,7 @@ fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Resu
         "FLOAT" | "FLOAT64" => {
             let num = value.parse::<f64>().map_err(|e| RowError::TypeConversion {
                 column: field_name.to_string(),
+                sql_type: field_type.to_string(),
                 source: ConvertError::Convert(Box::new(e)),
             })?;
             match serde_json::Number::from_f64(num) {
@@ -313,6 +319,7 @@ fn convert_basic_type(value: String, field_name: &str, field_type: &str) -> Resu
             } else {
                 return Err(RowError::TypeConversion {
                     column: field_name.to_string(),
+                    sql_type: field_type.to_string(),
                     source: ConvertError::Convert(
                         "provided string was not `true` or `false`".into(),
                     ),
@@ -591,6 +598,7 @@ mod tests {
         }))?;
         assert_eq!(row.get::<Struct, _>(0)?, expected);
         assert_eq!(row.get::<Struct, _>("user")?, expected);
+        assert_eq!(row.get::<Struct, _>("user".to_string())?, expected);
         assert_eq!(row.take::<Struct, _>("user")?, expected);
         assert_eq!(row.get::<Option<Struct>, _>("user")?, None);
 
@@ -787,6 +795,45 @@ mod tests {
         Ok(())
     }
 
+    #[derive(FromRow, Debug, PartialEq)]
+    struct RawIdentRow {
+        r#type: String,
+        r#match: i64,
+    }
+
+    #[tokio::test]
+    async fn derive_from_row_raw_identifier() -> TestResult {
+        let raw_row = Map::from_iter([(
+            "f".to_string(),
+            json!([
+                { "v": "click" },
+                { "v": "7" },
+            ]),
+        )]);
+        let schema = TableSchema::new().set_fields([
+            TableFieldSchema::new()
+                .set_name("type")
+                .set_type("STRING")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("match")
+                .set_type("INTEGER")
+                .set_mode("NULLABLE"),
+        ]);
+        let schema = Arc::new(Schema::new(schema));
+        let row = Row::try_new(raw_row, &schema)?;
+
+        let converted = RawIdentRow::try_from(row)?;
+        assert_eq!(
+            converted,
+            RawIdentRow {
+                r#type: "click".to_string(),
+                r#match: 7,
+            }
+        );
+        Ok(())
+    }
+
     #[tokio::test]
     async fn derive_from_row_missing_column() -> TestResult {
         let raw_row = Map::from_iter([(
@@ -821,6 +868,45 @@ mod tests {
 
         let err = TestRow::try_from(row).unwrap_err();
         assert!(matches!(err, RowError::ColumnNotFound(col) if col == "custom_int"));
+        Ok(())
+    }
+
+    #[derive(FromRow, Debug, PartialEq)]
+    struct ShadowedFieldNamesRow {
+        row: i64,
+        name: String,
+    }
+
+    #[tokio::test]
+    async fn derive_from_row_shadowing_field_names() -> TestResult {
+        let raw_row = Map::from_iter([(
+            "f".to_string(),
+            json!([
+                { "v": "42" },
+                { "v": "Alice" },
+            ]),
+        )]);
+        let schema = TableSchema::new().set_fields([
+            TableFieldSchema::new()
+                .set_name("row")
+                .set_type("INTEGER")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("name")
+                .set_type("STRING")
+                .set_mode("NULLABLE"),
+        ]);
+        let schema = Arc::new(Schema::new(schema));
+        let row = Row::try_new(raw_row, &schema)?;
+
+        let converted = ShadowedFieldNamesRow::try_from(row)?;
+        assert_eq!(
+            converted,
+            ShadowedFieldNamesRow {
+                row: 42,
+                name: "Alice".to_string(),
+            }
+        );
         Ok(())
     }
 }

@@ -15,6 +15,7 @@
 use crate::builder::bigquery::Query;
 use crate::error::QueryError;
 use crate::query::client_builder::ClientBuilder;
+use crate::query::execution::check_job_status;
 use crate::query::{Query as QueryHandle, Result as QueryResult};
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::JobReference;
@@ -48,7 +49,7 @@ use std::sync::Arc;
 /// # async fn sample() -> anyhow::Result<()> {
 /// let client = BigQuery::builder().build().await?;
 /// let mut rows = client
-///     .query("SELECT name, count FROM `bigquery-public-data.usa_names.usa_1910_2013` WHERE state = 'WA' ORDER BY count DESC LIMIT 5")
+///     .query("SELECT name, number FROM `bigquery-public-data.usa_names.usa_1910_2013` WHERE state = 'WA' ORDER BY number DESC LIMIT 5")
 ///     .with_project_id("my-project-id")
 ///     .until_done()
 ///     .await?
@@ -56,8 +57,8 @@ use std::sync::Arc;
 ///
 /// while let Some(row) = rows.next().await.transpose()? {
 ///     let name: String = row.get("name")?;
-///     let count: i64 = row.get("count")?;
-///     println!("{name}: {count}");
+///     let number: i64 = row.get("number")?;
+///     println!("{name}: {number}");
 /// }
 /// # Ok(()) }
 /// ```
@@ -238,7 +239,7 @@ impl BigQuery {
 
         Ok(QueryHandle::from_job(
             self.job_service.clone(),
-            job,
+            check_job_status(job)?,
             None,
             None,
         ))
@@ -430,6 +431,42 @@ mod tests {
         assert!(
             matches!(&err, QueryError::UnsupportedJobType),
             "expected UnsupportedJobType, got {err:?}"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_bigquery_attach_job_failed_job() -> anyhow::Result<()> {
+        use google_cloud_bigquery_v2::model::{ErrorProto, JobConfigurationQuery, JobStatus};
+
+        let mut mock = MockJobService::new();
+        mock.expect_get_job().returning(|_, _| {
+            let err_proto = ErrorProto::new()
+                .set_reason("invalidQuery")
+                .set_message("Syntax error");
+            let job = Job::new()
+                .set_configuration(
+                    JobConfiguration::new()
+                        .set_query(JobConfigurationQuery::new().set_query("SELECT * FROM")),
+                )
+                .set_status(
+                    JobStatus::new()
+                        .set_state("DONE")
+                        .set_error_result(err_proto.clone())
+                        .set_errors(vec![err_proto]),
+                );
+            Ok(Response::from(job))
+        });
+        let client =
+            BigQuery::from_job_service(create_job_service(mock), Some("client-proj".to_string()));
+        let job_ref = JobReference::new().set_job_id("job_failed");
+        let err = client
+            .attach_job(job_ref)
+            .await
+            .expect_err("should return an error for failed query job");
+        assert!(
+            matches!(&err, QueryError::JobFailed { errors } if errors.len() == 1 && errors[0].reason == "invalidQuery"),
+            "expected JobFailed, got {err:?}"
         );
         Ok(())
     }

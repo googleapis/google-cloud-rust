@@ -12,17 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod base;
-mod buffered;
-mod committed;
-mod default;
-mod pending;
 mod writer;
 mod writer_builder;
 
-pub use buffered::BufferedWriter;
-pub use committed::CommittedWriter;
-pub use default::DefaultWriter;
-pub use pending::PendingWriter;
+use super::format::Arrow;
+
 pub use writer::Writer;
 pub use writer_builder::WriterBuilder;
+
+/// DEPRECATED - do not use.
+///
+/// This type is about to be deleted. See:
+/// <https://github.com/googleapis/google-cloud-rust/issues/6855>
+pub type DefaultWriter = super::DefaultWriter<Arrow>;
+
+/// DEPRECATED - do not use.
+///
+/// This type is about to be deleted. See:
+/// <https://github.com/googleapis/google-cloud-rust/issues/6855>
+pub type BufferedWriter = super::BufferedWriter<Arrow>;
+
+/// DEPRECATED - do not use.
+///
+/// This type is about to be deleted. See:
+/// <https://github.com/googleapis/google-cloud-rust/issues/6855>
+pub type CommittedWriter = super::CommittedWriter<Arrow>;
+
+/// DEPRECATED - do not use.
+///
+/// This type is about to be deleted. See:
+/// <https://github.com/googleapis/google-cloud-rust/issues/6855>
+pub type PendingWriter = super::PendingWriter<Arrow>;

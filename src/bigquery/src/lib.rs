@@ -72,19 +72,19 @@
 //! #[derive(FromRow, Debug)]
 //! struct UserStats {
 //!     name: String,
-//!     count: i64,
+//!     number: i64,
 //! }
 //!
 //! # async fn sample(client: BigQuery) -> anyhow::Result<()> {
 //! let mut rows = client
-//!     .query("SELECT name, count FROM `bigquery-public-data.usa_names.usa_1910_2013` WHERE state = 'WA' LIMIT 5")
+//!     .query("SELECT name, number FROM `bigquery-public-data.usa_names.usa_1910_2013` WHERE state = 'WA' LIMIT 5")
 //!     .until_done()
 //!     .await?
 //!     .read();
 //!
 //! while let Some(row) = rows.next().await.transpose()? {
 //!     let user: UserStats = row.try_into()?;
-//!     println!("{} has count {}", user.name, user.count);
+//!     println!("{} has count {}", user.name, user.number);
 //! }
 //! # Ok(())
 //! # }

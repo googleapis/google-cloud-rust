@@ -19,6 +19,8 @@ use arrow::ipc::writer::StreamWriter;
 use arrow_json::ReaderBuilder;
 use google_cloud_bigquery::client::Write;
 use google_cloud_bigquery::model::{ArrowRecordBatch, ArrowSchema};
+use google_cloud_bigquery::write::PendingWriter;
+use google_cloud_bigquery::write::format::Arrow;
 use std::sync::Arc;
 use tokio::task::JoinSet;
 
@@ -42,9 +44,9 @@ pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyho
 
     let table = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}");
     // Create a writer for a pending stream
-    let writer = client
+    let writer: PendingWriter<Arrow> = client
         .arrow(ArrowSchema::new().set_serialized_schema(schema_buf))
-        .pending(table)
+        .create(table)
         .await?;
 
     // Create a decoder to convert JSON to Arrow

@@ -341,6 +341,42 @@ pub async fn query_client_job() -> Result<()> {
     assert_eq!(row.get::<i64, _>("two")?, 2);
     assert!(iter.next().await.is_none(), "{iter:?}");
 
+    // attach_job to a successful job
+    let attached = bq.attach_job(job_ref.clone()).await?;
+    let mut attached_iter = attached.until_done().await?.read();
+    let attached_row = attached_iter
+        .next()
+        .await
+        .expect("should return first row")?;
+    assert_eq!(attached_row.get::<i64, _>("two")?, 2);
+
+    // attach_job to a failed job should return QueryError::JobFailed immediately
+    let failed_query = bq
+        .query("DECLARE x INT64 DEFAULT 1; SELECT ERROR('boom');")
+        .set_priority("INTERACTIVE") // force jobs.insert path so job is created
+        .with_project_id(project_id)
+        .set_labels(vec![(INSTANCE_LABEL, "true")])
+        .send()
+        .await?;
+    let failed_job_ref = failed_query
+        .metadata()
+        .job_reference
+        .clone()
+        .expect("failed job should have job_reference");
+    let _ = failed_query.until_done().await;
+
+    let attach_err = bq
+        .attach_job(failed_job_ref)
+        .await
+        .expect_err("attach_job on failed job should fail");
+    assert!(
+        matches!(
+            attach_err,
+            google_cloud_bigquery::error::QueryError::JobFailed { .. }
+        ),
+        "expected JobFailed from attach_job, got {attach_err:?}"
+    );
+
     Ok(())
 }
 

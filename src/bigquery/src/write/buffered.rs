@@ -13,8 +13,9 @@
 // limitations under the License.
 
 use super::base::BaseWriter;
+use super::format::DataFormat;
 use crate::Result;
-use crate::model::{ArrowRecordBatch, ArrowSchema, FinalizeWriteStreamResponse, FlushRowsResponse};
+use crate::model::{FinalizeWriteStreamResponse, FlushRowsResponse};
 use crate::write::builder::AppendWithOffset;
 use crate::write::transport::Transport;
 use std::sync::Arc;
@@ -23,14 +24,17 @@ use std::sync::Arc;
 ///
 /// [buffered stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#buffered_type
 #[derive(Debug)]
-pub struct BufferedWriter {
-    pub(crate) inner: BaseWriter,
+pub struct BufferedWriter<F> {
+    pub(crate) inner: BaseWriter<F>,
 }
 
-impl BufferedWriter {
-    pub(crate) fn new(inner: Arc<Transport>, write_stream: String, schema: ArrowSchema) -> Self {
+impl<F> BufferedWriter<F>
+where
+    F: DataFormat,
+{
+    pub(crate) fn new(inner: Arc<Transport>, write_stream: String, format: F) -> Self {
         Self {
-            inner: BaseWriter::new(inner, write_stream, schema),
+            inner: BaseWriter::new(inner, write_stream, format),
         }
     }
 
@@ -40,7 +44,7 @@ impl BufferedWriter {
     }
 
     /// Append rows to the buffered stream.
-    pub fn append(&self, rows: ArrowRecordBatch) -> AppendWithOffset {
+    pub fn append(&self, rows: F::Rows) -> AppendWithOffset {
         AppendWithOffset::new(
             self.inner.runner.req_tx.clone(),
             self.inner.append_request(rows),
@@ -74,31 +78,6 @@ mod tests {
     use tokio::sync::mpsc;
 
     #[tokio::test]
-    async fn request_fields() -> anyhow::Result<()> {
-        let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let writer = BufferedWriter::new(transport, write_stream(), schema());
-        assert_eq!(writer.write_stream(), write_stream());
-
-        let b = writer.append(rows(1));
-        assert_eq!(b.req.write_stream, write_stream());
-        let data = b.req.arrow_rows().expect("arrow rows should be set");
-        let s = data.writer_schema.as_ref().expect("schema should be set");
-        assert_eq!(s.serialized_schema, "test");
-        let r = data.rows.as_ref().expect("rows should be set");
-        assert_eq!(r.serialized_record_batch, "1");
-
-        let b = writer.append(rows(2));
-        assert_eq!(b.req.write_stream, write_stream());
-        let data = b.req.arrow_rows().expect("arrow rows should be set");
-        let s = data.writer_schema.as_ref().expect("schema should be set");
-        assert_eq!(s.serialized_schema, "test");
-        let r = data.rows.as_ref().expect("rows should be set");
-        assert_eq!(r.serialized_record_batch, "2");
-
-        Ok(())
-    }
-
-    #[tokio::test]
     async fn basic_success() -> anyhow::Result<()> {
         let (response_tx, response_rx) = mpsc::channel(10);
 
@@ -126,7 +105,7 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
 
-        let writer = BufferedWriter::new(transport, write_stream(), schema());
+        let writer = BufferedWriter::new(transport, write_stream(), format());
         assert_eq!(writer.write_stream(), write_stream());
 
         response_tx.send(Ok(convert(&test_response(1)))).await?;
@@ -168,7 +147,7 @@ mod tests {
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
-        let writer = BufferedWriter::new(transport, write_stream(), schema());
+        let writer = BufferedWriter::new(transport, write_stream(), format());
         assert_eq!(writer.write_stream(), write_stream());
 
         response_tx.send(Ok(convert(&test_response(1)))).await?;
@@ -182,9 +161,5 @@ mod tests {
         assert_eq!(flush2.offset, 2);
 
         Ok(())
-    }
-
-    fn rows(id: i64) -> ArrowRecordBatch {
-        ArrowRecordBatch::new().set_serialized_record_batch(id.to_string())
     }
 }

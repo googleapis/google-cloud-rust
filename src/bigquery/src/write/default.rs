@@ -12,87 +12,57 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::super::builder::Append;
-use super::super::dispatcher::Dispatcher;
-use super::super::pool::StreamPool;
-use super::super::retry_policy::RetryOptions;
-use crate::model::append_rows_request::ArrowData;
-use crate::model::{AppendRowsRequest, ArrowRecordBatch, ArrowSchema};
+use super::builder::Append;
+use super::dispatcher::Dispatcher;
+use super::format::DataFormat;
+use super::pool::StreamPool;
+use super::retry_policy::RetryOptions;
 use std::sync::Arc;
 
 /// A writer for the [default stream].
 ///
 /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
 #[derive(Debug)]
-pub struct DefaultWriter {
+pub struct DefaultWriter<F> {
     pub(crate) inner: Arc<Dispatcher>,
     pub(crate) write_stream: String,
-    pub(crate) schema: ArrowSchema,
+    pub(crate) format: F,
 }
 
-impl DefaultWriter {
+impl<F> DefaultWriter<F>
+where
+    F: DataFormat,
+{
     pub(crate) fn new(
         pool: Arc<StreamPool>,
         retry_options: RetryOptions,
         write_stream: String,
-        schema: ArrowSchema,
+        format: F,
     ) -> Self {
         let inner = Arc::new(Dispatcher::new(pool, retry_options));
         Self {
             inner,
             write_stream,
-            schema,
+            format,
         }
     }
 
     /// Append rows to the stream.
-    pub fn append(&self, rows: ArrowRecordBatch) -> Append {
-        // TODO(#5744) - send optimization
-        let req = AppendRowsRequest::new()
-            .set_write_stream(&self.write_stream)
-            .set_arrow_rows(
-                ArrowData::new()
-                    .set_writer_schema(self.schema.clone())
-                    .set_rows(rows),
-            );
+    pub fn append(&self, rows: F::Rows) -> Append {
+        let req = self.format.make_request(&self.write_stream, rows);
         Append::new(self.inner.clone(), req)
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::super::super::pool::StreamPoolOptions;
+    use super::super::pool::StreamPoolOptions;
     use super::*;
     use crate::error::AppendError;
     use crate::write::test::*;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::{Response as TonicResponse, Status as TonicStatus};
     use tokio::sync::mpsc;
-
-    #[tokio::test]
-    async fn request_fields() -> anyhow::Result<()> {
-        let transport = Arc::new(test_transport("http://ignored:1").await?);
-        let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
-        let writer = DefaultWriter::new(pool, test_retry_options(), write_stream(), schema());
-
-        let b = writer.append(rows(1));
-        assert_eq!(b.req.write_stream, write_stream());
-        let data = b.req.arrow_rows().expect("arrow rows should be set");
-        let s = data.writer_schema.as_ref().expect("schema should be set");
-        assert_eq!(s.serialized_schema, "test");
-        let r = data.rows.as_ref().expect("rows should be set");
-        assert_eq!(r.serialized_record_batch, "1");
-
-        let b = writer.append(rows(2));
-        assert_eq!(b.req.write_stream, write_stream());
-        let data = b.req.arrow_rows().expect("arrow rows should be set");
-        let s = data.writer_schema.as_ref().expect("schema should be set");
-        assert_eq!(s.serialized_schema, "test");
-        let r = data.rows.as_ref().expect("rows should be set");
-        assert_eq!(r.serialized_record_batch, "2");
-
-        Ok(())
-    }
 
     #[tokio::test]
     async fn basic_success() -> anyhow::Result<()> {
@@ -105,7 +75,7 @@ mod tests {
         let transport = Arc::new(test_transport(endpoint).await?);
         let pool = Arc::new(StreamPool::new(transport, StreamPoolOptions::default()));
 
-        let writer = DefaultWriter::new(pool, test_retry_options(), write_stream(), schema());
+        let writer = DefaultWriter::new(pool, test_retry_options(), write_stream(), format());
 
         response_tx.send(Ok(convert(&test_response(1)))).await?;
         let resp = writer.append(rows(1)).send().await?;
@@ -126,9 +96,5 @@ mod tests {
         assert!(matches!(err, AppendError::Rpc { source: _ }), "{err:?}");
 
         Ok(())
-    }
-
-    fn rows(id: i64) -> ArrowRecordBatch {
-        ArrowRecordBatch::new().set_serialized_record_batch(id.to_string())
     }
 }

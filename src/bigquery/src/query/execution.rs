@@ -272,7 +272,7 @@ impl RetryContext {
 }
 
 /// Returns [`QueryError::JobFailed`] if the service reports the job as failed.
-fn check_job_status(job: Job) -> Result<Job> {
+pub(super) fn check_job_status(job: Job) -> Result<Job> {
     if let Some(status) = job.status.as_ref()
         && status.error_result.is_some()
     {

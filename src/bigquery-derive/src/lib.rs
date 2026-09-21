@@ -28,55 +28,52 @@ use syn::{Data, DeriveInput, Fields, parse_macro_input};
 #[proc_macro_derive(FromRow, attributes(bigquery))]
 pub fn derive_from_row(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
+    derive_from_row_impl(input).into()
+}
+
+fn derive_from_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
     let name = input.ident;
 
     let fields = match input.data {
         Data::Struct(data) => match data.fields {
-            Fields::Named(fields) => fields.named,
+            Fields::Named(fields) if !fields.named.is_empty() => fields.named,
             _ => {
                 return syn::Error::new_spanned(
                     name,
-                    "FromRow can only be derived for structs with named fields",
+                    "FromRow can only be derived for non-empty structs with named fields",
                 )
-                .to_compile_error()
-                .into();
+                .to_compile_error();
             }
         },
         _ => {
-            return syn::Error::new_spanned(name, "FromRow can only be derived for structs")
-                .to_compile_error()
-                .into();
+            return syn::Error::new_spanned(
+                name,
+                "FromRow can only be derived for non-empty structs with named fields",
+            )
+            .to_compile_error();
         }
     };
-    let value_extractions = fields.iter().map(|f| {
+    let field_initializations = fields.iter().map(|f| {
         let field_name = f.ident.as_ref().expect("named field must have identifier");
         let db_column_name = get_field_name(f);
         quote! {
-            let #field_name = row.take(#db_column_name)?;
+            #field_name: row.take(#db_column_name)?,
         }
     });
 
-    let field_idents = fields
-        .iter()
-        .map(|f| f.ident.as_ref().expect("named field must have identifier"));
-
     // TODO(#5592): check that the schema and this struct have same columns/attributes count.
 
-    let expanded = quote! {
+    quote! {
         impl std::convert::TryFrom<google_cloud_bigquery::query::Row> for #name {
             type Error = google_cloud_bigquery::error::RowError;
 
             fn try_from(mut row: google_cloud_bigquery::query::Row) -> std::result::Result<Self, Self::Error> {
-                #( #value_extractions )*
-
                 std::result::Result::Ok(Self {
-                    #( #field_idents, )*
+                    #( #field_initializations )*
                 })
             }
         }
-    };
-
-    expanded.into()
+    }
 }
 
 /// Derives `FromSql` for converting a BigQuery value into a struct.
@@ -85,81 +82,87 @@ pub fn derive_from_row(input: TokenStream) -> TokenStream {
 #[proc_macro_derive(FromSql, attributes(bigquery))]
 pub fn derive_from_sql(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
+    derive_from_sql_impl(input).into()
+}
+
+fn derive_from_sql_impl(input: DeriveInput) -> proc_macro2::TokenStream {
     let name = input.ident;
 
     let fields = match input.data {
         Data::Struct(data) => match data.fields {
-            Fields::Named(fields) => fields.named,
+            Fields::Named(fields) if !fields.named.is_empty() => fields.named,
             _ => {
                 return syn::Error::new_spanned(
                     name,
-                    "FromSql can only be derived for structs with named fields",
+                    "FromSql can only be derived for non-empty structs with named fields",
                 )
-                .to_compile_error()
-                .into();
+                .to_compile_error();
             }
         },
         _ => {
-            return syn::Error::new_spanned(name, "FromSql can only be derived for structs")
-                .to_compile_error()
-                .into();
+            return syn::Error::new_spanned(
+                name,
+                "FromSql can only be derived for non-empty structs with named fields",
+            )
+            .to_compile_error();
         }
     };
 
-    let field_idents_struct_array = fields
-        .iter()
-        .map(|f| f.ident.as_ref().expect("named field must have identifier"));
-    let field_idents_struct_obj = fields
-        .iter()
-        .map(|f| f.ident.as_ref().expect("named field must have identifier"));
-
-    let field_extractions_array = fields.iter().map(|f| {
+    let field_initializations_array = fields.iter().map(|f| {
         let field_name = f.ident.as_ref().expect("named field must have identifier");
         let db_column_name = get_field_name(f);
         quote! {
-            let #field_name = iter.next()
-                .ok_or_else(|| google_cloud_bigquery::error::ConvertError::MissingField(#db_column_name.to_string()))?;
-            let #field_name = google_cloud_bigquery::query::FromSql::from_value(#field_name)?;
+            #field_name: {
+                let val = iter.next()
+                    .ok_or_else(|| google_cloud_bigquery::error::ConvertError::MissingField(#db_column_name.to_string()))?;
+                google_cloud_bigquery::query::FromSql::from_value(val)?
+            },
         }
     });
 
-    let field_extractions_obj = fields.iter().map(|f| {
+    let field_initializations_obj = fields.iter().map(|f| {
         let field_name = f.ident.as_ref().expect("named field must have identifier");
         let db_column_name = get_field_name(f);
         quote! {
-            let #field_name = obj.remove(#db_column_name)
-                .ok_or_else(|| google_cloud_bigquery::error::ConvertError::MissingField(#db_column_name.to_string()))?;
-            let #field_name = google_cloud_bigquery::query::FromSql::from_value(#field_name)?;
+            #field_name: {
+                let val = obj.remove(#db_column_name)
+                    .ok_or_else(|| google_cloud_bigquery::error::ConvertError::MissingField(#db_column_name.to_string()))?;
+                google_cloud_bigquery::query::FromSql::from_value(val)?
+            },
         }
     });
 
-    let expanded = quote! {
+    quote! {
         impl google_cloud_bigquery::query::FromSql for #name {
             fn from_value(value: wkt::Value) -> std::result::Result<Self, google_cloud_bigquery::error::ConvertError> {
                 match value {
                     wkt::Value::Array(arr) => {
                         let mut iter = arr.into_iter();
-                        #( #field_extractions_array )*
                         std::result::Result::Ok(Self {
-                            #( #field_idents_struct_array, )*
+                            #( #field_initializations_array )*
                         })
                     }
                     wkt::Value::Object(mut obj) => {
-                        #( #field_extractions_obj )*
                         std::result::Result::Ok(Self {
-                            #( #field_idents_struct_obj, )*
+                            #( #field_initializations_obj )*
                         })
                     }
                     other => std::result::Result::Err(google_cloud_bigquery::error::ConvertError::TypeMismatch {
-                        expected: "array or object",
-                        got: other,
+                        expected: "array or object".to_string(),
+                        got: match other {
+                            wkt::Value::Null => "null",
+                            wkt::Value::Bool(_) => "bool",
+                            wkt::Value::Number(_) => "number",
+                            wkt::Value::String(_) => "string",
+                            wkt::Value::Array(_) => "array",
+                            wkt::Value::Object(_) => "object",
+                        }
+                        .to_string(),
                     }),
                 }
             }
         }
-    };
-
-    expanded.into()
+    }
 }
 
 fn get_field_name(field: &syn::Field) -> String {
@@ -181,9 +184,48 @@ fn get_field_name(field: &syn::Field) -> String {
             }
         }
     }
-    field
-        .ident
-        .as_ref()
-        .expect("named field must have identifier")
-        .to_string()
+    syn::ext::IdentExt::unraw(
+        field
+            .ident
+            .as_ref()
+            .expect("named field must have identifier"),
+    )
+    .to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_rejects_empty_named_structs() -> Result<(), syn::Error> {
+        let row_err = derive_from_row_impl(syn::parse_str("struct Empty {}")?).to_string();
+        assert!(
+            row_err.contains("FromRow can only be derived for non-empty structs with named fields"),
+            "unexpected expansion: {row_err}"
+        );
+
+        let sql_err = derive_from_sql_impl(syn::parse_str("struct Empty {}")?).to_string();
+        assert!(
+            sql_err.contains("FromSql can only be derived for non-empty structs with named fields"),
+            "unexpected expansion: {sql_err}"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn test_rejects_non_structs() -> Result<(), syn::Error> {
+        let row_err = derive_from_row_impl(syn::parse_str("enum Foo {}")?).to_string();
+        assert!(
+            row_err.contains("FromRow can only be derived for non-empty structs with named fields"),
+            "unexpected expansion: {row_err}"
+        );
+
+        let sql_err = derive_from_sql_impl(syn::parse_str("enum Foo {}")?).to_string();
+        assert!(
+            sql_err.contains("FromSql can only be derived for non-empty structs with named fields"),
+            "unexpected expansion: {sql_err}"
+        );
+        Ok(())
+    }
 }
