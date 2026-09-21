@@ -73,12 +73,10 @@ impl Write {
         )
     }
 
-    /// Creates a new [application-created stream] of type `S`
-    /// ([`PendingStream`][crate::write::stream_type::PendingStream],
-    /// [`CommittedStream`][crate::write::stream_type::CommittedStream], or
-    /// [`BufferedStream`][crate::write::stream_type::BufferedStream]) for the given table.
+    /// Creates a new [application-created stream] for the given table.
     ///
-    /// The stream type `S` can be inferred from the variable's writer type annotation
+    /// The stream type `S` can be inferred from the variable's writer type
+    /// annotation
     /// ([`PendingWriter`][crate::write::PendingWriter],
     /// [`CommittedWriter`][crate::write::CommittedWriter], or
     /// [`BufferedWriter`][crate::write::BufferedWriter]) or specified explicitly via turbofish
@@ -115,16 +113,14 @@ impl Write {
         )
     }
 
-    /// Attaches to an existing [application-created stream] of type `S`
-    /// ([`PendingStream`][crate::write::stream_type::PendingStream],
-    /// [`CommittedStream`][crate::write::stream_type::CommittedStream], or
-    /// [`BufferedStream`][crate::write::stream_type::BufferedStream]).
+    /// Attaches to an existing [application-created stream].
     ///
-    /// The stream type `S` can be inferred from the variable's writer type annotation
+    /// The stream type `S` can be inferred from the variable's writer type
+    /// annotation
     /// ([`PendingWriter`][crate::write::PendingWriter],
     /// [`CommittedWriter`][crate::write::CommittedWriter], or
     /// [`BufferedWriter`][crate::write::BufferedWriter]) or specified explicitly via turbofish
-    /// (`attach_to_stream::<CommittedStream, _>(...)`).
+    /// (`attach_to_stream::<PendingStream, _>(...)`).
     ///
     /// # Example
     /// ```
