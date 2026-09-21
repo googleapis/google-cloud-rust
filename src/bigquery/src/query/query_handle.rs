@@ -222,7 +222,7 @@ impl Query {
 
             let backoff_policy = Arc::new(
                 ExponentialBackoffBuilder::default()
-                    .with_initial_delay(std::time::Duration::from_secs(10))
+                    .with_initial_delay(std::time::Duration::from_secs(1))
                     .build()
                     .expect("valid backoff configuration"),
             );
@@ -998,6 +998,47 @@ mod tests {
         assert!(
             matches!(err, QueryError::DryRun),
             "expected DryRun error, got {err:?}"
+        );
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn test_query_until_done_initial_poll_delay() -> TestResult {
+        let mut mock = MockJobService::new();
+        let mut seq = mockall::Sequence::new();
+        mock.expect_get_query_results()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_, _| {
+                Ok(Response::from(
+                    GetQueryResultsResponse::new().set_job_complete(false),
+                ))
+            });
+        mock.expect_get_query_results()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_, _| {
+                Ok(Response::from(
+                    GetQueryResultsResponse::new().set_job_complete(true),
+                ))
+            });
+
+        let job_service = create_job_service(mock);
+        let job_ref = JobReference::new()
+            .set_project_id("some_project")
+            .set_job_id("some_job_id");
+        let query_res = QueryResponse::new()
+            .set_job_complete(false)
+            .set_job_reference(job_ref);
+
+        let start = tokio::time::Instant::now();
+        let query = Query::from_query_response(job_service, query_res, None, None);
+        let _completed = query.until_done().await?;
+        let elapsed = start.elapsed();
+
+        assert!(
+            elapsed <= Duration::from_secs(1),
+            "expected initial poll delay <= 1s, got {elapsed:?}"
         );
         Ok(())
     }
