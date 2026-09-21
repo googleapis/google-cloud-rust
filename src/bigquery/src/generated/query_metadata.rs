@@ -732,39 +732,7 @@ mod debug {
 
 impl std::convert::From<google_cloud_bigquery_v2::model::Job> for QueryMetadata {
     fn from(resp: google_cloud_bigquery_v2::model::Job) -> Self {
-        let job_complete = resp.status.as_ref().map(|s| s.state == "DONE");
-        let errors = resp
-            .status
-            .as_ref()
-            .map(|s| s.errors.clone())
-            .unwrap_or_default();
-        let query_stats = resp.statistics.as_ref().and_then(|s| s.query.as_ref());
-        let schema = query_stats.and_then(|q| q.schema.clone());
-        let total_bytes_processed =
-            query_stats
-                .and_then(|q| q.total_bytes_processed)
-                .or_else(|| {
-                    resp.statistics
-                        .as_ref()
-                        .and_then(|s| s.total_bytes_processed)
-                });
-        let cache_hit = query_stats.and_then(|q| q.cache_hit);
-        let num_dml_affected_rows = query_stats.and_then(|q| q.num_dml_affected_rows);
-        let dml_stats = query_stats.and_then(|q| q.dml_stats.clone());
-        let session_info = resp
-            .statistics
-            .as_ref()
-            .and_then(|s| s.session_info.clone());
-
         Self {
-            schema,
-            total_bytes_processed,
-            job_complete,
-            errors,
-            cache_hit,
-            num_dml_affected_rows,
-            dml_stats,
-            session_info,
             configuration: resp.configuration,
             etag: resp.etag,
             id: resp.id,

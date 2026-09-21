@@ -77,7 +77,7 @@ impl Query {
             job_service,
             completed,
             cached_rows: None,
-            metadata: QueryMetadata::from(initial_job),
+            metadata: build_query_metadata_from_job(initial_job),
             retry_context,
             page_size,
         }
@@ -217,7 +217,7 @@ impl Query {
 
             let job_ref = metadata
                 .job_reference
-                .as_ref()
+                .clone()
                 .expect("query job should have job reference at this point");
 
             let backoff_policy = Arc::new(
@@ -227,12 +227,13 @@ impl Query {
                     .expect("valid backoff configuration"),
             );
 
-            match poll_query_results(&job_service, job_ref, backoff_policy).await {
+            match poll_query_results(&job_service, &job_ref, backoff_policy).await {
                 Ok(res) => {
                     return Ok(CompleteQuery::from_get_query_results_response(
                         job_service,
-                        job_ref,
+                        &job_ref,
                         res,
+                        metadata,
                         page_size,
                     ));
                 }
@@ -292,27 +293,19 @@ impl CompleteQuery {
         job_service: Arc<JobService>,
         job_ref: &JobReference,
         mut res: GetQueryResultsResponse,
+        initial_metadata: QueryMetadata,
         page_size: Option<u32>,
     ) -> Self {
         let cached_rows = VecDeque::from(std::mem::take(&mut res.rows));
-        let metadata = CompleteQueryMetadata::from(res);
-        // DDL/DML queries have no schema.
-        let schema = metadata.schema.clone().unwrap_or_default();
-        let schema = Arc::new(Schema::new(schema));
-        let page_token = if metadata.page_token.is_empty() {
-            None
-        } else {
-            Some(metadata.page_token.clone())
-        };
-        Self {
+        let metadata =
+            build_complete_query_metadata_from_get_query_results(initial_metadata, res, job_ref);
+        Self::from_complete_metadata(
             job_service,
-            job_ref: Some(job_ref.clone()),
-            cached_rows,
-            page_token,
-            schema,
+            Some(job_ref.clone()),
             metadata,
+            cached_rows,
             page_size,
-        }
+        )
     }
 
     pub(crate) fn from_query_metadata(
@@ -323,6 +316,16 @@ impl CompleteQuery {
     ) -> Self {
         let job_ref = metadata.job_reference.clone();
         let metadata = CompleteQueryMetadata::from(metadata);
+        Self::from_complete_metadata(job_service, job_ref, metadata, cached_rows, page_size)
+    }
+
+    pub(crate) fn from_complete_metadata(
+        job_service: Arc<JobService>,
+        job_ref: Option<JobReference>,
+        metadata: CompleteQueryMetadata,
+        cached_rows: VecDeque<wkt::Struct>,
+        page_size: Option<u32>,
+    ) -> Self {
         // DDL/DML queries have no schema.
         let schema = metadata.schema.clone().unwrap_or_default();
         let schema = Arc::new(Schema::new(schema));
@@ -492,6 +495,129 @@ pub(crate) async fn poll_query_results(
         // TODO(#5592): limit retry attempts or add cancellation mechanism
         state.attempt_count += 1;
     }
+}
+
+// Helper function to build QueryMetadata from a Job.
+//
+// The generated code handle fields with same name on the root level, but some data
+// that is returned on jobs.query response are under JobStats for a Query Job when using
+// jobs.insert.
+fn build_query_metadata_from_job(resp: Job) -> QueryMetadata {
+    let job_complete = resp.status.as_ref().map(|s| s.state == "DONE");
+    let errors = resp
+        .status
+        .as_ref()
+        .map(|s| s.errors.clone())
+        .unwrap_or_default();
+    let query_stats = resp.statistics.as_ref().and_then(|s| s.query.as_ref());
+    let schema = query_stats.and_then(|q| q.schema.clone());
+    let total_bytes_processed = query_stats
+        .and_then(|q| q.total_bytes_processed)
+        .or_else(|| {
+            resp.statistics
+                .as_ref()
+                .and_then(|s| s.total_bytes_processed)
+        });
+    let total_bytes_billed = query_stats.and_then(|q| q.total_bytes_billed);
+    let total_slot_ms = query_stats
+        .and_then(|q| q.total_slot_ms)
+        .or_else(|| resp.statistics.as_ref().and_then(|s| s.total_slot_ms));
+    let cache_hit = query_stats.and_then(|q| q.cache_hit);
+    let num_dml_affected_rows = query_stats.and_then(|q| q.num_dml_affected_rows);
+    let dml_stats = query_stats.and_then(|q| q.dml_stats.clone());
+    let statement_type = query_stats
+        .map(|q| q.statement_type.clone())
+        .unwrap_or_default();
+    let session_info = resp
+        .statistics
+        .as_ref()
+        .and_then(|s| s.session_info.clone());
+
+    let creation_time = resp
+        .statistics
+        .as_ref()
+        .and_then(|s| (s.creation_time > 0).then_some(s.creation_time));
+    let start_time = resp
+        .statistics
+        .as_ref()
+        .and_then(|s| (s.start_time > 0).then_some(s.start_time));
+    let end_time = resp
+        .statistics
+        .as_ref()
+        .and_then(|s| (s.end_time > 0).then_some(s.end_time));
+    let location = resp
+        .job_reference
+        .as_ref()
+        .and_then(|r| r.location.clone())
+        .unwrap_or_default();
+
+    let mut metadata = QueryMetadata::from(resp);
+    metadata.job_complete = job_complete;
+    metadata.errors = errors;
+    metadata.schema = schema;
+    metadata.total_bytes_processed = total_bytes_processed;
+    metadata.total_bytes_billed = total_bytes_billed;
+    metadata.total_slot_ms = total_slot_ms;
+    metadata.cache_hit = cache_hit;
+    metadata.num_dml_affected_rows = num_dml_affected_rows;
+    metadata.dml_stats = dml_stats;
+    metadata.statement_type = statement_type;
+    metadata.session_info = session_info;
+    metadata.creation_time = creation_time;
+    metadata.start_time = start_time;
+    metadata.end_time = end_time;
+    if metadata.location.is_empty() {
+        metadata.location = location;
+    }
+
+    metadata
+}
+
+// Helper function to build CompleteQueryMetadata from GetQueryResultsResponse while
+// preserving metadata from the initial query execution.
+fn build_complete_query_metadata_from_get_query_results(
+    initial_metadata: QueryMetadata,
+    res: GetQueryResultsResponse,
+    job_ref: &JobReference,
+) -> CompleteQueryMetadata {
+    let mut metadata = CompleteQueryMetadata::from(initial_metadata);
+    if res.schema.is_some() {
+        metadata.schema = res.schema;
+    }
+    if res.total_rows.is_some() {
+        metadata.total_rows = res.total_rows;
+    }
+    if !res.page_token.is_empty() {
+        metadata.page_token = res.page_token;
+    }
+    if res.total_bytes_processed.is_some() {
+        metadata.total_bytes_processed = res.total_bytes_processed;
+    }
+    if res.job_complete.is_some() {
+        metadata.job_complete = res.job_complete;
+    }
+    if !res.errors.is_empty() {
+        metadata.errors = res.errors;
+    }
+    if res.cache_hit.is_some() {
+        metadata.cache_hit = res.cache_hit;
+    }
+    if res.num_dml_affected_rows.is_some() {
+        metadata.num_dml_affected_rows = res.num_dml_affected_rows;
+    }
+    if !res.etag.is_empty() {
+        metadata.etag = res.etag;
+    }
+    if res.job_reference.is_some() {
+        metadata.job_reference = res.job_reference;
+    }
+    if metadata.location.is_empty()
+        && let Some(loc) = job_ref.location.clone()
+    {
+        metadata.location = loc;
+    }
+
+    metadata
 }
 
 #[cfg(test)]
@@ -1040,6 +1166,140 @@ mod tests {
             elapsed <= Duration::from_secs(1),
             "expected initial poll delay <= 1s, got {elapsed:?}"
         );
+        Ok(())
+    }
+
+    #[test]
+    fn test_build_query_metadata_from_job() {
+        use google_cloud_bigquery_v2::model::{
+            JobConfigurationQuery, JobCreationReason, JobStatistics, JobStatistics2, JobStatus,
+        };
+
+        let job =
+            Job::new()
+                .set_id("rust-sdk-testing:US.job_123")
+                .set_kind("bigquery#job")
+                .set_etag("etag123")
+                .set_self_link("https://www.googleapis.com/bigquery/v2/...")
+                .set_user_email("user@example.com")
+                .set_principal_subject("user:user@example.com")
+                .set_job_creation_reason(JobCreationReason::new().set_code(
+                    google_cloud_bigquery_v2::model::job_creation_reason::Code::Requested,
+                ))
+                .set_job_reference(
+                    JobReference::new()
+                        .set_project_id("rust-sdk-testing")
+                        .set_job_id("job_123")
+                        .set_location("US"),
+                )
+                .set_configuration(
+                    JobConfiguration::new().set_query(
+                        JobConfigurationQuery::new()
+                            .set_query("SELECT 1 AS one")
+                            .set_use_legacy_sql(false),
+                    ),
+                )
+                .set_status(JobStatus::new().set_state("DONE"))
+                .set_statistics(
+                    JobStatistics::new()
+                        .set_creation_time(1790020718574i64)
+                        .set_start_time(1790020718592i64)
+                        .set_end_time(1790020718847i64)
+                        .set_total_bytes_processed(0i64)
+                        .set_query(
+                            JobStatistics2::new()
+                                .set_total_bytes_processed(0i64)
+                                .set_total_bytes_billed(0i64)
+                                .set_cache_hit(true)
+                                .set_statement_type("SELECT")
+                                .set_schema(TableSchema::new().set_fields([
+                                    TableFieldSchema::new().set_name("one").set_type("INTEGER"),
+                                ])),
+                        ),
+                );
+
+        let metadata = build_query_metadata_from_job(job);
+
+        assert_eq!(metadata.id, "rust-sdk-testing:US.job_123");
+        assert_eq!(metadata.job_complete, Some(true));
+        assert_eq!(metadata.creation_time, Some(1790020718574));
+        assert_eq!(metadata.start_time, Some(1790020718592));
+        assert_eq!(metadata.end_time, Some(1790020718847));
+        assert_eq!(metadata.cache_hit, Some(true));
+        assert_eq!(metadata.statement_type, "SELECT");
+        assert_eq!(metadata.location, "US");
+        assert_eq!(metadata.total_bytes_processed, Some(0));
+        assert_eq!(metadata.total_bytes_billed, Some(0));
+        assert!(metadata.schema.is_some());
+    }
+
+    #[tokio::test]
+    async fn test_query_until_done_preserves_metadata_fields_from_job() -> TestResult {
+        use google_cloud_bigquery_v2::model::{
+            JobConfigurationQuery, JobCreationReason, JobStatistics, JobStatistics2, JobStatus,
+        };
+
+        let mut mock = MockJobService::new();
+        mock.expect_get_query_results()
+            .returning(|req, _| {
+                let res = GetQueryResultsResponse::new()
+                    .set_job_complete(true)
+                    .set_job_reference(JobReference::new().set_job_id(req.job_id))
+                    .set_schema(TableSchema::new())
+                    .set_rows(vec![wkt::Struct::new()])
+                    .set_cache_hit(true);
+                Ok(Response::from(res))
+            })
+            .times(1);
+
+        let job_service = create_job_service(mock);
+        let job =
+            Job::new()
+                .set_id("rust-sdk-testing:US.job_123")
+                .set_kind("bigquery#job")
+                .set_job_creation_reason(JobCreationReason::new().set_code(
+                    google_cloud_bigquery_v2::model::job_creation_reason::Code::Requested,
+                ))
+                .set_job_reference(
+                    JobReference::new()
+                        .set_project_id("rust-sdk-testing")
+                        .set_job_id("job_123")
+                        .set_location("US"),
+                )
+                .set_configuration(
+                    JobConfiguration::new().set_query(
+                        JobConfigurationQuery::new()
+                            .set_query("SELECT 1 AS one")
+                            .set_use_legacy_sql(false),
+                    ),
+                )
+                .set_status(JobStatus::new().set_state("DONE"))
+                .set_statistics(
+                    JobStatistics::new()
+                        .set_creation_time(1790020718574i64)
+                        .set_start_time(1790020718592i64)
+                        .set_end_time(1790020718847i64)
+                        .set_total_bytes_processed(0i64)
+                        .set_query(
+                            JobStatistics2::new()
+                                .set_total_bytes_processed(0i64)
+                                .set_total_bytes_billed(0i64)
+                                .set_cache_hit(true)
+                                .set_statement_type("SELECT"),
+                        ),
+                );
+
+        let query = Query::from_job(job_service, job, None, None);
+        let complete = query.until_done().await?;
+        let meta = complete.metadata();
+
+        assert_eq!(meta.creation_time, Some(1790020718574));
+        assert_eq!(meta.start_time, Some(1790020718592));
+        assert_eq!(meta.end_time, Some(1790020718847));
+        assert_eq!(meta.statement_type, "SELECT");
+        assert_eq!(meta.location, "US");
+        assert_eq!(meta.cache_hit, Some(true));
+
         Ok(())
     }
 }

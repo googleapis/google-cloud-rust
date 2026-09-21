@@ -354,7 +354,7 @@ pub async fn query_client_job() -> Result<()> {
     let failed_query = bq
         .query("DECLARE x INT64 DEFAULT 1; SELECT ERROR('boom');")
         .set_priority("INTERACTIVE") // force jobs.insert path so job is created
-        .with_project_id(project_id)
+        .with_project_id(project_id.clone())
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .send()
         .await?;
@@ -376,6 +376,39 @@ pub async fn query_client_job() -> Result<()> {
         ),
         "expected JobFailed from attach_job, got {attach_err:?}"
     );
+
+    // Check if data plumbling from jobs.insert to jobs.query compatible struct is working.
+    // TODO: might remove this or convert to a different kind of integration test.
+
+    // Force the `jobs.insert` path via `set_priority("INTERACTIVE")`.
+    let running = bq
+        .query("SELECT 1 AS one")
+        .set_priority("INTERACTIVE")
+        .with_project_id(project_id)
+        .set_labels(vec![(INSTANCE_LABEL, "true")])
+        .send()
+        .await?;
+
+    let running_metadata = running.metadata().clone();
+
+    let complete = running.until_done().await?;
+
+    let meta = complete.metadata();
+    if meta.creation_time.is_none()
+        || meta.end_time.is_none()
+        || meta.statement_type.is_empty()
+        || meta.location.is_empty()
+    {
+        println!("running_metadata: {:?}", running_metadata);
+        println!("complete_metadata: {:?}", meta);
+        anyhow::bail!(
+            "CompleteQueryMetadata lost fields after poll_query_results: creation_time={:?}, end_time={:?}, statement_type={:?}, location={:?}",
+            meta.creation_time,
+            meta.end_time,
+            meta.statement_type,
+            meta.location
+        );
+    }
 
     Ok(())
 }
