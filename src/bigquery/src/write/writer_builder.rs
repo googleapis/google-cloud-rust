@@ -21,18 +21,18 @@ use super::transport::Transport;
 use super::validate::{validate_stream, validate_table};
 use crate::model::WriteStream;
 use crate::write::error::WriterBuilderError;
-use crate::write::stream_type::sealed::ApplicationCreatedStream as _;
-use crate::write::stream_type::{ApplicationCreatedStream, HasStream};
+use crate::write::stream_type::sealed::{ApplicationCreatedStream as _, Stream as _};
+use crate::write::stream_type::{ApplicationCreatedStream, DefaultStream, HasStream};
 use std::sync::Arc;
 
 /// A builder to create a stream writer.
 #[derive(Clone, Debug)]
 pub struct WriterBuilder<F> {
-    inner: Arc<Transport>,
-    pool: Arc<StreamPool>,
-    retry_options: RetryOptions,
-    format: F,
-    multiplexing: bool,
+    pub(crate) inner: Arc<Transport>,
+    pub(crate) pool: Arc<StreamPool>,
+    pub(crate) retry_options: RetryOptions,
+    pub(crate) format: F,
+    pub(crate) multiplexing: bool,
 }
 
 impl<F> WriterBuilder<F>
@@ -82,6 +82,10 @@ where
         validate_table(table.as_str())?;
         let mut write_stream = table;
         write_stream.push_str("/streams/_default");
+        Ok(DefaultStream::build(self, write_stream))
+    }
+
+    pub(crate) fn make_default_writer(self, write_stream: String) -> DefaultWriter<F> {
         let pool = if self.multiplexing {
             self.pool
         } else {
@@ -91,12 +95,7 @@ where
             };
             Arc::new(StreamPool::new(self.inner, options))
         };
-        Ok(DefaultWriter::new(
-            pool,
-            self.retry_options,
-            write_stream,
-            self.format,
-        ))
+        DefaultWriter::new(pool, self.retry_options, write_stream, self.format)
     }
 
     /// Returns a writer for a newly created stream for the given table.
@@ -136,7 +135,7 @@ where
             .send()
             .await?;
 
-        Ok(<W::Stream>::build(self.inner, stream.name, self.format))
+        Ok(<W::Stream>::build(self, stream.name))
     }
 
     /// Attaches a writer to an existing stream.
@@ -182,7 +181,7 @@ where
                 actual: stream_type,
             });
         }
-        Ok(<W::Stream>::build(self.inner, stream.name, self.format))
+        Ok(<W::Stream>::build(self, stream.name))
     }
 
     /// Enable multiplexing
