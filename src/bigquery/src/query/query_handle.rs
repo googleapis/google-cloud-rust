@@ -78,11 +78,7 @@ impl Query {
             completed,
             cached_rows: None,
             metadata: QueryMetadata::from(initial_job),
-            retry_context: if completed {
-                None
-            } else {
-                retry_context.cloned()
-            },
+            retry_context: retry_context.filter(|_| !completed).cloned(),
             page_size,
         }
     }
@@ -101,11 +97,7 @@ impl Query {
             completed,
             cached_rows: Some(cached_rows),
             metadata,
-            retry_context: if completed {
-                None
-            } else {
-                retry_context.cloned()
-            },
+            retry_context: retry_context.filter(|_| !completed).cloned(),
             page_size,
         }
     }
