@@ -53,9 +53,14 @@ fn derive_from_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
             .to_compile_error();
         }
     };
+    for f in &fields {
+        if let Err(err) = get_field_name(f) {
+            return err.to_compile_error();
+        }
+    }
     let field_initializations = fields.iter().map(|f| {
         let field_name = f.ident.as_ref().expect("named field must have identifier");
-        let db_column_name = get_field_name(f);
+        let db_column_name = get_field_name(f).expect("validated above");
         quote! {
             #field_name: row.take(#db_column_name)?,
         }
@@ -108,9 +113,15 @@ fn derive_from_sql_impl(input: DeriveInput) -> proc_macro2::TokenStream {
         }
     };
 
+    for f in &fields {
+        if let Err(err) = get_field_name(f) {
+            return err.to_compile_error();
+        }
+    }
+
     let field_initializations = fields.iter().map(|f| {
         let field_name = f.ident.as_ref().expect("named field must have identifier");
-        let db_column_name = get_field_name(f);
+        let db_column_name = get_field_name(f).expect("validated above");
         quote! {
             #field_name: value.take(#db_column_name)?,
         }
@@ -127,11 +138,11 @@ fn derive_from_sql_impl(input: DeriveInput) -> proc_macro2::TokenStream {
     }
 }
 
-fn get_field_name(field: &syn::Field) -> String {
+fn get_field_name(field: &syn::Field) -> syn::Result<String> {
     for attr in &field.attrs {
         if attr.path().is_ident("bigquery") {
             let mut renamed = None;
-            let _ = attr.parse_nested_meta(|meta| {
+            attr.parse_nested_meta(|meta| {
                 if meta.path.is_ident("rename") {
                     let value = meta.value()?;
                     let lit: syn::LitStr = value.parse()?;
@@ -140,24 +151,63 @@ fn get_field_name(field: &syn::Field) -> String {
                 } else {
                     Err(meta.error("unsupported bigquery attribute"))
                 }
-            });
+            })?;
             if let Some(name) = renamed {
-                return name;
+                return Ok(name);
             }
         }
     }
-    syn::ext::IdentExt::unraw(
+    Ok(syn::ext::IdentExt::unraw(
         field
             .ident
             .as_ref()
             .expect("named field must have identifier"),
     )
-    .to_string()
+    .to_string())
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use syn::parse_quote;
+
+    fn extract_first_field(input: DeriveInput) -> syn::Field {
+        match input.data {
+            Data::Struct(s) => match s.fields {
+                Fields::Named(n) => n.named.into_iter().next().unwrap(),
+                _ => unreachable!(),
+            },
+            _ => unreachable!(),
+        }
+    }
+
+    #[test]
+    fn test_invalid_bigquery_attribute_typo_errors() {
+        let field = extract_first_field(parse_quote! {
+            struct MyRow {
+                #[bigquery(renam = "custom_col")]
+                field: i64,
+            }
+        });
+
+        let err = get_field_name(&field).unwrap_err();
+        assert!(
+            err.to_string().contains("unsupported bigquery attribute"),
+            "{err}"
+        );
+    }
+
+    #[test]
+    fn test_invalid_bigquery_attribute_non_string_value_errors() {
+        let field = extract_first_field(parse_quote! {
+            struct MyRow {
+                #[bigquery(rename = 123)]
+                field: i64,
+            }
+        });
+
+        assert!(get_field_name(&field).is_err());
+    }
 
     #[test]
     fn test_rejects_empty_named_structs() -> Result<(), syn::Error> {
