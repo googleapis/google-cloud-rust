@@ -84,29 +84,24 @@ impl AppendWithOffset {
     /// }
     /// ```
     pub fn send(self) -> AppendFuture {
-        let (tx, rx) = oneshot::channel();
         let (resp_tx, resp_rx) = oneshot::channel();
         let req = match self.req.to_proto().map_err(Error::ser) {
             Ok(req) => req,
-            Err(e) => {
-                let _ = tx.send(Err(e.into()));
-                return AppendFuture::new(rx);
-            }
+            Err(e) => return AppendFuture::from_future(async move { Err(e.into()) }),
         };
         let write = WriteRequest { req, resp_tx };
-        let _ = self.req_tx.send(write);
-        tokio::spawn(async move {
-            let res = async {
-                let resp = resp_rx
-                    .await
-                    .map_err(|_| AppendError::UnexpectedEndOfStream)??;
-                let resp = resp.cnv().map_err(Error::deser)?;
-                to_result(resp)
-            }
-            .await;
-            let _ = tx.send(res);
-        });
-        AppendFuture::new(rx)
+        if self.req_tx.send(write).is_err() {
+            return AppendFuture::from_future(async move {
+                Err(AppendError::UnexpectedEndOfStream)
+            });
+        }
+        AppendFuture::from_future(async move {
+            let resp = resp_rx
+                .await
+                .map_err(|_| AppendError::UnexpectedEndOfStream)??;
+            let resp = resp.cnv().map_err(Error::deser)?;
+            to_result(resp)
+        })
     }
 }
 
@@ -235,5 +230,55 @@ mod tests {
         }
         write_handle.await?;
         Ok(())
+    }
+
+    #[test]
+    fn send_and_poll_outside_tokio_runtime() {
+        let (req_tx, mut req_rx) = mpsc::unbounded_channel();
+        let req = AppendRowsRequest::new().set_write_stream(write_stream());
+
+        let builder = AppendWithOffset::new(req_tx, req).set_offset(100);
+        let mut future = builder.send();
+
+        let write = req_rx.try_recv().expect("should have queued request");
+        assert_eq!(write.req.offset, Some(100));
+
+        let waker = std::task::Waker::noop();
+        let mut cx = std::task::Context::from_waker(waker);
+
+        // Before response arrives, future is pending.
+        assert!(std::pin::Pin::new(&mut future).poll(&mut cx).is_pending());
+
+        // Simulate background runner providing a response.
+        let resp = v1::AppendRowsResponse {
+            response: Some(Response::AppendResult(AppendResult {
+                offset: Some(100),
+            })),
+            write_stream: write_stream(),
+            ..Default::default()
+        };
+        write.resp_tx.send(Ok(resp)).expect("should send response");
+
+        // Polling and completing the future outside of Tokio runtime works cleanly.
+        let poll_result = std::pin::Pin::new(&mut future).poll(&mut cx);
+        assert!(matches!(
+            poll_result,
+            std::task::Poll::Ready(Ok(r)) if r.offset == Some(100)
+        ));
+    }
+
+    #[tokio::test]
+    async fn send_when_req_tx_closed_returns_unexpected_end_of_stream() {
+        let (req_tx, req_rx) = mpsc::unbounded_channel();
+        drop(req_rx);
+
+        let req = AppendRowsRequest::new().set_write_stream(write_stream());
+        let builder = AppendWithOffset::new(req_tx, req).set_offset(100);
+        let future = builder.send();
+
+        let err = future
+            .await
+            .expect_err("should return unexpected end of stream");
+        assert!(matches!(err, AppendError::UnexpectedEndOfStream));
     }
 }
