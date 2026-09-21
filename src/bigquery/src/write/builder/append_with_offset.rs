@@ -39,8 +39,9 @@ impl AppendWithOffset {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_bigquery::write::arrow::PendingWriter;
-    /// # async fn sample(writer: PendingWriter) -> anyhow::Result<()> {
+    /// # use google_cloud_bigquery::write::format::Arrow;
+    /// # use google_cloud_bigquery::write::PendingWriter;
+    /// # async fn sample(writer: PendingWriter<Arrow>) -> anyhow::Result<()> {
     /// let resp = writer.append(rows()).set_offset(0).send().await?;
     /// # Ok(()) }
     ///
@@ -67,8 +68,9 @@ impl AppendWithOffset {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_bigquery::write::arrow::PendingWriter;
-    /// # async fn sample(writer: PendingWriter) -> anyhow::Result<()> {
+    /// # use google_cloud_bigquery::write::format::Arrow;
+    /// # use google_cloud_bigquery::write::PendingWriter;
+    /// # async fn sample(writer: PendingWriter<Arrow>) -> anyhow::Result<()> {
     /// let f1 = writer.append(rows()).set_offset(0).send();
     /// let f2 = writer.append(rows()).set_offset(1).send();
     ///

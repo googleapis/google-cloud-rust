@@ -12,15 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(#6855) - delete this module
-/// Types to write data in [Arrow] format.
-///
-/// [arrow]: https://arrow.apache.org/
-pub mod arrow;
-// TODO(#6855) - delete this module
-#[allow(dead_code)]
-pub(crate) mod proto;
-
 pub use append_future::AppendFuture;
 
 pub use buffered::BufferedWriter;

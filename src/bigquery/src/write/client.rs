@@ -12,13 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::arrow::WriterBuilder as ArrowWriterBuilder;
 use super::client_builder::ClientBuilder;
 use super::format::{Arrow, Proto};
 use super::pool::StreamPool;
-use super::proto::WriterBuilder as ProtoWriterBuilder;
 use super::retry_policy::RetryOptions;
 use super::transport::Transport;
+use super::writer_builder::WriterBuilder;
 use crate::ClientBuilderResult as BuilderResult;
 use crate::model::{ArrowSchema, ProtoSchema};
 use std::sync::Arc;
@@ -66,9 +65,9 @@ impl Write {
     /// ```
     ///
     /// [arrow]: https://arrow.apache.org/
-    pub fn arrow(&self, schema: ArrowSchema) -> ArrowWriterBuilder {
+    pub fn arrow(&self, schema: ArrowSchema) -> WriterBuilder<Arrow> {
         let format = Arrow { schema };
-        ArrowWriterBuilder::new(
+        WriterBuilder::new(
             self.inner.clone(),
             self.pool.clone(),
             self.retry_options.clone(),
@@ -80,9 +79,9 @@ impl Write {
     // protobuf-based surface is not exposed. Ideally they would have separate
     // pools.
     #[allow(dead_code)]
-    pub(crate) fn proto(&self, schema: ProtoSchema) -> ProtoWriterBuilder {
+    pub(crate) fn proto(&self, schema: ProtoSchema) -> WriterBuilder<Proto> {
         let format = Proto { schema };
-        ProtoWriterBuilder::new(
+        WriterBuilder::new(
             self.inner.clone(),
             self.pool.clone(),
             self.retry_options.clone(),
