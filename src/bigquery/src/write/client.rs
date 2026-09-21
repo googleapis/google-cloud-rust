@@ -13,14 +13,12 @@
 // limitations under the License.
 
 use super::client_builder::ClientBuilder;
-use super::format::{Arrow, Proto};
 use super::pool::StreamPool;
 use super::retry_policy::RetryOptions;
 use super::stream_type::{ApplicationCreatedStream, DefaultStream};
 use super::transport::Transport;
 use super::writer_builder::WriterBuilder;
 use crate::ClientBuilderResult as BuilderResult;
-use crate::model::{ArrowSchema, ProtoSchema};
 use std::sync::Arc;
 
 /// A client for BigQuery Storage Write API.
@@ -159,49 +157,6 @@ impl Write {
             write_stream.into(),
         )
     }
-
-    /// Creates a writer using [Arrow] as the data format.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery::client::Write;
-    /// # async fn sample(client: Write) -> anyhow::Result<()> {
-    /// let writer = client
-    ///   .arrow(schema())
-    ///   .default("projects/my-project/datasets/my-dataset/tables/my-table")
-    ///   .await?;
-    /// # Ok(()) }
-    ///
-    /// use google_cloud_bigquery::model::ArrowSchema;
-    /// fn schema() -> ArrowSchema {
-    ///   todo!("Define your table's schema...")
-    /// }
-    /// ```
-    ///
-    /// [arrow]: https://arrow.apache.org/
-    pub fn arrow(&self, schema: ArrowSchema) -> WriterBuilder<DefaultStream, Arrow> {
-        let format = Arrow { schema };
-        WriterBuilder::new(
-            self.inner.clone(),
-            self.pool.clone(),
-            self.retry_options.clone(),
-            format,
-        )
-    }
-
-    // For now we share the stream pool. This is safe because the
-    // protobuf-based surface is not exposed. Ideally they would have separate
-    // pools.
-    #[allow(dead_code)]
-    pub(crate) fn proto(&self, schema: ProtoSchema) -> WriterBuilder<DefaultStream, Proto> {
-        let format = Proto { schema };
-        WriterBuilder::new(
-            self.inner.clone(),
-            self.pool.clone(),
-            self.retry_options.clone(),
-            format,
-        )
-    }
 }
 
 #[cfg(test)]
@@ -225,8 +180,8 @@ mod tests {
             .build()
             .await?;
         let writer = client
-            .arrow(ArrowSchema::new())
-            .default("projects/p/datasets/d/tables/t")
+            .open_default_stream("projects/p/datasets/d/tables/t")
+            .build_arrow(ArrowSchema::new())
             .await?;
         let err = writer
             .append(ArrowRecordBatch::new())
@@ -250,8 +205,8 @@ mod tests {
             .build()
             .await?;
         let writer = client
-            .proto(ProtoSchema::new())
-            .default("projects/p/datasets/d/tables/t")
+            .open_default_stream("projects/p/datasets/d/tables/t")
+            .build_proto(ProtoSchema::new())
             .await?;
         let err = writer
             .append(ProtoRows::new())
@@ -270,16 +225,16 @@ mod tests {
             .build()
             .await?;
         let multiplexed_writer = client
-            .arrow(ArrowSchema::new())
+            .open_default_stream("projects/p/datasets/d/tables/t")
             .with_multiplexing(true)
-            .default("projects/p/datasets/d/tables/t")
+            .build_arrow(ArrowSchema::new())
             .await?;
         assert!(Arc::ptr_eq(&client.pool, &multiplexed_writer.inner.pool));
 
         let standalone_writer = client
-            .arrow(ArrowSchema::new())
+            .open_default_stream("projects/p/datasets/d/tables/t")
             .with_multiplexing(false)
-            .default("projects/p/datasets/d/tables/t")
+            .build_arrow(ArrowSchema::new())
             .await?;
         assert!(!Arc::ptr_eq(&client.pool, &standalone_writer.inner.pool));
 
@@ -293,8 +248,8 @@ mod tests {
             .build()
             .await?;
         let writer = client
-            .arrow(ArrowSchema::new())
-            .default("projects/p/datasets/d/tables/t")
+            .open_default_stream("projects/p/datasets/d/tables/t")
+            .build_arrow(ArrowSchema::new())
             .await?;
 
         // The writer uses the client's policies, not a fresh set of defaults.

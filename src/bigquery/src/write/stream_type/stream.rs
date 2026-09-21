@@ -47,8 +47,8 @@ pub(crate) mod sealed {
 
     /// Sealed trait for all write stream types.
     pub trait Stream: Sized {
-        fn build<B, F>(
-            builder: WriterBuilder<B, F>,
+        fn build<F>(
+            builder: WriterBuilder<Self>,
             write_stream: String,
             format: F,
         ) -> Self::Writer<F>
@@ -58,8 +58,8 @@ pub(crate) mod sealed {
     }
 
     impl Stream for DefaultStream {
-        fn build<B, F>(
-            builder: WriterBuilder<B, F>,
+        fn build<F>(
+            builder: WriterBuilder<Self>,
             write_stream: String,
             format: F,
         ) -> DefaultWriter<F>
@@ -72,8 +72,8 @@ pub(crate) mod sealed {
     }
 
     impl Stream for PendingStream {
-        fn build<B, F>(
-            builder: WriterBuilder<B, F>,
+        fn build<F>(
+            builder: WriterBuilder<Self>,
             write_stream: String,
             format: F,
         ) -> PendingWriter<F>
@@ -86,8 +86,8 @@ pub(crate) mod sealed {
     }
 
     impl Stream for CommittedStream {
-        fn build<B, F>(
-            builder: WriterBuilder<B, F>,
+        fn build<F>(
+            builder: WriterBuilder<Self>,
             write_stream: String,
             format: F,
         ) -> CommittedWriter<F>
@@ -100,8 +100,8 @@ pub(crate) mod sealed {
     }
 
     impl Stream for BufferedStream {
-        fn build<B, F>(
-            builder: WriterBuilder<B, F>,
+        fn build<F>(
+            builder: WriterBuilder<Self>,
             write_stream: String,
             format: F,
         ) -> BufferedWriter<F>
