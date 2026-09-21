@@ -214,18 +214,27 @@ mod tests {
 
     #[test]
     fn test_invalid_bigquery_attribute_typo_errors() {
-        let field = extract_first_field(parse_quote! {
-            struct MyRow {
-                #[bigquery(renam = "custom_col")]
-                field: i64,
+        let make_input = || -> DeriveInput {
+            parse_quote! {
+                struct MyRow {
+                    #[bigquery(renam = "custom_col")]
+                    field: i64,
+                }
             }
-        });
+        };
+        let field = extract_first_field(make_input());
 
         let err = get_field_name(&field).unwrap_err();
         assert!(
             err.to_string().contains("unsupported bigquery attribute"),
             "{err}"
         );
+
+        let row_tokens = derive_from_row_impl(make_input()).to_string();
+        assert!(row_tokens.contains("unsupported bigquery attribute"));
+
+        let sql_tokens = derive_from_sql_impl(make_input()).to_string();
+        assert!(sql_tokens.contains("unsupported bigquery attribute"));
     }
 
     #[test]

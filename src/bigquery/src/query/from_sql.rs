@@ -513,7 +513,12 @@ mod tests {
         );
     }
 
+    #[test_case(wkt::Value::Null => Ok(wkt::Value::Null) ; "value null")]
+    #[test_case(wkt::Value::Bool(true) => Ok(wkt::Value::Bool(true)) ; "value bool")]
+    #[test_case(wkt::Value::Number(42.into()) => Ok(wkt::Value::Number(42.into())) ; "value number")]
     #[test_case(wkt::Value::String("hello".to_string()) => Ok(wkt::Value::String("hello".to_string())) ; "value string")]
+    #[test_case(wkt::Value::Array(vec![wkt::Value::Number(1.into()), wkt::Value::Bool(false)]) => Ok(wkt::Value::Array(vec![wkt::Value::Number(1.into()), wkt::Value::Bool(false)])) ; "value array")]
+    #[test_case(wkt::Value::Object(wkt::Struct::from_iter([("k".to_string(), wkt::Value::String("v".to_string()))])) => Ok(wkt::Value::Object(wkt::Struct::from_iter([("k".to_string(), wkt::Value::String("v".to_string()))]))) ; "value struct")]
     fn test_from_sql_value(value: wkt::Value) -> Result<wkt::Value, TestConvertError> {
         FromSql::from_value(SqlValue::new(value)).map_err(TestConvertError::from)
     }
@@ -776,11 +781,43 @@ mod tests {
                 SqlValueInner::String("twenty".to_string()),
             ),
         ]));
-        assert_eq!(struct_val.take::<i64, _>("foo")?, 10);
+        assert_eq!(struct_val.take::<i64, _>("foo".to_string())?, 10);
         // Subsequent reads of "foo" see Null (returning Ok(None) for Option<T>, matching Row::take)
         assert_eq!(struct_val.take::<Option<i64>, _>("foo")?, None);
         // Index 1 is still "bar" (not shifted)
         assert_eq!(struct_val.take::<String, _>(1)?, "twenty");
+
+        // Positional take(usize) on a JSON array string (row.rs L115-119)
+        let mut json_arr = SqlValue::new(wkt::Value::String(r#"[7, "eight"]"#.to_string()));
+        assert_eq!(json_arr.take::<i64, _>(0)?, 7);
+        assert_eq!(json_arr.take::<String, _>(1)?, "eight");
+
+        // Invalid JSON string with positional take(usize)
+        let mut invalid_json_arr = SqlValue::new(wkt::Value::String("not-json".to_string()));
+        assert!(matches!(
+            invalid_json_arr.take::<i64, _>(0),
+            Err(ConvertError::Convert(_))
+        ));
+
+        // Positional take(usize) on Null (L121) and primitive Bool (L122-125)
+        let mut null_val = SqlValue::new(wkt::Value::Null);
+        assert!(matches!(
+            null_val.take::<i64, _>(0),
+            Err(ConvertError::NotNull)
+        ));
+
+        let mut bool_val = SqlValue::new(wkt::Value::Bool(true));
+        assert!(matches!(
+            bool_val.take::<i64, _>(0),
+            Err(ConvertError::TypeMismatch { ref expected, ref got })
+                if expected == "struct, array, or string" && got == "bool"
+        ));
+
+        // Cover SqlValueInner::type_name for Null, Array, and Struct (from_sql.rs L49, L53-54)
+        assert_eq!(SqlValueInner::Null.type_name(), "null");
+        assert_eq!(SqlValueInner::Array(vec![]).type_name(), "array");
+        assert_eq!(SqlValueInner::Struct(vec![]).type_name(), "object");
+
         Ok(())
     }
 }
