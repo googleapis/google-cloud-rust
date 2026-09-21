@@ -75,7 +75,7 @@ impl Dispatcher {
             };
             let err = match err {
                 // RowErrors are always permanent.
-                AppendError::RowErrors(_) => return Err(err),
+                AppendError::RowErrors { .. } => return Err(err),
 
                 // Adapt the error into a `gax::Error::io()`. This lets us reuse
                 // the standard gax retry and backoff policy interfaces.
@@ -560,12 +560,12 @@ mod tests {
         response_tx.send(Ok(convert(&resp))).await?;
 
         let err = write.await?.expect_err("should return an error");
-        let AppendError::RowErrors(errors) = err else {
+        let AppendError::RowErrors { row_errors, .. } = err else {
             anyhow::bail!("expected row errors, got: {err:?}");
         };
-        assert_eq!(errors.len(), 1, "{errors:?}");
-        assert_eq!(errors[0].index, 42);
-        assert_eq!(errors[0].message, "fail");
+        assert_eq!(row_errors.len(), 1, "{row_errors:?}");
+        assert_eq!(row_errors[0].index, 42);
+        assert_eq!(row_errors[0].message, "fail");
 
         // The service responded on a healthy stream. It should not be evicted.
         assert_eq!(dispatcher.entry.load().id, 1);
