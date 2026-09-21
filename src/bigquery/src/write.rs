@@ -19,9 +19,6 @@ pub use committed::CommittedWriter;
 pub use default::DefaultWriter;
 pub use pending::PendingWriter;
 
-// TODO(#6855) - expose in `crate::builder::write` only.
-pub use writer_builder::WriterBuilder;
-
 /// Defines the data formats accepted by a writer.
 pub mod format;
 
@@ -36,6 +33,7 @@ pub(super) mod builder;
 pub(super) mod client;
 pub(super) mod client_builder;
 pub(super) mod error;
+pub(super) mod writer_builder;
 
 mod base;
 mod buffered;
@@ -50,7 +48,6 @@ mod runner;
 mod stream;
 mod transport;
 mod validate;
-mod writer_builder;
 
 // TODO(#4832) - remove handwritten code.
 mod status;

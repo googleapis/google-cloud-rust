@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use super::{BufferedStream, CommittedStream, DefaultStream, PendingStream};
-use crate::write::WriterBuilder;
 use crate::write::format::DataFormat;
+use crate::write::writer_builder::WriterBuilder;
 use crate::write::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter};
 
 /// Trait mapping a write stream type ([`DefaultStream`], [`PendingStream`], [`CommittedStream`],
