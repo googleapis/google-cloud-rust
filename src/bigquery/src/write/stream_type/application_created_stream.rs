@@ -24,10 +24,7 @@ use std::sync::Arc;
 /// - [`CommittedStream`]
 /// - [`BufferedStream`]
 ///
-/// These can be created via
-/// [`Write::create_stream`][crate::client::Write::create_stream]
-/// or attached to via
-/// [`Write::attach_to_stream`][crate::client::Write::attach_to_stream].
+/// These streams can be created or attached to.
 ///
 /// This trait is sealed and cannot be implemented for types outside this crate.
 ///
@@ -47,13 +44,9 @@ pub(crate) mod sealed {
     use super::*;
 
     /// Sealed trait for application-created write stream types.
-    pub trait ApplicationCreatedStream {
+    pub trait ApplicationCreatedStream: Stream {
         const STREAM_TYPE: Type;
-        fn build<F>(
-            inner: Arc<Transport>,
-            write_stream: String,
-            format: F,
-        ) -> <Self as Stream>::Writer<F>
+        fn build<F>(inner: Arc<Transport>, write_stream: String, format: F) -> Self::Writer<F>
         where
             F: DataFormat,
             Self: Stream;
