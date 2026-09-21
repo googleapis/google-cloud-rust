@@ -175,7 +175,12 @@ async fn run_stream_task(ctx: StreamTaskContext) -> anyhow::Result<()> {
     } = ctx;
 
     let arrow_schema = ArrowSchema::new().set_serialized_schema(schema_buf);
-    let writer = Arc::new(client.arrow(arrow_schema).default(table_path).await?);
+    let writer = Arc::new(
+        client
+            .open_default_stream(table_path)
+            .build_arrow(arrow_schema)
+            .await?,
+    );
 
     let mut seq = 0usize;
     loop {
