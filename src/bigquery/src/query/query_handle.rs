@@ -811,9 +811,10 @@ mod tests {
 
         let query_builder = QueryBuilder::new(job_service.clone(), "SELECT 1".to_string())
             .with_project_id("some_project");
-        let retry_context = Some(RetryContext::new(query_builder));
+        let mut retry_context = RetryContext::new(query_builder);
+        retry_context.state.attempt_count = 1;
 
-        let query = Query::from_query_response(job_service, query_res, retry_context, None);
+        let query = Query::from_query_response(job_service, query_res, Some(retry_context), None);
 
         let completed = query.until_done().await?;
         assert_eq!(
@@ -828,7 +829,7 @@ mod tests {
         let mut mock = MockJobService::new();
         let mut seq = mockall::Sequence::new();
 
-        // First poll on initial_job_id fails with retryable error (attempt 0 -> 1)
+        // First poll on initial_job_id fails with retryable error (attempt 1)
         mock.expect_get_query_results()
             .in_sequence(&mut seq)
             .times(1)
@@ -841,7 +842,7 @@ mod tests {
                 Ok(Response::from(res))
             });
 
-        // Reissue succeeds and returns reissued_job_id
+        // Reissue succeeds and returns reissued_job_id (attempt 2)
         mock.expect_query()
             .in_sequence(&mut seq)
             .times(1)
@@ -860,7 +861,7 @@ mod tests {
                 ))
             });
 
-        // Second poll on reissued_job_id fails with retryable error, but attempt limit (1) is exhausted!
+        // Second poll on reissued_job_id fails with retryable error, but attempt limit (2) is exhausted!
         mock.expect_get_query_results()
             .in_sequence(&mut seq)
             .times(1)
@@ -885,10 +886,11 @@ mod tests {
         let mut query_builder = QueryBuilder::new(job_service.clone(), "SELECT 1".to_string())
             .with_project_id("some_project");
         query_builder.job_retry_policy =
-            Arc::new(RetryableJobErrors::default().with_attempt_limit(1));
-        let retry_context = Some(RetryContext::new(query_builder));
+            Arc::new(RetryableJobErrors::default().with_attempt_limit(2));
+        let mut retry_context = RetryContext::new(query_builder);
+        retry_context.state.attempt_count = 1;
 
-        let query = Query::from_query_response(job_service, query_res, retry_context, None);
+        let query = Query::from_query_response(job_service, query_res, Some(retry_context), None);
 
         let err = query.until_done().await.unwrap_err();
         let errors = match err {
