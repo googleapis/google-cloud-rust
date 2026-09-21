@@ -78,6 +78,26 @@ impl<S: ApplicationCreatedStream> WriterBuilder<S> {
             _stream: PhantomData,
         }
     }
+
+    pub(crate) fn new_attach(
+        inner: Arc<Transport>,
+        pool: Arc<StreamPool>,
+        retry_options: RetryOptions,
+        write_stream: String,
+    ) -> Self {
+        Self {
+            inner,
+            pool,
+            retry_options,
+            op: Some(Operation::Attach {
+                write_stream,
+                stream_type: S::STREAM_TYPE,
+            }),
+            format: None,
+            multiplexing: false,
+            _stream: PhantomData,
+        }
+    }
 }
 
 impl<S: Stream> WriterBuilder<S> {
