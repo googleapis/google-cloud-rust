@@ -58,6 +58,28 @@ impl WriterBuilder<DefaultStream> {
     }
 }
 
+impl<S: ApplicationCreatedStream> WriterBuilder<S> {
+    pub(crate) fn new_create(
+        inner: Arc<Transport>,
+        pool: Arc<StreamPool>,
+        retry_options: RetryOptions,
+        table: String,
+    ) -> Self {
+        Self {
+            inner,
+            pool,
+            retry_options,
+            op: Some(Operation::Create {
+                table,
+                stream_type: S::STREAM_TYPE,
+            }),
+            format: None,
+            multiplexing: false,
+            _stream: PhantomData,
+        }
+    }
+}
+
 impl<S: Stream> WriterBuilder<S> {
     /// Consumes the builder and creates a writer using [Arrow] as the data format.
     ///

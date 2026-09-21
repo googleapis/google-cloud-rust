@@ -16,7 +16,7 @@ use super::client_builder::ClientBuilder;
 use super::format::{Arrow, Proto};
 use super::pool::StreamPool;
 use super::retry_policy::RetryOptions;
-use super::stream_type::DefaultStream;
+use super::stream_type::{ApplicationCreatedStream, DefaultStream};
 use super::transport::Transport;
 use super::writer_builder::WriterBuilder;
 use crate::ClientBuilderResult as BuilderResult;
@@ -68,6 +68,48 @@ impl Write {
     /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
     pub fn open_default_stream<T: Into<String>>(&self, table: T) -> WriterBuilder<DefaultStream> {
         WriterBuilder::new_open_default(
+            self.inner.clone(),
+            self.pool.clone(),
+            self.retry_options.clone(),
+            table.into(),
+        )
+    }
+
+    /// Creates a new [application-created stream] of type `S`
+    /// ([`PendingStream`][crate::write::stream_type::PendingStream],
+    /// [`CommittedStream`][crate::write::stream_type::CommittedStream], or
+    /// [`BufferedStream`][crate::write::stream_type::BufferedStream]) for the given table.
+    ///
+    /// The stream type `S` can be inferred from the variable's writer type annotation
+    /// ([`PendingWriter`][crate::write::PendingWriter],
+    /// [`CommittedWriter`][crate::write::CommittedWriter], or
+    /// [`BufferedWriter`][crate::write::BufferedWriter]) or specified explicitly via turbofish
+    /// (`create_stream::<PendingStream, _>(...)`).
+    ///
+    /// # Example
+    /// ```
+    /// use google_cloud_bigquery::write::PendingWriter;
+    /// use google_cloud_bigquery::write::format::Arrow;
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample(client: Write) -> anyhow::Result<()> {
+    /// let writer: PendingWriter<Arrow> = client
+    ///     .create_stream("projects/my-project/datasets/my-dataset/tables/my-table")
+    ///     .build_arrow(schema())
+    ///     .await?;
+    /// # Ok(()) }
+    ///
+    /// use google_cloud_bigquery::model::ArrowSchema;
+    /// fn schema() -> ArrowSchema {
+    ///   todo!("Define your table's schema...")
+    /// }
+    /// ```
+    ///
+    /// [application-created stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#application-created_streams
+    pub fn create_stream<S: ApplicationCreatedStream, T: Into<String>>(
+        &self,
+        table: T,
+    ) -> WriterBuilder<S> {
+        WriterBuilder::new_create(
             self.inner.clone(),
             self.pool.clone(),
             self.retry_options.clone(),
