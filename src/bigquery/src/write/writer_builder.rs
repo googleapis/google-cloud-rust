@@ -23,14 +23,16 @@ use crate::model::write_stream::Type;
 use crate::model::{ArrowSchema, ProtoSchema, WriteStream};
 use crate::write::error::WriterBuilderError;
 use crate::write::stream_type::{ApplicationCreatedStream, DefaultStream, HasStream, Stream};
+use std::collections::HashMap;
 use std::marker::PhantomData;
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 
 /// A builder to create a stream writer.
 #[derive(Clone, Debug)]
 pub struct WriterBuilder<S> {
     pub(crate) inner: Arc<Transport>,
-    pub(crate) pool: Arc<StreamPool>,
+    pub(crate) pools: Arc<Mutex<HashMap<&'static str, Arc<StreamPool>>>>,
+    pub(crate) pool_options: StreamPoolOptions,
     pub(crate) retry_options: RetryOptions,
     op: Operation,
     pub(crate) multiplexing: bool,
@@ -40,13 +42,15 @@ pub struct WriterBuilder<S> {
 impl WriterBuilder<DefaultStream> {
     pub(crate) fn new_open_default(
         inner: Arc<Transport>,
-        pool: Arc<StreamPool>,
+        pools: Arc<Mutex<HashMap<&'static str, Arc<StreamPool>>>>,
+        pool_options: StreamPoolOptions,
         retry_options: RetryOptions,
         table: String,
     ) -> Self {
         Self {
             inner,
-            pool,
+            pools,
+            pool_options,
             retry_options,
             op: Operation::OpenDefault { table },
             multiplexing: false,
@@ -88,7 +92,16 @@ impl WriterBuilder<DefaultStream> {
         format: F,
     ) -> DefaultWriter<F> {
         let pool = if self.multiplexing {
-            self.pool
+            let mut pools = self.pools.lock().expect("pools lock poisoned");
+            pools
+                .entry(format.format_name())
+                .or_insert_with(|| {
+                    Arc::new(StreamPool::new(
+                        self.inner.clone(),
+                        self.pool_options.clone(),
+                    ))
+                })
+                .clone()
         } else {
             let options = StreamPoolOptions {
                 max_streams: 1,
@@ -103,13 +116,13 @@ impl WriterBuilder<DefaultStream> {
 impl<S: ApplicationCreatedStream> WriterBuilder<S> {
     pub(crate) fn new_create(
         inner: Arc<Transport>,
-        pool: Arc<StreamPool>,
         retry_options: RetryOptions,
         table: String,
     ) -> Self {
         Self {
             inner,
-            pool,
+            pools: Arc::new(Mutex::new(HashMap::new())),
+            pool_options: StreamPoolOptions::default(),
             retry_options,
             op: Operation::Create {
                 table,
@@ -122,13 +135,13 @@ impl<S: ApplicationCreatedStream> WriterBuilder<S> {
 
     pub(crate) fn new_attach(
         inner: Arc<Transport>,
-        pool: Arc<StreamPool>,
         retry_options: RetryOptions,
         write_stream: String,
     ) -> Self {
         Self {
             inner,
-            pool,
+            pools: Arc::new(Mutex::new(HashMap::new())),
+            pool_options: StreamPoolOptions::default(),
             retry_options,
             op: Operation::Attach {
                 write_stream,
@@ -541,37 +554,27 @@ mod tests {
     }
 
     fn test_open_default(transport: Arc<Transport>, table: &str) -> WriterBuilder<DefaultStream> {
-        let pool = Arc::new(StreamPool::new(
-            transport.clone(),
+        let pools = Arc::new(Mutex::new(HashMap::new()));
+        WriterBuilder::new_open_default(
+            transport,
+            pools,
             StreamPoolOptions::default(),
-        ));
-        WriterBuilder::new_open_default(transport, pool, test_retry_options(), table.to_string())
+            test_retry_options(),
+            table.to_string(),
+        )
     }
 
     fn test_create<S: ApplicationCreatedStream>(
         transport: Arc<Transport>,
         table: &str,
     ) -> WriterBuilder<S> {
-        let pool = Arc::new(StreamPool::new(
-            transport.clone(),
-            StreamPoolOptions::default(),
-        ));
-        WriterBuilder::new_create(transport, pool, test_retry_options(), table.to_string())
+        WriterBuilder::new_create(transport, test_retry_options(), table.to_string())
     }
 
     fn test_attach<S: ApplicationCreatedStream>(
         transport: Arc<Transport>,
         write_stream: &str,
     ) -> WriterBuilder<S> {
-        let pool = Arc::new(StreamPool::new(
-            transport.clone(),
-            StreamPoolOptions::default(),
-        ));
-        WriterBuilder::new_attach(
-            transport,
-            pool,
-            test_retry_options(),
-            write_stream.to_string(),
-        )
+        WriterBuilder::new_attach(transport, test_retry_options(), write_stream.to_string())
     }
 }
