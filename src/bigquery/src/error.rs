@@ -208,7 +208,7 @@ mod tests {
         let err = RowError::InvalidRowFormat("missing f field".to_string());
         assert_eq!(
             err.to_string(),
-            "internal service JSON layout invalid: missing f field"
+            "internal service JSON layout is invalid: missing f field"
         );
 
         let status = Status::default()
