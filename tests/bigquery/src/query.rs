@@ -401,38 +401,133 @@ pub async fn query_client_job() -> Result<()> {
         "expected JobFailed from attach_job, got {attach_err:?}"
     );
 
-    // Check if data plumbling from jobs.insert to jobs.query compatible struct is working.
-    // TODO: might remove this or convert to a different kind of integration test.
+    Ok(())
+}
+
+// Check if data plumbing from jobs.insert to jobs.query compatible struct is working.
+pub async fn query_client_metadata() -> Result<()> {
+    let project_id = project_id()?;
+    let bq = BigQuery::builder().build().await?;
 
     // Force the `jobs.insert` path via `set_priority("INTERACTIVE")`.
     let running = bq
         .query("SELECT 1 AS one")
         .set_priority("INTERACTIVE")
-        .with_project_id(project_id)
+        .with_project_id(&project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .send()
         .await?;
 
     let running_metadata = running.metadata().clone();
 
-    let complete = running.until_done().await?;
+    // Verify fields populated during conversion from Job to QueryMetadata.
+    let creation_time = running_metadata
+        .creation_time
+        .expect("running query metadata must have creation_time");
+    assert!(creation_time > 0, "creation_time must be positive");
+    assert!(
+        !running_metadata.location.is_empty(),
+        "running query metadata must have non-empty location"
+    );
+    let running_job_ref = running_metadata
+        .job_reference
+        .as_ref()
+        .expect("running query metadata must have job_reference");
+    assert_eq!(running_job_ref.project_id, project_id);
+    assert!(!running_job_ref.job_id.is_empty());
+    assert!(
+        running_metadata.configuration.is_some(),
+        "running query metadata must have configuration"
+    );
 
-    let meta = complete.metadata();
-    if meta.creation_time.is_none()
-        || meta.end_time.is_none()
-        || meta.statement_type.is_empty()
-        || meta.location.is_empty()
-    {
-        println!("running_metadata: {:?}", running_metadata);
-        println!("complete_metadata: {:?}", meta);
-        anyhow::bail!(
-            "CompleteQueryMetadata lost fields after poll_query_results: creation_time={:?}, end_time={:?}, statement_type={:?}, location={:?}",
-            meta.creation_time,
-            meta.end_time,
-            meta.statement_type,
-            meta.location
+    let complete = running.until_done().await?;
+    let complete_metadata = complete.metadata();
+
+    // Verify fields populated and preserved during conversion to CompleteQueryMetadata (merging QueryMetadata and GetQueryResultsResponse).
+    assert_eq!(
+        complete_metadata.creation_time,
+        Some(creation_time),
+        "creation_time must be preserved in CompleteQueryMetadata"
+    );
+    assert_eq!(
+        complete_metadata.location, running_metadata.location,
+        "location must be preserved in CompleteQueryMetadata"
+    );
+    assert_eq!(
+        complete_metadata.job_complete,
+        Some(true),
+        "job_complete must be true in CompleteQueryMetadata"
+    );
+    assert_eq!(
+        complete_metadata.total_rows,
+        Some(1),
+        "total_rows must be 1 in CompleteQueryMetadata"
+    );
+    assert!(
+        complete_metadata.schema.is_some(),
+        "schema must be present in CompleteQueryMetadata"
+    );
+
+    // If running_metadata already had start/end time or statement_type (e.g. job completed quickly),
+    // verify they are preserved.
+    if let Some(end_time) = running_metadata.end_time {
+        assert_eq!(
+            complete_metadata.end_time,
+            Some(end_time),
+            "end_time must match running_metadata when present"
         );
     }
+    if !running_metadata.statement_type.is_empty() {
+        assert_eq!(
+            complete_metadata.statement_type, running_metadata.statement_type,
+            "statement_type must match running_metadata when present"
+        );
+    }
+    if let Some(start_time) = running_metadata.start_time {
+        assert_eq!(
+            complete_metadata.start_time,
+            Some(start_time),
+            "start_time must match running_metadata when present"
+        );
+    }
+
+    // Verify full job details via get_job()
+    let get_job_req = complete
+        .get_job()
+        .expect("CompleteQuery must have get_job() request");
+    let job = get_job_req.send().await?;
+    assert_eq!(
+        job.status.as_ref().map(|s| s.state.as_str()),
+        Some("DONE"),
+        "job state must be DONE"
+    );
+    let stats = job.statistics.as_ref().expect("job must have statistics");
+    assert!(
+        stats.creation_time > 0,
+        "job statistics creation_time must be positive"
+    );
+    assert!(
+        stats.start_time > 0,
+        "job statistics start_time must be positive"
+    );
+    assert!(
+        stats.end_time > 0,
+        "job statistics end_time must be positive"
+    );
+    let query_stats = stats
+        .query
+        .as_ref()
+        .expect("job statistics must have query stats");
+    assert_eq!(
+        query_stats.statement_type, "SELECT",
+        "job query statement_type must be SELECT"
+    );
+
+    // Verify row reading
+    let mut rows = complete.read();
+    let row = rows.next().await.expect("row must exist")?;
+    assert_eq!(row.get::<i64, _>("one")?, 1);
+    assert!(rows.next().await.is_none());
 
     Ok(())
 }

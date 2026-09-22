@@ -498,71 +498,60 @@ pub(crate) async fn poll_query_results(
 // that is returned on jobs.query response are under JobStats for a Query Job when using
 // jobs.insert.
 fn build_query_metadata_from_job(resp: Job) -> QueryMetadata {
-    let job_complete = resp.status.as_ref().map(|s| s.state == "DONE");
-    let errors = resp
+    let mut metadata = QueryMetadata::from(resp);
+
+    let query_stats = metadata.statistics.as_ref().and_then(|s| s.query.as_ref());
+
+    metadata.job_complete = metadata.status.as_ref().map(|s| s.state == "DONE");
+    metadata.errors = metadata
         .status
         .as_ref()
         .map(|s| s.errors.clone())
         .unwrap_or_default();
-    let query_stats = resp.statistics.as_ref().and_then(|s| s.query.as_ref());
-    let schema = query_stats.and_then(|q| q.schema.clone());
-    let total_bytes_processed = query_stats
-        .and_then(|q| q.total_bytes_processed)
-        .or_else(|| {
-            resp.statistics
-                .as_ref()
-                .and_then(|s| s.total_bytes_processed)
-        });
-    let total_bytes_billed = query_stats.and_then(|q| q.total_bytes_billed);
-    let total_slot_ms = query_stats
+    metadata.schema = query_stats.and_then(|q| q.schema.clone());
+    metadata.total_bytes_processed =
+        query_stats
+            .and_then(|q| q.total_bytes_processed)
+            .or_else(|| {
+                metadata
+                    .statistics
+                    .as_ref()
+                    .and_then(|s| s.total_bytes_processed)
+            });
+    metadata.total_bytes_billed = query_stats.and_then(|q| q.total_bytes_billed);
+    metadata.total_slot_ms = query_stats
         .and_then(|q| q.total_slot_ms)
-        .or_else(|| resp.statistics.as_ref().and_then(|s| s.total_slot_ms));
-    let cache_hit = query_stats.and_then(|q| q.cache_hit);
-    let num_dml_affected_rows = query_stats.and_then(|q| q.num_dml_affected_rows);
-    let dml_stats = query_stats.and_then(|q| q.dml_stats.clone());
-    let statement_type = query_stats
+        .or_else(|| metadata.statistics.as_ref().and_then(|s| s.total_slot_ms));
+    metadata.cache_hit = query_stats.and_then(|q| q.cache_hit);
+    metadata.num_dml_affected_rows = query_stats.and_then(|q| q.num_dml_affected_rows);
+    metadata.dml_stats = query_stats.and_then(|q| q.dml_stats.clone());
+    metadata.statement_type = query_stats
         .map(|q| q.statement_type.clone())
         .unwrap_or_default();
-    let session_info = resp
+    metadata.session_info = metadata
         .statistics
         .as_ref()
         .and_then(|s| s.session_info.clone());
 
-    let creation_time = resp
+    metadata.creation_time = metadata
         .statistics
         .as_ref()
         .and_then(|s| (s.creation_time > 0).then_some(s.creation_time));
-    let start_time = resp
+    metadata.start_time = metadata
         .statistics
         .as_ref()
         .and_then(|s| (s.start_time > 0).then_some(s.start_time));
-    let end_time = resp
+    metadata.end_time = metadata
         .statistics
         .as_ref()
         .and_then(|s| (s.end_time > 0).then_some(s.end_time));
-    let location = resp
-        .job_reference
-        .as_ref()
-        .and_then(|r| r.location.clone())
-        .unwrap_or_default();
 
-    let mut metadata = QueryMetadata::from(resp);
-    metadata.job_complete = job_complete;
-    metadata.errors = errors;
-    metadata.schema = schema;
-    metadata.total_bytes_processed = total_bytes_processed;
-    metadata.total_bytes_billed = total_bytes_billed;
-    metadata.total_slot_ms = total_slot_ms;
-    metadata.cache_hit = cache_hit;
-    metadata.num_dml_affected_rows = num_dml_affected_rows;
-    metadata.dml_stats = dml_stats;
-    metadata.statement_type = statement_type;
-    metadata.session_info = session_info;
-    metadata.creation_time = creation_time;
-    metadata.start_time = start_time;
-    metadata.end_time = end_time;
     if metadata.location.is_empty() {
-        metadata.location = location;
+        metadata.location = metadata
+            .job_reference
+            .as_ref()
+            .and_then(|r| r.location.clone())
+            .unwrap_or_default();
     }
 
     metadata
