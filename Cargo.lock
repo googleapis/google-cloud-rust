@@ -2366,7 +2366,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery"
-version = "0.17.0"
+version = "0.17.0-preview"
 dependencies = [
  "anyhow",
  "arc-swap",
@@ -2491,7 +2491,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery-derive"
-version = "0.1.0"
+version = "0.1.0-preview"
 dependencies = [
  "proc-macro2",
  "quote",
