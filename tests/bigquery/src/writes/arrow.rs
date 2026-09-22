@@ -34,7 +34,10 @@ pub async fn basic(
     let mut serializer = ArrowSerializer::new("basic")?;
 
     // Create a writer for the default stream
-    let writer = client.arrow(serializer.schema()).default(table).await?;
+    let writer = client
+        .open_default_stream(table)
+        .build_arrow(serializer.schema())
+        .await?;
 
     // Write the batches
     let batch1 = serializer.batch(vec!["Alice", "Bob"], vec![25, 28])?;
@@ -79,7 +82,10 @@ pub async fn pending(
     let mut serializer = ArrowSerializer::new("pending")?;
 
     // Create a writer for a pending stream
-    let writer: PendingWriter<Arrow> = client.arrow(serializer.schema()).create(table).await?;
+    let writer: PendingWriter<Arrow> = client
+        .create_stream(table)
+        .build_arrow(serializer.schema())
+        .await?;
 
     // Write the batches
     let batch1 = serializer.batch(vec!["David", "Eve"], vec![42, 38])?;
@@ -144,7 +150,10 @@ pub async fn committed(
     let mut serializer = ArrowSerializer::new("committed")?;
 
     // Create a writer for a committed stream
-    let writer: CommittedWriter<Arrow> = client.arrow(serializer.schema()).create(table).await?;
+    let writer: CommittedWriter<Arrow> = client
+        .create_stream(table)
+        .build_arrow(serializer.schema())
+        .await?;
 
     // Write the batches
     let batch1 = serializer.batch(vec!["Gerald", "Hannah"], vec![20, 22])?;
@@ -202,7 +211,10 @@ pub async fn buffered(
     let mut serializer = ArrowSerializer::new("buffered")?;
 
     // Create a writer for a buffered stream
-    let writer: BufferedWriter<Arrow> = client.arrow(serializer.schema()).create(table).await?;
+    let writer: BufferedWriter<Arrow> = client
+        .create_stream(table)
+        .build_arrow(serializer.schema())
+        .await?;
 
     // Write the batches
     let batch1 = serializer.batch(vec!["Kelly", "Liam"], vec![30, 32])?;
@@ -292,7 +304,10 @@ pub async fn attach(
 
     let write_stream = {
         // Create a writer for a committed stream
-        let writer: CommittedWriter<Arrow> = client.arrow(schema.clone()).create(table).await?;
+        let writer: CommittedWriter<Arrow> = client
+            .create_stream(table)
+            .build_arrow(schema.clone())
+            .await?;
 
         // Write the first batch
         let batch1 = serializer.batch(vec!["Attached1", "Attached2"], vec![80, 81])?;
@@ -303,7 +318,10 @@ pub async fn attach(
     };
 
     // Attach to the previously created write stream from a new writer.
-    let attached_writer: CommittedWriter<Arrow> = client.arrow(schema).attach(write_stream).await?;
+    let attached_writer: CommittedWriter<Arrow> = client
+        .attach_to_stream(write_stream)
+        .build_arrow(schema)
+        .await?;
 
     let batch2 = serializer.batch(vec!["Attached3"], vec![82])?;
     let _ = attached_writer.append(batch2).set_offset(2).send().await?;
@@ -350,14 +368,14 @@ pub async fn multiplex(
 
     // Create a writer for each table. They share the stream pool.
     let writer1 = client
-        .arrow(schema.clone())
+        .open_default_stream(table1)
         .with_multiplexing(true)
-        .default(table1)
+        .build_arrow(schema.clone())
         .await?;
     let writer2 = client
-        .arrow(schema)
+        .open_default_stream(table2)
         .with_multiplexing(true)
-        .default(table2)
+        .build_arrow(schema)
         .await?;
 
     // Write the batches

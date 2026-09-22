@@ -22,7 +22,7 @@ use crate::write::{BufferedWriter, CommittedWriter, DefaultWriter, PendingWriter
 #[diagnostic::on_unimplemented(
     message = "cannot infer the writer or stream type",
     label = "type annotations needed for this writer",
-    note = "annotate the variable type (e.g. `let writer: PendingWriter<Arrow> = ...`) or specify a stream type via turbofish (e.g. `client.create_stream::<PendingStream>(...)`)"
+    note = "annotate the variable type (e.g. `let writer: PendingWriter<Arrow> = ...`) or specify a stream type via turbofish (e.g. `client.create_stream::<PendingStream, _>(...)`)"
 )]
 pub trait HasStream: sealed::HasStream {
     /// The stream type marker corresponding to this writer.

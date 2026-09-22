@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(#6855) - remove no_rust tag from examples
 //! Defines marker traits and types for the stream writers.
 //!
 //! The types and traits in this module exist to enable an idiomatic build
@@ -21,24 +20,34 @@
 //! Application code never needs to name these types, and can always use the
 //! `*Writer` types directly.
 //!
-//! ```no_rust
+//! ```
 //! use google_cloud_bigquery::write::format::Arrow;
 //! use google_cloud_bigquery::write::PendingWriter;
+//! # use google_cloud_bigquery::client::Write;
+//! # use google_cloud_bigquery::model::ArrowSchema;
+//! # async fn sample(client: Write, table: &str, schema: ArrowSchema) -> anyhow::Result<()> {
 //! let w: PendingWriter<Arrow> = client
 //!     .create_stream(table)
 //!     .build_arrow(schema)
 //!     .await?;
+//! # Ok(())
+//! # }
 //! ```
 //!
 //! With that being said, application code can choose to use the stream markers
 //! with turbofish notation, such as:
 //!
-//! ```no_rust
+//! ```
 //! use google_cloud_bigquery::write::stream_type::PendingStream;
+//! # use google_cloud_bigquery::client::Write;
+//! # use google_cloud_bigquery::model::ArrowSchema;
+//! # async fn sample(client: Write, table: &str, schema: ArrowSchema) -> anyhow::Result<()> {
 //! let w = client
 //!     .create_stream::<PendingStream, _>(table)
 //!     .build_arrow(schema)
 //!     .await?;
+//! # Ok(())
+//! # }
 //! ```
 
 mod application_created_stream;
@@ -50,10 +59,6 @@ pub use application_created_stream::ApplicationCreatedStream;
 pub use has_stream::HasStream;
 pub use markers::{BufferedStream, CommittedStream, DefaultStream, PendingStream};
 pub use stream::Stream;
-
-pub(crate) mod sealed {
-    pub(crate) use super::application_created_stream::sealed::ApplicationCreatedStream;
-}
 
 #[cfg(test)]
 mod tests {

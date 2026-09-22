@@ -98,8 +98,8 @@
 //! # async fn sample() -> anyhow::Result<()> {
 //! let client = Write::builder().build().await?;
 //! let writer = client
-//!     .arrow(schema())
-//!     .default("projects/my-project/datasets/my-dataset/tables/my-table")
+//!     .open_default_stream("projects/my-project/datasets/my-dataset/tables/my-table")
+//!     .build_arrow(schema())
 //!     .await?;
 //!
 //! let f1 = writer.append(rows()).send();
@@ -154,6 +154,7 @@ pub mod builder {
     pub mod write {
         pub use crate::write::builder::{Append, AppendWithOffset};
         pub use crate::write::client_builder::ClientBuilder;
+        pub use crate::write::writer_builder::WriterBuilder;
     }
     pub use crate::write::generated::gapic_storage::builder::read;
 }
