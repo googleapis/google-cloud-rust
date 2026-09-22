@@ -35,6 +35,7 @@ use google_cloud_storage::model::bucket::iam_config::UniformBucketLevelAccess;
 use google_cloud_storage::model::bucket::{HierarchicalNamespace, IamConfig};
 use google_cloud_storage::model::{Bucket, RapidCache};
 use google_cloud_storage::read_object::ReadObjectResponse;
+use google_cloud_storage::retry_policy::RetryableErrors;
 use google_cloud_test_utils::resource_names::random_bucket_id;
 use google_cloud_test_utils::runtime_config::{project_id, test_service_account};
 use google_cloud_wkt::FieldMask;
@@ -42,6 +43,31 @@ use std::time::Duration;
 pub use storage_samples::{
     cleanup_stale_buckets, create_test_bucket, create_test_hns_bucket, create_test_rapid_bucket,
 };
+
+/// Builds a `StorageControl` client for tests.
+/// Defaults to the Preprod endpoint (`https://storage-preprod-test-grpc.googleusercontent.com:443`)
+/// unless overridden by `GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT`.
+pub async fn build_storage_control_client() -> Result<StorageControl> {
+    let endpoint =
+        std::env::var("GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT").unwrap_or_else(|_| {
+            "https://storage-preprod-test-grpc.googleusercontent.com:443".to_string()
+        });
+    tracing::info!("StorageControl endpoint: {endpoint}");
+
+    let client = StorageControl::builder()
+        .with_endpoint(&endpoint)
+        .with_backoff_policy(
+            ExponentialBackoffBuilder::new()
+                .with_initial_delay(Duration::from_secs(2))
+                .with_maximum_delay(Duration::from_secs(8))
+                .build()?,
+        )
+        .with_retry_policy(RetryableErrors.with_attempt_limit(5))
+        .build()
+        .await?;
+
+    Ok(client)
+}
 
 pub async fn build_storage_client() -> Result<Storage> {
     let mut builder = Storage::builder();
@@ -63,7 +89,7 @@ pub async fn build_non_colocated_storage_client(off_zone: &str) -> Result<Storag
 
 pub async fn create_test_regional_rapid_bucket(hns: bool) -> Result<(StorageControl, Bucket)> {
     let project_id = project_id()?;
-    let control = StorageControl::builder().build().await?;
+    let control = build_storage_control_client().await?;
     cleanup_stale_buckets(&control, &project_id).await;
 
     let bucket_id = random_bucket_id();
