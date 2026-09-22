@@ -91,9 +91,9 @@ impl AppendWithOffset {
         };
         let write = WriteRequest { req, resp_tx };
         if self.req_tx.send(write).is_err() {
-            return AppendFuture::from_future(async move {
-                Err(AppendError::UnexpectedEndOfStream)
-            });
+            return AppendFuture::from_future(
+                async move { Err(AppendError::UnexpectedEndOfStream) },
+            );
         }
         AppendFuture::from_future(async move {
             let resp = resp_rx
@@ -251,9 +251,7 @@ mod tests {
 
         // Simulate background runner providing a response.
         let resp = v1::AppendRowsResponse {
-            response: Some(Response::AppendResult(AppendResult {
-                offset: Some(100),
-            })),
+            response: Some(Response::AppendResult(AppendResult { offset: Some(100) })),
             write_stream: write_stream(),
             ..Default::default()
         };
