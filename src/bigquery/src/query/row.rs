@@ -1045,17 +1045,11 @@ mod tests {
         Ok(())
     }
 
-    #[derive(Debug, PartialEq)]
-    struct AnonTriple(i64, String, bool);
+    #[derive(FromRow, Debug, PartialEq)]
+    struct TupleRow(i64, String);
 
-    // TODO(#6892) - use the derive macro when it supports tuples
-    impl FromSql for AnonTriple {
-        fn from_value(
-            mut value: crate::query::SqlValue,
-        ) -> std::result::Result<Self, ConvertError> {
-            Ok(Self(value.take(0)?, value.take(1)?, value.take(2)?))
-        }
-    }
+    #[derive(crate::query::FromSql, Debug, PartialEq)]
+    struct AnonTriple(i64, String, bool);
 
     #[derive(crate::query::FromSql, Debug, PartialEq)]
     struct NamedZThenA {
@@ -1063,17 +1057,8 @@ mod tests {
         a: i64,
     }
 
-    #[derive(Debug, PartialEq)]
+    #[derive(crate::query::FromSql, Debug, PartialEq)]
     struct PositionalPair(i64, i64);
-
-    // TODO(#6892) - use the derive macro when it supports tuples
-    impl FromSql for PositionalPair {
-        fn from_value(
-            mut value: crate::query::SqlValue,
-        ) -> std::result::Result<Self, ConvertError> {
-            Ok(Self(value.take(0)?, value.take(1)?))
-        }
-    }
 
     #[derive(crate::query::FromSql, Debug, PartialEq)]
     struct DupIdNamed {
@@ -1208,6 +1193,34 @@ mod tests {
 
         let both_ids: PositionalPair = row.get("dup")?;
         assert_eq!(both_ids, PositionalPair(100, 200));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn derive_from_row_tuple_struct() -> TestResult {
+        // Simulates `SELECT 42, 'world'` where top-level columns have generated names.
+        let raw_row = Map::from_iter([(
+            "f".to_string(),
+            json!([
+                { "v": "42" },
+                { "v": "world" },
+            ]),
+        )]);
+        let schema = TableSchema::new().set_fields([
+            TableFieldSchema::new()
+                .set_name("_f0")
+                .set_type("INT64")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("_f1")
+                .set_type("STRING")
+                .set_mode("NULLABLE"),
+        ]);
+        let schema = Arc::new(Schema::new(schema));
+        let row = Row::try_new(raw_row, &schema)?;
+
+        let converted = TupleRow::try_from(row)?;
+        assert_eq!(converted, TupleRow(42, "world".to_string()));
         Ok(())
     }
 }

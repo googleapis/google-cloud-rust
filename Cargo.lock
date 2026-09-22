@@ -2496,6 +2496,7 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 3.0.5",
+ "test-case",
 ]
 
 [[package]]
