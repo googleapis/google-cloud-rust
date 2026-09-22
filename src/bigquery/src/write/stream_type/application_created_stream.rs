@@ -28,7 +28,7 @@ use crate::model::write_stream::Type;
 #[diagnostic::on_unimplemented(
     message = "`{Self}` is not an application-created stream type",
     label = "expected `PendingStream`, `CommittedStream`, or `BufferedStream`",
-    note = "default streams are managed by BigQuery and cannot be created via `create_stream`; use `Write::open_default_stream` instead"
+    note = "default streams are managed by BigQuery and cannot be created or attached to via `create_stream` or `attach_to_stream`; use `Write::open_default_stream` instead"
 )]
 pub trait ApplicationCreatedStream: Stream + sealed::ApplicationCreatedStream {}
 
