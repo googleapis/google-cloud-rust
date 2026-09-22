@@ -80,13 +80,14 @@ pub enum CommitError {
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum WriterBuilderError {
-    /// The stream type provided by the service did not match the expected type.
-    #[error("stream type mismatch: requested {expected:?}, but matched resource yields {actual:?}")]
+    /// The targeted write stream was a different stream type than expected.
+    #[non_exhaustive]
+    #[error("stream type mismatch: requested {expected}, but matched resource yields {actual}")]
     TypeMismatch {
         /// The expected stream type.
-        expected: crate::model::write_stream::Type,
+        expected: String,
         /// The actual stream type returned by the service.
-        actual: crate::model::write_stream::Type,
+        actual: String,
     },
 
     /// The underlying RPC failed.

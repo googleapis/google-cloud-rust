@@ -237,6 +237,13 @@ impl<S: Stream> WriterBuilder<S> {
     ) -> std::result::Result<String, WriterBuilderError> {
         validate_stream(write_stream)?;
 
+        if write_stream.ends_with("/streams/_default") {
+            return Err(WriterBuilderError::TypeMismatch {
+                expected: format!("{stream_type:?}"),
+                actual: "Default (use `open_default_stream` instead)".to_string(),
+            });
+        }
+
         let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
         let stream = client
             .get_write_stream()
@@ -246,8 +253,8 @@ impl<S: Stream> WriterBuilder<S> {
 
         if stream_type != stream.r#type {
             return Err(WriterBuilderError::TypeMismatch {
-                expected: stream_type,
-                actual: stream.r#type,
+                expected: format!("{stream_type:?}"),
+                actual: format!("{:?}", stream.r#type),
             });
         }
         Ok(stream.name)
@@ -477,6 +484,59 @@ mod tests {
         let err = res.expect_err("should return type mismatch error");
         assert!(matches!(err, WriterBuilderError::TypeMismatch { .. }));
         assert!(err.to_string().contains("stream type mismatch: requested"));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn attach_default_stream_rejected() -> anyhow::Result<()> {
+        let transport = Arc::new(test_transport("http://ignored:1").await?);
+        let default_stream = "projects/p/datasets/d/tables/t/streams/_default";
+
+        let res: Result<CommittedWriter<Arrow>> = test_attach(transport.clone(), default_stream)
+            .build_arrow(schema())
+            .await;
+        let err = res.expect_err("should reject attaching CommittedWriter to _default");
+        assert!(
+            matches!(
+                &err,
+                WriterBuilderError::TypeMismatch { expected, actual }
+                    if expected == "Committed" && actual.contains("Default")
+            ),
+            "unexpected error: {err:?}"
+        );
+        assert!(
+            err.to_string().contains(
+                "stream type mismatch: requested Committed, but matched resource yields Default"
+            ),
+            "unexpected display: {err}"
+        );
+
+        let res: Result<PendingWriter<Arrow>> = test_attach(transport.clone(), default_stream)
+            .build_arrow(schema())
+            .await;
+        let err = res.expect_err("should reject attaching PendingWriter to _default");
+        assert!(
+            matches!(
+                &err,
+                WriterBuilderError::TypeMismatch { expected, actual }
+                    if expected == "Pending" && actual.contains("Default")
+            ),
+            "unexpected error: {err:?}"
+        );
+
+        let res: Result<BufferedWriter<Arrow>> = test_attach(transport, default_stream)
+            .build_arrow(schema())
+            .await;
+        let err = res.expect_err("should reject attaching BufferedWriter to _default");
+        assert!(
+            matches!(
+                &err,
+                WriterBuilderError::TypeMismatch { expected, actual }
+                    if expected == "Buffered" && actual.contains("Default")
+            ),
+            "unexpected error: {err:?}"
+        );
+
         Ok(())
     }
 
