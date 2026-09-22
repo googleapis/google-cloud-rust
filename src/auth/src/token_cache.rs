@@ -179,18 +179,13 @@ async fn refresh_task<T>(
 
         let time_until_expiry = expiry.checked_duration_since(Instant::now());
         match time_until_expiry {
-            None => {
-                // We were given a token that is expired, or expires in less than 10 seconds.
-                // We will immediately restart the loop, and fetch a new token.
+            Some(time) if time > NORMAL_REFRESH_SLACK => {
+                sleep(time - NORMAL_REFRESH_SLACK).await;
             }
-            Some(time_until_expiry) => {
-                if time_until_expiry > NORMAL_REFRESH_SLACK {
-                    sleep(time_until_expiry - NORMAL_REFRESH_SLACK).await;
-                } else if time_until_expiry > SHORT_REFRESH_SLACK {
-                    // If expiry is less than 4 mins, try to refresh every 10 seconds
-                    // This is to handle cases where MDS **repeatedly** returns about to expire tokens.
-                    sleep(SHORT_REFRESH_SLACK).await;
-                }
+            _ => {
+                // If expiry is less than 4 mins (or already expired), try to refresh every 10 seconds.
+                // This is to handle cases where MDS **repeatedly** returns about-to-expire or expired tokens.
+                sleep(SHORT_REFRESH_SLACK).await;
             }
         }
     }
@@ -400,14 +395,17 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
-    async fn refresh_task_expired_token_loop() {
+    #[test_case::test_case(Duration::ZERO; "already_expired")]
+    #[test_case::test_case(SHORT_REFRESH_SLACK / 2; "less_than_short_slack")]
+    #[test_case::test_case(SHORT_REFRESH_SLACK; "equal_to_short_slack")]
+    #[tokio::test(start_paused = true)]
+    async fn refresh_task_expired_token_loop(initial_ttl: Duration) {
         let now = Instant::now();
 
         let token1 = Token {
             token: "token1".to_string(),
             token_type: "Bearer".to_string(),
-            expires_at: Some(now),
+            expires_at: Some(now + initial_ttl),
             metadata: None,
         };
         let token1_clone = token1.clone();
@@ -435,16 +433,21 @@ mod tests {
             refresh_task(Arc::new(mock), tx).await;
         });
 
-        // Give the refresh task a chance to run
-        sleep(Duration::from_millis(100)).await;
-
         rx.changed().await.unwrap();
-
-        // Validate that the refresh loop tried getting new token almost immediately
-        assert!(Instant::now() <= now + Duration::from_millis(500));
-
         let (actual, ..) = rx.borrow().clone().unwrap().unwrap();
-        assert_eq!(actual, token2.clone());
+        assert_eq!(actual, token1);
+
+        // Advance time by less than SHORT_REFRESH_SLACK; the refresh task must
+        // sleep rather than busy-looping.
+        tokio::time::advance(SHORT_REFRESH_SLACK / 2).await;
+        let (actual, ..) = rx.borrow().clone().unwrap().unwrap();
+        assert_eq!(actual, token1);
+
+        // Advance past SHORT_REFRESH_SLACK; now the refresh task should fetch token2.
+        tokio::time::advance(SHORT_REFRESH_SLACK).await;
+        rx.changed().await.unwrap();
+        let (actual, ..) = rx.borrow().clone().unwrap().unwrap();
+        assert_eq!(actual, token2);
     }
 
     #[tokio::test(start_paused = true)]
@@ -856,7 +859,7 @@ mod tests {
         let token = Token {
             token: "delayed-token".to_string(),
             token_type: "Bearer".to_string(),
-            expires_at: Some(Instant::now()),
+            expires_at: Some(Instant::now() + TOKEN_VALID_DURATION),
             metadata: None,
         };
 
