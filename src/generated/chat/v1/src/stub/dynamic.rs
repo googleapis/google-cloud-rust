@@ -173,6 +173,24 @@ pub trait ChatService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
 
+    async fn list_message_pins(
+        &self,
+        req: crate::model::ListMessagePinsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListMessagePinsResponse>>;
+
+    async fn create_message_pin(
+        &self,
+        req: crate::model::CreateMessagePinRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MessagePin>>;
+
+    async fn delete_message_pin(
+        &self,
+        req: crate::model::DeleteMessagePinRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
+
     async fn create_custom_emoji(
         &self,
         req: crate::model::CreateCustomEmojiRequest,
@@ -547,6 +565,33 @@ impl<T: super::ChatService> ChatService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>> {
         T::delete_reaction(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_message_pins(
+        &self,
+        req: crate::model::ListMessagePinsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListMessagePinsResponse>> {
+        T::list_message_pins(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_message_pin(
+        &self,
+        req: crate::model::CreateMessagePinRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MessagePin>> {
+        T::create_message_pin(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_message_pin(
+        &self,
+        req: crate::model::DeleteMessagePinRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::delete_message_pin(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

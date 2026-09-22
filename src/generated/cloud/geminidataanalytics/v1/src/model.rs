@@ -51,6 +51,9 @@ pub struct Context {
     /// Why: Business jargon (e.g., YTD revenue is calculated as…, Retirement Age
     /// is 65 in the USA, etc) and system instructions (e.g., answer like a Pirate)
     /// can help the model understand the business context around a user question.
+    ///
+    /// Must be at most 250,000 bytes (approx. 250,000 characters for English
+    /// text).
     pub system_instruction: std::string::String,
 
     /// Required. Data sources that are available for answering the question.
@@ -848,6 +851,8 @@ impl wkt::message::Message for BigQueryRoutineReference {
 pub struct ExampleQuery {
     /// Optional. A natural language question that a user might ask.
     /// For example: "How many orders were placed last month?"
+    ///
+    /// Must be at most 2,000 bytes (approx. 2,000 characters).
     pub natural_language_question: std::string::String,
 
     /// Optional. The list of query parameters.
@@ -976,6 +981,8 @@ pub mod example_query {
         /// Optional. The SQL query that should be generated to answer the natural
         /// language question. For example: "SELECT COUNT(*) FROM orders WHERE
         /// order_date BETWEEN '2024-01-01' AND '2024-01-31'"
+        ///
+        /// Must be at most 50,000 bytes (approx. 50,000 characters).
         SqlQuery(std::string::String),
     }
 }
@@ -1193,6 +1200,8 @@ impl wkt::message::Message for QueryParameterValues {
 pub struct LookerGoldenQuery {
     /// Optional. Natural language questions that a user might ask.
     /// For example: "How many orders were placed last month?"
+    ///
+    /// Must be at most 2,000 bytes per question (approx. 2,000 characters).
     pub natural_language_questions: std::vec::Vec<std::string::String>,
 
     /// Optional. The Looker Query corresponding to the natural language questions.
@@ -1264,6 +1273,536 @@ impl wkt::message::Message for LookerGoldenQuery {
     }
 }
 
+/// A dynamic field in Looker (Custom Dimension, Custom Measure, or Table
+/// Calculation).
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DynamicField {
+    /// Optional. The type of dynamic field: dimension, measure, table_calculation.
+    /// Looker can use the category type to specify the name of the dynamic field.
+    /// However, Looker Conversational Analytics keeps the category separate from
+    /// the name of the dynamic field. For more details, see
+    /// <https://docs.cloud.google.com/looker/docs/reference/param-lookml-dashboard-table-chart#dynamic_fields>.
+    pub category: std::option::Option<std::string::String>,
+
+    /// Optional. The name of the dynamic field in LookML.
+    pub name: std::option::Option<std::string::String>,
+
+    /// Optional. The label defines the display name of the dynamic field.
+    pub label: std::option::Option<std::string::String>,
+
+    /// Optional. For custom measures, this identifies the measure the field is
+    /// based on.
+    pub based_on: std::option::Option<std::string::String>,
+
+    /// Optional. For custom measures, this identifies the type of aggregation
+    /// (e.g. sum).
+    pub r#type: std::option::Option<std::string::String>,
+
+    /// Optional. Description of the dynamic field.
+    pub description: std::option::Option<std::string::String>,
+
+    /// Optional. Looker expression to create a table calculation.
+    pub expression: std::option::Option<std::string::String>,
+
+    /// Optional. Looker expression to filter a base measure.
+    pub filter_expression: std::option::Option<std::string::String>,
+
+    /// Optional. Value format for the dynamic field.
+    pub value_format: std::option::Option<std::string::String>,
+
+    /// Optional. Value format name for the dynamic field if using a default named
+    /// format.
+    pub value_format_name: std::option::Option<std::string::String>,
+
+    /// Optional. Calculation type for table calculations. Refer to
+    /// <https://docs.cloud.google.com/looker/docs/reference/param-lookml-dashboard-table-chart#calculation_type>
+    /// for all possible values depending on the `category` of dynamic field.
+    pub calculation_type: std::option::Option<std::string::String>,
+
+    /// Optional. Arguments for custom groups, custom bins, or shortcut
+    /// calculations. For more details, refer to
+    /// <https://docs.cloud.google.com/looker/docs/reference/param-lookml-dashboard-table-chart#args_for_custom_groups>
+    pub args: std::vec::Vec<std::string::String>,
+
+    /// Optional. Identifies whether the dynamic field returns a dimension or
+    /// measure.
+    pub kind_hint: std::option::Option<std::string::String>,
+
+    /// Optional. Identifies the data type the dynamic field's expression should
+    /// produce.
+    pub type_hint: std::option::Option<std::string::String>,
+
+    /// Optional. Whether the dynamic field is disabled.
+    pub is_disabled: std::option::Option<bool>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DynamicField {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [category][crate::model::DynamicField::category].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_category("example");
+    /// ```
+    pub fn set_category<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.category = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [category][crate::model::DynamicField::category].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_or_clear_category(Some("example"));
+    /// let x = DynamicField::new().set_or_clear_category(None::<String>);
+    /// ```
+    pub fn set_or_clear_category<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.category = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [name][crate::model::DynamicField::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_name("example");
+    /// ```
+    pub fn set_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [name][crate::model::DynamicField::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_or_clear_name(Some("example"));
+    /// let x = DynamicField::new().set_or_clear_name(None::<String>);
+    /// ```
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [label][crate::model::DynamicField::label].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_label("example");
+    /// ```
+    pub fn set_label<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.label = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [label][crate::model::DynamicField::label].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_or_clear_label(Some("example"));
+    /// let x = DynamicField::new().set_or_clear_label(None::<String>);
+    /// ```
+    pub fn set_or_clear_label<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.label = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [based_on][crate::model::DynamicField::based_on].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_based_on("example");
+    /// ```
+    pub fn set_based_on<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.based_on = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [based_on][crate::model::DynamicField::based_on].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_or_clear_based_on(Some("example"));
+    /// let x = DynamicField::new().set_or_clear_based_on(None::<String>);
+    /// ```
+    pub fn set_or_clear_based_on<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.based_on = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::DynamicField::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_type("example");
+    /// ```
+    pub fn set_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.r#type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [r#type][crate::model::DynamicField::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_or_clear_type(Some("example"));
+    /// let x = DynamicField::new().set_or_clear_type(None::<String>);
+    /// ```
+    pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.r#type = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [description][crate::model::DynamicField::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_description("example");
+    /// ```
+    pub fn set_description<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [description][crate::model::DynamicField::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_or_clear_description(Some("example"));
+    /// let x = DynamicField::new().set_or_clear_description(None::<String>);
+    /// ```
+    pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.description = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [expression][crate::model::DynamicField::expression].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_expression("example");
+    /// ```
+    pub fn set_expression<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.expression = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [expression][crate::model::DynamicField::expression].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_or_clear_expression(Some("example"));
+    /// let x = DynamicField::new().set_or_clear_expression(None::<String>);
+    /// ```
+    pub fn set_or_clear_expression<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.expression = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [filter_expression][crate::model::DynamicField::filter_expression].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_filter_expression("example");
+    /// ```
+    pub fn set_filter_expression<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.filter_expression = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [filter_expression][crate::model::DynamicField::filter_expression].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_or_clear_filter_expression(Some("example"));
+    /// let x = DynamicField::new().set_or_clear_filter_expression(None::<String>);
+    /// ```
+    pub fn set_or_clear_filter_expression<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.filter_expression = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [value_format][crate::model::DynamicField::value_format].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_value_format("example");
+    /// ```
+    pub fn set_value_format<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.value_format = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [value_format][crate::model::DynamicField::value_format].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_or_clear_value_format(Some("example"));
+    /// let x = DynamicField::new().set_or_clear_value_format(None::<String>);
+    /// ```
+    pub fn set_or_clear_value_format<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.value_format = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [value_format_name][crate::model::DynamicField::value_format_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_value_format_name("example");
+    /// ```
+    pub fn set_value_format_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.value_format_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [value_format_name][crate::model::DynamicField::value_format_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_or_clear_value_format_name(Some("example"));
+    /// let x = DynamicField::new().set_or_clear_value_format_name(None::<String>);
+    /// ```
+    pub fn set_or_clear_value_format_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.value_format_name = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [calculation_type][crate::model::DynamicField::calculation_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_calculation_type("example");
+    /// ```
+    pub fn set_calculation_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.calculation_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [calculation_type][crate::model::DynamicField::calculation_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_or_clear_calculation_type(Some("example"));
+    /// let x = DynamicField::new().set_or_clear_calculation_type(None::<String>);
+    /// ```
+    pub fn set_or_clear_calculation_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.calculation_type = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [args][crate::model::DynamicField::args].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_args(["a", "b", "c"]);
+    /// ```
+    pub fn set_args<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.args = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [kind_hint][crate::model::DynamicField::kind_hint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_kind_hint("example");
+    /// ```
+    pub fn set_kind_hint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind_hint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [kind_hint][crate::model::DynamicField::kind_hint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_or_clear_kind_hint(Some("example"));
+    /// let x = DynamicField::new().set_or_clear_kind_hint(None::<String>);
+    /// ```
+    pub fn set_or_clear_kind_hint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.kind_hint = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [type_hint][crate::model::DynamicField::type_hint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_type_hint("example");
+    /// ```
+    pub fn set_type_hint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.type_hint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [type_hint][crate::model::DynamicField::type_hint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_or_clear_type_hint(Some("example"));
+    /// let x = DynamicField::new().set_or_clear_type_hint(None::<String>);
+    /// ```
+    pub fn set_or_clear_type_hint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.type_hint = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [is_disabled][crate::model::DynamicField::is_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_is_disabled(true);
+    /// ```
+    pub fn set_is_disabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.is_disabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [is_disabled][crate::model::DynamicField::is_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = DynamicField::new().set_or_clear_is_disabled(Some(false));
+    /// let x = DynamicField::new().set_or_clear_is_disabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_is_disabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.is_disabled = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DynamicField {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.geminidataanalytics.v1.DynamicField"
+    }
+}
+
 /// Looker Query Object
 /// [Looker API
 /// documentation](https://cloud.google.com/looker/docs/reference/looker-api/latest/methods/Query/run_inline_query).
@@ -1287,6 +1826,9 @@ pub struct LookerQuery {
 
     /// Optional. Limit in the query.
     pub limit: std::option::Option<std::string::String>,
+
+    /// Optional. The dynamic fields used in the query.
+    pub dynamic_fields: std::vec::Vec<crate::model::DynamicField>,
 
     /// Optional. The primary identifier for the query resource in Looker, used for
     /// API operations. Maps to `id` (or `slug`) in the Looker API `Query`
@@ -1415,6 +1957,28 @@ impl LookerQuery {
         T: std::convert::Into<std::string::String>,
     {
         self.limit = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [dynamic_fields][crate::model::LookerQuery::dynamic_fields].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::LookerQuery;
+    /// use google_cloud_geminidataanalytics_v1::model::DynamicField;
+    /// let x = LookerQuery::new()
+    ///     .set_dynamic_fields([
+    ///         DynamicField::default()/* use setters */,
+    ///         DynamicField::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_dynamic_fields<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DynamicField>,
+    {
+        use std::iter::Iterator;
+        self.dynamic_fields = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -1570,11 +2134,15 @@ pub mod looker_query {
 pub struct GlossaryTerm {
     /// Required. User friendly display name of the glossary term being defined.
     /// For example: "CTR", "conversion rate", "pending"
+    ///
+    /// Must be at most 256 bytes.
     pub display_name: std::string::String,
 
     /// Required. The description or meaning of the term.
     /// For example: "Click-through rate", "The percentage of users who complete a
     /// desired action", "An order that is waiting to be processed."
+    ///
+    /// Must be at most 5,000 bytes (approx. 5,000 characters).
     pub description: std::string::String,
 
     /// Optional. A list of general purpose labels associated to this term.
@@ -1790,13 +2358,10 @@ pub mod conversation_options {
     #[non_exhaustive]
     pub enum Model {
         /// No model specified. The model may be set on the chat request, or the
-        /// default model will be used. Currently, this is
-        /// `gemini-3.0-flash-preview`.
+        /// default model will be used.
         Unspecified,
-        /// Use the most up-to-date non-preview model. Currently, this is
-        /// `gemini-2.5-flash`. This constrains the request level settings. The
-        /// default will change to `gemini-2.5-flash`, and setting `thinking_mode`
-        /// will not be supported.
+        /// Use the most up-to-date non-preview model. This may constrain certain
+        /// request level settings.
         LatestGaModel,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -2565,6 +3130,9 @@ pub struct Conversation {
     /// surfaces/products).
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
+    /// Optional. The display name for the conversation (max 63 chars).
+    pub title: std::string::String,
+
     /// Optional. Customer managed encryption key (CMEK) to use for encrypting the
     /// Conversation resources. Encryption will happen at Titan layer, we will pass
     /// the KMS key to Titan.
@@ -2572,9 +3140,6 @@ pub struct Conversation {
     /// Format:
     /// projects/{project_id}/locations/{location}/keyRings/{key_ring_name}/cryptoKeys/{key_name}.
     pub kms_key: std::option::Option<std::string::String>,
-
-    /// Optional. Whether memory is paused for this conversation.
-    pub memory_paused: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2704,6 +3269,18 @@ impl Conversation {
         self
     }
 
+    /// Sets the value of [title][crate::model::Conversation::title].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::Conversation;
+    /// let x = Conversation::new().set_title("example");
+    /// ```
+    pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.title = v.into();
+        self
+    }
+
     /// Sets the value of [kms_key][crate::model::Conversation::kms_key].
     ///
     /// # Example
@@ -2732,37 +3309,6 @@ impl Conversation {
         T: std::convert::Into<std::string::String>,
     {
         self.kms_key = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [memory_paused][crate::model::Conversation::memory_paused].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_geminidataanalytics_v1::model::Conversation;
-    /// let x = Conversation::new().set_memory_paused(true);
-    /// ```
-    pub fn set_memory_paused<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
-    {
-        self.memory_paused = std::option::Option::Some(v.into());
-        self
-    }
-
-    /// Sets or clears the value of [memory_paused][crate::model::Conversation::memory_paused].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_geminidataanalytics_v1::model::Conversation;
-    /// let x = Conversation::new().set_or_clear_memory_paused(Some(false));
-    /// let x = Conversation::new().set_or_clear_memory_paused(None::<bool>);
-    /// ```
-    pub fn set_or_clear_memory_paused<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
-    {
-        self.memory_paused = v.map(|x| x.into());
         self
     }
 }
@@ -2880,6 +3426,122 @@ impl CreateConversationRequest {
 impl wkt::message::Message for CreateConversationRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.geminidataanalytics.v1.CreateConversationRequest"
+    }
+}
+
+/// Request for updating a conversation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateConversationRequest {
+    /// Required. The resource being updated.
+    pub conversation: std::option::Option<crate::model::Conversation>,
+
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
+    /// Conversation resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then all fields with non-default values
+    /// present in the request will be overwritten. If a wildcard mask is provided,
+    /// all fields will be overwritten.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateConversationRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [conversation][crate::model::UpdateConversationRequest::conversation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::UpdateConversationRequest;
+    /// use google_cloud_geminidataanalytics_v1::model::Conversation;
+    /// let x = UpdateConversationRequest::new().set_conversation(Conversation::default()/* use setters */);
+    /// ```
+    pub fn set_conversation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Conversation>,
+    {
+        self.conversation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [conversation][crate::model::UpdateConversationRequest::conversation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::UpdateConversationRequest;
+    /// use google_cloud_geminidataanalytics_v1::model::Conversation;
+    /// let x = UpdateConversationRequest::new().set_or_clear_conversation(Some(Conversation::default()/* use setters */));
+    /// let x = UpdateConversationRequest::new().set_or_clear_conversation(None::<Conversation>);
+    /// ```
+    pub fn set_or_clear_conversation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Conversation>,
+    {
+        self.conversation = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateConversationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::UpdateConversationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateConversationRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateConversationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::UpdateConversationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateConversationRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateConversationRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateConversationRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::UpdateConversationRequest;
+    /// let x = UpdateConversationRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateConversationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.geminidataanalytics.v1.UpdateConversationRequest"
     }
 }
 
@@ -3502,6 +4164,57 @@ pub struct DataAgent {
     /// `projects/*/locations/*/keyRings/*/cryptoKeys/*`.
     pub kms_key: std::option::Option<std::string::String>,
 
+    /// Optional. Controls whether BigQuery Agent Analytics trace logging is
+    /// enabled for the agent.
+    ///
+    /// BigQuery Agent Analytics is in Preview and is delivered to enrolled
+    /// projects only. In a project that is not enrolled this field is accepted
+    /// and stored, but no trace rows are written and no error is returned.
+    ///
+    /// Trace logging is additionally suppressed for the entire turn, without
+    /// error, when any table in the agent's datasource carries row-level
+    /// security, column-level security or policy tags. It is also suppressed
+    /// when that determination cannot be made, for example when the caller
+    /// lacks permission to list a table's row access policies.
+    ///
+    /// Trace rows are written only when this is `true` and
+    /// `bigquery_agent_analytics_table` is set. On a BigQuery agent, enabling
+    /// this without a table has no effect: no table is created for the agent
+    /// and no rows are written. On an agent whose datasource is not BigQuery,
+    /// `CreateDataAgent` rejects either field with `INVALID_ARGUMENT`.
+    ///
+    /// This setting is independent of the project-level BigQuery Agent Analytics
+    /// setting configured through `SetAgentOpsObservability`. An agent does not
+    /// inherit that setting.
+    pub bigquery_agent_analytics_enabled: std::option::Option<bool>,
+
+    /// Optional. The BigQuery table that BigQuery Agent Analytics trace rows are
+    /// written to. Has no effect unless `bigquery_agent_analytics_enabled` is
+    /// `true`. The Preview enrollment described on that field applies here too.
+    ///
+    /// The trace table is validated when it is set on `CreateDataAgent`, or when
+    /// it is included in the `update_mask` of an `UpdateDataAgent` call. The
+    /// following are rejected with `INVALID_ARGUMENT`:
+    ///
+    /// * The table must belong to the same project as the agent.
+    /// * The agent's datasource must be BigQuery. BigQuery Agent Analytics is not
+    ///   supported for Looker, Looker Studio or AlloyDB agents.
+    ///
+    /// These are validated against the agent as sent in the request. An agent
+    /// that carries no datasource is not validated, and an agent switched to a
+    /// non-BigQuery datasource is not re-validated; in the latter case no trace
+    /// rows are written.
+    ///
+    /// The destination dataset must already exist and must grant write access to
+    /// the project's Gemini Data Analytics service agent, whose address is
+    /// `service-PROJECT_NUMBER@gcp-sa-geminidataanalytics.iam.gserviceaccount.com`
+    /// (that grant is not performed on your behalf). Without it the agent answers
+    /// normally and no trace rows are written.
+    ///
+    /// Changing the table on an existing agent affects subsequent turns only. Rows
+    /// already written to the previous table are left in place.
+    pub bigquery_agent_analytics_table: std::option::Option<crate::model::BigQueryTableReference>,
+
     /// The type of the agent. Can be one of the following:
     ///
     /// * Data analytics agent.
@@ -3740,6 +4453,76 @@ impl DataAgent {
         self
     }
 
+    /// Sets the value of [bigquery_agent_analytics_enabled][crate::model::DataAgent::bigquery_agent_analytics_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DataAgent;
+    /// let x = DataAgent::new().set_bigquery_agent_analytics_enabled(true);
+    /// ```
+    pub fn set_bigquery_agent_analytics_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.bigquery_agent_analytics_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [bigquery_agent_analytics_enabled][crate::model::DataAgent::bigquery_agent_analytics_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DataAgent;
+    /// let x = DataAgent::new().set_or_clear_bigquery_agent_analytics_enabled(Some(false));
+    /// let x = DataAgent::new().set_or_clear_bigquery_agent_analytics_enabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_bigquery_agent_analytics_enabled<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.bigquery_agent_analytics_enabled = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [bigquery_agent_analytics_table][crate::model::DataAgent::bigquery_agent_analytics_table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DataAgent;
+    /// use google_cloud_geminidataanalytics_v1::model::BigQueryTableReference;
+    /// let x = DataAgent::new().set_bigquery_agent_analytics_table(BigQueryTableReference::default()/* use setters */);
+    /// ```
+    pub fn set_bigquery_agent_analytics_table<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BigQueryTableReference>,
+    {
+        self.bigquery_agent_analytics_table = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [bigquery_agent_analytics_table][crate::model::DataAgent::bigquery_agent_analytics_table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::DataAgent;
+    /// use google_cloud_geminidataanalytics_v1::model::BigQueryTableReference;
+    /// let x = DataAgent::new().set_or_clear_bigquery_agent_analytics_table(Some(BigQueryTableReference::default()/* use setters */));
+    /// let x = DataAgent::new().set_or_clear_bigquery_agent_analytics_table(None::<BigQueryTableReference>);
+    /// ```
+    pub fn set_or_clear_bigquery_agent_analytics_table<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::BigQueryTableReference>,
+    {
+        self.bigquery_agent_analytics_table = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [r#type][crate::model::DataAgent::type].
     ///
     /// Note that all the setters affecting `r#type` are mutually
@@ -3851,6 +4634,9 @@ pub struct ListDataAgentsRequest {
     /// Defaults to false.
     pub show_deleted: bool,
 
+    /// Optional. Filter for the creator of the agent.
+    pub creator_filter: crate::model::list_accessible_data_agents_request::CreatorFilter,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3931,6 +4717,26 @@ impl ListDataAgentsRequest {
     /// ```
     pub fn set_show_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.show_deleted = v.into();
+        self
+    }
+
+    /// Sets the value of [creator_filter][crate::model::ListDataAgentsRequest::creator_filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::ListDataAgentsRequest;
+    /// use google_cloud_geminidataanalytics_v1::model::list_accessible_data_agents_request::CreatorFilter;
+    /// let x0 = ListDataAgentsRequest::new().set_creator_filter(CreatorFilter::None);
+    /// let x1 = ListDataAgentsRequest::new().set_creator_filter(CreatorFilter::CreatorOnly);
+    /// let x2 = ListDataAgentsRequest::new().set_creator_filter(CreatorFilter::NotCreatorOnly);
+    /// ```
+    pub fn set_creator_filter<
+        T: std::convert::Into<crate::model::list_accessible_data_agents_request::CreatorFilter>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.creator_filter = v.into();
         self
     }
 }
@@ -4932,6 +5738,357 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
+/// Request for SetAgentOpsObservability.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SetAgentOpsObservabilityRequest {
+    /// Required. Parent value for SetAgentOpsObservabilityRequest.
+    /// Format: projects/{project}/locations/{location}
+    pub parent: std::string::String,
+
+    /// Optional. Whether to enable or disable AgentOps observability.
+    /// When update_mask is provided, this field is ignored unless specified in the
+    /// mask.
+    pub telemetry_enabled: bool,
+
+    /// Required. The data source type for which to set observability settings.
+    /// Examples: "bigquery", "looker"
+    pub data_source_type: std::string::String,
+
+    /// Optional. Whether BigQuery Agent Analytics is enabled.
+    /// Note: An explicit `update_mask` containing "bqaa_enabled" is required to
+    /// modify this field. If `update_mask` is omitted, this field is ignored and
+    /// an existing enabled setting cannot be disabled.
+    ///
+    /// This is a project-level setting and does not by itself enable trace
+    /// logging for any individual agent. Per-agent trace logging is controlled
+    /// by `DataAgent.bigquery_agent_analytics_enabled` together with
+    /// `DataAgent.bigquery_agent_analytics_table`; an agent does not inherit
+    /// this setting.
+    pub bqaa_enabled: bool,
+
+    /// Optional. Field mask is used to specify the fields to be overwritten by the
+    /// update. The fields specified in the update_mask are relative to the
+    /// resource. A field will be overwritten if it is in the mask.
+    ///
+    /// If the user does not provide a mask, only `telemetry_enabled` will be
+    /// updated (for backward compatibility with legacy callers). Note that
+    /// disabling BigQuery Agent Analytics (`bqaa_enabled = false`) requires
+    /// providing an explicit `update_mask` containing "bqaa_enabled".
+    ///
+    /// Per AIP-161:
+    ///
+    /// - The special wildcard value '*' is supported to update all fields.
+    /// - Field paths should use snake_case, though camelCase equivalents
+    ///   (`telemetryEnabled`, `bqaaEnabled`) are accepted for REST/JSON
+    ///   transcoding compatibility.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SetAgentOpsObservabilityRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::SetAgentOpsObservabilityRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::SetAgentOpsObservabilityRequest;
+    /// let x = SetAgentOpsObservabilityRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [telemetry_enabled][crate::model::SetAgentOpsObservabilityRequest::telemetry_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::SetAgentOpsObservabilityRequest;
+    /// let x = SetAgentOpsObservabilityRequest::new().set_telemetry_enabled(true);
+    /// ```
+    pub fn set_telemetry_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.telemetry_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [data_source_type][crate::model::SetAgentOpsObservabilityRequest::data_source_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::SetAgentOpsObservabilityRequest;
+    /// let x = SetAgentOpsObservabilityRequest::new().set_data_source_type("example");
+    /// ```
+    pub fn set_data_source_type<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_source_type = v.into();
+        self
+    }
+
+    /// Sets the value of [bqaa_enabled][crate::model::SetAgentOpsObservabilityRequest::bqaa_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::SetAgentOpsObservabilityRequest;
+    /// let x = SetAgentOpsObservabilityRequest::new().set_bqaa_enabled(true);
+    /// ```
+    pub fn set_bqaa_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.bqaa_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::SetAgentOpsObservabilityRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::SetAgentOpsObservabilityRequest;
+    /// use wkt::FieldMask;
+    /// let x = SetAgentOpsObservabilityRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::SetAgentOpsObservabilityRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::SetAgentOpsObservabilityRequest;
+    /// use wkt::FieldMask;
+    /// let x = SetAgentOpsObservabilityRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = SetAgentOpsObservabilityRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for SetAgentOpsObservabilityRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.geminidataanalytics.v1.SetAgentOpsObservabilityRequest"
+    }
+}
+
+/// Response for SetAgentOpsObservability.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SetAgentOpsObservabilityResponse {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SetAgentOpsObservabilityResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for SetAgentOpsObservabilityResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.geminidataanalytics.v1.SetAgentOpsObservabilityResponse"
+    }
+}
+
+/// Metadata for SetAgentOpsObservability.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SetAgentOpsObservabilityMetadata {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SetAgentOpsObservabilityMetadata {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for SetAgentOpsObservabilityMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.geminidataanalytics.v1.SetAgentOpsObservabilityMetadata"
+    }
+}
+
+/// Request for RetrieveAgentOpsObservability.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RetrieveAgentOpsObservabilityRequest {
+    /// Required. Parent value for RetrieveAgentOpsObservabilityRequest.
+    /// Format: projects/{project}/locations/{location}
+    pub parent: std::string::String,
+
+    /// Required. The data source type for which to retrieve observability
+    /// settings. Examples: "bigquery", "looker"
+    pub data_source_type: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RetrieveAgentOpsObservabilityRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::RetrieveAgentOpsObservabilityRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::RetrieveAgentOpsObservabilityRequest;
+    /// let x = RetrieveAgentOpsObservabilityRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [data_source_type][crate::model::RetrieveAgentOpsObservabilityRequest::data_source_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::RetrieveAgentOpsObservabilityRequest;
+    /// let x = RetrieveAgentOpsObservabilityRequest::new().set_data_source_type("example");
+    /// ```
+    pub fn set_data_source_type<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_source_type = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RetrieveAgentOpsObservabilityRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.geminidataanalytics.v1.RetrieveAgentOpsObservabilityRequest"
+    }
+}
+
+/// Response for RetrieveAgentOpsObservability.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RetrieveAgentOpsObservabilityResponse {
+    /// Output only. Whether AgentOps observability telemetry is enabled.
+    pub telemetry_enabled: bool,
+
+    /// Output only. Whether BigQuery API is enabled.
+    pub bigquery_enabled: bool,
+
+    /// Output only. Whether Cloud Trace API is enabled.
+    pub cloud_trace_enabled: bool,
+
+    /// Output only. Whether Cloud Monitoring API is enabled.
+    pub cloud_monitoring_enabled: bool,
+
+    /// Output only. Whether Cloud Logging API is enabled.
+    pub cloud_logging_enabled: bool,
+
+    /// Output only. Whether BigQuery Agent Analytics is enabled.
+    pub bqaa_enabled: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RetrieveAgentOpsObservabilityResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [telemetry_enabled][crate::model::RetrieveAgentOpsObservabilityResponse::telemetry_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::RetrieveAgentOpsObservabilityResponse;
+    /// let x = RetrieveAgentOpsObservabilityResponse::new().set_telemetry_enabled(true);
+    /// ```
+    pub fn set_telemetry_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.telemetry_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [bigquery_enabled][crate::model::RetrieveAgentOpsObservabilityResponse::bigquery_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::RetrieveAgentOpsObservabilityResponse;
+    /// let x = RetrieveAgentOpsObservabilityResponse::new().set_bigquery_enabled(true);
+    /// ```
+    pub fn set_bigquery_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.bigquery_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [cloud_trace_enabled][crate::model::RetrieveAgentOpsObservabilityResponse::cloud_trace_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::RetrieveAgentOpsObservabilityResponse;
+    /// let x = RetrieveAgentOpsObservabilityResponse::new().set_cloud_trace_enabled(true);
+    /// ```
+    pub fn set_cloud_trace_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.cloud_trace_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [cloud_monitoring_enabled][crate::model::RetrieveAgentOpsObservabilityResponse::cloud_monitoring_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::RetrieveAgentOpsObservabilityResponse;
+    /// let x = RetrieveAgentOpsObservabilityResponse::new().set_cloud_monitoring_enabled(true);
+    /// ```
+    pub fn set_cloud_monitoring_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.cloud_monitoring_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [cloud_logging_enabled][crate::model::RetrieveAgentOpsObservabilityResponse::cloud_logging_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::RetrieveAgentOpsObservabilityResponse;
+    /// let x = RetrieveAgentOpsObservabilityResponse::new().set_cloud_logging_enabled(true);
+    /// ```
+    pub fn set_cloud_logging_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.cloud_logging_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [bqaa_enabled][crate::model::RetrieveAgentOpsObservabilityResponse::bqaa_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_geminidataanalytics_v1::model::RetrieveAgentOpsObservabilityResponse;
+    /// let x = RetrieveAgentOpsObservabilityResponse::new().set_bqaa_enabled(true);
+    /// ```
+    pub fn set_bqaa_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.bqaa_enabled = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RetrieveAgentOpsObservabilityResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.geminidataanalytics.v1.RetrieveAgentOpsObservabilityResponse"
+    }
+}
+
 /// Message describing a DataAnalyticsAgent object.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -5736,7 +6893,8 @@ pub mod chat_request {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ThinkingMode {
-        /// Unspecified thinking mode, agent will use THINKING mode by default.
+        /// Unspecified thinking mode, agent will use THINKING mode by default except
+        /// for BigQuery user defaulting to FAST mode by default.
         Unspecified,
         /// Fast mode, answers quickly.
         Fast,
@@ -5850,7 +7008,7 @@ pub mod chat_request {
         }
     }
 
-    /// Model selection for the agent.
+    /// Model selection for the agent for BigQuery users.
     ///
     /// # Working with unknown values
     ///
@@ -5868,13 +7026,10 @@ pub mod chat_request {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Model {
-        /// No model specified. The default model will be used. Currently, this is
-        /// `gemini-3.0-flash-preview`.
+        /// No model specified. Either preview or non preview model can be used.
         Unspecified,
-        /// Use the most up-to-date non-preview model. Currently, this is
-        /// `gemini-2.5-flash`. This constrains the request level settings. The
-        /// default will change to `gemini-2.5-flash`, and setting `thinking_mode`
-        /// will not be supported.
+        /// Use the most up-to-date non-preview model. This may constrain certain
+        /// request level settings.
         LatestGaModel,
         /// If set, the enum was initialized with an unknown value.
         ///

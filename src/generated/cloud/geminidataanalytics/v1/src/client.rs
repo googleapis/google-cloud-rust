@@ -405,6 +405,63 @@ impl DataAgentService {
         super::builder::data_agent_service::SetIamPolicy::new(self.inner.clone())
     }
 
+    /// Enables/Disables required GCP services and configures AgentOps
+    /// observability settings calling the Admin Settings executable node to
+    /// update the AgentOps Observability feature.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_geminidataanalytics_v1::client::DataAgentService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_geminidataanalytics_v1::Result;
+    /// async fn sample(
+    ///    client: &DataAgentService
+    /// ) -> Result<()> {
+    ///     let response = client.set_agent_ops_observability()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_agent_ops_observability(
+        &self,
+    ) -> super::builder::data_agent_service::SetAgentOpsObservability {
+        super::builder::data_agent_service::SetAgentOpsObservability::new(self.inner.clone())
+    }
+
+    /// Gets AgentOps observability settings and status of required services.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_geminidataanalytics_v1::client::DataAgentService;
+    /// use google_cloud_geminidataanalytics_v1::Result;
+    /// async fn sample(
+    ///    client: &DataAgentService
+    /// ) -> Result<()> {
+    ///     let response = client.retrieve_agent_ops_observability()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn retrieve_agent_ops_observability(
+        &self,
+    ) -> super::builder::data_agent_service::RetrieveAgentOpsObservability {
+        super::builder::data_agent_service::RetrieveAgentOpsObservability::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
     ///
     /// This method lists locations based on the resource scope provided in
@@ -736,6 +793,32 @@ impl DataChatService {
     /// ```
     pub fn delete_conversation(&self) -> super::builder::data_chat_service::DeleteConversation {
         super::builder::data_chat_service::DeleteConversation::new(self.inner.clone())
+    }
+
+    /// Updates a conversation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_geminidataanalytics_v1::client::DataChatService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_geminidataanalytics_v1::model::Conversation;
+    /// use google_cloud_geminidataanalytics_v1::Result;
+    /// async fn sample(
+    ///    client: &DataChatService, project_id: &str, location_id: &str, conversation_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_conversation()
+    ///         .set_conversation(
+    ///             Conversation::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_conversation(&self) -> super::builder::data_chat_service::UpdateConversation {
+        super::builder::data_chat_service::UpdateConversation::new(self.inner.clone())
     }
 
     /// Gets details of a single conversation by using conversation id and parent.

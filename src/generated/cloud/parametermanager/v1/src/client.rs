@@ -384,7 +384,279 @@ impl ParameterManager {
         super::builder::parameter_manager::DeleteParameterVersion::new(self.inner.clone())
     }
 
+    /// Lists Templates in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_templates()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_templates(&self) -> super::builder::parameter_manager::ListTemplates {
+        super::builder::parameter_manager::ListTemplates::new(self.inner.clone())
+    }
+
+    /// Gets details of a single Template.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager, project_id: &str, location_id: &str, template_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_template()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_template(&self) -> super::builder::parameter_manager::GetTemplate {
+        super::builder::parameter_manager::GetTemplate::new(self.inner.clone())
+    }
+
+    /// Creates a new Template in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// use google_cloud_parametermanager_v1::model::Template;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_template()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .set_template_id("template_id_value")
+    ///         .set_template(
+    ///             Template::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_template(&self) -> super::builder::parameter_manager::CreateTemplate {
+        super::builder::parameter_manager::CreateTemplate::new(self.inner.clone())
+    }
+
+    /// Updates a single Template.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_parametermanager_v1::model::Template;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager, project_id: &str, location_id: &str, template_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_template()
+    ///         .set_template(
+    ///             Template::new().set_name(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_template(&self) -> super::builder::parameter_manager::UpdateTemplate {
+        super::builder::parameter_manager::UpdateTemplate::new(self.inner.clone())
+    }
+
+    /// Deletes a single Template.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager, project_id: &str, location_id: &str, template_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_template()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}"))
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_template(&self) -> super::builder::parameter_manager::DeleteTemplate {
+        super::builder::parameter_manager::DeleteTemplate::new(self.inner.clone())
+    }
+
+    /// Lists TemplateVersions in a given project, location, and template.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager, project_id: &str, location_id: &str, template_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_template_versions()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_template_versions(
+        &self,
+    ) -> super::builder::parameter_manager::ListTemplateVersions {
+        super::builder::parameter_manager::ListTemplateVersions::new(self.inner.clone())
+    }
+
+    /// Gets details of a single TemplateVersion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager, project_id: &str, location_id: &str, template_id: &str, template_version_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_template_version()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}/versions/{template_version_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_template_version(&self) -> super::builder::parameter_manager::GetTemplateVersion {
+        super::builder::parameter_manager::GetTemplateVersion::new(self.inner.clone())
+    }
+
+    /// Creates a new TemplateVersion in a given project, location, and template.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// use google_cloud_parametermanager_v1::model::TemplateVersion;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager, project_id: &str, location_id: &str, template_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_template_version()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}"))
+    ///         .set_template_version(
+    ///             TemplateVersion::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_template_version(
+        &self,
+    ) -> super::builder::parameter_manager::CreateTemplateVersion {
+        super::builder::parameter_manager::CreateTemplateVersion::new(self.inner.clone())
+    }
+
+    /// Updates a single TemplateVersion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_parametermanager_v1::model::TemplateVersion;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager, project_id: &str, location_id: &str, template_id: &str, template_version_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_template_version()
+    ///         .set_template_version(
+    ///             TemplateVersion::new().set_name(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}/versions/{template_version_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_template_version(
+        &self,
+    ) -> super::builder::parameter_manager::UpdateTemplateVersion {
+        super::builder::parameter_manager::UpdateTemplateVersion::new(self.inner.clone())
+    }
+
+    /// Deletes a single TemplateVersion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager, project_id: &str, location_id: &str, template_id: &str, template_version_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_template_version()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}/versions/{template_version_id}"))
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_template_version(
+        &self,
+    ) -> super::builder::parameter_manager::DeleteTemplateVersion {
+        super::builder::parameter_manager::DeleteTemplateVersion::new(self.inner.clone())
+    }
+
+    /// Gets rendered version of a TemplateVersion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager
+    /// ) -> Result<()> {
+    ///     let response = client.render_template_version()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn render_template_version(
+        &self,
+    ) -> super::builder::parameter_manager::RenderTemplateVersion {
+        super::builder::parameter_manager::RenderTemplateVersion::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```

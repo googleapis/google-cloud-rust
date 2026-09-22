@@ -1606,6 +1606,10 @@ impl std::fmt::Debug for super::Table {
         debug_struct.field("restore_info", &self.restore_info);
         debug_struct.field("change_stream_config", &self.change_stream_config);
         debug_struct.field("deletion_protection", &self.deletion_protection);
+        debug_struct.field(
+            "effective_automated_backup_policy",
+            &self.effective_automated_backup_policy,
+        );
         debug_struct.field("tiered_storage_config", &self.tiered_storage_config);
         debug_struct.field("row_key_schema", &self.row_key_schema);
         debug_struct.field("automated_backup_config", &self.automated_backup_config);
@@ -1634,6 +1638,8 @@ impl std::fmt::Debug for super::table::AutomatedBackupPolicy {
         debug_struct.field("retention_period", &self.retention_period);
         debug_struct.field("frequency", &self.frequency);
         debug_struct.field("locations", &self.locations);
+        debug_struct.field("keep_hot_duration", &self.keep_hot_duration);
+        debug_struct.field("disabled", &self.disabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

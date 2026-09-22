@@ -332,6 +332,70 @@ impl serde::ser::Serialize for super::LookerGoldenQuery {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::DynamicField {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.category.is_some() {
+            state.serialize_entry("category", &self.category)?;
+        }
+        if self.name.is_some() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.label.is_some() {
+            state.serialize_entry("label", &self.label)?;
+        }
+        if self.based_on.is_some() {
+            state.serialize_entry("basedOn", &self.based_on)?;
+        }
+        if self.r#type.is_some() {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if self.description.is_some() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if self.expression.is_some() {
+            state.serialize_entry("expression", &self.expression)?;
+        }
+        if self.filter_expression.is_some() {
+            state.serialize_entry("filterExpression", &self.filter_expression)?;
+        }
+        if self.value_format.is_some() {
+            state.serialize_entry("valueFormat", &self.value_format)?;
+        }
+        if self.value_format_name.is_some() {
+            state.serialize_entry("valueFormatName", &self.value_format_name)?;
+        }
+        if self.calculation_type.is_some() {
+            state.serialize_entry("calculationType", &self.calculation_type)?;
+        }
+        if !self.args.is_empty() {
+            state.serialize_entry("args", &self.args)?;
+        }
+        if self.kind_hint.is_some() {
+            state.serialize_entry("kindHint", &self.kind_hint)?;
+        }
+        if self.type_hint.is_some() {
+            state.serialize_entry("typeHint", &self.type_hint)?;
+        }
+        if self.is_disabled.is_some() {
+            state.serialize_entry("isDisabled", &self.is_disabled)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::LookerQuery {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -358,6 +422,9 @@ impl serde::ser::Serialize for super::LookerQuery {
         }
         if self.limit.is_some() {
             state.serialize_entry("limit", &self.limit)?;
+        }
+        if !self.dynamic_fields.is_empty() {
+            state.serialize_entry("dynamicFields", &self.dynamic_fields)?;
         }
         if self.query_id.is_some() {
             state.serialize_entry("queryId", &self.query_id)?;
@@ -699,11 +766,11 @@ impl serde::ser::Serialize for super::Conversation {
         if !self.labels.is_empty() {
             state.serialize_entry("labels", &self.labels)?;
         }
+        if !self.title.is_empty() {
+            state.serialize_entry("title", &self.title)?;
+        }
         if self.kms_key.is_some() {
             state.serialize_entry("kmsKey", &self.kms_key)?;
-        }
-        if self.memory_paused.is_some() {
-            state.serialize_entry("memoryPaused", &self.memory_paused)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -732,6 +799,34 @@ impl serde::ser::Serialize for super::CreateConversationRequest {
         }
         if self.conversation.is_some() {
             state.serialize_entry("conversation", &self.conversation)?;
+        }
+        if !self.request_id.is_empty() {
+            state.serialize_entry("requestId", &self.request_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::UpdateConversationRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.conversation.is_some() {
+            state.serialize_entry("conversation", &self.conversation)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
         }
         if !self.request_id.is_empty() {
             state.serialize_entry("requestId", &self.request_id)?;
@@ -988,6 +1083,18 @@ impl serde::ser::Serialize for super::DataAgent {
         if self.kms_key.is_some() {
             state.serialize_entry("kmsKey", &self.kms_key)?;
         }
+        if self.bigquery_agent_analytics_enabled.is_some() {
+            state.serialize_entry(
+                "bigqueryAgentAnalyticsEnabled",
+                &self.bigquery_agent_analytics_enabled,
+            )?;
+        }
+        if self.bigquery_agent_analytics_table.is_some() {
+            state.serialize_entry(
+                "bigqueryAgentAnalyticsTable",
+                &self.bigquery_agent_analytics_table,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1033,6 +1140,9 @@ impl serde::ser::Serialize for super::ListDataAgentsRequest {
         }
         if !wkt::internal::is_default(&self.show_deleted) {
             state.serialize_entry("showDeleted", &self.show_deleted)?;
+        }
+        if !wkt::internal::is_default(&self.creator_filter) {
+            state.serialize_entry("creatorFilter", &self.creator_filter)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1284,6 +1394,140 @@ impl serde::ser::Serialize for super::OperationMetadata {
         }
         if !self.api_version.is_empty() {
             state.serialize_entry("apiVersion", &self.api_version)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SetAgentOpsObservabilityRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.telemetry_enabled) {
+            state.serialize_entry("telemetryEnabled", &self.telemetry_enabled)?;
+        }
+        if !self.data_source_type.is_empty() {
+            state.serialize_entry("dataSourceType", &self.data_source_type)?;
+        }
+        if !wkt::internal::is_default(&self.bqaa_enabled) {
+            state.serialize_entry("bqaaEnabled", &self.bqaa_enabled)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SetAgentOpsObservabilityResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SetAgentOpsObservabilityMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::RetrieveAgentOpsObservabilityRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.data_source_type.is_empty() {
+            state.serialize_entry("dataSourceType", &self.data_source_type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::RetrieveAgentOpsObservabilityResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.telemetry_enabled) {
+            state.serialize_entry("telemetryEnabled", &self.telemetry_enabled)?;
+        }
+        if !wkt::internal::is_default(&self.bigquery_enabled) {
+            state.serialize_entry("bigqueryEnabled", &self.bigquery_enabled)?;
+        }
+        if !wkt::internal::is_default(&self.cloud_trace_enabled) {
+            state.serialize_entry("cloudTraceEnabled", &self.cloud_trace_enabled)?;
+        }
+        if !wkt::internal::is_default(&self.cloud_monitoring_enabled) {
+            state.serialize_entry("cloudMonitoringEnabled", &self.cloud_monitoring_enabled)?;
+        }
+        if !wkt::internal::is_default(&self.cloud_logging_enabled) {
+            state.serialize_entry("cloudLoggingEnabled", &self.cloud_logging_enabled)?;
+        }
+        if !wkt::internal::is_default(&self.bqaa_enabled) {
+            state.serialize_entry("bqaaEnabled", &self.bqaa_enabled)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

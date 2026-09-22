@@ -4,7 +4,7 @@
 
 Compute Engine is an infrastructure as a service (IaaS) product that offers self-managed virtual machine (VM) instances and bare metal instances.
 
-This client library was generated from the "20260908" revision of the API.
+This client library was generated from the "20260910" revision of the API.
 
 The client library types and functions are stable and not expected to change.
 Please note that Google Cloud services do change from time to time. The client
@@ -32,6 +32,7 @@ The main types to work with this crate are the clients:
 - [FutureReservations]: enabled by the `future-reservations` feature.
 - [GlobalAddresses]: enabled by the `global-addresses` feature.
 - [GlobalForwardingRules]: enabled by the `global-forwarding-rules` feature.
+- [GlobalFrontendSettings]: enabled by the `global-frontend-settings` feature.
 - [GlobalNetworkEndpointGroups]: enabled by the `global-network-endpoint-groups` feature.
 - [GlobalOperations]: enabled by the `global-operations` feature.
 - [GlobalOrganizationOperations]: enabled by the `global-organization-operations` feature.
@@ -42,6 +43,7 @@ The main types to work with this crate are the clients:
 - [HttpHealthChecks]: enabled by the `http-health-checks` feature.
 - [HttpsHealthChecks]: enabled by the `https-health-checks` feature.
 - [ImageFamilyViews]: enabled by the `image-family-views` feature.
+- [ImageViews]: enabled by the `image-views` feature.
 - [Images]: enabled by the `images` feature.
 - [InstanceGroupManagerResizeRequests]: enabled by the `instance-group-manager-resize-requests` feature.
 - [InstanceGroupManagers]: enabled by the `instance-group-managers` feature.
@@ -61,6 +63,7 @@ The main types to work with this crate are the clients:
 - [Licenses]: enabled by the `licenses` feature.
 - [MachineImages]: enabled by the `machine-images` feature.
 - [MachineTypes]: enabled by the `machine-types` feature.
+- [ManagedRulesets]: enabled by the `managed-rulesets` feature.
 - [NetworkAttachments]: enabled by the `network-attachments` feature.
 - [NetworkEdgeSecurityServices]: enabled by the `network-edge-security-services` feature.
 - [NetworkEndpointGroups]: enabled by the `network-endpoint-groups` feature.
@@ -177,6 +180,7 @@ The main types to work with this crate are the clients:
 [FutureReservations]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.FutureReservations.html
 [GlobalAddresses]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.GlobalAddresses.html
 [GlobalForwardingRules]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.GlobalForwardingRules.html
+[GlobalFrontendSettings]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.GlobalFrontendSettings.html
 [GlobalNetworkEndpointGroups]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.GlobalNetworkEndpointGroups.html
 [GlobalOperations]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.GlobalOperations.html
 [GlobalOrganizationOperations]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.GlobalOrganizationOperations.html
@@ -187,6 +191,7 @@ The main types to work with this crate are the clients:
 [HttpHealthChecks]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.HttpHealthChecks.html
 [HttpsHealthChecks]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.HttpsHealthChecks.html
 [ImageFamilyViews]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.ImageFamilyViews.html
+[ImageViews]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.ImageViews.html
 [Images]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.Images.html
 [InstanceGroupManagerResizeRequests]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.InstanceGroupManagerResizeRequests.html
 [InstanceGroupManagers]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.InstanceGroupManagers.html
@@ -206,6 +211,7 @@ The main types to work with this crate are the clients:
 [Licenses]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.Licenses.html
 [MachineImages]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.MachineImages.html
 [MachineTypes]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.MachineTypes.html
+[ManagedRulesets]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.ManagedRulesets.html
 [NetworkAttachments]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.NetworkAttachments.html
 [NetworkEdgeSecurityServices]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.NetworkEdgeSecurityServices.html
 [NetworkEndpointGroups]: https://docs.rs/google-cloud-compute-v1/3.5.0/google_cloud_compute_v1/client/struct.NetworkEndpointGroups.html

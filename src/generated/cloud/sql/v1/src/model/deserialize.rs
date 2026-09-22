@@ -2670,6 +2670,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlDatabasesDeleteRequest {
             __database,
             __instance,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2693,6 +2694,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlDatabasesDeleteRequest {
                             "database" => Ok(__FieldTag::__database),
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2748,6 +2750,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlDatabasesDeleteRequest {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2774,6 +2786,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlDatabasesGetRequest {
             __database,
             __instance,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2797,6 +2810,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlDatabasesGetRequest {
                             "database" => Ok(__FieldTag::__database),
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2852,6 +2866,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlDatabasesGetRequest {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2878,6 +2902,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlDatabasesInsertRequest {
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2901,6 +2926,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlDatabasesInsertRequest {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2955,6 +2981,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlDatabasesInsertRequest {
                             result.body =
                                 map.next_value::<std::option::Option<crate::model::Database>>()?;
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2980,6 +3016,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlDatabasesListRequest {
         enum __FieldTag {
             __instance,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3002,6 +3039,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlDatabasesListRequest {
                         match value {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3047,6 +3085,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlDatabasesListRequest {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -3074,6 +3122,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlDatabasesUpdateRequest {
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3098,6 +3147,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlDatabasesUpdateRequest {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3161,6 +3211,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlDatabasesUpdateRequest {
                             }
                             result.body =
                                 map.next_value::<std::option::Option<crate::model::Database>>()?;
+                        }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3754,6 +3814,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesAddServerCaRequest 
         enum __FieldTag {
             __instance,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3776,6 +3837,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesAddServerCaRequest 
                         match value {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3821,6 +3883,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesAddServerCaRequest 
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -3846,6 +3918,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesAddServerCertificat
         enum __FieldTag {
             __instance,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3869,6 +3942,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesAddServerCertificat
                         match value {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3914,6 +3988,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesAddServerCertificat
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -3939,6 +4023,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesAddEntraIdCertifica
         enum __FieldTag {
             __instance,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3962,6 +4047,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesAddEntraIdCertifica
                         match value {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4007,6 +4093,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesAddEntraIdCertifica
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -4033,6 +4129,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesCloneRequest {
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4056,6 +4153,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesCloneRequest {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4110,6 +4208,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesCloneRequest {
                             result.body = map.next_value::<std::option::Option<crate::model::InstancesCloneRequest>>()?
                                 ;
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -4139,6 +4247,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesDeleteRequest {
             __final_backup_ttl_days,
             __final_backup_expiry_time,
             __final_backup_description,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4173,6 +4282,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesDeleteRequest {
                             "final_backup_description" => {
                                 Ok(__FieldTag::__final_backup_description)
                             }
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4282,6 +4392,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesDeleteRequest {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -4308,6 +4428,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesDemoteMasterRequest
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4331,6 +4452,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesDemoteMasterRequest
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4385,6 +4507,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesDemoteMasterRequest
                             result.body = map.next_value::<std::option::Option<crate::model::InstancesDemoteMasterRequest>>()?
                                 ;
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -4411,6 +4543,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesDemoteRequest {
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4434,6 +4567,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesDemoteRequest {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4488,6 +4622,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesDemoteRequest {
                             result.body = map.next_value::<std::option::Option<crate::model::InstancesDemoteRequest>>()?
                                 ;
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -4514,6 +4658,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesExportRequest {
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4537,6 +4682,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesExportRequest {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4591,6 +4737,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesExportRequest {
                             result.body = map.next_value::<std::option::Option<crate::model::InstancesExportRequest>>()?
                                 ;
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -4617,6 +4773,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesFailoverRequest {
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4640,6 +4797,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesFailoverRequest {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4694,6 +4852,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesFailoverRequest {
                             result.body = map.next_value::<std::option::Option<crate::model::InstancesFailoverRequest>>()?
                                 ;
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -4719,6 +4887,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesGetRequest {
         enum __FieldTag {
             __instance,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4741,6 +4910,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesGetRequest {
                         match value {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4786,6 +4956,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesGetRequest {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -4812,6 +4992,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesImportRequest {
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4835,6 +5016,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesImportRequest {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4889,6 +5071,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesImportRequest {
                             result.body = map.next_value::<std::option::Option<crate::model::InstancesImportRequest>>()?
                                 ;
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -4914,6 +5106,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesInsertRequest {
         enum __FieldTag {
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4936,6 +5129,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesInsertRequest {
                         match value {
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4981,6 +5175,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesInsertRequest {
                                 .next_value::<std::option::Option<crate::model::DatabaseInstance>>(
                                 )?;
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -5008,6 +5212,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesListRequest {
             __max_results,
             __page_token,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5034,6 +5239,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesListRequest {
                             "pageToken" => Ok(__FieldTag::__page_token),
                             "page_token" => Ok(__FieldTag::__page_token),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5108,6 +5314,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesListRequest {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -5133,6 +5349,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesListServerCasReques
         enum __FieldTag {
             __instance,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5155,6 +5372,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesListServerCasReques
                         match value {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5200,6 +5418,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesListServerCasReques
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -5225,6 +5453,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesListServerCertifica
         enum __FieldTag {
             __instance,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5248,6 +5477,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesListServerCertifica
                         match value {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5293,6 +5523,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesListServerCertifica
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -5318,6 +5558,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesListEntraIdCertific
         enum __FieldTag {
             __instance,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5342,6 +5583,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesListEntraIdCertific
                         match value {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5387,6 +5629,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesListEntraIdCertific
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -5415,6 +5667,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesPatchRequest {
             __reconcile_psc_networking,
             __reconcile_psc_networking_force,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5448,6 +5701,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesPatchRequest {
                                 Ok(__FieldTag::__reconcile_psc_networking_force)
                             }
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5521,6 +5775,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesPatchRequest {
                                 .next_value::<std::option::Option<crate::model::DatabaseInstance>>(
                                 )?;
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -5547,6 +5811,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesPromoteReplicaReque
             __instance,
             __project,
             __failover,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5570,6 +5835,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesPromoteReplicaReque
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "failover" => Ok(__FieldTag::__failover),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5625,6 +5891,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesPromoteReplicaReque
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -5651,6 +5927,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesSwitchoverRequest {
             __instance,
             __project,
             __db_timeout,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5675,6 +5952,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesSwitchoverRequest {
                             "project" => Ok(__FieldTag::__project),
                             "dbTimeout" => Ok(__FieldTag::__db_timeout),
                             "db_timeout" => Ok(__FieldTag::__db_timeout),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5729,6 +6007,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesSwitchoverRequest {
                             result.db_timeout =
                                 map.next_value::<std::option::Option<wkt::Duration>>()?;
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -5755,6 +6043,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesResetSslConfigReque
             __instance,
             __project,
             __mode,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5778,6 +6067,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesResetSslConfigReque
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "mode" => Ok(__FieldTag::__mode),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5831,6 +6121,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesResetSslConfigReque
                             }
                             result.mode = map.next_value::<std::option::Option<crate::model::sql_instances_reset_ssl_config_request::ResetSslMode>>()?.unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -5856,6 +6156,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesRestartRequest {
         enum __FieldTag {
             __instance,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5878,6 +6179,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesRestartRequest {
                         match value {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5923,6 +6225,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesRestartRequest {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -5949,6 +6261,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesRestoreBackupReques
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5972,6 +6285,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesRestoreBackupReques
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6028,6 +6342,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesRestoreBackupReques
                                     crate::model::InstancesRestoreBackupRequest,
                                 >>()?;
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -6054,6 +6378,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesRotateServerCaReque
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6077,6 +6402,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesRotateServerCaReque
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6133,6 +6459,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesRotateServerCaReque
                                     crate::model::InstancesRotateServerCaRequest,
                                 >>()?;
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -6159,6 +6495,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesRotateServerCertifi
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6184,6 +6521,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesRotateServerCertifi
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6239,6 +6577,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesRotateServerCertifi
                                 crate::model::InstancesRotateServerCertificateRequest,
                             >>()?;
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -6265,6 +6613,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesRotateEntraIdCertif
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6290,6 +6639,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesRotateEntraIdCertif
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6345,6 +6695,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesRotateEntraIdCertif
                                 crate::model::InstancesRotateEntraIdCertificateRequest,
                             >>()?;
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -6370,6 +6730,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesStartReplicaRequest
         enum __FieldTag {
             __instance,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6392,6 +6753,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesStartReplicaRequest
                         match value {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6437,6 +6799,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesStartReplicaRequest
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -6462,6 +6834,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesStopReplicaRequest 
         enum __FieldTag {
             __instance,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6484,6 +6857,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesStopReplicaRequest 
                         match value {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6529,6 +6903,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesStopReplicaRequest 
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -6555,6 +6939,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesTruncateLogRequest 
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6578,6 +6963,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesTruncateLogRequest 
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6632,6 +7018,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesTruncateLogRequest 
                             result.body = map.next_value::<std::option::Option<crate::model::InstancesTruncateLogRequest>>()?
                                 ;
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -6658,6 +7054,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesPerformDiskShrinkRe
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6681,6 +7078,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesPerformDiskShrinkRe
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6735,6 +7133,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesPerformDiskShrinkRe
                             result.body = map.next_value::<std::option::Option<crate::model::PerformDiskShrinkContext>>()?
                                 ;
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -6761,6 +7169,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesUpdateRequest {
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6784,6 +7193,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesUpdateRequest {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6839,6 +7249,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesUpdateRequest {
                                 .next_value::<std::option::Option<crate::model::DatabaseInstance>>(
                                 )?;
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -6865,6 +7285,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesRescheduleMaintenan
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6889,6 +7310,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesRescheduleMaintenan
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6944,6 +7366,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesRescheduleMaintenan
                                 crate::model::SqlInstancesRescheduleMaintenanceRequestBody,
                             >>()?;
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -6970,6 +7402,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesReencryptRequest {
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6993,6 +7426,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesReencryptRequest {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -7046,6 +7480,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesReencryptRequest {
                             }
                             result.body = map.next_value::<std::option::Option<crate::model::InstancesReencryptRequest>>()?
                                 ;
+                        }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -7339,6 +7783,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesGetDiskShrinkConfig
         enum __FieldTag {
             __instance,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -7362,6 +7807,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesGetDiskShrinkConfig
                         match value {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -7407,6 +7853,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesGetDiskShrinkConfig
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -7439,6 +7895,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesVerifyExternalSyncS
             __migration_type,
             __sync_parallel_level,
             __selected_objects,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -7477,6 +7934,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesVerifyExternalSyncS
                             "sync_parallel_level" => Ok(__FieldTag::__sync_parallel_level),
                             "selectedObjects" => Ok(__FieldTag::__selected_objects),
                             "selected_objects" => Ok(__FieldTag::__selected_objects),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -7595,6 +8053,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesVerifyExternalSyncS
                                 >>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -7626,6 +8094,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesStartExternalSyncRe
             __sync_parallel_level,
             __migration_type,
             __replica_overwrite_enabled,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -7664,6 +8133,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesStartExternalSyncRe
                             "replica_overwrite_enabled" => {
                                 Ok(__FieldTag::__replica_overwrite_enabled)
                             }
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -7770,6 +8240,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesStartExternalSyncRe
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -7795,6 +8275,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesResetReplicaSizeReq
         enum __FieldTag {
             __instance,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -7817,6 +8298,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesResetReplicaSizeReq
                         match value {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -7862,6 +8344,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesResetReplicaSizeReq
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -7888,6 +8380,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesCreateEphemeralCert
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -7912,6 +8405,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesCreateEphemeralCert
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -7967,6 +8461,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesCreateEphemeralCert
                                 map.next_value::<std::option::Option<
                                     crate::model::SslCertsCreateEphemeralRequest,
                                 >>()?;
+                        }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -9655,6 +10159,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesPreCheckMajorVersio
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -9680,6 +10185,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesPreCheckMajorVersio
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -9734,6 +10240,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesPreCheckMajorVersio
                             result.body = map.next_value::<std::option::Option<
                                 crate::model::InstancesPreCheckMajorVersionUpgradeRequest,
                             >>()?;
+                        }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -9987,6 +10503,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesGetLatestRecoveryTi
             __instance,
             __project,
             __source_instance_deletion_time,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -10016,6 +10533,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesGetLatestRecoveryTi
                             "source_instance_deletion_time" => {
                                 Ok(__FieldTag::__source_instance_deletion_time)
                             }
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -10069,6 +10587,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesGetLatestRecoveryTi
                             }
                             result.source_instance_deletion_time =
                                 map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -10797,6 +11325,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DatabaseInstance {
             __nodes,
             __dns_names,
             __database_center_integration_enabled,
+            __database_center_integration,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -10953,6 +11482,12 @@ impl<'de> serde::de::Deserialize<'de> for super::DatabaseInstance {
                             }
                             "database_center_integration_enabled" => {
                                 Ok(__FieldTag::__database_center_integration_enabled)
+                            }
+                            "databaseCenterIntegration" => {
+                                Ok(__FieldTag::__database_center_integration)
+                            }
+                            "database_center_integration" => {
+                                Ok(__FieldTag::__database_center_integration)
                             }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -11519,6 +12054,17 @@ impl<'de> serde::de::Deserialize<'de> for super::DatabaseInstance {
                             }
                             result.database_center_integration_enabled =
                                 map.next_value::<std::option::Option<wkt::BoolValue>>()?;
+                        }
+                        __FieldTag::__database_center_integration => {
+                            if !fields.insert(__FieldTag::__database_center_integration) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for database_center_integration",
+                                ));
+                            }
+                            result.database_center_integration = map
+                                .next_value::<std::option::Option<
+                                    crate::model::database_instance::DatabaseCenterIntegration,
+                                >>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -13925,6 +14471,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesExecuteSqlRequest {
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -13948,6 +14495,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesExecuteSqlRequest {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -14002,6 +14550,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesExecuteSqlRequest {
                             result.body = map
                                 .next_value::<std::option::Option<crate::model::ExecuteSqlPayload>>(
                                 )?;
+                        }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -14903,6 +15461,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesAcquireSsrsLeaseReq
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -14926,6 +15485,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesAcquireSsrsLeaseReq
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -14980,6 +15540,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesAcquireSsrsLeaseReq
                             result.body = map.next_value::<std::option::Option<
                                 crate::model::InstancesAcquireSsrsLeaseRequest,
                             >>()?;
+                        }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -15087,6 +15657,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesReleaseSsrsLeaseReq
         enum __FieldTag {
             __instance,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -15109,6 +15680,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesReleaseSsrsLeaseReq
                         match value {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -15151,6 +15723,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlInstancesReleaseSsrsLeaseReq
                                 ));
                             }
                             result.project = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
@@ -25776,6 +26358,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlUsersDeleteRequest {
             __instance,
             __name,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -25800,6 +26383,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlUsersDeleteRequest {
                             "instance" => Ok(__FieldTag::__instance),
                             "name" => Ok(__FieldTag::__name),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -25865,6 +26449,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlUsersDeleteRequest {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -25892,6 +26486,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlUsersGetRequest {
             __name,
             __project,
             __host,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -25916,6 +26511,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlUsersGetRequest {
                             "name" => Ok(__FieldTag::__name),
                             "project" => Ok(__FieldTag::__project),
                             "host" => Ok(__FieldTag::__host),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -25981,6 +26577,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlUsersGetRequest {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -26007,6 +26613,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlUsersInsertRequest {
             __instance,
             __project,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -26030,6 +26637,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlUsersInsertRequest {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -26084,6 +26692,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlUsersInsertRequest {
                             result.body =
                                 map.next_value::<std::option::Option<crate::model::User>>()?;
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -26109,6 +26727,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlUsersListRequest {
         enum __FieldTag {
             __instance,
             __project,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -26131,6 +26750,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlUsersListRequest {
                         match value {
                             "instance" => Ok(__FieldTag::__instance),
                             "project" => Ok(__FieldTag::__project),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -26176,6 +26796,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlUsersListRequest {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -26208,6 +26838,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlUsersUpdateRequest {
             __server_roles,
             __revoke_existing_server_roles,
             __body,
+            __location,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -26245,6 +26876,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlUsersUpdateRequest {
                                 Ok(__FieldTag::__revoke_existing_server_roles)
                             }
                             "body" => Ok(__FieldTag::__body),
+                            "location" => Ok(__FieldTag::__location),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -26352,6 +26984,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SqlUsersUpdateRequest {
                             }
                             result.body =
                                 map.next_value::<std::option::Option<crate::model::User>>()?;
+                        }
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

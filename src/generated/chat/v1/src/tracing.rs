@@ -406,6 +406,48 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_message_pins(
+        &self,
+        req: crate::model::ListMessagePinsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListMessagePinsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ChatService::list_message_pins",
+            self.inner.list_message_pins(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_message_pin(
+        &self,
+        req: crate::model::CreateMessagePinRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::MessagePin>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ChatService::create_message_pin",
+            self.inner.create_message_pin(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_message_pin(
+        &self,
+        req: crate::model::DeleteMessagePinRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ChatService::delete_message_pin",
+            self.inner.delete_message_pin(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_custom_emoji(
         &self,
         req: crate::model::CreateCustomEmojiRequest,
