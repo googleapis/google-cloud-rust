@@ -220,6 +220,28 @@ impl FromSql for Interval {
     }
 }
 
+mod sealed {
+    /// A sealed trait to prevent external implementation of `RangeElement`.
+    pub trait RangeElement {}
+
+    impl RangeElement for google_cloud_type::model::Date {}
+    impl RangeElement for google_cloud_type::model::DateTime {}
+    impl RangeElement for wkt::Timestamp {}
+}
+
+/// A marker trait for types that can be elements of a BigQuery [`Range`].
+///
+/// BigQuery `RANGE<T>` values support [`Date`](google_cloud_type::model::Date),
+/// [`DateTime`](google_cloud_type::model::DateTime), and [`Timestamp`](wkt::Timestamp)
+/// element types.
+///
+/// This trait is sealed and cannot be implemented for types outside of this crate.
+pub trait RangeElement: FromSql + sealed::RangeElement {}
+
+impl RangeElement for google_cloud_type::model::Date {}
+impl RangeElement for google_cloud_type::model::DateTime {}
+impl RangeElement for wkt::Timestamp {}
+
 /// Represents a BigQuery [RANGE] value.
 ///
 /// [RANGE]: https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/data-types#range_type
@@ -251,20 +273,20 @@ impl FromSql for Interval {
 /// ```
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
-pub struct Range<T> {
+pub struct Range<T: RangeElement> {
     /// The inclusive start of the range (or None if unbounded).
     pub start: Option<T>,
     /// The exclusive end of the range (or None if unbounded).
     pub end: Option<T>,
 }
 
-impl<T> Default for Range<T> {
+impl<T: RangeElement> Default for Range<T> {
     fn default() -> Self {
         Self::new()
     }
 }
 
-impl<T> Range<T> {
+impl<T: RangeElement> Range<T> {
     /// Creates a new unbounded range (`[UNBOUNDED, UNBOUNDED)`).
     pub fn new() -> Self {
         Self {
@@ -298,7 +320,7 @@ impl<T> Range<T> {
     }
 }
 
-impl<T: FromSql> FromSql for Range<T> {
+impl<T: RangeElement> FromSql for Range<T> {
     fn from_value(value: crate::query::SqlValue) -> Result<Self, ConvertError> {
         match value.inner {
             SqlValueInner::String(s) => {
@@ -419,6 +441,20 @@ mod tests {
         FromSql::from_value(crate::query::SqlValue::new(value)).map_err(TestConvertError::from)
     }
 
+    #[test_case(wkt::Value::String("[2026-05-28T15:30:00, 2026-05-29T15:30:00)".to_string()) => Ok(Range { start: Some(google_cloud_type::model::DateTime::new().set_year(2026).set_month(5).set_day(28).set_hours(15).set_minutes(30).set_seconds(0).set_nanos(0)), end: Some(google_cloud_type::model::DateTime::new().set_year(2026).set_month(5).set_day(29).set_hours(15).set_minutes(30).set_seconds(0).set_nanos(0)) }) ; "datetime range bounded")]
+    fn test_from_sql_datetime_range(
+        value: wkt::Value,
+    ) -> Result<Range<google_cloud_type::model::DateTime>, TestConvertError> {
+        FromSql::from_value(crate::query::SqlValue::new(value)).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::String("[1779982200000000, UNBOUNDED)".to_string()) => Ok(Range { start: Some(wkt::Timestamp::new(1779982200, 0).unwrap()), end: None }) ; "timestamp range unbounded end")]
+    fn test_from_sql_timestamp_range(
+        value: wkt::Value,
+    ) -> Result<Range<wkt::Timestamp>, TestConvertError> {
+        FromSql::from_value(crate::query::SqlValue::new(value)).map_err(TestConvertError::from)
+    }
+
     #[test]
     fn test_interval_setters() {
         let interval = Interval::new()
@@ -445,21 +481,38 @@ mod tests {
 
     #[test]
     fn test_range_setters() {
-        let range = Range::<i32>::new().set_start(10).set_end(20);
+        let d1 = google_cloud_type::model::Date::new()
+            .set_year(2026)
+            .set_month(5)
+            .set_day(28);
+        let d2 = google_cloud_type::model::Date::new()
+            .set_year(2026)
+            .set_month(5)
+            .set_day(29);
+        let d3 = google_cloud_type::model::Date::new()
+            .set_year(2026)
+            .set_month(5)
+            .set_day(30);
+
+        let range = Range::<google_cloud_type::model::Date>::new()
+            .set_start(d1.clone())
+            .set_end(d2.clone());
         assert_eq!(
             range,
             Range {
-                start: Some(10),
-                end: Some(20),
+                start: Some(d1),
+                end: Some(d2),
             }
         );
 
-        let cleared = range.set_or_clear_start(None).set_or_clear_end(Some(30));
+        let cleared = range
+            .set_or_clear_start(None)
+            .set_or_clear_end(Some(d3.clone()));
         assert_eq!(
             cleared,
             Range {
                 start: None,
-                end: Some(30),
+                end: Some(d3),
             }
         );
     }
