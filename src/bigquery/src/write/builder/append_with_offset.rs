@@ -279,4 +279,18 @@ mod tests {
             .expect_err("should return unexpected end of stream");
         assert!(matches!(err, AppendError::UnexpectedEndOfStream));
     }
+
+    #[tokio::test]
+    async fn send_serialization_error() {
+        use crate::model::append_rows_request::MissingValueInterpretation;
+
+        let (req_tx, _req_rx) = mpsc::unbounded_channel();
+        let invalid: MissingValueInterpretation = serde_json::from_str("\"INVALID\"").unwrap();
+        let req = AppendRowsRequest::new().set_default_missing_value_interpretation(invalid);
+        let builder = AppendWithOffset::new(req_tx, req).set_offset(100);
+        let future = builder.send();
+
+        let err = future.await.expect_err("should return serialization error");
+        assert!(matches!(err, AppendError::Rpc { .. }));
+    }
 }

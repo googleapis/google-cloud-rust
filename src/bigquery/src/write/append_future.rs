@@ -138,4 +138,14 @@ mod tests {
         let err = future.await.expect_err("should return error");
         assert!(matches!(err, AppendError::UnexpectedEndOfStream));
     }
+
+    #[test]
+    fn debug_format() {
+        let (_, rx) = oneshot::channel();
+        let future_rx = AppendFuture::new(rx);
+        assert!(format!("{future_rx:?}").contains("Rx"));
+
+        let future_boxed = AppendFuture::from_future(async { Ok(AppendResponse::default()) });
+        assert!(format!("{future_boxed:?}").contains("Boxed"));
+    }
 }
