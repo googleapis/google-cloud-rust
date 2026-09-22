@@ -280,8 +280,8 @@ impl<T> Range<T> {
     }
 
     /// Sets or clears the value of [start][Self::start].
-    pub fn set_or_clear_start<V: Into<T>>(mut self, v: Option<V>) -> Self {
-        self.start = v.map(Into::into);
+    pub fn set_or_clear_start(mut self, v: Option<T>) -> Self {
+        self.start = v;
         self
     }
 
@@ -292,8 +292,8 @@ impl<T> Range<T> {
     }
 
     /// Sets or clears the value of [end][Self::end].
-    pub fn set_or_clear_end<V: Into<T>>(mut self, v: Option<V>) -> Self {
-        self.end = v.map(Into::into);
+    pub fn set_or_clear_end(mut self, v: Option<T>) -> Self {
+        self.end = v;
         self
     }
 }
@@ -455,7 +455,7 @@ mod tests {
         );
 
         let cleared = range
-            .set_or_clear_start(None::<i32>)
+            .set_or_clear_start(None)
             .set_or_clear_end(Some(30));
         assert_eq!(
             cleared,
