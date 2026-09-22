@@ -43,8 +43,8 @@ pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyho
     let table = format!("projects/{project_id}/datasets/{dataset_id}/tables/{table_id}");
     // Create a writer for the default stream
     let writer = client
-        .arrow(ArrowSchema::new().set_serialized_schema(schema_buf))
-        .default(table)
+        .open_default_stream(table)
+        .build_arrow(ArrowSchema::new().set_serialized_schema(schema_buf))
         .await?;
 
     // Create a decoder to convert JSON to Arrow

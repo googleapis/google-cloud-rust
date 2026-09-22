@@ -65,7 +65,7 @@ impl Query {
     pub(crate) fn from_job(
         job_service: Arc<JobService>,
         initial_job: Job,
-        retry_context: Option<RetryContext>,
+        retry_context: Option<&RetryContext>,
         page_size: Option<u32>,
     ) -> Self {
         let completed = initial_job
@@ -78,7 +78,7 @@ impl Query {
             completed,
             cached_rows: None,
             metadata: build_query_metadata_from_job(initial_job),
-            retry_context,
+            retry_context: retry_context.filter(|_| !completed).cloned(),
             page_size,
         }
     }
@@ -86,7 +86,7 @@ impl Query {
     pub(crate) fn from_query_response(
         job_service: Arc<JobService>,
         mut query_response: QueryResponse,
-        retry_context: Option<RetryContext>,
+        retry_context: Option<&RetryContext>,
         page_size: Option<u32>,
     ) -> Self {
         let completed = query_response.job_complete.unwrap_or(false);
@@ -97,7 +97,7 @@ impl Query {
             completed,
             cached_rows: Some(cached_rows),
             metadata,
-            retry_context,
+            retry_context: retry_context.filter(|_| !completed).cloned(),
             page_size,
         }
     }
@@ -924,7 +924,7 @@ mod tests {
         let mut retry_context = RetryContext::new(query_builder);
         retry_context.state.attempt_count = 1;
 
-        let query = Query::from_query_response(job_service, query_res, Some(retry_context), None);
+        let query = Query::from_query_response(job_service, query_res, Some(&retry_context), None);
 
         let completed = query.until_done().await?;
         assert_eq!(
@@ -1000,7 +1000,7 @@ mod tests {
         let mut retry_context = RetryContext::new(query_builder);
         retry_context.state.attempt_count = 1;
 
-        let query = Query::from_query_response(job_service, query_res, Some(retry_context), None);
+        let query = Query::from_query_response(job_service, query_res, Some(&retry_context), None);
 
         let err = query.until_done().await.unwrap_err();
         let errors = match err {
