@@ -417,12 +417,50 @@ struct UserProfile {
     birth_date: google_cloud_type::model::Date,
 }
 
+#[derive(Debug, PartialEq)]
+struct AnonTriple(i64, String, bool);
+
+// TODO(#6892) - use the derive macro when it supports tuples
+impl FromSql for AnonTriple {
+    fn from_value(
+        mut value: google_cloud_bigquery::query::SqlValue,
+    ) -> std::result::Result<Self, google_cloud_bigquery::error::ConvertError> {
+        Ok(Self(value.take(0)?, value.take(1)?, value.take(2)?))
+    }
+}
+
+#[derive(FromSql, Debug, PartialEq)]
+struct NamedZThenA {
+    z: i64,
+    a: i64,
+}
+
+#[derive(Debug, PartialEq)]
+struct PositionalPair(i64, i64);
+
+// TODO(#6892) - use the derive macro when it supports tuples
+impl FromSql for PositionalPair {
+    fn from_value(
+        mut value: google_cloud_bigquery::query::SqlValue,
+    ) -> std::result::Result<Self, google_cloud_bigquery::error::ConvertError> {
+        Ok(Self(value.take(0)?, value.take(1)?))
+    }
+}
+
+#[derive(FromSql, Debug, PartialEq)]
+struct DupIdNamed {
+    id: i64,
+}
+
 #[derive(FromRow, Debug, PartialEq)]
 struct RowData {
     user: UserRecord,
     numbers: Vec<i64>,
     users: Vec<UserRecord>,
     profile: UserProfile,
+    anon: AnonTriple,
+    pair: NamedZThenA,
+    dup: DupIdNamed,
 }
 
 pub async fn query_client_nested_types() -> Result<()> {
@@ -436,7 +474,10 @@ pub async fn query_client_nested_types() -> Result<()> {
                  STRUCT('Alice' AS name, 25 AS age) AS user, \
                  ARRAY[1, 2, 3] AS numbers, \
                  ARRAY[STRUCT('Bob' AS name, 28 AS age), STRUCT('Charlie' AS name, 31 AS age)] AS users, \
-                 STRUCT('Dave' AS name, 40 AS age, DATE '1986-05-28' AS birth_date) AS profile";
+                 STRUCT('Dave' AS name, 40 AS age, DATE '1986-05-28' AS birth_date) AS profile, \
+                 STRUCT(10, 'hello', true) AS anon, \
+                 STRUCT(1 AS z, 2 AS a) AS pair, \
+                 STRUCT(100 AS id, 200 AS id) AS dup";
 
     let query = bq
         .query(sql)
@@ -448,6 +489,14 @@ pub async fn query_client_nested_types() -> Result<()> {
     let mut rows = query.read();
 
     let row = rows.next().await.expect("row must exist")?;
+
+    // Verify positional extraction on `pair` preserves SQL declaration order (z=1, a=2)
+    let pair_by_pos: PositionalPair = row.get("pair")?;
+    assert_eq!(pair_by_pos, PositionalPair(1, 2));
+
+    // Verify positional extraction on `dup` accesses both duplicate `id` fields (100, 200)
+    let dup_by_pos: PositionalPair = row.get("dup")?;
+    assert_eq!(dup_by_pos, PositionalPair(100, 200));
 
     // Deserialize the entire row as user defined struct
     let data: RowData = row.try_into()?;
@@ -476,6 +525,15 @@ pub async fn query_client_nested_types() -> Result<()> {
     assert_eq!(data.profile.birth_date.year, 1986);
     assert_eq!(data.profile.birth_date.month, 5);
     assert_eq!(data.profile.birth_date.day, 28);
+
+    // verify anonymous struct preserves all unnamed fields
+    assert_eq!(data.anon, AnonTriple(10, "hello".to_string(), true));
+
+    // verify named extraction on `pair`
+    assert_eq!(data.pair, NamedZThenA { z: 1, a: 2 });
+
+    // verify named extraction on `dup` returns the first `id` field
+    assert_eq!(data.dup, DupIdNamed { id: 100 });
 
     Ok(())
 }
