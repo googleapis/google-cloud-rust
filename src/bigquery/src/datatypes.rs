@@ -75,44 +75,44 @@ impl Interval {
     }
 
     /// Sets the value of [years][Self::years].
-    pub fn set_years<T: Into<i32>>(mut self, v: T) -> Self {
-        self.years = v.into();
+    pub fn set_years(mut self, v: i32) -> Self {
+        self.years = v;
         self
     }
 
     /// Sets the value of [months][Self::months].
-    pub fn set_months<T: Into<i32>>(mut self, v: T) -> Self {
-        self.months = v.into();
+    pub fn set_months(mut self, v: i32) -> Self {
+        self.months = v;
         self
     }
 
     /// Sets the value of [days][Self::days].
-    pub fn set_days<T: Into<i32>>(mut self, v: T) -> Self {
-        self.days = v.into();
+    pub fn set_days(mut self, v: i32) -> Self {
+        self.days = v;
         self
     }
 
     /// Sets the value of [hours][Self::hours].
-    pub fn set_hours<T: Into<i32>>(mut self, v: T) -> Self {
-        self.hours = v.into();
+    pub fn set_hours(mut self, v: i32) -> Self {
+        self.hours = v;
         self
     }
 
     /// Sets the value of [minutes][Self::minutes].
-    pub fn set_minutes<T: Into<i32>>(mut self, v: T) -> Self {
-        self.minutes = v.into();
+    pub fn set_minutes(mut self, v: i32) -> Self {
+        self.minutes = v;
         self
     }
 
     /// Sets the value of [seconds][Self::seconds].
-    pub fn set_seconds<T: Into<i32>>(mut self, v: T) -> Self {
-        self.seconds = v.into();
+    pub fn set_seconds(mut self, v: i32) -> Self {
+        self.seconds = v;
         self
     }
 
     /// Sets the value of [nanos][Self::nanos].
-    pub fn set_nanos<T: Into<i32>>(mut self, v: T) -> Self {
-        self.nanos = v.into();
+    pub fn set_nanos(mut self, v: i32) -> Self {
+        self.nanos = v;
         self
     }
 }
