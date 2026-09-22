@@ -64,10 +64,12 @@ impl BasePublisher {
 
     /// Creates a new Pub/Sub publisher client with the given configuration.
     pub(crate) async fn new(builder: BasePublisherBuilder) -> crate::ClientBuilderResult<Self> {
-        let total_timeout =
-            builder.config.retry_policy.as_ref().and_then(|p| {
-                p.remaining_time(&google_cloud_gax::retry_state::RetryState::new(false))
-            });
+        let total_timeout = builder.config.retry_policy.as_ref().and_then(|p| {
+            p.remaining_time(
+                &google_cloud_gax::retry_state::RetryState::new(false)
+                    .set_start(tokio::time::Instant::now().into_std()),
+            )
+        });
         let inner =
             crate::generated::gapic_dataplane::client::Publisher::new(builder.config).await?;
         std::result::Result::Ok(Self {
@@ -115,7 +117,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn default_total_timeout() -> anyhow::Result<()> {
         let client = BasePublisher::builder()
             .with_credentials(Anonymous::new().build())
@@ -124,14 +126,14 @@ mod tests {
         let timeout = client
             .total_timeout
             .expect("default total_timeout should be present");
-        assert!(timeout <= Duration::from_secs(600) && timeout >= Duration::from_secs(590));
+        assert_eq!(timeout, Duration::from_secs(600));
 
         let partial_builder = client.publisher("projects/my-project/topics/my-topic");
         assert_eq!(partial_builder.total_timeout, client.total_timeout);
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn custom_total_timeout() -> anyhow::Result<()> {
         let client = BasePublisher::builder()
             .with_credentials(Anonymous::new().build())
@@ -141,7 +143,7 @@ mod tests {
         let timeout = client
             .total_timeout
             .expect("custom total_timeout should be present");
-        assert!(timeout <= Duration::from_secs(45) && timeout >= Duration::from_secs(40));
+        assert_eq!(timeout, Duration::from_secs(45));
 
         let partial_builder = client.publisher("projects/my-project/topics/my-topic");
         assert_eq!(partial_builder.total_timeout, client.total_timeout);
