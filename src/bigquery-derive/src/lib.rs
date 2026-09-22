@@ -90,8 +90,11 @@ fn derive_from_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
 
     // TODO(#5592): check that the schema and this struct have same columns/attributes count.
 
+    let generics = add_trait_bounds(input.generics);
+    let (impl_generics, ty_generics, where_clause) = generics.split_for_impl();
+
     quote! {
-        impl std::convert::TryFrom<google_cloud_bigquery::query::Row> for #name {
+        impl #impl_generics std::convert::TryFrom<google_cloud_bigquery::query::Row> for #name #ty_generics #where_clause {
             type Error = google_cloud_bigquery::error::RowError;
 
             fn try_from(mut row: google_cloud_bigquery::query::Row) -> std::result::Result<Self, Self::Error> {
@@ -168,8 +171,11 @@ fn derive_from_sql_impl(input: DeriveInput) -> proc_macro2::TokenStream {
         }
     };
 
+    let generics = add_trait_bounds(input.generics);
+    let (impl_generics, ty_generics, where_clause) = generics.split_for_impl();
+
     quote! {
-        impl google_cloud_bigquery::query::FromSql for #name {
+        impl #impl_generics google_cloud_bigquery::query::FromSql for #name #ty_generics #where_clause {
             fn from_value(mut value: google_cloud_bigquery::query::SqlValue) -> std::result::Result<Self, google_cloud_bigquery::error::ConvertError> {
                 std::result::Result::Ok(#body)
             }
@@ -187,6 +193,18 @@ fn reject_bigquery_attrs<'a>(fields: impl IntoIterator<Item = &'a syn::Field>) -
         }
     }
     Ok(())
+}
+
+/// Adds a `FromSql` bound for each generic parameter.
+fn add_trait_bounds(mut generics: syn::Generics) -> syn::Generics {
+    for param in &mut generics.params {
+        if let syn::GenericParam::Type(type_param) = param {
+            type_param
+                .bounds
+                .push(syn::parse_quote!(google_cloud_bigquery::query::FromSql));
+        }
+    }
+    generics
 }
 
 fn get_field_name(field: &syn::Field) -> syn::Result<String> {
@@ -317,6 +335,98 @@ mod tests {
         assert!(
             sql_err.contains("FromSql can only be derived for non-empty structs"),
             "unexpected expansion: {sql_err}"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn test_generics_expansion() -> Result<(), syn::Error> {
+        let input1: DeriveInput = syn::parse_str("struct Wrapper<T> { val: T }")?;
+        let row_tokens = derive_from_row_impl(input1).to_string();
+        assert!(
+            row_tokens.contains("impl < T : google_cloud_bigquery :: query :: FromSql > std :: convert :: TryFrom < google_cloud_bigquery :: query :: Row > for Wrapper < T >"),
+            "unexpected row expansion: {row_tokens}"
+        );
+
+        let input2: DeriveInput = syn::parse_str("struct Wrapper<T> { val: T }")?;
+        let sql_tokens = derive_from_sql_impl(input2).to_string();
+        assert!(
+            sql_tokens.contains("impl < T : google_cloud_bigquery :: query :: FromSql > google_cloud_bigquery :: query :: FromSql for Wrapper < T >"),
+            "unexpected sql expansion: {sql_tokens}"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn test_generics_expansion_with_where_clause() -> Result<(), syn::Error> {
+        let input1: DeriveInput =
+            syn::parse_str("struct Wrapper<T> where T: std::fmt::Debug { val: T }")?;
+        let row_tokens = derive_from_row_impl(input1).to_string();
+        assert!(
+            row_tokens.contains("impl < T : google_cloud_bigquery :: query :: FromSql > std :: convert :: TryFrom < google_cloud_bigquery :: query :: Row > for Wrapper < T > where T : std :: fmt :: Debug"),
+            "unexpected row expansion: {row_tokens}"
+        );
+
+        let input2: DeriveInput =
+            syn::parse_str("struct Wrapper<T> where T: std::fmt::Debug { val: T }")?;
+        let sql_tokens = derive_from_sql_impl(input2).to_string();
+        assert!(
+            sql_tokens.contains("impl < T : google_cloud_bigquery :: query :: FromSql > google_cloud_bigquery :: query :: FromSql for Wrapper < T > where T : std :: fmt :: Debug"),
+            "unexpected sql expansion: {sql_tokens}"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn test_generics_expansion_with_default_type_param() -> Result<(), syn::Error> {
+        let input1: DeriveInput = syn::parse_str("struct Wrapper<T = i64> { val: T }")?;
+        let row_tokens = derive_from_row_impl(input1).to_string();
+        assert!(
+            row_tokens.contains("impl < T : google_cloud_bigquery :: query :: FromSql > std :: convert :: TryFrom < google_cloud_bigquery :: query :: Row > for Wrapper < T >"),
+            "unexpected row expansion: {row_tokens}"
+        );
+
+        let input2: DeriveInput = syn::parse_str("struct Wrapper<T = i64> { val: T }")?;
+        let sql_tokens = derive_from_sql_impl(input2).to_string();
+        assert!(
+            sql_tokens.contains("impl < T : google_cloud_bigquery :: query :: FromSql > google_cloud_bigquery :: query :: FromSql for Wrapper < T >"),
+            "unexpected sql expansion: {sql_tokens}"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn test_generics_expansion_multiple_params() -> Result<(), syn::Error> {
+        let input1: DeriveInput = syn::parse_str("struct Pair<A, B> { a: A, b: B }")?;
+        let row_tokens = derive_from_row_impl(input1).to_string();
+        assert!(
+            row_tokens.contains("impl < A : google_cloud_bigquery :: query :: FromSql , B : google_cloud_bigquery :: query :: FromSql > std :: convert :: TryFrom < google_cloud_bigquery :: query :: Row > for Pair < A , B >"),
+            "unexpected row expansion: {row_tokens}"
+        );
+
+        let input2: DeriveInput = syn::parse_str("struct Pair<A, B> { a: A, b: B }")?;
+        let sql_tokens = derive_from_sql_impl(input2).to_string();
+        assert!(
+            sql_tokens.contains("impl < A : google_cloud_bigquery :: query :: FromSql , B : google_cloud_bigquery :: query :: FromSql > google_cloud_bigquery :: query :: FromSql for Pair < A , B >"),
+            "unexpected sql expansion: {sql_tokens}"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn test_generics_tuple_struct_expansion() -> Result<(), syn::Error> {
+        let input1: DeriveInput = syn::parse_str("struct TupleWrapper<T, U>(T, U);")?;
+        let row_tokens = derive_from_row_impl(input1).to_string();
+        assert!(
+            row_tokens.contains("impl < T : google_cloud_bigquery :: query :: FromSql , U : google_cloud_bigquery :: query :: FromSql > std :: convert :: TryFrom < google_cloud_bigquery :: query :: Row > for TupleWrapper < T , U >"),
+            "unexpected row expansion: {row_tokens}"
+        );
+
+        let input2: DeriveInput = syn::parse_str("struct TupleWrapper<T, U>(T, U);")?;
+        let sql_tokens = derive_from_sql_impl(input2).to_string();
+        assert!(
+            sql_tokens.contains("impl < T : google_cloud_bigquery :: query :: FromSql , U : google_cloud_bigquery :: query :: FromSql > google_cloud_bigquery :: query :: FromSql for TupleWrapper < T , U >"),
+            "unexpected sql expansion: {sql_tokens}"
         );
         Ok(())
     }
