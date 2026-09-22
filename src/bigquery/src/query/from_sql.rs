@@ -821,4 +821,113 @@ mod tests {
 
         Ok(())
     }
+
+    #[derive(FromSql, Debug, PartialEq)]
+    struct GenericSql<T: Clone + Default, U: std::fmt::Debug> {
+        #[bigquery(rename = "custom_val")]
+        single: T,
+        optional: Option<T>,
+        list: Vec<T>,
+        nested: NestedGenericSql<U>,
+    }
+
+    #[derive(FromSql, Debug, PartialEq)]
+    struct NestedGenericSql<U> {
+        inner_val: U,
+    }
+
+    #[test]
+    fn test_derive_from_sql_generic() {
+        let nested_obj = wkt::Value::Object(wkt::Struct::from_iter([(
+            "inner_val".to_string(),
+            wkt::Value::String("hello".to_string()),
+        )]));
+        let from_obj = GenericSql::<i64, String>::from_value(SqlValue::new(wkt::Value::Object(
+            wkt::Struct::from_iter([
+                ("custom_val".to_string(), wkt::Value::Number(100.into())),
+                ("optional".to_string(), wkt::Value::Null),
+                (
+                    "list".to_string(),
+                    wkt::Value::Array(vec![
+                        wkt::Value::Number(1.into()),
+                        wkt::Value::Number(2.into()),
+                        wkt::Value::Number(3.into()),
+                    ]),
+                ),
+                ("nested".to_string(), nested_obj),
+            ]),
+        )))
+        .expect("should deserialize generic from object");
+
+        assert_eq!(
+            from_obj,
+            GenericSql {
+                single: 100,
+                optional: None,
+                list: vec![1, 2, 3],
+                nested: NestedGenericSql {
+                    inner_val: "hello".to_string(),
+                },
+            }
+        );
+    }
+
+    #[derive(FromSql, Debug, PartialEq)]
+    struct GenericSqlWhere<T>
+    where
+        T: std::fmt::Debug + Clone,
+    {
+        val: T,
+    }
+
+    #[test]
+    fn test_derive_from_sql_generic_where_clause() {
+        let val = GenericSqlWhere::<String>::from_value(SqlValue::new(wkt::Value::Object(
+            wkt::Struct::from_iter([("val".to_string(), wkt::Value::String("hello".to_string()))]),
+        )))
+        .expect("should deserialize generic with where clause");
+
+        assert_eq!(
+            val,
+            GenericSqlWhere {
+                val: "hello".to_string(),
+            }
+        );
+    }
+
+    #[derive(FromSql, Debug, PartialEq)]
+    struct GenericSqlDefault<T = i64> {
+        val: T,
+    }
+
+    #[test]
+    fn test_derive_from_sql_generic_default_param() {
+        let val: GenericSqlDefault =
+            GenericSqlDefault::from_value(SqlValue::new(wkt::Value::Object(
+                wkt::Struct::from_iter([("val".to_string(), wkt::Value::Number(42.into()))]),
+            )))
+            .expect("should deserialize generic with default type param");
+
+        assert_eq!(val, GenericSqlDefault { val: 42 });
+    }
+
+    #[derive(FromSql, Debug, PartialEq)]
+    struct GenericTupleSql<T, U>(T, Option<T>, U);
+
+    #[test]
+    fn test_derive_from_sql_generic_tuple_struct() {
+        let struct_val = SqlValue::from_inner(SqlValueInner::Struct(vec![
+            ("".to_string(), SqlValueInner::Number(100.into())),
+            ("".to_string(), SqlValueInner::Null),
+            ("".to_string(), SqlValueInner::String("world".to_string())),
+        ]));
+        let parsed = GenericTupleSql::<i64, String>::from_value(struct_val)
+            .expect("should deserialize generic tuple struct from struct");
+        assert_eq!(parsed, GenericTupleSql(100, None, "world".to_string()));
+
+        let json_val = SqlValue::new(wkt::Value::String(r#"[100, null, "world"]"#.to_string()));
+        let parsed_json = GenericTupleSql::<i64, String>::from_value(json_val)
+            .expect("should deserialize generic tuple struct from JSON array");
+        assert_eq!(parsed_json, GenericTupleSql(100, None, "world".to_string()));
+    }
 }

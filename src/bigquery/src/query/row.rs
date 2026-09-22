@@ -1202,9 +1202,9 @@ mod tests {
         let raw_row = Map::from_iter([(
             "f".to_string(),
             json!([
-                { "v": "42" },
-                { "v": "world" },
-            ]),
+            { "v": "42" },
+            { "v": "world" },
+              ]),
         )]);
         let schema = TableSchema::new().set_fields([
             TableFieldSchema::new()
@@ -1221,6 +1221,169 @@ mod tests {
 
         let converted = TupleRow::try_from(row)?;
         assert_eq!(converted, TupleRow(42, "world".to_string()));
+
+        // here
+        Ok(())
+    }
+
+    #[derive(FromSql, Debug, PartialEq)]
+    struct NestedGeneric<U> {
+        inner_val: U,
+    }
+
+    #[derive(FromRow, Debug, PartialEq)]
+    struct GenericRow<T: Clone + Default, U: std::fmt::Debug> {
+        #[bigquery(rename = "custom_val")]
+        single: T,
+        optional: Option<T>,
+        list: Vec<T>,
+        nested: NestedGeneric<U>,
+        common: i64,
+    }
+
+    #[tokio::test]
+    async fn derive_from_row_generic() -> TestResult {
+        let raw_row = Map::from_iter([(
+            "f".to_string(),
+            json!([
+                { "v": "100" },
+                { "v": null },
+                { "v": [{ "v": "1" }, { "v": "2" }, { "v": "3" }] },
+                {
+                    "v": {
+                        "f": [
+                            { "v": "nested_value" }
+                        ]
+                    }
+                },
+                { "v": "1" },
+            ]),
+        )]);
+        let schema = TableSchema::new().set_fields([
+            TableFieldSchema::new()
+                .set_name("custom_val")
+                .set_type("INTEGER")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("optional")
+                .set_type("INTEGER")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("list")
+                .set_type("INTEGER")
+                .set_mode("REPEATED"),
+            TableFieldSchema::new()
+                .set_name("nested")
+                .set_type("RECORD")
+                .set_mode("NULLABLE")
+                .set_fields([TableFieldSchema::new()
+                    .set_name("inner_val")
+                    .set_type("STRING")
+                    .set_mode("NULLABLE")]),
+            TableFieldSchema::new()
+                .set_name("common")
+                .set_type("INTEGER")
+                .set_mode("NULLABLE"),
+        ]);
+        let schema = Arc::new(Schema::new(schema));
+        let row = Row::try_new(raw_row, &schema)?;
+
+        let converted = GenericRow::<i64, String>::try_from(row)?;
+        assert_eq!(
+            converted,
+            GenericRow {
+                single: 100,
+                optional: None,
+                list: vec![1, 2, 3],
+                nested: NestedGeneric {
+                    inner_val: "nested_value".to_string(),
+                },
+                common: 1,
+            }
+        );
+        Ok(())
+    }
+
+    #[derive(FromRow, Debug, PartialEq)]
+    struct GenericRowWhere<T>
+    where
+        T: std::fmt::Debug + Clone,
+    {
+        val: T,
+    }
+
+    #[tokio::test]
+    async fn derive_from_row_generic_where_clause() -> TestResult {
+        let raw_row = Map::from_iter([("f".to_string(), json!([{ "v": "hello" }]))]);
+        let schema = TableSchema::new().set_fields([TableFieldSchema::new()
+            .set_name("val")
+            .set_type("STRING")
+            .set_mode("NULLABLE")]);
+        let schema = Arc::new(Schema::new(schema));
+        let row = Row::try_new(raw_row, &schema)?;
+
+        let converted = GenericRowWhere::<String>::try_from(row)?;
+        assert_eq!(
+            converted,
+            GenericRowWhere {
+                val: "hello".to_string(),
+            }
+        );
+        Ok(())
+    }
+
+    #[derive(FromRow, Debug, PartialEq)]
+    struct GenericRowDefault<T = i64> {
+        val: T,
+    }
+
+    #[tokio::test]
+    async fn derive_from_row_generic_default_param() -> TestResult {
+        let raw_row = Map::from_iter([("f".to_string(), json!([{ "v": "42" }]))]);
+        let schema = TableSchema::new().set_fields([TableFieldSchema::new()
+            .set_name("val")
+            .set_type("INTEGER")
+            .set_mode("NULLABLE")]);
+        let schema = Arc::new(Schema::new(schema));
+        let row = Row::try_new(raw_row, &schema)?;
+
+        let converted = GenericRowDefault::try_from(row)?;
+        assert_eq!(converted, GenericRowDefault { val: 42 });
+        Ok(())
+    }
+
+    #[derive(FromRow, Debug, PartialEq)]
+    struct GenericTupleRow<T, U>(T, Option<T>, U);
+
+    #[tokio::test]
+    async fn derive_from_row_generic_tuple_struct() -> TestResult {
+        let raw_row = Map::from_iter([(
+            "f".to_string(),
+            json!([
+                { "v": "42" },
+                { "v": null },
+                { "v": "hello" },
+            ]),
+        )]);
+        let schema = TableSchema::new().set_fields([
+            TableFieldSchema::new()
+                .set_name("_f0")
+                .set_type("INT64")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("_f1")
+                .set_type("INT64")
+                .set_mode("NULLABLE"),
+            TableFieldSchema::new()
+                .set_name("_f2")
+                .set_type("STRING")
+                .set_mode("NULLABLE"),
+        ]);
+        let schema = Arc::new(Schema::new(schema));
+        let row = Row::try_new(raw_row, &schema)?;
+
+        let converted = GenericTupleRow::<i64, String>::try_from(row)?;
+        assert_eq!(converted, GenericTupleRow(42, None, "hello".to_string()));
         Ok(())
     }
 }
