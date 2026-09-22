@@ -507,7 +507,6 @@ libraries:
     version: 0.17.0-preview
     copyright_year: "2026"
     output: src/bigquery
-    skip_release: true
     rust:
       modules:
         - module_path: crate::write::generated::gapic_storage::model
@@ -570,7 +569,6 @@ libraries:
     version: 0.1.0-preview
     copyright_year: "2026"
     output: src/bigquery-derive
-    skip_release: true
   - name: google-cloud-bigquery-migration-v2
     version: 1.12.0
     copyright_year: "2025"
