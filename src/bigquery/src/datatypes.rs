@@ -69,7 +69,7 @@ pub struct Interval {
 }
 
 impl Interval {
-    /// Creates a new default instance.
+    /// Creates a new zero-duration interval (`0-0 0 0:00:00`), with all components set to `0`.
     pub fn new() -> Self {
         Self::default()
     }
@@ -249,13 +249,19 @@ impl FromSql for Interval {
 /// # Ok(())
 /// # }
 /// ```
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub struct Range<T> {
     /// The inclusive start of the range (or None if unbounded).
     pub start: Option<T>,
     /// The exclusive end of the range (or None if unbounded).
     pub end: Option<T>,
+}
+
+impl<T> Default for Range<T> {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl<T> Range<T> {
