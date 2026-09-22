@@ -20,22 +20,3 @@
 
 pub mod conformance;
 pub mod features;
-
-use google_cloud_storage::client::Storage;
-
-/// Default runner that executes both conformance and feature test suites.
-pub async fn run(bucket_name: &str) -> anyhow::Result<()> {
-    let mut builder = Storage::builder();
-    if let Ok(endpoint) = std::env::var("GOOGLE_CLOUD_TEST_STORAGE_ENDPOINT") {
-        builder = builder.with_endpoint(endpoint);
-    }
-    let client = builder.build().await?;
-
-    println!("\n=== Running Bidirectional Read Conformance Suite (Suite 1) ===");
-    conformance::run(&client, bucket_name).await?;
-
-    println!("\n=== Running Bidirectional Read Features Suite ===");
-    features::run(&client, bucket_name).await?;
-
-    Ok(())
-}

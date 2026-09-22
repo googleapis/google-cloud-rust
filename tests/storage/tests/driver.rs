@@ -112,131 +112,134 @@ mod storage {
         result
     }
 
-    #[tokio::test(flavor = "multi_thread")]
-    async fn run_storage_bidi() -> anyhow::Result<()> {
-        let _guard = enable_tracing();
-        let (control, bucket) = integration_tests_storage::create_test_hns_bucket()
+    mod bidi_read {
+        use super::*;
+
+        #[tokio::test(flavor = "multi_thread")]
+        async fn features() -> anyhow::Result<()> {
+            let _guard = enable_tracing();
+            let (control, bucket) = integration_tests_storage::create_test_hns_bucket()
+                .await
+                .inspect_err(anydump)?;
+            let client = integration_tests_storage::build_storage_client().await?;
+            let result = integration_tests_storage::bidi_read::features::run(&client, &bucket.name)
+                .await
+                .inspect_err(anydump);
+            let _ = storage_samples::cleanup_bucket(
+                control,
+                bucket.name.clone(),
+                bucket.project.clone(),
+            )
             .await
-            .inspect_err(anydump)?;
-        let result = integration_tests_storage::bidi_read::run(&bucket.name)
+            .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+            .inspect_err(anydump);
+            result
+        }
+
+        #[tokio::test(flavor = "multi_thread")]
+        async fn conformance_regional_standard() -> anyhow::Result<()> {
+            let _guard = enable_tracing();
+            let (control, bucket) = integration_tests_storage::create_test_hns_bucket()
+                .await
+                .inspect_err(anydump)?;
+            let client = integration_tests_storage::build_storage_client().await?;
+            let result = integration_tests_storage::bidi_read::conformance::run_with_scenario(
+                &client,
+                &bucket.name,
+                "Regional Standard (HNS)",
+            )
             .await
             .inspect_err(anydump);
-        let _ =
-            storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
-                .await
-                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
-                .inspect_err(anydump);
-        result
-    }
-
-    #[tokio::test(flavor = "multi_thread")]
-    async fn run_storage_bidi_conformance_regional_standard() -> anyhow::Result<()> {
-        let _guard = enable_tracing();
-        let (control, bucket) = integration_tests_storage::create_test_hns_bucket()
+            let _ = storage_samples::cleanup_bucket(
+                control,
+                bucket.name.clone(),
+                bucket.project.clone(),
+            )
             .await
-            .inspect_err(anydump)?;
-        let client = integration_tests_storage::build_storage_client().await?;
-        let result = integration_tests_storage::bidi_read::conformance::run_with_scenario(
-            &client,
-            &bucket.name,
-            "Regional Standard (HNS)",
-        )
-        .await
-        .inspect_err(anydump);
-        let _ =
-            storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
-                .await
-                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
-                .inspect_err(anydump);
-        result
-    }
+            .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+            .inspect_err(anydump);
+            result
+        }
 
-    #[tokio::test(flavor = "multi_thread")]
-    #[cfg(google_cloud_unstable_storage_bidi)]
-    async fn run_storage_bidi_conformance_regional_rapid() -> anyhow::Result<()> {
-        let _guard = enable_tracing();
-        let (control, bucket) = integration_tests_storage::create_test_regional_rapid_bucket()
-            .await
-            .inspect_err(anydump)?;
-        let client = integration_tests_storage::build_storage_client().await?;
-        let result = integration_tests_storage::bidi_read::conformance::run_with_scenario(
-            &client,
-            &bucket.name,
-            "Regional Rapid (HNS)",
-        )
-        .await
-        .inspect_err(anydump);
-        let _ =
-            storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
+        #[tokio::test(flavor = "multi_thread")]
+        #[cfg(google_cloud_unstable_storage_bidi)]
+        async fn conformance_regional_rapid() -> anyhow::Result<()> {
+            let _guard = enable_tracing();
+            let (control, bucket) = integration_tests_storage::create_test_regional_rapid_bucket()
                 .await
-                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
-                .inspect_err(anydump);
-        result
-    }
-
-    #[tokio::test(flavor = "multi_thread")]
-    #[cfg(google_cloud_unstable_storage_bidi)]
-    async fn run_storage_bidi_conformance_zonal_rapid_colocated() -> anyhow::Result<()> {
-        let _guard = enable_tracing();
-        let (control, bucket) = integration_tests_storage::create_test_rapid_bucket()
-            .await
-            .inspect_err(anydump)?;
-        let client = integration_tests_storage::build_storage_client().await?;
-        let result = integration_tests_storage::bidi_read::conformance::run_with_scenario(
-            &client,
-            &bucket.name,
-            "Zonal Rapid (Co-located, us-central1-a)",
-        )
-        .await
-        .inspect_err(anydump);
-        let _ =
-            storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
-                .await
-                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
-                .inspect_err(anydump);
-        result
-    }
-
-    #[tokio::test(flavor = "multi_thread")]
-    #[cfg(google_cloud_unstable_storage_bidi)]
-    async fn run_storage_bidi_conformance_zonal_rapid_non_colocated() -> anyhow::Result<()> {
-        let _guard = enable_tracing();
-        let (control, bucket) = integration_tests_storage::create_test_rapid_bucket()
-            .await
-            .inspect_err(anydump)?;
-        let client =
-            integration_tests_storage::build_non_colocated_storage_client("us-central1-b").await?;
-        let result = integration_tests_storage::bidi_read::conformance::run_with_scenario(
-            &client,
-            &bucket.name,
-            "Zonal Rapid (Non Co-located, off-zone endpoint)",
-        )
-        .await
-        .inspect_err(anydump);
-        let _ =
-            storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
-                .await
-                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
-                .inspect_err(anydump);
-        result
-    }
-
-    #[tokio::test(flavor = "multi_thread")]
-    async fn run_storage_bidi_features() -> anyhow::Result<()> {
-        let _guard = enable_tracing();
-        let (control, bucket) = integration_tests_storage::create_test_hns_bucket()
-            .await
-            .inspect_err(anydump)?;
-        let client = integration_tests_storage::build_storage_client().await?;
-        let result = integration_tests_storage::bidi_read::features::run(&client, &bucket.name)
+                .inspect_err(anydump)?;
+            let client = integration_tests_storage::build_storage_client().await?;
+            let result = integration_tests_storage::bidi_read::conformance::run_with_scenario(
+                &client,
+                &bucket.name,
+                "Regional Rapid (HNS)",
+            )
             .await
             .inspect_err(anydump);
-        let _ =
-            storage_samples::cleanup_bucket(control, bucket.name.clone(), bucket.project.clone())
+            let _ = storage_samples::cleanup_bucket(
+                control,
+                bucket.name.clone(),
+                bucket.project.clone(),
+            )
+            .await
+            .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+            .inspect_err(anydump);
+            result
+        }
+
+        #[tokio::test(flavor = "multi_thread")]
+        #[cfg(google_cloud_unstable_storage_bidi)]
+        async fn conformance_zonal_rapid_colocated() -> anyhow::Result<()> {
+            let _guard = enable_tracing();
+            let (control, bucket) = integration_tests_storage::create_test_rapid_bucket()
                 .await
-                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
-                .inspect_err(anydump);
-        result
+                .inspect_err(anydump)?;
+            let client = integration_tests_storage::build_storage_client().await?;
+            let result = integration_tests_storage::bidi_read::conformance::run_with_scenario(
+                &client,
+                &bucket.name,
+                "Zonal Rapid (Co-located, us-central1-a)",
+            )
+            .await
+            .inspect_err(anydump);
+            let _ = storage_samples::cleanup_bucket(
+                control,
+                bucket.name.clone(),
+                bucket.project.clone(),
+            )
+            .await
+            .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+            .inspect_err(anydump);
+            result
+        }
+
+        #[tokio::test(flavor = "multi_thread")]
+        #[cfg(google_cloud_unstable_storage_bidi)]
+        async fn conformance_zonal_rapid_non_colocated() -> anyhow::Result<()> {
+            let _guard = enable_tracing();
+            let (control, bucket) = integration_tests_storage::create_test_rapid_bucket()
+                .await
+                .inspect_err(anydump)?;
+            let client =
+                integration_tests_storage::build_non_colocated_storage_client("us-central1-b")
+                    .await?;
+            let result = integration_tests_storage::bidi_read::conformance::run_with_scenario(
+                &client,
+                &bucket.name,
+                "Zonal Rapid (Non Co-located, off-zone endpoint)",
+            )
+            .await
+            .inspect_err(anydump);
+            let _ = storage_samples::cleanup_bucket(
+                control,
+                bucket.name.clone(),
+                bucket.project.clone(),
+            )
+            .await
+            .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+            .inspect_err(anydump);
+            result
+        }
     }
 
     #[tokio::test(flavor = "multi_thread")]
