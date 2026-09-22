@@ -417,17 +417,8 @@ struct UserProfile {
     birth_date: google_cloud_type::model::Date,
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(FromSql, Debug, PartialEq)]
 struct AnonTriple(i64, String, bool);
-
-// TODO(#6892) - use the derive macro when it supports tuples
-impl FromSql for AnonTriple {
-    fn from_value(
-        mut value: google_cloud_bigquery::query::SqlValue,
-    ) -> std::result::Result<Self, google_cloud_bigquery::error::ConvertError> {
-        Ok(Self(value.take(0)?, value.take(1)?, value.take(2)?))
-    }
-}
 
 #[derive(FromSql, Debug, PartialEq)]
 struct NamedZThenA {
@@ -435,17 +426,8 @@ struct NamedZThenA {
     a: i64,
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(FromSql, Debug, PartialEq)]
 struct PositionalPair(i64, i64);
-
-// TODO(#6892) - use the derive macro when it supports tuples
-impl FromSql for PositionalPair {
-    fn from_value(
-        mut value: google_cloud_bigquery::query::SqlValue,
-    ) -> std::result::Result<Self, google_cloud_bigquery::error::ConvertError> {
-        Ok(Self(value.take(0)?, value.take(1)?))
-    }
-}
 
 #[derive(FromSql, Debug, PartialEq)]
 struct DupIdNamed {

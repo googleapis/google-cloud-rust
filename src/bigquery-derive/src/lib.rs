@@ -22,7 +22,8 @@ use syn::{Data, DeriveInput, Fields, parse_macro_input};
 
 /// Derives standard library [TryFrom] for converting a BigQuery `Row` into a struct.
 ///
-/// Supports renaming attributes via `#[bigquery(rename = "new_name")]`.
+/// Structs with named fields match columns by field name (or via `#[bigquery(rename = "new_name")]`).
+/// Tuple structs match columns positionally by 0-based index.
 ///
 /// [TryFrom]: std::convert::TryFrom
 #[proc_macro_derive(FromRow, attributes(bigquery))]
@@ -34,13 +35,43 @@ pub fn derive_from_row(input: TokenStream) -> TokenStream {
 fn derive_from_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
     let name = input.ident;
 
-    let fields = match input.data {
+    let body = match input.data {
         Data::Struct(data) => match data.fields {
-            Fields::Named(fields) if !fields.named.is_empty() => fields.named,
+            Fields::Named(fields) if !fields.named.is_empty() => {
+                for f in &fields.named {
+                    if let Err(err) = get_field_name(f) {
+                        return err.to_compile_error();
+                    }
+                }
+                let field_initializations = fields.named.iter().map(|f| {
+                    let field_name = f.ident.as_ref().expect("named field must have identifier");
+                    let db_column_name = get_field_name(f).expect("validated above");
+                    quote! {
+                        #field_name: row.take(#db_column_name)?,
+                    }
+                });
+                quote! {
+                    Self {
+                        #( #field_initializations )*
+                    }
+                }
+            }
+            Fields::Unnamed(fields) if !fields.unnamed.is_empty() => {
+                let field_initializations = (0..fields.unnamed.len()).map(|idx| {
+                    quote! {
+                        row.take(#idx)?,
+                    }
+                });
+                quote! {
+                    Self(
+                        #( #field_initializations )*
+                    )
+                }
+            }
             _ => {
                 return syn::Error::new_spanned(
                     name,
-                    "FromRow can only be derived for non-empty structs with named fields",
+                    "FromRow can only be derived for non-empty structs",
                 )
                 .to_compile_error();
             }
@@ -48,23 +79,11 @@ fn derive_from_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
         _ => {
             return syn::Error::new_spanned(
                 name,
-                "FromRow can only be derived for non-empty structs with named fields",
+                "FromRow can only be derived for non-empty structs",
             )
             .to_compile_error();
         }
     };
-    for f in &fields {
-        if let Err(err) = get_field_name(f) {
-            return err.to_compile_error();
-        }
-    }
-    let field_initializations = fields.iter().map(|f| {
-        let field_name = f.ident.as_ref().expect("named field must have identifier");
-        let db_column_name = get_field_name(f).expect("validated above");
-        quote! {
-            #field_name: row.take(#db_column_name)?,
-        }
-    });
 
     // TODO(#5592): check that the schema and this struct have same columns/attributes count.
 
@@ -73,17 +92,17 @@ fn derive_from_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
             type Error = google_cloud_bigquery::error::RowError;
 
             fn try_from(mut row: google_cloud_bigquery::query::Row) -> std::result::Result<Self, Self::Error> {
-                std::result::Result::Ok(Self {
-                    #( #field_initializations )*
-                })
+                std::result::Result::Ok(#body)
             }
         }
     }
 }
 
-/// Derives `FromSql` for converting a BigQuery value into a struct.
+/// Derives `FromSql` for converting a BigQuery `STRUCT` value into a Rust struct.
 ///
-/// Supports renaming attributes via `#[bigquery(rename = "new_name")]`.
+/// Structs with named fields match `STRUCT` fields by field name (or via `#[bigquery(rename = "new_name")]`).
+/// Tuple structs match `STRUCT` fields positionally by 0-based index, supporting anonymous
+/// `STRUCT(1, 'a')` fields and ordered positional extraction.
 #[proc_macro_derive(FromSql, attributes(bigquery))]
 pub fn derive_from_sql(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
@@ -93,13 +112,43 @@ pub fn derive_from_sql(input: TokenStream) -> TokenStream {
 fn derive_from_sql_impl(input: DeriveInput) -> proc_macro2::TokenStream {
     let name = input.ident;
 
-    let fields = match input.data {
+    let body = match input.data {
         Data::Struct(data) => match data.fields {
-            Fields::Named(fields) if !fields.named.is_empty() => fields.named,
+            Fields::Named(fields) if !fields.named.is_empty() => {
+                for f in &fields.named {
+                    if let Err(err) = get_field_name(f) {
+                        return err.to_compile_error();
+                    }
+                }
+                let field_initializations = fields.named.iter().map(|f| {
+                    let field_name = f.ident.as_ref().expect("named field must have identifier");
+                    let db_column_name = get_field_name(f).expect("validated above");
+                    quote! {
+                        #field_name: value.take(#db_column_name)?,
+                    }
+                });
+                quote! {
+                    Self {
+                        #( #field_initializations )*
+                    }
+                }
+            }
+            Fields::Unnamed(fields) if !fields.unnamed.is_empty() => {
+                let field_initializations = (0..fields.unnamed.len()).map(|idx| {
+                    quote! {
+                        value.take(#idx)?,
+                    }
+                });
+                quote! {
+                    Self(
+                        #( #field_initializations )*
+                    )
+                }
+            }
             _ => {
                 return syn::Error::new_spanned(
                     name,
-                    "FromSql can only be derived for non-empty structs with named fields",
+                    "FromSql can only be derived for non-empty structs",
                 )
                 .to_compile_error();
             }
@@ -107,32 +156,16 @@ fn derive_from_sql_impl(input: DeriveInput) -> proc_macro2::TokenStream {
         _ => {
             return syn::Error::new_spanned(
                 name,
-                "FromSql can only be derived for non-empty structs with named fields",
+                "FromSql can only be derived for non-empty structs",
             )
             .to_compile_error();
         }
     };
 
-    for f in &fields {
-        if let Err(err) = get_field_name(f) {
-            return err.to_compile_error();
-        }
-    }
-
-    let field_initializations = fields.iter().map(|f| {
-        let field_name = f.ident.as_ref().expect("named field must have identifier");
-        let db_column_name = get_field_name(f).expect("validated above");
-        quote! {
-            #field_name: value.take(#db_column_name)?,
-        }
-    });
-
     quote! {
         impl google_cloud_bigquery::query::FromSql for #name {
             fn from_value(mut value: google_cloud_bigquery::query::SqlValue) -> std::result::Result<Self, google_cloud_bigquery::error::ConvertError> {
-                std::result::Result::Ok(Self {
-                    #( #field_initializations )*
-                })
+                std::result::Result::Ok(#body)
             }
         }
     }
@@ -170,6 +203,7 @@ fn get_field_name(field: &syn::Field) -> syn::Result<String> {
 mod tests {
     use super::*;
     use syn::parse_quote;
+    use test_case::test_case;
 
     fn extract_first_field(input: DeriveInput) -> syn::Field {
         match input.data {
@@ -218,18 +252,20 @@ mod tests {
         assert!(get_field_name(&field).is_err());
     }
 
-    #[test]
-    fn test_rejects_empty_named_structs() -> Result<(), syn::Error> {
-        let row_err = derive_from_row_impl(syn::parse_str("struct Empty {}")?).to_string();
+    #[test_case("struct Empty {}"; "empty named struct")]
+    #[test_case("struct EmptyTuple();"; "empty tuple struct")]
+    #[test_case("struct Unit;"; "unit struct")]
+    fn test_rejects_empty_structs(def: &str) -> Result<(), syn::Error> {
+        let row_err = derive_from_row_impl(syn::parse_str(def)?).to_string();
         assert!(
-            row_err.contains("FromRow can only be derived for non-empty structs with named fields"),
-            "unexpected expansion: {row_err}"
+            row_err.contains("FromRow can only be derived for non-empty structs"),
+            "unexpected expansion for {def}: {row_err}"
         );
 
-        let sql_err = derive_from_sql_impl(syn::parse_str("struct Empty {}")?).to_string();
+        let sql_err = derive_from_sql_impl(syn::parse_str(def)?).to_string();
         assert!(
-            sql_err.contains("FromSql can only be derived for non-empty structs with named fields"),
-            "unexpected expansion: {sql_err}"
+            sql_err.contains("FromSql can only be derived for non-empty structs"),
+            "unexpected expansion for {def}: {sql_err}"
         );
         Ok(())
     }
@@ -238,13 +274,13 @@ mod tests {
     fn test_rejects_non_structs() -> Result<(), syn::Error> {
         let row_err = derive_from_row_impl(syn::parse_str("enum Foo {}")?).to_string();
         assert!(
-            row_err.contains("FromRow can only be derived for non-empty structs with named fields"),
+            row_err.contains("FromRow can only be derived for non-empty structs"),
             "unexpected expansion: {row_err}"
         );
 
         let sql_err = derive_from_sql_impl(syn::parse_str("enum Foo {}")?).to_string();
         assert!(
-            sql_err.contains("FromSql can only be derived for non-empty structs with named fields"),
+            sql_err.contains("FromSql can only be derived for non-empty structs"),
             "unexpected expansion: {sql_err}"
         );
         Ok(())
