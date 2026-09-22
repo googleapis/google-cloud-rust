@@ -51,6 +51,8 @@ pub(crate) struct BatchState {
     pub topic: String,
     pub token_bucket: Arc<TokenBucket>,
     pub start_time: Option<wkt::Timestamp>,
+    pub start_instant: tokio::time::Instant,
+    pub total_timeout: Option<Duration>,
     /// Cancellation token shared across all attempts (initial and hedged) for this batch.
     /// Triggered as soon as any attempt succeeds (or the initial attempt fails permanently).
     pub cancel_token: CancellationToken,
@@ -63,6 +65,7 @@ impl BatchState {
         client: GapicPublisher,
         topic: String,
         token_bucket: Arc<TokenBucket>,
+        total_timeout: Option<Duration>,
         done_tx: tokio::sync::oneshot::Sender<crate::Result<()>>,
     ) -> Self {
         Self {
@@ -72,6 +75,8 @@ impl BatchState {
             topic,
             token_bucket,
             start_time: wkt::Timestamp::try_from(std::time::SystemTime::now()).ok(),
+            start_instant: tokio::time::Instant::now(),
+            total_timeout,
             cancel_token: CancellationToken::new(),
         }
     }
@@ -105,9 +110,21 @@ impl BatchState {
         if self.cancel_token.is_cancelled() {
             return;
         }
-
-        // TODO(#6776): clamp the timeout to the remaining time of the initial request.
-        let timeout = Duration::from_secs(10);
+        // The server allows a maximum timeout of 10s for publish RPC attempts.
+        // We cap individual hedged attempts to this limit, while also clamping
+        // to any remaining total retry timeout.
+        const MAX_ATTEMPT_TIMEOUT: Duration = Duration::from_secs(10);
+        let timeout = self
+            .total_timeout
+            .map(|t| {
+                let elapsed = self.start_instant.elapsed();
+                t.saturating_sub(elapsed)
+            })
+            .unwrap_or(MAX_ATTEMPT_TIMEOUT)
+            .min(MAX_ATTEMPT_TIMEOUT);
+        if timeout.is_zero() {
+            return;
+        }
 
         let request = self
             .client
@@ -170,6 +187,7 @@ impl HedgingSchedulerHandle {
         txs: Vec<oneshot::Sender<Result<String, PublishError>>>,
         client: GapicPublisher,
         topic: String,
+        total_timeout: Option<Duration>,
         inflight: &mut JoinSet<crate::Result<()>>,
     ) {
         let (done_tx, done_rx) = oneshot::channel();
@@ -179,6 +197,7 @@ impl HedgingSchedulerHandle {
             client,
             topic,
             self.token_bucket.clone(),
+            total_timeout,
             done_tx,
         ));
         inflight.spawn(async move {
@@ -335,6 +354,19 @@ mod tests {
         oneshot::Receiver<Result<String, PublishError>>,
         oneshot::Receiver<crate::Result<()>>,
     ) {
+        test_batch_state_with_timeout(client, token_bucket, None)
+    }
+
+    #[allow(clippy::type_complexity)]
+    fn test_batch_state_with_timeout(
+        client: GapicPublisher,
+        token_bucket: Arc<TokenBucket>,
+        total_timeout: Option<Duration>,
+    ) -> (
+        Arc<BatchState>,
+        oneshot::Receiver<Result<String, PublishError>>,
+        oneshot::Receiver<crate::Result<()>>,
+    ) {
         let (tx, rx) = oneshot::channel();
         let (done_tx, done_rx) = oneshot::channel();
         let state = Arc::new(BatchState::new(
@@ -343,6 +375,7 @@ mod tests {
             client,
             "topic".to_string(),
             token_bucket,
+            total_timeout,
             done_tx,
         ));
         (state, rx, done_rx)
@@ -970,6 +1003,118 @@ mod tests {
         assert!(start_time.is_some());
         assert_eq!(ops[1].publish_start_time, start_time);
         assert_eq!(ops[2].publish_start_time, start_time);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn test_hedged_rpc_timeout_clamped_to_remaining_time() -> anyhow::Result<()> {
+        let mut mock = MockGapicPublisherWithFuture::new();
+        mock.expect_publish().times(1).returning(|_, options| {
+            // Verify that the retry policy time limit on the hedged request was clamped
+            let policy = options.retry_policy();
+            let policy = policy.as_ref().expect("retry policy must be set");
+            // The policy should have a remaining time limit of exactly 3 seconds (5s total - 2s elapsed)
+            let state = google_cloud_gax::retry_state::RetryState::new(false)
+                .set_start(tokio::time::Instant::now().into_std());
+            let remaining = policy.remaining_time(&state);
+            assert_eq!(remaining, Some(Duration::from_secs(3)));
+            Box::pin(async { mock_publish_response("msg-hedged") })
+        });
+
+        let client = GapicPublisher::from_stub(mock);
+        let token_bucket = Arc::new(TokenBucket::new(10, 0.1));
+        let (state, rx, done_rx) =
+            test_batch_state_with_timeout(client, token_bucket, Some(Duration::from_secs(5)));
+
+        // Advance time by 2 seconds before hedged RPC is sent
+        tokio::time::advance(Duration::from_secs(2)).await;
+
+        state.send_hedged_rpc(1).await;
+
+        let msg_id = rx.await??;
+        assert_eq!(msg_id, "msg-hedged");
+        assert!(state.cancel_token.is_cancelled());
+        done_rx.await??;
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn test_hedged_rpc_timeout_capped_at_max_attempt_timeout() -> anyhow::Result<()> {
+        let mut mock = MockGapicPublisherWithFuture::new();
+        mock.expect_publish().times(1).returning(|_, options| {
+            let policy = options.retry_policy();
+            let policy = policy.as_ref().expect("retry policy must be set");
+            // Even though 600s - 1s = 599s remains, the hedge is capped at MAX_ATTEMPT_TIMEOUT (10s)
+            let state = google_cloud_gax::retry_state::RetryState::new(false)
+                .set_start(tokio::time::Instant::now().into_std());
+            let remaining = policy.remaining_time(&state);
+            assert_eq!(remaining, Some(Duration::from_secs(10)));
+            Box::pin(async { mock_publish_response("msg-hedged") })
+        });
+
+        let client = GapicPublisher::from_stub(mock);
+        let token_bucket = Arc::new(TokenBucket::new(10, 0.1));
+        let (state, rx, done_rx) =
+            test_batch_state_with_timeout(client, token_bucket, Some(Duration::from_secs(600)));
+
+        tokio::time::advance(Duration::from_secs(1)).await;
+
+        state.send_hedged_rpc(1).await;
+
+        let msg_id = rx.await??;
+        assert_eq!(msg_id, "msg-hedged");
+        assert!(state.cancel_token.is_cancelled());
+        done_rx.await??;
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn test_hedged_rpc_skipped_when_total_timeout_expired() -> anyhow::Result<()> {
+        let mock = MockGapicPublisher::new();
+        // Gapic client should not be called because remaining time is zero
+        let client = GapicPublisher::from_stub(mock);
+        let token_bucket = Arc::new(TokenBucket::new(10, 0.1));
+        let (state, _rx, _done_rx) =
+            test_batch_state_with_timeout(client, token_bucket, Some(Duration::from_millis(500)));
+
+        // Advance time past total timeout
+        tokio::time::advance(Duration::from_secs(1)).await;
+
+        state.send_hedged_rpc(1).await;
+
+        // cancel_token is not cancelled, batch is not completed
+        assert!(!state.cancel_token.is_cancelled());
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn test_hedged_rpc_without_total_timeout() -> anyhow::Result<()> {
+        let mut mock = MockGapicPublisherWithFuture::new();
+        mock.expect_publish().times(1).returning(|_, options| {
+            let policy = options.retry_policy();
+            let policy = policy.as_ref().expect("retry policy must be set");
+            // With None total_timeout, remaining time defaults to MAX_ATTEMPT_TIMEOUT (10s)
+            let state = google_cloud_gax::retry_state::RetryState::new(false)
+                .set_start(tokio::time::Instant::now().into_std());
+            let remaining = policy.remaining_time(&state);
+            assert_eq!(remaining, Some(Duration::from_secs(10)));
+            Box::pin(async { mock_publish_response("msg-hedged") })
+        });
+
+        let client = GapicPublisher::from_stub(mock);
+        let token_bucket = Arc::new(TokenBucket::new(10, 0.1));
+        let (state, rx, done_rx) = test_batch_state_with_timeout(client, token_bucket, None);
+
+        state.send_hedged_rpc(1).await;
+
+        let msg_id = rx.await??;
+        assert_eq!(msg_id, "msg-hedged");
+        assert!(state.cancel_token.is_cancelled());
+        done_rx.await??;
 
         Ok(())
     }
