@@ -29,6 +29,7 @@ pub enum QueryError {
 
     /// The query job failed on the BigQuery service side.
     /// Includes the list of error protocols returned by the service.
+    #[non_exhaustive]
     #[error("query job failed: {errors:?}")]
     JobFailed {
         /// The list of all errors associated with the job.
@@ -77,7 +78,7 @@ pub enum RowError {
     },
 
     /// The JSON format returned by the service did not match expectations.
-    #[error("internal service JSON layout invalid: {0}")]
+    #[error("internal service JSON layout is invalid: {0}")]
     InvalidRowFormat(String),
 
     /// The underlying RPC failed.
@@ -134,7 +135,6 @@ impl ConvertError {
     }
 }
 
-// TODO(#6443) - consolidate crates
 pub use crate::write::error::AppendError;
 pub use crate::write::error::CommitError;
 pub use crate::write::error::WriterBuilderError;
@@ -208,7 +208,7 @@ mod tests {
         let err = RowError::InvalidRowFormat("missing f field".to_string());
         assert_eq!(
             err.to_string(),
-            "internal service JSON layout invalid: missing f field"
+            "internal service JSON layout is invalid: missing f field"
         );
 
         let status = Status::default()
