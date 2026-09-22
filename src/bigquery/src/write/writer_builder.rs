@@ -158,9 +158,7 @@ impl WriterBuilder<DefaultStream> {
     /// ```
     /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample(client: Write) -> anyhow::Result<()> {
-    /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     /// use std::time::Duration;
-    /// let policy = ExponentialBackoff::default();
     /// let writer = client
     ///     .open_default_stream("projects/my-project/datasets/my_dataset/tables/my_table")
     ///     .with_attempt_timeout(Duration::from_secs(10))
