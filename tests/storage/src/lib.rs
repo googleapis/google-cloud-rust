@@ -61,31 +61,34 @@ pub async fn build_non_colocated_storage_client(off_zone: &str) -> Result<Storag
     Ok(builder.build().await?)
 }
 
-pub async fn create_test_regional_rapid_bucket() -> Result<(StorageControl, Bucket)> {
+pub async fn create_test_regional_rapid_bucket(hns: bool) -> Result<(StorageControl, Bucket)> {
     let project_id = project_id()?;
     let control = StorageControl::builder().build().await?;
     cleanup_stale_buckets(&control, &project_id).await;
 
     let bucket_id = random_bucket_id();
+    let mut bucket = Bucket::new()
+        .set_project(format!("projects/{project_id}"))
+        .set_location("us-central1")
+        .set_storage_class("RAPID")
+        .set_labels([("integration-test", "true")])
+        .set_iam_config(
+            IamConfig::new()
+                .set_uniform_bucket_level_access(UniformBucketLevelAccess::new().set_enabled(true)),
+        );
+    if hns {
+        bucket = bucket.set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true));
+    }
+
     let create = control
         .create_bucket()
         .set_parent("projects/_")
         .set_bucket_id(bucket_id)
-        .set_bucket(
-            Bucket::new()
-                .set_project(format!("projects/{project_id}"))
-                .set_location("us-central1")
-                .set_storage_class("RAPID")
-                .set_labels([("integration-test", "true")])
-                .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
-                .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
-                    UniformBucketLevelAccess::new().set_enabled(true),
-                )),
-        )
+        .set_bucket(bucket)
         .with_idempotency(true)
         .send()
         .await?;
-    println!("create_test_regional_rapid_bucket(): {create:?}");
+    println!("create_test_regional_rapid_bucket(hns={hns}): {create:?}");
     Ok((control, create))
 }
 
