@@ -528,25 +528,37 @@ impl TransactionRunner {
     /// ```
     /// # use google_cloud_spanner::client::Spanner;
     /// # use google_cloud_spanner::statement::Statement;
-    /// # async fn run_tx(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
-    /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let runner = db_client.read_write_transaction().build().await?;
+    /// # async fn run_transaction(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let database_client = spanner
+    ///     .database_client("projects/p/instances/i/databases/d")
+    ///     .build()
+    ///     .await?;
+    /// let runner = database_client.read_write_transaction().build().await?;
     ///
-    /// let result = runner.run(async |transaction| {
-    ///     let statement = Statement::builder("UPDATE MyTable SET MyColumn = 'MyValue' WHERE Id = 1").build();
-    ///     transaction.execute_update(statement).await?;
-    ///     Ok(42)
-    /// }).await?;
+    /// let transaction_result = runner
+    ///     .run(async |transaction| {
+    ///         let statement = Statement::builder(
+    ///             "UPDATE MyTable SET MyColumn = 'MyValue' WHERE Id = 1",
+    ///         )
+    ///         .build();
+    ///         let updated_rows = transaction.execute_update(statement).await?;
+    ///         Ok(updated_rows)
+    ///     })
+    ///     .await?;
+    ///
+    /// println!("Updated {} rows", transaction_result.result);
     /// # Ok(())
     /// # }
     /// ```
     ///
-    /// If the transaction is aborted by Spanner, the closure will be retried
-    /// automatically according to the configured `TransactionRetryPolicy`.
+    /// Returns a `TransactionResult` containing both the user-defined result value
+    /// and the [`CommitResponse`][crate::model::CommitResponse] on success.
     ///
     /// The transaction is automatically committed if the closure returns `Ok`.
-    /// If the closure returns `Err`, the transaction will be rolled back and
-    /// the error will be propagated.
+    /// If the closure returns `Err`, the transaction is rolled back and the error is propagated.
+    ///
+    /// If the transaction is aborted by Spanner due to concurrency contention, the closure
+    /// is automatically retried according to the configured `TransactionRetryPolicy`.
     pub async fn run<T, F>(mut self, mut work: F) -> crate::Result<TransactionResult<T>>
     where
         F: std::ops::AsyncFnMut(ReadWriteTransaction) -> crate::Result<T>,

@@ -1,0 +1,561 @@
+# Google Cloud Spanner Client for Rust (`google-cloud-spanner`)
+
+> Idiomatic Rust client library for Google Cloud Spanner. The client manages gRPC channels and maintains a multiplexed session per database for executing queries, reads, and transactions.
+
+## Mental Model & Client Hierarchy
+
+1. **`Spanner` (Root Service Client)**:
+   - Manages the gRPC channel pool, credentials, and emulator configuration.
+   - **LIFECYCLE RULE**: `Spanner` MUST be created once at application startup and shared as a long-lived object for the lifetime of the process.
+   - Built via `Spanner::builder().build().await?`.
+   - **Clone Semantics**: Cloning a `Spanner` instance (`spanner.clone()`) is cheap because it shares the underlying gRPC channel pool, client configuration, and connection state via reference-counted pointers.
+   - Automatically detects and configures anonymous credentials when `SPANNER_EMULATOR_HOST` is set.
+   - A single `Spanner` instance can create multiple `DatabaseClient` instances, as well as `DatabaseAdmin` and `InstanceAdmin` clients that automatically inherit its credentials, endpoints, and channel configurations.
+   - Do NOT create multiple `Spanner` instances unless your application explicitly requires separate credentials or isolated channels.
+
+2. **`DatabaseClient` (Per-Database Client)**:
+   - Represents a connection to a specific database (`projects/{project}/instances/{instance}/databases/{database}`).
+   - **LIFECYCLE RULE**: `DatabaseClient` MUST be created once per database and shared across the application.
+   - Under the hood, it creates and maintains a single multiplexed session for the database in the background. Creating a new `DatabaseClient` per request creates a new multiplexed session each time, adding significant latency to every request.
+   - **Clone Semantics**: `DatabaseClient` wraps internal components in reference-counted pointers (`Arc`); cloning it (`database_client.clone()`) is an $O(1)$ cheap operation that shares the underlying multiplexed session and gRPC channels.
+
+---
+
+## Transaction Selection Guide
+
+Spanner provides specialized transaction types tailored for different access patterns and latency requirements:
+
+1. **Single-Use (`single_use()`)**:
+   - Optimal for executing a single read or query with minimal latency.
+   - Incurs no transaction initialization RPC overhead.
+   - **Staleness / Read Replicas**: Supports timestamp bounds (`set_timestamp_bound`). Specifying staleness (e.g., `TimestampBound::exact_staleness(Duration::from_secs(15))` or `TimestampBound::max_staleness(Duration::from_secs(60))`) allows Spanner to serve the read from the nearest read-only replica rather than routing to the leader replica, reducing read latency.
+
+2. **Multi-Use Read-Only (`read_only_transaction()`)**:
+   - Executes multiple reads or queries at a **single, consistent point-in-time snapshot** without taking locks or blocking concurrent writes.
+   - **Snapshot Guarantee**: Guarantees that all queries and reads executed within the transaction observe the database in the exact same consistent state at the transaction timestamp.
+   - **Timestamp Options**: Can read at strong consistency (default, latest data), exact staleness (`exact_staleness`), or at an explicit historical timestamp (`TimestampBound::read_timestamp(ts)`).
+
+3. **Read-Write (`read_write_transaction()`)**:
+   - Atomic reads and writes using `TransactionRunner`.
+   - **Automatic Retries**: Spanner aborts read-write transactions when concurrency contention occurs. `TransactionRunner` catches `ABORTED` errors and automatically retries the closure with exponential backoff and jitter.
+   - **Locks**: Read-write transactions acquire locks. **Never use read-write transactions for pure-read workloads**; use read-only transactions instead to avoid lock overhead and contention.
+   - **Supported Isolation Levels**:
+     - `IsolationLevel::Serializable` (default): Strictest concurrency-control guarantee (external consistency). Spanner behaves as if all transactions were executed sequentially. Protects against data anomalies, but transactions may abort under high read-write contention where concurrent transactions conflict.
+     - `IsolationLevel::RepeatableRead`: Implemented using snapshot isolation: all read operations in the transaction see a consistent snapshot of the database as it existed at the start of the transaction. Concurrent writes on the same data only succeed if there are no conflicts. With default optimistic concurrency, reads execute without acquiring locks and without blocking concurrent writes, resulting in fewer aborted transactions under high read-write conflict scenarios. However, it allows concurrent transactions to proceed without strict serialization, which can lead to data anomalies such as write skew if application constraints are not enforced by the schema or explicitly locked with `SELECT ... FOR UPDATE`.
+   - **Key Configuration Options**:
+     - `set_transaction_tag(&str)`: Troubleshoot transactions in Cloud Monitoring and Spanner Studio.
+     - `set_read_lock_mode(ReadLockMode)`: Pessimistic (default) vs. Optimistic locks.
+     - `set_max_commit_delay(wkt::Duration)`: Enables commit grouping on Spanner servers, grouping commits from multiple clients together for higher commit throughput when low millisecond latency is not strictly required.
+     - `set_commit_priority(Priority)`: Set transaction RPC priority (`High` (default), `Medium`, `Low`).
+     - `with_transaction_timeout(std::time::Duration)`: Bounded overall timeout covering all attempts and retries.
+     - `set_exclude_txn_from_change_streams(bool)`: Omit modifications from change streams.
+
+4. **Write-Only (`write_only_transaction()`)**:
+   - High-throughput blind writes using mutations when reads prior to writing are not required.
+   - Configurable with `set_transaction_tag`, `set_max_commit_delay`, `set_commit_priority` (default `High`), and `set_exclude_txn_from_change_streams`.
+   - Supports `write_at_least_once(mutations)` for idempotent workloads where blind retries on network failures are acceptable.
+
+5. **Partitioned DML (`partitioned_dml_transaction()`)**:
+   - Designed for large-scale batch updates or bulk deletions (e.g., periodic cleanup or backfilling default values).
+   - Divides the table keyspace into partitions and executes updates in parallel across Spanner servers.
+   - **Not Atomic**: If an operation fails partway, some partitions remain updated while others do not.
+   - **No Mutation Limit**: Not subject to the 80,000 mutation limit or transaction memory limits.
+   - Statements must be fully partitionable (cannot contain `LIMIT`, order by, joins, or subqueries).
+
+6. **Batch Read-Only (`batch_read_only_transaction()`)**:
+   - Designed for distributed data processing pipelines (such as Apache Beam, Dataflow, or parallel worker processes).
+   - Generates partitions (`partition_query` or `partition_read`) that can be serialized and distributed to worker processes to execute reads in parallel at a shared snapshot timestamp.
+
+7. **Batch Write (`batch_write_transaction()`)**:
+   - Executes multiple mutation groups across arbitrary table keyspaces in parallel.
+   - Mutations within each individual group are applied atomically, but mutations across groups are **not** atomic.
+   - Ideal for large parallel data ingestion where global cross-group atomicity is not required.
+
+---
+
+## Mutations vs. DML
+
+Cloud Spanner provides two mechanisms for modifying data: the **Mutation API** and **Data Manipulation Language (DML)**. Choosing the appropriate mechanism depends on your workload's consistency, latency, and query needs:
+
+| Feature / Behavior | Mutations (`Mutation` / `write_only_transaction` / `tx.buffer`) | DML (`Statement` / `execute_update`) |
+| :--- | :--- | :--- |
+| **Syntax** | Structured builder API (`Mutation::new_*_builder`). | Standard SQL statements (`INSERT`, `UPDATE`, `DELETE`). |
+| **Read Your Writes (RYW)** | **Unsupported**: Mutations are buffered locally on the client and sent to Spanner as part of the commit request. Subsequent queries in the same transaction cannot observe buffered mutations. | **Supported**: Modifications made by DML statements are immediately visible to subsequent queries in the same transaction. |
+| **Constraint Checking** | Evaluated at **commit time**. | Evaluated **after each statement**. |
+| **Mutation Limit Enforcement** | Cumulative: all mutations in the commit count toward the 80,000 mutation limit. | Per-statement: the 80,000 mutation mod limit applies per individual statement, not cumulatively across the transaction. A transaction can execute multiple DML statements exceeding 80,000 total mods as long as each statement stays under 80,000 mods. |
+| **Upsert (`InsertOrUpdate`)** | **Supported** natively via `Mutation::new_insert_or_update_builder`. | **Supported** via SQL syntax (`INSERT OR UPDATE` / `ON CONFLICT`). |
+| **Insert or Ignore** | **Unsupported**. | **Supported** (`INSERT OR IGNORE`). |
+| **Execution Overhead** | Bypasses SQL parsing, query planning, and intermediate statement round-trips. | Incurs statement round-trips and query planning costs. |
+| **Best Practice** | Avoid mixing DML statements and mutations in the same transaction. If mixed, Spanner executes all DML statements before applying mutations during commit. |
+
+---
+
+## Golden Recipes
+
+### 1. Client Initialization & Sharing
+
+```rust
+use google_cloud_spanner::Error;
+use google_cloud_spanner::client::{DatabaseClient, Spanner};
+
+pub struct ApplicationState {
+    pub database_client: DatabaseClient,
+}
+
+pub async fn initialize_client(
+    database_path: &str,
+) -> Result<ApplicationState, Error> {
+    // 1. Create a single long-lived Spanner client
+    let spanner = Spanner::builder().build().await?;
+
+    // 2. Create a long-lived DatabaseClient for a specific database
+    let database_client = spanner
+        .database_client(database_path)
+        .build()
+        .await?;
+
+    // 3. DatabaseClient wraps an internal Arc and is cheap to clone across tasks
+    Ok(ApplicationState { database_client })
+}
+```
+
+### 2. Single-Use Parameterized Query with Stream Traversal
+
+Always parameterize queries using `Statement::builder`:
+1. **Security**: Prevents SQL injection attacks.
+2. **Performance**: Spanner caches query execution plans using the SQL text as the cache key. Parameterized queries guarantee stable SQL strings across varying argument values, maximizing plan cache hits.
+
+```rust
+use google_cloud_spanner::Error;
+use google_cloud_spanner::client::DatabaseClient;
+use google_cloud_spanner::statement::Statement;
+
+pub async fn query_singers_by_genre(
+    database_client: &DatabaseClient,
+    genre: &str,
+    limit: i64,
+) -> Result<Vec<(i64, String, Option<String>)>, Error> {
+    let transaction = database_client.single_use().build();
+    let statement = Statement::builder(
+        "SELECT SingerId, Name, Biography FROM Singers WHERE Genre = @genre ORDER BY SingerId LIMIT @limit",
+    )
+    .add_param("genre", genre)
+    .add_param("limit", limit)
+    .build();
+
+    let mut result_set = transaction.execute_query(statement).await?;
+    let mut singers = Vec::new();
+
+    // Stream consumption: .next().await returns Option<Result<Row, Error>>.
+    // .transpose()? cleanly unpacks into Option<Row>, bubbling any stream error immediately.
+    while let Some(row) = result_set.next().await.transpose()? {
+        let singer_id: i64 = row.get("SingerId");
+        let name: String = row.get("Name");
+        let biography: Option<String> = row.get("Biography");
+        // Fallible alternative: let name: String = row.try_get("Name")?;
+        singers.push((singer_id, name, biography));
+    }
+
+    Ok(singers)
+}
+```
+
+### 3. Single-Use Read by Key and Secondary Index
+
+When reading rows without SQL expressions, use `execute_read` with `ReadRequest::builder`:
+
+```rust
+use google_cloud_spanner::Error;
+use google_cloud_spanner::client::DatabaseClient;
+use google_cloud_spanner::key;
+use google_cloud_spanner::key::KeySet;
+use google_cloud_spanner::read::ReadRequest;
+
+pub async fn read_singers_by_index(
+    database_client: &DatabaseClient,
+    last_name: &str,
+) -> Result<Vec<(i64, String, String)>, Error> {
+    let transaction = database_client.single_use().build();
+
+    let read_request = ReadRequest::builder("Singers", vec!["SingerId", "FirstName", "LastName"])
+        .with_index("SingersByLastName", key![last_name])
+        .set_limit(50)
+        .build();
+
+    let mut result_set = transaction.execute_read(read_request).await?;
+    let mut singers = Vec::new();
+
+    while let Some(row) = result_set.next().await.transpose()? {
+        let singer_id: i64 = row.get("SingerId");
+        let first_name: String = row.get("FirstName");
+        let last_name: String = row.get("LastName");
+        singers.push((singer_id, first_name, last_name));
+    }
+
+    Ok(singers)
+}
+```
+
+### 4. Consistent Point-in-Time Multi-Query Snapshot
+
+```rust
+use std::time::Duration;
+use google_cloud_spanner::Error;
+use google_cloud_spanner::client::DatabaseClient;
+use google_cloud_spanner::statement::Statement;
+use google_cloud_spanner::transaction::TimestampBound;
+
+pub async fn query_artist_catalog_snapshot(
+    database_client: &DatabaseClient,
+    singer_id: i64,
+) -> Result<(), Error> {
+    // Read at a 15-second stale snapshot to allow Spanner to serve from local read replicas
+    let timestamp_bound = TimestampBound::exact_staleness(Duration::from_secs(15));
+    let transaction = database_client
+        .read_only_transaction()
+        .set_timestamp_bound(timestamp_bound)
+        .build()
+        .await?;
+
+    let singer_statement = Statement::builder("SELECT Name FROM Singers WHERE SingerId = @id")
+        .add_param("id", singer_id)
+        .build();
+    let mut singer_results = transaction.execute_query(singer_statement).await?;
+    if let Some(row) = singer_results.next().await.transpose()? {
+        let name: String = row.get("Name");
+        println!("Singer: {name}");
+    }
+
+    let albums_statement = Statement::builder("SELECT AlbumTitle FROM Albums WHERE SingerId = @id")
+        .add_param("id", singer_id)
+        .build();
+    let mut album_results = transaction.execute_query(albums_statement).await?;
+    while let Some(row) = album_results.next().await.transpose()? {
+        let title: String = row.get("AlbumTitle");
+        println!("Album: {title}");
+    }
+
+    Ok(())
+}
+```
+
+### 5. Atomic Read-Write Transaction with `TransactionRunner`
+
+```rust
+use google_cloud_spanner::Error;
+use google_cloud_spanner::client::DatabaseClient;
+use google_cloud_spanner::model::transaction_options::IsolationLevel;
+use google_cloud_spanner::statement::Statement;
+use wkt::Duration;
+
+pub async fn update_singer_rating(
+    database_client: &DatabaseClient,
+    singer_id: i64,
+    new_rating: i64,
+) -> Result<i64, Error> {
+    let runner = database_client
+        .read_write_transaction()
+        .set_transaction_tag("update-singer-rating")
+        .set_isolation_level(IsolationLevel::Serializable)
+        .set_max_commit_delay(Duration::clamp(0, 100_000_000))
+        .build()
+        .await?;
+
+    let transaction_result = runner
+        .run(async |transaction| {
+            let select_statement = Statement::builder(
+                "SELECT Rating FROM Singers WHERE SingerId = @id",
+            )
+            .add_param("id", singer_id)
+            .build();
+
+            let mut result_set = transaction.execute_query(select_statement).await?;
+            let current_rating: i64 = match result_set.next().await.transpose()? {
+                Some(row) => row.get("Rating"),
+                None => {
+                    return Err(Error::other("singer not found"));
+                }
+            };
+
+            let update_statement = Statement::builder(
+                "UPDATE Singers SET Rating = @new_rating WHERE SingerId = @id",
+            )
+            .add_param("new_rating", new_rating)
+            .add_param("id", singer_id)
+            .build();
+            transaction.execute_update(update_statement).await?;
+
+            Ok(current_rating)
+        })
+        .await?;
+
+    Ok(transaction_result.result)
+}
+```
+
+### 6. Writing Multiple Mutations in a Write-Only Transaction
+
+```rust
+use google_cloud_spanner::Error;
+use google_cloud_spanner::client::DatabaseClient;
+use google_cloud_spanner::mutation::Mutation;
+use wkt::Duration;
+
+pub async fn insert_singer_and_albums(
+    database_client: &DatabaseClient,
+) -> Result<(), Error> {
+    let mutations = vec![
+        Mutation::new_insert_or_update_builder("Singers")
+            .set("SingerId").to(&201i64)
+            .set("Name").to(&"Alice Cooper")
+            .build(),
+        Mutation::new_insert_or_update_builder("Albums")
+            .set("SingerId").to(&201i64)
+            .set("AlbumId").to(&1i64)
+            .set("AlbumTitle").to(&"Greatest Hits")
+            .build(),
+        Mutation::new_insert_or_update_builder("Albums")
+            .set("SingerId").to(&201i64)
+            .set("AlbumId").to(&2i64)
+            .set("AlbumTitle").to(&"Live in Tokyo")
+            .build(),
+    ];
+
+    database_client
+        .write_only_transaction()
+        .set_transaction_tag("batch-catalog-insert")
+        .set_max_commit_delay(Duration::clamp(0, 50_000_000))
+        .build()
+        .write(mutations)
+        .await?;
+
+    Ok(())
+}
+```
+
+### 7. Partitioned DML for Bulk Updates & Deletions
+
+```rust
+use google_cloud_spanner::Error;
+use google_cloud_spanner::client::DatabaseClient;
+use google_cloud_spanner::statement::Statement;
+
+pub async fn archive_inactive_accounts(
+    database_client: &DatabaseClient,
+    cutoff_timestamp: &str,
+) -> Result<i64, Error> {
+    let transaction = database_client.partitioned_dml_transaction().build().await?;
+
+    let statement = Statement::builder(
+        "UPDATE Accounts SET Status = 'Archived' WHERE Status = 'Inactive' AND LastActivity < @cutoff",
+    )
+    .add_param("cutoff", cutoff_timestamp)
+    .build();
+
+    let affected_rows = transaction.execute_update(statement).await?;
+    Ok(affected_rows)
+}
+```
+
+### 8. Batch Read-Only Transaction (Parallel Query Partitioning)
+
+```rust
+use google_cloud_spanner::Error;
+use google_cloud_spanner::client::DatabaseClient;
+use google_cloud_spanner::model::PartitionOptions;
+use google_cloud_spanner::statement::Statement;
+
+pub async fn partition_and_execute_query(
+    database_client: &DatabaseClient,
+) -> Result<(), Error> {
+    let transaction = database_client.batch_read_only_transaction().build().await?;
+
+    let statement = Statement::builder("SELECT SingerId, Name FROM Singers").build();
+    let partition_options = PartitionOptions::default().set_max_partitions(8);
+
+    // Generate partitions on coordinator node
+    let partitions = transaction.partition_query(statement, partition_options).await?;
+
+    // In a distributed pipeline, serialize `partitions` and send to worker tasks/machines.
+    // Each worker executes its partition using a DatabaseClient:
+    for partition in partitions {
+        let mut result_set = partition.execute(database_client).await?;
+        while let Some(row) = result_set.next().await.transpose()? {
+            let singer_id: i64 = row.get("SingerId");
+            let name: String = row.get("Name");
+            println!("Partition row: {singer_id} - {name}");
+        }
+    }
+
+    Ok(())
+}
+```
+
+### 9. Batch Write Transaction (Parallel Mutation Groups)
+
+```rust
+use google_cloud_spanner::Error;
+use google_cloud_spanner::client::DatabaseClient;
+use google_cloud_spanner::mutation::{Mutation, MutationGroup};
+
+pub async fn execute_batch_writes(
+    database_client: &DatabaseClient,
+) -> Result<(), Error> {
+    let group_1 = MutationGroup::new(vec![
+        Mutation::new_insert_or_update_builder("Users")
+            .set("UserId").to(&1i64)
+            .set("Name").to(&"Alice")
+            .build(),
+    ]);
+
+    let group_2 = MutationGroup::new(vec![
+        Mutation::new_insert_or_update_builder("Users")
+            .set("UserId").to(&2i64)
+            .set("Name").to(&"Bob")
+            .build(),
+    ]);
+
+    let transaction = database_client.batch_write_transaction().build();
+    let mut response_stream = transaction.execute_streaming(vec![group_1, group_2]).await?;
+
+    while let Some(batch_response) = response_stream.next().await.transpose()? {
+        println!("Processed mutation group status: {:?}", batch_response.status);
+    }
+
+    Ok(())
+}
+```
+
+### 10. Batch DDL Schema Updates
+
+```rust
+use google_cloud_lro::Poller;
+use google_cloud_spanner::Error;
+use google_cloud_spanner::client::Spanner;
+
+pub async fn apply_database_migrations(
+    spanner: &Spanner,
+    database_path: &str,
+) -> Result<(), Error> {
+    let database_admin = spanner.database_admin_builder().build().await?;
+
+    let statements = vec![
+        "CREATE TABLE Venues (
+            VenueId INT64 NOT NULL,
+            VenueName STRING(256),
+            Capacity INT64
+        ) PRIMARY KEY (VenueId)".to_string(),
+        "CREATE INDEX VenuesByName ON Venues (VenueName)".to_string(),
+    ];
+
+    database_admin
+        .update_database_ddl()
+        .set_database(database_path)
+        .set_statements(statements)
+        .poller()
+        .until_done()
+        .await?;
+
+    Ok(())
+}
+```
+
+### 11. Custom Type Decoder via `FromValue`
+
+To decode column values directly into domain types or enums, implement `FromValue`:
+
+```rust
+use google_cloud_spanner::Error;
+use google_cloud_spanner::client::DatabaseClient;
+use google_cloud_spanner::statement::Statement;
+use google_cloud_spanner::value::{ConvertError, FromValue, Type, Value};
+
+#[derive(Debug, PartialEq, Eq)]
+pub enum AccountStatus {
+    Active,
+    Suspended,
+}
+
+impl FromValue for AccountStatus {
+    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
+        let text = String::from_value(value, type_)?;
+        match text.as_str() {
+            "Active" => Ok(AccountStatus::Active),
+            "Suspended" => Ok(AccountStatus::Suspended),
+            other => Err(ConvertError::Convert(format!("unknown status: {other}").into())),
+        }
+    }
+}
+
+pub async fn query_account_statuses(
+    database_client: &DatabaseClient,
+) -> Result<Vec<(i64, AccountStatus)>, Error> {
+    let transaction = database_client.single_use().build();
+    let statement = Statement::builder("SELECT AccountId, Status FROM Accounts").build();
+    let mut result_set = transaction.execute_query(statement).await?;
+
+    let mut accounts = Vec::new();
+    while let Some(row) = result_set.next().await.transpose()? {
+        let account_id: i64 = row.get("AccountId");
+        let status: AccountStatus = row.get("Status");
+        accounts.push((account_id, status));
+    }
+
+    Ok(accounts)
+}
+```
+
+---
+
+## Critical Anti-Patterns (Do NOT Do This)
+
+1. ❌ **Do NOT create `DatabaseClient` or `Spanner` inside request handlers or short-lived functions.**
+   - *Why*: Creating a client initializes gRPC connection channels and a multiplexed session. Doing this per request adds significant latency to every request.
+   - *Instead*: Initialize a single `Spanner` client and a single `DatabaseClient` per database at application bootstrap. Clone `DatabaseClient` freely across async tasks and handlers.
+
+2. ❌ **Do NOT create multiple `Spanner` clients across your application.**
+   - *Why*: A single `Spanner` client manages the gRPC channel pool and connection lifecycle. Creating multiple `Spanner` clients creates redundant TCP connections and duplicates background channels.
+   - *Instead*: Reuse a single `Spanner` instance across your application.
+
+3. ❌ **Do NOT use read-write transactions for pure-read workloads.**
+   - *Why*: Read-write transactions acquire locks and introduce lock contention.
+   - *Instead*: Use `single_use()` for single queries or `read_only_transaction()` for multi-query snapshots. Read-only transactions acquire zero locks.
+
+4. ❌ **Do NOT execute multiple single-use queries when a consistent snapshot is required.**
+   - *Why*: Each single-use transaction executes at its own independent timestamp. Concurrent writes can produce inconsistent states across separate single-use queries.
+   - *Instead*: Use `read_only_transaction()`, which guarantees that every query in the transaction observes the exact same snapshot in time.
+
+5. ❌ **Do NOT write manual retry loops for `ABORTED` errors in read/write transactions.**
+   - *Why*: `TransactionRunner::run` already catches `ABORTED` status codes and executes exponential backoff and jitter retries. Manual loops cause duplicate retries or conflict with runner state.
+   - *Instead*: Enclose operations within `runner.run(async |transaction| { ... })`.
+
+6. ❌ **Do NOT write `result_set.next().await?`.**
+   - *Why*: `next().await` yields `Option<Result<Row, Error>>`. Calling `?` directly fails to compile or masks stream completion.
+   - *Instead*: Write `while let Some(row) = result_set.next().await.transpose()?`.
+
+7. ❌ **Do NOT interpolate or concatenate untrusted strings into SQL statements.**
+   - *Why*: Exposes the database to SQL injection attacks and prevents Spanner from reusing cached query plans.
+   - *Instead*: Always use `Statement::builder(sql).add_param("param_name", value)`.
+
+8. ❌ **Do NOT execute DDL statements sequentially in separate RPC calls.**
+   - *Why*: Spanner creates a new schema version for each DDL operation. Executing DDL statements one by one is slow and triggers DDL rate throttling.
+   - *Instead*: Batch all statements into a single `.set_statements(vec![...])` call.
+
+---
+
+## Local Development & Testing with the Emulator
+
+The client automatically detects and connects to the Spanner emulator when `SPANNER_EMULATOR_HOST` is set:
+
+```bash
+# Start emulator container
+docker run -d -p 9010:9010 -p 9020:9020 gcr.io/cloud-spanner-emulator/emulator
+
+# Point client to emulator
+export SPANNER_EMULATOR_HOST=localhost:9010
+```
+
+When this variable is set, `Spanner::builder().build().await?` automatically:
+- Points gRPC data requests to port `9010`.
+- Points REST admin requests to port `9020`.
+- Configures anonymous credentials.
