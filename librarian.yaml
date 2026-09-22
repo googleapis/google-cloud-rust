@@ -504,7 +504,7 @@ libraries:
     version: 2.2.0
     copyright_year: "2025"
   - name: google-cloud-bigquery
-    version: 0.17.0
+    version: 0.17.0-preview
     copyright_year: "2026"
     output: src/bigquery
     skip_release: true
@@ -567,7 +567,7 @@ libraries:
     version: 1.12.0
     copyright_year: "2025"
   - name: google-cloud-bigquery-derive
-    version: 0.1.0
+    version: 0.1.0-preview
     copyright_year: "2026"
     output: src/bigquery-derive
     skip_release: true
