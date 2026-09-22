@@ -29,6 +29,7 @@ pub enum QueryError {
 
     /// The query job failed on the BigQuery service side.
     /// Includes the list of error protocols returned by the service.
+    #[non_exhaustive]
     #[error("query job failed: {errors:?}")]
     JobFailed {
         /// The list of all errors associated with the job.
@@ -55,6 +56,7 @@ pub enum RowError {
     ColumnNotFound(String),
 
     /// The requested column index was out of range.
+    #[non_exhaustive]
     #[error("column index out of range: {index} (expected < {len})")]
     IndexOutOfRange {
         /// The index that was requested.

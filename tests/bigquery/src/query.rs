@@ -131,38 +131,31 @@ pub async fn query_client_datatypes() -> Result<()> {
             .set_minutes(30)
             .set_seconds(0)
             .set_nanos(0),
-        date_range: Range {
-            start: Some(
+        date_range: Range::new()
+            .set_start(
                 google_cloud_type::model::Date::new()
                     .set_year(2026)
                     .set_month(5)
                     .set_day(28),
-            ),
-            end: Some(
+            )
+            .set_end(
                 google_cloud_type::model::Date::new()
                     .set_year(2026)
                     .set_month(5)
                     .set_day(29),
             ),
-        },
-        timestamp_range: Range {
-            start: Some(wkt::Timestamp::new(1779982200, 0).unwrap()),
-            end: None,
-        },
+        timestamp_range: Range::new().set_start(wkt::Timestamp::new(1779982200, 0).unwrap()),
         nullable_name: None,
         nullable_age: None,
         raw_bytes: b"hello world".to_vec(),
         payload_bytes: bytes::Bytes::from_static(b"payload in bytes"),
         nullable_bytes: None,
-        interval_val: Interval {
-            years: 0,
-            months: 0,
-            days: 1,
-            hours: 2,
-            minutes: 30,
-            seconds: 45,
-            nanos: 123_456_000,
-        },
+        interval_val: Interval::new()
+            .set_days(1)
+            .set_hours(2)
+            .set_minutes(30)
+            .set_seconds(45)
+            .set_nanos(123_456_000),
         json_val: wkt::Struct::from_iter([
             ("role".to_string(), wkt::Value::String("admin".to_string())),
             ("level".to_string(), wkt::Value::Number(5.into())),
