@@ -454,9 +454,7 @@ mod tests {
             }
         );
 
-        let cleared = range
-            .set_or_clear_start(None)
-            .set_or_clear_end(Some(30));
+        let cleared = range.set_or_clear_start(None).set_or_clear_end(Some(30));
         assert_eq!(
             cleared,
             Range {
