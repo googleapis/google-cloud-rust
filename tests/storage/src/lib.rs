@@ -31,9 +31,9 @@ pub use google_cloud_storage::builder::storage::ClientBuilder as StorageBuilder;
 use google_cloud_storage::builder::storage::SignedUrlBuilder;
 pub use google_cloud_storage::builder::storage_control::ClientBuilder as StorageControlBuilder;
 use google_cloud_storage::client::{Storage, StorageControl};
-use google_cloud_storage::model::Bucket;
 use google_cloud_storage::model::bucket::iam_config::UniformBucketLevelAccess;
 use google_cloud_storage::model::bucket::{HierarchicalNamespace, IamConfig};
+use google_cloud_storage::model::{Bucket, RapidCache};
 use google_cloud_storage::read_object::ReadObjectResponse;
 use google_cloud_test_utils::resource_names::random_bucket_id;
 use google_cloud_test_utils::runtime_config::{project_id, test_service_account};
@@ -70,7 +70,6 @@ pub async fn create_test_regional_rapid_bucket(hns: bool) -> Result<(StorageCont
     let mut bucket = Bucket::new()
         .set_project(format!("projects/{project_id}"))
         .set_location("us-central1")
-        .set_storage_class("RAPID")
         .set_labels([("integration-test", "true")])
         .set_iam_config(
             IamConfig::new()
@@ -80,7 +79,7 @@ pub async fn create_test_regional_rapid_bucket(hns: bool) -> Result<(StorageCont
         bucket = bucket.set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true));
     }
 
-    let create = control
+    let created_bucket = control
         .create_bucket()
         .set_parent("projects/_")
         .set_bucket_id(bucket_id)
@@ -88,8 +87,49 @@ pub async fn create_test_regional_rapid_bucket(hns: bool) -> Result<(StorageCont
         .with_idempotency(true)
         .send()
         .await?;
-    println!("create_test_regional_rapid_bucket(hns={hns}): {create:?}");
-    Ok((control, create))
+    println!(
+        "create_test_regional_rapid_bucket(hns={hns}) created base bucket: {:?}",
+        created_bucket.name
+    );
+
+    let rapid_cache = RapidCache::new()
+        .set_name(format!("{}/rapidCaches/us-central1-a", created_bucket.name))
+        .set_zone("us-central1-a")
+        .set_cache_type("rapid-cache-ultra");
+
+    let _op = control
+        .create_rapid_cache()
+        .set_parent(&created_bucket.name)
+        .set_rapid_cache(rapid_cache)
+        .poller()
+        .until_done()
+        .await?;
+    println!("create_test_regional_rapid_bucket: attached rapid-cache-ultra in us-central1-a");
+
+    Ok((control, created_bucket))
+}
+
+pub async fn cleanup_regional_rapid_bucket(
+    control: StorageControl,
+    bucket_name: String,
+    project_id: String,
+) -> Result<()> {
+    let mut caches = control
+        .list_rapid_caches()
+        .set_parent(&bucket_name)
+        .by_item();
+    while let Some(item) = caches.next().await {
+        if let Ok(cache) = item {
+            tracing::info!("disabling rapid cache {}", cache.name);
+            let _ = control
+                .disable_rapid_cache()
+                .set_name(cache.name)
+                .poller()
+                .until_done()
+                .await;
+        }
+    }
+    storage_samples::cleanup_bucket(control, bucket_name, project_id).await
 }
 
 pub async fn objects(builder: StorageBuilder, bucket_name: &str, prefix: &str) -> Result<()> {

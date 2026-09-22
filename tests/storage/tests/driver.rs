@@ -266,13 +266,18 @@ mod storage {
                 )
                 .await
                 .inspect_err(anydump);
-                let _ = storage_samples::cleanup_bucket(
+                let _ = integration_tests_storage::cleanup_regional_rapid_bucket(
                     control,
                     bucket.name.clone(),
                     bucket.project.clone(),
                 )
                 .await
-                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+                .inspect_err(|e| {
+                    tracing::error!(
+                        "error cleaning up regional rapid bucket {}: {e:?}",
+                        bucket.name
+                    )
+                })
                 .inspect_err(anydump);
                 result
             }
@@ -292,13 +297,18 @@ mod storage {
                 )
                 .await
                 .inspect_err(anydump);
-                let _ = storage_samples::cleanup_bucket(
+                let _ = integration_tests_storage::cleanup_regional_rapid_bucket(
                     control,
                     bucket.name.clone(),
                     bucket.project.clone(),
                 )
                 .await
-                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+                .inspect_err(|e| {
+                    tracing::error!(
+                        "error cleaning up regional rapid bucket {}: {e:?}",
+                        bucket.name
+                    )
+                })
                 .inspect_err(anydump);
                 result
             }
