@@ -50,6 +50,7 @@ use crate::query::from_sql::SqlValueInner;
 /// # }
 /// ```
 #[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
 pub struct Interval {
     /// Years component.
     pub years: i32,
@@ -65,6 +66,55 @@ pub struct Interval {
     pub seconds: i32,
     /// Nanoseconds component.
     pub nanos: i32,
+}
+
+impl Interval {
+    /// Creates a new zero-duration interval (`0-0 0 0:00:00`), with all components set to `0`.
+    pub fn new() -> Self {
+        Self::default()
+    }
+
+    /// Sets the value of [years][Self::years].
+    pub fn set_years(mut self, v: i32) -> Self {
+        self.years = v;
+        self
+    }
+
+    /// Sets the value of [months][Self::months].
+    pub fn set_months(mut self, v: i32) -> Self {
+        self.months = v;
+        self
+    }
+
+    /// Sets the value of [days][Self::days].
+    pub fn set_days(mut self, v: i32) -> Self {
+        self.days = v;
+        self
+    }
+
+    /// Sets the value of [hours][Self::hours].
+    pub fn set_hours(mut self, v: i32) -> Self {
+        self.hours = v;
+        self
+    }
+
+    /// Sets the value of [minutes][Self::minutes].
+    pub fn set_minutes(mut self, v: i32) -> Self {
+        self.minutes = v;
+        self
+    }
+
+    /// Sets the value of [seconds][Self::seconds].
+    pub fn set_seconds(mut self, v: i32) -> Self {
+        self.seconds = v;
+        self
+    }
+
+    /// Sets the value of [nanos][Self::nanos].
+    pub fn set_nanos(mut self, v: i32) -> Self {
+        self.nanos = v;
+        self
+    }
 }
 
 impl FromSql for Interval {
@@ -200,11 +250,52 @@ impl FromSql for Interval {
 /// # }
 /// ```
 #[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
 pub struct Range<T> {
     /// The inclusive start of the range (or None if unbounded).
     pub start: Option<T>,
     /// The exclusive end of the range (or None if unbounded).
     pub end: Option<T>,
+}
+
+impl<T> Default for Range<T> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl<T> Range<T> {
+    /// Creates a new unbounded range (`[UNBOUNDED, UNBOUNDED)`).
+    pub fn new() -> Self {
+        Self {
+            start: None,
+            end: None,
+        }
+    }
+
+    /// Sets the value of [start][Self::start].
+    pub fn set_start<V: Into<T>>(mut self, v: V) -> Self {
+        self.start = Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start][Self::start].
+    pub fn set_or_clear_start(mut self, v: Option<T>) -> Self {
+        self.start = v;
+        self
+    }
+
+    /// Sets the value of [end][Self::end].
+    pub fn set_end<V: Into<T>>(mut self, v: V) -> Self {
+        self.end = Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end][Self::end].
+    pub fn set_or_clear_end(mut self, v: Option<T>) -> Self {
+        self.end = v;
+        self
+    }
 }
 
 impl<T: FromSql> FromSql for Range<T> {
@@ -326,5 +417,50 @@ mod tests {
         value: wkt::Value,
     ) -> Result<Range<google_cloud_type::model::Date>, TestConvertError> {
         FromSql::from_value(crate::query::SqlValue::new(value)).map_err(TestConvertError::from)
+    }
+
+    #[test]
+    fn test_interval_setters() {
+        let interval = Interval::new()
+            .set_years(1)
+            .set_months(2)
+            .set_days(3)
+            .set_hours(4)
+            .set_minutes(5)
+            .set_seconds(6)
+            .set_nanos(789);
+        assert_eq!(
+            interval,
+            Interval {
+                years: 1,
+                months: 2,
+                days: 3,
+                hours: 4,
+                minutes: 5,
+                seconds: 6,
+                nanos: 789,
+            }
+        );
+    }
+
+    #[test]
+    fn test_range_setters() {
+        let range = Range::<i32>::new().set_start(10).set_end(20);
+        assert_eq!(
+            range,
+            Range {
+                start: Some(10),
+                end: Some(20),
+            }
+        );
+
+        let cleared = range.set_or_clear_start(None).set_or_clear_end(Some(30));
+        assert_eq!(
+            cleared,
+            Range {
+                start: None,
+                end: Some(30),
+            }
+        );
     }
 }

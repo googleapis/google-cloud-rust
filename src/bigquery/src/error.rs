@@ -56,6 +56,7 @@ pub enum RowError {
     ColumnNotFound(String),
 
     /// The requested column index was out of range.
+    #[non_exhaustive]
     #[error("column index out of range: {index} (expected < {len})")]
     IndexOutOfRange {
         /// The index that was requested.
