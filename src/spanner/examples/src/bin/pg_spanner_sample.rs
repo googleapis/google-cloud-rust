@@ -20,13 +20,15 @@
 //! ```
 
 use google_cloud_spanner::client::Spanner;
-use spanner_samples::{client, database, dml, mutation, query};
+use spanner_samples::{client, database, dml, mutation, query, quickstart};
 
 fn print_usage_and_exit(program: &str) -> ! {
     eprintln!("Usage: {program} <command> <instance-id> <database-id>");
     eprintln!("Commands:");
+    eprintln!("  quickstart");
     eprintln!("  createpgdatabase | createdatabase");
     eprintln!("  write");
+    eprintln!("  upsert | insertorupdate");
     eprintln!("  writeusingdml | insertusingdml");
     eprintln!("  querysingerstable | query");
     eprintln!("  querywithparameter");
@@ -72,7 +74,9 @@ async fn main() -> anyhow::Result<()> {
     let (client, admin_client) = client::init_client::sample(&database_name).await?;
 
     match command.as_str() {
+        "quickstart" => quickstart::sample(&client).await?,
         "write" => mutation::insert_data::sample(&client).await?,
+        "upsert" | "insertorupdate" => mutation::insert_or_update_data::sample(&client).await?,
         "writeusingdml" | "insertusingdml" => dml::pg_dml_insert::sample(&client).await?,
         "querysingerstable" | "query" => query::pg_query_data::sample(&client).await?,
         "querywithparameter" => query::pg_query_parameter::sample(&client).await?,
