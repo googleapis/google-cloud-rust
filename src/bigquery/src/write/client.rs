@@ -109,13 +109,7 @@ impl Write {
         &self,
         table: T,
     ) -> WriterBuilder<S> {
-        WriterBuilder::new_create(
-            self.inner.clone(),
-            self.pools.clone(),
-            self.pool_options.clone(),
-            self.retry_options.clone(),
-            table.into(),
-        )
+        WriterBuilder::new_create(self.inner.clone(), self.retry_options.clone(), table.into())
     }
 
     /// Attaches to an existing [application-created stream].
@@ -153,8 +147,6 @@ impl Write {
     ) -> WriterBuilder<S> {
         WriterBuilder::new_attach(
             self.inner.clone(),
-            self.pools.clone(),
-            self.pool_options.clone(),
             self.retry_options.clone(),
             write_stream.into(),
         )

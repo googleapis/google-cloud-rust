@@ -116,15 +116,13 @@ impl WriterBuilder<DefaultStream> {
 impl<S: ApplicationCreatedStream> WriterBuilder<S> {
     pub(crate) fn new_create(
         inner: Arc<Transport>,
-        pools: Arc<Mutex<HashMap<&'static str, Arc<StreamPool>>>>,
-        pool_options: StreamPoolOptions,
         retry_options: RetryOptions,
         table: String,
     ) -> Self {
         Self {
             inner,
-            pools,
-            pool_options,
+            pools: Arc::new(Mutex::new(HashMap::new())),
+            pool_options: StreamPoolOptions::default(),
             retry_options,
             op: Operation::Create {
                 table,
@@ -137,15 +135,13 @@ impl<S: ApplicationCreatedStream> WriterBuilder<S> {
 
     pub(crate) fn new_attach(
         inner: Arc<Transport>,
-        pools: Arc<Mutex<HashMap<&'static str, Arc<StreamPool>>>>,
-        pool_options: StreamPoolOptions,
         retry_options: RetryOptions,
         write_stream: String,
     ) -> Self {
         Self {
             inner,
-            pools,
-            pool_options,
+            pools: Arc::new(Mutex::new(HashMap::new())),
+            pool_options: StreamPoolOptions::default(),
             retry_options,
             op: Operation::Attach {
                 write_stream,
@@ -572,27 +568,13 @@ mod tests {
         transport: Arc<Transport>,
         table: &str,
     ) -> WriterBuilder<S> {
-        let pools = Arc::new(Mutex::new(HashMap::new()));
-        WriterBuilder::new_create(
-            transport,
-            pools,
-            StreamPoolOptions::default(),
-            test_retry_options(),
-            table.to_string(),
-        )
+        WriterBuilder::new_create(transport, test_retry_options(), table.to_string())
     }
 
     fn test_attach<S: ApplicationCreatedStream>(
         transport: Arc<Transport>,
         write_stream: &str,
     ) -> WriterBuilder<S> {
-        let pools = Arc::new(Mutex::new(HashMap::new()));
-        WriterBuilder::new_attach(
-            transport,
-            pools,
-            StreamPoolOptions::default(),
-            test_retry_options(),
-            write_stream.to_string(),
-        )
+        WriterBuilder::new_attach(transport, test_retry_options(), write_stream.to_string())
     }
 }
