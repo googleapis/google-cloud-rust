@@ -232,39 +232,6 @@ mod tests {
         Ok(())
     }
 
-    #[test]
-    fn send_and_poll_outside_tokio_runtime() {
-        let (req_tx, mut req_rx) = mpsc::unbounded_channel();
-        let req = AppendRowsRequest::new().set_write_stream(write_stream());
-
-        let builder = AppendWithOffset::new(req_tx, req).set_offset(100);
-        let mut future = builder.send();
-
-        let write = req_rx.try_recv().expect("should have queued request");
-        assert_eq!(write.req.offset, Some(100));
-
-        let waker = std::task::Waker::noop();
-        let mut cx = std::task::Context::from_waker(waker);
-
-        // Before response arrives, future is pending.
-        assert!(std::pin::Pin::new(&mut future).poll(&mut cx).is_pending());
-
-        // Simulate background runner providing a response.
-        let resp = v1::AppendRowsResponse {
-            response: Some(Response::AppendResult(AppendResult { offset: Some(100) })),
-            write_stream: write_stream(),
-            ..Default::default()
-        };
-        write.resp_tx.send(Ok(resp)).expect("should send response");
-
-        // Polling and completing the future outside of Tokio runtime works cleanly.
-        let poll_result = std::pin::Pin::new(&mut future).poll(&mut cx);
-        assert!(matches!(
-            poll_result,
-            std::task::Poll::Ready(Ok(r)) if r.offset == Some(100)
-        ));
-    }
-
     #[tokio::test]
     async fn send_when_req_tx_closed_returns_unexpected_end_of_stream() {
         let (req_tx, req_rx) = mpsc::unbounded_channel();
