@@ -57,6 +57,9 @@ fn derive_from_row_impl(input: DeriveInput) -> proc_macro2::TokenStream {
                 }
             }
             Fields::Unnamed(fields) if !fields.unnamed.is_empty() => {
+                if let Err(err) = reject_bigquery_attrs(&fields.unnamed) {
+                    return err.to_compile_error();
+                }
                 let field_initializations = (0..fields.unnamed.len()).map(|idx| {
                     quote! {
                         row.take(#idx)?,
@@ -134,6 +137,9 @@ fn derive_from_sql_impl(input: DeriveInput) -> proc_macro2::TokenStream {
                 }
             }
             Fields::Unnamed(fields) if !fields.unnamed.is_empty() => {
+                if let Err(err) = reject_bigquery_attrs(&fields.unnamed) {
+                    return err.to_compile_error();
+                }
                 let field_initializations = (0..fields.unnamed.len()).map(|idx| {
                     quote! {
                         value.take(#idx)?,
@@ -169,6 +175,18 @@ fn derive_from_sql_impl(input: DeriveInput) -> proc_macro2::TokenStream {
             }
         }
     }
+}
+
+fn reject_bigquery_attrs<'a>(fields: impl IntoIterator<Item = &'a syn::Field>) -> syn::Result<()> {
+    for field in fields {
+        if let Some(attr) = field.attrs.iter().find(|a| a.path().is_ident("bigquery")) {
+            return Err(syn::Error::new_spanned(
+                attr,
+                "bigquery attributes are not supported on tuple struct fields",
+            ));
+        }
+    }
+    Ok(())
 }
 
 fn get_field_name(field: &syn::Field) -> syn::Result<String> {
@@ -266,6 +284,23 @@ mod tests {
         assert!(
             sql_err.contains("FromSql can only be derived for non-empty structs"),
             "unexpected expansion for {def}: {sql_err}"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn test_rejects_bigquery_attribute_on_tuple_struct_field() -> Result<(), syn::Error> {
+        let def = r#"struct TupleWithAttr(#[bigquery(rename = "custom")] i64);"#;
+        let row_err = derive_from_row_impl(syn::parse_str(def)?).to_string();
+        assert!(
+            row_err.contains("bigquery attributes are not supported on tuple struct fields"),
+            "unexpected expansion: {row_err}"
+        );
+
+        let sql_err = derive_from_sql_impl(syn::parse_str(def)?).to_string();
+        assert!(
+            sql_err.contains("bigquery attributes are not supported on tuple struct fields"),
+            "unexpected expansion: {sql_err}"
         );
         Ok(())
     }
