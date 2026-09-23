@@ -41,6 +41,8 @@ mod committed;
 mod default;
 mod dispatcher;
 mod entry;
+#[cfg_attr(not(test), expect(dead_code))]
+mod optimizer;
 mod pending;
 mod pool;
 mod proto_schema;
