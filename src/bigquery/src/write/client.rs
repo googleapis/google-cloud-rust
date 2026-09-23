@@ -345,10 +345,7 @@ mod tests {
             .await?;
 
         // Same location shares the connection pool.
-        assert!(Arc::ptr_eq(
-            &us_writer1.inner.pool,
-            &us_writer2.inner.pool
-        ));
+        assert!(Arc::ptr_eq(&us_writer1.inner.pool, &us_writer2.inner.pool));
 
         Ok(())
     }
