@@ -29,11 +29,11 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-shopping-merchant-lfp-v1/1.0.0)
+- Read the [crate's documentation](https://docs.rs/google-shopping-merchant-lfp-v1/1.1.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[LfpInventoryService]: https://docs.rs/google-shopping-merchant-lfp-v1/1.0.0/google_shopping_merchant_lfp_v1/client/struct.LfpInventoryService.html
-[LfpMerchantStateService]: https://docs.rs/google-shopping-merchant-lfp-v1/1.0.0/google_shopping_merchant_lfp_v1/client/struct.LfpMerchantStateService.html
-[LfpSaleService]: https://docs.rs/google-shopping-merchant-lfp-v1/1.0.0/google_shopping_merchant_lfp_v1/client/struct.LfpSaleService.html
-[LfpStoreService]: https://docs.rs/google-shopping-merchant-lfp-v1/1.0.0/google_shopping_merchant_lfp_v1/client/struct.LfpStoreService.html
+[LfpInventoryService]: https://docs.rs/google-shopping-merchant-lfp-v1/1.1.0/google_shopping_merchant_lfp_v1/client/struct.LfpInventoryService.html
+[LfpMerchantStateService]: https://docs.rs/google-shopping-merchant-lfp-v1/1.1.0/google_shopping_merchant_lfp_v1/client/struct.LfpMerchantStateService.html
+[LfpSaleService]: https://docs.rs/google-shopping-merchant-lfp-v1/1.1.0/google_shopping_merchant_lfp_v1/client/struct.LfpSaleService.html
+[LfpStoreService]: https://docs.rs/google-shopping-merchant-lfp-v1/1.1.0/google_shopping_merchant_lfp_v1/client/struct.LfpStoreService.html
