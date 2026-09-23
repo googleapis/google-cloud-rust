@@ -386,6 +386,15 @@
       "Product": "Lakehouse API"
     }
   ],
+  "google-cloud-bigquery": [
+    {
+      "PkgName": "google-cloud-bigquery",
+      "Language": "Rust",
+      "DocsURL": "https://docs.rs/google-cloud-bigquery/latest",
+      "APIShortname": "bigquery",
+      "Product": "BigQuery API"
+    }
+  ],
   "google-cloud-bigquery-analyticshub-v1": [
     {
       "PkgName": "google-cloud-bigquery-analyticshub-v1",
