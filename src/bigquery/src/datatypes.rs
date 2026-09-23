@@ -448,7 +448,7 @@ mod tests {
         FromSql::from_value(crate::query::SqlValue::new(value)).map_err(TestConvertError::from)
     }
 
-    #[test_case(wkt::Value::String("[1779982200000000, UNBOUNDED)".to_string()) => Ok(Range { start: Some(wkt::Timestamp::new(1779982200, 0).unwrap()), end: None }) ; "timestamp range unbounded end")]
+    #[test_case(wkt::Value::String("[1779982200000000, UNBOUNDED)".to_string()) => Ok(Range { start: Some(wkt::Timestamp::clamp(1779982200, 0)), end: None }) ; "timestamp range unbounded end")]
     fn test_from_sql_timestamp_range(
         value: wkt::Value,
     ) -> Result<Range<wkt::Timestamp>, TestConvertError> {
