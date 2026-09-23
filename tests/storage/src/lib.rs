@@ -87,6 +87,19 @@ pub async fn build_non_colocated_storage_client(off_zone: &str) -> Result<Storag
     Ok(builder.build().await?)
 }
 
+/// Builds a `Storage` data client aligned with the preprod `StorageControl` endpoint for Regional Rapid.
+/// Defaults to the Preprod endpoint (`https://storage-preprod-test-grpc.googleusercontent.com:443`)
+/// unless overridden by `GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT` or `GOOGLE_CLOUD_TEST_STORAGE_ENDPOINT`.
+pub async fn build_regional_rapid_storage_client() -> Result<Storage> {
+    let endpoint = std::env::var("GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT")
+        .or_else(|_| std::env::var("GOOGLE_CLOUD_TEST_STORAGE_ENDPOINT"))
+        .unwrap_or_else(|_| {
+            "https://storage-preprod-test-grpc.googleusercontent.com:443".to_string()
+        });
+
+    Ok(Storage::builder().with_endpoint(endpoint).build().await?)
+}
+
 pub async fn create_test_regional_rapid_bucket(hns: bool) -> Result<(StorageControl, Bucket)> {
     let project_id = project_id()?;
     let control = build_storage_control_client().await?;

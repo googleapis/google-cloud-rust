@@ -136,181 +136,138 @@ mod storage {
             result
         }
 
-        mod regional_standard {
+        mod conformance {
             use super::*;
+            use integration_tests_storage::bidi_read::conformance;
+
+            // =========================================================================
+            // Non-bucket-type dependent test cases (Tests 2, 4, 5)
+            // =========================================================================
 
             #[tokio::test(flavor = "multi_thread")]
-            async fn hns() -> anyhow::Result<()> {
+            async fn read_post_stream_close() -> anyhow::Result<()> {
                 let _guard = enable_tracing();
-                let (control, bucket) = integration_tests_storage::create_test_hns_bucket()
+                conformance::run_read_post_stream_close()
                     .await
-                    .inspect_err(anydump)?;
-                let client = integration_tests_storage::build_storage_client().await?;
-                let result = integration_tests_storage::bidi_read::conformance::run_with_scenario(
-                    &client,
-                    &bucket.name,
-                    "Regional Standard (HNS)",
-                )
-                .await
-                .inspect_err(anydump);
-                let _ = storage_samples::cleanup_bucket(
-                    control,
-                    bucket.name.clone(),
-                    bucket.project.clone(),
-                )
-                .await
-                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
-                .inspect_err(anydump);
-                result
+                    .inspect_err(anydump)
             }
 
             #[tokio::test(flavor = "multi_thread")]
-            async fn flat() -> anyhow::Result<()> {
+            async fn non_existent_bucket_read() -> anyhow::Result<()> {
                 let _guard = enable_tracing();
-                let (control, bucket) = integration_tests_storage::create_test_bucket()
+                conformance::run_non_existent_bucket_read()
                     .await
-                    .inspect_err(anydump)?;
-                let client = integration_tests_storage::build_storage_client().await?;
-                let result = integration_tests_storage::bidi_read::conformance::run_with_scenario(
-                    &client,
-                    &bucket.name,
-                    "Regional Standard (Flat)",
-                )
-                .await
-                .inspect_err(anydump);
-                let _ = storage_samples::cleanup_bucket(
-                    control,
-                    bucket.name.clone(),
-                    bucket.project.clone(),
-                )
-                .await
-                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
-                .inspect_err(anydump);
-                result
+                    .inspect_err(anydump)
             }
-        }
-
-        #[cfg(google_cloud_unstable_storage_bidi)]
-        mod zonal_rapid {
-            use super::*;
 
             #[tokio::test(flavor = "multi_thread")]
-            async fn colocated() -> anyhow::Result<()> {
+            async fn out_of_range() -> anyhow::Result<()> {
                 let _guard = enable_tracing();
-                let (control, bucket) = integration_tests_storage::create_test_rapid_bucket()
+                conformance::run_out_of_range().await.inspect_err(anydump)
+            }
+
+            // =========================================================================
+            // Bucket-type-dependent test cases (Tests 1 & 3 permuted)
+            // Format: [test-case-name]_[bucket_type]_[hns]_[colocated]
+            // =========================================================================
+
+            // --- 1. Regional Standard ---
+            #[tokio::test(flavor = "multi_thread")]
+            async fn multiple_ranged_read_regional_standard_hns_colocated() -> anyhow::Result<()> {
+                let _guard = enable_tracing();
+                conformance::run_multiple_ranged_read_regional_standard(true)
                     .await
-                    .inspect_err(anydump)?;
-                let client = integration_tests_storage::build_storage_client().await?;
-                let result = integration_tests_storage::bidi_read::conformance::run_with_scenario(
-                    &client,
-                    &bucket.name,
-                    "Zonal Rapid (Co-located, us-central1-a)",
-                )
-                .await
-                .inspect_err(anydump);
-                let _ = storage_samples::cleanup_bucket(
-                    control,
-                    bucket.name.clone(),
-                    bucket.project.clone(),
-                )
-                .await
-                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
-                .inspect_err(anydump);
-                result
+                    .inspect_err(anydump)
             }
 
             #[tokio::test(flavor = "multi_thread")]
-            async fn non_colocated() -> anyhow::Result<()> {
+            async fn multiple_ranged_read_regional_standard_flat_colocated() -> anyhow::Result<()> {
                 let _guard = enable_tracing();
-                let (control, bucket) = integration_tests_storage::create_test_rapid_bucket()
+                conformance::run_multiple_ranged_read_regional_standard(false)
                     .await
-                    .inspect_err(anydump)?;
-                let client =
-                    integration_tests_storage::build_non_colocated_storage_client("us-central1-b")
-                        .await?;
-                let result = integration_tests_storage::bidi_read::conformance::run_with_scenario(
-                    &client,
-                    &bucket.name,
-                    "Zonal Rapid (Non Co-located, off-zone endpoint)",
-                )
-                .await
-                .inspect_err(anydump);
-                let _ = storage_samples::cleanup_bucket(
-                    control,
-                    bucket.name.clone(),
-                    bucket.project.clone(),
-                )
-                .await
-                .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
-                .inspect_err(anydump);
-                result
-            }
-        }
-
-        #[cfg(google_cloud_unstable_storage_bidi)]
-        mod regional_rapid {
-            use super::*;
-
-            #[tokio::test(flavor = "multi_thread")]
-            async fn hns() -> anyhow::Result<()> {
-                let _guard = enable_tracing();
-                let (control, bucket) =
-                    integration_tests_storage::create_test_regional_rapid_bucket(true)
-                        .await
-                        .inspect_err(anydump)?;
-                let client = integration_tests_storage::build_storage_client().await?;
-                let result = integration_tests_storage::bidi_read::conformance::run_with_scenario(
-                    &client,
-                    &bucket.name,
-                    "Regional Rapid (HNS)",
-                )
-                .await
-                .inspect_err(anydump);
-                let _ = integration_tests_storage::cleanup_regional_rapid_bucket(
-                    control,
-                    bucket.name.clone(),
-                    bucket.project.clone(),
-                )
-                .await
-                .inspect_err(|e| {
-                    tracing::error!(
-                        "error cleaning up regional rapid bucket {}: {e:?}",
-                        bucket.name
-                    )
-                })
-                .inspect_err(anydump);
-                result
+                    .inspect_err(anydump)
             }
 
             #[tokio::test(flavor = "multi_thread")]
-            async fn flat() -> anyhow::Result<()> {
+            async fn zero_copy_read_regional_standard_hns_colocated() -> anyhow::Result<()> {
                 let _guard = enable_tracing();
-                let (control, bucket) =
-                    integration_tests_storage::create_test_regional_rapid_bucket(false)
-                        .await
-                        .inspect_err(anydump)?;
-                let client = integration_tests_storage::build_storage_client().await?;
-                let result = integration_tests_storage::bidi_read::conformance::run_with_scenario(
-                    &client,
-                    &bucket.name,
-                    "Regional Rapid (Flat)",
-                )
-                .await
-                .inspect_err(anydump);
-                let _ = integration_tests_storage::cleanup_regional_rapid_bucket(
-                    control,
-                    bucket.name.clone(),
-                    bucket.project.clone(),
-                )
-                .await
-                .inspect_err(|e| {
-                    tracing::error!(
-                        "error cleaning up regional rapid bucket {}: {e:?}",
-                        bucket.name
-                    )
-                })
-                .inspect_err(anydump);
-                result
+                conformance::run_zero_copy_read_regional_standard(true)
+                    .await
+                    .inspect_err(anydump)
+            }
+
+            #[tokio::test(flavor = "multi_thread")]
+            async fn zero_copy_read_regional_standard_flat_colocated() -> anyhow::Result<()> {
+                let _guard = enable_tracing();
+                conformance::run_zero_copy_read_regional_standard(false)
+                    .await
+                    .inspect_err(anydump)
+            }
+
+            // --- 2. Zonal Rapid ---
+            #[tokio::test(flavor = "multi_thread")]
+            async fn multiple_ranged_read_zonal_rapid_hns_colocated() -> anyhow::Result<()> {
+                let _guard = enable_tracing();
+                conformance::run_multiple_ranged_read_zonal_rapid(true)
+                    .await
+                    .inspect_err(anydump)
+            }
+
+            #[tokio::test(flavor = "multi_thread")]
+            async fn multiple_ranged_read_zonal_rapid_hns_non_colocated() -> anyhow::Result<()> {
+                let _guard = enable_tracing();
+                conformance::run_multiple_ranged_read_zonal_rapid(false)
+                    .await
+                    .inspect_err(anydump)
+            }
+
+            #[tokio::test(flavor = "multi_thread")]
+            async fn zero_copy_read_zonal_rapid_hns_colocated() -> anyhow::Result<()> {
+                let _guard = enable_tracing();
+                conformance::run_zero_copy_read_zonal_rapid(true)
+                    .await
+                    .inspect_err(anydump)
+            }
+
+            #[tokio::test(flavor = "multi_thread")]
+            async fn zero_copy_read_zonal_rapid_hns_non_colocated() -> anyhow::Result<()> {
+                let _guard = enable_tracing();
+                conformance::run_zero_copy_read_zonal_rapid(false)
+                    .await
+                    .inspect_err(anydump)
+            }
+
+            // --- 3. Regional Rapid (RCU) ---
+            #[tokio::test(flavor = "multi_thread")]
+            async fn multiple_ranged_read_regional_rapid_hns_colocated() -> anyhow::Result<()> {
+                let _guard = enable_tracing();
+                conformance::run_multiple_ranged_read_regional_rapid(true)
+                    .await
+                    .inspect_err(anydump)
+            }
+
+            #[tokio::test(flavor = "multi_thread")]
+            async fn multiple_ranged_read_regional_rapid_flat_colocated() -> anyhow::Result<()> {
+                let _guard = enable_tracing();
+                conformance::run_multiple_ranged_read_regional_rapid(false)
+                    .await
+                    .inspect_err(anydump)
+            }
+
+            #[tokio::test(flavor = "multi_thread")]
+            async fn zero_copy_read_regional_rapid_hns_colocated() -> anyhow::Result<()> {
+                let _guard = enable_tracing();
+                conformance::run_zero_copy_read_regional_rapid(true)
+                    .await
+                    .inspect_err(anydump)
+            }
+
+            #[tokio::test(flavor = "multi_thread")]
+            async fn zero_copy_read_regional_rapid_flat_colocated() -> anyhow::Result<()> {
+                let _guard = enable_tracing();
+                conformance::run_zero_copy_read_regional_rapid(false)
+                    .await
+                    .inspect_err(anydump)
             }
         }
     }

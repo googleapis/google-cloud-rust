@@ -42,6 +42,121 @@ pub async fn run_with_scenario(
     Ok(())
 }
 
+// -----------------------------------------------------------------------------
+// Lifecycle Helpers (manage bucket provisioning -> test execution -> teardown)
+// -----------------------------------------------------------------------------
+
+async fn with_regional_standard_bucket<F, Fut>(hns: bool, f: F) -> anyhow::Result<()>
+where
+    F: FnOnce(Storage, String) -> Fut,
+    Fut: std::future::Future<Output = anyhow::Result<()>>,
+{
+    let (control, bucket) = if hns {
+        crate::create_test_hns_bucket().await?
+    } else {
+        crate::create_test_bucket().await?
+    };
+    let client = crate::build_storage_client().await?;
+    let result = f(client, bucket.name.clone()).await;
+    let _ = storage_samples::cleanup_bucket(control, bucket.name, bucket.project).await;
+    result
+}
+
+async fn with_zonal_rapid_bucket<F, Fut>(colocated: bool, f: F) -> anyhow::Result<()>
+where
+    F: FnOnce(Storage, String) -> Fut,
+    Fut: std::future::Future<Output = anyhow::Result<()>>,
+{
+    let (control, bucket) = crate::create_test_rapid_bucket().await?;
+    let client = if colocated {
+        crate::build_storage_client().await?
+    } else {
+        crate::build_non_colocated_storage_client("us-central1-b").await?
+    };
+    let result = f(client, bucket.name.clone()).await;
+    let _ = storage_samples::cleanup_bucket(control, bucket.name, bucket.project).await;
+    result
+}
+
+async fn with_regional_rapid_bucket<F, Fut>(hns: bool, f: F) -> anyhow::Result<()>
+where
+    F: FnOnce(Storage, String) -> Fut,
+    Fut: std::future::Future<Output = anyhow::Result<()>>,
+{
+    let (control, bucket) = crate::create_test_regional_rapid_bucket(hns).await?;
+    let client = crate::build_regional_rapid_storage_client().await?;
+    let result = f(client, bucket.name.clone()).await;
+    let _ = crate::cleanup_regional_rapid_bucket(control, bucket.name, bucket.project).await;
+    result
+}
+
+// -----------------------------------------------------------------------------
+// Self-Contained Test Runners (Invoked by driver.rs)
+// -----------------------------------------------------------------------------
+
+// Non-bucket-type dependent (Tests 2, 4, 5)
+pub async fn run_read_post_stream_close() -> anyhow::Result<()> {
+    with_regional_standard_bucket(false, |client, bucket| async move {
+        test_read_post_stream_close(&client, &bucket).await
+    })
+    .await
+}
+
+pub async fn run_non_existent_bucket_read() -> anyhow::Result<()> {
+    let client = crate::build_storage_client().await?;
+    test_non_existent_bucket_read(&client).await
+}
+
+pub async fn run_out_of_range() -> anyhow::Result<()> {
+    with_regional_standard_bucket(false, |client, bucket| async move {
+        test_out_of_range(&client, &bucket).await
+    })
+    .await
+}
+
+// Bucket-type-dependent (Tests 1 & 3)
+pub async fn run_multiple_ranged_read_regional_standard(hns: bool) -> anyhow::Result<()> {
+    with_regional_standard_bucket(hns, |client, bucket| async move {
+        test_multiple_ranged_read(&client, &bucket).await
+    })
+    .await
+}
+
+pub async fn run_zero_copy_read_regional_standard(hns: bool) -> anyhow::Result<()> {
+    with_regional_standard_bucket(hns, |client, bucket| async move {
+        test_zero_copy_read(&client, &bucket).await
+    })
+    .await
+}
+
+pub async fn run_multiple_ranged_read_zonal_rapid(colocated: bool) -> anyhow::Result<()> {
+    with_zonal_rapid_bucket(colocated, |client, bucket| async move {
+        test_multiple_ranged_read(&client, &bucket).await
+    })
+    .await
+}
+
+pub async fn run_zero_copy_read_zonal_rapid(colocated: bool) -> anyhow::Result<()> {
+    with_zonal_rapid_bucket(colocated, |client, bucket| async move {
+        test_zero_copy_read(&client, &bucket).await
+    })
+    .await
+}
+
+pub async fn run_multiple_ranged_read_regional_rapid(hns: bool) -> anyhow::Result<()> {
+    with_regional_rapid_bucket(hns, |client, bucket| async move {
+        test_multiple_ranged_read(&client, &bucket).await
+    })
+    .await
+}
+
+pub async fn run_zero_copy_read_regional_rapid(hns: bool) -> anyhow::Result<()> {
+    with_regional_rapid_bucket(hns, |client, bucket| async move {
+        test_zero_copy_read(&client, &bucket).await
+    })
+    .await
+}
+
 /// Test Suite 1 - Test 1: Multiple Ranged Read
 ///
 /// Tests reading an object across multiple concurrent range read streams over the
