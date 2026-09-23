@@ -28,7 +28,6 @@ pub struct Write {
     inner: Arc<Transport>,
     pools: Arc<Mutex<HashMap<String, Arc<StreamPool>>>>,
     pool_options: StreamPoolOptions,
-    locations: Arc<Mutex<HashMap<String, String>>>,
     retry_options: RetryOptions,
 }
 
@@ -41,12 +40,10 @@ impl Write {
     pub(crate) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
         let inner = Arc::new(Transport::new(builder.config).await?);
         let pools = Arc::new(Mutex::new(HashMap::new()));
-        let locations = Arc::new(Mutex::new(HashMap::new()));
         Ok(Self {
             inner,
             pools,
             pool_options: builder.pool_options,
-            locations,
             retry_options: builder.retry_options,
         })
     }
@@ -75,7 +72,6 @@ impl Write {
             self.inner.clone(),
             self.pools.clone(),
             self.pool_options.clone(),
-            self.locations.clone(),
             self.retry_options.clone(),
             table.into(),
         )
@@ -319,10 +315,10 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn dynamic_location_discovery_and_caching() -> anyhow::Result<()> {
+    async fn dynamic_location_discovery() -> anyhow::Result<()> {
         let mut mock = MockBigQueryWrite::new();
-        // Expect GetWriteStream to be called ONCE for the dataset
-        mock.expect_get_write_stream().times(1).returning(|req| {
+        // Each writer resolves location dynamically via GetWriteStream
+        mock.expect_get_write_stream().times(2).returning(|req| {
             let name = req.into_inner().name;
             Ok(gaxi::grpc::tonic::Response::new(
                 bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream {
@@ -340,21 +336,20 @@ mod tests {
             .build()
             .await?;
 
-        // First table: discovers "europe-west1" via GetWriteStream and caches it.
+        // Tables without explicit location discover "europe-west1" via GetWriteStream.
         let writer1 = client
             .open_default_stream("projects/p/datasets/d/tables/t1")
             .with_multiplexing(true)
             .build_arrow(ArrowSchema::new())
             .await?;
 
-        // Second table in the same dataset: should use cached location (no second RPC call!).
         let writer2 = client
             .open_default_stream("projects/p/datasets/d/tables/t2")
             .with_multiplexing(true)
             .build_arrow(ArrowSchema::new())
             .await?;
 
-        // Both writers in the same dataset share the location-based stream pool.
+        // Both writers in the same location share the location-based stream pool.
         assert!(Arc::ptr_eq(&writer1.inner.pool, &writer2.inner.pool));
 
         Ok(())

@@ -33,7 +33,6 @@ pub struct WriterBuilder<S> {
     pub(crate) inner: Arc<Transport>,
     pub(crate) pools: Arc<Mutex<HashMap<String, Arc<StreamPool>>>>,
     pub(crate) pool_options: StreamPoolOptions,
-    pub(crate) locations: Arc<Mutex<HashMap<String, String>>>,
     pub(crate) location: Option<String>,
     pub(crate) retry_options: RetryOptions,
     op: Operation,
@@ -46,7 +45,6 @@ impl WriterBuilder<DefaultStream> {
         inner: Arc<Transport>,
         pools: Arc<Mutex<HashMap<String, Arc<StreamPool>>>>,
         pool_options: StreamPoolOptions,
-        locations: Arc<Mutex<HashMap<String, String>>>,
         retry_options: RetryOptions,
         table: String,
     ) -> Self {
@@ -54,7 +52,6 @@ impl WriterBuilder<DefaultStream> {
             inner,
             pools,
             pool_options,
-            locations,
             location: None,
             retry_options,
             op: Operation::OpenDefault { table },
@@ -159,20 +156,6 @@ impl WriterBuilder<DefaultStream> {
             return Ok(loc.clone());
         }
 
-        // The write_stream format is guaranteed to be "projects/*/datasets/*/tables/*/streams/_default"
-        // by validate_table, so rfind("/tables/") safely extracts the dataset prefix.
-        let dataset_prefix = match write_stream.rfind("/tables/") {
-            Some(idx) => &write_stream[..idx],
-            None => write_stream,
-        };
-
-        {
-            let locations = self.locations.lock().expect("locations lock poisoned");
-            if let Some(loc) = locations.get(dataset_prefix) {
-                return Ok(loc.clone());
-            }
-        }
-
         let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
         let stream = client
             .get_write_stream()
@@ -186,11 +169,6 @@ impl WriterBuilder<DefaultStream> {
                 write_stream: write_stream.to_string(),
             });
         }
-        let mut locations = self.locations.lock().expect("locations lock poisoned");
-        if let Some(existing) = locations.get(dataset_prefix) {
-            return Ok(existing.clone());
-        }
-        locations.insert(dataset_prefix.to_string(), loc.clone());
         Ok(loc)
     }
 }
@@ -205,7 +183,6 @@ impl<S: ApplicationCreatedStream> WriterBuilder<S> {
             inner,
             pools: Arc::new(Mutex::new(HashMap::new())),
             pool_options: StreamPoolOptions::default(),
-            locations: Arc::new(Mutex::new(HashMap::new())),
             location: None,
             retry_options,
             op: Operation::Create {
@@ -226,7 +203,6 @@ impl<S: ApplicationCreatedStream> WriterBuilder<S> {
             inner,
             pools: Arc::new(Mutex::new(HashMap::new())),
             pool_options: StreamPoolOptions::default(),
-            locations: Arc::new(Mutex::new(HashMap::new())),
             location: None,
             retry_options,
             op: Operation::Attach {
@@ -641,12 +617,10 @@ mod tests {
 
     fn test_open_default(transport: Arc<Transport>, table: &str) -> WriterBuilder<DefaultStream> {
         let pools = Arc::new(Mutex::new(HashMap::new()));
-        let locations = Arc::new(Mutex::new(HashMap::new()));
         WriterBuilder::new_open_default(
             transport,
             pools,
             StreamPoolOptions::default(),
-            locations,
             test_retry_options(),
             table.to_string(),
         )
