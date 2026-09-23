@@ -238,6 +238,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn batch_create_tasks(
+        &self,
+        req: crate::model::BatchCreateTasksRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CloudTasks::batch_create_tasks",
+            self.inner.batch_create_tasks(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_task(
         &self,
         req: crate::model::DeleteTaskRequest,
@@ -252,6 +266,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn batch_delete_tasks(
+        &self,
+        req: crate::model::BatchDeleteTasksRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CloudTasks::batch_delete_tasks",
+            self.inner.batch_delete_tasks(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn run_task(
         &self,
         req: crate::model::RunTaskRequest,
@@ -262,6 +290,34 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::CloudTasks::run_task",
             self.inner.run_task(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_cmek_config(
+        &self,
+        req: crate::model::UpdateCmekConfigRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CmekConfig>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CloudTasks::update_cmek_config",
+            self.inner.update_cmek_config(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_cmek_config(
+        &self,
+        req: crate::model::GetCmekConfigRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CmekConfig>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CloudTasks::get_cmek_config",
+            self.inner.get_cmek_config(req, options));
         pending.await
     }
 
@@ -291,6 +347,85 @@ where
             method: "client::CloudTasks::get_location",
             self.inner.get_location(req, options));
         pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::CloudTasks::get_operation",
+            self.inner.get_operation(req, options));
+        google_cloud_lro::record_polling_attributes!(&_span);
+        let result = pending.await;
+        {
+            if google_cloud_lro::LroRecorder::current().is_some() {
+                match &result {
+                    Ok(response) => {
+                        let op = response.body();
+                        _span.record("gcp.longrunning.done", op.done);
+                        if op.done {
+                            let code = match &op.result {
+                                Some(
+                                    google_cloud_longrunning::model::operation::Result::Error(
+                                        status,
+                                    ),
+                                ) => status.code,
+                                _ => 0,
+                            };
+                            _span.record("gcp.longrunning.status_code", code);
+                            if let Some(
+                                google_cloud_longrunning::model::operation::Result::Error(status),
+                            ) = &op.result
+                            {
+                                _span.record("otel.status_code", "ERROR");
+                                _span.record("otel.status_description", &status.message);
+                                _span.record("rpc.response.status_code", status.code);
+                                _span.record(
+                                    "error.type",
+                                    google_cloud_gax::error::rpc::Code::from(status.code)
+                                        .to_string(),
+                                );
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        _span.record("otel.status_code", "ERROR");
+                        _span.record("otel.status_description", e.to_string());
+                    }
+                }
+            }
+        }
+        result
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+
+    #[doc(hidden)]
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        let mut opts = self.inner.get_poller_options(options);
+        let details = google_cloud_lro::TracingDetails::default();
+        opts.tracing = Some(details);
+        opts
     }
 }
 

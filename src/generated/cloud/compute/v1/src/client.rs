@@ -2651,6 +2651,123 @@ impl GlobalForwardingRules {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_compute_v1::client::GlobalFrontendSettings;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = GlobalFrontendSettings::builder().build().await?;
+///     // use `client` to make requests to the Compute Engine API.
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `globalFrontendSettings` resource.
+///
+/// # Configuration
+///
+/// To configure `GlobalFrontendSettings` use the `with_*` methods in the type returned
+/// by [builder()][GlobalFrontendSettings::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::global_frontend_settings::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::global_frontend_settings::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `GlobalFrontendSettings` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `GlobalFrontendSettings` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "global-frontend-settings")]
+#[cfg_attr(docsrs, doc(cfg(feature = "global-frontend-settings")))]
+#[derive(Clone, Debug)]
+pub struct GlobalFrontendSettings {
+    inner: std::sync::Arc<dyn super::stub::dynamic::GlobalFrontendSettings>,
+}
+
+#[cfg(feature = "global-frontend-settings")]
+impl GlobalFrontendSettings {
+    /// Returns a builder for [GlobalFrontendSettings].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::GlobalFrontendSettings;
+    /// let client = GlobalFrontendSettings::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::global_frontend_settings::ClientBuilder {
+        crate::new_client_builder(super::builder::global_frontend_settings::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::GlobalFrontendSettings + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::GlobalFrontendSettings>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::GlobalFrontendSettings> {
+        super::transport::GlobalFrontendSettings::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::GlobalFrontendSettings> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::GlobalFrontendSettings::new)
+    }
+
+    /// Gets the Global Frontend Billing Bundle Settings for a project.
+    pub fn get(&self) -> super::builder::global_frontend_settings::Get {
+        super::builder::global_frontend_settings::Get::new(self.inner.clone())
+    }
+
+    /// Updates the Global Frontend Billing Bundle Settings for a project.
+    pub fn patch(&self) -> super::builder::global_frontend_settings::Patch {
+        super::builder::global_frontend_settings::Patch::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Compute Engine API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_compute_v1::client::GlobalNetworkEndpointGroups;
 /// async fn sample(
 /// ) -> anyhow::Result<()> {
@@ -4096,6 +4213,124 @@ impl ImageFamilyViews {
     /// deprecated and is rolled out in the specified zone.
     pub fn get(&self) -> super::builder::image_family_views::Get {
         super::builder::image_family_views::Get::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Compute Engine API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_compute_v1::client::ImageViews;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = ImageViews::builder().build().await?;
+///     // use `client` to make requests to the Compute Engine API.
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `imageViews` resource.
+///
+/// # Configuration
+///
+/// To configure `ImageViews` use the `with_*` methods in the type returned
+/// by [builder()][ImageViews::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::image_views::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::image_views::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `ImageViews` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `ImageViews` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "image-views")]
+#[cfg_attr(docsrs, doc(cfg(feature = "image-views")))]
+#[derive(Clone, Debug)]
+pub struct ImageViews {
+    inner: std::sync::Arc<dyn super::stub::dynamic::ImageViews>,
+}
+
+#[cfg(feature = "image-views")]
+impl ImageViews {
+    /// Returns a builder for [ImageViews].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::ImageViews;
+    /// let client = ImageViews::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::image_views::ClientBuilder {
+        crate::new_client_builder(super::builder::image_views::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::ImageViews + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ImageViews>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::ImageViews> {
+        super::transport::ImageViews::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::ImageViews> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ImageViews::new)
+    }
+
+    /// Returns the specified global ImageView resource, with a regional
+    /// context.
+    pub fn get(&self) -> super::builder::image_views::Get {
+        super::builder::image_views::Get::new(self.inner.clone())
+    }
+
+    /// Returns a list of global ImageView resources, with a regional
+    /// context.
+    pub fn list(&self) -> super::builder::image_views::List {
+        super::builder::image_views::List::new(self.inner.clone())
     }
 }
 
@@ -7648,6 +7883,122 @@ impl MachineTypes {
     /// project.
     pub fn list(&self) -> super::builder::machine_types::List {
         super::builder::machine_types::List::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Compute Engine API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_compute_v1::client::ManagedRulesets;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = ManagedRulesets::builder().build().await?;
+///     // use `client` to make requests to the Compute Engine API.
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `managedRulesets` resource.
+///
+/// # Configuration
+///
+/// To configure `ManagedRulesets` use the `with_*` methods in the type returned
+/// by [builder()][ManagedRulesets::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::managed_rulesets::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::managed_rulesets::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `ManagedRulesets` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `ManagedRulesets` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "managed-rulesets")]
+#[cfg_attr(docsrs, doc(cfg(feature = "managed-rulesets")))]
+#[derive(Clone, Debug)]
+pub struct ManagedRulesets {
+    inner: std::sync::Arc<dyn super::stub::dynamic::ManagedRulesets>,
+}
+
+#[cfg(feature = "managed-rulesets")]
+impl ManagedRulesets {
+    /// Returns a builder for [ManagedRulesets].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::ManagedRulesets;
+    /// let client = ManagedRulesets::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::managed_rulesets::ClientBuilder {
+        crate::new_client_builder(super::builder::managed_rulesets::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::ManagedRulesets + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ManagedRulesets>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::ManagedRulesets> {
+        super::transport::ManagedRulesets::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::ManagedRulesets> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ManagedRulesets::new)
+    }
+
+    /// Gets the details for the specified managed ruleset name.
+    pub fn get(&self) -> super::builder::managed_rulesets::Get {
+        super::builder::managed_rulesets::Get::new(self.inner.clone())
+    }
+
+    /// Retrieves the list of all the managed rulesets available.
+    pub fn list(&self) -> super::builder::managed_rulesets::List {
+        super::builder::managed_rulesets::List::new(self.inner.clone())
     }
 }
 
@@ -13860,6 +14211,13 @@ impl RegionNetworkFirewallPolicies {
     /// Patches the specified network firewall policy.
     pub fn patch(&self) -> super::builder::region_network_firewall_policies::Patch {
         super::builder::region_network_firewall_policies::Patch::new(self.inner.clone())
+    }
+
+    /// Updates an association for the specified network firewall policy.
+    pub fn patch_association(
+        &self,
+    ) -> super::builder::region_network_firewall_policies::PatchAssociation {
+        super::builder::region_network_firewall_policies::PatchAssociation::new(self.inner.clone())
     }
 
     /// Patches a rule of the specified priority.

@@ -274,6 +274,37 @@ impl Lustre {
         super::builder::lustre::DeleteInstance::new(self.inner.clone())
     }
 
+    /// Reschedules a planned maintenance event for a specific instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre
+    /// ) -> Result<()> {
+    ///     let response = client.reschedule_maintenance()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn reschedule_maintenance(&self) -> super::builder::lustre::RescheduleMaintenance {
+        super::builder::lustre::RescheduleMaintenance::new(self.inner.clone())
+    }
+
     /// Imports data from Cloud Storage to a Managed Lustre instance.
     ///
     /// # Long running operations
@@ -336,7 +367,278 @@ impl Lustre {
         super::builder::lustre::ExportData::new(self.inner.clone())
     }
 
+    /// Creates a new mirror in a given instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_lustre_v1::model::Mirror;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre, project_id: &str, location_id: &str, instance_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_mirror()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
+    ///         .set_mirror_id("mirror_id_value")
+    ///         .set_mirror(
+    ///             Mirror::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_mirror(&self) -> super::builder::lustre::CreateMirror {
+        super::builder::lustre::CreateMirror::new(self.inner.clone())
+    }
+
+    /// Updates the parameters of a single mirror.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_lustre_v1::model::Mirror;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre, project_id: &str, location_id: &str, instance_id: &str, mirror_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_mirror()
+    ///         .set_mirror(
+    ///             Mirror::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/mirrors/{mirror_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_mirror(&self) -> super::builder::lustre::UpdateMirror {
+        super::builder::lustre::UpdateMirror::new(self.inner.clone())
+    }
+
+    /// Deletes a single mirror.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre, project_id: &str, location_id: &str, instance_id: &str, mirror_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_mirror()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/mirrors/{mirror_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_mirror(&self) -> super::builder::lustre::DeleteMirror {
+        super::builder::lustre::DeleteMirror::new(self.inner.clone())
+    }
+
+    /// Gets details of a single mirror.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre, project_id: &str, location_id: &str, instance_id: &str, mirror_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_mirror()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/mirrors/{mirror_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_mirror(&self) -> super::builder::lustre::GetMirror {
+        super::builder::lustre::GetMirror::new(self.inner.clone())
+    }
+
+    /// Gets details of multiple mirrors under a given instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre, project_id: &str, location_id: &str, instance_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_mirrors()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_mirrors(&self) -> super::builder::lustre::ListMirrors {
+        super::builder::lustre::ListMirrors::new(self.inner.clone())
+    }
+
+    /// Creates a directory policy resource.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_lustre_v1::model::DirectoryPolicy;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre, project_id: &str, location_id: &str, instance_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_directory_policy()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
+    ///         .set_directory_policy(
+    ///             DirectoryPolicy::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_directory_policy(&self) -> super::builder::lustre::CreateDirectoryPolicy {
+        super::builder::lustre::CreateDirectoryPolicy::new(self.inner.clone())
+    }
+
+    /// Deletes a directory policy resource.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre, project_id: &str, location_id: &str, instance_id: &str, directory_policy_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_directory_policy()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/directoryPolicies/{directory_policy_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_directory_policy(&self) -> super::builder::lustre::DeleteDirectoryPolicy {
+        super::builder::lustre::DeleteDirectoryPolicy::new(self.inner.clone())
+    }
+
+    /// Gets details of a single directory policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre, project_id: &str, location_id: &str, instance_id: &str, directory_policy_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_directory_policy()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/directoryPolicies/{directory_policy_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_directory_policy(&self) -> super::builder::lustre::GetDirectoryPolicy {
+        super::builder::lustre::GetDirectoryPolicy::new(self.inner.clone())
+    }
+
+    /// Gets details of multiple directory policies under a given instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre, project_id: &str, location_id: &str, instance_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_directory_policies()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_directory_policies(&self) -> super::builder::lustre::ListDirectoryPolicies {
+        super::builder::lustre::ListDirectoryPolicies::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -377,6 +679,77 @@ impl Lustre {
     /// ```
     pub fn get_location(&self) -> super::builder::lustre::GetLocation {
         super::builder::lustre::GetLocation::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::lustre::SetIamPolicy {
+        super::builder::lustre::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::lustre::GetIamPolicy {
+        super::builder::lustre::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::lustre::TestIamPermissions {
+        super::builder::lustre::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

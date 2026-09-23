@@ -47,6 +47,12 @@ pub trait Lustre: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn reschedule_maintenance(
+        &self,
+        req: crate::model::RescheduleMaintenanceRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn import_data(
         &self,
         req: crate::model::ImportDataRequest,
@@ -59,6 +65,60 @@ pub trait Lustre: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn create_mirror(
+        &self,
+        req: crate::model::CreateMirrorRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn update_mirror(
+        &self,
+        req: crate::model::UpdateMirrorRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_mirror(
+        &self,
+        req: crate::model::DeleteMirrorRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn get_mirror(
+        &self,
+        req: crate::model::GetMirrorRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Mirror>>;
+
+    async fn list_mirrors(
+        &self,
+        req: crate::model::ListMirrorsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListMirrorsResponse>>;
+
+    async fn create_directory_policy(
+        &self,
+        req: crate::model::CreateDirectoryPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_directory_policy(
+        &self,
+        req: crate::model::DeleteDirectoryPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn get_directory_policy(
+        &self,
+        req: crate::model::GetDirectoryPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DirectoryPolicy>>;
+
+    async fn list_directory_policies(
+        &self,
+        req: crate::model::ListDirectoryPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDirectoryPoliciesResponse>>;
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -70,6 +130,24 @@ pub trait Lustre: std::fmt::Debug + Send + Sync {
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
+
+    async fn set_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
+
+    async fn get_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
+
+    async fn test_iam_permissions(
+        &self,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn list_operations(
         &self,
@@ -160,6 +238,15 @@ impl<T: super::Lustre> Lustre for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn reschedule_maintenance(
+        &self,
+        req: crate::model::RescheduleMaintenanceRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::reschedule_maintenance(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn import_data(
         &self,
         req: crate::model::ImportDataRequest,
@@ -178,6 +265,87 @@ impl<T: super::Lustre> Lustre for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn create_mirror(
+        &self,
+        req: crate::model::CreateMirrorRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_mirror(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_mirror(
+        &self,
+        req: crate::model::UpdateMirrorRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_mirror(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_mirror(
+        &self,
+        req: crate::model::DeleteMirrorRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_mirror(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_mirror(
+        &self,
+        req: crate::model::GetMirrorRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Mirror>> {
+        T::get_mirror(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_mirrors(
+        &self,
+        req: crate::model::ListMirrorsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListMirrorsResponse>> {
+        T::list_mirrors(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_directory_policy(
+        &self,
+        req: crate::model::CreateDirectoryPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_directory_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_directory_policy(
+        &self,
+        req: crate::model::DeleteDirectoryPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_directory_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_directory_policy(
+        &self,
+        req: crate::model::GetDirectoryPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DirectoryPolicy>> {
+        T::get_directory_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_directory_policies(
+        &self,
+        req: crate::model::ListDirectoryPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDirectoryPoliciesResponse>> {
+        T::list_directory_policies(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -193,6 +361,34 @@ impl<T: super::Lustre> Lustre for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        T::set_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        T::get_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_iam_permissions(
+        &self,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
+        T::test_iam_permissions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

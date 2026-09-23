@@ -1059,6 +1059,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                     var_project, var_instance, var_database,
                 );
                 let builder = self.inner.builder(Method::DELETE, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
@@ -1144,6 +1145,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                     var_project, var_instance, var_database,
                 );
                 let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -1224,6 +1226,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -1298,6 +1301,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -1377,6 +1381,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                     var_project, var_instance, var_database,
                 );
                 let builder = self.inner.builder(Method::PATCH, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
@@ -1462,6 +1467,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                     var_project, var_instance, var_database,
                 );
                 let builder = self.inner.builder(Method::PUT, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PUT, path_template, resource_name)))
             })
@@ -1649,6 +1655,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -1724,6 +1731,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -1799,6 +1807,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -1873,6 +1882,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -1965,6 +1975,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         });
                     let builder =
                         builder.query(&[("finalBackupDescription", &req.final_backup_description)]);
+                    let builder = builder.query(&[("location", &req.location)]);
                     Ok(builder)
                 })();
                 Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
@@ -2040,6 +2051,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -2114,6 +2126,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -2188,6 +2201,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -2262,6 +2276,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -2336,6 +2351,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -2407,6 +2423,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -2481,6 +2498,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -2545,6 +2563,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
 
                 let resource_name = format!("//sqladmin.googleapis.com/projects/{}", var_project,);
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -2606,6 +2625,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("maxResults", &req.max_results)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -2674,6 +2694,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -2749,6 +2770,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -2826,6 +2848,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -2911,6 +2934,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     .fold(builder, |builder, p| {
                         builder.query(&[("reconcilePscNetworkingForce", p)])
                     });
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
@@ -2986,6 +3010,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("failover", &req.failover)]);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -3071,6 +3096,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                             use gaxi::query_parameter::QueryParameter;
                             v.add(builder, "dbTimeout")
                         });
+                    let builder = builder.query(&[("location", &req.location)]);
                     Ok(builder)
                 })();
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -3147,6 +3173,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("mode", &req.mode)]);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -3221,6 +3248,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -3295,6 +3323,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -3369,6 +3398,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -3444,6 +3474,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -3521,6 +3552,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -3597,6 +3629,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -3671,6 +3704,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -3745,6 +3779,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -3816,6 +3851,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::PUT, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PUT, path_template, resource_name)))
             })
@@ -3890,6 +3926,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -3965,6 +4002,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -4196,6 +4234,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -4271,6 +4310,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -4434,6 +4474,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                             use gaxi::query_parameter::QueryParameter;
                             v.add(builder, "sourceInstanceDeletionTime")
                         });
+                    let builder = builder.query(&[("location", &req.location)]);
                     Ok(builder)
                 })();
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
@@ -4509,6 +4550,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -4583,6 +4625,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -4657,6 +4700,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -4732,6 +4776,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -5575,6 +5620,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("host", &req.host)]);
                 let builder = builder.query(&[("name", &req.name)]);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
@@ -5654,6 +5700,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
                 );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("host", &req.host)]);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -5734,6 +5781,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
@@ -5808,6 +5856,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
                     var_project, var_instance,
                 );
                 let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -5904,6 +5953,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
                     .fold(builder, |builder, p| {
                         builder.query(&[("revokeExistingServerRoles", p)])
                     });
+                let builder = builder.query(&[("location", &req.location)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PUT, path_template, resource_name)))
             })

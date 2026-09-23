@@ -13218,6 +13218,13 @@ pub struct Table {
     /// Note one can still delete the data stored in the table through Data APIs.
     pub deletion_protection: bool,
 
+    /// Output only. The effective automated backup policy applied to the table.
+    /// This represents the policy actually in effect, which may be a
+    /// system-default policy if the user has not explicitly configured one.
+    /// Views: `SCHEMA_VIEW`, `FULL`.
+    pub effective_automated_backup_policy:
+        std::option::Option<crate::model::table::AutomatedBackupPolicy>,
+
     /// Rules to specify what data is stored in each storage tier.
     /// Different tiers store data differently, providing different trade-offs
     /// between cost and performance. Different parts of a table can be stored
@@ -13449,6 +13456,42 @@ impl Table {
     /// ```
     pub fn set_deletion_protection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deletion_protection = v.into();
+        self
+    }
+
+    /// Sets the value of [effective_automated_backup_policy][crate::model::Table::effective_automated_backup_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::Table;
+    /// use google_cloud_bigtable_admin_v2::model::table::AutomatedBackupPolicy;
+    /// let x = Table::new().set_effective_automated_backup_policy(AutomatedBackupPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_effective_automated_backup_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::table::AutomatedBackupPolicy>,
+    {
+        self.effective_automated_backup_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [effective_automated_backup_policy][crate::model::Table::effective_automated_backup_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::Table;
+    /// use google_cloud_bigtable_admin_v2::model::table::AutomatedBackupPolicy;
+    /// let x = Table::new().set_or_clear_effective_automated_backup_policy(Some(AutomatedBackupPolicy::default()/* use setters */));
+    /// let x = Table::new().set_or_clear_effective_automated_backup_policy(None::<AutomatedBackupPolicy>);
+    /// ```
+    pub fn set_or_clear_effective_automated_backup_policy<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::table::AutomatedBackupPolicy>,
+    {
+        self.effective_automated_backup_policy = v.map(|x| x.into());
         self
     }
 
@@ -13855,6 +13898,20 @@ pub mod table {
         /// This field can only set for tables in Enterprise Plus instances.
         pub locations: std::vec::Vec<std::string::String>,
 
+        /// Optional. The amount of time that the automated backups remain hot.
+        /// If specified, the backups created by this policy are `HOT` backups.
+        /// If not specified, the backups are `STANDARD` backups.
+        ///
+        /// The value must be at least 24 hours and at most 10 days, and can't
+        /// exceed the policy's `retention_period`.
+        ///
+        /// Only SSD instances support `HOT` automated backups.
+        pub keep_hot_duration: std::option::Option<wkt::Duration>,
+
+        /// Optional. If `true`, automated backups are explicitly disabled on this
+        /// table. This allows users to opt out of default enablement.
+        pub disabled: bool,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -13944,6 +14001,51 @@ pub mod table {
         {
             use std::iter::Iterator;
             self.locations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [keep_hot_duration][crate::model::table::AutomatedBackupPolicy::keep_hot_duration].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigtable_admin_v2::model::table::AutomatedBackupPolicy;
+        /// use wkt::Duration;
+        /// let x = AutomatedBackupPolicy::new().set_keep_hot_duration(Duration::default()/* use setters */);
+        /// ```
+        pub fn set_keep_hot_duration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.keep_hot_duration = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [keep_hot_duration][crate::model::table::AutomatedBackupPolicy::keep_hot_duration].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigtable_admin_v2::model::table::AutomatedBackupPolicy;
+        /// use wkt::Duration;
+        /// let x = AutomatedBackupPolicy::new().set_or_clear_keep_hot_duration(Some(Duration::default()/* use setters */));
+        /// let x = AutomatedBackupPolicy::new().set_or_clear_keep_hot_duration(None::<Duration>);
+        /// ```
+        pub fn set_or_clear_keep_hot_duration<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.keep_hot_duration = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [disabled][crate::model::table::AutomatedBackupPolicy::disabled].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigtable_admin_v2::model::table::AutomatedBackupPolicy;
+        /// let x = AutomatedBackupPolicy::new().set_disabled(true);
+        /// ```
+        pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.disabled = v.into();
             self
         }
     }

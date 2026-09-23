@@ -2299,6 +2299,43 @@ pub trait GlobalForwardingRules: std::fmt::Debug + Send + Sync {
     }
 }
 
+/// Defines the trait used to implement [super::client::GlobalFrontendSettings].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::GlobalFrontendSettings`.  In other use-cases, application developers only
+/// use `client::GlobalFrontendSettings` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "global-frontend-settings")]
+#[cfg_attr(docsrs, doc(cfg(feature = "global-frontend-settings")))]
+pub trait GlobalFrontendSettings: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::GlobalFrontendSettings::get].
+    fn get(
+        &self,
+        _req: crate::model::global_frontend_settings::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::GlobalFrontendSettings>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::GlobalFrontendSettings::patch].
+    fn patch(
+        &self,
+        _req: crate::model::global_frontend_settings::PatchRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::GlobalFrontendSettingsPatchResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
 /// Defines the trait used to implement [super::client::GlobalNetworkEndpointGroups].
 ///
 /// Application developers may need to implement this trait to mock
@@ -3296,6 +3333,42 @@ pub trait ImageFamilyViews: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::ImageFamilyView>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
+/// Defines the trait used to implement [super::client::ImageViews].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::ImageViews`.  In other use-cases, application developers only
+/// use `client::ImageViews` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "image-views")]
+#[cfg_attr(docsrs, doc(cfg(feature = "image-views")))]
+pub trait ImageViews: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::ImageViews::get].
+    fn get(
+        &self,
+        _req: crate::model::image_views::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::ImageView>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ImageViews::list].
+    fn list(
+        &self,
+        _req: crate::model::image_views::ListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ImageViewsListResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -6197,6 +6270,43 @@ pub trait MachineTypes: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::MachineTypeList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
+/// Defines the trait used to implement [super::client::ManagedRulesets].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::ManagedRulesets`.  In other use-cases, application developers only
+/// use `client::ManagedRulesets` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "managed-rulesets")]
+#[cfg_attr(docsrs, doc(cfg(feature = "managed-rulesets")))]
+pub trait ManagedRulesets: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::ManagedRulesets::get].
+    fn get(
+        &self,
+        _req: crate::model::managed_rulesets::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ManagedRuleset>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ManagedRulesets::list].
+    fn list(
+        &self,
+        _req: crate::model::managed_rulesets::ListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ManagedRulesetList>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -11270,6 +11380,16 @@ pub trait RegionNetworkFirewallPolicies: std::fmt::Debug + Send + Sync {
     fn patch(
         &self,
         _req: crate::model::region_network_firewall_policies::PatchRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionNetworkFirewallPolicies::patch_association].
+    fn patch_association(
+        &self,
+        _req: crate::model::region_network_firewall_policies::PatchAssociationRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
     {

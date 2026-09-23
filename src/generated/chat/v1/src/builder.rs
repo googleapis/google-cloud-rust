@@ -2448,6 +2448,264 @@ pub mod chat_service {
         }
     }
 
+    /// The request builder for [ChatService::list_message_pins][crate::client::ChatService::list_message_pins] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_chat_v1::builder::chat_service::ListMessagePins;
+    /// # async fn sample() -> google_chat_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListMessagePins {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListMessagePins(RequestBuilder<crate::model::ListMessagePinsRequest>);
+
+    impl ListMessagePins {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ChatService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListMessagePinsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListMessagePinsResponse> {
+            (*self.0.stub)
+                .list_message_pins(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListMessagePinsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListMessagePinsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListMessagePinsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListMessagePinsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListMessagePinsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListMessagePins {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [ChatService::create_message_pin][crate::client::ChatService::create_message_pin] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_chat_v1::builder::chat_service::CreateMessagePin;
+    /// # async fn sample() -> google_chat_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateMessagePin {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateMessagePin(RequestBuilder<crate::model::CreateMessagePinRequest>);
+
+    impl CreateMessagePin {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ChatService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateMessagePinRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::MessagePin> {
+            (*self.0.stub)
+                .create_message_pin(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateMessagePinRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [message_pin][crate::model::CreateMessagePinRequest::message_pin].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_message_pin<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MessagePin>,
+        {
+            self.0.request.message_pin = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [message_pin][crate::model::CreateMessagePinRequest::message_pin].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_message_pin<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MessagePin>,
+        {
+            self.0.request.message_pin = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateMessagePin {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [ChatService::delete_message_pin][crate::client::ChatService::delete_message_pin] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_chat_v1::builder::chat_service::DeleteMessagePin;
+    /// # async fn sample() -> google_chat_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteMessagePin {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteMessagePin(RequestBuilder<crate::model::DeleteMessagePinRequest>);
+
+    impl DeleteMessagePin {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ChatService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteMessagePinRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .delete_message_pin(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::DeleteMessagePinRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteMessagePin {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [ChatService::create_custom_emoji][crate::client::ChatService::create_custom_emoji] calls.
     ///
     /// # Example

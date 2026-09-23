@@ -92,6 +92,17 @@ pub trait Lustre: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Lustre::reschedule_maintenance].
+    fn reschedule_maintenance(
+        &self,
+        _req: crate::model::RescheduleMaintenanceRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::Lustre::import_data].
     fn import_data(
         &self,
@@ -110,6 +121,104 @@ pub trait Lustre: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Lustre::create_mirror].
+    fn create_mirror(
+        &self,
+        _req: crate::model::CreateMirrorRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Lustre::update_mirror].
+    fn update_mirror(
+        &self,
+        _req: crate::model::UpdateMirrorRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Lustre::delete_mirror].
+    fn delete_mirror(
+        &self,
+        _req: crate::model::DeleteMirrorRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Lustre::get_mirror].
+    fn get_mirror(
+        &self,
+        _req: crate::model::GetMirrorRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Mirror>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Lustre::list_mirrors].
+    fn list_mirrors(
+        &self,
+        _req: crate::model::ListMirrorsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListMirrorsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Lustre::create_directory_policy].
+    fn create_directory_policy(
+        &self,
+        _req: crate::model::CreateDirectoryPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Lustre::delete_directory_policy].
+    fn delete_directory_policy(
+        &self,
+        _req: crate::model::DeleteDirectoryPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Lustre::get_directory_policy].
+    fn get_directory_policy(
+        &self,
+        _req: crate::model::GetDirectoryPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::DirectoryPolicy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Lustre::list_directory_policies].
+    fn list_directory_policies(
+        &self,
+        _req: crate::model::ListDirectoryPoliciesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListDirectoryPoliciesResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -134,6 +243,41 @@ pub trait Lustre: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Lustre::set_iam_policy].
+    fn set_iam_policy(
+        &self,
+        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Lustre::get_iam_policy].
+    fn get_iam_policy(
+        &self,
+        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Lustre::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
