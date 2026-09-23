@@ -427,7 +427,7 @@ incremental = false
 
 [workspace.dependencies]
 arc-swap              = { default-features = false, version = "1.9" }
-arrow                 = { default-features = false, version = "59.2" }
+arrow                 = { default-features = false, version = "60.0" }
 arrow-json            = { default-features = false, version = "60.0" }
 async-trait           = { default-features = false, version = "0.1.85" }
 base64                = { default-features = false, version = "0.23", features = ["std"] }
