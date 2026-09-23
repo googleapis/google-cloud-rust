@@ -36,7 +36,6 @@ pub struct WriterBuilder<S> {
     pub(crate) inner: Arc<Transport>,
     pub(crate) pools: Arc<Mutex<HashMap<String, Arc<StreamPool>>>>,
     pub(crate) pool_options: StreamPoolOptions,
-    pub(crate) location: Option<String>,
     pub(crate) retry_options: RetryOptions,
     op: Operation,
     pub(crate) multiplexing: bool,
@@ -55,7 +54,6 @@ impl WriterBuilder<DefaultStream> {
             inner,
             pools,
             pool_options,
-            location: None,
             retry_options,
             op: Operation::OpenDefault { table },
             multiplexing: false,
@@ -179,36 +177,6 @@ impl WriterBuilder<DefaultStream> {
         self
     }
 
-    /// Sets the destination table's location for this writer.
-    ///
-    /// When multiplexing is enabled on default streams, connections are pooled by
-    /// location and data format. Explicitly setting the location avoids an extra
-    /// `GetWriteStream` RPC call to discover the dataset's location.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery::client::Write;
-    /// # async fn sample(client: Write) -> anyhow::Result<()> {
-    /// let writer = client
-    ///     .open_default_stream("projects/my-project/datasets/my_dataset/tables/my_table")
-    ///     .with_multiplexing(true)
-    ///     .with_location("us")
-    ///     .build_arrow(schema())
-    ///     .await?;
-    /// # Ok(())
-    /// # }
-    /// #
-    /// # use google_cloud_bigquery::model::ArrowSchema;
-    /// # fn schema() -> ArrowSchema {
-    /// #   todo!("Define your table's schema...")
-    /// # }
-    /// ```
-    pub fn with_location<V: Into<String>>(mut self, v: V) -> Self {
-        let loc = v.into().trim().to_lowercase();
-        self.location = if loc.is_empty() { None } else { Some(loc) };
-        self
-    }
-
     pub(crate) async fn make_default_writer<F: DataFormat>(
         self,
         write_stream: String,
@@ -243,10 +211,6 @@ impl WriterBuilder<DefaultStream> {
     }
 
     async fn resolve_location(&self, write_stream: &str) -> Result<String, WriterBuilderError> {
-        if let Some(ref loc) = self.location {
-            return Ok(loc.clone());
-        }
-
         let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
         let stream = client
             .get_write_stream()
@@ -274,7 +238,6 @@ impl<S: ApplicationCreatedStream> WriterBuilder<S> {
             inner,
             pools: Arc::new(Mutex::new(HashMap::new())),
             pool_options: StreamPoolOptions::default(),
-            location: None,
             retry_options,
             op: Operation::Create {
                 table,
@@ -294,7 +257,6 @@ impl<S: ApplicationCreatedStream> WriterBuilder<S> {
             inner,
             pools: Arc::new(Mutex::new(HashMap::new())),
             pool_options: StreamPoolOptions::default(),
-            location: None,
             retry_options,
             op: Operation::Attach {
                 write_stream,

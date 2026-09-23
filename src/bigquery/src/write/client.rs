@@ -214,20 +214,31 @@ mod tests {
 
     #[tokio::test]
     async fn multiplexing() -> anyhow::Result<()> {
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_get_write_stream().times(2).returning(|req| {
+            let name = req.into_inner().name;
+            Ok(gaxi::grpc::tonic::Response::new(
+                bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream {
+                    name,
+                    location: "us".to_string(),
+                    ..Default::default()
+                },
+            ))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = Write::builder()
+            .with_endpoint(endpoint)
             .with_credentials(Anonymous::new().build())
             .build()
             .await?;
         let multiplexed_writer1 = client
             .open_default_stream("projects/p/datasets/d/tables/t1")
             .with_multiplexing(true)
-            .with_location("us")
             .build_arrow(ArrowSchema::new())
             .await?;
         let multiplexed_writer2 = client
             .open_default_stream("projects/p/datasets/d/tables/t2")
             .with_multiplexing(true)
-            .with_location("us")
             .build_arrow(ArrowSchema::new())
             .await?;
         assert!(Arc::ptr_eq(
@@ -250,20 +261,31 @@ mod tests {
 
     #[tokio::test]
     async fn format_isolation() -> anyhow::Result<()> {
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_get_write_stream().times(2).returning(|req| {
+            let name = req.into_inner().name;
+            Ok(gaxi::grpc::tonic::Response::new(
+                bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream {
+                    name,
+                    location: "us".to_string(),
+                    ..Default::default()
+                },
+            ))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = Write::builder()
+            .with_endpoint(endpoint)
             .with_credentials(Anonymous::new().build())
             .build()
             .await?;
         let arrow_writer = client
             .open_default_stream("projects/p/datasets/d/tables/t1")
             .with_multiplexing(true)
-            .with_location("us")
             .build_arrow(ArrowSchema::new())
             .await?;
         let proto_writer = client
             .open_default_stream("projects/p/datasets/d/tables/t2")
             .with_multiplexing(true)
-            .with_location("us")
             .build_proto(ProtoSchema::new())
             .await?;
 
@@ -278,20 +300,38 @@ mod tests {
 
     #[tokio::test]
     async fn location_isolation() -> anyhow::Result<()> {
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_get_write_stream().times(3).returning(|req| {
+            let name = req.into_inner().name;
+            let location = if name.contains("t1") {
+                "us".to_string()
+            } else if name.contains("t2") {
+                "eu".to_string()
+            } else {
+                "US".to_string()
+            };
+            Ok(gaxi::grpc::tonic::Response::new(
+                bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream {
+                    name,
+                    location,
+                    ..Default::default()
+                },
+            ))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = Write::builder()
+            .with_endpoint(endpoint)
             .with_credentials(Anonymous::new().build())
             .build()
             .await?;
         let us_writer = client
             .open_default_stream("projects/p/datasets/d/tables/t1")
             .with_multiplexing(true)
-            .with_location("us")
             .build_arrow(ArrowSchema::new())
             .await?;
         let eu_writer = client
             .open_default_stream("projects/p/datasets/d/tables/t2")
             .with_multiplexing(true)
-            .with_location("eu")
             .build_arrow(ArrowSchema::new())
             .await?;
 
@@ -301,7 +341,6 @@ mod tests {
         let us_upper_writer = client
             .open_default_stream("projects/p/datasets/d/tables/t3")
             .with_multiplexing(true)
-            .with_location("US")
             .build_arrow(ArrowSchema::new())
             .await?;
 
@@ -392,48 +431,6 @@ mod tests {
             "unexpected error: {err:?}"
         );
         assert!(err.to_string().contains("could not determine location"));
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn dynamic_location_discovery_empty_string_override_fallback() -> anyhow::Result<()> {
-        let mut mock = MockBigQueryWrite::new();
-        mock.expect_get_write_stream().times(1).returning(|req| {
-            let name = req.into_inner().name;
-            Ok(gaxi::grpc::tonic::Response::new(
-                bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream {
-                    name,
-                    location: "us-central1".to_string(),
-                    ..Default::default()
-                },
-            ))
-        });
-
-        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-        let client = Write::builder()
-            .with_endpoint(endpoint)
-            .with_credentials(Anonymous::new().build())
-            .build()
-            .await?;
-
-        // Passing empty/whitespace location override falls back to dynamic discovery
-        let writer = client
-            .open_default_stream("projects/p/datasets/d/tables/t1")
-            .with_multiplexing(true)
-            .with_location("   ")
-            .build_arrow(ArrowSchema::new())
-            .await?;
-
-        // Explicit location with matching location shares the pool
-        let writer_explicit = client
-            .open_default_stream("projects/p/datasets/d/tables/t2")
-            .with_multiplexing(true)
-            .with_location("us-central1")
-            .build_arrow(ArrowSchema::new())
-            .await?;
-
-        assert!(Arc::ptr_eq(&writer.inner.pool, &writer_explicit.inner.pool));
 
         Ok(())
     }
