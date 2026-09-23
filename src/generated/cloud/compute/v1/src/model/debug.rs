@@ -661,11 +661,9 @@ impl std::fmt::Debug for super::AllocationSpecificSKUReservation {
 }
 
 #[cfg(any(
-    feature = "instance-group-managers",
     feature = "instance-templates",
     feature = "instances",
     feature = "machine-images",
-    feature = "region-instance-group-managers",
     feature = "region-instance-templates",
     feature = "region-instances",
 ))]
@@ -701,11 +699,9 @@ impl std::fmt::Debug for super::AttachedDisk {
 }
 
 #[cfg(any(
-    feature = "instance-group-managers",
     feature = "instance-templates",
     feature = "instances",
     feature = "machine-images",
-    feature = "region-instance-group-managers",
     feature = "region-instance-templates",
     feature = "region-instances",
 ))]
@@ -2323,7 +2319,6 @@ impl std::fmt::Debug for super::BulkInsertInstanceResourcePerInstanceProperties 
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -3421,14 +3416,11 @@ impl std::fmt::Debug for super::CustomErrorResponsePolicyCustomErrorResponseRule
 #[cfg(any(
     feature = "disks",
     feature = "image-family-views",
-    feature = "image-views",
     feature = "images",
-    feature = "instance-group-managers",
     feature = "instance-templates",
     feature = "instances",
     feature = "machine-images",
     feature = "region-disks",
-    feature = "region-instance-group-managers",
     feature = "region-instance-templates",
     feature = "region-instances",
     feature = "region-snapshots",
@@ -3500,7 +3492,6 @@ impl std::fmt::Debug for super::DateTime {
     feature = "accelerator-types",
     feature = "disk-types",
     feature = "image-family-views",
-    feature = "image-views",
     feature = "images",
     feature = "machine-types",
     feature = "node-types",
@@ -4142,7 +4133,6 @@ impl std::fmt::Debug for super::Duration {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -4463,13 +4453,10 @@ impl std::fmt::Debug for super::ExternalVpnGatewayParams {
 
 #[cfg(any(
     feature = "image-family-views",
-    feature = "image-views",
     feature = "images",
-    feature = "instance-group-managers",
     feature = "instance-templates",
     feature = "instances",
     feature = "machine-images",
-    feature = "region-instance-group-managers",
     feature = "region-instance-templates",
     feature = "region-instances",
 ))]
@@ -4733,7 +4720,6 @@ impl std::fmt::Debug for super::FirewallPolicyAssociation {
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("firewall_policy_id", &self.firewall_policy_id);
         debug_struct.field("name", &self.name);
-        debug_struct.field("priority", &self.priority);
         debug_struct.field("short_name", &self.short_name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -5187,7 +5173,6 @@ impl std::fmt::Debug for super::FutureReservation {
             "auto_delete_auto_created_reservations",
             &self.auto_delete_auto_created_reservations,
         );
-        debug_struct.field("colocation_resource", &self.colocation_resource);
         debug_struct.field("commitment_info", &self.commitment_info);
         debug_struct.field("confidential_compute_type", &self.confidential_compute_type);
         debug_struct.field("creation_timestamp", &self.creation_timestamp);
@@ -5712,7 +5697,6 @@ impl std::fmt::Debug for super::GRPCTLSHealthCheck {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -5837,7 +5821,6 @@ impl std::fmt::Debug for super::GetHealthOperationMetadata {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -5966,7 +5949,6 @@ impl std::fmt::Debug for super::GetHealthOperationMetadataHealthInfo {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -6091,7 +6073,6 @@ impl std::fmt::Debug for super::GetVersionOperationMetadata {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -6212,36 +6193,6 @@ impl std::fmt::Debug for super::GlobalAddressesMoveRequest {
         let mut debug_struct = f.debug_struct("GlobalAddressesMoveRequest");
         debug_struct.field("description", &self.description);
         debug_struct.field("destination_address", &self.destination_address);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "global-frontend-settings")]
-impl std::fmt::Debug for super::GlobalFrontendSettings {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GlobalFrontendSettings");
-        debug_struct.field("bundle_type", &self.bundle_type);
-        debug_struct.field("creation_timestamp", &self.creation_timestamp);
-        debug_struct.field("description", &self.description);
-        debug_struct.field("etag", &self.etag);
-        debug_struct.field("id", &self.id);
-        debug_struct.field("name", &self.name);
-        debug_struct.field("self_link", &self.self_link);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "global-frontend-settings")]
-impl std::fmt::Debug for super::GlobalFrontendSettingsPatchResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GlobalFrontendSettingsPatchResponse");
-        debug_struct.field("operation", &self.operation);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -6600,14 +6551,11 @@ impl std::fmt::Debug for super::GuestAttributesValue {
 #[cfg(any(
     feature = "disks",
     feature = "image-family-views",
-    feature = "image-views",
     feature = "images",
-    feature = "instance-group-managers",
     feature = "instance-templates",
     feature = "instances",
     feature = "machine-images",
     feature = "region-disks",
-    feature = "region-instance-group-managers",
     feature = "region-instance-templates",
     feature = "region-instances",
     feature = "region-snapshots",
@@ -7450,7 +7398,6 @@ impl std::fmt::Debug for super::HealthStatusForNetworkEndpoint {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -7575,7 +7522,6 @@ impl std::fmt::Debug for super::Help {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -8142,11 +8088,7 @@ impl std::fmt::Debug for super::https_health_check_list::warning::Data {
     }
 }
 
-#[cfg(any(
-    feature = "image-family-views",
-    feature = "image-views",
-    feature = "images",
-))]
+#[cfg(any(feature = "image-family-views", feature = "images",))]
 impl std::fmt::Debug for super::Image {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Image");
@@ -8207,11 +8149,7 @@ impl std::fmt::Debug for super::Image {
     }
 }
 
-#[cfg(any(
-    feature = "image-family-views",
-    feature = "image-views",
-    feature = "images",
-))]
+#[cfg(any(feature = "image-family-views", feature = "images",))]
 impl std::fmt::Debug for super::image::RawDisk {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RawDisk");
@@ -8281,11 +8219,7 @@ impl std::fmt::Debug for super::image_list::warning::Data {
     }
 }
 
-#[cfg(any(
-    feature = "image-family-views",
-    feature = "image-views",
-    feature = "images",
-))]
+#[cfg(any(feature = "image-family-views", feature = "images",))]
 impl std::fmt::Debug for super::ImageParams {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImageParams");
@@ -8297,73 +8231,12 @@ impl std::fmt::Debug for super::ImageParams {
     }
 }
 
-#[cfg(feature = "image-views")]
-impl std::fmt::Debug for super::ImageView {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ImageView");
-        debug_struct.field("image", &self.image);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "image-views")]
-impl std::fmt::Debug for super::ImageViewsListResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ImageViewsListResponse");
-        debug_struct.field("etag", &self.etag);
-        debug_struct.field("id", &self.id);
-        debug_struct.field("items", &self.items);
-        debug_struct.field("kind", &self.kind);
-        debug_struct.field("next_page_token", &self.next_page_token);
-        debug_struct.field("self_link", &self.self_link);
-        debug_struct.field("unreachables", &self.unreachables);
-        debug_struct.field("warning", &self.warning);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "image-views")]
-impl std::fmt::Debug for super::image_views_list_response::Warning {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("Warning");
-        debug_struct.field("code", &self.code);
-        debug_struct.field("data", &self.data);
-        debug_struct.field("message", &self.message);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "image-views")]
-impl std::fmt::Debug for super::image_views_list_response::warning::Data {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("Data");
-        debug_struct.field("key", &self.key);
-        debug_struct.field("value", &self.value);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 #[cfg(any(
     feature = "image-family-views",
-    feature = "image-views",
     feature = "images",
-    feature = "instance-group-managers",
     feature = "instance-templates",
     feature = "instances",
     feature = "machine-images",
-    feature = "region-instance-group-managers",
     feature = "region-instance-templates",
     feature = "region-instances",
 ))]
@@ -8850,9 +8723,7 @@ impl std::fmt::Debug for super::InstanceGroupManagerInstanceFlexibilityPolicyIns
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct =
             f.debug_struct("InstanceGroupManagerInstanceFlexibilityPolicyInstanceSelection");
-        debug_struct.field("disks", &self.disks);
         debug_struct.field("machine_types", &self.machine_types);
-        debug_struct.field("min_cpu_platform", &self.min_cpu_platform);
         debug_struct.field("rank", &self.rank);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -10417,7 +10288,6 @@ impl std::fmt::Debug for super::InstancesAddResourcePoliciesRequest {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -12790,7 +12660,6 @@ impl std::fmt::Debug for super::LocalDisk {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -13349,9 +13218,7 @@ impl std::fmt::Debug for super::managed_instance_last_attempt::errors::errors::E
 impl std::fmt::Debug for super::ManagedInstancePropertiesFromFlexibilityPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ManagedInstancePropertiesFromFlexibilityPolicy");
-        debug_struct.field("disks", &self.disks);
         debug_struct.field("machine_type", &self.machine_type);
-        debug_struct.field("min_cpu_platform", &self.min_cpu_platform);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -13403,67 +13270,6 @@ impl std::fmt::Debug for super::ManagedInstanceVersion {
         let mut debug_struct = f.debug_struct("ManagedInstanceVersion");
         debug_struct.field("instance_template", &self.instance_template);
         debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "managed-rulesets")]
-impl std::fmt::Debug for super::ManagedRuleset {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ManagedRuleset");
-        debug_struct.field("change_log", &self.change_log);
-        debug_struct.field("creation_timestamp", &self.creation_timestamp);
-        debug_struct.field("description", &self.description);
-        debug_struct.field("id", &self.id);
-        debug_struct.field("name", &self.name);
-        debug_struct.field("rule_ids", &self.rule_ids);
-        debug_struct.field("ruleset_id", &self.ruleset_id);
-        debug_struct.field("self_link", &self.self_link);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "managed-rulesets")]
-impl std::fmt::Debug for super::ManagedRulesetList {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ManagedRulesetList");
-        debug_struct.field("id", &self.id);
-        debug_struct.field("items", &self.items);
-        debug_struct.field("next_page_token", &self.next_page_token);
-        debug_struct.field("warning", &self.warning);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "managed-rulesets")]
-impl std::fmt::Debug for super::managed_ruleset_list::Warning {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("Warning");
-        debug_struct.field("code", &self.code);
-        debug_struct.field("data", &self.data);
-        debug_struct.field("message", &self.message);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "managed-rulesets")]
-impl std::fmt::Debug for super::managed_ruleset_list::warning::Data {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("Data");
-        debug_struct.field("key", &self.key);
-        debug_struct.field("value", &self.value);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -15696,7 +15502,6 @@ impl std::fmt::Debug for super::notification_endpoints_scoped_list::warning::Dat
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -15860,7 +15665,6 @@ impl std::fmt::Debug for super::Operation {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -15985,7 +15789,6 @@ impl std::fmt::Debug for super::operation::Error {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -16113,7 +15916,6 @@ impl std::fmt::Debug for super::operation::error::Errors {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -16241,7 +16043,6 @@ impl std::fmt::Debug for super::operation::error::errors::ErrorDetails {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -16368,7 +16169,6 @@ impl std::fmt::Debug for super::operation::Warnings {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -17690,7 +17490,6 @@ impl std::fmt::Debug for super::Quota {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -22113,7 +21912,6 @@ impl std::fmt::Debug for super::SecurityPolicyRulePreconfiguredWafConfig {
 impl std::fmt::Debug for super::SecurityPolicyRulePreconfiguredWafConfigExclusion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SecurityPolicyRulePreconfiguredWafConfigExclusion");
-        debug_struct.field("request_bodies_to_exclude", &self.request_bodies_to_exclude);
         debug_struct.field(
             "request_cookies_to_exclude",
             &self.request_cookies_to_exclude,
@@ -22526,7 +22324,6 @@ impl std::fmt::Debug for super::service_attachments_scoped_list::warning::Data {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -22652,7 +22449,6 @@ impl std::fmt::Debug for super::SetCommonInstanceMetadataOperationMetadata {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -23629,7 +23425,6 @@ impl std::fmt::Debug for super::StatefulPolicyPreservedStateNetworkIp {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -29815,33 +29610,6 @@ impl std::fmt::Debug for super::global_forwarding_rules::SetTargetRequest {
     }
 }
 
-#[cfg(feature = "global-frontend-settings")]
-impl std::fmt::Debug for super::global_frontend_settings::GetRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetRequest");
-        debug_struct.field("project", &self.project);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "global-frontend-settings")]
-impl std::fmt::Debug for super::global_frontend_settings::PatchRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("PatchRequest");
-        debug_struct.field("project", &self.project);
-        debug_struct.field("request_id", &self.request_id);
-        debug_struct.field("update_mask", &self.update_mask);
-        debug_struct.field("body", &self.body);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 #[cfg(feature = "global-network-endpoint-groups")]
 impl std::fmt::Debug for super::global_network_endpoint_groups::AttachNetworkEndpointsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -30670,38 +30438,6 @@ impl std::fmt::Debug for super::image_family_views::GetRequest {
         debug_struct.field("family", &self.family);
         debug_struct.field("project", &self.project);
         debug_struct.field("zone", &self.zone);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "image-views")]
-impl std::fmt::Debug for super::image_views::GetRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetRequest");
-        debug_struct.field("project", &self.project);
-        debug_struct.field("region", &self.region);
-        debug_struct.field("resource_id", &self.resource_id);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "image-views")]
-impl std::fmt::Debug for super::image_views::ListRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListRequest");
-        debug_struct.field("filter", &self.filter);
-        debug_struct.field("max_results", &self.max_results);
-        debug_struct.field("order_by", &self.order_by);
-        debug_struct.field("page_token", &self.page_token);
-        debug_struct.field("project", &self.project);
-        debug_struct.field("region", &self.region);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -33665,36 +33401,6 @@ impl std::fmt::Debug for super::machine_types::ListRequest {
         debug_struct.field("project", &self.project);
         debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "managed-rulesets")]
-impl std::fmt::Debug for super::managed_rulesets::GetRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetRequest");
-        debug_struct.field("managed_ruleset", &self.managed_ruleset);
-        debug_struct.field("project", &self.project);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "managed-rulesets")]
-impl std::fmt::Debug for super::managed_rulesets::ListRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListRequest");
-        debug_struct.field("filter", &self.filter);
-        debug_struct.field("max_results", &self.max_results);
-        debug_struct.field("order_by", &self.order_by);
-        debug_struct.field("page_token", &self.page_token);
-        debug_struct.field("project", &self.project);
-        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -38290,10 +37996,6 @@ impl std::fmt::Debug for super::region_network_endpoint_groups::ListNetworkEndpo
 impl std::fmt::Debug for super::region_network_firewall_policies::AddAssociationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AddAssociationRequest");
-        debug_struct.field(
-            "associated_policy_to_be_replaced",
-            &self.associated_policy_to_be_replaced,
-        );
         debug_struct.field("firewall_policy", &self.firewall_policy);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
@@ -38472,22 +38174,6 @@ impl std::fmt::Debug for super::region_network_firewall_policies::ListRequest {
 impl std::fmt::Debug for super::region_network_firewall_policies::PatchRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PatchRequest");
-        debug_struct.field("firewall_policy", &self.firewall_policy);
-        debug_struct.field("project", &self.project);
-        debug_struct.field("region", &self.region);
-        debug_struct.field("request_id", &self.request_id);
-        debug_struct.field("body", &self.body);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "region-network-firewall-policies")]
-impl std::fmt::Debug for super::region_network_firewall_policies::PatchAssociationRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("PatchAssociationRequest");
         debug_struct.field("firewall_policy", &self.firewall_policy);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);

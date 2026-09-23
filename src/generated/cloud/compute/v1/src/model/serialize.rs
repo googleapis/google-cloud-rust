@@ -1508,11 +1508,9 @@ impl serde::ser::Serialize for super::AllocationSpecificSKUReservation {
 }
 
 #[cfg(any(
-    feature = "instance-group-managers",
     feature = "instance-templates",
     feature = "instances",
     feature = "machine-images",
-    feature = "region-instance-group-managers",
     feature = "region-instance-templates",
     feature = "region-instances",
 ))]
@@ -1615,11 +1613,9 @@ impl serde::ser::Serialize for super::AttachedDisk {
 }
 
 #[cfg(any(
-    feature = "instance-group-managers",
     feature = "instance-templates",
     feature = "instances",
     feature = "machine-images",
-    feature = "region-instance-group-managers",
     feature = "region-instance-templates",
     feature = "region-instances",
 ))]
@@ -5675,7 +5671,6 @@ impl serde::ser::Serialize for super::BulkInsertInstanceResourcePerInstancePrope
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -8100,14 +8095,11 @@ impl serde::ser::Serialize for super::CustomErrorResponsePolicyCustomErrorRespon
 #[cfg(any(
     feature = "disks",
     feature = "image-family-views",
-    feature = "image-views",
     feature = "images",
-    feature = "instance-group-managers",
     feature = "instance-templates",
     feature = "instances",
     feature = "machine-images",
     feature = "region-disks",
-    feature = "region-instance-group-managers",
     feature = "region-instance-templates",
     feature = "region-instances",
     feature = "region-snapshots",
@@ -8363,7 +8355,6 @@ impl serde::ser::Serialize for super::DateTime {
     feature = "accelerator-types",
     feature = "disk-types",
     feature = "image-family-views",
-    feature = "image-views",
     feature = "images",
     feature = "machine-types",
     feature = "node-types",
@@ -9790,7 +9781,6 @@ impl serde::ser::Serialize for super::Duration {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -10365,13 +10355,10 @@ impl serde::ser::Serialize for super::ExternalVpnGatewayParams {
 
 #[cfg(any(
     feature = "image-family-views",
-    feature = "image-views",
     feature = "images",
-    feature = "instance-group-managers",
     feature = "instance-templates",
     feature = "instances",
     feature = "machine-images",
-    feature = "region-instance-group-managers",
     feature = "region-instance-templates",
     feature = "region-instances",
 ))]
@@ -10977,20 +10964,6 @@ impl serde::ser::Serialize for super::FirewallPolicyAssociation {
         }
         if self.name.is_some() {
             state.serialize_entry("name", &self.name)?;
-        }
-        if self.priority.is_some() {
-            struct __With<'a>(&'a std::option::Option<i32>);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
-                        self.0, serializer,
-                    )
-                }
-            }
-            state.serialize_entry("priority", &__With(&self.priority))?;
         }
         if self.short_name.is_some() {
             state.serialize_entry("shortName", &self.short_name)?;
@@ -12036,9 +12009,6 @@ impl serde::ser::Serialize for super::FutureReservation {
                 "autoDeleteAutoCreatedReservations",
                 &self.auto_delete_auto_created_reservations,
             )?;
-        }
-        if self.colocation_resource.is_some() {
-            state.serialize_entry("colocationResource", &self.colocation_resource)?;
         }
         if self.commitment_info.is_some() {
             state.serialize_entry("commitmentInfo", &self.commitment_info)?;
@@ -13234,7 +13204,6 @@ impl serde::ser::Serialize for super::GRPCTLSHealthCheck {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -13370,7 +13339,6 @@ impl serde::ser::Serialize for super::GetHealthOperationMetadata {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -13518,7 +13486,6 @@ impl serde::ser::Serialize for super::GetHealthOperationMetadataHealthInfo {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -13654,7 +13621,6 @@ impl serde::ser::Serialize for super::GetVersionOperationMetadata {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -13795,81 +13761,6 @@ impl serde::ser::Serialize for super::GlobalAddressesMoveRequest {
         }
         if self.destination_address.is_some() {
             state.serialize_entry("destinationAddress", &self.destination_address)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "global-frontend-settings")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::GlobalFrontendSettings {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.bundle_type.is_some() {
-            state.serialize_entry("bundleType", &self.bundle_type)?;
-        }
-        if self.creation_timestamp.is_some() {
-            state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
-        }
-        if self.description.is_some() {
-            state.serialize_entry("description", &self.description)?;
-        }
-        if self.etag.is_some() {
-            state.serialize_entry("etag", &self.etag)?;
-        }
-        if self.id.is_some() {
-            struct __With<'a>(&'a std::option::Option<u64>);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<std::option::Option<wkt::internal::U64>>::serialize(
-                        self.0, serializer,
-                    )
-                }
-            }
-            state.serialize_entry("id", &__With(&self.id))?;
-        }
-        if self.name.is_some() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if self.self_link.is_some() {
-            state.serialize_entry("selfLink", &self.self_link)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "global-frontend-settings")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::GlobalFrontendSettingsPatchResponse {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.operation.is_some() {
-            state.serialize_entry("operation", &self.operation)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -14689,14 +14580,11 @@ impl serde::ser::Serialize for super::GuestAttributesValue {
 #[cfg(any(
     feature = "disks",
     feature = "image-family-views",
-    feature = "image-views",
     feature = "images",
-    feature = "instance-group-managers",
     feature = "instance-templates",
     feature = "instances",
     feature = "machine-images",
     feature = "region-disks",
-    feature = "region-instance-group-managers",
     feature = "region-instance-templates",
     feature = "region-instances",
     feature = "region-snapshots",
@@ -16683,7 +16571,6 @@ impl serde::ser::Serialize for super::HealthStatusForNetworkEndpoint {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -16819,7 +16706,6 @@ impl serde::ser::Serialize for super::Help {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -18128,11 +18014,7 @@ impl serde::ser::Serialize for super::https_health_check_list::warning::Data {
     }
 }
 
-#[cfg(any(
-    feature = "image-family-views",
-    feature = "image-views",
-    feature = "images",
-))]
+#[cfg(any(feature = "image-family-views", feature = "images",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Image {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -18326,11 +18208,7 @@ impl serde::ser::Serialize for super::Image {
     }
 }
 
-#[cfg(any(
-    feature = "image-family-views",
-    feature = "image-views",
-    feature = "images",
-))]
+#[cfg(any(feature = "image-family-views", feature = "images",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::image::RawDisk {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -18475,11 +18353,7 @@ impl serde::ser::Serialize for super::image_list::warning::Data {
     }
 }
 
-#[cfg(any(
-    feature = "image-family-views",
-    feature = "image-views",
-    feature = "images",
-))]
+#[cfg(any(feature = "image-family-views", feature = "images",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::ImageParams {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -18502,137 +18376,12 @@ impl serde::ser::Serialize for super::ImageParams {
     }
 }
 
-#[cfg(feature = "image-views")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::ImageView {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.image.is_some() {
-            state.serialize_entry("image", &self.image)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "image-views")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::ImageViewsListResponse {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.etag.is_some() {
-            state.serialize_entry("etag", &self.etag)?;
-        }
-        if self.id.is_some() {
-            state.serialize_entry("id", &self.id)?;
-        }
-        if !self.items.is_empty() {
-            state.serialize_entry("items", &self.items)?;
-        }
-        if self.kind.is_some() {
-            state.serialize_entry("kind", &self.kind)?;
-        }
-        if self.next_page_token.is_some() {
-            state.serialize_entry("nextPageToken", &self.next_page_token)?;
-        }
-        if self.self_link.is_some() {
-            state.serialize_entry("selfLink", &self.self_link)?;
-        }
-        if !self.unreachables.is_empty() {
-            state.serialize_entry("unreachables", &self.unreachables)?;
-        }
-        if self.warning.is_some() {
-            state.serialize_entry("warning", &self.warning)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "image-views")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::image_views_list_response::Warning {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.code.is_some() {
-            state.serialize_entry("code", &self.code)?;
-        }
-        if !self.data.is_empty() {
-            state.serialize_entry("data", &self.data)?;
-        }
-        if self.message.is_some() {
-            state.serialize_entry("message", &self.message)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "image-views")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::image_views_list_response::warning::Data {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.key.is_some() {
-            state.serialize_entry("key", &self.key)?;
-        }
-        if self.value.is_some() {
-            state.serialize_entry("value", &self.value)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
 #[cfg(any(
     feature = "image-family-views",
-    feature = "image-views",
     feature = "images",
-    feature = "instance-group-managers",
     feature = "instance-templates",
     feature = "instances",
     feature = "machine-images",
-    feature = "region-instance-group-managers",
     feature = "region-instance-templates",
     feature = "region-instances",
 ))]
@@ -20021,14 +19770,8 @@ impl serde::ser::Serialize
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.disks.is_empty() {
-            state.serialize_entry("disks", &self.disks)?;
-        }
         if !self.machine_types.is_empty() {
             state.serialize_entry("machineTypes", &self.machine_types)?;
-        }
-        if self.min_cpu_platform.is_some() {
-            state.serialize_entry("minCpuPlatform", &self.min_cpu_platform)?;
         }
         if self.rank.is_some() {
             struct __With<'a>(&'a std::option::Option<i32>);
@@ -23314,7 +23057,6 @@ impl serde::ser::Serialize for super::InstancesAddResourcePoliciesRequest {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -28638,7 +28380,6 @@ impl serde::ser::Serialize for super::LocalDisk {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -29818,14 +29559,8 @@ impl serde::ser::Serialize for super::ManagedInstancePropertiesFromFlexibilityPo
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.disks.is_empty() {
-            state.serialize_entry("disks", &self.disks)?;
-        }
         if self.machine_type.is_some() {
             state.serialize_entry("machineType", &self.machine_type)?;
-        }
-        if self.min_cpu_platform.is_some() {
-            state.serialize_entry("minCpuPlatform", &self.min_cpu_platform)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -29916,148 +29651,6 @@ impl serde::ser::Serialize for super::ManagedInstanceVersion {
         }
         if self.name.is_some() {
             state.serialize_entry("name", &self.name)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "managed-rulesets")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::ManagedRuleset {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.change_log.is_some() {
-            state.serialize_entry("changeLog", &self.change_log)?;
-        }
-        if self.creation_timestamp.is_some() {
-            state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
-        }
-        if self.description.is_some() {
-            state.serialize_entry("description", &self.description)?;
-        }
-        if self.id.is_some() {
-            struct __With<'a>(&'a std::option::Option<u64>);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<std::option::Option<wkt::internal::U64>>::serialize(
-                        self.0, serializer,
-                    )
-                }
-            }
-            state.serialize_entry("id", &__With(&self.id))?;
-        }
-        if self.name.is_some() {
-            state.serialize_entry("name", &self.name)?;
-        }
-        if !self.rule_ids.is_empty() {
-            state.serialize_entry("ruleIds", &self.rule_ids)?;
-        }
-        if self.ruleset_id.is_some() {
-            state.serialize_entry("rulesetId", &self.ruleset_id)?;
-        }
-        if self.self_link.is_some() {
-            state.serialize_entry("selfLink", &self.self_link)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "managed-rulesets")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::ManagedRulesetList {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.id.is_some() {
-            state.serialize_entry("id", &self.id)?;
-        }
-        if !self.items.is_empty() {
-            state.serialize_entry("items", &self.items)?;
-        }
-        if self.next_page_token.is_some() {
-            state.serialize_entry("nextPageToken", &self.next_page_token)?;
-        }
-        if self.warning.is_some() {
-            state.serialize_entry("warning", &self.warning)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "managed-rulesets")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::managed_ruleset_list::Warning {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.code.is_some() {
-            state.serialize_entry("code", &self.code)?;
-        }
-        if !self.data.is_empty() {
-            state.serialize_entry("data", &self.data)?;
-        }
-        if self.message.is_some() {
-            state.serialize_entry("message", &self.message)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(feature = "managed-rulesets")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::managed_ruleset_list::warning::Data {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.key.is_some() {
-            state.serialize_entry("key", &self.key)?;
-        }
-        if self.value.is_some() {
-            state.serialize_entry("value", &self.value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -35113,7 +34706,6 @@ impl serde::ser::Serialize for super::notification_endpoints_scoped_list::warnin
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -35389,7 +34981,6 @@ impl serde::ser::Serialize for super::Operation {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -35525,7 +35116,6 @@ impl serde::ser::Serialize for super::operation::Error {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -35670,7 +35260,6 @@ impl serde::ser::Serialize for super::operation::error::Errors {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -35815,7 +35404,6 @@ impl serde::ser::Serialize for super::operation::error::errors::ErrorDetails {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -35957,7 +35545,6 @@ impl serde::ser::Serialize for super::operation::Warnings {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -38842,7 +38429,6 @@ impl serde::ser::Serialize for super::Quota {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -48849,9 +48435,6 @@ impl serde::ser::Serialize for super::SecurityPolicyRulePreconfiguredWafConfigEx
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.request_bodies_to_exclude.is_empty() {
-            state.serialize_entry("requestBodiesToExclude", &self.request_bodies_to_exclude)?;
-        }
         if !self.request_cookies_to_exclude.is_empty() {
             state.serialize_entry("requestCookiesToExclude", &self.request_cookies_to_exclude)?;
         }
@@ -49816,7 +49399,6 @@ impl serde::ser::Serialize for super::service_attachments_scoped_list::warning::
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -49955,7 +49537,6 @@ impl serde::ser::Serialize for super::SetCommonInstanceMetadataOperationMetadata
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -51931,7 +51512,6 @@ impl serde::ser::Serialize for super::StatefulPolicyPreservedStateNetworkIp {
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",

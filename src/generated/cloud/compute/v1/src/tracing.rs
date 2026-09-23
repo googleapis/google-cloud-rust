@@ -30,7 +30,6 @@
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -41,7 +40,6 @@
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "image-family-views",
-    feature = "image-views",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -61,7 +59,6 @@
     feature = "licenses",
     feature = "machine-images",
     feature = "machine-types",
-    feature = "managed-rulesets",
     feature = "network-attachments",
     feature = "network-edge-security-services",
     feature = "network-endpoint-groups",
@@ -3317,64 +3314,6 @@ where
     }
 }
 
-/// Implements a [GlobalFrontendSettings](super::stub::GlobalFrontendSettings) decorator for logging and tracing.
-#[cfg(feature = "global-frontend-settings")]
-#[derive(Clone, Debug)]
-pub struct GlobalFrontendSettings<T>
-where
-    T: super::stub::GlobalFrontendSettings + std::fmt::Debug + Send + Sync,
-{
-    inner: T,
-    duration: gaxi::observability::DurationMetric,
-}
-
-#[cfg(feature = "global-frontend-settings")]
-impl<T> GlobalFrontendSettings<T>
-where
-    T: super::stub::GlobalFrontendSettings + std::fmt::Debug + Send + Sync,
-{
-    pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
-    }
-}
-
-#[cfg(feature = "global-frontend-settings")]
-impl<T> super::stub::GlobalFrontendSettings for GlobalFrontendSettings<T>
-where
-    T: super::stub::GlobalFrontendSettings + std::fmt::Debug + Send + Sync,
-{
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
-    async fn get(
-        &self,
-        req: crate::model::global_frontend_settings::GetRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::GlobalFrontendSettings>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::GlobalFrontendSettings::get",
-            self.inner.get(req, options));
-        pending.await
-    }
-
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
-    async fn patch(
-        &self,
-        req: crate::model::global_frontend_settings::PatchRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::GlobalFrontendSettingsPatchResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::GlobalFrontendSettings::patch",
-            self.inner.patch(req, options));
-        pending.await
-    }
-}
-
 /// Implements a [GlobalNetworkEndpointGroups](super::stub::GlobalNetworkEndpointGroups) decorator for logging and tracing.
 #[cfg(feature = "global-network-endpoint-groups")]
 #[derive(Clone, Debug)]
@@ -4784,64 +4723,6 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::ImageFamilyViews::get",
             self.inner.get(req, options));
-        pending.await
-    }
-}
-
-/// Implements a [ImageViews](super::stub::ImageViews) decorator for logging and tracing.
-#[cfg(feature = "image-views")]
-#[derive(Clone, Debug)]
-pub struct ImageViews<T>
-where
-    T: super::stub::ImageViews + std::fmt::Debug + Send + Sync,
-{
-    inner: T,
-    duration: gaxi::observability::DurationMetric,
-}
-
-#[cfg(feature = "image-views")]
-impl<T> ImageViews<T>
-where
-    T: super::stub::ImageViews + std::fmt::Debug + Send + Sync,
-{
-    pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
-    }
-}
-
-#[cfg(feature = "image-views")]
-impl<T> super::stub::ImageViews for ImageViews<T>
-where
-    T: super::stub::ImageViews + std::fmt::Debug + Send + Sync,
-{
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
-    async fn get(
-        &self,
-        req: crate::model::image_views::GetRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::ImageView>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::ImageViews::get",
-            self.inner.get(req, options));
-        pending.await
-    }
-
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
-    async fn list(
-        &self,
-        req: crate::model::image_views::ListRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::ImageViewsListResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::ImageViews::list",
-            self.inner.list(req, options));
         pending.await
     }
 }
@@ -8872,64 +8753,6 @@ where
             metric: self.duration.clone(),
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::MachineTypes::list",
-            self.inner.list(req, options));
-        pending.await
-    }
-}
-
-/// Implements a [ManagedRulesets](super::stub::ManagedRulesets) decorator for logging and tracing.
-#[cfg(feature = "managed-rulesets")]
-#[derive(Clone, Debug)]
-pub struct ManagedRulesets<T>
-where
-    T: super::stub::ManagedRulesets + std::fmt::Debug + Send + Sync,
-{
-    inner: T,
-    duration: gaxi::observability::DurationMetric,
-}
-
-#[cfg(feature = "managed-rulesets")]
-impl<T> ManagedRulesets<T>
-where
-    T: super::stub::ManagedRulesets + std::fmt::Debug + Send + Sync,
-{
-    pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
-    }
-}
-
-#[cfg(feature = "managed-rulesets")]
-impl<T> super::stub::ManagedRulesets for ManagedRulesets<T>
-where
-    T: super::stub::ManagedRulesets + std::fmt::Debug + Send + Sync,
-{
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
-    async fn get(
-        &self,
-        req: crate::model::managed_rulesets::GetRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::ManagedRuleset>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::ManagedRulesets::get",
-            self.inner.get(req, options));
-        pending.await
-    }
-
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
-    async fn list(
-        &self,
-        req: crate::model::managed_rulesets::ListRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::ManagedRulesetList>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::ManagedRulesets::list",
             self.inner.list(req, options));
         pending.await
     }
@@ -15967,20 +15790,6 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::RegionNetworkFirewallPolicies::patch",
             self.inner.patch(req, options));
-        pending.await
-    }
-
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
-    async fn patch_association(
-        &self,
-        req: crate::model::region_network_firewall_policies::PatchAssociationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Operation>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::RegionNetworkFirewallPolicies::patch_association",
-            self.inner.patch_association(req, options));
         pending.await
     }
 

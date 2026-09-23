@@ -16,7 +16,7 @@
 
 //! Google Cloud Client Libraries for Rust - Compute Engine API
 //!
-//! This client library was generated from the "20260910" revision of the API.
+//! This client library was generated from the "20260908" revision of the API.
 //!
 //! This crate contains traits, types, and functions to interact with Compute Engine API
 //! Most applications will use the structs defined in the [client] module.
@@ -45,7 +45,6 @@
 //! * [FutureReservations](client/struct.FutureReservations.html)
 //! * [GlobalAddresses](client/struct.GlobalAddresses.html)
 //! * [GlobalForwardingRules](client/struct.GlobalForwardingRules.html)
-//! * [GlobalFrontendSettings](client/struct.GlobalFrontendSettings.html)
 //! * [GlobalNetworkEndpointGroups](client/struct.GlobalNetworkEndpointGroups.html)
 //! * [GlobalOperations](client/struct.GlobalOperations.html)
 //! * [GlobalOrganizationOperations](client/struct.GlobalOrganizationOperations.html)
@@ -56,7 +55,6 @@
 //! * [HttpHealthChecks](client/struct.HttpHealthChecks.html)
 //! * [HttpsHealthChecks](client/struct.HttpsHealthChecks.html)
 //! * [ImageFamilyViews](client/struct.ImageFamilyViews.html)
-//! * [ImageViews](client/struct.ImageViews.html)
 //! * [Images](client/struct.Images.html)
 //! * [InstanceGroupManagerResizeRequests](client/struct.InstanceGroupManagerResizeRequests.html)
 //! * [InstanceGroupManagers](client/struct.InstanceGroupManagers.html)
@@ -76,7 +74,6 @@
 //! * [Licenses](client/struct.Licenses.html)
 //! * [MachineImages](client/struct.MachineImages.html)
 //! * [MachineTypes](client/struct.MachineTypes.html)
-//! * [ManagedRulesets](client/struct.ManagedRulesets.html)
 //! * [NetworkAttachments](client/struct.NetworkAttachments.html)
 //! * [NetworkEdgeSecurityServices](client/struct.NetworkEdgeSecurityServices.html)
 //! * [NetworkEndpointGroups](client/struct.NetworkEndpointGroups.html)
@@ -229,7 +226,6 @@ pub(crate) mod transport;
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -240,7 +236,6 @@ pub(crate) mod transport;
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "image-family-views",
-    feature = "image-views",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -260,7 +255,6 @@ pub(crate) mod transport;
     feature = "licenses",
     feature = "machine-images",
     feature = "machine-types",
-    feature = "managed-rulesets",
     feature = "network-attachments",
     feature = "network-edge-security-services",
     feature = "network-endpoint-groups",
@@ -364,7 +358,6 @@ const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
     feature = "future-reservations",
     feature = "global-addresses",
     feature = "global-forwarding-rules",
-    feature = "global-frontend-settings",
     feature = "global-network-endpoint-groups",
     feature = "global-operations",
     feature = "global-organization-operations",
@@ -375,7 +368,6 @@ const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
     feature = "http-health-checks",
     feature = "https-health-checks",
     feature = "image-family-views",
-    feature = "image-views",
     feature = "images",
     feature = "instance-group-manager-resize-requests",
     feature = "instance-group-managers",
@@ -395,7 +387,6 @@ const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
     feature = "licenses",
     feature = "machine-images",
     feature = "machine-types",
-    feature = "managed-rulesets",
     feature = "network-attachments",
     feature = "network-edge-security-services",
     feature = "network-endpoint-groups",

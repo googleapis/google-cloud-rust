@@ -2954,46 +2954,6 @@ impl<T: super::GlobalForwardingRules> GlobalForwardingRules for T {
     }
 }
 
-/// A dyn-compatible, crate-private version of [super::GlobalFrontendSettings].
-#[cfg(feature = "global-frontend-settings")]
-#[async_trait::async_trait]
-pub trait GlobalFrontendSettings: std::fmt::Debug + Send + Sync {
-    async fn get(
-        &self,
-        req: crate::model::global_frontend_settings::GetRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::GlobalFrontendSettings>>;
-
-    async fn patch(
-        &self,
-        req: crate::model::global_frontend_settings::PatchRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::GlobalFrontendSettingsPatchResponse>>;
-}
-
-/// All implementations of [super::GlobalFrontendSettings] also implement [GlobalFrontendSettings].
-#[cfg(feature = "global-frontend-settings")]
-#[async_trait::async_trait]
-impl<T: super::GlobalFrontendSettings> GlobalFrontendSettings for T {
-    /// Forwards the call to the implementation provided by `T`.
-    async fn get(
-        &self,
-        req: crate::model::global_frontend_settings::GetRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::GlobalFrontendSettings>> {
-        T::get(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn patch(
-        &self,
-        req: crate::model::global_frontend_settings::PatchRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::GlobalFrontendSettingsPatchResponse>> {
-        T::patch(self, req, options).await
-    }
-}
-
 /// A dyn-compatible, crate-private version of [super::GlobalNetworkEndpointGroups].
 #[cfg(feature = "global-network-endpoint-groups")]
 #[async_trait::async_trait]
@@ -4229,46 +4189,6 @@ impl<T: super::ImageFamilyViews> ImageFamilyViews for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ImageFamilyView>> {
         T::get(self, req, options).await
-    }
-}
-
-/// A dyn-compatible, crate-private version of [super::ImageViews].
-#[cfg(feature = "image-views")]
-#[async_trait::async_trait]
-pub trait ImageViews: std::fmt::Debug + Send + Sync {
-    async fn get(
-        &self,
-        req: crate::model::image_views::GetRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::ImageView>>;
-
-    async fn list(
-        &self,
-        req: crate::model::image_views::ListRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::ImageViewsListResponse>>;
-}
-
-/// All implementations of [super::ImageViews] also implement [ImageViews].
-#[cfg(feature = "image-views")]
-#[async_trait::async_trait]
-impl<T: super::ImageViews> ImageViews for T {
-    /// Forwards the call to the implementation provided by `T`.
-    async fn get(
-        &self,
-        req: crate::model::image_views::GetRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::ImageView>> {
-        T::get(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn list(
-        &self,
-        req: crate::model::image_views::ListRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::ImageViewsListResponse>> {
-        T::list(self, req, options).await
     }
 }
 
@@ -8055,46 +7975,6 @@ impl<T: super::MachineTypes> MachineTypes for T {
         req: crate::model::machine_types::ListRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::MachineTypeList>> {
-        T::list(self, req, options).await
-    }
-}
-
-/// A dyn-compatible, crate-private version of [super::ManagedRulesets].
-#[cfg(feature = "managed-rulesets")]
-#[async_trait::async_trait]
-pub trait ManagedRulesets: std::fmt::Debug + Send + Sync {
-    async fn get(
-        &self,
-        req: crate::model::managed_rulesets::GetRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::ManagedRuleset>>;
-
-    async fn list(
-        &self,
-        req: crate::model::managed_rulesets::ListRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::ManagedRulesetList>>;
-}
-
-/// All implementations of [super::ManagedRulesets] also implement [ManagedRulesets].
-#[cfg(feature = "managed-rulesets")]
-#[async_trait::async_trait]
-impl<T: super::ManagedRulesets> ManagedRulesets for T {
-    /// Forwards the call to the implementation provided by `T`.
-    async fn get(
-        &self,
-        req: crate::model::managed_rulesets::GetRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::ManagedRuleset>> {
-        T::get(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn list(
-        &self,
-        req: crate::model::managed_rulesets::ListRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::ManagedRulesetList>> {
         T::list(self, req, options).await
     }
 }
@@ -14499,12 +14379,6 @@ pub trait RegionNetworkFirewallPolicies: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>>;
 
-    async fn patch_association(
-        &self,
-        req: crate::model::region_network_firewall_policies::PatchAssociationRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::Operation>>;
-
     async fn patch_rule(
         &self,
         req: crate::model::region_network_firewall_policies::PatchRuleRequest,
@@ -14669,15 +14543,6 @@ impl<T: super::RegionNetworkFirewallPolicies> RegionNetworkFirewallPolicies for 
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>> {
         T::patch(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn patch_association(
-        &self,
-        req: crate::model::region_network_firewall_policies::PatchAssociationRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::Operation>> {
-        T::patch_association(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

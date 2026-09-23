@@ -651,6 +651,7 @@ libraries:
     version: 1.7.0
     copyright_year: "2025"
   - name: google-cloud-compute-v1
+    skip_generate: true
     version: 3.5.0
     copyright_year: "2025"
     keep:

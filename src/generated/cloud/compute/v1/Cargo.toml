@@ -68,8 +68,6 @@ future-reservations = ["__enable-discovery-LRO"]
 global-addresses = ["__enable-discovery-LRO"]
 # Enables `client::GlobalForwardingRules` and all the types it depends on.
 global-forwarding-rules = ["__enable-discovery-LRO"]
-# Enables `client::GlobalFrontendSettings` and all the types it depends on.
-global-frontend-settings = []
 # Enables `client::GlobalNetworkEndpointGroups` and all the types it depends on.
 global-network-endpoint-groups = ["__enable-discovery-LRO"]
 # Enables `client::GlobalOperations` and all the types it depends on.
@@ -90,8 +88,6 @@ http-health-checks = ["__enable-discovery-LRO"]
 https-health-checks = ["__enable-discovery-LRO"]
 # Enables `client::ImageFamilyViews` and all the types it depends on.
 image-family-views = []
-# Enables `client::ImageViews` and all the types it depends on.
-image-views = []
 # Enables `client::Images` and all the types it depends on.
 images = ["__enable-discovery-LRO"]
 # Enables `client::InstanceGroupManagerResizeRequests` and all the types it depends on.
@@ -130,8 +126,6 @@ licenses = ["__enable-discovery-LRO"]
 machine-images = ["__enable-discovery-LRO"]
 # Enables `client::MachineTypes` and all the types it depends on.
 machine-types = []
-# Enables `client::ManagedRulesets` and all the types it depends on.
-managed-rulesets = []
 # Enables `client::NetworkAttachments` and all the types it depends on.
 network-attachments = ["__enable-discovery-LRO"]
 # Enables `client::NetworkEdgeSecurityServices` and all the types it depends on.
