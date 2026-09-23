@@ -155,7 +155,7 @@ impl Write {
 
 #[cfg(test)]
 mod tests {
-    use super::super::error::{AppendError, WriterBuilderError};
+    use super::super::error::AppendError;
     use super::*;
     use crate::model::{ArrowRecordBatch, ArrowSchema, ProtoRows, ProtoSchema};
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
@@ -308,7 +308,7 @@ mod tests {
             } else if name.contains("t2") {
                 "eu".to_string()
             } else {
-                "US".to_string()
+                "us".to_string()
             };
             Ok(gaxi::grpc::tonic::Response::new(
                 bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream {
@@ -324,7 +324,7 @@ mod tests {
             .with_credentials(Anonymous::new().build())
             .build()
             .await?;
-        let us_writer = client
+        let us_writer1 = client
             .open_default_stream("projects/p/datasets/d/tables/t1")
             .with_multiplexing(true)
             .build_arrow(ArrowSchema::new())
@@ -336,18 +336,18 @@ mod tests {
             .await?;
 
         // Different locations receive distinct connection pools.
-        assert!(!Arc::ptr_eq(&us_writer.inner.pool, &eu_writer.inner.pool));
+        assert!(!Arc::ptr_eq(&us_writer1.inner.pool, &eu_writer.inner.pool));
 
-        let us_upper_writer = client
+        let us_writer2 = client
             .open_default_stream("projects/p/datasets/d/tables/t3")
             .with_multiplexing(true)
             .build_arrow(ArrowSchema::new())
             .await?;
 
-        // Same location with different casing shares the connection pool.
+        // Same location shares the connection pool.
         assert!(Arc::ptr_eq(
-            &us_writer.inner.pool,
-            &us_upper_writer.inner.pool
+            &us_writer1.inner.pool,
+            &us_writer2.inner.pool
         ));
 
         Ok(())
@@ -395,9 +395,9 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn dynamic_location_discovery_missing_location() -> anyhow::Result<()> {
+    async fn dynamic_location_discovery_empty_location() -> anyhow::Result<()> {
         let mut mock = MockBigQueryWrite::new();
-        mock.expect_get_write_stream().times(1).returning(|req| {
+        mock.expect_get_write_stream().times(2).returning(|req| {
             let name = req.into_inner().name;
             Ok(gaxi::grpc::tonic::Response::new(
                 bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream {
@@ -415,22 +415,20 @@ mod tests {
             .build()
             .await?;
 
-        let res = client
+        let writer1 = client
             .open_default_stream("projects/p/datasets/d/tables/t1")
             .with_multiplexing(true)
             .build_arrow(ArrowSchema::new())
-            .await;
+            .await?;
 
-        let err = res.expect_err("should fail when GetWriteStream returns empty location");
-        assert!(
-            matches!(
-                &err,
-                WriterBuilderError::MissingLocation { write_stream }
-                    if write_stream == "projects/p/datasets/d/tables/t1/streams/_default"
-            ),
-            "unexpected error: {err:?}"
-        );
-        assert!(err.to_string().contains("could not determine location"));
+        let writer2 = client
+            .open_default_stream("projects/p/datasets/d/tables/t2")
+            .with_multiplexing(true)
+            .build_arrow(ArrowSchema::new())
+            .await?;
+
+        // Both writers with empty location share the unkeyed pool.
+        assert!(Arc::ptr_eq(&writer1.inner.pool, &writer2.inner.pool));
 
         Ok(())
     }

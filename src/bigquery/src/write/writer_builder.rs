@@ -217,14 +217,7 @@ impl WriterBuilder<DefaultStream> {
             .set_name(write_stream)
             .send()
             .await?;
-
-        let loc = stream.location.trim().to_lowercase();
-        if loc.is_empty() {
-            return Err(WriterBuilderError::MissingLocation {
-                write_stream: write_stream.to_string(),
-            });
-        }
-        Ok(loc)
+        Ok(stream.location)
     }
 }
 

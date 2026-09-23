@@ -90,14 +90,6 @@ pub enum WriterBuilderError {
         actual: String,
     },
 
-    /// The location for the write stream was not found or could not be determined.
-    #[non_exhaustive]
-    #[error("could not determine location for stream: {write_stream}")]
-    MissingLocation {
-        /// The write stream name.
-        write_stream: String,
-    },
-
     /// The underlying RPC failed.
     #[non_exhaustive]
     #[error("the operation failed. RPC error: {source}")]
@@ -153,28 +145,5 @@ mod tests {
         let fmt = format!("{e}");
         assert!(fmt.contains("failed to commit the stream"), "{fmt}");
         assert!(fmt.contains("stream not finalized"), "{fmt}");
-    }
-
-    #[test]
-    fn writer_builder_error_display() {
-        let e = WriterBuilderError::TypeMismatch {
-            expected: "Committed".to_string(),
-            actual: "Buffered".to_string(),
-        };
-        let fmt = format!("{e}");
-        assert!(fmt.contains("stream type mismatch"), "{fmt}");
-
-        let e = WriterBuilderError::MissingLocation {
-            write_stream: "projects/p/datasets/d/tables/t/streams/s".to_string(),
-        };
-        let fmt = format!("{e}");
-        assert!(
-            fmt.contains("could not determine location for stream"),
-            "{fmt}"
-        );
-        assert!(
-            fmt.contains("projects/p/datasets/d/tables/t/streams/s"),
-            "{fmt}"
-        );
     }
 }
