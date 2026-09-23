@@ -26,8 +26,9 @@ use std::sync::{Arc, Mutex};
 #[derive(Debug)]
 pub struct Write {
     inner: Arc<Transport>,
-    pools: Arc<Mutex<HashMap<&'static str, Arc<StreamPool>>>>,
+    pools: Arc<Mutex<HashMap<String, Arc<StreamPool>>>>,
     pool_options: StreamPoolOptions,
+    locations: Arc<Mutex<HashMap<String, String>>>,
     retry_options: RetryOptions,
 }
 
@@ -40,10 +41,12 @@ impl Write {
     pub(crate) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
         let inner = Arc::new(Transport::new(builder.config).await?);
         let pools = Arc::new(Mutex::new(HashMap::new()));
+        let locations = Arc::new(Mutex::new(HashMap::new()));
         Ok(Self {
             inner,
             pools,
             pool_options: builder.pool_options,
+            locations,
             retry_options: builder.retry_options,
         })
     }
@@ -72,6 +75,7 @@ impl Write {
             self.inner.clone(),
             self.pools.clone(),
             self.pool_options.clone(),
+            self.locations.clone(),
             self.retry_options.clone(),
             table.into(),
         )
@@ -155,12 +159,13 @@ impl Write {
 
 #[cfg(test)]
 mod tests {
-    use super::super::error::AppendError;
+    use super::super::error::{AppendError, WriterBuilderError};
     use super::*;
     use crate::model::{ArrowRecordBatch, ArrowSchema, ProtoRows, ProtoSchema};
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Status as TonicStatus;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_gax::error::rpc::Code;
 
     #[tokio::test]
     async fn arrow() -> anyhow::Result<()> {
@@ -221,11 +226,13 @@ mod tests {
         let multiplexed_writer1 = client
             .open_default_stream("projects/p/datasets/d/tables/t1")
             .with_multiplexing(true)
+            .with_location("us")
             .build_arrow(ArrowSchema::new())
             .await?;
         let multiplexed_writer2 = client
             .open_default_stream("projects/p/datasets/d/tables/t2")
             .with_multiplexing(true)
+            .with_location("us")
             .build_arrow(ArrowSchema::new())
             .await?;
         assert!(Arc::ptr_eq(
@@ -255,11 +262,13 @@ mod tests {
         let arrow_writer = client
             .open_default_stream("projects/p/datasets/d/tables/t1")
             .with_multiplexing(true)
+            .with_location("us")
             .build_arrow(ArrowSchema::new())
             .await?;
         let proto_writer = client
             .open_default_stream("projects/p/datasets/d/tables/t2")
             .with_multiplexing(true)
+            .with_location("us")
             .build_proto(ProtoSchema::new())
             .await?;
 
@@ -268,6 +277,169 @@ mod tests {
             &arrow_writer.inner.pool,
             &proto_writer.inner.pool
         ));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn location_isolation() -> anyhow::Result<()> {
+        let client = Write::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let us_writer = client
+            .open_default_stream("projects/p/datasets/d/tables/t1")
+            .with_multiplexing(true)
+            .with_location("us")
+            .build_arrow(ArrowSchema::new())
+            .await?;
+        let eu_writer = client
+            .open_default_stream("projects/p/datasets/d/tables/t2")
+            .with_multiplexing(true)
+            .with_location("eu")
+            .build_arrow(ArrowSchema::new())
+            .await?;
+
+        // Different locations receive distinct connection pools.
+        assert!(!Arc::ptr_eq(&us_writer.inner.pool, &eu_writer.inner.pool));
+
+        let us_upper_writer = client
+            .open_default_stream("projects/p/datasets/d/tables/t3")
+            .with_multiplexing(true)
+            .with_location("US")
+            .build_arrow(ArrowSchema::new())
+            .await?;
+
+        // Same location with different casing shares the connection pool.
+        assert!(Arc::ptr_eq(
+            &us_writer.inner.pool,
+            &us_upper_writer.inner.pool
+        ));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn dynamic_location_discovery_and_caching() -> anyhow::Result<()> {
+        let mut mock = MockBigQueryWrite::new();
+        // Expect GetWriteStream to be called ONCE for the dataset
+        mock.expect_get_write_stream().times(1).returning(|req| {
+            let name = req.into_inner().name;
+            Ok(gaxi::grpc::tonic::Response::new(
+                bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream {
+                    name,
+                    location: "europe-west1".to_string(),
+                    ..Default::default()
+                },
+            ))
+        });
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = Write::builder()
+            .with_endpoint(endpoint)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        // First table: discovers "europe-west1" via GetWriteStream and caches it.
+        let writer1 = client
+            .open_default_stream("projects/p/datasets/d/tables/t1")
+            .with_multiplexing(true)
+            .build_arrow(ArrowSchema::new())
+            .await?;
+
+        // Second table in the same dataset: should use cached location (no second RPC call!).
+        let writer2 = client
+            .open_default_stream("projects/p/datasets/d/tables/t2")
+            .with_multiplexing(true)
+            .build_arrow(ArrowSchema::new())
+            .await?;
+
+        // Both writers in the same dataset share the location-based stream pool.
+        assert!(Arc::ptr_eq(&writer1.inner.pool, &writer2.inner.pool));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn dynamic_location_discovery_missing_location() -> anyhow::Result<()> {
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_get_write_stream().times(1).returning(|req| {
+            let name = req.into_inner().name;
+            Ok(gaxi::grpc::tonic::Response::new(
+                bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream {
+                    name,
+                    location: "".to_string(),
+                    ..Default::default()
+                },
+            ))
+        });
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = Write::builder()
+            .with_endpoint(endpoint)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let res = client
+            .open_default_stream("projects/p/datasets/d/tables/t1")
+            .with_multiplexing(true)
+            .build_arrow(ArrowSchema::new())
+            .await;
+
+        let err = res.expect_err("should fail when GetWriteStream returns empty location");
+        assert!(
+            matches!(
+                &err,
+                WriterBuilderError::Rpc { source }
+                    if source.status().is_some_and(|s| s.code == Code::Internal)
+            ),
+            "unexpected error: {err:?}"
+        );
+        assert!(err.to_string().contains("did not return a location"));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn dynamic_location_discovery_empty_string_override_fallback() -> anyhow::Result<()> {
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_get_write_stream().times(1).returning(|req| {
+            let name = req.into_inner().name;
+            Ok(gaxi::grpc::tonic::Response::new(
+                bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream {
+                    name,
+                    location: "us-central1".to_string(),
+                    ..Default::default()
+                },
+            ))
+        });
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = Write::builder()
+            .with_endpoint(endpoint)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        // Passing empty/whitespace location override falls back to dynamic discovery
+        let writer = client
+            .open_default_stream("projects/p/datasets/d/tables/t1")
+            .with_multiplexing(true)
+            .with_location("   ")
+            .build_arrow(ArrowSchema::new())
+            .await?;
+
+        // Explicit location with matching location shares the pool
+        let writer_explicit = client
+            .open_default_stream("projects/p/datasets/d/tables/t2")
+            .with_multiplexing(true)
+            .with_location("us-central1")
+            .build_arrow(ArrowSchema::new())
+            .await?;
+
+        assert!(Arc::ptr_eq(&writer.inner.pool, &writer_explicit.inner.pool));
 
         Ok(())
     }

@@ -23,6 +23,7 @@ use crate::model::write_stream::Type;
 use crate::model::{ArrowSchema, ProtoSchema, WriteStream};
 use crate::write::error::WriterBuilderError;
 use crate::write::stream_type::{ApplicationCreatedStream, DefaultStream, HasStream, Stream};
+use google_cloud_gax::error::rpc::{Code, Status};
 use std::collections::HashMap;
 use std::marker::PhantomData;
 use std::sync::{Arc, Mutex};
@@ -31,8 +32,10 @@ use std::sync::{Arc, Mutex};
 #[derive(Clone, Debug)]
 pub struct WriterBuilder<S> {
     pub(crate) inner: Arc<Transport>,
-    pub(crate) pools: Arc<Mutex<HashMap<&'static str, Arc<StreamPool>>>>,
+    pub(crate) pools: Arc<Mutex<HashMap<String, Arc<StreamPool>>>>,
     pub(crate) pool_options: StreamPoolOptions,
+    pub(crate) locations: Arc<Mutex<HashMap<String, String>>>,
+    pub(crate) location: Option<String>,
     pub(crate) retry_options: RetryOptions,
     op: Operation,
     pub(crate) multiplexing: bool,
@@ -42,8 +45,9 @@ pub struct WriterBuilder<S> {
 impl WriterBuilder<DefaultStream> {
     pub(crate) fn new_open_default(
         inner: Arc<Transport>,
-        pools: Arc<Mutex<HashMap<&'static str, Arc<StreamPool>>>>,
+        pools: Arc<Mutex<HashMap<String, Arc<StreamPool>>>>,
         pool_options: StreamPoolOptions,
+        locations: Arc<Mutex<HashMap<String, String>>>,
         retry_options: RetryOptions,
         table: String,
     ) -> Self {
@@ -51,6 +55,8 @@ impl WriterBuilder<DefaultStream> {
             inner,
             pools,
             pool_options,
+            locations,
+            location: None,
             retry_options,
             op: Operation::OpenDefault { table },
             multiplexing: false,
@@ -86,15 +92,47 @@ impl WriterBuilder<DefaultStream> {
         self
     }
 
-    pub(crate) fn make_default_writer<F: DataFormat>(
+    /// Sets the destination table's location for this writer.
+    ///
+    /// When multiplexing is enabled on default streams, connections are pooled by
+    /// location and data format. Explicitly setting the location avoids an extra
+    /// `GetWriteStream` RPC call to discover the dataset's location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample(client: Write) -> anyhow::Result<()> {
+    /// let writer = client
+    ///     .open_default_stream("projects/my-project/datasets/my_dataset/tables/my_table")
+    ///     .with_multiplexing(true)
+    ///     .with_location("us")
+    ///     .build_arrow(schema())
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// #
+    /// # use google_cloud_bigquery::model::ArrowSchema;
+    /// # fn schema() -> ArrowSchema {
+    /// #   todo!("Define your table's schema...")
+    /// # }
+    /// ```
+    pub fn with_location<V: Into<String>>(mut self, v: V) -> Self {
+        let loc = v.into().trim().to_lowercase();
+        self.location = if loc.is_empty() { None } else { Some(loc) };
+        self
+    }
+
+    pub(crate) async fn make_default_writer<F: DataFormat>(
         self,
         write_stream: String,
         format: F,
-    ) -> DefaultWriter<F> {
+    ) -> Result<DefaultWriter<F>, WriterBuilderError> {
         let pool = if self.multiplexing {
+            let location = self.resolve_location(&write_stream).await?;
+            let key = format!("{}-{}", location, format.format_name());
             let mut pools = self.pools.lock().expect("pools lock poisoned");
             pools
-                .entry(format.format_name())
+                .entry(key)
                 .or_insert_with(|| {
                     Arc::new(StreamPool::new(
                         self.inner.clone(),
@@ -109,7 +147,58 @@ impl WriterBuilder<DefaultStream> {
             };
             Arc::new(StreamPool::new(self.inner, options))
         };
-        DefaultWriter::new(pool, self.retry_options, write_stream, format)
+        Ok(DefaultWriter::new(
+            pool,
+            self.retry_options,
+            write_stream,
+            format,
+        ))
+    }
+
+    async fn resolve_location(&self, write_stream: &str) -> Result<String, WriterBuilderError> {
+        if let Some(ref loc) = self.location {
+            return Ok(loc.clone());
+        }
+
+        // The write_stream format is guaranteed to be "projects/*/datasets/*/tables/*/streams/_default"
+        // by validate_table, so rfind("/tables/") safely extracts the dataset prefix.
+        let dataset_prefix = match write_stream.rfind("/tables/") {
+            Some(idx) => &write_stream[..idx],
+            None => write_stream,
+        };
+
+        {
+            let locations = self.locations.lock().expect("locations lock poisoned");
+            if let Some(loc) = locations.get(dataset_prefix) {
+                return Ok(loc.clone());
+            }
+        }
+
+        let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
+        let stream = client
+            .get_write_stream()
+            .set_name(write_stream)
+            .send()
+            .await?;
+
+        let loc = stream.location.trim().to_lowercase();
+        if loc.is_empty() {
+            return Err(WriterBuilderError::Rpc {
+                source: crate::Error::service(
+                    Status::default()
+                        .set_code(Code::Internal)
+                        .set_message(format!(
+                            "GetWriteStream did not return a location for {write_stream}"
+                        )),
+                ),
+            });
+        }
+        let mut locations = self.locations.lock().expect("locations lock poisoned");
+        if let Some(existing) = locations.get(dataset_prefix) {
+            return Ok(existing.clone());
+        }
+        locations.insert(dataset_prefix.to_string(), loc.clone());
+        Ok(loc)
     }
 }
 
@@ -123,6 +212,8 @@ impl<S: ApplicationCreatedStream> WriterBuilder<S> {
             inner,
             pools: Arc::new(Mutex::new(HashMap::new())),
             pool_options: StreamPoolOptions::default(),
+            locations: Arc::new(Mutex::new(HashMap::new())),
+            location: None,
             retry_options,
             op: Operation::Create {
                 table,
@@ -142,6 +233,8 @@ impl<S: ApplicationCreatedStream> WriterBuilder<S> {
             inner,
             pools: Arc::new(Mutex::new(HashMap::new())),
             pool_options: StreamPoolOptions::default(),
+            locations: Arc::new(Mutex::new(HashMap::new())),
+            location: None,
             retry_options,
             op: Operation::Attach {
                 write_stream,
@@ -217,7 +310,7 @@ impl<S: Stream> WriterBuilder<S> {
                     .await?
             }
         };
-        Ok(S::build(self, write_stream, format))
+        S::build(self, write_stream, format).await
     }
 
     fn open_default(table: &str) -> std::result::Result<String, WriterBuilderError> {
@@ -555,10 +648,12 @@ mod tests {
 
     fn test_open_default(transport: Arc<Transport>, table: &str) -> WriterBuilder<DefaultStream> {
         let pools = Arc::new(Mutex::new(HashMap::new()));
+        let locations = Arc::new(Mutex::new(HashMap::new()));
         WriterBuilder::new_open_default(
             transport,
             pools,
             StreamPoolOptions::default(),
+            locations,
             test_retry_options(),
             table.to_string(),
         )

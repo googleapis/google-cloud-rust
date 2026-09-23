@@ -44,6 +44,7 @@ impl Stream for BufferedStream {
 
 pub(crate) mod sealed {
     use super::*;
+    use crate::write::error::WriterBuilderError;
 
     /// Sealed trait for all write stream types.
     pub trait Stream: Sized {
@@ -51,65 +52,65 @@ pub(crate) mod sealed {
             builder: WriterBuilder<Self>,
             write_stream: String,
             format: F,
-        ) -> Self::Writer<F>
+        ) -> impl Future<Output = Result<Self::Writer<F>, WriterBuilderError>> + Send
         where
             F: DataFormat,
             Self: super::Stream;
     }
 
     impl Stream for DefaultStream {
-        fn build<F>(
+        async fn build<F>(
             builder: WriterBuilder<Self>,
             write_stream: String,
             format: F,
-        ) -> DefaultWriter<F>
+        ) -> Result<DefaultWriter<F>, WriterBuilderError>
         where
             F: DataFormat,
             Self: super::Stream,
         {
-            builder.make_default_writer(write_stream, format)
+            builder.make_default_writer(write_stream, format).await
         }
     }
 
     impl Stream for PendingStream {
-        fn build<F>(
+        async fn build<F>(
             builder: WriterBuilder<Self>,
             write_stream: String,
             format: F,
-        ) -> PendingWriter<F>
+        ) -> Result<PendingWriter<F>, WriterBuilderError>
         where
             F: DataFormat,
             Self: super::Stream,
         {
-            PendingWriter::new(builder.inner, write_stream, format)
+            Ok(PendingWriter::new(builder.inner, write_stream, format))
         }
     }
 
     impl Stream for CommittedStream {
-        fn build<F>(
+        async fn build<F>(
             builder: WriterBuilder<Self>,
             write_stream: String,
             format: F,
-        ) -> CommittedWriter<F>
+        ) -> Result<CommittedWriter<F>, WriterBuilderError>
         where
             F: DataFormat,
             Self: super::Stream,
         {
-            CommittedWriter::new(builder.inner, write_stream, format)
+            Ok(CommittedWriter::new(builder.inner, write_stream, format))
         }
     }
 
     impl Stream for BufferedStream {
-        fn build<F>(
+        async fn build<F>(
             builder: WriterBuilder<Self>,
             write_stream: String,
             format: F,
-        ) -> BufferedWriter<F>
+        ) -> Result<BufferedWriter<F>, WriterBuilderError>
         where
             F: DataFormat,
             Self: super::Stream,
         {
-            BufferedWriter::new(builder.inner, write_stream, format)
+            Ok(BufferedWriter::new(builder.inner, write_stream, format))
         }
     }
 }

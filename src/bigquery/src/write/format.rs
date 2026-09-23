@@ -18,7 +18,7 @@ mod proto;
 /// The data format accepted by a writer.
 ///
 /// This trait is sealed and cannot be implemented for types outside this crate.
-pub trait DataFormat: sealed::DataFormat {
+pub trait DataFormat: sealed::DataFormat + Send {
     /// The representation of rows for this data format.
     type Rows;
 }
