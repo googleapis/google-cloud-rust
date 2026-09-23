@@ -33,6 +33,18 @@ fn extract_schema(req: &AppendRowsRequest) -> Option<WriterSchema> {
     }
 }
 
+fn same_schema(req: &AppendRowsRequest, prev: &Option<WriterSchema>) -> bool {
+    match (req.rows.as_ref(), prev.as_ref()) {
+        (Some(Rows::ArrowRows(d)), Some(WriterSchema::Arrow(s))) => {
+            d.writer_schema.as_ref() == Some(s)
+        }
+        (Some(Rows::ProtoRows(d)), Some(WriterSchema::Proto(s))) => {
+            d.writer_schema.as_ref() == Some(s.as_ref())
+        }
+        _ => false,
+    }
+}
+
 fn clear_schema(req: &mut AppendRowsRequest) {
     match req.rows.as_mut() {
         Some(Rows::ArrowRows(data)) => data.writer_schema = None,
@@ -73,8 +85,7 @@ impl SendOptimizer {
     }
 
     pub(super) fn optimize(&mut self, req: &mut AppendRowsRequest) {
-        let schema = extract_schema(req);
-        if req.write_stream == self.prev_write_stream && schema == self.prev_schema {
+        if req.write_stream == self.prev_write_stream && same_schema(req, &self.prev_schema) {
             if !self.keep_write_stream {
                 req.write_stream.clear();
             }
@@ -82,7 +93,7 @@ impl SendOptimizer {
         } else {
             self.keep_write_stream = true;
             self.prev_write_stream.clone_from(&req.write_stream);
-            self.prev_schema = schema;
+            self.prev_schema = extract_schema(req);
         }
     }
 }
