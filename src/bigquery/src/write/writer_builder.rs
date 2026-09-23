@@ -34,7 +34,7 @@ use std::time::Duration;
 #[derive(Clone, Debug)]
 pub struct WriterBuilder<S> {
     pub(crate) inner: Arc<Transport>,
-    pub(crate) pools: Arc<Mutex<HashMap<&'static str, Arc<StreamPool>>>>,
+    pub(crate) pools: Arc<Mutex<HashMap<String, Arc<StreamPool>>>>,
     pub(crate) pool_options: StreamPoolOptions,
     pub(crate) retry_options: RetryOptions,
     op: Operation,
@@ -45,7 +45,7 @@ pub struct WriterBuilder<S> {
 impl WriterBuilder<DefaultStream> {
     pub(crate) fn new_open_default(
         inner: Arc<Transport>,
-        pools: Arc<Mutex<HashMap<&'static str, Arc<StreamPool>>>>,
+        pools: Arc<Mutex<HashMap<String, Arc<StreamPool>>>>,
         pool_options: StreamPoolOptions,
         retry_options: RetryOptions,
         table: String,
@@ -180,12 +180,14 @@ impl WriterBuilder<DefaultStream> {
     pub(crate) fn make_default_writer<F: DataFormat>(
         self,
         write_stream: String,
+        location: String,
         format: F,
     ) -> DefaultWriter<F> {
         let pool = if self.multiplexing {
+            let key = format!("{}-{}", location, format.format_name());
             let mut pools = self.pools.lock().expect("pools lock poisoned");
             pools
-                .entry(format.format_name())
+                .entry(key)
                 .or_insert_with(|| {
                     Arc::new(StreamPool::new(
                         self.inner.clone(),
@@ -295,25 +297,43 @@ impl<S: Stream> WriterBuilder<S> {
     where
         F: DataFormat,
     {
-        let write_stream = match &self.op {
-            Operation::OpenDefault { table } => Self::open_default(table)?,
+        let (write_stream, location) = match &self.op {
+            Operation::OpenDefault { table } => self.open_default(table).await?,
             Operation::Create { table, stream_type } => {
-                self.create_stream(table, stream_type.clone()).await?
+                let stream = self.create_stream(table, stream_type.clone()).await?;
+                (stream, String::new())
             }
             Operation::Attach {
                 write_stream,
                 stream_type,
             } => {
-                self.attach_to_stream(write_stream, stream_type.clone())
-                    .await?
+                let stream = self
+                    .attach_to_stream(write_stream, stream_type.clone())
+                    .await?;
+                (stream, String::new())
             }
         };
-        Ok(S::build(self, write_stream, format))
+        Ok(S::build(self, write_stream, location, format))
     }
 
-    fn open_default(table: &str) -> std::result::Result<String, WriterBuilderError> {
+    async fn open_default(
+        &self,
+        table: &str,
+    ) -> std::result::Result<(String, String), WriterBuilderError> {
         validate_table(table)?;
-        Ok(format!("{table}/streams/_default"))
+        let write_stream = format!("{table}/streams/_default");
+        let location = if self.multiplexing {
+            let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
+            let stream = client
+                .get_write_stream()
+                .set_name(&write_stream)
+                .send()
+                .await?;
+            stream.location
+        } else {
+            String::new()
+        };
+        Ok((write_stream, location))
     }
 
     async fn create_stream(
