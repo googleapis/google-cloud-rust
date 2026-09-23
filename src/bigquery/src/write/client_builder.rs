@@ -178,11 +178,13 @@ impl ClientBuilder {
         self
     }
 
+    // TODO(#6866) - expose when we have rebalancing
+    #[cfg_attr(not(test), expect(dead_code))]
     /// Configure the maximum outstanding requests in the client's multiplexed
     /// stream pool.
     ///
     /// # Example
-    /// ```
+    /// ```no_rust
     /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let client = Write::builder()
@@ -197,16 +199,18 @@ impl ClientBuilder {
     /// configured by `with_pool_size_limit`.
     ///
     /// The default is 1000 requests.
-    pub fn with_max_outstanding_requests(mut self, v: u64) -> Self {
+    pub(crate) fn with_max_outstanding_requests(mut self, v: u64) -> Self {
         self.pool_options.max_outstanding_requests = Some(v.max(1));
         self
     }
 
+    // TODO(#6866) - expose when we have rebalancing
+    #[cfg_attr(not(test), expect(dead_code))]
     /// Configure the maximum outstanding bytes in the client's multiplexed
     /// stream pool.
     ///
     /// # Example
-    /// ```
+    /// ```no_rust
     /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let client = Write::builder()
@@ -219,7 +223,7 @@ impl ClientBuilder {
     /// As streams in the stream pool approach this limit, the client
     /// dynamically adds more streams to the stream pool, up to the limit
     /// configured by `with_pool_size_limit`.
-    pub fn with_max_outstanding_bytes(mut self, v: u64) -> Self {
+    pub(crate) fn with_max_outstanding_bytes(mut self, v: u64) -> Self {
         self.pool_options.max_outstanding_bytes = Some(v.max(1));
         self
     }
