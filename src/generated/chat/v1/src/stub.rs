@@ -304,6 +304,36 @@ pub trait ChatService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::ChatService::list_message_pins].
+    fn list_message_pins(
+        &self,
+        _req: crate::model::ListMessagePinsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListMessagePinsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ChatService::create_message_pin].
+    fn create_message_pin(
+        &self,
+        _req: crate::model::CreateMessagePinRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::MessagePin>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ChatService::delete_message_pin].
+    fn delete_message_pin(
+        &self,
+        _req: crate::model::DeleteMessagePinRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::ChatService::create_custom_emoji].
     fn create_custom_emoji(
         &self,

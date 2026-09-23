@@ -101,17 +101,41 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Task>>;
 
+    async fn batch_create_tasks(
+        &self,
+        req: crate::model::BatchCreateTasksRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn delete_task(
         &self,
         req: crate::model::DeleteTaskRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
 
+    async fn batch_delete_tasks(
+        &self,
+        req: crate::model::BatchDeleteTasksRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn run_task(
         &self,
         req: crate::model::RunTaskRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Task>>;
+
+    async fn update_cmek_config(
+        &self,
+        req: crate::model::UpdateCmekConfigRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CmekConfig>>;
+
+    async fn get_cmek_config(
+        &self,
+        req: crate::model::GetCmekConfigRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CmekConfig>>;
 
     async fn list_locations(
         &self,
@@ -124,6 +148,27 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
+
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions;
 }
 
 /// All implementations of [super::CloudTasks] also implement [CloudTasks].
@@ -257,6 +302,15 @@ impl<T: super::CloudTasks> CloudTasks for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn batch_create_tasks(
+        &self,
+        req: crate::model::BatchCreateTasksRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::batch_create_tasks(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn delete_task(
         &self,
         req: crate::model::DeleteTaskRequest,
@@ -266,12 +320,39 @@ impl<T: super::CloudTasks> CloudTasks for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn batch_delete_tasks(
+        &self,
+        req: crate::model::BatchDeleteTasksRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::batch_delete_tasks(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn run_task(
         &self,
         req: crate::model::RunTaskRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Task>> {
         T::run_task(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_cmek_config(
+        &self,
+        req: crate::model::UpdateCmekConfigRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CmekConfig>> {
+        T::update_cmek_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_cmek_config(
+        &self,
+        req: crate::model::GetCmekConfigRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CmekConfig>> {
+        T::get_cmek_config(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -290,5 +371,35 @@ impl<T: super::CloudTasks> CloudTasks for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+
+    fn get_poller_options(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        T::get_poller_options(self, options)
     }
 }

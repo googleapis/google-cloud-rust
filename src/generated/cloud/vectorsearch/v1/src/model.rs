@@ -690,6 +690,9 @@ pub mod search_hint {
         /// `projects/{project}/locations/{location}/collections/{collection}/indexes/{index}`
         pub name: std::string::String,
 
+        /// The parameters for the index.
+        pub params: std::option::Option<crate::model::search_hint::index_hint::Params>,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -714,11 +717,149 @@ pub mod search_hint {
             self.name = v.into();
             self
         }
+
+        /// Sets the value of [params][crate::model::search_hint::IndexHint::params].
+        ///
+        /// Note that all the setters affecting `params` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_vectorsearch_v1::model::search_hint::IndexHint;
+        /// use google_cloud_vectorsearch_v1::model::search_hint::index_hint::DenseScannParams;
+        /// let x = IndexHint::new().set_params(Some(
+        ///     google_cloud_vectorsearch_v1::model::search_hint::index_hint::Params::DenseScannParams(DenseScannParams::default().into())));
+        /// ```
+        pub fn set_params<
+            T: std::convert::Into<std::option::Option<crate::model::search_hint::index_hint::Params>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.params = v.into();
+            self
+        }
+
+        /// The value of [params][crate::model::search_hint::IndexHint::params]
+        /// if it holds a `DenseScannParams`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn dense_scann_params(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::search_hint::index_hint::DenseScannParams>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.params.as_ref().and_then(|v| match v {
+                crate::model::search_hint::index_hint::Params::DenseScannParams(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [params][crate::model::search_hint::IndexHint::params]
+        /// to hold a `DenseScannParams`.
+        ///
+        /// Note that all the setters affecting `params` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_vectorsearch_v1::model::search_hint::IndexHint;
+        /// use google_cloud_vectorsearch_v1::model::search_hint::index_hint::DenseScannParams;
+        /// let x = IndexHint::new().set_dense_scann_params(DenseScannParams::default()/* use setters */);
+        /// assert!(x.dense_scann_params().is_some());
+        /// ```
+        pub fn set_dense_scann_params<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::search_hint::index_hint::DenseScannParams>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.params = std::option::Option::Some(
+                crate::model::search_hint::index_hint::Params::DenseScannParams(v.into()),
+            );
+            self
+        }
     }
 
     impl wkt::message::Message for IndexHint {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.vectorsearch.v1.SearchHint.IndexHint"
+        }
+    }
+
+    /// Defines additional types related to [IndexHint].
+    pub mod index_hint {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Parameters for dense ScaNN.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct DenseScannParams {
+            /// Optional. The target recall for the search. Must be a double in the
+            /// range [0, 1]. While the search aims to achieve this level of recall, it
+            /// is not guaranteed.
+            pub target_recall: std::option::Option<f64>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl DenseScannParams {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [target_recall][crate::model::search_hint::index_hint::DenseScannParams::target_recall].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_vectorsearch_v1::model::search_hint::index_hint::DenseScannParams;
+            /// let x = DenseScannParams::new().set_target_recall(42.0);
+            /// ```
+            pub fn set_target_recall<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<f64>,
+            {
+                self.target_recall = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [target_recall][crate::model::search_hint::index_hint::DenseScannParams::target_recall].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_vectorsearch_v1::model::search_hint::index_hint::DenseScannParams;
+            /// let x = DenseScannParams::new().set_or_clear_target_recall(Some(42.0));
+            /// let x = DenseScannParams::new().set_or_clear_target_recall(None::<f32>);
+            /// ```
+            pub fn set_or_clear_target_recall<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<f64>,
+            {
+                self.target_recall = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for DenseScannParams {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.vectorsearch.v1.SearchHint.IndexHint.DenseScannParams"
+            }
+        }
+
+        /// The parameters for the index.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Params {
+            /// Optional. Dense ScaNN parameters.
+            DenseScannParams(
+                std::boxed::Box<crate::model::search_hint::index_hint::DenseScannParams>,
+            ),
         }
     }
 
@@ -1248,14 +1389,20 @@ pub mod vector_search {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SemanticSearch {
-    /// Required. The query text, which is used to generate an embedding according
+    /// Optional. The query text, which is used to generate an embedding according
     /// to the embedding model specified in the collection config.
+    ///
+    /// Required when using the text search mode.
     pub search_text: std::string::String,
 
     /// Required. The vector field to search.
     pub search_field: std::string::String,
 
-    /// Required. The task type of the query embedding.
+    /// Optional. The task type of the query embedding. Must be specified for
+    /// text-only embedding models, see
+    /// <https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/task-types>
+    /// Not needed for multi modal embedding models, see
+    /// <https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-multimodal-embeddings#specify-task-instructions>
     pub task_type: crate::model::EmbeddingTaskType,
 
     /// Optional. The fields to return in the search results.
@@ -3674,12 +3821,18 @@ pub struct VertexEmbeddingConfig {
     /// for the list of supported models.
     pub model_id: std::string::String,
 
-    /// Required. Required: Text template for the input to the model. The template
-    /// must contain one or more references to fields in the DataObject, e.g.:
-    /// "Movie Title: {title} ---- Movie Plot: {plot}".
+    /// Optional. Text template for the input to the model. The template must
+    /// contain one or more references to fields in the DataObject, e.g.: "Movie
+    /// Title: {title} ---- Movie Plot: {plot}".
+    ///
+    /// Required when using the text-only path.
     pub text_template: std::string::String,
 
-    /// Required. Required: Task type for the embeddings.
+    /// Optional. Optional: Task type for the embeddings. Required for text-only
+    /// embedding models, see
+    /// <https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/task-types>
+    /// Not needed for multi modal embedding models, see
+    /// <https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-multimodal-embeddings#specify-task-instructions>
     pub task_type: crate::model::EmbeddingTaskType,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,

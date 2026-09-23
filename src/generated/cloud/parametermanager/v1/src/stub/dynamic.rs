@@ -83,6 +83,72 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
 
+    async fn list_templates(
+        &self,
+        req: crate::model::ListTemplatesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListTemplatesResponse>>;
+
+    async fn get_template(
+        &self,
+        req: crate::model::GetTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Template>>;
+
+    async fn create_template(
+        &self,
+        req: crate::model::CreateTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Template>>;
+
+    async fn update_template(
+        &self,
+        req: crate::model::UpdateTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Template>>;
+
+    async fn delete_template(
+        &self,
+        req: crate::model::DeleteTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
+
+    async fn list_template_versions(
+        &self,
+        req: crate::model::ListTemplateVersionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListTemplateVersionsResponse>>;
+
+    async fn get_template_version(
+        &self,
+        req: crate::model::GetTemplateVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TemplateVersion>>;
+
+    async fn create_template_version(
+        &self,
+        req: crate::model::CreateTemplateVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TemplateVersion>>;
+
+    async fn update_template_version(
+        &self,
+        req: crate::model::UpdateTemplateVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TemplateVersion>>;
+
+    async fn delete_template_version(
+        &self,
+        req: crate::model::DeleteTemplateVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
+
+    async fn render_template_version(
+        &self,
+        req: crate::model::RenderTemplateVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RenderTemplateVersionResponse>>;
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -196,6 +262,105 @@ impl<T: super::ParameterManager> ParameterManager for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>> {
         T::delete_parameter_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_templates(
+        &self,
+        req: crate::model::ListTemplatesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListTemplatesResponse>> {
+        T::list_templates(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_template(
+        &self,
+        req: crate::model::GetTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Template>> {
+        T::get_template(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_template(
+        &self,
+        req: crate::model::CreateTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Template>> {
+        T::create_template(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_template(
+        &self,
+        req: crate::model::UpdateTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Template>> {
+        T::update_template(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_template(
+        &self,
+        req: crate::model::DeleteTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::delete_template(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_template_versions(
+        &self,
+        req: crate::model::ListTemplateVersionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListTemplateVersionsResponse>> {
+        T::list_template_versions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_template_version(
+        &self,
+        req: crate::model::GetTemplateVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TemplateVersion>> {
+        T::get_template_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_template_version(
+        &self,
+        req: crate::model::CreateTemplateVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TemplateVersion>> {
+        T::create_template_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_template_version(
+        &self,
+        req: crate::model::UpdateTemplateVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TemplateVersion>> {
+        T::update_template_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_template_version(
+        &self,
+        req: crate::model::DeleteTemplateVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::delete_template_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn render_template_version(
+        &self,
+        req: crate::model::RenderTemplateVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RenderTemplateVersionResponse>> {
+        T::render_template_version(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

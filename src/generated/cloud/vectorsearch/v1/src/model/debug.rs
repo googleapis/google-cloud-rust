@@ -96,6 +96,18 @@ impl std::fmt::Debug for super::search_hint::IndexHint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IndexHint");
         debug_struct.field("name", &self.name);
+        debug_struct.field("params", &self.params);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::search_hint::index_hint::DenseScannParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DenseScannParams");
+        debug_struct.field("target_recall", &self.target_recall);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

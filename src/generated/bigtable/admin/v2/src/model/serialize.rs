@@ -3608,6 +3608,12 @@ impl serde::ser::Serialize for super::Table {
         if let Some(value) = self.automated_backup_policy() {
             state.serialize_entry("automatedBackupPolicy", value)?;
         }
+        if self.effective_automated_backup_policy.is_some() {
+            state.serialize_entry(
+                "effectiveAutomatedBackupPolicy",
+                &self.effective_automated_backup_policy,
+            )?;
+        }
         if self.tiered_storage_config.is_some() {
             state.serialize_entry("tieredStorageConfig", &self.tiered_storage_config)?;
         }
@@ -3666,6 +3672,12 @@ impl serde::ser::Serialize for super::table::AutomatedBackupPolicy {
         }
         if !self.locations.is_empty() {
             state.serialize_entry("locations", &self.locations)?;
+        }
+        if self.keep_hot_duration.is_some() {
+            state.serialize_entry("keepHotDuration", &self.keep_hot_duration)?;
+        }
+        if !wkt::internal::is_default(&self.disabled) {
+            state.serialize_entry("disabled", &self.disabled)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
