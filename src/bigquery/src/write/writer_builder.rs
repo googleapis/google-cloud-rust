@@ -23,7 +23,6 @@ use crate::model::write_stream::Type;
 use crate::model::{ArrowSchema, ProtoSchema, WriteStream};
 use crate::write::error::WriterBuilderError;
 use crate::write::stream_type::{ApplicationCreatedStream, DefaultStream, HasStream, Stream};
-use google_cloud_gax::error::rpc::{Code, Status};
 use std::collections::HashMap;
 use std::marker::PhantomData;
 use std::sync::{Arc, Mutex};
@@ -183,14 +182,8 @@ impl WriterBuilder<DefaultStream> {
 
         let loc = stream.location.trim().to_lowercase();
         if loc.is_empty() {
-            return Err(WriterBuilderError::Rpc {
-                source: crate::Error::service(
-                    Status::default()
-                        .set_code(Code::Internal)
-                        .set_message(format!(
-                            "GetWriteStream did not return a location for {write_stream}"
-                        )),
-                ),
+            return Err(WriterBuilderError::MissingLocation {
+                write_stream: write_stream.to_string(),
             });
         }
         let mut locations = self.locations.lock().expect("locations lock poisoned");

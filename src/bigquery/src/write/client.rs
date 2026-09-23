@@ -165,7 +165,6 @@ mod tests {
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Status as TonicStatus;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
-    use google_cloud_gax::error::rpc::Code;
 
     #[tokio::test]
     async fn arrow() -> anyhow::Result<()> {
@@ -392,12 +391,12 @@ mod tests {
         assert!(
             matches!(
                 &err,
-                WriterBuilderError::Rpc { source }
-                    if source.status().is_some_and(|s| s.code == Code::Internal)
+                WriterBuilderError::MissingLocation { write_stream }
+                    if write_stream == "projects/p/datasets/d/tables/t1/streams/_default"
             ),
             "unexpected error: {err:?}"
         );
-        assert!(err.to_string().contains("did not return a location"));
+        assert!(err.to_string().contains("could not determine location"));
 
         Ok(())
     }
