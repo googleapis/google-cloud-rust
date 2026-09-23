@@ -23,12 +23,12 @@ use crate::model::write_stream::Type;
 use crate::model::{ArrowSchema, ProtoSchema, WriteStream};
 use crate::write::error::WriterBuilderError;
 use crate::write::stream_type::{ApplicationCreatedStream, DefaultStream, HasStream, Stream};
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::retry_policy::RetryPolicyArg;
 use std::collections::HashMap;
 use std::marker::PhantomData;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
-use google_cloud_gax::backoff_policy::BackoffPolicyArg;
-use google_cloud_gax::retry_policy::RetryPolicyArg;
 
 /// A builder to create a stream writer.
 #[derive(Clone, Debug)]
