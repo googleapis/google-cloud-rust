@@ -2906,24 +2906,6 @@ pub mod projects {
                 .map(crate::Response::into_body)
         }
 
-        /// Sets the value of [client_operation_id][crate::model::projects::GetRequest::client_operation_id].
-        pub fn set_client_operation_id<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<std::string::String>,
-        {
-            self.0.request.client_operation_id = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [client_operation_id][crate::model::projects::GetRequest::client_operation_id].
-        pub fn set_or_clear_client_operation_id<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<std::string::String>,
-        {
-            self.0.request.client_operation_id = v.map(|x| x.into());
-            self
-        }
-
         /// Sets the value of [project][crate::model::projects::GetRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();

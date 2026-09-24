@@ -26,7 +26,7 @@ use std::sync::{Arc, Mutex};
 #[derive(Debug)]
 pub struct Write {
     inner: Arc<Transport>,
-    pools: Arc<Mutex<HashMap<&'static str, Arc<StreamPool>>>>,
+    pools: Arc<Mutex<HashMap<String, Arc<StreamPool>>>>,
     pool_options: StreamPoolOptions,
     retry_options: RetryOptions,
 }
@@ -214,7 +214,20 @@ mod tests {
 
     #[tokio::test]
     async fn multiplexing() -> anyhow::Result<()> {
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_get_write_stream().times(2).returning(|req| {
+            let name = req.into_inner().name;
+            Ok(gaxi::grpc::tonic::Response::new(
+                bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream {
+                    name,
+                    location: "us".to_string(),
+                    ..Default::default()
+                },
+            ))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = Write::builder()
+            .with_endpoint(endpoint)
             .with_credentials(Anonymous::new().build())
             .build()
             .await?;
@@ -248,7 +261,20 @@ mod tests {
 
     #[tokio::test]
     async fn format_isolation() -> anyhow::Result<()> {
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_get_write_stream().times(2).returning(|req| {
+            let name = req.into_inner().name;
+            Ok(gaxi::grpc::tonic::Response::new(
+                bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream {
+                    name,
+                    location: "us".to_string(),
+                    ..Default::default()
+                },
+            ))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = Write::builder()
+            .with_endpoint(endpoint)
             .with_credentials(Anonymous::new().build())
             .build()
             .await?;
@@ -268,6 +294,58 @@ mod tests {
             &arrow_writer.inner.pool,
             &proto_writer.inner.pool
         ));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn location_isolation() -> anyhow::Result<()> {
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_get_write_stream().times(3).returning(|req| {
+            let name = req.into_inner().name;
+            let location = if name.contains("t1") {
+                "us".to_string()
+            } else if name.contains("t2") {
+                "eu".to_string()
+            } else {
+                "us".to_string()
+            };
+            Ok(gaxi::grpc::tonic::Response::new(
+                bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream {
+                    name,
+                    location,
+                    ..Default::default()
+                },
+            ))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = Write::builder()
+            .with_endpoint(endpoint)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let us_writer1 = client
+            .open_default_stream("projects/p/datasets/d/tables/t1")
+            .with_multiplexing(true)
+            .build_arrow(ArrowSchema::new())
+            .await?;
+        let eu_writer = client
+            .open_default_stream("projects/p/datasets/d/tables/t2")
+            .with_multiplexing(true)
+            .build_arrow(ArrowSchema::new())
+            .await?;
+
+        // Different locations receive distinct connection pools.
+        assert!(!Arc::ptr_eq(&us_writer1.inner.pool, &eu_writer.inner.pool));
+
+        let us_writer2 = client
+            .open_default_stream("projects/p/datasets/d/tables/t3")
+            .with_multiplexing(true)
+            .build_arrow(ArrowSchema::new())
+            .await?;
+
+        // Same location shares the connection pool.
+        assert!(Arc::ptr_eq(&us_writer1.inner.pool, &us_writer2.inner.pool));
 
         Ok(())
     }

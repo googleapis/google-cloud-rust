@@ -23,15 +23,18 @@ use crate::model::write_stream::Type;
 use crate::model::{ArrowSchema, ProtoSchema, WriteStream};
 use crate::write::error::WriterBuilderError;
 use crate::write::stream_type::{ApplicationCreatedStream, DefaultStream, HasStream, Stream};
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::retry_policy::RetryPolicyArg;
 use std::collections::HashMap;
 use std::marker::PhantomData;
 use std::sync::{Arc, Mutex};
+use std::time::Duration;
 
 /// A builder to create a stream writer.
 #[derive(Clone, Debug)]
 pub struct WriterBuilder<S> {
     pub(crate) inner: Arc<Transport>,
-    pub(crate) pools: Arc<Mutex<HashMap<&'static str, Arc<StreamPool>>>>,
+    pub(crate) pools: Arc<Mutex<HashMap<String, Arc<StreamPool>>>>,
     pub(crate) pool_options: StreamPoolOptions,
     pub(crate) retry_options: RetryOptions,
     op: Operation,
@@ -42,7 +45,7 @@ pub struct WriterBuilder<S> {
 impl WriterBuilder<DefaultStream> {
     pub(crate) fn new_open_default(
         inner: Arc<Transport>,
-        pools: Arc<Mutex<HashMap<&'static str, Arc<StreamPool>>>>,
+        pools: Arc<Mutex<HashMap<String, Arc<StreamPool>>>>,
         pool_options: StreamPoolOptions,
         retry_options: RetryOptions,
         table: String,
@@ -86,15 +89,105 @@ impl WriterBuilder<DefaultStream> {
         self
     }
 
+    /// Configure the retry policy.
+    ///
+    /// The client libraries can automatically retry operations that fail. The
+    /// retry policy controls what errors are considered retryable, sets limits
+    /// on the number of attempts or the time trying to make attempts.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample(client: Write) -> anyhow::Result<()> {
+    /// use google_cloud_bigquery::write::retry_policy::RetryableErrors;
+    /// use google_cloud_gax::retry_policy::RetryPolicyExt;
+    /// let writer = client
+    ///     .open_default_stream("projects/my-project/datasets/my_dataset/tables/my_table")
+    ///     .with_retry_policy(RetryableErrors.with_attempt_limit(3))
+    ///     .build_arrow(schema())
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// #
+    /// # use google_cloud_bigquery::model::ArrowSchema;
+    /// # fn schema() -> ArrowSchema {
+    /// #   todo!("Define your table's schema...")
+    /// # }
+    /// ```
+    pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
+        self.retry_options.retry_policy = v.into().into();
+        self
+    }
+
+    /// Configure the retry backoff policy.
+    ///
+    /// The client libraries can automatically retry operations that fail. The
+    /// backoff policy controls how long to wait in between retry attempts.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample(client: Write) -> anyhow::Result<()> {
+    /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+    /// let policy = ExponentialBackoff::default();
+    /// let writer = client
+    ///     .open_default_stream("projects/my-project/datasets/my_dataset/tables/my_table")
+    ///     .with_backoff_policy(policy)
+    ///     .build_arrow(schema())
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// #
+    /// # use google_cloud_bigquery::model::ArrowSchema;
+    /// # fn schema() -> ArrowSchema {
+    /// #   todo!("Define your table's schema...")
+    /// # }
+    /// ```
+    pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
+        self.retry_options.backoff_policy = v.into().into();
+        self
+    }
+
+    /// Configure the timeout for a single write attempt.
+    ///
+    /// Without this limit, a write can block forever if the service accepts
+    /// the stream but never responds. On a timeout, the client abandons the
+    /// stream and the retry policy decides whether to make another attempt.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # async fn sample(client: Write) -> anyhow::Result<()> {
+    /// use std::time::Duration;
+    /// let writer = client
+    ///     .open_default_stream("projects/my-project/datasets/my_dataset/tables/my_table")
+    ///     .with_attempt_timeout(Duration::from_secs(10))
+    ///     .build_arrow(schema())
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// #
+    /// # use google_cloud_bigquery::model::ArrowSchema;
+    /// # fn schema() -> ArrowSchema {
+    /// #   todo!("Define your table's schema...")
+    /// # }
+    /// ```
+    pub fn with_attempt_timeout(mut self, v: Duration) -> Self {
+        self.retry_options.attempt_timeout = Some(v);
+        self
+    }
+
     pub(crate) fn make_default_writer<F: DataFormat>(
         self,
         write_stream: String,
+        location: String,
         format: F,
     ) -> DefaultWriter<F> {
         let pool = if self.multiplexing {
+            let key = format!("{}-{}", location, format.format_name());
             let mut pools = self.pools.lock().expect("pools lock poisoned");
             pools
-                .entry(format.format_name())
+                .entry(key)
                 .or_insert_with(|| {
                     Arc::new(StreamPool::new(
                         self.inner.clone(),
@@ -204,25 +297,43 @@ impl<S: Stream> WriterBuilder<S> {
     where
         F: DataFormat,
     {
-        let write_stream = match &self.op {
-            Operation::OpenDefault { table } => Self::open_default(table)?,
+        let (write_stream, location) = match &self.op {
+            Operation::OpenDefault { table } => self.open_default(table).await?,
             Operation::Create { table, stream_type } => {
-                self.create_stream(table, stream_type.clone()).await?
+                let stream = self.create_stream(table, stream_type.clone()).await?;
+                (stream, String::new())
             }
             Operation::Attach {
                 write_stream,
                 stream_type,
             } => {
-                self.attach_to_stream(write_stream, stream_type.clone())
-                    .await?
+                let stream = self
+                    .attach_to_stream(write_stream, stream_type.clone())
+                    .await?;
+                (stream, String::new())
             }
         };
-        Ok(S::build(self, write_stream, format))
+        Ok(S::build(self, write_stream, location, format))
     }
 
-    fn open_default(table: &str) -> std::result::Result<String, WriterBuilderError> {
+    async fn open_default(
+        &self,
+        table: &str,
+    ) -> std::result::Result<(String, String), WriterBuilderError> {
         validate_table(table)?;
-        Ok(format!("{table}/streams/_default"))
+        let write_stream = format!("{table}/streams/_default");
+        let location = if self.multiplexing {
+            let client = BigQueryWrite::from_stub::<Transport>(self.inner.clone());
+            let stream = client
+                .get_write_stream()
+                .set_name(&write_stream)
+                .send()
+                .await?;
+            stream.location
+        } else {
+            String::new()
+        };
+        Ok((write_stream, location))
     }
 
     async fn create_stream(
@@ -298,10 +409,34 @@ mod tests {
     use crate::write::{BufferedWriter, CommittedWriter, PendingWriter};
     use bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream as MockWriteStream;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
+    use google_cloud_gax::retry_policy::AlwaysRetry;
     use test_case::test_case;
     use tokio::task::JoinHandle;
 
     type Result<T> = std::result::Result<T, WriterBuilderError>;
+
+    #[tokio::test]
+    async fn default_stream_options() -> anyhow::Result<()> {
+        let transport = Arc::new(test_transport("http://ignored:1").await?);
+        let builder = test_open_default(transport, "projects/p/datasets/d/tables/t");
+        assert!(!builder.multiplexing);
+        assert_eq!(builder.retry_options.attempt_timeout, None);
+
+        let builder = builder
+            .with_retry_policy(AlwaysRetry)
+            .with_backoff_policy(NoBackoff)
+            .with_attempt_timeout(Duration::from_secs(10));
+        assert_eq!(
+            builder.retry_options.attempt_timeout,
+            Some(Duration::from_secs(10))
+        );
+
+        let fmt = format!("{:?}", builder.retry_options);
+        assert!(fmt.contains("AlwaysRetry"), "{fmt}");
+        assert!(fmt.contains("NoBackoff"), "{fmt}");
+
+        Ok(())
+    }
 
     #[tokio::test]
     async fn default() -> anyhow::Result<()> {

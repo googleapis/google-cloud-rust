@@ -1305,7 +1305,6 @@ impl std::fmt::Debug for super::policies::UpdateRequest {
 impl std::fmt::Debug for super::projects::GetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetRequest");
-        debug_struct.field("client_operation_id", &self.client_operation_id);
         debug_struct.field("project", &self.project);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

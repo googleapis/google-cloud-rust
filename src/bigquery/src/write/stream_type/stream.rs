@@ -50,6 +50,7 @@ pub(crate) mod sealed {
         fn build<F>(
             builder: WriterBuilder<Self>,
             write_stream: String,
+            location: String,
             format: F,
         ) -> Self::Writer<F>
         where
@@ -61,13 +62,14 @@ pub(crate) mod sealed {
         fn build<F>(
             builder: WriterBuilder<Self>,
             write_stream: String,
+            location: String,
             format: F,
         ) -> DefaultWriter<F>
         where
             F: DataFormat,
             Self: super::Stream,
         {
-            builder.make_default_writer(write_stream, format)
+            builder.make_default_writer(write_stream, location, format)
         }
     }
 
@@ -75,6 +77,7 @@ pub(crate) mod sealed {
         fn build<F>(
             builder: WriterBuilder<Self>,
             write_stream: String,
+            _location: String,
             format: F,
         ) -> PendingWriter<F>
         where
@@ -89,6 +92,7 @@ pub(crate) mod sealed {
         fn build<F>(
             builder: WriterBuilder<Self>,
             write_stream: String,
+            _location: String,
             format: F,
         ) -> CommittedWriter<F>
         where
@@ -103,6 +107,7 @@ pub(crate) mod sealed {
         fn build<F>(
             builder: WriterBuilder<Self>,
             write_stream: String,
+            _location: String,
             format: F,
         ) -> BufferedWriter<F>
         where
