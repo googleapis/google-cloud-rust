@@ -39,14 +39,6 @@ use tokio::time::Instant;
 /// The number of queued messages allowed in the request channel.
 const MAX_QUEUED_REQUESTS: usize = 100;
 
-/// Bounds a run of reconnects that makes no progress.
-///
-/// A reconnect run is abandoned once this much wall-clock time has elapsed without either the
-/// service acknowledging more bytes or a reconnected stream surviving for a full window. The budget
-/// is only consulted *between* reconnect cycles, so a single cycle already in flight may overrun it
-/// by as much as the application's retry policy allows for one [`Connector::connect_attempt_loop`].
-const DEFAULT_WRITE_RECONNECT_DEADLINE: Duration = Duration::from_secs(32);
-
 /// Represents a bidirectional streaming connection.
 /// Contains the transmission channel for requests and the receiving stream for responses.
 #[derive(Debug)]
@@ -61,31 +53,25 @@ impl<S> Connection<S> {
     }
 }
 
-/// Establishes and handles the initial handshake for bidi streaming writes.
+/// Establishes and reconnects `BidiWriteObject` streams.
 ///
-/// Connecting and reconnecting bidirectional streaming writes requires:
-/// - Constructing the initial `WriteObjectSpec` or `AppendObjectSpec`.
-/// - Following routing token redirects correctly.
-/// - Passing back the established `Connection` to the async worker.
-///
-/// # Cloning
-/// The object spec is shared between clones, but the reconnect budget is not: each clone copies the
-/// budget as it stands and then tracks it independently. Each upload session therefore needs its
-/// own [`Connector`].
+/// `Connector` manages:
+/// - Building the opening `WriteObjectSpec` or `AppendObjectSpec` handshake message.
+/// - Updating the stored `routing_token` and `write_handle` on server redirects.
+/// - Tracking byte progress (`last_persisted_size`) so the application's [`RetryPolicy`] bounds
+///   consecutive unproductive reconnects (`retry_state`).
 ///
 /// # Parameters
-/// - `T`: a type implementing the [Client] trait, this is used in tests.
+/// - `T`: a type implementing the [`Client`] trait (mocked in unit tests).
 #[derive(Clone, Debug)]
 pub struct Connector<T = GrpcClient> {
     spec: Arc<Mutex<AppendObjectSpecState>>,
     options: RequestOptions,
     client: T,
     params: Option<CommonObjectRequestParams>,
-    /// Instant at which a progress-free run of reconnects is abandoned.
-    abandon_reconnects_at: Option<Instant>,
-    /// Instant at which the current stream was established, used to detect that the stream stayed
-    /// healthy long enough to reset the budget.
-    stream_established_at: Option<Instant>,
+    /// Retry state shared across consecutive reconnects that make no byte progress.
+    retry_state: Option<RetryState>,
+    /// Highest `persisted_size` acknowledged by the server; used to detect byte progress.
     last_persisted_size: i64,
 }
 
@@ -104,8 +90,7 @@ where
             options,
             client,
             params: None,
-            abandon_reconnects_at: None,
-            stream_established_at: None,
+            retry_state: None,
             last_persisted_size: 0,
         }
     }
@@ -157,8 +142,7 @@ where
         };
         let (initial, connection) = self.connect_attempt_loop().await?;
         self.last_persisted_size = persisted_size(&initial).unwrap_or(0);
-        self.abandon_reconnects_at = None;
-        self.stream_established_at = Some(Instant::now());
+        self.retry_state = None;
         Ok((initial, connection))
     }
 
@@ -187,30 +171,21 @@ where
         };
         let (initial, connection) = self.connect_attempt_loop().await?;
         self.last_persisted_size = persisted_size(&initial).unwrap_or(0);
-        self.abandon_reconnects_at = None;
-        self.stream_established_at = Some(Instant::now());
+        self.retry_state = None;
         Ok((initial, connection))
     }
 
-    /// Reconnects a broken or redirected bidirectional streaming write session.
+    /// Reconnects a broken or redirected `BidiWriteObject` stream.
     ///
-    /// If `last_error` is a redirect error, this updates the internal routing token and object spec
-    /// before attempting reconnection. Permanent errors fail immediately. `persisted` is the
-    /// highest offset the caller has seen acknowledged, and is used to decide whether the session
-    /// is making progress.
-    ///
-    /// # Reconnect budget
-    /// A run of reconnects that makes no progress is abandoned after
-    /// [`DEFAULT_WRITE_RECONNECT_DEADLINE`]. The budget resets when either:
-    /// - the service acknowledges more bytes than on any previous call, or
-    /// - the stream established by the previous call survived for a full deadline window, which is
-    ///   the only progress signal available to a session that is simply idle between flushes.
-    ///
-    /// # Retry policy
-    /// The application's retry policy is consulted here only to classify `last_error` as retryable
-    /// or permanent. Its attempt and elapsed-time limits are applied per reconnect cycle inside
-    /// [`Self::connect_attempt_loop`], not accumulated across cycles. The cross-cycle bound is the
-    /// reconnect budget above.
+    /// 1. **Redirects:** If `last_error` carries a `BidiWriteObjectRedirectedError`, updates the
+    ///    stored `routing_token` and `write_handle`.
+    /// 2. **Retry budget:** Resets `retry_state` whenever the server has persisted more bytes than
+    ///    `last_persisted_size` (either via `persisted` or in the new stream's handshake response).
+    ///    Otherwise, increments `retry_state.attempt_count` while keeping the original start time so
+    ///    the application's [`RetryPolicy`] bounds unproductive reconnect loops.
+    /// 3. **Reopen:** Evaluates `last_error` via [`RetryRedirect`]. Permanent or exhausted errors
+    ///    fail immediately; retryable errors and redirects (up to `MAX_REDIRECTS_FOLLOWED`) open a
+    ///    new stream with `state_lookup: true`.
     pub async fn reconnect(
         &mut self,
         last_error: Error,
@@ -225,44 +200,29 @@ where
             None => last_error,
         };
 
-        let policy = RetryRedirect::new(self.options.retry_policy.clone());
-        let state = RetryState::new(true);
-        let last_error = match policy.on_error(&state, last_error) {
+        if persisted > self.last_persisted_size {
+            self.last_persisted_size = persisted;
+            self.retry_state = None;
+        }
+        let state = self
+            .retry_state
+            .get_or_insert_with(|| RetryState::new(true).set_start(Instant::now()));
+        state.attempt_count += 1;
+
+        let policy = Arc::new(RetryRedirect::new(self.options.retry_policy.clone()));
+        let last_error = match policy.on_error(state, last_error) {
             RetryResult::Continue(e) => e,
             RetryResult::Permanent(e) | RetryResult::Exhausted(e) => return Err(e),
         };
 
-        let now = Instant::now();
-
-        // A stream that lasted a full window was healthy, so it clears the budget even though no
-        // additional bytes were acknowledged. Without this, a session that reconnects rarely but
-        // never writes would be failed on its second reconnect.
-        if self.stream_established_at.is_some_and(|established| {
-            now.duration_since(established) >= DEFAULT_WRITE_RECONNECT_DEADLINE
-        }) {
-            self.abandon_reconnects_at = None;
-        }
-
-        if persisted > self.last_persisted_size {
-            self.last_persisted_size = persisted;
-            self.abandon_reconnects_at = None;
-        }
-
-        match self.abandon_reconnects_at {
-            Some(deadline) if now >= deadline => return Err(last_error),
-            Some(_) => {}
-            None => self.abandon_reconnects_at = Some(now + DEFAULT_WRITE_RECONNECT_DEADLINE),
-        }
-
         tracing::debug!("reconnecting bidi write stream after error: {last_error:?}");
 
-        let (initial, connection) = self.connect_attempt_loop().await?;
-        self.stream_established_at = Some(Instant::now());
+        let (initial, connection) = self.connect_attempt_loop_with_policy(policy).await?;
         if let Some(initial_persisted) = persisted_size(&initial)
             && initial_persisted > self.last_persisted_size
         {
             self.last_persisted_size = initial_persisted;
-            self.abandon_reconnects_at = None;
+            self.retry_state = None;
         }
         Ok((initial, connection))
     }
@@ -270,8 +230,15 @@ where
     async fn connect_attempt_loop(
         &mut self,
     ) -> Result<(BidiWriteObjectResponse, Connection<T::Stream>)> {
-        let throttler = self.options.retry_throttler.clone();
         let retry = Arc::new(RetryRedirect::new(self.options.retry_policy.clone()));
+        self.connect_attempt_loop_with_policy(retry).await
+    }
+
+    async fn connect_attempt_loop_with_policy(
+        &mut self,
+        retry: Arc<RetryRedirect<Arc<dyn RetryPolicy + 'static>>>,
+    ) -> Result<(BidiWriteObjectResponse, Connection<T::Stream>)> {
+        let throttler = self.options.retry_throttler.clone();
         let backoff = self.options.backoff_policy.clone();
         let client = self.client.clone();
         let options = self.options.clone();
@@ -1396,20 +1363,20 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn reconnect_deadline_expires_without_progress() -> Result<()> {
+    async fn reconnect_time_limit_expires_without_progress() -> Result<()> {
+        use google_cloud_gax::retry_policy::RetryPolicyExt;
         // Arrange.
         let (mut connector, senders) = connector_with_streams(2);
         send_persisted_size(&senders, 0).await?;
+        connector.options.retry_policy =
+            Arc::new(crate::retry_policy::RetryableErrors.with_time_limit(Duration::from_secs(30)));
 
         // Act.
-        // The first reconnect arms the budget, expiring at T+32s.
+        // First reconnect anchors `retry_state.start` at T+0s.
         connector.reconnect(transient_error(), 0).await?;
-        // Still inside the window, and the stream just replaced did not survive a full window
-        // either, so the armed deadline carries over unchanged.
         tokio::time::advance(Duration::from_secs(10)).await;
         connector.reconnect(transient_error(), 0).await?;
-        // T+35s: past the armed deadline, and the previous stream only lasted 25s, so there is
-        // still no evidence of progress.
+        // T+35s: past the 30s policy time limit without byte progress.
         tokio::time::advance(Duration::from_secs(25)).await;
         let err = connector.reconnect(transient_error(), 0).await.unwrap_err();
 
@@ -1419,19 +1386,21 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn reconnect_budget_resets_on_acknowledged_bytes() -> Result<()> {
+    async fn reconnect_retry_state_resets_on_acknowledged_bytes() -> Result<()> {
+        use google_cloud_gax::retry_policy::RetryPolicyExt;
         // Arrange.
         let (mut connector, senders) = connector_with_streams(3);
         send_persisted_size(&senders, 0).await?;
+        connector.options.retry_policy =
+            Arc::new(crate::retry_policy::RetryableErrors.with_time_limit(Duration::from_secs(30)));
 
         // Act.
-        // Arms the budget, expiring at T+32s.
+        // Anchors `retry_state.start` at T+0s.
         connector.reconnect(transient_error(), 0).await?;
-        // T+10s: 64 acknowledged bytes rearm the budget at T+42s.
+        // T+10s: 64 acknowledged bytes reset `retry_state` so `start` becomes T+10s.
         tokio::time::advance(Duration::from_secs(10)).await;
         connector.reconnect(transient_error(), 64).await?;
-        // T+35s: past the original deadline but inside the rearmed one. No stream survived a full
-        // window, so only the byte progress can explain a successful reconnect here.
+        // T+35s: past the original T+30s limit, but within the reset T+40s limit.
         tokio::time::advance(Duration::from_secs(25)).await;
         let (resp, _conn) = connector.reconnect(transient_error(), 64).await?;
 
@@ -1440,30 +1409,8 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
-    async fn reconnect_budget_resets_after_healthy_stream_interval() -> Result<()> {
-        // Arrange.
-        let (mut connector, senders) = connector_with_streams(3);
-        send_persisted_size(&senders, 0).await?;
-
-        // Act.
-        // Arms the budget, expiring at T+32s.
-        connector.reconnect(transient_error(), 0).await?;
-        // T+32s: the replaced stream survived a full window, which rearms the budget at T+64s even
-        // though no bytes were acknowledged. This is the only progress signal an idle session has.
-        tokio::time::advance(DEFAULT_WRITE_RECONNECT_DEADLINE).await;
-        connector.reconnect(transient_error(), 0).await?;
-        // T+42s: past the original deadline but inside the rearmed one.
-        tokio::time::advance(Duration::from_secs(10)).await;
-        let (resp, _conn) = connector.reconnect(transient_error(), 0).await?;
-
-        // Assert.
-        assert_eq!(persisted_size(&resp), Some(0));
-        Ok(())
-    }
-
-    #[tokio::test(start_paused = true)]
-    async fn connect_open_seeds_reconnect_budget() -> Result<()> {
+    #[tokio::test]
+    async fn connect_open_seeds_persisted_size_and_clears_retry_state() -> Result<()> {
         // Arrange.
         let (tx1, rx1) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
         let stream1 = TonicResponse::from(rx1);
@@ -1505,11 +1452,11 @@ mod tests {
 
         // Assert.
         assert_eq!(connector.last_persisted_size, 100);
-        assert!(connector.abandon_reconnects_at.is_none());
+        assert!(connector.retry_state.is_none());
         connector.reconnect(transient_error(), 100).await?;
         assert_eq!(
-            connector.abandon_reconnects_at,
-            Some(Instant::now() + DEFAULT_WRITE_RECONNECT_DEADLINE)
+            connector.retry_state.as_ref().map(|s| s.attempt_count),
+            Some(1)
         );
         Ok(())
     }
@@ -1610,83 +1557,72 @@ mod tests {
         assert!(!err.is_timeout(), "{err:?}");
         let attempts = *observed.lock().expect("never poisoned");
         assert!(
-            attempts <= MAX_REDIRECTS_FOLLOWED as usize + 1,
+            attempts <= MAX_REDIRECTS_FOLLOWED as usize,
             "followed {attempts} redirects, expected at most {}",
-            MAX_REDIRECTS_FOLLOWED + 1
+            MAX_REDIRECTS_FOLLOWED
         );
         Ok(())
     }
 
-    #[derive(Debug)]
-    struct FixedBackoff(Duration);
+    #[tokio::test]
+    async fn reconnect_respects_attempt_limit_and_resets_on_progress() -> Result<()> {
+        use google_cloud_gax::retry_policy::RetryPolicyExt;
+        // Arrange: `with_attempt_limit(3)` allows 2 progress-free reconnects (attempts 1 and 2) and
+        // stops on the 3rd (`attempt_count == 3`). Once byte progress is reported, `retry_state`
+        // resets and allows another reconnect.
+        let (mut connector, senders) = connector_with_streams(3);
+        send_persisted_size(&senders, 0).await?;
+        connector.options.retry_policy =
+            Arc::new(crate::retry_policy::RetryableErrors.with_attempt_limit(3));
 
-    impl google_cloud_gax::backoff_policy::BackoffPolicy for FixedBackoff {
-        fn on_failure(&self, _state: &RetryState) -> Duration {
-            self.0
-        }
+        // Act & Assert: 2 progress-free reconnects succeed, 3rd stops with `Exhausted`.
+        connector.reconnect(transient_error(), 0).await?;
+        connector.reconnect(transient_error(), 0).await?;
+        let err = connector.reconnect(transient_error(), 0).await.unwrap_err();
+        assert_eq!(err.status(), transient_error().status(), "{err:?}");
+
+        // Reporting byte progress resets `retry_state`, so the next reconnect succeeds.
+        connector.reconnect(transient_error(), 64).await?;
+        assert_eq!(
+            connector.retry_state.as_ref().map(|s| s.attempt_count),
+            Some(1)
+        );
+        Ok(())
     }
 
-    #[derive(Debug)]
-    struct NoThrottle;
-
-    impl google_cloud_gax::retry_throttler::RetryThrottler for NoThrottle {
-        fn throttle_retry_attempt(&self) -> bool {
-            false
-        }
-
-        fn on_retry_failure(&mut self, _flow: &RetryResult) {}
-
-        fn on_success(&mut self) {}
-    }
-
-    #[tokio::test(start_paused = true)]
-    async fn reconnect_deadline_expires_when_connecting_is_slow() -> Result<()> {
-        // Arrange: 2 transient errors with 20s backoff before each stream succeeds (40s > 32s
-        // budget). Stream survival time—not `connect_attempt_loop` duration—must be measured so
-        // slow connects cannot reset the budget.
-        const ATTEMPTS_PER_CYCLE: usize = 3;
-        let attempts = Arc::new(Mutex::new(0_usize));
-        let senders = Arc::new(Mutex::new(Vec::new()));
-        let mut mock = MockTestClient::new();
-        mock.expect_start()
-            .times(0..)
-            .returning(move |_, _, _, _, _, _| {
-                let mut count = attempts.lock().expect("never poisoned");
-                *count += 1;
-                if !count.is_multiple_of(ATTEMPTS_PER_CYCLE) {
-                    return Err(transient_error());
-                }
-                let (tx, rx) =
-                    tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
-                tx.try_send(Ok(BidiWriteObjectResponse {
-                    write_status: Some(WriteStatus::PersistedSize(0)),
-                    ..Default::default()
-                }))
-                .expect("channel has capacity");
-                senders.lock().expect("never poisoned").push(tx);
-                Ok(Ok(TonicResponse::from(rx)))
-            });
-        let mut options = test_options();
-        options.backoff_policy = Arc::new(FixedBackoff(Duration::from_secs(20)));
-        options.retry_throttler = Arc::new(Mutex::new(NoThrottle));
-        options.retry_policy = Arc::new(crate::retry_policy::RetryableErrors);
-        let mut connector = Connector::new(options, SharedMockClient::new(mock));
-        connector.set_spec_state(AppendObjectSpecState::Append {
-            spec: AppendObjectSpec {
-                bucket: "projects/_/buckets/test-bucket".into(),
-                object: "test-object".into(),
-                generation: 1,
+    #[tokio::test]
+    async fn reconnect_handshake_persisted_bytes_resets_retry_state() -> Result<()> {
+        use google_cloud_gax::retry_policy::RetryPolicyExt;
+        // Arrange: `with_attempt_limit(2)` allows 1 progress-free reconnect (`attempt_count == 1`)
+        // and stops on the 2nd (`attempt_count == 2`). If the 1st reconnect's handshake response
+        // reports newly persisted bytes (`PersistedSize(64)`), `retry_state` resets to `None` so
+        // the next reconnect succeeds (`attempt_count == 1`).
+        let (mut connector, senders) = connector_with_streams(2);
+        connector.options.retry_policy =
+            Arc::new(crate::retry_policy::RetryableErrors.with_attempt_limit(2));
+        senders[0]
+            .send(Ok(BidiWriteObjectResponse {
+                write_status: Some(WriteStatus::PersistedSize(64)),
                 ..Default::default()
-            },
-            initial_chunk: None,
-        });
+            }))
+            .await?;
+        senders[1]
+            .send(Ok(BidiWriteObjectResponse {
+                write_status: Some(WriteStatus::PersistedSize(64)),
+                ..Default::default()
+            }))
+            .await?;
 
         // Act.
         connector.reconnect(transient_error(), 0).await?;
-        let err = connector.reconnect(transient_error(), 0).await.unwrap_err();
+        assert!(connector.retry_state.is_none());
+        connector.reconnect(transient_error(), 64).await?;
 
         // Assert.
-        assert_eq!(err.status(), transient_error().status(), "{err:?}");
+        assert_eq!(
+            connector.retry_state.as_ref().map(|s| s.attempt_count),
+            Some(1)
+        );
         Ok(())
     }
 }

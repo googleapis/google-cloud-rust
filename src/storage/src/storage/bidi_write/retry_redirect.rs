@@ -22,23 +22,19 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicU32, Ordering};
 use std::time::Duration;
 
-/// Maximum consecutive redirects followed while opening a stream before giving up.
+/// Maximum redirects followed per connect or reconnect cycle before giving up.
 ///
-/// Reaching the right backend normally takes 1 redirect (or 2 if that backend is draining), so 3
-/// prevents infinite redirect loops while leaving 1 extra retry of headroom.
+/// Reaching the target backend normally takes 1 redirect (or 2 if that backend is draining), so 3
+/// prevents infinite redirect loops while leaving 1 extra redirect of headroom.
 pub(super) const MAX_REDIRECTS_FOLLOWED: u32 = 3;
 
-/// Decorate the retry policy to continue on redirect errors.
+/// Decorates a [`RetryPolicy`] to follow `BidiWriteObject` routing redirects.
 ///
-/// The bidi streaming write API uses errors to redirect requests. We want to
-/// ignore these errors in the retry loop while respecting any limits set by the
-/// application.
-///
-/// The client library uses this policy to decorate any policy set by the
-/// application. Transient errors pass through unchanged. An error the inner policy stops on -
-/// whether it reports `Permanent` or `Exhausted` - is still retried when it is a redirect, because
-/// a redirect is a routing change rather than a failed attempt, up to [`MAX_REDIRECTS_FOLLOWED`]
-/// times.
+/// GCS signals routing changes via `Aborted` errors carrying a `BidiWriteObjectRedirectedError`.
+/// Because a redirect is a routing update rather than a failed write attempt, this decorator:
+/// - Passes non-redirect errors through to the inner [`RetryPolicy`] unchanged.
+/// - Overrides redirect errors to [`RetryResult::Continue`] up to [`MAX_REDIRECTS_FOLLOWED`] times,
+///   even if the inner policy treats `Aborted` as permanent or has reached its attempt limit.
 #[derive(Debug)]
 pub struct RetryRedirect<T> {
     inner: T,
@@ -56,19 +52,22 @@ impl<T> RetryRedirect<T> {
 
 impl RetryPolicy for RetryRedirect<Arc<dyn RetryPolicy + 'static>> {
     fn on_error(&self, state: &RetryState, error: Error) -> RetryResult {
-        match self.inner.on_error(state, error) {
-            // Redirects are control flow, not failures. Policies signal "stop" as either
-            // `Permanent` or `Exhausted` (`NeverRetry` uses the latter), so rewrite both up to
-            // `MAX_REDIRECTS_FOLLOWED` before letting the inner policy's stop verdict stand.
-            RetryResult::Permanent(e) | RetryResult::Exhausted(e)
-                if is_redirect(&e)
-                    && self.redirects_followed.fetch_add(1, Ordering::Relaxed)
-                        < MAX_REDIRECTS_FOLLOWED =>
-            {
-                RetryResult::Continue(e)
+        let redirect = is_redirect(&error);
+        let result = self.inner.on_error(state, error);
+        if !redirect {
+            return result;
+        }
+        // Redirects are control flow, not failures. Count every redirect (including when the inner
+        // policy returns `Continue`) and cap consecutive redirects at `MAX_REDIRECTS_FOLLOWED`.
+        if self.redirects_followed.fetch_add(1, Ordering::Relaxed) < MAX_REDIRECTS_FOLLOWED {
+            let (RetryResult::Continue(e) | RetryResult::Permanent(e) | RetryResult::Exhausted(e)) =
+                result;
+            RetryResult::Continue(e)
+        } else {
+            match result {
+                RetryResult::Continue(e) | RetryResult::Exhausted(e) => RetryResult::Exhausted(e),
+                RetryResult::Permanent(e) => RetryResult::Permanent(e),
             }
-            // Continue() and non-redirect stop conditions pass thru.
-            result => result,
         }
     }
 
@@ -175,6 +174,28 @@ mod tests {
 
         // Assert.
         assert!(matches!(&result, RetryResult::Permanent(_)), "{result:?}");
+    }
+
+    #[test]
+    fn redirect_budget_caps_continue_verdict() {
+        use google_cloud_gax::retry_policy::AlwaysRetry;
+        // Arrange.
+        // `AlwaysRetry` returns `Continue` for every error, including redirects.
+        let inner: Arc<dyn RetryPolicy + 'static> = Arc::new(AlwaysRetry);
+        let p = RetryRedirect::new(inner);
+
+        // Act.
+        for i in 0..MAX_REDIRECTS_FOLLOWED {
+            let result = p.on_error(&RetryState::new(true), to_gax_error(redirect_status("r1")));
+            assert!(
+                matches!(&result, RetryResult::Continue(_)),
+                "redirect {i}: {result:?}"
+            );
+        }
+        let result = p.on_error(&RetryState::new(true), to_gax_error(redirect_status("r1")));
+
+        // Assert.
+        assert!(matches!(&result, RetryResult::Exhausted(_)), "{result:?}");
     }
 
     #[test]
