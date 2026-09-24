@@ -838,13 +838,14 @@ libraries:
         - user-event-service
         - user-license-service
   - name: google-cloud-dns-v1
-    version: 1.8.0
+    version: 1.7.0
     copyright_year: "2026"
     keep:
       - src/operation.rs
     roots:
       - discovery
       - googleapis
+    skip_release: true
     specification_format: discovery
     rust:
       package_dependencies:
