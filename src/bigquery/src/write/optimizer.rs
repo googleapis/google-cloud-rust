@@ -16,43 +16,6 @@ use crate::google::cloud::bigquery::storage::v1::{
     AppendRowsRequest, ArrowSchema, ProtoSchema, append_rows_request::Rows,
 };
 
-#[derive(Clone, Debug, PartialEq)]
-enum WriterSchema {
-    Arrow(ArrowSchema),
-    Proto(Box<ProtoSchema>),
-}
-
-fn extract_schema(req: &AppendRowsRequest) -> Option<WriterSchema> {
-    match req.rows.as_ref()? {
-        Rows::ArrowRows(data) => data.writer_schema.clone().map(WriterSchema::Arrow),
-        Rows::ProtoRows(data) => data
-            .writer_schema
-            .clone()
-            .map(Box::new)
-            .map(WriterSchema::Proto),
-    }
-}
-
-fn same_schema(req: &AppendRowsRequest, prev: &Option<WriterSchema>) -> bool {
-    match (req.rows.as_ref(), prev.as_ref()) {
-        (Some(Rows::ArrowRows(d)), Some(WriterSchema::Arrow(s))) => {
-            d.writer_schema.as_ref() == Some(s)
-        }
-        (Some(Rows::ProtoRows(d)), Some(WriterSchema::Proto(s))) => {
-            d.writer_schema.as_ref() == Some(s.as_ref())
-        }
-        _ => false,
-    }
-}
-
-fn clear_schema(req: &mut AppendRowsRequest) {
-    match req.rows.as_mut() {
-        Some(Rows::ArrowRows(data)) => data.writer_schema = None,
-        Some(Rows::ProtoRows(data)) => data.writer_schema = None,
-        None => {}
-    }
-}
-
 /// Optimizes outgoing `AppendRowsRequest` messages on a single `AppendRows`
 /// stream connection by redacting redundant `write_stream` and `writer_schema`
 /// fields.
@@ -95,6 +58,43 @@ impl SendOptimizer {
             self.prev_write_stream.clone_from(&req.write_stream);
             self.prev_schema = extract_schema(req);
         }
+    }
+}
+
+#[derive(Clone, Debug, PartialEq)]
+enum WriterSchema {
+    Arrow(ArrowSchema),
+    Proto(Box<ProtoSchema>),
+}
+
+fn extract_schema(req: &AppendRowsRequest) -> Option<WriterSchema> {
+    match req.rows.as_ref()? {
+        Rows::ArrowRows(data) => data.writer_schema.clone().map(WriterSchema::Arrow),
+        Rows::ProtoRows(data) => data
+            .writer_schema
+            .clone()
+            .map(Box::new)
+            .map(WriterSchema::Proto),
+    }
+}
+
+fn same_schema(req: &AppendRowsRequest, prev: &Option<WriterSchema>) -> bool {
+    match (req.rows.as_ref(), prev.as_ref()) {
+        (Some(Rows::ArrowRows(d)), Some(WriterSchema::Arrow(s))) => {
+            d.writer_schema.as_ref() == Some(s)
+        }
+        (Some(Rows::ProtoRows(d)), Some(WriterSchema::Proto(s))) => {
+            d.writer_schema.as_ref() == Some(s.as_ref())
+        }
+        _ => false,
+    }
+}
+
+fn clear_schema(req: &mut AppendRowsRequest) {
+    match req.rows.as_mut() {
+        Some(Rows::ArrowRows(data)) => data.writer_schema = None,
+        Some(Rows::ProtoRows(data)) => data.writer_schema = None,
+        None => {}
     }
 }
 
