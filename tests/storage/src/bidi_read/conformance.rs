@@ -69,6 +69,22 @@ pub async fn run() -> anyhow::Result<()> {
 // Lifecycle Helpers (manage bucket provisioning -> test execution -> teardown)
 // -----------------------------------------------------------------------------
 
+const PREPROD_ENDPOINT: &str = "https://storage-preprod-test-grpc.googleusercontent.com:443";
+
+/// Universal helper to build a `Storage` data client across all conformance test scenarios:
+/// - `custom_endpoint: None` -> uses `GOOGLE_CLOUD_TEST_STORAGE_ENDPOINT` if set, otherwise default prod endpoint.
+/// - `custom_endpoint: Some(url)` -> uses `GOOGLE_CLOUD_TEST_STORAGE_ENDPOINT` if set, otherwise `url`
+///   (e.g., `"https://us-central1-b-storage.googleapis.com"` for non-colocated Zonal Rapid, or preprod URL for RCU).
+async fn build_storage_client(custom_endpoint: Option<&str>) -> anyhow::Result<Storage> {
+    let mut builder = Storage::builder();
+    if let Ok(endpoint) = std::env::var("GOOGLE_CLOUD_TEST_STORAGE_ENDPOINT") {
+        builder = builder.with_endpoint(endpoint);
+    } else if let Some(endpoint) = custom_endpoint {
+        builder = builder.with_endpoint(endpoint);
+    }
+    Ok(builder.build().await?)
+}
+
 async fn with_regional_standard_bucket<F, Fut>(hns: bool, f: F) -> anyhow::Result<()>
 where
     F: FnOnce(Storage, String) -> Fut,
@@ -79,7 +95,7 @@ where
     } else {
         crate::create_test_bucket().await?
     };
-    let client = crate::build_storage_client().await?;
+    let client = build_storage_client(None).await?;
     let result = f(client, bucket.name.clone()).await;
     let _ = storage_samples::cleanup_bucket(control, bucket.name, bucket.project).await;
     result
@@ -91,11 +107,8 @@ where
     Fut: std::future::Future<Output = anyhow::Result<()>>,
 {
     let (control, bucket) = crate::create_test_rapid_bucket().await?;
-    let client = if colocated {
-        crate::build_storage_client().await?
-    } else {
-        crate::build_non_colocated_storage_client("us-central1-b").await?
-    };
+    let endpoint = (!colocated).then_some("https://us-central1-b-storage.googleapis.com");
+    let client = build_storage_client(endpoint).await?;
     let result = f(client, bucket.name.clone()).await;
     let _ = storage_samples::cleanup_bucket(control, bucket.name, bucket.project).await;
     result
@@ -107,18 +120,18 @@ where
     Fut: std::future::Future<Output = anyhow::Result<()>>,
 {
     let (control, bucket) = create_test_regional_rapid_bucket(hns).await?;
-    let client = build_regional_rapid_storage_client().await?;
+    let endpoint = std::env::var("GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT")
+        .unwrap_or_else(|_| PREPROD_ENDPOINT.to_string());
+    let client = build_storage_client(Some(&endpoint)).await?;
     let result = f(client, bucket.name.clone()).await;
     let _ = cleanup_regional_rapid_bucket(control, bucket.name, bucket.project).await;
     result
 }
 
-// Regional Rapid (RCU) Fixture & Client Helpers
+// Regional Rapid (RCU) Fixture & Control Client Helpers
 async fn build_storage_control_client() -> anyhow::Result<StorageControl> {
-    let endpoint =
-        std::env::var("GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT").unwrap_or_else(|_| {
-            "https://storage-preprod-test-grpc.googleusercontent.com:443".to_string()
-        });
+    let endpoint = std::env::var("GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT")
+        .unwrap_or_else(|_| PREPROD_ENDPOINT.to_string());
     tracing::info!("StorageControl endpoint: {endpoint}");
 
     let client = StorageControl::builder()
@@ -134,16 +147,6 @@ async fn build_storage_control_client() -> anyhow::Result<StorageControl> {
         .await?;
 
     Ok(client)
-}
-
-async fn build_regional_rapid_storage_client() -> anyhow::Result<Storage> {
-    let endpoint = std::env::var("GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT")
-        .or_else(|_| std::env::var("GOOGLE_CLOUD_TEST_STORAGE_ENDPOINT"))
-        .unwrap_or_else(|_| {
-            "https://storage-preprod-test-grpc.googleusercontent.com:443".to_string()
-        });
-
-    Ok(Storage::builder().with_endpoint(endpoint).build().await?)
 }
 
 async fn create_test_regional_rapid_bucket(hns: bool) -> anyhow::Result<(StorageControl, Bucket)> {
@@ -233,7 +236,7 @@ pub async fn read_post_stream_close() -> anyhow::Result<()> {
 }
 
 pub async fn non_existent_bucket_read() -> anyhow::Result<()> {
-    let client = crate::build_storage_client().await?;
+    let client = build_storage_client(None).await?;
     test_non_existent_bucket_read(&client).await
 }
 

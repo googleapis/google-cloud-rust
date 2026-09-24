@@ -30,7 +30,7 @@ use google_cloud_lro::Poller;
 pub use google_cloud_storage::builder::storage::ClientBuilder as StorageBuilder;
 use google_cloud_storage::builder::storage::SignedUrlBuilder;
 pub use google_cloud_storage::builder::storage_control::ClientBuilder as StorageControlBuilder;
-use google_cloud_storage::client::{Storage, StorageControl};
+use google_cloud_storage::client::StorageControl;
 use google_cloud_storage::model::Bucket;
 use google_cloud_storage::model::bucket::iam_config::UniformBucketLevelAccess;
 use google_cloud_storage::model::bucket::{HierarchicalNamespace, IamConfig};
@@ -42,24 +42,6 @@ use std::time::Duration;
 pub use storage_samples::{
     cleanup_stale_buckets, create_test_bucket, create_test_hns_bucket, create_test_rapid_bucket,
 };
-
-pub async fn build_storage_client() -> Result<Storage> {
-    let mut builder = Storage::builder();
-    if let Ok(endpoint) = std::env::var("GOOGLE_CLOUD_TEST_STORAGE_ENDPOINT") {
-        builder = builder.with_endpoint(endpoint);
-    }
-    Ok(builder.build().await?)
-}
-
-pub async fn build_non_colocated_storage_client(off_zone: &str) -> Result<Storage> {
-    let mut builder = Storage::builder();
-    if let Ok(endpoint) = std::env::var("GOOGLE_CLOUD_TEST_STORAGE_ENDPOINT") {
-        builder = builder.with_endpoint(endpoint);
-    } else {
-        builder = builder.with_endpoint(format!("https://{off_zone}-storage.googleapis.com"));
-    }
-    Ok(builder.build().await?)
-}
 
 pub async fn objects(builder: StorageBuilder, bucket_name: &str, prefix: &str) -> Result<()> {
     let client = builder.build().await?;

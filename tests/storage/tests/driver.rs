@@ -121,7 +121,7 @@ mod storage {
             let (control, bucket) = integration_tests_storage::create_test_hns_bucket()
                 .await
                 .inspect_err(anydump)?;
-            let client = integration_tests_storage::build_storage_client().await?;
+            let client = Storage::builder().build().await?;
             let result = integration_tests_storage::bidi_read::features::run(&client, &bucket.name)
                 .await
                 .inspect_err(anydump);
