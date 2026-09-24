@@ -791,15 +791,6 @@
       "Product": "Discovery Engine API"
     }
   ],
-  "google-cloud-dns-v1": [
-    {
-      "PkgName": "google-cloud-dns-v1",
-      "Language": "Rust",
-      "DocsURL": "https://docs.rs/google-cloud-dns-v1/latest",
-      "APIShortname": "dns",
-      "Product": "Cloud DNS"
-    }
-  ],
   "google-cloud-documentai-v1": [
     {
       "PkgName": "google-cloud-documentai-v1",
