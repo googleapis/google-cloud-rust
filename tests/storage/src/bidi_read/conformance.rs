@@ -56,42 +56,48 @@ pub async fn run() -> anyhow::Result<()> {
     with_regional_standard_bucket(false, |bucket| async move {
         read_post_stream_close(client, &bucket).await?;
         out_of_range(client, &bucket).await?;
-        multiple_ranged_read_regional_standard_flat_colocated(client, &bucket).await?;
-        zero_copy_read_regional_standard_flat_colocated(client, &bucket).await?;
+        multiple_ranged_read_regional_standard_flat(client, &bucket).await?;
+        zero_copy_read_regional_standard_flat(client, &bucket).await?;
         Ok(())
     })
     .await?;
 
     // 2. Regional Standard (HNS)
     with_regional_standard_bucket(true, |bucket| async move {
-        multiple_ranged_read_regional_standard_hns_colocated(client, &bucket).await?;
-        zero_copy_read_regional_standard_hns_colocated(client, &bucket).await?;
+        multiple_ranged_read_regional_standard_hns(client, &bucket).await?;
+        zero_copy_read_regional_standard_hns(client, &bucket).await?;
         Ok(())
     })
     .await?;
 
-    // 3. Zonal Rapid (HNS) — shared across both colocated and non-colocated clients
+    // 3. Zonal Rapid (HNS is always enabled) — shared across both colocated and non-colocated clients
     with_zonal_rapid_bucket(|bucket| async move {
-        multiple_ranged_read_zonal_rapid_hns_colocated(client, &bucket).await?;
-        zero_copy_read_zonal_rapid_hns_colocated(client, &bucket).await?;
-        multiple_ranged_read_zonal_rapid_hns_non_colocated(non_colocated_client, &bucket).await?;
-        zero_copy_read_zonal_rapid_hns_non_colocated(non_colocated_client, &bucket).await?;
+        multiple_ranged_read_zonal_rapid_colocated(client, &bucket).await?;
+        zero_copy_read_zonal_rapid_colocated(client, &bucket).await?;
+        multiple_ranged_read_zonal_rapid_non_colocated(non_colocated_client, &bucket).await?;
+        zero_copy_read_zonal_rapid_non_colocated(non_colocated_client, &bucket).await?;
         Ok(())
     })
     .await?;
 
-    // 4. Regional Rapid (RCU - HNS)
+    // 4. Regional Rapid (RCU - HNS) — cache in us-central1-a; shared across colocated and non-colocated clients
     with_regional_rapid_bucket(true, |bucket| async move {
         multiple_ranged_read_regional_rapid_hns_colocated(client, &bucket).await?;
         zero_copy_read_regional_rapid_hns_colocated(client, &bucket).await?;
+        multiple_ranged_read_regional_rapid_hns_non_colocated(non_colocated_client, &bucket)
+            .await?;
+        zero_copy_read_regional_rapid_hns_non_colocated(non_colocated_client, &bucket).await?;
         Ok(())
     })
     .await?;
 
-    // 5. Regional Rapid (RCU - Flat)
+    // 5. Regional Rapid (RCU - Flat) — cache in us-central1-a; shared across colocated and non-colocated clients
     with_regional_rapid_bucket(false, |bucket| async move {
         multiple_ranged_read_regional_rapid_flat_colocated(client, &bucket).await?;
         zero_copy_read_regional_rapid_flat_colocated(client, &bucket).await?;
+        multiple_ranged_read_regional_rapid_flat_non_colocated(non_colocated_client, &bucket)
+            .await?;
+        zero_copy_read_regional_rapid_flat_non_colocated(non_colocated_client, &bucket).await?;
         Ok(())
     })
     .await?;
@@ -305,72 +311,78 @@ pub async fn out_of_range(client: &Storage, bucket: &str) -> anyhow::Result<()> 
 
 // =============================================================================
 // Bucket-type-dependent test cases (Tests 1 & 3 permuted)
-// Format: [test-case-name]_[bucket_type]_[hns]_[colocated]
 // =============================================================================
 
-// --- 1. Regional Standard ---
+// --- 1. Regional Standard (HNS vs. Flat; colocation is not applicable) ---
 
-pub async fn multiple_ranged_read_regional_standard_hns_colocated(
+pub async fn multiple_ranged_read_regional_standard_hns(
     client: &Storage,
     bucket: &str,
 ) -> anyhow::Result<()> {
     test_multiple_ranged_read(client, bucket).await
 }
 
-pub async fn multiple_ranged_read_regional_standard_flat_colocated(
+pub async fn multiple_ranged_read_regional_standard_flat(
     client: &Storage,
     bucket: &str,
 ) -> anyhow::Result<()> {
     test_multiple_ranged_read(client, bucket).await
 }
 
-pub async fn zero_copy_read_regional_standard_hns_colocated(
+pub async fn zero_copy_read_regional_standard_hns(
     client: &Storage,
     bucket: &str,
 ) -> anyhow::Result<()> {
     test_zero_copy_read(client, bucket).await
 }
 
-pub async fn zero_copy_read_regional_standard_flat_colocated(
+pub async fn zero_copy_read_regional_standard_flat(
     client: &Storage,
     bucket: &str,
 ) -> anyhow::Result<()> {
     test_zero_copy_read(client, bucket).await
 }
 
-// --- 2. Zonal Rapid ---
+// --- 2. Zonal Rapid (Colocated vs. Non-Colocated; HNS is always enabled) ---
 
-pub async fn multiple_ranged_read_zonal_rapid_hns_colocated(
+pub async fn multiple_ranged_read_zonal_rapid_colocated(
     client: &Storage,
     bucket: &str,
 ) -> anyhow::Result<()> {
     test_multiple_ranged_read(client, bucket).await
 }
 
-pub async fn multiple_ranged_read_zonal_rapid_hns_non_colocated(
+pub async fn multiple_ranged_read_zonal_rapid_non_colocated(
     client: &Storage,
     bucket: &str,
 ) -> anyhow::Result<()> {
     test_multiple_ranged_read(client, bucket).await
 }
 
-pub async fn zero_copy_read_zonal_rapid_hns_colocated(
+pub async fn zero_copy_read_zonal_rapid_colocated(
     client: &Storage,
     bucket: &str,
 ) -> anyhow::Result<()> {
     test_zero_copy_read(client, bucket).await
 }
 
-pub async fn zero_copy_read_zonal_rapid_hns_non_colocated(
+pub async fn zero_copy_read_zonal_rapid_non_colocated(
     client: &Storage,
     bucket: &str,
 ) -> anyhow::Result<()> {
     test_zero_copy_read(client, bucket).await
 }
 
-// --- 3. Regional Rapid (RCU) ---
+// --- 3. Regional Rapid / RCU (HNS vs. Flat × Colocated vs. Non-Colocated relative to cache zone) ---
 
 pub async fn multiple_ranged_read_regional_rapid_hns_colocated(
+    client: &Storage,
+    bucket: &str,
+) -> anyhow::Result<()> {
+    test_multiple_ranged_read(client, bucket).await
+}
+
+pub async fn multiple_ranged_read_regional_rapid_hns_non_colocated(
     client: &Storage,
     bucket: &str,
 ) -> anyhow::Result<()> {
@@ -384,6 +396,13 @@ pub async fn multiple_ranged_read_regional_rapid_flat_colocated(
     test_multiple_ranged_read(client, bucket).await
 }
 
+pub async fn multiple_ranged_read_regional_rapid_flat_non_colocated(
+    client: &Storage,
+    bucket: &str,
+) -> anyhow::Result<()> {
+    test_multiple_ranged_read(client, bucket).await
+}
+
 pub async fn zero_copy_read_regional_rapid_hns_colocated(
     client: &Storage,
     bucket: &str,
@@ -391,7 +410,21 @@ pub async fn zero_copy_read_regional_rapid_hns_colocated(
     test_zero_copy_read(client, bucket).await
 }
 
+pub async fn zero_copy_read_regional_rapid_hns_non_colocated(
+    client: &Storage,
+    bucket: &str,
+) -> anyhow::Result<()> {
+    test_zero_copy_read(client, bucket).await
+}
+
 pub async fn zero_copy_read_regional_rapid_flat_colocated(
+    client: &Storage,
+    bucket: &str,
+) -> anyhow::Result<()> {
+    test_zero_copy_read(client, bucket).await
+}
+
+pub async fn zero_copy_read_regional_rapid_flat_non_colocated(
     client: &Storage,
     bucket: &str,
 ) -> anyhow::Result<()> {
