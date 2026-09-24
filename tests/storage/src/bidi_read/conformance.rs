@@ -40,33 +40,61 @@ use std::time::Duration;
 /// Once RCU is available in Prod, only this constant needs to be updated.
 const DEFAULT_TEST_ENDPOINT: &str = "https://storage-preprod-test-grpc.googleusercontent.com:443";
 
-/// Runs the entire cross-SDK Bidirectional Read conformance test suite.
+/// Runs the entire cross-SDK Bidirectional Read conformance test suite,
+/// provisioning the minimal set of 5 buckets (1 per distinct bucket topology).
 pub async fn run() -> anyhow::Result<()> {
     println!("\n=== Running Bidi Read Conformance Suite ===");
 
-    // Non-bucket-type dependent test cases (Tests 2, 4, 5)
-    read_post_stream_close().await?;
-    non_existent_bucket_read().await?;
-    out_of_range().await?;
+    let client = &build_storage_client(None).await?;
+    let non_colocated_client =
+        &build_storage_client(Some("https://us-central1-b-storage.googleapis.com")).await?;
 
-    // Bucket-type-dependent test cases (Tests 1 & 3 permuted)
-    // 1. Regional Standard
-    multiple_ranged_read_regional_standard_hns_colocated().await?;
-    multiple_ranged_read_regional_standard_flat_colocated().await?;
-    zero_copy_read_regional_standard_hns_colocated().await?;
-    zero_copy_read_regional_standard_flat_colocated().await?;
+    // 0. Bucketless test case (Test 4)
+    non_existent_bucket_read(client).await?;
 
-    // 2. Zonal Rapid
-    multiple_ranged_read_zonal_rapid_hns_colocated().await?;
-    multiple_ranged_read_zonal_rapid_hns_non_colocated().await?;
-    zero_copy_read_zonal_rapid_hns_colocated().await?;
-    zero_copy_read_zonal_rapid_hns_non_colocated().await?;
+    // 1. Regional Standard (Flat) — shared by non-bucket-dependent tests (2, 5) & flat standard tests (1, 3)
+    with_regional_standard_bucket(false, |bucket| async move {
+        read_post_stream_close(client, &bucket).await?;
+        out_of_range(client, &bucket).await?;
+        multiple_ranged_read_regional_standard_flat_colocated(client, &bucket).await?;
+        zero_copy_read_regional_standard_flat_colocated(client, &bucket).await?;
+        Ok(())
+    })
+    .await?;
 
-    // 3. Regional Rapid (RCU)
-    multiple_ranged_read_regional_rapid_hns_colocated().await?;
-    multiple_ranged_read_regional_rapid_flat_colocated().await?;
-    zero_copy_read_regional_rapid_hns_colocated().await?;
-    zero_copy_read_regional_rapid_flat_colocated().await?;
+    // 2. Regional Standard (HNS)
+    with_regional_standard_bucket(true, |bucket| async move {
+        multiple_ranged_read_regional_standard_hns_colocated(client, &bucket).await?;
+        zero_copy_read_regional_standard_hns_colocated(client, &bucket).await?;
+        Ok(())
+    })
+    .await?;
+
+    // 3. Zonal Rapid (HNS) — shared across both colocated and non-colocated clients
+    with_zonal_rapid_bucket(|bucket| async move {
+        multiple_ranged_read_zonal_rapid_hns_colocated(client, &bucket).await?;
+        zero_copy_read_zonal_rapid_hns_colocated(client, &bucket).await?;
+        multiple_ranged_read_zonal_rapid_hns_non_colocated(non_colocated_client, &bucket).await?;
+        zero_copy_read_zonal_rapid_hns_non_colocated(non_colocated_client, &bucket).await?;
+        Ok(())
+    })
+    .await?;
+
+    // 4. Regional Rapid (RCU - HNS)
+    with_regional_rapid_bucket(true, |bucket| async move {
+        multiple_ranged_read_regional_rapid_hns_colocated(client, &bucket).await?;
+        zero_copy_read_regional_rapid_hns_colocated(client, &bucket).await?;
+        Ok(())
+    })
+    .await?;
+
+    // 5. Regional Rapid (RCU - Flat)
+    with_regional_rapid_bucket(false, |bucket| async move {
+        multiple_ranged_read_regional_rapid_flat_colocated(client, &bucket).await?;
+        zero_copy_read_regional_rapid_flat_colocated(client, &bucket).await?;
+        Ok(())
+    })
+    .await?;
 
     println!("=== Bidi Read Conformance Suite Completed Successfully ===\n");
     Ok(())
@@ -111,37 +139,33 @@ async fn build_storage_control_client() -> anyhow::Result<StorageControl> {
 
 async fn with_regional_standard_bucket<F, Fut>(hns: bool, f: F) -> anyhow::Result<()>
 where
-    F: FnOnce(Storage, String) -> Fut,
+    F: FnOnce(String) -> Fut,
     Fut: std::future::Future<Output = anyhow::Result<()>>,
 {
     let (control, bucket) = create_regional_standard_bucket(hns).await?;
-    let client = build_storage_client(None).await?;
-    let result = f(client, bucket.name.clone()).await;
+    let result = f(bucket.name.clone()).await;
     let _ = storage_samples::cleanup_bucket(control, bucket.name, bucket.project).await;
     result
 }
 
-async fn with_zonal_rapid_bucket<F, Fut>(colocated: bool, f: F) -> anyhow::Result<()>
+async fn with_zonal_rapid_bucket<F, Fut>(f: F) -> anyhow::Result<()>
 where
-    F: FnOnce(Storage, String) -> Fut,
+    F: FnOnce(String) -> Fut,
     Fut: std::future::Future<Output = anyhow::Result<()>>,
 {
     let (control, bucket) = create_zonal_rapid_bucket().await?;
-    let endpoint = (!colocated).then_some("https://us-central1-b-storage.googleapis.com");
-    let client = build_storage_client(endpoint).await?;
-    let result = f(client, bucket.name.clone()).await;
+    let result = f(bucket.name.clone()).await;
     let _ = storage_samples::cleanup_bucket(control, bucket.name, bucket.project).await;
     result
 }
 
 async fn with_regional_rapid_bucket<F, Fut>(hns: bool, f: F) -> anyhow::Result<()>
 where
-    F: FnOnce(Storage, String) -> Fut,
+    F: FnOnce(String) -> Fut,
     Fut: std::future::Future<Output = anyhow::Result<()>>,
 {
     let (control, bucket) = create_regional_rapid_bucket(hns).await?;
-    let client = build_storage_client(None).await?;
-    let result = f(client, bucket.name.clone()).await;
+    let result = f(bucket.name.clone()).await;
     let _ = cleanup_regional_rapid_bucket(control, bucket.name, bucket.project).await;
     result
 }
@@ -267,23 +291,16 @@ async fn cleanup_regional_rapid_bucket(
 // Non-bucket-type dependent test cases (Tests 2, 4, 5)
 // =============================================================================
 
-pub async fn read_post_stream_close() -> anyhow::Result<()> {
-    with_regional_standard_bucket(false, |client, bucket| async move {
-        test_read_post_stream_close(&client, &bucket).await
-    })
-    .await
+pub async fn read_post_stream_close(client: &Storage, bucket: &str) -> anyhow::Result<()> {
+    test_read_post_stream_close(client, bucket).await
 }
 
-pub async fn non_existent_bucket_read() -> anyhow::Result<()> {
-    let client = build_storage_client(None).await?;
-    test_non_existent_bucket_read(&client).await
+pub async fn non_existent_bucket_read(client: &Storage) -> anyhow::Result<()> {
+    test_non_existent_bucket_read(client).await
 }
 
-pub async fn out_of_range() -> anyhow::Result<()> {
-    with_regional_standard_bucket(false, |client, bucket| async move {
-        test_out_of_range(&client, &bucket).await
-    })
-    .await
+pub async fn out_of_range(client: &Storage, bucket: &str) -> anyhow::Result<()> {
+    test_out_of_range(client, bucket).await
 }
 
 // =============================================================================
@@ -293,92 +310,92 @@ pub async fn out_of_range() -> anyhow::Result<()> {
 
 // --- 1. Regional Standard ---
 
-pub async fn multiple_ranged_read_regional_standard_hns_colocated() -> anyhow::Result<()> {
-    with_regional_standard_bucket(true, |client, bucket| async move {
-        test_multiple_ranged_read(&client, &bucket).await
-    })
-    .await
+pub async fn multiple_ranged_read_regional_standard_hns_colocated(
+    client: &Storage,
+    bucket: &str,
+) -> anyhow::Result<()> {
+    test_multiple_ranged_read(client, bucket).await
 }
 
-pub async fn multiple_ranged_read_regional_standard_flat_colocated() -> anyhow::Result<()> {
-    with_regional_standard_bucket(false, |client, bucket| async move {
-        test_multiple_ranged_read(&client, &bucket).await
-    })
-    .await
+pub async fn multiple_ranged_read_regional_standard_flat_colocated(
+    client: &Storage,
+    bucket: &str,
+) -> anyhow::Result<()> {
+    test_multiple_ranged_read(client, bucket).await
 }
 
-pub async fn zero_copy_read_regional_standard_hns_colocated() -> anyhow::Result<()> {
-    with_regional_standard_bucket(true, |client, bucket| async move {
-        test_zero_copy_read(&client, &bucket).await
-    })
-    .await
+pub async fn zero_copy_read_regional_standard_hns_colocated(
+    client: &Storage,
+    bucket: &str,
+) -> anyhow::Result<()> {
+    test_zero_copy_read(client, bucket).await
 }
 
-pub async fn zero_copy_read_regional_standard_flat_colocated() -> anyhow::Result<()> {
-    with_regional_standard_bucket(false, |client, bucket| async move {
-        test_zero_copy_read(&client, &bucket).await
-    })
-    .await
+pub async fn zero_copy_read_regional_standard_flat_colocated(
+    client: &Storage,
+    bucket: &str,
+) -> anyhow::Result<()> {
+    test_zero_copy_read(client, bucket).await
 }
 
 // --- 2. Zonal Rapid ---
 
-pub async fn multiple_ranged_read_zonal_rapid_hns_colocated() -> anyhow::Result<()> {
-    with_zonal_rapid_bucket(true, |client, bucket| async move {
-        test_multiple_ranged_read(&client, &bucket).await
-    })
-    .await
+pub async fn multiple_ranged_read_zonal_rapid_hns_colocated(
+    client: &Storage,
+    bucket: &str,
+) -> anyhow::Result<()> {
+    test_multiple_ranged_read(client, bucket).await
 }
 
-pub async fn multiple_ranged_read_zonal_rapid_hns_non_colocated() -> anyhow::Result<()> {
-    with_zonal_rapid_bucket(false, |client, bucket| async move {
-        test_multiple_ranged_read(&client, &bucket).await
-    })
-    .await
+pub async fn multiple_ranged_read_zonal_rapid_hns_non_colocated(
+    client: &Storage,
+    bucket: &str,
+) -> anyhow::Result<()> {
+    test_multiple_ranged_read(client, bucket).await
 }
 
-pub async fn zero_copy_read_zonal_rapid_hns_colocated() -> anyhow::Result<()> {
-    with_zonal_rapid_bucket(true, |client, bucket| async move {
-        test_zero_copy_read(&client, &bucket).await
-    })
-    .await
+pub async fn zero_copy_read_zonal_rapid_hns_colocated(
+    client: &Storage,
+    bucket: &str,
+) -> anyhow::Result<()> {
+    test_zero_copy_read(client, bucket).await
 }
 
-pub async fn zero_copy_read_zonal_rapid_hns_non_colocated() -> anyhow::Result<()> {
-    with_zonal_rapid_bucket(false, |client, bucket| async move {
-        test_zero_copy_read(&client, &bucket).await
-    })
-    .await
+pub async fn zero_copy_read_zonal_rapid_hns_non_colocated(
+    client: &Storage,
+    bucket: &str,
+) -> anyhow::Result<()> {
+    test_zero_copy_read(client, bucket).await
 }
 
 // --- 3. Regional Rapid (RCU) ---
 
-pub async fn multiple_ranged_read_regional_rapid_hns_colocated() -> anyhow::Result<()> {
-    with_regional_rapid_bucket(true, |client, bucket| async move {
-        test_multiple_ranged_read(&client, &bucket).await
-    })
-    .await
+pub async fn multiple_ranged_read_regional_rapid_hns_colocated(
+    client: &Storage,
+    bucket: &str,
+) -> anyhow::Result<()> {
+    test_multiple_ranged_read(client, bucket).await
 }
 
-pub async fn multiple_ranged_read_regional_rapid_flat_colocated() -> anyhow::Result<()> {
-    with_regional_rapid_bucket(false, |client, bucket| async move {
-        test_multiple_ranged_read(&client, &bucket).await
-    })
-    .await
+pub async fn multiple_ranged_read_regional_rapid_flat_colocated(
+    client: &Storage,
+    bucket: &str,
+) -> anyhow::Result<()> {
+    test_multiple_ranged_read(client, bucket).await
 }
 
-pub async fn zero_copy_read_regional_rapid_hns_colocated() -> anyhow::Result<()> {
-    with_regional_rapid_bucket(true, |client, bucket| async move {
-        test_zero_copy_read(&client, &bucket).await
-    })
-    .await
+pub async fn zero_copy_read_regional_rapid_hns_colocated(
+    client: &Storage,
+    bucket: &str,
+) -> anyhow::Result<()> {
+    test_zero_copy_read(client, bucket).await
 }
 
-pub async fn zero_copy_read_regional_rapid_flat_colocated() -> anyhow::Result<()> {
-    with_regional_rapid_bucket(false, |client, bucket| async move {
-        test_zero_copy_read(&client, &bucket).await
-    })
-    .await
+pub async fn zero_copy_read_regional_rapid_flat_colocated(
+    client: &Storage,
+    bucket: &str,
+) -> anyhow::Result<()> {
+    test_zero_copy_read(client, bucket).await
 }
 
 /// Test Suite 1 - Test 1: Multiple Ranged Read
@@ -391,7 +408,7 @@ pub async fn test_multiple_ranged_read(client: &Storage, bucket_name: &str) -> a
     println!("--- [Conformance 1/5] Testing Multiple Ranged Read ---");
     const TOTAL_SIZE: usize = 512 * 1024;
     let payload = String::from_iter(('a'..='z').cycle().take(TOTAL_SIZE));
-    let object_name = "bidi_read/multi_range_source.txt";
+    let object_name = format!("bidi_read/multi_range_source_{}.txt", random_bucket_id());
 
     let write = client
         .write_object(bucket_name, object_name, payload.clone())
@@ -505,7 +522,7 @@ pub async fn test_zero_copy_read(client: &Storage, bucket_name: &str) -> anyhow:
     println!("--- [Conformance 3/5] Testing Zero Copy Read ---");
     const SIZE: usize = 100_000;
     let payload = String::from_iter(('a'..='z').cycle().take(SIZE));
-    let object_name = "bidi_read/zero_copy_source.txt";
+    let object_name = format!("bidi_read/zero_copy_source_{}.txt", random_bucket_id());
 
     let write = client
         .write_object(bucket_name, object_name, payload.clone())
