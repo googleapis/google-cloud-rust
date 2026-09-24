@@ -393,18 +393,46 @@ pub async fn test_disable_rapid_cache(
 ) -> anyhow::Result<()> {
     println!("\n--- [Test 8/9] Testing DisableRapidCache (zone: {zone}) ---");
     let cache_name = format!("{bucket_name}/rapidCaches/{zone}");
-    let disabled = client
+    let result = client
         .disable_rapid_cache()
         .set_name(&cache_name)
         .poller()
         .until_done()
-        .await?;
+        .await;
 
-    assert_eq!(disabled.state.to_lowercase(), "disabled");
-    println!(
-        "SUCCESS on Test 8: DisableRapidCache -> state: {}",
-        disabled.state
-    );
+    match result {
+        Ok(disabled) => {
+            assert_eq!(disabled.state.to_lowercase(), "disabled");
+            println!(
+                "SUCCESS on Test 8: DisableRapidCache -> state: {}",
+                disabled.state
+            );
+        }
+        Err(e) => {
+            // TODO(b/552228787): Fix this part when server-side bug is resolved.
+            let err_msg = format!("{e:?}");
+            if err_msg.contains("neither result nor error set in LRO result") {
+                println!("Note on Test 8: Encountered server bug (b/552228787).");
+                // Verify that the cache was indeed disabled and removed from active list
+                let mut list_stream = client.list_rapid_caches().set_parent(bucket_name).by_item();
+                let mut active_caches = Vec::new();
+                while let Some(item) = list_stream.next().await {
+                    if let Ok(c) = item {
+                        active_caches.push(c.name);
+                    }
+                }
+                assert!(
+                    !active_caches.iter().any(|n| n == &cache_name),
+                    "Expected disabled cache {cache_name} to no longer appear in active list, but found: {active_caches:?}"
+                );
+                println!(
+                    "SUCCESS on Test 8: Verified cache was disabled on backend (no longer in active list)"
+                );
+            } else {
+                return Err(e.into());
+            }
+        }
+    }
     Ok(())
 }
 
