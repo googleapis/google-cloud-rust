@@ -947,7 +947,7 @@ libraries:
           api_path: google/rpc
           template: prost
   - name: google-cloud-geminidataanalytics-v1
-    version: 1.4.0
+    version: 2.0.0
     copyright_year: "2026"
   - name: google-cloud-gkebackup-v1
     version: 1.15.0

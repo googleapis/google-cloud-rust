@@ -3632,7 +3632,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-geminidataanalytics-v1"
-version = "1.4.0"
+version = "2.0.0"
 dependencies = [
  "anyhow",
  "async-trait",
