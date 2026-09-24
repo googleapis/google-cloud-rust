@@ -17,9 +17,21 @@
 //! Implements the formal test cases specified in the GCS Bidirectional Read
 //! specification and the Rapid Cache Ultra (RCU) integration testing matrix.
 
-use google_cloud_storage::client::Storage;
+use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
+use google_cloud_gax::options::RequestOptionsBuilder as _;
+use google_cloud_gax::paginator::ItemPaginator as _;
+use google_cloud_gax::retry_policy::RetryPolicyExt as _;
+use google_cloud_lro::Poller as _;
+use google_cloud_storage::client::{Storage, StorageControl};
+use google_cloud_storage::model::bucket::iam_config::UniformBucketLevelAccess;
+use google_cloud_storage::model::bucket::{HierarchicalNamespace, IamConfig};
+use google_cloud_storage::model::{Bucket, RapidCache};
 use google_cloud_storage::model_ext::ReadRange;
 use google_cloud_storage::read_object::ReadObjectResponse;
+use google_cloud_storage::retry_policy::RetryableErrors;
+use google_cloud_test_utils::resource_names::random_bucket_id;
+use google_cloud_test_utils::runtime_config::project_id;
+use std::time::Duration;
 
 /// Runs the entire cross-SDK Bidirectional Read conformance test suite.
 pub async fn run() -> anyhow::Result<()> {
@@ -94,11 +106,115 @@ where
     F: FnOnce(Storage, String) -> Fut,
     Fut: std::future::Future<Output = anyhow::Result<()>>,
 {
-    let (control, bucket) = crate::create_test_regional_rapid_bucket(hns).await?;
-    let client = crate::build_regional_rapid_storage_client().await?;
+    let (control, bucket) = create_test_regional_rapid_bucket(hns).await?;
+    let client = build_regional_rapid_storage_client().await?;
     let result = f(client, bucket.name.clone()).await;
-    let _ = crate::cleanup_regional_rapid_bucket(control, bucket.name, bucket.project).await;
+    let _ = cleanup_regional_rapid_bucket(control, bucket.name, bucket.project).await;
     result
+}
+
+// Regional Rapid (RCU) Fixture & Client Helpers
+async fn build_storage_control_client() -> anyhow::Result<StorageControl> {
+    let endpoint =
+        std::env::var("GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT").unwrap_or_else(|_| {
+            "https://storage-preprod-test-grpc.googleusercontent.com:443".to_string()
+        });
+    tracing::info!("StorageControl endpoint: {endpoint}");
+
+    let client = StorageControl::builder()
+        .with_endpoint(&endpoint)
+        .with_backoff_policy(
+            ExponentialBackoffBuilder::new()
+                .with_initial_delay(Duration::from_secs(2))
+                .with_maximum_delay(Duration::from_secs(8))
+                .build()?,
+        )
+        .with_retry_policy(RetryableErrors.with_attempt_limit(5))
+        .build()
+        .await?;
+
+    Ok(client)
+}
+
+async fn build_regional_rapid_storage_client() -> anyhow::Result<Storage> {
+    let endpoint = std::env::var("GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT")
+        .or_else(|_| std::env::var("GOOGLE_CLOUD_TEST_STORAGE_ENDPOINT"))
+        .unwrap_or_else(|_| {
+            "https://storage-preprod-test-grpc.googleusercontent.com:443".to_string()
+        });
+
+    Ok(Storage::builder().with_endpoint(endpoint).build().await?)
+}
+
+async fn create_test_regional_rapid_bucket(hns: bool) -> anyhow::Result<(StorageControl, Bucket)> {
+    let project_id = project_id()?;
+    let control = build_storage_control_client().await?;
+    storage_samples::cleanup_stale_buckets(&control, &project_id).await;
+
+    let bucket_id = random_bucket_id();
+    let mut bucket = Bucket::new()
+        .set_project(format!("projects/{project_id}"))
+        .set_location("us-central1")
+        .set_labels([("integration-test", "true")])
+        .set_iam_config(
+            IamConfig::new()
+                .set_uniform_bucket_level_access(UniformBucketLevelAccess::new().set_enabled(true)),
+        );
+    if hns {
+        bucket = bucket.set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true));
+    }
+
+    let created_bucket = control
+        .create_bucket()
+        .set_parent("projects/_")
+        .set_bucket_id(bucket_id)
+        .set_bucket(bucket)
+        .with_idempotency(true)
+        .send()
+        .await?;
+    println!(
+        "create_test_regional_rapid_bucket(hns={hns}) created base bucket: {:?}",
+        created_bucket.name
+    );
+
+    let rapid_cache = RapidCache::new()
+        .set_name(format!("{}/rapidCaches/us-central1-a", created_bucket.name))
+        .set_zone("us-central1-a")
+        .set_cache_type("rapid-cache-ultra");
+
+    let _op = control
+        .create_rapid_cache()
+        .set_parent(&created_bucket.name)
+        .set_rapid_cache(rapid_cache)
+        .poller()
+        .until_done()
+        .await?;
+    println!("create_test_regional_rapid_bucket: attached rapid-cache-ultra in us-central1-a");
+
+    Ok((control, created_bucket))
+}
+
+async fn cleanup_regional_rapid_bucket(
+    control: StorageControl,
+    bucket_name: String,
+    project_id: String,
+) -> anyhow::Result<()> {
+    let mut caches = control
+        .list_rapid_caches()
+        .set_parent(&bucket_name)
+        .by_item();
+    while let Some(item) = caches.next().await {
+        if let Ok(cache) = item {
+            tracing::info!("disabling rapid cache {}", cache.name);
+            let _ = control
+                .disable_rapid_cache()
+                .set_name(cache.name)
+                .poller()
+                .until_done()
+                .await;
+        }
+    }
+    storage_samples::cleanup_bucket(control, bucket_name, project_id).await
 }
 
 // -----------------------------------------------------------------------------
