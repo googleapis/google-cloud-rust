@@ -52,12 +52,11 @@ pub async fn run() -> anyhow::Result<()> {
     // 0. Bucketless test case (Test 4)
     non_existent_bucket_read(client).await?;
 
-    // 1. Regional Standard (Flat) — shared by non-bucket-dependent tests (2, 5) & flat standard tests (1, 3)
+    // 1. Regional Standard (Flat) — shared by non-bucket-dependent tests (2, 5) & flat standard test (1)
     with_regional_standard_bucket(false, |bucket| async move {
         read_post_stream_close(client, &bucket).await?;
         out_of_range(client, &bucket).await?;
         multiple_ranged_read_regional_standard_flat(client, &bucket).await?;
-        zero_copy_read_regional_standard_flat(client, &bucket).await?;
         Ok(())
     })
     .await?;
@@ -65,7 +64,6 @@ pub async fn run() -> anyhow::Result<()> {
     // 2. Regional Standard (HNS)
     with_regional_standard_bucket(true, |bucket| async move {
         multiple_ranged_read_regional_standard_hns(client, &bucket).await?;
-        zero_copy_read_regional_standard_hns(client, &bucket).await?;
         Ok(())
     })
     .await?;
@@ -73,9 +71,7 @@ pub async fn run() -> anyhow::Result<()> {
     // 3. Zonal Rapid (HNS is always enabled) — shared across both colocated and non-colocated clients
     with_zonal_rapid_bucket(|bucket| async move {
         multiple_ranged_read_zonal_rapid_colocated(client, &bucket).await?;
-        zero_copy_read_zonal_rapid_colocated(client, &bucket).await?;
         multiple_ranged_read_zonal_rapid_non_colocated(non_colocated_client, &bucket).await?;
-        zero_copy_read_zonal_rapid_non_colocated(non_colocated_client, &bucket).await?;
         Ok(())
     })
     .await?;
@@ -83,10 +79,8 @@ pub async fn run() -> anyhow::Result<()> {
     // 4. Regional Rapid (RCU - HNS) — cache in us-central1-a; shared across colocated and non-colocated clients
     with_regional_rapid_bucket(true, |bucket| async move {
         multiple_ranged_read_regional_rapid_hns_colocated(client, &bucket).await?;
-        zero_copy_read_regional_rapid_hns_colocated(client, &bucket).await?;
         multiple_ranged_read_regional_rapid_hns_non_colocated(non_colocated_client, &bucket)
             .await?;
-        zero_copy_read_regional_rapid_hns_non_colocated(non_colocated_client, &bucket).await?;
         Ok(())
     })
     .await?;
@@ -94,10 +88,8 @@ pub async fn run() -> anyhow::Result<()> {
     // 5. Regional Rapid (RCU - Flat) — cache in us-central1-a; shared across colocated and non-colocated clients
     with_regional_rapid_bucket(false, |bucket| async move {
         multiple_ranged_read_regional_rapid_flat_colocated(client, &bucket).await?;
-        zero_copy_read_regional_rapid_flat_colocated(client, &bucket).await?;
         multiple_ranged_read_regional_rapid_flat_non_colocated(non_colocated_client, &bucket)
             .await?;
-        zero_copy_read_regional_rapid_flat_non_colocated(non_colocated_client, &bucket).await?;
         Ok(())
     })
     .await?;
@@ -310,7 +302,7 @@ pub async fn out_of_range(client: &Storage, bucket: &str) -> anyhow::Result<()> 
 }
 
 // =============================================================================
-// Bucket-type-dependent test cases (Tests 1 & 3 permuted)
+// Bucket-type-dependent test cases (Test 1 permuted across topologies)
 // =============================================================================
 
 // --- 1. Regional Standard (HNS vs. Flat; colocation is not applicable) ---
@@ -329,20 +321,6 @@ pub async fn multiple_ranged_read_regional_standard_flat(
     test_multiple_ranged_read(client, bucket).await
 }
 
-pub async fn zero_copy_read_regional_standard_hns(
-    client: &Storage,
-    bucket: &str,
-) -> anyhow::Result<()> {
-    test_zero_copy_read(client, bucket).await
-}
-
-pub async fn zero_copy_read_regional_standard_flat(
-    client: &Storage,
-    bucket: &str,
-) -> anyhow::Result<()> {
-    test_zero_copy_read(client, bucket).await
-}
-
 // --- 2. Zonal Rapid (Colocated vs. Non-Colocated; HNS is always enabled) ---
 
 pub async fn multiple_ranged_read_zonal_rapid_colocated(
@@ -357,20 +335,6 @@ pub async fn multiple_ranged_read_zonal_rapid_non_colocated(
     bucket: &str,
 ) -> anyhow::Result<()> {
     test_multiple_ranged_read(client, bucket).await
-}
-
-pub async fn zero_copy_read_zonal_rapid_colocated(
-    client: &Storage,
-    bucket: &str,
-) -> anyhow::Result<()> {
-    test_zero_copy_read(client, bucket).await
-}
-
-pub async fn zero_copy_read_zonal_rapid_non_colocated(
-    client: &Storage,
-    bucket: &str,
-) -> anyhow::Result<()> {
-    test_zero_copy_read(client, bucket).await
 }
 
 // --- 3. Regional Rapid / RCU (HNS vs. Flat × Colocated vs. Non-Colocated relative to cache zone) ---
@@ -403,34 +367,6 @@ pub async fn multiple_ranged_read_regional_rapid_flat_non_colocated(
     test_multiple_ranged_read(client, bucket).await
 }
 
-pub async fn zero_copy_read_regional_rapid_hns_colocated(
-    client: &Storage,
-    bucket: &str,
-) -> anyhow::Result<()> {
-    test_zero_copy_read(client, bucket).await
-}
-
-pub async fn zero_copy_read_regional_rapid_hns_non_colocated(
-    client: &Storage,
-    bucket: &str,
-) -> anyhow::Result<()> {
-    test_zero_copy_read(client, bucket).await
-}
-
-pub async fn zero_copy_read_regional_rapid_flat_colocated(
-    client: &Storage,
-    bucket: &str,
-) -> anyhow::Result<()> {
-    test_zero_copy_read(client, bucket).await
-}
-
-pub async fn zero_copy_read_regional_rapid_flat_non_colocated(
-    client: &Storage,
-    bucket: &str,
-) -> anyhow::Result<()> {
-    test_zero_copy_read(client, bucket).await
-}
-
 /// Test Suite 1 - Test 1: Multiple Ranged Read
 ///
 /// Tests reading an object across multiple concurrent range read streams over the
@@ -438,7 +374,7 @@ pub async fn zero_copy_read_regional_rapid_flat_non_colocated(
 /// without deadlock, all received bytes match the expected slices, total length matches,
 /// and CRC32C checksum integrity across all ranges matches.
 pub async fn test_multiple_ranged_read(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
-    println!("--- [Conformance 1/5] Testing Multiple Ranged Read ---");
+    println!("--- [Conformance 1/4] Testing Multiple Ranged Read ---");
     const TOTAL_SIZE: usize = 512 * 1024;
     let payload = String::from_iter(('a'..='z').cycle().take(TOTAL_SIZE));
     let object_name = format!("bidi_read/multi_range_source_{}.txt", random_bucket_id());
@@ -507,7 +443,7 @@ pub async fn test_read_post_stream_close(
     client: &Storage,
     bucket_name: &str,
 ) -> anyhow::Result<()> {
-    println!("--- [Conformance 2/5] Testing Read Post Stream Close ---");
+    println!("--- [Conformance 2/4] Testing Read Post Stream Close ---");
     let payload = String::from_iter(('a'..='z').cycle().take(100_000));
     let object_name = "bidi_read/post_close_source.txt";
 
@@ -548,63 +484,12 @@ pub async fn test_read_post_stream_close(
     Ok(())
 }
 
-/// Test Suite 1 - Test 3: Zero-Copy Read
-///
-/// Tests concurrent zero-copy range reads, validating bytes::Bytes buffer access and memory safety.
-pub async fn test_zero_copy_read(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
-    println!("--- [Conformance 3/5] Testing Zero Copy Read ---");
-    const SIZE: usize = 100_000;
-    let payload = String::from_iter(('a'..='z').cycle().take(SIZE));
-    let object_name = format!("bidi_read/zero_copy_source_{}.txt", random_bucket_id());
-
-    let write = client
-        .write_object(bucket_name, object_name, payload.clone())
-        .set_if_generation_match(0)
-        .send_unbuffered()
-        .await?;
-
-    // Open connection and read first range with Fast Open (send_and_read)
-    let (descriptor, reader1) = client
-        .open_object(bucket_name, &write.name)
-        .send_and_read(ReadRange::segment(0, 50_000))
-        .await?;
-
-    // Initiate second range on the open descriptor concurrently
-    let reader2 = descriptor
-        .read_range(ReadRange::segment(50_000, 50_000))
-        .await;
-
-    // Concurrently collect zero-copy bytes::Bytes chunks
-    let (chunks1, chunks2) = tokio::try_join!(
-        collect_zero_copy_chunks(reader1),
-        collect_zero_copy_chunks(reader2),
-    )?;
-
-    // Verify chunk properties and reconstruct
-    let mut combined1 = Vec::new();
-    for chunk in &chunks1 {
-        assert!(!chunk.is_empty(), "chunks should not be empty");
-        combined1.extend_from_slice(chunk);
-    }
-    assert_eq!(combined1, &payload.as_bytes()[0..50_000]);
-
-    let mut combined2 = Vec::new();
-    for chunk in &chunks2 {
-        assert!(!chunk.is_empty(), "chunks should not be empty");
-        combined2.extend_from_slice(chunk);
-    }
-    assert_eq!(combined2, &payload.as_bytes()[50_000..100_000]);
-
-    println!("SUCCESS on Conformance 3: Zero Copy Read");
-    Ok(())
-}
-
 /// Test Suite 1 - Test 4: Non-Existent Bucket Read
 ///
 /// Tests opening a stream on a non-existent bucket. Verifies that an appropriate
 /// error with NotFound status (HTTP 404) or PermissionDenied (allowlist check) is returned.
 pub async fn test_non_existent_bucket_read(client: &Storage) -> anyhow::Result<()> {
-    println!("--- [Conformance 4/5] Testing Non Existent Bucket Read ---");
+    println!("--- [Conformance 3/4] Testing Non Existent Bucket Read ---");
     let non_existent_bucket = format!(
         "projects/_/buckets/non-existent-bucket-{}",
         google_cloud_test_utils::resource_names::random_bucket_id()
@@ -631,7 +516,7 @@ pub async fn test_non_existent_bucket_read(client: &Storage) -> anyhow::Result<(
         }
     }
 
-    println!("SUCCESS on Conformance 4: Non Existent Bucket Read");
+    println!("SUCCESS on Conformance 3: Non Existent Bucket Read");
     Ok(())
 }
 
@@ -658,7 +543,7 @@ fn assert_is_not_found(err: &google_cloud_gax::error::Error) {
 /// Ensures appropriate exception/EOF is returned for the invalid range while valid range reads
 /// on the same session succeed.
 pub async fn test_out_of_range(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
-    println!("--- [Conformance 5/5] Testing Out Of Range Read ---");
+    println!("--- [Conformance 4/4] Testing Out Of Range Read ---");
     let payload = String::from_iter(('a'..='z').cycle().take(10_000));
     let object_name = "bidi_read/out_of_range_source.txt";
 
@@ -707,7 +592,7 @@ pub async fn test_out_of_range(client: &Storage, bucket_name: &str) -> anyhow::R
         }
     }
 
-    println!("SUCCESS on Conformance 5: Out Of Range Read");
+    println!("SUCCESS on Conformance 4: Out Of Range Read");
     Ok(())
 }
 
@@ -717,14 +602,4 @@ async fn drain_reader(mut reader: ReadObjectResponse) -> anyhow::Result<Vec<u8>>
         buf.extend_from_slice(&chunk);
     }
     Ok(buf)
-}
-
-async fn collect_zero_copy_chunks(
-    mut reader: ReadObjectResponse,
-) -> anyhow::Result<Vec<bytes::Bytes>> {
-    let mut chunks = Vec::new();
-    while let Some(chunk) = reader.next().await.transpose()? {
-        chunks.push(chunk);
-    }
-    Ok(chunks)
 }
