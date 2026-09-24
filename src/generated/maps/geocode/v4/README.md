@@ -29,9 +29,9 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-maps-geocode-v4/1.0.0)
+- Read the [crate's documentation](https://docs.rs/google-maps-geocode-v4/1.1.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[DestinationService]: https://docs.rs/google-maps-geocode-v4/1.0.0/google_maps_geocode_v4/client/struct.DestinationService.html
-[GeocodeService]: https://docs.rs/google-maps-geocode-v4/1.0.0/google_maps_geocode_v4/client/struct.GeocodeService.html
+[DestinationService]: https://docs.rs/google-maps-geocode-v4/1.1.0/google_maps_geocode_v4/client/struct.DestinationService.html
+[GeocodeService]: https://docs.rs/google-maps-geocode-v4/1.1.0/google_maps_geocode_v4/client/struct.GeocodeService.html
