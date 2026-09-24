@@ -143,9 +143,7 @@ pub async fn run(client: StorageControl, bucket_name: &str) -> anyhow::Result<()
     test_get_rapid_cache(&client, bucket_name, zone).await?;
     test_get_rapid_cache_non_existent(&client, bucket_name).await?;
     test_list_rapid_caches(&client, bucket_name, zone).await?;
-
     test_update_rapid_cache(&client, bucket_name, zone).await?;
-
     test_disable_rapid_cache(&client, bucket_name, zone).await?;
     test_disable_rapid_cache_non_existent(&client, bucket_name).await?;
 
@@ -153,7 +151,6 @@ pub async fn run(client: StorageControl, bucket_name: &str) -> anyhow::Result<()
     Ok(())
 }
 
-/// Test Case 1: Create Rapid Cache
 pub async fn test_create_rapid_cache(
     client: &StorageControl,
     bucket_name: &str,
@@ -185,7 +182,6 @@ pub async fn test_create_rapid_cache(
     Ok(cache)
 }
 
-/// Test Case 2: Create Rapid Cache - Invalid Config
 pub async fn test_create_rapid_cache_invalid_config(
     client: &StorageControl,
     bucket_name: &str,
@@ -224,7 +220,6 @@ pub async fn test_create_rapid_cache_invalid_config(
     Ok(())
 }
 
-/// Test Case 3: Create Duplicate Rapid Cache
 pub async fn test_create_rapid_cache_duplicate(
     client: &StorageControl,
     bucket_name: &str,
@@ -263,7 +258,6 @@ pub async fn test_create_rapid_cache_duplicate(
     Ok(())
 }
 
-/// Test Case 4: Get Rapid Cache
 pub async fn test_get_rapid_cache(
     client: &StorageControl,
     bucket_name: &str,
@@ -286,7 +280,6 @@ pub async fn test_get_rapid_cache(
     Ok(cache)
 }
 
-/// Test Case 5: Get Non-existent Rapid Cache
 pub async fn test_get_rapid_cache_non_existent(
     client: &StorageControl,
     bucket_name: &str,
@@ -316,7 +309,6 @@ pub async fn test_get_rapid_cache_non_existent(
     Ok(())
 }
 
-/// Test Case 6: List Rapid Caches
 pub async fn test_list_rapid_caches(
     client: &StorageControl,
     bucket_name: &str,
@@ -346,7 +338,6 @@ pub async fn test_list_rapid_caches(
     Ok(())
 }
 
-/// Test Case 7: Update Rapid Cache
 pub async fn test_update_rapid_cache(
     client: &StorageControl,
     bucket_name: &str,
@@ -356,8 +347,6 @@ pub async fn test_update_rapid_cache(
     let cache_name = format!("{bucket_name}/rapidCaches/{zone}");
     let new_ttl = Duration::clamp(172800, 0); // 48 hours
 
-    // Note: Cross-language testing revealed that cache_type must be specified
-    // to avoid a backend HTTP 500 error.
     let updated_config = RapidCache::new()
         .set_name(&cache_name)
         .set_zone(zone)
@@ -385,7 +374,6 @@ pub async fn test_update_rapid_cache(
     Ok(updated)
 }
 
-/// Test Case 8: Disable Rapid Cache
 pub async fn test_disable_rapid_cache(
     client: &StorageControl,
     bucket_name: &str,
@@ -436,7 +424,6 @@ pub async fn test_disable_rapid_cache(
     Ok(())
 }
 
-/// Test Case 9: Disable Non-existent Cache
 pub async fn test_disable_rapid_cache_non_existent(
     client: &StorageControl,
     bucket_name: &str,
