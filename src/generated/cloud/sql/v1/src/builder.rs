@@ -1350,6 +1350,12 @@ pub mod sql_databases_service {
             self.0.request.project = v.into();
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlDatabasesDeleteRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -1420,6 +1426,12 @@ pub mod sql_databases_service {
         /// Sets the value of [project][crate::model::SqlDatabasesGetRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlDatabasesGetRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -1509,6 +1521,12 @@ pub mod sql_databases_service {
             self.0.request.body = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlDatabasesInsertRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -1576,6 +1594,12 @@ pub mod sql_databases_service {
         /// Sets the value of [project][crate::model::SqlDatabasesListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlDatabasesListRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -1671,6 +1695,12 @@ pub mod sql_databases_service {
             self.0.request.body = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlDatabasesUpdateRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -1762,6 +1792,12 @@ pub mod sql_databases_service {
             T: std::convert::Into<crate::model::Database>,
         {
             self.0.request.body = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlDatabasesUpdateRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -2027,6 +2063,12 @@ pub mod sql_instances_service {
             self.0.request.project = v.into();
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesAddServerCaRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -2096,6 +2138,12 @@ pub mod sql_instances_service {
         /// Sets the value of [project][crate::model::SqlInstancesAddServerCertificateRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlInstancesAddServerCertificateRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -2171,6 +2219,12 @@ pub mod sql_instances_service {
         /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlInstancesAddEntraIdCertificateRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -2268,6 +2322,12 @@ pub mod sql_instances_service {
             self.0.request.body = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesCloneRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -2359,6 +2419,12 @@ pub mod sql_instances_service {
         /// Sets the value of [final_backup_description][crate::model::SqlInstancesDeleteRequest::final_backup_description].
         pub fn set_final_backup_description<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.final_backup_description = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlInstancesDeleteRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
 
@@ -2487,6 +2553,12 @@ pub mod sql_instances_service {
             self.0.request.body = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesDemoteMasterRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -2582,6 +2654,12 @@ pub mod sql_instances_service {
             self.0.request.body = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesDemoteRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -2667,6 +2745,12 @@ pub mod sql_instances_service {
             T: std::convert::Into<crate::model::InstancesExportRequest>,
         {
             self.0.request.body = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlInstancesExportRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -2756,6 +2840,12 @@ pub mod sql_instances_service {
             self.0.request.body = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesFailoverRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -2843,6 +2933,12 @@ pub mod sql_instances_service {
             self.0.request.body = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesReencryptRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -2911,6 +3007,12 @@ pub mod sql_instances_service {
         /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlInstancesGetRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -3000,6 +3102,12 @@ pub mod sql_instances_service {
             self.0.request.body = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesImportRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -3079,6 +3187,12 @@ pub mod sql_instances_service {
             T: std::convert::Into<crate::model::DatabaseInstance>,
         {
             self.0.request.body = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlInstancesInsertRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -3192,6 +3306,12 @@ pub mod sql_instances_service {
             self.0.request.project = v.into();
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesListRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -3259,6 +3379,12 @@ pub mod sql_instances_service {
         /// Sets the value of [project][crate::model::SqlInstancesListServerCasRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlInstancesListServerCasRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -3336,6 +3462,12 @@ pub mod sql_instances_service {
             self.0.request.project = v.into();
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesListServerCertificatesRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -3409,6 +3541,12 @@ pub mod sql_instances_service {
         /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlInstancesListEntraIdCertificatesRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -3537,6 +3675,12 @@ pub mod sql_instances_service {
             self.0.request.body = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesPatchRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -3610,6 +3754,12 @@ pub mod sql_instances_service {
         /// Sets the value of [failover][crate::model::SqlInstancesPromoteReplicaRequest::failover].
         pub fn set_failover<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.failover = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlInstancesPromoteReplicaRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -3699,6 +3849,12 @@ pub mod sql_instances_service {
             self.0.request.db_timeout = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesSwitchoverRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -3779,6 +3935,12 @@ pub mod sql_instances_service {
             self.0.request.mode = v.into();
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesResetSslConfigRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -3846,6 +4008,12 @@ pub mod sql_instances_service {
         /// Sets the value of [project][crate::model::SqlInstancesRestartRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlInstancesRestartRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -3935,6 +4103,12 @@ pub mod sql_instances_service {
             self.0.request.body = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesRestoreBackupRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -4020,6 +4194,12 @@ pub mod sql_instances_service {
             T: std::convert::Into<crate::model::InstancesRotateServerCaRequest>,
         {
             self.0.request.body = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlInstancesRotateServerCaRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -4115,6 +4295,12 @@ pub mod sql_instances_service {
             self.0.request.body = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesRotateServerCertificateRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -4208,6 +4394,12 @@ pub mod sql_instances_service {
             self.0.request.body = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesRotateEntraIdCertificateRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -4277,6 +4469,12 @@ pub mod sql_instances_service {
             self.0.request.project = v.into();
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesStartReplicaRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -4344,6 +4542,12 @@ pub mod sql_instances_service {
         /// Sets the value of [project][crate::model::SqlInstancesStopReplicaRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlInstancesStopReplicaRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -4433,6 +4637,12 @@ pub mod sql_instances_service {
             self.0.request.body = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesTruncateLogRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -4518,6 +4728,12 @@ pub mod sql_instances_service {
             T: std::convert::Into<crate::model::DatabaseInstance>,
         {
             self.0.request.body = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlInstancesUpdateRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -4609,6 +4825,12 @@ pub mod sql_instances_service {
             self.0.request.body = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesCreateEphemeralCertRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -4696,6 +4918,12 @@ pub mod sql_instances_service {
             T: std::convert::Into<crate::model::SqlInstancesRescheduleMaintenanceRequestBody>,
         {
             self.0.request.body = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlInstancesRescheduleMaintenanceRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -4827,6 +5055,12 @@ pub mod sql_instances_service {
         {
             use std::iter::Iterator;
             self.0.request.selected_objects = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
 
@@ -4979,6 +5213,12 @@ pub mod sql_instances_service {
             self
         }
 
+        /// Sets the value of [location][crate::model::SqlInstancesStartExternalSyncRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
+
         /// Sets the value of [sync_config][crate::model::SqlInstancesStartExternalSyncRequest::sync_config].
         ///
         /// Note that all the setters affecting `sync_config` are
@@ -5096,6 +5336,12 @@ pub mod sql_instances_service {
             self.0.request.body = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesPerformDiskShrinkRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -5167,6 +5413,12 @@ pub mod sql_instances_service {
             self.0.request.project = v.into();
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesGetDiskShrinkConfigRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -5234,6 +5486,12 @@ pub mod sql_instances_service {
         /// Sets the value of [project][crate::model::SqlInstancesResetReplicaSizeRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlInstancesResetReplicaSizeRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -5328,6 +5586,12 @@ pub mod sql_instances_service {
             self.0.request.source_instance_deletion_time = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesGetLatestRecoveryTimeRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -5417,6 +5681,12 @@ pub mod sql_instances_service {
             T: std::convert::Into<crate::model::ExecuteSqlPayload>,
         {
             self.0.request.body = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlInstancesExecuteSqlRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -5514,6 +5784,12 @@ pub mod sql_instances_service {
             self.0.request.body = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlInstancesAcquireSsrsLeaseRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -5585,6 +5861,12 @@ pub mod sql_instances_service {
         /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlInstancesReleaseSsrsLeaseRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -5684,6 +5966,12 @@ pub mod sql_instances_service {
             T: std::convert::Into<crate::model::InstancesPreCheckMajorVersionUpgradeRequest>,
         {
             self.0.request.body = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlInstancesPreCheckMajorVersionUpgradeRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -6718,6 +7006,12 @@ pub mod sql_users_service {
             self.0.request.project = v.into();
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlUsersDeleteRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -6794,6 +7088,12 @@ pub mod sql_users_service {
         /// Sets the value of [host][crate::model::SqlUsersGetRequest::host].
         pub fn set_host<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.host = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlUsersGetRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -6880,6 +7180,12 @@ pub mod sql_users_service {
             self.0.request.body = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [location][crate::model::SqlUsersInsertRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -6944,6 +7250,12 @@ pub mod sql_users_service {
         /// Sets the value of [project][crate::model::SqlUsersListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlUsersListRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }
@@ -7101,6 +7413,12 @@ pub mod sql_users_service {
             T: std::convert::Into<crate::model::User>,
         {
             self.0.request.body = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [location][crate::model::SqlUsersUpdateRequest::location].
+        pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location = v.into();
             self
         }
     }

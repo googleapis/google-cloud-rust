@@ -253,8 +253,15 @@ impl CloudTasks {
     ///
     /// This command will delete the queue even if it has tasks in it.
     ///
-    /// Note: If you delete a queue, a queue with the same name can't be created
-    /// for 7 days.
+    /// Note: If you delete a queue, you may be prevented from creating a new queue
+    /// with the same name as the deleted queue for a tombstone window of up to
+    /// 3 days. During this window, the CreateQueue operation may appear to
+    /// recreate the queue, but this can be misleading. If you attempt to create
+    /// a queue with the same name as one that is in the tombstone window, run
+    /// GetQueue to confirm that the queue creation was successful. If GetQueue
+    /// returns 200 response code, your queue was successfully created with the
+    /// name of the previously deleted queue. Otherwise, your queue did not
+    /// successfully recreate.
     ///
     /// WARNING: Using this method may have unintended side effects if you are
     /// using an App Engine `queue.yaml` or `queue.xml` file to manage your queues.
@@ -501,6 +508,10 @@ impl CloudTasks {
 
     /// Gets a task.
     ///
+    /// After a task is successfully executed or has exhausted its retry attempts,
+    /// the task is deleted. A `GetTask` request for a deleted task returns a
+    /// `NOT_FOUND` error.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_tasks_v2::client::CloudTasks;
@@ -547,6 +558,40 @@ impl CloudTasks {
         super::builder::cloud_tasks::CreateTask::new(self.inner.clone())
     }
 
+    /// Creates a batch of tasks and adds them to a queue.
+    ///
+    /// All tasks must be for the same queue.
+    /// A maximum of 100 tasks can be created in a single batch.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::client::CloudTasks;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_tasks_v2::Result;
+    /// async fn sample(
+    ///    client: &CloudTasks
+    /// ) -> Result<()> {
+    ///     let response = client.batch_create_tasks()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn batch_create_tasks(&self) -> super::builder::cloud_tasks::BatchCreateTasks {
+        super::builder::cloud_tasks::BatchCreateTasks::new(self.inner.clone())
+    }
+
     /// Deletes a task.
     ///
     /// A task can be deleted if it is scheduled or dispatched. A task
@@ -570,6 +615,40 @@ impl CloudTasks {
         super::builder::cloud_tasks::DeleteTask::new(self.inner.clone())
     }
 
+    /// Deletes a batch of tasks.
+    /// This is a non-atomic operation: if deletion fails for some tasks, it
+    /// can still succeed for others. The metadata field of
+    /// google.longrunning.Operation contains details of failed deletions.
+    /// A maximum of 1000 tasks can be deleted in a batch.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::client::CloudTasks;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_tasks_v2::Result;
+    /// async fn sample(
+    ///    client: &CloudTasks
+    /// ) -> Result<()> {
+    ///     client.batch_delete_tasks()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn batch_delete_tasks(&self) -> super::builder::cloud_tasks::BatchDeleteTasks {
+        super::builder::cloud_tasks::BatchDeleteTasks::new(self.inner.clone())
+    }
+
     /// Forces a task to run now.
     ///
     /// When this method is called, Cloud Tasks will dispatch the task, even if
@@ -581,10 +660,6 @@ impl CloudTasks {
     /// example, [RunTask][google.cloud.tasks.v2.CloudTasks.RunTask] can be used to
     /// retry a failed task after a fix has been made or to manually force a task
     /// to be dispatched now.
-    ///
-    /// The dispatched task is returned. That is, the task that is returned
-    /// contains the [status][Task.status] after the task is dispatched but
-    /// before the task is received by its target.
     ///
     /// If Cloud Tasks receives a successful response from the task's
     /// target, then the task will be deleted; otherwise the task's
@@ -621,7 +696,78 @@ impl CloudTasks {
         super::builder::cloud_tasks::RunTask::new(self.inner.clone())
     }
 
+    /// Creates or Updates a CMEK config.
+    ///
+    /// Updates the Customer Managed Encryption Key associated with the Cloud Tasks
+    /// location (Creates if the key does not already exist). All new tasks created
+    /// in the location will be encrypted at-rest with the KMS-key provided in the
+    /// config.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::client::CloudTasks;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_tasks_v2::model::CmekConfig;
+    /// use google_cloud_tasks_v2::Result;
+    /// async fn sample(
+    ///    client: &CloudTasks, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_cmek_config()
+    ///         .set_cmek_config(
+    ///             CmekConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/cmekConfig"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_cmek_config(&self) -> super::builder::cloud_tasks::UpdateCmekConfig {
+        super::builder::cloud_tasks::UpdateCmekConfig::new(self.inner.clone())
+    }
+
+    /// Gets the CMEK config.
+    ///
+    /// Gets the Customer Managed Encryption Key configured with the Cloud Tasks
+    /// location. By default there is no kms_key configured.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::client::CloudTasks;
+    /// use google_cloud_tasks_v2::Result;
+    /// async fn sample(
+    ///    client: &CloudTasks, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_cmek_config()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/cmekConfig"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_cmek_config(&self) -> super::builder::cloud_tasks::GetCmekConfig {
+        super::builder::cloud_tasks::GetCmekConfig::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name][google.cloud.location.ListLocationsRequest.name] field: *
+    /// **Global locations**: If `name` is empty, the method lists the
+    /// public locations available to all projects. * **Project-specific
+    /// locations**: If `name` follows the format
+    /// `projects/{project}`, the method lists locations visible to that
+    /// specific project. This includes public, private, or other
+    /// project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// [google.cloud.location.ListLocationsRequest.name]: google_cloud_location::model::ListLocationsRequest::name
     ///
     /// # Example
     /// ```
@@ -662,5 +808,27 @@ impl CloudTasks {
     /// ```
     pub fn get_location(&self) -> super::builder::cloud_tasks::GetLocation {
         super::builder::cloud_tasks::GetLocation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::client::CloudTasks;
+    /// use google_cloud_tasks_v2::Result;
+    /// async fn sample(
+    ///    client: &CloudTasks
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::cloud_tasks::GetOperation {
+        super::builder::cloud_tasks::GetOperation::new(self.inner.clone())
     }
 }

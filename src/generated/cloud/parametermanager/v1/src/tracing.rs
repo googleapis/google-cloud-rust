@@ -196,6 +196,160 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_templates(
+        &self,
+        req: crate::model::ListTemplatesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListTemplatesResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ParameterManager::list_templates",
+            self.inner.list_templates(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_template(
+        &self,
+        req: crate::model::GetTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Template>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ParameterManager::get_template",
+            self.inner.get_template(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_template(
+        &self,
+        req: crate::model::CreateTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Template>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ParameterManager::create_template",
+            self.inner.create_template(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_template(
+        &self,
+        req: crate::model::UpdateTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Template>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ParameterManager::update_template",
+            self.inner.update_template(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_template(
+        &self,
+        req: crate::model::DeleteTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ParameterManager::delete_template",
+            self.inner.delete_template(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_template_versions(
+        &self,
+        req: crate::model::ListTemplateVersionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListTemplateVersionsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ParameterManager::list_template_versions",
+            self.inner.list_template_versions(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_template_version(
+        &self,
+        req: crate::model::GetTemplateVersionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TemplateVersion>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ParameterManager::get_template_version",
+            self.inner.get_template_version(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_template_version(
+        &self,
+        req: crate::model::CreateTemplateVersionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TemplateVersion>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ParameterManager::create_template_version",
+            self.inner.create_template_version(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_template_version(
+        &self,
+        req: crate::model::UpdateTemplateVersionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TemplateVersion>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ParameterManager::update_template_version",
+            self.inner.update_template_version(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_template_version(
+        &self,
+        req: crate::model::DeleteTemplateVersionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ParameterManager::delete_template_version",
+            self.inner.delete_template_version(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn render_template_version(
+        &self,
+        req: crate::model::RenderTemplateVersionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RenderTemplateVersionResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ParameterManager::render_template_version",
+            self.inner.render_template_version(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,

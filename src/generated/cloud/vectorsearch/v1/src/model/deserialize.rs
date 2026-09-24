@@ -717,6 +717,7 @@ impl<'de> serde::de::Deserialize<'de> for super::search_hint::IndexHint {
         #[doc(hidden)]
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
+            __dense_scann_params,
             __name,
             Unknown(std::string::String),
         }
@@ -738,6 +739,8 @@ impl<'de> serde::de::Deserialize<'de> for super::search_hint::IndexHint {
                         use std::result::Result::Ok;
                         use std::string::ToString;
                         match value {
+                            "denseScannParams" => Ok(__FieldTag::__dense_scann_params),
+                            "dense_scann_params" => Ok(__FieldTag::__dense_scann_params),
                             "name" => Ok(__FieldTag::__name),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -764,6 +767,28 @@ impl<'de> serde::de::Deserialize<'de> for super::search_hint::IndexHint {
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
+                        __FieldTag::__dense_scann_params => {
+                            if !fields.insert(__FieldTag::__dense_scann_params) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for dense_scann_params",
+                                ));
+                            }
+                            if result.params.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `params`, a oneof with full ID .google.cloud.vectorsearch.v1.SearchHint.IndexHint.dense_scann_params, latest field was denseScannParams",
+                                ));
+                            }
+                            result.params = std::option::Option::Some(
+                                crate::model::search_hint::index_hint::Params::DenseScannParams(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<
+                                            crate::model::search_hint::index_hint::DenseScannParams,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
                         __FieldTag::__name => {
                             if !fields.insert(__FieldTag::__name) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -773,6 +798,96 @@ impl<'de> serde::de::Deserialize<'de> for super::search_hint::IndexHint {
                             result.name = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::search_hint::index_hint::DenseScannParams {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __target_recall,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DenseScannParams")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "targetRecall" => Ok(__FieldTag::__target_recall),
+                            "target_recall" => Ok(__FieldTag::__target_recall),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::search_hint::index_hint::DenseScannParams;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DenseScannParams")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__target_recall => {
+                            if !fields.insert(__FieldTag::__target_recall) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for target_recall",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.target_recall = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

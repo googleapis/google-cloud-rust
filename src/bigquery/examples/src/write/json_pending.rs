@@ -24,7 +24,7 @@ use google_cloud_bigquery::write::format::Arrow;
 use std::sync::Arc;
 use tokio::task::JoinSet;
 
-// The client library does not natively support a JSON API surface (yet).
+// The client library doesn't support a built-in JSON API surface.
 //
 // This example demonstrates how to write JSON data to BigQuery by first
 // converting it to Arrow record batches using the [arrow-json] crate.

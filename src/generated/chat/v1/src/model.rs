@@ -97,10 +97,10 @@ impl wkt::message::Message for ActionStatus {
     }
 }
 
-/// Output only. Annotations can be associated with the plain-text body of the
-/// message or with chips that link to Google Workspace resources like Google
-/// Docs or Sheets with `start_index` and `length` of 0. To add basic formatting
-/// to a text message, see [Format text
+/// Annotations can be associated with the plain-text body of the message or
+/// with chips that link to Google Workspace resources like Google Docs or Sheets
+/// with `start_index` and `length` of 0. To add basic formatting to a text
+/// message, see [Format text
 /// messages](https://developers.google.com/workspace/chat/format-messages).
 ///
 /// Example plain-text message body:
@@ -1944,6 +1944,213 @@ impl CalendarEventLinkData {
 impl wkt::message::Message for CalendarEventLinkData {
     fn typename() -> &'static str {
         "type.googleapis.com/google.chat.v1.CalendarEventLinkData"
+    }
+}
+
+/// Metadata about a [Chat app
+/// command](https://developers.google.com/workspace/chat/commands).
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AppCommandMetadata {
+    /// The ID for the command specified in the Chat API configuration.
+    pub app_command_id: i32,
+
+    /// The type of Chat app command.
+    pub app_command_type: crate::model::app_command_metadata::AppCommandType,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AppCommandMetadata {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [app_command_id][crate::model::AppCommandMetadata::app_command_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::AppCommandMetadata;
+    /// let x = AppCommandMetadata::new().set_app_command_id(42);
+    /// ```
+    pub fn set_app_command_id<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.app_command_id = v.into();
+        self
+    }
+
+    /// Sets the value of [app_command_type][crate::model::AppCommandMetadata::app_command_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::AppCommandMetadata;
+    /// use google_chat_v1::model::app_command_metadata::AppCommandType;
+    /// let x0 = AppCommandMetadata::new().set_app_command_type(AppCommandType::SlashCommand);
+    /// let x1 = AppCommandMetadata::new().set_app_command_type(AppCommandType::QuickCommand);
+    /// let x2 = AppCommandMetadata::new().set_app_command_type(AppCommandType::MessageAction);
+    /// ```
+    pub fn set_app_command_type<
+        T: std::convert::Into<crate::model::app_command_metadata::AppCommandType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.app_command_type = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AppCommandMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.chat.v1.AppCommandMetadata"
+    }
+}
+
+/// Defines additional types related to [AppCommandMetadata].
+pub mod app_command_metadata {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The type of Chat app command. For details, see [Types of Chat
+    /// app commands](https://developers.google.com/workspace/chat/commands#types).
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AppCommandType {
+        /// Default value. Unspecified.
+        Unspecified,
+        /// A slash command. The user sends the command in a Chat message.
+        SlashCommand,
+        /// A quick command. The user selects the command from the Chat menu
+        /// in the message reply area.
+        QuickCommand,
+        /// A message action. The user selects the command from the message context
+        /// menu in Chat.
+        MessageAction,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AppCommandType::value] or
+        /// [AppCommandType::name].
+        UnknownValue(app_command_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod app_command_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl AppCommandType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::SlashCommand => std::option::Option::Some(1),
+                Self::QuickCommand => std::option::Option::Some(3),
+                Self::MessageAction => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("APP_COMMAND_TYPE_UNSPECIFIED"),
+                Self::SlashCommand => std::option::Option::Some("SLASH_COMMAND"),
+                Self::QuickCommand => std::option::Option::Some("QUICK_COMMAND"),
+                Self::MessageAction => std::option::Option::Some("MESSAGE_ACTION"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for AppCommandType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AppCommandType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AppCommandType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::SlashCommand,
+                3 => Self::QuickCommand,
+                4 => Self::MessageAction,
+                _ => Self::UnknownValue(app_command_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AppCommandType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "APP_COMMAND_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "SLASH_COMMAND" => Self::SlashCommand,
+                "QUICK_COMMAND" => Self::QuickCommand,
+                "MESSAGE_ACTION" => Self::MessageAction,
+                _ => Self::UnknownValue(app_command_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AppCommandType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::SlashCommand => serializer.serialize_i32(1),
+                Self::QuickCommand => serializer.serialize_i32(3),
+                Self::MessageAction => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AppCommandType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<AppCommandType>::new(
+                ".google.chat.v1.AppCommandMetadata.AppCommandType",
+            ))
+        }
     }
 }
 
@@ -9341,9 +9548,24 @@ pub struct CreateMessageRequest {
     #[deprecated]
     pub thread_key: std::string::String,
 
-    /// Optional. A unique request ID for this message. Specifying an existing
-    /// request ID returns the message created with that ID instead of creating a
-    /// new message.
+    /// Optional. A unique ID for this request. A random UUID is recommended.
+    /// Specifying a request ID makes the request idempotent, which ensures that
+    /// multiple identical requests with the same request ID result in only a
+    /// single message being created. Subsequent requests with the same request
+    /// ID return the existing message and do not update the message, even if the
+    /// requested details differ from the current state.
+    ///
+    /// To use this field effectively:
+    ///
+    /// - Ensure that subsequent requests are identical and use the same
+    ///   authentication credentials as the original request.
+    /// - If a message was already created with the provided request ID, the
+    ///   request returns that message. Note that the returned message might not be
+    ///   fully populated; the API echoes the message in your request with the
+    ///   system-assigned resource names populated. To retrieve the latest metadata
+    ///   for the message, call `GetMessage`.
+    /// - Reusing an existing request ID with a different authenticated user
+    ///   results in an error.
     pub request_id: std::string::String,
 
     /// Optional. Specifies whether a message starts a thread or replies to one.
@@ -10471,6 +10693,10 @@ pub struct SearchMessagesRequest {
     ///   the top five space matches. For example, `space.display_name:Project`
     ///   searches for messages in the top five spaces that contain the word
     ///   "Project" in their display names.
+    /// - `space.space_type`: The type of the space. Only supports `=`. For
+    ///   example, `space.space_type="DIRECT_MESSAGE"` returns only messages from
+    ///   direct messages. The possible values are `DIRECT_MESSAGE`, `GROUP_CHAT`,
+    ///   and `SPACE`.
     /// - `attachment`: Supports the operator `:*` (has any) to check for the
     ///   presence of attachments. If `attachment:*` is specified, only messages
     ///   that have at least one attachment are returned.
@@ -10490,8 +10716,8 @@ pub struct SearchMessagesRequest {
     /// - `is_unread()`: Filters out messages that have been read by the calling
     ///   user.
     ///
-    /// Using the `space.display_name` filter requires that the calling credentials
-    /// include one of the following [authorization
+    /// Using the `space.display_name` or the `space.space_type` filters requires
+    /// that the calling credentials include one of the following [authorization
     /// scopes](https://developers.google.com/workspace/chat/authenticate-authorize#chat-api-scopes):
     ///
     /// - `<https://www.googleapis.com/auth/chat.spaces.readonly>`
@@ -10528,6 +10754,8 @@ pub struct SearchMessagesRequest {
     ///   `space.display_name:Project OR space.display_name:Tasks` returns messages
     ///   that are in spaces with display names containing either `Project` or
     ///   `Tasks` or both.
+    /// - `space.space_type` supports only the `OR` operator, for example:
+    ///   `space.space_type = "DIRECT_MESSAGE" OR space.space_type = "GROUP_CHAT"`.
     /// - `annotations.user_mentions.user.name` supports the operators `AND` and
     ///   `OR`, but not a mix of both. For example:
     ///   `annotations.user_mentions.user.name:"users/1234567890" AND
@@ -11065,6 +11293,329 @@ impl SearchMessageResult {
 impl wkt::message::Message for SearchMessageResult {
     fn typename() -> &'static str {
         "type.googleapis.com/google.chat.v1.SearchMessageResult"
+    }
+}
+
+/// A pin on a Chat message. For more information see [Pin a
+/// message](https://support.google.com/chat?p=chat-board-hc).
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MessagePin {
+    /// Identifier. The resource name of the message pin.
+    /// Format: `spaces/{space}/messagePins/{message_pin}`
+    /// The resource ID component matches the resource ID component of the
+    /// message. For example, a message with `spaces/AAA/messages/bbb.ccc`
+    /// corresponds to the message pin with the resource name
+    /// `spaces/AAA/messagePins/bbb.ccc`.
+    pub name: std::string::String,
+
+    /// Required. Immutable. The resource name of the message that is pinned.
+    /// Format: `spaces/{space}/messages/{message}`
+    pub message: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MessagePin {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::MessagePin::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::MessagePin;
+    /// # let space_id = "space_id";
+    /// # let message_pin_id = "message_pin_id";
+    /// let x = MessagePin::new().set_name(format!("spaces/{space_id}/messagePins/{message_pin_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [message][crate::model::MessagePin::message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::MessagePin;
+    /// # let space_id = "space_id";
+    /// # let message_id = "message_id";
+    /// let x = MessagePin::new().set_message(format!("spaces/{space_id}/messages/{message_id}"));
+    /// ```
+    pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.message = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MessagePin {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.chat.v1.MessagePin"
+    }
+}
+
+/// Request message for listing message pins.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListMessagePinsRequest {
+    /// Required. The parent space which owns the collection of pinned items
+    /// Format: `spaces/{space}`
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of message pins returned. The service might
+    /// return fewer messages than this value. The maximum value is 100. If you use
+    /// a value more than 100, it's automatically changed to 100. If unspecified,
+    /// at most 100 message pins will be returned. Negative values return an
+    /// `INVALID_ARGUMENT` error.
+    pub page_size: i32,
+
+    /// Optional. A page token received from a previous list message pins call.
+    /// Provide this parameter to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided should match the call that
+    /// provided the page token. Passing different values to the other parameters
+    /// might lead to unexpected results.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMessagePinsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListMessagePinsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::ListMessagePinsRequest;
+    /// # let space_id = "space_id";
+    /// let x = ListMessagePinsRequest::new().set_parent(format!("spaces/{space_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListMessagePinsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::ListMessagePinsRequest;
+    /// let x = ListMessagePinsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListMessagePinsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::ListMessagePinsRequest;
+    /// let x = ListMessagePinsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMessagePinsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.chat.v1.ListMessagePinsRequest"
+    }
+}
+
+/// Response message for listing message pins.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListMessagePinsResponse {
+    /// The pinned messages from the specified space.
+    pub message_pins: std::vec::Vec<crate::model::MessagePin>,
+
+    /// You can send a token as `pageToken` to retrieve the next page of
+    /// results. If empty, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMessagePinsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [message_pins][crate::model::ListMessagePinsResponse::message_pins].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::ListMessagePinsResponse;
+    /// use google_chat_v1::model::MessagePin;
+    /// let x = ListMessagePinsResponse::new()
+    ///     .set_message_pins([
+    ///         MessagePin::default()/* use setters */,
+    ///         MessagePin::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_message_pins<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MessagePin>,
+    {
+        use std::iter::Iterator;
+        self.message_pins = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMessagePinsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::ListMessagePinsResponse;
+    /// let x = ListMessagePinsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMessagePinsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.chat.v1.ListMessagePinsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListMessagePinsResponse {
+    type PageItem = crate::model::MessagePin;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.message_pins
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for creating a message pin.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateMessagePinRequest {
+    /// Required. The parent space in which to create the message pin.
+    /// Format: spaces/{space}
+    pub parent: std::string::String,
+
+    /// Required. The MessagePin to create.
+    pub message_pin: std::option::Option<crate::model::MessagePin>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateMessagePinRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateMessagePinRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::CreateMessagePinRequest;
+    /// # let space_id = "space_id";
+    /// let x = CreateMessagePinRequest::new().set_parent(format!("spaces/{space_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [message_pin][crate::model::CreateMessagePinRequest::message_pin].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::CreateMessagePinRequest;
+    /// use google_chat_v1::model::MessagePin;
+    /// let x = CreateMessagePinRequest::new().set_message_pin(MessagePin::default()/* use setters */);
+    /// ```
+    pub fn set_message_pin<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MessagePin>,
+    {
+        self.message_pin = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [message_pin][crate::model::CreateMessagePinRequest::message_pin].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::CreateMessagePinRequest;
+    /// use google_chat_v1::model::MessagePin;
+    /// let x = CreateMessagePinRequest::new().set_or_clear_message_pin(Some(MessagePin::default()/* use setters */));
+    /// let x = CreateMessagePinRequest::new().set_or_clear_message_pin(None::<MessagePin>);
+    /// ```
+    pub fn set_or_clear_message_pin<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MessagePin>,
+    {
+        self.message_pin = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateMessagePinRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.chat.v1.CreateMessagePinRequest"
+    }
+}
+
+/// Request message for deleting a message pin.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteMessagePinRequest {
+    /// Required. The resource name of the message pin to remove.
+    /// Format: spaces/{space}/messagePins/{message_pin}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteMessagePinRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteMessagePinRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::DeleteMessagePinRequest;
+    /// # let space_id = "space_id";
+    /// # let message_pin_id = "message_pin_id";
+    /// let x = DeleteMessagePinRequest::new().set_name(format!("spaces/{space_id}/messagePins/{message_pin_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteMessagePinRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.chat.v1.DeleteMessagePinRequest"
     }
 }
 
@@ -14726,6 +15277,18 @@ pub mod space {
         /// Optional. Access permission setting for joining the space.
         pub join_space_setting: std::option::Option<crate::model::space::AccessPermissionSetting>,
 
+        /// Optional. Access permission setting for viewing space membership.
+        /// Must be specified together with
+        /// `PermissionSettings.view_space_membership` in the update mask and request
+        /// body when updating who can view space membership. When granting view
+        /// access to a target audience, you must also grant
+        /// `PermissionSettings.view_space_membership` to all members in the same
+        /// request. To remove an existing target audience (for example, to restrict
+        /// view access to space managers or assistant managers only), specify an
+        /// empty `AccessPermissionSetting` (with no `principals`).
+        pub view_space_membership_setting:
+            std::option::Option<crate::model::space::AccessPermissionSetting>,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -14798,6 +15361,42 @@ pub mod space {
             T: std::convert::Into<crate::model::space::AccessPermissionSetting>,
         {
             self.join_space_setting = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [view_space_membership_setting][crate::model::space::AccessPermissionSettings::view_space_membership_setting].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_chat_v1::model::space::AccessPermissionSettings;
+        /// use google_chat_v1::model::space::AccessPermissionSetting;
+        /// let x = AccessPermissionSettings::new().set_view_space_membership_setting(AccessPermissionSetting::default()/* use setters */);
+        /// ```
+        pub fn set_view_space_membership_setting<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::space::AccessPermissionSetting>,
+        {
+            self.view_space_membership_setting = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [view_space_membership_setting][crate::model::space::AccessPermissionSettings::view_space_membership_setting].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_chat_v1::model::space::AccessPermissionSettings;
+        /// use google_chat_v1::model::space::AccessPermissionSetting;
+        /// let x = AccessPermissionSettings::new().set_or_clear_view_space_membership_setting(Some(AccessPermissionSetting::default()/* use setters */));
+        /// let x = AccessPermissionSettings::new().set_or_clear_view_space_membership_setting(None::<AccessPermissionSetting>);
+        /// ```
+        pub fn set_or_clear_view_space_membership_setting<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::space::AccessPermissionSetting>,
+        {
+            self.view_space_membership_setting = v.map(|x| x.into());
             self
         }
     }
@@ -14980,6 +15579,19 @@ pub mod space {
 
         /// Optional. Setting for replying to messages in a space.
         pub reply_messages: std::option::Option<crate::model::space::PermissionSetting>,
+
+        /// Optional. Setting for viewing space membership.
+        /// Must be specified together with
+        /// `AccessPermissionSettings.view_space_membership_setting` in the update
+        /// mask and request body when updating who can view space membership.
+        /// When restricting view access to specific roles (for example, space
+        /// managers or assistant managers only), specify the desired role
+        /// permissions here and provide an empty
+        /// `AccessPermissionSettings.view_space_membership_setting` in the same
+        /// request. If a target audience is configured in
+        /// `AccessPermissionSettings.view_space_membership_setting`, this setting
+        /// must be granted to all members.
+        pub view_space_membership: std::option::Option<crate::model::space::PermissionSetting>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -15254,6 +15866,39 @@ pub mod space {
             T: std::convert::Into<crate::model::space::PermissionSetting>,
         {
             self.reply_messages = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [view_space_membership][crate::model::space::PermissionSettings::view_space_membership].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_chat_v1::model::space::PermissionSettings;
+        /// use google_chat_v1::model::space::PermissionSetting;
+        /// let x = PermissionSettings::new().set_view_space_membership(PermissionSetting::default()/* use setters */);
+        /// ```
+        pub fn set_view_space_membership<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::space::PermissionSetting>,
+        {
+            self.view_space_membership = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [view_space_membership][crate::model::space::PermissionSettings::view_space_membership].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_chat_v1::model::space::PermissionSettings;
+        /// use google_chat_v1::model::space::PermissionSetting;
+        /// let x = PermissionSettings::new().set_or_clear_view_space_membership(Some(PermissionSetting::default()/* use setters */));
+        /// let x = PermissionSettings::new().set_or_clear_view_space_membership(None::<PermissionSetting>);
+        /// ```
+        pub fn set_or_clear_view_space_membership<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::space::PermissionSetting>,
+        {
+            self.view_space_membership = v.map(|x| x.into());
             self
         }
     }
@@ -15984,12 +16629,24 @@ pub struct CreateSpaceRequest {
     /// field will be ignored.
     pub space: std::option::Option<crate::model::Space>,
 
-    /// Optional. A unique identifier for this request.
-    /// A random UUID is recommended.
-    /// Specifying an existing request ID returns the space created with that ID
-    /// instead of creating a new space.
-    /// Specifying an existing request ID from the same Chat app with a different
-    /// authenticated user returns an error.
+    /// Optional. A unique ID for this request. A random UUID is recommended.
+    /// Specifying a request ID makes the request idempotent, which ensures that
+    /// multiple identical requests with the same request ID result in only a
+    /// single space being created. Subsequent requests with the same request ID
+    /// return the existing space and do not update the space, even if the
+    /// requested details differ from the current state.
+    ///
+    /// To use this field effectively:
+    ///
+    /// - Ensure that subsequent requests are identical and use the same
+    ///   authentication credentials as the original request.
+    /// - If a space was already created with the provided request ID, the request
+    ///   returns that space. Note that the returned space might not be fully
+    ///   populated; the API echoes the space in your request with the
+    ///   system-assigned resource name populated. To retrieve the latest metadata
+    ///   for the space, call `GetSpace`.
+    /// - Reusing an existing request ID with a different authenticated user
+    ///   results in an error.
     pub request_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -16602,6 +17259,7 @@ pub struct UpdateSpaceRequest {
     ///
     /// - `access_settings.access_permission_settings.discoverSpaceSetting`
     /// - `access_settings.access_permission_settings.joinSpaceSetting`
+    /// - `access_settings.access_permission_settings.viewSpaceMembershipSetting`
     ///
     /// `permission_settings`: Supports changing the
     /// [permission settings](https://support.google.com/chat/answer/13340792)
@@ -16618,6 +17276,7 @@ pub struct UpdateSpaceRequest {
     /// - `permission_settings.manageApps`
     /// - `permission_settings.manageWebhooks`
     /// - `permission_settings.replyMessages`
+    /// - `permission_settings.viewSpaceMembership`
     ///
     /// [google.chat.v1.Space.SpaceDetails]: crate::model::space::SpaceDetails
     pub update_mask: std::option::Option<wkt::FieldMask>,
@@ -16751,8 +17410,9 @@ pub struct SearchSpacesRequest {
     ///
     /// If unspecified, at most 100 spaces are returned.
     ///
-    /// The maximum value is 1000. If you use a value more than 1000, it's
-    /// automatically changed to 1000.
+    /// The maximum value is 1000 when `useAdminAccess` is set to `true`.
+    /// Otherwise, the maximum value is 100. If you use a value more than the
+    /// maximum value, it's automatically changed to the maximum value.
     pub page_size: i32,
 
     /// A token, received from the previous search spaces call. Provide this
@@ -16857,6 +17517,11 @@ pub struct SearchSpacesRequest {
     /// (external_user_allowed = "true" AND display_name:"Hello" AND space_type =
     /// "SPACE")
     /// ```
+    ///
+    /// The maximum query length is 1,000 characters.
+    ///
+    /// Invalid queries are rejected by the server with an `INVALID_ARGUMENT`
+    /// error.
     pub query: std::string::String,
 
     /// Optional. How the list of spaces is ordered.
@@ -16985,10 +17650,14 @@ pub struct SearchSpacesResponse {
 
     /// A token that can be used to retrieve the next page. If this field is empty,
     /// there are no subsequent pages.
+    ///
+    /// Only populated when `useAdminAccess` is set to `true`.
     pub next_page_token: std::string::String,
 
     /// The total number of spaces that match the query, across all pages. If the
     /// result is over 10,000 spaces, this value is an estimate.
+    ///
+    /// Only populated when `useAdminAccess` is set to `true`.
     pub total_size: i32,
 
     /// Output only. The list of search results that matched the query.
@@ -19680,12 +20349,24 @@ pub struct SetUpSpaceRequest {
     /// of creating a new space.
     pub space: std::option::Option<crate::model::Space>,
 
-    /// Optional. A unique identifier for this request.
-    /// A random UUID is recommended.
-    /// Specifying an existing request ID returns the space created with that ID
-    /// instead of creating a new space.
-    /// Specifying an existing request ID from the same Chat app with a different
-    /// authenticated user returns an error.
+    /// Optional. A unique ID for this request. A random UUID is recommended.
+    /// Specifying a request ID makes the request idempotent, which ensures that
+    /// multiple identical requests with the same request ID result in only a
+    /// single space being created. Subsequent requests with the same request ID
+    /// return the existing space and do not update the space, even if the
+    /// requested details differ from the current state.
+    ///
+    /// To use this field effectively:
+    ///
+    /// - Ensure that subsequent requests are identical and use the same
+    ///   authentication credentials as the original request.
+    /// - If a space was already created with the provided request ID, the request
+    ///   returns that space. Note that the returned space might not be fully
+    ///   populated; the API echoes the space in your request with the
+    ///   system-assigned resource name populated. To retrieve the latest metadata
+    ///   for the space, call `GetSpace`.
+    /// - Reusing an existing request ID with a different authenticated user
+    ///   results in an error.
     pub request_id: std::string::String,
 
     /// Optional. The Google Chat users or groups to invite to join the space. Omit

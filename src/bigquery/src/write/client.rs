@@ -13,19 +13,21 @@
 // limitations under the License.
 
 use super::client_builder::ClientBuilder;
-use super::pool::StreamPool;
+use super::pool::{StreamPool, StreamPoolOptions};
 use super::retry_policy::RetryOptions;
 use super::stream_type::{ApplicationCreatedStream, DefaultStream};
 use super::transport::Transport;
 use super::writer_builder::WriterBuilder;
 use crate::ClientBuilderResult as BuilderResult;
-use std::sync::Arc;
+use std::collections::HashMap;
+use std::sync::{Arc, Mutex};
 
 /// A client for BigQuery Storage Write API.
 #[derive(Debug)]
 pub struct Write {
     inner: Arc<Transport>,
-    pool: Arc<StreamPool>,
+    pools: Arc<Mutex<HashMap<String, Arc<StreamPool>>>>,
+    pool_options: StreamPoolOptions,
     retry_options: RetryOptions,
 }
 
@@ -37,10 +39,11 @@ impl Write {
 
     pub(crate) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
         let inner = Arc::new(Transport::new(builder.config).await?);
-        let pool = Arc::new(StreamPool::new(inner.clone(), builder.pool_options));
+        let pools = Arc::new(Mutex::new(HashMap::new()));
         Ok(Self {
             inner,
-            pool,
+            pools,
+            pool_options: builder.pool_options,
             retry_options: builder.retry_options,
         })
     }
@@ -67,7 +70,8 @@ impl Write {
     pub fn open_default_stream<T: Into<String>>(&self, table: T) -> WriterBuilder<DefaultStream> {
         WriterBuilder::new_open_default(
             self.inner.clone(),
-            self.pool.clone(),
+            self.pools.clone(),
+            self.pool_options.clone(),
             self.retry_options.clone(),
             table.into(),
         )
@@ -105,12 +109,7 @@ impl Write {
         &self,
         table: T,
     ) -> WriterBuilder<S> {
-        WriterBuilder::new_create(
-            self.inner.clone(),
-            self.pool.clone(),
-            self.retry_options.clone(),
-            table.into(),
-        )
+        WriterBuilder::new_create(self.inner.clone(), self.retry_options.clone(), table.into())
     }
 
     /// Attaches to an existing [application-created stream].
@@ -148,7 +147,6 @@ impl Write {
     ) -> WriterBuilder<S> {
         WriterBuilder::new_attach(
             self.inner.clone(),
-            self.pool.clone(),
             self.retry_options.clone(),
             write_stream.into(),
         )
@@ -216,23 +214,138 @@ mod tests {
 
     #[tokio::test]
     async fn multiplexing() -> anyhow::Result<()> {
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_get_write_stream().times(2).returning(|req| {
+            let name = req.into_inner().name;
+            Ok(gaxi::grpc::tonic::Response::new(
+                bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream {
+                    name,
+                    location: "us".to_string(),
+                    ..Default::default()
+                },
+            ))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = Write::builder()
+            .with_endpoint(endpoint)
             .with_credentials(Anonymous::new().build())
             .build()
             .await?;
-        let multiplexed_writer = client
-            .open_default_stream("projects/p/datasets/d/tables/t")
+        let multiplexed_writer1 = client
+            .open_default_stream("projects/p/datasets/d/tables/t1")
             .with_multiplexing(true)
             .build_arrow(ArrowSchema::new())
             .await?;
-        assert!(Arc::ptr_eq(&client.pool, &multiplexed_writer.inner.pool));
+        let multiplexed_writer2 = client
+            .open_default_stream("projects/p/datasets/d/tables/t2")
+            .with_multiplexing(true)
+            .build_arrow(ArrowSchema::new())
+            .await?;
+        assert!(Arc::ptr_eq(
+            &multiplexed_writer1.inner.pool,
+            &multiplexed_writer2.inner.pool
+        ));
 
         let standalone_writer = client
-            .open_default_stream("projects/p/datasets/d/tables/t")
+            .open_default_stream("projects/p/datasets/d/tables/t3")
             .with_multiplexing(false)
             .build_arrow(ArrowSchema::new())
             .await?;
-        assert!(!Arc::ptr_eq(&client.pool, &standalone_writer.inner.pool));
+        assert!(!Arc::ptr_eq(
+            &multiplexed_writer1.inner.pool,
+            &standalone_writer.inner.pool
+        ));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn format_isolation() -> anyhow::Result<()> {
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_get_write_stream().times(2).returning(|req| {
+            let name = req.into_inner().name;
+            Ok(gaxi::grpc::tonic::Response::new(
+                bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream {
+                    name,
+                    location: "us".to_string(),
+                    ..Default::default()
+                },
+            ))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = Write::builder()
+            .with_endpoint(endpoint)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let arrow_writer = client
+            .open_default_stream("projects/p/datasets/d/tables/t1")
+            .with_multiplexing(true)
+            .build_arrow(ArrowSchema::new())
+            .await?;
+        let proto_writer = client
+            .open_default_stream("projects/p/datasets/d/tables/t2")
+            .with_multiplexing(true)
+            .build_proto(ProtoSchema::new())
+            .await?;
+
+        // Different formats receive distinct connection pools.
+        assert!(!Arc::ptr_eq(
+            &arrow_writer.inner.pool,
+            &proto_writer.inner.pool
+        ));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn location_isolation() -> anyhow::Result<()> {
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_get_write_stream().times(3).returning(|req| {
+            let name = req.into_inner().name;
+            let location = if name.contains("t1") {
+                "us".to_string()
+            } else if name.contains("t2") {
+                "eu".to_string()
+            } else {
+                "us".to_string()
+            };
+            Ok(gaxi::grpc::tonic::Response::new(
+                bigquery_grpc_mock::google::cloud::bigquery::storage::v1::WriteStream {
+                    name,
+                    location,
+                    ..Default::default()
+                },
+            ))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = Write::builder()
+            .with_endpoint(endpoint)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let us_writer1 = client
+            .open_default_stream("projects/p/datasets/d/tables/t1")
+            .with_multiplexing(true)
+            .build_arrow(ArrowSchema::new())
+            .await?;
+        let eu_writer = client
+            .open_default_stream("projects/p/datasets/d/tables/t2")
+            .with_multiplexing(true)
+            .build_arrow(ArrowSchema::new())
+            .await?;
+
+        // Different locations receive distinct connection pools.
+        assert!(!Arc::ptr_eq(&us_writer1.inner.pool, &eu_writer.inner.pool));
+
+        let us_writer2 = client
+            .open_default_stream("projects/p/datasets/d/tables/t3")
+            .with_multiplexing(true)
+            .build_arrow(ArrowSchema::new())
+            .await?;
+
+        // Same location shares the connection pool.
+        assert!(Arc::ptr_eq(&us_writer1.inner.pool, &us_writer2.inner.pool));
 
         Ok(())
     }

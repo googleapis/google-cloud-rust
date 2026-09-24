@@ -23,10 +23,12 @@ pub trait DataFormat: sealed::DataFormat {
     type Rows;
 }
 
-pub(super) mod sealed {
+pub(crate) mod sealed {
     use crate::model::AppendRowsRequest;
 
     pub trait DataFormat {
+        fn format_name(&self) -> &'static str;
+
         fn make_request(&self, write_stream: &str, rows: Self::Rows) -> AppendRowsRequest
         where
             Self: super::DataFormat;

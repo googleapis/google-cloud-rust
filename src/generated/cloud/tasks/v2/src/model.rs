@@ -25,6 +25,8 @@ extern crate gaxi;
 extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
+extern crate google_cloud_longrunning;
+extern crate google_cloud_lro;
 extern crate google_cloud_rpc;
 extern crate serde;
 extern crate serde_json;
@@ -965,11 +967,10 @@ pub struct CreateTaskRequest {
     /// a task's ID is identical to that of an existing task or a task
     /// that was deleted or executed recently then the call will fail
     /// with [ALREADY_EXISTS][google.rpc.Code.ALREADY_EXISTS].
-    /// If the task's queue was created using Cloud Tasks, then another task with
-    /// the same name can't be created for ~1hour after the original task was
-    /// deleted or executed. If the task's queue was created using queue.yaml or
-    /// queue.xml, then another task with the same name can't be created
-    /// for ~9days after the original task was deleted or executed.
+    /// The IDs of deleted tasks are not immediately available for reuse.  It can
+    /// take up to 24 hours (or 9 days if the task's queue was created using a
+    /// queue.yaml or queue.xml) for the task ID to be released and made available
+    /// again.
     ///
     /// Because there is an extra lookup cost to identify duplicate task
     /// names, these [CreateTask][google.cloud.tasks.v2.CloudTasks.CreateTask]
@@ -1085,6 +1086,95 @@ impl wkt::message::Message for CreateTaskRequest {
     }
 }
 
+/// Request message for [BatchCreateTasks].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BatchCreateTasksRequest {
+    /// Required. The queue name. For example:
+    /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID`
+    ///
+    /// The queue must already exist.
+    pub parent: std::string::String,
+
+    /// Required. The list of requests to create tasks.
+    /// The queue specified in parent field of each CreateTaskRequest will be
+    /// the same. This validation happens on the client side as well as in the
+    /// handler.
+    /// BatchCreateTasksRequest.parent will also be the same value as the
+    /// individual CreateTaskRequest.parent.
+    /// The maximum number of requests is 100.
+    pub requests: std::vec::Vec<crate::model::CreateTaskRequest>,
+
+    /// Optional. This field will be used to identify the long running operation,
+    /// avoiding duplication when user retries. If not provided, then a UUID will
+    /// be generated at server side.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BatchCreateTasksRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::BatchCreateTasksRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::BatchCreateTasksRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let queue_id = "queue_id";
+    /// let x = BatchCreateTasksRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/queues/{queue_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [requests][crate::model::BatchCreateTasksRequest::requests].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::BatchCreateTasksRequest;
+    /// use google_cloud_tasks_v2::model::CreateTaskRequest;
+    /// let x = BatchCreateTasksRequest::new()
+    ///     .set_requests([
+    ///         CreateTaskRequest::default()/* use setters */,
+    ///         CreateTaskRequest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_requests<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CreateTaskRequest>,
+    {
+        use std::iter::Iterator;
+        self.requests = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::BatchCreateTasksRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::BatchCreateTasksRequest;
+    /// let x = BatchCreateTasksRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BatchCreateTasksRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.tasks.v2.BatchCreateTasksRequest"
+    }
+}
+
 /// Request message for deleting a task using
 /// [DeleteTask][google.cloud.tasks.v2.CloudTasks.DeleteTask].
 ///
@@ -1125,6 +1215,401 @@ impl DeleteTaskRequest {
 impl wkt::message::Message for DeleteTaskRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.tasks.v2.DeleteTaskRequest"
+    }
+}
+
+/// Request message for deleting a batch of tasks using
+/// [BatchDeleteTasks][google.cloud.tasks.v2.CloudTasks.BatchDeleteTasks].
+///
+/// [google.cloud.tasks.v2.CloudTasks.BatchDeleteTasks]: crate::client::CloudTasks::batch_delete_tasks
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BatchDeleteTasksRequest {
+    /// Required. The queue name. For example:
+    /// Format: `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID`
+    pub parent: std::string::String,
+
+    /// Required. The names of the tasks to delete.
+    /// A maximum of 1000 tasks can be deleted in a batch.
+    /// For example:
+    /// Format:
+    /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID/tasks/TASK_ID`
+    pub names: std::vec::Vec<std::string::String>,
+
+    /// Optional. This field will be used to identify the long running operation,
+    /// avoiding duplication when user retries. If not provided, then a UUID will
+    /// be generated at server side.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BatchDeleteTasksRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::BatchDeleteTasksRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::BatchDeleteTasksRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let queue_id = "queue_id";
+    /// let x = BatchDeleteTasksRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/queues/{queue_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [names][crate::model::BatchDeleteTasksRequest::names].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::BatchDeleteTasksRequest;
+    /// let x = BatchDeleteTasksRequest::new().set_names(["a", "b", "c"]);
+    /// ```
+    pub fn set_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::BatchDeleteTasksRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::BatchDeleteTasksRequest;
+    /// let x = BatchDeleteTasksRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BatchDeleteTasksRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.tasks.v2.BatchDeleteTasksRequest"
+    }
+}
+
+/// Metadata for the long-running operation returned by
+/// [BatchDeleteTasks][google.cloud.tasks.v2.CloudTasks.BatchDeleteTasks].
+/// This message is used to hold metadata information about the
+/// batch delete tasks operation; that is, it is put in
+/// [google.longrunning.Operation.metadata][google.longrunning.Operation.metadata].
+///
+/// [google.cloud.tasks.v2.CloudTasks.BatchDeleteTasks]: crate::client::CloudTasks::batch_delete_tasks
+/// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BatchDeleteTasksMetadata {
+    /// Output only. The time when the batch delete started.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time when the batch delete finished.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The state of the batch delete operation.
+    pub state: crate::model::batch_delete_tasks_metadata::State,
+
+    /// Output only. A map of failed requests, where the key is the index of the
+    /// request in BatchDeleteTasksRequest.names and the value is the error status.
+    pub failed_requests: std::collections::HashMap<i32, google_cloud_rpc::model::Status>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BatchDeleteTasksMetadata {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [start_time][crate::model::BatchDeleteTasksMetadata::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::BatchDeleteTasksMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchDeleteTasksMetadata::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::BatchDeleteTasksMetadata::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::BatchDeleteTasksMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchDeleteTasksMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BatchDeleteTasksMetadata::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::BatchDeleteTasksMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::BatchDeleteTasksMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchDeleteTasksMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::BatchDeleteTasksMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::BatchDeleteTasksMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchDeleteTasksMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BatchDeleteTasksMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::BatchDeleteTasksMetadata::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::BatchDeleteTasksMetadata;
+    /// use google_cloud_tasks_v2::model::batch_delete_tasks_metadata::State;
+    /// let x0 = BatchDeleteTasksMetadata::new().set_state(State::Running);
+    /// let x1 = BatchDeleteTasksMetadata::new().set_state(State::Succeeded);
+    /// let x2 = BatchDeleteTasksMetadata::new().set_state(State::PartiallySucceeded);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::batch_delete_tasks_metadata::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [failed_requests][crate::model::BatchDeleteTasksMetadata::failed_requests].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::BatchDeleteTasksMetadata;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = BatchDeleteTasksMetadata::new().set_failed_requests([
+    ///     (0, Status::default()/* use setters */),
+    ///     (1, Status::default()/* use (different) setters */),
+    /// ]);
+    /// ```
+    pub fn set_failed_requests<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<i32>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        use std::iter::Iterator;
+        self.failed_requests = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BatchDeleteTasksMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.tasks.v2.BatchDeleteTasksMetadata"
+    }
+}
+
+/// Defines additional types related to [BatchDeleteTasksMetadata].
+pub mod batch_delete_tasks_metadata {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The state of the batch delete operation.
+    /// This enum is not frozen and new values may be added in the future.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// The default value. This value is used if the state is omitted.
+        Unspecified,
+        /// The batch delete is running.
+        Running,
+        /// The batch delete has finished and all tasks were successfully deleted.
+        Succeeded,
+        /// The batch delete has finished with partial success.
+        /// The tasks that failed to be deleted are reported in
+        /// [failed_requests][google.cloud.tasks.v2.BatchDeleteTasksMetadata.failed_requests].
+        /// When all requests in the batch fail,
+        /// [google.longrunning.Operation.error][google.longrunning.Operation.error]
+        /// will be set with `code` = `google.rpc.Code.ABORTED` and `message` = "None
+        /// of the requests succeeded, refer to
+        /// BatchDeleteTasksMetadata.failed_requests for individual error details".
+        ///
+        /// [google.cloud.tasks.v2.BatchDeleteTasksMetadata.failed_requests]: crate::model::BatchDeleteTasksMetadata::failed_requests
+        /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
+        PartiallySucceeded,
+        /// The batch delete has failed.
+        /// This means the overall batch delete operation failed to complete.
+        /// This can happen due to an internal error preventing the operation from
+        /// finishing.
+        Failed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Running => std::option::Option::Some(1),
+                Self::Succeeded => std::option::Option::Some(2),
+                Self::PartiallySucceeded => std::option::Option::Some(3),
+                Self::Failed => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::PartiallySucceeded => std::option::Option::Some("PARTIALLY_SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Running,
+                2 => Self::Succeeded,
+                3 => Self::PartiallySucceeded,
+                4 => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "RUNNING" => Self::Running,
+                "SUCCEEDED" => Self::Succeeded,
+                "PARTIALLY_SUCCEEDED" => Self::PartiallySucceeded,
+                "FAILED" => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Running => serializer.serialize_i32(1),
+                Self::Succeeded => serializer.serialize_i32(2),
+                Self::PartiallySucceeded => serializer.serialize_i32(3),
+                Self::Failed => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.tasks.v2.BatchDeleteTasksMetadata.State",
+            ))
+        }
     }
 }
 
@@ -1206,6 +1691,551 @@ impl wkt::message::Message for RunTaskRequest {
     }
 }
 
+/// Request message for
+/// [UpdateCmekConfig][google.cloud.tasks.v2.CloudTasks.UpdateCmekConfig].
+///
+/// [google.cloud.tasks.v2.CloudTasks.UpdateCmekConfig]: crate::client::CloudTasks::update_cmek_config
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateCmekConfigRequest {
+    /// Required. The config to update.  Its name attribute distinguishes it.
+    pub cmek_config: std::option::Option<crate::model::CmekConfig>,
+
+    /// List of fields to be updated in this request.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateCmekConfigRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cmek_config][crate::model::UpdateCmekConfigRequest::cmek_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::UpdateCmekConfigRequest;
+    /// use google_cloud_tasks_v2::model::CmekConfig;
+    /// let x = UpdateCmekConfigRequest::new().set_cmek_config(CmekConfig::default()/* use setters */);
+    /// ```
+    pub fn set_cmek_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CmekConfig>,
+    {
+        self.cmek_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cmek_config][crate::model::UpdateCmekConfigRequest::cmek_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::UpdateCmekConfigRequest;
+    /// use google_cloud_tasks_v2::model::CmekConfig;
+    /// let x = UpdateCmekConfigRequest::new().set_or_clear_cmek_config(Some(CmekConfig::default()/* use setters */));
+    /// let x = UpdateCmekConfigRequest::new().set_or_clear_cmek_config(None::<CmekConfig>);
+    /// ```
+    pub fn set_or_clear_cmek_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CmekConfig>,
+    {
+        self.cmek_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateCmekConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::UpdateCmekConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCmekConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateCmekConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::UpdateCmekConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCmekConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCmekConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateCmekConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.tasks.v2.UpdateCmekConfigRequest"
+    }
+}
+
+/// Request message for
+/// [GetCmekConfig][google.cloud.tasks.v2.CloudTasks.GetCmekConfig].
+///
+/// [google.cloud.tasks.v2.CloudTasks.GetCmekConfig]: crate::client::CloudTasks::get_cmek_config
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetCmekConfigRequest {
+    /// Required. The config. For example:
+    /// `projects/PROJECT_ID/locations/LOCATION_ID/CmekConfig`
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetCmekConfigRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetCmekConfigRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::GetCmekConfigRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = GetCmekConfigRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/cmekConfig"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetCmekConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.tasks.v2.GetCmekConfigRequest"
+    }
+}
+
+/// Response message for [BatchCreateTasks].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BatchCreateTasksResponse {
+    /// The tasks that were successfully created.
+    pub tasks: std::vec::Vec<crate::model::Task>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BatchCreateTasksResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [tasks][crate::model::BatchCreateTasksResponse::tasks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::BatchCreateTasksResponse;
+    /// use google_cloud_tasks_v2::model::Task;
+    /// let x = BatchCreateTasksResponse::new()
+    ///     .set_tasks([
+    ///         Task::default()/* use setters */,
+    ///         Task::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_tasks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Task>,
+    {
+        use std::iter::Iterator;
+        self.tasks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BatchCreateTasksResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.tasks.v2.BatchCreateTasksResponse"
+    }
+}
+
+/// Metadata message for [BatchCreateTasks].
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BatchCreateTasksMetadata {
+    /// The time when the batch create started.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// The time when the batch create finished.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The state of the batch create operation.
+    pub state: crate::model::batch_create_tasks_metadata::State,
+
+    /// A map of failed requests, where the key is the index of the request in
+    /// BatchCreateTasksRequest.requests and the value is the error status.
+    pub failed_requests: std::collections::HashMap<i32, google_cloud_rpc::model::Status>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BatchCreateTasksMetadata {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [start_time][crate::model::BatchCreateTasksMetadata::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::BatchCreateTasksMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchCreateTasksMetadata::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::BatchCreateTasksMetadata::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::BatchCreateTasksMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchCreateTasksMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BatchCreateTasksMetadata::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::BatchCreateTasksMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::BatchCreateTasksMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchCreateTasksMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::BatchCreateTasksMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::BatchCreateTasksMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BatchCreateTasksMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BatchCreateTasksMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::BatchCreateTasksMetadata::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::BatchCreateTasksMetadata;
+    /// use google_cloud_tasks_v2::model::batch_create_tasks_metadata::State;
+    /// let x0 = BatchCreateTasksMetadata::new().set_state(State::Running);
+    /// let x1 = BatchCreateTasksMetadata::new().set_state(State::Succeeded);
+    /// let x2 = BatchCreateTasksMetadata::new().set_state(State::PartiallySucceeded);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::batch_create_tasks_metadata::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [failed_requests][crate::model::BatchCreateTasksMetadata::failed_requests].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::BatchCreateTasksMetadata;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = BatchCreateTasksMetadata::new().set_failed_requests([
+    ///     (0, Status::default()/* use setters */),
+    ///     (1, Status::default()/* use (different) setters */),
+    /// ]);
+    /// ```
+    pub fn set_failed_requests<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<i32>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        use std::iter::Iterator;
+        self.failed_requests = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BatchCreateTasksMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.tasks.v2.BatchCreateTasksMetadata"
+    }
+}
+
+/// Defines additional types related to [BatchCreateTasksMetadata].
+pub mod batch_create_tasks_metadata {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The state of the batch create operation.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// The default value. This value is used if the state is omitted.
+        Unspecified,
+        /// The batch create is running.
+        Running,
+        /// The batch create has finished.
+        /// All tasks in the request were successfully created.
+        Succeeded,
+        /// The batch create has finished with partial success.
+        /// The tasks that failed to be created are reported in
+        /// [failed_requests][google.cloud.tasks.v2.BatchCreateTasksMetadata.failed_requests].
+        ///
+        /// [google.cloud.tasks.v2.BatchCreateTasksMetadata.failed_requests]: crate::model::BatchCreateTasksMetadata::failed_requests
+        PartiallySucceeded,
+        /// The batch create has failed.
+        /// This means the overall batch create operation failed to complete.
+        /// This can happen due to an internal error preventing the operation from
+        /// finishing.
+        Failed,
+        /// The batch create was cancelled.
+        Cancelled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Running => std::option::Option::Some(1),
+                Self::Succeeded => std::option::Option::Some(2),
+                Self::PartiallySucceeded => std::option::Option::Some(5),
+                Self::Failed => std::option::Option::Some(3),
+                Self::Cancelled => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::PartiallySucceeded => std::option::Option::Some("PARTIALLY_SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Cancelled => std::option::Option::Some("CANCELLED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Running,
+                2 => Self::Succeeded,
+                3 => Self::Failed,
+                4 => Self::Cancelled,
+                5 => Self::PartiallySucceeded,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "RUNNING" => Self::Running,
+                "SUCCEEDED" => Self::Succeeded,
+                "PARTIALLY_SUCCEEDED" => Self::PartiallySucceeded,
+                "FAILED" => Self::Failed,
+                "CANCELLED" => Self::Cancelled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Running => serializer.serialize_i32(1),
+                Self::Succeeded => serializer.serialize_i32(2),
+                Self::PartiallySucceeded => serializer.serialize_i32(5),
+                Self::Failed => serializer.serialize_i32(3),
+                Self::Cancelled => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.tasks.v2.BatchCreateTasksMetadata.State",
+            ))
+        }
+    }
+}
+
+/// Describes the customer-managed encryption key (CMEK) configuration associated
+/// with a project and location.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CmekConfig {
+    /// Output only. The config resource name which includes the project and
+    /// location and must end in 'cmekConfig', in the format
+    /// `projects/PROJECT_ID/locations/LOCATION_ID/cmekConfig`
+    pub name: std::string::String,
+
+    /// Resource name of the Cloud KMS key, of the form
+    /// `projects/PROJECT_ID/locations/LOCATION_ID/keyRings/KEY_RING_ID/cryptoKeys/KEY_ID`,
+    /// that will be used to encrypt the Queues & Tasks in the region. Setting
+    /// this as blank will turn off CMEK encryption.
+    pub kms_key: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CmekConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::CmekConfig::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::CmekConfig;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CmekConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/cmekConfig"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [kms_key][crate::model::CmekConfig::kms_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::CmekConfig;
+    /// let x = CmekConfig::new().set_kms_key("example");
+    /// ```
+    pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kms_key = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CmekConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.tasks.v2.CmekConfig"
+    }
+}
+
 /// A queue is a container of related tasks. Queues are configured to manage
 /// how those tasks are dispatched. Configurable properties include rate limits,
 /// retry options, queue types, and others.
@@ -1253,6 +2283,9 @@ pub struct Queue {
     /// [google.cloud.tasks.v2.HttpRequest]: crate::model::HttpRequest
     pub app_engine_routing_override: std::option::Option<crate::model::AppEngineRouting>,
 
+    /// Modifies HTTP target for HTTP tasks.
+    pub http_target: std::option::Option<crate::model::HttpTarget>,
+
     /// Rate limits for task dispatches.
     ///
     /// [rate_limits][google.cloud.tasks.v2.Queue.rate_limits] and
@@ -1266,8 +2299,8 @@ pub struct Queue {
     ///   queue, regardless of whether the dispatch is from a first
     ///   attempt or a retry).
     /// * [retry_config][google.cloud.tasks.v2.Queue.retry_config] controls what
-    ///   happens to
-    ///   particular a task after its first attempt fails. That is,
+    ///   happens to a
+    ///   particular task after its first attempt fails. That is,
     ///   [retry_config][google.cloud.tasks.v2.Queue.retry_config] controls task
     ///   retries (the second attempt, third attempt, etc).
     ///
@@ -1389,6 +2422,39 @@ impl Queue {
         T: std::convert::Into<crate::model::AppEngineRouting>,
     {
         self.app_engine_routing_override = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [http_target][crate::model::Queue::http_target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::Queue;
+    /// use google_cloud_tasks_v2::model::HttpTarget;
+    /// let x = Queue::new().set_http_target(HttpTarget::default()/* use setters */);
+    /// ```
+    pub fn set_http_target<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::HttpTarget>,
+    {
+        self.http_target = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [http_target][crate::model::Queue::http_target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::Queue;
+    /// use google_cloud_tasks_v2::model::HttpTarget;
+    /// let x = Queue::new().set_or_clear_http_target(Some(HttpTarget::default()/* use setters */));
+    /// let x = Queue::new().set_or_clear_http_target(None::<HttpTarget>);
+    /// ```
+    pub fn set_or_clear_http_target<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::HttpTarget>,
+    {
+        self.http_target = v.map(|x| x.into());
         self
     }
 
@@ -1734,7 +2800,7 @@ pub struct RateLimits {
     /// If unspecified when the queue is created, Cloud Tasks will pick the
     /// default.
     ///
-    /// * The maximum allowed value is 500.
+    /// The maximum allowed value is 500.
     ///
     /// This field has the same meaning as
     /// [rate in
@@ -1756,11 +2822,13 @@ pub struct RateLimits {
     /// token is removed from the bucket. Tasks will be dispatched until
     /// the queue's bucket runs out of tokens. The bucket will be
     /// continuously refilled with new tokens based on
-    /// [max_dispatches_per_second][google.cloud.tasks.v2.RateLimits.max_dispatches_per_second].
+    /// `max_dispatches_per_second`.
     ///
-    /// Cloud Tasks will pick the value of `max_burst_size` based on the
-    /// value of
-    /// [max_dispatches_per_second][google.cloud.tasks.v2.RateLimits.max_dispatches_per_second].
+    /// Cloud Tasks automatically sets an appropriate `max_burst_size` based
+    /// on the value of `max_dispatches_per_second`. The value is dynamically
+    /// optimized to ensure queue stability and throughput. It is generally at
+    /// least equal to `max_dispatches_per_second` but might be higher to
+    /// accommodate bursts of traffic.
     ///
     /// For queues that were created or updated using
     /// `queue.yaml/xml`, `max_burst_size` is equal to
@@ -1768,14 +2836,10 @@ pub struct RateLimits {
     /// Since `max_burst_size` is output only, if
     /// [UpdateQueue][google.cloud.tasks.v2.CloudTasks.UpdateQueue] is called on a
     /// queue created by `queue.yaml/xml`, `max_burst_size` will be reset based on
-    /// the value of
-    /// [max_dispatches_per_second][google.cloud.tasks.v2.RateLimits.max_dispatches_per_second],
-    /// regardless of whether
-    /// [max_dispatches_per_second][google.cloud.tasks.v2.RateLimits.max_dispatches_per_second]
-    /// is updated.
+    /// the value of `max_dispatches_per_second`, regardless of whether
+    /// `max_dispatches_per_second` is updated.
     ///
     /// [google.cloud.tasks.v2.CloudTasks.UpdateQueue]: crate::client::CloudTasks::update_queue
-    /// [google.cloud.tasks.v2.RateLimits.max_dispatches_per_second]: crate::model::RateLimits::max_dispatches_per_second
     pub max_burst_size: i32,
 
     /// The maximum number of concurrent tasks that Cloud Tasks allows
@@ -1851,16 +2915,23 @@ impl wkt::message::Message for RateLimits {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetryConfig {
-    /// Number of attempts per task.
+    /// Number of attempts per task, including the first attempt. (If the
+    /// first attempt fails, there will be `max_attempts - 1` retries.)
     ///
-    /// Cloud Tasks will attempt the task `max_attempts` times (that is, if the
-    /// first attempt fails, then there will be `max_attempts - 1` retries). Must
-    /// be >= -1.
+    /// Must be greater than or equal to -1, which indicates unlimited attempts.
+    ///
+    /// Cloud Tasks stops retrying only when `max_attempts` and
+    /// `max_retry_duration` are both satisfied, or when the task is successfully
+    /// executed. When the task has been attempted
+    /// `max_attempts` times and when the `max_retry_duration` time has passed, no
+    /// further attempts are made, and the task is deleted. If `max_attempts` is
+    /// set to -1 and `max_retry_duration` is set to 0, the task is retried
+    /// until the [maximum task
+    /// retention](https://docs.cloud.google.com/tasks/docs/quotas#limits) limit is
+    /// reached.
     ///
     /// If unspecified when the queue is created, Cloud Tasks will pick the
     /// default.
-    ///
-    /// -1 indicates unlimited attempts.
     ///
     /// This field has the same meaning as
     /// [task_retry_limit in
@@ -1872,14 +2943,20 @@ pub struct RetryConfig {
     /// attempted. Once `max_retry_duration` time has passed *and* the
     /// task has been attempted
     /// [max_attempts][google.cloud.tasks.v2.RetryConfig.max_attempts] times, no
-    /// further attempts will be made and the task will be deleted.
+    /// further attempts are made and the task is deleted.
     ///
-    /// If zero, then the task age is unlimited.
+    /// A zero (0) indicates an unlimited duration, up to the
+    /// [maximum task
+    /// retention](https://docs.cloud.google.com/tasks/docs/quotas#limits) limit.
+    ///
+    /// The value must be given as a string that indicates the length of time
+    /// (in seconds) followed by `s` (for "seconds"). For the maximum possible
+    /// value or the format, see the documentation for
+    /// [Duration](https://protobuf.dev/reference/protobuf/google.protobuf/#duration).
+    /// `max_retry_duration` will be truncated to the nearest second.
     ///
     /// If unspecified when the queue is created, Cloud Tasks will pick the
     /// default.
-    ///
-    /// `max_retry_duration` will be truncated to the nearest second.
     ///
     /// This field has the same meaning as
     /// [task_age_limit in
@@ -1895,10 +2972,14 @@ pub struct RetryConfig {
     /// [RetryConfig][google.cloud.tasks.v2.RetryConfig] specifies that the task
     /// should be retried.
     ///
+    /// The value must be given as a string that indicates the length of time
+    /// (in seconds) followed by `s` (for "seconds"). For more information on the
+    /// format, see the documentation for
+    /// [Duration](https://protobuf.dev/reference/protobuf/google.protobuf/#duration).
+    /// `min_backoff` will be truncated to the nearest second.
+    ///
     /// If unspecified when the queue is created, Cloud Tasks will pick the
     /// default.
-    ///
-    /// `min_backoff` will be truncated to the nearest second.
     ///
     /// This field has the same meaning as
     /// [min_backoff_seconds in
@@ -1917,10 +2998,14 @@ pub struct RetryConfig {
     /// [RetryConfig][google.cloud.tasks.v2.RetryConfig] specifies that the task
     /// should be retried.
     ///
+    /// The value must be given as a string that indicates the length of time
+    /// (in seconds) followed by `s` (for "seconds"). For more information on the
+    /// format, see the documentation for
+    /// [Duration](https://protobuf.dev/reference/protobuf/google.protobuf/#duration).
+    /// `max_backoff` will be truncated to the nearest second.
+    ///
     /// If unspecified when the queue is created, Cloud Tasks will pick the
     /// default.
-    ///
-    /// `max_backoff` will be truncated to the nearest second.
     ///
     /// This field has the same meaning as
     /// [max_backoff_seconds in
@@ -2142,6 +3227,1013 @@ impl wkt::message::Message for StackdriverLoggingConfig {
     }
 }
 
+/// PathOverride.
+///
+/// Path message defines path override for HTTP targets.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PathOverride {
+    /// The URI path (e.g., /users/1234). Default is an empty string.
+    pub path: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PathOverride {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [path][crate::model::PathOverride::path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::PathOverride;
+    /// let x = PathOverride::new().set_path("example");
+    /// ```
+    pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.path = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PathOverride {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.tasks.v2.PathOverride"
+    }
+}
+
+/// QueryOverride.
+///
+/// Query message defines query override for HTTP targets.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct QueryOverride {
+    /// The query parameters (e.g., qparam1=123&qparam2=456). Default is an empty
+    /// string.
+    pub query_params: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl QueryOverride {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [query_params][crate::model::QueryOverride::query_params].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::QueryOverride;
+    /// let x = QueryOverride::new().set_query_params("example");
+    /// ```
+    pub fn set_query_params<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.query_params = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for QueryOverride {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.tasks.v2.QueryOverride"
+    }
+}
+
+/// URI Override.
+///
+/// When specified, all the HTTP tasks inside the queue will be partially or
+/// fully overridden depending on the configured values.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UriOverride {
+    /// Scheme override.
+    ///
+    /// When specified, the task URI scheme is replaced by the provided value (HTTP
+    /// or HTTPS).
+    pub scheme: std::option::Option<crate::model::uri_override::Scheme>,
+
+    /// Host override.
+    ///
+    /// When specified, replaces the host part of the task URL. For example,
+    /// if the task URL is "<https://www.google.com>," and host value is set to
+    /// "example.net", the overridden URI will be changed to "<https://example.net>."
+    /// Host value cannot be an empty string (INVALID_ARGUMENT).
+    pub host: std::option::Option<std::string::String>,
+
+    /// Port override.
+    ///
+    /// When specified, replaces the port part of the task URI. For instance,
+    /// for a URI `https://www.example.com/example` and port=123, the overridden
+    /// URI becomes "<https://www.example.com>:123/example". Note that the port value
+    /// must be a positive integer. Setting the port to 0 (Zero) clears the URI
+    /// port.
+    pub port: std::option::Option<i64>,
+
+    /// URI path.
+    ///
+    /// When specified, replaces the existing path of the task URL. Setting the
+    /// path value to an empty string clears the URI path segment.
+    pub path_override: std::option::Option<crate::model::PathOverride>,
+
+    /// URI query.
+    ///
+    /// When specified, replaces the query part of the task URI. Setting the
+    /// query value to an empty string clears the URI query segment.
+    pub query_override: std::option::Option<crate::model::QueryOverride>,
+
+    /// URI Override Enforce Mode
+    ///
+    /// When specified, determines the Target UriOverride mode. If not specified,
+    /// it defaults to ALWAYS.
+    pub uri_override_enforce_mode: crate::model::uri_override::UriOverrideEnforceMode,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UriOverride {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [scheme][crate::model::UriOverride::scheme].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::UriOverride;
+    /// use google_cloud_tasks_v2::model::uri_override::Scheme;
+    /// let x0 = UriOverride::new().set_scheme(Scheme::Http);
+    /// let x1 = UriOverride::new().set_scheme(Scheme::Https);
+    /// ```
+    pub fn set_scheme<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::uri_override::Scheme>,
+    {
+        self.scheme = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [scheme][crate::model::UriOverride::scheme].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::UriOverride;
+    /// use google_cloud_tasks_v2::model::uri_override::Scheme;
+    /// let x0 = UriOverride::new().set_or_clear_scheme(Some(Scheme::Http));
+    /// let x1 = UriOverride::new().set_or_clear_scheme(Some(Scheme::Https));
+    /// let x_none = UriOverride::new().set_or_clear_scheme(None::<Scheme>);
+    /// ```
+    pub fn set_or_clear_scheme<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::uri_override::Scheme>,
+    {
+        self.scheme = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [host][crate::model::UriOverride::host].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::UriOverride;
+    /// let x = UriOverride::new().set_host("example");
+    /// ```
+    pub fn set_host<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.host = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [host][crate::model::UriOverride::host].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::UriOverride;
+    /// let x = UriOverride::new().set_or_clear_host(Some("example"));
+    /// let x = UriOverride::new().set_or_clear_host(None::<String>);
+    /// ```
+    pub fn set_or_clear_host<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.host = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [port][crate::model::UriOverride::port].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::UriOverride;
+    /// let x = UriOverride::new().set_port(42);
+    /// ```
+    pub fn set_port<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.port = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [port][crate::model::UriOverride::port].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::UriOverride;
+    /// let x = UriOverride::new().set_or_clear_port(Some(42));
+    /// let x = UriOverride::new().set_or_clear_port(None::<i32>);
+    /// ```
+    pub fn set_or_clear_port<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.port = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [path_override][crate::model::UriOverride::path_override].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::UriOverride;
+    /// use google_cloud_tasks_v2::model::PathOverride;
+    /// let x = UriOverride::new().set_path_override(PathOverride::default()/* use setters */);
+    /// ```
+    pub fn set_path_override<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PathOverride>,
+    {
+        self.path_override = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [path_override][crate::model::UriOverride::path_override].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::UriOverride;
+    /// use google_cloud_tasks_v2::model::PathOverride;
+    /// let x = UriOverride::new().set_or_clear_path_override(Some(PathOverride::default()/* use setters */));
+    /// let x = UriOverride::new().set_or_clear_path_override(None::<PathOverride>);
+    /// ```
+    pub fn set_or_clear_path_override<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PathOverride>,
+    {
+        self.path_override = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [query_override][crate::model::UriOverride::query_override].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::UriOverride;
+    /// use google_cloud_tasks_v2::model::QueryOverride;
+    /// let x = UriOverride::new().set_query_override(QueryOverride::default()/* use setters */);
+    /// ```
+    pub fn set_query_override<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::QueryOverride>,
+    {
+        self.query_override = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [query_override][crate::model::UriOverride::query_override].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::UriOverride;
+    /// use google_cloud_tasks_v2::model::QueryOverride;
+    /// let x = UriOverride::new().set_or_clear_query_override(Some(QueryOverride::default()/* use setters */));
+    /// let x = UriOverride::new().set_or_clear_query_override(None::<QueryOverride>);
+    /// ```
+    pub fn set_or_clear_query_override<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::QueryOverride>,
+    {
+        self.query_override = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [uri_override_enforce_mode][crate::model::UriOverride::uri_override_enforce_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::UriOverride;
+    /// use google_cloud_tasks_v2::model::uri_override::UriOverrideEnforceMode;
+    /// let x0 = UriOverride::new().set_uri_override_enforce_mode(UriOverrideEnforceMode::IfNotExists);
+    /// let x1 = UriOverride::new().set_uri_override_enforce_mode(UriOverrideEnforceMode::Always);
+    /// ```
+    pub fn set_uri_override_enforce_mode<
+        T: std::convert::Into<crate::model::uri_override::UriOverrideEnforceMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.uri_override_enforce_mode = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UriOverride {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.tasks.v2.UriOverride"
+    }
+}
+
+/// Defines additional types related to [UriOverride].
+pub mod uri_override {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The Scheme for an HTTP request. By default, it is HTTPS.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Scheme {
+        /// Scheme unspecified. Defaults to HTTPS.
+        Unspecified,
+        /// Convert the scheme to HTTP, e.g., `https://www.example.com` will change
+        /// to `http://www.example.com`.
+        Http,
+        /// Convert the scheme to HTTPS, e.g., `http://www.example.com` will change
+        /// to `https://www.example.com`.
+        Https,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Scheme::value] or
+        /// [Scheme::name].
+        UnknownValue(scheme::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod scheme {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Scheme {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Http => std::option::Option::Some(1),
+                Self::Https => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SCHEME_UNSPECIFIED"),
+                Self::Http => std::option::Option::Some("HTTP"),
+                Self::Https => std::option::Option::Some("HTTPS"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Scheme {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Scheme {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Scheme {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Http,
+                2 => Self::Https,
+                _ => Self::UnknownValue(scheme::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Scheme {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SCHEME_UNSPECIFIED" => Self::Unspecified,
+                "HTTP" => Self::Http,
+                "HTTPS" => Self::Https,
+                _ => Self::UnknownValue(scheme::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Scheme {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Http => serializer.serialize_i32(1),
+                Self::Https => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Scheme {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Scheme>::new(
+                ".google.cloud.tasks.v2.UriOverride.Scheme",
+            ))
+        }
+    }
+
+    /// UriOverrideEnforceMode defines when the URI override is enforced.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum UriOverrideEnforceMode {
+        /// UriOverrideEnforceMode Unspecified. Defaults to ALWAYS.
+        Unspecified,
+        /// In the IF_NOT_EXISTS mode, queue-level configuration is only
+        /// applied where task-level configuration does not exist.
+        IfNotExists,
+        /// In the ALWAYS mode, queue-level configuration overrides all
+        /// task-level configuration
+        Always,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [UriOverrideEnforceMode::value] or
+        /// [UriOverrideEnforceMode::name].
+        UnknownValue(uri_override_enforce_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod uri_override_enforce_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl UriOverrideEnforceMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::IfNotExists => std::option::Option::Some(1),
+                Self::Always => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("URI_OVERRIDE_ENFORCE_MODE_UNSPECIFIED")
+                }
+                Self::IfNotExists => std::option::Option::Some("IF_NOT_EXISTS"),
+                Self::Always => std::option::Option::Some("ALWAYS"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for UriOverrideEnforceMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for UriOverrideEnforceMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for UriOverrideEnforceMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::IfNotExists,
+                2 => Self::Always,
+                _ => Self::UnknownValue(uri_override_enforce_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for UriOverrideEnforceMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "URI_OVERRIDE_ENFORCE_MODE_UNSPECIFIED" => Self::Unspecified,
+                "IF_NOT_EXISTS" => Self::IfNotExists,
+                "ALWAYS" => Self::Always,
+                _ => Self::UnknownValue(uri_override_enforce_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for UriOverrideEnforceMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::IfNotExists => serializer.serialize_i32(1),
+                Self::Always => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for UriOverrideEnforceMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<UriOverrideEnforceMode>::new(
+                ".google.cloud.tasks.v2.UriOverride.UriOverrideEnforceMode",
+            ))
+        }
+    }
+}
+
+/// HTTP target.
+///
+/// When specified at the [Queue][google.cloud.tasks.v2.Queue] level, all tasks
+/// with [HttpRequest][google.cloud.tasks.v2.HttpRequest] are overridden
+/// according to the target.
+///
+/// [google.cloud.tasks.v2.HttpRequest]: crate::model::HttpRequest
+/// [google.cloud.tasks.v2.Queue]: crate::model::Queue
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct HttpTarget {
+    /// URI override.
+    ///
+    /// When specified, overrides the execution URI for all the tasks in the queue.
+    pub uri_override: std::option::Option<crate::model::UriOverride>,
+
+    /// The HTTP method to use for the request.
+    ///
+    /// When specified, it overrides
+    /// [HttpRequest][google.cloud.tasks.v2.HttpTarget.http_method] for the task.
+    /// Note that if the value is set to [HttpMethod][GET] the [HttpRequest][body]
+    /// of the task will be ignored at execution time.
+    ///
+    /// [google.cloud.tasks.v2.HttpTarget.http_method]: crate::model::HttpTarget::http_method
+    pub http_method: crate::model::HttpMethod,
+
+    /// HTTP target headers.
+    ///
+    /// This map contains the header field names and values.
+    /// Headers will be set when running the
+    /// [CreateTask][google.cloud.tasks.v2.CloudTasks.CreateTask] and/or
+    /// [BufferTask][google.cloud.tasks.v2.CloudTasks.BufferTask].
+    ///
+    /// These headers represent a subset of the headers that will be configured for
+    /// the task's HTTP request. Some HTTP request headers will be ignored or
+    /// replaced.
+    ///
+    /// A partial list of headers that will be ignored or replaced is:
+    ///
+    /// * Several predefined headers, prefixed with "X-CloudTasks-", can
+    ///   be used to define properties of the task.
+    /// * Host: This will be computed by Cloud Tasks and derived from
+    ///   [HttpRequest.url][google.cloud.tasks.v2.Target.HttpRequest.url].
+    /// * Content-Length: This will be computed by Cloud Tasks.
+    ///
+    /// `Content-Type` won't be set by Cloud Tasks. You can explicitly set
+    /// `Content-Type` to a media type when the
+    /// [task is created][google.cloud.tasks.v2.CloudTasks.CreateTask].
+    /// For example, `Content-Type` can be set to `"application/octet-stream"` or
+    /// `"application/json"`. The default value is set to `"application/json"`.
+    ///
+    /// * User-Agent: This will be set to `"Google-Cloud-Tasks"`.
+    ///
+    /// Headers which can have multiple values (according to RFC2616) can be
+    /// specified using comma-separated values.
+    ///
+    /// The size of the headers must be less than 80KB.
+    /// Queue-level headers to override headers of all the tasks in the queue.
+    ///
+    /// Do not put business sensitive or personally identifying data in the HTTP
+    /// Header Override Configuration or other similar fields in accordance with
+    /// Section 12 (Resource Fields) of the
+    /// [Service Specific Terms](https://cloud.google.com/terms/service-terms).
+    ///
+    /// [google.cloud.tasks.v2.CloudTasks.CreateTask]: crate::client::CloudTasks::create_task
+    pub header_overrides: std::vec::Vec<crate::model::http_target::HeaderOverride>,
+
+    /// The mode for generating an `Authorization` header for HTTP requests.
+    ///
+    /// If specified, all `Authorization` headers in the
+    /// [HttpRequest.headers][google.cloud.tasks.v2.HttpRequest.headers] field are
+    /// overridden.
+    ///
+    /// [google.cloud.tasks.v2.HttpRequest.headers]: crate::model::HttpRequest::headers
+    pub authorization_header: std::option::Option<crate::model::http_target::AuthorizationHeader>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl HttpTarget {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [uri_override][crate::model::HttpTarget::uri_override].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::HttpTarget;
+    /// use google_cloud_tasks_v2::model::UriOverride;
+    /// let x = HttpTarget::new().set_uri_override(UriOverride::default()/* use setters */);
+    /// ```
+    pub fn set_uri_override<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::UriOverride>,
+    {
+        self.uri_override = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [uri_override][crate::model::HttpTarget::uri_override].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::HttpTarget;
+    /// use google_cloud_tasks_v2::model::UriOverride;
+    /// let x = HttpTarget::new().set_or_clear_uri_override(Some(UriOverride::default()/* use setters */));
+    /// let x = HttpTarget::new().set_or_clear_uri_override(None::<UriOverride>);
+    /// ```
+    pub fn set_or_clear_uri_override<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::UriOverride>,
+    {
+        self.uri_override = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [http_method][crate::model::HttpTarget::http_method].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::HttpTarget;
+    /// use google_cloud_tasks_v2::model::HttpMethod;
+    /// let x0 = HttpTarget::new().set_http_method(HttpMethod::Post);
+    /// let x1 = HttpTarget::new().set_http_method(HttpMethod::Get);
+    /// let x2 = HttpTarget::new().set_http_method(HttpMethod::Head);
+    /// ```
+    pub fn set_http_method<T: std::convert::Into<crate::model::HttpMethod>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.http_method = v.into();
+        self
+    }
+
+    /// Sets the value of [header_overrides][crate::model::HttpTarget::header_overrides].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::HttpTarget;
+    /// use google_cloud_tasks_v2::model::http_target::HeaderOverride;
+    /// let x = HttpTarget::new()
+    ///     .set_header_overrides([
+    ///         HeaderOverride::default()/* use setters */,
+    ///         HeaderOverride::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_header_overrides<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::http_target::HeaderOverride>,
+    {
+        use std::iter::Iterator;
+        self.header_overrides = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [authorization_header][crate::model::HttpTarget::authorization_header].
+    ///
+    /// Note that all the setters affecting `authorization_header` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::HttpTarget;
+    /// use google_cloud_tasks_v2::model::OAuthToken;
+    /// let x = HttpTarget::new().set_authorization_header(Some(
+    ///     google_cloud_tasks_v2::model::http_target::AuthorizationHeader::OauthToken(OAuthToken::default().into())));
+    /// ```
+    pub fn set_authorization_header<
+        T: std::convert::Into<std::option::Option<crate::model::http_target::AuthorizationHeader>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.authorization_header = v.into();
+        self
+    }
+
+    /// The value of [authorization_header][crate::model::HttpTarget::authorization_header]
+    /// if it holds a `OauthToken`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn oauth_token(&self) -> std::option::Option<&std::boxed::Box<crate::model::OAuthToken>> {
+        #[allow(unreachable_patterns)]
+        self.authorization_header.as_ref().and_then(|v| match v {
+            crate::model::http_target::AuthorizationHeader::OauthToken(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [authorization_header][crate::model::HttpTarget::authorization_header]
+    /// to hold a `OauthToken`.
+    ///
+    /// Note that all the setters affecting `authorization_header` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::HttpTarget;
+    /// use google_cloud_tasks_v2::model::OAuthToken;
+    /// let x = HttpTarget::new().set_oauth_token(OAuthToken::default()/* use setters */);
+    /// assert!(x.oauth_token().is_some());
+    /// assert!(x.oidc_token().is_none());
+    /// ```
+    pub fn set_oauth_token<T: std::convert::Into<std::boxed::Box<crate::model::OAuthToken>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.authorization_header = std::option::Option::Some(
+            crate::model::http_target::AuthorizationHeader::OauthToken(v.into()),
+        );
+        self
+    }
+
+    /// The value of [authorization_header][crate::model::HttpTarget::authorization_header]
+    /// if it holds a `OidcToken`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn oidc_token(&self) -> std::option::Option<&std::boxed::Box<crate::model::OidcToken>> {
+        #[allow(unreachable_patterns)]
+        self.authorization_header.as_ref().and_then(|v| match v {
+            crate::model::http_target::AuthorizationHeader::OidcToken(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [authorization_header][crate::model::HttpTarget::authorization_header]
+    /// to hold a `OidcToken`.
+    ///
+    /// Note that all the setters affecting `authorization_header` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::HttpTarget;
+    /// use google_cloud_tasks_v2::model::OidcToken;
+    /// let x = HttpTarget::new().set_oidc_token(OidcToken::default()/* use setters */);
+    /// assert!(x.oidc_token().is_some());
+    /// assert!(x.oauth_token().is_none());
+    /// ```
+    pub fn set_oidc_token<T: std::convert::Into<std::boxed::Box<crate::model::OidcToken>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.authorization_header = std::option::Option::Some(
+            crate::model::http_target::AuthorizationHeader::OidcToken(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for HttpTarget {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.tasks.v2.HttpTarget"
+    }
+}
+
+/// Defines additional types related to [HttpTarget].
+pub mod http_target {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Defines a header message. A header can have a key and a value.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Header {
+        /// The Key of the header.
+        pub key: std::string::String,
+
+        /// The Value of the header.
+        pub value: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Header {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [key][crate::model::http_target::Header::key].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_tasks_v2::model::http_target::Header;
+        /// let x = Header::new().set_key("example");
+        /// ```
+        pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.key = v.into();
+            self
+        }
+
+        /// Sets the value of [value][crate::model::http_target::Header::value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_tasks_v2::model::http_target::Header;
+        /// let x = Header::new().set_value("example");
+        /// ```
+        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.value = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Header {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.tasks.v2.HttpTarget.Header"
+        }
+    }
+
+    /// Wraps the Header object.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct HeaderOverride {
+        /// Header embodying a key and a value.
+        ///
+        /// Do not put business sensitive or personally identifying data in the HTTP
+        /// Header Override Configuration or other similar fields in accordance with
+        /// Section 12 (Resource Fields) of the
+        /// [Service Specific Terms](https://cloud.google.com/terms/service-terms).
+        pub header: std::option::Option<crate::model::http_target::Header>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl HeaderOverride {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [header][crate::model::http_target::HeaderOverride::header].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_tasks_v2::model::http_target::HeaderOverride;
+        /// use google_cloud_tasks_v2::model::http_target::Header;
+        /// let x = HeaderOverride::new().set_header(Header::default()/* use setters */);
+        /// ```
+        pub fn set_header<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::http_target::Header>,
+        {
+            self.header = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [header][crate::model::http_target::HeaderOverride::header].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_tasks_v2::model::http_target::HeaderOverride;
+        /// use google_cloud_tasks_v2::model::http_target::Header;
+        /// let x = HeaderOverride::new().set_or_clear_header(Some(Header::default()/* use setters */));
+        /// let x = HeaderOverride::new().set_or_clear_header(None::<Header>);
+        /// ```
+        pub fn set_or_clear_header<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::http_target::Header>,
+        {
+            self.header = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for HeaderOverride {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.tasks.v2.HttpTarget.HeaderOverride"
+        }
+    }
+
+    /// The mode for generating an `Authorization` header for HTTP requests.
+    ///
+    /// If specified, all `Authorization` headers in the
+    /// [HttpRequest.headers][google.cloud.tasks.v2.HttpRequest.headers] field are
+    /// overridden.
+    ///
+    /// [google.cloud.tasks.v2.HttpRequest.headers]: crate::model::HttpRequest::headers
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AuthorizationHeader {
+        /// If specified, an
+        /// [OAuth token](https://developers.google.com/identity/protocols/OAuth2)
+        /// is generated and attached as the `Authorization` header in the HTTP
+        /// request.
+        ///
+        /// This type of authorization should generally be used only when calling
+        /// Google APIs hosted on *.googleapis.com. Note that both the service
+        /// account email and the scope MUST be specified when using the queue-level
+        /// authorization override.
+        OauthToken(std::boxed::Box<crate::model::OAuthToken>),
+        /// If specified, an
+        /// [OIDC](https://developers.google.com/identity/protocols/OpenIDConnect)
+        /// token is generated and attached as an `Authorization` header in the
+        /// HTTP request.
+        ///
+        /// This type of authorization can be used for many scenarios, including
+        /// calling Cloud Run, or endpoints where you intend to validate the token
+        /// yourself. Note that both the service account email and the audience MUST
+        /// be specified when using the queue-level authorization override.
+        OidcToken(std::boxed::Box<crate::model::OidcToken>),
+    }
+}
+
 /// HTTP request.
 ///
 /// The task will be pushed to the worker as an HTTP request. If the worker
@@ -2200,7 +4292,7 @@ pub struct HttpRequest {
     ///
     /// This map contains the header field names and values.
     /// Headers can be set when the
-    /// [task is created][google.cloud.tasks.v2beta3.CloudTasks.CreateTask].
+    /// [task is created][google.cloud.tasks.v2.CloudTasks.CreateTask].
     ///
     /// These headers represent a subset of the headers that will accompany the
     /// task's HTTP request. Some HTTP request headers will be ignored or replaced.
@@ -2216,7 +4308,7 @@ pub struct HttpRequest {
     ///
     /// `Content-Type` won't be set by Cloud Tasks. You can explicitly set
     /// `Content-Type` to a media type when the
-    /// [task is created][google.cloud.tasks.v2beta3.CloudTasks.CreateTask].
+    /// [task is created][google.cloud.tasks.v2.CloudTasks.CreateTask].
     /// For example, `Content-Type` can be set to `"application/octet-stream"` or
     /// `"application/json"`.
     ///
@@ -2225,6 +4317,7 @@ pub struct HttpRequest {
     ///
     /// The size of the headers must be less than 80KB.
     ///
+    /// [google.cloud.tasks.v2.CloudTasks.CreateTask]: crate::client::CloudTasks::create_task
     /// [google.cloud.tasks.v2.HttpRequest.url]: crate::model::HttpRequest::url
     pub headers: std::collections::HashMap<std::string::String, std::string::String>,
 
@@ -2241,11 +4334,13 @@ pub struct HttpRequest {
 
     /// The mode for generating an `Authorization` header for HTTP requests.
     ///
-    /// If specified, all `Authorization` headers in the
-    /// [HttpRequest.headers][google.cloud.tasks.v2.HttpRequest.headers] field will
-    /// be overridden.
+    /// If specified at the [Queue][google.cloud.tasks.v2.Queue] level, all
+    /// `Authorization` headers in the
+    /// [HttpRequest.headers][google.cloud.tasks.v2.HttpRequest.headers] field are
+    /// overridden.
     ///
     /// [google.cloud.tasks.v2.HttpRequest.headers]: crate::model::HttpRequest::headers
+    /// [google.cloud.tasks.v2.Queue]: crate::model::Queue
     pub authorization_header: std::option::Option<crate::model::http_request::AuthorizationHeader>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2430,11 +4525,13 @@ pub mod http_request {
 
     /// The mode for generating an `Authorization` header for HTTP requests.
     ///
-    /// If specified, all `Authorization` headers in the
-    /// [HttpRequest.headers][google.cloud.tasks.v2.HttpRequest.headers] field will
-    /// be overridden.
+    /// If specified at the [Queue][google.cloud.tasks.v2.Queue] level, all
+    /// `Authorization` headers in the
+    /// [HttpRequest.headers][google.cloud.tasks.v2.HttpRequest.headers] field are
+    /// overridden.
     ///
     /// [google.cloud.tasks.v2.HttpRequest.headers]: crate::model::HttpRequest::headers
+    /// [google.cloud.tasks.v2.Queue]: crate::model::Queue
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AuthorizationHeader {
@@ -3100,6 +5197,10 @@ pub struct Task {
     ///   [Timeouts](https://cloud.google.com/tasks/docs/creating-appengine-handlers#timeouts).
     ///
     ///
+    /// The value must be given as a string that indicates the length of time
+    /// (in seconds) followed by `s` (for "seconds"). For more information on the
+    /// format, see the documentation for
+    /// [Duration](https://protobuf.dev/reference/protobuf/google.protobuf/#duration).
     /// `dispatch_deadline` will be truncated to the nearest millisecond. The
     /// deadline is an approximate deadline.
     ///
@@ -3135,6 +5236,17 @@ pub struct Task {
     ///
     /// [google.cloud.tasks.v2.Task]: crate::model::Task
     pub view: crate::model::task::View,
+
+    /// Optional. Specifies the task-level
+    /// [RetryConfig][google.cloud.tasks.v2.RetryConfig].
+    ///
+    /// If present, this overrides the
+    /// [Queue.retry_config][google.cloud.tasks.v2.Queue.retry_config] for this
+    /// task.
+    ///
+    /// [google.cloud.tasks.v2.Queue.retry_config]: crate::model::Queue::retry_config
+    /// [google.cloud.tasks.v2.RetryConfig]: crate::model::RetryConfig
+    pub retry_config: std::option::Option<crate::model::RetryConfig>,
 
     /// Required. The message to send to the worker.
     pub message_type: std::option::Option<crate::model::task::MessageType>,
@@ -3364,6 +5476,39 @@ impl Task {
     /// ```
     pub fn set_view<T: std::convert::Into<crate::model::task::View>>(mut self, v: T) -> Self {
         self.view = v.into();
+        self
+    }
+
+    /// Sets the value of [retry_config][crate::model::Task::retry_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::Task;
+    /// use google_cloud_tasks_v2::model::RetryConfig;
+    /// let x = Task::new().set_retry_config(RetryConfig::default()/* use setters */);
+    /// ```
+    pub fn set_retry_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RetryConfig>,
+    {
+        self.retry_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [retry_config][crate::model::Task::retry_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_tasks_v2::model::Task;
+    /// use google_cloud_tasks_v2::model::RetryConfig;
+    /// let x = Task::new().set_or_clear_retry_config(Some(RetryConfig::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_retry_config(None::<RetryConfig>);
+    /// ```
+    pub fn set_or_clear_retry_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RetryConfig>,
+    {
+        self.retry_config = v.map(|x| x.into());
         self
     }
 

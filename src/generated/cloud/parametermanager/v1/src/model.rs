@@ -67,6 +67,22 @@ pub struct Parameter {
     /// `projects/*/locations/*/keyRings/*/cryptoKeys/*`.
     pub kms_key: std::option::Option<std::string::String>,
 
+    /// Optional. Input only. Immutable. Tag keys and tag values that are bound to
+    /// this Parameter. You must represent each item in the map as:
+    /// `"<tag-key-namespaced-name>" : "<tag-value-short-name>"`.
+    ///
+    /// For example, a single resource can have the following tags:
+    ///
+    /// ```norust
+    ///   "123/environment": "production",
+    ///   "123/costCenter": "marketing",
+    /// ```
+    ///
+    /// Tags are used to organize and group resources.
+    ///
+    /// Tags can be used to control policy evaluation for the resource.
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -259,6 +275,27 @@ impl Parameter {
         self.kms_key = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [tags][crate::model::Parameter::tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::Parameter;
+    /// let x = Parameter::new().set_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for Parameter {
@@ -279,7 +316,11 @@ pub struct ListParametersRequest {
     /// requested. If unspecified, server will pick an appropriate default.
     pub page_size: i32,
 
-    /// Optional. A token identifying a page of results the server should return.
+    /// Optional. A page token, received from a previous `ListParameters` call.
+    /// Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to `ListParameters` must
+    /// match the call that provided the page token.
     pub page_token: std::string::String,
 
     /// Optional. Filtering results
@@ -837,6 +878,9 @@ pub struct ParameterVersion {
     /// key (CMEK) configured.
     pub kms_key_version: std::option::Option<std::string::String>,
 
+    /// Optional. Output only. [Output only] The source of the checksum.
+    pub checksum_source: std::option::Option<crate::model::parameter_version::ChecksumSource>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1003,11 +1047,184 @@ impl ParameterVersion {
         self.kms_key_version = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [checksum_source][crate::model::ParameterVersion::checksum_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::ParameterVersion;
+    /// use google_cloud_parametermanager_v1::model::parameter_version::ChecksumSource;
+    /// let x0 = ParameterVersion::new().set_checksum_source(ChecksumSource::ServerGenerated);
+    /// let x1 = ParameterVersion::new().set_checksum_source(ChecksumSource::UserSpecified);
+    /// ```
+    pub fn set_checksum_source<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::parameter_version::ChecksumSource>,
+    {
+        self.checksum_source = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [checksum_source][crate::model::ParameterVersion::checksum_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::ParameterVersion;
+    /// use google_cloud_parametermanager_v1::model::parameter_version::ChecksumSource;
+    /// let x0 = ParameterVersion::new().set_or_clear_checksum_source(Some(ChecksumSource::ServerGenerated));
+    /// let x1 = ParameterVersion::new().set_or_clear_checksum_source(Some(ChecksumSource::UserSpecified));
+    /// let x_none = ParameterVersion::new().set_or_clear_checksum_source(None::<ChecksumSource>);
+    /// ```
+    pub fn set_or_clear_checksum_source<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::parameter_version::ChecksumSource>,
+    {
+        self.checksum_source = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for ParameterVersion {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.parametermanager.v1.ParameterVersion"
+    }
+}
+
+/// Defines additional types related to [ParameterVersion].
+pub mod parameter_version {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The source of the checksum.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ChecksumSource {
+        /// The default / unset value.
+        Unspecified,
+        /// The checksum was generated by the server.
+        ServerGenerated,
+        /// The checksum was provided by the user.
+        UserSpecified,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ChecksumSource::value] or
+        /// [ChecksumSource::name].
+        UnknownValue(checksum_source::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod checksum_source {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ChecksumSource {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ServerGenerated => std::option::Option::Some(1),
+                Self::UserSpecified => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CHECKSUM_SOURCE_UNSPECIFIED"),
+                Self::ServerGenerated => std::option::Option::Some("SERVER_GENERATED"),
+                Self::UserSpecified => std::option::Option::Some("USER_SPECIFIED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ChecksumSource {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ChecksumSource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ChecksumSource {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ServerGenerated,
+                2 => Self::UserSpecified,
+                _ => Self::UnknownValue(checksum_source::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ChecksumSource {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CHECKSUM_SOURCE_UNSPECIFIED" => Self::Unspecified,
+                "SERVER_GENERATED" => Self::ServerGenerated,
+                "USER_SPECIFIED" => Self::UserSpecified,
+                _ => Self::UnknownValue(checksum_source::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ChecksumSource {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ServerGenerated => serializer.serialize_i32(1),
+                Self::UserSpecified => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ChecksumSource {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ChecksumSource>::new(
+                ".google.cloud.parametermanager.v1.ParameterVersion.ChecksumSource",
+            ))
+        }
     }
 }
 
@@ -1017,6 +1234,11 @@ impl wkt::message::Message for ParameterVersion {
 pub struct ParameterVersionPayload {
     /// Required. bytes data for storing payload.
     pub data: ::bytes::Bytes,
+
+    /// Optional. [Optional] The integrity checksum of the payload.
+    /// If provided, the server will verify that the checksum matches the payload.
+    /// If not provided, the server will generate the checksum.
+    pub data_crc32c: std::option::Option<i64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1036,6 +1258,37 @@ impl ParameterVersionPayload {
     /// ```
     pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
+        self
+    }
+
+    /// Sets the value of [data_crc32c][crate::model::ParameterVersionPayload::data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::ParameterVersionPayload;
+    /// let x = ParameterVersionPayload::new().set_data_crc32c(42);
+    /// ```
+    pub fn set_data_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.data_crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [data_crc32c][crate::model::ParameterVersionPayload::data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::ParameterVersionPayload;
+    /// let x = ParameterVersionPayload::new().set_or_clear_data_crc32c(Some(42));
+    /// let x = ParameterVersionPayload::new().set_or_clear_data_crc32c(None::<i32>);
+    /// ```
+    pub fn set_or_clear_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.data_crc32c = v.map(|x| x.into());
         self
     }
 }
@@ -1058,7 +1311,11 @@ pub struct ListParameterVersionsRequest {
     /// requested. If unspecified, server will pick an appropriate default.
     pub page_size: i32,
 
-    /// Optional. A token identifying a page of results the server should return.
+    /// Optional. A page token, received from a previous `ListParameterVersions`
+    /// call. Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to `ListParameterVersions`
+    /// must match the call that provided the page token.
     pub page_token: std::string::String,
 
     /// Optional. Filtering results
@@ -1746,6 +2003,1668 @@ impl wkt::message::Message for DeleteParameterVersionRequest {
     }
 }
 
+/// Message describing Template resource
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Template {
+    /// Identifier. The resource name of the Template in the format
+    /// `projects/*/locations/*/templates/*`.
+    pub name: std::string::String,
+
+    /// Output only. Create time stamp
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Update time stamp
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Labels as key value pairs
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. Specifies the format of a Template.
+    pub format: crate::model::TemplateFormat,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Template {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Template::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::Template;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let template_id = "template_id";
+    /// let x = Template::new().set_name(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::Template::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::Template;
+    /// use wkt::Timestamp;
+    /// let x = Template::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Template::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::Template;
+    /// use wkt::Timestamp;
+    /// let x = Template::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Template::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::Template::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::Template;
+    /// use wkt::Timestamp;
+    /// let x = Template::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Template::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::Template;
+    /// use wkt::Timestamp;
+    /// let x = Template::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Template::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Template::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::Template;
+    /// let x = Template::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [format][crate::model::Template::format].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::Template;
+    /// use google_cloud_parametermanager_v1::model::TemplateFormat;
+    /// let x0 = Template::new().set_format(TemplateFormat::Yaml);
+    /// let x1 = Template::new().set_format(TemplateFormat::Json);
+    /// ```
+    pub fn set_format<T: std::convert::Into<crate::model::TemplateFormat>>(mut self, v: T) -> Self {
+        self.format = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Template {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.parametermanager.v1.Template"
+    }
+}
+
+/// Message for requesting list of Templates
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListTemplatesRequest {
+    /// Required. Parent value for ListTemplatesRequest in the format
+    /// `projects/*/locations/*`.
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, server will pick an appropriate default.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListTemplates` call.
+    /// Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to `ListTemplates` must
+    /// match the call that provided the page token.
+    pub page_token: std::string::String,
+
+    /// Optional. Filtering results
+    pub filter: std::string::String,
+
+    /// Optional. Hint for how to order the results
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListTemplatesRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListTemplatesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::ListTemplatesRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListTemplatesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListTemplatesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::ListTemplatesRequest;
+    /// let x = ListTemplatesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListTemplatesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::ListTemplatesRequest;
+    /// let x = ListTemplatesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListTemplatesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::ListTemplatesRequest;
+    /// let x = ListTemplatesRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListTemplatesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::ListTemplatesRequest;
+    /// let x = ListTemplatesRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListTemplatesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.parametermanager.v1.ListTemplatesRequest"
+    }
+}
+
+/// Message for response to listing Templates
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListTemplatesResponse {
+    /// The list of Templates
+    pub templates: std::vec::Vec<crate::model::Template>,
+
+    /// A token identifying a page of results the server should return.
+    pub next_page_token: std::string::String,
+
+    /// Unordered list. Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListTemplatesResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [templates][crate::model::ListTemplatesResponse::templates].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::ListTemplatesResponse;
+    /// use google_cloud_parametermanager_v1::model::Template;
+    /// let x = ListTemplatesResponse::new()
+    ///     .set_templates([
+    ///         Template::default()/* use setters */,
+    ///         Template::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_templates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Template>,
+    {
+        use std::iter::Iterator;
+        self.templates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTemplatesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::ListTemplatesResponse;
+    /// let x = ListTemplatesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListTemplatesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::ListTemplatesResponse;
+    /// let x = ListTemplatesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListTemplatesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.parametermanager.v1.ListTemplatesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListTemplatesResponse {
+    type PageItem = crate::model::Template;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.templates
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Message for getting a Template
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetTemplateRequest {
+    /// Required. Name of the resource in the format
+    /// `projects/*/locations/*/templates/*`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetTemplateRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetTemplateRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::GetTemplateRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let template_id = "template_id";
+    /// let x = GetTemplateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetTemplateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.parametermanager.v1.GetTemplateRequest"
+    }
+}
+
+/// Message for creating a Template
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateTemplateRequest {
+    /// Required. Value for parent in the format
+    /// `projects/*/locations/*`.
+    pub parent: std::string::String,
+
+    /// Required. Id of the Template resource
+    pub template_id: std::string::String,
+
+    /// Required. The Template resource being created
+    pub template: std::option::Option<crate::model::Template>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateTemplateRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateTemplateRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::CreateTemplateRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateTemplateRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [template_id][crate::model::CreateTemplateRequest::template_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::CreateTemplateRequest;
+    /// let x = CreateTemplateRequest::new().set_template_id("example");
+    /// ```
+    pub fn set_template_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.template_id = v.into();
+        self
+    }
+
+    /// Sets the value of [template][crate::model::CreateTemplateRequest::template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::CreateTemplateRequest;
+    /// use google_cloud_parametermanager_v1::model::Template;
+    /// let x = CreateTemplateRequest::new().set_template(Template::default()/* use setters */);
+    /// ```
+    pub fn set_template<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Template>,
+    {
+        self.template = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [template][crate::model::CreateTemplateRequest::template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::CreateTemplateRequest;
+    /// use google_cloud_parametermanager_v1::model::Template;
+    /// let x = CreateTemplateRequest::new().set_or_clear_template(Some(Template::default()/* use setters */));
+    /// let x = CreateTemplateRequest::new().set_or_clear_template(None::<Template>);
+    /// ```
+    pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Template>,
+    {
+        self.template = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateTemplateRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::CreateTemplateRequest;
+    /// let x = CreateTemplateRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateTemplateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.parametermanager.v1.CreateTemplateRequest"
+    }
+}
+
+/// Message for updating a Template
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateTemplateRequest {
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
+    /// Template resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A mutable field will be overwritten if it is in the
+    /// mask. If the user does not provide a mask then all mutable fields present
+    /// in the request will be overwritten.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The Template resource being updated
+    pub template: std::option::Option<crate::model::Template>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateTemplateRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateTemplateRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::UpdateTemplateRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTemplateRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateTemplateRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::UpdateTemplateRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTemplateRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateTemplateRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [template][crate::model::UpdateTemplateRequest::template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::UpdateTemplateRequest;
+    /// use google_cloud_parametermanager_v1::model::Template;
+    /// let x = UpdateTemplateRequest::new().set_template(Template::default()/* use setters */);
+    /// ```
+    pub fn set_template<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Template>,
+    {
+        self.template = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [template][crate::model::UpdateTemplateRequest::template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::UpdateTemplateRequest;
+    /// use google_cloud_parametermanager_v1::model::Template;
+    /// let x = UpdateTemplateRequest::new().set_or_clear_template(Some(Template::default()/* use setters */));
+    /// let x = UpdateTemplateRequest::new().set_or_clear_template(None::<Template>);
+    /// ```
+    pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Template>,
+    {
+        self.template = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateTemplateRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::UpdateTemplateRequest;
+    /// let x = UpdateTemplateRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateTemplateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.parametermanager.v1.UpdateTemplateRequest"
+    }
+}
+
+/// Message for deleting a Template
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteTemplateRequest {
+    /// Required. Name of the resource in the format
+    /// `projects/*/locations/*/templates/*`.
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes after the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteTemplateRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteTemplateRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::DeleteTemplateRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let template_id = "template_id";
+    /// let x = DeleteTemplateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteTemplateRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::DeleteTemplateRequest;
+    /// let x = DeleteTemplateRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteTemplateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.parametermanager.v1.DeleteTemplateRequest"
+    }
+}
+
+/// Message describing TemplateVersion resource
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TemplateVersion {
+    /// Identifier. The resource name of the TemplateVersion in the format
+    /// `projects/*/locations/*/templates/*/versions/*`.
+    pub name: std::string::String,
+
+    /// Output only. Create time stamp
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Update time stamp
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Disabled boolean to determine if a TemplateVersion acts as a
+    /// metadata only resource (payload is never returned if disabled is true).
+    pub disabled: bool,
+
+    /// Required. Immutable. Payload content of a TemplateVersion resource.
+    pub payload: std::option::Option<crate::model::TemplateVersionPayload>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TemplateVersion {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::TemplateVersion::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::TemplateVersion;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let template_id = "template_id";
+    /// # let template_version_id = "template_version_id";
+    /// let x = TemplateVersion::new().set_name(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}/versions/{template_version_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::TemplateVersion::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::TemplateVersion;
+    /// use wkt::Timestamp;
+    /// let x = TemplateVersion::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::TemplateVersion::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::TemplateVersion;
+    /// use wkt::Timestamp;
+    /// let x = TemplateVersion::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TemplateVersion::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::TemplateVersion::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::TemplateVersion;
+    /// use wkt::Timestamp;
+    /// let x = TemplateVersion::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::TemplateVersion::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::TemplateVersion;
+    /// use wkt::Timestamp;
+    /// let x = TemplateVersion::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TemplateVersion::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [disabled][crate::model::TemplateVersion::disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::TemplateVersion;
+    /// let x = TemplateVersion::new().set_disabled(true);
+    /// ```
+    pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.disabled = v.into();
+        self
+    }
+
+    /// Sets the value of [payload][crate::model::TemplateVersion::payload].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::TemplateVersion;
+    /// use google_cloud_parametermanager_v1::model::TemplateVersionPayload;
+    /// let x = TemplateVersion::new().set_payload(TemplateVersionPayload::default()/* use setters */);
+    /// ```
+    pub fn set_payload<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TemplateVersionPayload>,
+    {
+        self.payload = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [payload][crate::model::TemplateVersion::payload].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::TemplateVersion;
+    /// use google_cloud_parametermanager_v1::model::TemplateVersionPayload;
+    /// let x = TemplateVersion::new().set_or_clear_payload(Some(TemplateVersionPayload::default()/* use setters */));
+    /// let x = TemplateVersion::new().set_or_clear_payload(None::<TemplateVersionPayload>);
+    /// ```
+    pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TemplateVersionPayload>,
+    {
+        self.payload = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for TemplateVersion {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.parametermanager.v1.TemplateVersion"
+    }
+}
+
+/// Message for storing a TemplateVersion resource's payload data
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TemplateVersionPayload {
+    /// Required. bytes data for storing payload.
+    pub data: ::bytes::Bytes,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TemplateVersionPayload {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [data][crate::model::TemplateVersionPayload::data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::TemplateVersionPayload;
+    /// let x = TemplateVersionPayload::new().set_data(bytes::Bytes::from_static(b"example"));
+    /// ```
+    pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.data = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for TemplateVersionPayload {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.parametermanager.v1.TemplateVersionPayload"
+    }
+}
+
+/// Message for requesting list of TemplateVersions
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListTemplateVersionsRequest {
+    /// Required. Parent value for ListTemplateVersionsRequest in the format
+    /// `projects/*/locations/*/templates/*`.
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, server will pick an appropriate default.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListTemplateVersions`
+    /// call. Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to `ListTemplateVersions`
+    /// must match the call that provided the page token.
+    pub page_token: std::string::String,
+
+    /// Optional. Filtering results
+    pub filter: std::string::String,
+
+    /// Optional. Hint for how to order the results
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListTemplateVersionsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListTemplateVersionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::ListTemplateVersionsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let template_id = "template_id";
+    /// let x = ListTemplateVersionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListTemplateVersionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::ListTemplateVersionsRequest;
+    /// let x = ListTemplateVersionsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListTemplateVersionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::ListTemplateVersionsRequest;
+    /// let x = ListTemplateVersionsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListTemplateVersionsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::ListTemplateVersionsRequest;
+    /// let x = ListTemplateVersionsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListTemplateVersionsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::ListTemplateVersionsRequest;
+    /// let x = ListTemplateVersionsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListTemplateVersionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.parametermanager.v1.ListTemplateVersionsRequest"
+    }
+}
+
+/// Message for response to listing TemplateVersions
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListTemplateVersionsResponse {
+    /// The list of TemplateVersions
+    pub template_versions: std::vec::Vec<crate::model::TemplateVersion>,
+
+    /// A token identifying a page of results the server should return.
+    pub next_page_token: std::string::String,
+
+    /// Unordered list. Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListTemplateVersionsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [template_versions][crate::model::ListTemplateVersionsResponse::template_versions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::ListTemplateVersionsResponse;
+    /// use google_cloud_parametermanager_v1::model::TemplateVersion;
+    /// let x = ListTemplateVersionsResponse::new()
+    ///     .set_template_versions([
+    ///         TemplateVersion::default()/* use setters */,
+    ///         TemplateVersion::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_template_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TemplateVersion>,
+    {
+        use std::iter::Iterator;
+        self.template_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTemplateVersionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::ListTemplateVersionsResponse;
+    /// let x = ListTemplateVersionsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListTemplateVersionsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::ListTemplateVersionsResponse;
+    /// let x = ListTemplateVersionsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListTemplateVersionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.parametermanager.v1.ListTemplateVersionsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListTemplateVersionsResponse {
+    type PageItem = crate::model::TemplateVersion;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.template_versions
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Message for getting a TemplateVersion
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetTemplateVersionRequest {
+    /// Required. Name of the resource in the format
+    /// `projects/*/locations/*/templates/*/versions/*`.
+    pub name: std::string::String,
+
+    /// Optional. Specifies the view of the TemplateVersion to return.
+    /// In the default FULL view, all metadata & payload associated with the
+    /// TemplateVersion will be returned.
+    pub view: crate::model::View,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetTemplateVersionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetTemplateVersionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::GetTemplateVersionRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let template_id = "template_id";
+    /// # let template_version_id = "template_version_id";
+    /// let x = GetTemplateVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}/versions/{template_version_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [view][crate::model::GetTemplateVersionRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::GetTemplateVersionRequest;
+    /// use google_cloud_parametermanager_v1::model::View;
+    /// let x0 = GetTemplateVersionRequest::new().set_view(View::Basic);
+    /// let x1 = GetTemplateVersionRequest::new().set_view(View::Full);
+    /// ```
+    pub fn set_view<T: std::convert::Into<crate::model::View>>(mut self, v: T) -> Self {
+        self.view = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetTemplateVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.parametermanager.v1.GetTemplateVersionRequest"
+    }
+}
+
+/// Message for creating a TemplateVersion
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateTemplateVersionRequest {
+    /// Required. Value for parent in the format
+    /// `projects/*/locations/*/templates/*`.
+    pub parent: std::string::String,
+
+    /// Required. Id of the TemplateVersion resource
+    pub template_version_id: std::string::String,
+
+    /// Required. The TemplateVersion resource being created
+    pub template_version: std::option::Option<crate::model::TemplateVersion>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateTemplateVersionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateTemplateVersionRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::CreateTemplateVersionRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let template_id = "template_id";
+    /// let x = CreateTemplateVersionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [template_version_id][crate::model::CreateTemplateVersionRequest::template_version_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::CreateTemplateVersionRequest;
+    /// let x = CreateTemplateVersionRequest::new().set_template_version_id("example");
+    /// ```
+    pub fn set_template_version_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.template_version_id = v.into();
+        self
+    }
+
+    /// Sets the value of [template_version][crate::model::CreateTemplateVersionRequest::template_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::CreateTemplateVersionRequest;
+    /// use google_cloud_parametermanager_v1::model::TemplateVersion;
+    /// let x = CreateTemplateVersionRequest::new().set_template_version(TemplateVersion::default()/* use setters */);
+    /// ```
+    pub fn set_template_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TemplateVersion>,
+    {
+        self.template_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [template_version][crate::model::CreateTemplateVersionRequest::template_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::CreateTemplateVersionRequest;
+    /// use google_cloud_parametermanager_v1::model::TemplateVersion;
+    /// let x = CreateTemplateVersionRequest::new().set_or_clear_template_version(Some(TemplateVersion::default()/* use setters */));
+    /// let x = CreateTemplateVersionRequest::new().set_or_clear_template_version(None::<TemplateVersion>);
+    /// ```
+    pub fn set_or_clear_template_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TemplateVersion>,
+    {
+        self.template_version = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateTemplateVersionRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::CreateTemplateVersionRequest;
+    /// let x = CreateTemplateVersionRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateTemplateVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.parametermanager.v1.CreateTemplateVersionRequest"
+    }
+}
+
+/// Message for updating a TemplateVersion
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateTemplateVersionRequest {
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
+    /// TemplateVersion resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A mutable field will be overwritten if it is in the
+    /// mask. If the user does not provide a mask then all mutable fields present
+    /// in the request will be overwritten.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The TemplateVersion resource being updated
+    pub template_version: std::option::Option<crate::model::TemplateVersion>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateTemplateVersionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateTemplateVersionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::UpdateTemplateVersionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTemplateVersionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateTemplateVersionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::UpdateTemplateVersionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTemplateVersionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateTemplateVersionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [template_version][crate::model::UpdateTemplateVersionRequest::template_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::UpdateTemplateVersionRequest;
+    /// use google_cloud_parametermanager_v1::model::TemplateVersion;
+    /// let x = UpdateTemplateVersionRequest::new().set_template_version(TemplateVersion::default()/* use setters */);
+    /// ```
+    pub fn set_template_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TemplateVersion>,
+    {
+        self.template_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [template_version][crate::model::UpdateTemplateVersionRequest::template_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::UpdateTemplateVersionRequest;
+    /// use google_cloud_parametermanager_v1::model::TemplateVersion;
+    /// let x = UpdateTemplateVersionRequest::new().set_or_clear_template_version(Some(TemplateVersion::default()/* use setters */));
+    /// let x = UpdateTemplateVersionRequest::new().set_or_clear_template_version(None::<TemplateVersion>);
+    /// ```
+    pub fn set_or_clear_template_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TemplateVersion>,
+    {
+        self.template_version = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateTemplateVersionRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::UpdateTemplateVersionRequest;
+    /// let x = UpdateTemplateVersionRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateTemplateVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.parametermanager.v1.UpdateTemplateVersionRequest"
+    }
+}
+
+/// Message for deleting a TemplateVersion
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteTemplateVersionRequest {
+    /// Required. Name of the resource in the format
+    /// `projects/*/locations/*/templates/*/versions/*`.
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes after the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteTemplateVersionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteTemplateVersionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::DeleteTemplateVersionRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let template_id = "template_id";
+    /// # let template_version_id = "template_version_id";
+    /// let x = DeleteTemplateVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}/versions/{template_version_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteTemplateVersionRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::DeleteTemplateVersionRequest;
+    /// let x = DeleteTemplateVersionRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteTemplateVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.parametermanager.v1.DeleteTemplateVersionRequest"
+    }
+}
+
+/// Message describing RenderTemplateVersionRequest resource
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RenderTemplateVersionRequest {
+    /// Required. Name of the resource
+    pub name: std::string::String,
+
+    /// Required. Parameter version used to render the template version.
+    pub parameter_version: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RenderTemplateVersionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RenderTemplateVersionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::RenderTemplateVersionRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let template_id = "template_id";
+    /// # let template_version_id = "template_version_id";
+    /// let x = RenderTemplateVersionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}/versions/{template_version_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [parameter_version][crate::model::RenderTemplateVersionRequest::parameter_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::RenderTemplateVersionRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let parameter_id = "parameter_id";
+    /// # let parameter_version_id = "parameter_version_id";
+    /// let x = RenderTemplateVersionRequest::new().set_parameter_version(format!("projects/{project_id}/locations/{location_id}/parameters/{parameter_id}/versions/{parameter_version_id}"));
+    /// ```
+    pub fn set_parameter_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.parameter_version = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RenderTemplateVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.parametermanager.v1.RenderTemplateVersionRequest"
+    }
+}
+
+/// Message describing RenderTemplateVersionResponse resource
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RenderTemplateVersionResponse {
+    /// Resource identifier of a TemplateVersion in the format
+    /// `projects/*/locations/*/templates/*/versions/*`.
+    pub template_version: std::string::String,
+
+    /// Payload content of a TemplateVersion resource.
+    pub payload: std::option::Option<crate::model::TemplateVersionPayload>,
+
+    /// Output only. Server generated rendered version of the user provided payload
+    /// data (TemplateVersionPayload) which has all the variables resolved using
+    /// the provided parameter version.
+    pub rendered_payload: ::bytes::Bytes,
+
+    /// Output only. Format of the template version.
+    pub template_format: crate::model::TemplateFormat,
+
+    /// Output only. The resource name of the ParameterVersion used to render the
+    /// template version in the format
+    /// `projects/*/locations/*/parameters/*/versions/*`.
+    pub parameter_version: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RenderTemplateVersionResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [template_version][crate::model::RenderTemplateVersionResponse::template_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::RenderTemplateVersionResponse;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let template_id = "template_id";
+    /// # let template_version_id = "template_version_id";
+    /// let x = RenderTemplateVersionResponse::new().set_template_version(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}/versions/{template_version_id}"));
+    /// ```
+    pub fn set_template_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.template_version = v.into();
+        self
+    }
+
+    /// Sets the value of [payload][crate::model::RenderTemplateVersionResponse::payload].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::RenderTemplateVersionResponse;
+    /// use google_cloud_parametermanager_v1::model::TemplateVersionPayload;
+    /// let x = RenderTemplateVersionResponse::new().set_payload(TemplateVersionPayload::default()/* use setters */);
+    /// ```
+    pub fn set_payload<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TemplateVersionPayload>,
+    {
+        self.payload = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [payload][crate::model::RenderTemplateVersionResponse::payload].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::RenderTemplateVersionResponse;
+    /// use google_cloud_parametermanager_v1::model::TemplateVersionPayload;
+    /// let x = RenderTemplateVersionResponse::new().set_or_clear_payload(Some(TemplateVersionPayload::default()/* use setters */));
+    /// let x = RenderTemplateVersionResponse::new().set_or_clear_payload(None::<TemplateVersionPayload>);
+    /// ```
+    pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TemplateVersionPayload>,
+    {
+        self.payload = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [rendered_payload][crate::model::RenderTemplateVersionResponse::rendered_payload].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::RenderTemplateVersionResponse;
+    /// let x = RenderTemplateVersionResponse::new().set_rendered_payload(bytes::Bytes::from_static(b"example"));
+    /// ```
+    pub fn set_rendered_payload<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.rendered_payload = v.into();
+        self
+    }
+
+    /// Sets the value of [template_format][crate::model::RenderTemplateVersionResponse::template_format].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::RenderTemplateVersionResponse;
+    /// use google_cloud_parametermanager_v1::model::TemplateFormat;
+    /// let x0 = RenderTemplateVersionResponse::new().set_template_format(TemplateFormat::Yaml);
+    /// let x1 = RenderTemplateVersionResponse::new().set_template_format(TemplateFormat::Json);
+    /// ```
+    pub fn set_template_format<T: std::convert::Into<crate::model::TemplateFormat>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.template_format = v.into();
+        self
+    }
+
+    /// Sets the value of [parameter_version][crate::model::RenderTemplateVersionResponse::parameter_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parametermanager_v1::model::RenderTemplateVersionResponse;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let parameter_id = "parameter_id";
+    /// # let parameter_version_id = "parameter_version_id";
+    /// let x = RenderTemplateVersionResponse::new().set_parameter_version(format!("projects/{project_id}/locations/{location_id}/parameters/{parameter_id}/versions/{parameter_version_id}"));
+    /// ```
+    pub fn set_parameter_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.parameter_version = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RenderTemplateVersionResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.parametermanager.v1.RenderTemplateVersionResponse"
+    }
+}
+
 /// Option to specify the format of a Parameter resource (UNFORMATTED / YAML /
 /// JSON). This option is user specified at the time of creation of the resource
 /// and is immutable.
@@ -1888,8 +3807,144 @@ impl<'de> serde::de::Deserialize<'de> for ParameterFormat {
     }
 }
 
+/// Option to specify the format of a Template resource (YAML /
+/// JSON). This option is user specified at the time of creation of the resource
+/// and is immutable. Templates do not support the UNFORMATTED format.
+/// Additional values may be added in the future.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum TemplateFormat {
+    /// The default / unset value.
+    /// The API will default to the YAML format.
+    Unspecified,
+    /// YAML format.
+    Yaml,
+    /// JSON format.
+    Json,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [TemplateFormat::value] or
+    /// [TemplateFormat::name].
+    UnknownValue(template_format::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod template_format {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl TemplateFormat {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Yaml => std::option::Option::Some(1),
+            Self::Json => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("TEMPLATE_FORMAT_UNSPECIFIED"),
+            Self::Yaml => std::option::Option::Some("TEMPLATE_FORMAT_YAML"),
+            Self::Json => std::option::Option::Some("TEMPLATE_FORMAT_JSON"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for TemplateFormat {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for TemplateFormat {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for TemplateFormat {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Yaml,
+            2 => Self::Json,
+            _ => Self::UnknownValue(template_format::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for TemplateFormat {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "TEMPLATE_FORMAT_UNSPECIFIED" => Self::Unspecified,
+            "TEMPLATE_FORMAT_YAML" => Self::Yaml,
+            "TEMPLATE_FORMAT_JSON" => Self::Json,
+            _ => Self::UnknownValue(template_format::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for TemplateFormat {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Yaml => serializer.serialize_i32(1),
+            Self::Json => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for TemplateFormat {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<TemplateFormat>::new(
+            ".google.cloud.parametermanager.v1.TemplateFormat",
+        ))
+    }
+}
+
 /// Option for requesting only metadata, or user provided payload
-/// of a ParameterVersion resource.
+/// of a ParameterVersion or TemplateVersion resource.
 ///
 /// # Working with unknown values
 ///
@@ -1908,7 +3963,7 @@ impl<'de> serde::de::Deserialize<'de> for ParameterFormat {
 #[non_exhaustive]
 pub enum View {
     /// The default / unset value.
-    /// The API will default to the FULL view..
+    /// The API will default to the FULL view.
     Unspecified,
     /// Include only the metadata for the resource.
     Basic,
