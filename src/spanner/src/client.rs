@@ -69,7 +69,7 @@ use opentelemetry::metrics::MeterProvider;
 /// [Spanner]: https://docs.cloud.google.com/spanner/docs
 #[derive(Clone, Debug)]
 pub struct Spanner {
-    pub(crate) channel_pool: ChannelPool,
+    channel_pool: ChannelPool,
     pub(crate) config: ClientConfig,
     pub(crate) is_emulator: bool,
     pub(crate) instance_type: InstanceType,
