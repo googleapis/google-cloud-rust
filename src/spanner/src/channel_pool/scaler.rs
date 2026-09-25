@@ -163,6 +163,8 @@ pub(crate) async fn scale_up_worker_loop(
 /// scale-up (without committing cooldown). Commits cooldown timestamp before scaling begins when
 /// channels are actively added. Cooldown sleep is managed by the worker loop before invocation.
 fn calculate_scale_up_count(inner: &ChannelPoolInner, config: &DynamicChannelPoolConfig) -> usize {
+    let scale_up_requested = inner.scale_up_requested.swap(false, Ordering::AcqRel);
+
     let active_guard = inner.active_entries.read().expect("lock poisoned");
     let current_len = active_guard.len();
     if current_len >= config.max_channels {
@@ -182,7 +184,6 @@ fn calculate_scale_up_count(inner: &ChannelPoolInner, config: &DynamicChannelPoo
     let has_saturated_channel = active_guard
         .iter()
         .any(|entry| (entry.effective_pick_load() as f64) > config.max_rpc_per_channel);
-    let scale_up_requested = inner.scale_up_requested.swap(false, Ordering::AcqRel);
     let is_saturated = (has_saturated_channel || scale_up_requested) && total_load > 0;
     let desired_channels = config.desired_channel_count(total_load);
 
@@ -218,6 +219,9 @@ fn calculate_scale_up_count(inner: &ChannelPoolInner, config: &DynamicChannelPoo
     if channels_to_add > 0 {
         let mut last_scale = inner.last_scale_up_time.lock().expect("lock poisoned");
         *last_scale = Some(Instant::now());
+        inner
+            .consecutive_low_load_checks
+            .store(0, Ordering::Relaxed);
     }
 
     channels_to_add
@@ -296,6 +300,9 @@ fn publish_primed_channel(inner: &ChannelPoolInner, channel: Channel, max_channe
     let logical_slot = ChannelPoolInner::allocate_slot(&occupied_slots, max_channels);
     let id = inner.next_entry_id.fetch_add(1, Ordering::Relaxed);
     active_write.push(Arc::new(ChannelEntry::new(id, logical_slot, channel)));
+    inner
+        .consecutive_low_load_checks
+        .store(0, Ordering::Relaxed);
 }
 
 /// Dials a physical gRPC channel and primes it with `SELECT 1` queries using exponential backoff.
@@ -414,6 +421,28 @@ pub(crate) async fn scale_down_monitor_loop(
 
 /// Evaluates load across active channels, manages debounce counters, and moves candidates to draining.
 fn evaluate_and_execute_scale_down(inner: &ChannelPoolInner, config: &DynamicChannelPoolConfig) {
+    // 1. If scale-up was requested by a saturated channel picker, do not scale down.
+    // Reset the debounce counter because contention/demand is active.
+    if inner.scale_up_requested.load(Ordering::Acquire) {
+        inner
+            .consecutive_low_load_checks
+            .store(0, Ordering::Relaxed);
+        return;
+    }
+
+    // 2. Do not scale down during the scale-up cooldown window following channel expansion.
+    let in_scale_up_cooldown = inner
+        .last_scale_up_time
+        .lock()
+        .expect("lock poisoned")
+        .is_some_and(|last_time| last_time.elapsed() < config.scale_up_cooldown);
+    if in_scale_up_cooldown {
+        inner
+            .consecutive_low_load_checks
+            .store(0, Ordering::Relaxed);
+        return;
+    }
+
     let mut active_write = inner.active_entries.write().expect("lock poisoned");
 
     // Do not scale down below configured min_channels floor.
@@ -476,20 +505,27 @@ fn evaluate_and_execute_scale_down(inner: &ChannelPoolInner, config: &DynamicCha
     // Order:
     // 1. in_flight: lowest active RPC load drained first.
     // 2. active_rw_count: between channels with equal active load, prefer draining channels with 0 R/W transactions.
-    // 3. created_at (reversed): prefer newer channels on tie, preserving older/warmer channels.
-    let mut active_with_keys: Vec<(u32, u32, Instant, Arc<ChannelEntry>)> = active_write
+    // 3. current_penalty (reversed): between idle channels, prefer draining channels with active error penalties.
+    // 4. created_at (reversed): prefer newer channels on tie, preserving older/warmer channels.
+    let mut active_with_keys: Vec<(u32, u32, u32, Instant, Arc<ChannelEntry>)> = active_write
         .drain(..)
         .map(|entry| {
             (
                 entry.in_flight(),
                 entry.active_rw_count(),
+                entry.current_penalty(),
                 entry.created_at,
                 entry,
             )
         })
         .collect();
-    active_with_keys.sort_unstable_by_key(|(in_flight, rw_count, created_at, _)| {
-        (*in_flight, *rw_count, Reverse(*created_at))
+    active_with_keys.sort_unstable_by_key(|(in_flight, rw_count, penalty, created_at, _)| {
+        (
+            *in_flight,
+            *rw_count,
+            Reverse(*penalty),
+            Reverse(*created_at),
+        )
     });
 
     // Exactly calculate number of channels eligible to remove without breaching min_channels.
@@ -498,7 +534,7 @@ fn evaluate_and_execute_scale_down(inner: &ChannelPoolInner, config: &DynamicCha
         .saturating_sub(config.min_channels)
         .min(channels_to_remove);
 
-    for (index, (_, _, _, entry)) in active_with_keys.into_iter().enumerate() {
+    for (index, (_, _, _, _, entry)) in active_with_keys.into_iter().enumerate() {
         if index < eligible_to_remove {
             entry.set_state(ChannelState::Draining);
             draining_write.push(entry);
@@ -557,6 +593,7 @@ mod tests {
     use crate::generated::gapic_dataplane::stub::Spanner as SpannerStub;
     use crate::model::{CreateSessionRequest, Session};
     use crate::routing::power_of_two_selector::PowerOfTwoSelector;
+    use google_cloud_gax::error::rpc::Code;
     use google_cloud_gax::options::RequestOptions;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use std::fmt::Debug;
@@ -838,6 +875,416 @@ mod tests {
         );
     }
 
+    #[test]
+    fn scale_up_resets_consecutive_low_load_checks_preventing_debounce_leak() {
+        let config = DynamicChannelPoolConfig {
+            min_channels: 2,
+            max_channels: 4,
+            min_rpc_per_channel: 2.0,
+            max_rpc_per_channel: 8.0,
+            consecutive_low_load_checks: 3,
+            scale_up_cooldown: Duration::from_secs(10),
+            ..Default::default()
+        };
+
+        let channel_1 = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
+        let channel_2 = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
+
+        let inner = ChannelPoolInner {
+            config: ChannelPoolConfig::Dynamic(config.clone()),
+            client_config: ClientConfig::default(),
+            active_entries: RwLock::new(vec![Arc::clone(&channel_1), Arc::clone(&channel_2)]),
+            draining_entries: RwLock::new(Vec::new()),
+            next_entry_id: AtomicU64::new(3),
+            scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
+            shutdown_sender: watch_channel(()).0,
+            last_scale_up_time: Mutex::new(None),
+            consecutive_low_load_checks: AtomicUsize::new(2),
+            prime_session: RwLock::new(None),
+            selector: PowerOfTwoSelector::new(),
+        };
+
+        // 1. Prior low load checks had accumulated to 2 (just 1 away from scaling down).
+        assert_eq!(
+            inner.consecutive_low_load_checks.load(Ordering::Acquire),
+            2,
+            "Initial low load checks must start at 2"
+        );
+
+        // 2. High load / saturation triggers scale-up of 1 channel:
+        channel_1.in_flight_rpcs.store(10, Ordering::Relaxed);
+        let count = calculate_scale_up_count(&inner, &config);
+        assert_eq!(count, 1, "Must calculate 1 channel to add on saturation");
+
+        // 3. calculate_scale_up_count must immediately reset consecutive_low_load_checks to 0:
+        assert_eq!(
+            inner.consecutive_low_load_checks.load(Ordering::Acquire),
+            0,
+            "Scale-up calculation must reset consecutive_low_load_checks to 0"
+        );
+
+        // 4. Also verify publish_primed_channel resets consecutive_low_load_checks to 0:
+        inner
+            .consecutive_low_load_checks
+            .store(2, Ordering::Release);
+        publish_primed_channel(&inner, create_mock_channel(), config.max_channels);
+        assert_eq!(
+            inner.consecutive_low_load_checks.load(Ordering::Acquire),
+            0,
+            "publish_primed_channel must reset consecutive_low_load_checks to 0"
+        );
+        assert_eq!(
+            inner.active_entries.read().expect("lock poisoned").len(),
+            3,
+            "Pool size must now be 3 active channels"
+        );
+
+        // 5. When the burst subsides, the first post-scale-up scale-down check increments from 0 to 1,
+        // and does NOT prematurely scale down:
+        channel_1.in_flight_rpcs.store(0, Ordering::Relaxed);
+        *inner.last_scale_up_time.lock().expect("lock poisoned") = None;
+        evaluate_and_execute_scale_down(&inner, &config);
+
+        assert_eq!(
+            inner.consecutive_low_load_checks.load(Ordering::Acquire),
+            1,
+            "First low-load check after scale-up must increment count to 1"
+        );
+        assert_eq!(
+            inner.active_entries.read().expect("lock poisoned").len(),
+            3,
+            "Pool must retain all 3 channels without prematurely draining on first check"
+        );
+        assert!(
+            inner
+                .draining_entries
+                .read()
+                .expect("lock poisoned")
+                .is_empty(),
+            "No channels should be moved to draining"
+        );
+    }
+
+    #[test]
+    fn scale_down_aborts_and_resets_debounce_when_scale_up_requested() {
+        let channel_1 = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
+        let channel_2 = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
+        let channel_3 = Arc::new(ChannelEntry::new(3, 3, create_mock_channel()));
+
+        let inner = Arc::new(ChannelPoolInner {
+            config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig {
+                min_channels: 2,
+                max_channels: 4,
+                consecutive_low_load_checks: 1,
+                max_remove_channels: 1,
+                ..Default::default()
+            }),
+            client_config: ClientConfig::default(),
+            active_entries: RwLock::new(vec![
+                Arc::clone(&channel_1),
+                Arc::clone(&channel_2),
+                Arc::clone(&channel_3),
+            ]),
+            draining_entries: RwLock::new(Vec::new()),
+            next_entry_id: AtomicU64::new(4),
+            scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(true),
+            shutdown_sender: watch_channel(()).0,
+            last_scale_up_time: Mutex::new(None),
+            consecutive_low_load_checks: AtomicUsize::new(1),
+            prime_session: RwLock::new(None),
+            selector: PowerOfTwoSelector::new(),
+        });
+
+        let dynamic_config = match &inner.config {
+            ChannelPoolConfig::Dynamic(config) => config.clone(),
+            ChannelPoolConfig::Static(_) => unreachable!(),
+        };
+
+        // scale_up_requested is true: scale-down must be aborted and debounce counter reset.
+        evaluate_and_execute_scale_down(&inner, &dynamic_config);
+
+        assert_eq!(
+            inner.consecutive_low_load_checks.load(Ordering::Acquire),
+            0,
+            "scale_up_requested must reset consecutive_low_load_checks to 0"
+        );
+        assert_eq!(
+            inner.active_entries.read().expect("lock poisoned").len(),
+            3,
+            "No channels should be drained while scale_up_requested is true"
+        );
+        assert!(
+            inner
+                .draining_entries
+                .read()
+                .expect("lock poisoned")
+                .is_empty(),
+            "Draining entries must remain empty"
+        );
+    }
+
+    #[test]
+    fn scale_down_aborts_and_resets_debounce_during_scale_up_cooldown() {
+        let channel_1 = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
+        let channel_2 = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
+        let channel_3 = Arc::new(ChannelEntry::new(3, 3, create_mock_channel()));
+
+        let inner = Arc::new(ChannelPoolInner {
+            config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig {
+                min_channels: 2,
+                max_channels: 4,
+                consecutive_low_load_checks: 1,
+                max_remove_channels: 1,
+                scale_up_cooldown: Duration::from_secs(10),
+                ..Default::default()
+            }),
+            client_config: ClientConfig::default(),
+            active_entries: RwLock::new(vec![
+                Arc::clone(&channel_1),
+                Arc::clone(&channel_2),
+                Arc::clone(&channel_3),
+            ]),
+            draining_entries: RwLock::new(Vec::new()),
+            next_entry_id: AtomicU64::new(4),
+            scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
+            shutdown_sender: watch_channel(()).0,
+            last_scale_up_time: Mutex::new(Some(Instant::now())),
+            consecutive_low_load_checks: AtomicUsize::new(1),
+            prime_session: RwLock::new(None),
+            selector: PowerOfTwoSelector::new(),
+        });
+
+        let dynamic_config = match &inner.config {
+            ChannelPoolConfig::Dynamic(config) => config.clone(),
+            ChannelPoolConfig::Static(_) => unreachable!(),
+        };
+
+        // 1. Within cooldown window: must abort scale-down and reset debounce counter.
+        evaluate_and_execute_scale_down(&inner, &dynamic_config);
+
+        assert_eq!(
+            inner.consecutive_low_load_checks.load(Ordering::Acquire),
+            0,
+            "Scale-up cooldown must reset consecutive_low_load_checks to 0"
+        );
+        assert_eq!(
+            inner.active_entries.read().expect("lock poisoned").len(),
+            3,
+            "No channels should be drained during scale-up cooldown"
+        );
+        assert!(
+            inner
+                .draining_entries
+                .read()
+                .expect("lock poisoned")
+                .is_empty(),
+            "Draining entries must remain empty"
+        );
+
+        // 2. After cooldown expires: scale-down is permitted.
+        *inner.last_scale_up_time.lock().expect("lock poisoned") =
+            Some(Instant::now() - Duration::from_secs(15));
+        evaluate_and_execute_scale_down(&inner, &dynamic_config);
+
+        assert_eq!(
+            inner.active_entries.read().expect("lock poisoned").len(),
+            2,
+            "One channel must be drained after scale-up cooldown expires"
+        );
+        assert_eq!(
+            inner.draining_entries.read().expect("lock poisoned").len(),
+            1,
+            "Exactly 1 channel should be draining"
+        );
+    }
+
+    #[test]
+    fn scale_down_candidate_sort_prefers_failing_channel_over_healthy_idle_channel() {
+        let channel_1 = Arc::new(ChannelEntry::new_with_created_at(
+            1,
+            1,
+            create_mock_channel(),
+            Instant::now() - Duration::from_secs(600),
+        ));
+
+        // channel_2: created 5 minutes ago, but failing (has error penalty of 10 applied)
+        let channel_2 = Arc::new(ChannelEntry::new_with_created_at(
+            2,
+            2,
+            create_mock_channel(),
+            Instant::now() - Duration::from_secs(300),
+        ));
+        channel_2.apply_error_penalty(Code::Unavailable, 10, Duration::from_secs(60), 25);
+
+        // channel_3: created 1 minute ago, completely healthy
+        let channel_3 = Arc::new(ChannelEntry::new_with_created_at(
+            3,
+            3,
+            create_mock_channel(),
+            Instant::now() - Duration::from_secs(60),
+        ));
+
+        let inner = Arc::new(ChannelPoolInner {
+            config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig {
+                min_channels: 2,
+                max_channels: 4,
+                consecutive_low_load_checks: 1,
+                max_remove_channels: 1,
+                ..Default::default()
+            }),
+            client_config: ClientConfig::default(),
+            active_entries: RwLock::new(vec![
+                Arc::clone(&channel_1),
+                Arc::clone(&channel_2),
+                Arc::clone(&channel_3),
+            ]),
+            draining_entries: RwLock::new(Vec::new()),
+            next_entry_id: AtomicU64::new(4),
+            scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
+            shutdown_sender: watch_channel(()).0,
+            last_scale_up_time: Mutex::new(None),
+            consecutive_low_load_checks: AtomicUsize::new(0),
+            prime_session: RwLock::new(None),
+            selector: PowerOfTwoSelector::new(),
+        });
+
+        let dynamic_config = match &inner.config {
+            ChannelPoolConfig::Dynamic(config) => config.clone(),
+            ChannelPoolConfig::Static(_) => unreachable!(),
+        };
+
+        // All 3 channels have 0 in-flight and 0 active R/W transactions.
+        // channel_2 has error penalty of 10, channel_3 was created more recently (60s ago vs 300s ago).
+        // Sorting priority must choose channel_2 (failing) to drain first, preserving channel_3 (healthy).
+        evaluate_and_execute_scale_down(&inner, &dynamic_config);
+
+        let draining = inner.draining_entries.read().expect("lock poisoned");
+        assert_eq!(draining.len(), 1, "Exactly 1 channel should be draining");
+        assert_eq!(
+            draining[0].id, 2,
+            "Failing channel_2 with error penalty must be drained before healthy idle channel_3"
+        );
+
+        let active = inner.active_entries.read().expect("lock poisoned");
+        assert_eq!(active.len(), 2, "2 healthy channels must remain active");
+        let active_ids: Vec<u64> = active.iter().map(|entry| entry.id).collect();
+        assert!(active_ids.contains(&1), "channel_1 must remain active");
+        assert!(
+            active_ids.contains(&3),
+            "healthy channel_3 must remain active"
+        );
+    }
+
+    #[test]
+    fn scale_down_candidate_sort_full_precedence_matrix() {
+        // channel_heavy: in_flight=5, rw=0, penalty=0
+        let channel_heavy = Arc::new(ChannelEntry::new(1, 1, create_mock_channel()));
+        channel_heavy.in_flight_rpcs.store(5, Ordering::Relaxed);
+
+        // channel_rw_attached: in_flight=0, rw=1, penalty=0
+        let channel_rw_attached = Arc::new(ChannelEntry::new(2, 2, create_mock_channel()));
+        channel_rw_attached
+            .active_rw_transactions
+            .store(1, Ordering::Relaxed);
+
+        // channel_healthy_idle: in_flight=0, rw=0, penalty=0
+        let channel_healthy_idle = Arc::new(ChannelEntry::new(3, 3, create_mock_channel()));
+
+        // channel_penalized_idle: in_flight=0, rw=0, penalty=8
+        let channel_penalized_idle = Arc::new(ChannelEntry::new(4, 4, create_mock_channel()));
+        channel_penalized_idle.apply_error_penalty(
+            Code::Unavailable,
+            8,
+            Duration::from_secs(60),
+            25,
+        );
+
+        let inner = Arc::new(ChannelPoolInner {
+            config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig {
+                min_channels: 1,
+                max_channels: 4,
+                consecutive_low_load_checks: 1,
+                max_remove_channels: 1,
+                ..Default::default()
+            }),
+            client_config: ClientConfig::default(),
+            active_entries: RwLock::new(vec![
+                Arc::clone(&channel_heavy),
+                Arc::clone(&channel_rw_attached),
+                Arc::clone(&channel_healthy_idle),
+                Arc::clone(&channel_penalized_idle),
+            ]),
+            draining_entries: RwLock::new(Vec::new()),
+            next_entry_id: AtomicU64::new(5),
+            scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
+            shutdown_sender: watch_channel(()).0,
+            last_scale_up_time: Mutex::new(None),
+            consecutive_low_load_checks: AtomicUsize::new(0),
+            prime_session: RwLock::new(None),
+            selector: PowerOfTwoSelector::new(),
+        });
+
+        let dynamic_config = match &inner.config {
+            ChannelPoolConfig::Dynamic(config) => config.clone(),
+            ChannelPoolConfig::Static(_) => unreachable!(),
+        };
+
+        // Drain pass 1: channel_penalized_idle (in_flight=0, rw=0, penalty=8) must be drained first.
+        evaluate_and_execute_scale_down(&inner, &dynamic_config);
+        {
+            let draining = inner.draining_entries.read().expect("lock poisoned");
+            assert_eq!(
+                draining.len(),
+                1,
+                "Pass 1: Exactly 1 channel should be draining"
+            );
+            assert_eq!(
+                draining[0].id, 4,
+                "Pass 1: channel_penalized_idle must be drained first"
+            );
+        }
+
+        // Drain pass 2: channel_healthy_idle (in_flight=0, rw=0, penalty=0) must be drained next.
+        evaluate_and_execute_scale_down(&inner, &dynamic_config);
+        {
+            let draining = inner.draining_entries.read().expect("lock poisoned");
+            assert_eq!(
+                draining.len(),
+                2,
+                "Pass 2: Exactly 2 channels should be draining"
+            );
+            assert_eq!(
+                draining[1].id, 3,
+                "Pass 2: channel_healthy_idle must be drained second"
+            );
+        }
+
+        // Drain pass 3: channel_rw_attached (in_flight=0, rw=1, penalty=0) must be drained before channel_heavy.
+        evaluate_and_execute_scale_down(&inner, &dynamic_config);
+        {
+            let draining = inner.draining_entries.read().expect("lock poisoned");
+            assert_eq!(
+                draining.len(),
+                3,
+                "Pass 3: Exactly 3 channels should be draining"
+            );
+            assert_eq!(
+                draining[2].id, 2,
+                "Pass 3: channel_rw_attached must be drained third"
+            );
+        }
+
+        // channel_heavy remains active
+        let active = inner.active_entries.read().expect("lock poisoned");
+        assert_eq!(active.len(), 1, "channel_heavy must remain active");
+        assert_eq!(active[0].id, 1, "channel_heavy id must be 1");
+    }
+
     #[tokio::test]
     async fn clean_teardown_on_client_drop() {
         let channels = vec![create_mock_channel(), create_mock_channel()];
@@ -1095,6 +1542,26 @@ mod tests {
         assert!(
             inner.last_scale_up_time.lock().expect("lock").is_some(),
             "Cooldown must be committed when channels are added"
+        );
+
+        // 3. scale_up_requested is true when pool is already at max_channels capacity:
+        // Returns 0, commits cooldown timestamp, and atomically resets scale_up_requested to false.
+        // This ensures unfulfillable scale-up requests do not linger and trigger spurious scale-ups
+        // after subsequent scale-down.
+        let at_capacity_config = DynamicChannelPoolConfig {
+            min_channels: 2,
+            max_channels: 2,
+            ..config.clone()
+        };
+        inner.scale_up_requested.store(true, Ordering::Release);
+        assert_eq!(
+            calculate_scale_up_count(&inner, &at_capacity_config),
+            0,
+            "Pool at max_channels must return 0"
+        );
+        assert!(
+            !inner.scale_up_requested.load(Ordering::Acquire),
+            "scale_up_requested must be reset to false when pool is at max_channels"
         );
     }
 
