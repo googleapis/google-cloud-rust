@@ -27,8 +27,8 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-maps-places-v1/1.0.0)
+- Read the [crate's documentation](https://docs.rs/google-maps-places-v1/1.1.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[Places]: https://docs.rs/google-maps-places-v1/1.0.0/google_maps_places_v1/client/struct.Places.html
+[Places]: https://docs.rs/google-maps-places-v1/1.1.0/google_maps_places_v1/client/struct.Places.html

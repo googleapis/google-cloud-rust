@@ -14,6 +14,7 @@
 
 use crate::batch_read_only_transaction::BatchReadOnlyTransactionBuilder;
 use crate::batch_write_transaction::BatchWriteTransactionBuilder;
+use crate::channel_pool::ChannelTarget;
 use crate::client::Spanner;
 use crate::model::transaction_options::Mode;
 use crate::model::transaction_options::read_only::TimestampBound;
@@ -99,16 +100,23 @@ macro_rules! define_db_rpc {
         $pre_route:path,
         $post_hook:path
     ) => {
-        pub(crate) async fn $method(
+        pub(crate) async fn $method<'a>(
             &self,
             mut request: $request_type,
             options: RequestOptions,
-            channel_hint: usize,
+            channel_target: impl Into<ChannelTarget<'a>>,
         ) -> Result<$response_type> {
+            let channel_target = channel_target.into();
             let (connection, routing_context) = $pre_route(self, &mut request);
+            let lease = connection
+                .is_none()
+                .then(|| self.spanner.pick_channel_for_target(&channel_target));
             let channel = match &connection {
                 Some(connection) => connection.channel(),
-                None => self.spanner.get_channel(channel_hint),
+                None => lease
+                    .as_ref()
+                    .expect("lease must be present when connection is None")
+                    .channel(),
             };
             let _request_guard = connection
                 .as_ref()
@@ -119,6 +127,9 @@ macro_rules! define_db_rpc {
                 .spanner
                 .$method(request, options, channel, &self.o11y)
                 .await;
+            if let Some(lease) = &lease {
+                lease.record_call_result(&result);
+            }
             let latency = start.elapsed();
             self.record_routing_feedback(connection.as_ref(), group_uid, latency, &result);
             $post_hook(self, routing_context, connection.as_ref(), &result);
@@ -131,23 +142,26 @@ macro_rules! define_db_rpc {
 
 macro_rules! define_db_streaming_rpc {
     ($method:ident, $expect_method:ident, $request_type:ty, $builder_type:ty) => {
-        pub(crate) fn $method(
+        pub(crate) fn $method<'a>(
             &self,
             request: $request_type,
             options: RequestOptions,
-            channel_hint: usize,
+            channel_target: impl Into<ChannelTarget<'a>>,
         ) -> $builder_type {
-            let channel = self.spanner.get_channel(channel_hint);
-            self.spanner.$method(request, options, channel)
+            let channel_target = channel_target.into();
+            let lease = self.spanner.pick_channel_for_target(&channel_target);
+            let builder = self.spanner.$method(request, options, lease.channel());
+            builder.with_lifetime_guard(Arc::new(lease.into_guard()))
         }
     };
     ($method:ident, $expect_method:ident, $request_type:ty, $builder_type:ty, $extract_key:expr) => {
-        pub(crate) fn $method(
+        pub(crate) fn $method<'a>(
             &self,
             mut request: $request_type,
             options: RequestOptions,
-            channel_hint: usize,
+            channel_target: impl Into<ChannelTarget<'a>>,
         ) -> $builder_type {
+            let channel_target = channel_target.into();
             let is_read_write_begin = is_read_write_begin(request.transaction.as_ref());
             // Step 1: When location-aware routing is disabled (standard Cloud Spanner),
             // `self.location_routing` is `None` so `$extract_key` is skipped immediately.
@@ -168,18 +182,21 @@ macro_rules! define_db_streaming_rpc {
 
             // Step 3: Select the gRPC channel:
             // - If location-aware routing resolved a direct node connection (`Some(connection)`), use `connection.channel()`.
-            // - Otherwise (location routing disabled, unkeyed query/read, or cold cache), fall back to round-robin
-            //   load-balancing across the client's channel pool via `self.spanner.get_channel(channel_hint)`.
-            //   This fallback is a fast O(1) slice index without any heap allocation, cloning, or lock acquisition.
-            let channel = match &connection {
-                Some(connection) => connection.channel(),
-                None => self.spanner.get_channel(channel_hint),
-            };
+            // - Otherwise, select via channel pool using target affinity.
             let callback =
                 self.streaming_transaction_id_callback(is_read_write_begin, connection.as_ref());
-            self.spanner
-                .$method(request, options, channel)
-                .with_transaction_id_callback(callback)
+            if let Some(connection) = connection {
+                return self
+                    .spanner
+                    .$method(request, options, connection.channel())
+                    .with_transaction_id_callback(callback);
+            }
+            let lease = self.spanner.pick_channel_for_target(&channel_target);
+            let builder = self
+                .spanner
+                .$method(request, options, lease.channel())
+                .with_transaction_id_callback(callback);
+            builder.with_lifetime_guard(Arc::new(lease.into_guard()))
         }
     };
 }
@@ -277,19 +294,6 @@ macro_rules! for_all_streaming_db_rpcs {
 impl DatabaseClient {
     pub(crate) fn is_emulator(&self) -> bool {
         self.spanner.is_emulator()
-    }
-
-    pub(crate) fn next_channel_hint(&self) -> usize {
-        self.spanner.next_channel_hint()
-    }
-
-    pub(crate) fn attach_request_id(
-        &self,
-        options: RequestOptions,
-        channel_hint: usize,
-    ) -> RequestOptions {
-        let channel = self.spanner.get_channel(channel_hint);
-        self.spanner.attach_request_id(options, channel.channel_id)
     }
 
     for_all_unary_db_rpcs!(define_db_rpc);
@@ -444,15 +448,19 @@ impl DatabaseClient {
     /// # use google_cloud_spanner::client::Spanner;
     /// # use google_cloud_spanner::mutation::Mutation;
     /// # async fn test_doc() -> Result<(), Box<dyn std::error::Error>> {
-    /// let client = Spanner::builder().build().await?;
-    /// let db = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let spanner = Spanner::builder().build().await?;
+    /// let database_client = spanner
+    ///     .database_client("projects/p/instances/i/databases/d")
+    ///     .build()
+    ///     .await?;
     ///
     /// let mutation = Mutation::new_insert_builder("Users")
     ///     .set("UserId").to(&1)
     ///     .set("UserName").to(&"Alice")
     ///     .build();
     ///
-    /// let response = db.write_only_transaction()
+    /// let response = database_client
+    ///     .write_only_transaction()
     ///     .set_transaction_tag("my-tag")
     ///     .build()
     ///     .write(vec![mutation])
@@ -1324,9 +1332,7 @@ impl LocationRoutingState {
             .to_string();
 
         let default_channel = spanner
-            .channels
-            .first()
-            .cloned()
+            .default_channel()
             .expect("Spanner client must have at least one channel");
 
         let default_connection = ServerConnection::new_default(default_endpoint, default_channel);
@@ -1487,6 +1493,7 @@ impl RequestRoutingGroupUid for PartitionReadRequest {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::channel_pool::TransactionAffinity;
     use crate::client::SpannerBuilderExt;
     use crate::error::internal_error;
     use crate::model::key_recipe::Part;
@@ -2481,7 +2488,7 @@ mod tests {
         assert_eq!(hit_connection.address(), node_address);
 
         // 4. Mark node on cooldown: falls back to default gateway (resolves to None so the
-        //    request dispatches over the client's channel pool via channel_hint)
+        //    request dispatches over the client's channel pool via channel target)
         router.cooldown_tracker().record_failure(node_address);
         let fallback_connection = db_client.resolve_routing_connection(&hit_context);
         assert!(
@@ -3061,7 +3068,7 @@ mod tests {
     }
 
     #[tokio_test_no_panics]
-    async fn transaction_affinity_gateway_fallback_preserves_channel_hint_across_statements() {
+    async fn transaction_affinity_gateway_fallback_preserves_channel_affinity_across_statements() {
         use std::sync::Mutex;
 
         let captured_requests = Arc::new(Mutex::new(Vec::new()));
@@ -3143,18 +3150,18 @@ mod tests {
 
         assert!(database_client.is_location_aware_routing_enabled());
 
-        // Verify across multiple channel affinities (channel_hint 2 -> slot .3., channel_hint 1 -> slot .2.):
+        // Verify across multiple channel affinities:
         // 1. Statements within a transaction remain pinned to the same channel slot.
         // 2. Different transactions distribute across distinct channel slots rather than
         //    collapsing onto Channel 0 (slot .1.).
-        for channel_hint in [2usize, 1usize] {
-            let expected_channel_id = format!(".{}.", channel_hint + 1);
+        for _ in 0..2 {
+            let affinity = TransactionAffinity::new_read_write();
 
             // 1. BeginTransaction (unkeyed read-write options)
             let begin_request = BeginTransactionRequest::default()
                 .set_options(TransactionOptions::default().set_read_write(ReadWrite::default()));
             let transaction = database_client
-                .begin_transaction(begin_request, RequestOptions::default(), channel_hint)
+                .begin_transaction(begin_request, RequestOptions::default(), Some(&affinity))
                 .await
                 .expect("begin_transaction should succeed");
 
@@ -3168,21 +3175,25 @@ mod tests {
             let selector = TransactionSelector::new().set_id(transaction_id.clone());
             let sql_request = ExecuteSqlRequest::default().set_transaction(selector.clone());
             database_client
-                .execute_sql(sql_request, RequestOptions::default(), channel_hint)
+                .execute_sql(sql_request, RequestOptions::default(), Some(&affinity))
                 .await
                 .expect("execute_sql should succeed");
 
             // 3. ExecuteStreamingSql with the returned transaction ID
             let streaming_request = ExecuteSqlRequest::default().set_transaction(selector);
             let _ = database_client
-                .execute_streaming_sql(streaming_request, RequestOptions::default(), channel_hint)
+                .execute_streaming_sql(
+                    streaming_request,
+                    RequestOptions::default(),
+                    Some(&affinity),
+                )
                 .send()
                 .await;
 
             // 4. Commit with the transaction ID
             let commit_request = CommitRequest::default().set_transaction_id(transaction_id);
             database_client
-                .commit(commit_request, RequestOptions::default(), channel_hint)
+                .commit(commit_request, RequestOptions::default(), Some(&affinity))
                 .await
                 .expect("commit should succeed");
 
@@ -3200,17 +3211,23 @@ mod tests {
                 4,
                 "expected 4 calls: begin_transaction, execute_sql, execute_streaming_sql, commit"
             );
+            let channel_segment = calls[0]
+                .1
+                .split('.')
+                .nth(3)
+                .expect("channel ID segment in request ID");
+            let expected_channel_id = format!(".{channel_segment}.");
             for (rpc_name, request_id) in calls {
                 assert!(
                     request_id.contains(&expected_channel_id),
-                    "RPC {rpc_name} for transaction with channel_hint {channel_hint} must route via channel {expected_channel_id}, got {request_id}"
+                    "RPC {rpc_name} for transaction must route via pinned channel {expected_channel_id}, got {request_id}"
                 );
             }
         }
     }
 
     #[tokio_test_no_panics]
-    async fn channel_pool_round_robin_for_all_rpcs_when_location_routing_disabled() {
+    async fn channel_pool_affinity_routing_for_all_rpcs_when_location_routing_disabled() {
         use std::sync::Mutex;
 
         let captured_requests = Arc::new(Mutex::new(Vec::new()));
@@ -3296,9 +3313,9 @@ mod tests {
 
         assert!(!db_client.is_location_aware_routing_enabled());
 
-        // Verify round-robin channel distribution 1..=4 for all mapped RPCs across 4 hints
-        for channel_hint in 0..4 {
-            let expected_channel_id = format!(".{}.", channel_hint + 1);
+        // Verify channel affinity routing across all mapped RPCs
+        for _ in 0..4 {
+            let affinity = TransactionAffinity::new_read_write();
 
             macro_rules! call_unary_rpc {
                 ($method:ident, $expect_method:ident, $request_type:ident, $response_type:ty $(, $extra:expr)*) => {
@@ -3306,7 +3323,7 @@ mod tests {
                         .$method(
                             $request_type::default(),
                             RequestOptions::default(),
-                            channel_hint,
+                            Some(&affinity),
                         )
                         .await;
                 };
@@ -3319,7 +3336,7 @@ mod tests {
                         .$method(
                             $request_type::default(),
                             RequestOptions::default(),
-                            channel_hint,
+                            Some(&affinity),
                         )
                         .send()
                         .await;
@@ -3332,19 +3349,163 @@ mod tests {
             assert_eq!(
                 calls.len(),
                 10,
-                "each RPC method must be called once per hint"
+                "each RPC method must be called once per iteration"
             );
-            for (rpc_name, request_id) in calls {
-                assert!(
-                    request_id.contains(&expected_channel_id),
-                    "RPC {rpc_name} with channel_hint {channel_hint} must use channel ID {expected_channel_id}, got {request_id}"
+            let expected_channel_id = calls[0]
+                .1
+                .split('.')
+                .nth(3)
+                .expect("channel id 0")
+                .to_string();
+            for (rpc_name, request_id) in &calls {
+                let actual_channel_id = request_id.split('.').nth(3).expect("channel id");
+                assert_eq!(
+                    actual_channel_id, expected_channel_id,
+                    "RPC {rpc_name} with shared affinity must use channel ID {expected_channel_id}, got {request_id}"
                 );
             }
         }
     }
 
     #[tokio_test_no_panics]
-    async fn streaming_rpcs_round_robin_when_location_routing_enabled_without_routing_key() {
+    async fn unary_rpc_error_records_penalty_on_leased_channel() {
+        use crate::channel_pool::DynamicChannelPoolConfig;
+        use crate::client::SpannerPoolBuilderExt;
+        use gaxi::grpc::tonic::Status;
+        use google_cloud_gax::retry_policy::NeverRetry;
+        use std::time::Duration;
+
+        let mut mock = create_test_mock();
+        mock.expect_execute_sql()
+            .returning(|_| Err(Status::unavailable("server unavailable")));
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let dynamic_config = DynamicChannelPoolConfig::new()
+            .with_initial_channels(1)
+            .with_min_channels(1)
+            .with_max_channels(2)
+            .with_error_penalty_step(15)
+            .with_error_penalty_duration(Duration::from_secs(60));
+
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Cloud)
+            .with_credentials(Anonymous::new().build())
+            .with_channel_pool(dynamic_config)
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let db_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await
+            .expect("build should succeed");
+
+        assert!(
+            spanner.channel_pool().has_prime_session(),
+            "DatabaseClient::build must register the prime session on the channel pool"
+        );
+
+        let active_entries = spanner.channel_pool().active_entries();
+        assert_eq!(active_entries.len(), 1, "Expected single initial channel");
+        let initial_penalty = active_entries[0].current_penalty();
+        assert_eq!(initial_penalty, 0, "Initial penalty should be zero");
+
+        let request = ExecuteSqlRequest {
+            sql: "SELECT 1".to_string(),
+            ..Default::default()
+        };
+
+        let mut options = RequestOptions::default();
+        options.set_retry_policy(NeverRetry);
+
+        let result = db_client.execute_sql(request, options, None).await;
+        assert!(
+            result.is_err(),
+            "execute_sql should fail with unavailable error"
+        );
+
+        let penalty_after_error = active_entries[0].current_penalty();
+        assert_eq!(
+            penalty_after_error, 15,
+            "Channel entry must have error penalty applied after UNAVAILABLE unary RPC"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn streaming_rpc_error_records_penalty_on_leased_channel() {
+        use crate::channel_pool::DynamicChannelPoolConfig;
+        use crate::client::SpannerPoolBuilderExt;
+        use gaxi::grpc::tonic::Status;
+        use google_cloud_gax::retry_policy::NeverRetry;
+        use std::time::Duration;
+
+        let mut mock = create_test_mock();
+        mock.expect_execute_streaming_sql()
+            .returning(|_| Err(Status::unavailable("server unavailable")));
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let dynamic_config = DynamicChannelPoolConfig::new()
+            .with_initial_channels(1)
+            .with_min_channels(1)
+            .with_max_channels(2)
+            .with_error_penalty_step(15)
+            .with_error_penalty_duration(Duration::from_secs(60));
+
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Cloud)
+            .with_credentials(Anonymous::new().build())
+            .with_channel_pool(dynamic_config)
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await
+            .expect("build should succeed");
+
+        let active_entries = spanner.channel_pool().active_entries();
+        assert_eq!(active_entries.len(), 1, "Expected single initial channel");
+        let initial_penalty = active_entries[0].current_penalty();
+        assert_eq!(initial_penalty, 0, "Initial penalty should be zero");
+
+        let request = ExecuteSqlRequest {
+            sql: "SELECT 1".to_string(),
+            ..Default::default()
+        };
+
+        let mut options = RequestOptions::default();
+        options.set_retry_policy(NeverRetry);
+
+        let result = database_client
+            .execute_streaming_sql(request, options, None)
+            .send()
+            .await;
+        assert!(
+            result.is_err(),
+            "execute_streaming_sql should fail with unavailable error"
+        );
+
+        let penalty_after_error = active_entries[0].current_penalty();
+        assert_eq!(
+            penalty_after_error, 15,
+            "Channel entry must have error penalty applied after UNAVAILABLE streaming RPC"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn streaming_rpcs_preserve_channel_affinity_when_location_routing_enabled_without_routing_key()
+     {
         use std::sync::Mutex;
 
         let captured_requests = Arc::new(Mutex::new(Vec::new()));
@@ -3392,15 +3553,15 @@ mod tests {
 
         assert!(db_client.is_location_aware_routing_enabled());
 
-        for channel_hint in 0..4 {
-            let expected_channel_id = format!(".{}.", channel_hint + 1);
+        for _ in 0..4 {
+            let affinity = TransactionAffinity::new_read_write();
 
             // execute_streaming_sql (no routing key)
             let _ = db_client
                 .execute_streaming_sql(
                     ExecuteSqlRequest::default(),
                     RequestOptions::default(),
-                    channel_hint,
+                    Some(&affinity),
                 )
                 .send()
                 .await;
@@ -3410,19 +3571,19 @@ mod tests {
             key_set.all = true;
             let read_request = ReadRequest::new().set_table("Users").set_key_set(key_set);
             let _ = db_client
-                .streaming_read(read_request, RequestOptions::default(), channel_hint)
+                .streaming_read(read_request, RequestOptions::default(), Some(&affinity))
                 .send()
                 .await;
 
             let calls = captured_requests.lock().expect("lock").clone();
             captured_requests.lock().expect("lock").clear();
             assert_eq!(calls.len(), 2);
-            for (rpc_name, request_id) in calls {
-                assert!(
-                    request_id.contains(&expected_channel_id),
-                    "Even when location routing is enabled, {rpc_name} without routing key must round-robin onto channel {expected_channel_id}, got {request_id}"
-                );
-            }
+            let first_channel_id = calls[0].1.split('.').nth(3).expect("channel id 1");
+            let second_channel_id = calls[1].1.split('.').nth(3).expect("channel id 2");
+            assert_eq!(
+                first_channel_id, second_channel_id,
+                "Both statements sharing affinity must route to the same channel"
+            );
         }
     }
 
@@ -3488,7 +3649,7 @@ mod tests {
 
         // 1. Cold start: routes to gateway, attaches discovery routing hint with operation_uid
         let _ = database_client
-            .execute_streaming_sql(request.clone(), RequestOptions::default(), 0)
+            .execute_streaming_sql(request.clone(), RequestOptions::default(), None)
             .send()
             .await;
 
@@ -3563,7 +3724,7 @@ mod tests {
 
         // 4. Cache hit: routes directly to tablet mock with full routing hint
         let _ = database_client
-            .execute_streaming_sql(request, RequestOptions::default(), 0)
+            .execute_streaming_sql(request, RequestOptions::default(), None)
             .send()
             .await;
 
@@ -3664,7 +3825,7 @@ mod tests {
 
         // 1. Cold start: without cached recipe or range, routes to gateway and attaches bootstrap routing hint
         let _ = database_client
-            .streaming_read(read_request.clone(), RequestOptions::default(), 0)
+            .streaming_read(read_request.clone(), RequestOptions::default(), None)
             .send()
             .await;
 
@@ -3737,7 +3898,7 @@ mod tests {
 
         // 4. Cache hit: routes directly to tablet mock with full routing hint
         let _ = database_client
-            .streaming_read(read_request, RequestOptions::default(), 0)
+            .streaming_read(read_request, RequestOptions::default(), None)
             .send()
             .await;
 
@@ -4042,7 +4203,7 @@ mod tests {
             .set_key_set(key_set.clone());
 
         let _ = database_client
-            .streaming_read(read_request.clone(), RequestOptions::default(), 0)
+            .streaming_read(read_request.clone(), RequestOptions::default(), None)
             .send()
             .await;
 
@@ -4099,7 +4260,7 @@ mod tests {
 
         // 3. Subsequent streaming read for table Users -> RoutingHint must be populated and attached
         let _ = database_client
-            .streaming_read(read_request, RequestOptions::default(), 0)
+            .streaming_read(read_request, RequestOptions::default(), None)
             .send()
             .await;
 
@@ -5261,7 +5422,7 @@ mod tests {
             .set_options(TransactionOptions::new().set_read_write(ReadWrite::new()))
             .set_mutation_key(user_mutation.clone().build_proto());
         let _ = database_client
-            .begin_transaction(begin_request, RequestOptions::default(), 0)
+            .begin_transaction(begin_request, RequestOptions::default(), None)
             .await
             .expect("begin_transaction must succeed");
 
@@ -5297,7 +5458,7 @@ mod tests {
             .set_transaction_id(Bytes::from_static(b"tx-e2e-1"))
             .set_mutations(vec![user_mutation.clone().build_proto()]);
         let _ = database_client
-            .commit(commit_request, RequestOptions::default(), 0)
+            .commit(commit_request, RequestOptions::default(), None)
             .await
             .expect("commit must succeed");
 
@@ -5332,7 +5493,7 @@ mod tests {
             .set_single_use_transaction(TransactionOptions::new().set_read_write(ReadWrite::new()))
             .set_mutations(vec![user_mutation.clone().build_proto()]);
         let _ = database_client
-            .commit(single_use_commit_request, RequestOptions::default(), 0)
+            .commit(single_use_commit_request, RequestOptions::default(), None)
             .await
             .expect("single-use commit must succeed");
 
@@ -5362,7 +5523,7 @@ mod tests {
             .set_session("projects/p/instances/i/databases/d/sessions/s1")
             .set_options(TransactionOptions::new().set_read_write(ReadWrite::new()));
         let unkeyed_response = database_client
-            .begin_transaction(unkeyed_begin_request, RequestOptions::default(), 0)
+            .begin_transaction(unkeyed_begin_request, RequestOptions::default(), None)
             .await
             .expect("unkeyed begin_transaction must succeed");
 

@@ -152,6 +152,120 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::ParameterManager::list_templates].
+    fn list_templates(
+        &self,
+        _req: crate::model::ListTemplatesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListTemplatesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ParameterManager::get_template].
+    fn get_template(
+        &self,
+        _req: crate::model::GetTemplateRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Template>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ParameterManager::create_template].
+    fn create_template(
+        &self,
+        _req: crate::model::CreateTemplateRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Template>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ParameterManager::update_template].
+    fn update_template(
+        &self,
+        _req: crate::model::UpdateTemplateRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Template>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ParameterManager::delete_template].
+    fn delete_template(
+        &self,
+        _req: crate::model::DeleteTemplateRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ParameterManager::list_template_versions].
+    fn list_template_versions(
+        &self,
+        _req: crate::model::ListTemplateVersionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListTemplateVersionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ParameterManager::get_template_version].
+    fn get_template_version(
+        &self,
+        _req: crate::model::GetTemplateVersionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::TemplateVersion>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ParameterManager::create_template_version].
+    fn create_template_version(
+        &self,
+        _req: crate::model::CreateTemplateVersionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::TemplateVersion>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ParameterManager::update_template_version].
+    fn update_template_version(
+        &self,
+        _req: crate::model::UpdateTemplateVersionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::TemplateVersion>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ParameterManager::delete_template_version].
+    fn delete_template_version(
+        &self,
+        _req: crate::model::DeleteTemplateVersionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ParameterManager::render_template_version].
+    fn render_template_version(
+        &self,
+        _req: crate::model::RenderTemplateVersionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::RenderTemplateVersionResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::ParameterManager::list_locations].
     fn list_locations(
         &self,

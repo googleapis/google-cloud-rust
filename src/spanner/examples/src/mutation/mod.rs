@@ -13,4 +13,5 @@
 // limitations under the License.
 
 pub mod insert_data;
+pub mod insert_or_update_data;
 pub mod update_data;

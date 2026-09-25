@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::publisher::builder::PublisherPartialBuilder;
+use std::time::Duration;
 
 /// Creates [`Publisher`](crate::client::Publisher) instances.
 ///
@@ -43,6 +44,7 @@ use crate::publisher::builder::PublisherPartialBuilder;
 #[derive(Clone, Debug)]
 pub struct BasePublisher {
     pub(crate) inner: crate::generated::gapic_dataplane::client::Publisher,
+    pub(crate) total_timeout: Option<Duration>,
 }
 
 pub use super::client_builder::BasePublisherBuilder;
@@ -62,9 +64,18 @@ impl BasePublisher {
 
     /// Creates a new Pub/Sub publisher client with the given configuration.
     pub(crate) async fn new(builder: BasePublisherBuilder) -> crate::ClientBuilderResult<Self> {
+        let total_timeout = builder.config.retry_policy.as_ref().and_then(|p| {
+            p.remaining_time(
+                &google_cloud_gax::retry_state::RetryState::new(false)
+                    .set_start(tokio::time::Instant::now().into_std()),
+            )
+        });
         let inner =
             crate::generated::gapic_dataplane::client::Publisher::new(builder.config).await?;
-        std::result::Result::Ok(Self { inner })
+        std::result::Result::Ok(Self {
+            inner,
+            total_timeout,
+        })
     }
 
     /// Creates a new `Publisher` for a given topic.
@@ -85,6 +96,7 @@ impl BasePublisher {
         T: Into<String>,
     {
         PublisherPartialBuilder::new(self.inner.clone(), topic.into())
+            .with_total_timeout(self.total_timeout)
     }
 }
 
@@ -92,6 +104,8 @@ impl BasePublisher {
 mod tests {
     use super::BasePublisher;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    use std::time::Duration;
 
     #[tokio::test]
     async fn builder() -> anyhow::Result<()> {
@@ -100,6 +114,52 @@ mod tests {
             .build()
             .await?;
         let _ = client.publisher("projects/my-project/topics/my-topic".to_string());
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn default_total_timeout() -> anyhow::Result<()> {
+        let client = BasePublisher::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let timeout = client
+            .total_timeout
+            .expect("default total_timeout should be present");
+        assert_eq!(timeout, Duration::from_secs(600));
+
+        let partial_builder = client.publisher("projects/my-project/topics/my-topic");
+        assert_eq!(partial_builder.total_timeout, client.total_timeout);
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn custom_total_timeout() -> anyhow::Result<()> {
+        let client = BasePublisher::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_retry_policy(AlwaysRetry.with_time_limit(Duration::from_secs(45)))
+            .build()
+            .await?;
+        let timeout = client
+            .total_timeout
+            .expect("custom total_timeout should be present");
+        assert_eq!(timeout, Duration::from_secs(45));
+
+        let partial_builder = client.publisher("projects/my-project/topics/my-topic");
+        assert_eq!(partial_builder.total_timeout, client.total_timeout);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn attempt_limit_only_has_no_total_timeout() -> anyhow::Result<()> {
+        let client = BasePublisher::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
+            .build()
+            .await?;
+        assert_eq!(client.total_timeout, None);
+        let partial_builder = client.publisher("projects/my-project/topics/my-topic");
+        assert_eq!(partial_builder.total_timeout, None);
         Ok(())
     }
 }

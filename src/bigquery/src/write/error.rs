@@ -13,7 +13,8 @@
 // limitations under the License.
 
 use crate::Error;
-use crate::model::RowError;
+use crate::model::{RowError, StorageError};
+use google_cloud_gax::error::rpc::Status;
 
 /// Represents an error that can occur when appending rows.
 #[derive(thiserror::Error, Debug)]
@@ -30,10 +31,16 @@ pub enum AppendError {
     },
 
     /// Certain rows have errors.
+    #[non_exhaustive]
     #[error(
-        "the service reports an error for the following rows. No rows in the batch were appended. You can remove the bad rows and retry the request. Rows: {0:?}"
+        "there was an error for the following rows. No rows in the batch were appended. You can remove the bad rows and retry the request. Status: {status:?}, Rows: {row_errors:?}"
     )]
-    RowErrors(Vec<RowError>),
+    RowErrors {
+        /// The status returned by the service for the request.
+        status: Status,
+        /// The row-level errors reported by the service.
+        row_errors: Vec<RowError>,
+    },
 
     /// The `AppendRows` stream closed unexpectedly.
     #[error(
@@ -44,17 +51,43 @@ pub enum AppendError {
 
 pub(crate) type AppendResult<T> = std::result::Result<T, AppendError>;
 
+/// Represents an error that can occur when committing a pending write stream.
+#[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
+pub enum CommitError {
+    /// The underlying RPC failed.
+    #[non_exhaustive]
+    #[error("the operation failed. RPC error: {source}")]
+    Rpc {
+        /// The error returned by the service for the request.
+        #[from]
+        #[source]
+        source: Error,
+    },
+
+    /// The stream could not be committed.
+    #[non_exhaustive]
+    #[error(
+        "the service failed to commit the stream. No rows in the stream were committed. Stream errors: {stream_errors:?}"
+    )]
+    FailedTransaction {
+        /// The stream-level errors reported by the service.
+        stream_errors: Vec<StorageError>,
+    },
+}
+
 /// Represents an error that can occur when building a writer.
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum WriterBuilderError {
-    /// The stream type provided by the service did not match the expected type.
-    #[error("stream type mismatch: requested {expected:?}, but matched resource yields {actual:?}")]
+    /// The targeted write stream was a different stream type than expected.
+    #[non_exhaustive]
+    #[error("stream type mismatch: requested {expected}, but matched resource yields {actual}")]
     TypeMismatch {
         /// The expected stream type.
-        expected: crate::model::write_stream::Type,
+        expected: String,
         /// The actual stream type returned by the service.
-        actual: crate::model::write_stream::Type,
+        actual: String,
     },
 
     /// The underlying RPC failed.
@@ -71,6 +104,7 @@ pub enum WriterBuilderError {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::model::storage_error::StorageErrorCode;
     use google_cloud_gax::error::rpc::{Code, Status};
 
     #[test]
@@ -85,5 +119,31 @@ mod tests {
         let fmt = format!("{e}");
         assert!(fmt.contains("operation failed."), "{fmt}");
         assert!(fmt.contains("inner fail"), "{fmt}");
+    }
+
+    #[test]
+    fn commit_error_display() {
+        let e = CommitError::Rpc {
+            source: Error::service(
+                Status::default()
+                    .set_code(Code::Unavailable)
+                    .set_message("inner fail"),
+            ),
+        };
+        let fmt = format!("{e}");
+        assert!(fmt.contains("operation failed."), "{fmt}");
+        assert!(fmt.contains("inner fail"), "{fmt}");
+
+        let e = CommitError::FailedTransaction {
+            stream_errors: vec![
+                StorageError::new()
+                    .set_code(StorageErrorCode::InvalidStreamState)
+                    .set_entity("projects/p/datasets/d/tables/t/streams/s")
+                    .set_error_message("stream not finalized"),
+            ],
+        };
+        let fmt = format!("{e}");
+        assert!(fmt.contains("failed to commit the stream"), "{fmt}");
+        assert!(fmt.contains("stream not finalized"), "{fmt}");
     }
 }

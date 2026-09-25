@@ -599,6 +599,49 @@ impl ::prost::Name for LookerGoldenQuery {
             .into()
     }
 }
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct DynamicField {
+    #[prost(string, optional, tag = "1")]
+    pub category: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "2")]
+    pub name: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "3")]
+    pub label: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "4")]
+    pub based_on: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "5")]
+    pub r#type: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "6")]
+    pub description: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "7")]
+    pub expression: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "8")]
+    pub filter_expression: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "9")]
+    pub value_format: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "10")]
+    pub value_format_name: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "11")]
+    pub calculation_type: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, repeated, tag = "12")]
+    pub args: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "13")]
+    pub kind_hint: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "14")]
+    pub type_hint: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(bool, optional, tag = "15")]
+    pub is_disabled: ::core::option::Option<bool>,
+}
+impl ::prost::Name for DynamicField {
+    const NAME: &'static str = "DynamicField";
+    const PACKAGE: &'static str = "google.cloud.geminidataanalytics.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.cloud.geminidataanalytics.v1.DynamicField".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.cloud.geminidataanalytics.v1.DynamicField".into()
+    }
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LookerQuery {
     #[prost(string, tag = "1")]
@@ -613,6 +656,8 @@ pub struct LookerQuery {
     pub sorts: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     #[prost(string, optional, tag = "6")]
     pub limit: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(message, repeated, tag = "9")]
+    pub dynamic_fields: ::prost::alloc::vec::Vec<DynamicField>,
     #[prost(string, optional, tag = "10")]
     pub query_id: ::core::option::Option<::prost::alloc::string::String>,
     #[prost(string, optional, tag = "11")]

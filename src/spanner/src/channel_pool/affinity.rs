@@ -60,6 +60,12 @@ impl TransactionAffinity {
         self.kind == AffinityKind::ReadWrite
     }
 
+    /// Returns `true` if this handle represents soft stickiness (Read-Only transactions).
+    #[cfg(test)]
+    pub(crate) fn is_read_only(&self) -> bool {
+        self.kind == AffinityKind::ReadOnly
+    }
+
     /// Returns the pinned monotonic channel entry ID, or `None` if unpinned.
     pub(crate) fn pinned_entry_id(&self) -> Option<u64> {
         let id = self.entry_id.load(Ordering::Acquire);
@@ -167,14 +173,6 @@ impl TransactionAffinity {
     pub(crate) fn set_entry_id(&self, entry_id: u64) {
         debug_assert_ne!(entry_id, 0, "entry_id must be non-zero");
         self.entry_id.store(entry_id, Ordering::Release);
-    }
-
-    pub(crate) fn set_pinned_entry_id_for_test(&self, id: u64) {
-        self.entry_id.store(id, Ordering::Release);
-    }
-
-    pub(crate) fn is_read_only(&self) -> bool {
-        self.kind == AffinityKind::ReadOnly
     }
 
     pub(crate) fn reset(&self) {
@@ -414,30 +412,33 @@ mod tests {
     fn release_rw_guard_drops_guard_and_decrements_count() {
         let channel = Channel::new_for_test(DummyStub);
         let entry = Arc::new(ChannelEntry::new(1, 1, channel));
-        let guard = ActiveRpcGuard::new(Arc::clone(&entry), 0, Duration::ZERO, 0);
-        let lease = ChannelLease::new(guard);
-
         let affinity = TransactionAffinity::new_read_write();
+        let lease = ChannelLease::new(ActiveRpcGuard::new(
+            Arc::clone(&entry),
+            0,
+            Duration::ZERO,
+            0,
+        ));
+
         affinity.ensure_rw_guard(&lease);
-        assert_eq!(
-            entry.active_rw_count(),
-            1,
-            "entry active_rw_count must be 1 after ensuring guard"
-        );
+        assert!(affinity.has_rw_guard(), "guard must be attached");
+        assert_eq!(entry.active_rw_count(), 1, "entry count must be 1");
 
         affinity.release_rw_guard();
+        assert!(!affinity.has_rw_guard(), "guard must be released");
         assert_eq!(
             entry.active_rw_count(),
             0,
-            "entry active_rw_count must drop to 0 after release_rw_guard"
+            "entry count must drop to 0 after release_rw_guard"
         );
 
         // Repeated release must be an idempotent no-op
         affinity.release_rw_guard();
+        assert!(!affinity.has_rw_guard(), "guard must remain released");
         assert_eq!(
             entry.active_rw_count(),
             0,
-            "entry active_rw_count must remain 0 on repeated release"
+            "entry count must remain 0 on repeated release"
         );
     }
 
@@ -447,20 +448,20 @@ mod tests {
         let target_from_ref = ChannelTarget::from(&affinity);
         assert!(
             matches!(target_from_ref, ChannelTarget::Affinity(target_affinity) if ptr::eq(target_affinity, &affinity)),
-            "target_from_ref affinity must match"
+            "target_from_ref affinity must match original reference"
         );
 
         let arc_affinity = Arc::new(TransactionAffinity::new_read_only());
         let target_from_arc = ChannelTarget::from(&arc_affinity);
         assert!(
             matches!(target_from_arc, ChannelTarget::Affinity(target_affinity) if ptr::eq(target_affinity, &*arc_affinity)),
-            "target_from_arc affinity must match"
+            "target_from_arc affinity must match pointer to arc inner"
         );
 
         let target_from_some = ChannelTarget::from(Some(&affinity));
         assert!(
             matches!(target_from_some, ChannelTarget::Affinity(target_affinity) if ptr::eq(target_affinity, &affinity)),
-            "target_from_some affinity must match"
+            "target_from_some affinity must match original reference"
         );
 
         let target_from_none = ChannelTarget::from(None);

@@ -162,6 +162,31 @@ impl std::fmt::Debug for super::LookerGoldenQuery {
     }
 }
 
+impl std::fmt::Debug for super::DynamicField {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DynamicField");
+        debug_struct.field("category", &self.category);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("label", &self.label);
+        debug_struct.field("based_on", &self.based_on);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("expression", &self.expression);
+        debug_struct.field("filter_expression", &self.filter_expression);
+        debug_struct.field("value_format", &self.value_format);
+        debug_struct.field("value_format_name", &self.value_format_name);
+        debug_struct.field("calculation_type", &self.calculation_type);
+        debug_struct.field("args", &self.args);
+        debug_struct.field("kind_hint", &self.kind_hint);
+        debug_struct.field("type_hint", &self.type_hint);
+        debug_struct.field("is_disabled", &self.is_disabled);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::LookerQuery {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LookerQuery");
@@ -171,6 +196,7 @@ impl std::fmt::Debug for super::LookerQuery {
         debug_struct.field("filters", &self.filters);
         debug_struct.field("sorts", &self.sorts);
         debug_struct.field("limit", &self.limit);
+        debug_struct.field("dynamic_fields", &self.dynamic_fields);
         debug_struct.field("query_id", &self.query_id);
         debug_struct.field("client_id", &self.client_id);
         if !self._unknown_fields.is_empty() {
@@ -312,8 +338,8 @@ impl std::fmt::Debug for super::Conversation {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("last_used_time", &self.last_used_time);
         debug_struct.field("labels", &self.labels);
+        debug_struct.field("title", &self.title);
         debug_struct.field("kms_key", &self.kms_key);
-        debug_struct.field("memory_paused", &self.memory_paused);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -327,6 +353,19 @@ impl std::fmt::Debug for super::CreateConversationRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("conversation_id", &self.conversation_id);
         debug_struct.field("conversation", &self.conversation);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UpdateConversationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateConversationRequest");
+        debug_struct.field("conversation", &self.conversation);
+        debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -440,6 +479,14 @@ impl std::fmt::Debug for super::DataAgent {
         debug_struct.field("delete_time", &self.delete_time);
         debug_struct.field("purge_time", &self.purge_time);
         debug_struct.field("kms_key", &self.kms_key);
+        debug_struct.field(
+            "bigquery_agent_analytics_enabled",
+            &self.bigquery_agent_analytics_enabled,
+        );
+        debug_struct.field(
+            "bigquery_agent_analytics_table",
+            &self.bigquery_agent_analytics_table,
+        );
         debug_struct.field("r#type", &self.r#type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -457,6 +504,7 @@ impl std::fmt::Debug for super::ListDataAgentsRequest {
         debug_struct.field("filter", &self.filter);
         debug_struct.field("order_by", &self.order_by);
         debug_struct.field("show_deleted", &self.show_deleted);
+        debug_struct.field("creator_filter", &self.creator_filter);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -567,6 +615,69 @@ impl std::fmt::Debug for super::OperationMetadata {
         debug_struct.field("status_message", &self.status_message);
         debug_struct.field("requested_cancellation", &self.requested_cancellation);
         debug_struct.field("api_version", &self.api_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SetAgentOpsObservabilityRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetAgentOpsObservabilityRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("telemetry_enabled", &self.telemetry_enabled);
+        debug_struct.field("data_source_type", &self.data_source_type);
+        debug_struct.field("bqaa_enabled", &self.bqaa_enabled);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SetAgentOpsObservabilityResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetAgentOpsObservabilityResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SetAgentOpsObservabilityMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetAgentOpsObservabilityMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RetrieveAgentOpsObservabilityRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RetrieveAgentOpsObservabilityRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("data_source_type", &self.data_source_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RetrieveAgentOpsObservabilityResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RetrieveAgentOpsObservabilityResponse");
+        debug_struct.field("telemetry_enabled", &self.telemetry_enabled);
+        debug_struct.field("bigquery_enabled", &self.bigquery_enabled);
+        debug_struct.field("cloud_trace_enabled", &self.cloud_trace_enabled);
+        debug_struct.field("cloud_monitoring_enabled", &self.cloud_monitoring_enabled);
+        debug_struct.field("cloud_logging_enabled", &self.cloud_logging_enabled);
+        debug_struct.field("bqaa_enabled", &self.bqaa_enabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

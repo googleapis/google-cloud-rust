@@ -209,12 +209,10 @@ impl BatchWriteTransactionBuilder {
     /// ```
     pub fn build(self) -> BatchWriteTransaction {
         let session_name = self.client.session_name();
-        let channel_hint = self.client.next_channel_hint();
         let gax_options = apply_defaults(self.gax_options);
         BatchWriteTransaction {
             session_name,
             client: self.client,
-            channel_hint,
             transaction_tag: self.transaction_tag,
             priority: self.priority,
             exclude_txn_from_change_streams: self.exclude_txn_from_change_streams,
@@ -230,7 +228,6 @@ impl BatchWriteTransactionBuilder {
 pub struct BatchWriteTransaction {
     session_name: String,
     client: DatabaseClient,
-    channel_hint: usize,
     transaction_tag: Option<String>,
     priority: Priority,
     exclude_txn_from_change_streams: bool,
@@ -291,7 +288,6 @@ impl BatchWriteTransaction {
         Ok(BatchWriteResponseStream {
             client: self.client,
             session_name: self.session_name,
-            channel_hint: self.channel_hint,
             transaction_tag: self.transaction_tag,
             priority: self.priority,
             exclude_txn_from_change_streams: self.exclude_txn_from_change_streams,
@@ -317,7 +313,6 @@ impl BatchWriteTransaction {
 pub struct BatchWriteResponseStream {
     client: DatabaseClient,
     session_name: String,
-    channel_hint: usize,
     transaction_tag: Option<String>,
     priority: Priority,
     exclude_txn_from_change_streams: bool,
@@ -436,7 +431,7 @@ impl BatchWriteResponseStream {
 
             let stream_result = self
                 .client
-                .batch_write(request, self.gax_options.clone(), self.channel_hint)
+                .batch_write(request, self.gax_options.clone(), None)
                 .send()
                 .await;
 
@@ -540,8 +535,6 @@ impl BatchWriteResponseStream {
         match self.check_retry(error) {
             Ok(()) => {
                 self.retry_count += 1;
-                // Rotate channel hint only when a retry is confirmed to distribute load across healthy connections.
-                self.channel_hint = self.client.next_channel_hint();
                 if let Some(policy) = self.gax_options.backoff_policy() {
                     let state = RetryState::new(true).set_attempt_count(self.retry_count as u32);
                     let delay = policy.on_failure(&state);

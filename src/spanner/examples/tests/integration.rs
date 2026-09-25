@@ -22,7 +22,7 @@ mod tests {
     use google_cloud_spanner::statement::Statement;
     use google_cloud_spanner_admin_database_v1::model::DatabaseDialect;
     use google_cloud_test_utils::errors::anydump;
-    use spanner_samples::{database, dml, mutation, query, read};
+    use spanner_samples::{database, dml, mutation, query, quickstart, read};
 
     /// Macro to define sample integration tests, managing database
     /// provisioning and automatic teardown.
@@ -56,8 +56,18 @@ mod tests {
 
     define_sample_tests! {
         async fn googlesql_samples(client: &DatabaseClient, ctx: &TestDatabaseContext) -> anyhow::Result<()> [dialect = DatabaseDialect::GoogleStandardSql] {
+            // 0. Test spanner_quickstart sample
+            quickstart::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
             // 1. Test spanner_insert_data sample
             mutation::insert_data::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
+            // 1a. Test spanner_insert_or_update_data sample
+            mutation::insert_or_update_data::sample(client)
                 .await
                 .inspect_err(anydump)?;
 
@@ -140,8 +150,18 @@ mod tests {
         }
 
         async fn postgresql_samples(client: &DatabaseClient, ctx: &TestDatabaseContext) -> anyhow::Result<()> [dialect = DatabaseDialect::Postgresql] {
+            // 0. Test spanner_quickstart sample
+            quickstart::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
             // 1. Test spanner_insert_data sample (mutations are dialect-agnostic)
             mutation::insert_data::sample(client)
+                .await
+                .inspect_err(anydump)?;
+
+            // 1a. Test spanner_insert_or_update_data sample
+            mutation::insert_or_update_data::sample(client)
                 .await
                 .inspect_err(anydump)?;
 

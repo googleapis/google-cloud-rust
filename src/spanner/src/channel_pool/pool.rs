@@ -358,9 +358,15 @@ impl ChannelPool {
 
     /// Returns a clone of the first active channel in the pool, if present.
     ///
-    /// This helper is intended exclusively for unit tests to verify channel pool initialization
-    /// and channel availability. It is never used in production request routing.
-    #[cfg(test)]
+    /// # Warning
+    ///
+    /// This method is intended strictly for internal metadata setup (e.g. configuring
+    /// fallback gateway connection endpoints during client initialization).
+    ///
+    /// **Never** use this method for routing or executing queries or RPCs. Doing so would
+    /// bypass load balancing and cause traffic to herd onto the first channel.
+    /// Use [`ChannelPool::pick_channel`] for P2C load-balanced channel selection, or
+    /// [`ChannelPool::resolve_affinity`] for operations requiring transaction affinity.
     pub(crate) fn default_channel(&self) -> Option<Channel> {
         let active_guard = self.inner.active_entries.read().expect("lock poisoned");
         active_guard.first().map(|entry| entry.channel.clone())
@@ -429,6 +435,14 @@ impl ChannelPool {
             .read()
             .expect("lock poisoned")
             .is_some()
+    }
+
+    pub(crate) fn prime_session_name(&self) -> Option<String> {
+        self.inner
+            .prime_session
+            .read()
+            .expect("lock poisoned")
+            .clone()
     }
 
     pub(crate) fn active_entries(&self) -> Vec<Arc<ChannelEntry>> {
@@ -666,7 +680,7 @@ mod tests {
         // Simulate a Read-Only transaction that was previously pinned to channel 2,
         // which has now transitioned to Draining during a scale-down event.
         let read_only_affinity = TransactionAffinity::new_read_only();
-        read_only_affinity.set_pinned_entry_id_for_test(2);
+        read_only_affinity.set_entry_id(2);
 
         let lease = pool
             .resolve_affinity(&read_only_affinity)
@@ -883,7 +897,7 @@ mod tests {
         // 1. Simulate a Read/Write transaction previously pinned to channel 2,
         // which has now transitioned to Closed after an idle timeout.
         let rw_affinity = TransactionAffinity::new_read_write();
-        rw_affinity.set_pinned_entry_id_for_test(2);
+        rw_affinity.set_entry_id(2);
         let lease = pool
             .resolve_affinity(&rw_affinity)
             .expect("must fallback to active channel when draining channel is closed");
@@ -896,7 +910,7 @@ mod tests {
 
         // 2. Simulate affinity pinned to a stale / non-existent channel ID -> must fallback to active channel
         let non_existent_affinity = TransactionAffinity::new_read_write();
-        non_existent_affinity.set_pinned_entry_id_for_test(999);
+        non_existent_affinity.set_entry_id(999);
         let lease_fallback = pool
             .resolve_affinity(&non_existent_affinity)
             .expect("must fallback to active channel for unknown channel ID");
@@ -1260,7 +1274,7 @@ mod tests {
 
         let affinity = TransactionAffinity::new_read_write();
         // Simulate affinity having an unknown stale ID (e.g. 999)
-        affinity.set_pinned_entry_id_for_test(999);
+        affinity.set_entry_id(999);
 
         // Another concurrent thread successfully updates affinity to channel 2
         affinity
@@ -1285,7 +1299,6 @@ mod tests {
         let result = channel.inner.create_session().send().await;
         assert!(result.is_ok(), "mock session create must succeed");
     }
-
     #[test]
     fn empty_pool_pick_channel_for_target() {
         let client_config = ClientConfig::default();

@@ -82,6 +82,14 @@ mod bigquery {
     }
 
     #[tokio::test]
+    async fn run_query_client_metadata() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        integration_tests_bigquery::query_client_metadata()
+            .await
+            .inspect_err(anydump)
+    }
+
+    #[tokio::test]
     async fn run_reads() -> anyhow::Result<()> {
         let _guard = enable_tracing();
         integration_tests_bigquery::run_reads()

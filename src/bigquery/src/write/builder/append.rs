@@ -38,8 +38,9 @@ impl Append {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_bigquery::write::arrow::DefaultWriter;
-    /// # async fn sample(writer: DefaultWriter) -> anyhow::Result<()> {
+    /// # use google_cloud_bigquery::write::format::Arrow;
+    /// # use google_cloud_bigquery::write::DefaultWriter;
+    /// # async fn sample(writer: DefaultWriter<Arrow>) -> anyhow::Result<()> {
     /// let f1 = writer.append(rows()).send();
     /// let f2 = writer.append(rows()).send();
     ///
@@ -172,7 +173,7 @@ mod tests {
             .expect("sending on channel always succeeds");
 
         let err = handle.await?.expect_err("should return an error");
-        assert!(matches!(err, AppendError::RowErrors(_)));
+        assert!(matches!(err, AppendError::RowErrors { .. }));
         Ok(())
     }
 }

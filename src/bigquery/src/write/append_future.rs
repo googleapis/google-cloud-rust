@@ -29,12 +29,37 @@ use tokio::sync::oneshot;
 /// background, even if this future is dropped or never awaited.
 #[derive(Debug)]
 pub struct AppendFuture {
-    rx: oneshot::Receiver<AppendResult<AppendResponse>>,
+    inner: Inner,
+}
+
+enum Inner {
+    Rx(oneshot::Receiver<AppendResult<AppendResponse>>),
+    Boxed(Pin<Box<dyn Future<Output = AppendResult<AppendResponse>> + Send>>),
+}
+
+impl std::fmt::Debug for Inner {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Rx(rx) => f.debug_tuple("Rx").field(rx).finish(),
+            Self::Boxed(_) => f.debug_tuple("Boxed").finish(),
+        }
+    }
 }
 
 impl AppendFuture {
     pub(crate) fn new(rx: oneshot::Receiver<AppendResult<AppendResponse>>) -> Self {
-        Self { rx }
+        Self {
+            inner: Inner::Rx(rx),
+        }
+    }
+
+    pub(crate) fn from_future<F>(fut: F) -> Self
+    where
+        F: Future<Output = AppendResult<AppendResponse>> + Send + 'static,
+    {
+        Self {
+            inner: Inner::Boxed(Box::pin(fut)),
+        }
     }
 }
 
@@ -42,10 +67,15 @@ impl Future for AppendFuture {
     type Output = AppendResult<AppendResponse>;
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
-        let result = std::task::ready!(Pin::new(&mut self.rx).poll(cx));
-        match result {
-            Ok(res) => Poll::Ready(res),
-            Err(_) => Poll::Ready(Err(AppendError::UnexpectedEndOfStream)),
+        match &mut self.inner {
+            Inner::Rx(rx) => {
+                let result = std::task::ready!(Pin::new(rx).poll(cx));
+                match result {
+                    Ok(res) => Poll::Ready(res),
+                    Err(_) => Poll::Ready(Err(AppendError::UnexpectedEndOfStream)),
+                }
+            }
+            Inner::Boxed(fut) => fut.as_mut().poll(cx),
         }
     }
 }
@@ -88,5 +118,34 @@ mod tests {
         let future = AppendFuture::new(rx);
         let err = future.await.expect_err("should return error from task");
         assert!(matches!(err, AppendError::UnexpectedEndOfStream));
+    }
+
+    #[tokio::test]
+    async fn from_future_success() {
+        let future = AppendFuture::from_future(async {
+            Ok(AppendResponse {
+                offset: Some(7),
+                updated_schema: None,
+            })
+        });
+        let resp = future.await.expect("should succeed");
+        assert_eq!(resp.offset, Some(7));
+    }
+
+    #[tokio::test]
+    async fn from_future_error() {
+        let future = AppendFuture::from_future(async { Err(AppendError::UnexpectedEndOfStream) });
+        let err = future.await.expect_err("should return error");
+        assert!(matches!(err, AppendError::UnexpectedEndOfStream));
+    }
+
+    #[test]
+    fn debug_format() {
+        let (_, rx) = oneshot::channel();
+        let future_rx = AppendFuture::new(rx);
+        assert!(format!("{future_rx:?}").contains("Rx"));
+
+        let future_boxed = AppendFuture::from_future(async { Ok(AppendResponse::default()) });
+        assert!(format!("{future_boxed:?}").contains("Boxed"));
     }
 }

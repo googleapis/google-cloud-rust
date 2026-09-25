@@ -19,6 +19,7 @@
 
 use crate::error::ConvertError;
 use crate::query::FromSql;
+use crate::query::from_sql::SqlValueInner;
 
 /// Represents a BigQuery time [INTERVAL] value.
 ///
@@ -49,6 +50,7 @@ use crate::query::FromSql;
 /// # }
 /// ```
 #[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
 pub struct Interval {
     /// Years component.
     pub years: i32,
@@ -66,10 +68,59 @@ pub struct Interval {
     pub nanos: i32,
 }
 
+impl Interval {
+    /// Creates a new zero-duration interval (`0-0 0 0:00:00`), with all components set to `0`.
+    pub fn new() -> Self {
+        Self::default()
+    }
+
+    /// Sets the value of [years][Self::years].
+    pub fn set_years(mut self, v: i32) -> Self {
+        self.years = v;
+        self
+    }
+
+    /// Sets the value of [months][Self::months].
+    pub fn set_months(mut self, v: i32) -> Self {
+        self.months = v;
+        self
+    }
+
+    /// Sets the value of [days][Self::days].
+    pub fn set_days(mut self, v: i32) -> Self {
+        self.days = v;
+        self
+    }
+
+    /// Sets the value of [hours][Self::hours].
+    pub fn set_hours(mut self, v: i32) -> Self {
+        self.hours = v;
+        self
+    }
+
+    /// Sets the value of [minutes][Self::minutes].
+    pub fn set_minutes(mut self, v: i32) -> Self {
+        self.minutes = v;
+        self
+    }
+
+    /// Sets the value of [seconds][Self::seconds].
+    pub fn set_seconds(mut self, v: i32) -> Self {
+        self.seconds = v;
+        self
+    }
+
+    /// Sets the value of [nanos][Self::nanos].
+    pub fn set_nanos(mut self, v: i32) -> Self {
+        self.nanos = v;
+        self
+    }
+}
+
 impl FromSql for Interval {
-    fn from_value(value: wkt::Value) -> Result<Self, ConvertError> {
-        match value {
-            wkt::Value::String(s) => {
+    fn from_value(value: crate::query::SqlValue) -> Result<Self, ConvertError> {
+        match value.inner {
+            SqlValueInner::String(s) => {
                 let mut parts = s.split_whitespace();
                 let ym_str = parts.next();
                 let days_str = parts.next();
@@ -163,11 +214,33 @@ impl FromSql for Interval {
                     nanos,
                 })
             }
-            wkt::Value::Null => Err(ConvertError::NotNull),
-            other => Err(ConvertError::type_mismatch("string", other)),
+            SqlValueInner::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::type_mismatch("string", &other)),
         }
     }
 }
+
+mod sealed {
+    /// A sealed trait to prevent external implementation of `RangeElement`.
+    pub trait RangeElement {}
+
+    impl RangeElement for google_cloud_type::model::Date {}
+    impl RangeElement for google_cloud_type::model::DateTime {}
+    impl RangeElement for wkt::Timestamp {}
+}
+
+/// A marker trait for types that can be elements of a BigQuery [`Range`].
+///
+/// BigQuery `RANGE<T>` values support [`Date`](google_cloud_type::model::Date),
+/// [`DateTime`](google_cloud_type::model::DateTime), and [`Timestamp`](wkt::Timestamp)
+/// element types.
+///
+/// This trait is sealed and cannot be implemented for types outside of this crate.
+pub trait RangeElement: FromSql + sealed::RangeElement {}
+
+impl RangeElement for google_cloud_type::model::Date {}
+impl RangeElement for google_cloud_type::model::DateTime {}
+impl RangeElement for wkt::Timestamp {}
 
 /// Represents a BigQuery [RANGE] value.
 ///
@@ -199,17 +272,58 @@ impl FromSql for Interval {
 /// # }
 /// ```
 #[derive(Clone, Debug, PartialEq)]
-pub struct Range<T> {
+#[non_exhaustive]
+pub struct Range<T: RangeElement> {
     /// The inclusive start of the range (or None if unbounded).
     pub start: Option<T>,
     /// The exclusive end of the range (or None if unbounded).
     pub end: Option<T>,
 }
 
-impl<T: FromSql> FromSql for Range<T> {
-    fn from_value(value: wkt::Value) -> Result<Self, ConvertError> {
-        match value {
-            wkt::Value::String(s) => {
+impl<T: RangeElement> Default for Range<T> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl<T: RangeElement> Range<T> {
+    /// Creates a new unbounded range (`[UNBOUNDED, UNBOUNDED)`).
+    pub fn new() -> Self {
+        Self {
+            start: None,
+            end: None,
+        }
+    }
+
+    /// Sets the value of [start][Self::start].
+    pub fn set_start<V: Into<T>>(mut self, v: V) -> Self {
+        self.start = Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start][Self::start].
+    pub fn set_or_clear_start(mut self, v: Option<T>) -> Self {
+        self.start = v;
+        self
+    }
+
+    /// Sets the value of [end][Self::end].
+    pub fn set_end<V: Into<T>>(mut self, v: V) -> Self {
+        self.end = Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end][Self::end].
+    pub fn set_or_clear_end(mut self, v: Option<T>) -> Self {
+        self.end = v;
+        self
+    }
+}
+
+impl<T: RangeElement> FromSql for Range<T> {
+    fn from_value(value: crate::query::SqlValue) -> Result<Self, ConvertError> {
+        match value.inner {
+            SqlValueInner::String(s) => {
                 let trimmed = s.trim();
                 // Strip leading [ and trailing )
                 let content = trimmed
@@ -239,19 +353,23 @@ impl<T: FromSql> FromSql for Range<T> {
                 let start = if start_str.is_empty() || start_str == "UNBOUNDED" {
                     None
                 } else {
-                    Some(T::from_value(wkt::Value::String(start_str.to_string()))?)
+                    Some(T::from_value(crate::query::SqlValue::from_inner(
+                        SqlValueInner::String(start_str.to_string()),
+                    ))?)
                 };
 
                 let end = if end_str.is_empty() || end_str == "UNBOUNDED" {
                     None
                 } else {
-                    Some(T::from_value(wkt::Value::String(end_str.to_string()))?)
+                    Some(T::from_value(crate::query::SqlValue::from_inner(
+                        SqlValueInner::String(end_str.to_string()),
+                    ))?)
                 };
 
                 Ok(Range { start, end })
             }
-            wkt::Value::Null => Err(ConvertError::NotNull),
-            other => Err(ConvertError::type_mismatch("string", other)),
+            SqlValueInner::Null => Err(ConvertError::NotNull),
+            other => Err(ConvertError::type_mismatch("string", &other)),
         }
     }
 }
@@ -300,7 +418,7 @@ mod tests {
     #[test_case(wkt::Value::String("1-2 3 4:05:06:07".to_string()) => Err(TestConvertError::Convert("invalid interval time format".to_string())) ; "too many time parts")]
     #[test_case(wkt::Value::String("1-2 3 4:05:06.x".to_string()) => Err(TestConvertError::Convert("invalid digit found in string".to_string())) ; "invalid subsecond")]
     fn test_from_sql_interval(value: wkt::Value) -> Result<Interval, TestConvertError> {
-        FromSql::from_value(value).map_err(TestConvertError::from)
+        FromSql::from_value(crate::query::SqlValue::new(value)).map_err(TestConvertError::from)
     }
 
     #[test_case(wkt::Value::String("[2026-05-28, 2026-05-29)".to_string()) => Ok(Range { start: Some(google_cloud_type::model::Date::new().set_year(2026).set_month(5).set_day(28)), end: Some(google_cloud_type::model::Date::new().set_year(2026).set_month(5).set_day(29)) }) ; "date range bounded")]
@@ -315,9 +433,87 @@ mod tests {
     #[test_case(wkt::Value::String("2026-05-28, 2026-05-29".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range missing brackets")]
     #[test_case(wkt::Value::String("(2026-05-28, 2026-05-29)".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range invalid leading parenthesis")]
     #[test_case(wkt::Value::String("[2026-05-28, 2026-05-29]".to_string()) => Err(TestConvertError::Convert("invalid range format: missing enclosing brackets".to_string())) ; "range invalid trailing square bracket")]
+    #[test_case(wkt::Value::String("[invalid-start, 2026-05-29)".to_string()) => Err(TestConvertError::Convert("the 'year' component could not be parsed".to_string())) ; "range invalid start element")]
+    #[test_case(wkt::Value::String("[2026-05-28, invalid-end)".to_string()) => Err(TestConvertError::Convert("the 'year' component could not be parsed".to_string())) ; "range invalid end element")]
     fn test_from_sql_range(
         value: wkt::Value,
     ) -> Result<Range<google_cloud_type::model::Date>, TestConvertError> {
-        FromSql::from_value(value).map_err(TestConvertError::from)
+        FromSql::from_value(crate::query::SqlValue::new(value)).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::String("[2026-05-28T15:30:00, 2026-05-29T15:30:00)".to_string()) => Ok(Range { start: Some(google_cloud_type::model::DateTime::new().set_year(2026).set_month(5).set_day(28).set_hours(15).set_minutes(30).set_seconds(0).set_nanos(0)), end: Some(google_cloud_type::model::DateTime::new().set_year(2026).set_month(5).set_day(29).set_hours(15).set_minutes(30).set_seconds(0).set_nanos(0)) }) ; "datetime range bounded")]
+    fn test_from_sql_datetime_range(
+        value: wkt::Value,
+    ) -> Result<Range<google_cloud_type::model::DateTime>, TestConvertError> {
+        FromSql::from_value(crate::query::SqlValue::new(value)).map_err(TestConvertError::from)
+    }
+
+    #[test_case(wkt::Value::String("[1779982200000000, UNBOUNDED)".to_string()) => Ok(Range { start: Some(wkt::Timestamp::clamp(1779982200, 0)), end: None }) ; "timestamp range unbounded end")]
+    fn test_from_sql_timestamp_range(
+        value: wkt::Value,
+    ) -> Result<Range<wkt::Timestamp>, TestConvertError> {
+        FromSql::from_value(crate::query::SqlValue::new(value)).map_err(TestConvertError::from)
+    }
+
+    #[test]
+    fn test_interval_setters() {
+        let interval = Interval::new()
+            .set_years(1)
+            .set_months(2)
+            .set_days(3)
+            .set_hours(4)
+            .set_minutes(5)
+            .set_seconds(6)
+            .set_nanos(789);
+        assert_eq!(
+            interval,
+            Interval {
+                years: 1,
+                months: 2,
+                days: 3,
+                hours: 4,
+                minutes: 5,
+                seconds: 6,
+                nanos: 789,
+            }
+        );
+    }
+
+    #[test]
+    fn test_range_setters() {
+        let d1 = google_cloud_type::model::Date::new()
+            .set_year(2026)
+            .set_month(5)
+            .set_day(28);
+        let d2 = google_cloud_type::model::Date::new()
+            .set_year(2026)
+            .set_month(5)
+            .set_day(29);
+        let d3 = google_cloud_type::model::Date::new()
+            .set_year(2026)
+            .set_month(5)
+            .set_day(30);
+
+        let range = Range::<google_cloud_type::model::Date>::new()
+            .set_start(d1.clone())
+            .set_end(d2.clone());
+        assert_eq!(
+            range,
+            Range {
+                start: Some(d1),
+                end: Some(d2),
+            }
+        );
+
+        let cleared = range
+            .set_or_clear_start(None)
+            .set_or_clear_end(Some(d3.clone()));
+        assert_eq!(
+            cleared,
+            Range {
+                start: None,
+                end: Some(d3),
+            }
+        );
     }
 }

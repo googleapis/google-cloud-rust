@@ -1878,9 +1878,6 @@ impl super::stub::Projects for Projects {
                 let path_template = "/dns/v1/projects/{project}";
 
                 let builder = self.inner.builder(Method::GET, path);
-                let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
-                    builder.query(&[("clientOperationId", p)])
-                });
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })

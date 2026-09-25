@@ -327,10 +327,29 @@ impl ChannelLease {
         Self { guard }
     }
 
+    /// Consumes the lease, returning the underlying active RPC guard.
+    pub(crate) fn into_guard(self) -> ActiveRpcGuard {
+        self.guard
+    }
+
+    /// Records the result of an RPC call and applies an error penalty if a qualifying error occurred.
+    pub(crate) fn record_result<T, E>(
+        &self,
+        result: &Result<T, E>,
+        extract_code: impl Fn(&E) -> Option<Code>,
+    ) {
+        self.guard.record_result(result, extract_code);
+    }
+
     /// Records the result of a standard GAX RPC call, extracting the gRPC status code if present.
     pub(crate) fn record_call_result<T>(&self, result: &crate::Result<T>) {
         self.guard
             .record_result(result, |error| error.status().map(|status| status.code));
+    }
+
+    /// Returns a reference to the physical `Channel`.
+    pub(crate) fn channel(&self) -> &Channel {
+        &self.guard.entry.channel
     }
 
     /// Returns the unique monotonic internal entry ID.

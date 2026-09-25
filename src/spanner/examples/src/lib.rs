@@ -17,4 +17,5 @@ pub mod database;
 pub mod dml;
 pub mod mutation;
 pub mod query;
+pub mod quickstart;
 pub mod read;

@@ -68,6 +68,7 @@ struct UserData {
     payload_bytes: bytes::Bytes,
     nullable_bytes: Option<Vec<u8>>,
     interval_val: Interval,
+    json_val: wkt::Struct,
 }
 
 pub async fn query_client_datatypes() -> Result<()> {
@@ -76,24 +77,25 @@ pub async fn query_client_datatypes() -> Result<()> {
 
     let query = bq
         .query(
-            "SELECT \
-                 'John Doe' AS name, \
-                 30 AS age, \
-                 1.85 AS height, \
-                 true AS active, \
-                 ARRAY[1, 2, 3] AS numbers, \
-                 TIMESTAMP '2026-05-28 15:30:00 UTC' AS created_at, \
-                 DATE '2026-05-28' AS birth_date, \
-                 TIME '15:30:00' AS daily_alarm, \
-                 DATETIME '2026-05-28 15:30:00' AS event_time, \
-                 RANGE(DATE '2026-05-28', DATE '2026-05-29') AS date_range, \
-                 RANGE(TIMESTAMP '2026-05-28 15:30:00 UTC', NULL) AS timestamp_range, \
-                 CAST(NULL AS STRING) AS nullable_name, \
-                 CAST(NULL AS INT64) AS nullable_age, \
-                 B'hello world' AS raw_bytes, \
-                 B'payload in bytes' AS payload_bytes, \
-                 CAST(NULL AS BYTES) AS nullable_bytes, \
-                 INTERVAL '1 2:30:45.123456' DAY TO SECOND AS interval_val",
+            r#"SELECT
+                 'John Doe' AS name,
+                 30 AS age,
+                 1.85 AS height,
+                 true AS active,
+                 ARRAY[1, 2, 3] AS numbers,
+                 TIMESTAMP '2026-05-28 15:30:00 UTC' AS created_at,
+                 DATE '2026-05-28' AS birth_date,
+                 TIME '15:30:00' AS daily_alarm,
+                 DATETIME '2026-05-28 15:30:00' AS event_time,
+                 RANGE(DATE '2026-05-28', DATE '2026-05-29') AS date_range,
+                 RANGE(TIMESTAMP '2026-05-28 15:30:00 UTC', NULL) AS timestamp_range,
+                 CAST(NULL AS STRING) AS nullable_name,
+                 CAST(NULL AS INT64) AS nullable_age,
+                 B'hello world' AS raw_bytes,
+                 B'payload in bytes' AS payload_bytes,
+                 CAST(NULL AS BYTES) AS nullable_bytes,
+                 INTERVAL '1 2:30:45.123456' DAY TO SECOND AS interval_val,
+                 JSON '{"role": "admin", "level": 5}' AS json_val"#,
         )
         .with_project_id(project_id)
         .set_labels(vec![(INSTANCE_LABEL, "true")])
@@ -129,38 +131,35 @@ pub async fn query_client_datatypes() -> Result<()> {
             .set_minutes(30)
             .set_seconds(0)
             .set_nanos(0),
-        date_range: Range {
-            start: Some(
+        date_range: Range::new()
+            .set_start(
                 google_cloud_type::model::Date::new()
                     .set_year(2026)
                     .set_month(5)
                     .set_day(28),
-            ),
-            end: Some(
+            )
+            .set_end(
                 google_cloud_type::model::Date::new()
                     .set_year(2026)
                     .set_month(5)
                     .set_day(29),
             ),
-        },
-        timestamp_range: Range {
-            start: Some(wkt::Timestamp::new(1779982200, 0).unwrap()),
-            end: None,
-        },
+        timestamp_range: Range::new().set_start(wkt::Timestamp::new(1779982200, 0).unwrap()),
         nullable_name: None,
         nullable_age: None,
         raw_bytes: b"hello world".to_vec(),
         payload_bytes: bytes::Bytes::from_static(b"payload in bytes"),
         nullable_bytes: None,
-        interval_val: Interval {
-            years: 0,
-            months: 0,
-            days: 1,
-            hours: 2,
-            minutes: 30,
-            seconds: 45,
-            nanos: 123_456_000,
-        },
+        interval_val: Interval::new()
+            .set_days(1)
+            .set_hours(2)
+            .set_minutes(30)
+            .set_seconds(45)
+            .set_nanos(123_456_000),
+        json_val: wkt::Struct::from_iter([
+            ("role".to_string(), wkt::Value::String("admin".to_string())),
+            ("level".to_string(), wkt::Value::Number(5.into())),
+        ]),
     };
 
     assert_eq!(row.get::<String, _>("name")?, expected.name);
@@ -212,6 +211,24 @@ pub async fn query_client_datatypes() -> Result<()> {
     assert_eq!(
         row.get::<Interval, _>("interval_val")?,
         expected.interval_val
+    );
+    assert_eq!(
+        row.get::<String, _>("json_val")?,
+        r#"{"level":5,"role":"admin"}"#
+    );
+    assert_eq!(row.get::<wkt::Struct, _>("json_val")?, expected.json_val);
+
+    #[derive(google_cloud_bigquery::query::FromSql, Debug, PartialEq)]
+    struct JsonRole {
+        role: String,
+        level: i64,
+    }
+    assert_eq!(
+        row.get::<JsonRole, _>("json_val")?,
+        JsonRole {
+            role: "admin".to_string(),
+            level: 5,
+        }
     );
 
     let data: UserData = row.try_into()?;
@@ -354,7 +371,7 @@ pub async fn query_client_job() -> Result<()> {
     let failed_query = bq
         .query("DECLARE x INT64 DEFAULT 1; SELECT ERROR('boom');")
         .set_priority("INTERACTIVE") // force jobs.insert path so job is created
-        .with_project_id(project_id)
+        .with_project_id(project_id.clone())
         .set_labels(vec![(INSTANCE_LABEL, "true")])
         .send()
         .await?;
@@ -380,6 +397,134 @@ pub async fn query_client_job() -> Result<()> {
     Ok(())
 }
 
+// Check if data plumbing from jobs.insert to jobs.query compatible struct is working.
+pub async fn query_client_metadata() -> Result<()> {
+    let project_id = project_id()?;
+    let bq = BigQuery::builder().build().await?;
+
+    // Force the `jobs.insert` path via `set_priority("INTERACTIVE")`.
+    let running = bq
+        .query("SELECT 1 AS one")
+        .set_priority("INTERACTIVE")
+        .with_project_id(&project_id)
+        .set_labels(vec![(INSTANCE_LABEL, "true")])
+        .send()
+        .await?;
+
+    let running_metadata = running.metadata().clone();
+
+    // Verify fields populated during conversion from Job to QueryMetadata.
+    let creation_time = running_metadata
+        .creation_time
+        .expect("running query metadata must have creation_time");
+    assert!(creation_time > 0, "creation_time must be positive");
+    assert!(
+        !running_metadata.location.is_empty(),
+        "running query metadata must have non-empty location"
+    );
+    let running_job_ref = running_metadata
+        .job_reference
+        .as_ref()
+        .expect("running query metadata must have job_reference");
+    assert_eq!(running_job_ref.project_id, project_id);
+    assert!(!running_job_ref.job_id.is_empty());
+    assert!(
+        running_metadata.configuration.is_some(),
+        "running query metadata must have configuration"
+    );
+
+    let complete = running.until_done().await?;
+    let complete_metadata = complete.metadata();
+
+    // Verify fields populated and preserved during conversion to CompleteQueryMetadata (merging QueryMetadata and GetQueryResultsResponse).
+    assert_eq!(
+        complete_metadata.creation_time,
+        Some(creation_time),
+        "creation_time must be preserved in CompleteQueryMetadata"
+    );
+    assert_eq!(
+        complete_metadata.location, running_metadata.location,
+        "location must be preserved in CompleteQueryMetadata"
+    );
+    assert_eq!(
+        complete_metadata.job_complete,
+        Some(true),
+        "job_complete must be true in CompleteQueryMetadata"
+    );
+    assert_eq!(
+        complete_metadata.total_rows,
+        Some(1),
+        "total_rows must be 1 in CompleteQueryMetadata"
+    );
+    assert!(
+        complete_metadata.schema.is_some(),
+        "schema must be present in CompleteQueryMetadata"
+    );
+
+    // If running_metadata already had start/end time or statement_type (e.g. job completed quickly),
+    // verify they are preserved.
+    if let Some(end_time) = running_metadata.end_time {
+        assert_eq!(
+            complete_metadata.end_time,
+            Some(end_time),
+            "end_time must match running_metadata when present"
+        );
+    }
+    if !running_metadata.statement_type.is_empty() {
+        assert_eq!(
+            complete_metadata.statement_type, running_metadata.statement_type,
+            "statement_type must match running_metadata when present"
+        );
+    }
+    if let Some(start_time) = running_metadata.start_time {
+        assert_eq!(
+            complete_metadata.start_time,
+            Some(start_time),
+            "start_time must match running_metadata when present"
+        );
+    }
+
+    // Verify full job details via get_job()
+    let get_job_req = complete
+        .get_job()
+        .expect("CompleteQuery must have get_job() request");
+    let job = get_job_req.send().await?;
+    assert_eq!(
+        job.status.as_ref().map(|s| s.state.as_str()),
+        Some("DONE"),
+        "job state must be DONE"
+    );
+    let stats = job.statistics.as_ref().expect("job must have statistics");
+    assert!(
+        stats.creation_time > 0,
+        "job statistics creation_time must be positive"
+    );
+    assert!(
+        stats.start_time > 0,
+        "job statistics start_time must be positive"
+    );
+    assert!(
+        stats.end_time > 0,
+        "job statistics end_time must be positive"
+    );
+    let query_stats = stats
+        .query
+        .as_ref()
+        .expect("job statistics must have query stats");
+    assert_eq!(
+        query_stats.statement_type, "SELECT",
+        "job query statement_type must be SELECT"
+    );
+
+    // Verify row reading
+    let mut rows = complete.read();
+    let row = rows.next().await.expect("row must exist")?;
+    assert_eq!(row.get::<i64, _>("one")?, 1);
+    assert!(rows.next().await.is_none());
+
+    Ok(())
+}
+
 #[derive(FromRow, FromSql, Debug, PartialEq)]
 pub(crate) struct UserRecord {
     pub(crate) name: String,
@@ -393,12 +538,32 @@ struct UserProfile {
     birth_date: google_cloud_type::model::Date,
 }
 
+#[derive(FromSql, Debug, PartialEq)]
+struct AnonTriple(i64, String, bool);
+
+#[derive(FromSql, Debug, PartialEq)]
+struct NamedZThenA {
+    z: i64,
+    a: i64,
+}
+
+#[derive(FromSql, Debug, PartialEq)]
+struct PositionalPair(i64, i64);
+
+#[derive(FromSql, Debug, PartialEq)]
+struct DupIdNamed {
+    id: i64,
+}
+
 #[derive(FromRow, Debug, PartialEq)]
 struct RowData {
     user: UserRecord,
     numbers: Vec<i64>,
     users: Vec<UserRecord>,
     profile: UserProfile,
+    anon: AnonTriple,
+    pair: NamedZThenA,
+    dup: DupIdNamed,
 }
 
 pub async fn query_client_nested_types() -> Result<()> {
@@ -412,7 +577,10 @@ pub async fn query_client_nested_types() -> Result<()> {
                  STRUCT('Alice' AS name, 25 AS age) AS user, \
                  ARRAY[1, 2, 3] AS numbers, \
                  ARRAY[STRUCT('Bob' AS name, 28 AS age), STRUCT('Charlie' AS name, 31 AS age)] AS users, \
-                 STRUCT('Dave' AS name, 40 AS age, DATE '1986-05-28' AS birth_date) AS profile";
+                 STRUCT('Dave' AS name, 40 AS age, DATE '1986-05-28' AS birth_date) AS profile, \
+                 STRUCT(10, 'hello', true) AS anon, \
+                 STRUCT(1 AS z, 2 AS a) AS pair, \
+                 STRUCT(100 AS id, 200 AS id) AS dup";
 
     let query = bq
         .query(sql)
@@ -424,6 +592,14 @@ pub async fn query_client_nested_types() -> Result<()> {
     let mut rows = query.read();
 
     let row = rows.next().await.expect("row must exist")?;
+
+    // Verify positional extraction on `pair` preserves SQL declaration order (z=1, a=2)
+    let pair_by_pos: PositionalPair = row.get("pair")?;
+    assert_eq!(pair_by_pos, PositionalPair(1, 2));
+
+    // Verify positional extraction on `dup` accesses both duplicate `id` fields (100, 200)
+    let dup_by_pos: PositionalPair = row.get("dup")?;
+    assert_eq!(dup_by_pos, PositionalPair(100, 200));
 
     // Deserialize the entire row as user defined struct
     let data: RowData = row.try_into()?;
@@ -452,6 +628,15 @@ pub async fn query_client_nested_types() -> Result<()> {
     assert_eq!(data.profile.birth_date.year, 1986);
     assert_eq!(data.profile.birth_date.month, 5);
     assert_eq!(data.profile.birth_date.day, 28);
+
+    // verify anonymous struct preserves all unnamed fields
+    assert_eq!(data.anon, AnonTriple(10, "hello".to_string(), true));
+
+    // verify named extraction on `pair`
+    assert_eq!(data.pair, NamedZThenA { z: 1, a: 2 });
+
+    // verify named extraction on `dup` returns the first `id` field
+    assert_eq!(data.dup, DupIdNamed { id: 100 });
 
     Ok(())
 }
