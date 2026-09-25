@@ -24,9 +24,7 @@ pub(crate) mod entry;
 pub(crate) mod pool;
 pub(crate) mod scaler;
 
-pub use config::{
-    ChannelPoolConfig, ChannelSelectionStrategy, DynamicChannelPoolConfig, StaticChannelPoolConfig,
-};
+pub use config::{ChannelPoolConfig, DynamicChannelPoolConfig, StaticChannelPoolConfig};
 
 pub(crate) use affinity::{ChannelTarget, TransactionAffinity};
 pub(crate) use entry::ChannelLease;

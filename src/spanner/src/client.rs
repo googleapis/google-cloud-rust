@@ -704,16 +704,8 @@ impl Spanner {
     }
 
     /// Returns the number of currently active channels in the client's channel pool.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// # async fn sample() -> anyhow::Result<()> {
-    /// let client = Spanner::builder().build().await?;
-    /// let active_channels = client.active_channel_count();
-    /// # Ok(()) }
-    /// ```
-    pub fn active_channel_count(&self) -> usize {
+    #[cfg(test)]
+    pub(crate) fn active_channel_count(&self) -> usize {
         self.channel_pool.active_channel_count()
     }
 

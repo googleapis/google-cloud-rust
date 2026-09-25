@@ -525,17 +525,8 @@ impl DatabaseClient {
     }
 
     /// Returns the number of currently active channels in the client's channel pool.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// # async fn sample() -> anyhow::Result<()> {
-    /// let spanner = Spanner::builder().build().await?;
-    /// let db = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let active_channels = db.active_channel_count();
-    /// # Ok(()) }
-    /// ```
-    pub fn active_channel_count(&self) -> usize {
+    #[cfg(test)]
+    pub(crate) fn active_channel_count(&self) -> usize {
         self.spanner.active_channel_count()
     }
 

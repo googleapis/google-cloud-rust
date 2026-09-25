@@ -21,17 +21,9 @@ use std::time::Duration;
 pub(crate) const MAX_SUPPORTED_CHANNELS: usize = 256;
 
 /// Strategy used to select channels from the active pool.
-///
-/// # Example
-/// ```
-/// use google_cloud_spanner::channel_pool::{ChannelSelectionStrategy, DynamicChannelPoolConfig};
-///
-/// let config = DynamicChannelPoolConfig::new()
-///     .with_selection_strategy(ChannelSelectionStrategy::PowerOfTwoLeastBusy);
-/// ```
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 #[non_exhaustive]
-pub enum ChannelSelectionStrategy {
+pub(crate) enum ChannelSelectionStrategy {
     /// Power of Two Least Busy (samples 2 candidates, picks lower effective load, breaks ties with warmer channel).
     #[default]
     PowerOfTwoLeastBusy,
@@ -367,7 +359,8 @@ impl DynamicChannelPoolConfig {
     }
 
     /// Sets the channel selection strategy.
-    pub fn with_selection_strategy(mut self, strategy: ChannelSelectionStrategy) -> Self {
+    #[cfg(test)]
+    pub(crate) fn with_selection_strategy(mut self, strategy: ChannelSelectionStrategy) -> Self {
         self.selection_strategy = strategy;
         self
     }
@@ -448,7 +441,8 @@ impl DynamicChannelPoolConfig {
     }
 
     /// Returns the channel selection strategy.
-    pub fn selection_strategy(&self) -> ChannelSelectionStrategy {
+    #[cfg(test)]
+    pub(crate) fn selection_strategy(&self) -> ChannelSelectionStrategy {
         self.selection_strategy
     }
 
