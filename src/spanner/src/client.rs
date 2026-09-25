@@ -748,6 +748,11 @@ impl Spanner {
             .expect("channel pool must have active channels")
     }
 
+    /// Sets the multiplexed session name used for scale-up channel priming.
+    pub(crate) fn set_prime_session(&self, session_name: String) {
+        self.channel_pool.set_prime_session(session_name);
+    }
+
     pub(crate) fn attach_request_id(
         &self,
         mut options: RequestOptions,

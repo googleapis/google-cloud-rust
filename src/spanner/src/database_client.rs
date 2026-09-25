@@ -3401,6 +3401,11 @@ mod tests {
             .await
             .expect("build should succeed");
 
+        assert!(
+            spanner.channel_pool().has_prime_session(),
+            "DatabaseClient::build must register the prime session on the channel pool"
+        );
+
         let active_entries = spanner.channel_pool().active_entries();
         assert_eq!(active_entries.len(), 1, "Expected single initial channel");
         let initial_penalty = active_entries[0].current_penalty();

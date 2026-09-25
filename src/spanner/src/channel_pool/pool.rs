@@ -433,6 +433,14 @@ impl ChannelPool {
             .is_some()
     }
 
+    pub(crate) fn prime_session_name(&self) -> Option<String> {
+        self.inner
+            .prime_session
+            .read()
+            .expect("lock poisoned")
+            .clone()
+    }
+
     pub(crate) fn active_entries(&self) -> Vec<Arc<ChannelEntry>> {
         self.inner
             .active_entries
