@@ -431,6 +431,15 @@ mod tests {
             0,
             "entry count must drop to 0 after release_rw_guard"
         );
+
+        // Repeated release must be an idempotent no-op
+        affinity.release_rw_guard();
+        assert!(!affinity.has_rw_guard(), "guard must remain released");
+        assert_eq!(
+            entry.active_rw_count(),
+            0,
+            "entry count must remain 0 on repeated release"
+        );
     }
 
     #[test]

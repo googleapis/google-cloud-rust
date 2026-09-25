@@ -380,6 +380,7 @@ mod tests {
     use crate::Result as SpannerResult;
     use crate::generated::gapic_dataplane::stub::Spanner as SpannerStub;
     use crate::model::{CreateSessionRequest, Session};
+    use google_cloud_gax::error::Error as GaxError;
     use google_cloud_gax::error::rpc::Status;
     use google_cloud_gax::options::RequestOptions;
     use std::fmt::Debug;
@@ -401,6 +402,13 @@ mod tests {
 
     fn create_mock_channel() -> Channel {
         Channel::new_for_test(MockSpannerStub)
+    }
+
+    #[tokio::test]
+    async fn mock_stub_create_session() {
+        let channel = create_mock_channel();
+        let result = channel.inner.create_session().send().await;
+        assert!(result.is_ok(), "mock session create must succeed");
     }
 
     #[test]
@@ -716,11 +724,10 @@ mod tests {
             "entry_id() must return entry's internal id 42"
         );
         assert_eq!(
-            lease.channel().channel_id,
-            3,
-            "channel.channel_id must match entry's logical id 3"
+            lease.channel_id, 3,
+            "channel_id via Deref must match entry's logical id 3"
         );
-        let _channel = lease.channel();
+        let _channel: &Channel = &lease;
 
         // rw_affinity_guard helper creates an RAII guard incrementing active_rw_transactions
         let rw_guard = lease.rw_affinity_guard();
@@ -743,40 +750,18 @@ mod tests {
     }
 
     #[test]
-    fn channel_lease_into_guard() {
+    fn channel_lease_lifecycle_and_deref() {
         let channel = create_mock_channel();
         let entry = Arc::new(ChannelEntry::new(42, 3, channel));
 
         assert_eq!(entry.in_flight(), 0, "initial in-flight count must be 0");
-        let guard = ActiveRpcGuard::new(Arc::clone(&entry), 0, Duration::ZERO, 0);
-        let lease = ChannelLease::new(guard);
-        assert_eq!(
-            entry.in_flight(),
-            1,
-            "creating guard must increment in-flight count"
-        );
-
-        let guard = lease.into_guard();
-        assert_eq!(
-            entry.in_flight(),
-            1,
-            "into_guard must preserve in-flight count"
-        );
-
-        drop(guard);
-        assert_eq!(
-            entry.in_flight(),
-            0,
-            "dropping ActiveRpcGuard must decrement in-flight count"
-        );
-    }
-
-    #[test]
-    fn channel_lease_record_result_and_deref() {
-        let channel = create_mock_channel();
-        let entry = Arc::new(ChannelEntry::new(42, 3, channel));
         let guard = ActiveRpcGuard::new(Arc::clone(&entry), 5, Duration::from_secs(10), 10);
         let lease = ChannelLease::new(guard);
+        assert_eq!(
+            entry.in_flight(),
+            1,
+            "creating lease must increment in-flight count"
+        );
 
         // Verify Deref to Channel
         assert_eq!(
@@ -784,20 +769,29 @@ mod tests {
             "Deref must allow accessing underlying channel fields"
         );
 
-        let ok_result: Result<&str, Status> = Ok("success");
-        lease.record_result(&ok_result, |status| Some(status.code));
+        let ok_result: SpannerResult<&str> = Ok("success");
+        lease.record_call_result(&ok_result);
         assert_eq!(
             entry.current_penalty(),
             0,
-            "record_result on Ok must not add penalty load"
+            "record_call_result on Ok must not add penalty load"
         );
 
-        let err_result: Result<&str, Status> = Err(Status::default().set_code(Code::Unavailable));
-        lease.record_result(&err_result, |status| Some(status.code));
+        let err_result: SpannerResult<&str> = Err(GaxError::service(
+            Status::default().set_code(Code::Unavailable),
+        ));
+        lease.record_call_result(&err_result);
         assert_eq!(
             entry.current_penalty(),
             5,
-            "record_result on qualifying error must add penalty load"
+            "record_call_result on qualifying error must add penalty load"
+        );
+
+        drop(lease);
+        assert_eq!(
+            entry.in_flight(),
+            0,
+            "dropping ChannelLease must decrement in-flight count"
         );
     }
 

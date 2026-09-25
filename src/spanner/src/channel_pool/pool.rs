@@ -27,7 +27,7 @@ use crate::client::Channel;
 use crate::routing::power_of_two_selector::PowerOfTwoSelector;
 use gaxi::options::ClientConfig;
 use std::fmt::{Debug, Formatter, Result as FmtResult};
-use std::sync::atomic::{AtomicU64, AtomicUsize};
+use std::sync::atomic::{AtomicBool, AtomicU64, AtomicUsize, Ordering};
 use std::sync::{Arc, Mutex, RwLock};
 use std::time::{Duration, Instant};
 use tokio::spawn;
@@ -82,6 +82,7 @@ impl ChannelPool {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id,
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -109,6 +110,7 @@ impl ChannelPool {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id,
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -147,6 +149,7 @@ impl ChannelPool {
                 guard.entry.effective_pick_load() as f64 > dynamic_config.max_rpc_per_channel
             })
         {
+            self.inner.scale_up_requested.store(true, Ordering::Release);
             self.inner.scale_up_notify.notify_one();
         }
 
@@ -378,6 +381,7 @@ pub(crate) struct ChannelPoolInner {
     pub(crate) draining_entries: RwLock<Vec<Arc<ChannelEntry>>>,
     pub(crate) next_entry_id: AtomicU64,
     pub(crate) scale_up_notify: Arc<Notify>,
+    pub(crate) scale_up_requested: AtomicBool,
     #[allow(dead_code)]
     // Retained for RAII drop signaling; read in scaler unit tests via subscribe()
     pub(crate) shutdown_sender: WatchSender<()>,
@@ -1099,6 +1103,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -1127,6 +1132,7 @@ mod tests {
             draining_entries: RwLock::new(Vec::new()),
             next_entry_id: AtomicU64::new(2),
             scale_up_notify: Arc::new(Notify::new()),
+            scale_up_requested: AtomicBool::new(false),
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
@@ -1287,6 +1293,12 @@ mod tests {
         );
     }
 
+    #[tokio::test]
+    async fn mock_stub_create_session() {
+        let channel = create_mock_channel();
+        let result = channel.inner.create_session().send().await;
+        assert!(result.is_ok(), "mock session create must succeed");
+    }
     #[test]
     fn empty_pool_pick_channel_for_target() {
         let client_config = ClientConfig::default();
@@ -1356,5 +1368,38 @@ mod tests {
             3,
             "Leased channel for affinity target must have channel_id 3"
         );
+    }
+
+    #[tokio::test]
+    async fn pick_channel_triggers_scale_up_request_on_saturation() {
+        let client_config = ClientConfig::default();
+        let channels = vec![create_mock_channel()];
+        let pool = ChannelPool::new_dynamic(
+            channels,
+            DynamicChannelPoolConfig {
+                initial_channels: 1,
+                min_channels: 1,
+                max_channels: 4,
+                // Setting max_rpc_per_channel to 0.5 ensures 1 in-flight RPC triggers scale-up
+                max_rpc_per_channel: 0.5,
+                ..Default::default()
+            },
+            client_config,
+        );
+
+        assert!(
+            !pool.inner.scale_up_requested.load(Ordering::Acquire),
+            "scale_up_requested must be false initially"
+        );
+
+        let lease = pool
+            .pick_channel()
+            .expect("pick_channel on non-empty pool must succeed");
+        assert!(
+            pool.inner.scale_up_requested.load(Ordering::Acquire),
+            "scale_up_requested must be true after picking saturated channel"
+        );
+
+        drop(lease);
     }
 }
