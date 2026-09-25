@@ -23,10 +23,12 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gaxi;
 extern crate google_cloud_gax;
+extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate google_cloud_rpc;
+extern crate google_cloud_type;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -37,6 +39,588 @@ extern crate wkt;
 mod debug;
 mod deserialize;
 mod serialize;
+
+/// A directory policy for a Managed Lustre instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DirectoryPolicy {
+    /// Immutable. Identifier. The resource name of the directory policy.
+    /// DirectoryPolicy names have the form
+    /// `projects/{project}/locations/{location}/instances/{instance}/directoryPolicies/{id}`.
+    /// {id} is user provided.
+    pub name: std::string::String,
+
+    /// Required. Immutable. The lustre instance filesystem full path of the
+    /// directory. It must start with a slash. e.g. /lustre/testFolder
+    pub directory_path: std::string::String,
+
+    /// Output only. The lustre project ID assigned for the directory by the
+    /// service. This read-only ID can be used to manage quotas. See more details
+    /// in
+    /// <https://docs.cloud.google.com/managed-lustre/docs/file-system-quotas#set_quotas>
+    pub lustre_project_id: i64,
+
+    /// Output only. Unique ID of the resource.
+    pub uid: std::string::String,
+
+    /// Output only. The current state of the directory policy.
+    pub state: crate::model::directory_policy::State,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DirectoryPolicy {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DirectoryPolicy::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::DirectoryPolicy;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let directory_policy_id = "directory_policy_id";
+    /// let x = DirectoryPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/directoryPolicies/{directory_policy_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [directory_path][crate::model::DirectoryPolicy::directory_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::DirectoryPolicy;
+    /// let x = DirectoryPolicy::new().set_directory_path("example");
+    /// ```
+    pub fn set_directory_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.directory_path = v.into();
+        self
+    }
+
+    /// Sets the value of [lustre_project_id][crate::model::DirectoryPolicy::lustre_project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::DirectoryPolicy;
+    /// let x = DirectoryPolicy::new().set_lustre_project_id(42);
+    /// ```
+    pub fn set_lustre_project_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.lustre_project_id = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::DirectoryPolicy::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::DirectoryPolicy;
+    /// let x = DirectoryPolicy::new().set_uid("example");
+    /// ```
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::DirectoryPolicy::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::DirectoryPolicy;
+    /// use google_cloud_lustre_v1::model::directory_policy::State;
+    /// let x0 = DirectoryPolicy::new().set_state(State::Creating);
+    /// let x1 = DirectoryPolicy::new().set_state(State::Active);
+    /// let x2 = DirectoryPolicy::new().set_state(State::Deleting);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::directory_policy::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DirectoryPolicy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.lustre.v1.DirectoryPolicy"
+    }
+}
+
+/// Defines additional types related to [DirectoryPolicy].
+pub mod directory_policy {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// State of the directory policy.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// State is unspecified.
+        Unspecified,
+        /// Directory policy is being created.
+        Creating,
+        /// Directory policy is active and ready to be used.
+        Active,
+        /// Directory policy is being deleted.
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Active => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Active,
+                3 => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "ACTIVE" => Self::Active,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Active => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.lustre.v1.DirectoryPolicy.State",
+            ))
+        }
+    }
+}
+
+/// Request message for CreateDirectoryPolicy.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateDirectoryPolicyRequest {
+    /// Required. The parent instance.
+    /// It must be in the format of
+    /// `projects/{project}/locations/{location}/instances/{instance}`.
+    pub parent: std::string::String,
+
+    /// Required. The ID for the DirectoryPolicy to create.
+    pub directory_policy_id: std::string::String,
+
+    /// Required. The directory policy to create.
+    pub directory_policy: std::option::Option<crate::model::DirectoryPolicy>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateDirectoryPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateDirectoryPolicyRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::CreateDirectoryPolicyRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreateDirectoryPolicyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [directory_policy_id][crate::model::CreateDirectoryPolicyRequest::directory_policy_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::CreateDirectoryPolicyRequest;
+    /// let x = CreateDirectoryPolicyRequest::new().set_directory_policy_id("example");
+    /// ```
+    pub fn set_directory_policy_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.directory_policy_id = v.into();
+        self
+    }
+
+    /// Sets the value of [directory_policy][crate::model::CreateDirectoryPolicyRequest::directory_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::CreateDirectoryPolicyRequest;
+    /// use google_cloud_lustre_v1::model::DirectoryPolicy;
+    /// let x = CreateDirectoryPolicyRequest::new().set_directory_policy(DirectoryPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_directory_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DirectoryPolicy>,
+    {
+        self.directory_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [directory_policy][crate::model::CreateDirectoryPolicyRequest::directory_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::CreateDirectoryPolicyRequest;
+    /// use google_cloud_lustre_v1::model::DirectoryPolicy;
+    /// let x = CreateDirectoryPolicyRequest::new().set_or_clear_directory_policy(Some(DirectoryPolicy::default()/* use setters */));
+    /// let x = CreateDirectoryPolicyRequest::new().set_or_clear_directory_policy(None::<DirectoryPolicy>);
+    /// ```
+    pub fn set_or_clear_directory_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DirectoryPolicy>,
+    {
+        self.directory_policy = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateDirectoryPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.lustre.v1.CreateDirectoryPolicyRequest"
+    }
+}
+
+/// Request message for DeleteDirectoryPolicy.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteDirectoryPolicyRequest {
+    /// Required. The resource name of the directory policy.
+    /// DirectoryPolicy names have the form
+    /// `projects/{project}/locations/{location}/instances/{instance}/directoryPolicies/{id}`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteDirectoryPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteDirectoryPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::DeleteDirectoryPolicyRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let directory_policy_id = "directory_policy_id";
+    /// let x = DeleteDirectoryPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/directoryPolicies/{directory_policy_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteDirectoryPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.lustre.v1.DeleteDirectoryPolicyRequest"
+    }
+}
+
+/// Request message for GetDirectoryPolicy.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetDirectoryPolicyRequest {
+    /// Required. The resource name of the directory policy.
+    /// DirectoryPolicy names have the form
+    /// `projects/{project}/locations/{location}/instances/{instance}/directoryPolicies/{id}`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetDirectoryPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetDirectoryPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::GetDirectoryPolicyRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let directory_policy_id = "directory_policy_id";
+    /// let x = GetDirectoryPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/directoryPolicies/{directory_policy_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetDirectoryPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.lustre.v1.GetDirectoryPolicyRequest"
+    }
+}
+
+/// Request message for ListDirectoryPolicies.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListDirectoryPoliciesRequest {
+    /// Required. The parent instance.
+    /// It must be in the format of
+    /// `projects/{project}/locations/{location}/instances/{instance}`.
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server might return fewer items than
+    /// requested. If unspecified, the server will pick an appropriate default. The
+    /// maximum value is 1000; values above 1000 will be coerced to 1000.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListDirectoryPolicies`
+    /// call. Provide this to retrieve the subsequent page. When paginating, all
+    /// other parameters provided to `ListDirectoryPolicies` must match the call
+    /// that provided the page token.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDirectoryPoliciesRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListDirectoryPoliciesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::ListDirectoryPoliciesRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListDirectoryPoliciesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListDirectoryPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::ListDirectoryPoliciesRequest;
+    /// let x = ListDirectoryPoliciesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListDirectoryPoliciesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::ListDirectoryPoliciesRequest;
+    /// let x = ListDirectoryPoliciesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDirectoryPoliciesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.lustre.v1.ListDirectoryPoliciesRequest"
+    }
+}
+
+/// Response message for ListDirectoryPolicies.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListDirectoryPoliciesResponse {
+    /// The list of DirectoryPolicies.
+    pub directory_policies: std::vec::Vec<crate::model::DirectoryPolicy>,
+
+    /// A token identifying a page of results the server should return.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDirectoryPoliciesResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [directory_policies][crate::model::ListDirectoryPoliciesResponse::directory_policies].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::ListDirectoryPoliciesResponse;
+    /// use google_cloud_lustre_v1::model::DirectoryPolicy;
+    /// let x = ListDirectoryPoliciesResponse::new()
+    ///     .set_directory_policies([
+    ///         DirectoryPolicy::default()/* use setters */,
+    ///         DirectoryPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_directory_policies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DirectoryPolicy>,
+    {
+        use std::iter::Iterator;
+        self.directory_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDirectoryPoliciesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::ListDirectoryPoliciesResponse;
+    /// let x = ListDirectoryPoliciesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDirectoryPoliciesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.lustre.v1.ListDirectoryPoliciesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDirectoryPoliciesResponse {
+    type PageItem = crate::model::DirectoryPolicy;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.directory_policies
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
 
 /// A Managed Lustre instance.
 #[derive(Clone, Default, PartialEq)]
@@ -51,7 +635,9 @@ pub struct Instance {
     pub filesystem: std::string::String,
 
     /// Required. The storage capacity of the instance in gibibytes (GiB). Allowed
-    /// values are from `18000` to `954000`, in increments of 9000.
+    /// values depend on the `perUnitStorageThroughput`. See [Performance
+    /// tiers](https://docs.cloud.google.com/managed-lustre/docs/performance-tiers)
+    /// for specific minimums, maximums, and step sizes for each performance tier.
     pub capacity_gib: i64,
 
     /// Required. Immutable. The full name of the VPC network to which the instance
@@ -78,15 +664,71 @@ pub struct Instance {
     /// Optional. Labels as key value pairs.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// Required. The throughput of the instance in MB/s/TiB.
-    /// Valid values are 125, 250, 500, 1000.
+    /// Optional. The throughput of the instance in MBps per TiB. Valid values are
+    /// 0, 125, 250, 500, 1000. See [Performance
+    /// tiers](https://docs.cloud.google.com/managed-lustre/docs/performance-tiers)
+    /// for more information.
+    ///
+    /// If the instance is using the Dynamic tier, this field must not be set or
+    /// must be set to zero.
     pub per_unit_storage_throughput: i64,
 
-    /// Optional. Indicates whether you want to enable support for GKE clients. By
-    /// default, GKE clients are not supported. Deprecated. No longer required for
-    /// GKE instance creation.
+    /// Optional. Deprecated: No longer required for GKE instance creation.
+    /// Indicates whether you want to enable support for GKE clients. By default,
+    /// GKE clients are not supported.
     #[deprecated]
     pub gke_support_enabled: bool,
+
+    /// Optional. Immutable. The Cloud KMS key name to use for data encryption.
+    /// If not set, the instance will use Google-managed encryption keys.
+    /// If set, the instance will use customer-managed encryption keys.
+    /// The key must be in the same region as the instance.
+    /// The key format is:
+    /// projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{key}
+    pub kms_key: std::string::String,
+
+    /// Output only. The reason why the instance is in a certain state (e.g.
+    /// SUSPENDED).
+    pub state_reason: std::string::String,
+
+    /// Optional. The placement policy name for the instance in the format of
+    /// projects/{project}/locations/{location}/resourcePolicies/{resource_policy}
+    pub placement_policy: std::string::String,
+
+    /// Optional. The access rules options for the instance.
+    pub access_rules_options: std::option::Option<crate::model::AccessRulesOptions>,
+
+    /// Output only. Unique ID of the resource.
+    /// This is unrelated to the access rules which allow specifying the root
+    /// squash uid.
+    pub uid: std::string::String,
+
+    /// Optional. The maintenance policy for the instance to determine when to
+    /// allow or exclude the instance from maintenance updates.
+    pub maintenance_policy: std::option::Option<crate::model::MaintenancePolicy>,
+
+    /// Output only. Date and time of upcoming maintenance for the instance, if a
+    /// maintenance policy is set.
+    pub upcoming_maintenance_schedule: std::option::Option<crate::model::MaintenanceSchedule>,
+
+    /// Optional. Immutable. Specifies whether the instance is on the Dynamic tier.
+    /// See [Performance
+    /// tiers](https://docs.cloud.google.com/managed-lustre/docs/performance-tiers)
+    /// for more information.
+    pub dynamic_tier_options: std::option::Option<crate::model::DynamicTierOptions>,
+
+    /// Output only. The available version that this instance can be upgraded to.
+    /// Format: `Lustre_YYYYMMDD.NN_pXX`
+    pub available_version: std::option::Option<std::string::String>,
+
+    /// Optional. The target version of the instance. Setting this field triggers a
+    /// self-service update to the specified version.
+    /// Format: `Lustre_YYYYMMDD.NN_pXX` or `latest`
+    pub target_version: std::option::Option<std::string::String>,
+
+    /// Output only. The effective version of the instance.
+    /// Format: `Lustre_YYYYMMDD.NN_pXX`
+    pub effective_version: std::option::Option<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -298,6 +940,285 @@ impl Instance {
         self.gke_support_enabled = v.into();
         self
     }
+
+    /// Sets the value of [kms_key][crate::model::Instance::kms_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Instance;
+    /// let x = Instance::new().set_kms_key("example");
+    /// ```
+    pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kms_key = v.into();
+        self
+    }
+
+    /// Sets the value of [state_reason][crate::model::Instance::state_reason].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Instance;
+    /// let x = Instance::new().set_state_reason("example");
+    /// ```
+    pub fn set_state_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.state_reason = v.into();
+        self
+    }
+
+    /// Sets the value of [placement_policy][crate::model::Instance::placement_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Instance;
+    /// let x = Instance::new().set_placement_policy("example");
+    /// ```
+    pub fn set_placement_policy<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.placement_policy = v.into();
+        self
+    }
+
+    /// Sets the value of [access_rules_options][crate::model::Instance::access_rules_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Instance;
+    /// use google_cloud_lustre_v1::model::AccessRulesOptions;
+    /// let x = Instance::new().set_access_rules_options(AccessRulesOptions::default()/* use setters */);
+    /// ```
+    pub fn set_access_rules_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessRulesOptions>,
+    {
+        self.access_rules_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [access_rules_options][crate::model::Instance::access_rules_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Instance;
+    /// use google_cloud_lustre_v1::model::AccessRulesOptions;
+    /// let x = Instance::new().set_or_clear_access_rules_options(Some(AccessRulesOptions::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_access_rules_options(None::<AccessRulesOptions>);
+    /// ```
+    pub fn set_or_clear_access_rules_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessRulesOptions>,
+    {
+        self.access_rules_options = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::Instance::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Instance;
+    /// let x = Instance::new().set_uid("example");
+    /// ```
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [maintenance_policy][crate::model::Instance::maintenance_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Instance;
+    /// use google_cloud_lustre_v1::model::MaintenancePolicy;
+    /// let x = Instance::new().set_maintenance_policy(MaintenancePolicy::default()/* use setters */);
+    /// ```
+    pub fn set_maintenance_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MaintenancePolicy>,
+    {
+        self.maintenance_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [maintenance_policy][crate::model::Instance::maintenance_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Instance;
+    /// use google_cloud_lustre_v1::model::MaintenancePolicy;
+    /// let x = Instance::new().set_or_clear_maintenance_policy(Some(MaintenancePolicy::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_maintenance_policy(None::<MaintenancePolicy>);
+    /// ```
+    pub fn set_or_clear_maintenance_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MaintenancePolicy>,
+    {
+        self.maintenance_policy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [upcoming_maintenance_schedule][crate::model::Instance::upcoming_maintenance_schedule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Instance;
+    /// use google_cloud_lustre_v1::model::MaintenanceSchedule;
+    /// let x = Instance::new().set_upcoming_maintenance_schedule(MaintenanceSchedule::default()/* use setters */);
+    /// ```
+    pub fn set_upcoming_maintenance_schedule<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MaintenanceSchedule>,
+    {
+        self.upcoming_maintenance_schedule = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [upcoming_maintenance_schedule][crate::model::Instance::upcoming_maintenance_schedule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Instance;
+    /// use google_cloud_lustre_v1::model::MaintenanceSchedule;
+    /// let x = Instance::new().set_or_clear_upcoming_maintenance_schedule(Some(MaintenanceSchedule::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_upcoming_maintenance_schedule(None::<MaintenanceSchedule>);
+    /// ```
+    pub fn set_or_clear_upcoming_maintenance_schedule<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::MaintenanceSchedule>,
+    {
+        self.upcoming_maintenance_schedule = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [dynamic_tier_options][crate::model::Instance::dynamic_tier_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Instance;
+    /// use google_cloud_lustre_v1::model::DynamicTierOptions;
+    /// let x = Instance::new().set_dynamic_tier_options(DynamicTierOptions::default()/* use setters */);
+    /// ```
+    pub fn set_dynamic_tier_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DynamicTierOptions>,
+    {
+        self.dynamic_tier_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dynamic_tier_options][crate::model::Instance::dynamic_tier_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Instance;
+    /// use google_cloud_lustre_v1::model::DynamicTierOptions;
+    /// let x = Instance::new().set_or_clear_dynamic_tier_options(Some(DynamicTierOptions::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_dynamic_tier_options(None::<DynamicTierOptions>);
+    /// ```
+    pub fn set_or_clear_dynamic_tier_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DynamicTierOptions>,
+    {
+        self.dynamic_tier_options = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [available_version][crate::model::Instance::available_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Instance;
+    /// let x = Instance::new().set_available_version("example");
+    /// ```
+    pub fn set_available_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.available_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [available_version][crate::model::Instance::available_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Instance;
+    /// let x = Instance::new().set_or_clear_available_version(Some("example"));
+    /// let x = Instance::new().set_or_clear_available_version(None::<String>);
+    /// ```
+    pub fn set_or_clear_available_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.available_version = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [target_version][crate::model::Instance::target_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Instance;
+    /// let x = Instance::new().set_target_version("example");
+    /// ```
+    pub fn set_target_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.target_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [target_version][crate::model::Instance::target_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Instance;
+    /// let x = Instance::new().set_or_clear_target_version(Some("example"));
+    /// let x = Instance::new().set_or_clear_target_version(None::<String>);
+    /// ```
+    pub fn set_or_clear_target_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.target_version = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [effective_version][crate::model::Instance::effective_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Instance;
+    /// let x = Instance::new().set_effective_version("example");
+    /// ```
+    pub fn set_effective_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.effective_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [effective_version][crate::model::Instance::effective_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Instance;
+    /// let x = Instance::new().set_or_clear_effective_version(Some("example"));
+    /// let x = Instance::new().set_or_clear_effective_version(None::<String>);
+    /// ```
+    pub fn set_or_clear_effective_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.effective_version = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for Instance {
@@ -344,7 +1265,14 @@ pub mod instance {
         /// The instance is stopped.
         Stopped,
         /// The instance is being updated.
+        #[deprecated]
         Updating,
+        /// The instance is suspended due to an issue related to Cloud KMS. The
+        /// details are available in
+        /// [state_reason][google.cloud.lustre.v1.Instance.state_reason].
+        ///
+        /// [google.cloud.lustre.v1.Instance.state_reason]: crate::model::Instance::state_reason
+        Suspended,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [State::value] or
@@ -375,6 +1303,7 @@ pub mod instance {
                 Self::Repairing => std::option::Option::Some(5),
                 Self::Stopped => std::option::Option::Some(6),
                 Self::Updating => std::option::Option::Some(7),
+                Self::Suspended => std::option::Option::Some(8),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -393,6 +1322,7 @@ pub mod instance {
                 Self::Repairing => std::option::Option::Some("REPAIRING"),
                 Self::Stopped => std::option::Option::Some("STOPPED"),
                 Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::Suspended => std::option::Option::Some("SUSPENDED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -422,6 +1352,7 @@ pub mod instance {
                 5 => Self::Repairing,
                 6 => Self::Stopped,
                 7 => Self::Updating,
+                8 => Self::Suspended,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -441,6 +1372,7 @@ pub mod instance {
                 "REPAIRING" => Self::Repairing,
                 "STOPPED" => Self::Stopped,
                 "UPDATING" => Self::Updating,
+                "SUSPENDED" => Self::Suspended,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -462,6 +1394,7 @@ pub mod instance {
                 Self::Repairing => serializer.serialize_i32(5),
                 Self::Stopped => serializer.serialize_i32(6),
                 Self::Updating => serializer.serialize_i32(7),
+                Self::Suspended => serializer.serialize_i32(8),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -474,6 +1407,548 @@ pub mod instance {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
                 ".google.cloud.lustre.v1.Instance.State",
+            ))
+        }
+    }
+}
+
+/// Dynamic tier options for a Managed Lustre instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DynamicTierOptions {
+    /// Required. Immutable. The dynamic tier mode of the instance.
+    pub mode: crate::model::dynamic_tier_options::Mode,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DynamicTierOptions {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [mode][crate::model::DynamicTierOptions::mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::DynamicTierOptions;
+    /// use google_cloud_lustre_v1::model::dynamic_tier_options::Mode;
+    /// let x0 = DynamicTierOptions::new().set_mode(Mode::Disabled);
+    /// let x1 = DynamicTierOptions::new().set_mode(Mode::DefaultCache);
+    /// ```
+    pub fn set_mode<T: std::convert::Into<crate::model::dynamic_tier_options::Mode>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mode = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DynamicTierOptions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.lustre.v1.DynamicTierOptions"
+    }
+}
+
+/// Defines additional types related to [DynamicTierOptions].
+pub mod dynamic_tier_options {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Specifies the Dynamic performance tier for the instance.
+    ///
+    /// If this field is set to `DEFAULT_CACHE`, `per_unit_storage_throughput`
+    /// must not be set or must be set to zero.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Mode {
+        /// Unspecified dynamic tier mode.
+        Unspecified,
+        /// The dynamic tier is explicitly disabled.
+        Disabled,
+        /// The dynamic tier is enabled.
+        DefaultCache,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Mode::value] or
+        /// [Mode::name].
+        UnknownValue(mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Mode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Disabled => std::option::Option::Some(1),
+                Self::DefaultCache => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MODE_UNSPECIFIED"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::DefaultCache => std::option::Option::Some("DEFAULT_CACHE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Mode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Mode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Mode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Disabled,
+                2 => Self::DefaultCache,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Mode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MODE_UNSPECIFIED" => Self::Unspecified,
+                "DISABLED" => Self::Disabled,
+                "DEFAULT_CACHE" => Self::DefaultCache,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Mode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Disabled => serializer.serialize_i32(1),
+                Self::DefaultCache => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Mode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
+                ".google.cloud.lustre.v1.DynamicTierOptions.Mode",
+            ))
+        }
+    }
+}
+
+/// IP-based access rules for the Managed Lustre instance. These options
+/// define the root user squash configuration.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AccessRulesOptions {
+    /// Optional. The access rules for the instance.
+    pub access_rules: std::vec::Vec<crate::model::access_rules_options::AccessRule>,
+
+    /// Required. The squash mode for the default access rule.
+    pub default_squash_mode: crate::model::access_rules_options::SquashMode,
+
+    /// Optional. The user squash UID for the default access rule.
+    /// This user squash UID applies to all root users connecting from clients
+    /// that are not matched by any of the access rules. If not set, the default
+    /// is 0 (no UID squash).
+    pub default_squash_uid: i32,
+
+    /// Optional. The user squash GID for the default access rule.
+    /// This user squash GID applies to all root users connecting from clients
+    /// that are not matched by any of the access rules. If not set, the default
+    /// is 0 (no GID squash).
+    pub default_squash_gid: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AccessRulesOptions {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [access_rules][crate::model::AccessRulesOptions::access_rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::AccessRulesOptions;
+    /// use google_cloud_lustre_v1::model::access_rules_options::AccessRule;
+    /// let x = AccessRulesOptions::new()
+    ///     .set_access_rules([
+    ///         AccessRule::default()/* use setters */,
+    ///         AccessRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_access_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::access_rules_options::AccessRule>,
+    {
+        use std::iter::Iterator;
+        self.access_rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [default_squash_mode][crate::model::AccessRulesOptions::default_squash_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::AccessRulesOptions;
+    /// use google_cloud_lustre_v1::model::access_rules_options::SquashMode;
+    /// let x0 = AccessRulesOptions::new().set_default_squash_mode(SquashMode::NoSquash);
+    /// let x1 = AccessRulesOptions::new().set_default_squash_mode(SquashMode::RootSquash);
+    /// ```
+    pub fn set_default_squash_mode<
+        T: std::convert::Into<crate::model::access_rules_options::SquashMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.default_squash_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [default_squash_uid][crate::model::AccessRulesOptions::default_squash_uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::AccessRulesOptions;
+    /// let x = AccessRulesOptions::new().set_default_squash_uid(42);
+    /// ```
+    pub fn set_default_squash_uid<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.default_squash_uid = v.into();
+        self
+    }
+
+    /// Sets the value of [default_squash_gid][crate::model::AccessRulesOptions::default_squash_gid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::AccessRulesOptions;
+    /// let x = AccessRulesOptions::new().set_default_squash_gid(42);
+    /// ```
+    pub fn set_default_squash_gid<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.default_squash_gid = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AccessRulesOptions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.lustre.v1.AccessRulesOptions"
+    }
+}
+
+/// Defines additional types related to [AccessRulesOptions].
+pub mod access_rules_options {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A single policy group with IP-based access rules for the Managed
+    /// Lustre instance.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AccessRule {
+        /// Required. The name of the access rule policy group.
+        /// Must be 16 characters or less and include only alphanumeric characters
+        /// or '_'.
+        pub name: std::string::String,
+
+        /// Required. The IP address ranges to which to apply this access rule.
+        /// Accepts non-overlapping CIDR ranges (e.g., `192.168.1.0/24`) and IP
+        /// addresses (e.g., `192.168.1.0`).
+        pub ip_address_ranges: std::vec::Vec<std::string::String>,
+
+        /// Required. Squash mode for the access rule.
+        pub squash_mode: crate::model::access_rules_options::SquashMode,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AccessRule {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::access_rules_options::AccessRule::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_lustre_v1::model::access_rules_options::AccessRule;
+        /// let x = AccessRule::new().set_name("example");
+        /// ```
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [ip_address_ranges][crate::model::access_rules_options::AccessRule::ip_address_ranges].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_lustre_v1::model::access_rules_options::AccessRule;
+        /// let x = AccessRule::new().set_ip_address_ranges(["a", "b", "c"]);
+        /// ```
+        pub fn set_ip_address_ranges<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.ip_address_ranges = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [squash_mode][crate::model::access_rules_options::AccessRule::squash_mode].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_lustre_v1::model::access_rules_options::AccessRule;
+        /// use google_cloud_lustre_v1::model::access_rules_options::SquashMode;
+        /// let x0 = AccessRule::new().set_squash_mode(SquashMode::NoSquash);
+        /// let x1 = AccessRule::new().set_squash_mode(SquashMode::RootSquash);
+        /// ```
+        pub fn set_squash_mode<
+            T: std::convert::Into<crate::model::access_rules_options::SquashMode>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.squash_mode = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for AccessRule {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.lustre.v1.AccessRulesOptions.AccessRule"
+        }
+    }
+
+    /// Squash mode for an access rule.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SquashMode {
+        /// Unspecified squash mode.
+        Unspecified,
+        /// Squash is disabled.
+        ///
+        /// If set inside an
+        /// [AccessRule][google.cloud.lustre.v1.AccessRulesOptions.AccessRule], root
+        /// users matching the [ip_ranges][AccessRule.ip_ranges] are not squashed.
+        ///
+        /// If set as the
+        /// [default_squash_mode][google.cloud.lustre.v1.AccessRulesOptions.default_squash_mode],
+        /// root squash is disabled for this instance.
+        ///
+        /// If the default squash mode is `NO_SQUASH`, do not set the
+        /// [default_squash_uid][google.cloud.lustre.v1.AccessRulesOptions.default_squash_uid]
+        /// or
+        /// [default_squash_gid][google.cloud.lustre.v1.AccessRulesOptions.default_squash_gid],
+        /// or an `invalid argument` error is returned.
+        ///
+        /// [google.cloud.lustre.v1.AccessRulesOptions.AccessRule]: crate::model::access_rules_options::AccessRule
+        /// [google.cloud.lustre.v1.AccessRulesOptions.default_squash_gid]: crate::model::AccessRulesOptions::default_squash_gid
+        /// [google.cloud.lustre.v1.AccessRulesOptions.default_squash_mode]: crate::model::AccessRulesOptions::default_squash_mode
+        /// [google.cloud.lustre.v1.AccessRulesOptions.default_squash_uid]: crate::model::AccessRulesOptions::default_squash_uid
+        NoSquash,
+        /// Root user squash is enabled.
+        ///
+        /// Not supported inside an
+        /// [AccessRule][google.cloud.lustre.v1.AccessRulesOptions.AccessRule].
+        ///
+        /// If set as the
+        /// [default_squash_mode][google.cloud.lustre.v1.AccessRulesOptions.default_squash_mode],
+        /// root users not matching any of the
+        /// [access_rules][google.cloud.lustre.v1.AccessRulesOptions.access_rules]
+        /// are squashed to the
+        /// [default_squash_uid][google.cloud.lustre.v1.AccessRulesOptions.default_squash_uid]
+        /// and
+        /// [default_squash_gid][google.cloud.lustre.v1.AccessRulesOptions.default_squash_gid].
+        ///
+        /// [google.cloud.lustre.v1.AccessRulesOptions.AccessRule]: crate::model::access_rules_options::AccessRule
+        /// [google.cloud.lustre.v1.AccessRulesOptions.access_rules]: crate::model::AccessRulesOptions::access_rules
+        /// [google.cloud.lustre.v1.AccessRulesOptions.default_squash_gid]: crate::model::AccessRulesOptions::default_squash_gid
+        /// [google.cloud.lustre.v1.AccessRulesOptions.default_squash_mode]: crate::model::AccessRulesOptions::default_squash_mode
+        /// [google.cloud.lustre.v1.AccessRulesOptions.default_squash_uid]: crate::model::AccessRulesOptions::default_squash_uid
+        RootSquash,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SquashMode::value] or
+        /// [SquashMode::name].
+        UnknownValue(squash_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod squash_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl SquashMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::NoSquash => std::option::Option::Some(1),
+                Self::RootSquash => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SQUASH_MODE_UNSPECIFIED"),
+                Self::NoSquash => std::option::Option::Some("NO_SQUASH"),
+                Self::RootSquash => std::option::Option::Some("ROOT_SQUASH"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for SquashMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SquashMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SquashMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::NoSquash,
+                2 => Self::RootSquash,
+                _ => Self::UnknownValue(squash_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SquashMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SQUASH_MODE_UNSPECIFIED" => Self::Unspecified,
+                "NO_SQUASH" => Self::NoSquash,
+                "ROOT_SQUASH" => Self::RootSquash,
+                _ => Self::UnknownValue(squash_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SquashMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::NoSquash => serializer.serialize_i32(1),
+                Self::RootSquash => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SquashMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SquashMode>::new(
+                ".google.cloud.lustre.v1.AccessRulesOptions.SquashMode",
             ))
         }
     }
@@ -987,6 +2462,11 @@ pub struct DeleteInstanceRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     pub request_id: std::string::String,
 
+    /// Optional. If set to true, any sub-resources from this instance will also be
+    /// deleted. Otherwise, the request will only work if the instance has no
+    /// sub-resources.
+    pub force: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1020,6 +2500,18 @@ impl DeleteInstanceRequest {
     /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::DeleteInstanceRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::DeleteInstanceRequest;
+    /// let x = DeleteInstanceRequest::new().set_force(true);
+    /// ```
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
         self
     }
 }
@@ -1201,6 +2693,2064 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
+/// Defines a maintenance policy for a resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MaintenancePolicy {
+    /// Required. The weekly maintenance windows for the instance. Currently
+    /// limited to 1 window.
+    pub weekly_maintenance_windows:
+        std::vec::Vec<crate::model::maintenance_policy::WeeklyMaintenanceWindow>,
+
+    /// Optional. The exclusion windows for the instance. Currently limited to 1
+    /// window.
+    pub maintenance_exclusion_window:
+        std::vec::Vec<crate::model::maintenance_policy::MaintenanceExclusionWindow>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MaintenancePolicy {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [weekly_maintenance_windows][crate::model::MaintenancePolicy::weekly_maintenance_windows].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::MaintenancePolicy;
+    /// use google_cloud_lustre_v1::model::maintenance_policy::WeeklyMaintenanceWindow;
+    /// let x = MaintenancePolicy::new()
+    ///     .set_weekly_maintenance_windows([
+    ///         WeeklyMaintenanceWindow::default()/* use setters */,
+    ///         WeeklyMaintenanceWindow::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_weekly_maintenance_windows<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::maintenance_policy::WeeklyMaintenanceWindow>,
+    {
+        use std::iter::Iterator;
+        self.weekly_maintenance_windows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [maintenance_exclusion_window][crate::model::MaintenancePolicy::maintenance_exclusion_window].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::MaintenancePolicy;
+    /// use google_cloud_lustre_v1::model::maintenance_policy::MaintenanceExclusionWindow;
+    /// let x = MaintenancePolicy::new()
+    ///     .set_maintenance_exclusion_window([
+    ///         MaintenanceExclusionWindow::default()/* use setters */,
+    ///         MaintenanceExclusionWindow::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_maintenance_exclusion_window<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::maintenance_policy::MaintenanceExclusionWindow>,
+    {
+        use std::iter::Iterator;
+        self.maintenance_exclusion_window = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MaintenancePolicy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.lustre.v1.MaintenancePolicy"
+    }
+}
+
+/// Defines additional types related to [MaintenancePolicy].
+pub mod maintenance_policy {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Weekly time window in which maintenance updates may occur.
+    /// Duration of the window is currently fixed at 1 hour.
+    /// Time zone is UTC.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct WeeklyMaintenanceWindow {
+        /// Required. Day of the week for the maintenance window.
+        pub day_of_week: google_cloud_type::model::DayOfWeek,
+
+        /// Required. Start time of the maintenance window in UTC time zone.
+        pub start_time: std::option::Option<google_cloud_type::model::TimeOfDay>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl WeeklyMaintenanceWindow {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [day_of_week][crate::model::maintenance_policy::WeeklyMaintenanceWindow::day_of_week].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_lustre_v1::model::maintenance_policy::WeeklyMaintenanceWindow;
+        /// use google_cloud_type::model::DayOfWeek;
+        /// let x0 = WeeklyMaintenanceWindow::new().set_day_of_week(DayOfWeek::Monday);
+        /// let x1 = WeeklyMaintenanceWindow::new().set_day_of_week(DayOfWeek::Tuesday);
+        /// let x2 = WeeklyMaintenanceWindow::new().set_day_of_week(DayOfWeek::Wednesday);
+        /// ```
+        pub fn set_day_of_week<T: std::convert::Into<google_cloud_type::model::DayOfWeek>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.day_of_week = v.into();
+            self
+        }
+
+        /// Sets the value of [start_time][crate::model::maintenance_policy::WeeklyMaintenanceWindow::start_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_lustre_v1::model::maintenance_policy::WeeklyMaintenanceWindow;
+        /// use google_cloud_type::model::TimeOfDay;
+        /// let x = WeeklyMaintenanceWindow::new().set_start_time(TimeOfDay::default()/* use setters */);
+        /// ```
+        pub fn set_start_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
+        {
+            self.start_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [start_time][crate::model::maintenance_policy::WeeklyMaintenanceWindow::start_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_lustre_v1::model::maintenance_policy::WeeklyMaintenanceWindow;
+        /// use google_cloud_type::model::TimeOfDay;
+        /// let x = WeeklyMaintenanceWindow::new().set_or_clear_start_time(Some(TimeOfDay::default()/* use setters */));
+        /// let x = WeeklyMaintenanceWindow::new().set_or_clear_start_time(None::<TimeOfDay>);
+        /// ```
+        pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
+        {
+            self.start_time = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for WeeklyMaintenanceWindow {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.lustre.v1.MaintenancePolicy.WeeklyMaintenanceWindow"
+        }
+    }
+
+    /// Exclusion period when maintenance updates should not occur.
+    /// An exclusion window can be in either of the following two formats:
+    ///
+    /// * Non-recurring : A full date, with non-zero year, month and day values.
+    /// * Recurring : A month and day value, with a zero year.
+    ///   Time zone is UTC.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct MaintenanceExclusionWindow {
+        /// Required. Start date of the exclusion period in UTC time zone. This date
+        /// is inclusive.
+        pub start_date: std::option::Option<google_cloud_type::model::Date>,
+
+        /// Required. End date of the exclusion period in UTC time zone. This date is
+        /// inclusive.
+        pub end_date: std::option::Option<google_cloud_type::model::Date>,
+
+        /// Required. Time in UTC when the exclusion window starts on start_date and
+        /// ends on end_date. This can be:
+        ///
+        /// * Full time OR
+        /// * All zeros for 00:00:00 UTC
+        pub time: std::option::Option<google_cloud_type::model::TimeOfDay>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl MaintenanceExclusionWindow {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [start_date][crate::model::maintenance_policy::MaintenanceExclusionWindow::start_date].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_lustre_v1::model::maintenance_policy::MaintenanceExclusionWindow;
+        /// use google_cloud_type::model::Date;
+        /// let x = MaintenanceExclusionWindow::new().set_start_date(Date::default()/* use setters */);
+        /// ```
+        pub fn set_start_date<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_type::model::Date>,
+        {
+            self.start_date = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [start_date][crate::model::maintenance_policy::MaintenanceExclusionWindow::start_date].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_lustre_v1::model::maintenance_policy::MaintenanceExclusionWindow;
+        /// use google_cloud_type::model::Date;
+        /// let x = MaintenanceExclusionWindow::new().set_or_clear_start_date(Some(Date::default()/* use setters */));
+        /// let x = MaintenanceExclusionWindow::new().set_or_clear_start_date(None::<Date>);
+        /// ```
+        pub fn set_or_clear_start_date<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_type::model::Date>,
+        {
+            self.start_date = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [end_date][crate::model::maintenance_policy::MaintenanceExclusionWindow::end_date].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_lustre_v1::model::maintenance_policy::MaintenanceExclusionWindow;
+        /// use google_cloud_type::model::Date;
+        /// let x = MaintenanceExclusionWindow::new().set_end_date(Date::default()/* use setters */);
+        /// ```
+        pub fn set_end_date<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_type::model::Date>,
+        {
+            self.end_date = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [end_date][crate::model::maintenance_policy::MaintenanceExclusionWindow::end_date].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_lustre_v1::model::maintenance_policy::MaintenanceExclusionWindow;
+        /// use google_cloud_type::model::Date;
+        /// let x = MaintenanceExclusionWindow::new().set_or_clear_end_date(Some(Date::default()/* use setters */));
+        /// let x = MaintenanceExclusionWindow::new().set_or_clear_end_date(None::<Date>);
+        /// ```
+        pub fn set_or_clear_end_date<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_type::model::Date>,
+        {
+            self.end_date = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [time][crate::model::maintenance_policy::MaintenanceExclusionWindow::time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_lustre_v1::model::maintenance_policy::MaintenanceExclusionWindow;
+        /// use google_cloud_type::model::TimeOfDay;
+        /// let x = MaintenanceExclusionWindow::new().set_time(TimeOfDay::default()/* use setters */);
+        /// ```
+        pub fn set_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
+        {
+            self.time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [time][crate::model::maintenance_policy::MaintenanceExclusionWindow::time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_lustre_v1::model::maintenance_policy::MaintenanceExclusionWindow;
+        /// use google_cloud_type::model::TimeOfDay;
+        /// let x = MaintenanceExclusionWindow::new().set_or_clear_time(Some(TimeOfDay::default()/* use setters */));
+        /// let x = MaintenanceExclusionWindow::new().set_or_clear_time(None::<TimeOfDay>);
+        /// ```
+        pub fn set_or_clear_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_type::model::TimeOfDay>,
+        {
+            self.time = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for MaintenanceExclusionWindow {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.lustre.v1.MaintenancePolicy.MaintenanceExclusionWindow"
+        }
+    }
+}
+
+/// Represents a scheduled maintenance event.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MaintenanceSchedule {
+    /// Output only. The scheduled start time for the maintenance.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The scheduled end time for the maintenance.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MaintenanceSchedule {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [start_time][crate::model::MaintenanceSchedule::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::MaintenanceSchedule;
+    /// use wkt::Timestamp;
+    /// let x = MaintenanceSchedule::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::MaintenanceSchedule::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::MaintenanceSchedule;
+    /// use wkt::Timestamp;
+    /// let x = MaintenanceSchedule::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MaintenanceSchedule::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::MaintenanceSchedule::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::MaintenanceSchedule;
+    /// use wkt::Timestamp;
+    /// let x = MaintenanceSchedule::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::MaintenanceSchedule::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::MaintenanceSchedule;
+    /// use wkt::Timestamp;
+    /// let x = MaintenanceSchedule::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MaintenanceSchedule::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for MaintenanceSchedule {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.lustre.v1.MaintenanceSchedule"
+    }
+}
+
+/// Message for requesting to reschedule a maintenance event for a specific
+/// instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RescheduleMaintenanceRequest {
+    /// Required. Format:
+    /// projects/{project}/locations/{location}/instances/{instance}
+    pub name: std::string::String,
+
+    /// Required. The desired reschedule settings.
+    pub reschedule: std::option::Option<crate::model::reschedule_maintenance_request::Reschedule>,
+
+    /// Optional. A unique identifier for this request. A random UUID is
+    /// recommended. This request is only idempotent if a `request_id` is provided.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RescheduleMaintenanceRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RescheduleMaintenanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::RescheduleMaintenanceRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = RescheduleMaintenanceRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [reschedule][crate::model::RescheduleMaintenanceRequest::reschedule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::RescheduleMaintenanceRequest;
+    /// use google_cloud_lustre_v1::model::reschedule_maintenance_request::Reschedule;
+    /// let x = RescheduleMaintenanceRequest::new().set_reschedule(Reschedule::default()/* use setters */);
+    /// ```
+    pub fn set_reschedule<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::reschedule_maintenance_request::Reschedule>,
+    {
+        self.reschedule = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [reschedule][crate::model::RescheduleMaintenanceRequest::reschedule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::RescheduleMaintenanceRequest;
+    /// use google_cloud_lustre_v1::model::reschedule_maintenance_request::Reschedule;
+    /// let x = RescheduleMaintenanceRequest::new().set_or_clear_reschedule(Some(Reschedule::default()/* use setters */));
+    /// let x = RescheduleMaintenanceRequest::new().set_or_clear_reschedule(None::<Reschedule>);
+    /// ```
+    pub fn set_or_clear_reschedule<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::reschedule_maintenance_request::Reschedule>,
+    {
+        self.reschedule = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::RescheduleMaintenanceRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::RescheduleMaintenanceRequest;
+    /// let x = RescheduleMaintenanceRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RescheduleMaintenanceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.lustre.v1.RescheduleMaintenanceRequest"
+    }
+}
+
+/// Defines additional types related to [RescheduleMaintenanceRequest].
+pub mod reschedule_maintenance_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The desired reschedule settings.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Reschedule {
+        /// Required. The type of rescheduling.
+        pub reschedule_type: crate::model::reschedule_maintenance_request::RescheduleType,
+
+        /// Optional. Required if reschedule_type is BY_TIME. Timestamp when the
+        /// maintenance shall be rescheduled to. This time must be within
+        /// 28 days of the original scheduled maintenance start time.
+        pub schedule_time: std::option::Option<wkt::Timestamp>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Reschedule {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [reschedule_type][crate::model::reschedule_maintenance_request::Reschedule::reschedule_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_lustre_v1::model::reschedule_maintenance_request::Reschedule;
+        /// use google_cloud_lustre_v1::model::reschedule_maintenance_request::RescheduleType;
+        /// let x0 = Reschedule::new().set_reschedule_type(RescheduleType::Immediate);
+        /// let x1 = Reschedule::new().set_reschedule_type(RescheduleType::NextAvailableWindow);
+        /// let x2 = Reschedule::new().set_reschedule_type(RescheduleType::ByTime);
+        /// ```
+        pub fn set_reschedule_type<
+            T: std::convert::Into<crate::model::reschedule_maintenance_request::RescheduleType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.reschedule_type = v.into();
+            self
+        }
+
+        /// Sets the value of [schedule_time][crate::model::reschedule_maintenance_request::Reschedule::schedule_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_lustre_v1::model::reschedule_maintenance_request::Reschedule;
+        /// use wkt::Timestamp;
+        /// let x = Reschedule::new().set_schedule_time(Timestamp::default()/* use setters */);
+        /// ```
+        pub fn set_schedule_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.schedule_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [schedule_time][crate::model::reschedule_maintenance_request::Reschedule::schedule_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_lustre_v1::model::reschedule_maintenance_request::Reschedule;
+        /// use wkt::Timestamp;
+        /// let x = Reschedule::new().set_or_clear_schedule_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Reschedule::new().set_or_clear_schedule_time(None::<Timestamp>);
+        /// ```
+        pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.schedule_time = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for Reschedule {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.lustre.v1.RescheduleMaintenanceRequest.Reschedule"
+        }
+    }
+
+    /// The type of rescheduling event. More reschedule types may be added in the
+    /// future.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RescheduleType {
+        /// Unspecified schedule type.
+        Unspecified,
+        /// Apply update immediately
+        Immediate,
+        /// Reschedule to the next available window.
+        NextAvailableWindow,
+        /// Reschedule to a specific time.
+        ByTime,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RescheduleType::value] or
+        /// [RescheduleType::name].
+        UnknownValue(reschedule_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod reschedule_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl RescheduleType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Immediate => std::option::Option::Some(1),
+                Self::NextAvailableWindow => std::option::Option::Some(2),
+                Self::ByTime => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("RESCHEDULE_TYPE_UNSPECIFIED"),
+                Self::Immediate => std::option::Option::Some("IMMEDIATE"),
+                Self::NextAvailableWindow => std::option::Option::Some("NEXT_AVAILABLE_WINDOW"),
+                Self::ByTime => std::option::Option::Some("BY_TIME"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for RescheduleType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RescheduleType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RescheduleType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Immediate,
+                2 => Self::NextAvailableWindow,
+                3 => Self::ByTime,
+                _ => Self::UnknownValue(reschedule_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RescheduleType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "RESCHEDULE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "IMMEDIATE" => Self::Immediate,
+                "NEXT_AVAILABLE_WINDOW" => Self::NextAvailableWindow,
+                "BY_TIME" => Self::ByTime,
+                _ => Self::UnknownValue(reschedule_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RescheduleType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Immediate => serializer.serialize_i32(1),
+                Self::NextAvailableWindow => serializer.serialize_i32(2),
+                Self::ByTime => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RescheduleType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RescheduleType>::new(
+                ".google.cloud.lustre.v1.RescheduleMaintenanceRequest.RescheduleType",
+            ))
+        }
+    }
+}
+
+/// Represents a Cloud Storage mirror.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Mirror {
+    /// Identifier. Name of the mirror.
+    /// Format:
+    /// `projects/{project}/locations/{location}/instances/{instance}/mirrors/{mirror}`
+    pub name: std::string::String,
+
+    /// Required. Immutable. The URI to a Cloud Storage bucket, or a path within a
+    /// bucket, using the format `gs://{BUCKET_NAME}/{OPTIONAL_PATH}/`. If a path
+    /// inside the bucket is specified, it must end with a forward slash (`/`).
+    pub gcs_path: std::option::Option<crate::model::GcsPath>,
+
+    /// Required. Immutable. The Managed Lustre directory to mirror to. Must be an
+    /// absolute path starting with `/`, for example `/data` or `/data/subdir`.
+    /// Defaults to the root directory, `/`. If the specified directory doesn't
+    /// exist, it is created.
+    pub lustre_path: std::option::Option<crate::model::LustrePath>,
+
+    /// Required. Immutable. Represents the direction of the mirror.
+    pub direction: crate::model::mirror::Direction,
+
+    /// Optional. If `true`, files are not deleted from Managed Lustre when the
+    /// source files are deleted from Cloud Storage. Default is `false`.
+    pub deleted_files_retained: bool,
+
+    /// Optional. Description of the mirror.
+    pub description: std::string::String,
+
+    /// Optional. Labels to apply to the mirror.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Output only. [Output only] Create time stamp.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. [Output only] Update time stamp.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Unique ID of the resource.
+    pub uid: std::string::String,
+
+    /// Output only. [Output only] The current state of the mirror.
+    pub state: crate::model::mirror::State,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Mirror {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Mirror::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Mirror;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let mirror_id = "mirror_id";
+    /// let x = Mirror::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/mirrors/{mirror_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [gcs_path][crate::model::Mirror::gcs_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Mirror;
+    /// use google_cloud_lustre_v1::model::GcsPath;
+    /// let x = Mirror::new().set_gcs_path(GcsPath::default()/* use setters */);
+    /// ```
+    pub fn set_gcs_path<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GcsPath>,
+    {
+        self.gcs_path = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gcs_path][crate::model::Mirror::gcs_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Mirror;
+    /// use google_cloud_lustre_v1::model::GcsPath;
+    /// let x = Mirror::new().set_or_clear_gcs_path(Some(GcsPath::default()/* use setters */));
+    /// let x = Mirror::new().set_or_clear_gcs_path(None::<GcsPath>);
+    /// ```
+    pub fn set_or_clear_gcs_path<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GcsPath>,
+    {
+        self.gcs_path = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [lustre_path][crate::model::Mirror::lustre_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Mirror;
+    /// use google_cloud_lustre_v1::model::LustrePath;
+    /// let x = Mirror::new().set_lustre_path(LustrePath::default()/* use setters */);
+    /// ```
+    pub fn set_lustre_path<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LustrePath>,
+    {
+        self.lustre_path = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [lustre_path][crate::model::Mirror::lustre_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Mirror;
+    /// use google_cloud_lustre_v1::model::LustrePath;
+    /// let x = Mirror::new().set_or_clear_lustre_path(Some(LustrePath::default()/* use setters */));
+    /// let x = Mirror::new().set_or_clear_lustre_path(None::<LustrePath>);
+    /// ```
+    pub fn set_or_clear_lustre_path<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LustrePath>,
+    {
+        self.lustre_path = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [direction][crate::model::Mirror::direction].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Mirror;
+    /// use google_cloud_lustre_v1::model::mirror::Direction;
+    /// let x0 = Mirror::new().set_direction(Direction::FromCloudStorage);
+    /// ```
+    pub fn set_direction<T: std::convert::Into<crate::model::mirror::Direction>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.direction = v.into();
+        self
+    }
+
+    /// Sets the value of [deleted_files_retained][crate::model::Mirror::deleted_files_retained].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Mirror;
+    /// let x = Mirror::new().set_deleted_files_retained(true);
+    /// ```
+    pub fn set_deleted_files_retained<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.deleted_files_retained = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::Mirror::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Mirror;
+    /// let x = Mirror::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Mirror::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Mirror;
+    /// let x = Mirror::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::Mirror::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Mirror;
+    /// use wkt::Timestamp;
+    /// let x = Mirror::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Mirror::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Mirror;
+    /// use wkt::Timestamp;
+    /// let x = Mirror::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Mirror::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::Mirror::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Mirror;
+    /// use wkt::Timestamp;
+    /// let x = Mirror::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Mirror::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Mirror;
+    /// use wkt::Timestamp;
+    /// let x = Mirror::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Mirror::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::Mirror::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Mirror;
+    /// let x = Mirror::new().set_uid("example");
+    /// ```
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::Mirror::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::Mirror;
+    /// use google_cloud_lustre_v1::model::mirror::State;
+    /// let x0 = Mirror::new().set_state(State::Creating);
+    /// let x1 = Mirror::new().set_state(State::InitialSync);
+    /// let x2 = Mirror::new().set_state(State::Deleting);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::mirror::State>>(mut self, v: T) -> Self {
+        self.state = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Mirror {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.lustre.v1.Mirror"
+    }
+}
+
+/// Defines additional types related to [Mirror].
+pub mod mirror {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents the direction of the mirror.
+    /// This enum expects to be extended in future with new mirror types.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Direction {
+        /// Invalid value.
+        Unspecified,
+        /// Mirror from Cloud Storage to Lustre.
+        FromCloudStorage,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Direction::value] or
+        /// [Direction::name].
+        UnknownValue(direction::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod direction {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Direction {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::FromCloudStorage => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DIRECTION_UNSPECIFIED"),
+                Self::FromCloudStorage => std::option::Option::Some("FROM_CLOUD_STORAGE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Direction {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Direction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Direction {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::FromCloudStorage,
+                _ => Self::UnknownValue(direction::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Direction {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DIRECTION_UNSPECIFIED" => Self::Unspecified,
+                "FROM_CLOUD_STORAGE" => Self::FromCloudStorage,
+                _ => Self::UnknownValue(direction::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Direction {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::FromCloudStorage => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Direction {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Direction>::new(
+                ".google.cloud.lustre.v1.Mirror.Direction",
+            ))
+        }
+    }
+
+    /// State of the mirror.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// State is unspecified.
+        Unspecified,
+        /// The mirror resource is being created.
+        Creating,
+        /// The initial sync is copying existing objects from Cloud Storage.
+        InitialSync,
+        /// The mirror is being deleted.
+        Deleting,
+        /// The mirror is synchronizing changes as they occur.
+        Active,
+        /// Synchronization is paused because the file system is close to capacity.
+        Suspended,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::InitialSync => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::Active => std::option::Option::Some(4),
+                Self::Suspended => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::InitialSync => std::option::Option::Some("INITIAL_SYNC"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Suspended => std::option::Option::Some("SUSPENDED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::InitialSync,
+                3 => Self::Deleting,
+                4 => Self::Active,
+                5 => Self::Suspended,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "INITIAL_SYNC" => Self::InitialSync,
+                "DELETING" => Self::Deleting,
+                "ACTIVE" => Self::Active,
+                "SUSPENDED" => Self::Suspended,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::InitialSync => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::Active => serializer.serialize_i32(4),
+                Self::Suspended => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.lustre.v1.Mirror.State",
+            ))
+        }
+    }
+}
+
+/// Request for CreateMirror.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateMirrorRequest {
+    /// Required. Parent instance resource where the mirror will be created, in the
+    /// format: `projects/{project}/locations/{location}/instances/{instance}`
+    pub parent: std::string::String,
+
+    /// Required. The ID to use for the mirror.
+    ///
+    /// * Must contain only lowercase letters, numbers, and hyphens.
+    /// * Must start with a letter.
+    /// * Must be between 1-63 characters.
+    /// * Must end with a number or a letter.
+    ///
+    /// The ID cannot be changed after the mirror is created.
+    pub mirror_id: std::string::String,
+
+    /// Required. The mirror to create.
+    pub mirror: std::option::Option<crate::model::Mirror>,
+
+    /// Optional. The unique ID to identify requests. Specify a unique request ID
+    /// so that if you must retry your request, the server will know to ignore
+    /// the request if it has already been completed. The server guarantees that a
+    /// request doesn't result in creation of duplicate mirrors for at least 60
+    /// minutes.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate mirrors.
+    ///
+    /// The request ID must be a valid UUID version 4 with the exception that zero
+    /// UUID is not supported (`00000000-0000-0000-0000-000000000000`).
+    /// This request is only idempotent if a `request_id` is provided.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateMirrorRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateMirrorRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::CreateMirrorRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = CreateMirrorRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [mirror_id][crate::model::CreateMirrorRequest::mirror_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::CreateMirrorRequest;
+    /// let x = CreateMirrorRequest::new().set_mirror_id("example");
+    /// ```
+    pub fn set_mirror_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.mirror_id = v.into();
+        self
+    }
+
+    /// Sets the value of [mirror][crate::model::CreateMirrorRequest::mirror].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::CreateMirrorRequest;
+    /// use google_cloud_lustre_v1::model::Mirror;
+    /// let x = CreateMirrorRequest::new().set_mirror(Mirror::default()/* use setters */);
+    /// ```
+    pub fn set_mirror<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Mirror>,
+    {
+        self.mirror = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [mirror][crate::model::CreateMirrorRequest::mirror].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::CreateMirrorRequest;
+    /// use google_cloud_lustre_v1::model::Mirror;
+    /// let x = CreateMirrorRequest::new().set_or_clear_mirror(Some(Mirror::default()/* use setters */));
+    /// let x = CreateMirrorRequest::new().set_or_clear_mirror(None::<Mirror>);
+    /// ```
+    pub fn set_or_clear_mirror<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Mirror>,
+    {
+        self.mirror = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateMirrorRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::CreateMirrorRequest;
+    /// let x = CreateMirrorRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateMirrorRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.lustre.v1.CreateMirrorRequest"
+    }
+}
+
+/// Request for UpdateMirror.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateMirrorRequest {
+    /// Required. Mirror to update. The mirror's `name` field is used to identify
+    /// the mirror to update, in the format:
+    /// `projects/{project}/locations/{location}/instances/{instance}/mirrors/{mirror}`
+    pub mirror: std::option::Option<crate::model::Mirror>,
+
+    /// Optional. Fields specified in the update_mask are relative to the resource,
+    /// not the full request. A field will be overwritten if it is in the mask. If
+    /// no mask is provided then all fields present in the request are overwritten.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. The unique ID to identify requests. Specify a unique request ID
+    /// so that if you must retry your request, the server will know to ignore
+    /// the request if it has already been completed. The server guarantees that a
+    /// request doesn't result in the same update request being executed for at
+    /// least 60 minutes.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request.
+    ///
+    /// The request ID must be a valid UUID version 4 with the exception that zero
+    /// UUID is not supported (`00000000-0000-0000-0000-000000000000`).
+    /// This request is only idempotent if a `request_id` is provided.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateMirrorRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [mirror][crate::model::UpdateMirrorRequest::mirror].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::UpdateMirrorRequest;
+    /// use google_cloud_lustre_v1::model::Mirror;
+    /// let x = UpdateMirrorRequest::new().set_mirror(Mirror::default()/* use setters */);
+    /// ```
+    pub fn set_mirror<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Mirror>,
+    {
+        self.mirror = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [mirror][crate::model::UpdateMirrorRequest::mirror].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::UpdateMirrorRequest;
+    /// use google_cloud_lustre_v1::model::Mirror;
+    /// let x = UpdateMirrorRequest::new().set_or_clear_mirror(Some(Mirror::default()/* use setters */));
+    /// let x = UpdateMirrorRequest::new().set_or_clear_mirror(None::<Mirror>);
+    /// ```
+    pub fn set_or_clear_mirror<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Mirror>,
+    {
+        self.mirror = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateMirrorRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::UpdateMirrorRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMirrorRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateMirrorRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::UpdateMirrorRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMirrorRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateMirrorRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateMirrorRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::UpdateMirrorRequest;
+    /// let x = UpdateMirrorRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateMirrorRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.lustre.v1.UpdateMirrorRequest"
+    }
+}
+
+/// Request for DeleteMirror.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteMirrorRequest {
+    /// Required. Name of the mirror to delete, in the format:
+    /// `projects/{project}/locations/{location}/instances/{instance}/mirrors/{mirror}`
+    pub name: std::string::String,
+
+    /// Optional. The unique ID to identify requests. Specify a unique request ID
+    /// so that if you must retry your request, the server will know to ignore
+    /// the request if it has already been completed. The server guarantees that a
+    /// request doesn't result in the same delete request being executed for at
+    /// least 60 minutes.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request.
+    ///
+    /// The request ID must be a valid UUID version 4 with the exception that zero
+    /// UUID is not supported (`00000000-0000-0000-0000-000000000000`).
+    /// This request is only idempotent if a `request_id` is provided.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteMirrorRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteMirrorRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::DeleteMirrorRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let mirror_id = "mirror_id";
+    /// let x = DeleteMirrorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/mirrors/{mirror_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteMirrorRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::DeleteMirrorRequest;
+    /// let x = DeleteMirrorRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteMirrorRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.lustre.v1.DeleteMirrorRequest"
+    }
+}
+
+/// Request for GetMirror.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetMirrorRequest {
+    /// Required. Name of the mirror to retrieve, in the format:
+    /// `projects/{project}/locations/{location}/instances/{instance}/mirrors/{mirror}`
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetMirrorRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetMirrorRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::GetMirrorRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let mirror_id = "mirror_id";
+    /// let x = GetMirrorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/mirrors/{mirror_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetMirrorRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.lustre.v1.GetMirrorRequest"
+    }
+}
+
+/// Request for ListMirrors.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListMirrorsRequest {
+    /// Required. Parent instance resource where the mirrors will be listed, in the
+    /// format: `projects/{project}/locations/{location}/instances/{instance}`
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. The server might return fewer items than
+    /// requested. If unspecified, the default page size is 10. The maximum value
+    /// is 1000.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListMirrors` call.
+    /// Provide this to retrieve the subsequent page.
+    /// When paginating, all other parameters provided to `ListMirrors` must match
+    /// the call that provided the page token.
+    pub page_token: std::string::String,
+
+    /// Optional. Desired order of results.
+    pub order_by: std::string::String,
+
+    /// Optional. Filtering results.
+    pub filter: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMirrorsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListMirrorsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::ListMirrorsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = ListMirrorsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListMirrorsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::ListMirrorsRequest;
+    /// let x = ListMirrorsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListMirrorsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::ListMirrorsRequest;
+    /// let x = ListMirrorsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListMirrorsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::ListMirrorsRequest;
+    /// let x = ListMirrorsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListMirrorsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::ListMirrorsRequest;
+    /// let x = ListMirrorsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMirrorsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.lustre.v1.ListMirrorsRequest"
+    }
+}
+
+/// Response for ListMirrors.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListMirrorsResponse {
+    /// List of mirrors on the instance.
+    pub mirrors: std::vec::Vec<crate::model::Mirror>,
+
+    /// A token identifying a page of results the server should return.
+    pub next_page_token: std::string::String,
+
+    /// Unordered list. Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMirrorsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [mirrors][crate::model::ListMirrorsResponse::mirrors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::ListMirrorsResponse;
+    /// use google_cloud_lustre_v1::model::Mirror;
+    /// let x = ListMirrorsResponse::new()
+    ///     .set_mirrors([
+    ///         Mirror::default()/* use setters */,
+    ///         Mirror::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_mirrors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Mirror>,
+    {
+        use std::iter::Iterator;
+        self.mirrors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMirrorsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::ListMirrorsResponse;
+    /// let x = ListMirrorsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListMirrorsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::ListMirrorsResponse;
+    /// let x = ListMirrorsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMirrorsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.lustre.v1.ListMirrorsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListMirrorsResponse {
+    type PageItem = crate::model::Mirror;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.mirrors
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Metadata of the create mirror operation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateMirrorMetadata {
+    /// Data transfer operation metadata.
+    pub operation_metadata: std::option::Option<crate::model::TransferOperationMetadata>,
+
+    /// Output only. The time the operation was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time the operation finished running.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Server-defined resource path for the target of the operation.
+    pub target: std::string::String,
+
+    /// Output only. Name of the verb executed by the operation.
+    pub verb: std::string::String,
+
+    /// Output only. Human-readable status of the operation, if any.
+    pub status_message: std::string::String,
+
+    /// Output only. Identifies whether the user has requested cancellation
+    /// of the operation. Operations that have successfully been cancelled
+    /// have
+    /// [google.longrunning.Operation.error][google.longrunning.Operation.error]
+    /// value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
+    /// corresponding to `Code.CANCELLED`.
+    ///
+    /// [google.longrunning.Operation.error]: google_cloud_longrunning::model::Operation::result
+    /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
+    pub requested_cancellation: bool,
+
+    /// Output only. API version used to start the operation.
+    pub api_version: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateMirrorMetadata {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [operation_metadata][crate::model::CreateMirrorMetadata::operation_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::CreateMirrorMetadata;
+    /// use google_cloud_lustre_v1::model::TransferOperationMetadata;
+    /// let x = CreateMirrorMetadata::new().set_operation_metadata(TransferOperationMetadata::default()/* use setters */);
+    /// ```
+    pub fn set_operation_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TransferOperationMetadata>,
+    {
+        self.operation_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [operation_metadata][crate::model::CreateMirrorMetadata::operation_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::CreateMirrorMetadata;
+    /// use google_cloud_lustre_v1::model::TransferOperationMetadata;
+    /// let x = CreateMirrorMetadata::new().set_or_clear_operation_metadata(Some(TransferOperationMetadata::default()/* use setters */));
+    /// let x = CreateMirrorMetadata::new().set_or_clear_operation_metadata(None::<TransferOperationMetadata>);
+    /// ```
+    pub fn set_or_clear_operation_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TransferOperationMetadata>,
+    {
+        self.operation_metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::CreateMirrorMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::CreateMirrorMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateMirrorMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::CreateMirrorMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::CreateMirrorMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateMirrorMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CreateMirrorMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::CreateMirrorMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::CreateMirrorMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateMirrorMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::CreateMirrorMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::CreateMirrorMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateMirrorMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CreateMirrorMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [target][crate::model::CreateMirrorMetadata::target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::CreateMirrorMetadata;
+    /// let x = CreateMirrorMetadata::new().set_target("example");
+    /// ```
+    pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.target = v.into();
+        self
+    }
+
+    /// Sets the value of [verb][crate::model::CreateMirrorMetadata::verb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::CreateMirrorMetadata;
+    /// let x = CreateMirrorMetadata::new().set_verb("example");
+    /// ```
+    pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.verb = v.into();
+        self
+    }
+
+    /// Sets the value of [status_message][crate::model::CreateMirrorMetadata::status_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::CreateMirrorMetadata;
+    /// let x = CreateMirrorMetadata::new().set_status_message("example");
+    /// ```
+    pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.status_message = v.into();
+        self
+    }
+
+    /// Sets the value of [requested_cancellation][crate::model::CreateMirrorMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::CreateMirrorMetadata;
+    /// let x = CreateMirrorMetadata::new().set_requested_cancellation(true);
+    /// ```
+    pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.requested_cancellation = v.into();
+        self
+    }
+
+    /// Sets the value of [api_version][crate::model::CreateMirrorMetadata::api_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_lustre_v1::model::CreateMirrorMetadata;
+    /// let x = CreateMirrorMetadata::new().set_api_version("example");
+    /// ```
+    pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.api_version = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateMirrorMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.lustre.v1.CreateMirrorMetadata"
+    }
+}
+
 /// Message for importing data to Lustre.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -1214,6 +4764,12 @@ pub struct ImportDataRequest {
 
     /// Optional. User-specified service account used to perform the transfer.
     /// If unspecified, the default Managed Lustre service agent will be used.
+    ///
+    /// Use one of the following formats:
+    ///
+    /// * `{EMAIL_ADDRESS_OR_UNIQUE_ID}`
+    /// * `projects/{PROJECT_ID}/serviceAccounts/{EMAIL_ADDRESS_OR_UNIQUE_ID}`
+    /// * `projects/-/serviceAccounts/{EMAIL_ADDRESS_OR_UNIQUE_ID}`
     pub service_account: std::string::String,
 
     /// A Cloud Storage URI of a folder to import file data from, in the
@@ -1429,6 +4985,12 @@ pub struct ExportDataRequest {
 
     /// Optional. User-specified service account used to perform the transfer.
     /// If unspecified, the Managed Lustre service agent is used.
+    ///
+    /// Use one of the following formats:
+    ///
+    /// * `{EMAIL_ADDRESS_OR_UNIQUE_ID}`
+    /// * `projects/{PROJECT_ID}/serviceAccounts/{EMAIL_ADDRESS_OR_UNIQUE_ID}`
+    /// * `projects/-/serviceAccounts/{EMAIL_ADDRESS_OR_UNIQUE_ID}`
     pub service_account: std::string::String,
 
     /// The source of the data transfer.

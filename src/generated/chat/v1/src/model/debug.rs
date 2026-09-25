@@ -144,6 +144,18 @@ impl std::fmt::Debug for super::CalendarEventLinkData {
     }
 }
 
+impl std::fmt::Debug for super::AppCommandMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AppCommandMetadata");
+        debug_struct.field("app_command_id", &self.app_command_id);
+        debug_struct.field("app_command_type", &self.app_command_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::Attachment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Attachment");
@@ -1042,6 +1054,66 @@ impl std::fmt::Debug for super::SearchMessageResult {
     }
 }
 
+impl std::fmt::Debug for super::MessagePin {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MessagePin");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListMessagePinsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMessagePinsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListMessagePinsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMessagePinsResponse");
+        debug_struct.field("message_pins", &self.message_pins);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateMessagePinRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateMessagePinRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("message_pin", &self.message_pin);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteMessagePinRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteMessagePinRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::Reaction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Reaction");
@@ -1459,6 +1531,10 @@ impl std::fmt::Debug for super::space::AccessPermissionSettings {
         let mut debug_struct = f.debug_struct("AccessPermissionSettings");
         debug_struct.field("discover_space_setting", &self.discover_space_setting);
         debug_struct.field("join_space_setting", &self.join_space_setting);
+        debug_struct.field(
+            "view_space_membership_setting",
+            &self.view_space_membership_setting,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1499,6 +1575,7 @@ impl std::fmt::Debug for super::space::PermissionSettings {
         debug_struct.field("manage_webhooks", &self.manage_webhooks);
         debug_struct.field("post_messages", &self.post_messages);
         debug_struct.field("reply_messages", &self.reply_messages);
+        debug_struct.field("view_space_membership", &self.view_space_membership);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

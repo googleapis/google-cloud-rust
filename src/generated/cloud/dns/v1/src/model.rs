@@ -414,7 +414,7 @@ pub struct ChangesListResponse {
     /// The requested changes.
     pub changes: std::vec::Vec<crate::model::Change>,
 
-    /// Type of resource.
+    /// Output only. Type of resource.
     pub kind: std::option::Option<std::string::String>,
 
     /// This field indicates that more results are available beyond the last page displayed. To fetch the results, make another list request and use this value as your page token. This lets you retrieve the complete contents of a very large collection one page at a time. However, if the contents of the collection change between the first and last paginated list request, the set of all elements returned are an inconsistent view of the collection. You can't retrieve a consistent snapshot of a collection larger than the maximum page size.
@@ -1880,7 +1880,7 @@ pub struct DnsKeysListResponse {
     /// The requested resources.
     pub dns_keys: std::vec::Vec<crate::model::DnsKey>,
 
-    /// Type of resource.
+    /// Output only. Type of resource.
     pub kind: std::option::Option<std::string::String>,
 
     /// This field indicates that more results are available beyond the last page displayed. To fetch the results, make another list request and use this value as your page token. This lets you retrieve the complete contents of a very large collection one page at a time. However, if the contents of the collection change between the first and last paginated list request, the set of all elements returned are an inconsistent view of the collection. You can't retrieve a consistent snapshot of a collection larger than the maximum page size.
@@ -4826,7 +4826,7 @@ pub mod managed_zone_forwarding_config_name_server_target {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManagedZoneOperationsListResponse {
-    /// Type of resource.
+    /// Output only. Type of resource.
     pub kind: std::option::Option<std::string::String>,
 
     /// This field indicates that more results are available beyond the last page displayed. To fetch the results, make another list request and use this value as your page token. This lets you retrieve the complete contents of a very large collection one page at a time. However, if the contents of the collection change between the first and last paginated list request, the set of all elements returned are an inconsistent view of the collection. You can't retrieve a consistent snapshot of a collection larger than the maximum page size.
@@ -5711,7 +5711,7 @@ impl wkt::message::Message for ManagedZoneServiceDirectoryConfigNamespace {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManagedZonesListResponse {
-    /// Type of resource.
+    /// Output only. Type of resource.
     pub kind: std::option::Option<std::string::String>,
 
     /// The managed zone resources.
@@ -6451,7 +6451,7 @@ impl wkt::message::Message for OperationManagedZoneContext {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PoliciesListResponse {
-    /// Type of resource.
+    /// Output only. Type of resource.
     pub kind: std::option::Option<std::string::String>,
 
     /// This field indicates that more results are available beyond the last page displayed. To fetch the results, make another list request and use this value as your page token. This lets you retrieve the complete contents of a very large collection one page at a time. However, if the contents of the collection change between the first and last paginated list request, the set of all elements returned are an inconsistent view of the collection. You can't retrieve a consistent snapshot of a collection larger than the maximum page size.
@@ -10268,7 +10268,7 @@ pub struct ResourceRecordSet {
     /// As defined in RFC 1035 (section 5) and RFC 1034 (section 3.6.1) -- see examples.
     pub rrdatas: std::vec::Vec<std::string::String>,
 
-    /// As defined in RFC 4034 (section 3.2).
+    #[allow(missing_docs)]
     pub signature_rrdatas: std::vec::Vec<std::string::String>,
 
     /// Number of seconds that this `ResourceRecordSet` can be cached by resolvers.
@@ -10508,7 +10508,7 @@ impl wkt::message::Message for ResourceRecordSetsDeleteResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceRecordSetsListResponse {
-    /// Type of resource.
+    /// Output only. Type of resource.
     pub kind: std::option::Option<std::string::String>,
 
     /// This field indicates that more results are available beyond the last page displayed. To fetch the results, make another list request and use this value as your page token. This lets you retrieve the complete contents of a very large collection one page at a time. However, if the contents of the collection change between the first and last paginated list request, the set of all elements returned are an inconsistent view of the collection. You can't retrieve a consistent snapshot of a collection larger than the maximum page size.
@@ -14556,9 +14556,6 @@ pub mod projects {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GetRequest {
-        /// For mutating operation requests only. An optional identifier specified by the client. Must be unique for operation resources in the Operations collection.
-        pub client_operation_id: std::option::Option<std::string::String>,
-
         /// Identifies the project addressed by this request.
         pub project: std::string::String,
 
@@ -14569,37 +14566,6 @@ pub mod projects {
         /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
-        }
-
-        /// Sets the value of [client_operation_id][crate::model::projects::GetRequest::client_operation_id].
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_dns_v1::model::projects::GetRequest;
-        /// let x = GetRequest::new().set_client_operation_id("example");
-        /// ```
-        pub fn set_client_operation_id<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<std::string::String>,
-        {
-            self.client_operation_id = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [client_operation_id][crate::model::projects::GetRequest::client_operation_id].
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_dns_v1::model::projects::GetRequest;
-        /// let x = GetRequest::new().set_or_clear_client_operation_id(Some("example"));
-        /// let x = GetRequest::new().set_or_clear_client_operation_id(None::<String>);
-        /// ```
-        pub fn set_or_clear_client_operation_id<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<std::string::String>,
-        {
-            self.client_operation_id = v.map(|x| x.into());
-            self
         }
 
         /// Sets the value of [project][crate::model::projects::GetRequest::project].

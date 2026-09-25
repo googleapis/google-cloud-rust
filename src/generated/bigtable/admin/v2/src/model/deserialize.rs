@@ -12922,6 +12922,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Table {
             __change_stream_config,
             __deletion_protection,
             __automated_backup_policy,
+            __effective_automated_backup_policy,
             __tiered_storage_config,
             __row_key_schema,
             Unknown(std::string::String),
@@ -12958,6 +12959,12 @@ impl<'de> serde::de::Deserialize<'de> for super::Table {
                             "deletion_protection" => Ok(__FieldTag::__deletion_protection),
                             "automatedBackupPolicy" => Ok(__FieldTag::__automated_backup_policy),
                             "automated_backup_policy" => Ok(__FieldTag::__automated_backup_policy),
+                            "effectiveAutomatedBackupPolicy" => {
+                                Ok(__FieldTag::__effective_automated_backup_policy)
+                            }
+                            "effective_automated_backup_policy" => {
+                                Ok(__FieldTag::__effective_automated_backup_policy)
+                            }
                             "tieredStorageConfig" => Ok(__FieldTag::__tiered_storage_config),
                             "tiered_storage_config" => Ok(__FieldTag::__tiered_storage_config),
                             "rowKeySchema" => Ok(__FieldTag::__row_key_schema),
@@ -13082,6 +13089,15 @@ impl<'de> serde::de::Deserialize<'de> for super::Table {
                                     .unwrap_or_default(),
                                 ),
                             );
+                        }
+                        __FieldTag::__effective_automated_backup_policy => {
+                            if !fields.insert(__FieldTag::__effective_automated_backup_policy) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for effective_automated_backup_policy",
+                                ));
+                            }
+                            result.effective_automated_backup_policy = map.next_value::<std::option::Option<crate::model::table::AutomatedBackupPolicy>>()?
+                                ;
                         }
                         __FieldTag::__tiered_storage_config => {
                             if !fields.insert(__FieldTag::__tiered_storage_config) {
@@ -13226,6 +13242,8 @@ impl<'de> serde::de::Deserialize<'de> for super::table::AutomatedBackupPolicy {
             __retention_period,
             __frequency,
             __locations,
+            __keep_hot_duration,
+            __disabled,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -13250,6 +13268,9 @@ impl<'de> serde::de::Deserialize<'de> for super::table::AutomatedBackupPolicy {
                             "retention_period" => Ok(__FieldTag::__retention_period),
                             "frequency" => Ok(__FieldTag::__frequency),
                             "locations" => Ok(__FieldTag::__locations),
+                            "keepHotDuration" => Ok(__FieldTag::__keep_hot_duration),
+                            "keep_hot_duration" => Ok(__FieldTag::__keep_hot_duration),
+                            "disabled" => Ok(__FieldTag::__disabled),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -13300,6 +13321,25 @@ impl<'de> serde::de::Deserialize<'de> for super::table::AutomatedBackupPolicy {
                                 ));
                             }
                             result.locations = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__keep_hot_duration => {
+                            if !fields.insert(__FieldTag::__keep_hot_duration) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for keep_hot_duration",
+                                ));
+                            }
+                            result.keep_hot_duration =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__disabled => {
+                            if !fields.insert(__FieldTag::__disabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for disabled",
+                                ));
+                            }
+                            result.disabled = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

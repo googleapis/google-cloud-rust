@@ -83,6 +83,18 @@ pub trait DataAgentService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
 
+    async fn set_agent_ops_observability(
+        &self,
+        req: crate::model::SetAgentOpsObservabilityRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn retrieve_agent_ops_observability(
+        &self,
+        req: crate::model::RetrieveAgentOpsObservabilityRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RetrieveAgentOpsObservabilityResponse>>;
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -238,6 +250,24 @@ impl<T: super::DataAgentService> DataAgentService for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn set_agent_ops_observability(
+        &self,
+        req: crate::model::SetAgentOpsObservabilityRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::set_agent_ops_observability(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn retrieve_agent_ops_observability(
+        &self,
+        req: crate::model::RetrieveAgentOpsObservabilityRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RetrieveAgentOpsObservabilityResponse>> {
+        T::retrieve_agent_ops_observability(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -335,6 +365,12 @@ pub trait DataChatService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
 
+    async fn update_conversation(
+        &self,
+        req: crate::model::UpdateConversationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Conversation>>;
+
     async fn get_conversation(
         &self,
         req: crate::model::GetConversationRequest,
@@ -418,6 +454,15 @@ impl<T: super::DataChatService> DataChatService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>> {
         T::delete_conversation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_conversation(
+        &self,
+        req: crate::model::UpdateConversationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Conversation>> {
+        T::update_conversation(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

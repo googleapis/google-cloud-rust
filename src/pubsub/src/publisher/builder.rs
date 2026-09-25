@@ -127,6 +127,10 @@ impl PublisherBuilder {
     /// RPC exceeds a configured delay threshold, mitigating tail latency caused by slow backend
     /// tasks or transient network stalls.
     ///
+    /// Request hedging is only active for messages published without an ordering key. For
+    /// ordered publishing (messages with an ordering key), hedging is disabled to preserve
+    /// strict ordering guarantees.
+    ///
     /// # Example
     ///
     /// ```
@@ -148,6 +152,10 @@ impl PublisherBuilder {
     /// Sets or clears the hedging options for the publisher.
     ///
     /// Pass `None` to disable request hedging (the default).
+    ///
+    /// Request hedging is only active for messages published without an ordering key. For
+    /// ordered publishing (messages with an ordering key), hedging is disabled to preserve
+    /// strict ordering guarantees.
     ///
     /// # Example
     ///
@@ -357,6 +365,7 @@ pub struct PublisherPartialBuilder {
     topic: String,
     batching_options: BatchingOptions,
     hedging_options: Option<HedgingOptions>,
+    pub(crate) total_timeout: Option<Duration>,
 }
 
 impl PublisherPartialBuilder {
@@ -367,7 +376,13 @@ impl PublisherPartialBuilder {
             topic,
             batching_options: BatchingOptions::default(),
             hedging_options: None,
+            total_timeout: None,
         }
+    }
+
+    pub(crate) fn with_total_timeout(mut self, total_timeout: Option<Duration>) -> Self {
+        self.total_timeout = total_timeout;
+        self
     }
 
     /// Sets the message count threshold for batching.
@@ -443,6 +458,10 @@ impl PublisherPartialBuilder {
     /// RPC exceeds a configured delay threshold, mitigating tail latency caused by slow backend
     /// tasks or transient network stalls.
     ///
+    /// Request hedging is only active for messages published without an ordering key. For
+    /// ordered publishing (messages with an ordering key), hedging is disabled to preserve
+    /// strict ordering guarantees.
+    ///
     /// # Example
     ///
     /// ```
@@ -465,6 +484,10 @@ impl PublisherPartialBuilder {
     /// Sets or clears the hedging options for the publisher.
     ///
     /// Pass `None` to disable request hedging (the default).
+    ///
+    /// Request hedging is only active for messages published without an ordering key. For
+    /// ordered publishing (messages with an ordering key), hedging is disabled to preserve
+    /// strict ordering guarantees.
     ///
     /// # Example
     ///
@@ -522,6 +545,7 @@ impl PublisherPartialBuilder {
             self.inner,
             batching_options.clone(),
             hedging_options.clone(),
+            self.total_timeout,
             rx,
         );
         let handle = tokio::spawn(dispatcher.run());

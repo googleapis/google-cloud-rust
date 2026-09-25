@@ -27,6 +27,9 @@ The core components include:
   Google Cloud Storage.
 - **Pub/Sub:** The `src/pubsub` crate contains a client library for Google Cloud
   Pub/Sub.
+- **Spanner:** The `src/spanner` crate contains a client library for Spanner.
+  See [`src/spanner/llms.txt`](src/spanner/llms.txt) for guidance, best
+  practices, and code samples for coding agents.
 
 ## Building and Running
 

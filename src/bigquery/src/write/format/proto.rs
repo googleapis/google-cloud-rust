@@ -26,6 +26,10 @@ impl super::DataFormat for Proto {
 }
 
 impl super::sealed::DataFormat for Proto {
+    fn format_name(&self) -> &'static str {
+        "proto"
+    }
+
     fn make_request(&self, write_stream: &str, rows: ProtoRows) -> AppendRowsRequest {
         AppendRowsRequest::new()
             .set_write_stream(write_stream)
@@ -42,6 +46,14 @@ mod tests {
     use super::super::sealed::DataFormat;
     use super::*;
     use crate::write::test::*;
+
+    #[test]
+    fn format_name() {
+        let f = Proto {
+            schema: proto_schema(),
+        };
+        assert_eq!(f.format_name(), "proto");
+    }
 
     #[test]
     fn request() {

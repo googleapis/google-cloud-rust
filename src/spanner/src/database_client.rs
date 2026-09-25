@@ -448,15 +448,19 @@ impl DatabaseClient {
     /// # use google_cloud_spanner::client::Spanner;
     /// # use google_cloud_spanner::mutation::Mutation;
     /// # async fn test_doc() -> Result<(), Box<dyn std::error::Error>> {
-    /// let client = Spanner::builder().build().await?;
-    /// let db = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let spanner = Spanner::builder().build().await?;
+    /// let database_client = spanner
+    ///     .database_client("projects/p/instances/i/databases/d")
+    ///     .build()
+    ///     .await?;
     ///
     /// let mutation = Mutation::new_insert_builder("Users")
     ///     .set("UserId").to(&1)
     ///     .set("UserName").to(&"Alice")
     ///     .build();
     ///
-    /// let response = db.write_only_transaction()
+    /// let response = database_client
+    ///     .write_only_transaction()
     ///     .set_transaction_tag("my-tag")
     ///     .build()
     ///     .write(vec![mutation])

@@ -186,6 +186,17 @@ pub mod data_agent_service {
             self.0.request.show_deleted = v.into();
             self
         }
+
+        /// Sets the value of [creator_filter][crate::model::ListDataAgentsRequest::creator_filter].
+        pub fn set_creator_filter<
+            T: Into<crate::model::list_accessible_data_agents_request::CreatorFilter>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.creator_filter = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -1273,6 +1284,243 @@ pub mod data_agent_service {
         }
     }
 
+    /// The request builder for [DataAgentService::set_agent_ops_observability][crate::client::DataAgentService::set_agent_ops_observability] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_geminidataanalytics_v1::builder::data_agent_service::SetAgentOpsObservability;
+    /// # async fn sample() -> google_cloud_geminidataanalytics_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> SetAgentOpsObservability {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SetAgentOpsObservability(
+        RequestBuilder<crate::model::SetAgentOpsObservabilityRequest>,
+    );
+
+    impl SetAgentOpsObservability {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataAgentService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::SetAgentOpsObservabilityRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [set_agent_ops_observability][crate::client::DataAgentService::set_agent_ops_observability].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .set_agent_ops_observability(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `set_agent_ops_observability`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::SetAgentOpsObservabilityResponse,
+            crate::model::SetAgentOpsObservabilityMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::SetAgentOpsObservabilityResponse,
+                crate::model::SetAgentOpsObservabilityMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name = "google_cloud_geminidataanalytics_v1::client::DataAgentService::set_agent_ops_observability::until_done";
+            }
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            use google_cloud_lro::internal::PollerExt;
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
+            .with_options(poller_options)
+        }
+
+        /// Sets the value of [parent][crate::model::SetAgentOpsObservabilityRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [telemetry_enabled][crate::model::SetAgentOpsObservabilityRequest::telemetry_enabled].
+        pub fn set_telemetry_enabled<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.telemetry_enabled = v.into();
+            self
+        }
+
+        /// Sets the value of [data_source_type][crate::model::SetAgentOpsObservabilityRequest::data_source_type].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_data_source_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.data_source_type = v.into();
+            self
+        }
+
+        /// Sets the value of [bqaa_enabled][crate::model::SetAgentOpsObservabilityRequest::bqaa_enabled].
+        pub fn set_bqaa_enabled<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.bqaa_enabled = v.into();
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::SetAgentOpsObservabilityRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::SetAgentOpsObservabilityRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for SetAgentOpsObservability {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DataAgentService::retrieve_agent_ops_observability][crate::client::DataAgentService::retrieve_agent_ops_observability] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_geminidataanalytics_v1::builder::data_agent_service::RetrieveAgentOpsObservability;
+    /// # async fn sample() -> google_cloud_geminidataanalytics_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> RetrieveAgentOpsObservability {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct RetrieveAgentOpsObservability(
+        RequestBuilder<crate::model::RetrieveAgentOpsObservabilityRequest>,
+    );
+
+    impl RetrieveAgentOpsObservability {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataAgentService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::RetrieveAgentOpsObservabilityRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::RetrieveAgentOpsObservabilityResponse> {
+            (*self.0.stub)
+                .retrieve_agent_ops_observability(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [parent][crate::model::RetrieveAgentOpsObservabilityRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [data_source_type][crate::model::RetrieveAgentOpsObservabilityRequest::data_source_type].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_data_source_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.data_source_type = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for RetrieveAgentOpsObservability {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [DataAgentService::list_locations][crate::client::DataAgentService::list_locations] calls.
     ///
     /// # Example
@@ -2191,6 +2439,109 @@ pub mod data_chat_service {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for DeleteConversation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DataChatService::update_conversation][crate::client::DataChatService::update_conversation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_geminidataanalytics_v1::builder::data_chat_service::UpdateConversation;
+    /// # async fn sample() -> google_cloud_geminidataanalytics_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateConversation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateConversation(RequestBuilder<crate::model::UpdateConversationRequest>);
+
+    impl UpdateConversation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataChatService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateConversationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Conversation> {
+            (*self.0.stub)
+                .update_conversation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [conversation][crate::model::UpdateConversationRequest::conversation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_conversation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Conversation>,
+        {
+            self.0.request.conversation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [conversation][crate::model::UpdateConversationRequest::conversation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_conversation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Conversation>,
+        {
+            self.0.request.conversation = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateConversationRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateConversationRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateConversationRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateConversation {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

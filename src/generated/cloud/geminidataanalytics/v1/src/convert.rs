@@ -399,6 +399,59 @@ impl gaxi::prost::FromProto<crate::model::LookerGoldenQuery> for LookerGoldenQue
     }
 }
 
+impl gaxi::prost::ToProto<DynamicField> for crate::model::DynamicField {
+    type Output = DynamicField;
+    fn to_proto(self) -> std::result::Result<DynamicField, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            category: self.category.map(|v| v.to_proto()).transpose()?,
+            name: self.name.map(|v| v.to_proto()).transpose()?,
+            label: self.label.map(|v| v.to_proto()).transpose()?,
+            based_on: self.based_on.map(|v| v.to_proto()).transpose()?,
+            r#type: self.r#type.map(|v| v.to_proto()).transpose()?,
+            description: self.description.map(|v| v.to_proto()).transpose()?,
+            expression: self.expression.map(|v| v.to_proto()).transpose()?,
+            filter_expression: self.filter_expression.map(|v| v.to_proto()).transpose()?,
+            value_format: self.value_format.map(|v| v.to_proto()).transpose()?,
+            value_format_name: self.value_format_name.map(|v| v.to_proto()).transpose()?,
+            calculation_type: self.calculation_type.map(|v| v.to_proto()).transpose()?,
+            args: self
+                .args
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            kind_hint: self.kind_hint.map(|v| v.to_proto()).transpose()?,
+            type_hint: self.type_hint.map(|v| v.to_proto()).transpose()?,
+            is_disabled: self.is_disabled.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::model::DynamicField> for DynamicField {
+    fn cnv(self) -> std::result::Result<crate::model::DynamicField, gaxi::prost::ConvertError> {
+        Ok(crate::model::DynamicField::new()
+            .set_or_clear_category(self.category.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_name(self.name.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_label(self.label.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_based_on(self.based_on.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_type(self.r#type.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_description(self.description.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_expression(self.expression.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_filter_expression(self.filter_expression.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_value_format(self.value_format.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_value_format_name(self.value_format_name.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_calculation_type(self.calculation_type.map(|v| v.cnv()).transpose()?)
+            .set_args(
+                self.args
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            )
+            .set_or_clear_kind_hint(self.kind_hint.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_type_hint(self.type_hint.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_is_disabled(self.is_disabled.map(|v| v.cnv()).transpose()?))
+    }
+}
+
 impl gaxi::prost::ToProto<looker_query::Filter> for crate::model::looker_query::Filter {
     type Output = looker_query::Filter;
     fn to_proto(self) -> std::result::Result<looker_query::Filter, gaxi::prost::ConvertError> {
@@ -441,6 +494,11 @@ impl gaxi::prost::ToProto<LookerQuery> for crate::model::LookerQuery {
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             limit: self.limit.map(|v| v.to_proto()).transpose()?,
+            dynamic_fields: self
+                .dynamic_fields
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             query_id: self.query_id.map(|v| v.to_proto()).transpose()?,
             client_id: self.client_id.map(|v| v.to_proto()).transpose()?,
         })
@@ -471,6 +529,12 @@ impl gaxi::prost::FromProto<crate::model::LookerQuery> for LookerQuery {
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_or_clear_limit(self.limit.map(|v| v.cnv()).transpose()?)
+            .set_dynamic_fields(
+                self.dynamic_fields
+                    .into_iter()
+                    .map(|v| v.cnv())
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+            )
             .set_or_clear_query_id(self.query_id.map(|v| v.cnv()).transpose()?)
             .set_or_clear_client_id(self.client_id.map(|v| v.cnv()).transpose()?))
     }

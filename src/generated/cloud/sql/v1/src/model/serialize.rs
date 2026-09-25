@@ -796,6 +796,9 @@ impl serde::ser::Serialize for super::SqlDatabasesDeleteRequest {
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -823,6 +826,9 @@ impl serde::ser::Serialize for super::SqlDatabasesGetRequest {
         }
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -852,6 +858,9 @@ impl serde::ser::Serialize for super::SqlDatabasesInsertRequest {
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -876,6 +885,9 @@ impl serde::ser::Serialize for super::SqlDatabasesListRequest {
         }
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -907,6 +919,9 @@ impl serde::ser::Serialize for super::SqlDatabasesUpdateRequest {
         }
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1108,6 +1123,9 @@ impl serde::ser::Serialize for super::SqlInstancesAddServerCaRequest {
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1133,6 +1151,9 @@ impl serde::ser::Serialize for super::SqlInstancesAddServerCertificateRequest {
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1157,6 +1178,9 @@ impl serde::ser::Serialize for super::SqlInstancesAddEntraIdCertificateRequest {
         }
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1185,6 +1209,9 @@ impl serde::ser::Serialize for super::SqlInstancesCloneRequest {
         }
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1232,6 +1259,9 @@ impl serde::ser::Serialize for super::SqlInstancesDeleteRequest {
         if !self.final_backup_description.is_empty() {
             state.serialize_entry("finalBackupDescription", &self.final_backup_description)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1259,6 +1289,9 @@ impl serde::ser::Serialize for super::SqlInstancesDemoteMasterRequest {
         }
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1288,6 +1321,9 @@ impl serde::ser::Serialize for super::SqlInstancesDemoteRequest {
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1315,6 +1351,9 @@ impl serde::ser::Serialize for super::SqlInstancesExportRequest {
         }
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1344,6 +1383,9 @@ impl serde::ser::Serialize for super::SqlInstancesFailoverRequest {
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1368,6 +1410,9 @@ impl serde::ser::Serialize for super::SqlInstancesGetRequest {
         }
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1397,6 +1442,9 @@ impl serde::ser::Serialize for super::SqlInstancesImportRequest {
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1421,6 +1469,9 @@ impl serde::ser::Serialize for super::SqlInstancesInsertRequest {
         }
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1462,6 +1513,9 @@ impl serde::ser::Serialize for super::SqlInstancesListRequest {
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1486,6 +1540,9 @@ impl serde::ser::Serialize for super::SqlInstancesListServerCasRequest {
         }
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1512,6 +1569,9 @@ impl serde::ser::Serialize for super::SqlInstancesListServerCertificatesRequest 
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1536,6 +1596,9 @@ impl serde::ser::Serialize for super::SqlInstancesListEntraIdCertificatesRequest
         }
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1574,6 +1637,9 @@ impl serde::ser::Serialize for super::SqlInstancesPatchRequest {
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1601,6 +1667,9 @@ impl serde::ser::Serialize for super::SqlInstancesPromoteReplicaRequest {
         }
         if !wkt::internal::is_default(&self.failover) {
             state.serialize_entry("failover", &self.failover)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1630,6 +1699,9 @@ impl serde::ser::Serialize for super::SqlInstancesSwitchoverRequest {
         if self.db_timeout.is_some() {
             state.serialize_entry("dbTimeout", &self.db_timeout)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1658,6 +1730,9 @@ impl serde::ser::Serialize for super::SqlInstancesResetSslConfigRequest {
         if !wkt::internal::is_default(&self.mode) {
             state.serialize_entry("mode", &self.mode)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1682,6 +1757,9 @@ impl serde::ser::Serialize for super::SqlInstancesRestartRequest {
         }
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1711,6 +1789,9 @@ impl serde::ser::Serialize for super::SqlInstancesRestoreBackupRequest {
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1738,6 +1819,9 @@ impl serde::ser::Serialize for super::SqlInstancesRotateServerCaRequest {
         }
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1767,6 +1851,9 @@ impl serde::ser::Serialize for super::SqlInstancesRotateServerCertificateRequest
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1795,6 +1882,9 @@ impl serde::ser::Serialize for super::SqlInstancesRotateEntraIdCertificateReques
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1820,6 +1910,9 @@ impl serde::ser::Serialize for super::SqlInstancesStartReplicaRequest {
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1844,6 +1937,9 @@ impl serde::ser::Serialize for super::SqlInstancesStopReplicaRequest {
         }
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1873,6 +1969,9 @@ impl serde::ser::Serialize for super::SqlInstancesTruncateLogRequest {
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1900,6 +1999,9 @@ impl serde::ser::Serialize for super::SqlInstancesPerformDiskShrinkRequest {
         }
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1929,6 +2031,9 @@ impl serde::ser::Serialize for super::SqlInstancesUpdateRequest {
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1957,6 +2062,9 @@ impl serde::ser::Serialize for super::SqlInstancesRescheduleMaintenanceRequest {
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1984,6 +2092,9 @@ impl serde::ser::Serialize for super::SqlInstancesReencryptRequest {
         }
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2090,6 +2201,9 @@ impl serde::ser::Serialize for super::SqlInstancesGetDiskShrinkConfigRequest {
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2136,6 +2250,9 @@ impl serde::ser::Serialize for super::SqlInstancesVerifyExternalSyncSettingsRequ
         if !self.selected_objects.is_empty() {
             state.serialize_entry("selectedObjects", &self.selected_objects)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2179,6 +2296,9 @@ impl serde::ser::Serialize for super::SqlInstancesStartExternalSyncRequest {
         if !wkt::internal::is_default(&self.replica_overwrite_enabled) {
             state.serialize_entry("replicaOverwriteEnabled", &self.replica_overwrite_enabled)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2203,6 +2323,9 @@ impl serde::ser::Serialize for super::SqlInstancesResetReplicaSizeRequest {
         }
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2231,6 +2354,9 @@ impl serde::ser::Serialize for super::SqlInstancesCreateEphemeralCertRequest {
         }
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2713,6 +2839,9 @@ impl serde::ser::Serialize for super::SqlInstancesPreCheckMajorVersionUpgradeReq
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2808,6 +2937,9 @@ impl serde::ser::Serialize for super::SqlInstancesGetLatestRecoveryTimeRequest {
                 "sourceInstanceDeletionTime",
                 &self.source_instance_deletion_time,
             )?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -3226,6 +3358,12 @@ impl serde::ser::Serialize for super::DatabaseInstance {
             state.serialize_entry(
                 "databaseCenterIntegrationEnabled",
                 &self.database_center_integration_enabled,
+            )?;
+        }
+        if self.database_center_integration.is_some() {
+            state.serialize_entry(
+                "databaseCenterIntegration",
+                &self.database_center_integration,
             )?;
         }
         if !self._unknown_fields.is_empty() {
@@ -3914,6 +4052,9 @@ impl serde::ser::Serialize for super::SqlInstancesExecuteSqlRequest {
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -4181,6 +4322,9 @@ impl serde::ser::Serialize for super::SqlInstancesAcquireSsrsLeaseRequest {
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -4227,6 +4371,9 @@ impl serde::ser::Serialize for super::SqlInstancesReleaseSsrsLeaseRequest {
         }
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -7473,6 +7620,9 @@ impl serde::ser::Serialize for super::SqlUsersDeleteRequest {
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -7504,6 +7654,9 @@ impl serde::ser::Serialize for super::SqlUsersGetRequest {
         if !self.host.is_empty() {
             state.serialize_entry("host", &self.host)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -7532,6 +7685,9 @@ impl serde::ser::Serialize for super::SqlUsersInsertRequest {
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
         }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -7556,6 +7712,9 @@ impl serde::ser::Serialize for super::SqlUsersListRequest {
         }
         if !self.project.is_empty() {
             state.serialize_entry("project", &self.project)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -7605,6 +7764,9 @@ impl serde::ser::Serialize for super::SqlUsersUpdateRequest {
         }
         if self.body.is_some() {
             state.serialize_entry("body", &self.body)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

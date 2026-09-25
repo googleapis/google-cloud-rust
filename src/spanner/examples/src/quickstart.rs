@@ -12,15 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod writer;
-mod writer_builder;
+// [START spanner_quickstart]
+use google_cloud_spanner::client::DatabaseClient;
+use google_cloud_spanner::statement::Statement;
 
-use super::format::Proto;
+pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
+    let statement = Statement::builder("SELECT 1").build();
+    let transaction = client.single_use().build();
+    let mut result_set = transaction.execute_query(statement).await?;
 
-pub(crate) use writer::Writer;
-pub(crate) use writer_builder::WriterBuilder;
+    println!("Query results:");
+    while let Some(row) = result_set.next().await.transpose()? {
+        let value: i64 = row.get(0);
+        println!("{value}");
+    }
 
-pub(crate) type BufferedWriter = super::BufferedWriter<Proto>;
-pub(crate) type CommittedWriter = super::CommittedWriter<Proto>;
-pub(crate) type DefaultWriter = super::DefaultWriter<Proto>;
-pub(crate) type PendingWriter = super::PendingWriter<Proto>;
+    Ok(())
+}
+// [END spanner_quickstart]

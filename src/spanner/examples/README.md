@@ -16,8 +16,11 @@ cargo run -p spanner-samples --bin spanner_sample -- <command> <instance-id> <da
 
 #### Example Commands
 
+- `quickstart`: Execute a minimal `SELECT 1` query
 - `createdatabase`: Provision a GoogleSQL database and initial schema
 - `write`: Insert initial data into Singers and Albums
+- `upsert` / `insertorupdate`: Upsert rows into Singers using
+  `Mutation::new_insert_or_update_builder`
 - `insertusingdml` / `writeusingdml`: Insert rows into Singers table using DML
 - `query`: Query Albums table
 - `querywithparameter`: Query Singers table using a parameter
@@ -42,9 +45,12 @@ cargo run -p spanner-samples --bin pg_spanner_sample -- <command> <instance-id> 
 
 #### Example Commands
 
+- `quickstart`: Execute a minimal `SELECT 1` query
 - `createpgdatabase` / `createdatabase`: Provision a PostgreSQL-dialect database
   and initial schema
 - `write`: Insert initial data into Singers and Albums
+- `upsert` / `insertorupdate`: Upsert rows into Singers using
+  `Mutation::new_insert_or_update_builder`
 - `writeusingdml` / `insertusingdml`: Insert rows into Singers table using DML
 - `querysingerstable` / `query`: Query Singers table
 - `querywithparameter`: Query Singers table using a parameter
