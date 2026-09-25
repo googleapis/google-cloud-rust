@@ -14,6 +14,8 @@
 
 //! Cross-SDK conformance tests for bidirectional reads.
 
+use google_cloud_gax::error::Error;
+use google_cloud_gax::error::rpc::{Code, Status};
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 use google_cloud_gax::options::RequestOptionsBuilder as _;
 use google_cloud_gax::paginator::ItemPaginator as _;
@@ -209,7 +211,6 @@ async fn create_bucket(
         .with_idempotency(true)
         .send()
         .await?;
-    tracing::info!("created {bucket_type:?} bucket: {}", bucket.name);
 
     if bucket_type.has_rapid_cache() {
         let rapid_cache = RapidCache::new()
@@ -348,8 +349,6 @@ async fn cleanup_stale_buckets(control: &StorageControl) {
     }
 }
 
-/// Uploads a test object and returns its name.
-///
 /// Set `appendable` for Zonal Rapid buckets, which only accept appendable objects; other
 /// buckets only accept regular uploads. Appendable uploads need
 /// `--cfg google_cloud_unstable_storage_bidi`.
@@ -359,7 +358,7 @@ async fn write_test_object(
     object_name: &str,
     payload: String,
     appendable: bool,
-) -> anyhow::Result<String> {
+) -> anyhow::Result<()> {
     if appendable {
         #[cfg(google_cloud_unstable_storage_bidi)]
         {
@@ -369,21 +368,21 @@ async fn write_test_object(
                 .send()
                 .await?;
             writer.append(bytes::Bytes::from(payload)).await?;
-            let object = writer.finalize().await?;
-            return Ok(object.name);
+            writer.finalize().await?;
+            return Ok(());
         }
         #[cfg(not(google_cloud_unstable_storage_bidi))]
         {
             anyhow::bail!("appendable uploads require `--cfg google_cloud_unstable_storage_bidi`");
         }
     }
-    let object = clients
+    clients
         .http
         .write_object(bucket_name, object_name, payload)
         .set_if_generation_match(0)
         .send_unbuffered()
         .await?;
-    Ok(object.name)
+    Ok(())
 }
 
 async fn test_multiple_ranged_read(
@@ -392,11 +391,10 @@ async fn test_multiple_ranged_read(
     appendable: bool,
 ) -> anyhow::Result<()> {
     println!("  test_multiple_ranged_read ...");
-    const TOTAL_SIZE: usize = 512 * 1024;
-    let payload = String::from_iter(('a'..='z').cycle().take(TOTAL_SIZE));
+    const KIB: u64 = 1024;
+    let payload = String::from_iter(('a'..='z').cycle().take(512 * KIB as usize));
     let object_name = format!("bidi_read/multi_range_source_{}.txt", random_bucket_id());
-
-    let object_name = write_test_object(
+    write_test_object(
         clients,
         bucket_name,
         &object_name,
@@ -411,42 +409,25 @@ async fn test_multiple_ranged_read(
         .send()
         .await?;
 
-    // Four non-overlapping ranges covering the whole object.
-    let range0 = ReadRange::segment(0, 64 * 1024);
-    let range1 = ReadRange::segment(64 * 1024, 128 * 1024);
-    let range2 = ReadRange::segment(192 * 1024, 192 * 1024);
-    let range3 = ReadRange::segment(384 * 1024, 128 * 1024);
-
-    let r0 = descriptor.read_range(range0).await;
-    let r1 = descriptor.read_range(range1).await;
-    let r2 = descriptor.read_range(range2).await;
-    let r3 = descriptor.read_range(range3).await;
+    // Four non-overlapping (offset, length) ranges covering the whole object.
+    let ranges = [
+        (0, 64 * KIB),
+        (64 * KIB, 128 * KIB),
+        (192 * KIB, 192 * KIB),
+        (384 * KIB, 128 * KIB),
+    ];
+    let mut readers = Vec::new();
+    for (offset, len) in ranges {
+        readers.push(descriptor.read_range(ReadRange::segment(offset, len)).await);
+    }
 
     // The ranges share one stream, so they must be drained concurrently to avoid a deadlock.
-    let (buf0, buf1, buf2, buf3) = tokio::try_join!(
-        drain_reader(r0),
-        drain_reader(r1),
-        drain_reader(r2),
-        drain_reader(r3),
-    )?;
+    let buffers = futures::future::try_join_all(readers.into_iter().map(drain_reader)).await?;
 
-    let payload_bytes = payload.as_bytes();
-    assert_eq!(buf0, &payload_bytes[0..64 * 1024]);
-    assert_eq!(buf1, &payload_bytes[64 * 1024..192 * 1024]);
-    assert_eq!(buf2, &payload_bytes[192 * 1024..384 * 1024]);
-    assert_eq!(buf3, &payload_bytes[384 * 1024..512 * 1024]);
-
-    let total_len = buf0.len() + buf1.len() + buf2.len() + buf3.len();
-    assert_eq!(total_len, TOTAL_SIZE);
-
-    let crc0 = crc32c::crc32c(&buf0);
-    assert_eq!(crc0, crc32c::crc32c(&payload_bytes[0..64 * 1024]));
-    let crc1 = crc32c::crc32c(&buf1);
-    assert_eq!(crc1, crc32c::crc32c(&payload_bytes[64 * 1024..192 * 1024]));
-    let crc2 = crc32c::crc32c(&buf2);
-    assert_eq!(crc2, crc32c::crc32c(&payload_bytes[192 * 1024..384 * 1024]));
-    let crc3 = crc32c::crc32c(&buf3);
-    assert_eq!(crc3, crc32c::crc32c(&payload_bytes[384 * 1024..512 * 1024]));
+    for ((offset, len), buf) in ranges.into_iter().zip(buffers) {
+        let (start, end) = (offset as usize, (offset + len) as usize);
+        assert_eq!(buf, &payload.as_bytes()[start..end], "range {start}..{end}");
+    }
 
     println!("  test_multiple_ranged_read ok");
     Ok(())
@@ -456,9 +437,7 @@ async fn test_read_post_stream_close(clients: &Clients, bucket_name: &str) -> an
     println!("  test_read_post_stream_close ...");
     let payload = String::from_iter(('a'..='z').cycle().take(100_000));
     let object_name = format!("bidi_read/post_close_source_{}.txt", random_bucket_id());
-
-    let object_name =
-        write_test_object(clients, bucket_name, &object_name, payload.clone(), false).await?;
+    write_test_object(clients, bucket_name, &object_name, payload.clone(), false).await?;
 
     let descriptor = clients
         .grpc
@@ -471,7 +450,7 @@ async fn test_read_post_stream_close(clients: &Clients, bucket_name: &str) -> an
     while let Some(chunk) = reader.next().await.transpose()? {
         data.extend_from_slice(&chunk);
     }
-    assert_eq!(data.len(), 100);
+    assert_eq!(data, &payload.as_bytes()[0..100]);
 
     // A finished reader keeps returning `None`.
     assert!(reader.next().await.is_none());
@@ -481,12 +460,8 @@ async fn test_read_post_stream_close(clients: &Clients, bucket_name: &str) -> an
     let unconsumed_reader = descriptor.read_range(ReadRange::segment(500, 10_000)).await;
     drop(unconsumed_reader);
 
-    let mut subsequent_reader = descriptor.read_range(ReadRange::segment(200, 50)).await;
-    let mut subsequent_data = Vec::new();
-    while let Some(chunk) = subsequent_reader.next().await.transpose()? {
-        subsequent_data.extend_from_slice(&chunk);
-    }
-    assert_eq!(subsequent_data.len(), 50);
+    let subsequent_data =
+        drain_reader(descriptor.read_range(ReadRange::segment(200, 50)).await).await?;
     assert_eq!(subsequent_data, &payload.as_bytes()[200..250]);
 
     println!("  test_read_post_stream_close ok");
@@ -509,29 +484,76 @@ async fn test_non_existent_bucket_read(clients: &Clients) -> anyhow::Result<()> 
     match result {
         Ok(descriptor) => {
             let mut reader = descriptor.read_range(ReadRange::head(100)).await;
-            let read_res = reader.next().await;
-            match read_res {
-                Some(Err(err)) => {
-                    assert_is_not_found(&err);
-                }
+            match reader.next().await {
+                Some(Err(err)) => assert_is_not_found(&err),
                 other => anyhow::bail!("expected NotFound error on read_range, got {other:?}"),
             }
         }
-        Err(err) => {
-            assert_is_not_found(&err);
-        }
+        Err(err) => assert_is_not_found(&err),
     }
 
     println!("  test_non_existent_bucket_read ok");
     Ok(())
 }
 
+async fn test_out_of_range(clients: &Clients, bucket_name: &str) -> anyhow::Result<()> {
+    println!("  test_out_of_range ...");
+    let payload = String::from_iter(('a'..='z').cycle().take(10_000));
+    let object_name = format!("bidi_read/out_of_range_source_{}.txt", random_bucket_id());
+    write_test_object(clients, bucket_name, &object_name, payload.clone(), false).await?;
+
+    let descriptor = clients
+        .grpc
+        .open_object(bucket_name, &object_name)
+        .send()
+        .await?;
+
+    let valid_data = drain_reader(descriptor.read_range(ReadRange::head(50)).await).await?;
+    assert_eq!(valid_data, &payload.as_bytes()[0..50]);
+
+    // The object is only 10,000 bytes.
+    let mut oob_reader = descriptor
+        .read_range(ReadRange::segment(50_000, 1_000))
+        .await;
+
+    match oob_reader.next().await {
+        None => println!("    out-of-range read returned immediate EOF"),
+        Some(Err(err)) => {
+            let Some(status) = find_rpc_status(&err) else {
+                anyhow::bail!("expected an RPC status for out of range read, got {err:?}");
+            };
+            println!(
+                "    got expected error: {:?}: {}",
+                status.code, status.message
+            );
+            assert!(
+                matches!(status.code, Code::OutOfRange | Code::InvalidArgument),
+                "unexpected status for out of range read: {status:?}"
+            );
+        }
+        Some(Ok(data)) => anyhow::bail!(
+            "unexpected data returned for out of range read: {} bytes",
+            data.len()
+        ),
+    }
+
+    println!("  test_out_of_range ok");
+    Ok(())
+}
+
+async fn drain_reader(mut reader: ReadObjectResponse) -> anyhow::Result<Vec<u8>> {
+    let mut buf = Vec::new();
+    while let Some(chunk) = reader.next().await.transpose()? {
+        buf.extend_from_slice(&chunk);
+    }
+    Ok(buf)
+}
+
 /// Also accepts `PermissionDenied` (allowlist check).
-fn assert_is_not_found(err: &google_cloud_gax::error::Error) {
-    if let Some(status) = err.status() {
+fn assert_is_not_found(err: &Error) {
+    if let Some(status) = find_rpc_status(err) {
         assert!(
-            status.code == google_cloud_gax::error::rpc::Code::NotFound
-                || status.code == google_cloud_gax::error::rpc::Code::PermissionDenied,
+            matches!(status.code, Code::NotFound | Code::PermissionDenied),
             "expected NotFound or PermissionDenied rpc code, got {status:?}"
         );
     } else if let Some(code) = err.http_status_code() {
@@ -544,81 +566,8 @@ fn assert_is_not_found(err: &google_cloud_gax::error::Error) {
     }
 }
 
-async fn test_out_of_range(clients: &Clients, bucket_name: &str) -> anyhow::Result<()> {
-    println!("  test_out_of_range ...");
-    let payload = String::from_iter(('a'..='z').cycle().take(10_000));
-    let object_name = format!("bidi_read/out_of_range_source_{}.txt", random_bucket_id());
-
-    let object_name =
-        write_test_object(clients, bucket_name, &object_name, payload.clone(), false).await?;
-
-    let descriptor = clients
-        .grpc
-        .open_object(bucket_name, &object_name)
-        .send()
-        .await?;
-
-    let mut valid_reader = descriptor.read_range(ReadRange::head(50)).await;
-    let mut valid_data = Vec::new();
-    while let Some(chunk) = valid_reader.next().await.transpose()? {
-        valid_data.extend_from_slice(&chunk);
-    }
-    assert_eq!(valid_data.len(), 50);
-    assert_eq!(valid_data, &payload.as_bytes()[0..50]);
-
-    // The object is only 10,000 bytes.
-    let mut oob_reader = descriptor
-        .read_range(ReadRange::segment(50_000, 1_000))
-        .await;
-
-    let oob_res = oob_reader.next().await;
-    match oob_res {
-        None => {
-            println!("    out-of-range read returned immediate EOF");
-        }
-        Some(Err(err)) => match find_rpc_status(&err) {
-            Some(status) => {
-                println!(
-                    "    got expected error: {:?}: {}",
-                    status.code, status.message
-                );
-                assert!(
-                    matches!(
-                        status.code,
-                        google_cloud_gax::error::rpc::Code::OutOfRange
-                            | google_cloud_gax::error::rpc::Code::InvalidArgument
-                    ),
-                    "unexpected status for out of range read: {status:?}"
-                );
-            }
-            None => {
-                let err_str = format!("{err:?}");
-                assert!(
-                    err_str.contains("OUT_OF_RANGE")
-                        || err_str.contains("OutOfRange")
-                        || err_str.contains("InvalidArgument"),
-                    "unexpected error message for out of range: {err_str}"
-                );
-                println!("    got expected error: {err}");
-            }
-        },
-        Some(Ok(data)) => {
-            anyhow::bail!(
-                "unexpected data returned for out of range read: {} bytes",
-                data.len()
-            );
-        }
-    }
-
-    println!("  test_out_of_range ok");
-    Ok(())
-}
-
 /// Bidi read errors wrap the service error, so this searches the source chain for the status.
-fn find_rpc_status(
-    err: &google_cloud_gax::error::Error,
-) -> Option<google_cloud_gax::error::rpc::Status> {
-    use google_cloud_gax::error::Error;
+fn find_rpc_status(err: &Error) -> Option<Status> {
     let mut current: Option<&(dyn std::error::Error + 'static)> = Some(err);
     while let Some(e) = current {
         let gax_err = e.downcast_ref::<Error>().or_else(|| {
@@ -631,12 +580,4 @@ fn find_rpc_status(
         current = e.source();
     }
     None
-}
-
-async fn drain_reader(mut reader: ReadObjectResponse) -> anyhow::Result<Vec<u8>> {
-    let mut buf = Vec::new();
-    while let Some(chunk) = reader.next().await.transpose()? {
-        buf.extend_from_slice(&chunk);
-    }
-    Ok(buf)
 }
