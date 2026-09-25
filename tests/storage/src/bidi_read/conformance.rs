@@ -12,10 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Cross-SDK Conformance Tests for Bidirectional Read (Test Suite 1).
-//!
-//! Implements the formal test cases specified in the GCS Bidirectional Read
-//! specification and the Rapid Cache Ultra (RCU) integration testing matrix.
+//! Cross-SDK conformance tests for bidirectional reads.
 
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 use google_cloud_gax::options::RequestOptionsBuilder as _;
@@ -35,34 +32,22 @@ use google_cloud_test_utils::resource_names::random_bucket_id;
 use google_cloud_test_utils::runtime_config::{project_id, region_id, zone_id};
 use std::time::Duration;
 
-/// Default preprod endpoints for GCS conformance tests.
-/// `PREPROD_GRPC_ENDPOINT` serves gRPC (`BidiReadObject`, `BidiWriteObject`, and `StorageControl`).
-/// `PREPROD_HTTP_ENDPOINT` (`storage-preprod-test-unified`) serves HTTP JSON REST uploads (`write_object`)
-/// within the exact same preprod storage universe.
+/// Preprod gRPC endpoint, used for bidi reads/writes and `StorageControl`.
 const PREPROD_GRPC_ENDPOINT: &str = "https://storage-preprod-test-grpc.googleusercontent.com:443";
+/// Preprod HTTP endpoint, used for JSON uploads.
 const PREPROD_HTTP_ENDPOINT: &str = "https://storage-preprod-test-unified.googleusercontent.com";
 
-/// Runs the entire cross-SDK Bidirectional Read conformance test suite,
-/// provisioning the minimal set of 4 buckets (1 per supported bucket topology).
-///
-/// Regional Rapid (RCU) is only exercised with HNS enabled: GCS rejects
-/// `CreateRapidCache` on flat buckets with `FAILED_PRECONDITION` ("Rapid Cache
-/// Ultra is only supported in hierarchical namespace buckets").
-///
-/// Whether the Zonal Rapid and Regional Rapid (RCU) tests run in a `colocated`
-/// (`VM_zone == us-central1-a`) or `non-colocated` (`VM_zone != us-central1-a`)
-/// topology depends on the zone of the GCE VM executing the test suite.
+/// Runs the bidi read conformance tests against each supported bucket type.
 pub async fn run() -> anyhow::Result<()> {
     println!("\n=== Running Bidi Read Conformance Suite ===");
 
     let clients = &Clients::new().await?;
     cleanup_stale_buckets(&clients.control).await;
 
-    // Test 4 needs no bucket.
     println!("\n### No bucket");
     test_non_existent_bucket_read(clients).await?;
 
-    // Tests 2 and 5 do not depend on the bucket type, so they share the flat standard bucket.
+    // Tests that don't depend on the bucket type run once, on this bucket.
     with_bucket(
         clients,
         BucketType::RegionalStandard { hns: false },
@@ -81,7 +66,7 @@ pub async fn run() -> anyhow::Result<()> {
     )
     .await?;
 
-    // Zonal Rapid (`RAPID`) buckets only accept appendable objects written over gRPC.
+    // Zonal Rapid buckets only accept appendable objects.
     with_bucket(clients, BucketType::ZonalRapid, |bucket| async move {
         test_multiple_ranged_read(clients, &bucket, true).await
     })
@@ -96,25 +81,19 @@ pub async fn run() -> anyhow::Result<()> {
     Ok(())
 }
 
-// -----------------------------------------------------------------------------
-// Clients
-// -----------------------------------------------------------------------------
-
-/// All clients used by the suite, built once in `run()`.
+/// Clients shared by all tests.
 struct Clients {
-    /// Preprod gRPC data client: `open_object` (`BidiReadObject`) and
-    /// `open_appendable_object` (`BidiWriteObject`).
+    /// Bidi reads and appendable writes.
     grpc: Storage,
-    /// Preprod HTTP data client: JSON `write_object` uploads.
+    /// JSON uploads.
     http: Storage,
-    /// Preprod `StorageControl` client: bucket, object, folder and cache management.
+    /// Bucket, object, folder and cache management.
     control: StorageControl,
 }
 
 impl Clients {
-    /// Data clients use their preprod default unless `GOOGLE_CLOUD_TEST_STORAGE_ENDPOINT` is set;
-    /// the control client uses `PREPROD_GRPC_ENDPOINT` unless
-    /// `GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT` is set.
+    /// `GOOGLE_CLOUD_TEST_STORAGE_ENDPOINT` overrides both data clients' endpoint, and
+    /// `GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT` overrides the control client's.
     async fn new() -> anyhow::Result<Self> {
         Ok(Self {
             grpc: build_storage_client(PREPROD_GRPC_ENDPOINT).await?,
@@ -150,18 +129,10 @@ async fn build_storage_control_client() -> anyhow::Result<StorageControl> {
     Ok(client)
 }
 
-// -----------------------------------------------------------------------------
-// Bucket lifecycle
-// -----------------------------------------------------------------------------
-
-/// The bucket topologies exercised by the suite.
 #[derive(Clone, Copy, Debug)]
 enum BucketType {
-    /// Regional bucket, `STANDARD` storage class.
     RegionalStandard { hns: bool },
-    /// Zonal bucket in `zone_id()`, `RAPID` storage class; GCS requires HNS.
     ZonalRapid,
-    /// Regional HNS bucket with a `rapid-cache-ultra` cache in `zone_id()`; GCS requires HNS.
     RegionalRapid,
 }
 
@@ -171,13 +142,14 @@ impl BucketType {
             Self::RegionalStandard { hns: false } => "Regional Standard (flat)",
             Self::RegionalStandard { hns: true } => "Regional Standard (HNS)",
             Self::ZonalRapid => "Zonal Rapid",
-            Self::RegionalRapid => "Regional Rapid / RCU (HNS)",
+            Self::RegionalRapid => "Regional Rapid (HNS)",
         }
     }
 
     fn hns(self) -> bool {
         match self {
             Self::RegionalStandard { hns } => hns,
+            // Zonal Rapid and Regional Rapid are only supported with HNS enabled.
             Self::ZonalRapid | Self::RegionalRapid => true,
         }
     }
@@ -187,8 +159,7 @@ impl BucketType {
     }
 }
 
-/// Creates a bucket of `bucket_type`, runs `f` with its name, then cleans the bucket up,
-/// even if `f` failed.
+/// Creates a bucket, runs `f` on it, and deletes the bucket even if `f` fails.
 async fn with_bucket<F, Fut>(clients: &Clients, bucket_type: BucketType, f: F) -> anyhow::Result<()>
 where
     F: FnOnce(String) -> Fut,
@@ -207,8 +178,7 @@ where
     result
 }
 
-/// Creates a bucket of `bucket_type`. For `RegionalRapid`, also attaches the cache; if that
-/// fails, the bucket is deleted before the error is returned.
+/// For Regional Rapid, also attaches the cache, and deletes the bucket if that fails.
 async fn create_bucket(
     control: &StorageControl,
     bucket_type: BucketType,
@@ -256,7 +226,7 @@ async fn create_bucket(
             .until_done()
             .await;
         if let Err(e) = attached {
-            // The LRO may fail after the cache was (partially) created, so check for caches too.
+            // The cache may have been partially created.
             let _ = cleanup_bucket(control, &bucket.name, true, true).await;
             return Err(e.into());
         }
@@ -265,18 +235,14 @@ async fn create_bucket(
     Ok(bucket)
 }
 
-/// Cleans up a bucket in preprod by:
-/// 1. Disabling any attached `RapidCache` instances via `disable_rapid_cache()` (if `has_rapid_cache` is true).
-/// 2. Deleting all objects (including versions) in the bucket.
-/// 3. Deleting any HNS folders / managed folders (if `is_hns` is true).
-/// 4. Deleting the bucket itself.
+/// Deletes a bucket and everything in it. `has_rapid_cache` and `is_hns` skip the
+/// steps that don't apply to the bucket.
 async fn cleanup_bucket(
     control: &StorageControl,
     bucket_name: &str,
     has_rapid_cache: bool,
     is_hns: bool,
 ) -> anyhow::Result<()> {
-    // 1. Disable any Rapid Caches via DisableRapidCache (only when attached)
     if has_rapid_cache {
         let mut rapid_caches = control
             .list_rapid_caches()
@@ -291,8 +257,7 @@ async fn cleanup_bucket(
                 .until_done()
                 .await;
             if let Err(e) = res {
-                // Ignore b/565175323: DisableRapidCache succeeds on the server, but returns an empty LRO response,
-                // causing the client LRO poller to report "neither result nor error set in LRO result".
+                // b/565175323: the cache is disabled, but the LRO returns an empty result.
                 let err_str = format!("{e:?}");
                 if !err_str.contains("neither result nor error set in LRO result") {
                     tracing::warn!("disable_rapid_cache on {} returned: {e:?}", cache.name);
@@ -301,7 +266,6 @@ async fn cleanup_bucket(
         }
     }
 
-    // 2. Delete all objects in the bucket (required before bucket deletion)
     let mut objects = control
         .list_objects()
         .set_parent(bucket_name)
@@ -317,7 +281,6 @@ async fn cleanup_bucket(
             .await;
     }
 
-    // 3. Delete any HNS folders / managed folders if present (only when HNS is enabled)
     if is_hns {
         let mut managed_folders = control
             .list_managed_folders()
@@ -336,7 +299,6 @@ async fn cleanup_bucket(
         }
     }
 
-    // 4. Delete the bucket
     if let Err(e) = control
         .delete_bucket()
         .set_name(bucket_name)
@@ -350,7 +312,7 @@ async fn cleanup_bucket(
     Ok(())
 }
 
-/// Cleans up stale (>48h old) `integration-test=true` buckets in the project using `cleanup_bucket`.
+/// Deletes `integration-test=true` buckets older than 48 hours.
 async fn cleanup_stale_buckets(control: &StorageControl) {
     use std::time::{SystemTime, UNIX_EPOCH};
     let Ok(project_id) = project_id() else {
@@ -378,26 +340,19 @@ async fn cleanup_stale_buckets(control: &StorageControl) {
         }
     }
     if !stale.is_empty() {
-        println!(
-            "cleaning up {} stale buckets (with DisableRapidCache)",
-            stale.len()
-        );
+        println!("cleaning up {} stale buckets", stale.len());
         for name in stale {
-            // Stale buckets from prior runs may be of any type; check both caches and folders.
+            // Stale buckets may be of any type.
             let _ = cleanup_bucket(control, &name, true, true).await;
         }
     }
 }
 
-/// Seeds a test object into `bucket_name` in preprod and returns its name.
+/// Uploads a test object and returns its name.
 ///
-/// Each bucket type accepts exactly one of the two upload paths (go/gcs-rapid-behavior-matrix),
-/// so the caller selects it via `appendable`:
-/// - `false`: JSON `write_object` via `clients.http` (`PREPROD_HTTP_ENDPOINT`). Use for
-///   `STANDARD` buckets (Regional Standard and Regional Rapid / RCU), which reject appendable writes.
-/// - `true`: gRPC `open_appendable_object` (`BidiWriteObject`) via `clients.grpc`
-///   (`PREPROD_GRPC_ENDPOINT`). Use for Zonal Rapid (`RAPID`) buckets, which reject JSON uploads.
-///   Requires `--cfg google_cloud_unstable_storage_bidi`.
+/// Set `appendable` for Zonal Rapid buckets, which only accept appendable objects; other
+/// buckets only accept regular uploads. Appendable uploads need
+/// `--cfg google_cloud_unstable_storage_bidi`.
 async fn write_test_object(
     clients: &Clients,
     bucket_name: &str,
@@ -431,24 +386,12 @@ async fn write_test_object(
     Ok(object.name)
 }
 
-// -----------------------------------------------------------------------------
-// Test Cases
-// -----------------------------------------------------------------------------
-
-/// Test Suite 1 - Test 1: Multiple Ranged Read
-///
-/// Tests reading an object across multiple concurrent range read streams over the
-/// bidirectional gRPC stream session. Validates that concurrent streams drain properly
-/// without deadlock, all received bytes match the expected slices, total length matches,
-/// and CRC32C checksum integrity across all ranges matches.
-///
-/// `appendable` selects how the source object is seeded; see `write_test_object`.
 async fn test_multiple_ranged_read(
     clients: &Clients,
     bucket_name: &str,
     appendable: bool,
 ) -> anyhow::Result<()> {
-    println!("  [Test 1] Multiple Ranged Read ...");
+    println!("  test_multiple_ranged_read ...");
     const TOTAL_SIZE: usize = 512 * 1024;
     let payload = String::from_iter(('a'..='z').cycle().take(TOTAL_SIZE));
     let object_name = format!("bidi_read/multi_range_source_{}.txt", random_bucket_id());
@@ -468,11 +411,7 @@ async fn test_multiple_ranged_read(
         .send()
         .await?;
 
-    // Define 4 non-overlapping segments covering the entire 512 KiB object:
-    // Range 0: [0..64 KiB] (64 KiB)
-    // Range 1: [64 KiB..192 KiB] (128 KiB)
-    // Range 2: [192 KiB..384 KiB] (192 KiB)
-    // Range 3: [384 KiB..512 KiB] (128 KiB)
+    // Four non-overlapping ranges covering the whole object.
     let range0 = ReadRange::segment(0, 64 * 1024);
     let range1 = ReadRange::segment(64 * 1024, 128 * 1024);
     let range2 = ReadRange::segment(192 * 1024, 192 * 1024);
@@ -483,8 +422,7 @@ async fn test_multiple_ranged_read(
     let r2 = descriptor.read_range(range2).await;
     let r3 = descriptor.read_range(range3).await;
 
-    // Concurrent draining is essential: all ranges share the underlying gRPC stream,
-    // so sequential awaiting would cause buffer starvation and backpressure deadlocks.
+    // The ranges share one stream, so they must be drained concurrently to avoid a deadlock.
     let (buf0, buf1, buf2, buf3) = tokio::try_join!(
         drain_reader(r0),
         drain_reader(r1),
@@ -510,22 +448,15 @@ async fn test_multiple_ranged_read(
     let crc3 = crc32c::crc32c(&buf3);
     assert_eq!(crc3, crc32c::crc32c(&payload_bytes[384 * 1024..512 * 1024]));
 
-    println!("  [Test 1] PASSED (512 KiB across 4 concurrent ranges)");
+    println!("  test_multiple_ranged_read ok");
     Ok(())
 }
 
-/// Test Suite 1 - Test 2: Read Post Stream Close
-///
-/// Verifies stream lifecycle and session isolation:
-/// 1. Verifies that once a range reader reaches EOF, subsequent calls to next() idempotently return None.
-/// 2. Verifies that dropping an in-flight reader (aborting the range) leaves the underlying ObjectDescriptor
-///    healthy and able to issue and read new ranges successfully.
 async fn test_read_post_stream_close(clients: &Clients, bucket_name: &str) -> anyhow::Result<()> {
-    println!("  [Test 2] Read Post Stream Close ...");
+    println!("  test_read_post_stream_close ...");
     let payload = String::from_iter(('a'..='z').cycle().take(100_000));
     let object_name = format!("bidi_read/post_close_source_{}.txt", random_bucket_id());
 
-    // Runs on the Regional Standard (flat) bucket, so seed with a JSON upload.
     let object_name =
         write_test_object(clients, bucket_name, &object_name, payload.clone(), false).await?;
 
@@ -535,7 +466,6 @@ async fn test_read_post_stream_close(clients: &Clients, bucket_name: &str) -> an
         .send()
         .await?;
 
-    // 1. Read small range to completion (EOF)
     let mut reader = descriptor.read_range(ReadRange::head(100)).await;
     let mut data = Vec::new();
     while let Some(chunk) = reader.next().await.transpose()? {
@@ -543,15 +473,14 @@ async fn test_read_post_stream_close(clients: &Clients, bucket_name: &str) -> an
     }
     assert_eq!(data.len(), 100);
 
-    // Verify idempotency of EOF: next() must consistently return None
+    // A finished reader keeps returning `None`.
     assert!(reader.next().await.is_none());
     assert!(reader.next().await.is_none());
 
-    // 2. Cancellation / abort: drop an in-flight reader without reading it to completion
+    // Dropping an unfinished reader must not break the descriptor.
     let unconsumed_reader = descriptor.read_range(ReadRange::segment(500, 10_000)).await;
     drop(unconsumed_reader);
 
-    // 3. Verify descriptor session remains fully functional for subsequent reads
     let mut subsequent_reader = descriptor.read_range(ReadRange::segment(200, 50)).await;
     let mut subsequent_data = Vec::new();
     while let Some(chunk) = subsequent_reader.next().await.transpose()? {
@@ -560,16 +489,12 @@ async fn test_read_post_stream_close(clients: &Clients, bucket_name: &str) -> an
     assert_eq!(subsequent_data.len(), 50);
     assert_eq!(subsequent_data, &payload.as_bytes()[200..250]);
 
-    println!("  [Test 2] PASSED");
+    println!("  test_read_post_stream_close ok");
     Ok(())
 }
 
-/// Test Suite 1 - Test 4: Non-Existent Bucket Read
-///
-/// Tests opening a stream on a non-existent bucket. Verifies that an appropriate
-/// error with NotFound status (HTTP 404) or PermissionDenied (allowlist check) is returned.
 async fn test_non_existent_bucket_read(clients: &Clients) -> anyhow::Result<()> {
-    println!("  [Test 4] Non-Existent Bucket Read ...");
+    println!("  test_non_existent_bucket_read ...");
     let non_existent_bucket = format!(
         "projects/_/buckets/non-existent-bucket-{}",
         random_bucket_id()
@@ -597,10 +522,11 @@ async fn test_non_existent_bucket_read(clients: &Clients) -> anyhow::Result<()> 
         }
     }
 
-    println!("  [Test 4] PASSED");
+    println!("  test_non_existent_bucket_read ok");
     Ok(())
 }
 
+/// Also accepts `PermissionDenied` (allowlist check).
 fn assert_is_not_found(err: &google_cloud_gax::error::Error) {
     if let Some(status) = err.status() {
         assert!(
@@ -618,17 +544,11 @@ fn assert_is_not_found(err: &google_cloud_gax::error::Error) {
     }
 }
 
-/// Test Suite 1 - Test 5: Out Of Range Read
-///
-/// Tests out-of-bounds range reads beyond object size (offset > size).
-/// Ensures appropriate exception/EOF is returned for the invalid range while valid range reads
-/// on the same session succeed.
 async fn test_out_of_range(clients: &Clients, bucket_name: &str) -> anyhow::Result<()> {
-    println!("  [Test 5] Out Of Range Read ...");
+    println!("  test_out_of_range ...");
     let payload = String::from_iter(('a'..='z').cycle().take(10_000));
     let object_name = format!("bidi_read/out_of_range_source_{}.txt", random_bucket_id());
 
-    // Runs on the Regional Standard (flat) bucket, so seed with a JSON upload.
     let object_name =
         write_test_object(clients, bucket_name, &object_name, payload.clone(), false).await?;
 
@@ -638,7 +558,6 @@ async fn test_out_of_range(clients: &Clients, bucket_name: &str) -> anyhow::Resu
         .send()
         .await?;
 
-    // 1. Session verification: Verify that a valid range read on this descriptor succeeds
     let mut valid_reader = descriptor.read_range(ReadRange::head(50)).await;
     let mut valid_data = Vec::new();
     while let Some(chunk) = valid_reader.next().await.transpose()? {
@@ -647,7 +566,7 @@ async fn test_out_of_range(clients: &Clients, bucket_name: &str) -> anyhow::Resu
     assert_eq!(valid_data.len(), 50);
     assert_eq!(valid_data, &payload.as_bytes()[0..50]);
 
-    // 2. Request an out-of-bounds range: offset 50,000 when object size is only 10,000 bytes
+    // The object is only 10,000 bytes.
     let mut oob_reader = descriptor
         .read_range(ReadRange::segment(50_000, 1_000))
         .await;
@@ -691,14 +610,11 @@ async fn test_out_of_range(clients: &Clients, bucket_name: &str) -> anyhow::Resu
         }
     }
 
-    println!("  [Test 5] PASSED");
+    println!("  test_out_of_range ok");
     Ok(())
 }
 
-/// Returns the first RPC status found in `err` or its source chain.
-///
-/// Bidi read failures surface as a transport error that wraps the service error
-/// (as `Arc<Error>`), so the status is not on the outermost error.
+/// Bidi read errors wrap the service error, so this searches the source chain for the status.
 fn find_rpc_status(
     err: &google_cloud_gax::error::Error,
 ) -> Option<google_cloud_gax::error::rpc::Status> {
