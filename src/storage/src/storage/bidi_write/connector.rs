@@ -1143,22 +1143,21 @@ mod tests {
 
     #[tokio::test]
     async fn reconnect_with_redirect_status_updates_spec() -> Result<()> {
-        // Arrange.
+        // Arrange: use `NeverRetry` so this test also verifies redirects are followed when normal
+        // retries are disabled.
         let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
         let stream = TonicResponse::from(rx);
 
-        let receivers = Arc::new(Mutex::new(Vec::new()));
-        let save = receivers.clone();
         let mut mock = MockTestClient::new();
         mock.expect_start()
             .times(1)
-            .return_once(move |_, _, rx, _, _, params| {
-                assert!(params.contains("routing_token=new-token"));
-                save.lock().expect("never poisoned").push(rx);
+            .return_once(move |_, _, _, _, _, params| {
+                assert!(params.contains("routing_token=new-token"), "{params}");
                 Ok(Ok(stream))
             });
-        let client = SharedMockClient::new(mock);
-        let mut connector = Connector::new(test_options(), client);
+        let mut options = test_options();
+        options.retry_policy = Arc::new(NeverRetry);
+        let mut connector = Connector::new(options, SharedMockClient::new(mock));
 
         let initial_spec = AppendObjectSpec {
             bucket: "projects/_/buckets/test-bucket".into(),
@@ -1462,46 +1461,6 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn reconnect_follows_redirect_even_when_retries_are_disabled() -> Result<()> {
-        // Arrange.
-        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
-        let stream = TonicResponse::from(rx);
-        let mut mock = MockTestClient::new();
-        mock.expect_start()
-            .times(1)
-            .return_once(move |_, _, _, _, _, params| {
-                assert!(params.contains("routing_token=new-token"), "{params}");
-                Ok(Ok(stream))
-            });
-        let mut options = test_options();
-        options.retry_policy = Arc::new(NeverRetry);
-        let mut connector = Connector::new(options, SharedMockClient::new(mock));
-        connector.set_spec_state(AppendObjectSpecState::Append {
-            spec: AppendObjectSpec {
-                bucket: "projects/_/buckets/test-bucket".into(),
-                object: "test-object".into(),
-                generation: 1,
-                ..Default::default()
-            },
-            initial_chunk: None,
-        });
-        tx.send(Ok(BidiWriteObjectResponse::default())).await?;
-
-        // Act.
-        // `NeverRetry` reports every error as exhausted, but a redirect is a routing change rather
-        // than a retry, so it must still be followed.
-        connector.reconnect(redirect_error("new-token"), 0).await?;
-
-        // Assert.
-        let guard = connector.spec.lock().expect("never poisoned");
-        let AppendObjectSpecState::Append { spec, .. } = &*guard else {
-            panic!("Expected AppendObjectSpecState::Append");
-        };
-        assert_eq!(spec.routing_token.as_deref(), Some("new-token"));
-        Ok(())
-    }
-
-    #[tokio::test]
     async fn reconnect_gives_up_on_transient_error_when_retries_are_disabled() -> Result<()> {
         // Arrange.
         let mut mock = MockTestClient::new();
@@ -1525,7 +1484,7 @@ mod tests {
         let observed = attempts.clone();
         let mut mock = MockTestClient::new();
         mock.expect_start()
-            .times(0..)
+            .times(MAX_REDIRECTS_FOLLOWED as usize)
             .returning(move |_, _, _, _, _, _| {
                 *attempts.lock().expect("never poisoned") += 1;
                 Ok(Err(redirect_status("loop-token")))
@@ -1543,23 +1502,18 @@ mod tests {
             initial_chunk: None,
         });
 
-        // Act.
-        let result = tokio::time::timeout(
-            Duration::from_secs(30),
-            connector.reconnect(redirect_error("seed-token"), 0),
-        )
-        .await;
+        // Act: `seed-token` consumes redirect #1; attempts 1 and 2 consume redirects #2 and #3;
+        // attempt 3 hits `MAX_REDIRECTS_FOLLOWED` (`3`) and stops.
+        let err = connector
+            .reconnect(redirect_error("seed-token"), 0)
+            .await
+            .unwrap_err();
 
         // Assert.
-        let err = result
-            .expect("the redirect budget must stop the loop")
-            .unwrap_err();
         assert!(!err.is_timeout(), "{err:?}");
-        let attempts = *observed.lock().expect("never poisoned");
-        assert!(
-            attempts <= MAX_REDIRECTS_FOLLOWED as usize,
-            "followed {attempts} redirects, expected at most {}",
-            MAX_REDIRECTS_FOLLOWED
+        assert_eq!(
+            *observed.lock().expect("never poisoned"),
+            MAX_REDIRECTS_FOLLOWED as usize
         );
         Ok(())
     }

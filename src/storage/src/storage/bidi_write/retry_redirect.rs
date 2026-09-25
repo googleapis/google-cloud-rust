@@ -120,30 +120,15 @@ mod tests {
         assert!(matches!(t, ThrottleResult::Continue(_)), "{t:?}");
     }
 
-    #[test]
-    fn retry_redirect_with_never_retry() {
-        use google_cloud_gax::retry_policy::NeverRetry;
-        // `NeverRetry` reports every error as exhausted, including redirects.
-        let inner: Arc<dyn RetryPolicy + 'static> = Arc::new(NeverRetry);
+    #[test_case::test_case(Arc::new(google_cloud_gax::retry_policy::NeverRetry), true ; "never_retry_exhausted")]
+    #[test_case::test_case(Arc::new(RetryableErrors), false ; "retryable_errors_permanent")]
+    #[test_case::test_case(Arc::new(google_cloud_gax::retry_policy::AlwaysRetry), true ; "always_retry_capped_as_exhausted")]
+    fn redirect_budget_stops_after_max_redirects(
+        inner: Arc<dyn RetryPolicy + 'static>,
+        expect_exhausted: bool,
+    ) {
         let p = RetryRedirect::new(inner);
 
-        let result = p.on_error(&RetryState::new(true), to_gax_error(redirect_status("r1")));
-        assert!(matches!(&result, RetryResult::Continue(_)), "{result:?}");
-
-        let result = p.on_error(&RetryState::new(true), transient_error());
-        assert!(matches!(&result, RetryResult::Exhausted(_)), "{result:?}");
-    }
-
-    #[test]
-    fn redirect_budget_reinstates_exhausted_verdict() {
-        use google_cloud_gax::retry_policy::NeverRetry;
-        // Arrange.
-        let inner: Arc<dyn RetryPolicy + 'static> = Arc::new(NeverRetry);
-        let p = RetryRedirect::new(inner);
-
-        // Act.
-        // Redirects within the budget are followed regardless of the inner verdict; the one past it
-        // is not.
         for i in 0..MAX_REDIRECTS_FOLLOWED {
             let result = p.on_error(&RetryState::new(true), to_gax_error(redirect_status("r1")));
             assert!(
@@ -151,51 +136,13 @@ mod tests {
                 "redirect {i}: {result:?}"
             );
         }
+
         let result = p.on_error(&RetryState::new(true), to_gax_error(redirect_status("r1")));
-
-        // Assert.
-        // `NeverRetry` reports errors as exhausted, so that is what stands.
-        assert!(matches!(&result, RetryResult::Exhausted(_)), "{result:?}");
-    }
-
-    #[test]
-    fn redirect_budget_reinstates_permanent_verdict() {
-        // Arrange.
-        // `RetryableErrors` treats the `Aborted` status carrying a redirect as permanent, so the
-        // budget must reinstate `Permanent` rather than rewriting the verdict.
-        let inner: Arc<dyn RetryPolicy + 'static> = Arc::new(RetryableErrors);
-        let p = RetryRedirect::new(inner);
-
-        // Act.
-        for _ in 0..MAX_REDIRECTS_FOLLOWED {
-            p.on_error(&RetryState::new(true), to_gax_error(redirect_status("r1")));
+        if expect_exhausted {
+            assert!(matches!(&result, RetryResult::Exhausted(_)), "{result:?}");
+        } else {
+            assert!(matches!(&result, RetryResult::Permanent(_)), "{result:?}");
         }
-        let result = p.on_error(&RetryState::new(true), to_gax_error(redirect_status("r1")));
-
-        // Assert.
-        assert!(matches!(&result, RetryResult::Permanent(_)), "{result:?}");
-    }
-
-    #[test]
-    fn redirect_budget_caps_continue_verdict() {
-        use google_cloud_gax::retry_policy::AlwaysRetry;
-        // Arrange.
-        // `AlwaysRetry` returns `Continue` for every error, including redirects.
-        let inner: Arc<dyn RetryPolicy + 'static> = Arc::new(AlwaysRetry);
-        let p = RetryRedirect::new(inner);
-
-        // Act.
-        for i in 0..MAX_REDIRECTS_FOLLOWED {
-            let result = p.on_error(&RetryState::new(true), to_gax_error(redirect_status("r1")));
-            assert!(
-                matches!(&result, RetryResult::Continue(_)),
-                "redirect {i}: {result:?}"
-            );
-        }
-        let result = p.on_error(&RetryState::new(true), to_gax_error(redirect_status("r1")));
-
-        // Assert.
-        assert!(matches!(&result, RetryResult::Exhausted(_)), "{result:?}");
     }
 
     #[test]
