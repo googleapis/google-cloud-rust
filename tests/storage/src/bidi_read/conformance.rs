@@ -98,7 +98,7 @@ impl Clients {
         Ok(Self {
             grpc: build_storage_client(PREPROD_GRPC_ENDPOINT).await?,
             http: build_storage_client(PREPROD_HTTP_ENDPOINT).await?,
-            control: build_storage_control_client().await?,
+            control: build_storage_control_client(PREPROD_GRPC_ENDPOINT).await?,
         })
     }
 }
@@ -109,9 +109,9 @@ async fn build_storage_client(default_endpoint: &str) -> anyhow::Result<Storage>
     Ok(Storage::builder().with_endpoint(endpoint).build().await?)
 }
 
-async fn build_storage_control_client() -> anyhow::Result<StorageControl> {
+async fn build_storage_control_client(default_endpoint: &str) -> anyhow::Result<StorageControl> {
     let endpoint = std::env::var("GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT")
-        .unwrap_or_else(|_| PREPROD_GRPC_ENDPOINT.to_string());
+        .unwrap_or_else(|_| default_endpoint.to_string());
     tracing::info!("StorageControl endpoint: {endpoint}");
 
     let client = StorageControl::builder()
