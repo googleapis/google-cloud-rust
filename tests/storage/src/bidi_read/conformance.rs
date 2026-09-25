@@ -51,6 +51,11 @@ pub async fn run() -> anyhow::Result<()> {
 
     let client = &build_storage_client().await?;
 
+    // Clean up any stale (>48h old) integration test buckets in preprod using `DisableRapidCache`.
+    if let (Ok(project), Ok(control)) = (project_id(), build_storage_control_client().await) {
+        cleanup_stale_buckets(&control, &project).await;
+    }
+
     // 0. Bucketless test case (Test 4)
     non_existent_bucket_read(client).await?;
 
@@ -136,7 +141,7 @@ where
 {
     let (control, bucket) = create_regional_standard_bucket(hns).await?;
     let result = f(bucket.name.clone()).await;
-    let _ = storage_samples::cleanup_bucket(control, bucket.name, bucket.project).await;
+    let _ = cleanup_bucket(control, bucket.name).await;
     result
 }
 
@@ -147,7 +152,7 @@ where
 {
     let (control, bucket) = create_zonal_rapid_bucket().await?;
     let result = f(bucket.name.clone()).await;
-    let _ = storage_samples::cleanup_bucket(control, bucket.name, bucket.project).await;
+    let _ = cleanup_bucket(control, bucket.name).await;
     result
 }
 
@@ -158,7 +163,7 @@ where
 {
     let (control, bucket) = create_regional_rapid_bucket(hns).await?;
     let result = f(bucket.name.clone()).await;
-    let _ = cleanup_regional_rapid_bucket(control, bucket.name, bucket.project).await;
+    let _ = cleanup_bucket(control, bucket.name).await;
     result
 }
 
@@ -166,7 +171,6 @@ async fn create_regional_standard_bucket(hns: bool) -> anyhow::Result<(StorageCo
     let project_id = project_id()?;
     let region = region_id();
     let control = build_storage_control_client().await?;
-    storage_samples::cleanup_stale_buckets(&control, &project_id).await;
 
     let bucket_id = random_bucket_id();
     let mut bucket = Bucket::new()
@@ -202,7 +206,6 @@ async fn create_zonal_rapid_bucket() -> anyhow::Result<(StorageControl, Bucket)>
     let region = region_id();
     let zone = zone_id();
     let control = build_storage_control_client().await?;
-    storage_samples::cleanup_stale_buckets(&control, &project_id).await;
 
     let bucket_id = random_bucket_id();
     let bucket = Bucket::new()
@@ -254,27 +257,100 @@ async fn create_regional_rapid_bucket(hns: bool) -> anyhow::Result<(StorageContr
     Ok((control, created_bucket))
 }
 
-async fn cleanup_regional_rapid_bucket(
-    control: StorageControl,
-    bucket_name: String,
-    project_id: String,
-) -> anyhow::Result<()> {
-    let mut caches = control
+/// Cleans up a bucket in preprod by:
+/// 1. Disabling any attached `RapidCache` instances via `disable_rapid_cache()` (NOT `disable_anywhere_cache()`).
+/// 2. Deleting all objects (including versions) and HNS folders in the bucket.
+/// 3. Deleting the bucket itself.
+async fn cleanup_bucket(control: StorageControl, bucket_name: String) -> anyhow::Result<()> {
+    // 1. Disable any Rapid Caches via DisableRapidCache
+    let mut rapid_caches = control
         .list_rapid_caches()
         .set_parent(&bucket_name)
         .by_item();
-    while let Some(item) = caches.next().await {
-        if let Ok(cache) = item {
-            tracing::info!("disabling rapid cache {}", cache.name);
-            let _ = control
-                .disable_rapid_cache()
-                .set_name(cache.name)
-                .poller()
-                .until_done()
-                .await;
+    while let Some(Ok(cache)) = rapid_caches.next().await {
+        println!("Disabling rapid cache: {}", cache.name);
+        if let Err(e) = control
+            .disable_rapid_cache()
+            .set_name(&cache.name)
+            .poller()
+            .until_done()
+            .await
+        {
+            tracing::warn!("disable_rapid_cache on {} returned: {e:?}", cache.name);
         }
     }
-    storage_samples::cleanup_bucket(control, bucket_name, project_id).await
+
+    // 2. Delete all objects in the bucket
+    let mut objects = control
+        .list_objects()
+        .set_parent(&bucket_name)
+        .set_versions(true)
+        .by_item();
+    while let Some(Ok(obj)) = objects.next().await {
+        let _ = control
+            .delete_object()
+            .set_bucket(obj.bucket)
+            .set_object(obj.name)
+            .set_generation(obj.generation)
+            .send()
+            .await;
+    }
+
+    // 3. Delete any HNS folders / managed folders if present
+    let mut managed_folders = control
+        .list_managed_folders()
+        .set_parent(&bucket_name)
+        .by_item();
+    while let Some(Ok(folder)) = managed_folders.next().await {
+        let _ = control.delete_managed_folder().set_name(folder.name).send().await;
+    }
+    let mut folders = control.list_folders().set_parent(&bucket_name).by_item();
+    while let Some(Ok(folder)) = folders.next().await {
+        let _ = control.delete_folder().set_name(folder.name).send().await;
+    }
+
+    // 4. Delete the bucket
+    if let Err(e) = control
+        .delete_bucket()
+        .set_name(&bucket_name)
+        .with_idempotency(true)
+        .send()
+        .await
+    {
+        println!("error deleting bucket {bucket_name}: {e:?}");
+        return Err(e.into());
+    }
+    Ok(())
+}
+
+/// Cleans up stale (>48h old) `integration-test=true` buckets in the project using `cleanup_bucket`
+/// (which calls `disable_rapid_cache` rather than `storage_samples`'s `disable_anywhere_cache`).
+async fn cleanup_stale_buckets(control: &StorageControl, project_id: &str) {
+    use std::time::{SystemTime, UNIX_EPOCH};
+    let Ok(now) = SystemTime::now().duration_since(UNIX_EPOCH) else {
+        return;
+    };
+    let stale_deadline = now.saturating_sub(Duration::from_secs(48 * 60 * 60));
+    let stale_deadline = google_cloud_wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
+
+    let mut buckets = control
+        .list_buckets()
+        .set_parent(format!("projects/{project_id}"))
+        .by_item();
+    let mut stale = Vec::new();
+    while let Some(Ok(bucket)) = buckets.next().await {
+        if bucket.labels.get("integration-test").is_some_and(|v| v == "true")
+            && bucket.create_time.is_some_and(|t| t < stale_deadline)
+        {
+            stale.push(bucket.name);
+        }
+    }
+    if !stale.is_empty() {
+        println!("cleaning up {} stale buckets (with DisableRapidCache)", stale.len());
+        for name in stale {
+            let _ = cleanup_bucket(control.clone(), name).await;
+        }
+    }
 }
 
 // -----------------------------------------------------------------------------
