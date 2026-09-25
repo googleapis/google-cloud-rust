@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::channel_pool::TransactionAffinity;
+use crate::channel_pool::{ChannelTarget, TransactionAffinity};
 use crate::client::{DatabaseClient, amend_request_options_for_lar};
 use crate::model::request_options::Priority;
 use crate::model::transaction_options::ReadWrite;
@@ -413,7 +413,6 @@ impl WriteOnlyTransaction {
         let client = self.client;
         let session_name = self.session_name.clone();
         let previous_transaction_id = Arc::new(Mutex::new(Bytes::new()));
-        let channel_hint = client.next_channel_hint();
         let affinity = Arc::new(TransactionAffinity::new_read_write());
 
         let max_commit_delay = self.max_commit_delay;
@@ -429,7 +428,7 @@ impl WriteOnlyTransaction {
             let previous_transaction_id = previous_transaction_id.clone();
             let begin_gax_options = begin_gax_options.clone();
             let commit_gax_options = commit_gax_options.clone();
-            let _affinity = Arc::clone(&affinity);
+            let affinity = Arc::clone(&affinity);
 
             async move {
                 let previous_id: Bytes = previous_transaction_id.lock().unwrap().clone();
@@ -449,8 +448,9 @@ impl WriteOnlyTransaction {
                     .set_request_options(req_options.clone())
                     .set_or_clear_mutation_key(mutation_key.clone());
 
+                let target = ChannelTarget::Affinity(&affinity);
                 let tx = client
-                    .begin_transaction(begin_req, begin_gax_options, channel_hint)
+                    .begin_transaction(begin_req, begin_gax_options, target)
                     .await?;
                 *previous_transaction_id.lock().unwrap() = tx.id.clone();
 
@@ -465,7 +465,7 @@ impl WriteOnlyTransaction {
                 );
 
                 let response = client
-                    .commit(commit_req, commit_gax_options.clone(), channel_hint)
+                    .commit(commit_req, commit_gax_options.clone(), target)
                     .await?;
 
                 // If a commit_response with a precommit_token is returned, then we need to
@@ -482,7 +482,7 @@ impl WriteOnlyTransaction {
                     );
 
                     client
-                        .commit(retry_commit_req, commit_gax_options, channel_hint)
+                        .commit(retry_commit_req, commit_gax_options, target)
                         .await
                 } else {
                     Ok(response)
@@ -545,7 +545,6 @@ impl WriteOnlyTransaction {
             .set_or_clear_max_commit_delay(self.max_commit_delay)
             .set_return_commit_stats(self.return_commit_stats);
         let client = self.client;
-        let channel_hint = client.next_channel_hint();
         let is_emulator = client.is_emulator();
 
         let action = || {
@@ -555,7 +554,7 @@ impl WriteOnlyTransaction {
 
             async move {
                 client
-                    .commit(request, commit_gax_options, channel_hint)
+                    .commit(request, commit_gax_options, ChannelTarget::Any)
                     .await
             }
         };

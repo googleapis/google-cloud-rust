@@ -12,29 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Dynamic Channel Pooling for Spanner.
+//! Channel pooling for Spanner.
 //!
 //! Provides capacity management, load-balanced channel selection (Power of Two Least Busy),
 //! health-aware error penalization, caller-owned transaction affinity pinning, and background
 //! scaling and priming for gRPC channels.
 
-// TODO(dynamic-channel-pooling): Remove allow(dead_code, unused_imports) once integrated into Spanner client.
-#![allow(dead_code)]
-#![allow(unused_imports)]
-
 pub(crate) mod affinity;
-pub(crate) mod config;
+mod config;
 pub(crate) mod entry;
 pub(crate) mod pool;
 pub(crate) mod scaler;
 
-#[allow(unused_imports)]
-pub(crate) use affinity::TransactionAffinity;
-#[allow(unused_imports)]
-pub(crate) use config::DynamicChannelPoolConfig;
-#[allow(unused_imports)]
-pub(crate) use config::{ChannelPoolConfig, StaticChannelPoolConfig};
-#[allow(unused_imports)]
+#[cfg(test)]
+mod integration_tests;
+
+pub use config::{
+    ChannelPoolConfig, ChannelSelectionStrategy, DynamicChannelPoolConfig, StaticChannelPoolConfig,
+};
+
+pub(crate) use affinity::{ChannelTarget, TransactionAffinity};
 pub(crate) use entry::ChannelLease;
-#[allow(unused_imports)]
 pub(crate) use pool::ChannelPool;
