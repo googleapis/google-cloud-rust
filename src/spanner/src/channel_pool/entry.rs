@@ -332,15 +332,6 @@ impl ChannelLease {
         self.guard
     }
 
-    /// Records the result of an RPC call and applies an error penalty if a qualifying error occurred.
-    pub(crate) fn record_result<T, E>(
-        &self,
-        result: &Result<T, E>,
-        extract_code: impl Fn(&E) -> Option<Code>,
-    ) {
-        self.guard.record_result(result, extract_code);
-    }
-
     /// Records the result of a standard GAX RPC call, extracting the gRPC status code if present.
     pub(crate) fn record_call_result<T>(&self, result: &crate::Result<T>) {
         self.guard

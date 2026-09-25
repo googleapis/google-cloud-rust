@@ -1207,6 +1207,8 @@ mod tests {
             config: ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig {
                 min_channels: 1,
                 max_channels: 4,
+                min_rpc_per_channel: 15.0,
+                max_rpc_per_channel: 25.0,
                 consecutive_low_load_checks: 1,
                 max_remove_channels: 1,
                 ..Default::default()

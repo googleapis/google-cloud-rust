@@ -524,6 +524,12 @@ impl DatabaseClient {
         BatchWriteTransactionBuilder::new(self.clone())
     }
 
+    /// Returns the number of currently active channels in the client's channel pool.
+    #[cfg(test)]
+    pub(crate) fn active_channel_count(&self) -> usize {
+        self.spanner.active_channel_count()
+    }
+
     pub(crate) fn session_name(&self) -> String {
         self.session_maintainer.session_name()
     }
@@ -1802,6 +1808,38 @@ mod tests {
         assert!(
             db_client_enabled.is_location_aware_routing_enabled(),
             "location-aware routing should be enabled when explicitly configured"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn database_client_active_channel_count() {
+        let mock = create_test_mock();
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await
+            .expect("default build should succeed");
+
+        assert_eq!(
+            database_client.active_channel_count(),
+            spanner.active_channel_count(),
+            "DatabaseClient active_channel_count must match Spanner active_channel_count"
+        );
+        assert_eq!(
+            database_client.active_channel_count(),
+            4,
+            "Default static pool must have 4 active channels"
         );
     }
 
@@ -3370,7 +3408,7 @@ mod tests {
     #[tokio_test_no_panics]
     async fn unary_rpc_error_records_penalty_on_leased_channel() {
         use crate::channel_pool::DynamicChannelPoolConfig;
-        use crate::client::SpannerPoolBuilderExt;
+        use crate::client::SpannerBuilderExt;
         use gaxi::grpc::tonic::Status;
         use google_cloud_gax::retry_policy::NeverRetry;
         use std::time::Duration;
@@ -3387,6 +3425,7 @@ mod tests {
             .with_initial_channels(1)
             .with_min_channels(1)
             .with_max_channels(2)
+            .with_max_rpc_per_channel(25.0)
             .with_error_penalty_step(15)
             .with_error_penalty_duration(Duration::from_secs(60));
 
@@ -3439,7 +3478,7 @@ mod tests {
     #[tokio_test_no_panics]
     async fn streaming_rpc_error_records_penalty_on_leased_channel() {
         use crate::channel_pool::DynamicChannelPoolConfig;
-        use crate::client::SpannerPoolBuilderExt;
+        use crate::client::SpannerBuilderExt;
         use gaxi::grpc::tonic::Status;
         use google_cloud_gax::retry_policy::NeverRetry;
         use std::time::Duration;
@@ -3456,6 +3495,7 @@ mod tests {
             .with_initial_channels(1)
             .with_min_channels(1)
             .with_max_channels(2)
+            .with_max_rpc_per_channel(25.0)
             .with_error_penalty_step(15)
             .with_error_penalty_duration(Duration::from_secs(60));
 

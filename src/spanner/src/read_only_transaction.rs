@@ -679,7 +679,6 @@ pub(crate) struct ExplicitBeginParams {
     pub(crate) is_stream_fallback: bool,
     pub(crate) precommit_token_tracker: PrecommitTokenTracker,
     pub(crate) mutation_key: Option<Mutation>,
-    #[allow(dead_code)]
     pub(crate) affinity: Option<Arc<TransactionAffinity>>,
 }
 

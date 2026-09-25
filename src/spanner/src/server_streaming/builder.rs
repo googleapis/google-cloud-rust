@@ -54,7 +54,6 @@ impl ExecuteStreamingSql {
     }
 
     /// Attaches an opaque RAII lifetime guard that remains alive for the duration of the stream.
-    #[allow(dead_code)]
     pub(crate) fn with_lifetime_guard(mut self, guard: StreamLifetimeGuard) -> Self {
         self.lifetime_guard = Some(guard);
         self
@@ -133,7 +132,6 @@ impl StreamingRead {
     }
 
     /// Attaches an opaque RAII lifetime guard that remains alive for the duration of the stream.
-    #[allow(dead_code)]
     pub(crate) fn with_lifetime_guard(mut self, guard: StreamLifetimeGuard) -> Self {
         self.lifetime_guard = Some(guard);
         self
@@ -161,7 +159,6 @@ impl StreamingRead {
     }
 
     /// Returns a reference to the request options.
-    #[allow(dead_code)]
     pub(crate) fn options(&self) -> &RequestOptions {
         &self.options
     }
@@ -271,7 +268,6 @@ impl FetchCacheUpdate {
     }
 
     /// Attaches an opaque RAII lifetime guard that remains alive for the duration of the stream.
-    #[allow(dead_code)]
     pub(crate) fn with_lifetime_guard(mut self, guard: StreamLifetimeGuard) -> Self {
         self.lifetime_guard = Some(guard);
         self

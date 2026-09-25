@@ -237,7 +237,6 @@ impl ReadWriteTransactionBuilder {
         })
     }
 
-    #[allow(dead_code)]
     pub(crate) fn with_affinity(mut self, affinity: Arc<TransactionAffinity>) -> Self {
         self.affinity = Some(affinity);
         self
