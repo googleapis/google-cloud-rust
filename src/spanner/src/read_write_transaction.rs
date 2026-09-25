@@ -14,8 +14,9 @@
 
 use crate::Error;
 use crate::RequestOptions;
+use crate::Result;
 use crate::batch::BatchDml;
-use crate::channel_pool::TransactionAffinity;
+use crate::channel_pool::{ChannelTarget, TransactionAffinity};
 use crate::client::amend_request_options_for_lar;
 use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
@@ -40,6 +41,7 @@ use crate::mutation::Mutation;
 use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::{
     BeginTransactionOption, ReadContext, ReadContextTransactionSelector, TransactionState,
+    execute_begin_transaction,
 };
 use crate::result_set::ResultSet;
 use crate::retry_policy::SpannerRetryPolicy;
@@ -168,18 +170,18 @@ impl ReadWriteTransactionBuilder {
         self
     }
 
-    async fn begin(
+    async fn begin<'a>(
         &self,
         session_name: String,
-        channel_hint: usize,
-        request_options: crate::RequestOptions,
-    ) -> crate::Result<ReadContextTransactionSelector> {
-        let response = crate::read_only_transaction::execute_begin_transaction(
+        channel_target: impl Into<ChannelTarget<'a>>,
+        request_options: RequestOptions,
+    ) -> Result<ReadContextTransactionSelector> {
+        let response = execute_begin_transaction(
             &self.client,
             session_name,
             self.options.clone(),
             self.transaction_tag.clone(),
-            channel_hint,
+            channel_target,
             request_options,
             None,
         )
@@ -191,11 +193,12 @@ impl ReadWriteTransactionBuilder {
         ))
     }
 
-    pub(crate) async fn build(
-        self,
-        deadline: Option<Instant>,
-    ) -> crate::Result<ReadWriteTransaction> {
-        let channel_hint = self.client.next_channel_hint();
+    pub(crate) async fn build(mut self, deadline: Option<Instant>) -> Result<ReadWriteTransaction> {
+        let affinity = Some(
+            self.affinity
+                .take()
+                .unwrap_or_else(|| Arc::new(TransactionAffinity::new_read_write())),
+        );
         let transaction_selector = match self.begin_transaction_option {
             BeginTransactionOption::ExplicitBegin => {
                 let mut options = self.begin_gax_options.clone().unwrap_or_default();
@@ -205,18 +208,13 @@ impl ReadWriteTransactionBuilder {
                     &mut options,
                 );
 
-                self.begin(self.session_name.clone(), channel_hint, options)
+                self.begin(self.session_name.clone(), &affinity, options)
                     .await?
             }
             BeginTransactionOption::InlineBegin => ReadContextTransactionSelector::Lazy(Arc::new(
                 Mutex::new(TransactionState::NotStarted(self.options)),
             )),
         };
-
-        let affinity = Some(
-            self.affinity
-                .unwrap_or_else(|| Arc::new(TransactionAffinity::new_read_write())),
-        );
 
         Ok(ReadWriteTransaction {
             context: ReadContext {
@@ -225,7 +223,6 @@ impl ReadWriteTransactionBuilder {
                 transaction_selector,
                 precommit_token_tracker: PrecommitTokenTracker::new(),
                 transaction_tag: self.transaction_tag,
-                channel_hint,
                 begin_transaction_request_options: None,
                 affinity,
             },
@@ -334,7 +331,7 @@ macro_rules! execute_with_retry {
             .$rpc_method(
                 $request.clone(),
                 $gax_options.clone(),
-                $self.context.channel_hint,
+                $self.context.affinity(),
             )
             .await;
 
@@ -635,13 +632,21 @@ impl ReadWriteTransaction {
     }
 
     /// Commits the transaction.
-    pub(crate) async fn commit(self) -> crate::Result<CommitResponse> {
+    pub(crate) async fn commit(self) -> Result<CommitResponse> {
+        let result = self.commit_internal().await;
+        if let Some(affinity) = self.affinity() {
+            affinity.release_rw_guard();
+        }
+        result
+    }
+
+    async fn commit_internal(&self) -> Result<CommitResponse> {
         self.context.transaction_selector.check_failed()?;
-        let mutations = take(&mut *self.mutations.lock().unwrap());
+        let mutations = take(&mut *self.mutations.lock().expect("mutations mutex poisoned"));
         let mut id = self.context.transaction_selector.get_id_no_wait()?;
         if id.is_none() {
             if self.is_starting()? {
-                return Err(crate::error::internal_error(
+                return Err(internal_error(
                     "Commit called while an asynchronous statement is still starting the transaction",
                 ));
             }
@@ -665,7 +670,7 @@ impl ReadWriteTransaction {
         let response = self
             .context
             .client
-            .commit(request, gax_options, self.context.channel_hint)
+            .commit(request, gax_options, self.affinity())
             .await?;
 
         let response =
@@ -681,7 +686,7 @@ impl ReadWriteTransaction {
 
                 self.context
                     .client
-                    .commit(retry_commit_req, gax_options, self.context.channel_hint)
+                    .commit(retry_commit_req, gax_options, self.affinity())
                     .await?
             } else {
                 response
@@ -691,7 +696,15 @@ impl ReadWriteTransaction {
     }
 
     /// Rolls back the transaction.
-    pub(crate) async fn rollback(self) -> crate::Result<()> {
+    pub(crate) async fn rollback(self) -> Result<()> {
+        let result = self.rollback_internal().await;
+        if let Some(affinity) = self.affinity() {
+            affinity.release_rw_guard();
+        }
+        result
+    }
+
+    async fn rollback_internal(&self) -> Result<()> {
         let Some(transaction_id) = self.context.transaction_selector.get_id_no_wait()? else {
             return Ok(());
         };
@@ -705,7 +718,7 @@ impl ReadWriteTransaction {
 
         self.context
             .client
-            .rollback(request, gax_options, self.context.channel_hint)
+            .rollback(request, gax_options, self.affinity())
             .await?;
 
         Ok(())
@@ -4304,10 +4317,11 @@ mod tests {
         transaction
             .affinity()
             .expect("affinity present")
-            .set_entry_id(101);
+            .compare_and_set_entry_id(0, 1)
+            .expect("pin entry");
         assert_eq!(
             affinity.pinned_entry_id(),
-            Some(101),
+            Some(1),
             "Affinity handle passed to builder must observe the pinned channel ID"
         );
 
@@ -4316,7 +4330,7 @@ mod tests {
             .await?;
         assert_eq!(
             result_set.affinity().pinned_entry_id(),
-            Some(101),
+            Some(1),
             "ResultSet generated from ReadWrite transaction must share the same pinned affinity"
         );
 
@@ -4345,6 +4359,158 @@ mod tests {
             None,
             "Default affinity should start unpinned"
         );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_releases_rw_guard_on_commit_rollback_and_drop()
+    -> anyhow::Result<()> {
+        use crate::client::Spanner;
+        use crate::read_only_transaction::tests::setup_select1_with_transaction_id;
+        use crate::result_set::tests::adapt;
+        use crate::statement::Statement;
+        use gaxi::grpc::tonic::Response;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1 as mock_v1;
+        use spanner_grpc_mock::start;
+
+        let mut mock = create_session_mock();
+        mock.expect_execute_streaming_sql().returning(|_| {
+            Ok(Response::from(adapt([Ok(
+                setup_select1_with_transaction_id(vec![1, 2, 3]),
+            )])))
+        });
+        mock.expect_commit()
+            .returning(|_| Ok(Response::new(mock_v1::CommitResponse::default())));
+        mock.expect_rollback().returning(|_| Ok(Response::new(())));
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await?;
+
+        let entries = spanner.channel_pool().active_entries();
+
+        // 1. Commit releases the active R/W guard on the pinned ChannelEntry
+        {
+            let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+                .build(None)
+                .await?;
+            let mut result_set = transaction
+                .execute_query(Statement::builder("SELECT 1").build())
+                .await?;
+            while let Some(row) = result_set.next().await {
+                let _ = row?;
+            }
+
+            let pinned_id = transaction
+                .affinity()
+                .expect("affinity present")
+                .pinned_entry_id()
+                .expect("entry should be pinned after statement execution");
+            let pinned_entry = entries
+                .iter()
+                .find(|entry| entry.id == pinned_id)
+                .expect("pinned entry must exist in active entries");
+
+            assert_eq!(
+                pinned_entry.active_rw_count(),
+                1,
+                "pinned entry active_rw_count must be 1 during active transaction"
+            );
+
+            transaction.commit().await?;
+
+            assert_eq!(
+                pinned_entry.active_rw_count(),
+                0,
+                "pinned entry active_rw_count must drop to 0 immediately after commit"
+            );
+        }
+
+        // 2. Rollback releases the active R/W guard on the pinned ChannelEntry
+        {
+            let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+                .build(None)
+                .await?;
+            let mut result_set = transaction
+                .execute_query(Statement::builder("SELECT 1").build())
+                .await?;
+            while let Some(row) = result_set.next().await {
+                let _ = row?;
+            }
+
+            let pinned_id = transaction
+                .affinity()
+                .expect("affinity present")
+                .pinned_entry_id()
+                .expect("entry should be pinned after statement execution");
+            let pinned_entry = entries
+                .iter()
+                .find(|entry| entry.id == pinned_id)
+                .expect("pinned entry must exist in active entries");
+
+            assert_eq!(
+                pinned_entry.active_rw_count(),
+                1,
+                "pinned entry active_rw_count must be 1 during active transaction"
+            );
+
+            transaction.rollback().await?;
+
+            assert_eq!(
+                pinned_entry.active_rw_count(),
+                0,
+                "pinned entry active_rw_count must drop to 0 immediately after rollback"
+            );
+        }
+
+        // 3. Dropping an uncommitted transaction releases the active R/W guard on the pinned ChannelEntry
+        {
+            let pinned_entry;
+            {
+                let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+                    .build(None)
+                    .await?;
+                let mut result_set = transaction
+                    .execute_query(Statement::builder("SELECT 1").build())
+                    .await?;
+                while let Some(row) = result_set.next().await {
+                    let _ = row?;
+                }
+
+                let pinned_id = transaction
+                    .affinity()
+                    .expect("affinity present")
+                    .pinned_entry_id()
+                    .expect("entry should be pinned after statement execution");
+                pinned_entry = entries
+                    .iter()
+                    .find(|entry| entry.id == pinned_id)
+                    .cloned()
+                    .expect("pinned entry must exist in active entries");
+
+                assert_eq!(
+                    pinned_entry.active_rw_count(),
+                    1,
+                    "pinned entry active_rw_count must be 1 during active transaction"
+                );
+            }
+
+            assert_eq!(
+                pinned_entry.active_rw_count(),
+                0,
+                "pinned entry active_rw_count must drop to 0 when uncommitted transaction is dropped"
+            );
+        }
 
         Ok(())
     }

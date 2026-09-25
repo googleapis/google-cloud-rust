@@ -85,7 +85,6 @@ pub struct ResultSet {
     max_buffered_partial_result_sets: usize,
     retry_count: usize,
     transaction_selector: Option<ReadContextTransactionSelector>,
-    channel_hint: usize,
     gax_options: GaxRequestOptions,
     method_name: &'static str,
     headers: HeaderMap,
@@ -110,7 +109,6 @@ pub(crate) struct ResultSetParams {
     pub session_name: String,
     pub transaction_tag: Option<String>,
     pub operation: StreamOperation,
-    pub channel_hint: usize,
     pub gax_options: GaxRequestOptions,
     pub method_name: &'static str,
     pub attempt_start_time: Option<Instant>,
@@ -148,7 +146,6 @@ impl ResultSet {
             session_name,
             transaction_tag,
             operation,
-            channel_hint,
             gax_options,
             method_name,
             attempt_start_time,
@@ -181,7 +178,6 @@ impl ResultSet {
             max_buffered_partial_result_sets: MAX_BUFFERED_PARTIAL_RESULT_SETS,
             retry_count: 0,
             transaction_selector,
-            channel_hint,
             gax_options,
             tokio_handle: Handle::try_current().ok(),
             method_name,
@@ -597,7 +593,6 @@ impl ResultSet {
                 client: self.client.clone(),
                 session_name: self.session_name.clone(),
                 transaction_tag: self.transaction_tag.clone(),
-                channel_hint: self.channel_hint,
                 request_options: self.gax_options.clone(),
                 is_stream_fallback: true,
                 precommit_token_tracker: self.precommit_token_tracker.clone(),
@@ -759,7 +754,7 @@ impl ResultSet {
                     .clone()
                     .or_else(|| req.transaction.take());
                 self.client
-                    .execute_streaming_sql(req.clone(), self.gax_options.clone(), self.channel_hint)
+                    .execute_streaming_sql(req.clone(), self.gax_options.clone(), &self.affinity)
                     .send()
                     .await
             }
@@ -769,7 +764,7 @@ impl ResultSet {
                     .clone()
                     .or_else(|| req.transaction.take());
                 self.client
-                    .streaming_read(req.clone(), self.gax_options.clone(), self.channel_hint)
+                    .streaming_read(req.clone(), self.gax_options.clone(), &self.affinity)
                     .send()
                     .await
             }
@@ -1979,7 +1974,7 @@ pub(crate) mod tests {
             .set_sql("SELECT 1".to_string());
 
         let stream = db_client
-            .execute_streaming_sql(req.clone(), GaxRequestOptions::default(), 0)
+            .execute_streaming_sql(req.clone(), GaxRequestOptions::default(), None)
             .send()
             .await?;
 
@@ -1991,7 +1986,6 @@ pub(crate) mod tests {
             session_name: "session".to_string(),
             transaction_tag: None,
             operation: StreamOperation::Query(req),
-            channel_hint: 0,
             gax_options: GaxRequestOptions::default(),
             method_name: "ExecuteStreamingSql",
             attempt_start_time: None,
