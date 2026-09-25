@@ -43,7 +43,11 @@ const PREPROD_GRPC_ENDPOINT: &str = "https://storage-preprod-test-grpc.googleuse
 const PREPROD_HTTP_ENDPOINT: &str = "https://storage-preprod-test-unified.googleusercontent.com";
 
 /// Runs the entire cross-SDK Bidirectional Read conformance test suite,
-/// provisioning the minimal set of 5 buckets (1 per distinct bucket topology).
+/// provisioning the minimal set of 4 buckets (1 per supported bucket topology).
+///
+/// Regional Rapid (RCU) is only exercised with HNS enabled: GCS rejects
+/// `CreateRapidCache` on flat buckets with `FAILED_PRECONDITION` ("Rapid Cache
+/// Ultra is only supported in hierarchical namespace buckets").
 ///
 /// Whether the Zonal Rapid and Regional Rapid (RCU) tests run in a `colocated`
 /// (`VM_zone == us-central1-a`) or `non-colocated` (`VM_zone != us-central1-a`)
@@ -62,10 +66,11 @@ pub async fn run() -> anyhow::Result<()> {
     }
 
     // 0. Bucketless test case (Test 4)
+    println!("\n### No bucket");
     non_existent_bucket_read(client).await?;
 
     // 1. Regional Standard (Flat) — shared by non-bucket-dependent tests (2, 5) & flat standard test (1)
-    with_regional_standard_bucket(false, |bucket| async move {
+    with_regional_standard_bucket(false, "Regional Standard (flat)", |bucket| async move {
         read_post_stream_close(client, write_client, &bucket).await?;
         out_of_range(client, write_client, &bucket).await?;
         multiple_ranged_read_regional_standard_flat(client, write_client, &bucket).await?;
@@ -74,34 +79,27 @@ pub async fn run() -> anyhow::Result<()> {
     .await?;
 
     // 2. Regional Standard (HNS)
-    with_regional_standard_bucket(true, |bucket| async move {
+    with_regional_standard_bucket(true, "Regional Standard (HNS)", |bucket| async move {
         multiple_ranged_read_regional_standard_hns(client, write_client, &bucket).await?;
         Ok(())
     })
     .await?;
 
     // 3. Zonal Rapid (us-central1-a; HNS is always enabled)
-    with_zonal_rapid_bucket(|bucket| async move {
+    with_zonal_rapid_bucket("Zonal Rapid", |bucket| async move {
         multiple_ranged_read_zonal_rapid(client, write_client, &bucket).await?;
         Ok(())
     })
     .await?;
 
-    // 4. Regional Rapid (RCU - HNS, cache in us-central1-a)
-    with_regional_rapid_bucket(true, |bucket| async move {
+    // 4. Regional Rapid (RCU - HNS required, cache in us-central1-a)
+    with_regional_rapid_bucket("Regional Rapid / RCU (HNS)", |bucket| async move {
         multiple_ranged_read_regional_rapid_hns(client, write_client, &bucket).await?;
         Ok(())
     })
     .await?;
 
-    // 5. Regional Rapid (RCU - Flat, cache in us-central1-a)
-    with_regional_rapid_bucket(false, |bucket| async move {
-        multiple_ranged_read_regional_rapid_flat(client, write_client, &bucket).await?;
-        Ok(())
-    })
-    .await?;
-
-    println!("=== Bidi Read Conformance Suite Completed Successfully ===\n");
+    println!("\n=== Bidi Read Conformance Suite Completed Successfully ===\n");
     Ok(())
 }
 
@@ -143,36 +141,45 @@ async fn build_storage_control_client() -> anyhow::Result<StorageControl> {
     Ok(client)
 }
 
-async fn with_regional_standard_bucket<F, Fut>(hns: bool, f: F) -> anyhow::Result<()>
+/// Prints the section header that groups all test output for one bucket.
+fn print_bucket_header(label: &str, bucket_name: &str) {
+    println!("\n### {label}: {bucket_name}");
+}
+
+async fn with_regional_standard_bucket<F, Fut>(hns: bool, label: &str, f: F) -> anyhow::Result<()>
 where
     F: FnOnce(String) -> Fut,
     Fut: std::future::Future<Output = anyhow::Result<()>>,
 {
     let (control, bucket) = create_regional_standard_bucket(hns).await?;
+    print_bucket_header(label, &bucket.name);
     let result = f(bucket.name.clone()).await;
     let _ = cleanup_bucket(control, bucket.name, false, hns).await;
     result
 }
 
-async fn with_zonal_rapid_bucket<F, Fut>(f: F) -> anyhow::Result<()>
+async fn with_zonal_rapid_bucket<F, Fut>(label: &str, f: F) -> anyhow::Result<()>
 where
     F: FnOnce(String) -> Fut,
     Fut: std::future::Future<Output = anyhow::Result<()>>,
 {
     let (control, bucket) = create_zonal_rapid_bucket().await?;
+    print_bucket_header(label, &bucket.name);
     let result = f(bucket.name.clone()).await;
     let _ = cleanup_bucket(control, bucket.name, false, true).await;
     result
 }
 
-async fn with_regional_rapid_bucket<F, Fut>(hns: bool, f: F) -> anyhow::Result<()>
+/// Regional Rapid (RCU) buckets always have HNS enabled; GCS rejects RCU on flat buckets.
+async fn with_regional_rapid_bucket<F, Fut>(label: &str, f: F) -> anyhow::Result<()>
 where
     F: FnOnce(String) -> Fut,
     Fut: std::future::Future<Output = anyhow::Result<()>>,
 {
-    let (control, bucket) = create_regional_rapid_bucket(hns).await?;
+    let (control, bucket) = create_regional_rapid_bucket().await?;
+    print_bucket_header(label, &bucket.name);
     let result = f(bucket.name.clone()).await;
-    let _ = cleanup_bucket(control, bucket.name, true, hns).await;
+    let _ = cleanup_bucket(control, bucket.name, true, true).await;
     result
 }
 
@@ -202,8 +209,8 @@ async fn create_regional_standard_bucket(hns: bool) -> anyhow::Result<(StorageCo
         .with_idempotency(true)
         .send()
         .await?;
-    println!(
-        "create_regional_standard_bucket(hns={hns}, region={region}) created bucket: {:?}",
+    tracing::info!(
+        "create_regional_standard_bucket(hns={hns}, region={region}) created bucket: {}",
         created_bucket.name
     );
 
@@ -237,16 +244,18 @@ async fn create_zonal_rapid_bucket() -> anyhow::Result<(StorageControl, Bucket)>
         .with_idempotency(true)
         .send()
         .await?;
-    println!(
-        "create_zonal_rapid_bucket(zone={zone}) created bucket: {:?}",
+    tracing::info!(
+        "create_zonal_rapid_bucket(zone={zone}) created bucket: {}",
         created_bucket.name
     );
 
     Ok((control, created_bucket))
 }
 
-async fn create_regional_rapid_bucket(hns: bool) -> anyhow::Result<(StorageControl, Bucket)> {
-    let (control, created_bucket) = create_regional_standard_bucket(hns).await?;
+/// Creates an HNS regional bucket and attaches a `rapid-cache-ultra` cache in `zone_id()`.
+/// If attaching the cache fails, the bucket is deleted before the error is returned.
+async fn create_regional_rapid_bucket() -> anyhow::Result<(StorageControl, Bucket)> {
+    let (control, created_bucket) = create_regional_standard_bucket(true).await?;
     let zone = zone_id();
 
     let rapid_cache = RapidCache::new()
@@ -254,14 +263,19 @@ async fn create_regional_rapid_bucket(hns: bool) -> anyhow::Result<(StorageContr
         .set_zone(&zone)
         .set_cache_type("rapid-cache-ultra");
 
-    let _op = control
+    println!("attaching rapid-cache-ultra in {zone} (this can take a minute or more)...");
+    let attached = control
         .create_rapid_cache()
         .set_parent(&created_bucket.name)
         .set_rapid_cache(rapid_cache)
         .poller()
         .until_done()
-        .await?;
-    println!("create_regional_rapid_bucket: attached rapid-cache-ultra in {zone}");
+        .await;
+    if let Err(e) = attached {
+        // The LRO may fail after the cache was (partially) created, so check for caches too.
+        let _ = cleanup_bucket(control, created_bucket.name, true, true).await;
+        return Err(e.into());
+    }
 
     Ok((control, created_bucket))
 }
@@ -284,7 +298,7 @@ async fn cleanup_bucket(
             .set_parent(&bucket_name)
             .by_item();
         while let Some(Ok(cache)) = rapid_caches.next().await {
-            println!("Disabling rapid cache: {}", cache.name);
+            println!("  cleanup: disabling rapid cache {}", cache.name);
             let res = control
                 .disable_rapid_cache()
                 .set_name(&cache.name)
@@ -490,17 +504,9 @@ pub async fn multiple_ranged_read_zonal_rapid(
     test_multiple_ranged_read(client, write_client, bucket, true).await
 }
 
-// --- 3. Regional Rapid / RCU (HNS vs. Flat) ---
+// --- 3. Regional Rapid / RCU (HNS only; GCS rejects RCU on flat buckets) ---
 
 pub async fn multiple_ranged_read_regional_rapid_hns(
-    client: &Storage,
-    write_client: &Storage,
-    bucket: &str,
-) -> anyhow::Result<()> {
-    test_multiple_ranged_read(client, write_client, bucket, false).await
-}
-
-pub async fn multiple_ranged_read_regional_rapid_flat(
     client: &Storage,
     write_client: &Storage,
     bucket: &str,
@@ -522,7 +528,7 @@ pub async fn test_multiple_ranged_read(
     bucket_name: &str,
     appendable: bool,
 ) -> anyhow::Result<()> {
-    println!("--- [Conformance 1/4] Testing Multiple Ranged Read ---");
+    println!("  [Test 1] Multiple Ranged Read ...");
     const TOTAL_SIZE: usize = 512 * 1024;
     let payload = String::from_iter(('a'..='z').cycle().take(TOTAL_SIZE));
     let object_name = format!("bidi_read/multi_range_source_{}.txt", random_bucket_id());
@@ -581,7 +587,7 @@ pub async fn test_multiple_ranged_read(
     let crc3 = crc32c::crc32c(&buf3);
     assert_eq!(crc3, crc32c::crc32c(&payload_bytes[384 * 1024..512 * 1024]));
 
-    println!("SUCCESS on Conformance 1: Multiple Ranged Read (512 KiB across 4 concurrent ranges)");
+    println!("  [Test 1] PASSED (512 KiB across 4 concurrent ranges)");
     Ok(())
 }
 
@@ -596,7 +602,7 @@ pub async fn test_read_post_stream_close(
     write_client: &Storage,
     bucket_name: &str,
 ) -> anyhow::Result<()> {
-    println!("--- [Conformance 2/4] Testing Read Post Stream Close ---");
+    println!("  [Test 2] Read Post Stream Close ...");
     let payload = String::from_iter(('a'..='z').cycle().take(100_000));
     let object_name = format!("bidi_read/post_close_source_{}.txt", random_bucket_id());
 
@@ -638,7 +644,7 @@ pub async fn test_read_post_stream_close(
     assert_eq!(subsequent_data.len(), 50);
     assert_eq!(subsequent_data, &payload.as_bytes()[200..250]);
 
-    println!("SUCCESS on Conformance 2: Read Post Stream Close");
+    println!("  [Test 2] PASSED");
     Ok(())
 }
 
@@ -647,7 +653,7 @@ pub async fn test_read_post_stream_close(
 /// Tests opening a stream on a non-existent bucket. Verifies that an appropriate
 /// error with NotFound status (HTTP 404) or PermissionDenied (allowlist check) is returned.
 pub async fn test_non_existent_bucket_read(client: &Storage) -> anyhow::Result<()> {
-    println!("--- [Conformance 3/4] Testing Non Existent Bucket Read ---");
+    println!("  [Test 4] Non-Existent Bucket Read ...");
     let non_existent_bucket = format!(
         "projects/_/buckets/non-existent-bucket-{}",
         google_cloud_test_utils::resource_names::random_bucket_id()
@@ -674,7 +680,7 @@ pub async fn test_non_existent_bucket_read(client: &Storage) -> anyhow::Result<(
         }
     }
 
-    println!("SUCCESS on Conformance 3: Non Existent Bucket Read");
+    println!("  [Test 4] PASSED");
     Ok(())
 }
 
@@ -705,7 +711,7 @@ pub async fn test_out_of_range(
     write_client: &Storage,
     bucket_name: &str,
 ) -> anyhow::Result<()> {
-    println!("--- [Conformance 4/4] Testing Out Of Range Read ---");
+    println!("  [Test 5] Out Of Range Read ...");
     let payload = String::from_iter(('a'..='z').cycle().take(10_000));
     let object_name = format!("bidi_read/out_of_range_source_{}.txt", random_bucket_id());
 
@@ -739,18 +745,34 @@ pub async fn test_out_of_range(
     let oob_res = oob_reader.next().await;
     match oob_res {
         None => {
-            println!("Out-of-range read returned immediate EOF");
+            println!("    out-of-range read returned immediate EOF");
         }
-        Some(Err(err)) => {
-            println!("Out-of-range read returned error as expected: {err:?}");
-            let err_str = format!("{err:?}");
-            assert!(
-                err_str.contains("OUT_OF_RANGE")
-                    || err_str.contains("OutOfRange")
-                    || err_str.contains("InvalidArgument"),
-                "unexpected error message for out of range: {err_str}"
-            );
-        }
+        Some(Err(err)) => match find_rpc_status(&err) {
+            Some(status) => {
+                println!(
+                    "    got expected error: {:?}: {}",
+                    status.code, status.message
+                );
+                assert!(
+                    matches!(
+                        status.code,
+                        google_cloud_gax::error::rpc::Code::OutOfRange
+                            | google_cloud_gax::error::rpc::Code::InvalidArgument
+                    ),
+                    "unexpected status for out of range read: {status:?}"
+                );
+            }
+            None => {
+                let err_str = format!("{err:?}");
+                assert!(
+                    err_str.contains("OUT_OF_RANGE")
+                        || err_str.contains("OutOfRange")
+                        || err_str.contains("InvalidArgument"),
+                    "unexpected error message for out of range: {err_str}"
+                );
+                println!("    got expected error: {err}");
+            }
+        },
         Some(Ok(data)) => {
             anyhow::bail!(
                 "unexpected data returned for out of range read: {} bytes",
@@ -759,8 +781,30 @@ pub async fn test_out_of_range(
         }
     }
 
-    println!("SUCCESS on Conformance 4: Out Of Range Read");
+    println!("  [Test 5] PASSED");
     Ok(())
+}
+
+/// Returns the first RPC status found in `err` or its source chain.
+///
+/// Bidi read failures surface as a transport error that wraps the service error
+/// (as `Arc<Error>`), so the status is not on the outermost error.
+fn find_rpc_status(
+    err: &google_cloud_gax::error::Error,
+) -> Option<google_cloud_gax::error::rpc::Status> {
+    use google_cloud_gax::error::Error;
+    let mut current: Option<&(dyn std::error::Error + 'static)> = Some(err);
+    while let Some(e) = current {
+        let gax_err = e.downcast_ref::<Error>().or_else(|| {
+            e.downcast_ref::<std::sync::Arc<Error>>()
+                .map(|a| a.as_ref())
+        });
+        if let Some(status) = gax_err.and_then(|g| g.status()) {
+            return Some(status.clone());
+        }
+        current = e.source();
+    }
+    None
 }
 
 async fn drain_reader(mut reader: ReadObjectResponse) -> anyhow::Result<Vec<u8>> {
