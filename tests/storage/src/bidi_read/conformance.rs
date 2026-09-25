@@ -141,7 +141,7 @@ where
 {
     let (control, bucket) = create_regional_standard_bucket(hns).await?;
     let result = f(bucket.name.clone()).await;
-    let _ = cleanup_bucket(control, bucket.name).await;
+    let _ = cleanup_bucket(control, bucket.name, false, hns).await;
     result
 }
 
@@ -152,7 +152,7 @@ where
 {
     let (control, bucket) = create_zonal_rapid_bucket().await?;
     let result = f(bucket.name.clone()).await;
-    let _ = cleanup_bucket(control, bucket.name).await;
+    let _ = cleanup_bucket(control, bucket.name, false, true).await;
     result
 }
 
@@ -163,7 +163,7 @@ where
 {
     let (control, bucket) = create_regional_rapid_bucket(hns).await?;
     let result = f(bucket.name.clone()).await;
-    let _ = cleanup_bucket(control, bucket.name).await;
+    let _ = cleanup_bucket(control, bucket.name, true, hns).await;
     result
 }
 
@@ -258,29 +258,37 @@ async fn create_regional_rapid_bucket(hns: bool) -> anyhow::Result<(StorageContr
 }
 
 /// Cleans up a bucket in preprod by:
-/// 1. Disabling any attached `RapidCache` instances via `disable_rapid_cache()` (NOT `disable_anywhere_cache()`).
-/// 2. Deleting all objects (including versions) and HNS folders in the bucket.
-/// 3. Deleting the bucket itself.
-async fn cleanup_bucket(control: StorageControl, bucket_name: String) -> anyhow::Result<()> {
-    // 1. Disable any Rapid Caches via DisableRapidCache
-    let mut rapid_caches = control
-        .list_rapid_caches()
-        .set_parent(&bucket_name)
-        .by_item();
-    while let Some(Ok(cache)) = rapid_caches.next().await {
-        println!("Disabling rapid cache: {}", cache.name);
-        if let Err(e) = control
-            .disable_rapid_cache()
-            .set_name(&cache.name)
-            .poller()
-            .until_done()
-            .await
-        {
-            tracing::warn!("disable_rapid_cache on {} returned: {e:?}", cache.name);
+/// 1. Disabling any attached `RapidCache` instances via `disable_rapid_cache()` (if `has_rapid_cache` is true).
+/// 2. Deleting all objects (including versions) in the bucket.
+/// 3. Deleting any HNS folders / managed folders (if `is_hns` is true).
+/// 4. Deleting the bucket itself.
+async fn cleanup_bucket(
+    control: StorageControl,
+    bucket_name: String,
+    has_rapid_cache: bool,
+    is_hns: bool,
+) -> anyhow::Result<()> {
+    // 1. Disable any Rapid Caches via DisableRapidCache (only when attached)
+    if has_rapid_cache {
+        let mut rapid_caches = control
+            .list_rapid_caches()
+            .set_parent(&bucket_name)
+            .by_item();
+        while let Some(Ok(cache)) = rapid_caches.next().await {
+            println!("Disabling rapid cache: {}", cache.name);
+            if let Err(e) = control
+                .disable_rapid_cache()
+                .set_name(&cache.name)
+                .poller()
+                .until_done()
+                .await
+            {
+                tracing::warn!("disable_rapid_cache on {} returned: {e:?}", cache.name);
+            }
         }
     }
 
-    // 2. Delete all objects in the bucket
+    // 2. Delete all objects in the bucket (required before bucket deletion)
     let mut objects = control
         .list_objects()
         .set_parent(&bucket_name)
@@ -296,17 +304,19 @@ async fn cleanup_bucket(control: StorageControl, bucket_name: String) -> anyhow:
             .await;
     }
 
-    // 3. Delete any HNS folders / managed folders if present
-    let mut managed_folders = control
-        .list_managed_folders()
-        .set_parent(&bucket_name)
-        .by_item();
-    while let Some(Ok(folder)) = managed_folders.next().await {
-        let _ = control.delete_managed_folder().set_name(folder.name).send().await;
-    }
-    let mut folders = control.list_folders().set_parent(&bucket_name).by_item();
-    while let Some(Ok(folder)) = folders.next().await {
-        let _ = control.delete_folder().set_name(folder.name).send().await;
+    // 3. Delete any HNS folders / managed folders if present (only when HNS is enabled)
+    if is_hns {
+        let mut managed_folders = control
+            .list_managed_folders()
+            .set_parent(&bucket_name)
+            .by_item();
+        while let Some(Ok(folder)) = managed_folders.next().await {
+            let _ = control.delete_managed_folder().set_name(folder.name).send().await;
+        }
+        let mut folders = control.list_folders().set_parent(&bucket_name).by_item();
+        while let Some(Ok(folder)) = folders.next().await {
+            let _ = control.delete_folder().set_name(folder.name).send().await;
+        }
     }
 
     // 4. Delete the bucket
@@ -323,8 +333,7 @@ async fn cleanup_bucket(control: StorageControl, bucket_name: String) -> anyhow:
     Ok(())
 }
 
-/// Cleans up stale (>48h old) `integration-test=true` buckets in the project using `cleanup_bucket`
-/// (which calls `disable_rapid_cache` rather than `storage_samples`'s `disable_anywhere_cache`).
+/// Cleans up stale (>48h old) `integration-test=true` buckets in the project using `cleanup_bucket`.
 async fn cleanup_stale_buckets(control: &StorageControl, project_id: &str) {
     use std::time::{SystemTime, UNIX_EPOCH};
     let Ok(now) = SystemTime::now().duration_since(UNIX_EPOCH) else {
@@ -348,7 +357,8 @@ async fn cleanup_stale_buckets(control: &StorageControl, project_id: &str) {
     if !stale.is_empty() {
         println!("cleaning up {} stale buckets (with DisableRapidCache)", stale.len());
         for name in stale {
-            let _ = cleanup_bucket(control.clone(), name).await;
+            // Stale buckets from prior runs may be of any type; check both caches and folders.
+            let _ = cleanup_bucket(control.clone(), name, true, true).await;
         }
     }
 }
