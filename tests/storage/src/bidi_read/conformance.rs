@@ -325,7 +325,11 @@ async fn cleanup_bucket(
             .set_parent(&bucket_name)
             .by_item();
         while let Some(Ok(folder)) = managed_folders.next().await {
-            let _ = control.delete_managed_folder().set_name(folder.name).send().await;
+            let _ = control
+                .delete_managed_folder()
+                .set_name(folder.name)
+                .send()
+                .await;
         }
         let mut folders = control.list_folders().set_parent(&bucket_name).by_item();
         while let Some(Ok(folder)) = folders.next().await {
@@ -362,14 +366,20 @@ async fn cleanup_stale_buckets(control: &StorageControl, project_id: &str) {
         .by_item();
     let mut stale = Vec::new();
     while let Some(Ok(bucket)) = buckets.next().await {
-        if bucket.labels.get("integration-test").is_some_and(|v| v == "true")
+        if bucket
+            .labels
+            .get("integration-test")
+            .is_some_and(|v| v == "true")
             && bucket.create_time.is_some_and(|t| t < stale_deadline)
         {
             stale.push(bucket.name);
         }
     }
     if !stale.is_empty() {
-        println!("cleaning up {} stale buckets (with DisableRapidCache)", stale.len());
+        println!(
+            "cleaning up {} stale buckets (with DisableRapidCache)",
+            stale.len()
+        );
         for name in stale {
             // Stale buckets from prior runs may be of any type; check both caches and folders.
             let _ = cleanup_bucket(control.clone(), name, true, true).await;
@@ -377,41 +387,46 @@ async fn cleanup_stale_buckets(control: &StorageControl, project_id: &str) {
     }
 }
 
-/// Seeds a test object into `bucket_name` in preprod.
-/// Uses `write_client` (`storage-preprod-test-unified.googleusercontent.com`) for standard HTTP REST uploads,
-/// and falls back to `grpc_client.open_appendable_object(...)` (`BidiWriteObject` over gRPC)
-/// for Zonal Rapid (`RAPID`) buckets when `google_cloud_unstable_storage_bidi` is enabled.
+/// Seeds a test object into `bucket_name` in preprod and returns its name.
+///
+/// Each bucket type accepts exactly one of the two upload paths (go/gcs-rapid-behavior-matrix),
+/// so the caller selects it via `appendable`:
+/// - `false`: JSON `write_object` via `write_client` (`PREPROD_HTTP_ENDPOINT`). Use for
+///   `STANDARD` buckets (Regional Standard and Regional Rapid / RCU), which reject appendable writes.
+/// - `true`: gRPC `open_appendable_object` (`BidiWriteObject`) via `grpc_client`
+///   (`PREPROD_GRPC_ENDPOINT`). Use for Zonal Rapid (`RAPID`) buckets, which reject JSON uploads.
+///   Requires `--cfg google_cloud_unstable_storage_bidi`.
 async fn write_test_object(
-    _grpc_client: &Storage,
+    grpc_client: &Storage,
     write_client: &Storage,
     bucket_name: &str,
     object_name: &str,
     payload: String,
+    appendable: bool,
 ) -> anyhow::Result<String> {
-    match write_client
-        .write_object(bucket_name, object_name, payload.clone())
-        .set_if_generation_match(0)
-        .send_unbuffered()
-        .await
-    {
-        Ok(obj) => Ok(obj.name),
-        Err(_err) => {
-            #[cfg(google_cloud_unstable_storage_bidi)]
-            {
-                let mut writer = _grpc_client
-                    .open_appendable_object(bucket_name, object_name)
-                    .send()
-                    .await?;
-                writer.append(bytes::Bytes::from(payload)).await?;
-                let obj = writer.finalize().await?;
-                return Ok(obj.name);
-            }
-            #[cfg(not(google_cloud_unstable_storage_bidi))]
-            {
-                Err(_err.into())
-            }
+    if appendable {
+        #[cfg(google_cloud_unstable_storage_bidi)]
+        {
+            let mut writer = grpc_client
+                .open_appendable_object(bucket_name, object_name)
+                .send()
+                .await?;
+            writer.append(bytes::Bytes::from(payload)).await?;
+            let object = writer.finalize().await?;
+            return Ok(object.name);
+        }
+        #[cfg(not(google_cloud_unstable_storage_bidi))]
+        {
+            let _ = grpc_client;
+            anyhow::bail!("appendable uploads require `--cfg google_cloud_unstable_storage_bidi`");
         }
     }
+    let object = write_client
+        .write_object(bucket_name, object_name, payload)
+        .set_if_generation_match(0)
+        .send_unbuffered()
+        .await?;
+    Ok(object.name)
 }
 
 // -----------------------------------------------------------------------------
@@ -453,7 +468,7 @@ pub async fn multiple_ranged_read_regional_standard_hns(
     write_client: &Storage,
     bucket: &str,
 ) -> anyhow::Result<()> {
-    test_multiple_ranged_read(client, write_client, bucket).await
+    test_multiple_ranged_read(client, write_client, bucket, false).await
 }
 
 pub async fn multiple_ranged_read_regional_standard_flat(
@@ -461,7 +476,7 @@ pub async fn multiple_ranged_read_regional_standard_flat(
     write_client: &Storage,
     bucket: &str,
 ) -> anyhow::Result<()> {
-    test_multiple_ranged_read(client, write_client, bucket).await
+    test_multiple_ranged_read(client, write_client, bucket, false).await
 }
 
 // --- 2. Zonal Rapid (HNS is always enabled) ---
@@ -471,7 +486,8 @@ pub async fn multiple_ranged_read_zonal_rapid(
     write_client: &Storage,
     bucket: &str,
 ) -> anyhow::Result<()> {
-    test_multiple_ranged_read(client, write_client, bucket).await
+    // Zonal Rapid (`RAPID`) buckets only accept appendable objects written over gRPC.
+    test_multiple_ranged_read(client, write_client, bucket, true).await
 }
 
 // --- 3. Regional Rapid / RCU (HNS vs. Flat) ---
@@ -481,7 +497,7 @@ pub async fn multiple_ranged_read_regional_rapid_hns(
     write_client: &Storage,
     bucket: &str,
 ) -> anyhow::Result<()> {
-    test_multiple_ranged_read(client, write_client, bucket).await
+    test_multiple_ranged_read(client, write_client, bucket, false).await
 }
 
 pub async fn multiple_ranged_read_regional_rapid_flat(
@@ -489,7 +505,7 @@ pub async fn multiple_ranged_read_regional_rapid_flat(
     write_client: &Storage,
     bucket: &str,
 ) -> anyhow::Result<()> {
-    test_multiple_ranged_read(client, write_client, bucket).await
+    test_multiple_ranged_read(client, write_client, bucket, false).await
 }
 
 /// Test Suite 1 - Test 1: Multiple Ranged Read
@@ -498,19 +514,28 @@ pub async fn multiple_ranged_read_regional_rapid_flat(
 /// bidirectional gRPC stream session. Validates that concurrent streams drain properly
 /// without deadlock, all received bytes match the expected slices, total length matches,
 /// and CRC32C checksum integrity across all ranges matches.
+///
+/// `appendable` selects how the source object is seeded; see `write_test_object`.
 pub async fn test_multiple_ranged_read(
     client: &Storage,
     write_client: &Storage,
     bucket_name: &str,
+    appendable: bool,
 ) -> anyhow::Result<()> {
     println!("--- [Conformance 1/4] Testing Multiple Ranged Read ---");
     const TOTAL_SIZE: usize = 512 * 1024;
     let payload = String::from_iter(('a'..='z').cycle().take(TOTAL_SIZE));
     let object_name = format!("bidi_read/multi_range_source_{}.txt", random_bucket_id());
 
-    let object_name =
-        write_test_object(client, write_client, bucket_name, &object_name, payload.clone())
-            .await?;
+    let object_name = write_test_object(
+        client,
+        write_client,
+        bucket_name,
+        &object_name,
+        payload.clone(),
+        appendable,
+    )
+    .await?;
 
     let descriptor = client.open_object(bucket_name, &object_name).send().await?;
 
@@ -575,9 +600,16 @@ pub async fn test_read_post_stream_close(
     let payload = String::from_iter(('a'..='z').cycle().take(100_000));
     let object_name = format!("bidi_read/post_close_source_{}.txt", random_bucket_id());
 
-    let object_name =
-        write_test_object(client, write_client, bucket_name, &object_name, payload.clone())
-            .await?;
+    // Runs on the Regional Standard (flat) bucket, so seed with a JSON upload.
+    let object_name = write_test_object(
+        client,
+        write_client,
+        bucket_name,
+        &object_name,
+        payload.clone(),
+        false,
+    )
+    .await?;
 
     let descriptor = client.open_object(bucket_name, &object_name).send().await?;
 
@@ -677,9 +709,16 @@ pub async fn test_out_of_range(
     let payload = String::from_iter(('a'..='z').cycle().take(10_000));
     let object_name = format!("bidi_read/out_of_range_source_{}.txt", random_bucket_id());
 
-    let object_name =
-        write_test_object(client, write_client, bucket_name, &object_name, payload.clone())
-            .await?;
+    // Runs on the Regional Standard (flat) bucket, so seed with a JSON upload.
+    let object_name = write_test_object(
+        client,
+        write_client,
+        bucket_name,
+        &object_name,
+        payload.clone(),
+        false,
+    )
+    .await?;
 
     let descriptor = client.open_object(bucket_name, &object_name).send().await?;
 
