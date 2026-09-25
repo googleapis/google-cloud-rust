@@ -55,47 +55,40 @@ const PREPROD_HTTP_ENDPOINT: &str = "https://storage-preprod-test-unified.google
 pub async fn run() -> anyhow::Result<()> {
     println!("\n=== Running Bidi Read Conformance Suite ===");
 
-    // `client` uses preprod gRPC (`PREPROD_GRPC_ENDPOINT`) for `open_object` (`BidiReadObject`).
-    // `write_client` uses preprod HTTP (`PREPROD_HTTP_ENDPOINT`) for `write_object` uploads.
-    let client = &build_storage_client(Some(PREPROD_GRPC_ENDPOINT)).await?;
-    let write_client = &build_storage_client(Some(PREPROD_HTTP_ENDPOINT)).await?;
+    let clients = &Clients::new().await?;
+    cleanup_stale_buckets(&clients.control).await;
 
-    // Clean up any stale (>48h old) integration test buckets in preprod using `DisableRapidCache`.
-    if let (Ok(project), Ok(control)) = (project_id(), build_storage_control_client().await) {
-        cleanup_stale_buckets(&control, &project).await;
-    }
-
-    // 0. Bucketless test case (Test 4)
+    // Test 4 needs no bucket.
     println!("\n### No bucket");
-    non_existent_bucket_read(client).await?;
+    test_non_existent_bucket_read(clients).await?;
 
-    // 1. Regional Standard (Flat) — shared by non-bucket-dependent tests (2, 5) & flat standard test (1)
-    with_regional_standard_bucket(false, "Regional Standard (flat)", |bucket| async move {
-        read_post_stream_close(client, write_client, &bucket).await?;
-        out_of_range(client, write_client, &bucket).await?;
-        multiple_ranged_read_regional_standard_flat(client, write_client, &bucket).await?;
-        Ok(())
+    // Tests 2 and 5 do not depend on the bucket type, so they share the flat standard bucket.
+    with_bucket(
+        clients,
+        BucketType::RegionalStandard { hns: false },
+        |bucket| async move {
+            test_read_post_stream_close(clients, &bucket).await?;
+            test_out_of_range(clients, &bucket).await?;
+            test_multiple_ranged_read(clients, &bucket, false).await
+        },
+    )
+    .await?;
+
+    with_bucket(
+        clients,
+        BucketType::RegionalStandard { hns: true },
+        |bucket| async move { test_multiple_ranged_read(clients, &bucket, false).await },
+    )
+    .await?;
+
+    // Zonal Rapid (`RAPID`) buckets only accept appendable objects written over gRPC.
+    with_bucket(clients, BucketType::ZonalRapid, |bucket| async move {
+        test_multiple_ranged_read(clients, &bucket, true).await
     })
     .await?;
 
-    // 2. Regional Standard (HNS)
-    with_regional_standard_bucket(true, "Regional Standard (HNS)", |bucket| async move {
-        multiple_ranged_read_regional_standard_hns(client, write_client, &bucket).await?;
-        Ok(())
-    })
-    .await?;
-
-    // 3. Zonal Rapid (us-central1-a; HNS is always enabled)
-    with_zonal_rapid_bucket("Zonal Rapid", |bucket| async move {
-        multiple_ranged_read_zonal_rapid(client, write_client, &bucket).await?;
-        Ok(())
-    })
-    .await?;
-
-    // 4. Regional Rapid (RCU - HNS required, cache in us-central1-a)
-    with_regional_rapid_bucket("Regional Rapid / RCU (HNS)", |bucket| async move {
-        multiple_ranged_read_regional_rapid_hns(client, write_client, &bucket).await?;
-        Ok(())
+    with_bucket(clients, BucketType::RegionalRapid, |bucket| async move {
+        test_multiple_ranged_read(clients, &bucket, false).await
     })
     .await?;
 
@@ -104,23 +97,39 @@ pub async fn run() -> anyhow::Result<()> {
 }
 
 // -----------------------------------------------------------------------------
-// Client & Bucket Lifecycle Helpers
+// Clients
 // -----------------------------------------------------------------------------
 
-/// Single centralized factory for building `Storage` data clients in `conformance.rs`.
-/// Uses `default_endpoint` unless overridden by `GOOGLE_CLOUD_TEST_STORAGE_ENDPOINT`.
-async fn build_storage_client(default_endpoint: Option<&str>) -> anyhow::Result<Storage> {
-    let mut builder = Storage::builder();
-    if let Ok(env_ep) = std::env::var("GOOGLE_CLOUD_TEST_STORAGE_ENDPOINT") {
-        builder = builder.with_endpoint(env_ep);
-    } else if let Some(ep) = default_endpoint {
-        builder = builder.with_endpoint(ep);
-    }
-    Ok(builder.build().await?)
+/// All clients used by the suite, built once in `run()`.
+struct Clients {
+    /// Preprod gRPC data client: `open_object` (`BidiReadObject`) and
+    /// `open_appendable_object` (`BidiWriteObject`).
+    grpc: Storage,
+    /// Preprod HTTP data client: JSON `write_object` uploads.
+    http: Storage,
+    /// Preprod `StorageControl` client: bucket, object, folder and cache management.
+    control: StorageControl,
 }
 
-/// Single centralized factory for building `StorageControl` clients in `conformance.rs`.
-/// Uses `PREPROD_GRPC_ENDPOINT` (preprod) unless overridden by `GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT`.
+impl Clients {
+    /// Data clients use their preprod default unless `GOOGLE_CLOUD_TEST_STORAGE_ENDPOINT` is set;
+    /// the control client uses `PREPROD_GRPC_ENDPOINT` unless
+    /// `GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT` is set.
+    async fn new() -> anyhow::Result<Self> {
+        Ok(Self {
+            grpc: build_storage_client(PREPROD_GRPC_ENDPOINT).await?,
+            http: build_storage_client(PREPROD_HTTP_ENDPOINT).await?,
+            control: build_storage_control_client().await?,
+        })
+    }
+}
+
+async fn build_storage_client(default_endpoint: &str) -> anyhow::Result<Storage> {
+    let endpoint = std::env::var("GOOGLE_CLOUD_TEST_STORAGE_ENDPOINT")
+        .unwrap_or_else(|_| default_endpoint.to_string());
+    Ok(Storage::builder().with_endpoint(endpoint).build().await?)
+}
+
 async fn build_storage_control_client() -> anyhow::Result<StorageControl> {
     let endpoint = std::env::var("GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT")
         .unwrap_or_else(|_| PREPROD_GRPC_ENDPOINT.to_string());
@@ -141,143 +150,119 @@ async fn build_storage_control_client() -> anyhow::Result<StorageControl> {
     Ok(client)
 }
 
-/// Prints the section header that groups all test output for one bucket.
-fn print_bucket_header(label: &str, bucket_name: &str) {
-    println!("\n### {label}: {bucket_name}");
+// -----------------------------------------------------------------------------
+// Bucket lifecycle
+// -----------------------------------------------------------------------------
+
+/// The bucket topologies exercised by the suite.
+#[derive(Clone, Copy, Debug)]
+enum BucketType {
+    /// Regional bucket, `STANDARD` storage class.
+    RegionalStandard { hns: bool },
+    /// Zonal bucket in `zone_id()`, `RAPID` storage class; GCS requires HNS.
+    ZonalRapid,
+    /// Regional HNS bucket with a `rapid-cache-ultra` cache in `zone_id()`; GCS requires HNS.
+    RegionalRapid,
 }
 
-async fn with_regional_standard_bucket<F, Fut>(hns: bool, label: &str, f: F) -> anyhow::Result<()>
+impl BucketType {
+    fn label(self) -> &'static str {
+        match self {
+            Self::RegionalStandard { hns: false } => "Regional Standard (flat)",
+            Self::RegionalStandard { hns: true } => "Regional Standard (HNS)",
+            Self::ZonalRapid => "Zonal Rapid",
+            Self::RegionalRapid => "Regional Rapid / RCU (HNS)",
+        }
+    }
+
+    fn hns(self) -> bool {
+        match self {
+            Self::RegionalStandard { hns } => hns,
+            Self::ZonalRapid | Self::RegionalRapid => true,
+        }
+    }
+
+    fn has_rapid_cache(self) -> bool {
+        matches!(self, Self::RegionalRapid)
+    }
+}
+
+/// Creates a bucket of `bucket_type`, runs `f` with its name, then cleans the bucket up,
+/// even if `f` failed.
+async fn with_bucket<F, Fut>(clients: &Clients, bucket_type: BucketType, f: F) -> anyhow::Result<()>
 where
     F: FnOnce(String) -> Fut,
     Fut: std::future::Future<Output = anyhow::Result<()>>,
 {
-    let (control, bucket) = create_regional_standard_bucket(hns).await?;
-    print_bucket_header(label, &bucket.name);
+    let bucket = create_bucket(&clients.control, bucket_type).await?;
+    println!("\n### {}: {}", bucket_type.label(), bucket.name);
     let result = f(bucket.name.clone()).await;
-    let _ = cleanup_bucket(control, bucket.name, false, hns).await;
+    let _ = cleanup_bucket(
+        &clients.control,
+        &bucket.name,
+        bucket_type.has_rapid_cache(),
+        bucket_type.hns(),
+    )
+    .await;
     result
 }
 
-async fn with_zonal_rapid_bucket<F, Fut>(label: &str, f: F) -> anyhow::Result<()>
-where
-    F: FnOnce(String) -> Fut,
-    Fut: std::future::Future<Output = anyhow::Result<()>>,
-{
-    let (control, bucket) = create_zonal_rapid_bucket().await?;
-    print_bucket_header(label, &bucket.name);
-    let result = f(bucket.name.clone()).await;
-    let _ = cleanup_bucket(control, bucket.name, false, true).await;
-    result
-}
-
-/// Regional Rapid (RCU) buckets always have HNS enabled; GCS rejects RCU on flat buckets.
-async fn with_regional_rapid_bucket<F, Fut>(label: &str, f: F) -> anyhow::Result<()>
-where
-    F: FnOnce(String) -> Fut,
-    Fut: std::future::Future<Output = anyhow::Result<()>>,
-{
-    let (control, bucket) = create_regional_rapid_bucket().await?;
-    print_bucket_header(label, &bucket.name);
-    let result = f(bucket.name.clone()).await;
-    let _ = cleanup_bucket(control, bucket.name, true, true).await;
-    result
-}
-
-async fn create_regional_standard_bucket(hns: bool) -> anyhow::Result<(StorageControl, Bucket)> {
-    let project_id = project_id()?;
-    let region = region_id();
-    let control = build_storage_control_client().await?;
-
-    let bucket_id = random_bucket_id();
+/// Creates a bucket of `bucket_type`. For `RegionalRapid`, also attaches the cache; if that
+/// fails, the bucket is deleted before the error is returned.
+async fn create_bucket(
+    control: &StorageControl,
+    bucket_type: BucketType,
+) -> anyhow::Result<Bucket> {
+    let zone = zone_id();
     let mut bucket = Bucket::new()
-        .set_project(format!("projects/{project_id}"))
-        .set_location(&region)
+        .set_project(format!("projects/{}", project_id()?))
+        .set_location(region_id())
         .set_labels([("integration-test", "true")])
         .set_iam_config(
             IamConfig::new()
                 .set_uniform_bucket_level_access(UniformBucketLevelAccess::new().set_enabled(true)),
         );
-    if hns {
+    if bucket_type.hns() {
         bucket = bucket.set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true));
     }
-
-    let created_bucket = control
-        .create_bucket()
-        .set_parent("projects/_")
-        .set_bucket_id(bucket_id)
-        .set_bucket(bucket)
-        .with_idempotency(true)
-        .send()
-        .await?;
-    tracing::info!(
-        "create_regional_standard_bucket(hns={hns}, region={region}) created bucket: {}",
-        created_bucket.name
-    );
-
-    Ok((control, created_bucket))
-}
-
-async fn create_zonal_rapid_bucket() -> anyhow::Result<(StorageControl, Bucket)> {
-    let project_id = project_id()?;
-    let region = region_id();
-    let zone = zone_id();
-    let control = build_storage_control_client().await?;
-
-    let bucket_id = random_bucket_id();
-    let bucket = Bucket::new()
-        .set_project(format!("projects/{project_id}"))
-        .set_location(&region)
-        .set_custom_placement_config(CustomPlacementConfig::new().set_data_locations([&zone]))
-        .set_storage_class("RAPID")
-        .set_labels([("integration-test", "true")])
-        .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
-        .set_iam_config(
-            IamConfig::new()
-                .set_uniform_bucket_level_access(UniformBucketLevelAccess::new().set_enabled(true)),
-        );
-
-    let created_bucket = control
-        .create_bucket()
-        .set_parent("projects/_")
-        .set_bucket_id(bucket_id)
-        .set_bucket(bucket)
-        .with_idempotency(true)
-        .send()
-        .await?;
-    tracing::info!(
-        "create_zonal_rapid_bucket(zone={zone}) created bucket: {}",
-        created_bucket.name
-    );
-
-    Ok((control, created_bucket))
-}
-
-/// Creates an HNS regional bucket and attaches a `rapid-cache-ultra` cache in `zone_id()`.
-/// If attaching the cache fails, the bucket is deleted before the error is returned.
-async fn create_regional_rapid_bucket() -> anyhow::Result<(StorageControl, Bucket)> {
-    let (control, created_bucket) = create_regional_standard_bucket(true).await?;
-    let zone = zone_id();
-
-    let rapid_cache = RapidCache::new()
-        .set_name(format!("{}/rapidCaches/{zone}", created_bucket.name))
-        .set_zone(&zone)
-        .set_cache_type("rapid-cache-ultra");
-
-    println!("attaching rapid-cache-ultra in {zone} (this can take a minute or more)...");
-    let attached = control
-        .create_rapid_cache()
-        .set_parent(&created_bucket.name)
-        .set_rapid_cache(rapid_cache)
-        .poller()
-        .until_done()
-        .await;
-    if let Err(e) = attached {
-        // The LRO may fail after the cache was (partially) created, so check for caches too.
-        let _ = cleanup_bucket(control, created_bucket.name, true, true).await;
-        return Err(e.into());
+    if let BucketType::ZonalRapid = bucket_type {
+        bucket = bucket
+            .set_custom_placement_config(CustomPlacementConfig::new().set_data_locations([&zone]))
+            .set_storage_class("RAPID");
     }
 
-    Ok((control, created_bucket))
+    let bucket = control
+        .create_bucket()
+        .set_parent("projects/_")
+        .set_bucket_id(random_bucket_id())
+        .set_bucket(bucket)
+        .with_idempotency(true)
+        .send()
+        .await?;
+    tracing::info!("created {bucket_type:?} bucket: {}", bucket.name);
+
+    if bucket_type.has_rapid_cache() {
+        let rapid_cache = RapidCache::new()
+            .set_name(format!("{}/rapidCaches/{zone}", bucket.name))
+            .set_zone(&zone)
+            .set_cache_type("rapid-cache-ultra");
+
+        println!("attaching rapid-cache-ultra in {zone} (this can take a minute or more)...");
+        let attached = control
+            .create_rapid_cache()
+            .set_parent(&bucket.name)
+            .set_rapid_cache(rapid_cache)
+            .poller()
+            .until_done()
+            .await;
+        if let Err(e) = attached {
+            // The LRO may fail after the cache was (partially) created, so check for caches too.
+            let _ = cleanup_bucket(control, &bucket.name, true, true).await;
+            return Err(e.into());
+        }
+    }
+
+    Ok(bucket)
 }
 
 /// Cleans up a bucket in preprod by:
@@ -286,8 +271,8 @@ async fn create_regional_rapid_bucket() -> anyhow::Result<(StorageControl, Bucke
 /// 3. Deleting any HNS folders / managed folders (if `is_hns` is true).
 /// 4. Deleting the bucket itself.
 async fn cleanup_bucket(
-    control: StorageControl,
-    bucket_name: String,
+    control: &StorageControl,
+    bucket_name: &str,
     has_rapid_cache: bool,
     is_hns: bool,
 ) -> anyhow::Result<()> {
@@ -295,7 +280,7 @@ async fn cleanup_bucket(
     if has_rapid_cache {
         let mut rapid_caches = control
             .list_rapid_caches()
-            .set_parent(&bucket_name)
+            .set_parent(bucket_name)
             .by_item();
         while let Some(Ok(cache)) = rapid_caches.next().await {
             println!("  cleanup: disabling rapid cache {}", cache.name);
@@ -319,7 +304,7 @@ async fn cleanup_bucket(
     // 2. Delete all objects in the bucket (required before bucket deletion)
     let mut objects = control
         .list_objects()
-        .set_parent(&bucket_name)
+        .set_parent(bucket_name)
         .set_versions(true)
         .by_item();
     while let Some(Ok(obj)) = objects.next().await {
@@ -336,7 +321,7 @@ async fn cleanup_bucket(
     if is_hns {
         let mut managed_folders = control
             .list_managed_folders()
-            .set_parent(&bucket_name)
+            .set_parent(bucket_name)
             .by_item();
         while let Some(Ok(folder)) = managed_folders.next().await {
             let _ = control
@@ -345,7 +330,7 @@ async fn cleanup_bucket(
                 .send()
                 .await;
         }
-        let mut folders = control.list_folders().set_parent(&bucket_name).by_item();
+        let mut folders = control.list_folders().set_parent(bucket_name).by_item();
         while let Some(Ok(folder)) = folders.next().await {
             let _ = control.delete_folder().set_name(folder.name).send().await;
         }
@@ -354,7 +339,7 @@ async fn cleanup_bucket(
     // 4. Delete the bucket
     if let Err(e) = control
         .delete_bucket()
-        .set_name(&bucket_name)
+        .set_name(bucket_name)
         .with_idempotency(true)
         .send()
         .await
@@ -366,8 +351,11 @@ async fn cleanup_bucket(
 }
 
 /// Cleans up stale (>48h old) `integration-test=true` buckets in the project using `cleanup_bucket`.
-async fn cleanup_stale_buckets(control: &StorageControl, project_id: &str) {
+async fn cleanup_stale_buckets(control: &StorageControl) {
     use std::time::{SystemTime, UNIX_EPOCH};
+    let Ok(project_id) = project_id() else {
+        return;
+    };
     let Ok(now) = SystemTime::now().duration_since(UNIX_EPOCH) else {
         return;
     };
@@ -396,7 +384,7 @@ async fn cleanup_stale_buckets(control: &StorageControl, project_id: &str) {
         );
         for name in stale {
             // Stale buckets from prior runs may be of any type; check both caches and folders.
-            let _ = cleanup_bucket(control.clone(), name, true, true).await;
+            let _ = cleanup_bucket(control, &name, true, true).await;
         }
     }
 }
@@ -405,14 +393,13 @@ async fn cleanup_stale_buckets(control: &StorageControl, project_id: &str) {
 ///
 /// Each bucket type accepts exactly one of the two upload paths (go/gcs-rapid-behavior-matrix),
 /// so the caller selects it via `appendable`:
-/// - `false`: JSON `write_object` via `write_client` (`PREPROD_HTTP_ENDPOINT`). Use for
+/// - `false`: JSON `write_object` via `clients.http` (`PREPROD_HTTP_ENDPOINT`). Use for
 ///   `STANDARD` buckets (Regional Standard and Regional Rapid / RCU), which reject appendable writes.
-/// - `true`: gRPC `open_appendable_object` (`BidiWriteObject`) via `grpc_client`
+/// - `true`: gRPC `open_appendable_object` (`BidiWriteObject`) via `clients.grpc`
 ///   (`PREPROD_GRPC_ENDPOINT`). Use for Zonal Rapid (`RAPID`) buckets, which reject JSON uploads.
 ///   Requires `--cfg google_cloud_unstable_storage_bidi`.
 async fn write_test_object(
-    grpc_client: &Storage,
-    write_client: &Storage,
+    clients: &Clients,
     bucket_name: &str,
     object_name: &str,
     payload: String,
@@ -421,7 +408,8 @@ async fn write_test_object(
     if appendable {
         #[cfg(google_cloud_unstable_storage_bidi)]
         {
-            let mut writer = grpc_client
+            let mut writer = clients
+                .grpc
                 .open_appendable_object(bucket_name, object_name)
                 .send()
                 .await?;
@@ -431,11 +419,11 @@ async fn write_test_object(
         }
         #[cfg(not(google_cloud_unstable_storage_bidi))]
         {
-            let _ = grpc_client;
             anyhow::bail!("appendable uploads require `--cfg google_cloud_unstable_storage_bidi`");
         }
     }
-    let object = write_client
+    let object = clients
+        .http
         .write_object(bucket_name, object_name, payload)
         .set_if_generation_match(0)
         .send_unbuffered()
@@ -447,73 +435,6 @@ async fn write_test_object(
 // Test Cases
 // -----------------------------------------------------------------------------
 
-// =============================================================================
-// Non-bucket-type dependent test cases (Tests 2, 4, 5)
-// =============================================================================
-
-pub async fn read_post_stream_close(
-    client: &Storage,
-    write_client: &Storage,
-    bucket: &str,
-) -> anyhow::Result<()> {
-    test_read_post_stream_close(client, write_client, bucket).await
-}
-
-pub async fn non_existent_bucket_read(client: &Storage) -> anyhow::Result<()> {
-    test_non_existent_bucket_read(client).await
-}
-
-pub async fn out_of_range(
-    client: &Storage,
-    write_client: &Storage,
-    bucket: &str,
-) -> anyhow::Result<()> {
-    test_out_of_range(client, write_client, bucket).await
-}
-
-// =============================================================================
-// Bucket-type-dependent test cases (Test 1 permuted across topologies)
-// =============================================================================
-
-// --- 1. Regional Standard (HNS vs. Flat; colocation is not applicable) ---
-
-pub async fn multiple_ranged_read_regional_standard_hns(
-    client: &Storage,
-    write_client: &Storage,
-    bucket: &str,
-) -> anyhow::Result<()> {
-    test_multiple_ranged_read(client, write_client, bucket, false).await
-}
-
-pub async fn multiple_ranged_read_regional_standard_flat(
-    client: &Storage,
-    write_client: &Storage,
-    bucket: &str,
-) -> anyhow::Result<()> {
-    test_multiple_ranged_read(client, write_client, bucket, false).await
-}
-
-// --- 2. Zonal Rapid (HNS is always enabled) ---
-
-pub async fn multiple_ranged_read_zonal_rapid(
-    client: &Storage,
-    write_client: &Storage,
-    bucket: &str,
-) -> anyhow::Result<()> {
-    // Zonal Rapid (`RAPID`) buckets only accept appendable objects written over gRPC.
-    test_multiple_ranged_read(client, write_client, bucket, true).await
-}
-
-// --- 3. Regional Rapid / RCU (HNS only; GCS rejects RCU on flat buckets) ---
-
-pub async fn multiple_ranged_read_regional_rapid_hns(
-    client: &Storage,
-    write_client: &Storage,
-    bucket: &str,
-) -> anyhow::Result<()> {
-    test_multiple_ranged_read(client, write_client, bucket, false).await
-}
-
 /// Test Suite 1 - Test 1: Multiple Ranged Read
 ///
 /// Tests reading an object across multiple concurrent range read streams over the
@@ -522,9 +443,8 @@ pub async fn multiple_ranged_read_regional_rapid_hns(
 /// and CRC32C checksum integrity across all ranges matches.
 ///
 /// `appendable` selects how the source object is seeded; see `write_test_object`.
-pub async fn test_multiple_ranged_read(
-    client: &Storage,
-    write_client: &Storage,
+async fn test_multiple_ranged_read(
+    clients: &Clients,
     bucket_name: &str,
     appendable: bool,
 ) -> anyhow::Result<()> {
@@ -534,8 +454,7 @@ pub async fn test_multiple_ranged_read(
     let object_name = format!("bidi_read/multi_range_source_{}.txt", random_bucket_id());
 
     let object_name = write_test_object(
-        client,
-        write_client,
+        clients,
         bucket_name,
         &object_name,
         payload.clone(),
@@ -543,7 +462,11 @@ pub async fn test_multiple_ranged_read(
     )
     .await?;
 
-    let descriptor = client.open_object(bucket_name, &object_name).send().await?;
+    let descriptor = clients
+        .grpc
+        .open_object(bucket_name, &object_name)
+        .send()
+        .await?;
 
     // Define 4 non-overlapping segments covering the entire 512 KiB object:
     // Range 0: [0..64 KiB] (64 KiB)
@@ -597,27 +520,20 @@ pub async fn test_multiple_ranged_read(
 /// 1. Verifies that once a range reader reaches EOF, subsequent calls to next() idempotently return None.
 /// 2. Verifies that dropping an in-flight reader (aborting the range) leaves the underlying ObjectDescriptor
 ///    healthy and able to issue and read new ranges successfully.
-pub async fn test_read_post_stream_close(
-    client: &Storage,
-    write_client: &Storage,
-    bucket_name: &str,
-) -> anyhow::Result<()> {
+async fn test_read_post_stream_close(clients: &Clients, bucket_name: &str) -> anyhow::Result<()> {
     println!("  [Test 2] Read Post Stream Close ...");
     let payload = String::from_iter(('a'..='z').cycle().take(100_000));
     let object_name = format!("bidi_read/post_close_source_{}.txt", random_bucket_id());
 
     // Runs on the Regional Standard (flat) bucket, so seed with a JSON upload.
-    let object_name = write_test_object(
-        client,
-        write_client,
-        bucket_name,
-        &object_name,
-        payload.clone(),
-        false,
-    )
-    .await?;
+    let object_name =
+        write_test_object(clients, bucket_name, &object_name, payload.clone(), false).await?;
 
-    let descriptor = client.open_object(bucket_name, &object_name).send().await?;
+    let descriptor = clients
+        .grpc
+        .open_object(bucket_name, &object_name)
+        .send()
+        .await?;
 
     // 1. Read small range to completion (EOF)
     let mut reader = descriptor.read_range(ReadRange::head(100)).await;
@@ -652,14 +568,15 @@ pub async fn test_read_post_stream_close(
 ///
 /// Tests opening a stream on a non-existent bucket. Verifies that an appropriate
 /// error with NotFound status (HTTP 404) or PermissionDenied (allowlist check) is returned.
-pub async fn test_non_existent_bucket_read(client: &Storage) -> anyhow::Result<()> {
+async fn test_non_existent_bucket_read(clients: &Clients) -> anyhow::Result<()> {
     println!("  [Test 4] Non-Existent Bucket Read ...");
     let non_existent_bucket = format!(
         "projects/_/buckets/non-existent-bucket-{}",
-        google_cloud_test_utils::resource_names::random_bucket_id()
+        random_bucket_id()
     );
 
-    let result = client
+    let result = clients
+        .grpc
         .open_object(&non_existent_bucket, "non_existent_object.txt")
         .send()
         .await;
@@ -706,27 +623,20 @@ fn assert_is_not_found(err: &google_cloud_gax::error::Error) {
 /// Tests out-of-bounds range reads beyond object size (offset > size).
 /// Ensures appropriate exception/EOF is returned for the invalid range while valid range reads
 /// on the same session succeed.
-pub async fn test_out_of_range(
-    client: &Storage,
-    write_client: &Storage,
-    bucket_name: &str,
-) -> anyhow::Result<()> {
+async fn test_out_of_range(clients: &Clients, bucket_name: &str) -> anyhow::Result<()> {
     println!("  [Test 5] Out Of Range Read ...");
     let payload = String::from_iter(('a'..='z').cycle().take(10_000));
     let object_name = format!("bidi_read/out_of_range_source_{}.txt", random_bucket_id());
 
     // Runs on the Regional Standard (flat) bucket, so seed with a JSON upload.
-    let object_name = write_test_object(
-        client,
-        write_client,
-        bucket_name,
-        &object_name,
-        payload.clone(),
-        false,
-    )
-    .await?;
+    let object_name =
+        write_test_object(clients, bucket_name, &object_name, payload.clone(), false).await?;
 
-    let descriptor = client.open_object(bucket_name, &object_name).send().await?;
+    let descriptor = clients
+        .grpc
+        .open_object(bucket_name, &object_name)
+        .send()
+        .await?;
 
     // 1. Session verification: Verify that a valid range read on this descriptor succeeds
     let mut valid_reader = descriptor.read_range(ReadRange::head(50)).await;
