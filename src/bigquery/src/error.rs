@@ -29,6 +29,7 @@ pub enum QueryError {
 
     /// The query job failed on the BigQuery service side.
     /// Includes the list of error protocols returned by the service.
+    #[non_exhaustive]
     #[error("query job failed: {errors:?}")]
     JobFailed {
         /// The list of all errors associated with the job.
@@ -55,6 +56,7 @@ pub enum RowError {
     ColumnNotFound(String),
 
     /// The requested column index was out of range.
+    #[non_exhaustive]
     #[error("column index out of range: {index} (expected < {len})")]
     IndexOutOfRange {
         /// The index that was requested.
@@ -77,7 +79,7 @@ pub enum RowError {
     },
 
     /// The JSON format returned by the service did not match expectations.
-    #[error("internal service JSON layout invalid: {0}")]
+    #[error("internal service JSON layout is invalid: {0}")]
     InvalidRowFormat(String),
 
     /// The underlying RPC failed.
@@ -97,6 +99,7 @@ pub enum RowError {
 pub enum ConvertError {
     /// The value type did not match the expected type.
     #[error("type mismatch, expected {expected}, got {got}")]
+    #[non_exhaustive]
     TypeMismatch {
         /// The expected type name.
         expected: String,
@@ -122,24 +125,19 @@ pub enum ConvertError {
 }
 
 impl ConvertError {
-    pub(crate) fn type_mismatch(expected: impl Into<String>, got: wkt::Value) -> Self {
-        let got_type = match got {
-            wkt::Value::Null => "null",
-            wkt::Value::Bool(_) => "bool",
-            wkt::Value::Number(_) => "number",
-            wkt::Value::String(_) => "string",
-            wkt::Value::Array(_) => "array",
-            wkt::Value::Object(_) => "object",
-        };
+    pub(crate) fn type_mismatch(
+        expected: impl Into<String>,
+        got: &crate::query::from_sql::SqlValueInner,
+    ) -> Self {
         Self::TypeMismatch {
             expected: expected.into(),
-            got: got_type.to_string(),
+            got: got.type_name().to_string(),
         }
     }
 }
 
-// TODO(#6443) - consolidate crates
 pub use crate::write::error::AppendError;
+pub use crate::write::error::CommitError;
 pub use crate::write::error::WriterBuilderError;
 
 #[cfg(test)]
@@ -211,7 +209,7 @@ mod tests {
         let err = RowError::InvalidRowFormat("missing f field".to_string());
         assert_eq!(
             err.to_string(),
-            "internal service JSON layout invalid: missing f field"
+            "internal service JSON layout is invalid: missing f field"
         );
 
         let status = Status::default()
@@ -225,7 +223,8 @@ mod tests {
 
     #[test]
     fn test_convert_error_display() {
-        let err = ConvertError::type_mismatch("i64", wkt::Value::String("hello".to_string()));
+        let val = crate::query::SqlValue::new(wkt::Value::String("hello".to_string()));
+        let err = ConvertError::type_mismatch("i64", &val.inner);
         assert_eq!(err.to_string(), "type mismatch, expected i64, got string");
 
         let err = ConvertError::NotNull;

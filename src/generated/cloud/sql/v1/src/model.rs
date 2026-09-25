@@ -3439,6 +3439,9 @@ pub struct SqlDatabasesDeleteRequest {
     /// Project ID of the project that contains the instance.
     pub project: std::string::String,
 
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3483,6 +3486,18 @@ impl SqlDatabasesDeleteRequest {
         self.project = v.into();
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlDatabasesDeleteRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesDeleteRequest;
+    /// let x = SqlDatabasesDeleteRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlDatabasesDeleteRequest {
@@ -3503,6 +3518,9 @@ pub struct SqlDatabasesGetRequest {
 
     /// Project ID of the project that contains the instance.
     pub project: std::string::String,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3548,6 +3566,18 @@ impl SqlDatabasesGetRequest {
         self.project = v.into();
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlDatabasesGetRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesGetRequest;
+    /// let x = SqlDatabasesGetRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlDatabasesGetRequest {
@@ -3568,6 +3598,9 @@ pub struct SqlDatabasesInsertRequest {
 
     #[allow(missing_docs)]
     pub body: std::option::Option<crate::model::Database>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3634,6 +3667,18 @@ impl SqlDatabasesInsertRequest {
         self.body = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlDatabasesInsertRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesInsertRequest;
+    /// let x = SqlDatabasesInsertRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlDatabasesInsertRequest {
@@ -3651,6 +3696,9 @@ pub struct SqlDatabasesListRequest {
 
     /// Project ID of the project that contains the instance.
     pub project: std::string::String,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3684,6 +3732,18 @@ impl SqlDatabasesListRequest {
         self.project = v.into();
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlDatabasesListRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesListRequest;
+    /// let x = SqlDatabasesListRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlDatabasesListRequest {
@@ -3707,6 +3767,9 @@ pub struct SqlDatabasesUpdateRequest {
 
     #[allow(missing_docs)]
     pub body: std::option::Option<crate::model::Database>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3783,6 +3846,18 @@ impl SqlDatabasesUpdateRequest {
         T: std::convert::Into<crate::model::Database>,
     {
         self.body = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [location][crate::model::SqlDatabasesUpdateRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesUpdateRequest;
+    /// let x = SqlDatabasesUpdateRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
         self
     }
 }
@@ -4425,6 +4500,9 @@ pub struct SqlInstancesAddServerCaRequest {
     /// Project ID of the project that contains the instance.
     pub project: std::string::String,
 
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4457,6 +4535,18 @@ impl SqlInstancesAddServerCaRequest {
         self.project = v.into();
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesAddServerCaRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesAddServerCaRequest;
+    /// let x = SqlInstancesAddServerCaRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesAddServerCaRequest {
@@ -4474,6 +4564,9 @@ pub struct SqlInstancesAddServerCertificateRequest {
 
     /// Project ID of the project that contains the instance.
     pub project: std::string::String,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4507,6 +4600,18 @@ impl SqlInstancesAddServerCertificateRequest {
         self.project = v.into();
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesAddServerCertificateRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesAddServerCertificateRequest;
+    /// let x = SqlInstancesAddServerCertificateRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesAddServerCertificateRequest {
@@ -4524,6 +4629,9 @@ pub struct SqlInstancesAddEntraIdCertificateRequest {
 
     /// Required. Project ID of the project that contains the instance.
     pub project: std::string::String,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4557,6 +4665,18 @@ impl SqlInstancesAddEntraIdCertificateRequest {
         self.project = v.into();
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesAddEntraIdCertificateRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesAddEntraIdCertificateRequest;
+    /// let x = SqlInstancesAddEntraIdCertificateRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesAddEntraIdCertificateRequest {
@@ -4578,6 +4698,9 @@ pub struct SqlInstancesCloneRequest {
 
     #[allow(missing_docs)]
     pub body: std::option::Option<crate::model::InstancesCloneRequest>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4644,6 +4767,18 @@ impl SqlInstancesCloneRequest {
         self.body = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesCloneRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesCloneRequest;
+    /// let x = SqlInstancesCloneRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesCloneRequest {
@@ -4667,6 +4802,9 @@ pub struct SqlInstancesDeleteRequest {
 
     /// Optional. The description of the final backup.
     pub final_backup_description: std::string::String,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     #[allow(missing_docs)]
     pub expiration: std::option::Option<crate::model::sql_instances_delete_request::Expiration>,
@@ -4747,6 +4885,18 @@ impl SqlInstancesDeleteRequest {
         v: T,
     ) -> Self {
         self.final_backup_description = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::SqlInstancesDeleteRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesDeleteRequest;
+    /// let x = SqlInstancesDeleteRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
         self
     }
 
@@ -4882,6 +5032,9 @@ pub struct SqlInstancesDemoteMasterRequest {
     #[allow(missing_docs)]
     pub body: std::option::Option<crate::model::InstancesDemoteMasterRequest>,
 
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4947,6 +5100,18 @@ impl SqlInstancesDemoteMasterRequest {
         self.body = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesDemoteMasterRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesDemoteMasterRequest;
+    /// let x = SqlInstancesDemoteMasterRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesDemoteMasterRequest {
@@ -4967,6 +5132,9 @@ pub struct SqlInstancesDemoteRequest {
 
     /// Required. The request body.
     pub body: std::option::Option<crate::model::InstancesDemoteRequest>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5033,6 +5201,18 @@ impl SqlInstancesDemoteRequest {
         self.body = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesDemoteRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesDemoteRequest;
+    /// let x = SqlInstancesDemoteRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesDemoteRequest {
@@ -5053,6 +5233,9 @@ pub struct SqlInstancesExportRequest {
 
     #[allow(missing_docs)]
     pub body: std::option::Option<crate::model::InstancesExportRequest>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5119,6 +5302,18 @@ impl SqlInstancesExportRequest {
         self.body = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesExportRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesExportRequest;
+    /// let x = SqlInstancesExportRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesExportRequest {
@@ -5139,6 +5334,9 @@ pub struct SqlInstancesFailoverRequest {
 
     #[allow(missing_docs)]
     pub body: std::option::Option<crate::model::InstancesFailoverRequest>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5205,6 +5403,18 @@ impl SqlInstancesFailoverRequest {
         self.body = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesFailoverRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesFailoverRequest;
+    /// let x = SqlInstancesFailoverRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesFailoverRequest {
@@ -5222,6 +5432,9 @@ pub struct SqlInstancesGetRequest {
 
     /// Required. Project ID of the project that contains the instance.
     pub project: std::string::String,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5255,6 +5468,18 @@ impl SqlInstancesGetRequest {
         self.project = v.into();
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesGetRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesGetRequest;
+    /// let x = SqlInstancesGetRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesGetRequest {
@@ -5275,6 +5500,9 @@ pub struct SqlInstancesImportRequest {
 
     #[allow(missing_docs)]
     pub body: std::option::Option<crate::model::InstancesImportRequest>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5341,6 +5569,18 @@ impl SqlInstancesImportRequest {
         self.body = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesImportRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesImportRequest;
+    /// let x = SqlInstancesImportRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesImportRequest {
@@ -5359,6 +5599,9 @@ pub struct SqlInstancesInsertRequest {
 
     #[allow(missing_docs)]
     pub body: std::option::Option<crate::model::DatabaseInstance>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5413,6 +5656,18 @@ impl SqlInstancesInsertRequest {
         self.body = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesInsertRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesInsertRequest;
+    /// let x = SqlInstancesInsertRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesInsertRequest {
@@ -5448,6 +5703,9 @@ pub struct SqlInstancesListRequest {
 
     /// Project ID of the project for which to list Cloud SQL instances.
     pub project: std::string::String,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5505,6 +5763,18 @@ impl SqlInstancesListRequest {
         self.project = v.into();
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesListRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesListRequest;
+    /// let x = SqlInstancesListRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesListRequest {
@@ -5522,6 +5792,9 @@ pub struct SqlInstancesListServerCasRequest {
 
     /// Project ID of the project that contains the instance.
     pub project: std::string::String,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5555,6 +5828,18 @@ impl SqlInstancesListServerCasRequest {
         self.project = v.into();
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesListServerCasRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesListServerCasRequest;
+    /// let x = SqlInstancesListServerCasRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesListServerCasRequest {
@@ -5572,6 +5857,9 @@ pub struct SqlInstancesListServerCertificatesRequest {
 
     /// Required. Project ID of the project that contains the instance.
     pub project: std::string::String,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5605,6 +5893,18 @@ impl SqlInstancesListServerCertificatesRequest {
         self.project = v.into();
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesListServerCertificatesRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesListServerCertificatesRequest;
+    /// let x = SqlInstancesListServerCertificatesRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesListServerCertificatesRequest {
@@ -5622,6 +5922,9 @@ pub struct SqlInstancesListEntraIdCertificatesRequest {
 
     /// Required. Project ID of the project that contains the instance.
     pub project: std::string::String,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5655,6 +5958,18 @@ impl SqlInstancesListEntraIdCertificatesRequest {
         self.project = v.into();
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesListEntraIdCertificatesRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesListEntraIdCertificatesRequest;
+    /// let x = SqlInstancesListEntraIdCertificatesRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesListEntraIdCertificatesRequest {
@@ -5683,6 +5998,9 @@ pub struct SqlInstancesPatchRequest {
 
     #[allow(missing_docs)]
     pub body: std::option::Option<crate::model::DatabaseInstance>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5814,6 +6132,18 @@ impl SqlInstancesPatchRequest {
         self.body = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesPatchRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesPatchRequest;
+    /// let x = SqlInstancesPatchRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesPatchRequest {
@@ -5839,6 +6169,9 @@ pub struct SqlInstancesPromoteReplicaRequest {
     /// If set to false or not specified, then the original primary
     /// instance becomes an independent Cloud SQL primary instance.
     pub failover: bool,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5884,6 +6217,18 @@ impl SqlInstancesPromoteReplicaRequest {
         self.failover = v.into();
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesPromoteReplicaRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesPromoteReplicaRequest;
+    /// let x = SqlInstancesPromoteReplicaRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesPromoteReplicaRequest {
@@ -5906,6 +6251,9 @@ pub struct SqlInstancesSwitchoverRequest {
     /// timeout, which is a sum of all database operations. Default value is 10
     /// minutes and can be modified to a maximum value of 24 hours.
     pub db_timeout: std::option::Option<wkt::Duration>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5972,6 +6320,18 @@ impl SqlInstancesSwitchoverRequest {
         self.db_timeout = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesSwitchoverRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesSwitchoverRequest;
+    /// let x = SqlInstancesSwitchoverRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesSwitchoverRequest {
@@ -5992,6 +6352,9 @@ pub struct SqlInstancesResetSslConfigRequest {
 
     /// Optional. Reset SSL mode to use.
     pub mode: crate::model::sql_instances_reset_ssl_config_request::ResetSslMode,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6042,6 +6405,18 @@ impl SqlInstancesResetSslConfigRequest {
         v: T,
     ) -> Self {
         self.mode = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::SqlInstancesResetSslConfigRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesResetSslConfigRequest;
+    /// let x = SqlInstancesResetSslConfigRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
         self
     }
 }
@@ -6202,6 +6577,9 @@ pub struct SqlInstancesRestartRequest {
     /// Project ID of the project that contains the instance to be restarted.
     pub project: std::string::String,
 
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -6234,6 +6612,18 @@ impl SqlInstancesRestartRequest {
         self.project = v.into();
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesRestartRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRestartRequest;
+    /// let x = SqlInstancesRestartRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesRestartRequest {
@@ -6254,6 +6644,9 @@ pub struct SqlInstancesRestoreBackupRequest {
 
     #[allow(missing_docs)]
     pub body: std::option::Option<crate::model::InstancesRestoreBackupRequest>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6320,6 +6713,18 @@ impl SqlInstancesRestoreBackupRequest {
         self.body = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesRestoreBackupRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRestoreBackupRequest;
+    /// let x = SqlInstancesRestoreBackupRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesRestoreBackupRequest {
@@ -6340,6 +6745,9 @@ pub struct SqlInstancesRotateServerCaRequest {
 
     #[allow(missing_docs)]
     pub body: std::option::Option<crate::model::InstancesRotateServerCaRequest>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6406,6 +6814,18 @@ impl SqlInstancesRotateServerCaRequest {
         self.body = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesRotateServerCaRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRotateServerCaRequest;
+    /// let x = SqlInstancesRotateServerCaRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesRotateServerCaRequest {
@@ -6426,6 +6846,9 @@ pub struct SqlInstancesRotateServerCertificateRequest {
 
     /// Optional. Rotate server certificate request body.
     pub body: std::option::Option<crate::model::InstancesRotateServerCertificateRequest>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6492,6 +6915,18 @@ impl SqlInstancesRotateServerCertificateRequest {
         self.body = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesRotateServerCertificateRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRotateServerCertificateRequest;
+    /// let x = SqlInstancesRotateServerCertificateRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesRotateServerCertificateRequest {
@@ -6512,6 +6947,9 @@ pub struct SqlInstancesRotateEntraIdCertificateRequest {
 
     /// Optional. Rotate Entra ID certificate request body.
     pub body: std::option::Option<crate::model::InstancesRotateEntraIdCertificateRequest>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6578,6 +7016,18 @@ impl SqlInstancesRotateEntraIdCertificateRequest {
         self.body = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesRotateEntraIdCertificateRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRotateEntraIdCertificateRequest;
+    /// let x = SqlInstancesRotateEntraIdCertificateRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesRotateEntraIdCertificateRequest {
@@ -6595,6 +7045,9 @@ pub struct SqlInstancesStartReplicaRequest {
 
     /// ID of the project that contains the read replica.
     pub project: std::string::String,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6628,6 +7081,18 @@ impl SqlInstancesStartReplicaRequest {
         self.project = v.into();
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesStartReplicaRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesStartReplicaRequest;
+    /// let x = SqlInstancesStartReplicaRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesStartReplicaRequest {
@@ -6645,6 +7110,9 @@ pub struct SqlInstancesStopReplicaRequest {
 
     /// ID of the project that contains the read replica.
     pub project: std::string::String,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6678,6 +7146,18 @@ impl SqlInstancesStopReplicaRequest {
         self.project = v.into();
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesStopReplicaRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesStopReplicaRequest;
+    /// let x = SqlInstancesStopReplicaRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesStopReplicaRequest {
@@ -6698,6 +7178,9 @@ pub struct SqlInstancesTruncateLogRequest {
 
     #[allow(missing_docs)]
     pub body: std::option::Option<crate::model::InstancesTruncateLogRequest>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6764,6 +7247,18 @@ impl SqlInstancesTruncateLogRequest {
         self.body = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesTruncateLogRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesTruncateLogRequest;
+    /// let x = SqlInstancesTruncateLogRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesTruncateLogRequest {
@@ -6784,6 +7279,9 @@ pub struct SqlInstancesPerformDiskShrinkRequest {
 
     /// Perform disk shrink context.
     pub body: std::option::Option<crate::model::PerformDiskShrinkContext>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6850,6 +7348,18 @@ impl SqlInstancesPerformDiskShrinkRequest {
         self.body = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesPerformDiskShrinkRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesPerformDiskShrinkRequest;
+    /// let x = SqlInstancesPerformDiskShrinkRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesPerformDiskShrinkRequest {
@@ -6870,6 +7380,9 @@ pub struct SqlInstancesUpdateRequest {
 
     #[allow(missing_docs)]
     pub body: std::option::Option<crate::model::DatabaseInstance>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6936,6 +7449,18 @@ impl SqlInstancesUpdateRequest {
         self.body = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesUpdateRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesUpdateRequest;
+    /// let x = SqlInstancesUpdateRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesUpdateRequest {
@@ -6956,6 +7481,9 @@ pub struct SqlInstancesRescheduleMaintenanceRequest {
 
     #[allow(missing_docs)]
     pub body: std::option::Option<crate::model::SqlInstancesRescheduleMaintenanceRequestBody>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7022,6 +7550,18 @@ impl SqlInstancesRescheduleMaintenanceRequest {
         self.body = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesRescheduleMaintenanceRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRescheduleMaintenanceRequest;
+    /// let x = SqlInstancesRescheduleMaintenanceRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesRescheduleMaintenanceRequest {
@@ -7042,6 +7582,9 @@ pub struct SqlInstancesReencryptRequest {
 
     /// Reencrypt body that users request
     pub body: std::option::Option<crate::model::InstancesReencryptRequest>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7106,6 +7649,18 @@ impl SqlInstancesReencryptRequest {
         T: std::convert::Into<crate::model::InstancesReencryptRequest>,
     {
         self.body = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [location][crate::model::SqlInstancesReencryptRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesReencryptRequest;
+    /// let x = SqlInstancesReencryptRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
         self
     }
 }
@@ -7447,6 +8002,9 @@ pub struct SqlInstancesGetDiskShrinkConfigRequest {
     /// Project ID of the project that contains the instance.
     pub project: std::string::String,
 
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -7477,6 +8035,18 @@ impl SqlInstancesGetDiskShrinkConfigRequest {
     /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::SqlInstancesGetDiskShrinkConfigRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesGetDiskShrinkConfigRequest;
+    /// let x = SqlInstancesGetDiskShrinkConfigRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
         self
     }
 }
@@ -7520,6 +8090,9 @@ pub struct SqlInstancesVerifyExternalSyncSettingsRequest {
     /// Optional. Migrate only the specified objects from the source instance. If
     /// this field is empty, then migrate all objects.
     pub selected_objects: std::vec::Vec<crate::model::ExternalSyncSelectedObject>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     #[allow(missing_docs)]
     pub sync_config: std::option::Option<
@@ -7664,6 +8237,18 @@ impl SqlInstancesVerifyExternalSyncSettingsRequest {
     {
         use std::iter::Iterator;
         self.selected_objects = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesVerifyExternalSyncSettingsRequest;
+    /// let x = SqlInstancesVerifyExternalSyncSettingsRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
         self
     }
 
@@ -8053,6 +8638,9 @@ pub struct SqlInstancesStartExternalSyncRequest {
     /// databases proposed, an error will be returned.
     pub replica_overwrite_enabled: bool,
 
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
+
     #[allow(missing_docs)]
     pub sync_config:
         std::option::Option<crate::model::sql_instances_start_external_sync_request::SyncConfig>,
@@ -8176,6 +8764,18 @@ impl SqlInstancesStartExternalSyncRequest {
         self
     }
 
+    /// Sets the value of [location][crate::model::SqlInstancesStartExternalSyncRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesStartExternalSyncRequest;
+    /// let x = SqlInstancesStartExternalSyncRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
     /// Sets the value of [sync_config][crate::model::SqlInstancesStartExternalSyncRequest::sync_config].
     ///
     /// Note that all the setters affecting `sync_config` are mutually
@@ -8273,6 +8873,9 @@ pub struct SqlInstancesResetReplicaSizeRequest {
     /// ID of the project that contains the read replica.
     pub project: std::string::String,
 
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -8305,6 +8908,18 @@ impl SqlInstancesResetReplicaSizeRequest {
         self.project = v.into();
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesResetReplicaSizeRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesResetReplicaSizeRequest;
+    /// let x = SqlInstancesResetReplicaSizeRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesResetReplicaSizeRequest {
@@ -8325,6 +8940,9 @@ pub struct SqlInstancesCreateEphemeralCertRequest {
 
     #[allow(missing_docs)]
     pub body: std::option::Option<crate::model::SslCertsCreateEphemeralRequest>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8389,6 +9007,18 @@ impl SqlInstancesCreateEphemeralCertRequest {
         T: std::convert::Into<crate::model::SslCertsCreateEphemeralRequest>,
     {
         self.body = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [location][crate::model::SqlInstancesCreateEphemeralCertRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesCreateEphemeralCertRequest;
+    /// let x = SqlInstancesCreateEphemeralCertRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
         self
     }
 }
@@ -9672,6 +10302,9 @@ pub struct SqlInstancesPreCheckMajorVersionUpgradeRequest {
     /// upgrade operation.
     pub body: std::option::Option<crate::model::InstancesPreCheckMajorVersionUpgradeRequest>,
 
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -9735,6 +10368,18 @@ impl SqlInstancesPreCheckMajorVersionUpgradeRequest {
         T: std::convert::Into<crate::model::InstancesPreCheckMajorVersionUpgradeRequest>,
     {
         self.body = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [location][crate::model::SqlInstancesPreCheckMajorVersionUpgradeRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesPreCheckMajorVersionUpgradeRequest;
+    /// let x = SqlInstancesPreCheckMajorVersionUpgradeRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
         self
     }
 }
@@ -9909,6 +10554,9 @@ pub struct SqlInstancesGetLatestRecoveryTimeRequest {
     /// deleted. If this instance is deleted, then you must set the timestamp.
     pub source_instance_deletion_time: std::option::Option<wkt::Timestamp>,
 
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -9975,6 +10623,18 @@ impl SqlInstancesGetLatestRecoveryTimeRequest {
         T: std::convert::Into<wkt::Timestamp>,
     {
         self.source_instance_deletion_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [location][crate::model::SqlInstancesGetLatestRecoveryTimeRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesGetLatestRecoveryTimeRequest;
+    /// let x = SqlInstancesGetLatestRecoveryTimeRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
         self
     }
 }
@@ -11135,6 +11795,11 @@ pub struct DatabaseInstance {
     /// Optional. If true, instance metadata is sent to the Database Center. If
     /// false, instance metadata is not sent to the Database Center.
     pub database_center_integration_enabled: std::option::Option<wkt::BoolValue>,
+
+    /// Optional. State of the Database Center integration for this instance.
+    /// When unspecified, Database Center integration is enabled by default.
+    pub database_center_integration:
+        std::option::Option<crate::model::database_instance::DatabaseCenterIntegration>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -12411,6 +13076,41 @@ impl DatabaseInstance {
         self.database_center_integration_enabled = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [database_center_integration][crate::model::DatabaseInstance::database_center_integration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::database_instance::DatabaseCenterIntegration;
+    /// let x0 = DatabaseInstance::new().set_database_center_integration(DatabaseCenterIntegration::Enabled);
+    /// let x1 = DatabaseInstance::new().set_database_center_integration(DatabaseCenterIntegration::Disabled);
+    /// ```
+    pub fn set_database_center_integration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::database_instance::DatabaseCenterIntegration>,
+    {
+        self.database_center_integration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [database_center_integration][crate::model::DatabaseInstance::database_center_integration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::database_instance::DatabaseCenterIntegration;
+    /// let x0 = DatabaseInstance::new().set_or_clear_database_center_integration(Some(DatabaseCenterIntegration::Enabled));
+    /// let x1 = DatabaseInstance::new().set_or_clear_database_center_integration(Some(DatabaseCenterIntegration::Disabled));
+    /// let x_none = DatabaseInstance::new().set_or_clear_database_center_integration(None::<DatabaseCenterIntegration>);
+    /// ```
+    pub fn set_or_clear_database_center_integration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::database_instance::DatabaseCenterIntegration>,
+    {
+        self.database_center_integration = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for DatabaseInstance {
@@ -13470,6 +14170,143 @@ pub mod database_instance {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlNetworkArchitecture>::new(
                 ".google.cloud.sql.v1.DatabaseInstance.SqlNetworkArchitecture",
             ))
+        }
+    }
+
+    /// State of the integration with Database Center.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DatabaseCenterIntegration {
+        /// Default value. The integration state is unspecified. When unspecified,
+        /// Database Center integration is enabled by default.
+        Unspecified,
+        /// Database Center integration is enabled.
+        Enabled,
+        /// Database Center integration is disabled.
+        Disabled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DatabaseCenterIntegration::value] or
+        /// [DatabaseCenterIntegration::name].
+        UnknownValue(database_center_integration::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod database_center_integration {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl DatabaseCenterIntegration {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Enabled => std::option::Option::Some(1),
+                Self::Disabled => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("DATABASE_CENTER_INTEGRATION_UNSPECIFIED")
+                }
+                Self::Enabled => std::option::Option::Some("ENABLED"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for DatabaseCenterIntegration {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DatabaseCenterIntegration {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DatabaseCenterIntegration {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Enabled,
+                2 => Self::Disabled,
+                _ => Self::UnknownValue(database_center_integration::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DatabaseCenterIntegration {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DATABASE_CENTER_INTEGRATION_UNSPECIFIED" => Self::Unspecified,
+                "ENABLED" => Self::Enabled,
+                "DISABLED" => Self::Disabled,
+                _ => Self::UnknownValue(database_center_integration::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DatabaseCenterIntegration {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Enabled => serializer.serialize_i32(1),
+                Self::Disabled => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DatabaseCenterIntegration {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<DatabaseCenterIntegration>::new(
+                    ".google.cloud.sql.v1.DatabaseInstance.DatabaseCenterIntegration",
+                ),
+            )
         }
     }
 }
@@ -16067,6 +16904,9 @@ pub struct SqlInstancesExecuteSqlRequest {
     /// The request body.
     pub body: std::option::Option<crate::model::ExecuteSqlPayload>,
 
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -16130,6 +16970,18 @@ impl SqlInstancesExecuteSqlRequest {
         T: std::convert::Into<crate::model::ExecuteSqlPayload>,
     {
         self.body = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [location][crate::model::SqlInstancesExecuteSqlRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesExecuteSqlRequest;
+    /// let x = SqlInstancesExecuteSqlRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
         self
     }
 }
@@ -17120,6 +17972,9 @@ pub struct SqlInstancesAcquireSsrsLeaseRequest {
     /// Required. The request body.
     pub body: std::option::Option<crate::model::InstancesAcquireSsrsLeaseRequest>,
 
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -17185,6 +18040,18 @@ impl SqlInstancesAcquireSsrsLeaseRequest {
         self.body = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlInstancesAcquireSsrsLeaseRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesAcquireSsrsLeaseRequest;
+    /// let x = SqlInstancesAcquireSsrsLeaseRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlInstancesAcquireSsrsLeaseRequest {
@@ -17241,6 +18108,9 @@ pub struct SqlInstancesReleaseSsrsLeaseRequest {
     /// Required. The project ID that contains the instance.
     pub project: std::string::String,
 
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -17271,6 +18141,18 @@ impl SqlInstancesReleaseSsrsLeaseRequest {
     /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::SqlInstancesReleaseSsrsLeaseRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesReleaseSsrsLeaseRequest;
+    /// let x = SqlInstancesReleaseSsrsLeaseRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
         self
     }
 }
@@ -32181,6 +33063,9 @@ pub struct SqlUsersDeleteRequest {
     /// Project ID of the project that contains the instance.
     pub project: std::string::String,
 
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -32237,6 +33122,18 @@ impl SqlUsersDeleteRequest {
         self.project = v.into();
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlUsersDeleteRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersDeleteRequest;
+    /// let x = SqlUsersDeleteRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlUsersDeleteRequest {
@@ -32260,6 +33157,9 @@ pub struct SqlUsersGetRequest {
 
     /// Host of a user of the instance.
     pub host: std::string::String,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -32317,6 +33217,18 @@ impl SqlUsersGetRequest {
         self.host = v.into();
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlUsersGetRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersGetRequest;
+    /// let x = SqlUsersGetRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlUsersGetRequest {
@@ -32337,6 +33249,9 @@ pub struct SqlUsersInsertRequest {
 
     #[allow(missing_docs)]
     pub body: std::option::Option<crate::model::User>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -32403,6 +33318,18 @@ impl SqlUsersInsertRequest {
         self.body = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [location][crate::model::SqlUsersInsertRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersInsertRequest;
+    /// let x = SqlUsersInsertRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SqlUsersInsertRequest {
@@ -32420,6 +33347,9 @@ pub struct SqlUsersListRequest {
 
     /// Project ID of the project that contains the instance.
     pub project: std::string::String,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -32451,6 +33381,18 @@ impl SqlUsersListRequest {
     /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::SqlUsersListRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersListRequest;
+    /// let x = SqlUsersListRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
         self
     }
 }
@@ -32498,6 +33440,9 @@ pub struct SqlUsersUpdateRequest {
 
     #[allow(missing_docs)]
     pub body: std::option::Option<crate::model::User>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -32682,6 +33627,18 @@ impl SqlUsersUpdateRequest {
         T: std::convert::Into<crate::model::User>,
     {
         self.body = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [location][crate::model::SqlUsersUpdateRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersUpdateRequest;
+    /// let x = SqlUsersUpdateRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
         self
     }
 }

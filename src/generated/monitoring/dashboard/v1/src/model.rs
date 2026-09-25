@@ -2635,17 +2635,17 @@ impl wkt::message::Message for ErrorReportingPanel {
     }
 }
 
-/// A widget that displays a list of incidents
+/// A widget that displays a list of alerts
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IncidentList {
-    /// Optional. The monitored resource for which incidents are listed.
+    /// Optional. The monitored resource for which alerts are listed.
     /// The resource doesn't need to be fully specified. That is, you can specify
     /// the resource type but not the values of the resource labels.
     /// The resource type and labels are used for filtering.
     pub monitored_resources: std::vec::Vec<google_cloud_api::model::MonitoredResource>,
 
-    /// Optional. A list of alert policy names to filter the incident list by.
+    /// Optional. A list of alert policy names to filter the alert list by.
     /// Don't include the project ID prefix in the policy name. For
     /// example, use `alertPolicies/utilization`.
     pub policy_names: std::vec::Vec<std::string::String>,
@@ -7828,7 +7828,7 @@ pub mod widget {
         CollapsibleGroup(std::boxed::Box<crate::model::CollapsibleGroup>),
         /// A widget that shows a stream of logs.
         LogsPanel(std::boxed::Box<crate::model::LogsPanel>),
-        /// A widget that shows list of incidents.
+        /// A widget that shows list of alerts.
         IncidentList(std::boxed::Box<crate::model::IncidentList>),
         /// A widget that displays timeseries data as a pie chart.
         PieChart(std::boxed::Box<crate::model::PieChart>),

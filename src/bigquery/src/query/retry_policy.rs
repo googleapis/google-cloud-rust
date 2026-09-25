@@ -21,7 +21,7 @@ use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::error::Error as GaxError;
 use google_cloud_gax::error::rpc::{Code, StatusDetails};
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
-use google_cloud_gax::retry_policy::RetryPolicy;
+use google_cloud_gax::retry_policy::{RetryPolicy, RetryPolicyExt};
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
 use std::sync::Arc;
@@ -35,7 +35,7 @@ use std::time::Duration;
 /// # use google_cloud_bigquery::client::BigQuery;
 /// # use google_cloud_bigquery::query::retry_policy::RetryableErrors;
 /// # use google_cloud_gax::retry_policy::RetryPolicyExt;
-/// let policy = RetryableErrors.with_time_limit(std::time::Duration::from_secs(60));
+/// let policy = RetryableErrors.with_attempt_limit(6);
 /// let client = BigQuery::builder()
 ///     .with_retry_policy(policy)
 ///     .build()
@@ -84,7 +84,7 @@ impl RetryPolicy for RetryableErrors {
 }
 
 pub(crate) fn default_retry_policy() -> Arc<dyn RetryPolicy> {
-    Arc::new(RetryableErrors)
+    Arc::new(RetryableErrors.with_attempt_limit(6))
 }
 
 pub(crate) fn default_backoff_policy() -> Arc<dyn BackoffPolicy> {
@@ -476,14 +476,12 @@ mod tests {
 
     #[test]
     fn test_job_attempt_limit() {
-        let policy = default_job_retry_policy();
+        let policy = default_job_retry_policy(); // default attempt_limit is 3
         let retryable_err = || QueryError::JobFailed {
             errors: vec![ErrorProto::new().set_reason("backendError")],
         };
 
         let mut state = RetryState::default();
-        assert!(policy.on_error(&state, retryable_err()).is_continue());
-
         state.attempt_count = 1;
         assert!(policy.on_error(&state, retryable_err()).is_continue());
 
@@ -512,5 +510,26 @@ mod tests {
         } else {
             panic!("expected Continue with 5s delay");
         }
+    }
+
+    #[test]
+    fn test_default_retry_policy_is_bounded() {
+        let policy = default_retry_policy();
+        let err = || GaxError::service(Status::default().set_code(Code::Unavailable));
+
+        for attempt in 1u32..6u32 {
+            let state = RetryState::new(true).set_attempt_count(attempt);
+            assert!(
+                policy.on_error(&state, err()).is_continue(),
+                "attempt {attempt} should continue"
+            );
+            assert_eq!(policy.remaining_time(&state), None);
+        }
+
+        let state = RetryState::new(true).set_attempt_count(6u32);
+        assert!(
+            policy.on_error(&state, err()).is_exhausted(),
+            "attempt 6 should be exhausted"
+        );
     }
 }

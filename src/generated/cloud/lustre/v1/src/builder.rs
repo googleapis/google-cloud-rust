@@ -657,10 +657,163 @@ pub mod lustre {
             self.0.request.request_id = v.into();
             self
         }
+
+        /// Sets the value of [force][crate::model::DeleteInstanceRequest::force].
+        pub fn set_force<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.force = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
     impl crate::RequestBuilder for DeleteInstance {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Lustre::reschedule_maintenance][crate::client::Lustre::reschedule_maintenance] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::RescheduleMaintenance;
+    /// # async fn sample() -> google_cloud_lustre_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> RescheduleMaintenance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct RescheduleMaintenance(RequestBuilder<crate::model::RescheduleMaintenanceRequest>);
+
+    impl RescheduleMaintenance {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::RescheduleMaintenanceRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [reschedule_maintenance][crate::client::Lustre::reschedule_maintenance].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .reschedule_maintenance(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `reschedule_maintenance`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_lustre_v1::client::Lustre::reschedule_maintenance::until_done";
+            }
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            use google_cloud_lro::internal::PollerExt;
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
+            .with_options(poller_options)
+        }
+
+        /// Sets the value of [name][crate::model::RescheduleMaintenanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [reschedule][crate::model::RescheduleMaintenanceRequest::reschedule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_reschedule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::reschedule_maintenance_request::Reschedule>,
+        {
+            self.0.request.reschedule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [reschedule][crate::model::RescheduleMaintenanceRequest::reschedule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_reschedule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::reschedule_maintenance_request::Reschedule>,
+        {
+            self.0.request.reschedule = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::RescheduleMaintenanceRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for RescheduleMaintenance {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
@@ -1026,6 +1179,1036 @@ pub mod lustre {
         }
     }
 
+    /// The request builder for [Lustre::create_mirror][crate::client::Lustre::create_mirror] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::CreateMirror;
+    /// # async fn sample() -> google_cloud_lustre_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateMirror {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateMirror(RequestBuilder<crate::model::CreateMirrorRequest>);
+
+    impl CreateMirror {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateMirrorRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_mirror][crate::client::Lustre::create_mirror].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_mirror(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_mirror`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Mirror, crate::model::CreateMirrorMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Mirror,
+                crate::model::CreateMirrorMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_lustre_v1::client::Lustre::create_mirror::until_done";
+            }
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            use google_cloud_lro::internal::PollerExt;
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
+            .with_options(poller_options)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateMirrorRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [mirror_id][crate::model::CreateMirrorRequest::mirror_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_mirror_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.mirror_id = v.into();
+            self
+        }
+
+        /// Sets the value of [mirror][crate::model::CreateMirrorRequest::mirror].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_mirror<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Mirror>,
+        {
+            self.0.request.mirror = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mirror][crate::model::CreateMirrorRequest::mirror].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_mirror<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Mirror>,
+        {
+            self.0.request.mirror = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::CreateMirrorRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateMirror {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Lustre::update_mirror][crate::client::Lustre::update_mirror] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::UpdateMirror;
+    /// # async fn sample() -> google_cloud_lustre_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateMirror {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateMirror(RequestBuilder<crate::model::UpdateMirrorRequest>);
+
+    impl UpdateMirror {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateMirrorRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_mirror][crate::client::Lustre::update_mirror].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_mirror(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_mirror`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Mirror, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Mirror,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_lustre_v1::client::Lustre::update_mirror::until_done";
+            }
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            use google_cloud_lro::internal::PollerExt;
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
+            .with_options(poller_options)
+        }
+
+        /// Sets the value of [mirror][crate::model::UpdateMirrorRequest::mirror].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_mirror<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Mirror>,
+        {
+            self.0.request.mirror = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mirror][crate::model::UpdateMirrorRequest::mirror].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_mirror<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Mirror>,
+        {
+            self.0.request.mirror = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateMirrorRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMirrorRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateMirrorRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateMirror {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Lustre::delete_mirror][crate::client::Lustre::delete_mirror] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::DeleteMirror;
+    /// # async fn sample() -> google_cloud_lustre_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteMirror {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteMirror(RequestBuilder<crate::model::DeleteMirrorRequest>);
+
+    impl DeleteMirror {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteMirrorRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_mirror][crate::client::Lustre::delete_mirror].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_mirror(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_mirror`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_lustre_v1::client::Lustre::delete_mirror::until_done";
+            }
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            use google_cloud_lro::internal::PollerExt;
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
+            .with_options(poller_options)
+        }
+
+        /// Sets the value of [name][crate::model::DeleteMirrorRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::DeleteMirrorRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteMirror {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Lustre::get_mirror][crate::client::Lustre::get_mirror] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::GetMirror;
+    /// # async fn sample() -> google_cloud_lustre_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetMirror {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetMirror(RequestBuilder<crate::model::GetMirrorRequest>);
+
+    impl GetMirror {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetMirrorRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Mirror> {
+            (*self.0.stub)
+                .get_mirror(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetMirrorRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetMirror {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Lustre::list_mirrors][crate::client::Lustre::list_mirrors] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::ListMirrors;
+    /// # async fn sample() -> google_cloud_lustre_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListMirrors {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListMirrors(RequestBuilder<crate::model::ListMirrorsRequest>);
+
+    impl ListMirrors {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListMirrorsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListMirrorsResponse> {
+            (*self.0.stub)
+                .list_mirrors(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListMirrorsResponse, crate::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListMirrorsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListMirrorsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListMirrorsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListMirrorsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ListMirrorsRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListMirrorsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListMirrors {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Lustre::create_directory_policy][crate::client::Lustre::create_directory_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::CreateDirectoryPolicy;
+    /// # async fn sample() -> google_cloud_lustre_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateDirectoryPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateDirectoryPolicy(RequestBuilder<crate::model::CreateDirectoryPolicyRequest>);
+
+    impl CreateDirectoryPolicy {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateDirectoryPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_directory_policy][crate::client::Lustre::create_directory_policy].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_directory_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_directory_policy`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::DirectoryPolicy, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::DirectoryPolicy,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_lustre_v1::client::Lustre::create_directory_policy::until_done";
+            }
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            use google_cloud_lro::internal::PollerExt;
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
+            .with_options(poller_options)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateDirectoryPolicyRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [directory_policy_id][crate::model::CreateDirectoryPolicyRequest::directory_policy_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_directory_policy_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.directory_policy_id = v.into();
+            self
+        }
+
+        /// Sets the value of [directory_policy][crate::model::CreateDirectoryPolicyRequest::directory_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_directory_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DirectoryPolicy>,
+        {
+            self.0.request.directory_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [directory_policy][crate::model::CreateDirectoryPolicyRequest::directory_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_directory_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DirectoryPolicy>,
+        {
+            self.0.request.directory_policy = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateDirectoryPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Lustre::delete_directory_policy][crate::client::Lustre::delete_directory_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::DeleteDirectoryPolicy;
+    /// # async fn sample() -> google_cloud_lustre_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteDirectoryPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteDirectoryPolicy(RequestBuilder<crate::model::DeleteDirectoryPolicyRequest>);
+
+    impl DeleteDirectoryPolicy {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteDirectoryPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_directory_policy][crate::client::Lustre::delete_directory_policy].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_directory_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_directory_policy`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_lustre_v1::client::Lustre::delete_directory_policy::until_done";
+            }
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            use google_cloud_lro::internal::PollerExt;
+            {
+                google_cloud_lro::internal::new_unit_response_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
+            .with_options(poller_options)
+        }
+
+        /// Sets the value of [name][crate::model::DeleteDirectoryPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteDirectoryPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Lustre::get_directory_policy][crate::client::Lustre::get_directory_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::GetDirectoryPolicy;
+    /// # async fn sample() -> google_cloud_lustre_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetDirectoryPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetDirectoryPolicy(RequestBuilder<crate::model::GetDirectoryPolicyRequest>);
+
+    impl GetDirectoryPolicy {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetDirectoryPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::DirectoryPolicy> {
+            (*self.0.stub)
+                .get_directory_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetDirectoryPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetDirectoryPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Lustre::list_directory_policies][crate::client::Lustre::list_directory_policies] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::ListDirectoryPolicies;
+    /// # async fn sample() -> google_cloud_lustre_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListDirectoryPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListDirectoryPolicies(RequestBuilder<crate::model::ListDirectoryPoliciesRequest>);
+
+    impl ListDirectoryPolicies {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListDirectoryPoliciesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListDirectoryPoliciesResponse> {
+            (*self.0.stub)
+                .list_directory_policies(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListDirectoryPoliciesResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListDirectoryPoliciesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListDirectoryPoliciesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListDirectoryPoliciesRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListDirectoryPoliciesRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListDirectoryPolicies {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [Lustre::list_locations][crate::client::Lustre::list_locations] calls.
     ///
     /// # Example
@@ -1193,6 +2376,268 @@ pub mod lustre {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for GetLocation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Lustre::set_iam_policy][crate::client::Lustre::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::SetIamPolicy;
+    /// # async fn sample() -> google_cloud_lustre_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+
+    impl SetIamPolicy {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
+            (*self.0.stub)
+                .set_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Lustre::get_iam_policy][crate::client::Lustre::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::GetIamPolicy;
+    /// # async fn sample() -> google_cloud_lustre_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+
+    impl GetIamPolicy {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
+            (*self.0.stub)
+                .get_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Lustre::test_iam_permissions][crate::client::Lustre::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::TestIamPermissions;
+    /// # async fn sample() -> google_cloud_lustre_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
+
+    impl TestIamPermissions {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lustre>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
+            (*self.0.stub)
+                .test_iam_permissions(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

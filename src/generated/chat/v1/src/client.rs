@@ -1389,6 +1389,100 @@ impl ChatService {
         super::builder::chat_service::DeleteReaction::new(self.inner.clone())
     }
 
+    /// Lists message pins in a space. Users can pin important messages in spaces
+    /// for easy access. For more information, see [Pin or unpin a conversation in
+    /// Google Chat](https://support.google.com/chat/answer/15622437).
+    ///
+    /// Requires [user
+    /// authentication](https://developers.google.com/workspace/chat/authenticate-authorize-chat-user)
+    /// with one of the following [authorization
+    /// scopes](https://developers.google.com/workspace/chat/authenticate-authorize#chat-api-scopes):
+    ///
+    /// - `<https://www.googleapis.com/auth/chat.spaces.pins.readonly>`
+    /// - `<https://www.googleapis.com/auth/chat.spaces.pins>`
+    /// - `<https://www.googleapis.com/auth/chat.spaces.readonly>`
+    /// - `<https://www.googleapis.com/auth/chat.spaces>`
+    ///
+    /// # Example
+    /// ```
+    /// # use google_chat_v1::client::ChatService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_chat_v1::Result;
+    /// async fn sample(
+    ///    client: &ChatService, space_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_message_pins()
+    ///         .set_parent(format!("spaces/{space_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_message_pins(&self) -> super::builder::chat_service::ListMessagePins {
+        super::builder::chat_service::ListMessagePins::new(self.inner.clone())
+    }
+
+    /// Creates a message pin.
+    ///
+    /// Requires [user
+    /// authentication](https://developers.google.com/workspace/chat/authenticate-authorize-chat-user)
+    /// with one of the following [authorization
+    /// scopes](https://developers.google.com/workspace/chat/authenticate-authorize#chat-api-scopes):
+    ///
+    /// - `<https://www.googleapis.com/auth/chat.spaces.pins>`
+    /// - `<https://www.googleapis.com/auth/chat.spaces>`
+    ///
+    /// # Example
+    /// ```
+    /// # use google_chat_v1::client::ChatService;
+    /// use google_chat_v1::model::MessagePin;
+    /// use google_chat_v1::Result;
+    /// async fn sample(
+    ///    client: &ChatService, space_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_message_pin()
+    ///         .set_parent(format!("spaces/{space_id}"))
+    ///         .set_message_pin(
+    ///             MessagePin::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_message_pin(&self) -> super::builder::chat_service::CreateMessagePin {
+        super::builder::chat_service::CreateMessagePin::new(self.inner.clone())
+    }
+
+    /// Deletes a message pin.
+    ///
+    /// Requires [user
+    /// authentication](https://developers.google.com/workspace/chat/authenticate-authorize-chat-user)
+    /// with one of the following [authorization
+    /// scopes](https://developers.google.com/workspace/chat/authenticate-authorize#chat-api-scopes):
+    ///
+    /// - `<https://www.googleapis.com/auth/chat.spaces.pins>`
+    /// - `<https://www.googleapis.com/auth/chat.spaces>`
+    ///
+    /// # Example
+    /// ```
+    /// # use google_chat_v1::client::ChatService;
+    /// use google_chat_v1::Result;
+    /// async fn sample(
+    ///    client: &ChatService, space_id: &str, message_pin_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_message_pin()
+    ///         .set_name(format!("spaces/{space_id}/messagePins/{message_pin_id}"))
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_message_pin(&self) -> super::builder::chat_service::DeleteMessagePin {
+        super::builder::chat_service::DeleteMessagePin::new(self.inner.clone())
+    }
+
     /// Creates a custom emoji.
     ///
     /// Custom emojis are only available for Google Workspace accounts, and the

@@ -112,6 +112,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn reschedule_maintenance(
+        &self,
+        req: crate::model::RescheduleMaintenanceRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Lustre::reschedule_maintenance",
+            self.inner.reschedule_maintenance(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn import_data(
         &self,
         req: crate::model::ImportDataRequest,
@@ -140,6 +154,132 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_mirror(
+        &self,
+        req: crate::model::CreateMirrorRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Lustre::create_mirror",
+            self.inner.create_mirror(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_mirror(
+        &self,
+        req: crate::model::UpdateMirrorRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Lustre::update_mirror",
+            self.inner.update_mirror(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_mirror(
+        &self,
+        req: crate::model::DeleteMirrorRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Lustre::delete_mirror",
+            self.inner.delete_mirror(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_mirror(
+        &self,
+        req: crate::model::GetMirrorRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Mirror>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Lustre::get_mirror",
+            self.inner.get_mirror(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_mirrors(
+        &self,
+        req: crate::model::ListMirrorsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListMirrorsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Lustre::list_mirrors",
+            self.inner.list_mirrors(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_directory_policy(
+        &self,
+        req: crate::model::CreateDirectoryPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Lustre::create_directory_policy",
+            self.inner.create_directory_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_directory_policy(
+        &self,
+        req: crate::model::DeleteDirectoryPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Lustre::delete_directory_policy",
+            self.inner.delete_directory_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_directory_policy(
+        &self,
+        req: crate::model::GetDirectoryPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DirectoryPolicy>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Lustre::get_directory_policy",
+            self.inner.get_directory_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_directory_policies(
+        &self,
+        req: crate::model::ListDirectoryPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListDirectoryPoliciesResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Lustre::list_directory_policies",
+            self.inner.list_directory_policies(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -164,6 +304,48 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::Lustre::get_location",
             self.inner.get_location(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn set_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Lustre::set_iam_policy",
+            self.inner.set_iam_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Lustre::get_iam_policy",
+            self.inner.get_iam_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Lustre::test_iam_permissions",
+            self.inner.test_iam_permissions(req, options));
         pending.await
     }
 

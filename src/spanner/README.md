@@ -359,6 +359,32 @@ async fn create_tables_batch(spanner: &Spanner) -> Result<(), Error> {
 }
 ```
 
+## Using with AI Coding Assistants
+
+This crate provides an [`llms.txt`](llms.txt) file conforming to the
+[llms.txt standard](https://llmstxt.org/). It contains the complete mental
+model, transaction selection guide, golden recipes (including custom type
+decoding and parallel query partitioning), and critical anti-patterns for AI
+assistants such as Google Antigravity, Gemini Code Assist / Gemini CLI, Cursor,
+Claude Code, GitHub Copilot, and Windsurf.
+
+To configure your AI assistant to generate idiomatic, leak-free Spanner Rust
+code:
+
+- **Google Antigravity**: Add
+  `See src/spanner/llms.txt for Cloud Spanner Rust client rules and golden recipes.`
+  to `GEMINI.md`, `AGENTS.md`, or create a rule in `.gemini/rules/spanner.md`.
+- **Gemini Code Assist / Gemini CLI**: Add
+  `See src/spanner/llms.txt for Cloud Spanner Rust client rules and golden recipes.`
+  to your `GEMINI.md`, or reference `@src/spanner/llms.txt` in your prompt.
+- **Cursor**: Reference `@src/spanner/llms.txt` in your chat context or add it
+  to `.cursorrules`.
+- **Claude Code**: Add
+  `See src/spanner/llms.txt for Cloud Spanner Rust client rules and golden recipes.`
+  to your `CLAUDE.md`.
+- **GitHub Copilot**: Reference `src/spanner/llms.txt` in
+  `.github/copilot-instructions.md`.
+
 ## Features
 
 - `default-rustls-provider`: enabled by default. Uses `aws-lc-rs` for TLS and

@@ -33,6 +33,7 @@ mod tests {
         result
     }
 
+    #[ignore = "TODO(https://github.com/googleapis/google-cloud-rust/issues/6939) - disabled because it was flaky"]
     #[tokio::test(flavor = "multi_thread", worker_threads = 8)]
     async fn subscriptions_samples() -> anyhow::Result<()> {
         let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;

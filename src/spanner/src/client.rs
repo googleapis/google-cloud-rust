@@ -16,8 +16,8 @@ use crate::ClientBuilderResult;
 use crate::RequestOptions;
 use crate::Result;
 use crate::channel_pool::{
-    ChannelLease, ChannelPool, ChannelPoolConfig, DynamicChannelPoolConfig,
-    StaticChannelPoolConfig, TransactionAffinity,
+    ChannelLease, ChannelPool, ChannelPoolConfig, ChannelTarget, DynamicChannelPoolConfig,
+    StaticChannelPoolConfig,
 };
 use crate::generated::gapic_dataplane::client::Spanner as GapicSpanner;
 use crate::model::{
@@ -49,10 +49,7 @@ use http::{
     header::{HeaderName, HeaderValue},
 };
 use std::env;
-use std::sync::{
-    Arc,
-    atomic::{AtomicUsize, Ordering},
-};
+use std::sync::Arc;
 use tokio::task::JoinSet;
 
 pub use crate::database_client::DatabaseClient;
@@ -73,8 +70,6 @@ use opentelemetry::metrics::MeterProvider;
 #[derive(Clone, Debug)]
 pub struct Spanner {
     pub(crate) channel_pool: ChannelPool,
-    pub(crate) channels: Vec<Channel>,
-    pub(crate) counter: Arc<AtomicUsize>,
     pub(crate) config: ClientConfig,
     pub(crate) is_emulator: bool,
     pub(crate) instance_type: InstanceType,
@@ -123,7 +118,7 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
         }
 
         let pool_config = resolve_pool_config(&mut config, is_emulator)?;
-        let (channel_pool, channels) = create_channel_pool(&config, pool_config).await?;
+        let channel_pool = create_channel_pool(&config, pool_config).await?;
 
         #[cfg(feature = "builtin-metrics")]
         let export_builtin_metrics_to_cloud_monitoring = config
@@ -137,8 +132,6 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
 
         Ok(Spanner {
             channel_pool,
-            channels,
-            counter: Arc::new(AtomicUsize::new(0)),
             config,
             is_emulator,
             instance_type,
@@ -505,7 +498,7 @@ fn resolve_pool_config_with(
 async fn create_channel_pool(
     config: &ClientConfig,
     pool_config: ChannelPoolConfig,
-) -> ClientBuilderResult<(ChannelPool, Vec<Channel>)> {
+) -> ClientBuilderResult<ChannelPool> {
     let num_initial = match &pool_config {
         ChannelPoolConfig::Static(static_config) => static_config.num_channels,
         ChannelPoolConfig::Dynamic(dynamic_config) => dynamic_config.initial_channels,
@@ -526,13 +519,13 @@ async fn create_channel_pool(
 
     let pool = match pool_config {
         ChannelPoolConfig::Static(static_config) => {
-            ChannelPool::new_static(channels.clone(), static_config, config.clone())
+            ChannelPool::new_static(channels, static_config, config.clone())
         }
         ChannelPoolConfig::Dynamic(dynamic_config) => {
-            ChannelPool::new_dynamic(channels.clone(), dynamic_config, config.clone())
+            ChannelPool::new_dynamic(channels, dynamic_config, config.clone())
         }
     };
-    Ok((pool, channels))
+    Ok(pool)
 }
 
 #[cfg(feature = "metrics")]
@@ -740,14 +733,12 @@ impl Spanner {
             channel_id: 1,
         };
         let channel_pool = ChannelPool::new_static(
-            vec![channel.clone()],
+            vec![channel],
             StaticChannelPoolConfig::new(1),
             ClientConfig::default(),
         );
         Self {
             channel_pool,
-            channels: vec![channel],
-            counter: Arc::new(AtomicUsize::new(0)),
             config: ClientConfig::default(),
             is_emulator: false,
             instance_type: InstanceType::Cloud,
@@ -789,9 +780,18 @@ impl Spanner {
         self.instance_type
     }
 
-    #[allow(dead_code)]
+    #[cfg(test)]
     pub(crate) fn channel_pool(&self) -> &ChannelPool {
         &self.channel_pool
+    }
+
+    /// Returns the default primary channel from the pool.
+    ///
+    /// Used in production to seed Location-Aware Routing (LAR) with a default
+    /// fallback server connection before dynamic node routing is resolved, as well
+    /// as in test stubs to access the underlying gRPC client.
+    pub(crate) fn default_channel(&self) -> Option<Channel> {
+        self.channel_pool.default_channel()
     }
 
     pub(crate) fn pick_channel(&self) -> ChannelLease {
@@ -800,20 +800,15 @@ impl Spanner {
             .expect("channel pool must have active channels")
     }
 
-    #[allow(dead_code)]
-    pub(crate) fn resolve_affinity(&self, affinity: &TransactionAffinity) -> ChannelLease {
+    pub(crate) fn pick_channel_for_target(&self, target: &ChannelTarget<'_>) -> ChannelLease {
         self.channel_pool
-            .resolve_affinity(affinity)
+            .pick_channel_for_target(target)
             .expect("channel pool must have active channels")
     }
 
-    pub(crate) fn get_channel(&self, hint: usize) -> &Channel {
-        let idx = hint % self.channels.len();
-        &self.channels[idx]
-    }
-
-    pub(crate) fn next_channel_hint(&self) -> usize {
-        self.counter.fetch_add(1, Ordering::Relaxed)
+    /// Sets the multiplexed session name used for scale-up channel priming.
+    pub(crate) fn set_prime_session(&self, session_name: String) {
+        self.channel_pool.set_prime_session(session_name);
     }
 
     pub(crate) fn attach_request_id(
@@ -1019,6 +1014,7 @@ impl Channel {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::channel_pool::TransactionAffinity;
     use crate::model::CreateSessionRequest;
     use crate::read::ReadRequest;
     use crate::result_set::tests::adapt;
@@ -1107,33 +1103,6 @@ mod tests {
     }
 
     #[tokio_test_no_panics]
-    async fn channel_selection() {
-        let mock = MockSpanner::new();
-        let (address, _server) = start("0.0.0.0:0", mock)
-            .await
-            .expect("Failed to start mock server");
-
-        let client = Spanner::builder()
-            .with_endpoint(address)
-            .with_credentials(Anonymous::new().build())
-            .build()
-            .await
-            .expect("Failed to build client");
-
-        let hint0 = client.next_channel_hint();
-        let hint1 = client.next_channel_hint();
-        let hint2 = client.next_channel_hint();
-        let hint3 = client.next_channel_hint();
-        let hint4 = client.next_channel_hint();
-
-        assert_eq!(hint0 % 4, 0);
-        assert_eq!(hint1 % 4, 1);
-        assert_eq!(hint2 % 4, 2);
-        assert_eq!(hint3 % 4, 3);
-        assert_eq!(hint4 % 4, 0);
-    }
-
-    #[tokio_test_no_panics]
     async fn test_create_session() {
         // 1. Setup Mock Server
         let mut mock = MockSpanner::new();
@@ -1165,12 +1134,11 @@ mod tests {
             "projects/test-project/instances/test-instance/databases/test-db".to_string();
 
         let session = client
-            .create_session(
-                req,
-                crate::RequestOptions::default(),
-                &client.pick_channel(),
-                &Observability::disabled_arc(),
-            )
+            .pick_channel()
+            .inner
+            .create_session()
+            .with_request(req)
+            .send()
             .await
             .expect("Failed to call create_session");
 
@@ -1224,7 +1192,7 @@ mod tests {
             "projects/test-project/instances/test-instance/databases/test-db".to_string();
 
         let session = client
-            .get_channel(client.next_channel_hint())
+            .pick_channel()
             .inner
             .create_session()
             .with_request(req)
@@ -2414,11 +2382,10 @@ mod tests {
             "default pool size should be 4 channels"
         );
 
-        // Test with a channel_hint that is larger than the pool size (e.g., hint = 7).
-        // get_channel(7) maps to channel at index (7 % 4 = 3), which has 1-based channel_id 4.
-        let channel = client.get_channel(7);
+        let lease = client.pick_channel();
+        let channel_id = lease.channel().channel_id;
         let options = crate::RequestOptions::default();
-        let options = client.attach_request_id(options, channel.channel_id);
+        let options = client.attach_request_id(options, channel_id);
         let headers = options
             .get_extension::<HeaderMap>()
             .expect("HeaderMap should be present");
@@ -2428,11 +2395,10 @@ mod tests {
             .to_str()
             .expect("should be valid ASCII");
 
-        // With 4 channels and hint = 7: (7 % 4) + 1 = 3 + 1 = 4.
-        // So the prefix should contain ".4." for channel ID 4.
+        let expected_segment = format!(".{channel_id}.");
         assert!(
-            val.contains(".4."),
-            "Request ID should contain channel ID 4 for hint 7 with pool size 4, got {val}"
+            val.contains(&expected_segment),
+            "Request ID should contain channel ID {channel_id}, got {val}"
         );
     }
 
@@ -2450,7 +2416,8 @@ mod tests {
             .await
             .expect("Failed to build client");
 
-        let channel = client.get_channel(0);
+        let lease = client.pick_channel();
+        let channel = lease.channel();
         let mut options = crate::RequestOptions::default();
         options = client.attach_request_id(options, channel.channel_id);
         let first_headers = options
@@ -2999,17 +2966,17 @@ mod tests {
             .expect("Failed to build client");
 
         let affinity = TransactionAffinity::new_read_write();
-        let lease1 = client.resolve_affinity(&affinity);
+        let lease1 = client.pick_channel_for_target(&ChannelTarget::Affinity(&affinity));
         let channel_id_1 = lease1.channel_id;
         drop(lease1);
 
-        let lease2 = client.resolve_affinity(&affinity);
+        let lease2 = client.pick_channel_for_target(&ChannelTarget::Affinity(&affinity));
         let channel_id_2 = lease2.channel_id;
         drop(lease2);
 
         assert_eq!(
             channel_id_1, channel_id_2,
-            "resolve_affinity should return the same channel for the same affinity"
+            "pick_channel_for_target should return the same channel for the same affinity"
         );
     }
 

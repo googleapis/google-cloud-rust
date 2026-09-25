@@ -19,7 +19,7 @@ use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, Mutex};
 
 /// Configuration options for the stream pool.
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub(crate) struct StreamPoolOptions {
     pub(crate) max_streams: usize,
     pub(crate) max_outstanding_requests: Option<u64>,

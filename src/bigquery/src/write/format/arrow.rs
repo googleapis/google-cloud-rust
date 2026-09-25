@@ -28,6 +28,10 @@ impl super::DataFormat for Arrow {
 }
 
 impl super::sealed::DataFormat for Arrow {
+    fn format_name(&self) -> &'static str {
+        "arrow"
+    }
+
     fn make_request(&self, write_stream: &str, rows: ArrowRecordBatch) -> AppendRowsRequest {
         AppendRowsRequest::new()
             .set_write_stream(write_stream)
@@ -44,6 +48,12 @@ mod tests {
     use super::super::sealed::DataFormat;
     use super::*;
     use crate::write::test::*;
+
+    #[test]
+    fn format_name() {
+        let f = Arrow { schema: schema() };
+        assert_eq!(f.format_name(), "arrow");
+    }
 
     #[test]
     fn request() {

@@ -2829,7 +2829,7 @@ async fn unary_commit_routes_to_affinity_address_and_clears_affinity() -> anyhow
         .set_transaction_id(Bytes::copy_from_slice(transaction_id));
 
     let response = database_client
-        .commit(commit_request, RequestOptions::default(), 0)
+        .commit(commit_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -2908,7 +2908,7 @@ async fn unary_rollback_routes_to_affinity_address_and_clears_affinity() -> anyh
         .set_transaction_id(Bytes::copy_from_slice(transaction_id));
 
     database_client
-        .rollback(rollback_request, RequestOptions::default(), 0)
+        .rollback(rollback_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -3004,7 +3004,7 @@ async fn unary_single_use_commit_routes_to_leader_tablet_replica() -> anyhow::Re
         .set_mutations(vec![mutation.build_proto()]);
 
     let response = database_client
-        .commit(commit_request, RequestOptions::default(), 0)
+        .commit(commit_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -3102,7 +3102,7 @@ async fn unary_begin_transaction_with_mutation_key_routes_to_leader_and_records_
         .set_mutation_key(mutation.build_proto());
 
     let response = database_client
-        .begin_transaction(begin_request, RequestOptions::default(), 0)
+        .begin_transaction(begin_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -3202,7 +3202,7 @@ async fn unary_begin_transaction_with_read_only_options_does_not_record_affinity
         .set_mutation_key(mutation.build_proto());
 
     let response = database_client
-        .begin_transaction(begin_request, RequestOptions::default(), 0)
+        .begin_transaction(begin_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -3275,7 +3275,7 @@ async fn unary_execute_sql_routes_to_affinity_address() -> anyhow::Result<()> {
         );
 
     let _ = database_client
-        .execute_sql(execute_sql_request, RequestOptions::default(), 0)
+        .execute_sql(execute_sql_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -3334,7 +3334,7 @@ async fn unary_execute_sql_with_inline_begin_rw_records_affinity() -> anyhow::Re
         );
 
     let _ = database_client
-        .execute_sql(execute_sql_request, RequestOptions::default(), 0)
+        .execute_sql(execute_sql_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -3405,7 +3405,7 @@ async fn unary_execute_batch_dml_routes_to_affinity_address() -> anyhow::Result<
         .set_seqno(1);
 
     let _ = database_client
-        .execute_batch_dml(batch_dml_request, RequestOptions::default(), 0)
+        .execute_batch_dml(batch_dml_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -3470,7 +3470,7 @@ async fn unary_execute_batch_dml_with_inline_begin_rw_records_affinity() -> anyh
         .set_seqno(1);
 
     let _ = database_client
-        .execute_batch_dml(batch_dml_request, RequestOptions::default(), 0)
+        .execute_batch_dml(batch_dml_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -3527,7 +3527,7 @@ async fn streaming_execute_sql_with_inline_begin_rw_records_affinity() -> anyhow
         );
 
     let mut stream = database_client
-        .execute_streaming_sql(execute_sql_request, RequestOptions::default(), 0)
+        .execute_streaming_sql(execute_sql_request, RequestOptions::default(), None)
         .send()
         .await?;
 
@@ -3634,7 +3634,7 @@ async fn streaming_execute_sql_with_multiple_chunks_records_affinity_and_yields_
         );
 
     let mut stream = database_client
-        .execute_streaming_sql(execute_sql_request, RequestOptions::default(), 0)
+        .execute_streaming_sql(execute_sql_request, RequestOptions::default(), None)
         .send()
         .await?;
 
@@ -3722,7 +3722,7 @@ async fn streaming_read_with_inline_begin_rw_records_affinity() -> anyhow::Resul
         );
 
     let mut stream = database_client
-        .streaming_read(read_request, RequestOptions::default(), 0)
+        .streaming_read(read_request, RequestOptions::default(), None)
         .send()
         .await?;
 
@@ -3792,7 +3792,7 @@ async fn streaming_execute_sql_with_inline_begin_ro_does_not_record_affinity() -
         );
 
     let mut stream = database_client
-        .execute_streaming_sql(execute_sql_request, RequestOptions::default(), 0)
+        .execute_streaming_sql(execute_sql_request, RequestOptions::default(), None)
         .send()
         .await?;
 
@@ -3861,7 +3861,7 @@ async fn streaming_execute_sql_with_error_does_not_record_affinity() -> anyhow::
         );
 
     let mut stream = database_client
-        .execute_streaming_sql(execute_sql_request, RequestOptions::default(), 0)
+        .execute_streaming_sql(execute_sql_request, RequestOptions::default(), None)
         .send()
         .await?;
 
@@ -4309,7 +4309,7 @@ async fn streaming_read_with_inline_begin_rw_routed_to_tablet_records_tablet_aff
         );
 
     let mut stream = database_client
-        .streaming_read(read_request, RequestOptions::default(), 0)
+        .streaming_read(read_request, RequestOptions::default(), None)
         .send()
         .await?;
 
@@ -4396,7 +4396,7 @@ async fn unary_partition_read_routes_to_tablet_node() -> anyhow::Result<()> {
         .set_key_set(key_set.into_proto());
 
     let _ = database_client
-        .partition_read(partition_read_request, RequestOptions::default(), 0)
+        .partition_read(partition_read_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -4460,7 +4460,7 @@ async fn unary_partition_query_with_transaction_id_routes_to_affinity_address() 
         );
 
     let _ = database_client
-        .partition_query(partition_query_request, RequestOptions::default(), 0)
+        .partition_query(partition_query_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -5026,7 +5026,7 @@ async fn end_to_end_unary_execute_sql_with_key_recipe_routes_to_tablet_replica()
     let request1 = statement.clone().into_request();
 
     let _ = database_client
-        .execute_sql(request1, RequestOptions::default(), 0)
+        .execute_sql(request1, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -5062,7 +5062,7 @@ async fn end_to_end_unary_execute_sql_with_key_recipe_routes_to_tablet_replica()
     // 4. Second execution (cache hit): routes directly to tablet mock with attached routing hint
     let request2 = statement.into_request();
     let _ = database_client
-        .execute_sql(request2, RequestOptions::default(), 0)
+        .execute_sql(request2, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -5418,7 +5418,7 @@ async fn unary_execute_sql_with_directed_read_options_and_key_recipe_routes_to_d
 
     let request1 = statement.clone().into_request();
     let _ = database_client
-        .execute_sql(request1, RequestOptions::default(), 0)
+        .execute_sql(request1, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -5466,7 +5466,7 @@ async fn unary_execute_sql_with_directed_read_options_and_key_recipe_routes_to_d
     // Cache hit: routes directly to mock_east replica matching directed read options
     let request2 = statement.into_request();
     let _ = database_client
-        .execute_sql(request2, RequestOptions::default(), 0)
+        .execute_sql(request2, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -5987,7 +5987,7 @@ async fn unary_rpc_feedback_success_records_latency_and_repairs_cooldown() -> an
         .execute_sql(
             statement.clone().into_request(),
             RequestOptions::default(),
-            0,
+            None,
         )
         .await?;
 
@@ -6024,7 +6024,7 @@ async fn unary_rpc_feedback_success_records_latency_and_repairs_cooldown() -> an
             .execute_sql(
                 statement.clone().into_request(),
                 RequestOptions::default(),
-                0,
+                None,
             )
             .await?;
     }
@@ -6143,7 +6143,7 @@ async fn unary_rpc_feedback_resource_exhausted_places_endpoint_on_cooldown_and_p
         .execute_sql(
             statement.clone().into_request(),
             RequestOptions::default(),
-            0,
+            None,
         )
         .await?;
 
@@ -6178,7 +6178,7 @@ async fn unary_rpc_feedback_resource_exhausted_places_endpoint_on_cooldown_and_p
         .execute_sql(
             statement.clone().into_request(),
             RequestOptions::default(),
-            0,
+            None,
         )
         .await;
     assert!(
@@ -6204,7 +6204,7 @@ async fn unary_rpc_feedback_resource_exhausted_places_endpoint_on_cooldown_and_p
 
     // Third execution: since tablet is on cooldown, router falls back to gateway
     let fallback_result = database_client
-        .execute_sql(statement.into_request(), RequestOptions::default(), 0)
+        .execute_sql(statement.into_request(), RequestOptions::default(), None)
         .await;
     assert!(
         fallback_result.is_ok(),
@@ -6275,7 +6275,7 @@ async fn unary_rpc_feedback_unavailable_places_endpoint_on_cooldown() -> anyhow:
         .execute_sql(
             statement.clone().into_request(),
             RequestOptions::default(),
-            0,
+            None,
         )
         .await?;
 
@@ -6298,7 +6298,7 @@ async fn unary_rpc_feedback_unavailable_places_endpoint_on_cooldown() -> anyhow:
     let mut options = RequestOptions::default();
     options.set_retry_policy(NeverRetry);
     let result = database_client
-        .execute_sql(statement.into_request(), options, 0)
+        .execute_sql(statement.into_request(), options, None)
         .await;
     assert!(
         result.is_err(),
@@ -6351,7 +6351,7 @@ async fn unary_rpc_feedback_gateway_fallback_never_placed_on_cooldown() -> anyho
         .add_param("account_id", 42i64)
         .build();
     let result = database_client
-        .execute_sql(statement.into_request(), RequestOptions::default(), 0)
+        .execute_sql(statement.into_request(), RequestOptions::default(), None)
         .await;
     assert!(
         result.is_err(),
@@ -6435,7 +6435,7 @@ async fn unary_rpc_feedback_non_retryable_error_does_not_place_endpoint_on_coold
         .execute_sql(
             statement.clone().into_request(),
             RequestOptions::default(),
-            0,
+            None,
         )
         .await?;
 
@@ -6456,7 +6456,7 @@ async fn unary_rpc_feedback_non_retryable_error_does_not_place_endpoint_on_coold
 
     // Direct execution to tablet fails with non-retryable InvalidArgument
     let result = database_client
-        .execute_sql(statement.into_request(), RequestOptions::default(), 0)
+        .execute_sql(statement.into_request(), RequestOptions::default(), None)
         .await;
     assert!(
         result.is_err(),
@@ -6576,7 +6576,7 @@ async fn unary_rpc_feedback_begin_transaction_records_latency_and_repairs_cooldo
         .set_mutation_key(mutation.build_proto());
 
     let response = database_client
-        .begin_transaction(begin_request, RequestOptions::default(), 0)
+        .begin_transaction(begin_request, RequestOptions::default(), None)
         .await?;
 
     assert!(
@@ -6680,7 +6680,7 @@ async fn unary_rpc_feedback_direct_affinity_zero_group_uid_handles_cooldown_and_
         );
 
     let result_1 = database_client
-        .execute_sql(execute_request_1, RequestOptions::default(), 0)
+        .execute_sql(execute_request_1, RequestOptions::default(), None)
         .await;
     assert!(
         result_1.is_ok(),
@@ -6707,7 +6707,7 @@ async fn unary_rpc_feedback_direct_affinity_zero_group_uid_handles_cooldown_and_
         );
 
     let result_2 = database_client
-        .execute_sql(execute_request_2, RequestOptions::default(), 0)
+        .execute_sql(execute_request_2, RequestOptions::default(), None)
         .await;
     assert!(
         result_2.is_err(),
@@ -6737,7 +6737,7 @@ async fn unary_rpc_feedback_direct_affinity_zero_group_uid_handles_cooldown_and_
         );
 
     let result_3 = database_client
-        .execute_sql(execute_request_3, RequestOptions::default(), 0)
+        .execute_sql(execute_request_3, RequestOptions::default(), None)
         .await;
     assert!(
         result_3.is_ok(),

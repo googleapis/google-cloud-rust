@@ -77,6 +77,7 @@ impl super::stub::DataAgentService for DataAgentService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("showDeleted", &req.show_deleted)]);
+                let builder = builder.query(&[("creatorFilter", &req.creator_filter)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -905,6 +906,148 @@ impl super::stub::DataAgentService for DataAgentService {
         self.inner.execute(builder, body, options).await
     }
 
+    async fn set_agent_ops_observability(
+        &self,
+        req: crate::model::SetAgentOpsObservabilityRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!(
+                    "/v1/{}/observabilitySettings:setAgentOpsObservability",
+                    var_parent,
+                );
+                let path_template = "/v1/{parent}/observabilitySettings:setAgentOpsObservability";
+
+                let resource_name = format!("//geminidataanalytics.googleapis.com/{}", var_parent,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.parent));
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.geminidataanalytics.v1.DataAgentService/SetAgentOpsObservability")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn retrieve_agent_ops_observability(
+        &self,
+        req: crate::model::RetrieveAgentOpsObservabilityRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RetrieveAgentOpsObservabilityResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:retrieveAgentOpsObservability", var_parent,);
+                let path_template = "/v1/{parent}:retrieveAgentOpsObservability";
+
+                let resource_name = format!("//geminidataanalytics.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("dataSourceType", &req.data_source_type)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.geminidataanalytics.v1.DataAgentService/RetrieveAgentOpsObservability")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -1572,6 +1715,97 @@ impl super::stub::DataChatService for DataChatService {
                 let (parts, _) = r.into_parts();
                 crate::Response::from_parts(parts, ())
             })
+    }
+
+    async fn update_conversation(
+        &self,
+        req: crate::model::UpdateConversationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Conversation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_conversation_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.conversation.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/conversations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_conversation_name,);
+                let path_template = "/v1/{conversation.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.conversation.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/conversations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "conversation.name",
+                        "projects/*/locations/*/conversations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.geminidataanalytics.v1.DataChatService/UpdateConversation",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.conversation, &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn get_conversation(

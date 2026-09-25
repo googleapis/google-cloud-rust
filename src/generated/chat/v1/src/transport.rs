@@ -1760,6 +1760,198 @@ impl super::stub::ChatService for ChatService {
             })
     }
 
+    async fn list_message_pins(
+        &self,
+        req: crate::model::ListMessagePinsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListMessagePinsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("spaces/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/messagePins", var_parent,);
+                let path_template = "/v1/{parent}/messagePins";
+
+                let resource_name = format!("//chat.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[Segment::Literal("spaces/"), Segment::SingleWildcard],
+                        "parent",
+                        "spaces/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.chat.v1.ChatService/ListMessagePins")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_message_pin(
+        &self,
+        req: crate::model::CreateMessagePinRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::MessagePin>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("spaces/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/messagePins", var_parent,);
+                let path_template = "/v1/{parent}/messagePins";
+
+                let resource_name = format!("//chat.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[Segment::Literal("spaces/"), Segment::SingleWildcard],
+                        "parent",
+                        "spaces/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.chat.v1.ChatService/CreateMessagePin")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.message_pin, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_message_pin(
+        &self,
+        req: crate::model::DeleteMessagePinRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("spaces/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/messagePins/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//chat.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("spaces/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/messagePins/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "spaces/*/messagePins/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.chat.v1.ChatService/DeleteMessagePin")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner
+            .execute(builder, body, options)
+            .await
+            .map(|r: crate::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                crate::Response::from_parts(parts, ())
+            })
+    }
+
     async fn create_custom_emoji(
         &self,
         req: crate::model::CreateCustomEmojiRequest,

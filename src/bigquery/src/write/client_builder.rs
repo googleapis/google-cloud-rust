@@ -18,6 +18,8 @@ use crate::ClientBuilderResult as BuilderResult;
 use crate::client::Write;
 use gaxi::options::ClientConfig;
 use google_cloud_auth::credentials::Credentials;
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::retry_policy::RetryPolicyArg;
 use std::time::Duration;
 
 /// A builder for [Write].
@@ -176,11 +178,13 @@ impl ClientBuilder {
         self
     }
 
+    // TODO(#6866) - expose when we have rebalancing
+    #[cfg_attr(not(test), expect(dead_code))]
     /// Configure the maximum outstanding requests in the client's multiplexed
     /// stream pool.
     ///
     /// # Example
-    /// ```
+    /// ```no_rust
     /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let client = Write::builder()
@@ -195,16 +199,18 @@ impl ClientBuilder {
     /// configured by `with_pool_size_limit`.
     ///
     /// The default is 1000 requests.
-    pub fn with_max_outstanding_requests(mut self, v: u64) -> Self {
+    pub(crate) fn with_max_outstanding_requests(mut self, v: u64) -> Self {
         self.pool_options.max_outstanding_requests = Some(v.max(1));
         self
     }
 
+    // TODO(#6866) - expose when we have rebalancing
+    #[cfg_attr(not(test), expect(dead_code))]
     /// Configure the maximum outstanding bytes in the client's multiplexed
     /// stream pool.
     ///
     /// # Example
-    /// ```
+    /// ```no_rust
     /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let client = Write::builder()
@@ -217,11 +223,13 @@ impl ClientBuilder {
     /// As streams in the stream pool approach this limit, the client
     /// dynamically adds more streams to the stream pool, up to the limit
     /// configured by `with_pool_size_limit`.
-    pub fn with_max_outstanding_bytes(mut self, v: u64) -> Self {
+    pub(crate) fn with_max_outstanding_bytes(mut self, v: u64) -> Self {
         self.pool_options.max_outstanding_bytes = Some(v.max(1));
         self
     }
 
+    // TODO(#6851) - release when all streams support retries.
+    #[cfg_attr(not(test), expect(dead_code))]
     /// Configure the retry policy.
     ///
     /// The client libraries can automatically retry operations that fail. The
@@ -229,7 +237,7 @@ impl ClientBuilder {
     /// on the number of attempts or the time trying to make attempts.
     ///
     /// # Example
-    /// ```
+    /// ```no_rust
     /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_bigquery::write::retry_policy::RetryableErrors;
@@ -240,21 +248,20 @@ impl ClientBuilder {
     ///     .await?;
     /// # Ok(()) }
     /// ```
-    pub fn with_retry_policy<V: Into<google_cloud_gax::retry_policy::RetryPolicyArg>>(
-        mut self,
-        v: V,
-    ) -> Self {
+    pub(crate) fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
         self.retry_options.retry_policy = v.into().into();
         self
     }
 
+    // TODO(#6851) - release when all streams support retries.
+    #[cfg_attr(not(test), expect(dead_code))]
     /// Configure the retry backoff policy.
     ///
     /// The client libraries can automatically retry operations that fail. The
     /// backoff policy controls how long to wait in between retry attempts.
     ///
     /// # Example
-    /// ```
+    /// ```no_rust
     /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
@@ -265,14 +272,13 @@ impl ClientBuilder {
     ///     .await?;
     /// # Ok(()) }
     /// ```
-    pub fn with_backoff_policy<V: Into<google_cloud_gax::backoff_policy::BackoffPolicyArg>>(
-        mut self,
-        v: V,
-    ) -> Self {
+    pub(crate) fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
         self.retry_options.backoff_policy = v.into().into();
         self
     }
 
+    // TODO(#6851) - release when all streams support retries.
+    #[cfg_attr(not(test), expect(dead_code))]
     /// Configure the timeout for a single write attempt.
     ///
     /// Without this limit, a write can block forever if the service accepts
@@ -280,7 +286,7 @@ impl ClientBuilder {
     /// stream and the retry policy decides whether to make another attempt.
     ///
     /// # Example
-    /// ```
+    /// ```no_rust
     /// # use google_cloud_bigquery::client::Write;
     /// # async fn sample() -> anyhow::Result<()> {
     /// use std::time::Duration;
@@ -290,7 +296,7 @@ impl ClientBuilder {
     ///     .await?;
     /// # Ok(()) }
     /// ```
-    pub fn with_attempt_timeout(mut self, v: Duration) -> Self {
+    pub(crate) fn with_attempt_timeout(mut self, v: Duration) -> Self {
         self.retry_options.attempt_timeout = Some(v);
         self
     }

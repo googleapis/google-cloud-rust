@@ -2296,7 +2296,7 @@ pub struct FetchAvailableBindingsRequest {
     /// Optional. A token identifying a page of results the server should return.
     pub page_token: std::string::String,
 
-    /// The reference of the source Agent.
+    /// Required. The reference of the source Agent Registry resource.
     pub source: std::option::Option<crate::model::fetch_available_bindings_request::Source>,
 
     /// The reference of the target Agent Registry resource.
@@ -2477,7 +2477,7 @@ pub mod fetch_available_bindings_request {
     #[allow(unused_imports)]
     use super::*;
 
-    /// The reference of the source Agent.
+    /// Required. The reference of the source Agent Registry resource.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Source {
@@ -3487,7 +3487,7 @@ pub struct Binding {
     /// Can have a maximum length of `2048` characters.
     pub description: std::string::String,
 
-    /// Required. The target Agent of the Binding.
+    /// Optional. The source Agent of the Binding.
     pub source: std::option::Option<crate::model::binding::Source>,
 
     /// Required. The target Agent Registry Resource of the Binding.
