@@ -116,5 +116,30 @@ mod tests {
         assert!(err.is_data(), "{err:?}");
     }
 
+    // Parse from JSON text, which is the path where serde_json's
+    // `arbitrary_precision` feature changes how numbers reach the visitor.
+    #[test_case("0.8", 0.8)]
+    #[test_case("-0.75", -0.75)]
+    #[test_case("1.5e3", 1500.0)]
+    #[test_case("3", 3.0)]
+    #[test_case("-4", -4.0)]
+    #[test_case("\"0.8\"", 0.8; "string")]
+    fn deserialize_json_text_f32(input: &str, want: f32) -> Result {
+        let mut deserializer = serde_json::Deserializer::from_str(input);
+        let got = F32::deserialize_as(&mut deserializer)?;
+        assert_float_eq(got, want);
+        Ok(())
+    }
+
+    #[test_case("3.502823e+38"; "out of range")]
+    #[test_case("true")]
+    #[test_case("{}"; "empty object")]
+    #[test_case(r#"{"a": 0.5}"#; "object")]
+    fn deserialize_json_text_expect_err_32(input: &str) {
+        let mut deserializer = serde_json::Deserializer::from_str(input);
+        let err = F32::deserialize_as(&mut deserializer).unwrap_err();
+        assert!(err.is_data(), "{err:?}");
+    }
+
     impl_assert_float_eq!(assert_float_eq, f32);
 }

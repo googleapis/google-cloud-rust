@@ -135,6 +135,18 @@ mod tests {
         Ok(())
     }
 
+    // Parse from JSON text, which is the path where serde_json's
+    // `arbitrary_precision` feature changes how numbers reach the visitor.
+    #[test_case(r#"{"singular": 0.8}"#, MessageWithF32::new().set_singular(0.8_f32))]
+    #[test_case(r#"{"optional": -0.25}"#, MessageWithF32::new().set_optional(-0.25_f32))]
+    #[test_case(r#"{"repeated": [0.5, 1, "2.5"]}"#, MessageWithF32::new().set_repeated([0.5_f32, 1.0, 2.5]))]
+    #[test_case(r#"{"map": {"a": 0.5, "b": 1.5e1}}"#, MessageWithF32::new().set_map([("a", 0.5_f32), ("b", 15.0)]))]
+    fn test_de_json_text(input: &str, want: MessageWithF32) -> Result {
+        let got = serde_json::from_str::<MessageWithF32>(input)?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
     #[test_case(-1, -1.0)]
     #[test_case(-2, -2.0)]
     #[test_case(3, 3.0)]
