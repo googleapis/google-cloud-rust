@@ -417,7 +417,7 @@ pub async fn multiplex(
     Ok(())
 }
 
-struct ArrowSerializer {
+pub(crate) struct ArrowSerializer {
     schema: Arc<Schema>,
     schema_msg: ArrowSchema,
     writer: StreamWriter<Vec<u8>>,
@@ -425,7 +425,7 @@ struct ArrowSerializer {
 }
 
 impl ArrowSerializer {
-    fn new(test: &'static str) -> Result<Self> {
+    pub(crate) fn new(test: &'static str) -> Result<Self> {
         let schema = Arc::new(Schema::new(vec![
             Field::new("name", DataType::Utf8, false),
             Field::new("age", DataType::Int64, false),
@@ -442,11 +442,11 @@ impl ArrowSerializer {
         })
     }
 
-    fn schema(&self) -> ArrowSchema {
+    pub(crate) fn schema(&self) -> ArrowSchema {
         self.schema_msg.clone()
     }
 
-    fn batch(&mut self, names: Vec<&str>, ages: Vec<i64>) -> Result<ArrowRecordBatch> {
+    pub(crate) fn batch(&mut self, names: Vec<&str>, ages: Vec<i64>) -> Result<ArrowRecordBatch> {
         let batch = {
             let name = StringArray::from(names);
             let age = Int64Array::from(ages);
@@ -459,5 +459,18 @@ impl ArrowSerializer {
         self.writer.write(&batch)?;
         let buf = std::mem::take(self.writer.get_mut());
         Ok(ArrowRecordBatch::new().set_serialized_record_batch(buf))
+    }
+
+    pub(crate) fn generate_batch(
+        &mut self,
+        count: usize,
+        start_row: usize,
+    ) -> Result<ArrowRecordBatch> {
+        let names: Vec<String> = (0..count)
+            .map(|i| format!("user_{}", start_row + i))
+            .collect();
+        let name_slices: Vec<&str> = names.iter().map(|s| s.as_str()).collect();
+        let ages: Vec<i64> = (0..count).map(|i| (start_row + i) as i64).collect();
+        self.batch(name_slices, ages)
     }
 }

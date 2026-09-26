@@ -28,6 +28,6 @@ pub use query::{
 };
 pub use reads::read_rows;
 pub use reads::run_reads;
-pub use writes::run_writes;
+pub use writes::{run_writes, run_writes_flaky};
 
 pub use bigquery_samples::{INSTANCE_LABEL, random_id_suffix};

@@ -106,6 +106,14 @@ mod bigquery {
     }
 
     #[tokio::test]
+    async fn run_writes_flaky() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        integration_tests_bigquery::run_writes_flaky()
+            .await
+            .inspect_err(anydump)
+    }
+
+    #[tokio::test]
     async fn run_job_service_poller_heavy() -> anyhow::Result<()> {
         let _guard = enable_tracing();
         integration_tests_bigquery::job_service_poller_heavy()
