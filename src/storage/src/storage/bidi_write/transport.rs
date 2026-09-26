@@ -14,6 +14,7 @@
 
 use super::coalescing_buffer::CoalescingBuffer;
 use super::connector::{Connection, Connector};
+use super::replay_buffer::{ReplayBuffer, ReplayChunk};
 use super::worker::{UploadIntent, Worker};
 use super::{Client, MAX_WRITE_CHUNK_SIZE, TonicStreaming};
 use crate::google::storage::v2::BidiWriteObjectResponse;
@@ -42,9 +43,9 @@ use tokio::sync::oneshot;
 ///    memory predictably capped around 10 MiB before foreground `.append()` calls suspend.
 const CHANNEL_BUFFER_SIZE: usize = 4;
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Debug)]
 struct InitialPayload {
-    len: usize,
+    data: Bytes,
     crc32c: u32,
 }
 
@@ -97,7 +98,7 @@ impl AppendableObjectWriterTransport {
         let first_chunk_crc = crc32c::crc32c(&first_chunk);
 
         let (initial, connection) = connector
-            .connect_open_and_append(req, Some(first_chunk))
+            .connect_open_and_append(req, Some(first_chunk.clone()))
             .await?;
 
         let mut transport = Self::start_worker(
@@ -106,7 +107,7 @@ impl AppendableObjectWriterTransport {
             connection,
             0,
             Some(InitialPayload {
-                len: first_chunk_len,
+                data: first_chunk,
                 crc32c: first_chunk_crc,
             }),
         )?;
@@ -166,7 +167,7 @@ impl AppendableObjectWriterTransport {
         // calculation. Default is `None`. We will then see if we can establish
         // a valid CRC32C baseline.
         let mut running_crc32c = None;
-        if let Some(payload) = initial_payload {
+        if let Some(ref payload) = initial_payload {
             running_crc32c = Some(payload.crc32c);
         } else if persisted_size == 0 {
             // A brand new object or takeover an existing object with 0 bytes written,
@@ -185,11 +186,18 @@ impl AppendableObjectWriterTransport {
         // If persisted_size > 0 but the server didn't provide a checksum,
         // we can't reliably continue a running checksum, so it remains `None`.
 
+        let mut replay_buffer = ReplayBuffer::new();
+        if let Some(ref payload) = initial_payload {
+            replay_buffer.push(ReplayChunk::new(0, payload.data.clone(), payload.crc32c));
+            replay_buffer.ack(persisted_size);
+        }
+
         let (tx, rx) = tokio::sync::mpsc::channel(CHANNEL_BUFFER_SIZE);
-        let worker = Worker::new(connector);
+        let worker = Worker::with_replay_buffer(connector, replay_buffer)
+            .with_persisted_size(persisted_size);
         let worker_handle = Some(tokio::spawn(worker.run(connection, rx)));
 
-        let initial_len = initial_payload.map(|p| p.len as i64).unwrap_or(0);
+        let initial_len = initial_payload.map(|p| p.data.len() as i64).unwrap_or(0);
         let write_offset = std::cmp::max(persisted_size, initial_len);
 
         Ok(Self {
@@ -339,8 +347,11 @@ impl AppendableObjectWriter for AppendableObjectWriterTransport {
             Err(e) => return Err(self.extract_worker_error(&e.to_string()).await),
         };
         let resource = match response.write_status {
-            Some(WriteStatus::Resource(r)) => r,
-            _ => return Err(Error::io("finalize did not return a resource")),
+            // An object resource alone is not proof of finalization: the service also returns one
+            // as the first message of a create stream and of a handle-less takeover stream. Only
+            // `finalize_time` proves the upload finalized.
+            Some(WriteStatus::Resource(r)) if r.finalize_time.is_some() => r,
+            _ => return Err(Error::io("finalize did not return a finalized resource")),
         };
         let object =
             FromProto::cnv(resource).map_err(|_| Error::deser("converting resource to object"))?;
@@ -440,6 +451,7 @@ mod tests {
             );
 
             let object = Object {
+                finalize_time: Some(prost_types::Timestamp::default()),
                 bucket: "projects/_/buckets/test-bucket".into(),
                 name: "test-object".into(),
                 size: 5,
@@ -794,6 +806,7 @@ mod tests {
         if let UploadIntent::Finalize(req, sender) = intent {
             assert!(req.object_checksums.is_none());
             let object = Object {
+                finalize_time: Some(prost_types::Timestamp::default()),
                 bucket: "projects/_/buckets/test-bucket".into(),
                 name: "test-object".into(),
                 size: 5,
@@ -871,6 +884,7 @@ mod tests {
         if let UploadIntent::Finalize(req, sender) = intent {
             assert!(req.flush);
             let object = Object {
+                finalize_time: Some(prost_types::Timestamp::default()),
                 bucket: "projects/_/buckets/test-bucket".into(),
                 name: "test-object".into(),
                 size: 17,
@@ -933,6 +947,7 @@ mod tests {
             assert_eq!(req.write_offset, ONE_MIB as i64);
             let resp = BidiWriteObjectResponse {
                 write_status: Some(WriteStatus::Resource(Object {
+                    finalize_time: Some(prost_types::Timestamp::default()),
                     name: "finalized-obj".into(),
                     generation: 123456,
                     ..Default::default()
@@ -1322,6 +1337,92 @@ mod tests {
         assert_eq!(transport.write_offset, MAX_WRITE_CHUNK_SIZE as i64);
         assert_eq!(transport.running_crc32c, Some(expected_first_crc));
         assert_eq!(transport.coalescing_buffer.len(), ONE_MIB);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn open_and_append_replays_initial_chunk_on_reconnect() -> anyhow::Result<()> {
+        // Arrange.
+        let (tx1, rx1) = mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream1 = TonicResponse::from(rx1);
+        let (tx2, rx2) = mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream2 = TonicResponse::from(rx2);
+
+        let (captured_stream2_req_tx, mut captured_stream2_req_rx) =
+            mpsc::channel::<mpsc::Receiver<BidiWriteObjectRequest>>(1);
+
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .times(1)
+            .return_once(move |_, _, _, _, _, _| Ok(Ok(stream1)));
+        mock.expect_start()
+            .times(1)
+            .return_once(move |_, _, req_rx, _, _, _| {
+                let _ = captured_stream2_req_tx.try_send(req_rx);
+                Ok(Ok(stream2))
+            });
+
+        let connector = mock_connector(mock);
+        let initial_chunk = Bytes::from_static(b"initial-chunk-payload");
+
+        // Opening response creates generation 42 with size = 0 (initial_chunk not yet persisted).
+        tx1.send(Ok(BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::Resource(Object {
+                generation: 42,
+                size: 0,
+                ..Default::default()
+            })),
+            ..Default::default()
+        }))
+        .await?;
+
+        let mut transport = AppendableObjectWriterTransport::new_open_and_append(
+            connector,
+            test_open_request(),
+            initial_chunk.clone(),
+        )
+        .await?;
+
+        // Act.
+        // Break stream 1 before initial_chunk is persisted; stream 2 reports PersistedSize(0) in
+        // its opening response.
+        drop(tx1);
+        tx2.send(Ok(BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(0)),
+            ..Default::default()
+        }))
+        .await?;
+
+        let flush_task = tokio::spawn(async move { transport.flush().await });
+
+        // Assert.
+        let mut stream2_req_rx = captured_stream2_req_rx.recv().await.unwrap();
+        let handshake = stream2_req_rx.recv().await.unwrap();
+        assert!(handshake.first_message.is_some());
+
+        // The second message on stream 2 must be the replayed initial_chunk at write_offset 0.
+        let replayed = stream2_req_rx.recv().await.unwrap();
+        assert_eq!(replayed.write_offset, 0);
+        if let Some(Data::ChecksummedData(cd)) = replayed.data {
+            assert_eq!(cd.content, initial_chunk);
+            assert_eq!(cd.crc32c, Some(crc32c::crc32c(&initial_chunk)));
+        } else {
+            panic!("expected replayed ChecksummedData for initial_chunk");
+        }
+
+        // Wait for the flush request on stream 2 before replying with the persisted size.
+        let flush_req = stream2_req_rx.recv().await.unwrap();
+        assert!(flush_req.flush);
+        assert!(flush_req.state_lookup);
+
+        tx2.send(Ok(BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(initial_chunk.len() as i64)),
+            ..Default::default()
+        }))
+        .await?;
+
+        let persisted = flush_task.await??;
+        assert_eq!(persisted, initial_chunk.len() as i64);
         Ok(())
     }
 }

@@ -15,6 +15,7 @@
 //! Retains unacknowledged chunks, trims acknowledged data, and provides chunks
 //! for resending upon stream reconnect.
 
+use super::MAX_WRITE_CHUNK_SIZE;
 use crate::google::storage::v2::{
     BidiWriteObjectRequest, ChecksummedData, bidi_write_object_request::Data,
 };
@@ -24,6 +25,16 @@ use std::collections::VecDeque;
 /// Defines the default capacity of the [`ReplayBuffer`] in bytes (32 MiB).
 // TODO(#5716): Remove once ReplayBuffer capacity is configured via CommonOptions.
 pub const DEFAULT_REPLAY_BUFFER_SIZE: usize = 32 * 1024 * 1024;
+
+/// Defines the smallest capacity a [`ReplayBuffer`] may have.
+///
+/// The worker places its high watermark at `capacity - 2 * MAX_WRITE_CHUNK_SIZE` and stops
+/// accepting appends once [`ReplayBuffer::is_full`] holds. A capacity at or below two chunks
+/// saturates that watermark to zero, so even an empty buffer would look over-watermark and the
+/// worker would exchange no-op `state_lookup` requests forever; a capacity of zero would
+/// additionally make the buffer permanently full.
+// TODO(#5716): Enforce this when ReplayBuffer capacity becomes configurable.
+pub const MIN_REPLAY_BUFFER_SIZE: usize = 2 * MAX_WRITE_CHUNK_SIZE + 1;
 
 /// Represents an unacknowledged data chunk retained in the [`ReplayBuffer`].
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -85,11 +96,14 @@ impl ReplayBuffer {
     }
 
     /// Creates a new, empty [`ReplayBuffer`] with a specified capacity in bytes.
+    ///
+    /// The capacity is raised to [`MIN_REPLAY_BUFFER_SIZE`] if `capacity` is smaller, so that the
+    /// worker's high watermark always leaves room for at least one more chunk.
     pub fn with_capacity(capacity: usize) -> Self {
         Self {
             queue: VecDeque::new(),
             unpersisted_bytes: 0,
-            capacity,
+            capacity: std::cmp::max(capacity, MIN_REPLAY_BUFFER_SIZE),
         }
     }
 
@@ -153,6 +167,16 @@ impl ReplayBuffer {
     /// Returns an iterator over the unpersisted [`ReplayChunk`]s in FIFO order for replay.
     pub fn chunks_to_replay(&self) -> impl Iterator<Item = &ReplayChunk> {
         self.queue.iter()
+    }
+
+    /// Returns the write offset of the oldest unacknowledged chunk, if any.
+    pub fn front_offset(&self) -> Option<i64> {
+        self.queue.front().map(|chunk| chunk.write_offset)
+    }
+
+    /// Returns the end offset (exclusive) of the newest unacknowledged chunk, if any.
+    pub fn end_offset(&self) -> Option<i64> {
+        self.queue.back().map(|chunk| chunk.end_offset())
     }
 
     /// Clears all chunks from the [`ReplayBuffer`] and resets byte tracking.
@@ -344,9 +368,9 @@ mod tests {
     #[test]
     fn is_full_with_custom_capacity() {
         // Arrange.
-        // Use a micro-capacity of 100 bytes for deterministic testing.
-        let mut buf = ReplayBuffer::with_capacity(100);
-        let chunk = Bytes::from(vec![0u8; 100]);
+        // The smallest capacity the buffer accepts, so the test stays deterministic.
+        let mut buf = ReplayBuffer::with_capacity(MIN_REPLAY_BUFFER_SIZE);
+        let chunk = Bytes::from(vec![0u8; MIN_REPLAY_BUFFER_SIZE]);
 
         // Act.
         buf.push(ReplayChunk::new(0, chunk, 0));
@@ -359,5 +383,18 @@ mod tests {
 
         // Assert.
         assert!(!buf.is_full());
+    }
+
+    #[test]
+    fn with_capacity_enforces_minimum() {
+        // Arrange & Act. A capacity at or below the worker's two-chunk headroom would saturate its
+        // watermark to zero, and a zero capacity would make the buffer permanently full.
+        let buf = ReplayBuffer::with_capacity(0);
+        let two_chunks = ReplayBuffer::with_capacity(2 * MAX_WRITE_CHUNK_SIZE);
+
+        // Assert.
+        assert_eq!(buf.capacity(), MIN_REPLAY_BUFFER_SIZE);
+        assert!(!buf.is_full());
+        assert_eq!(two_chunks.capacity(), MIN_REPLAY_BUFFER_SIZE);
     }
 }

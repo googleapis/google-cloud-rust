@@ -46,6 +46,34 @@ use tokio::sync::mpsc::Receiver;
 /// safely under gRPC's default 4 MiB message size limit.
 pub(crate) const MAX_WRITE_CHUNK_SIZE: usize = 2 * 1024 * 1024;
 
+/// Extracts the acknowledged byte count from a [`BidiWriteObjectResponse`].
+///
+/// The service reports progress either as a bare `persisted_size` or, on the first response of a
+/// create or takeover stream and on finalization, as the `size` of the object resource. Returns
+/// `None` when the response carries no `write_status` at all, which is a valid message (for example
+/// one that only refreshes the write handle).
+pub(crate) fn persisted_size(response: &BidiWriteObjectResponse) -> Option<i64> {
+    use crate::google::storage::v2::bidi_write_object_response::WriteStatus;
+    match response.write_status.as_ref() {
+        Some(WriteStatus::PersistedSize(size)) => Some(*size),
+        Some(WriteStatus::Resource(resource)) => Some(resource.size),
+        None => None,
+    }
+}
+
+/// Returns `true` when `response` reports an object that the service finalized.
+///
+/// An object resource alone is not proof of finalization: the service also returns one as the first
+/// message of a create stream and of a handle-less takeover stream. Only `finalize_time`
+/// distinguishes those from a genuine finalization.
+pub(crate) fn is_finalized(response: &BidiWriteObjectResponse) -> bool {
+    use crate::google::storage::v2::bidi_write_object_response::WriteStatus;
+    matches!(
+        response.write_status.as_ref(),
+        Some(WriteStatus::Resource(resource)) if resource.finalize_time.is_some()
+    )
+}
+
 /// A trait to mock `Streaming<T>` in the unit tests.
 ///
 /// This is not a public trait, we only need this for our own testing.
