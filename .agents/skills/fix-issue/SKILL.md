@@ -58,11 +58,16 @@ Always perform work in a dedicated worktree and branch.
    BRANCH_NAME="fix-issue-${ISSUE_NUM}"
    WORKTREE_PATH="../${BRANCH_NAME}"
 
-   # Fetch latest main
-   git -C main fetch upstream main || git -C main fetch origin main
+   # Fetch latest main and determine the base ref
+   if git -C main fetch upstream main 2>/dev/null; then
+     BASE_REF="upstream/main"
+   else
+     git -C main fetch origin main
+     BASE_REF="origin/main"
+   fi
 
    # Create worktree
-   git -C main worktree add -b "${BRANCH_NAME}" "${WORKTREE_PATH}" upstream/main
+   git -C main worktree add -b "${BRANCH_NAME}" "${WORKTREE_PATH}" "${BASE_REF}"
    ```
 
 3. **Switch Context**: Perform all subsequent commands and modifications inside the newly created worktree.
@@ -191,7 +196,9 @@ Before presenting the work or opening a PR, verify:
 1. **Commit Title Length Check**:
    Confirm all commit titles on the branch are strictly under 50 characters:
    ```bash
-   git log origin/main..HEAD --format="%s" | while read -r title; do
+   BASE_REF="upstream/main"
+   git rev-parse --verify upstream/main >/dev/null 2>&1 || BASE_REF="origin/main"
+   git log "${BASE_REF}..HEAD" --format="%s" | while read -r title; do
      len=${#title}
      if [ "$len" -gt 50 ]; then
        echo "ERROR: Commit title exceeds 50 chars ($len): $title"
