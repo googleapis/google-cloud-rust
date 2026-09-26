@@ -19,39 +19,64 @@ use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
 use google_cloud_gax::throttle_result::ThrottleResult;
 use std::sync::Arc;
+use std::sync::atomic::{AtomicU32, Ordering};
+use std::time::Duration;
 
-/// Decorate the retry policy to continue on redirect errors.
+/// Maximum redirects followed per connect or reconnect cycle before giving up.
 ///
-/// The bidi streaming write API uses errors to redirect requests. We want to
-/// ignore these errors in the retry loop while respecting any limits set by the
-/// application.
+/// Reaching the target backend normally takes 1 redirect (or 2 if that backend is draining), so 3
+/// prevents infinite redirect loops while leaving 1 extra redirect of headroom.
+pub(super) const MAX_REDIRECTS_FOLLOWED: u32 = 3;
+
+/// Decorates a [`RetryPolicy`] to follow `BidiWriteObject` routing redirects.
 ///
-/// The client library uses this policy to decorate any policy set by the
-/// application. If the policy is exhausted, or the error is transient, then
-/// the decorator has no effect. If the error is "permanent", but happens to be
-/// a redirect, then it is treated as retryable.
-#[derive(Clone, Debug)]
+/// GCS signals routing changes via `Aborted` errors carrying a `BidiWriteObjectRedirectedError`.
+/// Because a redirect is a routing update rather than a failed write attempt, this decorator:
+/// - Passes non-redirect errors through to the inner [`RetryPolicy`] unchanged.
+/// - Overrides redirect errors to [`RetryResult::Continue`] up to [`MAX_REDIRECTS_FOLLOWED`] times,
+///   even if the inner policy treats `Aborted` as permanent or has reached its attempt limit.
+#[derive(Debug)]
 pub struct RetryRedirect<T> {
     inner: T,
+    redirects_followed: AtomicU32,
 }
 
 impl<T> RetryRedirect<T> {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            redirects_followed: AtomicU32::new(0),
+        }
     }
 }
 
 impl RetryPolicy for RetryRedirect<Arc<dyn RetryPolicy + 'static>> {
     fn on_error(&self, state: &RetryState, error: Error) -> RetryResult {
-        match self.inner.on_error(state, error) {
-            RetryResult::Permanent(e) if is_redirect(&e) => RetryResult::Continue(e),
-            // Exhausted(), Continue() and other permanent errors pass thru.
-            result => result,
+        let redirect = is_redirect(&error);
+        let result = self.inner.on_error(state, error);
+        if !redirect {
+            return result;
+        }
+        // Redirects are control flow, not failures. Count every redirect (including when the inner
+        // policy returns `Continue`) and cap consecutive redirects at `MAX_REDIRECTS_FOLLOWED`.
+        if self.redirects_followed.fetch_add(1, Ordering::Relaxed) < MAX_REDIRECTS_FOLLOWED {
+            let (RetryResult::Continue(e) | RetryResult::Permanent(e) | RetryResult::Exhausted(e)) =
+                result;
+            RetryResult::Continue(e)
+        } else {
+            match result {
+                RetryResult::Continue(e) | RetryResult::Exhausted(e) => RetryResult::Exhausted(e),
+                RetryResult::Permanent(e) => RetryResult::Permanent(e),
+            }
         }
     }
 
     fn on_throttle(&self, state: &RetryState, error: Error) -> ThrottleResult {
         self.inner.on_throttle(state, error)
+    }
+
+    fn remaining_time(&self, state: &RetryState) -> Option<Duration> {
+        self.inner.remaining_time(state)
     }
 }
 
@@ -93,5 +118,51 @@ mod tests {
 
         let t = p.on_throttle(&RetryState::new(true), transient_error());
         assert!(matches!(t, ThrottleResult::Continue(_)), "{t:?}");
+    }
+
+    #[test_case::test_case(Arc::new(google_cloud_gax::retry_policy::NeverRetry), true ; "never_retry_exhausted")]
+    #[test_case::test_case(Arc::new(RetryableErrors), false ; "retryable_errors_permanent")]
+    #[test_case::test_case(Arc::new(google_cloud_gax::retry_policy::AlwaysRetry), true ; "always_retry_capped_as_exhausted")]
+    fn redirect_budget_stops_after_max_redirects(
+        inner: Arc<dyn RetryPolicy + 'static>,
+        expect_exhausted: bool,
+    ) {
+        let p = RetryRedirect::new(inner);
+
+        for i in 0..MAX_REDIRECTS_FOLLOWED {
+            let result = p.on_error(&RetryState::new(true), to_gax_error(redirect_status("r1")));
+            assert!(
+                matches!(&result, RetryResult::Continue(_)),
+                "redirect {i}: {result:?}"
+            );
+        }
+
+        let result = p.on_error(&RetryState::new(true), to_gax_error(redirect_status("r1")));
+        if expect_exhausted {
+            assert!(matches!(&result, RetryResult::Exhausted(_)), "{result:?}");
+        } else {
+            assert!(matches!(&result, RetryResult::Permanent(_)), "{result:?}");
+        }
+    }
+
+    #[test]
+    fn remaining_time_delegates_to_inner_policy() {
+        use google_cloud_gax::retry_policy::RetryPolicyExt;
+        // Arrange.
+        let limit = Duration::from_secs(60);
+        let limited: Arc<dyn RetryPolicy + 'static> =
+            Arc::new(RetryableErrors.with_time_limit(limit));
+        let unlimited: Arc<dyn RetryPolicy + 'static> = Arc::new(RetryableErrors);
+
+        // Act.
+        let remaining = RetryRedirect::new(limited).remaining_time(&RetryState::new(true));
+        let unbounded = RetryRedirect::new(unlimited).remaining_time(&RetryState::new(true));
+
+        // Assert.
+        assert!(
+            remaining.is_some_and(|r| r <= limit),
+            "expected a bound no larger than the inner limit, got {remaining:?}"
+        );
+        assert_eq!(unbounded, None);
     }
 }
