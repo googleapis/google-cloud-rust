@@ -241,10 +241,17 @@ impl ToValue for f64 {
 }
 
 impl From<f64> for Value {
-    fn from(f: f64) -> Self {
-        Value(ProtoValue {
-            kind: Some(prost_types::value::Kind::NumberValue(f)),
-        })
+    fn from(float_value: f64) -> Self {
+        let kind = if float_value.is_finite() {
+            prost_types::value::Kind::NumberValue(float_value)
+        } else if float_value.is_nan() {
+            prost_types::value::Kind::StringValue("NaN".to_string())
+        } else if float_value.is_sign_positive() {
+            prost_types::value::Kind::StringValue("Infinity".to_string())
+        } else {
+            prost_types::value::Kind::StringValue("-Infinity".to_string())
+        };
+        Value(ProtoValue { kind: Some(kind) })
     }
 }
 
@@ -255,10 +262,17 @@ impl ToValue for f32 {
 }
 
 impl From<f32> for Value {
-    fn from(f: f32) -> Self {
-        Value(ProtoValue {
-            kind: Some(prost_types::value::Kind::NumberValue(f as f64)),
-        })
+    fn from(float_value: f32) -> Self {
+        let kind = if float_value.is_finite() {
+            prost_types::value::Kind::NumberValue(float_value as f64)
+        } else if float_value.is_nan() {
+            prost_types::value::Kind::StringValue("NaN".to_string())
+        } else if float_value.is_sign_positive() {
+            prost_types::value::Kind::StringValue("Infinity".to_string())
+        } else {
+            prost_types::value::Kind::StringValue("-Infinity".to_string())
+        };
+        Value(ProtoValue { kind: Some(kind) })
     }
 }
 
@@ -673,5 +687,40 @@ mod tests {
             list.get(2).expect("element 2 should exist").as_string(),
             "100"
         );
+    }
+
+    #[test]
+    fn to_value_non_finite_floats() {
+        let f64_nan_val = f64::NAN.to_value();
+        assert_eq!(f64_nan_val.kind(), Kind::String);
+        assert_eq!(f64_nan_val.as_string(), "NaN");
+
+        let f64_inf_val = f64::INFINITY.to_value();
+        assert_eq!(f64_inf_val.kind(), Kind::String);
+        assert_eq!(f64_inf_val.as_string(), "Infinity");
+
+        let f64_neginf_val = f64::NEG_INFINITY.to_value();
+        assert_eq!(f64_neginf_val.kind(), Kind::String);
+        assert_eq!(f64_neginf_val.as_string(), "-Infinity");
+
+        let f64_finite_val = 42.5f64.to_value();
+        assert_eq!(f64_finite_val.kind(), Kind::Number);
+        assert_eq!(f64_finite_val.as_f64(), 42.5);
+
+        let f32_nan_val = f32::NAN.to_value();
+        assert_eq!(f32_nan_val.kind(), Kind::String);
+        assert_eq!(f32_nan_val.as_string(), "NaN");
+
+        let f32_inf_val = f32::INFINITY.to_value();
+        assert_eq!(f32_inf_val.kind(), Kind::String);
+        assert_eq!(f32_inf_val.as_string(), "Infinity");
+
+        let f32_neginf_val = f32::NEG_INFINITY.to_value();
+        assert_eq!(f32_neginf_val.kind(), Kind::String);
+        assert_eq!(f32_neginf_val.as_string(), "-Infinity");
+
+        let f32_finite_val = 12.5f32.to_value();
+        assert_eq!(f32_finite_val.kind(), Kind::Number);
+        assert_eq!(f32_finite_val.as_f64(), 12.5);
     }
 }

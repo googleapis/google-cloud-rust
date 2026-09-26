@@ -18,11 +18,15 @@ use crate::client::{
 use crate::test_proxy::{InterceptionResult, PassThroughProxy};
 use futures::future::BoxFuture;
 use google_cloud_spanner::client::{DatabaseClient, Spanner};
+use google_cloud_spanner::key;
 use google_cloud_spanner::model::execute_sql_request::{QueryMode, QueryOptions};
 use google_cloud_spanner::model::result_set_stats::RowCount;
+use google_cloud_spanner::mutation::Mutation;
+use google_cloud_spanner::read::ReadRequest;
 use google_cloud_spanner::result::Row;
 use google_cloud_spanner::statement::Statement;
 use google_cloud_spanner::transaction::BeginTransactionOption;
+use google_cloud_spanner::types;
 use google_cloud_spanner::value::{Kind, TypeCode};
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use std::sync::Arc;
@@ -813,6 +817,295 @@ pub async fn query_json_value(db_client: &DatabaseClient) -> anyhow::Result<()> 
     // Deserialize col_null (NULL) as serde_json::Value (should be null)
     let col_null: serde_json::Value = row.try_get("col_null")?;
     assert_eq!(col_null, serde_json::Value::Null);
+
+    Ok(())
+}
+
+pub async fn query_non_finite_float_parameters(db_client: &DatabaseClient) -> anyhow::Result<()> {
+    let transaction = db_client.single_use().build();
+
+    let sql = r#"
+    SELECT
+      @f64_nan AS col_f64_nan,
+      @f64_inf AS col_f64_inf,
+      @f64_neginf AS col_f64_neginf,
+      @f32_nan AS col_f32_nan,
+      @f32_inf AS col_f32_inf,
+      @f32_neginf AS col_f32_neginf,
+      @f64_arr AS col_f64_arr,
+      @f32_arr AS col_f32_arr
+    "#;
+
+    let statement = Statement::builder(sql)
+        .add_typed_param("f64_nan", f64::NAN, types::float64())
+        .add_typed_param("f64_inf", f64::INFINITY, types::float64())
+        .add_typed_param("f64_neginf", f64::NEG_INFINITY, types::float64())
+        .add_typed_param("f32_nan", f32::NAN, types::float32())
+        .add_typed_param("f32_inf", f32::INFINITY, types::float32())
+        .add_typed_param("f32_neginf", f32::NEG_INFINITY, types::float32())
+        .add_typed_param(
+            "f64_arr",
+            vec![f64::NAN, f64::INFINITY, f64::NEG_INFINITY],
+            types::array(types::float64()),
+        )
+        .add_typed_param(
+            "f32_arr",
+            vec![f32::NAN, f32::INFINITY, f32::NEG_INFINITY],
+            types::array(types::float32()),
+        )
+        .build();
+
+    let mut result_set = transaction.execute_query(statement).await?;
+
+    let row = result_set
+        .next()
+        .await
+        .transpose()?
+        .ok_or_else(|| anyhow::anyhow!("query should yield a row"))?;
+
+    let f64_nan: f64 = row.try_get("col_f64_nan")?;
+    assert!(f64_nan.is_nan(), "expected NaN for col_f64_nan");
+
+    let f64_inf: f64 = row.try_get("col_f64_inf")?;
+    assert_eq!(f64_inf, f64::INFINITY, "expected Infinity for col_f64_inf");
+
+    let f64_neginf: f64 = row.try_get("col_f64_neginf")?;
+    assert_eq!(
+        f64_neginf,
+        f64::NEG_INFINITY,
+        "expected -Infinity for col_f64_neginf"
+    );
+
+    let f32_nan: f32 = row.try_get("col_f32_nan")?;
+    assert!(f32_nan.is_nan(), "expected NaN for col_f32_nan");
+
+    let f32_inf: f32 = row.try_get("col_f32_inf")?;
+    assert_eq!(f32_inf, f32::INFINITY, "expected Infinity for col_f32_inf");
+
+    let f32_neginf: f32 = row.try_get("col_f32_neginf")?;
+    assert_eq!(
+        f32_neginf,
+        f32::NEG_INFINITY,
+        "expected -Infinity for col_f32_neginf"
+    );
+
+    let f64_array: Vec<f64> = row.try_get("col_f64_arr")?;
+    assert_eq!(f64_array.len(), 3, "expected 3 elements in col_f64_arr");
+    assert!(f64_array[0].is_nan(), "expected NaN for col_f64_arr[0]");
+    assert_eq!(
+        f64_array[1],
+        f64::INFINITY,
+        "expected Infinity for col_f64_arr[1]"
+    );
+    assert_eq!(
+        f64_array[2],
+        f64::NEG_INFINITY,
+        "expected -Infinity for col_f64_arr[2]"
+    );
+
+    let f32_array: Vec<f32> = row.try_get("col_f32_arr")?;
+    assert_eq!(f32_array.len(), 3, "expected 3 elements in col_f32_arr");
+    assert!(f32_array[0].is_nan(), "expected NaN for col_f32_arr[0]");
+    assert_eq!(
+        f32_array[1],
+        f32::INFINITY,
+        "expected Infinity for col_f32_arr[1]"
+    );
+    assert_eq!(
+        f32_array[2],
+        f32::NEG_INFINITY,
+        "expected -Infinity for col_f32_arr[2]"
+    );
+
+    let next_row = result_set.next().await.transpose()?;
+    assert!(next_row.is_none(), "expected only 1 row");
+
+    Ok(())
+}
+
+pub async fn mutation_and_untyped_query_non_finite_floats(
+    db_client: &DatabaseClient,
+) -> anyhow::Result<()> {
+    let row_id = format!("mutation-float-{}", LowercaseAlphanumeric.random_string(10));
+
+    // 1. Insert a row using a Mutation with non-finite floats in both scalar and array columns.
+    let mutation = Mutation::new_insert_builder("AllTypes")
+        .set("Id")
+        .to(&row_id)
+        .set("ColFloat64")
+        .to(f64::NAN)
+        .set("ColFloat32")
+        .to(f32::NAN)
+        .set("ColArrayFloat64")
+        .to(vec![f64::NAN, f64::INFINITY, f64::NEG_INFINITY])
+        .set("ColArrayFloat32")
+        .to(vec![f32::NAN, f32::INFINITY, f32::NEG_INFINITY])
+        .build();
+
+    let write_transaction = db_client.write_only_transaction().build();
+    write_transaction.write(vec![mutation]).await?;
+
+    // 2. Read back using execute_read and verify the non-finite values.
+    let read_request = ReadRequest::builder(
+        "AllTypes",
+        vec![
+            "Id",
+            "ColFloat64",
+            "ColFloat32",
+            "ColArrayFloat64",
+            "ColArrayFloat32",
+        ],
+    )
+    .with_keys(key![row_id.clone()])
+    .build();
+
+    let mut result_set = db_client
+        .single_use()
+        .build()
+        .execute_read(read_request)
+        .await?;
+
+    let row = result_set
+        .next()
+        .await
+        .transpose()?
+        .expect("row should exist after mutation insert");
+
+    let f64_val: f64 = row.try_get("ColFloat64")?;
+    assert!(f64_val.is_nan(), "expected NaN for ColFloat64");
+
+    let f32_val: f32 = row.try_get("ColFloat32")?;
+    assert!(f32_val.is_nan(), "expected NaN for ColFloat32");
+
+    let f64_array: Vec<f64> = row.try_get("ColArrayFloat64")?;
+    assert_eq!(f64_array.len(), 3, "expected 3 elements in ColArrayFloat64");
+    assert!(f64_array[0].is_nan(), "expected NaN for ColArrayFloat64[0]");
+    assert_eq!(
+        f64_array[1],
+        f64::INFINITY,
+        "expected Infinity for ColArrayFloat64[1]"
+    );
+    assert_eq!(
+        f64_array[2],
+        f64::NEG_INFINITY,
+        "expected -Infinity for ColArrayFloat64[2]"
+    );
+
+    let f32_array: Vec<f32> = row.try_get("ColArrayFloat32")?;
+    assert_eq!(f32_array.len(), 3, "expected 3 elements in ColArrayFloat32");
+    assert!(f32_array[0].is_nan(), "expected NaN for ColArrayFloat32[0]");
+    assert_eq!(
+        f32_array[1],
+        f32::INFINITY,
+        "expected Infinity for ColArrayFloat32[1]"
+    );
+    assert_eq!(
+        f32_array[2],
+        f32::NEG_INFINITY,
+        "expected -Infinity for ColArrayFloat32[2]"
+    );
+
+    // 3. Update the row using untyped DML parameters (add_param).
+    let row_id_clone = row_id.clone();
+    let runner = db_client.read_write_transaction().build().await?;
+    runner
+        .run(async |transaction| {
+            let update_statement = Statement::builder(
+                "UPDATE AllTypes SET ColFloat64 = @inf, ColFloat32 = @neginf WHERE Id = @id",
+            )
+            .add_param("inf", f64::INFINITY)
+            .add_param("neginf", f32::NEG_INFINITY)
+            .add_param("id", &row_id_clone)
+            .build();
+            let row_count = transaction.execute_update(update_statement).await?;
+            assert_eq!(row_count, 1, "expected 1 row updated");
+            Ok(())
+        })
+        .await?;
+
+    // 4. Query back using untyped float parameters in the WHERE clause.
+    let query_statement = Statement::builder(
+        "SELECT Id, ColFloat64, ColFloat32 FROM AllTypes WHERE Id = @id AND ColFloat64 = @inf AND ColFloat32 = @neginf",
+    )
+    .add_param("id", &row_id)
+    .add_param("inf", f64::INFINITY)
+    .add_param("neginf", f32::NEG_INFINITY)
+    .build();
+
+    let mut query_result_set = db_client
+        .single_use()
+        .build()
+        .execute_query(query_statement)
+        .await?;
+
+    let query_row = query_result_set
+        .next()
+        .await
+        .transpose()?
+        .expect("row should match untyped float query parameter");
+
+    let updated_f64: f64 = query_row.try_get("ColFloat64")?;
+    assert_eq!(
+        updated_f64,
+        f64::INFINITY,
+        "expected Infinity for ColFloat64 after update"
+    );
+
+    let updated_f32: f32 = query_row.try_get("ColFloat32")?;
+    assert_eq!(
+        updated_f32,
+        f32::NEG_INFINITY,
+        "expected -Infinity for ColFloat32 after update"
+    );
+
+    // 5. Update to NaN using untyped DML parameter.
+    let row_id_clone = row_id.clone();
+    let runner = db_client.read_write_transaction().build().await?;
+    runner
+        .run(async |transaction| {
+            let update_statement = Statement::builder(
+                "UPDATE AllTypes SET ColFloat64 = @nan64, ColFloat32 = @nan32 WHERE Id = @id",
+            )
+            .add_param("nan64", f64::NAN)
+            .add_param("nan32", f32::NAN)
+            .add_param("id", &row_id_clone)
+            .build();
+            let row_count = transaction.execute_update(update_statement).await?;
+            assert_eq!(row_count, 1, "expected 1 row updated with NaN");
+            Ok(())
+        })
+        .await?;
+
+    // 6. Query back using IS_NAN(ColFloat64) and IS_NAN(ColFloat32).
+    let is_nan_statement = Statement::builder(
+        "SELECT Id, ColFloat64, ColFloat32 FROM AllTypes WHERE Id = @id AND IS_NAN(ColFloat64) AND IS_NAN(ColFloat32)",
+    )
+    .add_param("id", &row_id)
+    .build();
+
+    let mut is_nan_result = db_client
+        .single_use()
+        .build()
+        .execute_query(is_nan_statement)
+        .await?;
+
+    let is_nan_row = is_nan_result
+        .next()
+        .await
+        .transpose()?
+        .expect("row should match IS_NAN(ColFloat64) AND IS_NAN(ColFloat32)");
+
+    let is_nan_id: String = is_nan_row.get("Id");
+    assert_eq!(is_nan_id, row_id, "expected matching row ID for IS_NAN");
+    let is_nan_float64: f64 = is_nan_row.try_get("ColFloat64")?;
+    assert!(is_nan_float64.is_nan(), "expected NaN for ColFloat64");
+    let is_nan_float32: f32 = is_nan_row.try_get("ColFloat32")?;
+    assert!(is_nan_float32.is_nan(), "expected NaN for ColFloat32");
+
+    // 7. Cleanup the test row.
+    let delete_mutation = Mutation::delete("AllTypes", key![row_id].into());
+    let cleanup_transaction = db_client.write_only_transaction().build();
+    cleanup_transaction.write(vec![delete_mutation]).await?;
 
     Ok(())
 }

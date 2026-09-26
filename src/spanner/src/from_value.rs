@@ -92,7 +92,8 @@ impl FromValue for Value {
 /// | `NullValue` | `null` |
 /// | `BoolValue` | `true` / `false` |
 /// | `NumberValue` (finite) | JSON number |
-/// | `NumberValue` (NaN/±Infinity) | `null` (matches SDK's `into_serde_value`) |
+/// | `NumberValue` (NaN/±Infinity) | `null` |
+/// | `StringValue` ("NaN"/`±Infinity` on FLOAT columns) | `null` |
 /// | `StringValue` (standard) | JSON string (includes stringified `INT64`, `NUMERIC`, Base64 `BYTES`, `TIMESTAMP`, `DATE`) |
 /// | `StringValue` (+ `TypeCode::Json`) | Parsed JSON object/array/value |
 /// | `ListValue` + `TypeCode::Struct` | JSON object (positional → named via metadata) |
@@ -105,8 +106,9 @@ impl FromValue for Value {
 ///   Spanner transmits as `StringValue` on the wire) are preserved as JSON strings.
 ///   This prevents precision loss (e.g. for integers exceeding $2^{53}-1$ or
 ///   high-precision decimals) during deserialization.
-/// - **NaN/Infinity → null**: Non-finite floats become `null` since JSON has no
-///   representation. Callers cannot distinguish these from genuine SQL NULLs.
+/// - **NaN/Infinity → null**: Non-finite floats become `null` when deserialized as
+///   `serde_json::Value` since standard JSON has no representation for NaN/Infinity.
+///   Callers cannot distinguish these from genuine SQL NULLs.
 /// - **Duplicate field names**: Spanner allows structs with duplicate field names
 ///   (e.g., unnamed columns). Since JSON objects require unique keys, last-write-wins
 ///   applies via `serde_json::Map::insert`.
@@ -254,7 +256,12 @@ fn list_value_to_json(
 }
 
 impl FromValue for String {
-    fn from_value(value: &Value, _type: &Type) -> Result<Self, ConvertError> {
+    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
+        if type_.code() == TypeCode::Float64 || type_.code() == TypeCode::Float32 {
+            return Err(ConvertError::Convert(
+                "cannot decode FLOAT64 or FLOAT32 column as String".into(),
+            ));
+        }
         match &value.0.kind {
             Some(prost_types::value::Kind::StringValue(s)) => Ok(s.clone()),
             Some(prost_types::value::Kind::NullValue(_)) => Err(ConvertError::NotNull),
@@ -407,15 +414,22 @@ impl FromValue for bool {
 }
 
 impl FromValue for f64 {
-    fn from_value(value: &Value, _type: &Type) -> Result<Self, ConvertError> {
+    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
         match &value.0.kind {
             Some(prost_types::value::Kind::NumberValue(n)) => Ok(*n),
-            Some(prost_types::value::Kind::StringValue(s)) => {
-                s.parse().map_err(|e| ConvertError::Convert(Box::new(e)))
+            Some(prost_types::value::Kind::StringValue(s))
+                if type_.code() == TypeCode::Float64 || type_.code() == TypeCode::Float32 =>
+            {
+                match s.as_str() {
+                    "NaN" => Ok(f64::NAN),
+                    "Infinity" => Ok(f64::INFINITY),
+                    "-Infinity" => Ok(f64::NEG_INFINITY),
+                    _ => s.parse().map_err(|e| ConvertError::Convert(Box::new(e))),
+                }
             }
             Some(prost_types::value::Kind::NullValue(_)) => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
-                want: crate::value::Kind::Number,
+                want: Kind::Number,
                 got: value.kind(),
             }),
         }
@@ -423,15 +437,22 @@ impl FromValue for f64 {
 }
 
 impl FromValue for f32 {
-    fn from_value(value: &Value, _type: &Type) -> Result<Self, ConvertError> {
+    fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
         match &value.0.kind {
             Some(prost_types::value::Kind::NumberValue(n)) => Ok(*n as f32),
-            Some(prost_types::value::Kind::StringValue(s)) => {
-                s.parse().map_err(|e| ConvertError::Convert(Box::new(e)))
+            Some(prost_types::value::Kind::StringValue(s))
+                if type_.code() == TypeCode::Float32 || type_.code() == TypeCode::Float64 =>
+            {
+                match s.as_str() {
+                    "NaN" => Ok(f32::NAN),
+                    "Infinity" => Ok(f32::INFINITY),
+                    "-Infinity" => Ok(f32::NEG_INFINITY),
+                    _ => s.parse().map_err(|e| ConvertError::Convert(Box::new(e))),
+                }
             }
             Some(prost_types::value::Kind::NullValue(_)) => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
-                want: crate::value::Kind::Number,
+                want: Kind::Number,
                 got: value.kind(),
             }),
         }
@@ -532,16 +553,206 @@ mod tests {
     #[test]
     fn test_from_value_float() {
         let v = 42.5f64.to_value();
-        let f = f64::from_value(&v, &types::float64()).unwrap();
-        assert_eq!(f, 42.5);
+        let f = f64::from_value(&v, &types::float64()).expect("valid float value");
+        assert_eq!(f, 42.5, "expected 42.5");
 
         let v = "Infinity".to_string().to_value();
-        let f = f64::from_value(&v, &types::float64()).unwrap();
-        assert_eq!(f, f64::INFINITY);
+        let f = f64::from_value(&v, &types::float64()).expect("valid infinity value");
+        assert_eq!(f, f64::INFINITY, "expected Infinity");
 
         let v = "invalid float".to_string().to_value();
-        let err = f64::from_value(&v, &types::float64()).unwrap_err();
-        assert!(format!("{}", err).contains("invalid float literal"));
+        let err = f64::from_value(&v, &types::float64()).expect_err("invalid float must fail");
+        assert!(
+            format!("{}", err).contains("invalid float literal"),
+            "expected invalid float literal error"
+        );
+    }
+
+    #[test]
+    fn from_value_float_non_finite_and_type_checks() {
+        // f64 non-finite strings
+        let nan_val = "NaN".to_string().to_value();
+        let f64_nan = f64::from_value(&nan_val, &types::float64()).expect("valid NaN f64");
+        assert!(f64_nan.is_nan(), "expected NaN for f64");
+
+        let inf_val = "Infinity".to_string().to_value();
+        let f64_inf = f64::from_value(&inf_val, &types::float64()).expect("valid Infinity f64");
+        assert_eq!(f64_inf, f64::INFINITY, "expected Infinity for f64");
+
+        let neg_inf_val = "-Infinity".to_string().to_value();
+        let f64_neginf =
+            f64::from_value(&neg_inf_val, &types::float64()).expect("valid -Infinity f64");
+        assert_eq!(f64_neginf, f64::NEG_INFINITY, "expected -Infinity for f64");
+
+        // f64 from FLOAT32 column (lossless widening)
+        let f32_widened =
+            f64::from_value(&42.5f32.to_value(), &types::float32()).expect("FLOAT32 widens to f64");
+        assert_eq!(f32_widened, 42.5, "expected 42.5 from FLOAT32 to f64");
+
+        // f64 rejects STRING column even if it contains "NaN"
+        let string_col_err =
+            f64::from_value(&nan_val, &types::string()).expect_err("f64 must reject STRING column");
+        assert!(
+            matches!(string_col_err, ConvertError::KindMismatch { .. }),
+            "expected KindMismatch when reading STRING column as f64"
+        );
+
+        // f64 rejects non-numeric string in FLOAT64 column
+        let invalid_str_err =
+            f64::from_value(&"not-a-number".to_string().to_value(), &types::float64())
+                .expect_err("f64 must reject arbitrary string representation");
+        assert!(
+            format!("{}", invalid_str_err).contains("invalid float literal"),
+            "expected invalid float literal error"
+        );
+
+        // f32 non-finite strings and numbers
+        let f32_num = f32::from_value(&12.5f32.to_value(), &types::float32()).expect("valid f32");
+        assert_eq!(f32_num, 12.5, "expected 12.5 for f32");
+
+        let f32_nan = f32::from_value(&nan_val, &types::float32()).expect("valid NaN f32");
+        assert!(f32_nan.is_nan(), "expected NaN for f32");
+
+        let f32_inf = f32::from_value(&inf_val, &types::float32()).expect("valid Infinity f32");
+        assert_eq!(f32_inf, f32::INFINITY, "expected Infinity for f32");
+
+        let f32_neginf =
+            f32::from_value(&neg_inf_val, &types::float32()).expect("valid -Infinity f32");
+        assert_eq!(f32_neginf, f32::NEG_INFINITY, "expected -Infinity for f32");
+
+        // f32 accepts NumberValue from FLOAT64 column
+        let f32_from_f64 = f32::from_value(&42.5f64.to_value(), &types::float64())
+            .expect("f32 accepts NumberValue from FLOAT64 column");
+        assert_eq!(f32_from_f64, 42.5, "expected 42.5 from NumberValue for f32");
+
+        // f32 rejects STRING column
+        let f32_str_err =
+            f32::from_value(&nan_val, &types::string()).expect_err("f32 must reject STRING column");
+        assert!(
+            matches!(f32_str_err, ConvertError::KindMismatch { .. }),
+            "expected KindMismatch when reading STRING column as f32"
+        );
+
+        // f32 parses numeric string in FLOAT32 column
+        let f32_from_str = f32::from_value(&"12.5".to_string().to_value(), &types::float32())
+            .expect("valid f32 from numeric string");
+        assert_eq!(f32_from_str, 12.5, "expected 12.5 from string for f32");
+
+        // f32 rejects non-numeric string in FLOAT32 column
+        let invalid_f32_str_error =
+            f32::from_value(&"not-a-number".to_string().to_value(), &types::float32())
+                .expect_err("f32 must reject arbitrary string representation");
+        assert!(
+            format!("{invalid_f32_str_error}").contains("invalid float literal"),
+            "expected invalid float literal error for f32"
+        );
+
+        // String::from_value rejects FLOAT64 and FLOAT32 columns (even with non-finite string representation)
+        let string_f64_nan_err = String::from_value(&nan_val, &types::float64())
+            .expect_err("String must reject FLOAT64 column with NaN");
+        assert!(
+            matches!(string_f64_nan_err, ConvertError::Convert(_)),
+            "expected Convert error when reading FLOAT64 column as String"
+        );
+
+        let string_f32_inf_err = String::from_value(&inf_val, &types::float32())
+            .expect_err("String must reject FLOAT32 column with Infinity");
+        assert!(
+            matches!(string_f32_inf_err, ConvertError::Convert(_)),
+            "expected Convert error when reading FLOAT32 column as String"
+        );
+
+        let string_f64_num_err = String::from_value(&42.5f64.to_value(), &types::float64())
+            .expect_err("String must reject FLOAT64 column with NumberValue");
+        assert!(
+            matches!(string_f64_num_err, ConvertError::Convert(_)),
+            "expected Convert error when reading FLOAT64 NumberValue as String"
+        );
+    }
+
+    #[test]
+    fn from_value_non_finite_float_containers() {
+        // Option<f64>
+        let nan_val = "NaN".to_string().to_value();
+        let opt_nan = Option::<f64>::from_value(&nan_val, &types::float64())
+            .expect("parse Option<f64> containing NaN");
+        assert!(
+            opt_nan.is_some_and(|f| f.is_nan()),
+            "expected Some(NaN) for Option<f64>"
+        );
+
+        let opt_null = Option::<f64>::from_value(&Value::null(), &types::float64())
+            .expect("parse Option<f64> containing null");
+        assert_eq!(opt_null, None, "expected None for null Option<f64>");
+
+        // Vec<f64> with non-finite values
+        let f64_vec = vec![f64::NAN, f64::INFINITY, f64::NEG_INFINITY, 123.5];
+        let v = f64_vec.to_value();
+        let parsed_vec = Vec::<f64>::from_value(&v, &types::array(types::float64()))
+            .expect("parse Vec<f64> with non-finite elements");
+        assert_eq!(parsed_vec.len(), 4);
+        assert!(parsed_vec[0].is_nan(), "expected NaN in Vec<f64>[0]");
+        assert_eq!(
+            parsed_vec[1],
+            f64::INFINITY,
+            "expected Infinity in Vec<f64>[1]"
+        );
+        assert_eq!(
+            parsed_vec[2],
+            f64::NEG_INFINITY,
+            "expected -Infinity in Vec<f64>[2]"
+        );
+        assert_eq!(parsed_vec[3], 123.5, "expected 123.5 in Vec<f64>[3]");
+
+        // Vec<Option<f64>> with non-finite values and None
+        let opt_f64_vec = vec![
+            Some(f64::NAN),
+            None,
+            Some(f64::INFINITY),
+            Some(f64::NEG_INFINITY),
+        ];
+        let v_opt = opt_f64_vec.to_value();
+        let parsed_opt_vec =
+            Vec::<Option<f64>>::from_value(&v_opt, &types::array(types::float64()))
+                .expect("parse Vec<Option<f64>> with non-finite elements and null");
+        assert_eq!(parsed_opt_vec.len(), 4);
+        assert!(
+            parsed_opt_vec[0].is_some_and(|f| f.is_nan()),
+            "expected Some(NaN) in Vec<Option<f64>>[0]"
+        );
+        assert_eq!(
+            parsed_opt_vec[1], None,
+            "expected None in Vec<Option<f64>>[1]"
+        );
+        assert_eq!(
+            parsed_opt_vec[2],
+            Some(f64::INFINITY),
+            "expected Some(Infinity) in Vec<Option<f64>>[2]"
+        );
+        assert_eq!(
+            parsed_opt_vec[3],
+            Some(f64::NEG_INFINITY),
+            "expected Some(-Infinity) in Vec<Option<f64>>[3]"
+        );
+
+        // Vec<f32> with non-finite values
+        let f32_vec = vec![f32::NAN, f32::INFINITY, f32::NEG_INFINITY, 12.5f32];
+        let v_f32 = f32_vec.to_value();
+        let parsed_f32_vec = Vec::<f32>::from_value(&v_f32, &types::array(types::float32()))
+            .expect("parse Vec<f32> with non-finite elements");
+        assert_eq!(parsed_f32_vec.len(), 4);
+        assert!(parsed_f32_vec[0].is_nan(), "expected NaN in Vec<f32>[0]");
+        assert_eq!(
+            parsed_f32_vec[1],
+            f32::INFINITY,
+            "expected Infinity in Vec<f32>[1]"
+        );
+        assert_eq!(
+            parsed_f32_vec[2],
+            f32::NEG_INFINITY,
+            "expected -Infinity in Vec<f32>[2]"
+        );
+        assert_eq!(parsed_f32_vec[3], 12.5, "expected 12.5 in Vec<f32>[3]");
     }
 
     #[test]

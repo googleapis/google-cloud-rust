@@ -62,6 +62,8 @@ mod spanner {
             integration_tests_spanner::query::simple_query(db_client).await?;
             integration_tests_spanner::query::query_json_value(db_client).await?;
             integration_tests_spanner::query::query_with_parameters(db_client).await?;
+            integration_tests_spanner::query::query_non_finite_float_parameters(db_client).await?;
+            integration_tests_spanner::query::mutation_and_untyped_query_non_finite_floats(db_client).await?;
             integration_tests_spanner::query::result_set_metadata(db_client).await?;
             integration_tests_spanner::query::multi_use_read_only_transaction(db_client).await?;
             integration_tests_spanner::query::multi_use_read_only_transaction_invalid_query_fallback(
