@@ -23,6 +23,8 @@ pub use crate::to_value::ToValue;
 pub use crate::types::{Type, TypeCode};
 
 use prost_types::Value as ProtoValue;
+use serde_json::Number as JsonNumber;
+use serde_json::Value as JsonValue;
 
 /// Kind indicates the type of the value.
 ///
@@ -116,7 +118,7 @@ impl Value {
         }
     }
 
-    /// Returns the underlying number value. Panics if the kind is not Number.
+    /// Returns the underlying number value as an `f64`. Panics if the kind is not Number.
     pub fn as_f64(&self) -> f64 {
         self.try_as_f64().expect("value is not a Number")
     }
@@ -152,31 +154,35 @@ impl Value {
     /// Converts a `prost_types::Value` to a `serde_json::Value`.
     /// This is needed because the generated gapic client uses `serde_json::Value` instead of `prost_types::Value`.
     /// It is converted back from `serde_json::Value` to `prost_types::Value` before hitting the wire.
-    pub(crate) fn into_serde_value(self) -> serde_json::Value {
+    pub(crate) fn into_serde_value(self) -> JsonValue {
         match self.0.kind {
-            Some(prost_types::value::Kind::NullValue(_)) => serde_json::Value::Null,
+            Some(prost_types::value::Kind::NullValue(_)) => JsonValue::Null,
             Some(prost_types::value::Kind::NumberValue(n)) => {
-                if let Some(num) = serde_json::Number::from_f64(n) {
-                    serde_json::Value::Number(num)
+                if let Some(number) = JsonNumber::from_f64(n) {
+                    JsonValue::Number(number)
+                } else if n.is_nan() {
+                    JsonValue::String("NaN".to_string())
+                } else if n.is_sign_positive() {
+                    JsonValue::String("Infinity".to_string())
                 } else {
-                    serde_json::Value::Null
+                    JsonValue::String("-Infinity".to_string())
                 }
             }
-            Some(prost_types::value::Kind::StringValue(s)) => serde_json::Value::String(s),
-            Some(prost_types::value::Kind::BoolValue(b)) => serde_json::Value::Bool(b),
-            Some(prost_types::value::Kind::StructValue(s)) => serde_json::Value::Object(
+            Some(prost_types::value::Kind::StringValue(s)) => JsonValue::String(s),
+            Some(prost_types::value::Kind::BoolValue(b)) => JsonValue::Bool(b),
+            Some(prost_types::value::Kind::StructValue(s)) => JsonValue::Object(
                 s.fields
                     .into_iter()
                     .map(|(k, v)| (k, Value(v).into_serde_value()))
                     .collect(),
             ),
-            Some(prost_types::value::Kind::ListValue(l)) => serde_json::Value::Array(
+            Some(prost_types::value::Kind::ListValue(l)) => JsonValue::Array(
                 l.values
                     .into_iter()
                     .map(|v| Value(v).into_serde_value())
                     .collect(),
             ),
-            None => serde_json::Value::Null,
+            None => JsonValue::Null,
         }
     }
 }
@@ -250,7 +256,193 @@ impl List {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use serde_json::Map as JsonMap;
+    use serde_json::Value as JsonValue;
+    use std::collections::BTreeMap;
     use std::hash::Hash;
+
+    #[test]
+    fn into_serde_value_non_finite_floats() {
+        assert_eq!(
+            Value::from(f64::NAN).into_serde_value(),
+            JsonValue::String("NaN".to_string()),
+            "f64::NAN must serialize as 'NaN' string"
+        );
+        assert_eq!(
+            Value::from(f64::INFINITY).into_serde_value(),
+            JsonValue::String("Infinity".to_string()),
+            "f64::INFINITY must serialize as 'Infinity' string"
+        );
+        assert_eq!(
+            Value::from(f64::NEG_INFINITY).into_serde_value(),
+            JsonValue::String("-Infinity".to_string()),
+            "f64::NEG_INFINITY must serialize as '-Infinity' string"
+        );
+        assert_eq!(
+            Value::from(f32::NAN).into_serde_value(),
+            JsonValue::String("NaN".to_string()),
+            "f32::NAN must serialize as 'NaN' string"
+        );
+        assert_eq!(
+            Value::from(f32::INFINITY).into_serde_value(),
+            JsonValue::String("Infinity".to_string()),
+            "f32::INFINITY must serialize as 'Infinity' string"
+        );
+        assert_eq!(
+            Value::from(f32::NEG_INFINITY).into_serde_value(),
+            JsonValue::String("-Infinity".to_string()),
+            "f32::NEG_INFINITY must serialize as '-Infinity' string"
+        );
+    }
+
+    #[test]
+    fn into_serde_value_kinds() {
+        // NullValue
+        assert_eq!(
+            Value::null().into_serde_value(),
+            JsonValue::Null,
+            "NullValue must serialize as JsonValue::Null"
+        );
+
+        // NumberValue with NaN / Infinity / -Infinity (defensive fallback when wire kind is NumberValue)
+        let number_nan = Value(ProtoValue {
+            kind: Some(prost_types::value::Kind::NumberValue(f64::NAN)),
+        });
+        assert_eq!(
+            number_nan.into_serde_value(),
+            JsonValue::String("NaN".to_string()),
+            "NumberValue(NaN) must serialize as 'NaN' string"
+        );
+
+        let number_infinity = Value(ProtoValue {
+            kind: Some(prost_types::value::Kind::NumberValue(f64::INFINITY)),
+        });
+        assert_eq!(
+            number_infinity.into_serde_value(),
+            JsonValue::String("Infinity".to_string()),
+            "NumberValue(Infinity) must serialize as 'Infinity' string"
+        );
+
+        let number_negative_infinity = Value(ProtoValue {
+            kind: Some(prost_types::value::Kind::NumberValue(f64::NEG_INFINITY)),
+        });
+        assert_eq!(
+            number_negative_infinity.into_serde_value(),
+            JsonValue::String("-Infinity".to_string()),
+            "NumberValue(-Infinity) must serialize as '-Infinity' string"
+        );
+
+        // BoolValue
+        assert_eq!(
+            Value::from(true).into_serde_value(),
+            JsonValue::Bool(true),
+            "BoolValue must serialize as JsonValue::Bool"
+        );
+
+        // StructValue
+        let mut fields = BTreeMap::new();
+        fields.insert(
+            "field_name".to_string(),
+            ProtoValue {
+                kind: Some(prost_types::value::Kind::StringValue(
+                    "field_value".to_string(),
+                )),
+            },
+        );
+        let struct_value = Value(ProtoValue {
+            kind: Some(prost_types::value::Kind::StructValue(prost_types::Struct {
+                fields,
+            })),
+        });
+        let mut expected_map = JsonMap::new();
+        expected_map.insert(
+            "field_name".to_string(),
+            JsonValue::String("field_value".to_string()),
+        );
+        assert_eq!(
+            struct_value.into_serde_value(),
+            JsonValue::Object(expected_map),
+            "StructValue must serialize as JsonValue::Object"
+        );
+
+        // None
+        let empty_value = Value(ProtoValue { kind: None });
+        assert_eq!(
+            empty_value.into_serde_value(),
+            JsonValue::Null,
+            "None kind must serialize as JsonValue::Null"
+        );
+    }
+
+    #[test]
+    fn into_serde_value_float_arrays() {
+        let f64_array = Value::from(vec![f64::NAN, f64::INFINITY, f64::NEG_INFINITY, 42.0]);
+        assert_eq!(
+            f64_array.into_serde_value(),
+            JsonValue::Array(vec![
+                JsonValue::String("NaN".to_string()),
+                JsonValue::String("Infinity".to_string()),
+                JsonValue::String("-Infinity".to_string()),
+                JsonValue::Number(serde_json::Number::from_f64(42.0).expect("valid f64 number")),
+            ]),
+            "f64 array must serialize non-finite elements as strings and finite as numbers"
+        );
+
+        let f32_array = Value::from(vec![f32::NAN, f32::INFINITY, f32::NEG_INFINITY, 1.5f32]);
+        assert_eq!(
+            f32_array.into_serde_value(),
+            JsonValue::Array(vec![
+                JsonValue::String("NaN".to_string()),
+                JsonValue::String("Infinity".to_string()),
+                JsonValue::String("-Infinity".to_string()),
+                JsonValue::Number(serde_json::Number::from_f64(1.5).expect("valid f32 number")),
+            ]),
+            "f32 array must serialize non-finite elements as strings and finite as numbers"
+        );
+    }
+
+    #[test]
+    fn value_non_finite_floats_wire_representation() {
+        let nan_value = Value(ProtoValue {
+            kind: Some(prost_types::value::Kind::StringValue("NaN".to_string())),
+        });
+        assert_eq!(nan_value.kind(), Kind::String);
+        assert_eq!(nan_value.try_as_string(), Some("NaN"));
+        assert_eq!(nan_value.as_string(), "NaN");
+        assert_eq!(
+            nan_value.try_as_f64(),
+            None,
+            "StringValue('NaN') is represented as Kind::String in untyped Value; typed access is via FromValue"
+        );
+
+        let infinity_value = Value(ProtoValue {
+            kind: Some(prost_types::value::Kind::StringValue(
+                "Infinity".to_string(),
+            )),
+        });
+        assert_eq!(infinity_value.kind(), Kind::String);
+        assert_eq!(infinity_value.try_as_string(), Some("Infinity"));
+        assert_eq!(infinity_value.as_string(), "Infinity");
+        assert_eq!(
+            infinity_value.try_as_f64(),
+            None,
+            "StringValue('Infinity') is represented as Kind::String in untyped Value; typed access is via FromValue"
+        );
+
+        let negative_infinity_value = Value(ProtoValue {
+            kind: Some(prost_types::value::Kind::StringValue(
+                "-Infinity".to_string(),
+            )),
+        });
+        assert_eq!(negative_infinity_value.kind(), Kind::String);
+        assert_eq!(negative_infinity_value.try_as_string(), Some("-Infinity"));
+        assert_eq!(negative_infinity_value.as_string(), "-Infinity");
+        assert_eq!(
+            negative_infinity_value.try_as_f64(),
+            None,
+            "StringValue('-Infinity') is represented as Kind::String in untyped Value; typed access is via FromValue"
+        );
+    }
 
     #[test]
     fn test_value_kind_and_accessors() {

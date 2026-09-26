@@ -304,6 +304,52 @@ impl From<KeyRange> for KeySet {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::to_value::ToValue;
+    use serde_json::Value as JsonValue;
+
+    #[test]
+    fn key_non_finite_floats() {
+        let key = Key::new(vec![
+            f64::NAN.to_value(),
+            f64::INFINITY.to_value(),
+            f64::NEG_INFINITY.to_value(),
+            f32::NAN.to_value(),
+            f32::INFINITY.to_value(),
+            f32::NEG_INFINITY.to_value(),
+        ]);
+        let values = key.into_values();
+        assert_eq!(values.len(), 6, "expected 6 key values");
+        assert_eq!(
+            values.first(),
+            Some(&JsonValue::String("NaN".to_string())),
+            "f64 NaN key must serialize as 'NaN'"
+        );
+        assert_eq!(
+            values.get(1),
+            Some(&JsonValue::String("Infinity".to_string())),
+            "f64 Infinity key must serialize as 'Infinity'"
+        );
+        assert_eq!(
+            values.get(2),
+            Some(&JsonValue::String("-Infinity".to_string())),
+            "f64 -Infinity key must serialize as '-Infinity'"
+        );
+        assert_eq!(
+            values.get(3),
+            Some(&JsonValue::String("NaN".to_string())),
+            "f32 NaN key must serialize as 'NaN'"
+        );
+        assert_eq!(
+            values.get(4),
+            Some(&JsonValue::String("Infinity".to_string())),
+            "f32 Infinity key must serialize as 'Infinity'"
+        );
+        assert_eq!(
+            values.get(5),
+            Some(&JsonValue::String("-Infinity".to_string())),
+            "f32 -Infinity key must serialize as '-Infinity'"
+        );
+    }
 
     #[test]
     fn auto_traits() {
