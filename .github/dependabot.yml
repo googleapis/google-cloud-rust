@@ -34,3 +34,6 @@ updates:
       opentelemetry-crates:
         patterns:
           - "*opentelemetry*"
+      arrow-crates:
+        patterns:
+          - "*arrow*"

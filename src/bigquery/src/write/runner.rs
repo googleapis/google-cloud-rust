@@ -162,16 +162,38 @@ fn process_gax_response(
 mod tests {
     use super::*;
     use crate::write::test::*;
+    use bigquery_grpc_mock::google::cloud::bigquery::storage::v1 as mock_v1;
     use bigquery_grpc_mock::{MockBigQueryWrite, start};
     use gaxi::grpc::tonic::Response as TonicResponse;
     use google_cloud_gax::error::rpc::Code;
 
+    /// Creates a `MockBigQueryWrite` whose `append_rows` handler waits for an
+    /// incoming request on the gRPC stream before releasing each queued
+    /// response from `response_rx`.
+    fn mock_append_rows(
+        mut response_rx: mpsc::Receiver<TonicResult<mock_v1::AppendRowsResponse>>,
+    ) -> MockBigQueryWrite {
+        let mut mock = MockBigQueryWrite::new();
+        mock.expect_append_rows().return_once(move |request| {
+            let mut request_rx = request.into_inner();
+            let (gated_tx, gated_rx) = mpsc::channel(10);
+            tokio::spawn(async move {
+                while let Some(resp) = response_rx.recv().await {
+                    let _ = request_rx.recv().await;
+                    if gated_tx.send(resp).await.is_err() {
+                        break;
+                    }
+                }
+            });
+            Ok(TonicResponse::from(gated_rx))
+        });
+        mock
+    }
+
     #[tokio::test]
     async fn no_requests() -> anyhow::Result<()> {
         let (_, response_rx) = mpsc::channel(1);
-        let mut mock = MockBigQueryWrite::new();
-        mock.expect_append_rows()
-            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        let mock = mock_append_rows(response_rx);
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
 
@@ -187,9 +209,7 @@ mod tests {
     #[tokio::test]
     async fn success() -> anyhow::Result<()> {
         let (response_tx, response_rx) = mpsc::channel(10);
-        let mut mock = MockBigQueryWrite::new();
-        mock.expect_append_rows()
-            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        let mock = mock_append_rows(response_rx);
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
 
@@ -277,9 +297,7 @@ mod tests {
     #[tokio::test]
     async fn error_mid_stream() -> anyhow::Result<()> {
         let (response_tx, response_rx) = mpsc::channel(10);
-        let mut mock = MockBigQueryWrite::new();
-        mock.expect_append_rows()
-            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        let mock = mock_append_rows(response_rx);
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
 
@@ -341,9 +359,7 @@ mod tests {
     #[tokio::test]
     async fn sender_dropped_mid_stream() -> anyhow::Result<()> {
         let (response_tx, response_rx) = mpsc::channel(10);
-        let mut mock = MockBigQueryWrite::new();
-        mock.expect_append_rows()
-            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        let mock = mock_append_rows(response_rx);
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
 
@@ -402,9 +418,7 @@ mod tests {
         // If the stream ends without responding to us, the service broke its contract. It is easy
         // enough to be defensive.
         let (response_tx, response_rx) = mpsc::channel(10);
-        let mut mock = MockBigQueryWrite::new();
-        mock.expect_append_rows()
-            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        let mock = mock_append_rows(response_rx);
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = Arc::new(test_transport(endpoint).await?);
 

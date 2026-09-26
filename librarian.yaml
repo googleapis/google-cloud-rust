@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.45.0
+version: v0.45.1-0.20260925185230-227f13c61573
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -838,14 +838,13 @@ libraries:
         - user-event-service
         - user-license-service
   - name: google-cloud-dns-v1
-    version: 1.7.0
+    version: 2.0.0
     copyright_year: "2026"
     keep:
       - src/operation.rs
     roots:
       - discovery
       - googleapis
-    skip_release: true
     specification_format: discovery
     rust:
       package_dependencies:

@@ -24,6 +24,9 @@ pub(crate) mod entry;
 pub(crate) mod pool;
 pub(crate) mod scaler;
 
+#[cfg(test)]
+mod integration_tests;
+
 pub use config::{ChannelPoolConfig, DynamicChannelPoolConfig, StaticChannelPoolConfig};
 
 pub(crate) use affinity::{ChannelTarget, TransactionAffinity};
