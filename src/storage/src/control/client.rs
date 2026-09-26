@@ -120,6 +120,11 @@ pub(crate) mod client_builder {
             if config.backoff_policy.is_none() {
                 config.backoff_policy = Some(Arc::new(crate::backoff_policy::default()));
             }
+            config.extensions.insert(gaxi::api_header::XGoogApiClient {
+                name: crate::storage::info::NAME,
+                version: crate::storage::info::VERSION,
+                library_type: gaxi::api_header::GCCL,
+            });
             Self::Client::new(config).await
         }
     }
@@ -128,7 +133,9 @@ pub(crate) mod client_builder {
 #[cfg(test)]
 mod tests {
     use super::StorageControl;
+    use gaxi::grpc::tonic::Response;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use storage_grpc_mock::{MockStorage, google, start};
 
     #[tokio::test]
     async fn builder() -> anyhow::Result<()> {
@@ -136,6 +143,42 @@ mod tests {
             .with_credentials(Anonymous::new().build())
             .build()
             .await?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_storage_control_sends_veneer_header_not_gapic() -> anyhow::Result<()> {
+        let mut mock = MockStorage::new();
+        mock.expect_get_bucket()
+            .withf(|req| {
+                let header = req
+                    .metadata()
+                    .get("x-goog-api-client")
+                    .and_then(|v| v.to_str().ok());
+                if let Some(header) = header {
+                    header.contains(&format!("gccl/{}", env!("CARGO_PKG_VERSION")))
+                        && !header.contains("gapic/")
+                } else {
+                    false
+                }
+            })
+            .times(1)
+            .returning(|_| Ok(Response::new(google::storage::v2::Bucket::default())));
+
+        let (endpoint, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client = StorageControl::builder()
+            .with_endpoint(endpoint)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let _ = client
+            .get_bucket()
+            .set_name("projects/_/buckets/my-bucket")
+            .send()
+            .await?;
+
         Ok(())
     }
 }
