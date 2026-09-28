@@ -30,9 +30,13 @@ use crate::model::write_stream::Type;
 /// - [`CommittedStream`]
 /// - [`BufferedStream`]
 ///
+/// See [Selecting a type] for guidance on choosing a stream type for your
+/// workload.
+///
 /// This trait is sealed and cannot be implemented for types outside this crate.
 ///
 /// [application-created stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#application-created_streams
+/// [Selecting a type]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#selecting_a_type
 #[diagnostic::on_unimplemented(
     message = "`{Self}` is not an application-created stream type",
     label = "expected `PendingStream`, `CommittedStream`, or `BufferedStream`",
