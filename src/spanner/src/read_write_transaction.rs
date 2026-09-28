@@ -216,6 +216,11 @@ impl ReadWriteTransactionBuilder {
             )),
         };
 
+        let _location_routing_drop_guard = Arc::new(LocationRoutingDropGuard::new(
+            self.client.clone(),
+            transaction_selector.clone(),
+        ));
+
         Ok(ReadWriteTransaction {
             context: ReadContext {
                 session_name: self.session_name,
@@ -234,6 +239,7 @@ impl ReadWriteTransactionBuilder {
             mutations: Arc::new(Mutex::new(Vec::new())),
             begin_gax_options: self.begin_gax_options,
             commit_gax_options: self.commit_gax_options,
+            _location_routing_drop_guard,
         })
     }
 
@@ -364,6 +370,55 @@ macro_rules! execute_with_retry {
     }};
 }
 
+/// RAII guard ensuring that any uncommitted, un-rolled-back location-aware routing
+/// affinity (stored in [`LocationRouter`]) is cleaned up when all handles to a
+/// [`ReadWriteTransaction`] are dropped.
+///
+/// # Two Kinds of Affinity in Cloud Spanner Client
+/// The Spanner client utilizes the term "affinity" in two completely distinct mechanisms
+/// with different scopes, purposes, and lifecycles:
+///
+/// 1. **Channel Pool Affinity** ([`TransactionAffinity`]):
+///    - **Scope**: Local client-side gRPC connection pool ([`ChannelPool`][crate::channel_pool::ChannelPool]).
+///    - **Purpose**: Pins all gRPC requests of a transaction to the exact same physical HTTP/2 connection.
+///    - **Lifecycle**: Managed by `RwTransactionAffinityGuard`. Automatically decremented when the guard
+///      drops, or explicitly via `release_rw_guard()` on commit/rollback. In
+///      [`TransactionRunner`][crate::transaction_runner::TransactionRunner], the same channel pool
+///      affinity is reused across all retry attempts.
+///
+/// 2. **Location-Aware Routing Affinity** ([`LocationRouter`]):
+///    - **Scope**: Remote Spanner backend server topology.
+///    - **Purpose**: Maps a Spanner transaction ID ([`bytes::Bytes`]) to a specific remote Spanner tablet
+///      endpoint ([`ServerConnection`][crate::routing::connection_cache::ServerConnection]), ensuring all
+///      subsequent statements route directly to the tablet leader rather than re-resolving key ranges.
+///    - **Lifecycle**: Recorded when the transaction begins on a specific tablet. Cleared when the transaction
+///      completes (commit, rollback, abort, or drop). Each retry attempt gets a new transaction ID from Spanner,
+///      so location routing affinity is strictly scoped to a single transaction ID.
+///
+/// This guard handles **Location-Aware Routing Affinity**. It guarantees that if a [`ReadWriteTransaction`]
+/// is dropped without calling `commit()` or `rollback()` (for example, due to an application error, early
+/// return, or panic), the transaction ID entry in [`LocationRouter`]'s affinity table is cleaned up immediately.
+#[derive(Debug)]
+struct LocationRoutingDropGuard {
+    client: DatabaseClient,
+    selector: ReadContextTransactionSelector,
+}
+
+impl LocationRoutingDropGuard {
+    fn new(client: DatabaseClient, selector: ReadContextTransactionSelector) -> Self {
+        Self { client, selector }
+    }
+}
+
+impl Drop for LocationRoutingDropGuard {
+    fn drop(&mut self) {
+        if let Ok(Some(transaction_id)) = self.selector.get_id_no_wait() {
+            self.client
+                .clear_transaction_affinity_routing(Some(transaction_id.as_ref()));
+        }
+    }
+}
+
 /// A read-write transaction.
 #[derive(Clone, Debug)]
 pub struct ReadWriteTransaction {
@@ -376,6 +431,7 @@ pub struct ReadWriteTransaction {
     mutations: Arc<Mutex<Vec<ProtoMutation>>>,
     begin_gax_options: Option<crate::RequestOptions>,
     commit_gax_options: Option<crate::RequestOptions>,
+    _location_routing_drop_guard: Arc<LocationRoutingDropGuard>,
 }
 
 impl ReadWriteTransaction {
@@ -633,6 +689,9 @@ impl ReadWriteTransaction {
     /// Commits the transaction.
     pub(crate) async fn commit(self) -> Result<CommitResponse> {
         let result = self.commit_internal().await;
+        // Release client-side channel pool affinity lease.
+        // Location-aware routing affinity is cleared separately in
+        // DatabaseClient::post_route_commit upon commit completion.
         if let Some(affinity) = self.affinity() {
             affinity.release_rw_guard();
         }
@@ -697,6 +756,9 @@ impl ReadWriteTransaction {
     /// Rolls back the transaction.
     pub(crate) async fn rollback(self) -> Result<()> {
         let result = self.rollback_internal().await;
+        // Release client-side channel pool affinity lease.
+        // Location-aware routing affinity is cleared separately in
+        // DatabaseClient::post_route_rollback upon rollback completion.
         if let Some(affinity) = self.affinity() {
             affinity.release_rw_guard();
         }
@@ -5139,6 +5201,767 @@ mod tests {
 
         let addresses = remote_addresses.lock().expect("mutex lock");
         assert_all_rpcs_use_same_channel(&addresses, 2);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_drop_guard_clears_location_router_affinity_on_drop()
+    -> anyhow::Result<()> {
+        use crate::omni::InstanceType;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::Transaction;
+        use spanner_grpc_mock::start;
+
+        let mut mock = create_session_mock();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
+        mock.expect_begin_transaction().returning(|_| {
+            Ok(tonic::Response::new(Transaction {
+                id: vec![42, 42],
+                read_timestamp: None,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = client
+            .database_client(
+                "projects/test-project/instances/test-instance/databases/test-database",
+            )
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
+
+        let router = database_client
+            .location_router()
+            .expect("location router must be present when location-aware routing is enabled");
+
+        let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build(None)
+            .await?;
+
+        let transaction_id = vec![42, 42];
+        router.record_transaction_affinity(&transaction_id, "node-1.spanner.internal:15000");
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id).as_deref(),
+            Some("node-1.spanner.internal:15000"),
+            "location router affinity must be recorded"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            1,
+            "location router affinity count should be 1"
+        );
+
+        // Dropping transaction without commit or rollback must trigger RAII drop guard.
+        drop(transaction);
+
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id),
+            None,
+            "LocationRoutingDropGuard must clear location router affinity when dropped"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "location router affinity count must be 0 after drop"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_commit_clears_location_router_affinity() -> anyhow::Result<()> {
+        use crate::omni::InstanceType;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::{CommitResponse, Transaction};
+        use spanner_grpc_mock::start;
+
+        let mut mock = create_session_mock();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
+        mock.expect_begin_transaction().returning(|_| {
+            Ok(tonic::Response::new(Transaction {
+                id: vec![43, 43],
+                read_timestamp: None,
+                ..Default::default()
+            }))
+        });
+        mock.expect_commit()
+            .returning(|_| Ok(tonic::Response::new(CommitResponse::default())));
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = client
+            .database_client(
+                "projects/test-project/instances/test-instance/databases/test-database",
+            )
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
+
+        let router = database_client
+            .location_router()
+            .expect("location router must be present when location-aware routing is enabled");
+
+        let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build(None)
+            .await?;
+
+        let transaction_id = vec![43, 43];
+        router.record_transaction_affinity(&transaction_id, "node-1.spanner.internal:15000");
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id).as_deref(),
+            Some("node-1.spanner.internal:15000"),
+            "location router affinity must be recorded before commit"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            1,
+            "location router affinity count must be 1 before commit"
+        );
+
+        transaction.commit().await?;
+
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id),
+            None,
+            "location router affinity must be cleared after commit"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "location router affinity count must be 0 after commit"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_rollback_clears_location_router_affinity() -> anyhow::Result<()>
+    {
+        use crate::omni::InstanceType;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::Transaction;
+        use spanner_grpc_mock::start;
+
+        let mut mock = create_session_mock();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
+        mock.expect_begin_transaction().returning(|_| {
+            Ok(tonic::Response::new(Transaction {
+                id: vec![44, 44],
+                read_timestamp: None,
+                ..Default::default()
+            }))
+        });
+        mock.expect_rollback()
+            .returning(|_| Ok(tonic::Response::new(())));
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = client
+            .database_client(
+                "projects/test-project/instances/test-instance/databases/test-database",
+            )
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
+
+        let router = database_client
+            .location_router()
+            .expect("location router must be present when location-aware routing is enabled");
+
+        let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build(None)
+            .await?;
+
+        let transaction_id = vec![44, 44];
+        router.record_transaction_affinity(&transaction_id, "node-1.spanner.internal:15000");
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id).as_deref(),
+            Some("node-1.spanner.internal:15000"),
+            "location router affinity must be recorded before rollback"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            1,
+            "location router affinity count must be 1 before rollback"
+        );
+
+        transaction.rollback().await?;
+
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id),
+            None,
+            "location router affinity must be cleared after rollback"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "location router affinity count must be 0 after rollback"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_drop_guard_clears_location_router_affinity_on_commit_failure()
+    -> anyhow::Result<()> {
+        use crate::omni::InstanceType;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::Transaction;
+        use spanner_grpc_mock::start;
+
+        let mut mock = create_session_mock();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
+        mock.expect_begin_transaction().returning(|_| {
+            Ok(tonic::Response::new(Transaction {
+                id: vec![45, 45],
+                read_timestamp: None,
+                ..Default::default()
+            }))
+        });
+        mock.expect_commit()
+            .returning(|_| Err(tonic::Status::invalid_argument("simulated commit failure")));
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = client
+            .database_client(
+                "projects/test-project/instances/test-instance/databases/test-database",
+            )
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
+
+        let router = database_client
+            .location_router()
+            .expect("location router must be present when location-aware routing is enabled");
+
+        let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build(None)
+            .await?;
+
+        let transaction_id = vec![45, 45];
+        router.record_transaction_affinity(&transaction_id, "node-1.spanner.internal:15000");
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id).as_deref(),
+            Some("node-1.spanner.internal:15000"),
+            "location router affinity must be recorded before failed commit"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            1,
+            "location router affinity count must be 1 before failed commit"
+        );
+
+        let commit_result = transaction.commit().await;
+        assert!(
+            commit_result.is_err(),
+            "commit must return Err when commit RPC fails"
+        );
+
+        // When commit fails, the consumed transaction is dropped,
+        // and its LocationRoutingDropGuard must clear the affinity.
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id),
+            None,
+            "location router affinity must be cleared when commit fails"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "location router affinity count must be 0 after failed commit drop"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_inline_begin_drop_guard_clears_location_router_affinity()
+    -> anyhow::Result<()> {
+        use crate::omni::InstanceType;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use prost_types::Timestamp;
+        use spanner_grpc_mock::google::spanner::v1::result_set_stats::RowCount;
+        use spanner_grpc_mock::google::spanner::v1::{
+            ResultSet, ResultSetMetadata, ResultSetStats, StructType, Transaction,
+        };
+        use spanner_grpc_mock::start;
+
+        let mut mock = create_session_mock();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
+
+        mock.expect_execute_sql().once().returning(|_| {
+            Ok(tonic::Response::new(ResultSet {
+                metadata: Some(ResultSetMetadata {
+                    row_type: Some(StructType { fields: vec![] }),
+                    transaction: Some(Transaction {
+                        id: vec![46, 46],
+                        read_timestamp: Some(Timestamp {
+                            seconds: 100,
+                            nanos: 0,
+                        }),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }),
+                stats: Some(ResultSetStats {
+                    row_count: Some(RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = client
+            .database_client(
+                "projects/test-project/instances/test-instance/databases/test-database",
+            )
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
+
+        let router = database_client
+            .location_router()
+            .expect("location router must be present when location-aware routing is enabled");
+
+        let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await?;
+
+        let update_count = transaction
+            .execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+            .await?;
+        assert_eq!(update_count, 1, "update count should be 1");
+
+        let transaction_id = vec![46, 46];
+        router.record_transaction_affinity(&transaction_id, "node-1.spanner.internal:15000");
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id).as_deref(),
+            Some("node-1.spanner.internal:15000"),
+            "location router affinity must be recorded"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            1,
+            "location router affinity count should be 1"
+        );
+
+        // Dropping inline transaction after starting must clear the affinity
+        drop(transaction);
+
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id),
+            None,
+            "LocationRoutingDropGuard must clear location router affinity when inline transaction is dropped"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "location router affinity count must be 0 after drop"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_unstarted_inline_begin_drop_is_safe() -> anyhow::Result<()> {
+        use crate::omni::InstanceType;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::start;
+
+        let mut mock = create_session_mock();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = client
+            .database_client(
+                "projects/test-project/instances/test-instance/databases/test-database",
+            )
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
+
+        let router = database_client
+            .location_router()
+            .expect("location router must be present when location-aware routing is enabled");
+
+        let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build(None)
+            .await?;
+
+        // Drop without executing any statements
+        drop(transaction);
+
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "location router affinity count must be 0 after dropping unstarted inline transaction"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_multi_clone_drop_semantics() -> anyhow::Result<()> {
+        use crate::omni::InstanceType;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::Transaction;
+        use spanner_grpc_mock::start;
+
+        let mut mock = create_session_mock();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
+        mock.expect_begin_transaction().returning(|_| {
+            Ok(tonic::Response::new(Transaction {
+                id: vec![50, 50],
+                read_timestamp: None,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = client
+            .database_client(
+                "projects/test-project/instances/test-instance/databases/test-database",
+            )
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
+
+        let router = database_client
+            .location_router()
+            .expect("location router must be present when location-aware routing is enabled");
+
+        let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build(None)
+            .await?;
+
+        let transaction_id = vec![50, 50];
+        router.record_transaction_affinity(&transaction_id, "node-1.spanner.internal:15000");
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id).as_deref(),
+            Some("node-1.spanner.internal:15000"),
+            "location router affinity must be recorded"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            1,
+            "location router affinity count should be 1"
+        );
+
+        let clone_first = transaction.clone();
+        let clone_second = transaction.clone();
+
+        // Dropping the original transaction handle should not clear affinity because clones remain
+        drop(transaction);
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id).as_deref(),
+            Some("node-1.spanner.internal:15000"),
+            "location router affinity must remain recorded while clones exist"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            1,
+            "location router affinity count should still be 1"
+        );
+
+        // Dropping the first clone should not clear affinity
+        drop(clone_first);
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id).as_deref(),
+            Some("node-1.spanner.internal:15000"),
+            "location router affinity must remain recorded while one clone remains"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            1,
+            "location router affinity count should still be 1"
+        );
+
+        // Dropping the final clone must invoke drop guard cleanup and clear affinity
+        drop(clone_second);
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id),
+            None,
+            "drop guard on final clone must clear location router affinity"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "location router affinity count must be 0 after all transaction clones dropped"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_commit_precommit_token_retry_preserves_location_router_affinity()
+    -> anyhow::Result<()> {
+        use crate::omni::InstanceType;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::commit_response::MultiplexedSessionRetry;
+        use spanner_grpc_mock::google::spanner::v1::{
+            CommitResponse, MultiplexedSessionPrecommitToken, Transaction,
+        };
+        use spanner_grpc_mock::start;
+        use std::sync::Arc;
+        use std::sync::atomic::{AtomicU32, Ordering};
+
+        let mut mock = create_session_mock();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
+        mock.expect_begin_transaction().returning(|_| {
+            Ok(tonic::Response::new(Transaction {
+                id: vec![51, 51],
+                read_timestamp: None,
+                ..Default::default()
+            }))
+        });
+
+        let commit_calls = Arc::new(AtomicU32::new(0));
+        let commit_calls_clone = Arc::clone(&commit_calls);
+        mock.expect_commit().times(2).returning(move |_| {
+            let call_number = commit_calls_clone.fetch_add(1, Ordering::SeqCst);
+            if call_number == 0 {
+                // First commit response returns precommit token requesting retry
+                Ok(tonic::Response::new(CommitResponse {
+                    multiplexed_session_retry: Some(MultiplexedSessionRetry::PrecommitToken(
+                        MultiplexedSessionPrecommitToken {
+                            precommit_token: vec![101, 102],
+                            seq_num: 1,
+                        },
+                    )),
+                    ..Default::default()
+                }))
+            } else {
+                // Second commit response succeeds without precommit token
+                Ok(tonic::Response::new(CommitResponse {
+                    commit_timestamp: Some(prost_types::Timestamp {
+                        seconds: 1700000000,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            }
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = client
+            .database_client(
+                "projects/test-project/instances/test-instance/databases/test-database",
+            )
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
+
+        let router = database_client
+            .location_router()
+            .expect("location router must be present when location-aware routing is enabled");
+
+        let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build(None)
+            .await?;
+
+        let transaction_id = vec![51, 51];
+        router.record_transaction_affinity(&transaction_id, "node-1.spanner.internal:15000");
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id).as_deref(),
+            Some("node-1.spanner.internal:15000"),
+            "location router affinity must be recorded before commit"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            1,
+            "location router affinity count should be 1"
+        );
+
+        let response = transaction.commit().await?;
+        assert_eq!(
+            commit_calls.load(Ordering::SeqCst),
+            2,
+            "commit must have been executed twice due to precommit_token"
+        );
+        assert!(
+            response.commit_timestamp.is_some(),
+            "final commit response must contain commit timestamp"
+        );
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id),
+            None,
+            "final commit completion must clear location router transaction affinity"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "location router affinity count must be 0 after successful commit"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_drop_guard_clears_location_router_affinity_when_rollback_rpc_fails()
+    -> anyhow::Result<()> {
+        use crate::omni::InstanceType;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::Transaction;
+        use spanner_grpc_mock::start;
+
+        let mut mock = create_session_mock();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
+        mock.expect_begin_transaction().returning(|_| {
+            Ok(tonic::Response::new(Transaction {
+                id: vec![52, 52],
+                read_timestamp: None,
+                ..Default::default()
+            }))
+        });
+        mock.expect_rollback()
+            .returning(|_| Err(tonic::Status::internal("simulated rollback failure")));
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = client
+            .database_client(
+                "projects/test-project/instances/test-instance/databases/test-database",
+            )
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
+
+        let router = database_client
+            .location_router()
+            .expect("location router must be present when location-aware routing is enabled");
+
+        let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build(None)
+            .await?;
+
+        let transaction_id = vec![52, 52];
+        router.record_transaction_affinity(&transaction_id, "node-1.spanner.internal:15000");
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id).as_deref(),
+            Some("node-1.spanner.internal:15000"),
+            "location router affinity must be recorded before rollback"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            1,
+            "location router affinity count should be 1"
+        );
+
+        let rollback_result = transaction.rollback().await;
+        assert!(
+            rollback_result.is_err(),
+            "rollback call must return error when RPC fails"
+        );
+
+        // Even though rollback RPC returned an error, the drop guard must have cleared affinity
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id),
+            None,
+            "drop guard must clear location router affinity even when rollback RPC fails"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "location router affinity count must be 0 after failed rollback"
+        );
 
         Ok(())
     }

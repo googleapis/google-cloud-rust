@@ -852,9 +852,10 @@ impl ReadContextTransactionSelector {
                 }
             }
             Self::Lazy(lazy) => {
-                let guard = lazy
-                    .lock()
-                    .map_err(|_| internal_error("transaction state mutex poisoned"))?;
+                let guard = match lazy.lock() {
+                    Ok(guard) => guard,
+                    Err(poisoned) => poisoned.into_inner(),
+                };
                 if let TransactionState::Started(selector, _) = &*guard
                     && let Some(Selector::Id(id)) = &selector.selector
                 {
@@ -3858,6 +3859,106 @@ pub(crate) mod tests {
             result_set.affinity().pinned_entry_id(),
             Some(505),
             "Pinned channel ID must be retained on the ResultSet for stream resumption"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn multi_use_read_only_transaction_does_not_record_location_router_affinity() -> Result<()>
+    {
+        use crate::client::Spanner;
+        use crate::client::SpannerBuilderExt;
+        use crate::omni::InstanceType;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::start;
+        use tokio::sync::mpsc::channel as mpsc_channel;
+
+        let mut mock = create_session_mock();
+        let transaction_id = vec![1, 2, 3];
+        let transaction_id_clone = transaction_id.clone();
+
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = mpsc_channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
+
+        mock.expect_execute_streaming_sql()
+            .times(2)
+            .returning(move |request| {
+                let request = request.into_inner();
+                let result_set = if request
+                    .transaction
+                    .as_ref()
+                    .and_then(|transaction| transaction.selector.as_ref())
+                    .is_some_and(|selector| matches!(selector, Selector::Begin(_)))
+                {
+                    setup_select1_with_transaction_id(transaction_id_clone.clone())
+                } else {
+                    setup_select1()
+                };
+                let (sender, receiver) = mpsc_channel(1);
+                sender
+                    .try_send(Ok(result_set))
+                    .expect("send should succeed");
+                Ok(Response::from(receiver))
+            });
+
+        let (address, _server) = start("127.0.0.1:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client(
+                "projects/test-project/instances/test-instance/databases/test-database",
+            )
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("Failed to create DatabaseClient");
+
+        let router = database_client
+            .location_router()
+            .expect("location router must be present for Omni");
+
+        let transaction = database_client
+            .read_only_transaction()
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
+            .build()
+            .await
+            .expect("Failed to build read only transaction");
+
+        // Execute first query (inline begin)
+        let mut result_set = transaction
+            .execute_query(Statement::builder("SELECT 1").build())
+            .await
+            .expect("first query should succeed");
+        let _ = result_set.next().await;
+
+        // Execute second query (dispatched with Selector::Id)
+        let mut second_result_set = transaction
+            .execute_query(Statement::builder("SELECT 2").build())
+            .await
+            .expect("second query should succeed");
+        let _ = second_result_set.next().await;
+
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "MultiUseReadOnlyTransaction must not record affinity in LocationRouter"
+        );
+        assert_eq!(
+            router.get_transaction_affinity(&transaction_id),
+            None,
+            "Transaction ID must not have recorded affinity in LocationRouter"
         );
 
         Ok(())

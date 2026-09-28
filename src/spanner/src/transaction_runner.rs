@@ -567,7 +567,9 @@ impl TransactionRunner {
         let mut attempts: u32 = 0;
         let backoff = crate::transaction_retry_policy::default_retry_backoff();
         let deadline = self.timeout.map(|t| start_time + t);
-        let affinity = Arc::new(TransactionAffinity::new_read_write());
+        // Channel pool affinity: all attempts within this TransactionRunner share the same
+        // channel pool affinity handle so that retries pin to the same physical gRPC connection.
+        let channel_pool_affinity = Arc::new(TransactionAffinity::new_read_write());
 
         let mut force_explicit_begin = false;
         loop {
@@ -575,7 +577,10 @@ impl TransactionRunner {
 
             let mut current_tx_id = None;
             let attempt_result = async {
-                let mut builder = self.builder.clone().with_affinity(Arc::clone(&affinity));
+                let mut builder = self
+                    .builder
+                    .clone()
+                    .with_affinity(Arc::clone(&channel_pool_affinity));
                 if force_explicit_begin {
                     builder = builder
                         .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin);
@@ -593,8 +598,17 @@ impl TransactionRunner {
                         // was aborted.
                         let id = selector.get_id_no_wait().ok().flatten();
                         // Rollback if the closure failed and it was not an Aborted error.
+                        // `rollback()` automatically clears location-aware routing affinity in its post-route hook.
+                        // Aborted transactions are not rolled back, so we explicitly clear location-aware
+                        // routing affinity here before entering retry backoff.
+                        // Note: Channel pool affinity (`channel_pool_affinity`) is retained across retries
+                        // to keep subsequent attempts pinned to the same physical gRPC connection.
                         if !is_aborted(&e) {
                             let _ = transaction.rollback().await;
+                        } else {
+                            self.builder
+                                .client
+                                .clear_transaction_affinity_routing(id.as_deref());
                         }
                         current_tx_id = id;
                         return Err((e, Some(selector)));
@@ -3377,6 +3391,439 @@ mod tests {
 
         let addresses = remote_addresses.lock().expect("mutex lock");
         assert_all_rpcs_use_same_channel(&addresses, 6);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_aborted_attempt_clears_location_router_affinity()
+    -> anyhow::Result<()> {
+        use crate::client::{Spanner, SpannerBuilderExt};
+        use crate::omni::InstanceType;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::result_set_stats::RowCount;
+        use spanner_grpc_mock::google::spanner::v1::{
+            ResultSet, ResultSetMetadata, ResultSetStats, StructType, Transaction,
+        };
+        use spanner_grpc_mock::start;
+
+        let mut mock = create_session_mock();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
+
+        let aborted_transaction_id = vec![1, 2, 3];
+        let retry_transaction_id = vec![4, 5, 6];
+
+        // Attempt 1: BeginTransaction returns aborted_transaction_id
+        let first_transaction_id = aborted_transaction_id.clone();
+        mock.expect_begin_transaction().once().returning(move |_| {
+            Ok(Response::new(Transaction {
+                id: first_transaction_id.clone(),
+                ..Default::default()
+            }))
+        });
+
+        // Attempt 1: ExecuteSql fails with Aborted
+        mock.expect_execute_sql().once().returning(|_| {
+            Err(Status::new(
+                Code::Aborted,
+                "Transaction was aborted by the server",
+            ))
+        });
+
+        // Attempt 2: BeginTransaction returns retry_transaction_id
+        let second_transaction_id = retry_transaction_id.clone();
+        mock.expect_begin_transaction().once().returning(move |_| {
+            Ok(Response::new(Transaction {
+                id: second_transaction_id.clone(),
+                ..Default::default()
+            }))
+        });
+
+        // Attempt 2: ExecuteSql succeeds
+        mock.expect_execute_sql().once().returning(|_| {
+            Ok(Response::new(ResultSet {
+                metadata: Some(ResultSetMetadata {
+                    row_type: Some(StructType { fields: vec![] }),
+                    ..Default::default()
+                }),
+                stats: Some(ResultSetStats {
+                    row_count: Some(RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // Attempt 2: Commit succeeds
+        mock.expect_commit().once().returning(|_| {
+            Ok(Response::new(CommitResponse {
+                commit_timestamp: Some(Timestamp {
+                    seconds: 1000,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = client
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
+
+        let router = database_client
+            .location_router()
+            .expect("location router must be present when location-aware routing is enabled");
+
+        let attempts = Arc::new(AtomicUsize::new(0));
+        let attempts_clone = Arc::clone(&attempts);
+        let router_clone = Arc::clone(router);
+        let aborted_transaction_id_clone = aborted_transaction_id.clone();
+
+        let runner = database_client
+            .read_write_transaction()
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build()
+            .await?;
+
+        let result = runner
+            .run(move |transaction: ReadWriteTransaction| {
+                let attempts_clone = Arc::clone(&attempts_clone);
+                let router_clone = Arc::clone(&router_clone);
+                let aborted_transaction_id = aborted_transaction_id_clone.clone();
+
+                async move {
+                    let current_attempt = attempts_clone.fetch_add(1, Ordering::SeqCst);
+                    if current_attempt == 0 {
+                        // On attempt 1, record affinity
+                        router_clone.record_transaction_affinity(
+                            &aborted_transaction_id,
+                            "node-1.spanner.internal:15000",
+                        );
+                        assert_eq!(
+                            router_clone
+                                .get_transaction_affinity(&aborted_transaction_id)
+                                .as_deref(),
+                            Some("node-1.spanner.internal:15000"),
+                            "affinity must be recorded on attempt 1"
+                        );
+                    } else if current_attempt == 1 {
+                        // On attempt 2 (retry), verify that the aborted transaction ID from attempt 1 has been cleared
+                        assert!(
+                            router_clone.get_transaction_affinity(&aborted_transaction_id).is_none(),
+                            "aborted transaction affinity must be removed before retry attempt executes"
+                        );
+                    }
+                    let count = transaction
+                        .execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+                        .await?;
+                    Ok(count)
+                }
+            })
+            .await?;
+
+        assert_eq!(result.result, 1, "Expected update count of 1");
+        assert_eq!(
+            attempts.load(Ordering::SeqCst),
+            2,
+            "Expected 2 attempts due to retry"
+        );
+        assert!(
+            router
+                .get_transaction_affinity(&aborted_transaction_id)
+                .is_none(),
+            "aborted transaction affinity must be cleared"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "all transaction affinities must be cleared after runner completes"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_commit_aborted_attempt_clears_location_router_affinity()
+    -> anyhow::Result<()> {
+        use crate::client::{Spanner, SpannerBuilderExt};
+        use crate::omni::InstanceType;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::result_set_stats::RowCount;
+        use spanner_grpc_mock::google::spanner::v1::{
+            ResultSet, ResultSetMetadata, ResultSetStats, StructType, Transaction,
+        };
+        use spanner_grpc_mock::start;
+
+        let mut mock = create_session_mock();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
+
+        let aborted_transaction_id = vec![10, 11];
+        let retry_transaction_id = vec![20, 21];
+
+        // Attempt 1: BeginTransaction returns aborted_transaction_id
+        let first_transaction_id = aborted_transaction_id.clone();
+        mock.expect_begin_transaction().once().returning(move |_| {
+            Ok(Response::new(Transaction {
+                id: first_transaction_id.clone(),
+                ..Default::default()
+            }))
+        });
+
+        // Attempt 1: ExecuteSql succeeds
+        mock.expect_execute_sql().once().returning(|_| {
+            Ok(Response::new(ResultSet {
+                metadata: Some(ResultSetMetadata {
+                    row_type: Some(StructType { fields: vec![] }),
+                    ..Default::default()
+                }),
+                stats: Some(ResultSetStats {
+                    row_count: Some(RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // Attempt 1: Commit fails with Aborted
+        mock.expect_commit().once().returning(|_| {
+            Err(Status::new(
+                Code::Aborted,
+                "Commit was aborted by the server",
+            ))
+        });
+
+        // Attempt 2: BeginTransaction returns retry_transaction_id
+        let second_transaction_id = retry_transaction_id.clone();
+        mock.expect_begin_transaction().once().returning(move |_| {
+            Ok(Response::new(Transaction {
+                id: second_transaction_id.clone(),
+                ..Default::default()
+            }))
+        });
+
+        // Attempt 2: ExecuteSql succeeds
+        mock.expect_execute_sql().once().returning(|_| {
+            Ok(Response::new(ResultSet {
+                metadata: Some(ResultSetMetadata {
+                    row_type: Some(StructType { fields: vec![] }),
+                    ..Default::default()
+                }),
+                stats: Some(ResultSetStats {
+                    row_count: Some(RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // Attempt 2: Commit succeeds
+        mock.expect_commit().once().returning(|_| {
+            Ok(Response::new(CommitResponse {
+                commit_timestamp: Some(Timestamp {
+                    seconds: 1000,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = client
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
+
+        let router = database_client
+            .location_router()
+            .expect("location router must be present when location-aware routing is enabled");
+
+        let attempts = Arc::new(AtomicUsize::new(0));
+        let attempts_clone = Arc::clone(&attempts);
+        let router_clone = Arc::clone(router);
+        let aborted_transaction_id_clone = aborted_transaction_id.clone();
+
+        let runner = database_client
+            .read_write_transaction()
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build()
+            .await?;
+
+        let result = runner
+            .run(move |transaction: ReadWriteTransaction| {
+                let attempts_clone = Arc::clone(&attempts_clone);
+                let router_clone = Arc::clone(&router_clone);
+                let aborted_transaction_id = aborted_transaction_id_clone.clone();
+
+                async move {
+                    let current_attempt = attempts_clone.fetch_add(1, Ordering::SeqCst);
+                    if current_attempt == 0 {
+                        // On attempt 1, record an affinity for the transaction
+                        router_clone.record_transaction_affinity(
+                            &aborted_transaction_id,
+                            "node-1.spanner.internal:15000",
+                        );
+                        assert_eq!(
+                            router_clone
+                                .get_transaction_affinity(&aborted_transaction_id)
+                                .as_deref(),
+                            Some("node-1.spanner.internal:15000"),
+                            "affinity must be recorded on attempt 1"
+                        );
+                    } else if current_attempt == 1 {
+                        // On attempt 2 (retry), verify that the aborted transaction affinity from attempt 1 has been cleared
+                        assert!(
+                            router_clone
+                                .get_transaction_affinity(&aborted_transaction_id)
+                                .is_none(),
+                            "aborted commit transaction affinity must be removed before retry attempt executes"
+                        );
+                    }
+                    let count = transaction
+                        .execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+                        .await?;
+                    Ok(count)
+                }
+            })
+            .await?;
+
+        assert_eq!(result.result, 1, "Expected update count of 1");
+        assert_eq!(
+            attempts.load(Ordering::SeqCst),
+            2,
+            "Expected 2 attempts due to commit abort retry"
+        );
+        assert!(
+            router
+                .get_transaction_affinity(&aborted_transaction_id)
+                .is_none(),
+            "aborted transaction affinity must be cleared"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "all transaction affinities must be cleared after runner completes"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_non_aborted_error_clears_location_router_affinity()
+    -> anyhow::Result<()> {
+        use crate::client::{Spanner, SpannerBuilderExt};
+        use crate::error::internal_error;
+        use crate::omni::InstanceType;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1::Transaction;
+        use spanner_grpc_mock::start;
+
+        let mut mock = create_session_mock();
+        mock.expect_fetch_cache_update().returning(|_| {
+            let (_sender, receiver) = tokio::sync::mpsc::channel(1);
+            Ok(tonic::Response::from(receiver))
+        });
+
+        let transaction_id = vec![30, 31];
+
+        // BeginTransaction returns transaction_id
+        let id_for_begin = transaction_id.clone();
+        mock.expect_begin_transaction().once().returning(move |_| {
+            Ok(Response::new(Transaction {
+                id: id_for_begin.clone(),
+                ..Default::default()
+            }))
+        });
+
+        // Rollback is invoked when closure fails with non-aborted error
+        mock.expect_rollback()
+            .once()
+            .returning(|_| Ok(Response::new(())));
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_instance_type(InstanceType::Omni)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = client
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await?;
+
+        let router = database_client
+            .location_router()
+            .expect("location router must be present when location-aware routing is enabled");
+
+        let router_clone = Arc::clone(router);
+        let transaction_id_clone = transaction_id.clone();
+
+        let runner = database_client
+            .read_write_transaction()
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build()
+            .await?;
+
+        let run_result = runner
+            .run(move |_transaction: ReadWriteTransaction| {
+                let router_clone = Arc::clone(&router_clone);
+                let transaction_id = transaction_id_clone.clone();
+
+                async move {
+                    router_clone.record_transaction_affinity(
+                        &transaction_id,
+                        "node-1.spanner.internal:15000",
+                    );
+                    assert_eq!(
+                        router_clone
+                            .get_transaction_affinity(&transaction_id)
+                            .as_deref(),
+                        Some("node-1.spanner.internal:15000"),
+                        "affinity must be recorded in closure"
+                    );
+                    Err::<(), _>(internal_error("user-initiated closure failure"))
+                }
+            })
+            .await;
+
+        assert!(
+            run_result.is_err(),
+            "runner must return Err when user closure fails with non-aborted error"
+        );
+        assert!(
+            router.get_transaction_affinity(&transaction_id).is_none(),
+            "transaction affinity must be cleared when closure fails with non-aborted error"
+        );
+        assert_eq!(
+            router.affinity_count(),
+            0,
+            "all transaction affinities must be cleared after failed runner"
+        );
 
         Ok(())
     }
