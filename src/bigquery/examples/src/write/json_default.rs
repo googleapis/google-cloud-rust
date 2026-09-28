@@ -25,7 +25,7 @@ use tokio::task::JoinSet;
 // The client library doesn't support a built-in JSON API surface.
 //
 // This example demonstrates how to write JSON data to BigQuery by first
-// converting it to Arrow record batches using the [arrow-json] crate.
+// converting it to Arrow record batches using the `arrow-json` crate.
 
 pub async fn sample(project_id: &str, dataset_id: &str, table_id: &str) -> anyhow::Result<()> {
     let client = Write::builder().build().await?;
