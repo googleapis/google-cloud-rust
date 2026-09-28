@@ -425,8 +425,176 @@ impl From<&str> for Statement {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::model::TypeCode;
     use crate::to_value::ToValue;
+    use crate::types;
     use anyhow::Context;
+    use serde_json::Value as JsonValue;
+
+    #[test]
+    fn statement_non_finite_float_params() {
+        let statement = Statement::builder(
+            "SELECT @nan, @inf, @neg_inf, @f32_nan, @f32_inf, @f32_neginf, @f64_array, @f32_array",
+        )
+        .add_param("nan", f64::NAN)
+        .add_param("inf", f64::INFINITY)
+        .add_param("neg_inf", f64::NEG_INFINITY)
+        .add_param("f32_nan", f32::NAN)
+        .add_param("f32_inf", f32::INFINITY)
+        .add_param("f32_neginf", f32::NEG_INFINITY)
+        .add_param(
+            "f64_array",
+            vec![f64::NAN, f64::INFINITY, f64::NEG_INFINITY],
+        )
+        .add_param(
+            "f32_array",
+            vec![f32::NAN, f32::INFINITY, f32::NEG_INFINITY],
+        )
+        .build();
+
+        let (_, params, _) = statement.into_parts();
+        let params = params.expect("params should be present");
+
+        assert_eq!(
+            params.get("nan"),
+            Some(&JsonValue::String("NaN".to_string())),
+            "nan parameter must be serialized as 'NaN'"
+        );
+        assert_eq!(
+            params.get("inf"),
+            Some(&JsonValue::String("Infinity".to_string())),
+            "inf parameter must be serialized as 'Infinity'"
+        );
+        assert_eq!(
+            params.get("neg_inf"),
+            Some(&JsonValue::String("-Infinity".to_string())),
+            "neg_inf parameter must be serialized as '-Infinity'"
+        );
+        assert_eq!(
+            params.get("f32_nan"),
+            Some(&JsonValue::String("NaN".to_string())),
+            "f32_nan parameter must be serialized as 'NaN'"
+        );
+        assert_eq!(
+            params.get("f32_inf"),
+            Some(&JsonValue::String("Infinity".to_string())),
+            "f32_inf parameter must be serialized as 'Infinity'"
+        );
+        assert_eq!(
+            params.get("f32_neginf"),
+            Some(&JsonValue::String("-Infinity".to_string())),
+            "f32_neginf parameter must be serialized as '-Infinity'"
+        );
+        assert_eq!(
+            params.get("f64_array"),
+            Some(&JsonValue::Array(vec![
+                JsonValue::String("NaN".to_string()),
+                JsonValue::String("Infinity".to_string()),
+                JsonValue::String("-Infinity".to_string()),
+            ])),
+            "f64_array parameter must serialize elements as strings"
+        );
+        assert_eq!(
+            params.get("f32_array"),
+            Some(&JsonValue::Array(vec![
+                JsonValue::String("NaN".to_string()),
+                JsonValue::String("Infinity".to_string()),
+                JsonValue::String("-Infinity".to_string()),
+            ])),
+            "f32_array parameter must serialize elements as strings"
+        );
+    }
+
+    #[test]
+    fn statement_typed_non_finite_float_params() {
+        let statement = Statement::builder("SELECT @nan, @f32_nan, @f64_array, @f32_array")
+            .add_typed_param("nan", f64::NAN, types::float64())
+            .add_typed_param("f32_nan", f32::NAN, types::float32())
+            .add_typed_param(
+                "f64_array",
+                vec![f64::NAN, f64::INFINITY, f64::NEG_INFINITY],
+                types::array(types::float64()),
+            )
+            .add_typed_param(
+                "f32_array",
+                vec![f32::NAN, f32::INFINITY, f32::NEG_INFINITY],
+                types::array(types::float32()),
+            )
+            .build();
+
+        let (_, params, param_types) = statement.into_parts();
+        let params = params.expect("params should be present");
+
+        assert_eq!(
+            params.get("nan"),
+            Some(&JsonValue::String("NaN".to_string())),
+            "typed nan parameter must be serialized as 'NaN'"
+        );
+        assert_eq!(
+            params.get("f32_nan"),
+            Some(&JsonValue::String("NaN".to_string())),
+            "typed f32_nan parameter must be serialized as 'NaN'"
+        );
+        assert_eq!(
+            params.get("f64_array"),
+            Some(&JsonValue::Array(vec![
+                JsonValue::String("NaN".to_string()),
+                JsonValue::String("Infinity".to_string()),
+                JsonValue::String("-Infinity".to_string()),
+            ])),
+            "typed f64_array parameter elements must be serialized as strings"
+        );
+        assert_eq!(
+            params.get("f32_array"),
+            Some(&JsonValue::Array(vec![
+                JsonValue::String("NaN".to_string()),
+                JsonValue::String("Infinity".to_string()),
+                JsonValue::String("-Infinity".to_string()),
+            ])),
+            "typed f32_array parameter elements must be serialized as strings"
+        );
+
+        assert_eq!(
+            param_types.get("nan").map(|type_info| &type_info.code),
+            Some(&TypeCode::Float64),
+            "typed nan parameter must preserve Float64 type code"
+        );
+        assert_eq!(
+            param_types.get("f32_nan").map(|type_info| &type_info.code),
+            Some(&TypeCode::Float32),
+            "typed f32_nan parameter must preserve Float32 type code"
+        );
+        assert_eq!(
+            param_types
+                .get("f64_array")
+                .map(|type_info| &type_info.code),
+            Some(&TypeCode::Array),
+            "typed f64_array parameter must preserve Array type code"
+        );
+        assert_eq!(
+            param_types
+                .get("f64_array")
+                .and_then(|type_info| type_info.array_element_type.as_ref())
+                .map(|element_type| &element_type.code),
+            Some(&TypeCode::Float64),
+            "typed f64_array parameter element must preserve Float64 type code"
+        );
+        assert_eq!(
+            param_types
+                .get("f32_array")
+                .map(|type_info| &type_info.code),
+            Some(&TypeCode::Array),
+            "typed f32_array parameter must preserve Array type code"
+        );
+        assert_eq!(
+            param_types
+                .get("f32_array")
+                .and_then(|type_info| type_info.array_element_type.as_ref())
+                .map(|element_type| &element_type.code),
+            Some(&TypeCode::Float32),
+            "typed f32_array parameter element must preserve Float32 type code"
+        );
+    }
 
     #[test]
     fn test_auto_traits() {
