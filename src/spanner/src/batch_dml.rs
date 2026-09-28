@@ -191,7 +191,8 @@ pub(crate) fn process_response(response: ExecuteBatchDmlResponse) -> crate::Resu
     if let Some(status) = response.status.filter(|s| s.code != Code::Ok as i32) {
         let grpc_status = RpcStatus::default()
             .set_code(status.code)
-            .set_message(status.message);
+            .set_message(status.message)
+            .set_details(status.details);
 
         // If the error code is Aborted, then we propagate a 'normal' service error.
         // The TransactionRunner will then retry the transaction.
