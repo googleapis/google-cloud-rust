@@ -15,8 +15,7 @@
 //! Google Cloud Client Libraries for Rust - BigQuery
 //!
 //! **NOTE:** While the version is still `0.x`, we believe the APIs to be stable.
-//! We plan to give this crate one month of "bake time", and then release a `1.0`
-//! crate.
+//! We plan to release a `1.0` version of this crate in the following release.
 //!
 //! We welcome feedback about the APIs, documentation, missing features, bugs, etc.
 //!
