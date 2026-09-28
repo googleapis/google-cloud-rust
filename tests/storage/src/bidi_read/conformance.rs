@@ -34,7 +34,7 @@ use google_cloud_storage::read_object::ReadObjectResponse;
 use google_cloud_storage::retry_policy::RetryableErrors;
 use google_cloud_test_utils::resource_names::{LowercaseAlphanumeric, random_bucket_id};
 use google_cloud_test_utils::runtime_config::{project_id, region_id, zone_id};
-use std::time::{Duration, SystemTime};
+use std::time::Duration;
 
 /// Preprod gRPC endpoint, used for bidi reads/writes and `StorageControl`.
 const PREPROD_GRPC_ENDPOINT: &str = "https://storage-preprod-test-grpc.googleusercontent.com:443";
@@ -46,7 +46,6 @@ pub async fn run() -> anyhow::Result<()> {
     println!("\n=== Running Bidi Read Conformance Suite ===");
 
     let clients = Clients::new().await?;
-    cleanup_stale_buckets(&clients.control).await;
 
     println!("\n### No bucket");
     test_non_existent_bucket_read(&clients).await?;
@@ -280,39 +279,6 @@ async fn disable_rapid_caches(control: &StorageControl, bucket_name: &str) {
                 cache.name
             );
         }
-    }
-}
-
-/// Deletes `integration-test=true` buckets older than 48 hours.
-async fn cleanup_stale_buckets(control: &StorageControl) {
-    let Ok(project_id) = project_id() else {
-        return;
-    };
-    let Ok(stale_deadline) = google_cloud_wkt::Timestamp::try_from(
-        SystemTime::now() - Duration::from_secs(48 * 60 * 60),
-    ) else {
-        return;
-    };
-
-    let mut buckets = control
-        .list_buckets()
-        .set_parent(format!("projects/{project_id}"))
-        .by_item();
-    let mut stale = Vec::new();
-    while let Some(Ok(bucket)) = buckets.next().await {
-        if bucket
-            .labels
-            .get("integration-test")
-            .is_some_and(|v| v == "true")
-            && bucket.create_time.is_some_and(|t| t < stale_deadline)
-        {
-            // Only HNS buckets can have a rapid cache.
-            let is_hns = bucket.hierarchical_namespace.is_some_and(|h| h.enabled);
-            stale.push((bucket.name, is_hns));
-        }
-    }
-    for (name, is_hns) in stale {
-        cleanup_bucket(control, &name, is_hns).await;
     }
 }
 
