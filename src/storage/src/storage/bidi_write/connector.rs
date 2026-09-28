@@ -12,9 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::redirect::is_redirect;
 use super::retry_redirect::RetryRedirect;
 use super::state::AppendObjectSpecState;
-use super::{Client, TonicStreaming};
+use super::{Client, TonicStreaming, persisted_size};
 use crate::google::storage::v2::{
     AppendObjectSpec, BidiWriteObjectRequest, BidiWriteObjectResponse, CommonObjectRequestParams,
     Object, WriteObjectSpec, bidi_write_object_request::FirstMessage,
@@ -28,9 +29,13 @@ use gaxi::prost::ToProto;
 use google_cloud_gax::error::binding::{
     BindingError, PathMismatch, SubstitutionFail, SubstitutionMismatch,
 };
+use google_cloud_gax::retry_policy::RetryPolicy;
+use google_cloud_gax::retry_result::RetryResult;
+use google_cloud_gax::retry_state::RetryState;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use tokio::sync::mpsc::Sender;
+use tokio::time::Instant;
 
 /// The number of queued messages allowed in the request channel.
 const MAX_QUEUED_REQUESTS: usize = 100;
@@ -49,21 +54,28 @@ impl<S> Connection<S> {
     }
 }
 
-/// Establishes and handles the initial handshake for bidi streaming writes.
+/// Establishes and reconnects `BidiWriteObject` streams.
 ///
-/// Connecting and reconnecting bidirectional streaming writes requires:
-/// - Constructing the initial `WriteObjectSpec` or `AppendObjectSpec`.
-/// - Following routing token redirects correctly.
-/// - Passing back the established `Connection` to the async worker.
+/// `Connector` manages:
+/// - Building the opening `WriteObjectSpec` or `AppendObjectSpec` handshake message.
+/// - Updating the stored `routing_token` and `write_handle` on server redirects.
+/// - Tracking byte progress (`last_persisted_size`) so the application's [`RetryPolicy`] bounds
+///   consecutive unproductive reconnects (`retry_state`).
 ///
 /// # Parameters
-/// - `T`: a type implementing the [Client] trait, this is used in tests.
+/// - `T`: a type implementing the [`Client`] trait (mocked in unit tests).
 #[derive(Clone, Debug)]
 pub struct Connector<T = GrpcClient> {
     spec: Arc<Mutex<AppendObjectSpecState>>,
     options: RequestOptions,
     client: T,
     params: Option<CommonObjectRequestParams>,
+    /// Retry state shared across consecutive reconnects that make no byte progress.
+    retry_state: Option<RetryState>,
+    /// Redirect counter shared across consecutive reconnects that make no byte progress.
+    retry_redirect: Option<Arc<RetryRedirect<Arc<dyn RetryPolicy + 'static>>>>,
+    /// Highest `persisted_size` acknowledged by the server; used to detect byte progress.
+    last_persisted_size: i64,
 }
 
 impl<T> Connector<T>
@@ -81,7 +93,15 @@ where
             options,
             client,
             params: None,
+            retry_state: None,
+            retry_redirect: None,
+            last_persisted_size: 0,
         }
+    }
+
+    #[cfg(test)]
+    pub(crate) fn set_spec_state(&mut self, state: AppendObjectSpecState) {
+        *self.spec.lock().expect("never poisoned") = state;
     }
 
     pub async fn connect_open(
@@ -124,7 +144,11 @@ where
             routing_token: None,
             initial_chunk,
         };
-        self.connect_attempt_loop().await
+        let (initial, connection) = self.connect_attempt_loop().await?;
+        self.last_persisted_size = persisted_size(&initial).unwrap_or(0);
+        self.retry_state = None;
+        self.retry_redirect = None;
+        Ok((initial, connection))
     }
 
     pub async fn connect_reopen(
@@ -150,14 +174,99 @@ where
             spec,
             initial_chunk: None,
         };
-        self.connect_attempt_loop().await
+        let (initial, connection) = self.connect_attempt_loop().await?;
+        self.last_persisted_size = persisted_size(&initial).unwrap_or(0);
+        self.retry_state = None;
+        self.retry_redirect = None;
+        Ok((initial, connection))
+    }
+
+    /// Reconnects a broken or redirected `BidiWriteObject` stream by opening a
+    /// new stream with `state_lookup: true`.
+    pub async fn reconnect(
+        &mut self,
+        last_error: Error,
+        persisted: i64,
+    ) -> Result<(BidiWriteObjectResponse, Connection<T::Stream>)> {
+        // If `last_error` carries a `BidiWriteObjectRedirectedError`, update the
+        // stored `routing_token` and `write_handle` for the next connection attempt.
+        let last_error = match gaxi::as_inner::as_inner::<gaxi::grpc::tonic::Status, _>(&last_error)
+        {
+            Some(status) => {
+                let mut guard = self.spec.lock().expect("never poisoned");
+                guard.handle_redirect(status.clone())
+            }
+            None => last_error,
+        };
+
+        // Reset the retry and redirect budgets whenever the server has persisted
+        // more bytes than `last_persisted_size`.
+        if persisted > self.last_persisted_size {
+            self.last_persisted_size = persisted;
+            self.retry_state = None;
+            self.retry_redirect = None;
+        }
+
+        // Evaluate `last_error` via `RetryRedirect`. Redirects are bounded across
+        // unproductive reconnects by `RetryRedirect` (`MAX_REDIRECTS_FOLLOWED`),
+        // while non-redirect errors increment `retry_state.attempt_count` and
+        // back off according to `backoff_policy`.
+        let policy = self
+            .retry_redirect
+            .get_or_insert_with(|| Arc::new(RetryRedirect::new(self.options.retry_policy.clone())))
+            .clone();
+        let last_error = if is_redirect(&last_error) {
+            match policy.on_error(&RetryState::new(true), last_error) {
+                RetryResult::Continue(e) => e,
+                RetryResult::Permanent(e) | RetryResult::Exhausted(e) => return Err(e),
+            }
+        } else {
+            let state = self
+                .retry_state
+                .get_or_insert_with(|| RetryState::new(true).set_start(Instant::now()));
+            state.attempt_count += 1;
+            let e = match policy.on_error(state, last_error) {
+                RetryResult::Continue(e) => e,
+                RetryResult::Permanent(e) | RetryResult::Exhausted(e) => return Err(e),
+            };
+            let delay = self.options.backoff_policy.on_failure(state);
+            if policy
+                .remaining_time(state)
+                .is_some_and(|remaining| remaining < delay)
+            {
+                return Err(Error::exhausted(e));
+            }
+            tokio::time::sleep(delay).await;
+            e
+        };
+
+        tracing::debug!("reconnecting bidi write stream after error: {last_error:?}");
+
+        let (initial, connection) = self.connect_attempt_loop_with_policy(policy).await?;
+        // Also reset the retry and redirect budgets if the new stream's
+        // `state_lookup` handshake response reports newly persisted bytes.
+        if let Some(initial_persisted) = persisted_size(&initial)
+            && initial_persisted > self.last_persisted_size
+        {
+            self.last_persisted_size = initial_persisted;
+            self.retry_state = None;
+            self.retry_redirect = None;
+        }
+        Ok((initial, connection))
     }
 
     async fn connect_attempt_loop(
         &mut self,
     ) -> Result<(BidiWriteObjectResponse, Connection<T::Stream>)> {
-        let throttler = self.options.retry_throttler.clone();
         let retry = Arc::new(RetryRedirect::new(self.options.retry_policy.clone()));
+        self.connect_attempt_loop_with_policy(retry).await
+    }
+
+    async fn connect_attempt_loop_with_policy(
+        &mut self,
+        retry: Arc<RetryRedirect<Arc<dyn RetryPolicy + 'static>>>,
+    ) -> Result<(BidiWriteObjectResponse, Connection<T::Stream>)> {
+        let throttler = self.options.retry_throttler.clone();
         let backoff = self.options.backoff_policy.clone();
         let client = self.client.clone();
         let options = self.options.clone();
@@ -339,7 +448,6 @@ mod tests {
     use super::*;
 
     use crate::model_ext::OpenAppendableObjectRequest;
-    use crate::storage::request_options::RequestOptions;
     use anyhow::Result;
     use gaxi::grpc::Client as GrpcClient;
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
@@ -349,7 +457,12 @@ mod tests {
     use std::sync::Arc;
 
     use super::super::mocks::{MockTestClient, SharedMockClient};
-    use super::super::tests::{permanent_error, redirect_status};
+    use super::super::retry_redirect::MAX_REDIRECTS_FOLLOWED;
+    use super::super::tests::{
+        permanent_error, redirect_error, redirect_handle, redirect_status, test_options,
+        transient_error,
+    };
+    use crate::google::storage::v2::bidi_write_object_response::WriteStatus;
     use gaxi::grpc::tonic::GrpcMethod;
     use gaxi::grpc::tonic::Response as TonicResponse;
     use gaxi::grpc::tonic::Result as TonicResult;
@@ -358,10 +471,6 @@ mod tests {
 
     fn test_credentials() -> Credentials {
         Anonymous::new().build()
-    }
-
-    fn test_options() -> RequestOptions {
-        RequestOptions::new()
     }
 
     #[test]
@@ -1057,6 +1166,504 @@ mod tests {
             want.resource.as_ref().unwrap().name
         );
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn reconnect_with_redirect_status_updates_spec() -> Result<()> {
+        // Arrange: use `NeverRetry` so this test also verifies redirects are followed when normal
+        // retries are disabled.
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream = TonicResponse::from(rx);
+
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .times(1)
+            .return_once(move |_, _, _, _, _, params| {
+                assert!(params.contains("routing_token=new-token"), "{params}");
+                Ok(Ok(stream))
+            });
+        let mut options = test_options();
+        options.retry_policy = Arc::new(NeverRetry);
+        let mut connector = Connector::new(options, SharedMockClient::new(mock));
+
+        let initial_spec = AppendObjectSpec {
+            bucket: "projects/_/buckets/test-bucket".into(),
+            object: "test-object".into(),
+            generation: 123456,
+            routing_token: Some("old-token".into()),
+            write_handle: None,
+            ..Default::default()
+        };
+        connector.set_spec_state(AppendObjectSpecState::Append {
+            spec: initial_spec,
+            initial_chunk: None,
+        });
+
+        let initial_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(50)),
+            ..Default::default()
+        };
+        tx.send(Ok(initial_response.clone())).await?;
+
+        let redirect_err = redirect_error("new-token");
+
+        // Act.
+        let (resp, _conn) = connector.reconnect(redirect_err, 0).await?;
+
+        // Assert.
+        assert_eq!(resp, initial_response);
+
+        let guard = connector.spec.lock().expect("never poisoned");
+        if let AppendObjectSpecState::Append { spec: s, .. } = &*guard {
+            assert_eq!(s.routing_token.as_deref(), Some("new-token"));
+            assert_eq!(s.generation, 42); // from test redirect_status
+            assert_eq!(s.write_handle, Some(redirect_handle()));
+        } else {
+            panic!("Expected AppendObjectSpecState::Append");
+        }
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn reconnect_with_transient_error() -> Result<()> {
+        // Arrange.
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream = TonicResponse::from(rx);
+
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .times(1)
+            .return_once(move |_, _, _, _, _, _| Ok(Ok(stream)));
+        let client = SharedMockClient::new(mock);
+        let mut connector = Connector::new(test_options(), client);
+
+        let initial_spec = AppendObjectSpec {
+            bucket: "projects/_/buckets/test-bucket".into(),
+            object: "test-object".into(),
+            generation: 123456,
+            routing_token: Some("stable-token".into()),
+            write_handle: None,
+            ..Default::default()
+        };
+        connector.set_spec_state(AppendObjectSpecState::Append {
+            spec: initial_spec.clone(),
+            initial_chunk: None,
+        });
+
+        let initial_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(100)),
+            ..Default::default()
+        };
+        tx.send(Ok(initial_response.clone())).await?;
+
+        let transient_err = transient_error();
+
+        // Act.
+        let (resp, _conn) = connector.reconnect(transient_err, 0).await?;
+
+        // Assert.
+        assert_eq!(resp, initial_response);
+        let guard = connector.spec.lock().expect("never poisoned");
+        if let AppendObjectSpecState::Append { spec: s, .. } = &*guard {
+            assert_eq!(s, &initial_spec);
+        } else {
+            panic!("Expected AppendObjectSpecState::Append");
+        }
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn reconnect_permanent_error_fails_fast() -> Result<()> {
+        // Arrange.
+        let mut mock = MockTestClient::new();
+        mock.expect_start().never();
+        let client = SharedMockClient::new(mock);
+        let mut connector = Connector::new(test_options(), client);
+
+        // Act.
+        let err = connector.reconnect(permanent_error(), 0).await.unwrap_err();
+
+        // Assert.
+        assert_eq!(err.status(), permanent_error().status(), "{err:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn reconnect_io_wrapped_redirect_status_updates_spec() -> Result<()> {
+        // Arrange.
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream = TonicResponse::from(rx);
+
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .times(1)
+            .return_once(move |_, _, _, _, _, params| {
+                assert!(params.contains("routing_token=io-wrapped-token"));
+                Ok(Ok(stream))
+            });
+        let client = SharedMockClient::new(mock);
+        let mut connector = Connector::new(test_options(), client);
+
+        connector.set_spec_state(AppendObjectSpecState::Append {
+            spec: AppendObjectSpec {
+                bucket: "projects/_/buckets/test-bucket".into(),
+                object: "test-object".into(),
+                generation: 1,
+                ..Default::default()
+            },
+            initial_chunk: None,
+        });
+
+        let initial_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(10)),
+            ..Default::default()
+        };
+        tx.send(Ok(initial_response.clone())).await?;
+
+        // Act.
+        let io_redirect = Error::io(redirect_status("io-wrapped-token"));
+        let (resp, _conn) = connector.reconnect(io_redirect, 0).await?;
+
+        // Assert.
+        assert_eq!(resp, initial_response);
+        let guard = connector.spec.lock().expect("never poisoned");
+        if let AppendObjectSpecState::Append { spec: s, .. } = &*guard {
+            assert_eq!(
+                s.routing_token.as_deref(),
+                Some("io-wrapped-token"),
+                "{s:?}"
+            );
+            assert_eq!(s.write_handle, Some(redirect_handle()));
+        } else {
+            panic!("Expected AppendObjectSpecState::Append");
+        }
+        Ok(())
+    }
+
+    /// Builds a connector in the `Append` state whose mock hands out `count` successive streams,
+    /// and returns the senders feeding those streams in the order they are handed out.
+    fn connector_with_streams(
+        count: usize,
+    ) -> (
+        Connector<SharedMockClient>,
+        Vec<tokio::sync::mpsc::Sender<TonicResult<BidiWriteObjectResponse>>>,
+    ) {
+        let mut mock = MockTestClient::new();
+        let mut senders = Vec::with_capacity(count);
+        for _ in 0..count {
+            let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+            let stream = TonicResponse::from(rx);
+            mock.expect_start()
+                .times(1)
+                .return_once(move |_, _, _, _, _, _| Ok(Ok(stream)));
+            senders.push(tx);
+        }
+        let mut connector = Connector::new(test_options(), SharedMockClient::new(mock));
+        connector.set_spec_state(AppendObjectSpecState::Append {
+            spec: AppendObjectSpec {
+                bucket: "projects/_/buckets/test-bucket".into(),
+                object: "test-object".into(),
+                generation: 1,
+                ..Default::default()
+            },
+            initial_chunk: None,
+        });
+        (connector, senders)
+    }
+
+    /// Queues a first response acknowledging `persisted` bytes on every stream.
+    async fn send_persisted_size(
+        senders: &[tokio::sync::mpsc::Sender<TonicResult<BidiWriteObjectResponse>>],
+        persisted: i64,
+    ) -> Result<()> {
+        for tx in senders {
+            tx.send(Ok(BidiWriteObjectResponse {
+                write_status: Some(WriteStatus::PersistedSize(persisted)),
+                ..Default::default()
+            }))
+            .await?;
+        }
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn reconnect_time_limit_expires_without_progress() -> Result<()> {
+        use google_cloud_gax::retry_policy::RetryPolicyExt;
+        // Arrange.
+        let (mut connector, senders) = connector_with_streams(2);
+        send_persisted_size(&senders, 0).await?;
+        connector.options.retry_policy =
+            Arc::new(crate::retry_policy::RetryableErrors.with_time_limit(Duration::from_secs(30)));
+
+        // Act.
+        // First reconnect anchors `retry_state.start` at T+0s.
+        connector.reconnect(transient_error(), 0).await?;
+        tokio::time::advance(Duration::from_secs(10)).await;
+        connector.reconnect(transient_error(), 0).await?;
+        // T+35s: past the 30s policy time limit without byte progress.
+        tokio::time::advance(Duration::from_secs(25)).await;
+        let err = connector.reconnect(transient_error(), 0).await.unwrap_err();
+
+        // Assert.
+        assert_eq!(err.status(), transient_error().status(), "{err:?}");
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn reconnect_retry_state_resets_on_acknowledged_bytes() -> Result<()> {
+        use google_cloud_gax::retry_policy::RetryPolicyExt;
+        // Arrange.
+        let (mut connector, senders) = connector_with_streams(3);
+        send_persisted_size(&senders, 0).await?;
+        connector.options.retry_policy =
+            Arc::new(crate::retry_policy::RetryableErrors.with_time_limit(Duration::from_secs(30)));
+
+        // Act.
+        // Anchors `retry_state.start` at T+0s.
+        connector.reconnect(transient_error(), 0).await?;
+        // T+10s: 64 acknowledged bytes reset `retry_state` so `start` becomes T+10s.
+        tokio::time::advance(Duration::from_secs(10)).await;
+        connector.reconnect(transient_error(), 64).await?;
+        // T+35s: past the original T+30s limit, but within the reset T+40s limit.
+        tokio::time::advance(Duration::from_secs(25)).await;
+        let (resp, _conn) = connector.reconnect(transient_error(), 64).await?;
+
+        // Assert.
+        assert_eq!(persisted_size(&resp), Some(0));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn connect_open_seeds_persisted_size_and_clears_retry_state() -> Result<()> {
+        // Arrange.
+        let (tx1, rx1) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream1 = TonicResponse::from(rx1);
+        let (tx2, rx2) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream2 = TonicResponse::from(rx2);
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .times(1)
+            .return_once(move |_, _, _, _, _, _| Ok(Ok(stream1)));
+        mock.expect_start()
+            .times(1)
+            .return_once(move |_, _, _, _, _, _| Ok(Ok(stream2)));
+        let mut connector = Connector::new(test_options(), SharedMockClient::new(mock));
+
+        let req = OpenAppendableObjectRequest {
+            spec: crate::model::WriteObjectSpec {
+                resource: Some(crate::model::Object {
+                    bucket: "projects/_/buckets/test-bucket".into(),
+                    name: "test-object".into(),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            },
+            params: None,
+        };
+        tx1.send(Ok(BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(100)),
+            ..Default::default()
+        }))
+        .await?;
+        tx2.send(Ok(BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(100)),
+            ..Default::default()
+        }))
+        .await?;
+
+        // Act.
+        connector.connect_open(req).await?;
+
+        // Assert.
+        assert_eq!(connector.last_persisted_size, 100);
+        assert!(connector.retry_state.is_none());
+        connector.reconnect(transient_error(), 100).await?;
+        assert_eq!(
+            connector.retry_state.as_ref().map(|s| s.attempt_count),
+            Some(1)
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn reconnect_gives_up_on_transient_error_when_retries_are_disabled() -> Result<()> {
+        // Arrange.
+        let mut mock = MockTestClient::new();
+        mock.expect_start().never();
+        let mut options = test_options();
+        options.retry_policy = Arc::new(NeverRetry);
+        let mut connector = Connector::new(options, SharedMockClient::new(mock));
+
+        // Act.
+        let err = connector.reconnect(transient_error(), 0).await.unwrap_err();
+
+        // Assert.
+        assert_eq!(err.status(), transient_error().status(), "{err:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn reconnect_gives_up_on_an_endless_redirect_loop() -> Result<()> {
+        // Arrange.
+        let attempts = Arc::new(Mutex::new(0_usize));
+        let observed = attempts.clone();
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .times(MAX_REDIRECTS_FOLLOWED as usize)
+            .returning(move |_, _, _, _, _, _| {
+                *attempts.lock().expect("never poisoned") += 1;
+                Ok(Err(redirect_status("loop-token")))
+            });
+        let mut options = test_options();
+        options.retry_policy = Arc::new(NeverRetry);
+        let mut connector = Connector::new(options, SharedMockClient::new(mock));
+        connector.set_spec_state(AppendObjectSpecState::Append {
+            spec: AppendObjectSpec {
+                bucket: "projects/_/buckets/test-bucket".into(),
+                object: "test-object".into(),
+                generation: 1,
+                ..Default::default()
+            },
+            initial_chunk: None,
+        });
+
+        // Act: `seed-token` consumes redirect #1; attempts 1 and 2 consume redirects #2 and #3;
+        // attempt 3 hits `MAX_REDIRECTS_FOLLOWED` (`3`) and stops.
+        let err = connector
+            .reconnect(redirect_error("seed-token"), 0)
+            .await
+            .unwrap_err();
+
+        // Assert.
+        assert!(!err.is_timeout(), "{err:?}");
+        assert_eq!(
+            *observed.lock().expect("never poisoned"),
+            MAX_REDIRECTS_FOLLOWED as usize
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn reconnect_respects_attempt_limit_and_resets_on_progress() -> Result<()> {
+        use google_cloud_gax::retry_policy::RetryPolicyExt;
+        // Arrange: `with_attempt_limit(3)` allows 2 progress-free reconnects (attempts 1 and 2) and
+        // stops on the 3rd (`attempt_count == 3`). Once byte progress is reported, `retry_state`
+        // resets and allows another reconnect.
+        let (mut connector, senders) = connector_with_streams(3);
+        send_persisted_size(&senders, 0).await?;
+        connector.options.retry_policy =
+            Arc::new(crate::retry_policy::RetryableErrors.with_attempt_limit(3));
+
+        // Act & Assert: 2 progress-free reconnects succeed, 3rd stops with `Exhausted`.
+        connector.reconnect(transient_error(), 0).await?;
+        connector.reconnect(transient_error(), 0).await?;
+        let err = connector.reconnect(transient_error(), 0).await.unwrap_err();
+        assert_eq!(err.status(), transient_error().status(), "{err:?}");
+
+        // Reporting byte progress resets `retry_state`, so the next reconnect succeeds.
+        connector.reconnect(transient_error(), 64).await?;
+        assert_eq!(
+            connector.retry_state.as_ref().map(|s| s.attempt_count),
+            Some(1)
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn reconnect_handshake_persisted_bytes_resets_retry_state() -> Result<()> {
+        use google_cloud_gax::retry_policy::RetryPolicyExt;
+        // Arrange: `with_attempt_limit(2)` allows 1 progress-free reconnect (`attempt_count == 1`)
+        // and stops on the 2nd (`attempt_count == 2`). If the 1st reconnect's handshake response
+        // reports newly persisted bytes (`PersistedSize(64)`), `retry_state` resets to `None` so
+        // the next reconnect succeeds (`attempt_count == 1`).
+        let (mut connector, senders) = connector_with_streams(2);
+        connector.options.retry_policy =
+            Arc::new(crate::retry_policy::RetryableErrors.with_attempt_limit(2));
+        senders[0]
+            .send(Ok(BidiWriteObjectResponse {
+                write_status: Some(WriteStatus::PersistedSize(64)),
+                ..Default::default()
+            }))
+            .await?;
+        senders[1]
+            .send(Ok(BidiWriteObjectResponse {
+                write_status: Some(WriteStatus::PersistedSize(64)),
+                ..Default::default()
+            }))
+            .await?;
+
+        // Act.
+        connector.reconnect(transient_error(), 0).await?;
+        assert!(connector.retry_state.is_none());
+        connector.reconnect(transient_error(), 64).await?;
+
+        // Assert.
+        assert_eq!(
+            connector.retry_state.as_ref().map(|s| s.attempt_count),
+            Some(1)
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn reconnect_caps_redirects_across_unproductive_reconnect_calls() -> Result<()> {
+        use google_cloud_gax::retry_policy::RetryPolicyExt;
+        // Arrange: each `reconnect()` handshake succeeds with `PersistedSize(0)`, then the active
+        // stream is redirected again without persisting new bytes. `MAX_REDIRECTS_FOLLOWED` (`3`)
+        // must bound the total redirects across consecutive `reconnect()` calls, and redirects must
+        // not consume `retry_state.attempt_count`.
+        let (mut connector, senders) = connector_with_streams(MAX_REDIRECTS_FOLLOWED as usize + 1);
+        send_persisted_size(&senders, 0).await?;
+        connector.options.retry_policy =
+            Arc::new(crate::retry_policy::RetryableErrors.with_attempt_limit(2));
+
+        // Act & Assert: 3 mid-stream redirects succeed without touching `retry_state`, and the 4th
+        // redirect without byte progress fails immediately.
+        for i in 0..MAX_REDIRECTS_FOLLOWED {
+            connector
+                .reconnect(redirect_error(&format!("r{i}")), 0)
+                .await?;
+            assert!(connector.retry_state.is_none());
+        }
+        let err = connector
+            .reconnect(redirect_error("r-over-limit"), 0)
+            .await
+            .unwrap_err();
+        assert!(!err.is_timeout(), "{err:?}");
+
+        // Reporting byte progress resets `retry_redirect`, so a subsequent redirect succeeds.
+        connector
+            .reconnect(redirect_error("r-after-progress"), 64)
+            .await?;
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn reconnect_applies_backoff_policy_before_reopening_stream() -> Result<()> {
+        #[derive(Debug)]
+        struct FixedStepBackoff;
+        impl google_cloud_gax::backoff_policy::BackoffPolicy for FixedStepBackoff {
+            fn on_failure(&self, state: &RetryState) -> Duration {
+                Duration::from_secs(u64::from(state.attempt_count))
+            }
+        }
+
+        // Arrange.
+        let (mut connector, senders) = connector_with_streams(2);
+        send_persisted_size(&senders, 0).await?;
+        connector.options.backoff_policy = Arc::new(FixedStepBackoff);
+
+        // Act: 1st non-redirect reconnect (`attempt_count == 1`) sleeps 1s; 2nd (`attempt_count ==
+        // 2`) sleeps 2s.
+        let start = Instant::now();
+        connector.reconnect(transient_error(), 0).await?;
+        assert_eq!(start.elapsed(), Duration::from_secs(1));
+
+        connector.reconnect(transient_error(), 0).await?;
+        assert_eq!(start.elapsed(), Duration::from_secs(3));
         Ok(())
     }
 }

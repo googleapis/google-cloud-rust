@@ -121,7 +121,11 @@ impl AppendObjectSpecState {
                 }
                 AppendObjectSpecState::Append { spec, .. } => {
                     spec.routing_token = redirect.routing_token;
-                    spec.write_handle = redirect.write_handle;
+                    // `redirect.write_handle` is optional. Preserve the existing `write_handle`
+                    // unless the redirect provides a new one.
+                    if let Some(handle) = redirect.write_handle {
+                        spec.write_handle = Some(handle);
+                    }
                     if let Some(g) = redirect.generation {
                         spec.generation = g;
                     }
@@ -291,7 +295,11 @@ mod tests {
         assert!(got.status().is_some(), "{got:?}");
         if let AppendObjectSpecState::Append { ref spec, .. } = state {
             assert_eq!(spec.routing_token.as_deref(), routing);
-            assert_eq!(spec.write_handle, write_handle);
+            // A redirect without `write_handle` must preserve the existing handle.
+            let want_handle = write_handle.clone().unwrap_or(BidiWriteHandle {
+                handle: bytes::Bytes::from_static(b"initial-handle"),
+            });
+            assert_eq!(spec.write_handle, Some(want_handle));
             assert_eq!(spec.generation, 42);
             assert_eq!(spec.if_metageneration_match, Some(10));
             assert_eq!(spec.if_metageneration_not_match, Some(20));
