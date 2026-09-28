@@ -48,13 +48,13 @@ pub(crate) const MAX_WRITE_CHUNK_SIZE: usize = 2 * 1024 * 1024;
 
 /// Extracts the acknowledged byte count from a [`BidiWriteObjectResponse`].
 ///
-/// The service reports progress either as a bare `persisted_size` or, on the first response of a
-/// create or takeover stream and on finalization, as the `size` of the object resource. Returns
-/// `None` when the response carries no `write_status` at all, which is a valid message (for example
-/// one that only refreshes the write handle).
+/// Returns `None` when the response carries no `write_status` at all, which is a valid message,
+/// e.g. one that only refreshes the write handle.
 pub(crate) fn persisted_size(response: &BidiWriteObjectResponse) -> Option<i64> {
     use crate::google::storage::v2::bidi_write_object_response::WriteStatus;
     match response.write_status.as_ref() {
+        // The service reports progress either as a bare `persisted_size` or, on the first response
+        // of a create or takeover stream and on finalization, as the `size` of the object resource.
         Some(WriteStatus::PersistedSize(size)) => Some(*size),
         Some(WriteStatus::Resource(resource)) => Some(resource.size),
         None => None,
