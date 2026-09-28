@@ -64,7 +64,7 @@ uuid                          = { workspace = true, features = ["v4"] }
 # Enable `internal-logs` to troubleshoot errors.
 [dependencies.opentelemetry-otlp]
 workspace = true
-features  = ["grpc-tonic", "internal-logs", "logs", "metrics", "tls", "tls-roots", "trace"]
+features  = ["grpc-tonic", "internal-logs", "logs", "metrics", "tls-aws-lc", "tls-roots", "trace"]
 
 [dependencies.opentelemetry_sdk]
 workspace = true
