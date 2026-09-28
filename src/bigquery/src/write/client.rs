@@ -86,6 +86,9 @@ impl Write {
     /// [`BufferedWriter`][crate::write::BufferedWriter]) or specified explicitly via turbofish
     /// (`create_stream::<PendingStream, _>(...)`).
     ///
+    /// See [Selecting a type] for guidance on choosing a stream type for your
+    /// workload.
+    ///
     /// # Example
     /// ```
     /// use google_cloud_bigquery::write::PendingWriter;
@@ -105,6 +108,7 @@ impl Write {
     /// ```
     ///
     /// [application-created stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#application-created_streams
+    /// [Selecting a type]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#selecting_a_type
     pub fn create_stream<S: ApplicationCreatedStream, T: Into<String>>(
         &self,
         table: T,
