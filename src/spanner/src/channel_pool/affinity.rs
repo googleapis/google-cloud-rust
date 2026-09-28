@@ -27,7 +27,7 @@ use std::sync::atomic::{AtomicU64, Ordering};
 pub(crate) struct TransactionAffinity {
     entry_id: AtomicU64,
     kind: AffinityKind,
-    rw_guard: Mutex<Option<RwTransactionAffinityGuard>>,
+    rw_guard: Mutex<RwGuardState>,
 }
 
 impl Default for TransactionAffinity {
@@ -42,7 +42,7 @@ impl TransactionAffinity {
         Self {
             entry_id: AtomicU64::new(0),
             kind: AffinityKind::ReadWrite,
-            rw_guard: Mutex::new(None),
+            rw_guard: Mutex::new(RwGuardState::Active(None)),
         }
     }
 
@@ -51,19 +51,13 @@ impl TransactionAffinity {
         Self {
             entry_id: AtomicU64::new(0),
             kind: AffinityKind::ReadOnly,
-            rw_guard: Mutex::new(None),
+            rw_guard: Mutex::new(RwGuardState::Active(None)),
         }
     }
 
     /// Returns `true` if this handle requires hard stickiness (Read/Write transactions).
     pub(crate) fn is_read_write(&self) -> bool {
         self.kind == AffinityKind::ReadWrite
-    }
-
-    /// Returns `true` if this handle represents soft stickiness (Read-Only transactions).
-    #[cfg(test)]
-    pub(crate) fn is_read_only(&self) -> bool {
-        self.kind == AffinityKind::ReadOnly
     }
 
     /// Returns the pinned monotonic channel entry ID, or `None` if unpinned.
@@ -84,30 +78,53 @@ impl TransactionAffinity {
 
     /// Ensures that an `RwTransactionAffinityGuard` is attached for the leased channel entry.
     ///
-    /// If an existing guard already protects `lease.entry_id()`, this is a no-op that avoids
-    /// allocating a new guard or mutating active transaction atomic counters.
+    /// If an existing guard already protects `lease.entry_id()`, or if [`Self::release_rw_guard`]
+    /// has already been called on this handle, this is a no-op that avoids allocating a new guard
+    /// or mutating active transaction atomic counters.
     pub(crate) fn ensure_rw_guard(&self, lease: &ChannelLease) {
-        let mut slot = self
+        let mut state = self
             .rw_guard
             .lock()
             .expect("affinity rw_guard lock poisoned");
-        if let Some(existing) = slot.as_ref()
-            && existing.entry_id() == lease.entry_id()
-        {
-            return;
+        match &mut *state {
+            RwGuardState::Released => {}
+            RwGuardState::Active(slot) => {
+                // If an RAII guard is already held for this channel entry, avoid creating
+                // a duplicate guard or re-incrementing the channel's active RW counter.
+                if let Some(existing) = slot.as_ref()
+                    && existing.entry_id() == lease.entry_id()
+                {
+                    return;
+                }
+                // Acquire and store an RAII guard on the leased channel entry, protecting
+                // it from premature closure if it transitions to draining during this attempt.
+                *slot = Some(lease.rw_affinity_guard());
+            }
         }
-        *slot = Some(lease.rw_affinity_guard());
     }
 
-    /// Releases the active Read/Write transaction guard on the channel entry,
-    /// allowing draining channels to close once the transaction completes.
+    /// Releases the active Read/Write transaction guard on the channel entry and marks
+    /// this affinity handle's guard state as [`RwGuardState::Released`], allowing draining
+    /// channels to close once the transaction attempt completes and preventing any
+    /// late/concurrent operations on the same handle from re-acquiring a guard.
     pub(crate) fn release_rw_guard(&self) {
-        let mut slot = self
+        let mut state = self
             .rw_guard
             .lock()
             .expect("affinity rw_guard lock poisoned");
-        *slot = None;
+        *state = RwGuardState::Released;
     }
+}
+
+/// Lifecycle state of the Read/Write transaction guard inside [`TransactionAffinity`].
+#[derive(Debug)]
+enum RwGuardState {
+    /// The transaction attempt is active; holds the channel's RW guard once leased.
+    Active(Option<RwTransactionAffinityGuard>),
+    /// The transaction attempt has completed (committed, rolled back, or aborted).
+    /// Transitions to `Released` are terminal so concurrent or straggler operations
+    /// on the same attempt handle cannot re-acquire a guard after release.
+    Released,
 }
 
 /// Stickiness kind for transaction channel affinity.
@@ -170,6 +187,10 @@ impl From<()> for ChannelTarget<'_> {
 
 #[cfg(test)]
 impl TransactionAffinity {
+    pub(crate) fn is_read_only(&self) -> bool {
+        self.kind == AffinityKind::ReadOnly
+    }
+
     pub(crate) fn set_entry_id(&self, entry_id: u64) {
         debug_assert_ne!(entry_id, 0, "entry_id must be non-zero");
         self.entry_id.store(entry_id, Ordering::Release);
@@ -177,18 +198,21 @@ impl TransactionAffinity {
 
     pub(crate) fn reset(&self) {
         self.entry_id.store(0, Ordering::Release);
-        let mut slot = self
+        let mut state = self
             .rw_guard
             .lock()
             .expect("affinity rw_guard lock poisoned");
-        *slot = None;
+        *state = RwGuardState::Active(None);
     }
 
     pub(crate) fn has_rw_guard(&self) -> bool {
-        self.rw_guard
-            .lock()
-            .expect("affinity rw_guard lock poisoned")
-            .is_some()
+        matches!(
+            &*self
+                .rw_guard
+                .lock()
+                .expect("affinity rw_guard lock poisoned"),
+            RwGuardState::Active(Some(_))
+        )
     }
 }
 
@@ -216,13 +240,15 @@ mod tests {
 
     impl TransactionAffinity {
         fn attach_rw_guard(&self, guard: RwTransactionAffinityGuard) {
-            let mut slot = self
+            let mut state = self
                 .rw_guard
                 .lock()
                 .expect("affinity rw_guard lock poisoned");
-            match slot.as_ref() {
-                Some(existing) if existing.entry_id() == guard.entry_id() => {}
-                _ => *slot = Some(guard),
+            if let RwGuardState::Active(slot) = &mut *state {
+                match slot.as_ref() {
+                    Some(existing) if existing.entry_id() == guard.entry_id() => {}
+                    _ => *slot = Some(guard),
+                }
             }
         }
     }
@@ -255,11 +281,11 @@ mod tests {
             "Initial pinned entry ID must be None"
         );
 
-        affinity.set_entry_id(42);
+        affinity.set_entry_id(17);
         assert_eq!(
             affinity.pinned_entry_id(),
-            Some(42),
-            "Pinned entry ID must be 42 after set_entry_id"
+            Some(17),
+            "Pinned entry ID must be 17 after set_entry_id"
         );
 
         affinity.set_entry_id(99);
@@ -409,10 +435,13 @@ mod tests {
     }
 
     #[test]
-    fn release_rw_guard_drops_guard_and_decrements_count() {
+    fn release_rw_guard_drops_guard_and_prevents_reacquisition() {
         let channel = Channel::new_for_test(DummyStub);
-        let entry = Arc::new(ChannelEntry::new(1, 1, channel));
+        let entry = Arc::new(ChannelEntry::new(17, 1, channel));
         let affinity = TransactionAffinity::new_read_write();
+        affinity
+            .compare_and_set_entry_id(0, 17)
+            .expect("CAS must pin entry 17");
         let lease = ChannelLease::new(ActiveRpcGuard::new(
             Arc::clone(&entry),
             0,
@@ -421,15 +450,37 @@ mod tests {
         ));
 
         affinity.ensure_rw_guard(&lease);
+        assert_eq!(
+            affinity.pinned_entry_id(),
+            Some(17),
+            "entry 17 must be pinned before release_rw_guard"
+        );
         assert!(affinity.has_rw_guard(), "guard must be attached");
         assert_eq!(entry.active_rw_count(), 1, "entry count must be 1");
 
         affinity.release_rw_guard();
         assert!(!affinity.has_rw_guard(), "guard must be released");
+        assert!(
+            affinity.is_read_write(),
+            "kind must remain ReadWrite after release_rw_guard"
+        );
         assert_eq!(
             entry.active_rw_count(),
             0,
             "entry count must drop to 0 after release_rw_guard"
+        );
+
+        // A late or concurrent ensure_rw_guard call after release_rw_guard must be a no-op
+        // and never resurrect the guard on a completed transaction attempt.
+        affinity.ensure_rw_guard(&lease);
+        assert!(
+            !affinity.has_rw_guard(),
+            "ensure_rw_guard must not re-acquire guard after release_rw_guard"
+        );
+        assert_eq!(
+            entry.active_rw_count(),
+            0,
+            "entry count must remain 0 after ensure_rw_guard on released affinity"
         );
 
         // Repeated release must be an idempotent no-op
