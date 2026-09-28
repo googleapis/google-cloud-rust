@@ -30,7 +30,7 @@ use std::time::Duration;
 /// # async fn sample() -> anyhow::Result<()> {
 /// let builder = Write::builder();
 /// let client = builder
-///     .with_endpoint("https://bigquerystoragewrite.googleapis.com")
+///     .with_endpoint("https://bigquerystorage.googleapis.com")
 ///     .build()
 ///     .await?;
 /// # Ok(()) }
