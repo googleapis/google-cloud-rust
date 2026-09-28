@@ -24,8 +24,9 @@ use std::time::Duration;
 
 /// Maximum redirects followed per connect or reconnect cycle before giving up.
 ///
-/// Reaching the target backend normally takes 1 redirect (or 2 if that backend is draining), so 3
-/// prevents infinite redirect loops while leaving 1 extra redirect of headroom.
+/// Reaching the target backend normally takes 1 redirect (or 2 if that server is shutting down and
+/// redirects the stream again), so 3 prevents infinite redirect loops while leaving 1 extra
+/// redirect of headroom.
 pub(super) const MAX_REDIRECTS_FOLLOWED: u32 = 3;
 
 /// Decorates a [`RetryPolicy`] to follow `BidiWriteObject` routing redirects.
