@@ -23,9 +23,6 @@
 //! 2. [`EndpointExclusionList`]: A deterministic, request-scoped exclusion set of endpoints that
 //!    have already been attempted during an individual RPC retry loop.
 
-// TODO(location-aware-routing): Remove allow(dead_code) once integrated into LocationRouter.
-#![allow(dead_code)]
-
 use google_cloud_gax::error::rpc::Code;
 use rand::random_range;
 use std::collections::{HashMap, HashSet};
@@ -206,54 +203,6 @@ impl EndpointCooldownTracker {
             }
             _ => None,
         }
-    }
-
-    /// Records an RPC failure for the endpoint without a server retry delay hint.
-    pub(crate) fn record_error(&self, endpoint: &str, status_code: Code) -> Option<Duration> {
-        self.record_error_with_delay(endpoint, status_code, None)
-    }
-
-    /// Records an overload failure for the endpoint at the current timestamp, applying an optional
-    /// server-recommended retry delay hint.
-    pub(crate) fn record_failure_with_delay(
-        &self,
-        endpoint: &str,
-        server_retry_delay: Option<Duration>,
-    ) -> Duration {
-        self.record_failure_with_delay_at(endpoint, server_retry_delay, Instant::now())
-    }
-
-    /// Records an overload failure for the endpoint at the current timestamp without a server delay hint.
-    pub(crate) fn record_failure(&self, endpoint: &str) -> Duration {
-        self.record_failure_with_delay(endpoint, None)
-    }
-
-    /// Records an overload failure for the endpoint at a specific reference timestamp with an
-    /// optional server retry delay hint, returning the applied cooldown duration.
-    pub(crate) fn record_failure_with_delay_at(
-        &self,
-        endpoint: &str,
-        server_retry_delay: Option<Duration>,
-        now: Instant,
-    ) -> Duration {
-        self.record_failure_internal(endpoint, Code::ResourceExhausted, server_retry_delay, now)
-    }
-
-    /// Records an overload failure at a specific reference timestamp without a server delay hint.
-    pub(crate) fn record_failure_at(&self, endpoint: &str, now: Instant) -> Duration {
-        self.record_failure_with_delay_at(endpoint, None, now)
-    }
-
-    /// Records a transport availability failure (`UNAVAILABLE`) at the current timestamp,
-    /// returning the applied cooldown duration.
-    pub(crate) fn record_unavailable_failure(&self, endpoint: &str) -> Duration {
-        self.record_unavailable_failure_at(endpoint, Instant::now())
-    }
-
-    /// Records a transport availability failure (`UNAVAILABLE`) at a specific reference timestamp,
-    /// returning the applied cooldown duration.
-    pub(crate) fn record_unavailable_failure_at(&self, endpoint: &str, now: Instant) -> Duration {
-        self.record_failure_internal(endpoint, Code::Unavailable, None, now)
     }
 
     fn apply_failure(
@@ -444,53 +393,6 @@ impl EndpointCooldownTracker {
         Duration::from_millis(jittered_millis)
     }
 
-    /// Removes entries from the tracker that have expired their cooldown and reset window.
-    pub(crate) fn clear_expired(&self) {
-        self.clear_expired_at(Instant::now());
-    }
-
-    /// Removes expired entries relative to the specified timestamp.
-    pub(crate) fn clear_expired_at(&self, now: Instant) {
-        if self.tracked_entry_count.load(Ordering::Acquire) == 0 {
-            return;
-        }
-        {
-            let guard = self
-                .state
-                .read()
-                .expect("EndpointCooldownTracker read lock poisoned");
-            let has_expired = guard
-                .values()
-                .any(|entry| entry.is_idle(now, self.reset_after));
-            if !has_expired {
-                return;
-            }
-        }
-
-        let mut guard = self
-            .state
-            .write()
-            .expect("EndpointCooldownTracker write lock poisoned");
-        guard.retain(|_, entry| !entry.is_idle(now, self.reset_after));
-        self.tracked_entry_count
-            .store(guard.len(), Ordering::Release);
-    }
-
-    /// Clears all tracked endpoint cooldowns.
-    pub(crate) fn clear(&self) {
-        let mut guard = self
-            .state
-            .write()
-            .expect("EndpointCooldownTracker write lock poisoned");
-        guard.clear();
-        self.tracked_entry_count.store(0, Ordering::Release);
-    }
-
-    /// Returns the number of endpoints currently tracked in the state map.
-    pub(crate) fn len(&self) -> usize {
-        self.tracked_entry_count.load(Ordering::Acquire)
-    }
-
     /// Returns `true` if no endpoints are currently tracked.
     pub(crate) fn is_empty(&self) -> bool {
         self.tracked_entry_count.load(Ordering::Acquire) == 0
@@ -503,11 +405,13 @@ impl EndpointCooldownTracker {
 /// global cooldown alone does not guarantee that an endpoint cannot expire during long retries.
 /// `EndpointExclusionList` provides a deterministic guarantee for an individual
 /// RPC retry chain by recording every endpoint address attempted during that request.
+#[allow(dead_code)] // Intended for per-request retry exclusion tracking in LocationRouter
 #[derive(Debug, Default, Clone)]
 pub(crate) struct EndpointExclusionList {
     excluded: HashSet<String>,
 }
 
+#[allow(dead_code)] // Intended for per-request retry exclusion tracking in LocationRouter
 impl EndpointExclusionList {
     /// Creates a new empty request-scoped endpoint exclusion list.
     pub(crate) fn new() -> Self {
@@ -711,6 +615,104 @@ fn compute_cooldown_deadline(now: Instant, cooldown: Duration) -> Instant {
     now.checked_add(cooldown)
         .or_else(|| now.checked_add(MAX_OVERFLOW_FALLBACK_COOLDOWN))
         .unwrap_or(now)
+}
+
+#[cfg(test)]
+impl EndpointCooldownTracker {
+    /// Records an RPC failure for the endpoint without a server retry delay hint.
+    pub(crate) fn record_error(&self, endpoint: &str, status_code: Code) -> Option<Duration> {
+        self.record_error_with_delay(endpoint, status_code, None)
+    }
+
+    /// Records an overload failure for the endpoint at the current timestamp, applying an optional
+    /// server-recommended retry delay hint.
+    pub(crate) fn record_failure_with_delay(
+        &self,
+        endpoint: &str,
+        server_retry_delay: Option<Duration>,
+    ) -> Duration {
+        self.record_failure_with_delay_at(endpoint, server_retry_delay, Instant::now())
+    }
+
+    /// Records an overload failure for the endpoint at the current timestamp without a server delay hint.
+    pub(crate) fn record_failure(&self, endpoint: &str) -> Duration {
+        self.record_failure_with_delay(endpoint, None)
+    }
+
+    /// Records an overload failure for the endpoint at a specific reference timestamp with an
+    /// optional server retry delay hint, returning the applied cooldown duration.
+    pub(crate) fn record_failure_with_delay_at(
+        &self,
+        endpoint: &str,
+        server_retry_delay: Option<Duration>,
+        now: Instant,
+    ) -> Duration {
+        self.record_failure_internal(endpoint, Code::ResourceExhausted, server_retry_delay, now)
+    }
+
+    /// Records an overload failure at a specific reference timestamp without a server delay hint.
+    pub(crate) fn record_failure_at(&self, endpoint: &str, now: Instant) -> Duration {
+        self.record_failure_with_delay_at(endpoint, None, now)
+    }
+
+    /// Records a transport availability failure (`UNAVAILABLE`) at the current timestamp,
+    /// returning the applied cooldown duration.
+    pub(crate) fn record_unavailable_failure(&self, endpoint: &str) -> Duration {
+        self.record_unavailable_failure_at(endpoint, Instant::now())
+    }
+
+    /// Records a transport availability failure (`UNAVAILABLE`) at a specific reference timestamp,
+    /// returning the applied cooldown duration.
+    pub(crate) fn record_unavailable_failure_at(&self, endpoint: &str, now: Instant) -> Duration {
+        self.record_failure_internal(endpoint, Code::Unavailable, None, now)
+    }
+
+    /// Removes entries from the tracker that have expired their cooldown and reset window.
+    pub(crate) fn clear_expired(&self) {
+        self.clear_expired_at(Instant::now());
+    }
+
+    /// Removes expired entries relative to the specified timestamp.
+    pub(crate) fn clear_expired_at(&self, now: Instant) {
+        if self.tracked_entry_count.load(Ordering::Acquire) == 0 {
+            return;
+        }
+        {
+            let guard = self
+                .state
+                .read()
+                .expect("EndpointCooldownTracker read lock poisoned");
+            let has_expired = guard
+                .values()
+                .any(|entry| entry.is_idle(now, self.reset_after));
+            if !has_expired {
+                return;
+            }
+        }
+
+        let mut guard = self
+            .state
+            .write()
+            .expect("EndpointCooldownTracker write lock poisoned");
+        guard.retain(|_, entry| !entry.is_idle(now, self.reset_after));
+        self.tracked_entry_count
+            .store(guard.len(), Ordering::Release);
+    }
+
+    /// Clears all tracked endpoint cooldowns.
+    pub(crate) fn clear(&self) {
+        let mut guard = self
+            .state
+            .write()
+            .expect("EndpointCooldownTracker write lock poisoned");
+        guard.clear();
+        self.tracked_entry_count.store(0, Ordering::Release);
+    }
+
+    /// Returns the number of endpoints currently tracked in the state map.
+    pub(crate) fn len(&self) -> usize {
+        self.tracked_entry_count.load(Ordering::Acquire)
+    }
 }
 
 #[cfg(test)]

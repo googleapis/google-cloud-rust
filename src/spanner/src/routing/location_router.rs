@@ -21,9 +21,6 @@
 //! 3. Bypassing node endpoints currently marked on cooldown in [`EndpointCooldownTracker`].
 //! 4. Falling back cleanly to the default fallback connection when cache misses occur.
 
-// TODO(#6236): Remove dead_code allowance once LocationRouter is integrated into DatabaseClient.
-#![allow(dead_code)]
-
 use crate::model::directed_read_options::Replicas;
 use crate::model::routing_hint::SkippedTablet;
 use crate::model::{DirectedReadOptions, RoutingHint, Tablet};
@@ -116,10 +113,6 @@ impl AffinityTracker {
         }
         self.entries.remove(transaction_id)
     }
-
-    fn len(&self) -> usize {
-        self.entries.len()
-    }
 }
 
 /// Routes Spanner requests to specific server node connections using location metadata,
@@ -173,29 +166,9 @@ impl LocationRouter {
         }
     }
 
-    /// Returns the database scope configured for this router.
-    pub(crate) fn database_scope(&self) -> &str {
-        &self.database_scope
-    }
-
-    /// Returns a reference to the underlying [`KeyRangeCache`].
-    pub(crate) fn key_range_cache(&self) -> &Arc<KeyRangeCache> {
-        &self.key_range_cache
-    }
-
     /// Returns a reference to the underlying [`ConnectionCache`].
     pub(crate) fn connection_cache(&self) -> &Arc<ConnectionCache> {
         &self.connection_cache
-    }
-
-    /// Returns a reference to the underlying [`EndpointLifecycleManager`].
-    pub(crate) fn endpoint_lifecycle_manager(&self) -> &EndpointLifecycleManager {
-        &self.endpoint_lifecycle_manager
-    }
-
-    /// Returns a reference to the underlying [`EndpointCooldownTracker`].
-    pub(crate) fn cooldown_tracker(&self) -> &EndpointCooldownTracker {
-        &self.cooldown_tracker
     }
 
     /// Returns a reference to the underlying [`LatencyRegistry`].
@@ -725,32 +698,6 @@ impl LocationRouter {
             .connection
     }
 
-    /// Generates a [`RoutingHint`] based on the provided routing context, active database ID,
-    /// and schema generation version.
-    ///
-    /// Returns `None` if:
-    /// - `database_id` is 0 (uninitialized or unknown server epoch).
-    /// - `context.routing_key` is `None` or empty.
-    /// - No covering range is found in [`KeyRangeCache`].
-    pub(crate) fn create_routing_hint(
-        &self,
-        context: &RoutingContext<'_>,
-        database_id: u64,
-        schema_generation: Option<Bytes>,
-        operation_uid: u64,
-        client_location: Option<&str>,
-    ) -> Option<RoutingHint> {
-        self.resolve_route(
-            context,
-            None,
-            database_id,
-            schema_generation,
-            operation_uid,
-            client_location,
-        )
-        .routing_hint
-    }
-
     /// Records affinity mapping `transaction_id` to `address` if not already present.
     pub(crate) fn record_transaction_affinity(&self, transaction_id: &[u8], address: &str) {
         if transaction_id.is_empty() {
@@ -787,25 +734,9 @@ impl LocationRouter {
         let _ = tracker.remove(transaction_id);
     }
 
-    /// Returns the number of active transaction affinity entries.
-    pub(crate) fn affinity_count(&self) -> usize {
-        let tracker = self
-            .affinity_tracker
-            .read()
-            .expect("affinity tracker lock poisoned");
-        tracker.len()
-    }
-
     /// Returns `true` if the given address matches the default fallback gateway connection.
     pub(crate) fn is_default_endpoint(&self, address: &str) -> bool {
         self.connection_cache.is_default_address(address)
-    }
-
-    /// Helper to record an overload failure cooldown for an endpoint address.
-    ///
-    /// Skips placing the default fallback gateway on cooldown to ensure fallback routing remains viable.
-    pub(crate) fn record_failure(&self, address: &str) -> Duration {
-        self.record_failure_with_delay(address, None)
     }
 
     /// Helper to record an error with an optional server-recommended retry delay.
@@ -823,6 +754,88 @@ impl LocationRouter {
         }
         self.cooldown_tracker
             .record_error_with_delay(address, status_code, server_retry_delay)
+    }
+
+    /// Helper to record a successful RPC completion, advancing failure tier repair for the endpoint.
+    ///
+    /// Skips recording for the default fallback gateway.
+    pub(crate) fn record_success(&self, address: &str) {
+        if self.is_default_endpoint(address) {
+            return;
+        }
+        self.cooldown_tracker.record_success(address);
+    }
+}
+
+#[cfg(test)]
+impl AffinityTracker {
+    fn len(&self) -> usize {
+        self.entries.len()
+    }
+}
+
+#[cfg(test)]
+impl LocationRouter {
+    /// Returns the database scope configured for this router.
+    pub(crate) fn database_scope(&self) -> &str {
+        &self.database_scope
+    }
+
+    /// Returns a reference to the underlying [`KeyRangeCache`].
+    pub(crate) fn key_range_cache(&self) -> &Arc<KeyRangeCache> {
+        &self.key_range_cache
+    }
+
+    /// Returns a reference to the underlying [`EndpointLifecycleManager`].
+    pub(crate) fn endpoint_lifecycle_manager(&self) -> &EndpointLifecycleManager {
+        &self.endpoint_lifecycle_manager
+    }
+
+    /// Returns a reference to the underlying [`EndpointCooldownTracker`].
+    pub(crate) fn cooldown_tracker(&self) -> &EndpointCooldownTracker {
+        &self.cooldown_tracker
+    }
+
+    /// Generates a [`RoutingHint`] based on the provided routing context, active database ID,
+    /// and schema generation version.
+    ///
+    /// Returns `None` if:
+    /// - `database_id` is 0 (uninitialized or unknown server epoch).
+    /// - `context.routing_key` is `None` or empty.
+    /// - No covering range is found in [`KeyRangeCache`].
+    pub(crate) fn create_routing_hint(
+        &self,
+        context: &RoutingContext<'_>,
+        database_id: u64,
+        schema_generation: Option<Bytes>,
+        operation_uid: u64,
+        client_location: Option<&str>,
+    ) -> Option<RoutingHint> {
+        self.resolve_route(
+            context,
+            None,
+            database_id,
+            schema_generation,
+            operation_uid,
+            client_location,
+        )
+        .routing_hint
+    }
+
+    /// Returns the number of active transaction affinity entries.
+    pub(crate) fn affinity_count(&self) -> usize {
+        let tracker = self
+            .affinity_tracker
+            .read()
+            .expect("affinity tracker lock poisoned");
+        tracker.len()
+    }
+
+    /// Helper to record an overload failure cooldown for an endpoint address.
+    ///
+    /// Skips placing the default fallback gateway on cooldown to ensure fallback routing remains viable.
+    pub(crate) fn record_failure(&self, address: &str) -> Duration {
+        self.record_failure_with_delay(address, None)
     }
 
     /// Helper to record an RPC failure without a server delay hint.
@@ -846,16 +859,6 @@ impl LocationRouter {
     ) -> Duration {
         self.record_cooldown_error_with_delay(address, Code::ResourceExhausted, server_retry_delay)
             .unwrap_or(Duration::ZERO)
-    }
-
-    /// Helper to record a successful RPC completion, advancing failure tier repair for the endpoint.
-    ///
-    /// Skips recording for the default fallback gateway.
-    pub(crate) fn record_success(&self, address: &str) {
-        if self.is_default_endpoint(address) {
-            return;
-        }
-        self.cooldown_tracker.record_success(address);
     }
 }
 

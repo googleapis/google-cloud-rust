@@ -17,9 +17,6 @@
 //! Provides helpers to extract and encode binary routing keys from [`KeySet`]s, [`ReadRequest`]s,
 //! and [`Mutation`]s using cached [`KeyRecipe`]s stored in [`KeyRecipeCache`].
 
-// TODO(#6236): Remove dead_code allowance once key extractor is integrated into DatabaseClient / Read / Write operations.
-#![allow(dead_code)]
-
 use crate::Result;
 use crate::key::{Endpoint, KeySet};
 use crate::model::mutation::Operation as ProtoOperation;
@@ -28,17 +25,25 @@ use crate::model::{
     PartitionReadRequest, ReadRequest as ProtoReadRequest,
 };
 use crate::mutation::{InternalMutation, Mutation};
+#[cfg(test)]
 use crate::read::ReadRequest;
 use crate::routing::key_recipe::{
     encode_key_from_columns_and_values_into, encode_key_from_json_columns_and_values_into,
-    encode_key_from_json_query_params, encode_key_from_json_query_params_into,
-    encode_key_from_json_recipe_into, encode_key_from_query_params,
-    encode_key_from_query_params_into, encode_key_from_recipe_into,
+    encode_key_from_json_query_params, encode_key_from_json_recipe_into,
+    encode_key_from_recipe_into,
+};
+#[cfg(test)]
+use crate::routing::key_recipe::{
+    encode_key_from_json_query_params_into, encode_key_from_query_params,
+    encode_key_from_query_params_into,
 };
 use crate::routing::key_recipe_cache::KeyRecipeCache;
+#[cfg(test)]
 use crate::statement::Statement;
+#[cfg(test)]
 use crate::value::Value;
 use serde_json::{Map, Value as JsonValue};
+#[cfg(test)]
 use std::collections::BTreeMap;
 use tracing::warn;
 
@@ -53,6 +58,7 @@ use tracing::warn;
 /// # Caller Fallback Contract
 /// If encoding returns an error or `None`, callers (`LocationRouter` / `DatabaseClient`) MUST
 /// gracefully fall back to default routing rather than failing the user's RPC.
+#[cfg(test)]
 pub(crate) fn extract_key_from_key_set(
     recipe: &KeyRecipe,
     key_set: &KeySet,
@@ -289,6 +295,7 @@ pub(crate) trait ExtractableMutation {
     fn extract_key(&self, recipe: &KeyRecipe) -> Result<Option<Vec<u8>>>;
 
     /// Extracts and encodes the routing key into `buffer` using the provided [`KeyRecipe`].
+    #[allow(dead_code)] // Reserved for zero-allocation batch mutation routing
     fn extract_key_into(&self, recipe: &KeyRecipe, buffer: &mut Vec<u8>) -> Result<bool>;
 }
 
@@ -301,6 +308,7 @@ impl ExtractableMutation for Mutation {
         extract_key_from_mutation(recipe, self)
     }
 
+    #[allow(dead_code)] // Reserved for zero-allocation batch mutation routing
     fn extract_key_into(&self, recipe: &KeyRecipe, buffer: &mut Vec<u8>) -> Result<bool> {
         extract_key_from_mutation_into(recipe, self, buffer)
     }
@@ -315,6 +323,7 @@ impl ExtractableMutation for ProtoMutation {
         extract_key_from_proto_mutation(recipe, self)
     }
 
+    #[allow(dead_code)] // Reserved for zero-allocation batch mutation routing
     fn extract_key_into(&self, recipe: &KeyRecipe, buffer: &mut Vec<u8>) -> Result<bool> {
         extract_key_from_proto_mutation_into(recipe, self, buffer)
     }
@@ -344,6 +353,7 @@ pub(crate) fn extract_mutation_routing_key<M: ExtractableMutation>(
 /// multi-mutation commit requests in [`LocationRouter`], specialized selection heuristics
 /// (such as prioritizing non-insert mutations or selecting the largest insert mutation)
 /// may be evaluated prior to calling this extraction helper.
+#[cfg(test)]
 pub(crate) fn extract_mutations_routing_key<M: ExtractableMutation>(
     key_recipe_cache: &KeyRecipeCache,
     mutations: &[M],
@@ -363,6 +373,7 @@ pub(crate) fn extract_mutations_routing_key<M: ExtractableMutation>(
 /// - The `key_set` is `KeySet::all()` or empty.
 /// - No recipe is present in the cache.
 /// - Key encoding returned an error.
+#[cfg(test)]
 pub(crate) fn extract_read_routing_key(
     key_recipe_cache: &KeyRecipeCache,
     table: &str,
@@ -392,6 +403,7 @@ pub(crate) fn extract_read_routing_key(
 }
 
 /// Resolves the recipe from [`KeyRecipeCache`] and encodes the routing key for a [`ReadRequest`].
+#[cfg(test)]
 pub(crate) fn extract_read_request_routing_key(
     key_recipe_cache: &KeyRecipeCache,
     request: &ReadRequest,
@@ -502,6 +514,7 @@ pub(crate) fn extract_key_from_json_query_params(
 /// Returns:
 /// - `Ok(true)` if a routing key was successfully extracted and written to `buffer`.
 /// - `Err(error)` if encoding failed, in which case `buffer` is truncated back to its initial length.
+#[cfg(test)]
 pub(crate) fn extract_key_from_json_query_params_into(
     recipe: &KeyRecipe,
     parameters: &Map<String, JsonValue>,
@@ -516,6 +529,7 @@ pub(crate) fn extract_key_from_json_query_params_into(
 /// Returns:
 /// - `Ok(Some(routing_key))` if parameter evaluation and encoding succeeded.
 /// - `Err(error)` if encoding failed (e.g. missing parameter, type mismatch, or structural error).
+#[cfg(test)]
 pub(crate) fn extract_key_from_statement_params(
     recipe: &KeyRecipe,
     parameters: &BTreeMap<String, Value>,
@@ -529,6 +543,7 @@ pub(crate) fn extract_key_from_statement_params(
 /// Returns:
 /// - `Ok(true)` if a routing key was successfully extracted and written to `buffer`.
 /// - `Err(error)` if encoding failed, in which case `buffer` is truncated back to its initial length.
+#[cfg(test)]
 pub(crate) fn extract_key_from_statement_params_into(
     recipe: &KeyRecipe,
     parameters: &BTreeMap<String, Value>,
@@ -611,6 +626,7 @@ pub(crate) fn extract_execute_sql_request_routing_key(
 
 /// Resolves the query [`KeyRecipe`] from [`KeyRecipeCache`] for the given operation UID and encodes
 /// the routing key using typed statement parameters.
+#[cfg(test)]
 pub(crate) fn extract_statement_params_routing_key(
     key_recipe_cache: &KeyRecipeCache,
     operation_uid: u64,
@@ -626,6 +642,7 @@ pub(crate) fn extract_statement_params_routing_key(
 
 /// Resolves the query [`KeyRecipe`] from [`KeyRecipeCache`] for the given operation UID and encodes
 /// the routing key using the statement's parameter bindings.
+#[cfg(test)]
 pub(crate) fn extract_statement_routing_key(
     key_recipe_cache: &KeyRecipeCache,
     operation_uid: u64,

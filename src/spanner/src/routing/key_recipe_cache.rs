@@ -18,9 +18,6 @@
 //! so that subsequent read and query RPCs can encode binary routing keys locally without relying on the
 //! Spanner Frontend (SpanFE) proxy to resolve tablet shard boundaries.
 
-// TODO(#6236): Remove dead_code allowance once request routing interceptors utilize KeyRecipeCache in subsequent PRs.
-#![allow(dead_code)]
-
 use crate::model::key_recipe::Target;
 use crate::model::{ExecuteSqlRequest, KeyRecipe, ReadRequest, RecipeList};
 use crate::routing::clock_cache::{ClockEntry, ClockStore};
@@ -202,75 +199,6 @@ impl KeyRecipeCache {
         )
     }
 
-    /// Inserts a [`KeyRecipe`] into the cache.
-    ///
-    /// # Concurrency Optimization
-    /// Clones `recipe.target` (`String::clone` for table/index names) and wraps `recipe`
-    /// in an [`Arc`] before acquiring the write lock (`self.store.write()`). This ensures that all
-    /// heap allocations occur outside the critical section, reducing lock hold duration to a pure
-    /// $O(1)$ hashmap insertion.
-    ///
-    /// The lock guard is explicitly dropped before any displaced overwritten recipe is deallocated,
-    /// ensuring heap deallocations for overwritten entries occur outside the critical section.
-    /// (Evicted entries from bounded query store capacity limits are dropped on removal under the write guard,
-    /// which is an $O(1)$ atomic reference counter decrement).
-    ///
-    /// Returns `true` if the recipe contained a target and was stored in the cache;
-    /// returns `false` if `recipe.target` was `None`.
-    pub(crate) fn insert(&self, recipe: KeyRecipe) -> bool {
-        let Some(target) = recipe.target.clone() else {
-            return false;
-        };
-        let recipe_arc = Arc::new(recipe);
-        let mut guard = self.write_store();
-        let _previous_recipe = match target {
-            Target::TableName(name) => guard.tables.insert(name, recipe_arc),
-            Target::IndexName(name) => guard.indexes.insert(name, recipe_arc),
-            Target::OperationUid(operation_uid) => guard.queries.insert(operation_uid, recipe_arc),
-        };
-        // Explicitly drop the lock guard before `_previous_recipe` is dropped so that if an existing
-        // recipe with reference count 1 was overwritten, its heap deallocation occurs
-        // outside the critical section.
-        drop(guard);
-        true
-    }
-
-    /// Ingests an iterator of [`KeyRecipe`]s into the cache in a single batch,
-    /// acquiring the write lock only once.
-    pub(crate) fn insert_batch<I>(&self, recipes: I)
-    where
-        I: IntoIterator<Item = KeyRecipe>,
-    {
-        let iterator = recipes.into_iter();
-        let (lower_bound, _) = iterator.size_hint();
-        // Prepare target and Arc outside the write lock to minimize lock hold duration.
-        let mut prepared = Vec::with_capacity(lower_bound);
-        for recipe in iterator {
-            if let Some(target) = recipe.target.clone() {
-                prepared.push((target, Arc::new(recipe)));
-            }
-        }
-        if prepared.is_empty() {
-            return;
-        }
-        let mut displaced_recipes = Vec::new();
-        let mut guard = self.write_store();
-        for (target, recipe_arc) in prepared {
-            let previous_recipe = match target {
-                Target::TableName(name) => guard.tables.insert(name, recipe_arc),
-                Target::IndexName(name) => guard.indexes.insert(name, recipe_arc),
-                Target::OperationUid(operation_uid) => {
-                    guard.queries.insert(operation_uid, recipe_arc)
-                }
-            };
-            if let Some(displaced) = previous_recipe {
-                displaced_recipes.push(displaced);
-            }
-        }
-        drop(guard);
-        drop(displaced_recipes);
-    }
-
     /// Ingests all recipes and schema generation from a [`RecipeList`] returned in [`CacheUpdate`](crate::model::CacheUpdate).
     ///
     /// # Schema Generation Invalidation & Ordering:
@@ -375,11 +303,6 @@ impl KeyRecipeCache {
     pub(crate) fn prepared_reads_len(&self) -> usize {
         self.read_store().prepared_reads.len()
     }
-
-    /// Returns `true` if the cache is empty.
-    pub(crate) fn is_empty(&self) -> bool {
-        self.len() == 0
-    }
 }
 
 /// Trait abstracting over prepared query and read descriptors to enable unified cache lookup and preparation.
@@ -419,6 +342,7 @@ impl PreparedOperation for PreparedRead {
 
 /// Container for invalidated cache collections, returned by [`RecipeStore::invalidate_all`]
 /// to allow dropping memory allocations outside the write lock.
+#[allow(dead_code)] // Retained for deallocation outside write lock upon drop
 struct InvalidatedEntries {
     tables: HashMap<String, Arc<KeyRecipe>>,
     indexes: HashMap<String, Arc<KeyRecipe>>,
@@ -472,6 +396,77 @@ impl RecipeStore {
             indexes,
             queries,
         }
+    }
+}
+
+#[cfg(test)]
+impl KeyRecipeCache {
+    /// Ingests a single [`KeyRecipe`] into the cache under a write lock.
+    ///
+    /// The lock guard is explicitly dropped before any displaced overwritten recipe is deallocated,
+    /// ensuring heap deallocations for overwritten entries occur outside the critical section.
+    /// (Evicted entries from bounded query store capacity limits are dropped on removal under the write guard,
+    /// which is an $O(1)$ atomic reference counter decrement).
+    ///
+    /// Returns `true` if the recipe contained a target and was stored in the cache;
+    /// returns `false` if `recipe.target` was `None`.
+    pub(crate) fn insert(&self, recipe: KeyRecipe) -> bool {
+        let Some(target) = recipe.target.clone() else {
+            return false;
+        };
+        let recipe_arc = Arc::new(recipe);
+        let mut guard = self.write_store();
+        let _previous_recipe = match target {
+            Target::TableName(name) => guard.tables.insert(name, recipe_arc),
+            Target::IndexName(name) => guard.indexes.insert(name, recipe_arc),
+            Target::OperationUid(operation_uid) => guard.queries.insert(operation_uid, recipe_arc),
+        };
+        // Explicitly drop the lock guard before `_previous_recipe` is dropped so that if an existing
+        // recipe with reference count 1 was overwritten, its heap deallocation occurs
+        // outside the critical section.
+        drop(guard);
+        true
+    }
+
+    /// Ingests an iterator of [`KeyRecipe`]s into the cache in a single batch,
+    /// acquiring the write lock only once.
+    pub(crate) fn insert_batch<I>(&self, recipes: I)
+    where
+        I: IntoIterator<Item = KeyRecipe>,
+    {
+        let iterator = recipes.into_iter();
+        let (lower_bound, _) = iterator.size_hint();
+        // Prepare target and Arc outside the write lock to minimize lock hold duration.
+        let mut prepared = Vec::with_capacity(lower_bound);
+        for recipe in iterator {
+            if let Some(target) = recipe.target.clone() {
+                prepared.push((target, Arc::new(recipe)));
+            }
+        }
+        if prepared.is_empty() {
+            return;
+        }
+        let mut displaced_recipes = Vec::new();
+        let mut guard = self.write_store();
+        for (target, recipe_arc) in prepared {
+            let previous_recipe = match target {
+                Target::TableName(name) => guard.tables.insert(name, recipe_arc),
+                Target::IndexName(name) => guard.indexes.insert(name, recipe_arc),
+                Target::OperationUid(operation_uid) => {
+                    guard.queries.insert(operation_uid, recipe_arc)
+                }
+            };
+            if let Some(displaced) = previous_recipe {
+                displaced_recipes.push(displaced);
+            }
+        }
+        drop(guard);
+        drop(displaced_recipes);
+    }
+
+    /// Returns `true` if the cache is empty.
+    pub(crate) fn is_empty(&self) -> bool {
+        self.len() == 0
     }
 }
 

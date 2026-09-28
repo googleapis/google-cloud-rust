@@ -17,9 +17,6 @@
 //! Provides time-decayed latency tracking per endpoint address and split group scope
 //! to enable latency-aware replica selection for location-aware routing.
 
-// TODO(location-aware-routing): Remove allow(dead_code) once integrated into LocationRouter and KeyRangeCache.
-#![allow(dead_code)]
-
 use std::borrow::Borrow;
 use std::collections::HashMap;
 use std::fmt::Debug;
@@ -124,24 +121,6 @@ impl LatencyRegistry {
         )
     }
 
-    /// Creates a new `LatencyRegistry` with custom EWMA decay duration, error penalty, and default RTT,
-    /// using default bounds for capacity and expiration.
-    pub(crate) fn with_options(
-        decay_duration: Duration,
-        error_penalty: Duration,
-        default_rtt: Duration,
-    ) -> Self {
-        Self::with_all_options(
-            decay_duration,
-            error_penalty,
-            default_rtt,
-            DEFAULT_MAX_TRACKERS.min(DEFAULT_INITIAL_CAPACITY_BOUND),
-            DEFAULT_MAX_TRACKERS,
-            DEFAULT_EXPIRE_AFTER_ACCESS,
-            DEFAULT_CLEANUP_INTERVAL,
-        )
-    }
-
     /// Creates a new `LatencyRegistry` with full configuration over all parameters.
     pub(crate) fn with_all_options(
         decay_duration: Duration,
@@ -166,74 +145,9 @@ impl LatencyRegistry {
         }
     }
 
-    /// Returns the maximum capacity of the latency registry.
-    pub(crate) fn max_trackers(&self) -> usize {
-        self.max_trackers
-    }
-
-    /// Returns the configured idle expiration duration.
-    pub(crate) fn expire_after_access(&self) -> Duration {
-        self.expire_after_access
-    }
-
-    /// Returns the configured periodic cleanup sweep interval.
-    pub(crate) fn cleanup_interval(&self) -> Duration {
-        self.cleanup_interval
-    }
-
     /// Returns whether latency tracking is disabled (`max_trackers == 0`).
     pub(crate) fn is_tracking_disabled(&self) -> bool {
         self.max_trackers == 0
-    }
-
-    /// Returns whether a latency score has been recorded for the specified latency key at the current timestamp.
-    pub(crate) fn has_score(
-        &self,
-        database_scope: Option<&str>,
-        group_uid: u64,
-        endpoint_address: &str,
-    ) -> bool {
-        self.has_score_at(database_scope, group_uid, endpoint_address, Instant::now())
-    }
-
-    /// Returns whether a latency score has been recorded for the specified latency key at the given timestamp.
-    /// Performs a zero-allocation borrowed lookup under a shared read lock.
-    pub(crate) fn has_score_at(
-        &self,
-        database_scope: Option<&str>,
-        group_uid: u64,
-        endpoint_address: &str,
-        now: Instant,
-    ) -> bool {
-        if self.is_tracking_disabled() || group_uid == 0 || endpoint_address.is_empty() {
-            return false;
-        }
-
-        let database_scope = database_scope.filter(|scope| !scope.is_empty());
-        let lookup = LatencyKeyRef {
-            database_scope,
-            group_uid,
-            endpoint_address,
-        };
-
-        let now_millis = self.instant_to_millis(now);
-        let expire_after_millis = self.expire_after_access.as_millis() as u64;
-
-        let trackers = self
-            .trackers
-            .read()
-            .expect("LatencyRegistry trackers read lock poisoned");
-
-        let Some(entry) = trackers.get(&lookup as &dyn LatencyLookup) else {
-            return false;
-        };
-
-        if entry.is_expired(now_millis, expire_after_millis) {
-            return false;
-        }
-
-        entry.touch(now_millis);
-        entry.tracker.is_initialized()
     }
 
     /// Computes the replica selection cost for an endpoint given its active in-flight request count.
@@ -331,24 +245,6 @@ impl LatencyRegistry {
         self.default_rtt.as_micros() as f64
     }
 
-    /// Alias for [`selection_cost_at`](Self::selection_cost_at) matching Spanner router conventions.
-    pub(crate) fn get_selection_cost_at(
-        &self,
-        database_scope: Option<&str>,
-        group_uid: u64,
-        active_requests: usize,
-        endpoint_address: &str,
-        now: Instant,
-    ) -> f64 {
-        self.selection_cost_at(
-            database_scope,
-            group_uid,
-            active_requests,
-            endpoint_address,
-            now,
-        )
-    }
-
     /// Records an observed round-trip latency sample at the current timestamp.
     pub(crate) fn record_latency(
         &self,
@@ -432,49 +328,6 @@ impl LatencyRegistry {
             now_millis,
             |tracker| tracker.record_error_at(penalty, now),
         );
-    }
-
-    /// Clears all tracked endpoint latency scores and resets lifecycle state.
-    pub(crate) fn clear(&self) {
-        self.clear_at(Instant::now());
-    }
-
-    /// Clears all tracked endpoint latency scores and resets lifecycle state at the given timestamp.
-    pub(crate) fn clear_at(&self, now: Instant) {
-        let mut trackers = self
-            .trackers
-            .write()
-            .expect("LatencyRegistry trackers write lock poisoned");
-        trackers.clear();
-        self.last_cleanup_millis
-            .store(self.instant_to_millis(now), Ordering::Release);
-    }
-
-    /// Explicitly prunes all expired entries from the registry at the given timestamp.
-    pub(crate) fn prune_expired(&self, now: Instant) {
-        let now_millis = self.instant_to_millis(now);
-        let expire_after_millis = self.expire_after_access.as_millis() as u64;
-        let mut trackers = self
-            .trackers
-            .write()
-            .expect("LatencyRegistry trackers write lock poisoned");
-        trackers.retain(|_, entry| !entry.is_expired(now_millis, expire_after_millis));
-        self.last_cleanup_millis
-            .store(now_millis, Ordering::Release);
-    }
-
-    /// Returns the number of currently tracked latency keys.
-    pub(crate) fn len(&self) -> usize {
-        let trackers = self
-            .trackers
-            .read()
-            .expect("LatencyRegistry trackers read lock poisoned");
-        trackers.len()
-    }
-
-    /// Returns whether the registry contains zero tracked latency keys.
-    pub(crate) fn is_empty(&self) -> bool {
-        self.len() == 0
     }
 
     fn instant_to_millis(&self, instant: Instant) -> u64 {
@@ -821,25 +674,6 @@ impl EwmaLatencyTracker {
         }
     }
 
-    /// Creates a new fixed-alpha `EwmaLatencyTracker` where smoothing $\alpha \in (0.0, 1.0]$
-    /// remains constant regardless of elapsed time.
-    pub(crate) fn with_fixed_alpha(alpha: f64) -> Self {
-        let clamped_alpha = alpha.clamp(f64::MIN_POSITIVE, 1.0);
-        Self {
-            fixed_alpha: Some(clamped_alpha),
-            tau_nanoseconds: 0.0,
-            score_bits: AtomicU64::new(UNINITIALIZED_SCORE_BITS),
-            state: Mutex::new(None),
-        }
-    }
-
-    /// Returns the current latency score in microseconds.
-    ///
-    /// If no samples have been recorded yet, returns `f64::MAX`.
-    pub(crate) fn get_score(&self) -> f64 {
-        self.score().unwrap_or(f64::MAX)
-    }
-
     /// Returns the current latency score in microseconds, or `None` if uninitialized.
     pub(crate) fn score(&self) -> Option<f64> {
         let bits = self.score_bits.load(Ordering::Acquire);
@@ -847,16 +681,6 @@ impl EwmaLatencyTracker {
             return None;
         }
         Some(f64::from_bits(bits))
-    }
-
-    /// Returns whether at least one latency sample or error penalty has been recorded.
-    pub(crate) fn is_initialized(&self) -> bool {
-        self.score_bits.load(Ordering::Acquire) != UNINITIALIZED_SCORE_BITS
-    }
-
-    /// Records an observed round-trip latency sample at the current timestamp.
-    pub(crate) fn update(&self, latency: Duration) {
-        self.update_at(latency, Instant::now());
     }
 
     /// Records an observed round-trip latency sample at a specific timestamp.
@@ -892,11 +716,6 @@ impl EwmaLatencyTracker {
             .store(new_score.to_bits(), Ordering::Release);
     }
 
-    /// Records an error penalty using the default 10-second penalty duration.
-    pub(crate) fn record_error(&self) {
-        self.record_error_at(DEFAULT_ERROR_PENALTY, Instant::now());
-    }
-
     /// Records an error penalty with a specific penalty duration at the given timestamp.
     pub(crate) fn record_error_at(&self, penalty: Duration, now: Instant) {
         self.update_at(penalty, now);
@@ -915,6 +734,172 @@ impl EwmaLatencyTracker {
         // Use -exp_m1(-ratio) to prevent catastrophic floating-point cancellation for small delta_t:
         // 1 - exp(-x) == -(exp(-x) - 1) == -(-x).exp_m1()
         (-(-ratio).exp_m1()).clamp(0.0, 1.0)
+    }
+}
+
+#[cfg(test)]
+impl LatencyRegistry {
+    /// Creates a new `LatencyRegistry` with custom EWMA decay duration, error penalty, and default RTT,
+    /// using default bounds for capacity and expiration.
+    pub(crate) fn with_options(
+        decay_duration: Duration,
+        error_penalty: Duration,
+        default_rtt: Duration,
+    ) -> Self {
+        Self::with_all_options(
+            decay_duration,
+            error_penalty,
+            default_rtt,
+            DEFAULT_MAX_TRACKERS.min(DEFAULT_INITIAL_CAPACITY_BOUND),
+            DEFAULT_MAX_TRACKERS,
+            DEFAULT_EXPIRE_AFTER_ACCESS,
+            DEFAULT_CLEANUP_INTERVAL,
+        )
+    }
+
+    /// Returns the maximum capacity of the latency registry.
+    pub(crate) fn max_trackers(&self) -> usize {
+        self.max_trackers
+    }
+
+    /// Returns the configured idle expiration duration.
+    pub(crate) fn expire_after_access(&self) -> Duration {
+        self.expire_after_access
+    }
+
+    /// Returns the configured periodic cleanup sweep interval.
+    pub(crate) fn cleanup_interval(&self) -> Duration {
+        self.cleanup_interval
+    }
+
+    /// Returns whether a latency score has been recorded for the specified latency key at the current timestamp.
+    pub(crate) fn has_score(
+        &self,
+        database_scope: Option<&str>,
+        group_uid: u64,
+        endpoint_address: &str,
+    ) -> bool {
+        self.has_score_at(database_scope, group_uid, endpoint_address, Instant::now())
+    }
+
+    /// Returns whether a latency score has been recorded for the specified latency key at the given timestamp.
+    /// Performs a zero-allocation borrowed lookup under a shared read lock.
+    pub(crate) fn has_score_at(
+        &self,
+        database_scope: Option<&str>,
+        group_uid: u64,
+        endpoint_address: &str,
+        now: Instant,
+    ) -> bool {
+        if self.is_tracking_disabled() || group_uid == 0 || endpoint_address.is_empty() {
+            return false;
+        }
+
+        let database_scope = database_scope.filter(|scope| !scope.is_empty());
+        let lookup = LatencyKeyRef {
+            database_scope,
+            group_uid,
+            endpoint_address,
+        };
+
+        let now_millis = self.instant_to_millis(now);
+        let expire_after_millis = self.expire_after_access.as_millis() as u64;
+
+        let trackers = self
+            .trackers
+            .read()
+            .expect("LatencyRegistry trackers read lock poisoned");
+
+        let Some(entry) = trackers.get(&lookup as &dyn LatencyLookup) else {
+            return false;
+        };
+
+        if entry.is_expired(now_millis, expire_after_millis) {
+            return false;
+        }
+
+        entry.touch(now_millis);
+        entry.tracker.is_initialized()
+    }
+
+    /// Clears all tracked endpoint latency scores and resets lifecycle state.
+    pub(crate) fn clear(&self) {
+        self.clear_at(Instant::now());
+    }
+
+    /// Clears all tracked endpoint latency scores and resets lifecycle state at the given timestamp.
+    pub(crate) fn clear_at(&self, now: Instant) {
+        let mut trackers = self
+            .trackers
+            .write()
+            .expect("LatencyRegistry trackers write lock poisoned");
+        trackers.clear();
+        self.last_cleanup_millis
+            .store(self.instant_to_millis(now), Ordering::Release);
+    }
+
+    /// Explicitly prunes all expired entries from the registry at the given timestamp.
+    pub(crate) fn prune_expired(&self, now: Instant) {
+        let now_millis = self.instant_to_millis(now);
+        let expire_after_millis = self.expire_after_access.as_millis() as u64;
+        let mut trackers = self
+            .trackers
+            .write()
+            .expect("LatencyRegistry trackers write lock poisoned");
+        trackers.retain(|_, entry| !entry.is_expired(now_millis, expire_after_millis));
+        self.last_cleanup_millis
+            .store(now_millis, Ordering::Release);
+    }
+
+    /// Returns the number of currently tracked latency keys.
+    pub(crate) fn len(&self) -> usize {
+        let trackers = self
+            .trackers
+            .read()
+            .expect("LatencyRegistry trackers read lock poisoned");
+        trackers.len()
+    }
+
+    /// Returns whether the registry contains zero tracked latency keys.
+    pub(crate) fn is_empty(&self) -> bool {
+        self.len() == 0
+    }
+}
+
+#[cfg(test)]
+impl EwmaLatencyTracker {
+    /// Creates a new fixed-alpha `EwmaLatencyTracker` where smoothing $\alpha \in (0.0, 1.0]$
+    /// remains constant regardless of elapsed time.
+    pub(crate) fn with_fixed_alpha(alpha: f64) -> Self {
+        let clamped_alpha = alpha.clamp(f64::MIN_POSITIVE, 1.0);
+        Self {
+            fixed_alpha: Some(clamped_alpha),
+            tau_nanoseconds: 0.0,
+            score_bits: AtomicU64::new(UNINITIALIZED_SCORE_BITS),
+            state: Mutex::new(None),
+        }
+    }
+
+    /// Returns the current latency score in microseconds.
+    ///
+    /// If no samples have been recorded yet, returns `f64::MAX`.
+    pub(crate) fn get_score(&self) -> f64 {
+        self.score().unwrap_or(f64::MAX)
+    }
+
+    /// Returns whether at least one latency sample or error penalty has been recorded.
+    pub(crate) fn is_initialized(&self) -> bool {
+        self.score_bits.load(Ordering::Acquire) != UNINITIALIZED_SCORE_BITS
+    }
+
+    /// Records an observed round-trip latency sample at the current timestamp.
+    pub(crate) fn update(&self, latency: Duration) {
+        self.update_at(latency, Instant::now());
+    }
+
+    /// Records an error penalty using the default 10-second penalty duration.
+    pub(crate) fn record_error(&self) {
+        self.record_error_at(DEFAULT_ERROR_PENALTY, Instant::now());
     }
 }
 
@@ -1358,7 +1343,7 @@ mod tests {
 
         // Selection cost for expired idle endpoint must fall back to default RTT
         let selection_cost_idle =
-            registry.get_selection_cost_at(database_scope, 101, 0, endpoint_address, expired_time);
+            registry.selection_cost_at(database_scope, 101, 0, endpoint_address, expired_time);
         assert_eq!(
             selection_cost_idle,
             DEFAULT_RTT.as_micros() as f64,
@@ -1367,7 +1352,7 @@ mod tests {
 
         // Selection cost for expired busy endpoint must include penalty
         let selection_cost_busy =
-            registry.get_selection_cost_at(database_scope, 101, 2, endpoint_address, expired_time);
+            registry.selection_cost_at(database_scope, 101, 2, endpoint_address, expired_time);
         assert_eq!(
             selection_cost_busy,
             DEFAULT_PENALTY_VALUE + 2.0,
@@ -1392,13 +1377,8 @@ mod tests {
 
         // Advance by half the expiration duration (5 minutes) and touch via cost lookup
         let intermediate_time = start_time + DEFAULT_EXPIRE_AFTER_ACCESS / 2;
-        let cost = registry.get_selection_cost_at(
-            database_scope,
-            202,
-            0,
-            endpoint_address,
-            intermediate_time,
-        );
+        let cost =
+            registry.selection_cost_at(database_scope, 202, 0, endpoint_address, intermediate_time);
         assert!(
             cost > 0.0,
             "intermediate selection cost must be positive and non-zero"
@@ -2151,13 +2131,7 @@ mod tests {
             "entry must be reactivated with valid score"
         );
         assert_eq!(
-            registry.get_selection_cost_at(
-                database_scope,
-                100,
-                0,
-                endpoint_address,
-                reactivate_time
-            ),
+            registry.selection_cost_at(database_scope, 100, 0, endpoint_address, reactivate_time),
             20_000.0,
             "reactivated tracker must reflect the new measurement"
         );

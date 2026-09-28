@@ -18,8 +18,6 @@
 //! that preserves lexicographic ordering. The encoding supports both increasing (ascending)
 //! and decreasing (descending) sort orders.
 
-#![allow(dead_code)]
-
 use crate::Result;
 
 const IS_KEY: u8 = 0x80;
@@ -66,6 +64,7 @@ const TIMESTAMP_SECONDS_OFFSET: i64 = i64::MIN;
 ///
 /// Finds the rightmost byte not equal to `0xFF`, increments it by 1, and truncates
 /// any trailing bytes. Does nothing if `key` is empty or all bytes are `0xFF`.
+#[cfg(test)]
 pub(crate) fn make_prefix_successor_in_place(key: &mut Vec<u8>) {
     for i in (0..key.len()).rev() {
         if key[i] != 0xFF {
@@ -80,6 +79,7 @@ pub(crate) fn make_prefix_successor_in_place(key: &mut Vec<u8>) {
 ///
 /// Returns the smallest possible key that is lexicographically larger than `key`
 /// and does not have `key` as a prefix.
+#[cfg(test)]
 pub(crate) fn make_prefix_successor(key: &[u8]) -> Vec<u8> {
     let mut result = key.to_vec();
     make_prefix_successor_in_place(&mut result);
