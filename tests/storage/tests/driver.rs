@@ -150,6 +150,12 @@ mod storage {
     #[tokio::test(flavor = "multi_thread")]
     async fn run_storage_control_rapid_cache() -> anyhow::Result<()> {
         let _guard = enable_tracing();
+        if std::env::var("GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT").is_err() {
+            println!(
+                "Skipping Rapid Cache Ultra tests: GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT is not set"
+            );
+            return Ok(());
+        }
         let control = integration_tests_storage::rcu_crud::create_client()
             .await
             .inspect_err(anydump)?;

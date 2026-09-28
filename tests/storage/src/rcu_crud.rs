@@ -29,27 +29,24 @@ use google_cloud_test_utils::runtime_config::zone_id;
 use google_cloud_wkt::{Duration, FieldMask};
 use std::time::Duration as StdDuration;
 
-/// Creates a StorageControl client. Defaults to the Preprod endpoint
-/// (`https://storage-preprod-test-grpc.googleusercontent.com:443`) unless overridden
-/// by `GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT`.
+/// Creates a StorageControl client with retry and backoff policies configured for RCU tests.
+/// If `GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT` is set, overrides the default endpoint.
 pub async fn create_client() -> anyhow::Result<StorageControl> {
-    let endpoint =
-        std::env::var("GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT").unwrap_or_else(|_| {
-            "https://storage-preprod-test-grpc.googleusercontent.com:443".to_string()
-        });
-    println!("StorageControl endpoint: {endpoint}");
-
     let backoff = ExponentialBackoffBuilder::new()
         .with_initial_delay(StdDuration::from_secs(2))
         .with_maximum_delay(StdDuration::from_secs(8))
         .build()?;
 
-    let client = StorageControl::builder()
-        .with_endpoint(&endpoint)
+    let mut builder = StorageControl::builder()
         .with_backoff_policy(backoff)
-        .with_retry_policy(RetryableErrors.with_attempt_limit(5))
-        .build()
-        .await?;
+        .with_retry_policy(RetryableErrors.with_attempt_limit(5));
+
+    if let Ok(endpoint) = std::env::var("GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT") {
+        println!("StorageControl endpoint: {endpoint}");
+        builder = builder.with_endpoint(&endpoint);
+    }
+
+    let client = builder.build().await?;
 
     Ok(client)
 }
