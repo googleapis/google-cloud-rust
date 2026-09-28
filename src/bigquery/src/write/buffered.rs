@@ -44,12 +44,12 @@ where
         }
     }
 
-    /// Return the full resource name of the underlying write stream.
+    /// Returns the full resource name of the underlying write stream.
     pub fn write_stream(&self) -> &str {
         &self.inner.write_stream
     }
 
-    /// Append rows to the buffered stream.
+    /// Appends rows to the buffered stream.
     pub fn append(&self, rows: F::Rows) -> AppendWithOffset {
         AppendWithOffset::new(
             self.inner.runner.req_tx.clone(),
@@ -92,7 +92,7 @@ where
             .await
     }
 
-    /// Finalize the buffered stream, preventing further writes.
+    /// Finalizes the buffered stream, preventing further writes.
     pub async fn finalize(&self) -> Result<FinalizeWriteStreamResponse> {
         self.inner.finalize().await
     }

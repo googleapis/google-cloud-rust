@@ -63,6 +63,9 @@ where
     }
 
     /// Commits the pending stream to the table.
+    ///
+    /// The stream must be finalized via [`finalize`][Self::finalize] before
+    /// calling `commit`.
     pub async fn commit(
         &self,
     ) -> std::result::Result<BatchCommitWriteStreamsResponse, CommitError> {

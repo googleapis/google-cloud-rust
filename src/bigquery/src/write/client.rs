@@ -50,6 +50,9 @@ impl Write {
 
     /// Opens the [default stream] for the given table.
     ///
+    /// `table` must have the format
+    /// `projects/{project}/datasets/{dataset}/tables/{table}`.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery::client::Write;
@@ -78,6 +81,9 @@ impl Write {
     }
 
     /// Creates a new [application-created stream] for the given table.
+    ///
+    /// `table` must have the format
+    /// `projects/{project}/datasets/{dataset}/tables/{table}`.
     ///
     /// The stream type `S` can be inferred from the variable's writer type
     /// annotation
@@ -117,6 +123,9 @@ impl Write {
     }
 
     /// Attaches a writer to an existing [application-created stream].
+    ///
+    /// `write_stream` must have the format
+    /// `projects/{project}/datasets/{dataset}/tables/{table}/streams/{stream}`.
     ///
     /// The stream type `S` can be inferred from the variable's writer type
     /// annotation

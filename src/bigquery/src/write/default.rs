@@ -54,7 +54,7 @@ where
         }
     }
 
-    /// Append rows to the stream.
+    /// Appends rows to the stream.
     pub fn append(&self, rows: F::Rows) -> Append {
         let req = self.format.make_request(&self.write_stream, rows);
         Append::new(self.inner.clone(), req)

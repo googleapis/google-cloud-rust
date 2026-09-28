@@ -30,7 +30,7 @@ use std::time::Duration;
 /// # async fn sample() -> anyhow::Result<()> {
 /// let builder = Write::builder();
 /// let client = builder
-///     .with_endpoint("https://bigquerystoragewrite.googleapis.com")
+///     .with_endpoint("https://bigquerystorage.googleapis.com")
 ///     .build()
 ///     .await?;
 /// # Ok(()) }
@@ -114,7 +114,7 @@ impl ClientBuilder {
     /// let client = Write::builder()
     ///     .with_credentials(
     ///         mds::Builder::default()
-    ///             .with_scopes(["https://www.googleapis.com/auth/cloud-platform.read-only"])
+    ///             .with_scopes(["https://www.googleapis.com/auth/bigquery"])
     ///             .build()?)
     ///     .build()
     ///     .await?;
