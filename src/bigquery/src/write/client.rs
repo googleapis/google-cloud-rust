@@ -112,7 +112,7 @@ impl Write {
         WriterBuilder::new_create(self.inner.clone(), self.retry_options.clone(), table.into())
     }
 
-    /// Attaches to an existing [application-created stream].
+    /// Attaches a writer to an existing [application-created stream].
     ///
     /// The stream type `S` can be inferred from the variable's writer type
     /// annotation
