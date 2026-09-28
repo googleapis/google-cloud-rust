@@ -15,6 +15,7 @@
 pub mod bidi_read;
 #[cfg(google_cloud_unstable_storage_bidi)]
 pub mod bidi_write;
+pub mod rcu_crud;
 pub mod read_object;
 pub mod write_object;
 
