@@ -114,7 +114,7 @@ impl ClientBuilder {
     /// let client = Write::builder()
     ///     .with_credentials(
     ///         mds::Builder::default()
-    ///             .with_scopes(["https://www.googleapis.com/auth/cloud-platform.read-only"])
+    ///             .with_scopes(["https://www.googleapis.com/auth/bigquery"])
     ///             .build()?)
     ///     .build()
     ///     .await?;
