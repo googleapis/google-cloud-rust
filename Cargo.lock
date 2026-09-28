@@ -6015,7 +6015,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-wkt"
-version = "1.8.0"
+version = "1.9.0"
 dependencies = [
  "anyhow",
  "base64 0.23.1",
