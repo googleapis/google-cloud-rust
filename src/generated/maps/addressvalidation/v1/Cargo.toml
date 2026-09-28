@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-maps-addressvalidation-v1"
-version                = "1.0.0"
+version                = "1.1.0"
 description            = "Google Cloud Client Libraries for Rust - Address Validation API"
 edition.workspace      = true
 authors.workspace      = true

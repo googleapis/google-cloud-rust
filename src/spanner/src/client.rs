@@ -16,8 +16,8 @@ use crate::ClientBuilderResult;
 use crate::RequestOptions;
 use crate::Result;
 use crate::channel_pool::{
-    ChannelLease, ChannelPool, ChannelPoolConfig, DynamicChannelPoolConfig,
-    StaticChannelPoolConfig, TransactionAffinity,
+    ChannelLease, ChannelPool, ChannelPoolConfig, ChannelTarget, DynamicChannelPoolConfig,
+    StaticChannelPoolConfig,
 };
 use crate::generated::gapic_dataplane::client::Spanner as GapicSpanner;
 use crate::model::{
@@ -49,10 +49,7 @@ use http::{
     header::{HeaderName, HeaderValue},
 };
 use std::env;
-use std::sync::{
-    Arc,
-    atomic::{AtomicUsize, Ordering},
-};
+use std::sync::Arc;
 use tokio::task::JoinSet;
 
 pub use crate::database_client::DatabaseClient;
@@ -72,9 +69,7 @@ use opentelemetry::metrics::MeterProvider;
 /// [Spanner]: https://docs.cloud.google.com/spanner/docs
 #[derive(Clone, Debug)]
 pub struct Spanner {
-    pub(crate) channel_pool: ChannelPool,
-    pub(crate) channels: Vec<Channel>,
-    pub(crate) counter: Arc<AtomicUsize>,
+    channel_pool: ChannelPool,
     pub(crate) config: ClientConfig,
     pub(crate) is_emulator: bool,
     pub(crate) instance_type: InstanceType,
@@ -123,7 +118,7 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
         }
 
         let pool_config = resolve_pool_config(&mut config, is_emulator)?;
-        let (channel_pool, channels) = create_channel_pool(&config, pool_config).await?;
+        let channel_pool = create_channel_pool(&config, pool_config).await?;
 
         #[cfg(feature = "builtin-metrics")]
         let export_builtin_metrics_to_cloud_monitoring = config
@@ -137,8 +132,6 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
 
         Ok(Spanner {
             channel_pool,
-            channels,
-            counter: Arc::new(AtomicUsize::new(0)),
             config,
             is_emulator,
             instance_type,
@@ -158,6 +151,24 @@ pub type ClientBuilder = google_cloud_gax::client_builder::ClientBuilder<Factory
 
 /// Extension trait for [`ClientBuilder`] (also exported as `SpannerBuilder`) to configure Spanner-specific options.
 pub trait SpannerBuilderExt {
+    /// Configures the gRPC channel pool for the Spanner client.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Spanner, SpannerBuilderExt};
+    /// # use google_cloud_spanner::channel_pool::DynamicChannelPoolConfig;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Spanner::builder()
+    ///     .with_channel_pool(DynamicChannelPoolConfig::new())
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// Accepts any configuration convertible into [`ChannelPoolConfig`], such as
+    /// [`StaticChannelPoolConfig`] or [`DynamicChannelPoolConfig`].
+    fn with_channel_pool<C: Into<ChannelPoolConfig>>(self, pool_config: C) -> Self;
+
     /// Sets the target [`InstanceType`] (`Cloud` vs `Omni`) for the Spanner client.
     ///
     /// # Example
@@ -323,6 +334,10 @@ struct ExportBuiltinMetricsToCloudMonitoring(bool);
 struct ExportBuiltinMetricsToCustomProvider(bool);
 
 impl SpannerBuilderExt for ClientBuilder {
+    fn with_channel_pool<C: Into<ChannelPoolConfig>>(self, pool_config: C) -> Self {
+        self.with_extension(pool_config.into())
+    }
+
     fn with_instance_type(self, instance_type: InstanceType) -> Self {
         self.with_extension(instance_type)
     }
@@ -345,19 +360,6 @@ impl SpannerBuilderExt for ClientBuilder {
     #[cfg(feature = "builtin-metrics")]
     fn with_export_builtin_metrics_to_cloud_monitoring(self, export: bool) -> Self {
         self.with_extension(ExportBuiltinMetricsToCloudMonitoring(export))
-    }
-}
-
-/// Builder extension trait for channel pool configuration.
-#[allow(dead_code)]
-pub(crate) trait SpannerPoolBuilderExt {
-    /// Configures the gRPC channel pool for the Spanner client.
-    fn with_channel_pool<C: Into<ChannelPoolConfig>>(self, pool_config: C) -> Self;
-}
-
-impl SpannerPoolBuilderExt for ClientBuilder {
-    fn with_channel_pool<C: Into<ChannelPoolConfig>>(self, pool_config: C) -> Self {
-        self.with_extension(pool_config.into())
     }
 }
 
@@ -412,15 +414,26 @@ fn resolve_pool_config(
     config: &mut ClientConfig,
     is_emulator: bool,
 ) -> ClientBuilderResult<ChannelPoolConfig> {
-    resolve_pool_config_with(config, is_emulator, || {
-        env::var("SPANNER_NUM_CHANNELS").ok()
-    })
+    resolve_pool_config_with(
+        config,
+        is_emulator,
+        || env::var("SPANNER_NUM_CHANNELS").ok(),
+        || env::var("SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL").ok(),
+    )
+}
+
+fn is_truthy(val: &str) -> bool {
+    matches!(
+        val.trim().to_ascii_lowercase().as_str(),
+        "true" | "1" | "yes" | "on" | "t"
+    )
 }
 
 fn resolve_pool_config_with(
     config: &mut ClientConfig,
     is_emulator: bool,
-    env_lookup: impl FnOnce() -> Option<String>,
+    num_channels_lookup: impl FnOnce() -> Option<String>,
+    dynamic_pool_lookup: impl FnOnce() -> Option<String>,
 ) -> ClientBuilderResult<ChannelPoolConfig> {
     if let Some(pool_config) = config.extensions.remove::<ChannelPoolConfig>() {
         let pool_config = Arc::unwrap_or_clone(pool_config);
@@ -443,14 +456,38 @@ fn resolve_pool_config_with(
         dynamic_config.validate().map_err(BuilderError::transport)?;
         return Ok(ChannelPoolConfig::Dynamic(dynamic_config));
     }
-    if let Some(num_channels_str) = env_lookup() {
-        let trimmed = num_channels_str.trim();
-        if !trimmed.is_empty() {
-            let num_channels = trimmed.parse::<usize>().map_err(BuilderError::transport)?;
-            let static_config = StaticChannelPoolConfig::new(num_channels);
-            static_config.validate().map_err(BuilderError::transport)?;
-            return Ok(ChannelPoolConfig::Static(static_config));
+    let enable_dynamic = dynamic_pool_lookup()
+        .as_deref()
+        .map(is_truthy)
+        .unwrap_or(false);
+
+    let num_channels = match num_channels_lookup() {
+        Some(value) => {
+            let trimmed = value.trim();
+            if trimmed.is_empty() {
+                None
+            } else {
+                Some(trimmed.parse::<usize>().map_err(BuilderError::transport)?)
+            }
         }
+        None => None,
+    };
+
+    if enable_dynamic {
+        let mut dynamic_config = DynamicChannelPoolConfig::default();
+        if let Some(channels) = num_channels {
+            dynamic_config = dynamic_config
+                .with_initial_channels(channels)
+                .with_min_channels(channels);
+        }
+        dynamic_config.validate().map_err(BuilderError::transport)?;
+        return Ok(ChannelPoolConfig::Dynamic(dynamic_config));
+    }
+
+    if let Some(channels) = num_channels {
+        let static_config = StaticChannelPoolConfig::new(channels);
+        static_config.validate().map_err(BuilderError::transport)?;
+        return Ok(ChannelPoolConfig::Static(static_config));
     }
     if is_emulator {
         return Ok(ChannelPoolConfig::Static(StaticChannelPoolConfig::new(1)));
@@ -461,7 +498,7 @@ fn resolve_pool_config_with(
 async fn create_channel_pool(
     config: &ClientConfig,
     pool_config: ChannelPoolConfig,
-) -> ClientBuilderResult<(ChannelPool, Vec<Channel>)> {
+) -> ClientBuilderResult<ChannelPool> {
     let num_initial = match &pool_config {
         ChannelPoolConfig::Static(static_config) => static_config.num_channels,
         ChannelPoolConfig::Dynamic(dynamic_config) => dynamic_config.initial_channels,
@@ -482,13 +519,13 @@ async fn create_channel_pool(
 
     let pool = match pool_config {
         ChannelPoolConfig::Static(static_config) => {
-            ChannelPool::new_static(channels.clone(), static_config, config.clone())
+            ChannelPool::new_static(channels, static_config, config.clone())
         }
         ChannelPoolConfig::Dynamic(dynamic_config) => {
-            ChannelPool::new_dynamic(channels.clone(), dynamic_config, config.clone())
+            ChannelPool::new_dynamic(channels, dynamic_config, config.clone())
         }
     };
-    Ok((pool, channels))
+    Ok(pool)
 }
 
 #[cfg(feature = "metrics")]
@@ -666,6 +703,12 @@ impl Spanner {
         crate::builder::DatabaseClientBuilder::new(self.clone(), database.into())
     }
 
+    /// Returns the number of currently active channels in the client's channel pool.
+    #[cfg(test)]
+    pub(crate) fn active_channel_count(&self) -> usize {
+        self.channel_pool.active_channel_count()
+    }
+
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
@@ -682,14 +725,12 @@ impl Spanner {
             channel_id: 1,
         };
         let channel_pool = ChannelPool::new_static(
-            vec![channel.clone()],
+            vec![channel],
             StaticChannelPoolConfig::new(1),
             ClientConfig::default(),
         );
         Self {
             channel_pool,
-            channels: vec![channel],
-            counter: Arc::new(AtomicUsize::new(0)),
             config: ClientConfig::default(),
             is_emulator: false,
             instance_type: InstanceType::Cloud,
@@ -731,9 +772,18 @@ impl Spanner {
         self.instance_type
     }
 
-    #[allow(dead_code)]
+    #[cfg(test)]
     pub(crate) fn channel_pool(&self) -> &ChannelPool {
         &self.channel_pool
+    }
+
+    /// Returns the default primary channel from the pool.
+    ///
+    /// Used in production to seed Location-Aware Routing (LAR) with a default
+    /// fallback server connection before dynamic node routing is resolved, as well
+    /// as in test stubs to access the underlying gRPC client.
+    pub(crate) fn default_channel(&self) -> Option<Channel> {
+        self.channel_pool.default_channel()
     }
 
     pub(crate) fn pick_channel(&self) -> ChannelLease {
@@ -742,20 +792,15 @@ impl Spanner {
             .expect("channel pool must have active channels")
     }
 
-    #[allow(dead_code)]
-    pub(crate) fn resolve_affinity(&self, affinity: &TransactionAffinity) -> ChannelLease {
+    pub(crate) fn pick_channel_for_target(&self, target: &ChannelTarget<'_>) -> ChannelLease {
         self.channel_pool
-            .resolve_affinity(affinity)
+            .pick_channel_for_target(target)
             .expect("channel pool must have active channels")
     }
 
-    pub(crate) fn get_channel(&self, hint: usize) -> &Channel {
-        let idx = hint % self.channels.len();
-        &self.channels[idx]
-    }
-
-    pub(crate) fn next_channel_hint(&self) -> usize {
-        self.counter.fetch_add(1, Ordering::Relaxed)
+    /// Sets the multiplexed session name used for scale-up channel priming.
+    pub(crate) fn set_prime_session(&self, session_name: String) {
+        self.channel_pool.set_prime_session(session_name);
     }
 
     pub(crate) fn attach_request_id(
@@ -961,6 +1006,7 @@ impl Channel {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::channel_pool::TransactionAffinity;
     use crate::model::CreateSessionRequest;
     use crate::read::ReadRequest;
     use crate::result_set::tests::adapt;
@@ -1002,12 +1048,6 @@ mod tests {
         assert_not_impl_any!(Spanner: RefUnwindSafe, UnwindSafe);
     }
 
-    impl Spanner {
-        fn channel_count(&self) -> usize {
-            self.channel_pool.active_channel_count()
-        }
-    }
-
     #[tokio_test_no_panics]
     #[serial]
     async fn channel_pool_default_size() {
@@ -1024,7 +1064,7 @@ mod tests {
             .expect("Failed to build client");
 
         let expected_channels = if client.is_emulator() { 1 } else { 4 };
-        assert_eq!(client.channel_count(), expected_channels);
+        assert_eq!(client.active_channel_count(), expected_channels);
     }
 
     #[test]
@@ -1052,33 +1092,6 @@ mod tests {
             map_emulator_admin_endpoint("http://localhost:9010", false),
             "http://localhost:9010"
         );
-    }
-
-    #[tokio_test_no_panics]
-    async fn channel_selection() {
-        let mock = MockSpanner::new();
-        let (address, _server) = start("0.0.0.0:0", mock)
-            .await
-            .expect("Failed to start mock server");
-
-        let client = Spanner::builder()
-            .with_endpoint(address)
-            .with_credentials(Anonymous::new().build())
-            .build()
-            .await
-            .expect("Failed to build client");
-
-        let hint0 = client.next_channel_hint();
-        let hint1 = client.next_channel_hint();
-        let hint2 = client.next_channel_hint();
-        let hint3 = client.next_channel_hint();
-        let hint4 = client.next_channel_hint();
-
-        assert_eq!(hint0 % 4, 0);
-        assert_eq!(hint1 % 4, 1);
-        assert_eq!(hint2 % 4, 2);
-        assert_eq!(hint3 % 4, 3);
-        assert_eq!(hint4 % 4, 0);
     }
 
     #[tokio_test_no_panics]
@@ -1113,12 +1126,11 @@ mod tests {
             "projects/test-project/instances/test-instance/databases/test-db".to_string();
 
         let session = client
-            .create_session(
-                req,
-                crate::RequestOptions::default(),
-                &client.pick_channel(),
-                &Observability::disabled_arc(),
-            )
+            .pick_channel()
+            .inner
+            .create_session()
+            .with_request(req)
+            .send()
             .await
             .expect("Failed to call create_session");
 
@@ -1172,7 +1184,7 @@ mod tests {
             "projects/test-project/instances/test-instance/databases/test-db".to_string();
 
         let session = client
-            .get_channel(client.next_channel_hint())
+            .pick_channel()
             .inner
             .create_session()
             .with_request(req)
@@ -2357,16 +2369,15 @@ mod tests {
             .expect("Failed to build client");
 
         assert_eq!(
-            client.channel_count(),
+            client.active_channel_count(),
             4,
             "default pool size should be 4 channels"
         );
 
-        // Test with a channel_hint that is larger than the pool size (e.g., hint = 7).
-        // get_channel(7) maps to channel at index (7 % 4 = 3), which has 1-based channel_id 4.
-        let channel = client.get_channel(7);
+        let lease = client.pick_channel();
+        let channel_id = lease.channel().channel_id;
         let options = crate::RequestOptions::default();
-        let options = client.attach_request_id(options, channel.channel_id);
+        let options = client.attach_request_id(options, channel_id);
         let headers = options
             .get_extension::<HeaderMap>()
             .expect("HeaderMap should be present");
@@ -2376,11 +2387,10 @@ mod tests {
             .to_str()
             .expect("should be valid ASCII");
 
-        // With 4 channels and hint = 7: (7 % 4) + 1 = 3 + 1 = 4.
-        // So the prefix should contain ".4." for channel ID 4.
+        let expected_segment = format!(".{channel_id}.");
         assert!(
-            val.contains(".4."),
-            "Request ID should contain channel ID 4 for hint 7 with pool size 4, got {val}"
+            val.contains(&expected_segment),
+            "Request ID should contain channel ID {channel_id}, got {val}"
         );
     }
 
@@ -2398,7 +2408,8 @@ mod tests {
             .await
             .expect("Failed to build client");
 
-        let channel = client.get_channel(0);
+        let lease = client.pick_channel();
+        let channel = lease.channel();
         let mut options = crate::RequestOptions::default();
         options = client.attach_request_id(options, channel.channel_id);
         let first_headers = options
@@ -2795,7 +2806,7 @@ mod tests {
             .expect("Failed to build client");
 
         assert_eq!(
-            client.channel_count(),
+            client.active_channel_count(),
             2,
             "Client should have exactly 2 channels configured"
         );
@@ -2837,7 +2848,7 @@ mod tests {
             .expect("Failed to build client");
 
         assert_eq!(
-            client.channel_count(),
+            client.active_channel_count(),
             3,
             "Client should have 3 initial channels configured"
         );
@@ -2910,7 +2921,7 @@ mod tests {
         let client = Spanner::from_stub(DummyStub);
 
         assert_eq!(
-            client.channel_count(),
+            client.active_channel_count(),
             1,
             "Client from stub should have exactly 1 channel"
         );
@@ -2947,17 +2958,17 @@ mod tests {
             .expect("Failed to build client");
 
         let affinity = TransactionAffinity::new_read_write();
-        let lease1 = client.resolve_affinity(&affinity);
+        let lease1 = client.pick_channel_for_target(&ChannelTarget::Affinity(&affinity));
         let channel_id_1 = lease1.channel_id;
         drop(lease1);
 
-        let lease2 = client.resolve_affinity(&affinity);
+        let lease2 = client.pick_channel_for_target(&ChannelTarget::Affinity(&affinity));
         let channel_id_2 = lease2.channel_id;
         drop(lease2);
 
         assert_eq!(
             channel_id_1, channel_id_2,
-            "resolve_affinity should return the same channel for the same affinity"
+            "pick_channel_for_target should return the same channel for the same affinity"
         );
     }
 
@@ -2965,7 +2976,7 @@ mod tests {
     fn resolve_pool_config() {
         // Case 1: Default when no env var and no override
         let mut config = ClientConfig::default();
-        let pool_config = resolve_pool_config_with(&mut config, false, || None)
+        let pool_config = resolve_pool_config_with(&mut config, false, || None, || None)
             .expect("default pool config should resolve");
         assert_eq!(
             pool_config,
@@ -2975,7 +2986,7 @@ mod tests {
 
         // Case 2: Emulator defaults to 1 channel when SPANNER_NUM_CHANNELS is not set
         let mut config = ClientConfig::default();
-        let pool_config = resolve_pool_config_with(&mut config, true, || None)
+        let pool_config = resolve_pool_config_with(&mut config, true, || None, || None)
             .expect("emulator pool config should resolve to default 1 channel");
         assert_eq!(
             pool_config,
@@ -2985,8 +2996,9 @@ mod tests {
 
         // Case 2b: SPANNER_NUM_CHANNELS overrides emulator default
         let mut config = ClientConfig::default();
-        let pool_config = resolve_pool_config_with(&mut config, true, || Some("8".to_string()))
-            .expect("emulator pool config with env var override should resolve");
+        let pool_config =
+            resolve_pool_config_with(&mut config, true, || Some("8".to_string()), || None)
+                .expect("emulator pool config with env var override should resolve");
         assert_eq!(
             pool_config,
             ChannelPoolConfig::Static(StaticChannelPoolConfig { num_channels: 8 }),
@@ -2995,8 +3007,9 @@ mod tests {
 
         // Case 3: SPANNER_NUM_CHANNELS valid integer
         let mut config = ClientConfig::default();
-        let pool_config = resolve_pool_config_with(&mut config, false, || Some("2".to_string()))
-            .expect("pool config with SPANNER_NUM_CHANNELS=2 should resolve");
+        let pool_config =
+            resolve_pool_config_with(&mut config, false, || Some("2".to_string()), || None)
+                .expect("pool config with SPANNER_NUM_CHANNELS=2 should resolve");
         assert_eq!(
             pool_config,
             ChannelPoolConfig::Static(StaticChannelPoolConfig { num_channels: 2 }),
@@ -3005,9 +3018,13 @@ mod tests {
 
         // Case 4: SPANNER_NUM_CHANNELS unparsable integer string
         let mut config = ClientConfig::default();
-        let error =
-            resolve_pool_config_with(&mut config, false, || Some("not_a_number".to_string()))
-                .expect_err("should fail when SPANNER_NUM_CHANNELS is not a valid integer");
+        let error = resolve_pool_config_with(
+            &mut config,
+            false,
+            || Some("not_a_number".to_string()),
+            || None,
+        )
+        .expect_err("should fail when SPANNER_NUM_CHANNELS is not a valid integer");
         let debug_error = format!("{error:?}");
         assert!(
             debug_error.contains("InvalidDigit"),
@@ -3016,7 +3033,7 @@ mod tests {
 
         // Case 5: SPANNER_NUM_CHANNELS zero (validation failure)
         let mut config = ClientConfig::default();
-        let error = resolve_pool_config_with(&mut config, false, || Some("0".to_string()))
+        let error = resolve_pool_config_with(&mut config, false, || Some("0".to_string()), || None)
             .expect_err("should fail when SPANNER_NUM_CHANNELS is 0");
         let debug_error = format!("{error:?}");
         assert!(
@@ -3031,8 +3048,9 @@ mod tests {
             .insert(ChannelPoolConfig::Static(StaticChannelPoolConfig {
                 num_channels: 10,
             }));
-        let pool_config = resolve_pool_config_with(&mut config, false, || Some("2".to_string()))
-            .expect("extension override should resolve");
+        let pool_config =
+            resolve_pool_config_with(&mut config, false, || Some("2".to_string()), || None)
+                .expect("extension override should resolve");
         assert_eq!(
             pool_config,
             ChannelPoolConfig::Static(StaticChannelPoolConfig { num_channels: 10 }),
@@ -3046,8 +3064,9 @@ mod tests {
             .insert(ChannelPoolConfig::Static(StaticChannelPoolConfig {
                 num_channels: 8,
             }));
-        let pool_config = resolve_pool_config_with(&mut config, true, || Some("2".to_string()))
-            .expect("extension override should resolve even on emulator");
+        let pool_config =
+            resolve_pool_config_with(&mut config, true, || Some("2".to_string()), || None)
+                .expect("extension override should resolve even on emulator");
         assert_eq!(
             pool_config,
             ChannelPoolConfig::Static(StaticChannelPoolConfig { num_channels: 8 }),
@@ -3056,8 +3075,9 @@ mod tests {
 
         // Case 8: SPANNER_NUM_CHANNELS empty or whitespace string falls back to default
         let mut config = ClientConfig::default();
-        let pool_config = resolve_pool_config_with(&mut config, false, || Some("   ".to_string()))
-            .expect("whitespace SPANNER_NUM_CHANNELS should resolve to default");
+        let pool_config =
+            resolve_pool_config_with(&mut config, false, || Some("   ".to_string()), || None)
+                .expect("whitespace SPANNER_NUM_CHANNELS should resolve to default");
         assert_eq!(
             pool_config,
             ChannelPoolConfig::Static(StaticChannelPoolConfig { num_channels: 4 }),
@@ -3070,8 +3090,9 @@ mod tests {
         config
             .extensions
             .insert(ChannelPoolConfig::Dynamic(dynamic_config.clone()));
-        let pool_config = resolve_pool_config_with(&mut config, false, || Some("2".to_string()))
-            .expect("dynamic extension override should resolve");
+        let pool_config =
+            resolve_pool_config_with(&mut config, false, || Some("2".to_string()), || None)
+                .expect("dynamic extension override should resolve");
         assert_eq!(
             pool_config,
             ChannelPoolConfig::Dynamic(dynamic_config),
@@ -3083,8 +3104,9 @@ mod tests {
         config
             .extensions
             .insert(StaticChannelPoolConfig { num_channels: 6 });
-        let pool_config = resolve_pool_config_with(&mut config, false, || Some("2".to_string()))
-            .expect("static struct extension override should resolve");
+        let pool_config =
+            resolve_pool_config_with(&mut config, false, || Some("2".to_string()), || None)
+                .expect("static struct extension override should resolve");
         assert_eq!(
             pool_config,
             ChannelPoolConfig::Static(StaticChannelPoolConfig { num_channels: 6 }),
@@ -3095,8 +3117,9 @@ mod tests {
         let mut config = ClientConfig::default();
         let dynamic_config = DynamicChannelPoolConfig::default();
         config.extensions.insert(dynamic_config.clone());
-        let pool_config = resolve_pool_config_with(&mut config, false, || Some("2".to_string()))
-            .expect("dynamic struct extension override should resolve");
+        let pool_config =
+            resolve_pool_config_with(&mut config, false, || Some("2".to_string()), || None)
+                .expect("dynamic struct extension override should resolve");
         assert_eq!(
             pool_config,
             ChannelPoolConfig::Dynamic(dynamic_config),
@@ -3108,8 +3131,9 @@ mod tests {
         config.extensions.insert(Arc::new(ChannelPoolConfig::Static(
             StaticChannelPoolConfig { num_channels: 7 },
         )));
-        let pool_config = resolve_pool_config_with(&mut config, false, || Some("2".to_string()))
-            .expect("Arc<ChannelPoolConfig> extension override should resolve");
+        let pool_config =
+            resolve_pool_config_with(&mut config, false, || Some("2".to_string()), || None)
+                .expect("Arc<ChannelPoolConfig> extension override should resolve");
         assert_eq!(
             pool_config,
             ChannelPoolConfig::Static(StaticChannelPoolConfig { num_channels: 7 }),
@@ -3121,7 +3145,7 @@ mod tests {
         config
             .extensions
             .insert(StaticChannelPoolConfig { num_channels: 0 });
-        let error = resolve_pool_config_with(&mut config, false, || None)
+        let error = resolve_pool_config_with(&mut config, false, || None, || None)
             .expect_err("should fail when StaticChannelPoolConfig in extensions is invalid");
         let debug_error = format!("{error:?}");
         assert!(
@@ -3136,7 +3160,7 @@ mod tests {
             ..Default::default()
         };
         config.extensions.insert(invalid_dynamic);
-        let error = resolve_pool_config_with(&mut config, false, || None)
+        let error = resolve_pool_config_with(&mut config, false, || None, || None)
             .expect_err("should fail when DynamicChannelPoolConfig in extensions is invalid");
         let debug_error = format!("{error:?}");
         assert!(
@@ -3149,12 +3173,152 @@ mod tests {
         config.extensions.insert(Arc::new(ChannelPoolConfig::Static(
             StaticChannelPoolConfig { num_channels: 0 },
         )));
-        let error = resolve_pool_config_with(&mut config, false, || None)
+        let error = resolve_pool_config_with(&mut config, false, || None, || None)
             .expect_err("should fail when Arc<ChannelPoolConfig> in extensions is invalid");
         let debug_error = format!("{error:?}");
         assert!(
             debug_error.contains("num_channels must be at least 1"),
             "error should indicate invalid channels: {debug_error}"
+        );
+
+        // Case 16: SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL=true resolves to default dynamic pool
+        let mut config = ClientConfig::default();
+        let pool_config =
+            resolve_pool_config_with(&mut config, false, || None, || Some("true".to_string()))
+                .expect("SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL=true should resolve");
+        assert_eq!(
+            pool_config,
+            ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
+            "SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL=true should produce default dynamic pool"
+        );
+
+        // Case 17: SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL accepts truthy values ("1", "yes", "on", "t")
+        for truthy in ["1", "yes", "on", "t", "TRUE", "Yes "] {
+            let mut config = ClientConfig::default();
+            let pool_config =
+                resolve_pool_config_with(&mut config, false, || None, || Some(truthy.to_string()))
+                    .expect("truthy value should resolve");
+            assert_eq!(
+                pool_config,
+                ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
+                "'{truthy}' must enable dynamic channel pool"
+            );
+        }
+
+        // Case 18: SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL=false falls back to default static pool
+        let mut config = ClientConfig::default();
+        let pool_config =
+            resolve_pool_config_with(&mut config, false, || None, || Some("false".to_string()))
+                .expect("SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL=false should resolve");
+        assert_eq!(
+            pool_config,
+            ChannelPoolConfig::Static(StaticChannelPoolConfig::default()),
+            "SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL=false should fall back to static pool"
+        );
+
+        // Case 19: Programmatic static configuration takes precedence over SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL=true
+        let mut config = ClientConfig::default();
+        config.extensions.insert(StaticChannelPoolConfig::new(2));
+        let pool_config =
+            resolve_pool_config_with(&mut config, false, || None, || Some("true".to_string()))
+                .expect("programmatic override should resolve");
+        assert_eq!(
+            pool_config,
+            ChannelPoolConfig::Static(StaticChannelPoolConfig { num_channels: 2 }),
+            "programmatic static config takes precedence over SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL"
+        );
+
+        // Case 20: Programmatic dynamic configuration takes precedence over SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL=false
+        let mut config = ClientConfig::default();
+        let custom_dynamic = DynamicChannelPoolConfig::new().with_min_channels(2);
+        config.extensions.insert(custom_dynamic.clone());
+        let pool_config =
+            resolve_pool_config_with(&mut config, false, || None, || Some("false".to_string()))
+                .expect("programmatic dynamic override should resolve");
+        assert_eq!(
+            pool_config,
+            ChannelPoolConfig::Dynamic(custom_dynamic),
+            "programmatic dynamic config takes precedence over SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL"
+        );
+
+        // Case 21: SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL=true with SPANNER_NUM_CHANNELS=8
+        let mut config = ClientConfig::default();
+        let pool_config = resolve_pool_config_with(
+            &mut config,
+            false,
+            || Some("8".to_string()),
+            || Some("true".to_string()),
+        )
+        .expect("dynamic pool with custom channels should resolve");
+        assert_eq!(
+            pool_config,
+            ChannelPoolConfig::Dynamic(
+                DynamicChannelPoolConfig::default()
+                    .with_initial_channels(8)
+                    .with_min_channels(8)
+            ),
+            "SPANNER_NUM_CHANNELS sets initial and min channels when dynamic pool is enabled"
+        );
+
+        // Case 22: SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL=true with SPANNER_NUM_CHANNELS > max_channels (e.g. 300) fails validation
+        let mut config = ClientConfig::default();
+        let error = resolve_pool_config_with(
+            &mut config,
+            false,
+            || Some("300".to_string()),
+            || Some("true".to_string()),
+        )
+        .expect_err("should fail when SPANNER_NUM_CHANNELS exceeds maximum supported limit");
+        let debug_error = format!("{error:?}");
+        assert!(
+            debug_error.contains("max_channels cannot exceed maximum supported limit")
+                || debug_error.contains("min_channels"),
+            "error should indicate max_channels limit exceeded: {debug_error}"
+        );
+
+        // Case 23: SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL=true with invalid SPANNER_NUM_CHANNELS format
+        let mut config = ClientConfig::default();
+        let error = resolve_pool_config_with(
+            &mut config,
+            false,
+            || Some("invalid_number".to_string()),
+            || Some("true".to_string()),
+        )
+        .expect_err("should fail when SPANNER_NUM_CHANNELS is not a valid integer");
+        let debug_error = format!("{error:?}");
+        assert!(
+            debug_error.contains("InvalidDigit"),
+            "error should indicate invalid integer format: {debug_error}"
+        );
+
+        // Case 24: SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL=true with whitespace SPANNER_NUM_CHANNELS
+        let mut config = ClientConfig::default();
+        let pool_config = resolve_pool_config_with(
+            &mut config,
+            false,
+            || Some("   ".to_string()),
+            || Some("true".to_string()),
+        )
+        .expect("whitespace SPANNER_NUM_CHANNELS should be ignored");
+        assert_eq!(
+            pool_config,
+            ChannelPoolConfig::Dynamic(DynamicChannelPoolConfig::default()),
+            "whitespace SPANNER_NUM_CHANNELS must fall back to default dynamic pool"
+        );
+
+        // Case 25: SPANNER_ENABLE_DYNAMIC_CHANNEL_POOL=true with SPANNER_NUM_CHANNELS=0 fails validation
+        let mut config = ClientConfig::default();
+        let error = resolve_pool_config_with(
+            &mut config,
+            false,
+            || Some("0".to_string()),
+            || Some("true".to_string()),
+        )
+        .expect_err("should fail when dynamic channels configured as 0");
+        let debug_error = format!("{error:?}");
+        assert!(
+            debug_error.contains("min_channels must be at least 1"),
+            "error should indicate invalid channels for dynamic pool: {debug_error}"
         );
     }
 

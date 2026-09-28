@@ -106,6 +106,37 @@ where
     }
 }
 
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct StringEnumVisitor<'lf, T> {
+    name: &'lf str,
+    _unused: PhantomData<T>,
+}
+
+impl<'lf, T> StringEnumVisitor<'lf, T> {
+    pub fn new(name: &'lf str) -> Self {
+        Self {
+            name,
+            _unused: Default::default(),
+        }
+    }
+}
+
+impl<T> serde::de::Visitor<'_> for StringEnumVisitor<'_, T>
+where
+    T: for<'a> From<&'a str>,
+{
+    type Value = T;
+    fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
+    where
+        E: serde::de::Error,
+    {
+        Ok(T::from(value))
+    }
+    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+        formatter.write_str(&format!("a {} enum value in string format", self.name))
+    }
+}
+
 pub fn display_enum(
     f: &mut std::fmt::Formatter<'_>,
     name: Option<&str>,
@@ -249,5 +280,51 @@ mod tests {
     fn display_enum(input: Label, want: &str) {
         let got = format!("{input}");
         assert_eq!(got, want);
+    }
+
+    #[derive(Clone, Debug, PartialEq)]
+    enum FakeStringEnum {
+        Creating,
+        Ready,
+        UnknownValue(String),
+    }
+    impl From<&str> for FakeStringEnum {
+        fn from(value: &str) -> Self {
+            match value {
+                "CREATING" => Self::Creating,
+                "READY" => Self::Ready,
+                x => Self::UnknownValue(x.to_string()),
+            }
+        }
+    }
+    impl<'de> serde::de::Deserialize<'de> for FakeStringEnum {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            let visitor = super::StringEnumVisitor::new(".test.v1.FakeStringEnum");
+            deserializer.deserialize_str(visitor)
+        }
+    }
+
+    #[test_case(json!("CREATING"), FakeStringEnum::Creating)]
+    #[test_case(json!("READY"), FakeStringEnum::Ready)]
+    #[test_case(json!("UNKNOWN"), FakeStringEnum::UnknownValue("UNKNOWN".into()))]
+    fn string_visitor(input: serde_json::Value, want: FakeStringEnum) -> anyhow::Result<()> {
+        let got = serde_json::from_value::<FakeStringEnum>(input)?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(json!(1))]
+    #[test_case(json!({}))]
+    #[test_case(json!(true))]
+    fn string_visitor_invalid_type(input: serde_json::Value) {
+        let got = serde_json::from_value::<FakeStringEnum>(input);
+        assert!(got.is_err(), "{got:?}");
+        assert!(
+            format!("{got:?}").contains(".test.v1.FakeStringEnum"),
+            "{got:?}"
+        );
     }
 }

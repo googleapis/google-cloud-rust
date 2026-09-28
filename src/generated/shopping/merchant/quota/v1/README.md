@@ -27,9 +27,9 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-shopping-merchant-quota-v1/1.0.0)
+- Read the [crate's documentation](https://docs.rs/google-shopping-merchant-quota-v1/1.1.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[AccountLimitsService]: https://docs.rs/google-shopping-merchant-quota-v1/1.0.0/google_shopping_merchant_quota_v1/client/struct.AccountLimitsService.html
-[QuotaService]: https://docs.rs/google-shopping-merchant-quota-v1/1.0.0/google_shopping_merchant_quota_v1/client/struct.QuotaService.html
+[AccountLimitsService]: https://docs.rs/google-shopping-merchant-quota-v1/1.1.0/google_shopping_merchant_quota_v1/client/struct.AccountLimitsService.html
+[QuotaService]: https://docs.rs/google-shopping-merchant-quota-v1/1.1.0/google_shopping_merchant_quota_v1/client/struct.QuotaService.html

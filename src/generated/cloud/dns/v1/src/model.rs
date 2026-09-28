@@ -306,8 +306,7 @@ pub mod change {
         Done,
         /// If set, the enum was initialized with an unknown value.
         ///
-        /// Applications can examine the value using [Status::value] or
-        /// [Status::name].
+        /// Applications can examine the value using [Status::name].
         UnknownValue(status::UnknownValue),
     }
 
@@ -320,22 +319,7 @@ pub mod change {
     }
 
     impl Status {
-        /// Gets the enum value.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the string representation of enums.
-        pub fn value(&self) -> std::option::Option<i32> {
-            match self {
-                Self::Pending => std::option::Option::Some(0),
-                Self::Done => std::option::Option::Some(1),
-                Self::UnknownValue(u) => u.0.value(),
-            }
-        }
-
         /// Gets the enum value as a string.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Pending => std::option::Option::Some("pending"),
@@ -345,28 +329,9 @@ pub mod change {
         }
     }
 
-    impl std::default::Default for Status {
-        fn default() -> Self {
-            use std::convert::From;
-            Self::from(0)
-        }
-    }
-
     impl std::fmt::Display for Status {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-            wkt::internal::display_enum(f, self.name(), self.value())
-        }
-    }
-
-    impl std::convert::From<i32> for Status {
-        fn from(value: i32) -> Self {
-            match value {
-                0 => Self::Pending,
-                1 => Self::Done,
-                _ => Self::UnknownValue(status::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
-            }
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
         }
     }
 
@@ -401,8 +366,9 @@ pub mod change {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer
-                .deserialize_any(wkt::internal::EnumVisitor::<Status>::new("..Change.status"))
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<Status>::new(
+                "..Change.status",
+            ))
         }
     }
 }
@@ -962,8 +928,7 @@ pub mod dns_key {
         Ecdsap384Sha384,
         /// If set, the enum was initialized with an unknown value.
         ///
-        /// Applications can examine the value using [Algorithm::value] or
-        /// [Algorithm::name].
+        /// Applications can examine the value using [Algorithm::name].
         UnknownValue(algorithm::UnknownValue),
     }
 
@@ -976,25 +941,7 @@ pub mod dns_key {
     }
 
     impl Algorithm {
-        /// Gets the enum value.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the string representation of enums.
-        pub fn value(&self) -> std::option::Option<i32> {
-            match self {
-                Self::Rsasha1 => std::option::Option::Some(0),
-                Self::Rsasha256 => std::option::Option::Some(1),
-                Self::Rsasha512 => std::option::Option::Some(2),
-                Self::Ecdsap256Sha256 => std::option::Option::Some(3),
-                Self::Ecdsap384Sha384 => std::option::Option::Some(4),
-                Self::UnknownValue(u) => u.0.value(),
-            }
-        }
-
         /// Gets the enum value as a string.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Rsasha1 => std::option::Option::Some("rsasha1"),
@@ -1007,31 +954,9 @@ pub mod dns_key {
         }
     }
 
-    impl std::default::Default for Algorithm {
-        fn default() -> Self {
-            use std::convert::From;
-            Self::from(0)
-        }
-    }
-
     impl std::fmt::Display for Algorithm {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-            wkt::internal::display_enum(f, self.name(), self.value())
-        }
-    }
-
-    impl std::convert::From<i32> for Algorithm {
-        fn from(value: i32) -> Self {
-            match value {
-                0 => Self::Rsasha1,
-                1 => Self::Rsasha256,
-                2 => Self::Rsasha512,
-                3 => Self::Ecdsap256Sha256,
-                4 => Self::Ecdsap384Sha384,
-                _ => Self::UnknownValue(algorithm::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
-            }
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
         }
     }
 
@@ -1072,7 +997,7 @@ pub mod dns_key {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Algorithm>::new(
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<Algorithm>::new(
                 "..DnsKey.algorithm",
             ))
         }
@@ -1102,8 +1027,7 @@ pub mod dns_key {
         ZoneSigning,
         /// If set, the enum was initialized with an unknown value.
         ///
-        /// Applications can examine the value using [Type::value] or
-        /// [Type::name].
+        /// Applications can examine the value using [Type::name].
         UnknownValue(r#type::UnknownValue),
     }
 
@@ -1116,22 +1040,7 @@ pub mod dns_key {
     }
 
     impl Type {
-        /// Gets the enum value.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the string representation of enums.
-        pub fn value(&self) -> std::option::Option<i32> {
-            match self {
-                Self::KeySigning => std::option::Option::Some(0),
-                Self::ZoneSigning => std::option::Option::Some(1),
-                Self::UnknownValue(u) => u.0.value(),
-            }
-        }
-
         /// Gets the enum value as a string.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::KeySigning => std::option::Option::Some("keySigning"),
@@ -1141,28 +1050,9 @@ pub mod dns_key {
         }
     }
 
-    impl std::default::Default for Type {
-        fn default() -> Self {
-            use std::convert::From;
-            Self::from(0)
-        }
-    }
-
     impl std::fmt::Display for Type {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-            wkt::internal::display_enum(f, self.name(), self.value())
-        }
-    }
-
-    impl std::convert::From<i32> for Type {
-        fn from(value: i32) -> Self {
-            match value {
-                0 => Self::KeySigning,
-                1 => Self::ZoneSigning,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
-            }
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
         }
     }
 
@@ -1197,7 +1087,9 @@ pub mod dns_key {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new("..DnsKey.type"))
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<Type>::new(
+                "..DnsKey.type",
+            ))
         }
     }
 }
@@ -1325,8 +1217,7 @@ pub mod dns_key_digest {
         Sha384,
         /// If set, the enum was initialized with an unknown value.
         ///
-        /// Applications can examine the value using [Type::value] or
-        /// [Type::name].
+        /// Applications can examine the value using [Type::name].
         UnknownValue(r#type::UnknownValue),
     }
 
@@ -1339,23 +1230,7 @@ pub mod dns_key_digest {
     }
 
     impl Type {
-        /// Gets the enum value.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the string representation of enums.
-        pub fn value(&self) -> std::option::Option<i32> {
-            match self {
-                Self::Sha1 => std::option::Option::Some(0),
-                Self::Sha256 => std::option::Option::Some(1),
-                Self::Sha384 => std::option::Option::Some(2),
-                Self::UnknownValue(u) => u.0.value(),
-            }
-        }
-
         /// Gets the enum value as a string.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Sha1 => std::option::Option::Some("sha1"),
@@ -1366,29 +1241,9 @@ pub mod dns_key_digest {
         }
     }
 
-    impl std::default::Default for Type {
-        fn default() -> Self {
-            use std::convert::From;
-            Self::from(0)
-        }
-    }
-
     impl std::fmt::Display for Type {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-            wkt::internal::display_enum(f, self.name(), self.value())
-        }
-    }
-
-    impl std::convert::From<i32> for Type {
-        fn from(value: i32) -> Self {
-            match value {
-                0 => Self::Sha1,
-                1 => Self::Sha256,
-                2 => Self::Sha384,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
-            }
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
         }
     }
 
@@ -1425,7 +1280,7 @@ pub mod dns_key_digest {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<Type>::new(
                 "..DnsKeyDigest.type",
             ))
         }
@@ -1631,8 +1486,7 @@ pub mod dns_key_spec {
         Ecdsap384Sha384,
         /// If set, the enum was initialized with an unknown value.
         ///
-        /// Applications can examine the value using [Algorithm::value] or
-        /// [Algorithm::name].
+        /// Applications can examine the value using [Algorithm::name].
         UnknownValue(algorithm::UnknownValue),
     }
 
@@ -1645,25 +1499,7 @@ pub mod dns_key_spec {
     }
 
     impl Algorithm {
-        /// Gets the enum value.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the string representation of enums.
-        pub fn value(&self) -> std::option::Option<i32> {
-            match self {
-                Self::Rsasha1 => std::option::Option::Some(0),
-                Self::Rsasha256 => std::option::Option::Some(1),
-                Self::Rsasha512 => std::option::Option::Some(2),
-                Self::Ecdsap256Sha256 => std::option::Option::Some(3),
-                Self::Ecdsap384Sha384 => std::option::Option::Some(4),
-                Self::UnknownValue(u) => u.0.value(),
-            }
-        }
-
         /// Gets the enum value as a string.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Rsasha1 => std::option::Option::Some("rsasha1"),
@@ -1676,31 +1512,9 @@ pub mod dns_key_spec {
         }
     }
 
-    impl std::default::Default for Algorithm {
-        fn default() -> Self {
-            use std::convert::From;
-            Self::from(0)
-        }
-    }
-
     impl std::fmt::Display for Algorithm {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-            wkt::internal::display_enum(f, self.name(), self.value())
-        }
-    }
-
-    impl std::convert::From<i32> for Algorithm {
-        fn from(value: i32) -> Self {
-            match value {
-                0 => Self::Rsasha1,
-                1 => Self::Rsasha256,
-                2 => Self::Rsasha512,
-                3 => Self::Ecdsap256Sha256,
-                4 => Self::Ecdsap384Sha384,
-                _ => Self::UnknownValue(algorithm::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
-            }
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
         }
     }
 
@@ -1741,7 +1555,7 @@ pub mod dns_key_spec {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Algorithm>::new(
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<Algorithm>::new(
                 "..DnsKeySpec.algorithm",
             ))
         }
@@ -1771,8 +1585,7 @@ pub mod dns_key_spec {
         ZoneSigning,
         /// If set, the enum was initialized with an unknown value.
         ///
-        /// Applications can examine the value using [KeyType::value] or
-        /// [KeyType::name].
+        /// Applications can examine the value using [KeyType::name].
         UnknownValue(key_type::UnknownValue),
     }
 
@@ -1785,22 +1598,7 @@ pub mod dns_key_spec {
     }
 
     impl KeyType {
-        /// Gets the enum value.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the string representation of enums.
-        pub fn value(&self) -> std::option::Option<i32> {
-            match self {
-                Self::KeySigning => std::option::Option::Some(0),
-                Self::ZoneSigning => std::option::Option::Some(1),
-                Self::UnknownValue(u) => u.0.value(),
-            }
-        }
-
         /// Gets the enum value as a string.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::KeySigning => std::option::Option::Some("keySigning"),
@@ -1810,28 +1608,9 @@ pub mod dns_key_spec {
         }
     }
 
-    impl std::default::Default for KeyType {
-        fn default() -> Self {
-            use std::convert::From;
-            Self::from(0)
-        }
-    }
-
     impl std::fmt::Display for KeyType {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-            wkt::internal::display_enum(f, self.name(), self.value())
-        }
-    }
-
-    impl std::convert::From<i32> for KeyType {
-        fn from(value: i32) -> Self {
-            match value {
-                0 => Self::KeySigning,
-                1 => Self::ZoneSigning,
-                _ => Self::UnknownValue(key_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
-            }
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
         }
     }
 
@@ -1866,7 +1645,7 @@ pub mod dns_key_spec {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<KeyType>::new(
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<KeyType>::new(
                 "..DnsKeySpec.keyType",
             ))
         }
@@ -2348,8 +2127,7 @@ pub mod google_iam_v_1_audit_log_config {
         DataRead,
         /// If set, the enum was initialized with an unknown value.
         ///
-        /// Applications can examine the value using [LogType::value] or
-        /// [LogType::name].
+        /// Applications can examine the value using [LogType::name].
         UnknownValue(log_type::UnknownValue),
     }
 
@@ -2362,24 +2140,7 @@ pub mod google_iam_v_1_audit_log_config {
     }
 
     impl LogType {
-        /// Gets the enum value.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the string representation of enums.
-        pub fn value(&self) -> std::option::Option<i32> {
-            match self {
-                Self::Unspecified => std::option::Option::Some(0),
-                Self::AdminRead => std::option::Option::Some(1),
-                Self::DataWrite => std::option::Option::Some(2),
-                Self::DataRead => std::option::Option::Some(3),
-                Self::UnknownValue(u) => u.0.value(),
-            }
-        }
-
         /// Gets the enum value as a string.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("LOG_TYPE_UNSPECIFIED"),
@@ -2391,30 +2152,9 @@ pub mod google_iam_v_1_audit_log_config {
         }
     }
 
-    impl std::default::Default for LogType {
-        fn default() -> Self {
-            use std::convert::From;
-            Self::from(0)
-        }
-    }
-
     impl std::fmt::Display for LogType {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-            wkt::internal::display_enum(f, self.name(), self.value())
-        }
-    }
-
-    impl std::convert::From<i32> for LogType {
-        fn from(value: i32) -> Self {
-            match value {
-                0 => Self::Unspecified,
-                1 => Self::AdminRead,
-                2 => Self::DataWrite,
-                3 => Self::DataRead,
-                _ => Self::UnknownValue(log_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
-            }
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
         }
     }
 
@@ -2453,7 +2193,7 @@ pub mod google_iam_v_1_audit_log_config {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<LogType>::new(
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<LogType>::new(
                 "..GoogleIamV1AuditLogConfig.logType",
             ))
         }
@@ -3807,8 +3547,7 @@ pub mod managed_zone {
         Private,
         /// If set, the enum was initialized with an unknown value.
         ///
-        /// Applications can examine the value using [Visibility::value] or
-        /// [Visibility::name].
+        /// Applications can examine the value using [Visibility::name].
         UnknownValue(visibility::UnknownValue),
     }
 
@@ -3821,22 +3560,7 @@ pub mod managed_zone {
     }
 
     impl Visibility {
-        /// Gets the enum value.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the string representation of enums.
-        pub fn value(&self) -> std::option::Option<i32> {
-            match self {
-                Self::Public => std::option::Option::Some(0),
-                Self::Private => std::option::Option::Some(1),
-                Self::UnknownValue(u) => u.0.value(),
-            }
-        }
-
         /// Gets the enum value as a string.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Public => std::option::Option::Some("public"),
@@ -3846,28 +3570,9 @@ pub mod managed_zone {
         }
     }
 
-    impl std::default::Default for Visibility {
-        fn default() -> Self {
-            use std::convert::From;
-            Self::from(0)
-        }
-    }
-
     impl std::fmt::Display for Visibility {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-            wkt::internal::display_enum(f, self.name(), self.value())
-        }
-    }
-
-    impl std::convert::From<i32> for Visibility {
-        fn from(value: i32) -> Self {
-            match value {
-                0 => Self::Public,
-                1 => Self::Private,
-                _ => Self::UnknownValue(visibility::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
-            }
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
         }
     }
 
@@ -3902,7 +3607,7 @@ pub mod managed_zone {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Visibility>::new(
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<Visibility>::new(
                 "..ManagedZone.visibility",
             ))
         }
@@ -4179,8 +3884,7 @@ pub mod managed_zone_dns_sec_config {
         Nsec3,
         /// If set, the enum was initialized with an unknown value.
         ///
-        /// Applications can examine the value using [NonExistence::value] or
-        /// [NonExistence::name].
+        /// Applications can examine the value using [NonExistence::name].
         UnknownValue(non_existence::UnknownValue),
     }
 
@@ -4193,22 +3897,7 @@ pub mod managed_zone_dns_sec_config {
     }
 
     impl NonExistence {
-        /// Gets the enum value.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the string representation of enums.
-        pub fn value(&self) -> std::option::Option<i32> {
-            match self {
-                Self::Nsec => std::option::Option::Some(0),
-                Self::Nsec3 => std::option::Option::Some(1),
-                Self::UnknownValue(u) => u.0.value(),
-            }
-        }
-
         /// Gets the enum value as a string.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Nsec => std::option::Option::Some("nsec"),
@@ -4218,28 +3907,9 @@ pub mod managed_zone_dns_sec_config {
         }
     }
 
-    impl std::default::Default for NonExistence {
-        fn default() -> Self {
-            use std::convert::From;
-            Self::from(0)
-        }
-    }
-
     impl std::fmt::Display for NonExistence {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-            wkt::internal::display_enum(f, self.name(), self.value())
-        }
-    }
-
-    impl std::convert::From<i32> for NonExistence {
-        fn from(value: i32) -> Self {
-            match value {
-                0 => Self::Nsec,
-                1 => Self::Nsec3,
-                _ => Self::UnknownValue(non_existence::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
-            }
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
         }
     }
 
@@ -4274,7 +3944,7 @@ pub mod managed_zone_dns_sec_config {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<NonExistence>::new(
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<NonExistence>::new(
                 "..ManagedZoneDnsSecConfig.nonExistence",
             ))
         }
@@ -4306,8 +3976,7 @@ pub mod managed_zone_dns_sec_config {
         Transfer,
         /// If set, the enum was initialized with an unknown value.
         ///
-        /// Applications can examine the value using [State::value] or
-        /// [State::name].
+        /// Applications can examine the value using [State::name].
         UnknownValue(state::UnknownValue),
     }
 
@@ -4320,23 +3989,7 @@ pub mod managed_zone_dns_sec_config {
     }
 
     impl State {
-        /// Gets the enum value.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the string representation of enums.
-        pub fn value(&self) -> std::option::Option<i32> {
-            match self {
-                Self::Off => std::option::Option::Some(0),
-                Self::On => std::option::Option::Some(1),
-                Self::Transfer => std::option::Option::Some(2),
-                Self::UnknownValue(u) => u.0.value(),
-            }
-        }
-
         /// Gets the enum value as a string.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Off => std::option::Option::Some("off"),
@@ -4347,29 +4000,9 @@ pub mod managed_zone_dns_sec_config {
         }
     }
 
-    impl std::default::Default for State {
-        fn default() -> Self {
-            use std::convert::From;
-            Self::from(0)
-        }
-    }
-
     impl std::fmt::Display for State {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-            wkt::internal::display_enum(f, self.name(), self.value())
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            match value {
-                0 => Self::Off,
-                1 => Self::On,
-                2 => Self::Transfer,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
-            }
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
         }
     }
 
@@ -4406,7 +4039,7 @@ pub mod managed_zone_dns_sec_config {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<State>::new(
                 "..ManagedZoneDnsSecConfig.state",
             ))
         }
@@ -4720,8 +4353,7 @@ pub mod managed_zone_forwarding_config_name_server_target {
         Private,
         /// If set, the enum was initialized with an unknown value.
         ///
-        /// Applications can examine the value using [ForwardingPath::value] or
-        /// [ForwardingPath::name].
+        /// Applications can examine the value using [ForwardingPath::name].
         UnknownValue(forwarding_path::UnknownValue),
     }
 
@@ -4734,22 +4366,7 @@ pub mod managed_zone_forwarding_config_name_server_target {
     }
 
     impl ForwardingPath {
-        /// Gets the enum value.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the string representation of enums.
-        pub fn value(&self) -> std::option::Option<i32> {
-            match self {
-                Self::Default => std::option::Option::Some(0),
-                Self::Private => std::option::Option::Some(1),
-                Self::UnknownValue(u) => u.0.value(),
-            }
-        }
-
         /// Gets the enum value as a string.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Default => std::option::Option::Some("default"),
@@ -4759,28 +4376,9 @@ pub mod managed_zone_forwarding_config_name_server_target {
         }
     }
 
-    impl std::default::Default for ForwardingPath {
-        fn default() -> Self {
-            use std::convert::From;
-            Self::from(0)
-        }
-    }
-
     impl std::fmt::Display for ForwardingPath {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-            wkt::internal::display_enum(f, self.name(), self.value())
-        }
-    }
-
-    impl std::convert::From<i32> for ForwardingPath {
-        fn from(value: i32) -> Self {
-            match value {
-                0 => Self::Default,
-                1 => Self::Private,
-                _ => Self::UnknownValue(forwarding_path::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
-            }
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
         }
     }
 
@@ -4815,7 +4413,7 @@ pub mod managed_zone_forwarding_config_name_server_target {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ForwardingPath>::new(
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<ForwardingPath>::new(
                 "..ManagedZoneForwardingConfigNameServerTarget.forwardingPath",
             ))
         }
@@ -6161,8 +5759,7 @@ pub mod operation {
         Done,
         /// If set, the enum was initialized with an unknown value.
         ///
-        /// Applications can examine the value using [Status::value] or
-        /// [Status::name].
+        /// Applications can examine the value using [Status::name].
         UnknownValue(status::UnknownValue),
     }
 
@@ -6175,22 +5772,7 @@ pub mod operation {
     }
 
     impl Status {
-        /// Gets the enum value.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the string representation of enums.
-        pub fn value(&self) -> std::option::Option<i32> {
-            match self {
-                Self::Pending => std::option::Option::Some(0),
-                Self::Done => std::option::Option::Some(1),
-                Self::UnknownValue(u) => u.0.value(),
-            }
-        }
-
         /// Gets the enum value as a string.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Pending => std::option::Option::Some("pending"),
@@ -6200,28 +5782,9 @@ pub mod operation {
         }
     }
 
-    impl std::default::Default for Status {
-        fn default() -> Self {
-            use std::convert::From;
-            Self::from(0)
-        }
-    }
-
     impl std::fmt::Display for Status {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-            wkt::internal::display_enum(f, self.name(), self.value())
-        }
-    }
-
-    impl std::convert::From<i32> for Status {
-        fn from(value: i32) -> Self {
-            match value {
-                0 => Self::Pending,
-                1 => Self::Done,
-                _ => Self::UnknownValue(status::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
-            }
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
         }
     }
 
@@ -6256,7 +5819,7 @@ pub mod operation {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Status>::new(
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<Status>::new(
                 "..Operation.status",
             ))
         }
@@ -7278,8 +6841,7 @@ pub mod policy_alternative_name_server_config_target_name_server {
         Private,
         /// If set, the enum was initialized with an unknown value.
         ///
-        /// Applications can examine the value using [ForwardingPath::value] or
-        /// [ForwardingPath::name].
+        /// Applications can examine the value using [ForwardingPath::name].
         UnknownValue(forwarding_path::UnknownValue),
     }
 
@@ -7292,22 +6854,7 @@ pub mod policy_alternative_name_server_config_target_name_server {
     }
 
     impl ForwardingPath {
-        /// Gets the enum value.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the string representation of enums.
-        pub fn value(&self) -> std::option::Option<i32> {
-            match self {
-                Self::Default => std::option::Option::Some(0),
-                Self::Private => std::option::Option::Some(1),
-                Self::UnknownValue(u) => u.0.value(),
-            }
-        }
-
         /// Gets the enum value as a string.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Default => std::option::Option::Some("default"),
@@ -7317,28 +6864,9 @@ pub mod policy_alternative_name_server_config_target_name_server {
         }
     }
 
-    impl std::default::Default for ForwardingPath {
-        fn default() -> Self {
-            use std::convert::From;
-            Self::from(0)
-        }
-    }
-
     impl std::fmt::Display for ForwardingPath {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-            wkt::internal::display_enum(f, self.name(), self.value())
-        }
-    }
-
-    impl std::convert::From<i32> for ForwardingPath {
-        fn from(value: i32) -> Self {
-            match value {
-                0 => Self::Default,
-                1 => Self::Private,
-                _ => Self::UnknownValue(forwarding_path::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
-            }
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
         }
     }
 
@@ -7373,7 +6901,7 @@ pub mod policy_alternative_name_server_config_target_name_server {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ForwardingPath>::new(
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<ForwardingPath>::new(
                 "..PolicyAlternativeNameServerConfigTargetNameServer.forwardingPath",
             ))
         }
@@ -9602,8 +9130,7 @@ pub mod rr_set_routing_policy_load_balancer_target {
         Udp,
         /// If set, the enum was initialized with an unknown value.
         ///
-        /// Applications can examine the value using [IpProtocol::value] or
-        /// [IpProtocol::name].
+        /// Applications can examine the value using [IpProtocol::name].
         UnknownValue(ip_protocol::UnknownValue),
     }
 
@@ -9616,23 +9143,7 @@ pub mod rr_set_routing_policy_load_balancer_target {
     }
 
     impl IpProtocol {
-        /// Gets the enum value.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the string representation of enums.
-        pub fn value(&self) -> std::option::Option<i32> {
-            match self {
-                Self::Undefined => std::option::Option::Some(0),
-                Self::Tcp => std::option::Option::Some(1),
-                Self::Udp => std::option::Option::Some(2),
-                Self::UnknownValue(u) => u.0.value(),
-            }
-        }
-
         /// Gets the enum value as a string.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Undefined => std::option::Option::Some("undefined"),
@@ -9643,29 +9154,9 @@ pub mod rr_set_routing_policy_load_balancer_target {
         }
     }
 
-    impl std::default::Default for IpProtocol {
-        fn default() -> Self {
-            use std::convert::From;
-            Self::from(0)
-        }
-    }
-
     impl std::fmt::Display for IpProtocol {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-            wkt::internal::display_enum(f, self.name(), self.value())
-        }
-    }
-
-    impl std::convert::From<i32> for IpProtocol {
-        fn from(value: i32) -> Self {
-            match value {
-                0 => Self::Undefined,
-                1 => Self::Tcp,
-                2 => Self::Udp,
-                _ => Self::UnknownValue(ip_protocol::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
-            }
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
         }
     }
 
@@ -9702,7 +9193,7 @@ pub mod rr_set_routing_policy_load_balancer_target {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<IpProtocol>::new(
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<IpProtocol>::new(
                 "..RRSetRoutingPolicyLoadBalancerTarget.ipProtocol",
             ))
         }
@@ -9736,8 +9227,7 @@ pub mod rr_set_routing_policy_load_balancer_target {
         RegionalL7Ilb,
         /// If set, the enum was initialized with an unknown value.
         ///
-        /// Applications can examine the value using [LoadBalancerType::value] or
-        /// [LoadBalancerType::name].
+        /// Applications can examine the value using [LoadBalancerType::name].
         UnknownValue(load_balancer_type::UnknownValue),
     }
 
@@ -9750,24 +9240,7 @@ pub mod rr_set_routing_policy_load_balancer_target {
     }
 
     impl LoadBalancerType {
-        /// Gets the enum value.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the string representation of enums.
-        pub fn value(&self) -> std::option::Option<i32> {
-            match self {
-                Self::None => std::option::Option::Some(0),
-                Self::GlobalL7Ilb => std::option::Option::Some(1),
-                Self::RegionalL4Ilb => std::option::Option::Some(2),
-                Self::RegionalL7Ilb => std::option::Option::Some(3),
-                Self::UnknownValue(u) => u.0.value(),
-            }
-        }
-
         /// Gets the enum value as a string.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::None => std::option::Option::Some("none"),
@@ -9779,30 +9252,9 @@ pub mod rr_set_routing_policy_load_balancer_target {
         }
     }
 
-    impl std::default::Default for LoadBalancerType {
-        fn default() -> Self {
-            use std::convert::From;
-            Self::from(0)
-        }
-    }
-
     impl std::fmt::Display for LoadBalancerType {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-            wkt::internal::display_enum(f, self.name(), self.value())
-        }
-    }
-
-    impl std::convert::From<i32> for LoadBalancerType {
-        fn from(value: i32) -> Self {
-            match value {
-                0 => Self::None,
-                1 => Self::GlobalL7Ilb,
-                2 => Self::RegionalL4Ilb,
-                3 => Self::RegionalL7Ilb,
-                _ => Self::UnknownValue(load_balancer_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
-            }
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
         }
     }
 
@@ -9841,7 +9293,7 @@ pub mod rr_set_routing_policy_load_balancer_target {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<LoadBalancerType>::new(
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<LoadBalancerType>::new(
                 "..RRSetRoutingPolicyLoadBalancerTarget.loadBalancerType",
             ))
         }
@@ -11465,8 +10917,7 @@ pub mod response_policy_rule {
         BypassResponsePolicy,
         /// If set, the enum was initialized with an unknown value.
         ///
-        /// Applications can examine the value using [Behavior::value] or
-        /// [Behavior::name].
+        /// Applications can examine the value using [Behavior::name].
         UnknownValue(behavior::UnknownValue),
     }
 
@@ -11479,22 +10930,7 @@ pub mod response_policy_rule {
     }
 
     impl Behavior {
-        /// Gets the enum value.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the string representation of enums.
-        pub fn value(&self) -> std::option::Option<i32> {
-            match self {
-                Self::BehaviorUnspecified => std::option::Option::Some(0),
-                Self::BypassResponsePolicy => std::option::Option::Some(1),
-                Self::UnknownValue(u) => u.0.value(),
-            }
-        }
-
         /// Gets the enum value as a string.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::BehaviorUnspecified => std::option::Option::Some("behaviorUnspecified"),
@@ -11504,28 +10940,9 @@ pub mod response_policy_rule {
         }
     }
 
-    impl std::default::Default for Behavior {
-        fn default() -> Self {
-            use std::convert::From;
-            Self::from(0)
-        }
-    }
-
     impl std::fmt::Display for Behavior {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-            wkt::internal::display_enum(f, self.name(), self.value())
-        }
-    }
-
-    impl std::convert::From<i32> for Behavior {
-        fn from(value: i32) -> Self {
-            match value {
-                0 => Self::BehaviorUnspecified,
-                1 => Self::BypassResponsePolicy,
-                _ => Self::UnknownValue(behavior::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
-            }
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
         }
     }
 
@@ -11560,7 +10977,7 @@ pub mod response_policy_rule {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Behavior>::new(
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<Behavior>::new(
                 "..ResponsePolicyRule.behavior",
             ))
         }
@@ -12360,8 +11777,7 @@ pub mod changes {
             ChangeSequence,
             /// If set, the enum was initialized with an unknown value.
             ///
-            /// Applications can examine the value using [SortBy::value] or
-            /// [SortBy::name].
+            /// Applications can examine the value using [SortBy::name].
             UnknownValue(sort_by::UnknownValue),
         }
 
@@ -12374,21 +11790,7 @@ pub mod changes {
         }
 
         impl SortBy {
-            /// Gets the enum value.
-            ///
-            /// Returns `None` if the enum contains an unknown value deserialized from
-            /// the string representation of enums.
-            pub fn value(&self) -> std::option::Option<i32> {
-                match self {
-                    Self::ChangeSequence => std::option::Option::Some(0),
-                    Self::UnknownValue(u) => u.0.value(),
-                }
-            }
-
             /// Gets the enum value as a string.
-            ///
-            /// Returns `None` if the enum contains an unknown value deserialized from
-            /// the integer representation of enums.
             pub fn name(&self) -> std::option::Option<&str> {
                 match self {
                     Self::ChangeSequence => std::option::Option::Some("changeSequence"),
@@ -12397,30 +11799,12 @@ pub mod changes {
             }
         }
 
-        impl std::default::Default for SortBy {
-            fn default() -> Self {
-                use std::convert::From;
-                Self::from(0)
-            }
-        }
-
         impl std::fmt::Display for SortBy {
             fn fmt(
                 &self,
                 f: &mut std::fmt::Formatter<'_>,
             ) -> std::result::Result<(), std::fmt::Error> {
-                wkt::internal::display_enum(f, self.name(), self.value())
-            }
-        }
-
-        impl std::convert::From<i32> for SortBy {
-            fn from(value: i32) -> Self {
-                match value {
-                    0 => Self::ChangeSequence,
-                    _ => Self::UnknownValue(sort_by::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
-                }
+                wkt::internal::display_enum(f, self.name(), std::option::Option::None)
             }
         }
 
@@ -12453,7 +11837,7 @@ pub mod changes {
             where
                 D: serde::Deserializer<'de>,
             {
-                deserializer.deserialize_any(wkt::internal::EnumVisitor::<SortBy>::new(
+                deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<SortBy>::new(
                     "..changes.listRequest.sortBy",
                 ))
             }
@@ -13028,8 +12412,7 @@ pub mod managed_zone_operations {
             Id,
             /// If set, the enum was initialized with an unknown value.
             ///
-            /// Applications can examine the value using [SortBy::value] or
-            /// [SortBy::name].
+            /// Applications can examine the value using [SortBy::name].
             UnknownValue(sort_by::UnknownValue),
         }
 
@@ -13042,22 +12425,7 @@ pub mod managed_zone_operations {
         }
 
         impl SortBy {
-            /// Gets the enum value.
-            ///
-            /// Returns `None` if the enum contains an unknown value deserialized from
-            /// the string representation of enums.
-            pub fn value(&self) -> std::option::Option<i32> {
-                match self {
-                    Self::StartTime => std::option::Option::Some(0),
-                    Self::Id => std::option::Option::Some(1),
-                    Self::UnknownValue(u) => u.0.value(),
-                }
-            }
-
             /// Gets the enum value as a string.
-            ///
-            /// Returns `None` if the enum contains an unknown value deserialized from
-            /// the integer representation of enums.
             pub fn name(&self) -> std::option::Option<&str> {
                 match self {
                     Self::StartTime => std::option::Option::Some("startTime"),
@@ -13067,31 +12435,12 @@ pub mod managed_zone_operations {
             }
         }
 
-        impl std::default::Default for SortBy {
-            fn default() -> Self {
-                use std::convert::From;
-                Self::from(0)
-            }
-        }
-
         impl std::fmt::Display for SortBy {
             fn fmt(
                 &self,
                 f: &mut std::fmt::Formatter<'_>,
             ) -> std::result::Result<(), std::fmt::Error> {
-                wkt::internal::display_enum(f, self.name(), self.value())
-            }
-        }
-
-        impl std::convert::From<i32> for SortBy {
-            fn from(value: i32) -> Self {
-                match value {
-                    0 => Self::StartTime,
-                    1 => Self::Id,
-                    _ => Self::UnknownValue(sort_by::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
-                }
+                wkt::internal::display_enum(f, self.name(), std::option::Option::None)
             }
         }
 
@@ -13126,7 +12475,7 @@ pub mod managed_zone_operations {
             where
                 D: serde::Deserializer<'de>,
             {
-                deserializer.deserialize_any(wkt::internal::EnumVisitor::<SortBy>::new(
+                deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<SortBy>::new(
                     "..managedZoneOperations.listRequest.sortBy",
                 ))
             }

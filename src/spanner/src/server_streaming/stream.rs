@@ -254,7 +254,7 @@ mod tests {
                 .set_session(db_client.session_name())
                 .set_sql("SELECT 1");
             let stream = db_client
-                .execute_streaming_sql(request, RequestOptions::default(), 0)
+                .execute_streaming_sql(request, RequestOptions::default(), None)
                 .with_lifetime_guard(guard)
                 .send()
                 .await?;
@@ -298,7 +298,7 @@ mod tests {
             .set_session(db_client.session_name())
             .set_sql("SELECT 1");
         let mut stream = db_client
-            .execute_streaming_sql(request, RequestOptions::default(), 0)
+            .execute_streaming_sql(request, RequestOptions::default(), None)
             .with_lifetime_guard(guard)
             .send()
             .await?;
@@ -345,7 +345,7 @@ mod tests {
             .set_session(db_client.session_name())
             .set_sql("SELECT 1");
         let mut stream = db_client
-            .execute_streaming_sql(request, RequestOptions::default(), 0)
+            .execute_streaming_sql(request, RequestOptions::default(), None)
             .with_lifetime_guard(guard)
             .send()
             .await?;
@@ -391,7 +391,7 @@ mod tests {
             .set_session(db_client.session_name())
             .set_sql("SELECT 1");
         let mut stream = db_client
-            .execute_streaming_sql(request, RequestOptions::default(), 0)
+            .execute_streaming_sql(request, RequestOptions::default(), None)
             .send()
             .await?;
 
@@ -430,7 +430,7 @@ mod tests {
             .set_session(db_client.session_name())
             .set_sql("SELECT 1");
         let mut stream = db_client
-            .execute_streaming_sql(request, RequestOptions::default(), 0)
+            .execute_streaming_sql(request, RequestOptions::default(), None)
             .send()
             .await?
             .with_transaction_id_callback(callback);
@@ -512,7 +512,7 @@ mod tests {
                 .set_session(db_client.session_name())
                 .set_sql("SELECT 1");
             let mut stream = db_client
-                .execute_streaming_sql(request, RequestOptions::default(), 0)
+                .execute_streaming_sql(request, RequestOptions::default(), None)
                 .send()
                 .await?
                 .with_transaction_id_callback(callback);
@@ -544,7 +544,7 @@ mod tests {
                 .set_session(db_client.session_name())
                 .set_sql("SELECT 1");
             let mut stream = db_client
-                .execute_streaming_sql(request, RequestOptions::default(), 0)
+                .execute_streaming_sql(request, RequestOptions::default(), None)
                 .send()
                 .await?
                 .with_transaction_id_callback(callback);

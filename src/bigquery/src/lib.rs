@@ -130,7 +130,6 @@ pub mod client {
     // TODO(#6152) - add Write admin client
 }
 
-/// The messages and enums that are part of this client library
 pub use crate::write::generated::gapic_storage::model;
 
 /// Extends [crate::model].

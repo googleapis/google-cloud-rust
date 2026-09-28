@@ -69,6 +69,31 @@ export SPANNER_EMULATOR_HOST=localhost:9010
 The client builder automatically detects this variable, connects to the emulator
 endpoint, and configures anonymous credentials.
 
+### Configuring the Channel Pool
+
+By default, the client uses a static pool of 4 gRPC channels. You can configure
+the channel pool using `with_channel_pool`:
+
+```rust
+use google_cloud_spanner::client::{Spanner, SpannerBuilderExt};
+use google_cloud_spanner::channel_pool::{DynamicChannelPoolConfig, StaticChannelPoolConfig};
+
+# async fn sample() -> Result<(), google_cloud_spanner::Error> {
+// Custom static pool:
+let spanner = Spanner::builder()
+    .with_channel_pool(StaticChannelPoolConfig::new(8))
+    .build()
+    .await?;
+
+// Or dynamic load-based channel pool:
+let spanner = Spanner::builder()
+    .with_channel_pool(DynamicChannelPoolConfig::new())
+    .build()
+    .await?;
+# Ok(())
+# }
+```
+
 ## Session Management and Client Lifecycle
 
 The Spanner Rust client manages a long-lived multiplexed session under the hood.

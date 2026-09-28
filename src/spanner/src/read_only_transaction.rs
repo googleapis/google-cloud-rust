@@ -12,18 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::channel_pool::TransactionAffinity;
+use crate::Result;
+use crate::channel_pool::{ChannelTarget, TransactionAffinity};
 use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
-use crate::model::TransactionOptions;
-use crate::model::TransactionSelector;
 use crate::model::transaction_options::{Mode, ReadOnly};
+use crate::model::{
+    BeginTransactionRequest, Mutation, Transaction, TransactionOptions, TransactionSelector,
+};
 use crate::precommit::PrecommitTokenTracker;
 use crate::result_set::{ResultSet, ResultSetParams, StreamOperation};
 use crate::statement::Statement;
 use crate::timestamp_bound::TimestampBound;
 use crate::transaction_retry_policy::is_aborted;
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use google_cloud_gax::options::internal::RequestOptionsExt as _;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use http::HeaderMap;
@@ -101,7 +104,6 @@ impl SingleUseReadOnlyTransactionBuilder {
             .set_single_use(TransactionOptions::default().set_read_only(read_only));
 
         let session_name = self.client.session_name();
-        let channel_hint = self.client.next_channel_hint();
         SingleUseReadOnlyTransaction {
             context: ReadContext {
                 session_name,
@@ -112,7 +114,6 @@ impl SingleUseReadOnlyTransactionBuilder {
                 ),
                 precommit_token_tracker: PrecommitTokenTracker::new_noop(),
                 transaction_tag: None,
-                channel_hint,
                 begin_transaction_request_options: None,
                 affinity: None,
             },
@@ -401,7 +402,10 @@ impl MultiUseReadOnlyTransactionBuilder {
         let options = TransactionOptions::default().set_read_only(read_only);
 
         let session_name = self.client.session_name();
-        let channel_hint = self.client.next_channel_hint();
+        let affinity = Some(
+            self.affinity
+                .unwrap_or_else(|| Arc::new(TransactionAffinity::new_read_only())),
+        );
         let selector = match self.begin_transaction_option {
             BeginTransactionOption::ExplicitBegin => {
                 let response = execute_begin_transaction(
@@ -409,7 +413,7 @@ impl MultiUseReadOnlyTransactionBuilder {
                     session_name.clone(),
                     options,
                     None,
-                    channel_hint,
+                    &affinity,
                     self.begin_gax_options.clone().unwrap_or_default(),
                     None,
                 )
@@ -425,11 +429,6 @@ impl MultiUseReadOnlyTransactionBuilder {
             )),
         };
 
-        let affinity = Some(
-            self.affinity
-                .unwrap_or_else(|| Arc::new(TransactionAffinity::new_read_only())),
-        );
-
         Ok(MultiUseReadOnlyTransaction {
             context: ReadContext {
                 session_name,
@@ -437,7 +436,6 @@ impl MultiUseReadOnlyTransactionBuilder {
                 transaction_selector: selector,
                 precommit_token_tracker: PrecommitTokenTracker::new_noop(),
                 transaction_tag: None,
-                channel_hint,
                 begin_transaction_request_options: self.begin_gax_options,
                 affinity,
             },
@@ -556,16 +554,16 @@ impl MultiUseReadOnlyTransaction {
 }
 
 /// Executes an explicit `BeginTransaction` RPC on Spanner.
-pub(crate) async fn execute_begin_transaction(
-    client: &crate::database_client::DatabaseClient,
+pub(crate) async fn execute_begin_transaction<'a>(
+    client: &DatabaseClient,
     session_name: String,
-    options: crate::model::TransactionOptions,
+    options: TransactionOptions,
     transaction_tag: Option<String>,
-    channel_hint: usize,
-    request_options: crate::RequestOptions,
-    mutation_key: Option<crate::model::Mutation>,
-) -> crate::Result<crate::model::Transaction> {
-    let mut request = crate::model::BeginTransactionRequest::default()
+    channel_target: impl Into<ChannelTarget<'a>>,
+    request_options: GaxRequestOptions,
+    mutation_key: Option<Mutation>,
+) -> Result<Transaction> {
+    let mut request = BeginTransactionRequest::default()
         .set_session(session_name)
         .set_options(options)
         .set_or_clear_mutation_key(mutation_key);
@@ -575,7 +573,7 @@ pub(crate) async fn execute_begin_transaction(
     }
 
     client
-        .begin_transaction(request, request_options, channel_hint)
+        .begin_transaction(request, request_options, channel_target)
         .await
 }
 
@@ -674,15 +672,13 @@ impl ReadContextTransactionSelector {
 }
 
 pub(crate) struct ExplicitBeginParams {
-    pub(crate) client: crate::database_client::DatabaseClient,
+    pub(crate) client: DatabaseClient,
     pub(crate) session_name: String,
     pub(crate) transaction_tag: Option<String>,
-    pub(crate) channel_hint: usize,
-    pub(crate) request_options: crate::RequestOptions,
+    pub(crate) request_options: GaxRequestOptions,
     pub(crate) is_stream_fallback: bool,
-    pub(crate) precommit_token_tracker: crate::precommit::PrecommitTokenTracker,
-    pub(crate) mutation_key: Option<crate::model::Mutation>,
-    #[allow(dead_code)]
+    pub(crate) precommit_token_tracker: PrecommitTokenTracker,
+    pub(crate) mutation_key: Option<Mutation>,
     pub(crate) affinity: Option<Arc<TransactionAffinity>>,
 }
 
@@ -757,7 +753,7 @@ impl ReadContextTransactionSelector {
             params.session_name,
             options,
             params.transaction_tag,
-            params.channel_hint,
+            &params.affinity,
             params.request_options,
             params.mutation_key,
         )
@@ -983,8 +979,7 @@ pub(crate) struct ReadContext {
     pub(crate) transaction_selector: ReadContextTransactionSelector,
     pub(crate) precommit_token_tracker: PrecommitTokenTracker,
     pub(crate) transaction_tag: Option<String>,
-    pub(crate) channel_hint: usize,
-    pub(crate) begin_transaction_request_options: Option<crate::RequestOptions>,
+    pub(crate) begin_transaction_request_options: Option<GaxRequestOptions>,
     pub(crate) affinity: Option<Arc<TransactionAffinity>>,
 }
 
@@ -1012,14 +1007,17 @@ impl ReadContext {
     /// fallback mechanism when an initial implicit begin attempt failed.
     pub(crate) async fn begin_explicitly_if_not_started(
         &self,
-        fallback_options: crate::RequestOptions,
+        fallback_options: GaxRequestOptions,
         is_stream_fallback: bool,
-        mutation_key: Option<crate::model::Mutation>,
-    ) -> crate::Result<bool> {
+        mutation_key: Option<Mutation>,
+    ) -> Result<bool> {
         let ReadContextTransactionSelector::Lazy(lazy) = &self.transaction_selector else {
             return Ok(false);
         };
-        let is_started = matches!(&*lazy.lock().unwrap(), TransactionState::Started(_, _));
+        let is_started = matches!(
+            &*lazy.lock().expect("transaction state mutex poisoned"),
+            TransactionState::Started(_, _)
+        );
         if is_started {
             return Ok(false);
         }
@@ -1034,7 +1032,6 @@ impl ReadContext {
                 client: self.client.clone(),
                 session_name: self.session_name.clone(),
                 transaction_tag: self.transaction_tag.clone(),
-                channel_hint: self.channel_hint,
                 request_options: options,
                 is_stream_fallback,
                 precommit_token_tracker: self.precommit_token_tracker.clone(),
@@ -1055,9 +1052,9 @@ impl ReadContext {
 /// Merges the configured fields from a `source` `RequestOptions` into a `destination` `RequestOptions`.
 /// Configured options in `source` will override those in `destination`.
 fn merge_request_options(
-    mut destination: crate::RequestOptions,
-    source: Option<&crate::RequestOptions>,
-) -> crate::RequestOptions {
+    mut destination: GaxRequestOptions,
+    source: Option<&GaxRequestOptions>,
+) -> GaxRequestOptions {
     let Some(source) = source else {
         return destination;
     };
@@ -1085,12 +1082,12 @@ macro_rules! execute_stream_with_retry {
     ($self:expr, $request:ident, $gax_options:ident, $rpc_method:ident, $operation_variant:path, $method_name:expr) => {{
         let operation_start_time = Instant::now();
         let mut attempt_start_time = operation_start_time;
-        let stream = match $self
-            .client
-            .$rpc_method($request.clone(), $gax_options.clone(), $self.channel_hint)
-            .send()
-            .await
-        {
+        let builder =
+            $self
+                .client
+                .$rpc_method($request.clone(), $gax_options.clone(), $self.affinity());
+        let request_options = builder.options().clone();
+        let stream = match builder.send().await {
             Ok(s) => s,
             Err(e) => {
                 let elapsed_attempt = attempt_start_time.elapsed();
@@ -1143,12 +1140,12 @@ macro_rules! execute_stream_with_retry {
                 $request.transaction = Some(selector);
                 // Reset attempt timestamp for the retry attempt
                 attempt_start_time = Instant::now();
-                match $self
-                    .client
-                    .$rpc_method($request.clone(), $gax_options.clone(), $self.channel_hint)
-                    .send()
-                    .await
-                {
+                let retry_builder = $self.client.$rpc_method(
+                    $request.clone(),
+                    request_options.clone(),
+                    $self.affinity(),
+                );
+                match retry_builder.send().await {
                     Ok(s) => s,
                     Err(retry_err) => {
                         let elapsed_attempt = attempt_start_time.elapsed();
@@ -1173,8 +1170,7 @@ macro_rules! execute_stream_with_retry {
             session_name: $self.session_name.clone(),
             transaction_tag: $self.transaction_tag.clone(),
             operation: $operation_variant($request),
-            channel_hint: $self.channel_hint,
-            gax_options: $gax_options,
+            gax_options: request_options,
             method_name: $method_name,
             attempt_start_time: Some(attempt_start_time),
             operation_start_time: Some(operation_start_time),
@@ -1189,11 +1185,9 @@ impl ReadContext {
         &self,
         statement: T,
         seqno: Option<i64>,
-    ) -> crate::Result<ResultSet> {
+    ) -> Result<ResultSet> {
         let statement = statement.into();
-        let gax_options = self
-            .client
-            .attach_request_id(statement.gax_options().clone(), self.channel_hint);
+        let gax_options = statement.gax_options().clone();
         let mut request = statement
             .into_request()
             .set_session(self.session_name.clone())
@@ -1214,11 +1208,9 @@ impl ReadContext {
     pub(crate) async fn execute_read<T: Into<crate::read::ReadRequest>>(
         &self,
         read: T,
-    ) -> crate::Result<ResultSet> {
+    ) -> Result<ResultSet> {
         let read = read.into();
-        let gax_options = self
-            .client
-            .attach_request_id(read.gax_options.clone(), self.channel_hint);
+        let gax_options = read.gax_options.clone();
         let mut request = read
             .into_request()
             .set_session(self.session_name.clone())
@@ -3602,7 +3594,6 @@ pub(crate) mod tests {
             transaction_selector: selector,
             precommit_token_tracker: crate::read_only_transaction::PrecommitTokenTracker::new(),
             transaction_tag: None,
-            channel_hint: 0,
             begin_transaction_request_options: None,
             affinity: None,
         };
@@ -3786,10 +3777,11 @@ pub(crate) mod tests {
         transaction
             .affinity()
             .expect("affinity present")
-            .set_entry_id(202);
+            .compare_and_set_entry_id(0, 1)
+            .expect("pin entry");
         assert_eq!(
             affinity.pinned_entry_id(),
-            Some(202),
+            Some(1),
             "Affinity handle passed to builder must observe the pinned channel ID"
         );
 
@@ -3798,7 +3790,7 @@ pub(crate) mod tests {
             .await?;
         assert_eq!(
             result_set.affinity().pinned_entry_id(),
-            Some(202),
+            Some(1),
             "ResultSet generated from MultiUse transaction must share the same pinned affinity"
         );
 
@@ -3859,7 +3851,9 @@ pub(crate) mod tests {
             "Initial pinned entry ID should be None"
         );
 
-        affinity.set_entry_id(505);
+        affinity
+            .compare_and_set_entry_id(0, 505)
+            .expect("pin entry");
         assert_eq!(
             result_set.affinity().pinned_entry_id(),
             Some(505),

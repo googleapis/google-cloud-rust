@@ -650,12 +650,17 @@ mod tests {
     use super::*;
     use crate::mutation::Mutation;
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
+    use crate::result_set::tests::adapt;
+    use crate::statement::Statement;
     use crate::transaction_retry_policy::tests::create_aborted_status;
     use gaxi::grpc::tonic;
+    use gaxi::grpc::tonic::{Code, Response, Status};
     use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_test_macros::tokio_test_no_panics;
+    use prost_types::Timestamp;
     use prost_types::value::Kind;
+    use spanner_grpc_mock::MockSpanner;
     use spanner_grpc_mock::google::spanner::v1;
     use spanner_grpc_mock::google::spanner::v1::CommitResponse;
     use spanner_grpc_mock::google::spanner::v1::commit_request::Transaction as CommitTransaction;
@@ -663,17 +668,15 @@ mod tests {
     use spanner_grpc_mock::google::spanner::v1::mutation::Operation;
     use spanner_grpc_mock::google::spanner::v1::transaction_options::Mode;
     use spanner_grpc_mock::google::spanner::v1::transaction_selector::Selector as ProtoSelector;
+    use std::net::SocketAddr;
     use std::sync::Mutex;
+    use std::sync::atomic::{AtomicUsize, Ordering};
     use std::sync::mpsc::channel as std_channel;
     use std::time::Duration as StdDuration;
-    use std::time::Duration as StdTimeDuration;
     use tokio::sync::oneshot::channel as oneshot_channel;
+    use tokio::task::JoinHandle;
 
-    fn expect_begin_transaction(
-        mock: &mut spanner_grpc_mock::MockSpanner,
-        times: usize,
-        transaction_id: Vec<u8>,
-    ) {
+    fn expect_begin_transaction(mock: &mut MockSpanner, times: usize, transaction_id: Vec<u8>) {
         mock.expect_begin_transaction()
             .times(times)
             .returning(move |req| {
@@ -690,7 +693,7 @@ mod tests {
     }
 
     async fn execute_test_runner(
-        mock: spanner_grpc_mock::MockSpanner,
+        mock: MockSpanner,
         begin_transaction_option: BeginTransactionOption,
     ) -> Result<i64, crate::Error> {
         let (db_client, server) = setup_db_client(mock).await;
@@ -2106,7 +2109,7 @@ mod tests {
                     }
                     _ => panic!("Expected insert mutation"),
                 }
-                Err(create_aborted_status(StdTimeDuration::from_nanos(1)))
+                Err(create_aborted_status(StdDuration::from_nanos(1)))
             });
 
         // Retry attempt: execute_sql sends inline BeginTransaction with previous_transaction_id
@@ -2376,6 +2379,1004 @@ mod tests {
             vec![Some(42), Some(42)],
             "Retried attempt must retain the pinned channel affinity"
         );
+
+        Ok(())
+    }
+
+    async fn setup_db_client_with_dynamic_pool(
+        mock: MockSpanner,
+        initial_channels: usize,
+        max_channels: usize,
+    ) -> (DatabaseClient, JoinHandle<()>) {
+        use crate::channel_pool::DynamicChannelPoolConfig;
+        use crate::client::{Spanner, SpannerBuilderExt};
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::start;
+
+        let (address, server) = start("127.0.0.1:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let dynamic_config = DynamicChannelPoolConfig::new()
+            .with_initial_channels(initial_channels)
+            .with_min_channels(initial_channels)
+            .with_max_channels(max_channels);
+
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .with_channel_pool(dynamic_config)
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await
+            .expect("Failed to create DatabaseClient");
+
+        (database_client, server)
+    }
+
+    fn assert_all_rpcs_use_same_channel(addresses: &[SocketAddr], expected_count: usize) {
+        assert_eq!(
+            addresses.len(),
+            expected_count,
+            "Expected {expected_count} RPCs executed"
+        );
+        let first_address = addresses[0];
+        for (index, address) in addresses.iter().enumerate() {
+            assert_eq!(
+                *address, first_address,
+                "RPC at index {index} must use the same channel as attempt 1 ({first_address})"
+            );
+        }
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_aborted_retry_routes_all_attempts_to_same_channel()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let remote_addresses = Arc::new(Mutex::new(Vec::new()));
+
+        // Attempt 1: Statement 1 (ExecuteStreamingSql) succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                let metadata = v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    transaction: Some(v1::Transaction {
+                        id: vec![1, 2, 3],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                Ok(Response::from(adapt([Ok(partial_result_set)])))
+            });
+
+        // Attempt 1: Statement 2 (ExecuteSql) fails with Aborted
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_sql().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Err(Status::new(Code::Aborted, "Transaction was aborted"))
+        });
+
+        // Attempt 2: Statement 1 (ExecuteStreamingSql) succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                let metadata = v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    transaction: Some(v1::Transaction {
+                        id: vec![4, 5, 6],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                Ok(Response::from(adapt([Ok(partial_result_set)])))
+            });
+
+        // Attempt 2: Statement 2 (ExecuteSql) succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_sql().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(v1::ResultSet {
+                metadata: Some(v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    ..Default::default()
+                }),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // Attempt 2: Commit succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_commit().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(CommitResponse {
+                commit_timestamp: Some(Timestamp {
+                    seconds: 2000,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (database_client, _server) = setup_db_client_with_dynamic_pool(mock, 4, 8).await;
+
+        let runner = database_client.read_write_transaction().build().await?;
+        let result = runner
+            .run(|transaction: ReadWriteTransaction| async move {
+                let mut result_set = transaction
+                    .execute_query(Statement::builder("SELECT 1").build())
+                    .await?;
+                let _ = result_set.next().await.transpose()?;
+                let count = transaction
+                    .execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+                    .await?;
+                Ok(count)
+            })
+            .await?;
+
+        assert_eq!(result.result, 1, "Expected update count of 1 on retry");
+
+        let addresses = remote_addresses.lock().expect("mutex lock");
+        assert_all_rpcs_use_same_channel(&addresses, 5);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_statement_transparent_retry_uses_same_channel() -> anyhow::Result<()>
+    {
+        let mut mock = create_session_mock();
+        let remote_addresses = Arc::new(Mutex::new(Vec::new()));
+        let closure_invocations = Arc::new(AtomicUsize::new(0));
+
+        // Statement 1: ExecuteStreamingSql succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                let metadata = v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    transaction: Some(v1::Transaction {
+                        id: vec![1, 2, 3],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                Ok(Response::from(adapt([Ok(partial_result_set)])))
+            });
+
+        // Statement 2: ExecuteSql attempt 1 fails with UNAVAILABLE
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_sql().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Err(Status::new(Code::Unavailable, "Transient network failure"))
+        });
+
+        // Statement 2: ExecuteSql attempt 2 (transparent retry by GAX) succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_sql().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(v1::ResultSet {
+                metadata: Some(v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    ..Default::default()
+                }),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // Commit succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_commit().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(CommitResponse {
+                commit_timestamp: Some(Timestamp {
+                    seconds: 2000,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (database_client, _server) = setup_db_client_with_dynamic_pool(mock, 4, 8).await;
+
+        let runner = database_client.read_write_transaction().build().await?;
+        let closure_invocations_clone = Arc::clone(&closure_invocations);
+        let result = runner
+            .run(|transaction: ReadWriteTransaction| {
+                let closure_invocations_clone = Arc::clone(&closure_invocations_clone);
+                async move {
+                    closure_invocations_clone.fetch_add(1, Ordering::SeqCst);
+                    let mut result_set = transaction
+                        .execute_query(Statement::builder("SELECT 1").build())
+                        .await?;
+                    let _ = result_set.next().await.transpose()?;
+                    let count = transaction
+                        .execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+                        .await?;
+                    Ok(count)
+                }
+            })
+            .await?;
+
+        assert_eq!(
+            result.result, 1,
+            "Expected update count of 1 on successful retry"
+        );
+        assert_eq!(
+            closure_invocations.load(Ordering::SeqCst),
+            1,
+            "Application closure should execute exactly once because UNAVAILABLE is retried transparently by GAX"
+        );
+
+        let addresses = remote_addresses.lock().expect("mutex lock");
+        assert_all_rpcs_use_same_channel(&addresses, 4);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_query_stream_transparent_retry_uses_same_channel()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let remote_addresses = Arc::new(Mutex::new(Vec::new()));
+        let closure_invocations = Arc::new(AtomicUsize::new(0));
+
+        // Statement 1: ExecuteStreamingSql attempt 1 yields UNAVAILABLE
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                Ok(Response::from(adapt([Err(Status::new(
+                    Code::Unavailable,
+                    "Transient stream disconnect",
+                ))])))
+            });
+
+        // Statement 1: ExecuteStreamingSql attempt 2 (stream restart) succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                let metadata = v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    transaction: Some(v1::Transaction {
+                        id: vec![1, 2, 3],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                Ok(Response::from(adapt([Ok(partial_result_set)])))
+            });
+
+        // Statement 2: ExecuteSql succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_sql().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(v1::ResultSet {
+                metadata: Some(v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    ..Default::default()
+                }),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // Commit succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_commit().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(CommitResponse {
+                commit_timestamp: Some(Timestamp {
+                    seconds: 2000,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (database_client, _server) = setup_db_client_with_dynamic_pool(mock, 4, 8).await;
+
+        let runner = database_client.read_write_transaction().build().await?;
+        let closure_invocations_clone = Arc::clone(&closure_invocations);
+        let result = runner
+            .run(|transaction: ReadWriteTransaction| {
+                let closure_invocations_clone = Arc::clone(&closure_invocations_clone);
+                async move {
+                    closure_invocations_clone.fetch_add(1, Ordering::SeqCst);
+                    let mut result_set = transaction
+                        .execute_query(Statement::builder("SELECT 1").build())
+                        .await?;
+                    let _ = result_set.next().await.transpose()?;
+                    let count = transaction
+                        .execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+                        .await?;
+                    Ok(count)
+                }
+            })
+            .await?;
+
+        assert_eq!(result.result, 1, "Expected update count of 1");
+        assert_eq!(
+            closure_invocations.load(Ordering::SeqCst),
+            1,
+            "Application closure should execute exactly once because query stream resumed transparently"
+        );
+
+        let addresses = remote_addresses.lock().expect("mutex lock");
+        assert_all_rpcs_use_same_channel(&addresses, 4);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_commit_aborted_retry_routes_all_attempts_to_same_channel()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let remote_addresses = Arc::new(Mutex::new(Vec::new()));
+        let closure_invocations = Arc::new(AtomicUsize::new(0));
+
+        // Attempt 1: Statement 1 (ExecuteStreamingSql) succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                let metadata = v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    transaction: Some(v1::Transaction {
+                        id: vec![1, 2, 3],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                Ok(Response::from(adapt([Ok(partial_result_set)])))
+            });
+
+        // Attempt 1: Statement 2 (ExecuteSql) succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_sql().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(v1::ResultSet {
+                metadata: Some(v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    ..Default::default()
+                }),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // Attempt 1: Commit fails with Aborted
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_commit().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Err(Status::new(
+                Code::Aborted,
+                "Transaction was aborted during commit",
+            ))
+        });
+
+        // Attempt 2: Statement 1 (ExecuteStreamingSql) succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                let metadata = v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    transaction: Some(v1::Transaction {
+                        id: vec![4, 5, 6],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                Ok(Response::from(adapt([Ok(partial_result_set)])))
+            });
+
+        // Attempt 2: Statement 2 (ExecuteSql) succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_sql().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(v1::ResultSet {
+                metadata: Some(v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    ..Default::default()
+                }),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // Attempt 2: Commit succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_commit().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(CommitResponse {
+                commit_timestamp: Some(Timestamp {
+                    seconds: 2000,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (database_client, _server) = setup_db_client_with_dynamic_pool(mock, 4, 8).await;
+
+        let runner = database_client.read_write_transaction().build().await?;
+        let closure_invocations_clone = Arc::clone(&closure_invocations);
+        let result = runner
+            .run(|transaction: ReadWriteTransaction| {
+                let closure_invocations_clone = Arc::clone(&closure_invocations_clone);
+                async move {
+                    closure_invocations_clone.fetch_add(1, Ordering::SeqCst);
+                    let mut result_set = transaction
+                        .execute_query(Statement::builder("SELECT 1").build())
+                        .await?;
+                    let _ = result_set.next().await.transpose()?;
+                    let count = transaction
+                        .execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+                        .await?;
+                    Ok(count)
+                }
+            })
+            .await?;
+
+        assert_eq!(result.result, 1, "Expected update count of 1 on retry");
+        assert_eq!(
+            closure_invocations.load(Ordering::SeqCst),
+            2,
+            "Expected closure to be invoked twice due to commit abort"
+        );
+
+        let addresses = remote_addresses.lock().expect("mutex lock");
+        assert_all_rpcs_use_same_channel(&addresses, 6);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_multiple_aborted_retries_route_all_attempts_to_same_channel()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let remote_addresses = Arc::new(Mutex::new(Vec::new()));
+        let closure_invocations = Arc::new(AtomicUsize::new(0));
+
+        // Attempt 1: Statement 1 (ExecuteStreamingSql) succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                let metadata = v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    transaction: Some(v1::Transaction {
+                        id: vec![1, 1, 1],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                Ok(Response::from(adapt([Ok(partial_result_set)])))
+            });
+
+        // Attempt 1: Statement 2 (ExecuteSql) fails with Aborted
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_sql().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Err(Status::new(
+                Code::Aborted,
+                "Transaction aborted on attempt 1",
+            ))
+        });
+
+        // Attempt 2: Statement 1 (ExecuteStreamingSql) succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                let metadata = v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    transaction: Some(v1::Transaction {
+                        id: vec![2, 2, 2],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                Ok(Response::from(adapt([Ok(partial_result_set)])))
+            });
+
+        // Attempt 2: Statement 2 (ExecuteSql) succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_sql().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(v1::ResultSet {
+                metadata: Some(v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    ..Default::default()
+                }),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // Attempt 2: Commit fails with Aborted
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_commit().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Err(Status::new(
+                Code::Aborted,
+                "Transaction aborted on attempt 2 commit",
+            ))
+        });
+
+        // Attempt 3: Statement 1 (ExecuteStreamingSql) succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                let metadata = v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    transaction: Some(v1::Transaction {
+                        id: vec![3, 3, 3],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                Ok(Response::from(adapt([Ok(partial_result_set)])))
+            });
+
+        // Attempt 3: Statement 2 (ExecuteSql) succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_sql().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(v1::ResultSet {
+                metadata: Some(v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    ..Default::default()
+                }),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // Attempt 3: Commit succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_commit().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(CommitResponse {
+                commit_timestamp: Some(Timestamp {
+                    seconds: 3000,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (database_client, _server) = setup_db_client_with_dynamic_pool(mock, 4, 8).await;
+
+        let runner = database_client.read_write_transaction().build().await?;
+        let closure_invocations_clone = Arc::clone(&closure_invocations);
+        let result = runner
+            .run(|transaction: ReadWriteTransaction| {
+                let closure_invocations_clone = Arc::clone(&closure_invocations_clone);
+                async move {
+                    closure_invocations_clone.fetch_add(1, Ordering::SeqCst);
+                    let mut result_set = transaction
+                        .execute_query(Statement::builder("SELECT 1").build())
+                        .await?;
+                    let _ = result_set.next().await.transpose()?;
+                    let count = transaction
+                        .execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+                        .await?;
+                    Ok(count)
+                }
+            })
+            .await?;
+
+        assert_eq!(result.result, 1, "Expected update count of 1 on retry");
+        assert_eq!(
+            closure_invocations.load(Ordering::SeqCst),
+            3,
+            "Expected closure to be invoked 3 times across multiple aborted attempts"
+        );
+
+        let addresses = remote_addresses.lock().expect("mutex lock");
+        assert_all_rpcs_use_same_channel(&addresses, 8);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_rollback_on_user_error_uses_same_channel() -> anyhow::Result<()> {
+        use crate::Error;
+        use crate::error::internal_error;
+
+        let mut mock = create_session_mock();
+        let remote_addresses = Arc::new(Mutex::new(Vec::new()));
+
+        // Statement: ExecuteSql succeeds with inline begin
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_sql().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(v1::ResultSet {
+                metadata: Some(v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    transaction: Some(v1::Transaction {
+                        id: vec![1, 2, 3],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // Rollback is triggered on non-aborted user error and must use the same channel
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_rollback().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(()))
+        });
+
+        let (database_client, _server) = setup_db_client_with_dynamic_pool(mock, 4, 8).await;
+
+        let runner = database_client.read_write_transaction().build().await?;
+        let result = runner
+            .run(|transaction: ReadWriteTransaction| async move {
+                let _count = transaction
+                    .execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+                    .await?;
+                Err::<(), Error>(internal_error("Application-level validation error"))
+            })
+            .await;
+
+        assert!(
+            result.is_err(),
+            "Expected runner to return the user-facing application error"
+        );
+
+        let addresses = remote_addresses.lock().expect("mutex lock");
+        assert_all_rpcs_use_same_channel(&addresses, 2);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn transaction_runner_explicit_begin_aborted_retry_uses_same_channel()
+    -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let remote_addresses = Arc::new(Mutex::new(Vec::new()));
+        let closure_invocations = Arc::new(AtomicUsize::new(0));
+
+        // Attempt 1: BeginTransaction succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_begin_transaction()
+            .once()
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                Ok(Response::new(v1::Transaction {
+                    id: vec![1, 2, 3],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 1: ExecuteSql succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_sql().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(v1::ResultSet {
+                metadata: Some(v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    ..Default::default()
+                }),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // Attempt 1: Commit fails with Aborted
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_commit().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Err(Status::new(
+                Code::Aborted,
+                "Transaction was aborted during explicit begin commit",
+            ))
+        });
+
+        // Attempt 2: BeginTransaction succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_begin_transaction()
+            .once()
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                Ok(Response::new(v1::Transaction {
+                    id: vec![4, 5, 6],
+                    ..Default::default()
+                }))
+            });
+
+        // Attempt 2: ExecuteSql succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_sql().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(v1::ResultSet {
+                metadata: Some(v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    ..Default::default()
+                }),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // Attempt 2: Commit succeeds
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_commit().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(CommitResponse {
+                commit_timestamp: Some(Timestamp {
+                    seconds: 2000,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (database_client, _server) = setup_db_client_with_dynamic_pool(mock, 4, 8).await;
+
+        let runner = database_client
+            .read_write_transaction()
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
+            .build()
+            .await?;
+        let closure_invocations_clone = Arc::clone(&closure_invocations);
+        let result = runner
+            .run(|transaction: ReadWriteTransaction| {
+                let closure_invocations_clone = Arc::clone(&closure_invocations_clone);
+                async move {
+                    closure_invocations_clone.fetch_add(1, Ordering::SeqCst);
+                    let count = transaction
+                        .execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+                        .await?;
+                    Ok(count)
+                }
+            })
+            .await?;
+
+        assert_eq!(result.result, 1, "Expected update count of 1 on retry");
+        assert_eq!(
+            closure_invocations.load(Ordering::SeqCst),
+            2,
+            "Expected closure to be invoked twice due to aborted retry with explicit begin"
+        );
+
+        let addresses = remote_addresses.lock().expect("mutex lock");
+        assert_all_rpcs_use_same_channel(&addresses, 6);
 
         Ok(())
     }

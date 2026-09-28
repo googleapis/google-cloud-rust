@@ -14,8 +14,9 @@
 
 use crate::Error;
 use crate::RequestOptions;
+use crate::Result;
 use crate::batch::BatchDml;
-use crate::channel_pool::TransactionAffinity;
+use crate::channel_pool::{ChannelTarget, TransactionAffinity};
 use crate::client::amend_request_options_for_lar;
 use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
@@ -40,6 +41,7 @@ use crate::mutation::Mutation;
 use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::{
     BeginTransactionOption, ReadContext, ReadContextTransactionSelector, TransactionState,
+    execute_begin_transaction,
 };
 use crate::result_set::ResultSet;
 use crate::retry_policy::SpannerRetryPolicy;
@@ -168,18 +170,18 @@ impl ReadWriteTransactionBuilder {
         self
     }
 
-    async fn begin(
+    async fn begin<'a>(
         &self,
         session_name: String,
-        channel_hint: usize,
-        request_options: crate::RequestOptions,
-    ) -> crate::Result<ReadContextTransactionSelector> {
-        let response = crate::read_only_transaction::execute_begin_transaction(
+        channel_target: impl Into<ChannelTarget<'a>>,
+        request_options: RequestOptions,
+    ) -> Result<ReadContextTransactionSelector> {
+        let response = execute_begin_transaction(
             &self.client,
             session_name,
             self.options.clone(),
             self.transaction_tag.clone(),
-            channel_hint,
+            channel_target,
             request_options,
             None,
         )
@@ -191,11 +193,12 @@ impl ReadWriteTransactionBuilder {
         ))
     }
 
-    pub(crate) async fn build(
-        self,
-        deadline: Option<Instant>,
-    ) -> crate::Result<ReadWriteTransaction> {
-        let channel_hint = self.client.next_channel_hint();
+    pub(crate) async fn build(mut self, deadline: Option<Instant>) -> Result<ReadWriteTransaction> {
+        let affinity = Some(
+            self.affinity
+                .take()
+                .unwrap_or_else(|| Arc::new(TransactionAffinity::new_read_write())),
+        );
         let transaction_selector = match self.begin_transaction_option {
             BeginTransactionOption::ExplicitBegin => {
                 let mut options = self.begin_gax_options.clone().unwrap_or_default();
@@ -205,18 +208,13 @@ impl ReadWriteTransactionBuilder {
                     &mut options,
                 );
 
-                self.begin(self.session_name.clone(), channel_hint, options)
+                self.begin(self.session_name.clone(), &affinity, options)
                     .await?
             }
             BeginTransactionOption::InlineBegin => ReadContextTransactionSelector::Lazy(Arc::new(
                 Mutex::new(TransactionState::NotStarted(self.options)),
             )),
         };
-
-        let affinity = Some(
-            self.affinity
-                .unwrap_or_else(|| Arc::new(TransactionAffinity::new_read_write())),
-        );
 
         Ok(ReadWriteTransaction {
             context: ReadContext {
@@ -225,7 +223,6 @@ impl ReadWriteTransactionBuilder {
                 transaction_selector,
                 precommit_token_tracker: PrecommitTokenTracker::new(),
                 transaction_tag: self.transaction_tag,
-                channel_hint,
                 begin_transaction_request_options: None,
                 affinity,
             },
@@ -240,7 +237,6 @@ impl ReadWriteTransactionBuilder {
         })
     }
 
-    #[allow(dead_code)]
     pub(crate) fn with_affinity(mut self, affinity: Arc<TransactionAffinity>) -> Self {
         self.affinity = Some(affinity);
         self
@@ -334,7 +330,7 @@ macro_rules! execute_with_retry {
             .$rpc_method(
                 $request.clone(),
                 $gax_options.clone(),
-                $self.context.channel_hint,
+                $self.context.affinity(),
             )
             .await;
 
@@ -635,13 +631,21 @@ impl ReadWriteTransaction {
     }
 
     /// Commits the transaction.
-    pub(crate) async fn commit(self) -> crate::Result<CommitResponse> {
+    pub(crate) async fn commit(self) -> Result<CommitResponse> {
+        let result = self.commit_internal().await;
+        if let Some(affinity) = self.affinity() {
+            affinity.release_rw_guard();
+        }
+        result
+    }
+
+    async fn commit_internal(&self) -> Result<CommitResponse> {
         self.context.transaction_selector.check_failed()?;
-        let mutations = take(&mut *self.mutations.lock().unwrap());
+        let mutations = take(&mut *self.mutations.lock().expect("mutations mutex poisoned"));
         let mut id = self.context.transaction_selector.get_id_no_wait()?;
         if id.is_none() {
             if self.is_starting()? {
-                return Err(crate::error::internal_error(
+                return Err(internal_error(
                     "Commit called while an asynchronous statement is still starting the transaction",
                 ));
             }
@@ -665,7 +669,7 @@ impl ReadWriteTransaction {
         let response = self
             .context
             .client
-            .commit(request, gax_options, self.context.channel_hint)
+            .commit(request, gax_options, self.affinity())
             .await?;
 
         let response =
@@ -681,7 +685,7 @@ impl ReadWriteTransaction {
 
                 self.context
                     .client
-                    .commit(retry_commit_req, gax_options, self.context.channel_hint)
+                    .commit(retry_commit_req, gax_options, self.affinity())
                     .await?
             } else {
                 response
@@ -691,7 +695,15 @@ impl ReadWriteTransaction {
     }
 
     /// Rolls back the transaction.
-    pub(crate) async fn rollback(self) -> crate::Result<()> {
+    pub(crate) async fn rollback(self) -> Result<()> {
+        let result = self.rollback_internal().await;
+        if let Some(affinity) = self.affinity() {
+            affinity.release_rw_guard();
+        }
+        result
+    }
+
+    async fn rollback_internal(&self) -> Result<()> {
         let Some(transaction_id) = self.context.transaction_selector.get_id_no_wait()? else {
             return Ok(());
         };
@@ -705,7 +717,7 @@ impl ReadWriteTransaction {
 
         self.context
             .client
-            .rollback(request, gax_options, self.context.channel_hint)
+            .rollback(request, gax_options, self.affinity())
             .await?;
 
         Ok(())
@@ -786,12 +798,14 @@ impl RetryPolicy for TransactionBoundedRetryPolicy {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::client::{Spanner, SpannerBuilderExt};
     use crate::error::BatchUpdateError;
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
     use crate::result_set::tests::{adapt, string_val};
     use crate::transaction_retry_policy::BasicTransactionRetryPolicy;
     use gaxi::grpc::tonic;
     use gaxi::grpc::tonic::MetadataMap;
+    use gaxi::grpc::tonic::Response;
     use google_cloud_gax::options::internal::RequestOptionsExt as _;
     use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_gax::retry_result::RetryResult;
@@ -799,11 +813,14 @@ mod tests {
     use google_cloud_test_macros::tokio_test_no_panics;
     use http::{HeaderMap, HeaderValue};
     use prost_types::Timestamp;
+    use spanner_grpc_mock::MockSpanner;
     use spanner_grpc_mock::google::spanner::v1;
     use std::fmt::Debug;
+    use std::net::SocketAddr;
     use std::sync::Mutex;
     use std::sync::atomic::{AtomicU32, Ordering};
     use std::time::Duration as StdDuration;
+    use tokio::task::JoinHandle;
 
     #[test]
     fn auto_traits() {
@@ -4304,10 +4321,11 @@ mod tests {
         transaction
             .affinity()
             .expect("affinity present")
-            .set_entry_id(101);
+            .compare_and_set_entry_id(0, 1)
+            .expect("pin entry");
         assert_eq!(
             affinity.pinned_entry_id(),
-            Some(101),
+            Some(1),
             "Affinity handle passed to builder must observe the pinned channel ID"
         );
 
@@ -4316,7 +4334,7 @@ mod tests {
             .await?;
         assert_eq!(
             result_set.affinity().pinned_entry_id(),
-            Some(101),
+            Some(1),
             "ResultSet generated from ReadWrite transaction must share the same pinned affinity"
         );
 
@@ -4345,6 +4363,782 @@ mod tests {
             None,
             "Default affinity should start unpinned"
         );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_releases_rw_guard_on_commit_rollback_and_drop()
+    -> anyhow::Result<()> {
+        use crate::client::Spanner;
+        use crate::read_only_transaction::tests::setup_select1_with_transaction_id;
+        use crate::result_set::tests::adapt;
+        use crate::statement::Statement;
+        use gaxi::grpc::tonic::Response;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::google::spanner::v1 as mock_v1;
+        use spanner_grpc_mock::start;
+
+        let mut mock = create_session_mock();
+        mock.expect_execute_streaming_sql().returning(|_| {
+            Ok(Response::from(adapt([Ok(
+                setup_select1_with_transaction_id(vec![1, 2, 3]),
+            )])))
+        });
+        mock.expect_commit()
+            .returning(|_| Ok(Response::new(mock_v1::CommitResponse::default())));
+        mock.expect_rollback().returning(|_| Ok(Response::new(())));
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await?;
+
+        let entries = spanner.channel_pool().active_entries();
+
+        // 1. Commit releases the active R/W guard on the pinned ChannelEntry
+        {
+            let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+                .build(None)
+                .await?;
+            let mut result_set = transaction
+                .execute_query(Statement::builder("SELECT 1").build())
+                .await?;
+            while let Some(row) = result_set.next().await {
+                let _ = row?;
+            }
+
+            let pinned_id = transaction
+                .affinity()
+                .expect("affinity present")
+                .pinned_entry_id()
+                .expect("entry should be pinned after statement execution");
+            let pinned_entry = entries
+                .iter()
+                .find(|entry| entry.id == pinned_id)
+                .expect("pinned entry must exist in active entries");
+
+            assert_eq!(
+                pinned_entry.active_rw_count(),
+                1,
+                "pinned entry active_rw_count must be 1 during active transaction"
+            );
+
+            transaction.commit().await?;
+
+            assert_eq!(
+                pinned_entry.active_rw_count(),
+                0,
+                "pinned entry active_rw_count must drop to 0 immediately after commit"
+            );
+        }
+
+        // 2. Rollback releases the active R/W guard on the pinned ChannelEntry
+        {
+            let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+                .build(None)
+                .await?;
+            let mut result_set = transaction
+                .execute_query(Statement::builder("SELECT 1").build())
+                .await?;
+            while let Some(row) = result_set.next().await {
+                let _ = row?;
+            }
+
+            let pinned_id = transaction
+                .affinity()
+                .expect("affinity present")
+                .pinned_entry_id()
+                .expect("entry should be pinned after statement execution");
+            let pinned_entry = entries
+                .iter()
+                .find(|entry| entry.id == pinned_id)
+                .expect("pinned entry must exist in active entries");
+
+            assert_eq!(
+                pinned_entry.active_rw_count(),
+                1,
+                "pinned entry active_rw_count must be 1 during active transaction"
+            );
+
+            transaction.rollback().await?;
+
+            assert_eq!(
+                pinned_entry.active_rw_count(),
+                0,
+                "pinned entry active_rw_count must drop to 0 immediately after rollback"
+            );
+        }
+
+        // 3. Dropping an uncommitted transaction releases the active R/W guard on the pinned ChannelEntry
+        {
+            let pinned_entry;
+            {
+                let transaction = ReadWriteTransactionBuilder::new(database_client.clone())
+                    .build(None)
+                    .await?;
+                let mut result_set = transaction
+                    .execute_query(Statement::builder("SELECT 1").build())
+                    .await?;
+                while let Some(row) = result_set.next().await {
+                    let _ = row?;
+                }
+
+                let pinned_id = transaction
+                    .affinity()
+                    .expect("affinity present")
+                    .pinned_entry_id()
+                    .expect("entry should be pinned after statement execution");
+                pinned_entry = entries
+                    .iter()
+                    .find(|entry| entry.id == pinned_id)
+                    .cloned()
+                    .expect("pinned entry must exist in active entries");
+
+                assert_eq!(
+                    pinned_entry.active_rw_count(),
+                    1,
+                    "pinned entry active_rw_count must be 1 during active transaction"
+                );
+            }
+
+            assert_eq!(
+                pinned_entry.active_rw_count(),
+                0,
+                "pinned entry active_rw_count must drop to 0 when uncommitted transaction is dropped"
+            );
+        }
+
+        Ok(())
+    }
+
+    async fn setup_db_client_with_dynamic_pool(
+        mock: MockSpanner,
+        initial_channels: usize,
+        max_channels: usize,
+    ) -> (DatabaseClient, Spanner, JoinHandle<()>) {
+        use crate::channel_pool::DynamicChannelPoolConfig;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+        use spanner_grpc_mock::start;
+
+        let (address, server) = start("127.0.0.1:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let dynamic_config = DynamicChannelPoolConfig::new()
+            .with_initial_channels(initial_channels)
+            .with_min_channels(initial_channels)
+            .with_max_channels(max_channels);
+
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .with_channel_pool(dynamic_config)
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await
+            .expect("Failed to create DatabaseClient");
+
+        (database_client, spanner, server)
+    }
+
+    fn assert_all_rpcs_use_same_channel(addresses: &[SocketAddr], expected_count: usize) {
+        assert_eq!(
+            addresses.len(),
+            expected_count,
+            "Expected {expected_count} RPCs executed"
+        );
+        let first_address = addresses[0];
+        for (index, address) in addresses.iter().enumerate() {
+            assert_eq!(
+                *address, first_address,
+                "RPC at index {index} must use the same channel as first RPC ({first_address})"
+            );
+        }
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_affinity_under_dynamic_pool_inline_begin() -> anyhow::Result<()>
+    {
+        run_read_write_transaction_affinity_under_dynamic_pool(BeginTransactionOption::InlineBegin)
+            .await
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_affinity_under_dynamic_pool_explicit_begin()
+    -> anyhow::Result<()> {
+        run_read_write_transaction_affinity_under_dynamic_pool(
+            BeginTransactionOption::ExplicitBegin,
+        )
+        .await
+    }
+
+    async fn run_read_write_transaction_affinity_under_dynamic_pool(
+        begin_transaction_option: BeginTransactionOption,
+    ) -> anyhow::Result<()> {
+        use crate::batch_dml::BatchDml;
+        use crate::statement::Statement;
+        use prost_types::Timestamp;
+
+        let mut mock = create_session_mock();
+        let remote_addresses = Arc::new(Mutex::new(Vec::new()));
+
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
+            let remote_addresses_clone = Arc::clone(&remote_addresses);
+            mock.expect_begin_transaction()
+                .once()
+                .returning(move |request| {
+                    remote_addresses_clone.lock().expect("mutex lock").push(
+                        request
+                            .remote_addr()
+                            .expect("remote_addr should be available"),
+                    );
+                    Ok(Response::new(v1::Transaction {
+                        id: vec![1, 2, 3],
+                        ..Default::default()
+                    }))
+                });
+        }
+
+        // 1. Query: execute_streaming_sql
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                let mut metadata = v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    ..Default::default()
+                };
+                if begin_transaction_option == BeginTransactionOption::InlineBegin {
+                    metadata.transaction = Some(v1::Transaction {
+                        id: vec![1, 2, 3],
+                        ..Default::default()
+                    });
+                }
+                let partial_result_set = v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                Ok(Response::from(adapt([Ok(partial_result_set)])))
+            });
+
+        // 2. DML: execute_sql
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_sql().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(v1::ResultSet {
+                metadata: Some(v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    ..Default::default()
+                }),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // 3. Batch DML: execute_batch_dml
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_batch_dml()
+            .once()
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                Ok(Response::new(v1::ExecuteBatchDmlResponse {
+                    result_sets: vec![v1::ResultSet {
+                        stats: Some(v1::ResultSetStats {
+                            row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }],
+                    ..Default::default()
+                }))
+            });
+
+        // 4. Commit: commit
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_commit().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(v1::CommitResponse {
+                commit_timestamp: Some(Timestamp {
+                    seconds: 1000,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (database_client, _spanner, _server) =
+            setup_db_client_with_dynamic_pool(mock, 4, 8).await;
+
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .with_begin_transaction_option(begin_transaction_option)
+            .build(None)
+            .await?;
+
+        let mut result_set = transaction
+            .execute_query(Statement::builder("SELECT 1").build())
+            .await?;
+        let _ = result_set.next().await.transpose()?;
+
+        let count = transaction
+            .execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+            .await?;
+        assert_eq!(count, 1, "Expected 1 row updated");
+
+        let batch_result = transaction
+            .execute_batch_update(
+                BatchDml::builder()
+                    .add_statement("UPDATE Users SET Name = 'Bob' WHERE Id = 2")
+                    .build(),
+            )
+            .await?;
+        assert_eq!(batch_result.len(), 1, "Expected 1 batch statement executed");
+
+        let commit_result = transaction.commit().await?;
+        assert_eq!(
+            commit_result
+                .commit_timestamp
+                .expect("timestamp should be present")
+                .seconds(),
+            1000,
+            "Commit timestamp mismatch"
+        );
+
+        let addresses = remote_addresses.lock().expect("mutex lock");
+        let expected_rpc_count =
+            if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
+                5
+            } else {
+                4
+            };
+        assert_all_rpcs_use_same_channel(&addresses, expected_rpc_count);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_affinity_preserved_across_dynamic_pool_scale_up()
+    -> anyhow::Result<()> {
+        use crate::channel_pool::entry::ChannelEntry;
+        use crate::statement::Statement;
+        use prost_types::Timestamp;
+
+        let mut mock = create_session_mock();
+        let remote_addresses = Arc::new(Mutex::new(Vec::new()));
+
+        // Statement 1: Query (Inline begin)
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                let metadata = v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    transaction: Some(v1::Transaction {
+                        id: vec![1, 2, 3],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                Ok(Response::from(adapt([Ok(partial_result_set)])))
+            });
+
+        // Statement 2: Update
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_sql().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(v1::ResultSet {
+                metadata: Some(v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    ..Default::default()
+                }),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // Commit
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_commit().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(v1::CommitResponse {
+                commit_timestamp: Some(Timestamp {
+                    seconds: 1000,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // Start with 2 channels, pool can scale up to 8
+        let (database_client, spanner, _server) =
+            setup_db_client_with_dynamic_pool(mock, 2, 8).await;
+
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .build(None)
+            .await?;
+
+        // Execute Statement 1
+        let mut result_set = transaction
+            .execute_query(Statement::builder("SELECT 1").build())
+            .await?;
+        let _ = result_set.next().await.transpose()?;
+
+        let pinned_entry_id = transaction
+            .affinity()
+            .expect("affinity must be present")
+            .pinned_entry_id();
+        assert!(
+            pinned_entry_id.is_some(),
+            "Transaction affinity must be pinned after first statement"
+        );
+
+        // Simulate dynamic scale-up mid-transaction: add new channels to active_entries
+        {
+            let default_channel = spanner
+                .channel_pool()
+                .default_channel()
+                .expect("default channel must exist");
+            let mut active_write = spanner
+                .channel_pool()
+                .inner
+                .active_entries
+                .write()
+                .expect("lock active_entries");
+            let current_len = active_write.len();
+            let next_entry_id = current_len as u64 + 1;
+            // Add 2 new channels, doubling active channels from 2 to 4.
+            // Note: `logical_channel_id` is 1-based (1..=max_channels), so the next available
+            // logical slots are `current_len + 1` and `current_len + 2`.
+            active_write.push(Arc::new(ChannelEntry::new(
+                next_entry_id,
+                current_len + 1,
+                default_channel.clone(),
+            )));
+            active_write.push(Arc::new(ChannelEntry::new(
+                next_entry_id + 1,
+                current_len + 2,
+                default_channel,
+            )));
+            assert_eq!(
+                active_write.len(),
+                4,
+                "Pool must now have 4 active channels"
+            );
+        }
+
+        // Execute Statement 2: Update
+        let count = transaction
+            .execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+            .await?;
+        assert_eq!(count, 1, "Expected 1 row updated");
+
+        // Commit
+        let _ = transaction.commit().await?;
+
+        // Verify that all RPCs used the exact same channel remote address
+        let addresses = remote_addresses.lock().expect("mutex lock");
+        assert_all_rpcs_use_same_channel(&addresses, 3);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_affinity_preserved_during_channel_draining()
+    -> anyhow::Result<()> {
+        use crate::channel_pool::entry::ChannelState;
+        use crate::channel_pool::scaler::sweep_draining_channels;
+        use crate::statement::Statement;
+        use prost_types::Timestamp;
+        use std::time::Duration;
+
+        let mut mock = create_session_mock();
+        let remote_addresses = Arc::new(Mutex::new(Vec::new()));
+
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                let metadata = v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    transaction: Some(v1::Transaction {
+                        id: vec![1, 2, 3],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                Ok(Response::from(adapt([Ok(partial_result_set)])))
+            });
+
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_sql().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(v1::ResultSet {
+                metadata: Some(v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    ..Default::default()
+                }),
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_commit().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            Ok(Response::new(v1::CommitResponse {
+                commit_timestamp: Some(Timestamp {
+                    seconds: 1000,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (database_client, spanner, _server) =
+            setup_db_client_with_dynamic_pool(mock, 4, 8).await;
+
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .build(None)
+            .await?;
+
+        // Statement 1: Query pins the channel
+        let mut result_set = transaction
+            .execute_query(Statement::builder("SELECT 1").build())
+            .await?;
+        let _ = result_set.next().await.transpose()?;
+        drop(result_set);
+
+        let pinned_entry_id = transaction
+            .affinity()
+            .expect("affinity must be present")
+            .pinned_entry_id()
+            .expect("channel must be pinned after query");
+
+        // Locate pinned channel entry and verify active_rw_count is 1
+        let pinned_entry = {
+            let active_guard = spanner
+                .channel_pool()
+                .inner
+                .active_entries
+                .read()
+                .expect("lock active_entries");
+            active_guard
+                .iter()
+                .find(|entry| entry.id == pinned_entry_id)
+                .map(Arc::clone)
+                .expect("pinned entry must exist in active_entries")
+        };
+        assert_eq!(
+            pinned_entry.active_rw_count(),
+            1,
+            "Pinned entry must have active_rw_count == 1 while transaction is open"
+        );
+
+        // Move the pinned channel to Draining (simulating scale-down)
+        {
+            let mut active_write = spanner
+                .channel_pool()
+                .inner
+                .active_entries
+                .write()
+                .expect("lock active_entries");
+            active_write.retain(|entry| entry.id != pinned_entry_id);
+            drop(active_write);
+
+            pinned_entry.set_state(ChannelState::Draining);
+            let mut draining_write = spanner
+                .channel_pool()
+                .inner
+                .draining_entries
+                .write()
+                .expect("lock draining_entries");
+            draining_write.push(Arc::clone(&pinned_entry));
+        }
+
+        // Run sweep_draining_channels. Because active_rw_count is 1, Channel X must NOT be closed!
+        sweep_draining_channels(&spanner.channel_pool().inner, Duration::from_millis(0));
+        assert!(
+            pinned_entry.is_draining(),
+            "Pinned entry must remain in Draining state while R/W transaction is active"
+        );
+        assert_eq!(
+            spanner.channel_pool().draining_channel_count(),
+            1,
+            "Draining channel count must still be 1"
+        );
+
+        // Execute Statement 2: Update while the channel is draining!
+        let count = transaction
+            .execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+            .await?;
+        assert_eq!(count, 1, "Expected 1 row updated");
+
+        // Commit while the channel is draining!
+        let _ = transaction.commit().await?;
+
+        // Verify that all 3 RPCs executed on the same channel
+        let addresses = remote_addresses.lock().expect("mutex lock");
+        assert_all_rpcs_use_same_channel(&addresses, 3);
+
+        // Now that the transaction is done and dropped, active_rw_count must be 0
+        assert_eq!(
+            pinned_entry.active_rw_count(),
+            0,
+            "active_rw_count must drop to 0 after transaction completes"
+        );
+
+        // Sweeping now must close the channel and remove it from draining entries!
+        sweep_draining_channels(&spanner.channel_pool().inner, Duration::from_millis(0));
+        assert!(
+            pinned_entry.is_closed(),
+            "Draining entry must transition to Closed once transaction completes"
+        );
+        assert_eq!(
+            spanner.channel_pool().draining_channel_count(),
+            0,
+            "Draining channels must be empty after sweep"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn read_write_transaction_affinity_preserved_on_rollback() -> anyhow::Result<()> {
+        use crate::statement::Statement;
+
+        let mut mock = create_session_mock();
+        let remote_addresses = Arc::new(Mutex::new(Vec::new()));
+
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_execute_streaming_sql()
+            .once()
+            .returning(move |request| {
+                remote_addresses_clone.lock().expect("mutex lock").push(
+                    request
+                        .remote_addr()
+                        .expect("remote_addr should be available"),
+                );
+                let metadata = v1::ResultSetMetadata {
+                    row_type: Some(v1::StructType { fields: vec![] }),
+                    transaction: Some(v1::Transaction {
+                        id: vec![1, 2, 3],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                };
+                let partial_result_set = v1::PartialResultSet {
+                    metadata: Some(metadata),
+                    ..Default::default()
+                };
+                Ok(Response::from(adapt([Ok(partial_result_set)])))
+            });
+
+        let remote_addresses_clone = Arc::clone(&remote_addresses);
+        mock.expect_rollback().once().returning(move |request| {
+            remote_addresses_clone.lock().expect("mutex lock").push(
+                request
+                    .remote_addr()
+                    .expect("remote_addr should be available"),
+            );
+            let request = request.into_inner();
+            assert_eq!(
+                request.transaction_id,
+                vec![1, 2, 3],
+                "Transaction ID mismatch on rollback"
+            );
+            Ok(Response::new(()))
+        });
+
+        let (database_client, _spanner, _server) =
+            setup_db_client_with_dynamic_pool(mock, 4, 8).await;
+
+        let transaction = ReadWriteTransactionBuilder::new(database_client)
+            .build(None)
+            .await?;
+
+        // Statement 1: Query pins the channel
+        let mut result_set = transaction
+            .execute_query(Statement::builder("SELECT 1").build())
+            .await?;
+        let _ = result_set.next().await.transpose()?;
+
+        // Explicit rollback
+        transaction.rollback().await?;
+
+        let addresses = remote_addresses.lock().expect("mutex lock");
+        assert_all_rpcs_use_same_channel(&addresses, 2);
 
         Ok(())
     }

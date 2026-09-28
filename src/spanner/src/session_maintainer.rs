@@ -65,6 +65,7 @@ impl ManagedSessionMaintainer {
     ) -> Result<Arc<Self>> {
         let session =
             Self::create_session(&spanner, &database_name, &database_role, &options, &o11y).await?;
+        spanner.set_prime_session(session.name.clone());
 
         let maintainer = Arc::new(ManagedSessionMaintainer {
             spanner,
@@ -112,6 +113,8 @@ impl ManagedSessionMaintainer {
             &self.o11y,
         )
         .await?;
+
+        self.spanner.set_prime_session(new_session.name.clone());
 
         let mut guard = self.session.write().expect("failed to write session");
         *guard = ManagedSession {
@@ -244,6 +247,15 @@ mod tests {
                 "projects/test-project/instances/test-instance/databases/test-db/sessions/1"
             );
         }
+        assert_eq!(
+            maintainer
+                .spanner
+                .channel_pool()
+                .prime_session_name()
+                .as_deref(),
+            Some("projects/test-project/instances/test-instance/databases/test-db/sessions/1"),
+            "Prime session on channel pool must match initial created session"
+        );
 
         // Modify created_at to be in the past (older than 7 days)
         {
@@ -269,6 +281,15 @@ mod tests {
                 "projects/test-project/instances/test-instance/databases/test-db/sessions/2"
             );
         }
+        assert_eq!(
+            maintainer
+                .spanner
+                .channel_pool()
+                .prime_session_name()
+                .as_deref(),
+            Some("projects/test-project/instances/test-instance/databases/test-db/sessions/2"),
+            "Prime session on channel pool must update to rotated session"
+        );
     }
 
     #[tokio_test_no_panics]

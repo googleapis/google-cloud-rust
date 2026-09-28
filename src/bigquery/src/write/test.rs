@@ -20,10 +20,12 @@ use super::pool::{StreamPool, StreamPoolOptions};
 use super::retry_policy::RetryOptions;
 use super::runner::WriteRequest;
 use super::transport::Transport;
+use crate::google::cloud::bigquery::storage::v1::append_rows_request::{ArrowData, Rows};
 use crate::google::cloud::bigquery::storage::v1::append_rows_response::{AppendResult, Response};
 use crate::google::cloud::bigquery::storage::v1::{AppendRowsRequest, AppendRowsResponse};
 use crate::model::{ArrowRecordBatch, ArrowSchema, ProtoSchema};
 use bigquery_grpc_mock::google::cloud::bigquery::storage::v1;
+use bytes::Bytes;
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::retry_policy::NeverRetry;
@@ -92,9 +94,21 @@ pub(super) fn convert(pb: &AppendRowsResponse) -> v1::AppendRowsResponse {
 }
 
 pub(super) fn test_request(index: i64) -> AppendRowsRequest {
+    // Cover the model types.
+    use crate::google::cloud::bigquery::storage::v1::{ArrowRecordBatch, ArrowSchema};
+
     AppendRowsRequest {
         write_stream: "projects/p/datasets/d/tables/t/streams/s".to_string(),
         offset: Some(index),
+        rows: Some(Rows::ArrowRows(ArrowData {
+            writer_schema: Some(ArrowSchema {
+                serialized_schema: Bytes::from_static(b"test-schema"),
+            }),
+            rows: Some(ArrowRecordBatch {
+                serialized_record_batch: Bytes::from_static(b"test-rows"),
+                ..Default::default()
+            }),
+        })),
         ..Default::default()
     }
 }

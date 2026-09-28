@@ -41,6 +41,7 @@ mod committed;
 mod default;
 mod dispatcher;
 mod entry;
+mod optimizer;
 mod pending;
 mod pool;
 mod proto_schema;
