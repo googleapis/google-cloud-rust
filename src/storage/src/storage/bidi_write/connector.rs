@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::redirect::is_redirect;
 use super::retry_redirect::RetryRedirect;
 use super::state::AppendObjectSpecState;
 use super::{Client, TonicStreaming, persisted_size};
@@ -71,6 +72,8 @@ pub struct Connector<T = GrpcClient> {
     params: Option<CommonObjectRequestParams>,
     /// Retry state shared across consecutive reconnects that make no byte progress.
     retry_state: Option<RetryState>,
+    /// Redirect counter shared across consecutive reconnects that make no byte progress.
+    retry_redirect: Option<Arc<RetryRedirect<Arc<dyn RetryPolicy + 'static>>>>,
     /// Highest `persisted_size` acknowledged by the server; used to detect byte progress.
     last_persisted_size: i64,
 }
@@ -91,6 +94,7 @@ where
             client,
             params: None,
             retry_state: None,
+            retry_redirect: None,
             last_persisted_size: 0,
         }
     }
@@ -143,6 +147,7 @@ where
         let (initial, connection) = self.connect_attempt_loop().await?;
         self.last_persisted_size = persisted_size(&initial).unwrap_or(0);
         self.retry_state = None;
+        self.retry_redirect = None;
         Ok((initial, connection))
     }
 
@@ -172,25 +177,19 @@ where
         let (initial, connection) = self.connect_attempt_loop().await?;
         self.last_persisted_size = persisted_size(&initial).unwrap_or(0);
         self.retry_state = None;
+        self.retry_redirect = None;
         Ok((initial, connection))
     }
 
-    /// Reconnects a broken or redirected `BidiWriteObject` stream.
-    ///
-    /// 1. **Redirects:** If `last_error` carries a `BidiWriteObjectRedirectedError`, updates the
-    ///    stored `routing_token` and `write_handle`.
-    /// 2. **Retry budget:** Resets `retry_state` whenever the server has persisted more bytes than
-    ///    `last_persisted_size` (either via `persisted` or in the new stream's handshake response).
-    ///    Otherwise, increments `retry_state.attempt_count` while keeping the original start time so
-    ///    the application's [`RetryPolicy`] bounds unproductive reconnect loops.
-    /// 3. **Reopen:** Evaluates `last_error` via [`RetryRedirect`]. Permanent or exhausted errors
-    ///    fail immediately; retryable errors and redirects (up to `MAX_REDIRECTS_FOLLOWED`) open a
-    ///    new stream with `state_lookup: true`.
+    /// Reconnects a broken or redirected `BidiWriteObject` stream by opening a
+    /// new stream with `state_lookup: true`.
     pub async fn reconnect(
         &mut self,
         last_error: Error,
         persisted: i64,
     ) -> Result<(BidiWriteObjectResponse, Connection<T::Stream>)> {
+        // If `last_error` carries a `BidiWriteObjectRedirectedError`, update the
+        // stored `routing_token` and `write_handle` for the next connection attempt.
         let last_error = match gaxi::as_inner::as_inner::<gaxi::grpc::tonic::Status, _>(&last_error)
         {
             Some(status) => {
@@ -200,29 +199,58 @@ where
             None => last_error,
         };
 
+        // Reset the retry and redirect budgets whenever the server has persisted
+        // more bytes than `last_persisted_size`.
         if persisted > self.last_persisted_size {
             self.last_persisted_size = persisted;
             self.retry_state = None;
+            self.retry_redirect = None;
         }
-        let state = self
-            .retry_state
-            .get_or_insert_with(|| RetryState::new(true).set_start(Instant::now()));
-        state.attempt_count += 1;
 
-        let policy = Arc::new(RetryRedirect::new(self.options.retry_policy.clone()));
-        let last_error = match policy.on_error(state, last_error) {
-            RetryResult::Continue(e) => e,
-            RetryResult::Permanent(e) | RetryResult::Exhausted(e) => return Err(e),
+        // Evaluate `last_error` via `RetryRedirect`. Redirects are bounded across
+        // unproductive reconnects by `RetryRedirect` (`MAX_REDIRECTS_FOLLOWED`),
+        // while non-redirect errors increment `retry_state.attempt_count` and
+        // back off according to `backoff_policy`.
+        let policy = self
+            .retry_redirect
+            .get_or_insert_with(|| Arc::new(RetryRedirect::new(self.options.retry_policy.clone())))
+            .clone();
+        let last_error = if is_redirect(&last_error) {
+            match policy.on_error(&RetryState::new(true), last_error) {
+                RetryResult::Continue(e) => e,
+                RetryResult::Permanent(e) | RetryResult::Exhausted(e) => return Err(e),
+            }
+        } else {
+            let state = self
+                .retry_state
+                .get_or_insert_with(|| RetryState::new(true).set_start(Instant::now()));
+            state.attempt_count += 1;
+            let e = match policy.on_error(state, last_error) {
+                RetryResult::Continue(e) => e,
+                RetryResult::Permanent(e) | RetryResult::Exhausted(e) => return Err(e),
+            };
+            let delay = self.options.backoff_policy.on_failure(state);
+            if policy
+                .remaining_time(state)
+                .is_some_and(|remaining| remaining < delay)
+            {
+                return Err(Error::exhausted(e));
+            }
+            tokio::time::sleep(delay).await;
+            e
         };
 
         tracing::debug!("reconnecting bidi write stream after error: {last_error:?}");
 
         let (initial, connection) = self.connect_attempt_loop_with_policy(policy).await?;
+        // Also reset the retry and redirect budgets if the new stream's
+        // `state_lookup` handshake response reports newly persisted bytes.
         if let Some(initial_persisted) = persisted_size(&initial)
             && initial_persisted > self.last_persisted_size
         {
             self.last_persisted_size = initial_persisted;
             self.retry_state = None;
+            self.retry_redirect = None;
         }
         Ok((initial, connection))
     }
@@ -1577,6 +1605,65 @@ mod tests {
             connector.retry_state.as_ref().map(|s| s.attempt_count),
             Some(1)
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn reconnect_caps_redirects_across_unproductive_reconnect_calls() -> Result<()> {
+        use google_cloud_gax::retry_policy::RetryPolicyExt;
+        // Arrange: each `reconnect()` handshake succeeds with `PersistedSize(0)`, then the active
+        // stream is redirected again without persisting new bytes. `MAX_REDIRECTS_FOLLOWED` (`3`)
+        // must bound the total redirects across consecutive `reconnect()` calls, and redirects must
+        // not consume `retry_state.attempt_count`.
+        let (mut connector, senders) = connector_with_streams(MAX_REDIRECTS_FOLLOWED as usize + 1);
+        send_persisted_size(&senders, 0).await?;
+        connector.options.retry_policy =
+            Arc::new(crate::retry_policy::RetryableErrors.with_attempt_limit(2));
+
+        // Act & Assert: 3 mid-stream redirects succeed without touching `retry_state`, and the 4th
+        // redirect without byte progress fails immediately.
+        for i in 0..MAX_REDIRECTS_FOLLOWED {
+            connector
+                .reconnect(redirect_error(&format!("r{i}")), 0)
+                .await?;
+            assert!(connector.retry_state.is_none());
+        }
+        let err = connector
+            .reconnect(redirect_error("r-over-limit"), 0)
+            .await
+            .unwrap_err();
+        assert!(!err.is_timeout(), "{err:?}");
+
+        // Reporting byte progress resets `retry_redirect`, so a subsequent redirect succeeds.
+        connector
+            .reconnect(redirect_error("r-after-progress"), 64)
+            .await?;
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn reconnect_applies_backoff_policy_before_reopening_stream() -> Result<()> {
+        #[derive(Debug)]
+        struct FixedStepBackoff;
+        impl google_cloud_gax::backoff_policy::BackoffPolicy for FixedStepBackoff {
+            fn on_failure(&self, state: &RetryState) -> Duration {
+                Duration::from_secs(u64::from(state.attempt_count))
+            }
+        }
+
+        // Arrange.
+        let (mut connector, senders) = connector_with_streams(2);
+        send_persisted_size(&senders, 0).await?;
+        connector.options.backoff_policy = Arc::new(FixedStepBackoff);
+
+        // Act: 1st non-redirect reconnect (`attempt_count == 1`) sleeps 1s; 2nd (`attempt_count ==
+        // 2`) sleeps 2s.
+        let start = Instant::now();
+        connector.reconnect(transient_error(), 0).await?;
+        assert_eq!(start.elapsed(), Duration::from_secs(1));
+
+        connector.reconnect(transient_error(), 0).await?;
+        assert_eq!(start.elapsed(), Duration::from_secs(3));
         Ok(())
     }
 }
