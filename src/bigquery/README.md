@@ -2,9 +2,9 @@
 
 This crate implements the [BigQuery] client library.
 
-**WARNING:** this is a preview release of the crate. We believe the APIs to be
-stable. We also are seeking feedback about the APIs and may need to make
-breaking changes if we discover that some parts are hard to use.
+**NOTE:** While the version is still `0.x`, we believe the APIs to be stable.
+We plan to give this crate one month of "bake time", and then release a `1.0`
+crate.
 
 We welcome feedback about the APIs, documentation, missing features, bugs, etc.
 
