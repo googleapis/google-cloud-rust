@@ -22,6 +22,11 @@ use std::sync::Arc;
 
 /// A writer for a [committed stream].
 ///
+/// In a committed stream, records are available for reading immediately as you
+/// write them to the stream. Use this type for streaming workloads that need
+/// minimal read latency and exactly-once semantics through the use of stream
+/// offsets.
+///
 /// [committed stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#committed_type
 #[derive(Debug)]
 pub struct CommittedWriter<F> {

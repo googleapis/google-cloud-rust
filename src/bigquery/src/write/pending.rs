@@ -23,6 +23,11 @@ use std::sync::Arc;
 
 /// A writer for a [pending stream].
 ///
+/// In a pending stream, records are buffered in a pending state until you
+/// commit the stream. When you commit a stream, all of the pending data
+/// becomes available for reading atomically. Use this type for batch
+/// workloads, as an alternative to BigQuery load jobs.
+///
 /// [pending stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#pending_type
 #[derive(Debug)]
 pub struct PendingWriter<F> {

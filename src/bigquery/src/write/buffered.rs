@@ -22,6 +22,12 @@ use std::sync::Arc;
 
 /// A writer for a [buffered stream].
 ///
+/// In a buffered stream, row-level commits are provided, and records are
+/// buffered until the rows are committed by flushing the stream. This is an
+/// advanced stream type; if you have small batches that you want to guarantee
+/// appear together, consider using a [committed stream][crate::write::CommittedWriter]
+/// and sending each batch in one request.
+///
 /// [buffered stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#buffered_type
 #[derive(Debug)]
 pub struct BufferedWriter<F> {

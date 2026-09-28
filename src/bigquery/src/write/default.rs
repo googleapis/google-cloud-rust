@@ -21,6 +21,13 @@ use std::sync::Arc;
 
 /// A writer for the [default stream].
 ///
+/// The default stream is designed for streaming scenarios where you have
+/// continuously arriving data. It has the following characteristics:
+///
+/// - Data written to the default stream is available immediately for query.
+/// - The default stream supports at-least-once semantics.
+/// - You don't need to explicitly create the default stream.
+///
 /// [default stream]: https://docs.cloud.google.com/bigquery/docs/write-api#default_stream
 #[derive(Debug)]
 pub struct DefaultWriter<F> {
