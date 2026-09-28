@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use google_cloud_gax::error::rpc::Status;
+use google_cloud_gax::error::rpc::{Code, Status, StatusDetails};
 use std::error::Error;
 
 pub use crate::from_value::ConvertError;
@@ -87,11 +87,12 @@ impl BatchUpdateError {
     }
 }
 
-pub(crate) fn aborted_due_to_failed_initial_statement() -> crate::Error {
+pub(crate) fn aborted_due_to_failed_initial_statement(details: Vec<StatusDetails>) -> crate::Error {
     crate::Error::service(
-        google_cloud_gax::error::rpc::Status::default()
-            .set_code(google_cloud_gax::error::rpc::Code::Aborted)
-            .set_message("Aborted due to failed initial statement"),
+        Status::default()
+            .set_code(Code::Aborted)
+            .set_message("Aborted due to failed initial statement")
+            .set_details(details),
     )
 }
 
