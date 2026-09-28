@@ -244,7 +244,12 @@ impl ResultSet {
 
             match stream_result {
                 Some(Ok(partial_result_set)) => {
-                    self.handle_partial_result_set(partial_result_set)?;
+                    if let Err(e) = self.handle_partial_result_set(partial_result_set) {
+                        if let Some(selector) = &self.transaction_selector {
+                            selector.set_failed(&e);
+                        }
+                        return Err(e);
+                    }
                     return Ok(());
                 }
                 Some(Err(e)) => {
@@ -252,8 +257,7 @@ impl ResultSet {
                 }
                 None => {
                     let err = internal_error("Query stream ended without metadata or error");
-                    self.record_current_attempt(Some(&err));
-                    return Err(err);
+                    self.handle_stream_error(err).await?;
                 }
             }
         }
@@ -520,7 +524,7 @@ impl ResultSet {
         let transaction = m.transaction.take();
         let meta = ResultSetMetadata::new(Some(m));
         if let Some(selector) = &self.transaction_selector {
-            if let Some(transaction) = transaction {
+            if let Some(transaction) = transaction.filter(|t| !t.id.is_empty()) {
                 selector.update(
                     transaction.id,
                     transaction
@@ -548,26 +552,37 @@ impl ResultSet {
         self.record_current_attempt(Some(&e));
         let mut e = e;
         if self.safe_to_retry {
-            match self.check_retry(e) {
-                Ok(()) => {
-                    self.retry_count += 1;
-                    // Clear the buffer and restart the stream using the last
-                    // resume_token that we have seen.
-                    self.partial_result_sets_buffer.clear();
+            // Repeatedly attempt to restart the stream as long as the retry policy allows.
+            // If `restart_stream()` itself encounters a transient failure, `e` is updated
+            // with the new error and the loop repeats, passing it through `check_retry` and
+            // applying backoff for each subsequent attempt.
+            loop {
+                match self.check_retry(e) {
+                    Ok(()) => {
+                        self.retry_count += 1;
+                        // Clear the buffer and restart the stream using the last
+                        // resume_token that we have seen.
+                        self.partial_result_sets_buffer.clear();
 
-                    // Apply backoff delay if policy is present
-                    if let Some(policy) = self.gax_options.backoff_policy() {
-                        let state = RetryState::new(self.safe_to_retry)
-                            .set_attempt_count(self.retry_count as u32);
-                        let delay = policy.on_failure(&state);
-                        sleep(delay).await;
+                        // Apply backoff delay if policy is present
+                        if let Some(policy) = self.gax_options.backoff_policy() {
+                            let state = RetryState::new(self.safe_to_retry)
+                                .set_attempt_count(self.retry_count as u32);
+                            let delay = policy.on_failure(&state);
+                            sleep(delay).await;
+                        }
+
+                        match self.restart_stream().await {
+                            Ok(()) => return Ok(()),
+                            Err(restart_err) => {
+                                e = restart_err;
+                            }
+                        }
                     }
-
-                    self.restart_stream().await?;
-                    return Ok(());
-                }
-                Err(err) => {
-                    e = err;
+                    Err(err) => {
+                        e = err;
+                        break;
+                    }
                 }
             }
         }
@@ -575,16 +590,11 @@ impl ResultSet {
         // Check if this stream included an inlined BeginTransaction option
         // and has not yet returned a transaction ID. If so, we explicitly
         // begin the transaction and restart the stream.
-        let Some(selector @ ReadContextTransactionSelector::Lazy(lazy)) =
-            self.transaction_selector.as_ref()
-        else {
+        let Some(selector) = self.transaction_selector.as_ref() else {
             return Err(e);
         };
-        let is_started = matches!(
-            &*lazy.lock().expect("transaction state mutex poisoned"),
-            TransactionState::Started(_, _)
-        );
-        if is_started {
+
+        if selector.handle_stream_initialization_error(&e) {
             return Err(e);
         }
 
@@ -705,16 +715,10 @@ impl ResultSet {
     }
 
     async fn restart_stream(&mut self) -> crate::Result<()> {
-        // If we are restarting the stream (due to a failure), and the transaction
-        // was in the process of starting (but failed before yielding an ID),
-        // reset the state so the retry attempt can include the begin option again.
-        if let Some(s) = &self.transaction_selector {
-            s.maybe_reset_starting();
-        }
-
-        // Get the latest transaction selector for this transaction.
+        // Get the latest transaction selector for this transaction without dropping
+        // in-progress starting state or waking parked followers prematurely.
         let transaction_selector = if let Some(s) = &self.transaction_selector {
-            Some(s.selector().await?)
+            Some(s.selector_for_restart()?)
         } else {
             None
         };
@@ -1460,6 +1464,112 @@ pub(crate) mod tests {
 
         assert!(
             rs.next().await.is_none(),
+            "Expected stream to end successfully"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn test_result_set_restart_send_retry_recovers() -> anyhow::Result<()> {
+        use mockall::Sequence;
+
+        let mut mock = MockSpanner::new();
+        let mut sequence = Sequence::new();
+
+        // 1. Initial call returns row1, then encounters a transport/unavailable error
+        mock.expect_streaming_read()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(|_request| {
+                let stream = adapt([
+                    Ok(PartialResultSet {
+                        metadata: metadata(2),
+                        values: vec![string_val("row1"), string_val("b")],
+                        resume_token: b"token1".to_vec(),
+                        ..Default::default()
+                    }),
+                    Err(Status::unavailable("connection reset mid-stream")),
+                ]);
+                Ok(Response::from(stream))
+            });
+
+        // 2. First restart attempt (restart_stream) fails with transient error (connection refused)
+        mock.expect_streaming_read()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(|_request| Err(Status::unavailable("reconnection failed temporarily")));
+
+        // 3. Second restart attempt on retry loop succeeds and returns remaining data
+        mock.expect_streaming_read()
+            .times(1)
+            .in_sequence(&mut sequence)
+            .returning(|_request| {
+                let stream = adapt([Ok(PartialResultSet {
+                    values: vec![string_val("row2"), string_val("d")],
+                    resume_token: b"token2".to_vec(),
+                    last: true,
+                    ..Default::default()
+                })]);
+                Ok(Response::from(stream))
+            });
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database_client = client.database_client("db").build().await?;
+        let transaction = database_client.single_use().build();
+
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .times(2)
+            .returning(|_| Duration::from_nanos(1));
+
+        let read_request = ReadRequest::builder("table", vec!["Id", "Value"])
+            .with_keys(KeySet::all())
+            .with_backoff_policy(mock_backoff)
+            .build();
+
+        let mut result_set: ResultSet = transaction.execute_read(read_request).await?;
+
+        let row1 = result_set
+            .next()
+            .await
+            .expect("Stream ended unexpectedly")?;
+        assert_eq!(
+            row1.raw_values()[0].0,
+            string_val("row1"),
+            "Expected row1 to be read successfully before transport error"
+        );
+
+        // This next() call triggers handle_stream_error, which attempts restart_stream,
+        // encounters the transient reconnect failure, retries restart_stream, and recovers row2.
+        let row2 = result_set
+            .next()
+            .await
+            .expect("Stream ended unexpectedly")?;
+        assert_eq!(
+            row2.raw_values()[0].0,
+            string_val("row2"),
+            "Expected stream to recover after failed restart attempt and return row2"
+        );
+
+        assert!(
+            result_set.next().await.is_none(),
             "Expected stream to end successfully"
         );
 
@@ -2587,7 +2697,14 @@ pub(crate) mod tests {
             .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
-        let mut rs = tx.execute_query("SELECT 1").await?;
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .returning(|_| Duration::from_nanos(1));
+        let statement = Statement::builder("SELECT 1")
+            .with_backoff_policy(mock_backoff)
+            .build();
+        let mut rs = tx.execute_query(statement).await?;
 
         let row1 = rs
             .next()
@@ -2673,7 +2790,14 @@ pub(crate) mod tests {
             .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
-        let mut rs = tx.execute_query("SELECT 1").await?;
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .returning(|_| Duration::from_nanos(1));
+        let statement = Statement::builder("SELECT 1")
+            .with_backoff_policy(mock_backoff)
+            .build();
+        let mut rs = tx.execute_query(statement).await?;
 
         let row1 = rs
             .next()
@@ -3269,7 +3393,14 @@ pub(crate) mod tests {
         db_client.o11y = Arc::new(o11y);
 
         let tx = db_client.single_use().build();
-        let mut result_set = tx.execute_query("SELECT 1").await?;
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .returning(|_| Duration::from_nanos(1));
+        let statement = Statement::builder("SELECT 1")
+            .with_backoff_policy(mock_backoff)
+            .build();
+        let mut result_set = tx.execute_query(statement).await?;
 
         let mut row_count = 0;
         while let Some(row) = result_set.next().await {
@@ -3508,7 +3639,14 @@ pub(crate) mod tests {
         db_client.o11y = Arc::new(o11y);
 
         let tx = db_client.single_use().build();
-        let mut result_set = tx.execute_query("SELECT 1").await?;
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .returning(|_| Duration::from_nanos(1));
+        let statement = Statement::builder("SELECT 1")
+            .with_backoff_policy(mock_backoff)
+            .build();
+        let mut result_set = tx.execute_query(statement).await?;
 
         let mut rows = Vec::new();
         while let Some(row) = result_set.next().await {
@@ -3923,7 +4061,14 @@ pub(crate) mod tests {
         db_client.o11y = Arc::new(o11y);
 
         let tx = db_client.single_use().build();
-        let mut result_set = tx.execute_query("SELECT 1").await?;
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .returning(|_| Duration::from_nanos(1));
+        let statement = Statement::builder("SELECT 1")
+            .with_backoff_policy(mock_backoff)
+            .build();
+        let mut result_set = tx.execute_query(statement).await?;
         let first_row = result_set.next().await;
         assert!(
             first_row.is_some(),
