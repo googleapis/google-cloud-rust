@@ -51,7 +51,31 @@ where
         )
     }
 
-    /// Flush the buffered stream, making rows up to the specified offset available for reading.
+    /// Flush the buffered stream, making rows up to and including the specified
+    /// offset available for reading.
+    ///
+    /// Stream offsets are 0-indexed and `offset` is **inclusive**. For example,
+    /// after appending a batch of 10 rows starting at offset 0 (occupying
+    /// offsets `0..=9`), calling `flush(9)` flushes all 10 rows.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::write::BufferedWriter;
+    /// # use google_cloud_bigquery::write::format::Arrow;
+    /// # async fn sample(writer: BufferedWriter<Arrow>) -> anyhow::Result<()> {
+    /// // Append 10 rows starting at offset 0 (offsets 0..=9).
+    /// let _ = writer.append(ten_rows()).set_offset(0).send().await?;
+    ///
+    /// // Flush rows up to and including offset 9.
+    /// let _ = writer.flush(9).await?;
+    /// # Ok(()) }
+    ///
+    /// use google_cloud_bigquery::model::ArrowRecordBatch;
+    /// fn ten_rows() -> ArrowRecordBatch {
+    ///     todo!("Serialize 10 rows...")
+    /// }
+    /// ```
     pub async fn flush(&self, offset: i64) -> Result<FlushRowsResponse> {
         self.inner
             .client
