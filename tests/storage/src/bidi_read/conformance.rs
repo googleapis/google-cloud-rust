@@ -36,11 +36,6 @@ use google_cloud_test_utils::resource_names::{LowercaseAlphanumeric, random_buck
 use google_cloud_test_utils::runtime_config::{project_id, region_id, zone_id};
 use std::time::Duration;
 
-/// Preprod gRPC endpoint, used for bidi reads/writes and `StorageControl`.
-const PREPROD_GRPC_ENDPOINT: &str = "https://storage-preprod-test-grpc.googleusercontent.com:443";
-/// Preprod HTTP endpoint, used for JSON uploads.
-const PREPROD_HTTP_ENDPOINT: &str = "https://storage-preprod-test-unified.googleusercontent.com";
-
 /// Runs the bidi read conformance tests against each supported bucket type.
 pub async fn run() -> anyhow::Result<()> {
     println!("\n=== Running Bidi Read Conformance Suite ===");
@@ -91,36 +86,38 @@ struct Clients {
 }
 
 impl Clients {
-    /// `GOOGLE_CLOUD_TEST_STORAGE_ENDPOINT` overrides both data clients' endpoint, and
-    /// `GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT` overrides the control client's.
     async fn new() -> anyhow::Result<Self> {
+        let grpc_endpoint = std::env::var("GRPC_ENDPOINT")
+            .map_err(|_| anyhow::anyhow!("GRPC_ENDPOINT environment variable must be set"))?;
+        let http_endpoint = std::env::var("HTTP_ENDPOINT")
+            .map_err(|_| anyhow::anyhow!("HTTP_ENDPOINT environment variable must be set"))?;
+
+        let grpc = Storage::builder()
+            .with_endpoint(&grpc_endpoint)
+            .build()
+            .await?;
+        let http = Storage::builder()
+            .with_endpoint(&http_endpoint)
+            .build()
+            .await?;
+
+        let backoff = ExponentialBackoffBuilder::new()
+            .with_initial_delay(Duration::from_secs(2))
+            .with_maximum_delay(Duration::from_secs(8))
+            .build()?;
+        let control = StorageControl::builder()
+            .with_endpoint(&grpc_endpoint)
+            .with_backoff_policy(backoff)
+            .with_retry_policy(RetryableErrors.with_attempt_limit(5))
+            .build()
+            .await?;
+
         Ok(Self {
-            grpc: build_storage_client(PREPROD_GRPC_ENDPOINT).await?,
-            http: build_storage_client(PREPROD_HTTP_ENDPOINT).await?,
-            control: build_storage_control_client(PREPROD_GRPC_ENDPOINT).await?,
+            grpc,
+            http,
+            control,
         })
     }
-}
-
-async fn build_storage_client(default_endpoint: &str) -> anyhow::Result<Storage> {
-    let endpoint = std::env::var("GOOGLE_CLOUD_TEST_STORAGE_ENDPOINT")
-        .unwrap_or_else(|_| default_endpoint.to_string());
-    Ok(Storage::builder().with_endpoint(endpoint).build().await?)
-}
-
-async fn build_storage_control_client(default_endpoint: &str) -> anyhow::Result<StorageControl> {
-    let endpoint = std::env::var("GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT")
-        .unwrap_or_else(|_| default_endpoint.to_string());
-    let backoff = ExponentialBackoffBuilder::new()
-        .with_initial_delay(Duration::from_secs(2))
-        .with_maximum_delay(Duration::from_secs(8))
-        .build()?;
-    Ok(StorageControl::builder()
-        .with_endpoint(endpoint)
-        .with_backoff_policy(backoff)
-        .with_retry_policy(RetryableErrors.with_attempt_limit(5))
-        .build()
-        .await?)
 }
 
 #[derive(Clone, Copy, Debug)]
