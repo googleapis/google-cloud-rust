@@ -309,25 +309,26 @@ async fn upload_and_open(
     Ok((payload, descriptor))
 }
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 async fn write_appendable_object(
-    client: &Storage,
-    bucket_name: &str,
-    object_name: &str,
-    payload: Bytes,
+    #[allow(unused_variables)] client: &Storage,
+    #[allow(unused_variables)] bucket_name: &str,
+    #[allow(unused_variables)] object_name: &str,
+    #[allow(unused_variables)] payload: Bytes,
 ) -> anyhow::Result<()> {
-    let mut writer = client
-        .open_appendable_object(bucket_name, object_name)
-        .send()
-        .await?;
-    writer.append(payload).await?;
-    writer.finalize().await?;
-    Ok(())
-}
-
-#[cfg(not(google_cloud_unstable_storage_bidi))]
-async fn write_appendable_object(_: &Storage, _: &str, _: &str, _: Bytes) -> anyhow::Result<()> {
-    anyhow::bail!("appendable uploads require `--cfg google_cloud_unstable_storage_bidi`")
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    {
+        let mut writer = client
+            .open_appendable_object(bucket_name, object_name)
+            .send()
+            .await?;
+        writer.append(payload).await?;
+        writer.finalize().await?;
+        Ok(())
+    }
+    #[cfg(not(google_cloud_unstable_storage_bidi))]
+    {
+        anyhow::bail!("appendable uploads require `--cfg google_cloud_unstable_storage_bidi`")
+    }
 }
 
 async fn test_multiple_ranged_read(
