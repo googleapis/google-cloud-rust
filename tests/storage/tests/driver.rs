@@ -139,6 +139,14 @@ mod storage {
         #[tokio::test(flavor = "multi_thread")]
         async fn conformance() -> anyhow::Result<()> {
             let _guard = enable_tracing();
+            if std::env::var("GOOGLE_CLOUD_TEST_GRPC_ENDPOINT").is_err()
+                || std::env::var("GOOGLE_CLOUD_TEST_HTTP_ENDPOINT").is_err()
+            {
+                println!(
+                    "Skipping Bidi Read Conformance tests: GOOGLE_CLOUD_TEST_GRPC_ENDPOINT and/or GOOGLE_CLOUD_TEST_HTTP_ENDPOINT is not set"
+                );
+                return Ok(());
+            }
             integration_tests_storage::bidi_read::conformance::run()
                 .await
                 .inspect_err(anydump)
@@ -166,9 +174,9 @@ mod storage {
     #[tokio::test(flavor = "multi_thread")]
     async fn run_storage_control_rapid_cache() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        if std::env::var("GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT").is_err() {
+        if std::env::var("GOOGLE_CLOUD_TEST_GRPC_ENDPOINT").is_err() {
             println!(
-                "Skipping Rapid Cache Ultra tests: GOOGLE_CLOUD_TEST_STORAGE_CONTROL_ENDPOINT is not set"
+                "Skipping Rapid Cache Ultra tests: GOOGLE_CLOUD_TEST_GRPC_ENDPOINT is not set"
             );
             return Ok(());
         }

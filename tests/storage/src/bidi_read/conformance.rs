@@ -87,10 +87,12 @@ struct Clients {
 
 impl Clients {
     async fn new() -> anyhow::Result<Self> {
-        let grpc_endpoint = std::env::var("GRPC_ENDPOINT")
-            .map_err(|_| anyhow::anyhow!("GRPC_ENDPOINT environment variable must be set"))?;
-        let http_endpoint = std::env::var("HTTP_ENDPOINT")
-            .map_err(|_| anyhow::anyhow!("HTTP_ENDPOINT environment variable must be set"))?;
+        let grpc_endpoint = std::env::var("GOOGLE_CLOUD_TEST_GRPC_ENDPOINT").map_err(|_| {
+            anyhow::anyhow!("GOOGLE_CLOUD_TEST_GRPC_ENDPOINT environment variable must be set")
+        })?;
+        let http_endpoint = std::env::var("GOOGLE_CLOUD_TEST_HTTP_ENDPOINT").map_err(|_| {
+            anyhow::anyhow!("GOOGLE_CLOUD_TEST_HTTP_ENDPOINT environment variable must be set")
+        })?;
 
         let grpc = Storage::builder()
             .with_endpoint(&grpc_endpoint)
