@@ -31,7 +31,6 @@ pub async fn run(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
 }
 
 pub async fn send(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
-    println!("--- [Features 1/5] Testing Basic Send & Metadata ---");
     let write = client
         .write_object(
             bucket_name,
@@ -46,10 +45,8 @@ pub async fn send(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
     tracing::info!("open returns: {open:?}");
     let got = open.object();
     let mut want = write.clone();
-    // This field is a mismatch, but both `Some(false)` and `None` represent
-    // the same value.
     want.event_based_hold = want.event_based_hold.or(Some(false));
-    // There is a submillisecond difference, maybe rounding?
+    // Finalize time may differ sub-millisecond between JSON insert and gRPC open.
     want.finalize_time = got.finalize_time;
     assert_eq!(got, want);
 
@@ -61,12 +58,10 @@ pub async fn send(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
     }
     assert_eq!(count, 100_usize);
 
-    println!("SUCCESS on Features 1: Basic Send & Metadata");
     Ok(())
 }
 
 pub async fn send_and_read(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
-    println!("--- [Features 2/5] Testing Send & Read Tail Range ---");
     let payload = String::from_iter(('a'..='z').cycle().take(100_000));
     let write = client
         .write_object(bucket_name, "open_and_read/source.txt", payload.clone())
@@ -83,10 +78,7 @@ pub async fn send_and_read(client: &Storage, bucket_name: &str) -> anyhow::Resul
     tracing::info!("reader: {:?}", reader);
     let got = descriptor.object();
     let mut want = write.clone();
-    // This field is a mismatch, but both `Some(false)` and `None` represent
-    // the same value.
     want.event_based_hold = want.event_based_hold.or(Some(false));
-    // There is a submillisecond difference, maybe rounding?
     want.finalize_time = got.finalize_time;
     assert_eq!(got, want);
 
@@ -97,12 +89,10 @@ pub async fn send_and_read(client: &Storage, bucket_name: &str) -> anyhow::Resul
     }
     assert_eq!(data, &payload.as_bytes()[(payload.len() - 100)..]);
 
-    println!("SUCCESS on Features 2: Send & Read Tail Range");
     Ok(())
 }
 
 pub async fn send_and_read_md5(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
-    println!("--- [Features 3/5] Testing Send & Read with MD5 ---");
     let payload = String::from_iter(('a'..='z').cycle().take(100_000));
     let write = client
         .write_object(bucket_name, "open_and_read_md5/source.txt", payload.clone())
@@ -131,12 +121,10 @@ pub async fn send_and_read_md5(client: &Storage, bucket_name: &str) -> anyhow::R
     }
     assert_eq!(data, payload.as_bytes());
 
-    println!("SUCCESS on Features 3: Send & Read with MD5");
     Ok(())
 }
 
 pub async fn send_and_read_full(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
-    println!("--- [Features 4/5] Testing Send & Read Full Object ---");
     let payload = String::from_iter(('a'..='z').cycle().take(100_000));
     let write = client
         .write_object(
@@ -168,27 +156,15 @@ pub async fn send_and_read_full(client: &Storage, bucket_name: &str) -> anyhow::
     }
     assert_eq!(data, payload.as_bytes());
 
-    println!("SUCCESS on Features 4: Send & Read Full Object");
     Ok(())
 }
 
-/// This test verifies the checksum validation behavior for gzip-encoded objects
-/// over the gRPC Bidi read stream.
-///
-/// Unlike the JSON REST API, which often transcodes (decompresses) gzip objects
-/// on the fly, the gRPC Bidi read stream delivers the raw, compressed bytes directly.
-/// Because no on-the-fly decompression occurs, the CRC32C checksum of the received
-/// chunks will naturally match the server's stored checksum of the compressed object.
-///
-/// We explicitly expect `RangeReader`'s automatic checksum validation to succeed
-/// without throwing a `ChecksumMismatch` error, proving that we do not need to
-/// bypass checksum validation for `content-encoding: gzip` objects in gRPC.
+/// Verifies that checksum validation succeeds for gzip-encoded objects over gRPC bidi read,
+/// because gRPC delivers raw compressed bytes directly without on-the-fly decompression.
 pub async fn send_and_read_gzip(client: &Storage, bucket_name: &str) -> anyhow::Result<()> {
-    println!("--- [Features 5/5] Testing Send & Read Gzip Encoded Object ---");
     use std::io::Write;
     let payload = String::from_iter(('a'..='z').cycle().take(100_000));
 
-    // Compress the payload
     let mut e = flate2::write::GzEncoder::new(Vec::new(), flate2::Compression::default());
     e.write_all(payload.as_bytes())?;
     let compressed_payload = e.finish()?;
@@ -222,9 +198,7 @@ pub async fn send_and_read_gzip(client: &Storage, bucket_name: &str) -> anyhow::
         tracing::info!("received {} bytes", r.len());
         data.extend_from_slice(&r);
     }
-    // Verify we received the EXACT compressed payload, meaning gRPC did not decompress it.
     assert_eq!(data, compressed_payload);
 
-    println!("SUCCESS on Features 5: Send & Read Gzip Encoded Object");
     Ok(())
 }

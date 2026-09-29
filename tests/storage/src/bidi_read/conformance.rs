@@ -47,10 +47,8 @@ pub async fn run() -> anyhow::Result<()> {
 
     let clients = Clients::new().await?;
 
-    println!("\n### No bucket");
     test_non_existent_bucket_read(&clients).await?;
 
-    // Tests that don't depend on the bucket type run once, on this bucket.
     with_bucket(
         &clients,
         BucketType::RegionalStandard { hns: false },
@@ -69,7 +67,6 @@ pub async fn run() -> anyhow::Result<()> {
     )
     .await?;
 
-    // Zonal Rapid buckets only accept appendable objects.
     with_bucket(&clients, BucketType::ZonalRapid, async |bucket| {
         test_multiple_ranged_read(&clients, bucket, true).await
     })
@@ -84,7 +81,6 @@ pub async fn run() -> anyhow::Result<()> {
     Ok(())
 }
 
-/// Clients shared by all tests.
 struct Clients {
     /// Bidi reads and appendable writes.
     grpc: Storage,
@@ -223,7 +219,6 @@ async fn create_bucket(
             .until_done()
             .await;
         if let Err(e) = attached {
-            // The cache may have been partially created.
             cleanup_bucket(control, &bucket.name, true).await;
             return Err(e.into());
         }
@@ -234,7 +229,6 @@ async fn create_bucket(
 
 /// Deletes a bucket and everything in it. Failures are printed, not returned.
 async fn cleanup_bucket(control: &StorageControl, bucket_name: &str, has_rapid_cache: bool) {
-    // The shared cleanup doesn't know about rapid caches.
     if has_rapid_cache {
         disable_rapid_caches(control, bucket_name).await;
     }
@@ -343,7 +337,6 @@ async fn test_multiple_ranged_read(
     let (payload, descriptor) =
         upload_and_open(clients, bucket_name, 512 * KIB as usize, appendable).await?;
 
-    // Four non-overlapping (offset, length) ranges covering the whole object.
     let ranges = [
         (0, 64 * KIB),
         (64 * KIB, 128 * KIB),
@@ -374,7 +367,6 @@ async fn test_read_post_stream_close(clients: &Clients, bucket_name: &str) -> an
     let mut reader = descriptor.read_range(ReadRange::head(100)).await;
     assert_eq!(drain_reader(&mut reader).await?, &payload[0..100]);
 
-    // A finished reader keeps returning `None`.
     assert!(reader.next().await.is_none());
     assert!(reader.next().await.is_none());
 
@@ -425,21 +417,16 @@ async fn test_out_of_range(clients: &Clients, bucket_name: &str) -> anyhow::Resu
     let mut reader = descriptor.read_range(ReadRange::head(50)).await;
     assert_eq!(drain_reader(&mut reader).await?, &payload[0..50]);
 
-    // The object is only 10,000 bytes.
     let mut oob_reader = descriptor
         .read_range(ReadRange::segment(50_000, 1_000))
         .await;
 
     match oob_reader.next().await {
-        None => println!("    out-of-range read returned immediate EOF"),
+        None => {}
         Some(Err(err)) => {
             let Some(status) = find_rpc_status(&err) else {
                 panic!("expected an RPC status for out of range read, got {err:?}");
             };
-            println!(
-                "    got expected error: {:?}: {}",
-                status.code, status.message
-            );
             assert!(
                 matches!(status.code, Code::OutOfRange | Code::InvalidArgument),
                 "unexpected status for out of range read: {status:?}"
