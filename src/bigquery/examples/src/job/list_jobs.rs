@@ -13,17 +13,21 @@
 // limitations under the License.
 
 // [START bigquery_list_jobs]
+use futures::stream::StreamExt;
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_gax::paginator::ItemPaginator;
 
 pub async fn sample(project_id: &str) -> anyhow::Result<()> {
     let job_service = JobService::builder().build().await?;
 
+    // Cut off at 20 jobs to avoid paginating through the entire project history.
     let mut jobs = job_service
         .list_jobs()
         .set_project_id(project_id)
         .set_max_results(20)
-        .by_item();
+        .by_item()
+        .into_stream()
+        .take(20);
 
     while let Some(job) = jobs.next().await.transpose()? {
         if let Some(job_ref) = job.job_reference {
