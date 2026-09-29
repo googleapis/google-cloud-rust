@@ -1599,6 +1599,7 @@ libraries:
             - .google.storage.v2.ReadObjectRequest
             - .google.storage.v2.WriteObjectSpec
           include_grpc_only_methods: true
+          idempotency_hook: resolve_idempotency
           name_overrides: .google.storage.v2.Storage=StorageControl
           output: src/storage/src/generated/gapic
           routing_required: true

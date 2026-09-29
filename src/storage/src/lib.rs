@@ -85,6 +85,7 @@ pub mod http {
 }
 
 mod control;
+mod idempotency;
 mod storage;
 
 pub mod client {
