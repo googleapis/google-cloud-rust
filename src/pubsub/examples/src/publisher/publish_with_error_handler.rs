@@ -26,7 +26,7 @@ pub async fn sample(project_id: &str, topic_id: &str) -> anyhow::Result<()> {
     )
     .await;
 
-    for (i, result) in results.iter().enumerate() {
+    for (i, result) in results.into_iter().enumerate() {
         match result {
             Ok(message_id) => println!("published message {i}; message ID: {message_id}"),
             // Handle the error, e.g., log it, retry, or move the message to a queue.
