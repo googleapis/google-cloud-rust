@@ -172,7 +172,16 @@ impl ClientBuilder {
     /// The client scales the stream pool up to this limit as the streams in the
     /// pool encounter load.
     ///
+    /// Note that until background stream rebalancing ([#6866]) is implemented,
+    /// stream assignment and pool scale-up only occur when a writer is built.
+    /// If multiple writers are created all at once before writes are in flight,
+    /// they will all share the same initial stream. To scale across multiple
+    /// streams, stagger writer creation so writes are in flight when new
+    /// writers are built.
+    ///
     /// The default is 8 streams.
+    ///
+    /// [#6866]: https://github.com/googleapis/google-cloud-rust/issues/6866
     pub fn with_pool_size_limit(mut self, v: usize) -> Self {
         self.pool_options.max_streams = v.max(1);
         self
@@ -202,7 +211,7 @@ impl ClientBuilder {
     /// limit, the streams will continue accepting requests. Consider using a
     /// semaphore locally for flow control.
     ///
-    /// The default is 1000 requests.
+    /// The default is 1 request.
     pub(crate) fn with_max_outstanding_requests(mut self, v: u64) -> Self {
         self.pool_options.max_outstanding_requests = Some(v.max(1));
         self
@@ -333,7 +342,7 @@ mod tests {
             builder.config
         );
         assert_eq!(builder.pool_options.max_streams, 8);
-        assert_eq!(builder.pool_options.max_outstanding_requests, Some(1000));
+        assert_eq!(builder.pool_options.max_outstanding_requests, Some(1));
         assert_eq!(builder.pool_options.max_outstanding_bytes, None);
     }
 

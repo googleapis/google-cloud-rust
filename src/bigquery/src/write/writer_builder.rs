@@ -67,6 +67,13 @@ impl WriterBuilder<DefaultStream> {
     ///
     /// This option only applies to the default stream.
     ///
+    /// Note that until background stream rebalancing ([#6866]) is implemented,
+    /// stream assignment and pool scale-up only occur when a writer is built.
+    /// If multiple writers are created all at once before writes are in flight,
+    /// they will all share the same initial stream. To scale across multiple
+    /// streams, stagger writer creation so writes are in flight when new
+    /// writers are built.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery::client::Write;
@@ -84,6 +91,8 @@ impl WriterBuilder<DefaultStream> {
     /// #   todo!("Define your table's schema...")
     /// # }
     /// ```
+    ///
+    /// [#6866]: https://github.com/googleapis/google-cloud-rust/issues/6866
     pub fn with_multiplexing(mut self, enable: bool) -> Self {
         self.multiplexing = enable;
         self
