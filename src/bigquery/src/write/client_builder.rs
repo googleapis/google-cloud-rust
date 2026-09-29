@@ -30,7 +30,7 @@ use std::time::Duration;
 /// # async fn sample() -> anyhow::Result<()> {
 /// let builder = Write::builder();
 /// let client = builder
-///     .with_endpoint("https://bigquerystoragewrite.googleapis.com")
+///     .with_endpoint("https://bigquerystorage.googleapis.com")
 ///     .build()
 ///     .await?;
 /// # Ok(()) }
@@ -114,7 +114,7 @@ impl ClientBuilder {
     /// let client = Write::builder()
     ///     .with_credentials(
     ///         mds::Builder::default()
-    ///             .with_scopes(["https://www.googleapis.com/auth/cloud-platform.read-only"])
+    ///             .with_scopes(["https://www.googleapis.com/auth/bigquery"])
     ///             .build()?)
     ///     .build()
     ///     .await?;
@@ -180,8 +180,8 @@ impl ClientBuilder {
 
     // TODO(#6866) - expose when we have rebalancing
     #[cfg_attr(not(test), expect(dead_code))]
-    /// Configure the maximum outstanding requests in the client's multiplexed
-    /// stream pool.
+    /// Configure the maximum outstanding requests per stream in the client's
+    /// multiplexed stream pool.
     ///
     /// # Example
     /// ```no_rust
@@ -198,6 +198,10 @@ impl ClientBuilder {
     /// dynamically adds more streams to the stream pool, up to the limit
     /// configured by `with_pool_size_limit`.
     ///
+    /// Note that this is not a hard maximum. When the pool reaches the stream
+    /// limit, the streams will continue accepting requests. Consider using a
+    /// semaphore locally for flow control.
+    ///
     /// The default is 1000 requests.
     pub(crate) fn with_max_outstanding_requests(mut self, v: u64) -> Self {
         self.pool_options.max_outstanding_requests = Some(v.max(1));
@@ -206,8 +210,8 @@ impl ClientBuilder {
 
     // TODO(#6866) - expose when we have rebalancing
     #[cfg_attr(not(test), expect(dead_code))]
-    /// Configure the maximum outstanding bytes in the client's multiplexed
-    /// stream pool.
+    /// Configure the maximum outstanding bytes per stream in the client's
+    /// multiplexed stream pool.
     ///
     /// # Example
     /// ```no_rust
@@ -223,6 +227,10 @@ impl ClientBuilder {
     /// As streams in the stream pool approach this limit, the client
     /// dynamically adds more streams to the stream pool, up to the limit
     /// configured by `with_pool_size_limit`.
+    ///
+    /// Note that this is not a hard maximum. When the pool reaches the stream
+    /// limit, the streams will continue accepting requests. Consider using a
+    /// semaphore locally for flow control.
     pub(crate) fn with_max_outstanding_bytes(mut self, v: u64) -> Self {
         self.pool_options.max_outstanding_bytes = Some(v.max(1));
         self

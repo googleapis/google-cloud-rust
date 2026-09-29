@@ -21,8 +21,11 @@ use crate::model::AppendRowsRequest;
 use gaxi::prost::{FromProto, ToProto};
 use tokio::sync::{mpsc, oneshot};
 
-/// A request builder for appending rows with a specific stream offset,
-/// ensuring exactly-once semantics.
+/// A request builder for appending rows to an [application-created stream],
+/// with an optional stream offset to ensure [exactly-once] semantics.
+///
+/// [application-created stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#application-created_streams
+/// [exactly-once]: https://docs.cloud.google.com/bigquery/docs/write-api-best-practices#manage_stream_offsets_to_achieve_exactly-once_semantics
 #[derive(Clone, Debug)]
 pub struct AppendWithOffset {
     req_tx: mpsc::UnboundedSender<WriteRequest>,
@@ -35,6 +38,10 @@ impl AppendWithOffset {
     }
 
     /// Sets the target stream offset to guarantee [exactly-once] writes.
+    ///
+    /// The offset is a 0-based cumulative row index in the stream. For example,
+    /// after appending a batch of 10 rows at offset `0`, the next batch should
+    /// be appended at offset `10`.
     ///
     /// # Example
     ///
@@ -71,16 +78,16 @@ impl AppendWithOffset {
     /// # use google_cloud_bigquery::write::format::Arrow;
     /// # use google_cloud_bigquery::write::PendingWriter;
     /// # async fn sample(writer: PendingWriter<Arrow>) -> anyhow::Result<()> {
-    /// let f1 = writer.append(rows()).set_offset(0).send();
-    /// let f2 = writer.append(rows()).set_offset(1).send();
+    /// let f1 = writer.append(ten_rows()).set_offset(0).send();
+    /// let f2 = writer.append(ten_rows()).set_offset(10).send();
     ///
     /// let resp1 = f1.await?;
     /// let resp2 = f2.await?;
     /// # Ok(()) }
     ///
     /// use google_cloud_bigquery::model::ArrowRecordBatch;
-    /// fn rows() -> ArrowRecordBatch {
-    ///   todo!("Define your rows...")
+    /// fn ten_rows() -> ArrowRecordBatch {
+    ///   todo!("Define 10 rows...")
     /// }
     /// ```
     pub fn send(self) -> AppendFuture {

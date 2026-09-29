@@ -50,6 +50,9 @@ impl Write {
 
     /// Opens the [default stream] for the given table.
     ///
+    /// `table` must have the format
+    /// `projects/{project}/datasets/{dataset}/tables/{table}`.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_bigquery::client::Write;
@@ -79,12 +82,18 @@ impl Write {
 
     /// Creates a new [application-created stream] for the given table.
     ///
+    /// `table` must have the format
+    /// `projects/{project}/datasets/{dataset}/tables/{table}`.
+    ///
     /// The stream type `S` can be inferred from the variable's writer type
     /// annotation
     /// ([`PendingWriter`][crate::write::PendingWriter],
     /// [`CommittedWriter`][crate::write::CommittedWriter], or
     /// [`BufferedWriter`][crate::write::BufferedWriter]) or specified explicitly via turbofish
     /// (`create_stream::<PendingStream, _>(...)`).
+    ///
+    /// See [Selecting a type] for guidance on choosing a stream type for your
+    /// workload.
     ///
     /// # Example
     /// ```
@@ -105,6 +114,7 @@ impl Write {
     /// ```
     ///
     /// [application-created stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#application-created_streams
+    /// [Selecting a type]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#selecting_a_type
     pub fn create_stream<S: ApplicationCreatedStream, T: Into<String>>(
         &self,
         table: T,
@@ -112,7 +122,10 @@ impl Write {
         WriterBuilder::new_create(self.inner.clone(), self.retry_options.clone(), table.into())
     }
 
-    /// Attaches to an existing [application-created stream].
+    /// Attaches a writer to an existing [application-created stream].
+    ///
+    /// `write_stream` must have the format
+    /// `projects/{project}/datasets/{dataset}/tables/{table}/streams/{stream}`.
     ///
     /// The stream type `S` can be inferred from the variable's writer type
     /// annotation

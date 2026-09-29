@@ -84,7 +84,7 @@ use std::time::{Duration, Instant};
 /// Cloning a `DatabaseClient` is cheap, as it shares the underlying session and channel.
 #[derive(Clone, Debug)]
 pub struct DatabaseClient {
-    spanner: Spanner,
+    pub(crate) spanner: Spanner,
     pub(crate) session_maintainer: Arc<ManagedSessionMaintainer>,
     pub(crate) leader_aware_routing_enabled: bool,
     pub(crate) location_routing: Option<Arc<LocationRoutingState>>,

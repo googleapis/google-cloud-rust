@@ -24,13 +24,14 @@
 //! retry and dispatch layer when no routable candidate endpoint is available,
 //! rather than during basic replica filtering.
 
-#![allow(dead_code)]
-
+#[cfg(test)]
+use crate::model::DirectedReadOptions;
+use crate::model::Tablet;
 use crate::model::directed_read_options::ReplicaSelection;
 use crate::model::directed_read_options::Replicas;
 use crate::model::directed_read_options::replica_selection::Type;
 use crate::model::tablet::Role;
-use crate::model::{DirectedReadOptions, Tablet};
+#[cfg(test)]
 use crate::routing::key_range_cache::MAX_LOCAL_REPLICA_DISTANCE;
 
 /// Returns `true` if `tablet` satisfies the criteria in `selection`.
@@ -78,6 +79,7 @@ pub(crate) fn matches_replicas(tablet: &Tablet, replicas: &Replicas) -> bool {
 ///   list (an empty include list matches no tablets).
 /// - `Replicas::ExcludeReplicas`: Matches if `tablet` satisfies **none** of the selectors in the
 ///   exclude list (an empty exclude list matches all tablets).
+#[cfg(test)]
 pub(crate) fn matches_directed_read_options(
     tablet: &Tablet,
     options: Option<&DirectedReadOptions>,
@@ -89,6 +91,7 @@ pub(crate) fn matches_directed_read_options(
 }
 
 /// Returns an iterator yielding tablets that are routable and match `options`.
+#[cfg(test)]
 pub(crate) fn filter_tablets_by_directed_read<'a>(
     tablets: impl IntoIterator<Item = &'a Tablet>,
     options: Option<&DirectedReadOptions>,
@@ -106,6 +109,7 @@ pub(crate) fn filter_tablets_by_directed_read<'a>(
 /// If `prefer_leader` is `true`, and the designated leader is routable and satisfies `options`,
 /// returns a single-element vector containing that leader. Otherwise, finds all matching routable
 /// tablets and returns those matching the minimum distance.
+#[cfg(test)]
 pub(crate) fn select_eligible_tablets_for_directed_read<'a>(
     tablets: &'a [Tablet],
     leader_index: Option<usize>,

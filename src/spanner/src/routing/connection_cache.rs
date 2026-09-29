@@ -14,9 +14,6 @@
 
 //! Thread-safe cache of Spanner server node connections for location-aware routing.
 
-// TODO(location-aware-routing): Remove allow(dead_code) once location_router.rs integrates ConnectionCache.
-#![allow(dead_code)]
-
 use crate::ClientBuilderResult;
 use crate::client::Channel;
 use crate::omni::TlsConfig;
@@ -196,29 +193,6 @@ impl ConnectionCache {
             .expect("connection cache write lock poisoned");
         guard.remove(&key).is_some()
     }
-
-    /// Returns the number of cached server connections (including the default connection).
-    pub(crate) fn len(&self) -> usize {
-        let guard = self
-            .servers
-            .read()
-            .expect("connection cache read lock poisoned");
-        guard.values().filter(|cell| cell.get().is_some()).count()
-    }
-
-    /// Returns whether the cache is empty.
-    pub(crate) fn is_empty(&self) -> bool {
-        self.len() == 0
-    }
-
-    /// Clears all cached server connections while preserving the default fallback connection.
-    pub(crate) fn clear(&self) {
-        let mut guard = self
-            .servers
-            .write()
-            .expect("connection cache write lock poisoned");
-        guard.retain(|key, _| key == &self.default_key);
-    }
 }
 
 /// Parses an endpoint address into a [`Url`], supplying `default_scheme` if none is present
@@ -367,6 +341,32 @@ pub(crate) fn prepare_routed_endpoint_config(
     }
 
     endpoint_config
+}
+
+#[cfg(test)]
+impl ConnectionCache {
+    /// Returns the number of cached server connections (including the default connection).
+    pub(crate) fn len(&self) -> usize {
+        let guard = self
+            .servers
+            .read()
+            .expect("connection cache read lock poisoned");
+        guard.values().filter(|cell| cell.get().is_some()).count()
+    }
+
+    /// Returns whether the cache is empty.
+    pub(crate) fn is_empty(&self) -> bool {
+        self.len() == 0
+    }
+
+    /// Clears all cached server connections while preserving the default fallback connection.
+    pub(crate) fn clear(&self) {
+        let mut guard = self
+            .servers
+            .write()
+            .expect("connection cache write lock poisoned");
+        guard.retain(|key, _| key == &self.default_key);
+    }
 }
 
 #[cfg(test)]

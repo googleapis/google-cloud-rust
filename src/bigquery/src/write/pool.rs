@@ -93,6 +93,9 @@ impl StreamPool {
     /// - a new writer is added
     /// - a stream fails with a transient error
     fn get_impl(&self, streams: &mut Vec<StreamEntry>) -> StreamEntry {
+        // Evict any dead streams
+        streams.retain(|s| !s.req_tx.is_closed());
+
         let least_loaded = streams.iter().min_by(|a, b| {
             let load_a = self.normalize_load(a);
             let load_b = self.normalize_load(b);
@@ -279,6 +282,47 @@ mod tests {
 
         let s = pool.get();
         assert_eq!(s.id, 5);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn get_prunes_dead_streams() -> anyhow::Result<()> {
+        let transport = Arc::new(test_transport("ignored").await?);
+        let pool = StreamPool::new(transport, StreamPoolOptions::default());
+
+        // Manually seed the pool. Stream 4 has the lowest load (0).
+        pool.seed([8, 2, 3, 0, 9]);
+        assert_eq!(pool.stream_ids(), [1, 2, 3, 4, 5]);
+
+        let (closed_tx, closed_rx) = mpsc::unbounded_channel();
+        drop(closed_rx);
+
+        // Mark streams 1 and 4 as dead.
+        {
+            let mut streams = pool.lock();
+            streams[0].req_tx = closed_tx.clone();
+            streams[3].req_tx = closed_tx.clone();
+        }
+
+        // `get()` should prune the dead streams (1 and 4) and select stream 2,
+        // even though dead stream 4 had lower load.
+        let s = pool.get();
+        assert_eq!(s.id, 2);
+        assert_eq!(pool.stream_ids(), [2, 3, 5]);
+
+        // Mark all remaining streams as dead.
+        {
+            let mut streams = pool.lock();
+            for stream in streams.iter_mut() {
+                stream.req_tx = closed_tx.clone();
+            }
+        }
+
+        // `get()` should prune all dead streams and scale up with a new stream.
+        let s = pool.get();
+        assert_eq!(s.id, 6);
+        assert_eq!(pool.stream_ids(), [6]);
 
         Ok(())
     }

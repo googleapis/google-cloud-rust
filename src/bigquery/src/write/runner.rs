@@ -16,21 +16,21 @@ use super::error::{AppendError, AppendResult};
 use super::optimizer::SendOptimizer;
 use super::stream::Stream;
 use super::transport::{Transport, info::VERSION};
-use crate::Result;
 use crate::google::cloud::bigquery::storage::v1::{AppendRowsRequest, AppendRowsResponse};
 use gaxi::grpc::from_status::to_gax_error;
 use gaxi::grpc::tonic::{Status as TonicStatus, Streaming};
-use std::collections::VecDeque;
 use std::sync::Arc;
 use tokio::sync::{mpsc, oneshot};
 use tokio::task::JoinHandle;
 
 type TonicResult<T> = std::result::Result<T, TonicStatus>;
 
+type ResponseSender = oneshot::Sender<AppendResult<AppendRowsResponse>>;
+
 #[derive(Debug)]
 pub(crate) struct WriteRequest {
     pub(crate) req: AppendRowsRequest,
-    pub(crate) resp_tx: oneshot::Sender<AppendResult<AppendRowsResponse>>,
+    pub(crate) resp_tx: ResponseSender,
 }
 
 /// A helper that runs the event loop for an `AppendRows` stream.
@@ -76,86 +76,85 @@ async fn run_stream_task(inner: Arc<Transport>, mut req_rx: mpsc::UnboundedRecei
     req.trace_id = format!("rust-writer:{VERSION}");
 
     // Initialize the send optimizer.
-    let mut optimizer = SendOptimizer::new(&req);
-
-    // A queue of responses we need to satisfy
-    let mut resp_txs = VecDeque::new();
-    resp_txs.push_back(initial_req.resp_tx);
+    let optimizer = SendOptimizer::new(&req);
 
     // Open the stream.
-    let Stream {
-        mut stream,
-        request_tx,
-    } = match Stream::new(inner, req).await {
+    let Stream { stream, request_tx } = match Stream::new(inner, req).await {
         Ok(s) => s,
         Err(e) => {
-            process_gax_response(&mut resp_txs, Err(e));
+            let _ = initial_req.resp_tx.send(Err(AppendError::from(e)));
             return;
         }
     };
 
-    loop {
-        tokio::select! {
-            req = req_rx.recv() => {
-                match req {
-                    Some(r) => {
-                        let mut req = r.req;
+    // A FIFO queue of response channels shared between the write task
+    // (producer) and the read task (consumer).
+    let (pending_resp_tx, pending_resp_rx) = mpsc::unbounded_channel();
+    let _ = pending_resp_tx.send(initial_req.resp_tx);
 
-                        // Drop redundant fields from the request.
-                        optimizer.optimize(&mut req);
+    // Spawn a dedicated write task so outbound send optimization and HTTP/2
+    // flow-control backpressure on `request_tx.send()` never block inbound
+    // response processing (`stream.message()`).
+    let write_handle = tokio::spawn(run_write_task(
+        req_rx,
+        optimizer,
+        request_tx,
+        pending_resp_tx,
+    ));
 
-                        // Keep track of the response channel.
-                        resp_txs.push_back(r.resp_tx);
+    run_read_task(stream, pending_resp_rx).await;
 
-                        // Forward the request to the stream.
-                        let _ = request_tx.send(req).await;
-                    }
-                    None => {
-                        drop(request_tx);
-                        break drain_stream(stream, resp_txs).await;
-                    }
-                }
-            }
-            resp = stream.message() => {
-                match resp.transpose() {
-                    Some(r) => process_response(&mut resp_txs, r),
-                    // Note that tonic yields `None` after an `Err(e)`.
-                    None => break,
-                }
-            }
+    // Once the response stream is closed, there is no need to keep the task
+    // pushing writes to the stream alive.
+    write_handle.abort();
+}
+
+async fn run_write_task(
+    mut req_rx: mpsc::UnboundedReceiver<WriteRequest>,
+    mut optimizer: SendOptimizer,
+    request_tx: mpsc::Sender<AppendRowsRequest>,
+    pending_resp_tx: mpsc::UnboundedSender<ResponseSender>,
+) {
+    while let Some(mut r) = req_rx.recv().await {
+        // Drop redundant fields from the request.
+        optimizer.optimize(&mut r.req);
+
+        // Register the response channel before forwarding the request to the
+        // stream so it is always queued before the server's response arrives.
+        if pending_resp_tx.send(r.resp_tx).is_err() {
+            break;
+        }
+
+        // Forward the request to the stream.
+        if request_tx.send(r.req).await.is_err() {
+            break;
         }
     }
 }
 
-async fn drain_stream(
+async fn run_read_task(
     mut stream: Streaming<AppendRowsResponse>,
-    mut resp_txs: VecDeque<oneshot::Sender<AppendResult<AppendRowsResponse>>>,
+    mut pending_resp_rx: mpsc::UnboundedReceiver<ResponseSender>,
 ) {
-    while let Some(r) = stream.message().await.transpose() {
-        process_response(&mut resp_txs, r);
+    // Note that tonic yields `None` after an `Err(e)`.
+    while let Some(resp) = stream.message().await.transpose() {
+        process_response(&mut pending_resp_rx, resp);
     }
 }
 
 fn process_response(
-    resp_txs: &mut VecDeque<oneshot::Sender<AppendResult<AppendRowsResponse>>>,
+    pending_resp_rx: &mut mpsc::UnboundedReceiver<ResponseSender>,
     resp: TonicResult<AppendRowsResponse>,
 ) {
-    process_gax_response(resp_txs, resp.map_err(to_gax_error))
-}
-
-fn process_gax_response(
-    resp_txs: &mut VecDeque<oneshot::Sender<AppendResult<AppendRowsResponse>>>,
-    resp: Result<AppendRowsResponse>,
-) {
     // Pop the response channel associated with this response.
-    let Some(resp_tx) = resp_txs.pop_front() else {
+    let Ok(resp_tx) = pending_resp_rx.try_recv() else {
         // Note that the server may close an idle stream that has no requests
         // queued up. If so, the runner task will terminate gracefully.
         return;
     };
 
     // Forward the result.
-    let _ = resp_tx.send(resp.map_err(AppendError::from));
+    let _ = resp_tx.send(resp.map_err(|e| AppendError::from(to_gax_error(e))));
 }
 
 #[cfg(test)]

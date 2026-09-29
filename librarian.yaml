@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.45.1-0.20260925185230-227f13c61573
+version: v0.45.1-0.20260928224558-e778f271b646
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -504,7 +504,7 @@ libraries:
     version: 2.3.0
     copyright_year: "2025"
   - name: google-cloud-bigquery
-    version: 0.17.0-preview
+    version: 0.18.0
     copyright_year: "2026"
     output: src/bigquery
     rust:
@@ -566,7 +566,7 @@ libraries:
     version: 1.13.0
     copyright_year: "2025"
   - name: google-cloud-bigquery-derive
-    version: 0.1.0-preview
+    version: 0.2.0
     copyright_year: "2026"
     output: src/bigquery-derive
   - name: google-cloud-bigquery-migration-v2
@@ -659,7 +659,6 @@ libraries:
     roots:
       - discovery
       - googleapis
-    skip_generate: true
     specification_format: discovery
     rust:
       package_dependencies:
@@ -678,6 +677,8 @@ libraries:
         - projects
       disabled_clippy_warnings:
         - doc_lazy_continuation
+      message_module_name_overrides:
+        .google.cloud.compute.v1.globalFrontendSettings: global_frontend_settings_requests
       discovery:
         operation_id: .google.cloud.compute.v1.Operation
         pollers:

@@ -14,9 +14,6 @@
 
 //! Helpers for extracting server-recommended retry delays from errors, status objects, and trailers.
 
-// TODO(location-aware-routing): Remove allow(dead_code) once integrated into LocationRouter and TransactionRetryPolicy.
-#![allow(dead_code)]
-
 use crate::Error;
 use crate::google::rpc::Status as ProtoStatus;
 use base64::Engine as _;

@@ -22,6 +22,11 @@ use std::sync::Arc;
 
 /// A writer for a [committed stream].
 ///
+/// In a committed stream, records are available for reading immediately as you
+/// write them to the stream. Use this type for streaming workloads that need
+/// minimal read latency and exactly-once semantics through the use of stream
+/// offsets.
+///
 /// [committed stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#committed_type
 #[derive(Debug)]
 pub struct CommittedWriter<F> {
@@ -38,12 +43,12 @@ where
         }
     }
 
-    /// Return the full resource name of the underlying write stream.
+    /// Returns the full resource name of the underlying write stream.
     pub fn write_stream(&self) -> &str {
         &self.inner.write_stream
     }
 
-    /// Append rows to the committed stream.
+    /// Appends rows to the committed stream.
     pub fn append(&self, rows: F::Rows) -> AppendWithOffset {
         AppendWithOffset::new(
             self.inner.runner.req_tx.clone(),
@@ -51,7 +56,7 @@ where
         )
     }
 
-    /// Finalize the stream, preventing further writes.
+    /// Finalizes the stream, preventing further writes.
     pub async fn finalize(&self) -> Result<FinalizeWriteStreamResponse> {
         self.inner.finalize().await
     }

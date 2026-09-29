@@ -22,6 +22,12 @@ use std::sync::Arc;
 
 /// A writer for a [buffered stream].
 ///
+/// In a buffered stream, row-level commits are provided, and records are
+/// buffered until the rows are committed by flushing the stream. This is an
+/// advanced stream type; if you have small batches that you want to guarantee
+/// appear together, consider using a [committed stream][crate::write::CommittedWriter]
+/// and sending each batch in one request.
+///
 /// [buffered stream]: https://docs.cloud.google.com/bigquery/docs/write-api-grpc#buffered_type
 #[derive(Debug)]
 pub struct BufferedWriter<F> {
@@ -38,12 +44,12 @@ where
         }
     }
 
-    /// Return the full resource name of the underlying write stream.
+    /// Returns the full resource name of the underlying write stream.
     pub fn write_stream(&self) -> &str {
         &self.inner.write_stream
     }
 
-    /// Append rows to the buffered stream.
+    /// Appends rows to the buffered stream.
     pub fn append(&self, rows: F::Rows) -> AppendWithOffset {
         AppendWithOffset::new(
             self.inner.runner.req_tx.clone(),
@@ -51,7 +57,31 @@ where
         )
     }
 
-    /// Flush the buffered stream, making rows up to the specified offset available for reading.
+    /// Flush the buffered stream, making rows up to and including the specified
+    /// offset available for reading.
+    ///
+    /// Stream offsets are 0-indexed and `offset` is **inclusive**. For example,
+    /// after appending a batch of 10 rows starting at offset 0 (occupying
+    /// offsets `0..=9`), calling `flush(9)` flushes all 10 rows.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_bigquery::write::BufferedWriter;
+    /// # use google_cloud_bigquery::write::format::Arrow;
+    /// # async fn sample(writer: BufferedWriter<Arrow>) -> anyhow::Result<()> {
+    /// // Append 10 rows starting at offset 0 (offsets 0..=9).
+    /// let _ = writer.append(ten_rows()).set_offset(0).send().await?;
+    ///
+    /// // Flush rows up to and including offset 9.
+    /// let _ = writer.flush(9).await?;
+    /// # Ok(()) }
+    ///
+    /// use google_cloud_bigquery::model::ArrowRecordBatch;
+    /// fn ten_rows() -> ArrowRecordBatch {
+    ///     todo!("Serialize 10 rows...")
+    /// }
+    /// ```
     pub async fn flush(&self, offset: i64) -> Result<FlushRowsResponse> {
         self.inner
             .client
@@ -62,7 +92,7 @@ where
             .await
     }
 
-    /// Finalize the buffered stream, preventing further writes.
+    /// Finalizes the buffered stream, preventing further writes.
     pub async fn finalize(&self) -> Result<FinalizeWriteStreamResponse> {
         self.inner.finalize().await
     }
